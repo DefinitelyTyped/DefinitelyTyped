@@ -64,4 +64,9 @@ const settings: tinymce.Settings = {
 
 tinymce.init(settings);
 
-const t = new tinymce.util.Color('#FFFFFF');
+const c = new tinymce.util.Color('#FFFFFF');
+
+const n1 = new tinymce.html.Node('strong', 1);
+const n2 = new tinymce.html.Node('strong', 2);
+const treeWalker = new tinymce.dom.TreeWalker(n1, n2);
+treeWalker.current();

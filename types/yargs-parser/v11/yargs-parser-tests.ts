@@ -9,11 +9,11 @@ parse(['--foo', '-bar'], {
 });
 
 // prettier-ignore
-// $ExpectError
+// @ts-expect-error
 parse(['--foo', '-bar'], { string: 123, });
 
 parse(['--foo', '-bar'], {
-    // $ExpectError
+    // @ts-expect-error
     unknown: ['b', 'a', 'r'],
 });
 
@@ -31,7 +31,7 @@ parse(['--foo', '-bar'], {
 parse(['--foo', '-bar'], {
     envPrefix: 'YARG_',
     configuration: {
-        // $ExpectError
+        // @ts-expect-error
         'fake-key': true,
     },
 });

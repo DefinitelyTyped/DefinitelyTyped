@@ -85,7 +85,7 @@ declare function lessMiddleware(source: string, options?: {
      */
     render?: {
 
-        compress?: string | undefined;
+        compress?: string | boolean | undefined;
         yuicompress?: boolean | undefined;
         paths?: string[] | undefined;
     } | undefined;

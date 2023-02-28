@@ -134,3 +134,9 @@ console.log(showdown.getFlavor());
 converter.setFlavor('ghost');
 console.log(converter.getFlavor());
 // should log 'ghost'
+
+{
+    // options
+    // $ExpectType Converter
+    new showdown.Converter({ellipsis: false});
+}

@@ -12,11 +12,10 @@ import File = require("vinyl");
 interface IComparator {
     /**
      * @param stream Should be used to queue sourceFile if it passes some comparison
-     * @param callback Should be called when done
      * @param sourceFile File to operate on
      * @param destPath Destination for sourceFile as an absolute path
      */
-    (stream: Transform, callback: Function, sourceFile: File, destPath: string): void;
+    (stream: Transform, sourceFile: File, destPath: string): void;
 }
 
 interface IDestination {
@@ -51,7 +50,7 @@ interface IGulpChanged {
     (destination: string | IDestination, options?: IOptions): NodeJS.ReadWriteStream;
 
     compareLastModifiedTime: IComparator;
-    compareSha1Digest: IComparator;
+    compareContents: IComparator;
 }
 
 declare const changed: IGulpChanged;

@@ -85,6 +85,8 @@ declare namespace GoogleAppsScript {
      */
     interface CheckboxGridValidationBuilder {
       requireLimitOneResponsePerColumn(): CheckboxGridValidationBuilder;
+      build(): CheckboxGridValidation;
+      setHelpText(text: string): CheckboxGridValidationBuilder;
     }
     /**
      * A question item that allows the respondent to select one or more checkboxes, as well as an
@@ -173,6 +175,8 @@ declare namespace GoogleAppsScript {
       requireSelectAtLeast(number: Integer): CheckboxValidationBuilder;
       requireSelectAtMost(number: Integer): CheckboxValidationBuilder;
       requireSelectExactly(number: Integer): CheckboxValidationBuilder;
+      build(): CheckboxValidation;
+      setHelpText(text: string): CheckboxValidationBuilder;
     }
     /**
      * A single choice associated with a type of Item that supports choices, like CheckboxItem, ListItem, or MultipleChoiceItem.
@@ -534,6 +538,8 @@ declare namespace GoogleAppsScript {
      */
     interface GridValidationBuilder {
       requireLimitOneResponsePerColumn(): GridValidationBuilder;
+      build(): GridValidation;
+      setHelpText(text: string): GridValidationBuilder;
     }
     /**
      * A layout item that displays an image. Items can be accessed or created from a Form.
@@ -837,7 +843,8 @@ declare namespace GoogleAppsScript {
      *     var paragraphTextItem = form.addParagraphTextItem().setTitle('Describe yourself:');
      *     var paragraphtextValidation = FormApp.createParagraphTextValidation()
      *       .setHelpText(“Answer must be more than 100 characters.”)
-     *       .requireTextLengthGreatherThan(100);
+     *       .requireTextLengthLessThanOrEqualTo(100)
+     *       .build();
      *     paragraphTextItem.setValidation(paragraphtextValidation);
      */
     interface ParagraphTextValidationBuilder {
@@ -847,6 +854,8 @@ declare namespace GoogleAppsScript {
       requireTextLengthGreaterThanOrEqualTo(number: Integer): ParagraphTextValidationBuilder;
       requireTextLengthLessThanOrEqualTo(number: Integer): ParagraphTextValidationBuilder;
       requireTextMatchesPattern(pattern: string): ParagraphTextValidationBuilder;
+      build(): ParagraphTextValidation;
+      setHelpText(text: string): ParagraphTextValidationBuilder;
     }
     /**
      * The bean implementation of a Feedback, which contains properties common to all feedback, such as
@@ -1012,6 +1021,8 @@ declare namespace GoogleAppsScript {
       requireTextLengthLessThanOrEqualTo(number: Integer): TextValidationBuilder;
       requireTextMatchesPattern(pattern: string): TextValidationBuilder;
       requireWholeNumber(): TextValidationBuilder;
+      build(): TextValidation;
+      setHelpText(text: string): TextValidationBuilder;
     }
     /**
      * A question item that allows the respondent to indicate a time of day. Items can be accessed or

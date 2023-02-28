@@ -109,7 +109,7 @@ var maxVelX = new ROSLIB.Param({
     name: 'max_vel_y',
 });
 
-maxVelX.set(0.8);
+maxVelX.set(0.8, function (response) {});
 maxVelX.get(function (value) {
     console.log('MAX VAL: ' + value);
 });
@@ -120,9 +120,10 @@ const tfClient = new ROSLIB.TFClient({
     ros: ros,
     fixedFrame: '/world',
 });
+const stub_tfclient_callback = function (transform: ROSLIB.Transform) {};
 const tfclient_callback = function (transform: ROSLIB.Transform) {
     console.log('Received transform: ' + transform);
-    tfClient.unsubscribe('/transform');
+    tfClient.unsubscribe('/transform', stub_tfclient_callback);
 };
 
 tfClient.subscribe('/transform', tfclient_callback);
@@ -151,9 +152,9 @@ pose.orientation;
 {
     const parser = new DOMParser();
     const document = parser.parseFromString('<actual-xml />', 'text/xml');
-    // $ExpectError
+    // @ts-expect-error
     new ROSLIB.UrdfModel({});
-    // $ExpectError
+    // @ts-expect-error
     new ROSLIB.UrdfModel();
     new ROSLIB.UrdfModel({ xml: document });
     new ROSLIB.UrdfModel({ xml: document, string: '<actual-xml />' });
@@ -194,7 +195,7 @@ pose.orientation;
         case ROSLIB.URDF_SPHERE:
             // $ExpectType number
             visual.geometry.radius;
-            // $ExpectError
+            // @ts-expect-error
             visual.geometry.dimension;
             break;
         case ROSLIB.URDF_BOX:
@@ -212,11 +213,11 @@ pose.orientation;
             visual.geometry.filename;
             // $ExpectType Vector3 | null
             visual.geometry.scale;
-            // $ExpectError
+            // @ts-expect-error
             visual.geometry.length;
             break;
     }
-    // $ExpectError
+    // @ts-expect-error
     visual.geometry?.radius;
 
     const joint: ROSLIB.UrdfJoint = model.joints[0];

@@ -12,7 +12,7 @@ declare namespace LoaderRegistry {
         loaderRegistry: LoaderRegistry;
     };
 
-    interface Loader<T, TOptions = {}> {
+    interface Loader<T, TOptions extends Record<string, any> = {}> {
         (node: GraphPointer, options: LoadOptions<TOptions>): T | Promise<T>;
     }
 
@@ -21,9 +21,9 @@ declare namespace LoaderRegistry {
         registerNodeLoader(type: string | NamedNode, loader: Loader<any, any>): void;
         load<
             T extends any = unknown,
-            // tslint:disable-next-line:no-unnecessary-generics
+            // eslint-disable-next-line no-unnecessary-generics
             TLoader extends Loader<T, TOptions> = Loader<T>,
-            TOptions = TLoader extends Loader<T, infer U> ? U : {}>(
+            TOptions extends Record<string, any> = TLoader extends Loader<T, infer U> ? U : {}>(
                 node: GraphPointer,
                 options?: TOptions): Promise<T> | T | undefined;
         loader(node: GraphPointer): Loader<any, any> | null;

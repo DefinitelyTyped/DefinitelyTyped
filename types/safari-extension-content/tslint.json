@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "comment-format": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
@@ -11,7 +10,6 @@
         "npm-naming": false,
         "prefer-const": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "triple-equals": false,
         "typedef-whitespace": false,
         "whitespace": false

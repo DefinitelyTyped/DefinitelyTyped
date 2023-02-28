@@ -31,34 +31,34 @@ pubEmitterSocket.send('anything', {w: 100, h: 200});
 // $ExpectType Socket
 pubEmitterSocket.bind(3000);
 
-// $ExpectError
+// @ts-expect-error
 pubEmitterSocket.bind({a, b, c});
 
-// $ExpectError
+// @ts-expect-error
 pubEmitterSocket.bind();
 
 // $ExpectType Socket
 pubEmitterSocket.connect(3000);
 
-// $ExpectError
+// @ts-expect-error
 pubEmitterSocket.connect({a, b, c});
 
-// $ExpectError
+// @ts-expect-error
 pubEmitterSocket.connect();
 
 // $ExpectType (args: Buffer | Buffer[]) => void
 repSocket.onmessage(netSocket);
 
-// $ExpectError
+// @ts-expect-error
 repSocket.onmessage();
 
-// $ExpectError
+// @ts-expect-error
 repSocket.onmessage('');
 
-// $ExpectError
+// @ts-expect-error
 repSocket.onmessage(1);
 
-// $ExpectError
+// @ts-expect-error
 repSocket.onmessage({});
 
 // $ExpectType string
@@ -76,58 +76,58 @@ reqSocket.send('anything', {w: 100, h: 200});
 // $ExpectType Socket
 socket.set('name', 'aaa');
 
-// $ExpectError
+// @ts-expect-error
 socket.set(1, 'aaa');
 
-// $ExpectError
+// @ts-expect-error
 socket.set({}, 'aaa');
 
-// $ExpectError
+// @ts-expect-error
 socket.set('name');
 
 // $ExpectType any
 socket.get('name');
 
-// $ExpectError
+// @ts-expect-error
 socket.get(1);
 
-// $ExpectError
+// @ts-expect-error
 socket.get({});
 
 // $ExpectType Socket
 socket.enable('name');
 
-// $ExpectError
+// @ts-expect-error
 socket.enable(1);
 
-// $ExpectError
+// @ts-expect-error
 socket.enable({});
 
 // $ExpectType Socket
 socket.disable('name');
 
-// $ExpectError
+// @ts-expect-error
 socket.disable(1);
 
-// $ExpectError
+// @ts-expect-error
 socket.disable({});
 
 // $ExpectType boolean
 socket.enabled('name');
 
-// $ExpectError
+// @ts-expect-error
 socket.enabled(1);
 
-// $ExpectError
+// @ts-expect-error
 socket.enabled({});
 
 // $ExpectType boolean
 socket.disabled('name');
 
-// $ExpectError
+// @ts-expect-error
 socket.disabled(1);
 
-// $ExpectError
+// @ts-expect-error
 socket.disabled({});
 
 // $ExpectType boolean
@@ -136,10 +136,10 @@ subSocket.hasSubscriptions();
 // $ExpectType boolean
 subSocket.matches('name');
 
-// $ExpectError
+// @ts-expect-error
 subSocket.matches(1);
 
-// $ExpectError
+// @ts-expect-error
 subSocket.matches({});
 
 // $ExpectType RegExp
@@ -148,13 +148,13 @@ subSocket.subscribe(/some regex/);
 // $ExpectType RegExp
 subSocket.subscribe('some string');
 
-// $ExpectError
+// @ts-expect-error
 subSocket.subscribe(1);
 
-// $ExpectError
+// @ts-expect-error
 subSocket.subscribe({});
 
-// $ExpectError
+// @ts-expect-error
 subSocket.subscribe();
 
 // $ExpectType void
@@ -163,11 +163,11 @@ subSocket.unsubscribe(/some regex/);
 // $ExpectType void
 subSocket.unsubscribe('some string');
 
-// $ExpectError
+// @ts-expect-error
 subSocket.unsubscribe(1);
 
-// $ExpectError
+// @ts-expect-error
 subSocket.unsubscribe({});
 
-// $ExpectError
+// @ts-expect-error
 subSocket.unsubscribe();

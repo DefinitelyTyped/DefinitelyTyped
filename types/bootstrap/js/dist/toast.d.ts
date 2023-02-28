@@ -36,6 +36,11 @@ declare class Toast extends BaseComponent {
      * You have to manually call this method if you made autohide to false.
      */
     hide(): void;
+
+    /**
+     * Returns a boolean according to toast’s visibility state.
+     */
+    isShown(): boolean;
 }
 
 declare namespace Toast {
@@ -86,7 +91,7 @@ declare namespace Toast {
         delay: number;
     }
 
-    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'dispose') => void;
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'dispose') => JQuery;
 }
 
 export default Toast;

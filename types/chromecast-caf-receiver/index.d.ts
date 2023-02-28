@@ -39,6 +39,7 @@ import {
     SegmentDownloadedEvent,
     RequestEvent,
     LiveStatusEvent,
+    TimedMetadataEvent,
 } from './cast.framework.events';
 
 export namespace cast {
@@ -75,6 +76,7 @@ declare global {
     type SegmentDownloadedEventHandler = (event: SegmentDownloadedEvent) => void;
     type RequestEventHandler = (event: RequestEvent) => void;
     type LiveStatusEventHandler = (event: LiveStatusEvent) => void;
+    type TimedMetadataEventHandler = (event: TimedMetadataEvent) => void;
     type PlayerDataChangedEventHandler = (event: PlayerDataChangedEvent) => void;
     type RequestHandler = (request: framework.NetworkRequestInfo) => void;
     type BinaryHandler = (data: Uint8Array) => Uint8Array | Promise<Uint8Array>;

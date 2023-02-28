@@ -1,7 +1,9 @@
 import { ComponentType } from 'react';
 
+import Button from '../button';
 import Dashicon from '../dashicon';
 import Dropdown from '../dropdown';
+import { NavigableMenu } from '../navigable-container';
 import Popover from '../popover';
 
 declare namespace DropdownMenu {
@@ -10,7 +12,7 @@ declare namespace DropdownMenu {
          * The Dashicon icon slug to be shown in the collapsed menu button.
          * @defaultValue "menu"
          */
-        icon?: Dashicon.Icon | undefined;
+        icon?: Dashicon.Icon | JSX.Element | undefined;
         /**
          * A human-readable label to present as accessibility text on the
          * focused collapsed menu button.
@@ -33,6 +35,27 @@ declare namespace DropdownMenu {
          * @defaultValue "top center"
          */
         position?: Popover.Position | undefined;
+
+        /**
+         * Object to pass as props to the underlying NavigableMenu component.
+         */
+        menuProps?: Partial<NavigableMenu.Props> | undefined;
+
+        /**
+         * Object to pass as props to the underlying Popover component.
+         */
+        popoverProps?: Partial<Popover.Props> | undefined;
+
+        /**
+         * Object to pass as props to the underlying toggle Button component.
+         */
+        toggleProps?: Partial<Button.ButtonProps> | undefined;
+
+        /**
+         * Whether to disable the arrow down key to open the dropdown menu.
+         * @defaultValue false
+         */
+        disableOpenOnArrowDown?: boolean | undefined;
     }
     interface PropsWithChildren extends BaseProps {
         /**
@@ -55,7 +78,7 @@ declare namespace DropdownMenu {
         /**
          * Dashicon icon slug.
          */
-        icon: Dashicon.Icon;
+        icon: Dashicon.Icon | JSX.Element;
         /**
          * Human-readable title for the control.
          */
@@ -67,7 +90,7 @@ declare namespace DropdownMenu {
         /**
          * Function to invoke when the option is selected.
          */
-        onClick(): void;
+        onClick?: () => void;
     }
     type Props = PropsWithChildren | PropsWithControls;
 }

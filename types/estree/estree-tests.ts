@@ -6,6 +6,7 @@ declare var functionAst: ESTree.Function;
 declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
 declare var blockStatement: ESTree.BlockStatement;
+declare var staticBlock: ESTree.StaticBlock;
 declare var expressionStatement: ESTree.ExpressionStatement;
 declare var directive: ESTree.Directive;
 declare var ifStatement: ESTree.IfStatement;
@@ -115,13 +116,18 @@ number = program.loc!.start.line;
 number = program.loc!.start.column;
 number = program.loc!.end.line;
 number = program.loc!.end.column;
-number = program!.range![0];
+number = program.range![0];
 
 // Statement
 // BlockStatement
 var blockStatement: ESTree.BlockStatement;
 string = blockStatement.type;
 statement = blockStatement.body[0];
+
+// StaticBlock
+var staticBlock: ESTree.StaticBlock;
+string = staticBlock.type;
+statement = staticBlock.body[0];
 
 // ExpressionStatement
 var expressionStatement: ESTree.ExpressionStatement;
@@ -180,13 +186,11 @@ expression = forInStatement.right;
 // ArrayExpression
 var arrayExpression: ESTree.ArrayExpression;
 string = arrayExpression.type;
-var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement | null
-    = arrayExpression.elements[0];
+var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement | null = arrayExpression.elements[0];
 
 // ObjectExpression
 var objectExpression: ESTree.ObjectExpression;
-var propertyOrSpread: ESTree.Property | ESTree.SpreadElement
-    = objectExpression.properties[0];
+var propertyOrSpread: ESTree.Property | ESTree.SpreadElement = objectExpression.properties[0];
 
 string = property.type;
 if (property.type === 'Property') {
@@ -207,7 +211,7 @@ booleanMaybe = functionExpression.async;
 
 // SequenceExpression
 var sequenceExpression: ESTree.SequenceExpression;
-expression = sequenceExpression.expressions[0]
+expression = sequenceExpression.expressions[0];
 
 // UnaryExpression
 var unaryExpression: ESTree.UnaryExpression;
@@ -246,25 +250,25 @@ var chainExpression: ESTree.ChainExpression;
 var memberExpressionOrCallExpression = chainExpression.expression;
 boolean = memberExpressionOrCallExpression.optional;
 if (memberExpressionOrCallExpression.type === 'MemberExpression') {
-  expressionOrSuper = memberExpressionOrCallExpression.object;
-  privateIdentifierOrExpression = memberExpressionOrCallExpression.property;
-  boolean = memberExpressionOrCallExpression.computed;
+    expressionOrSuper = memberExpressionOrCallExpression.object;
+    privateIdentifierOrExpression = memberExpressionOrCallExpression.property;
+    boolean = memberExpressionOrCallExpression.computed;
 } else {
-  expressionOrSuper = memberExpressionOrCallExpression.callee;
-  expressionOrSpread = callExpression.arguments[0];
+    expressionOrSuper = memberExpressionOrCallExpression.callee;
+    expressionOrSpread = callExpression.arguments[0];
 }
 
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
 var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
 functionDeclaration.id = null;
-var params: Array<ESTree.Pattern> = functionDeclaration.params;
+var params: ESTree.Pattern[] = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
 booleanMaybe = functionDeclaration.async;
 
 var variableDeclaration: ESTree.VariableDeclaration;
-var declarations: Array<ESTree.VariableDeclarator> = variableDeclaration.declarations;
+var declarations: ESTree.VariableDeclarator[] = variableDeclaration.declarations;
 string = variableDeclaration.kind; // "var" | "let" | "const"
 
 var variableDeclarator: ESTree.VariableDeclarator;
@@ -302,487 +306,493 @@ expression = awaitExpression.argument;
 // Test narrowing
 
 switch (node.type) {
-  case 'Identifier':
-    identifier = node;
-    break;
-  case 'PrivateIdentifier':
-    privateIdentifier = node;
-    break;
-  case 'Literal':
-    literal = node;
-    break;
-  case 'Program':
-    program = node;
-    break;
-  case 'FunctionExpression':
-    functionExpression = node
-    break;
-  case 'SwitchCase':
-    switchCase = node
-    break;
-  case 'CatchClause':
-    catchClause = node
-    break;
-  case 'VariableDeclarator':
-    variableDeclarator = node
-    break;
-  // Narrowing of Statement
-  case 'ExpressionStatement':
-    expressionStatement = node;
-    break;
-  case 'BlockStatement':
-    blockStatement = node;
-    break;
-  case 'EmptyStatement':
-    emptyStatement = node;
-    break;
-  case 'DebuggerStatement':
-    debuggerStatement = node;
-    break;
-  case 'WithStatement':
-    withStatement = node;
-    break;
-  case 'ReturnStatement':
-    returnStatement = node;
-    break;
-  case 'LabeledStatement':
-    labeledStatement = node;
-    break;
-  case 'BreakStatement':
-    breakStatement = node;
-    break;
-  case 'ContinueStatement':
-    continueStatement = node;
-    break;
-  case 'IfStatement':
-    ifStatement = node;
-    break;
-  case 'SwitchStatement':
-    switchStatement = node;
-    break;
-  case 'ThrowStatement':
-    throwStatement = node;
-    break;
-  case 'TryStatement':
-    tryStatement = node;
-    break;
-  case 'WhileStatement':
-    whileStatement = node;
-    break;
-  case 'DoWhileStatement':
-    doWhileStatement = node;
-    break;
-  case 'ForStatement':
-    forStatement = node;
-    break;
-  case 'ForInStatement':
-    forInStatement = node;
-    break;
-  case 'ForOfStatement':
-    forOfStatement = node;
-    break;
-  // end narrowing of Statement
+    case 'Identifier':
+        identifier = node;
+        break;
+    case 'PrivateIdentifier':
+        privateIdentifier = node;
+        break;
+    case 'Literal':
+        literal = node;
+        break;
+    case 'Program':
+        program = node;
+        break;
+    case 'FunctionExpression':
+        functionExpression = node;
+        break;
+    case 'SwitchCase':
+        switchCase = node;
+        break;
+    case 'CatchClause':
+        catchClause = node;
+        break;
+    case 'VariableDeclarator':
+        variableDeclarator = node;
+        break;
+    // Narrowing of Statement
+    case 'ExpressionStatement':
+        expressionStatement = node;
+        break;
+    case 'BlockStatement':
+        blockStatement = node;
+        break;
+    case 'EmptyStatement':
+        emptyStatement = node;
+        break;
+    case 'DebuggerStatement':
+        debuggerStatement = node;
+        break;
+    case 'WithStatement':
+        withStatement = node;
+        break;
+    case 'ReturnStatement':
+        returnStatement = node;
+        break;
+    case 'LabeledStatement':
+        labeledStatement = node;
+        break;
+    case 'BreakStatement':
+        breakStatement = node;
+        break;
+    case 'ContinueStatement':
+        continueStatement = node;
+        break;
+    case 'IfStatement':
+        ifStatement = node;
+        break;
+    case 'SwitchStatement':
+        switchStatement = node;
+        break;
+    case 'ThrowStatement':
+        throwStatement = node;
+        break;
+    case 'TryStatement':
+        tryStatement = node;
+        break;
+    case 'WhileStatement':
+        whileStatement = node;
+        break;
+    case 'DoWhileStatement':
+        doWhileStatement = node;
+        break;
+    case 'ForStatement':
+        forStatement = node;
+        break;
+    case 'ForInStatement':
+        forInStatement = node;
+        break;
+    case 'ForOfStatement':
+        forOfStatement = node;
+        break;
+    // end narrowing of Statement
 
-  // narrowing of Declaration
-  case 'FunctionDeclaration':
-    functionDeclaration = node;
-    break;
-  case 'VariableDeclaration':
-    variableDeclaration = node;
-    break;
-  case 'ClassDeclaration':
-    classDeclaration = node;
-    break;
-  // end narrowing of Declaration
+    // narrowing of Declaration
+    case 'FunctionDeclaration':
+        functionDeclaration = node;
+        break;
+    case 'VariableDeclaration':
+        variableDeclaration = node;
+        break;
+    case 'ClassDeclaration':
+        classDeclaration = node;
+        break;
+    // end narrowing of Declaration
 
-  // narrowing of Expression
-  case 'ThisExpression':
-    thisExpression = node;
-    break;
-  case 'ArrayExpression':
-    arrayExpression = node;
-    break;
-  case 'ObjectExpression':
-    objectExpression = node;
-    break;
-  case 'ArrowFunctionExpression':
-    arrowFunctionExpression = node;
-    break;
-  case 'YieldExpression':
-    yieldExpression = node;
-    break;
-  case 'UnaryExpression':
-    unaryExpression = node;
-    break;
-  case 'UpdateExpression':
-    updateExpression = node;
-    break;
-  case 'BinaryExpression':
-    binaryExpression = node;
-    break;
-  case 'AssignmentExpression':
-    assignmentExpression = node;
-    break;
-  case 'LogicalExpression':
-    logicalExpression = node;
-    break;
-  case 'MemberExpression':
-    memberExpression = node;
-    break;
-  case 'ChainExpression':
-    chainExpression = node;
-    break;
-  case 'ConditionalExpression':
-    conditionalExpression = node;
-    break;
-  case 'CallExpression':
-    callExpression = node;
-    break;
-  case 'NewExpression':
-    newExpression = node;
-    break;
-  case 'SequenceExpression':
-    sequenceExpression = node;
-    break;
-  case 'TemplateLiteral':
-    templateLiteral = node;
-    break;
-  case 'TaggedTemplateExpression':
-    taggedTemplateExpression = node;
-    break;
-  case 'ClassExpression':
-    classExpression = node;
-    break;
-  case 'MetaProperty':
-    metaProperty = node;
-    break;
-  case 'AwaitExpression':
-    awaitExpression = node;
-    break;
-  case 'ImportExpression':
-    importExpression = node;
-    break;
-  // end narrowing of Expression
+    // narrowing of Expression
+    case 'ThisExpression':
+        thisExpression = node;
+        break;
+    case 'ArrayExpression':
+        arrayExpression = node;
+        break;
+    case 'ObjectExpression':
+        objectExpression = node;
+        break;
+    case 'ArrowFunctionExpression':
+        arrowFunctionExpression = node;
+        break;
+    case 'YieldExpression':
+        yieldExpression = node;
+        break;
+    case 'UnaryExpression':
+        unaryExpression = node;
+        break;
+    case 'UpdateExpression':
+        updateExpression = node;
+        break;
+    case 'BinaryExpression':
+        binaryExpression = node;
+        break;
+    case 'AssignmentExpression':
+        assignmentExpression = node;
+        break;
+    case 'LogicalExpression':
+        logicalExpression = node;
+        break;
+    case 'MemberExpression':
+        memberExpression = node;
+        break;
+    case 'ChainExpression':
+        chainExpression = node;
+        break;
+    case 'ConditionalExpression':
+        conditionalExpression = node;
+        break;
+    case 'CallExpression':
+        callExpression = node;
+        break;
+    case 'NewExpression':
+        newExpression = node;
+        break;
+    case 'SequenceExpression':
+        sequenceExpression = node;
+        break;
+    case 'TemplateLiteral':
+        templateLiteral = node;
+        break;
+    case 'TaggedTemplateExpression':
+        taggedTemplateExpression = node;
+        break;
+    case 'ClassExpression':
+        classExpression = node;
+        break;
+    case 'MetaProperty':
+        metaProperty = node;
+        break;
+    case 'AwaitExpression':
+        awaitExpression = node;
+        break;
+    case 'ImportExpression':
+        importExpression = node;
+        break;
+    // end narrowing of Expression
 
-  case 'Property':
-    property = node
-    break;
-  case 'Super':
-    superAst = node
-    break;
-  case 'TemplateElement':
-    templateElement = node
-    break;
-  case 'SpreadElement':
-    spreadElement = node
-    break;
+    case 'Property':
+        property = node;
+        break;
+    case 'Super':
+        superAst = node;
+        break;
+    case 'TemplateElement':
+        templateElement = node;
+        break;
+    case 'SpreadElement':
+        spreadElement = node;
+        break;
 
-  // narrowing of Pattern
-  case 'ObjectPattern':
-    objectPattern = node;
-    break;
-  case 'ArrayPattern':
-    arrayPattern = node;
-    break;
-  case 'RestElement':
-    restElement = node;
-    break;
-  case 'AssignmentPattern':
-    assignmentPattern = node;
-    break;
-  // end narrowing of Pattern
+    // narrowing of Pattern
+    case 'ObjectPattern':
+        objectPattern = node;
+        break;
+    case 'ArrayPattern':
+        arrayPattern = node;
+        break;
+    case 'RestElement':
+        restElement = node;
+        break;
+    case 'AssignmentPattern':
+        assignmentPattern = node;
+        break;
+    // end narrowing of Pattern
 
-  case 'ClassBody':
-    classBody = node
-    break;
-  case 'MethodDefinition':
-    methodDefinition = node
-    break;
-  case 'PropertyDefinition':
-    propertyDefinition = node
-    break;
+    case 'ClassBody':
+        classBody = node;
+        break;
+    case 'MethodDefinition':
+        methodDefinition = node;
+        break;
+    case 'PropertyDefinition':
+        propertyDefinition = node;
+        break;
+    case 'StaticBlock':
+        staticBlock = node;
+        break;
 
-  // narrowing of ModuleDeclaration
-  case 'ImportDeclaration':
-    importDeclaration = node;
-    break;
-  case 'ExportNamedDeclaration':
-    exportNamedDeclaration = node;
-    break;
-  case 'ExportDefaultDeclaration':
-    exportDefaultDeclaration = node;
-    break;
-  case 'ExportAllDeclaration':
-    exportAllDeclaration = node;
-    break;
-  // end narrowing of ModuleDeclaration
+    // narrowing of ModuleDeclaration
+    case 'ImportDeclaration':
+        importDeclaration = node;
+        break;
+    case 'ExportNamedDeclaration':
+        exportNamedDeclaration = node;
+        break;
+    case 'ExportDefaultDeclaration':
+        exportDefaultDeclaration = node;
+        break;
+    case 'ExportAllDeclaration':
+        exportAllDeclaration = node;
+        break;
+    // end narrowing of ModuleDeclaration
 
-  // narrowing of ModuleSpecifier
-  case 'ImportSpecifier':
-    importSpecifier = node;
-    break;
-  case 'ImportDefaultSpecifier':
-    importDefaultSpecifier = node;
-    break;
-  case 'ImportNamespaceSpecifier':
-    importNamespaceSpecifier = node;
-    break;
-  case 'ExportSpecifier':
-    exportSpecifier = node;
-    break;
-  // end narrowing of ModuleSpecifier
+    // narrowing of ModuleSpecifier
+    case 'ImportSpecifier':
+        importSpecifier = node;
+        break;
+    case 'ImportDefaultSpecifier':
+        importDefaultSpecifier = node;
+        break;
+    case 'ImportNamespaceSpecifier':
+        importNamespaceSpecifier = node;
+        break;
+    case 'ExportSpecifier':
+        exportSpecifier = node;
+        break;
+    // end narrowing of ModuleSpecifier
 
-  default:
-    never = node;
+    default:
+        never = node;
 }
 
 switch (statement.type) {
-  case 'ExpressionStatement':
-    expressionStatement = statement;
-    break;
-  case 'BlockStatement':
-    blockStatement = statement;
-    break;
-  case 'EmptyStatement':
-    emptyStatement = statement;
-    break;
-  case 'DebuggerStatement':
-    debuggerStatement = statement;
-    break;
-  case 'WithStatement':
-    withStatement = statement;
-    break;
-  case 'ReturnStatement':
-    returnStatement = statement;
-    break;
-  case 'LabeledStatement':
-    labeledStatement = statement;
-    break;
-  case 'BreakStatement':
-    breakStatement = statement;
-    break;
-  case 'ContinueStatement':
-    continueStatement = statement;
-    break;
-  case 'IfStatement':
-    ifStatement = statement;
-    break;
-  case 'SwitchStatement':
-    switchStatement = statement;
-    break;
-  case 'ThrowStatement':
-    throwStatement = statement;
-    break;
-  case 'TryStatement':
-    tryStatement = statement;
-    break;
-  case 'WhileStatement':
-    whileStatement = statement;
-    break;
-  case 'DoWhileStatement':
-    doWhileStatement = statement;
-    break;
-  case 'ForStatement':
-    forStatement = statement;
-    break;
-  case 'ForInStatement':
-    forInStatement = statement;
-    break;
-  case 'ForOfStatement':
-    forOfStatement = statement;
-    break;
-  // narrowing of Declaration
-  case 'FunctionDeclaration':
-    functionDeclaration = statement;
-    break;
-  case 'VariableDeclaration':
-    variableDeclaration = statement;
-    break;
-  case 'ClassDeclaration':
-    classDeclaration = statement;
-    break;
-  // end narrowing of Declaration
-  default:
-    never = statement;
+    case 'ExpressionStatement':
+        expressionStatement = statement;
+        break;
+    case 'BlockStatement':
+        blockStatement = statement;
+        break;
+    case 'StaticBlock':
+        staticBlock = statement;
+        break;
+    case 'EmptyStatement':
+        emptyStatement = statement;
+        break;
+    case 'DebuggerStatement':
+        debuggerStatement = statement;
+        break;
+    case 'WithStatement':
+        withStatement = statement;
+        break;
+    case 'ReturnStatement':
+        returnStatement = statement;
+        break;
+    case 'LabeledStatement':
+        labeledStatement = statement;
+        break;
+    case 'BreakStatement':
+        breakStatement = statement;
+        break;
+    case 'ContinueStatement':
+        continueStatement = statement;
+        break;
+    case 'IfStatement':
+        ifStatement = statement;
+        break;
+    case 'SwitchStatement':
+        switchStatement = statement;
+        break;
+    case 'ThrowStatement':
+        throwStatement = statement;
+        break;
+    case 'TryStatement':
+        tryStatement = statement;
+        break;
+    case 'WhileStatement':
+        whileStatement = statement;
+        break;
+    case 'DoWhileStatement':
+        doWhileStatement = statement;
+        break;
+    case 'ForStatement':
+        forStatement = statement;
+        break;
+    case 'ForInStatement':
+        forInStatement = statement;
+        break;
+    case 'ForOfStatement':
+        forOfStatement = statement;
+        break;
+    // narrowing of Declaration
+    case 'FunctionDeclaration':
+        functionDeclaration = statement;
+        break;
+    case 'VariableDeclaration':
+        variableDeclaration = statement;
+        break;
+    case 'ClassDeclaration':
+        classDeclaration = statement;
+        break;
+    // end narrowing of Declaration
+    default:
+        never = statement;
 }
 
 switch (expression.type) {
-  case 'ThisExpression':
-    thisExpression = expression;
-    break;
-  case 'ArrayExpression':
-    arrayExpression = expression;
-    break;
-  case 'ObjectExpression':
-    objectExpression = expression;
-    break;
-  case 'FunctionExpression':
-    functionExpression = expression;
-    break;
-  case 'ArrowFunctionExpression':
-    arrowFunctionExpression = expression;
-    break;
-  case 'YieldExpression':
-    yieldExpression = expression;
-    break;
-  case 'Literal':
-    literal = expression;
-    break;
-  case 'UnaryExpression':
-    unaryExpression = expression;
-    break;
-  case 'UpdateExpression':
-    updateExpression = expression;
-    break;
-  case 'BinaryExpression':
-    binaryExpression = expression;
-    break;
-  case 'AssignmentExpression':
-    assignmentExpression = expression;
-    break;
-  case 'LogicalExpression':
-    logicalExpression = expression;
-    break;
-  case 'MemberExpression':
-    memberExpression = expression;
-    break;
-  case 'ChainExpression':
-    chainExpression = expression;
-    break;
-  case 'ConditionalExpression':
-    conditionalExpression = expression;
-    break;
-  case 'CallExpression':
-    callExpression = expression;
-    break;
-  case 'NewExpression':
-    newExpression = expression;
-    break;
-  case 'SequenceExpression':
-    sequenceExpression = expression;
-    break;
-  case 'TemplateLiteral':
-    templateLiteral = expression;
-    break;
-  case 'TaggedTemplateExpression':
-    taggedTemplateExpression = expression;
-    break;
-  case 'ClassExpression':
-    classExpression = expression;
-    break;
-  case 'MetaProperty':
-    metaProperty = expression;
-    break;
-  case 'Identifier':
-    identifier = expression;
-    break;
-  case 'AwaitExpression':
-    awaitExpression = expression;
-    break;
-  case 'ImportExpression':
-    importExpression = expression;
-    break;
-  default:
-    never = expression;
+    case 'ThisExpression':
+        thisExpression = expression;
+        break;
+    case 'ArrayExpression':
+        arrayExpression = expression;
+        break;
+    case 'ObjectExpression':
+        objectExpression = expression;
+        break;
+    case 'FunctionExpression':
+        functionExpression = expression;
+        break;
+    case 'ArrowFunctionExpression':
+        arrowFunctionExpression = expression;
+        break;
+    case 'YieldExpression':
+        yieldExpression = expression;
+        break;
+    case 'Literal':
+        literal = expression;
+        break;
+    case 'UnaryExpression':
+        unaryExpression = expression;
+        break;
+    case 'UpdateExpression':
+        updateExpression = expression;
+        break;
+    case 'BinaryExpression':
+        binaryExpression = expression;
+        break;
+    case 'AssignmentExpression':
+        assignmentExpression = expression;
+        break;
+    case 'LogicalExpression':
+        logicalExpression = expression;
+        break;
+    case 'MemberExpression':
+        memberExpression = expression;
+        break;
+    case 'ChainExpression':
+        chainExpression = expression;
+        break;
+    case 'ConditionalExpression':
+        conditionalExpression = expression;
+        break;
+    case 'CallExpression':
+        callExpression = expression;
+        break;
+    case 'NewExpression':
+        newExpression = expression;
+        break;
+    case 'SequenceExpression':
+        sequenceExpression = expression;
+        break;
+    case 'TemplateLiteral':
+        templateLiteral = expression;
+        break;
+    case 'TaggedTemplateExpression':
+        taggedTemplateExpression = expression;
+        break;
+    case 'ClassExpression':
+        classExpression = expression;
+        break;
+    case 'MetaProperty':
+        metaProperty = expression;
+        break;
+    case 'Identifier':
+        identifier = expression;
+        break;
+    case 'AwaitExpression':
+        awaitExpression = expression;
+        break;
+    case 'ImportExpression':
+        importExpression = expression;
+        break;
+    default:
+        never = expression;
 }
 
 switch (declaration.type) {
-  case 'FunctionDeclaration':
-    functionDeclaration = declaration;
-    break;
-  case 'VariableDeclaration':
-    variableDeclaration = declaration;
-    break;
-  case 'ClassDeclaration':
-    classDeclaration = declaration;
-    break;
-  default:
-    never = declaration;
+    case 'FunctionDeclaration':
+        functionDeclaration = declaration;
+        break;
+    case 'VariableDeclaration':
+        variableDeclaration = declaration;
+        break;
+    case 'ClassDeclaration':
+        classDeclaration = declaration;
+        break;
+    default:
+        never = declaration;
 }
 
 switch (pattern.type) {
-  case 'Identifier':
-    identifier = pattern;
-    break;
-  case 'ObjectPattern':
-    objectPattern = pattern;
-    break;
-  case 'ArrayPattern':
-    arrayPattern = pattern;
-    break;
-  case 'RestElement':
-    restElement = pattern;
-    break;
-  case 'AssignmentPattern':
-    assignmentPattern = pattern;
-    break;
-  case 'MemberExpression':
-    memberExpression = pattern;
-    break;
-  default:
-    never = pattern;
+    case 'Identifier':
+        identifier = pattern;
+        break;
+    case 'ObjectPattern':
+        objectPattern = pattern;
+        break;
+    case 'ArrayPattern':
+        arrayPattern = pattern;
+        break;
+    case 'RestElement':
+        restElement = pattern;
+        break;
+    case 'AssignmentPattern':
+        assignmentPattern = pattern;
+        break;
+    case 'MemberExpression':
+        memberExpression = pattern;
+        break;
+    default:
+        never = pattern;
 }
 
 switch (moduleDeclaration.type) {
-  case 'ImportDeclaration':
-    importDeclaration = moduleDeclaration;
-    break;
-  case 'ExportNamedDeclaration':
-    exportNamedDeclaration = moduleDeclaration;
-    break;
-  case 'ExportDefaultDeclaration':
-    exportDefaultDeclaration = moduleDeclaration;
-    break;
-  case 'ExportAllDeclaration':
-    exportAllDeclaration = moduleDeclaration;
-    break;
-  default:
-    never = moduleDeclaration;
+    case 'ImportDeclaration':
+        importDeclaration = moduleDeclaration;
+        break;
+    case 'ExportNamedDeclaration':
+        exportNamedDeclaration = moduleDeclaration;
+        break;
+    case 'ExportDefaultDeclaration':
+        exportDefaultDeclaration = moduleDeclaration;
+        break;
+    case 'ExportAllDeclaration':
+        exportAllDeclaration = moduleDeclaration;
+        break;
+    default:
+        never = moduleDeclaration;
 }
 
 switch (moduleSpecifier.type) {
-  case 'ImportSpecifier':
-    importSpecifier = moduleSpecifier;
-    break;
-  case 'ImportDefaultSpecifier':
-    importDefaultSpecifier = moduleSpecifier;
-    break;
-  case 'ImportNamespaceSpecifier':
-    importNamespaceSpecifier = moduleSpecifier;
-    break;
-  case 'ExportSpecifier':
-    exportSpecifier = moduleSpecifier;
-    break;
-  default:
-    never = moduleSpecifier;
+    case 'ImportSpecifier':
+        importSpecifier = moduleSpecifier;
+        break;
+    case 'ImportDefaultSpecifier':
+        importDefaultSpecifier = moduleSpecifier;
+        break;
+    case 'ImportNamespaceSpecifier':
+        importNamespaceSpecifier = moduleSpecifier;
+        break;
+    case 'ExportSpecifier':
+        exportSpecifier = moduleSpecifier;
+        break;
+    default:
+        never = moduleSpecifier;
 }
 
 switch (forInStatement.left.type) {
-  case 'Identifier':
-    identifier = forInStatement.left;
-    break;
-  case 'ObjectPattern':
-    objectPattern = forInStatement.left;
-    break;
-  case 'ArrayPattern':
-    arrayPattern = forInStatement.left;
-    break;
-  case 'MemberExpression':
-    memberExpression = forInStatement.left;
-    break;
+    case 'Identifier':
+        identifier = forInStatement.left;
+        break;
+    case 'ObjectPattern':
+        objectPattern = forInStatement.left;
+        break;
+    case 'ArrayPattern':
+        arrayPattern = forInStatement.left;
+        break;
+    case 'MemberExpression':
+        memberExpression = forInStatement.left;
+        break;
 }
 
 switch (forOfStatement.left.type) {
-  case 'Identifier':
-    identifier = forOfStatement.left;
-    break;
-  case 'ObjectPattern':
-    objectPattern = forOfStatement.left;
-    break;
-  case 'ArrayPattern':
-    arrayPattern = forOfStatement.left;
-    break;
-  case 'MemberExpression':
-    memberExpression = forOfStatement.left;
-    break;
+    case 'Identifier':
+        identifier = forOfStatement.left;
+        break;
+    case 'ObjectPattern':
+        objectPattern = forOfStatement.left;
+        break;
+    case 'ArrayPattern':
+        arrayPattern = forOfStatement.left;
+        break;
+    case 'MemberExpression':
+        memberExpression = forOfStatement.left;
+        break;
 }

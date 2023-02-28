@@ -1,6 +1,6 @@
 // Type definitions for Ace Ajax.org Cloud9 Editor
 // Project: https://ace.c9.io/
-// Definitions by: Diullei Gomes <https://github.com/Diullei> 
+// Definitions by: Diullei Gomes <https://github.com/Diullei>
 //                 wafuwafu13 <https://github.com/wafuwafu13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -569,8 +569,8 @@ declare namespace AceAjax {
         getFoldsInRange(range: Range): any;
 
         highlight(text: string): void;
-        
-        
+
+
         /**
          * Highlight lines from `startRow` to `EndRow`.
          * @param startRow Define the start line of the highlight
@@ -2511,16 +2511,25 @@ declare namespace AceAjax {
 
     export interface Split {
 
+        BELOW: number;
+        BESIDE: number;
+
         /**
          * Returns the number of splits.
         **/
         getSplits(): number;
 
         /**
+         * Set the number of splits.
+         * @param splits The number of splits
+        **/
+        setSplits(splits?: number): void;
+
+        /**
          * Returns the editor identified by the index `idx`.
          * @param idx The index of the editor you want
         **/
-        getEditor(idx: number): void;
+        getEditor(idx: number): Editor;
 
         /**
          * Returns the current editor.
@@ -2586,7 +2595,7 @@ declare namespace AceAjax {
         resize(): void;
     }
     var Split: {
-        new(): Split;
+        Split(container: HTMLElement, theme?: any, splits?: number): void;
     }
 
     //////////////////
@@ -2669,24 +2678,18 @@ declare namespace AceAjax {
     export interface UndoManager {
 
         /**
-         * Provides a means for implementing your own undo manager. `options` has one property, `args`, an [[Array `Array`]], with two elements:
-         * - `args[0]` is an array of deltas
-         * - `args[1]` is the document to associate with
-         * @param options Contains additional properties
-        **/
-        execute(options: any): void;
-
-        /**
          * [Perform an undo operation on the document, reverting the last change.]{: #UndoManager.undo}
+         * @param session {:session}
          * @param dontSelect {:dontSelect}
         **/
-        undo(dontSelect?: boolean): Range;
+        undo(session?: IEditSession, dontSelect?: boolean): Range;
 
         /**
          * [Perform a redo operation on the document, reimplementing the last change.]{: #UndoManager.redo}
+         * @param session {:session}
          * @param dontSelect {:dontSelect}
         **/
-        redo(dontSelect: boolean): void;
+        redo(session?: IEditSession, dontSelect?: boolean): void;
 
         /**
          * Destroys the stack of undo and redo redo operations.
@@ -2696,22 +2699,39 @@ declare namespace AceAjax {
         /**
          * Returns `true` if there are undo operations left to perform.
         **/
+        canUndo(): boolean;
+        /**
+         * Alias for canUndo
+        **/
         hasUndo(): boolean;
 
         /**
          * Returns `true` if there are redo operations left to perform.
         **/
+        canRedo(): boolean;
+        /**
+         * Alias for canRedo
+        **/
         hasRedo(): boolean;
 
         /**
-         * Returns `true` if the dirty counter is 0
+         * Returns if the current status is clean
+        **/
+        isAtBookmark(): boolean;
+        /**
+         * Alias for isAtBookmark
         **/
         isClean(): boolean;
 
         /**
-         * Sets dirty counter to 0
+         * Marks the current status clean
+         * @param rev {:rev}
         **/
-        markClean(): void;
+        bookmark(rev?: number): void;
+        /**
+         * Alias for bookmark
+        **/
+        markClean(rev?: number): void;
 
     }
     var UndoManager: {
@@ -2735,6 +2755,8 @@ declare namespace AceAjax {
         characterWidth: number;
 
         lineHeight: number;
+
+        $cursorLayer: Layer.Cursor;
 
         setScrollMargin(top:number, bottom:number, left: number, right: number): void;
 
@@ -3089,9 +3111,9 @@ declare namespace AceAjax {
          * @param item The completion result
          */
         getDocTooltip?: ((item: Completion) => void) | undefined;
-      }
-      
-      export interface Completion {
+    }
+
+    export interface Completion {
         value: string;
         meta: string;
         type?: string | undefined;
@@ -3100,9 +3122,27 @@ declare namespace AceAjax {
         score?: number | undefined;
         exactMatch?: number | undefined;
         docHTML?: string | undefined;
-      }
-      
-      export type CompletionCallback = (error: Error | null, results: Completion[]) => void;
+    }
+
+    export type CompletionCallback = (error: Error | null, results: Completion[]) => void;
+
+    ////////////////////
+    /// Layer
+    ////////////////////
+
+    export namespace Layer {
+
+        ////////////////////
+        /// Cursor
+        ////////////////////
+
+        export interface Cursor {
+            setBlinking(blinking: boolean): void;
+            setBlinkInterval(blinkInterval: number): void;
+            hideCursor(): void;
+            showCursor(): void;
+        }
+    }
 }
 
 declare var ace: AceAjax.Ace;

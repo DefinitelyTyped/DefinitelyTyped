@@ -8,7 +8,9 @@ import Range from '../model/range';
 import Schema, { SchemaContextDefinition } from '../model/schema';
 import Writer from '../model/writer';
 import ViewDocumentFragment from '../view/documentfragment';
+import DocumentSelection from '../view/documentselection';
 import ViewElement from '../view/element';
+import ViewSelection from '../view/selection';
 import ViewText from '../view/text';
 import ViewConsumable from './viewconsumable';
 
@@ -62,6 +64,14 @@ export type UpcastEventArgs<K extends string = string> = K extends keyof UpcastE
     ? [UpcastEventDataTypes[K], UpcastConversionApi]
     : K extends 'viewCleanup'
     ? [ViewDocumentFragment | ViewElement]
+    : K extends 'selectionChange'
+    ? [
+          {
+              oldSelection: DocumentSelection | ViewSelection;
+              newSelection: DocumentSelection | ViewSelection;
+              domSelection: Selection;
+          },
+      ]
     : K extends `element:${infer N}`
     ? [UpcastConversionData<ViewElement & { name: N }>, UpcastConversionApi]
     : K extends `${infer NS}:${string}`

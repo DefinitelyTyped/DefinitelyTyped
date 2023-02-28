@@ -163,6 +163,14 @@ StringSchema.extend({
     name: { type: String }
 });
 
+StringSchema.extend({
+    name: { type: String, required: false }
+});
+
+StringSchema.extend({
+    name: { type: String, required: () => false }
+});
+
 SimpleSchema.extendOptions(['autoform']);
 
 SimpleSchema.setDefaultMessages({
@@ -182,3 +190,12 @@ objectKeysTestSchema.objectKeys();
 // Prefix passed
 // $ExpectType any[]
 objectKeysTestSchema.objectKeys("_prefix");
+
+// $ExpectType SchemaDefinition
+StringSchema.schema();
+
+// $ExpectType SchemaDefinition
+StringSchema.schema('basicString');
+
+// $ExpectType typeof SimpleSchema | undefined
+StringSchema.getObjectSchema('basicString');

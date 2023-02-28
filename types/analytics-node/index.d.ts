@@ -49,6 +49,8 @@ declare namespace AnalyticsNode {
       host?: string | undefined,
       enable?: boolean | undefined,
       timeout?: number | string | undefined,
+      flushed?: boolean | undefined,
+      errorHandler?: (err: Error) => void,
     });
 
     /* The identify method lets you tie a user to their actions and record
@@ -78,6 +80,7 @@ declare namespace AnalyticsNode {
       timestamp?: Date | undefined;
       context?: any;
       integrations?: Integrations | undefined;
+      messageId?: string | undefined;
     }, callback?: (err: Error) => void): Analytics;
 
     /* The screen method lets you record whenever a user sees a screen,
@@ -108,6 +111,6 @@ declare namespace AnalyticsNode {
     }, callback?: (err: Error) => void): Analytics;
 
     /* Flush batched calls to make sure nothing is left in the queue */
-    flush(callback?: (err: Error, data: Data) => void): Analytics;
+    flush(callback?: (err: Error, data: Data) => void): Promise<{batch: any; timestamp: string; sentAt: string}>;
   }
 }

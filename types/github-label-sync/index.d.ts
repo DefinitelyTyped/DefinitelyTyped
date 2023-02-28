@@ -6,11 +6,11 @@
 export interface BasicLabel {
     name: string;
     color: string;
+    description?: string | undefined;
 }
 
 export interface LabelInfo extends BasicLabel {
     aliases?: string[] | undefined;
-    description?: string | undefined;
 }
 
 export interface OptionsBase {

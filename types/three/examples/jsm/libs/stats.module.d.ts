@@ -4,7 +4,7 @@ interface Stats {
     addPanel(panel: Stats.Panel): Stats.Panel;
     showPanel(id: number): void;
     begin(): void;
-    end(): void;
+    end(): number;
     update(): void;
     domElement: HTMLDivElement;
     setMode(id: number): void;

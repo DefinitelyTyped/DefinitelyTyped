@@ -1,7 +1,7 @@
 export interface RenderOptions {
     into?: string | undefined;
     controller?: string | undefined;
-    model?: any;
+    model?: unknown;
     outlet?: string | undefined;
     view?: string | undefined;
 }

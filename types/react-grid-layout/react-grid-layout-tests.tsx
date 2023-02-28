@@ -94,3 +94,15 @@ class ResponsiveGridWidthProviderTest extends React.Component {
         );
     }
 }
+
+class InnerRefObjectTest extends React.Component {
+    render() {
+        return <ReactGridLayout innerRef={React.createRef<HTMLDivElement>()} />;
+    }
+}
+
+class InnerRefCallbackTest extends React.Component {
+    render() {
+        return <ReactGridLayout innerRef={(_: HTMLDivElement | null) => {}} />;
+    }
+}

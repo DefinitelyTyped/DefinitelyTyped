@@ -52,15 +52,15 @@ declare namespace setTimeout {
     function __promisify__(ms: number): Promise<void>;
     function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
-declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
+declare function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
 declare function setInterval(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
-declare function clearInterval(intervalId: NodeJS.Timeout): void;
+declare function clearInterval(intervalId: NodeJS.Timeout | string | number | undefined): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
     function __promisify__(): Promise<void>;
     function __promisify__<T>(value: T): Promise<T>;
 }
-declare function clearImmediate(immediateId: NodeJS.Immediate): void;
+declare function clearImmediate(immediateId: NodeJS.Immediate | undefined): void;
 
 declare function queueMicrotask(callback: () => void): void;
 
@@ -74,6 +74,50 @@ declare var exports: any;
 type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "base64url" | "latin1" | "binary" | "hex";
 
 type WithImplicitCoercion<T> = T | { valueOf(): T };
+
+//#region borrowed
+// from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
+/**
+ * A controller object that allows you to abort one or more DOM requests as and when desired.
+ * @since v14.7.0
+ */
+interface AbortController {
+    /**
+     * Returns the AbortSignal object associated with this object.
+     * @since v14.7.0
+     */
+    readonly signal: AbortSignal;
+    /**
+     * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
+     * @since v14.7.0
+     */
+    abort(): void;
+}
+
+/**
+ * A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object.
+ * @since v14.7.0
+ */
+interface AbortSignal {
+    /**
+     * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
+     * @since v14.7.0
+     */
+    readonly aborted: boolean;
+}
+
+declare var AbortController: {
+    prototype: AbortController;
+    new(): AbortController;
+};
+
+declare var AbortSignal: {
+    prototype: AbortSignal;
+    new(): AbortSignal;
+    abort(reason?: any): AbortSignal;
+    timeout(milliseconds: number): AbortSignal;
+};
+//#endregion borrowed
 
 /**
  * Raw data is stored in instances of the Buffer class.
@@ -255,24 +299,89 @@ declare class Buffer extends Uint8Array {
     writeBigInt64BE(value: bigint, offset?: number): number;
     writeBigInt64LE(value: bigint, offset?: number): number;
     writeBigUInt64BE(value: bigint, offset?: number): number;
+    /**
+     * @alias Buffer.writeBigUInt64BE
+     * @since v14.10.0, v12.19.0
+     */
+    writeBigUint64BE(value: bigint, offset?: number): number;
     writeBigUInt64LE(value: bigint, offset?: number): number;
+    /**
+     * @alias Buffer.writeBigUInt64LE
+     * @since v14.10.0, v12.19.0
+     */
+    writeBigUint64LE(value: bigint, offset?: number): number;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.writeUIntLE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUintLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.writeUIntBE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUintBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
     writeIntBE(value: number, offset: number, byteLength: number): number;
     readBigUInt64BE(offset?: number): bigint;
+    /**
+     * @alias Buffer.readBigUInt64BE
+     * @since v14.10.0, v12.19.0
+     */
+    readBigUint64BE(offset?: number): bigint;
     readBigUInt64LE(offset?: number): bigint;
+    /**
+     * @alias Buffer.readBigUInt64LE
+     * @since v14.10.0, v12.19.0
+     */
+    readBigUint64LE(offset?: number): bigint;
     readBigInt64BE(offset?: number): bigint;
     readBigInt64LE(offset?: number): bigint;
     readUIntLE(offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.readUIntLE
+     * @since v14.9.0, v12.19.0
+     */
+    readUintLE(offset: number, byteLength: number): number;
     readUIntBE(offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.readUIntBE
+     * @since v14.9.0, v12.19.0
+     */
+    readUintBE(offset: number, byteLength: number): number;
     readIntLE(offset: number, byteLength: number): number;
     readIntBE(offset: number, byteLength: number): number;
     readUInt8(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt8
+     * @since v14.9.0, v12.19.0
+     */
+    readUint8(offset?: number): number;
     readUInt16LE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt16LE
+     * @since v14.9.0, v12.19.0
+     */
+    readUint16LE(offset?: number): number;
     readUInt16BE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt16BE
+     * @since v14.9.0, v12.19.0
+     */
+    readUint16BE(offset?: number): number;
     readUInt32LE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt32LE
+     * @since v14.9.0, v12.19.0
+     */
+    readUint32LE(offset?: number): number;
     readUInt32BE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt32BE
+     * @since v14.9.0, v12.19.0
+     */
+    readUint32BE(offset?: number): number;
     readInt8(offset?: number): number;
     readInt16LE(offset?: number): number;
     readInt16BE(offset?: number): number;
@@ -287,10 +396,35 @@ declare class Buffer extends Uint8Array {
     swap32(): Buffer;
     swap64(): Buffer;
     writeUInt8(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt8
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint8(value: number, offset?: number): number;
     writeUInt16LE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt16LE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint16LE(value: number, offset?: number): number;
     writeUInt16BE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt16BE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint16BE(value: number, offset?: number): number;
     writeUInt32LE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt32LE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint32LE(value: number, offset?: number): number;
     writeUInt32BE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt32BE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint32BE(value: number, offset?: number): number;
     writeInt8(value: number, offset?: number): number;
     writeInt16LE(value: number, offset?: number): number;
     writeInt16BE(value: number, offset?: number): number;
@@ -457,9 +591,9 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
         write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
-        end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(data: string | Uint8Array, cb?: () => void): this;
+        end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -591,11 +725,11 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        /** @deprecated since 14.6.0 Please use `require.main` and `module.children` instead. */
+        /** @deprecated since v14.6.0 Please use `require.main` and `module.children` instead. */
         parent: Module | null | undefined;
         children: Module[];
         /**
-         * @since 11.14.0
+         * @since v11.14.0
          *
          * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
          */

@@ -23,5 +23,5 @@ declare namespace uaData {
     const platformFullVersion: string;
 }
 
-// tslint:disable-next-line export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = uaData;

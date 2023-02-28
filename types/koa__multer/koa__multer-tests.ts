@@ -14,7 +14,7 @@ app.use(upload.single('avatar'));
 
 app.use(upload.array('photos', 12));
 app.use(async (ctx, next) => {
-    ctx.request.files; // $ExpectType { [fieldname: string]: File[]; } | File[] | undefined
+    ctx.request.files; // $ExpectType { [fieldname: string]: File[]; } | File[] | undefined || File[] | { [fieldname: string]: File[]; } | undefined
     await next();
 });
 
@@ -24,7 +24,7 @@ const cpUpload = upload.fields([
 ]);
 app.use(cpUpload);
 app.use(async (ctx, next) => {
-    ctx.request.files; // $ExpectType { [fieldname: string]: File[]; } | File[] | undefined
+    ctx.request.files; // $ExpectType { [fieldname: string]: File[]; } | File[] | undefined || File[] | { [fieldname: string]: File[]; } | undefined
     await next();
 });
 

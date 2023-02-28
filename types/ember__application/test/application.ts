@@ -5,17 +5,19 @@ const BaseApp = Application.extend({
     modulePrefix: 'my-app',
 });
 
+class Obj extends EmberObject.extend({ foo: 'bar' }) {}
+
 BaseApp.initializer({
     name: 'my-initializer',
     initialize(app) {
-        app.register('foo:bar', EmberObject.extend({ foo: 'bar' }));
+        app.register('foo:bar', Obj);
     },
 });
 
 BaseApp.instanceInitializer({
     name: 'my-instance-initializer',
     initialize(app) {
-        app.lookup('foo:bar').get('foo');
+        (app.lookup('foo:bar') as Obj).get('foo');
     },
 });
 

@@ -1,6 +1,7 @@
 // Type definitions for hexo-util 0.6
 // Project: https://hexo.io/
 // Definitions by: sega yuu <https://github.com/segayuu>
+//                 KentarouTakeda <https://github.com/KentarouTakeda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -10,7 +11,7 @@ import { Transform } from "stream";
 import { SpawnOptions, StdioOptions } from 'child_process';
 
 export class CacheStream extends Transform {
-    destroy(): void;
+    destroy(): this;
     getCache(): Buffer;
 }
 
@@ -38,7 +39,7 @@ export function highlight(str: string, options?: {
     autoDetect?: boolean | undefined;
 }): string;
 
-export function htmlTag(tag: string, attrs?: string[] | ArrayLike<string> | { [x: string]: any }, text?: string | null): string;
+export function htmlTag(tag: string, attrs?: string[] | ArrayLike<string> | { [x: string]: any }, text?: string | null, escape?: boolean): string;
 
 export interface Pattern<T> {
     test(str: string): boolean;

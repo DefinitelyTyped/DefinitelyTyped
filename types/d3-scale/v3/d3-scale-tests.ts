@@ -374,7 +374,7 @@ logScaleNumString = logScaleNumString.interpolate((a, b) => {
 
 // chainable
 logScaleNumber = logScaleNumber.nice();
-// $ExpectError
+// @ts-expect-error
 logScaleNumber = logScaleNumber.nice(5); // fails, logarithmic scale does not support count parameter.
 
 // ticks(...) -----------------------------------------------------------------
@@ -574,7 +574,7 @@ localTimeScaleNumber = localTimeScaleNumber.nice();
 localTimeScaleNumber = localTimeScaleNumber.nice(5);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour);
 
-// $ExpectError
+// @ts-expect-error
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
 
 // ticks(...) -----------------------------------------------------------------

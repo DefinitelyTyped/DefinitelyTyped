@@ -11,10 +11,8 @@ export class DirectUpload {
     id: number;
     file: File;
     url: string;
-    serviceName: string;
-    attachmentName: string;
 
-    constructor(file: File, url: string, serviceName: string, attachmentName: string, delegate?: DirectUploadDelegate)
+    constructor(file: File, url: string, delegate?: DirectUploadDelegate)
 
     create(callback: (error: Error, blob: Blob) => void): void;
 }

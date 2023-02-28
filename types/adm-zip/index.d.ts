@@ -1,30 +1,36 @@
-// Type definitions for adm-zip 0.4
+// Type definitions for adm-zip 0.5
 // Project: https://github.com/cthackers/adm-zip
 // Definitions by: John Vilk <https://github.com/jvilk>
 //                 Abner Oliveira <https://github.com/abner>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Matthew Sainsbury <https://github.com/mattsains>
+//                 Lei Nelissen <https://github.com/LeiNelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+import * as FS from 'fs';
+import { Constants } from './util';
+
 declare class AdmZip {
     /**
      * @param fileNameOrRawData If provided, reads an existing archive. Otherwise creates a new, empty archive.
+     * @param options Options when initializing the ZIP file
      */
-    constructor(fileNameOrRawData?: string | Buffer);
+    constructor(fileNameOrRawData?: string | Buffer, options?: Partial<AdmZip.InitOptions>);
     /**
-     * Extracts the given entry from the archive and returns the content.
-     * @param entry The full path of the entry or a `IZipEntry` object.
-     * @return `Buffer` or `null` in case of error.
+     * Extracts the given entry from the archive and returns the content as a Buffer object
+     * @param entry ZipEntry object or String with the full path of the entry
+     * @param pass Password used for decrypting the file
+     * @return Buffer or Null in case of error
      */
-    readFile(entry: string | AdmZip.IZipEntry): Buffer | null;
+    readFile(entry: string | AdmZip.IZipEntry, pass?: string | Buffer): Buffer | null;
     /**
      * Asynchronous `readFile`.
      * @param entry The full path of the entry or a `IZipEntry` object.
      * @param callback Called with a `Buffer` or `null` in case of error.
      */
-    readFileAsync(entry: string | AdmZip.IZipEntry, callback: (data: Buffer | null, err: string) => any): void;
+    readFileAsync(entry: string | AdmZip.IZipEntry, callback: (data: Buffer | null, err: string) => void): void;
     /**
      * Extracts the given entry from the archive and returns the content as
      * plain text in the given encoding.
@@ -38,7 +44,11 @@ declare class AdmZip {
      * @param callback Called with the resulting string.
      * @param encoding If no encoding is specified `"utf8"` is used.
      */
-    readAsTextAsync(fileName: string | AdmZip.IZipEntry, callback: (data: string, err: string) => any, encoding?: string): void;
+    readAsTextAsync(
+        fileName: string | AdmZip.IZipEntry,
+        callback: (data: string, err: string) => void,
+        encoding?: string
+    ): void;
     /**
      * Remove the entry from the file or the entry and all its nested directories
      * and files if the given entry is a directory.
@@ -82,8 +92,9 @@ declare class AdmZip {
      * @param zipPath Path to a directory in the archive. Defaults to the empty
      *   string.
      * @param zipName Name for the file.
+     * @param comment Comment to be attached to the file
      */
-    addLocalFile(localPath: string, zipPath?: string, zipName?: string): void;
+    addLocalFile(localPath: string, zipPath?: string, zipName?: string, comment?: string): void;
     /**
      * Adds a local directory and all its nested files and directories to the
      * archive.
@@ -92,6 +103,31 @@ declare class AdmZip {
      * @param filter RegExp or Function if files match will be included.
      */
     addLocalFolder(localPath: string, zipPath?: string, filter?: RegExp | ((filename: string) => boolean)): void;
+    /**
+     * Asynchronous addLocalFile
+     * @param localPath
+     * @param callback
+     * @param zipPath optional path inside zip
+     * @param filter optional RegExp or Function if files match will
+     *    be included.
+     */
+    addLocalFolderAsync(
+        localPath: string,
+        callback: (success?: boolean, err?: string) => void,
+        zipPath?: string,
+        filter?: RegExp | ((filename: string) => boolean)
+    ): void;
+    /**
+     *
+     * @param localPath - path where files will be extracted
+     * @param props - optional properties
+     * @param props.zipPath - optional path inside zip
+     * @param props.filter - RegExp or Function if files match will be included.
+     */
+    addLocalFolderPromise(
+        localPath: string,
+        props: { zipPath?: string, filter?: RegExp | ((filename: string) => boolean) }
+    ): Promise<void>;
     /**
      * Allows you to create a entry (file or directory) in the zip file.
      * If you want to create a directory the `entryName` must end in `"/"` and a `null`
@@ -102,7 +138,7 @@ declare class AdmZip {
      * @param comment Comment to add to the entry.
      * @param attr Attribute to add to the entry.
      */
-    addFile(entryName: string, data: Buffer, comment?: string, attr?: number): void;
+    addFile(entryName: string, content: Buffer, comment?: string, attr?: number): void;
     /**
      * Returns an array of `IZipEntry` objects representing the files and folders
      * inside the archive.
@@ -115,6 +151,16 @@ declare class AdmZip {
      */
     getEntry(name: string): AdmZip.IZipEntry | null;
     /**
+     * Returns the number of entries in the ZIP
+     * @return The amount of entries in the ZIP
+     */
+    getEntryCount(): number;
+    /**
+     * Loop through each entry in the ZIP
+     * @param callback The callback that receives each individual entry
+     */
+    forEach(callback: (entry: AdmZip.IZipEntry) => void): void;
+    /**
      * Extracts the given entry to the given `targetPath`.
      * If the entry is a directory inside the archive, the entire directory and
      * its subdirectories will be extracted.
@@ -125,34 +171,70 @@ declare class AdmZip {
      *   well. Default: `true`.
      * @param overwrite If the file already exists at the target path, the file
      *   will be overwriten if this is `true`. Default: `false`.
+     * @param keepOriginalPermission The file will be set as the permission from
+     *   the entry if this is true. Default: `false`.
+     * @param outFileName String If set will override the filename of the
+     *   extracted file (Only works if the entry is a file)
+     * @return Boolean
      */
     extractEntryTo(
         entryPath: string | AdmZip.IZipEntry,
         targetPath: string,
         maintainEntryPath?: boolean,
         overwrite?: boolean,
+        keepOriginalPermission?: boolean,
+        outFileName?: string,
     ): boolean;
     /**
-     * Extracts the entire archive to the given location.
-     * @param targetPath Target location.
-     * @param overwrite If the file already exists at the target path, the file
-     *   will be overwriten if this is `true`. Default: `false`.
+     * Test the archive
+     * @param password The password for the archive
      */
-    extractAllTo(targetPath: string, overwrite?: boolean): void;
+    test(password?: string | Buffer): boolean;
     /**
      * Extracts the entire archive to the given location.
      * @param targetPath Target location.
      * @param overwrite If the file already exists at the target path, the file
      *   will be overwriten if this is `true`. Default: `false`.
+     * @param keepOriginalPermission The file will be set as the permission from
+     *   the entry if this is true. Default: `false`.
+     * @param password The password for the archive
+     */
+    extractAllTo(
+        targetPath: string,
+        overwrite?: boolean,
+        keepOriginalPermission?: boolean,
+        password?: string | Buffer
+    ): void;
+    /**
+     * Extracts the entire archive to the given location.
+     * @param targetPath Target location.
+     * @param overwrite If the file already exists at the target path, the file
+     *   will be overwriten if this is `true`. Default: `false`.
+     * @param keepOriginalPermission The file will be set as the permission from
+     *   the entry if this is true. Default: `false`.
      * @param callback The callback function will be called after extraction.
      */
-    extractAllToAsync(targetPath: string, overwrite?: boolean, callback?: (error: Error) => void): void;
+    extractAllToAsync(
+        targetPath: string,
+        overwrite?: boolean,
+        keepOriginalPermission?: boolean,
+        callback?: (error?: Error) => void,
+    ): void;
     /**
      * Writes the newly created zip file to disk at the specified location or
      * if a zip was opened and no `targetFileName` is provided, it will
      * overwrite the opened zip.
      */
     writeZip(targetFileName?: string, callback?: (error: Error | null) => void): void;
+    /**
+     * Writes the newly created zip file to disk at the specified location or
+     * if a zip was opened and no `targetFileName` is provided, it will
+     * overwrite the opened zip.
+     */
+    writeZipPromise(
+        targetFileName?: string,
+        props?: { overwrite?: boolean, perm?: number }
+    ): Promise<boolean>;
     /**
      * Returns the content of the entire zip file.
      */
@@ -171,9 +253,9 @@ declare class AdmZip {
         onItemEnd?: (name: string) => void,
     ): void;
     /**
-     * Test the archive.
+     * Asynchronously convert the promise to a Buffer
      */
-    test(): boolean;
+    toBufferPromise(): Promise<Buffer>;
 }
 
 declare namespace AdmZip {
@@ -231,7 +313,7 @@ declare namespace AdmZip {
         /**
          * Asynchronously get the decompressed data associated with this entry.
          */
-        getDataAsync(callback: (data: Buffer, err: string) => any): void;
+        getDataAsync(callback: (data: Buffer, err: string) => void): void;
         /**
          * Returns the CEN Entry Header to be written to the output zip file, plus
          * the extra data and the entry comment.
@@ -281,6 +363,17 @@ declare namespace AdmZip {
         size: number;
         fnameLen: number;
         extraLen: number;
+    }
+
+    interface InitOptions {
+        /* If true it disables files sorting */
+        noSort: boolean;
+        /* Read entries during load (initial loading may be slower) */
+        readEntries: boolean;
+        /* Read method */
+        method: typeof Constants[keyof typeof Constants] | number;
+        /* file system */
+        fs: null | typeof FS;
     }
 }
 

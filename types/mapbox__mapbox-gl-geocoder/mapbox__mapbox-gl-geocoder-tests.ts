@@ -20,3 +20,9 @@ geocoder.setLanguage('en');
 
 // $ExpectType string
 geocoder.getLanguage();
+
+// $ExpectType void
+geocoder.clear();
+
+// $ExpectType void
+geocoder.clear(new Event('clear'));

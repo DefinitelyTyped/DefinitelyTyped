@@ -1,8 +1,8 @@
-// Type definitions for ioBroker 3.3
+// Type definitions for ioBroker 4.0
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 4.5
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -13,7 +13,10 @@
 import * as fs from 'fs';
 export {}; // avoids exporting AtLeastOne into the global scope
 
-type AtLeastOne<T, U = {[K in keyof T]-?: T[K] }> = { [K in keyof U]: {[P in K]: U[P]} }[keyof U];
+// Requires at least one of the properties of T to be given, whether it's optional or not
+type AtLeastOne<T, Req = { [K in keyof T]-?: T[K] }, Opt = { [K in keyof T]+?: T[K] }> = {
+    [K in keyof Req]: Omit<Opt, K> & { [P in K]: Req[P] };
+}[keyof Req];
 
 declare global {
     namespace ioBroker {
@@ -264,6 +267,32 @@ declare global {
         interface DelObjectOptions {
             /** Whether all child objects should be deleted aswell */
             recursive?: boolean;
+            // Allow non-documented properties
+            [other: string]: unknown;
+        }
+
+        interface ExtendObjectOptionsPreserve {
+            [prop: string]: ExtendObjectOptionsPreserve | boolean | string[];
+        }
+
+        interface ExtendObjectOptions {
+            /** Which properties of the original object should be preserved */
+            preserve?: ExtendObjectOptionsPreserve;
+            // Allow non-documented properties
+            [other: string]: unknown;
+        }
+
+        /** Predefined notification scopes and their categories */
+        interface NotificationScopes {
+            system:
+                | 'memIssues'
+                | 'fsIoErrors'
+                | 'noDiskSpace'
+                | 'accessErrors'
+                | 'nonExistingFileErrors'
+                | 'remoteHostErrors'
+                | 'restartLoop'
+                | 'fileToJsonl';
         }
 
         interface AdapterOptions {
@@ -301,9 +330,6 @@ declare global {
             /** Will be called when ioBroker detects an unhandled error in the adapter. Return `true` to signal that the error was handled and the adapter does not need to be restarted. */
             error?: ErrorHandler;
 
-            /** if true, stateChange will be called with an id that has no namespace, e.g. "state" instead of "adapter.0.state". Default: false */
-            noNamespace?: boolean;
-
             /** If true, the adapter will have a property `oObjects` that contains a live cache of the adapter's objects */
             objects?: boolean;
 
@@ -326,8 +352,8 @@ declare global {
             host: string;
             /** instance number of this adapter instance */
             instance: number;
-            /** Namespace of adapter objects: "<name>.<instance>" */
-            readonly namespace: string;
+            /** Namespace of adapter objects: `<name>.<instance>` */
+            readonly namespace: `${string}.${number}`;
             /** native part of the adapter settings */
             config: AdapterConfig;
             /** common part of the adapter settings */
@@ -363,6 +389,12 @@ declare global {
             /** Can be used to test for forbidden chars in object IDs */
             readonly FORBIDDEN_CHARS: RegExp;
 
+            /**
+             * Whether the adapter should warn if states are set without an corresponding existing object.
+             * Defaults to the value passed to the constructor via the option {@link AdapterOptions.strictObjectChecks}.
+             */
+            performStrictObjectChecks: boolean;
+
             /* ===============================
                Functions defined in adapter.js
                =============================== */
@@ -380,10 +412,13 @@ declare global {
             getPortAsync(port: number): Promise<number>;
 
             /** Stops the adapter. Note: Is not always defined. */
-            stop?: (() => void);
+            stop?: () => void;
 
             // ==============================
             // GENERAL
+
+            /** Returns the ID of the user with the given username, if it exists */
+            getUserID(username: string): Promise<string | undefined>;
 
             /** Validates username and password */
             checkPassword(user: string, password: string, callback: (result: boolean) => void): void;
@@ -514,10 +549,38 @@ declare global {
             sendToHostAsync(hostName: string, message: MessagePayload): Promise<Message | undefined>;
             sendToHostAsync(hostName: string, command: string, message: MessagePayload): Promise<Message | undefined>;
 
+            /**
+             * Send a notification with the given scope and category to the host of this adapter
+             * @param scope The scope of the notification
+             * @param category The category of the notification. If `null` is passed, ioBroker will try to infer a matching category from the `message` parameter.
+             *
+             * **Note:** If no category can be inferred, the message will NOT be registered!
+             * @param message The message of the notification
+             */
+            registerNotification<Scope extends keyof NotificationScopes>(
+                scope: Scope,
+                category: NotificationScopes[Scope] | null,
+                message: string,
+            ): Promise<void>;
+
+            /**
+             * Set capabilities of the given executable. Only works on Linux systems.
+             * @param execPath Path to the executable. For Node.js, this can be determined via `process.execPath`.
+             * @param capabilities Capabilities to set, e.g. ['cap_net_admin', 'cap_net_bind_service']
+             * @param modeEffective Add effective mode
+             * @param modePermitted Add permitted mode
+             * @param modeInherited Add inherited mode
+             */
+            setExecutableCapabilities(
+                execPath: string,
+                capabilities: string[],
+                modeEffective?: boolean,
+                modePermitted?: boolean,
+                modeInherited?: boolean,
+            ): Promise<void>;
+
             /** Convert ID to {device: D, channel: C, state: S} */
-            idToDCS(
-                id: string,
-            ): {
+            idToDCS(id: string): {
                 device: string;
                 channel: string;
                 state: string;
@@ -536,11 +599,7 @@ declare global {
             setObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setObject(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
             /** Creates or overwrites an object in the object db */
-            setObjectAsync(
-                id: string,
-                obj: ioBroker.SettableObject,
-                options?: unknown,
-            ): SetObjectPromise;
+            setObjectAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): SetObjectPromise;
 
             /** Creates an object in the object db. Existing objects are not overwritten. */
             setObjectNotExists(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
@@ -551,11 +610,7 @@ declare global {
                 callback?: SetObjectCallback,
             ): void;
             /** Creates an object in the object db. Existing objects are not overwritten. */
-            setObjectNotExistsAsync(
-                id: string,
-                obj: ioBroker.SettableObject,
-                options?: unknown,
-            ): SetObjectPromise;
+            setObjectNotExistsAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): SetObjectPromise;
 
             /** Get all states, channels, devices and folders of this adapter */
             getAdapterObjects(callback: (objects: Record<string, AdapterScopedObject>) => void): void;
@@ -564,13 +619,14 @@ declare global {
 
             /** Extend an object and create it if it might not exist */
             extendObject(id: string, objPart: PartialObject, callback?: SetObjectCallback): void;
-            extendObject(id: string, objPart: PartialObject, options: unknown, callback?: SetObjectCallback): void;
-            /** Extend an object and create it if it might not exist */
-            extendObjectAsync(
+            extendObject(
                 id: string,
                 objPart: PartialObject,
-                options?: unknown,
-            ): SetObjectPromise;
+                options: ExtendObjectOptions,
+                callback?: SetObjectCallback,
+            ): void;
+            /** Extend an object and create it if it might not exist */
+            extendObjectAsync(id: string, objPart: PartialObject, options?: ExtendObjectOptions): SetObjectPromise;
             /**
              * Deletes an object from the object db
              * @param id - The id of the object without namespace
@@ -596,9 +652,23 @@ declare global {
             // tslint:disable:unified-signatures
             getForeignObjects(pattern: string, callback: GetObjectsCallback): void;
             getForeignObjects(pattern: string, options: unknown, callback: GetObjectsCallback): void;
-            getForeignObjects<T extends ObjectType>(pattern: string, type: T, callback: GetObjectsCallbackTyped<T>): void;
-            getForeignObjects<T extends ObjectType>(pattern: string, type: T, enums: EnumList, callback: GetObjectsCallbackTyped<T>): void;
-            getForeignObjects<T extends ObjectType>(pattern: string, type: T, options: unknown, callback: GetObjectsCallbackTyped<T>): void;
+            getForeignObjects<T extends ObjectType>(
+                pattern: string,
+                type: T,
+                callback: GetObjectsCallbackTyped<T>,
+            ): void;
+            getForeignObjects<T extends ObjectType>(
+                pattern: string,
+                type: T,
+                enums: EnumList,
+                callback: GetObjectsCallbackTyped<T>,
+            ): void;
+            getForeignObjects<T extends ObjectType>(
+                pattern: string,
+                type: T,
+                options: unknown,
+                callback: GetObjectsCallbackTyped<T>,
+            ): void;
             getForeignObjects<T extends ObjectType>(
                 pattern: string,
                 type: T,
@@ -619,53 +689,62 @@ declare global {
                 type: T,
                 options?: unknown,
             ): GetObjectsPromiseTyped<T>;
-            getForeignObjectsAsync(
-                pattern: string,
-                options?: unknown,
-            ): GetObjectsPromise;
+            getForeignObjectsAsync(pattern: string, options?: unknown): GetObjectsPromise;
 
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
-            setForeignObject<T extends string>(id: T, obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
             setForeignObject<T extends string>(
                 id: T,
-                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
+                callback?: SetObjectCallback,
+            ): void;
+            setForeignObject<T extends string>(
+                id: T,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
                 options: unknown,
                 callback?: SetObjectCallback,
             ): void;
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
             setForeignObjectAsync<T extends string>(
                 id: T,
-                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
                 options?: unknown,
             ): SetObjectPromise;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
-            setForeignObjectNotExists<T extends string>(id: T, obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
             setForeignObjectNotExists<T extends string>(
                 id: T,
-                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
+                callback?: SetObjectCallback,
+            ): void;
+            setForeignObjectNotExists<T extends string>(
+                id: T,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
                 options: unknown,
                 callback?: SetObjectCallback,
             ): void;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
             setForeignObjectNotExistsAsync<T extends string>(
                 id: T,
-                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
                 options?: unknown,
             ): SetObjectPromise;
 
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
-            extendForeignObject<T extends string>(id: T, objPart: PartialObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
             extendForeignObject<T extends string>(
                 id: T,
-                objPart: PartialObject<ObjectIdToObjectType<T, "write">>,
-                options: unknown,
+                objPart: PartialObject<ObjectIdToObjectType<T, 'write'>>,
+                callback?: SetObjectCallback,
+            ): void;
+            extendForeignObject<T extends string>(
+                id: T,
+                objPart: PartialObject<ObjectIdToObjectType<T, 'write'>>,
+                options: ExtendObjectOptions,
                 callback?: SetObjectCallback,
             ): void;
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
             extendForeignObjectAsync<T extends string>(
                 id: T,
-                objPart: PartialObject<ObjectIdToObjectType<T, "write">>,
-                options?: unknown,
+                objPart: PartialObject<ObjectIdToObjectType<T, 'write'>>,
+                options?: ExtendObjectOptions,
             ): SetObjectPromise;
             /**
              * Finds an object by its ID or name
@@ -677,7 +756,7 @@ declare global {
              * Finds an object by its ID or name
              * @param type - common.type of the state
              */
-            findForeignObjectAsync(idOrName: string, type: string): Promise<{ id: string; name: string }>;
+            findForeignObjectAsync(idOrName: string, type: string): Promise<{ id: string; name?: ObjectCommon['name'] }>;
             /**
              * Deletes an object (which might not belong to this adapter) from the object db
              * @param id - The id of the object including namespace
@@ -700,18 +779,18 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            getObjectView(
-                design: string,
-                search: string,
+            getObjectView<Design extends string = string, Search extends string = string>(
+                design: Design,
+                search: Search,
                 params: GetObjectViewParams | null | undefined,
-                callback: GetObjectViewCallback,
+                callback: GetObjectViewCallback<InferGetObjectViewItemType<Design, Search>>,
             ): void;
-            getObjectView(
-                design: string,
-                search: string,
+            getObjectView<Design extends string = string, Search extends string = string>(
+                design: Design,
+                search: Search,
                 params: GetObjectViewParams | null | undefined,
                 options: unknown,
-                callback: GetObjectViewCallback,
+                callback: GetObjectViewCallback<InferGetObjectViewItemType<Design, Search>>,
             ): void;
             /**
              * Query a predefined object view (similar to SQL stored procedures) and return the results
@@ -722,12 +801,12 @@ declare global {
              * @param params Parameters to additionally filter out objects from the return list. Null to include all objects
              * @param options (optional) Some internal options.
              */
-            getObjectViewAsync(
-                design: string,
-                search: string,
+            getObjectViewAsync<Design extends string = string, Search extends string = string>(
+                design: Design,
+                search: Search,
                 params: GetObjectViewParams | null | undefined,
                 options?: unknown,
-            ): GetObjectViewPromise;
+            ): GetObjectViewPromise<InferGetObjectViewItemType<Design, Search>>;
 
             /**
              * Returns a list of objects with id between params.startkey and params.endkey
@@ -757,11 +836,7 @@ declare global {
             // Multiple signatures help understanding what the parameters are about
             /** Writes a value into the states DB. */
             // tslint:disable:unified-signatures
-            setState(
-                id: string,
-                state: State | StateValue | SettableState,
-                callback?: SetStateCallback,
-            ): void;
+            setState(id: string, state: State | StateValue | SettableState, callback?: SetStateCallback): void;
             setState(
                 id: string,
                 state: State | StateValue | SettableState,
@@ -782,16 +857,8 @@ declare global {
                 callback?: SetStateCallback,
             ): void;
             /** Writes a value into the states DB. */
-            setStateAsync(
-                id: string,
-                state: State | StateValue | SettableState,
-                ack?: boolean,
-            ): SetStatePromise;
-            setStateAsync(
-                id: string,
-                state: State | StateValue | SettableState,
-                options?: unknown,
-            ): SetStatePromise;
+            setStateAsync(id: string, state: State | StateValue | SettableState, ack?: boolean): SetStatePromise;
+            setStateAsync(id: string, state: State | StateValue | SettableState, options?: unknown): SetStatePromise;
             setStateAsync(
                 id: string,
                 state: State | StateValue | SettableState,
@@ -841,11 +908,7 @@ declare global {
                 options: unknown,
             ): SetStateChangedPromise;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
-            setForeignState(
-                id: string,
-                state: State | StateValue | SettableState,
-                callback?: SetStateCallback,
-            ): void;
+            setForeignState(id: string, state: State | StateValue | SettableState, callback?: SetStateCallback): void;
             setForeignState(
                 id: string,
                 state: State | StateValue | SettableState,
@@ -866,11 +929,7 @@ declare global {
                 callback?: SetStateCallback,
             ): void;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
-            setForeignStateAsync(
-                id: string,
-                state: State | StateValue | SettableState,
-                ack?: boolean,
-            ): SetStatePromise;
+            setForeignStateAsync(id: string, state: State | StateValue | SettableState, ack?: boolean): SetStatePromise;
             setForeignStateAsync(
                 id: string,
                 state: State | StateValue | SettableState,
@@ -962,12 +1021,13 @@ declare global {
             // TODO: getHistoryAsync
 
             // MISSING:
-            // pushFifo and similar https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4105
             // logRedirect https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4294
             // requireLog https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4336
             // processLog https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4360
 
             /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link setForeignBinaryState} instead.
+             *
              * Writes a binary state into Redis
              * @param id The id of the state
              * @param binary The data to be written
@@ -977,17 +1037,17 @@ declare global {
             setBinaryState(id: string, binary: Buffer, callback: SetStateCallback): void;
             setBinaryState(id: string, binary: Buffer, options: unknown, callback: SetStateCallback): void;
             /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link setForeignBinaryStateAsync} instead.
+             *
              * Writes a binary state into Redis
              * @param id The id of the state
              * @param binary The data to be written
              * @param options (optional) Some internal options.
              */
-            setBinaryStateAsync(
-                id: string,
-                binary: Buffer,
-                options?: unknown,
-            ): SetStatePromise;
+            setBinaryStateAsync(id: string, binary: Buffer, options?: unknown): SetStatePromise;
             /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link getForeignBinaryState} instead.
+             *
              * Reads a binary state from Redis
              * @param id The id of the state
              * @param options (optional) Some internal options.
@@ -996,17 +1056,68 @@ declare global {
             getBinaryState(id: string, callback: GetBinaryStateCallback): void;
             getBinaryState(id: string, options: unknown, callback: GetBinaryStateCallback): void;
             /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link getForeignBinaryStateAsync} instead.
+             *
              * Reads a binary state from Redis
              * @param id The id of the state
              * @param options (optional) Some internal options.
              */
             getBinaryStateAsync(id: string, options?: unknown): GetBinaryStatePromise;
 
-            /** Deletes a binary state from the states DB */
+            /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link delForeignBinaryState} instead.
+             *
+             * Deletes a binary state from the states DB
+             */
             delBinaryState(id: string, callback?: ErrorCallback): void;
             delBinaryState(id: string, options: unknown, callback?: ErrorCallback): void;
-            /** Deletes a binary state from the states DB */
+            /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link delForeignBinaryStateAsync} instead.
+             *
+             * Deletes a binary state from the states DB
+             */
             delBinaryStateAsync(id: string, options?: unknown): Promise<void>;
+
+            /**
+             * Writes a binary state into Redis. The ID will not be prefixed with the adapter namespace.
+             * @param id The id of the state
+             * @param binary The data to be written
+             * @param options (optional) Some internal options.
+             * @param callback Is called when the operation has finished (successfully or not)
+             */
+            setForeignBinaryState(id: string, binary: Buffer, callback: SetStateCallback): void;
+            setForeignBinaryState(id: string, binary: Buffer, options: unknown, callback: SetStateCallback): void;
+            /**
+             * Writes a binary state into Redis. The ID will not be prefixed with the adapter namespace.
+             * @param id The id of the state
+             * @param binary The data to be written
+             * @param options (optional) Some internal options.
+             */
+            setForeignBinaryStateAsync(id: string, binary: Buffer, options?: unknown): SetStatePromise;
+            /**
+             * Reads a binary state from Redis. The ID will not be prefixed with the adapter namespace.
+             * @param id The id of the state
+             * @param options (optional) Some internal options.
+             * @param callback Is called when the operation has finished (successfully or not)
+             */
+            getForeignBinaryState(id: string, callback: GetBinaryStateCallback): void;
+            getForeignBinaryState(id: string, options: unknown, callback: GetBinaryStateCallback): void;
+            /**
+             * Reads a binary state from Redis. The ID will not be prefixed with the adapter namespace.
+             * @param id The id of the state
+             * @param options (optional) Some internal options.
+             */
+            getForeignBinaryStateAsync(id: string, options?: unknown): GetBinaryStatePromise;
+
+            /**
+             * Deletes a binary state from the states DB. The ID will not be prefixed with the adapter namespace.
+             */
+            delForeignBinaryState(id: string, callback?: ErrorCallback): void;
+            delForeignBinaryState(id: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Deletes a binary state from the states DB. The ID will not be prefixed with the adapter namespace.
+             */
+            delForeignBinaryStateAsync(id: string, options?: unknown): Promise<void>;
 
             // ==============================
             // enums
@@ -1025,10 +1136,7 @@ declare global {
             getEnums(enumList: EnumList, callback: GetEnumsCallback): void;
             getEnums(enumList: EnumList, options: unknown, callback: GetEnumsCallback): void;
             /** Returns the enum tree, filtered by the optional enum name */
-            getEnumsAsync(
-                enumList: EnumList,
-                options?: unknown,
-            ): GetEnumsPromise;
+            getEnumsAsync(enumList: EnumList, options?: unknown): GetEnumsPromise;
 
             addChannelToEnum(
                 enumName: string,
@@ -1206,10 +1314,7 @@ declare global {
                 callback?: SetObjectCallback,
             ): void;
             /** creates an object with type device */
-            createDeviceAsync(
-                deviceName: string,
-                common?: Partial<ioBroker.DeviceCommon>,
-            ): SetObjectPromise;
+            createDeviceAsync(deviceName: string, common?: Partial<ioBroker.DeviceCommon>): SetObjectPromise;
             createDeviceAsync(
                 deviceName: string,
                 common: Partial<ioBroker.DeviceCommon>,
@@ -1446,11 +1551,7 @@ declare global {
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
              * @param path - path to directory without adapter name. E.g. If you want to read "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
              */
-            readDirAsync(
-                adapterName: string | null,
-                path: string,
-                options?: unknown,
-            ): ReadDirPromise;
+            readDirAsync(adapterName: string | null, path: string, options?: unknown): ReadDirPromise;
 
             mkDir(adapterName: string | null, path: string, callback: ErrnoCallback): void;
             mkDir(adapterName: string | null, path: string, options: unknown, callback: ErrnoCallback): void;
@@ -1458,11 +1559,7 @@ declare global {
 
             readFile(adapterName: string | null, path: string, callback: ReadFileCallback): void;
             readFile(adapterName: string | null, path: string, options: unknown, callback: ReadFileCallback): void;
-            readFileAsync(
-                adapterName: string | null,
-                path: string,
-                options?: unknown,
-            ): ReadFilePromise;
+            readFileAsync(adapterName: string | null, path: string, options?: unknown): ReadFilePromise;
 
             writeFile(adapterName: string | null, path: string, data: Buffer | string, callback: ErrnoCallback): void;
             // options see https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/objects/objectsInMemServer.js#L599
@@ -1484,12 +1581,13 @@ declare global {
              * Checks if a file exists in the DB
              */
             fileExists(adapterName: string | null, path: string, callback: GenericCallback<boolean>): void;
-            fileExists(adapterName: string | null, path: string, options: unknown, callback: GenericCallback<boolean>): void;
-            fileExistsAsync(
+            fileExists(
                 adapterName: string | null,
                 path: string,
-                options?: unknown,
-            ): Promise<boolean>;
+                options: unknown,
+                callback: GenericCallback<boolean>,
+            ): void;
+            fileExistsAsync(adapterName: string | null, path: string, options?: unknown): Promise<boolean>;
 
             /**
              * Deletes a given file
@@ -1552,7 +1650,7 @@ declare global {
              * Checks if a given feature is supported by the current installation
              * @param featureName The name of the feature to test for
              */
-            supportsFeature?: ((featureName: string) => boolean);
+            supportsFeature?: (featureName: string) => boolean;
 
             /**
              * Returns an instance of a loaded plugin
@@ -1580,17 +1678,17 @@ declare global {
             // Events exposed through EventEmitter interface
             // =============================================
             on(event: 'ready', handler: ReadyHandler): this;
-            on(event: 'unload', handler: UnloadHandler): this;
             on(event: 'stateChange', handler: StateChangeHandler): this;
             on(event: 'objectChange', handler: ObjectChangeHandler): this;
             on(event: 'message', handler: MessageHandler): this;
+            on(event: 'unload', handler: UnloadHandler): this;
             // The error event handler can not be attached later
 
             removeListener(event: 'ready', handler: ReadyHandler): this;
-            removeListener(event: 'unload', handler: UnloadHandler): this;
             removeListener(event: 'stateChange', handler: StateChangeHandler): this;
             removeListener(event: 'objectChange', handler: ObjectChangeHandler): this;
             removeListener(event: 'message', handler: MessageHandler): this;
+            removeListener(event: 'unload', handler: UnloadHandler): this;
 
             removeAllListeners(event?: 'ready' | 'unload' | 'stateChange' | 'objectChange' | 'message'): this;
 
@@ -1605,13 +1703,19 @@ declare global {
             /** Creates an interval that can automatically be cleared when the adapter is terminated */
             setInterval<T extends any[]>(callback: (...args: T) => void, ms: number, ...args: T): Interval;
             clearInterval(intervalId: Interval): void;
+
+            /**
+             * Returns a Promise that resolves after the given delay in milliseconds.
+             * This will automatically be cleared (and not resolve) when the adapter is terminated in the meantime.
+             */
+            delay(delayMs: number): Promise<void>;
         } // end interface Adapter
 
         type ReadyHandler = () => void | Promise<void>;
         type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void | Promise<void>;
         type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
         type MessageHandler = (obj: Message) => void | Promise<void>;
-        type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
+        type UnloadHandler = ((callback: EmptyCallback) => void) | (() => Promise<void>);
         type ErrorHandler = (err: Error) => boolean;
 
         type EmptyCallback = () => void;
@@ -1626,7 +1730,10 @@ declare global {
         type SetObjectCallback = (err?: Error | null, obj?: { id: string }) => void;
         type SetObjectPromise = Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
 
-        type GetObjectCallback<T extends string = string> = (err?: Error | null, obj?: ObjectIdToObjectType<T> | null) => void;
+        type GetObjectCallback<T extends string = string> = (
+            err?: Error | null,
+            obj?: ObjectIdToObjectType<T> | null,
+        ) => void;
         type GetObjectPromise<T extends string = string> = Promise<CallbackReturnTypeOf<GetObjectCallback<T>>>;
 
         type GetEnumCallback = (err?: Error | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
@@ -1641,8 +1748,13 @@ declare global {
         type GetObjectsCallback = (err?: Error | null, objects?: Record<string, ioBroker.Object>) => void;
         type GetObjectsPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
 
-        type GetObjectsCallbackTyped<T extends ObjectType> = (err?: Error | null, objects?: Record<string, ioBroker.AnyObject & {type: T}>) => void;
-        type GetObjectsPromiseTyped<T extends ObjectType> = Promise<NonNullCallbackReturnTypeOf<GetObjectsCallbackTyped<T>>>;
+        type GetObjectsCallbackTyped<T extends ObjectType> = (
+            err?: Error | null,
+            objects?: Record<string, ioBroker.AnyObject & { type: T }>,
+        ) => void;
+        type GetObjectsPromiseTyped<T extends ObjectType> = Promise<
+            NonNullCallbackReturnTypeOf<GetObjectsCallbackTyped<T>>
+        >;
 
         type FindObjectCallback = (
             /** If an error happened, this contains the message */
@@ -1650,7 +1762,7 @@ declare global {
             /** If an object was found, this contains the ID */
             id?: string,
             /** If an object was found, this contains the common.name */
-            name?: string,
+            name?: ObjectCommon['name'],
         ) => void;
 
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
@@ -1701,7 +1813,9 @@ declare global {
             /** Name of the file or directory */
             file: string;
             /** File system stats */
-            stats: fs.Stats;
+            // https://github.com/ioBroker/adapter-core/issues/455
+            // Sometimes the objects db just returns an empty object
+            stats: fs.Stats | Record<string, never>;
             /** Whether this is a directory or a file */
             isDir: boolean;
             /** Access rights */
@@ -1714,8 +1828,8 @@ declare global {
         type ReadDirCallback = (err?: NodeJS.ErrnoException | null, entries?: ReadDirResult[]) => void;
         type ReadDirPromise = Promise<NonNullCallbackReturnTypeOf<ReadDirCallback>>;
 
-        type ReadFileCallback = (err?: NodeJS.ErrnoException | null, file?: Buffer | string, mimeType?: string) => void;
-        type ReadFilePromise = Promise<{ file: string | Buffer; mimeType: string }>;
+        type ReadFileCallback = (err?: NodeJS.ErrnoException | null, data?: Buffer | string, mimeType?: string) => void;
+        type ReadFilePromise = Promise<{ data: string | Buffer; mimeType?: string }>;
 
         /** Contains the return values of chownFile */
         interface ChownFileResult {
@@ -1742,8 +1856,6 @@ declare global {
             path: string;
             /** The name of the deleted file or directory */
             file: string;
-            /** Whether the deleted object was a directory or a file */
-            isDir: boolean;
         }
         type RmCallback = (err?: NodeJS.ErrnoException | null, entries?: RmResult[]) => void;
 
@@ -1751,16 +1863,16 @@ declare global {
 
         type GetConfigKeysCallback = (err?: Error | null, list?: string[]) => void;
 
-        interface GetObjectViewItem {
+        interface GetObjectViewItem<T> {
             /** The ID of this object */
             id: string;
             /** A copy of the object from the DB */
-            value: ioBroker.Object | null;
+            value: T | null;
         }
-        type GetObjectViewCallback = (err?: Error | null, result?: { rows: GetObjectViewItem[] }) => void;
-        type GetObjectViewPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectViewCallback>>;
+        type GetObjectViewCallback<T> = (err?: Error | null, result?: { rows: Array<GetObjectViewItem<T>> }) => void;
+        type GetObjectViewPromise<T> = Promise<NonNullCallbackReturnTypeOf<GetObjectViewCallback<T>>>;
 
-        interface GetObjectListItem extends GetObjectViewItem {
+        interface GetObjectListItem extends GetObjectViewItem<ioBroker.Object> {
             /** A copy of the object */
             value: ioBroker.Object;
             /** The same as @link{value} */
@@ -1777,7 +1889,23 @@ declare global {
 
         type GetSessionCallback = (session: Session) => void;
 
-        type Timeout = number & {__ioBrokerBrand: "Timeout"};
-        type Interval = number & {__ioBrokerBrand: "Interval"};
+        /**
+         * A timeout identifier that can be used to clear the timeout.
+         * @remarks Note that this is actually a `number` type, but it
+         * is not compatible with `globalThis.clearTimeout`. Provide
+         * this to iobroker's `adatper.clearTimeout` instead.
+         */
+        interface Timeout {
+            __ioBrokerBrand: 'Timeout';
+        }
+        /**
+         * An interval identifier that can be used to clear the interval.
+         * @remarks Note that this is actually a `number` type, but it
+         * is not compatible with `globalThis.clearInterval`. Provide
+         * this to iobroker's `adapter.clearInterval` instead.
+         */
+        interface Interval {
+            __ioBrokerBrand: 'Interval';
+        }
     } // end namespace ioBroker
 } // end declare global

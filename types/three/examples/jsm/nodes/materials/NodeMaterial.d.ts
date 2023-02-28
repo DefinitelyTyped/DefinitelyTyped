@@ -1,28 +1,22 @@
-import { ShaderMaterial, WebGLRenderer } from '../../../../src/Three';
+import { Material, ShaderMaterial } from '../../../../src/Three';
+import NodeBuilder from '../core/NodeBuilder';
+import Node from '../core/Node';
+import { LightingModelNode } from '../lighting/LightingContextNode';
 
-import { Node } from '../core/Node.js';
-import { NodeBuilder } from '../core/NodeBuilder';
-import { NodeFrame } from '../core/NodeFrame';
-import { RawNode } from './nodes/RawNode';
+export default class NodeMaterial extends ShaderMaterial {
+    isNodeMaterial: true;
+    lights: true;
+    type: string;
+    constructor();
 
-export interface NodeMaterialBuildParams {
-    builder?: NodeBuilder;
-    renderer?: WebGLRenderer;
-}
-
-export class NodeMaterial extends ShaderMaterial {
-    constructor(vertex: Node, fragment: Node);
-
-    vertex: Node | RawNode;
-    fragment: Node | RawNode;
-
-    updaters: object[];
-
-    readonly isNodeMaterial: true;
-    properties: object;
-
-    updateFrame(frame: NodeFrame): void;
-    build(params?: NodeMaterialBuildParams): this;
-    getHash(): string;
-    copy(source: NodeMaterial): this;
+    build(builder: NodeBuilder): void;
+    customProgramCacheKey(): string;
+    generatePosition(builder: NodeBuilder): void;
+    generateDiffuseColor(builder: NodeBuilder): void;
+    generateLight(
+        builder: NodeBuilder,
+        lights: { diffuseColorNode: Node; lightingModelNode: LightingModelNode; lightsNode?: Node },
+    ): void;
+    generateOutput(builder: NodeBuilder, lights: { diffuseColorNode: Node; outgoingLightNode: Node }): void;
+    static fromMaterial(m: Material): NodeMaterial;
 }

@@ -2,13 +2,13 @@ import { CylinderGeometry } from './CylinderGeometry';
 
 export class ConeGeometry extends CylinderGeometry {
     /**
-     * @param [radius=1] — Radius of the cone base.
-     * @param [height=1] — Height of the cone.
-     * @param [radialSegments=8] — Number of segmented faces around the circumference of the cone.
-     * @param [heightSegments=1] — Number of rows of faces along the height of the cone.
-     * @param [openEnded=false] — A Boolean indicating whether the base of the cone is open or capped.
-     * @param [thetaStart=0]
-     * @param [thetaLength=Math.PI * 2]
+     * @param radius - Radius of the cone base. Default is 1.
+     * @param height - Height of the cone. Default is 1.
+     * @param radialSegments - Number of segmented faces around the circumference of the cone. Default is 32
+     * @param heightSegments - Number of rows of faces along the height of the cone. Default is 1.
+     * @param openEnded - A Boolean indicating whether the base of the cone is open or capped. Default is false, meaning capped.
+     * @param thetaStart - Start angle for first segment, default = 0 (three o'clock position).
+     * @param thetaLength - The central angle, often called theta, of the circular sector. The default is 2*Pi, which makes for a complete cone.
      */
     constructor(
         radius?: number,
@@ -27,5 +27,3 @@ export class ConeGeometry extends CylinderGeometry {
 
     static fromJSON(data: any): ConeGeometry;
 }
-
-export { ConeGeometry as ConeBufferGeometry };

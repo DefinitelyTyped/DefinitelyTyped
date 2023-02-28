@@ -57,10 +57,13 @@ let options: OptionElement[];
 let cells: TableCellElement[];
 
 // parseHTML
-parseHTML(); // $ExpectError
-parseHTML(5); // $ExpectError
+// @ts-expect-error
+parseHTML();
+// @ts-expect-error
+parseHTML(5);
 selection = parseHTML('<html></html>');
-parseHTML('<html></html>', 5); // $ExpectError
+// @ts-expect-error
+parseHTML('<html></html>', 5);
 
 // Selection
 selection = parseHTML('<html></html>');

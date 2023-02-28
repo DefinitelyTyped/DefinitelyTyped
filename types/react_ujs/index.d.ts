@@ -7,7 +7,7 @@
 /// <reference types="react" />
 
 // We need to reference `typeof ReactRailsUJS` in a few places, so the namespace is needed.
-/* tslint:disable-next-line export-just-namespace */
+/* eslint-disable-next-line export-just-namespace */
 export = ReactRailsUJS;
 
 export as namespace ReactRailsUJS;

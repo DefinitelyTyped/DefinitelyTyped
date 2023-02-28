@@ -42,9 +42,21 @@ memoized(String({ toString() { return "12"; } }), Number({}));
     const afn = (a: number, b: number) => {
         return new Promise(res => { res(a + b); });
     };
-    const memoized = memoize(afn, { promise: true });
+    let memoized = memoize(afn, { promise: true });
     memoized(3, 7);
     memoized(3, 7);
+
+    memoized = memoize(afn, { promise: 'then' });
+    memoized(2, 7);
+    memoized(2, 7);
+
+    memoized = memoize(afn, { promise: 'done' });
+    memoized(5, 7);
+    memoized(5, 7);
+
+    memoized = memoize(afn, { promise: 'done:finally' });
+    memoized(8, 7);
+    memoized(8, 7);
 }
 
 memoized = memoize(fn, { maxAge: 1000, preFetch: 0.6 });
@@ -65,3 +77,5 @@ memoize((foo: string, bar: number) => 42, {
     return foo + bar.toFixed();
   }
 });
+
+memoized = memoize(fn, { profileName: 'foo' });

@@ -168,3 +168,9 @@ Rsync.build({
 Rsync.build({
   flags: [ 'avz', '123' ],
 })
+
+// Static build for methods that don't take arguments
+Rsync.build({
+    progress: true,
+    archive: true
+});

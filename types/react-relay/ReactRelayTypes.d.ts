@@ -1,13 +1,6 @@
 import * as React from 'react';
 
-import {
-    Disposable,
-    Environment,
-    Observer,
-    Variables,
-    _FragmentRefs,
-    _RefType
-} from 'relay-runtime';
+import { Disposable, Environment, Observer, Variables, _FragmentRefs, _RefType } from 'relay-runtime';
 
 export { FragmentRef } from 'relay-runtime';
 

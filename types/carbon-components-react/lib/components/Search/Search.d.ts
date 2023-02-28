@@ -2,6 +2,7 @@ import * as React from "react";
 import { ReactInputAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "defaultValue" | "ref" | "size" | "value";
+export type SearchSpreadElement = HTMLInputElement;
 
 export interface SearchProps extends Omit<ReactInputAttr, ExcludedAttributes> {
     closeButtonLabelText?: string | undefined,

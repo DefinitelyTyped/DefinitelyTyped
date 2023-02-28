@@ -39,14 +39,14 @@ async function loadWithSpecificLoaderInferOptionType() {
     const nebula: Nebula = await result;
   }
 
-  // $ExpectError
+  // @ts-expect-error
   await registry.load<Nebula, NebulaLoader>(node, {});
-  // $ExpectError
+  // @ts-expect-error
   await registry.load<Nebula, NebulaLoader>(node, { bar: 5 });
 }
 
 async function wrongLoaderForType() {
-  // $ExpectError
+  // @ts-expect-error
   await registry.load<string, NebulaLoader>(node);
 }
 

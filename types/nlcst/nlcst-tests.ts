@@ -140,6 +140,6 @@ paragraph = {
     type: 'ParagraphNode',
     data,
     position,
-    // $ExpectError
+    // @ts-expect-error
     children: [{ type: 'invalid' }],
 };

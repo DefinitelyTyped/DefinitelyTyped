@@ -1,38 +1,39 @@
-import karma = require("karma");
-import { Server } from "karma";
+import karma = require('karma');
+import { Config, ConfigOptions, Server } from 'karma';
 
-karma.runner.run({ port: 9876 }, (exitCode: number) => {
-    console.log("Karma has exited with " + exitCode);
+karma.runner.run({ port: 9876 }, exitCode => {
+    exitCode; // $ExpectType number
     process.exit(exitCode);
 });
 
 karma.stopper.stop({ port: 9876 }, exitCode => {
+    exitCode; // $ExpectType number
     if (exitCode === 0) {
-        console.log("Server stop as initiated");
+        // do something
     }
     process.exit(exitCode);
 });
 
-new Server({ logLevel: "debug", port: 9876 }, (exitCode: number) => {
-    console.log("Karma has exited with " + exitCode);
+new Server({ logLevel: 'debug', port: 9876 }, exitCode => {
+    exitCode; // $ExpectType number
     process.exit(exitCode);
 });
 
 karma.config.parseConfig(null, { port: 9876 }, { promiseConfig: true, throwErrors: true }).then(karmaConfig => {
-    const server = new Server(karmaConfig, function doneCallback(exitCode) {
-        console.log("Karma has exited with " + exitCode);
+    const server = new Server(karmaConfig, exitCode => {
+        exitCode; // $ExpectType number
         process.exit(exitCode);
     });
 
     server.start(); // $ExpectType Promise<void>
 
-    server.refreshFiles();
-
-    server.on("browser_register", (browser: any) => {
-        console.log("A new browser was registered");
+    server.refreshFiles(); // $ExpectType Promise<any>
+    server.refreshFile('src/js/module-dep.js'); // $ExpectType Promise<any>
+    server.on('browser_register', (browser: any) => {
+        browser; // $ExpectType any
     });
 
-    server.on("run_complete", (browsers, results) => {
+    server.on('run_complete', (browsers, results) => {
         results.disconnected = false;
         results.error = false;
         results.exitCode = 0;
@@ -43,54 +44,71 @@ karma.config.parseConfig(null, { port: 9876 }, { promiseConfig: true, throwError
     server.stop(); // $ExpectType Promise<void>
 
     karma.runner.run(karmaConfig, (exitCode: number) => {
-        console.log("Karma has exited with " + exitCode);
+        exitCode; // $ExpectType number
         process.exit(exitCode);
     });
 
-    karma.stopper.stop(karmaConfig, (exitCode: number) => {
+    karma.stopper.stop(karmaConfig, exitCode => {
+        exitCode; // $ExpectType number
         if (exitCode === 0) {
-            console.log("Server stop as initiated");
+            // do something
         }
         process.exit(exitCode);
     });
 });
 
 const testLauncher = (launcher: karma.launcher.Launcher) => {
-    const captured: boolean = launcher.areAllCaptured();
+    const captured = launcher.areAllCaptured(); // $ExpectType boolean
 };
 
-// Example of configuration file karma.conf.ts, see http://karma-runner.github.io/latest/config/configuration-file.html
-module.exports = (config: karma.Config) => {
+// Example of configuration file conf.ts, see http://karma-runner.github.io/latest/config/configuration-file.html
+module.exports = (config: Config) => {
     config.set({
+        autoWatchBatchDelay: 2000,
+        captureTimeout: 5000,
+        colors: true,
+        concurrency: Infinity,
+        crossOriginAttribute: true,
+        customContextFile: './customContextFile.html',
+        customClientContextFile: './customClientContextFile.html',
+        customDebugFile: './customDebugFile.html',
+        hostname: 'localhost',
+        httpModule: 'http',
+        httpsServerOptions: {
+            key: './key.pem',
+        },
         logLevel: config.LOG_DEBUG,
-        basePath: "..",
-        urlRoot: "/base/",
-        frameworks: ["jasmine"],
+        proxyValidateSSL: true,
+        reportSlowerThan: 500,
+        transports: ['polling'],
+        basePath: '..',
+        urlRoot: '/base/',
+        frameworks: ['jasmine'],
 
         files: [
-            { pattern: "lib/angular.js", watched: false },
-            "test/unit/*.spec.js",
-            { pattern: "compiled/index.html", watched: false },
-            { pattern: "app/index.html", included: false, served: false },
-            { pattern: "compiled/app.js.map", included: false, served: true, watched: false, nocache: true },
-            { pattern: "test/images/*.jpg", watched: false, included: false, served: true, nocache: false },
+            { pattern: 'lib/angular.js', watched: false },
+            'test/unit/*.spec.js',
+            { pattern: 'compiled/index.html', watched: false },
+            { pattern: 'app/index.html', included: false, served: false },
+            { pattern: 'compiled/app.js.map', included: false, served: true, watched: false, nocache: true },
+            { pattern: 'test/images/*.jpg', watched: false, included: false, served: true, nocache: false },
         ],
 
         loggers: {
-            custom: { type: "file", filename: "log.txt" },
+            custom: { type: 'file', filename: 'log.txt' },
         },
 
-        reporters: ["progress", "coverage"],
+        reporters: ['progress', 'coverage'],
 
-        middleware: ["foo", "bar"],
-        beforeMiddleware: ["foo", "bar"],
+        middleware: ['foo', 'bar'],
+        beforeMiddleware: ['foo', 'bar'],
 
         mime: {
-            "text/x-typescript": ["ts", "tsx"],
+            'text/x-typescript': ['ts', 'tsx'],
         },
 
         preprocessors: {
-            "app.js": ["coverage"],
+            'app.js': ['coverage'],
         },
 
         port: 9876,
@@ -102,18 +120,18 @@ module.exports = (config: karma.Config) => {
         browserNoActivityTimeout: 10_000,
         browserSocketTimeout: 20_000,
 
-        browsers: ["Chrome", "Firefox", "FirefoxHeadless"],
+        browsers: ['Chrome', 'Firefox', 'FirefoxHeadless'],
         customHeaders: [
             {
-                match: ".*foo.html",
-                name: "Service-Worker-Allowed",
-                value: "/",
+                match: '.*foo.html',
+                name: 'Service-Worker-Allowed',
+                value: '/',
             },
         ],
         customLaunchers: {
             ChromiumHeadless_without_security: {
-                base: "ChromiumHeadless",
-                flags: ["--no-sandbox", "--disable-setuid-sandbox"],
+                base: 'ChromiumHeadless',
+                flags: ['--no-sandbox', '--disable-setuid-sandbox'],
             },
         },
         detached: true,
@@ -122,25 +140,25 @@ module.exports = (config: karma.Config) => {
         failOnFailingTestSuite: false,
         forceJSONP: true,
         formatError: msg => `error: ${msg}`,
-        listenAddress: "0.0.0.0",
+        listenAddress: '0.0.0.0',
         pingTimeout: 2000,
         processKillTimeout: 3000,
         proxies: {
-            "/static": "http://gstatic.com",
-            "/web": "http://localhost:9000",
-            "/img/": "/base/test/images/",
-            "/proxyfied": {
-                target: "http://myserver.localhost",
+            '/static': 'http://gstatic.com',
+            '/web': 'http://localhost:9000',
+            '/img/': '/base/test/images/',
+            '/proxyfied': {
+                target: 'http://myserver.localhost',
                 changeOrigin: true,
             },
         },
         proxyReq: (proxyReq, req, res, options) => {
-            proxyReq.setHeader("Referer", "https://www.example.com/");
+            proxyReq.setHeader('Referer', 'https://www.example.com/');
         },
         proxyRes: (proxyRes, req, res) => {
-            if (proxyRes.headers["set-cookie"]) {
-                proxyRes.headers["set-cookie"] = proxyRes.headers["set-cookie"].map((cookie: string) => {
-                    return cookie.replace(/\s*secure;?/i, "");
+            if (proxyRes.headers['set-cookie']) {
+                proxyRes.headers['set-cookie'] = proxyRes.headers['set-cookie'].map((cookie: string) => {
+                    return cookie.replace(/\s*secure;?/i, '');
                 });
             }
         },
@@ -148,32 +166,32 @@ module.exports = (config: karma.Config) => {
         restartOnFileChange: true,
         retryLimit: 5,
         browserConsoleLogOptions: {
-            level: "warn",
-            format: "%b %T: %m",
-            path: "some/path/to.log",
+            level: 'warn',
+            format: '%b %T: %m',
+            path: 'some/path/to.log',
             terminal: false,
         },
         upstreamProxy: {
-            hostname: "localhost",
-            path: "/",
+            hostname: 'localhost',
+            path: '/',
             port: 27001,
-            protocol: "http",
+            protocol: 'http',
         },
     });
 };
 
 // custom browser config
-const customBrowser = (config: karma.Config) => {
+const customBrowser = (config: Config) => {
     config.set({
-        browsers: ["Safari", "my-custom-browser", "Firefox", "/usr/local/bin/custom-browser.sh"],
+        browsers: ['Safari', 'my-custom-browser', 'Firefox', '/usr/local/bin/custom-browser.sh'],
     });
 };
 
 // plugins
-function CustomMiddlewareFactory(config: karma.ConfigOptions) {
+function CustomMiddlewareFactory(config: ConfigOptions) {
     return (request: any, response: any /* next */) => {
         response.writeHead(200);
-        return response.end("content!");
+        return response.end('content!');
     };
 }
 
@@ -186,30 +204,29 @@ class CustomPluginClass {
     log: () => {};
 }
 
-const pluginsTests = (config: karma.Config) => {
+const pluginsTests = (config: Config) => {
     config.set({
-        middleware: ["custom"],
+        middleware: ['custom'],
         plugins: [
-            "karma-jasmine",
-            "karma-chrome-launcher",
-            { "framework:xyz": ["factory", CustomMiddlewareFactory] },
-            { "framework:abc": ["type", CustomPlugin] },
-            { "framework:abc": ["type", CustomPluginClass] },
-            { "framework:xyz": ["value", 5] },
+            'karma-jasmine',
+            'karma-chrome-launcher',
+            { 'framework:xyz': ['factory', CustomMiddlewareFactory] },
+            { 'framework:abc': ['type', CustomPlugin] },
+            { 'framework:abc': ['type', CustomPluginClass] },
+            { 'framework:xyz': ['value', 5] },
         ],
     });
 };
+karma.constants.DEFAULT_HOSTNAME; // $ExpectType string
+karma.VERSION; // $ExpectType string
 
-console.log(karma.constants.DEFAULT_HOSTNAME);
-console.log(karma.VERSION);
-
-const syncConfig: karma.Config = karma.config.parseConfig("karma.conf.js", {
+const syncConfig: Config = karma.config.parseConfig('conf.js', {
     singleRun: true,
     restartOnFileChange: true,
 });
 
-const syncConfig2: karma.Config = karma.config.parseConfig(
-    "karma.conf.js",
+const syncConfig2: Config = karma.config.parseConfig(
+    'conf.js',
     {
         singleRun: true,
         restartOnFileChange: true,
@@ -219,8 +236,8 @@ const syncConfig2: karma.Config = karma.config.parseConfig(
     },
 );
 
-const asyncConfig: Promise<karma.Config> = karma.config.parseConfig(
-    "karma.conf.js",
+const asyncConfig: Promise<Config> = karma.config.parseConfig(
+    'conf.js',
     {
         singleRun: true,
         restartOnFileChange: true,
@@ -248,4 +265,4 @@ karma.constants.COLOR_PATTERN; // $ExpectType string
 karma.constants.NO_COLOR_PATTERN; // $ExpectType string
 karma.constants.CONSOLE_APPENDER; // $ExpectType { type: string; layout: { type: string; pattern: string; }; }
 karma.constants.EXIT_CODE; // $ExpectType string
-karma.constants.LOG_PRIORITIES[5] === "DEBUG";
+karma.constants.LOG_PRIORITIES[5] === 'DEBUG';

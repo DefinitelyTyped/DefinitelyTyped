@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.6
+// Type definitions for non-npm package Google Pay API 0.7
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -7,6 +7,7 @@
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
 //                 Jose L Ugia <https://github.com/JlUgia>
+//                 Dominik Mengelt <https://github.com/dmengelt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
@@ -793,6 +794,17 @@ declare namespace google.payments.api {
         allowCreditCards?: false | true | undefined;
 
         /**
+         * Set to `true` to request assuranceDetails.
+         *
+         * If omitted, defaults to `false`.
+         *
+         * You may set if you need object provides information about the validation performed on the returned payment data.
+         *
+         * @default false
+         */
+        assuranceDetailsRequired?: boolean | undefined;
+
+        /**
          * Whether a billing address is required from the buyer.
          *
          * If omitted, defaults to `false`.
@@ -822,6 +834,38 @@ declare namespace google.payments.api {
          * parameters are needed to complete a transaction.
          */
         cardNetworkParameters?: CardNetworkParameters[] | undefined;
+
+        /**
+         * You might require the card verification code (CVC) value of a card in order to process a transaction
+         * for various regulations, security requirements, or acquirers’ requirements. By default,
+         * the CVC isn't requested from the user in Google Pay during checkout since it's required and verified
+         * in the initial card acquisition. If you want CVC to be present in the payment token,
+         * communicate with your point of contact from Google to turn this feature on.
+         *
+         * @default false
+         */
+        cvcRequired?: boolean | undefined;
+    }
+
+    /**
+     * Assurance details about what validation has been performed on the returned payment credentials so that appropriate instrument risk checks can be applied.
+     *
+     *  Note: If both cardHolderAuthenticated and accountVerified are true, you don’t need to step up the returned credentials.
+     *  If both aren’t, we recommend you to run the same risk checks and , authentication including 3D Secure flow if applicable.
+     */
+    interface AssuranceDetails {
+        /**
+         * If true, indicates that Cardholder possession validation has been performed on returned payment credential.
+         */
+        accountVerified?: boolean | undefined;
+
+        /**
+         * If true, indicates that identification and verifications (ID&V) was performed on the returned payment credential.
+         *
+         * If false, the same risk-based authentication can be performed as you would for card transactions.
+         * This risk-based authentication can include, but not limited to, step-up with 3D Secure protocol if applicable.
+         */
+        cardHolderAuthenticated?: boolean | undefined;
     }
 
     /**
@@ -1090,6 +1134,17 @@ declare namespace google.payments.api {
      * method.
      */
     interface CardInfo {
+        /*
+         *  AssuranceDetails
+         *
+         *  This object provides information about what validation
+         *  has been performed on the returned payment credentials
+         *  so that appropriate instrument risk checks can be applied.
+         *
+         *  To receive this object, set assuranceDetailsRequired: true inside CardParameters
+         */
+        assuranceDetails?: AssuranceDetails | undefined;
+
         /**
          * The card network.
          *

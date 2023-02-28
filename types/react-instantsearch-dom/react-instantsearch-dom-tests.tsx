@@ -1,21 +1,22 @@
 import * as React from 'react';
 import {
-  InstantSearch,
-  Hits,
-  Highlight,
-  SearchBox,
-  RefinementList,
-  CurrentRefinements,
   ClearRefinements,
-  Pagination,
-  Menu,
   Configure,
-  Index,
-  SortBy,
+  CurrentRefinements,
+  DynamicWidgets,
+  Highlight,
+  Hits,
   HitsPerPage,
+  Index,
+  InstantSearch,
+  Menu,
   MenuSelect,
+  Pagination,
+  RefinementList,
+  SearchBox,
+  SortBy,
 } from 'react-instantsearch/dom';
-import { Hit, connectRefinementList, connectMenu, InstantSearchProps } from 'react-instantsearch-core';
+import { Hit, InstantSearchProps } from 'react-instantsearch-core';
 
 // DOM
 () => {
@@ -332,4 +333,17 @@ const test = () => {
       seeAllOption: 'See all',
     }}
   />;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/react/
+  <DynamicWidgets
+    transformItems={item => item}
+    fallbackComponent={RefinementList}
+    facets={['*']}
+    maxValuesPerFacet={20}
+    className="test"
+  >
+    <RefinementList attribute="brand"/>
+  </DynamicWidgets>;
 };

@@ -4,7 +4,7 @@ const options: tmi.Options = {
     channels: ['#channel1', '#channel2'],
     connection: {
         maxReconnectAttempts: 2,
-        maxReconnectInverval: 10,
+        maxReconnectInterval: 10,
         port: 100,
         reconnect: true,
         reconnectDecay: 20,
@@ -107,5 +107,14 @@ client.connect().then(() => {
     }).once("emotesets", (sets: string, emotes: tmi.EmoteObj) => {
         emotes.test[0].code;
         emotes.test[0].id;
+    }).once("ban", (channel: string, username: string, reason: string, userstate: tmi.BanUserstate) => {
+        userstate["room-id"];
+        userstate["target-user-id"];
+        userstate["tmi-sent-ts"];
+    }).once("timeout", (channel: string, username: string, reason: string, duration: number, userstate: tmi.TimeoutUserstate) => {
+        userstate["room-id"];
+        userstate["target-user-id"];
+        userstate["tmi-sent-ts"];
+        userstate["ban-duration"];
     });
 });

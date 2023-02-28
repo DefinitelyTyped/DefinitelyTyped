@@ -16,7 +16,6 @@
 //                 Eliseu Monar dos Santos <https://github.com/eliseumds>
 //                 Craig Michael Thompson <https://github.com/craga89>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Hammad Jutt <https://github.com/hammadj>
 //                 Dhruv Jain <https://github.com/maddhruv>
 //                 Jeffrey Cherewaty <https://github.com/cherewaty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -139,7 +138,7 @@ export interface LowLevelStyleFunctionArguments<N, S> {
 }
 
 export function style<N = string | number, S = Scale>(
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     args: LowLevelStyleFunctionArguments<N, S>,
 ): styleFn;
 
@@ -209,7 +208,7 @@ export function variant<
     K extends string = string,
     TPropName = string,
     >(
-        // tslint:disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         props: VariantArgs<TStyle, K, TPropName>
     ): (...args: any[]) => any;
 /**

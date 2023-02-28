@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import { QuestionCollection } from 'inquirer';
+import { QuestionCollection, Answers } from 'inquirer';
 
 type WriteLevel = 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR';
 
@@ -88,5 +88,5 @@ declare class UI {
      * Launch the prompt interface (inquiry session) with (Array of Questions || Question)
      * See [Inquirer.js#question](https://github.com/SBoudrias/Inquirer.js#question) for Question properties
      */
-    prompt<T>(questions: QuestionCollection<T>, callback?: (answers: T) => void): Promise<T>;
+    prompt<T extends Answers>(questions: QuestionCollection<T>, callback?: (answers: T) => void): Promise<T>;
 }

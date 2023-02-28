@@ -39,7 +39,13 @@ const client = new CoinGecko();
         tickers: false
     })).data.market_data.total_volume.cad;
 
-    (await client.coins.fetchMarketChart("bitcoin", {vs_currency: "usd", days: "1"}));
+    (await client.coins.fetchMarketChart("bitcoin", {vs_currency: "usd", days: "1"})).data.market_caps[0][1];
+
+    (await client.coins.fetchMarketChart("bitcoin", {vs_currency: "usd", days: "1", interval: "daily"})).data.market_caps[0][1];
+
+    (await client.coins.fetchMarketChart("bitcoin", {vs_currency: "usd", days: "1", interval: "daily"})).data.prices[0][1];
+
+    (await client.coins.fetchMarketChart("bitcoin", {vs_currency: "usd", days: "1", interval: "daily"})).data.total_volumes[0][1];
 
     (await client.coins.fetch("bitcoin", {
         tickers: true
@@ -56,5 +62,5 @@ const client = new CoinGecko();
     /**
      * simple
      */
-    await client.simple.price({ ids: ['pickle-finance', 'ethereum'], vs_currencies: 'usd', include_market_cap: true });
+    await client.simple.price({ ids: ['pickle-finance', 'ethereum'], vs_currencies: 'usd', include_market_cap: true , include_24hr_change: true});
 })();

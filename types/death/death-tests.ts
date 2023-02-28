@@ -31,6 +31,6 @@ const unsub5: () => void = ON_DEATH({
     SIGTERM: true,
     SIGQUIT: true,
 })(
-    // $ExpectError
+    // @ts-expect-error
     (value: 'SIGINT' | 'SIGTERM' | 'SIGQUIT') => {},
 );

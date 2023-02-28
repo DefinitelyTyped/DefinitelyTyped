@@ -1,8 +1,8 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
-import Drawer from "../drawer";
-import Observer from "../util/observer";
-import WaveSurfer from "../wavesurfer";
-import RegionsPlugin from "./regions";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Drawer from '../drawer';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
+import RegionsPlugin from './regions';
 
 export default class MinimapPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: MinimapPluginParams, ws: WaveSurfer);
@@ -28,7 +28,7 @@ export default class MinimapPlugin extends Observer implements WaveSurferPlugin 
     readonly ratio: number;
     readonly regionsPlugin: RegionsPlugin | null;
     readonly renderEvent: string;
-    readonly util: WaveSurfer["util"];
+    readonly util: WaveSurfer['util'];
     readonly waveShowedWidth: number;
     readonly waveWidth: number;
     readonly wavesurfer: WaveSurfer;

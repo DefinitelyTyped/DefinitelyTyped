@@ -59,6 +59,10 @@ export interface ToISOTimeDurationOptions {
     format?: ToISOFormat | undefined;
 }
 
+export interface ToHumanDurationOptions extends Intl.NumberFormatOptions {
+    listStyle?: 'long' | 'short' | 'narrow' | undefined;
+}
+
 /**
  * Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
  *
@@ -104,7 +108,7 @@ export class Duration {
      * Create a Duration from a JavaScript object with keys like 'years' and 'hours'.
      * If this object is empty then a zero milliseconds duration is returned.
      *
-     * @param obj - the object to create the DateTime from
+     * @param obj - the object to create the Duration from
      * @param obj.years
      * @param obj.quarters
      * @param obj.months
@@ -186,6 +190,8 @@ export class Duration {
      */
     static isDuration(o: unknown): o is Duration;
 
+    private constructor(config: unknown);
+
     /**
      * Get  the locale of a Duration, such 'en-GB'
      */
@@ -221,6 +227,20 @@ export class Duration {
      * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("M S") //=> "12 518402000"
      */
     toFormat(fmt: string, opts?: { floor?: boolean | undefined }): string;
+
+    /**
+     * Returns a string representation of a Duration with all units included
+     * To modify its behavior use the `listStyle` and any Intl.NumberFormat option, though `unitDisplay` is especially relevant. See {@link Intl.NumberFormat}.
+     * @param opts - On option object to override the formatting. Accepts the same keys as the options parameter of the native `Int.NumberFormat` constructor, as well as `listStyle`.
+     * @example
+     * ```js
+     * var dur = Duration.fromObject({ days: 1, hours: 5, minutes: 6 })
+     * dur.toHuman() //=> '1 day, 5 hours, 6 minutes'
+     * dur.toHuman({ listStyle: "long" }) //=> '1 day, 5 hours, and 6 minutes'
+     * dur.toHuman({ unitDisplay: "short" }) //=> '1 day, 5 hr, 6 min'
+     * ```
+     */
+    toHuman(opts?: ToHumanDurationOptions): string;
 
     /**
      * Returns a JavaScript object with this Duration's values.
@@ -373,12 +393,26 @@ export class Duration {
     normalize(): Duration;
 
     /**
+     * Rescale units to its largest representation.
+     *
+     * @example
+     * Duration.fromObject({ milliseconds: 90000 }).rescale().toObject() //=> { minutes: 1, seconds: 30 }
+     */
+    rescale(): Duration;
+
+    /**
      * Convert this Duration into its representation in a different set of units.
      *
      * @example
      * Duration.fromObject({ hours: 1, seconds: 30 }).shiftTo('minutes', 'milliseconds').toObject() //=> { minutes: 60, milliseconds: 30000 }
      */
     shiftTo(...units: DurationUnit[]): Duration;
+
+    /**
+     * Shift this Duration to all available units.
+     * Same as shiftTo("years", "months", "weeks", "days", "hours", "minutes", "seconds", "milliseconds")
+     */
+    shiftToAll(): Duration;
 
     /**
      * Return the negative of this Duration.

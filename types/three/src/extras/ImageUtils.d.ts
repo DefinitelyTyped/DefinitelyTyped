@@ -28,4 +28,6 @@ export namespace ImageUtils {
         onLoad?: (texture: Texture) => void,
         onError?: (message: string) => void,
     ): Texture;
+
+    function sRGBToLinear(image: any): HTMLCanvasElement | { data: number[]; width: number; height: number };
 }

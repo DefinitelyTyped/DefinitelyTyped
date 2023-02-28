@@ -5,7 +5,7 @@ import * as omggif from 'omggif';
 
 // Needs to be large enough for the final full file size.  Can be any type of
 // buffer that supports [] (an Array, Uint8Array, Node Buffer, etc).
-const buf = new Buffer(1024 * 1024);
+const buf: omggif.GifBinary = [];
 
 function gen_static_global() {
     const gf = new omggif.GifWriter(buf, 2, 2, { palette: [0xff0000, 0x0000ff] });
@@ -76,7 +76,7 @@ function gen_block256() {
     const stream = Array(width);
     for (let i = 0; i < width; ++i) stream[i] = i & 0x7;
     gf.addFrame(0, 0, width, 1, stream, { transparent: 0 });
-    const data = buf.slice(0, gf.end());
+    const data = Array.from(buf).slice(0, gf.end());
     // Make sure it decodes.
     const gr = new omggif.GifReader(data);
     const frameInfo = gr.frameInfo(0);

@@ -107,6 +107,6 @@ const ImageWithCallbacks = () => (
 
   // Omitting scrollPosition is OK but omitting images is not.
   <WrappedGallery images={[]} />;
-  // $ExpectError
+  // @ts-expect-error
   <WrappedGallery />;
 }

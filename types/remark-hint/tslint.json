@@ -1,0 +1,6 @@
+{
+  "extends": "@definitelytyped/dtslint/dt.json",
+  "rules": {
+    "no-outside-dependencies": false
+  }
+}

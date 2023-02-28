@@ -2,7 +2,7 @@
 // Project: https://github.com/CampbellSoftwareSolutions/mongoose-id-validator
 // Definitions by: Kerollos Magdy <https://github.com/kerolloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 
 import { Schema, Connection } from 'mongoose';
 

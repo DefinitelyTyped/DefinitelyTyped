@@ -1,8 +1,8 @@
-// Type definitions for stream-demux 7.0
+// Type definitions for stream-demux 8.0
 // Project: https://github.com/SocketCluster/stream-demux
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
 
 import Consumer = require('writable-consumable-stream/consumer');
 

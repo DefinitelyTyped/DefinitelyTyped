@@ -350,7 +350,7 @@ export class Redirect {
             connection: string;
             /** allow userMetadata to be passed to signUp */
             userMetadata?: unknown | undefined;
-        },
+        } & CrossOriginLoginOptions,
         callback: Auth0Callback<any>,
     ): void;
 }
@@ -754,7 +754,7 @@ export interface PasswordlessStartAuthParams extends BaseAuthOptions {
 
 export interface PasswordlessStartOptions {
     connection: string;
-    send: string;
+    send: "link" | "code";
     phoneNumber?: string | undefined;
     email?: string | undefined;
     authParams?: PasswordlessStartAuthParams | undefined;
@@ -765,7 +765,7 @@ export interface PasswordlessVerifyOptions extends BaseAuthOptions {
     verificationCode: string;
     phoneNumber?: string | undefined;
     email?: string | undefined;
-    send?: string | undefined;
+    send?: "link" | "code" | undefined;
     responseMode?: string | undefined;
 }
 
@@ -892,6 +892,7 @@ export interface CrossOriginLoginOptions {
     nonce?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    onRedirecting?: (done: () => void) => void | undefined;
 }
 
 export interface LogoutOptions {

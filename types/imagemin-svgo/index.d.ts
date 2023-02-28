@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Plugin } from 'imagemin';
-import { Options as SvgoOptions } from 'svgo';
+import { OptimizeOptions as SvgoOptions } from 'svgo';
 
 /**
  * SVGO imagemin plugin

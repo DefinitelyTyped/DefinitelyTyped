@@ -1,68 +1,89 @@
-import { ZC } from "zingchart/server/zingchart-nodejs.min.js";
-import zingchart from "zingchart/es6";
+import { ZC } from 'zingchart/server/zingchart-nodejs.min.js';
+import zingchart from 'zingchart/es6';
+import { zingchart as zc } from 'zingchart/es6/index';
 
 zingchart.ASYNC = true;
 zingchart.DEV.CANVASVERSION = 2;
+zingchart.FONTSIZE = 14;
 ZC.VERSION = '2.9.4';
+
+const chartConfig: zc.graphset[] = [
+    {
+        type: 'grid',
+        plotarea: {
+            margin: '35 20 20 20',
+        },
+        options: {
+            headerRow: true,
+            dataClass: ['fillRed', 'fillGreen', 'fillBlue', 'fillOrange'],
+            colLabels: ['First Name', 'Last Name', 'Birthday', 'Country'],
+            style: {
+                '.td_even': {
+                    backgroundColor: '#FBFDFE',
+                },
+            },
+        },
+        series: [
+            {
+                values: ['Jon', 'Anderson', 'January 25, 1950', 'United Kingdom'],
+            },
+            {
+                values: ['Steve', 'Hogarth', 'January 25, 1950', 'United Kingdom'],
+            },
+            {
+                values: ['Jim', 'Carrey', 'June 12, 1972', 'United States'],
+            },
+            {
+                values: ['Paul', 'Hogan', 'October 22, 1956', 'Australia'],
+            },
+            {
+                values: ['Brenden', 'Morrow', 'January 16, 1979', 'Canada'],
+            },
+            {
+                values: ['Kate', 'Moss', 'January 16, 1974', 'United Kingdom'],
+            },
+            {
+                values: ['David', 'Chokachi', 'January 16, 1968', 'United States'],
+            },
+            {
+                values: ['Josie', 'Davis', 'January 16, 1973', 'United Kingdom'],
+            },
+            {
+                values: ['Alex', 'Morgan', 'July 2, 1989', 'United States'],
+            },
+            {
+                values: ['Tom', 'Cruise', 'July 3, 1962', 'United States'],
+            },
+            {
+                values: ['Tony', 'Bennett', 'August 3, 1926', 'United States'],
+            },
+            {
+                values: ['Martha', 'Stewart', 'August 3, 1941', 'United States'],
+            },
+            {
+                values: ['Tom', 'Brady', 'August 3, 1977', 'United States'],
+            },
+            {
+                values: ['Julie', 'Bowen', 'March 3, 1970', 'United States'],
+            },
+            {
+                values: ['Barack', 'Obama', 'August 4, 1961', 'United States'],
+            },
+        ],
+    },
+    {
+        arrows: [
+            {
+                alpha: 0,
+            },
+            {
+                backgroundColor: 'red',
+            },
+        ],
+    },
+];
 
 zingchart.render({
     id: 'myChart',
-    data: [{
-        type: 'line',
-        series: [
-            {
-                values: [2, 4, 5, 6, 3, 6, 6, 4, 5, 6],
-            },
-        ],
-        'scale-x': {
-            label: {
-              text: 'Days'
-            },
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            lineColor: 'red',
-        },
-        scaleY: {
-            autoFit: true,
-            zooming: true,
-        },
-        plot: {
-            animation: {
-              effect: 1,
-              method: 4,
-              sequence: 2,
-              speed: 275,
-            },
-            'selected-state': {
-                'line-color': 'red',
-            },
-            tooltip: {
-                text: 'Hello world',
-            },
-            'value-box': {
-                text: 'Hello World',
-            },
-        },
-        timeZone: 1,
-        zoom: {
-            shared: true,
-        }
-    }],
-    labels: [{
-        alpha: 0.5,
-        text: 'testing',
-    }],
-    scaleX: {
-        step: '3hour',
-        transform: {
-            type: 'date',
-        },
-    },
-    series: [{
-        borderRadius: 3,
-        legendMarker: {
-            lineStyle: 'dotted',
-        },
-    }],
-    zoom: {},
-    zoomSnap: true,
+    data: chartConfig,
 });

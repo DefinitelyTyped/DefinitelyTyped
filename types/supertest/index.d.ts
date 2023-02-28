@@ -36,7 +36,11 @@ declare namespace supertest {
     }
     function agent(app?: any, options?: AgentOptions): SuperAgentTest;
 
-    type SuperAgentTest = SuperTest<Test> &
+    interface SuperTest<T extends superagent.SuperAgentRequest> extends superagent.SuperAgent<T> {}
+    interface SuperTestWithHost<T extends superagent.SuperAgentRequest> extends SuperTest<T> {
+        host(host: string): this;
+    }
+    type SuperAgentTest = SuperTestWithHost<Test> &
         Pick<
             Request,
             | 'use'
@@ -59,7 +63,4 @@ declare namespace supertest {
             | 'pfx'
             | 'cert'
         >;
-    interface SuperTest<T extends superagent.SuperAgentRequest> extends superagent.SuperAgent<T> {
-        host(host: string): T;
-    }
 }

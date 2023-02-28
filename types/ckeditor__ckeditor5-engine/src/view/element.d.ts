@@ -45,4 +45,11 @@ export default class Element extends Node {
     hasClass(className: string): boolean;
     hasStyle(property: string): boolean;
     isSimilar(otherElement: Element): boolean;
+    /**
+     * Decides whether an unsafe attribute is whitelisted and should be rendered in the editing pipeline even though filtering mechanisms
+     * like {@link module:engine/view/domconverter~DomConverter#shouldRenderAttribute} say it should not.
+     *
+     * Unsafe attribute names can be specified when creating an element via {@link module:engine/view/downcastwriter~DowncastWriter}.
+     */
+    shouldRenderUnsafeAttribute(attributeName: string): boolean;
 }

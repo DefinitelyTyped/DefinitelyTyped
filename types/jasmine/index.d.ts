@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.10
+// Type definitions for Jasmine 4.3
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -114,7 +114,7 @@ declare function afterEach(action: jasmine.ImplementationCallback, timeout?: num
 declare function beforeAll(action: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
- * Run some shared teardown once before all of the specs in the describe are run.
+ * Run some shared teardown once after all of the specs in the describe are run.
  * Note: Be careful, sharing the teardown from a afterAll makes it easy to accidentally leak state between your specs so that they erroneously pass or fail.
  * @param action Function that contains the code to teardown your specs.
  * @param timeout Custom timeout for an async afterAll
@@ -191,7 +191,10 @@ declare function spyOn<T, K extends keyof T = keyof T>(
  * @param property The name of the property to replace with a `Spy`.
  * @param accessType The access type (get|set) of the property to `Spy` on.
  */
-declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: "get" | "set"): jasmine.Spy;
+declare function spyOnProperty<T, K extends keyof T = keyof T>(
+    object: T, property: K, accessType?: "get"): jasmine.Spy<(this: T) => T[K]>;
+declare function spyOnProperty<T, K extends keyof T = keyof T>(
+    object: T, property: K, accessType: "set"): jasmine.Spy<(this: T, value: T[K]) => void>;
 
 /**
  * Installs spies on all writable and configurable properties of an object.
@@ -252,13 +255,6 @@ declare namespace jasmine {
         seed?: number | string | null | undefined;
         /**
          * Whether to stop execution of the suite after the first spec failure
-         * @since 3.3.0
-         * @default false
-         * @deprecated Use the `stopOnSpecFailure` config property instead.
-         */
-        failFast?: boolean | undefined;
-        /**
-         * Whether to stop execution of the suite after the first spec failure
          * @since 3.9.0
          * @default false
          */
@@ -271,13 +267,6 @@ declare namespace jasmine {
          * @default false
          */
         failSpecWithNoExpectations?: boolean | undefined;
-        /**
-         * Whether to cause specs to only have one expectation failure.
-         * @since 3.3.0
-         * @default false
-         * @deprecated Use the `stopSpecOnExpectationFailure` config property instead.
-         */
-        oneFailurePerSpec?: boolean | undefined;
         /**
          * Whether to cause specs to only have one expectation failure.
          * @since 3.3.0
@@ -318,9 +307,10 @@ declare namespace jasmine {
     type EnvConfiguration = Configuration;
 
     function clock(): Clock;
+    /**
+     * @deprecated Private method that may be changed or removed in the future
+     */
     function DiffBuilder(): DiffBuilder;
-
-    var matchersUtil: MatchersUtil;
 
     /**
      * That will succeed if the actual value being compared is an instance of the specified class/constructor.
@@ -363,6 +353,7 @@ declare namespace jasmine {
     function setContaining<T>(sample: Set<T>): AsymmetricMatcher<Set<T>>;
 
     function setDefaultSpyStrategy<Fn extends Func = Func>(fn?: (and: SpyAnd<Fn>) => void): void;
+    function spyOnGlobalErrorsAsync(fn?: (globalErrorSpy: Error) => Promise<void>): Promise<void>;
     function addSpyStrategy<Fn extends Func = Func>(name: string, factory: Fn): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
@@ -374,9 +365,8 @@ declare namespace jasmine {
     function createSpyObj(methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
     function createSpyObj<T>(methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
 
-    function pp(value: any): string;
-
     function getEnv(): Env;
+    function debugLog(msg: string): void;
 
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
 
@@ -401,15 +391,12 @@ declare namespace jasmine {
 
     interface Any extends AsymmetricMatcher<any> {
         new (expectedClass: any): any;
-        jasmineToString(prettyPrint: typeof pp): string;
+        jasmineToString(prettyPrint: (value: any) => string): string;
     }
 
     interface AsymmetricMatcher<TValue> {
-        /**
-         * customTesters are deprecated and will be replaced with matcherUtils in the future.
-         */
-        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | ReadonlyArray<CustomEqualityTester>): boolean;
-        jasmineToString?(prettyPrint: typeof pp): string;
+        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil): boolean;
+        jasmineToString?(prettyPrint: (value: any) => string): string;
     }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
@@ -420,13 +407,13 @@ declare namespace jasmine {
 
     interface ArrayContaining<T> extends AsymmetricMatcher<any> {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
-        jasmineToString(prettyPrint: typeof pp): string;
+        jasmineToString(prettyPrint: (value: any) => string): string;
     }
 
     interface ObjectContaining<T> extends AsymmetricMatcher<T> {
         new?(sample: { [K in keyof T]?: any }): { [K in keyof T]?: any };
 
-        jasmineToString?(prettyPrint: typeof pp): string;
+        jasmineToString?(prettyPrint: (value: any) => string): string;
     }
 
     interface Clock {
@@ -456,15 +443,9 @@ declare namespace jasmine {
         negativeCompare?(actual: any, ...expected: any[]): PromiseLike<CustomMatcherResult>;
     }
 
-    type CustomMatcherFactory = (
-        util: MatchersUtil,
-        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
-    ) => CustomMatcher;
+    type CustomMatcherFactory = (util: MatchersUtil) => CustomMatcher;
 
-    type CustomAsyncMatcherFactory = (
-        util: MatchersUtil,
-        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
-    ) => CustomAsyncMatcher;
+    type CustomAsyncMatcherFactory = (util: MatchersUtil) => CustomAsyncMatcher;
 
     interface CustomMatcherFactories {
         [name: string]: CustomMatcherFactory;
@@ -479,6 +460,9 @@ declare namespace jasmine {
         message?: string | undefined;
     }
 
+    /**
+     * @deprecated Private type that may be changed or removed in the future
+     */
     interface DiffBuilder {
         setRoots(actual: any, expected: any): void;
         recordMismatch(formatter?: (actual: any, expected: any, path?: any, prettyPrinter?: any) => string): void;
@@ -487,12 +471,14 @@ declare namespace jasmine {
     }
 
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
+        equals(a: any, b: any): boolean;
         contains<T>(
             haystack: ArrayLike<T> | string,
-            needle: any,
-            customTesters?: ReadonlyArray<CustomEqualityTester>,
+            needle: any
         ): boolean;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
 
         /**
@@ -503,7 +489,7 @@ declare namespace jasmine {
          * @param value The value to pretty-print
          * @return The pretty-printed value
          */
-        pp: typeof pp;
+        pp(value: any): string;
     }
 
     interface Env {
@@ -514,28 +500,8 @@ declare namespace jasmine {
         configure(configuration: Configuration): void;
         execute(runnablesToRun: Suite[] | null | undefined, onComplete: Func): void;
         /** @async */
-        execute(runnablesToRun?: Suite[]): PromiseLike<void>;
-        /**
-         * @deprecated Use hideDisabled option in {@link jasmine.Env.configure} instead.
-         */
-        hideDisabled(value: boolean): void;
-        /**
-         * @deprecated Check hideDisabled option in {@link jasmine.Env.configuration} instead.
-         */
-        hidingDisabled(): boolean;
+        execute(runnablesToRun?: Suite[]): PromiseLike<JasmineDoneInfo>;
         provideFallbackReporter(reporter: CustomReporter): void;
-        /**
-         * @deprecated Check random option in {@link jasmine.Env.configuration} instead.
-         */
-        randomTests(): boolean;
-        /**
-         * @deprecated Use random option in {@link jasmine.Env.configure} instead.
-         */
-        randomizeTests(value: boolean): void;
-        /**
-         * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
-         */
-        seed(value?: number | string): number | string;
         /**
          * Sets a user-defined property that will be provided to reporters as
          * part of the properties field of SpecResult.
@@ -548,26 +514,6 @@ declare namespace jasmine {
          * @since 3.6.0
          */
         setSuiteProperty: typeof setSuiteProperty;
-        /**
-         * @deprecated Use specFilter option in {@link jasmine.Env.configure} instead.
-         */
-        specFilter(spec: Spec): boolean;
-        /**
-         * @deprecated Use failFast option in {@link jasmine.Env.configure} instead.
-         */
-        stopOnSpecFailure(value: boolean): void;
-        /**
-         * @deprecated Check failFast option in {@link jasmine.Env.configuration} instead.
-         */
-        stoppingOnSpecFailure(): boolean;
-        /**
-         * @deprecated Use oneFailurePerSpec option in {@link jasmine.Env.configure} instead.
-         */
-        throwOnExpectationFailure(value: boolean): void;
-        /**
-         * @deprecated Check oneFailurePerSpec option in {@link jasmine.Env.configuration} instead.
-         */
-        throwingExpectationFailures(): boolean;
         topSuite(): Suite;
     }
 
@@ -772,6 +718,15 @@ declare namespace jasmine {
          * expect(array).toHaveSize(2);
          */
         toHaveSize(expected: number): void;
+
+        /**
+         * {@link expect} the actual (a {@link SpyObj}) spies to have been called.
+         * @since 4.1.0
+         * @example
+         * expect(mySpyObj).toHaveSpyInteractions();
+         * expect(mySpyObj).not.toHaveSpyInteractions();
+         */
+        toHaveSpyInteractions(): void;
 
         /**
          * Add some context for an expect.
@@ -1015,6 +970,13 @@ declare namespace jasmine {
          * If the spec is pending, this will be the reason.
          */
         pendingReason: string;
+
+        debugLogs: DebugLogEntry[] | null;
+    }
+
+    interface DebugLogEntry {
+        message: String;
+        timestamp: number;
     }
 
     interface JasmineDoneInfo {
@@ -1098,15 +1060,13 @@ declare namespace jasmine {
     /**
      * Obtains the promised type that a promise-returning function resolves to.
      */
-    type PromisedReturnType<Fn extends Func> = Fn extends (...args: any[]) => PromiseLike<infer TResult>
-        ? TResult
-        : never;
+    type PromisedResolveType<T> = T extends PromiseLike<infer TResult> ? TResult : never;
 
     /**
      * Obtains the type that a promise-returning function can be rejected with.
      * This is so we can use .and.rejectWith() only for functions that return a promise.
      */
-    type PromisedRejectType<Fn extends Function> = Fn extends (...args: any[]) => PromiseLike<unknown> ? any : never;
+    type PromisedRejectType<T> = T extends PromiseLike<unknown> ? any : never;
 
     interface SpyAnd<Fn extends Func> {
         identity: string;
@@ -1120,9 +1080,9 @@ declare namespace jasmine {
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
         callFake(fn: Fn): Spy<Fn>;
         /** Tell the spy to return a promise resolving to the specified value when invoked. */
-        resolveTo(val?: PromisedReturnType<Fn>): Spy<Fn>;
+        resolveTo(val?: PromisedResolveType<ReturnType<Fn>>): Spy<Fn>;
         /** Tell the spy to return a promise rejecting with the specified value when invoked. */
-        rejectWith(val?: PromisedRejectType<Fn>): Spy<Fn>;
+        rejectWith(val?: PromisedRejectType<ReturnType<Fn>>): Spy<Fn>;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string | Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
@@ -1149,12 +1109,12 @@ declare namespace jasmine {
         /** Set this spy to do a shallow clone of arguments passed to each invocation. */
         saveArgumentsByValue(): void;
         /** Get the "this" object that was passed to a specific invocation of this spy. */
-        thisFor(index: number): any;
+        thisFor(index: number): ThisType<Fn>;
     }
 
     interface CallInfo<Fn extends Func> {
         /** The context (the this) for the call */
-        object: any;
+        object: ThisType<Fn>;
         /** All arguments passed to the call */
         args: Parameters<Fn>;
         /** The return value of the call */
@@ -1292,10 +1252,6 @@ declare module "jasmine" {
         /**
          * @deprecated Private property that may be changed or removed in the future
          */
-        completionReporter: jasmine.CustomReporter;
-        /**
-         * @deprecated Private property that may be changed or removed in the future
-         */
         reporter: jasmine.CustomReporter;
         /**
          * @deprecated Private property that may be changed or removed in the future
@@ -1324,10 +1280,6 @@ declare module "jasmine" {
         /**
          * @deprecated Private property that may be changed or removed in the future
          */
-        onCompleteCallbackAdded: boolean;
-        /**
-         * @deprecated Private property that may be changed or removed in the future
-         */
         defaultReporterConfigured: boolean;
 
         constructor(options?: jasmine.JasmineOptions);
@@ -1340,16 +1292,8 @@ declare module "jasmine" {
          * Adds a spec file to the list that will be loaded when the suite is executed.
          */
         addSpecFile(filePath: string): void;
-        /**
-         * @deprecated Use addMatchingSpecFiles, loadConfig, or loadConfigFile instead
-         */
-        addSpecFiles(files: string[]): void;
         addMatchingSpecFiles(patterns: string[]): void;
         addHelperFile(filePath: string): void;
-        /**
-         * @deprecated Use addMatchingHelperFiles, loadConfig, or loadConfigFile instead
-         */
-        addHelperFiles(files: string[]): void;
         addMatchingHelperFiles(patterns: string[]): void;
         /**
          * @deprecated Private method that may be changed or removed in the future
@@ -1360,10 +1304,6 @@ declare module "jasmine" {
          */
         configureDefaultReporter(options: jasmine.DefaultReporterOptions): void;
         execute(files?: string[], filterString?: string): Promise<jasmine.JasmineDoneInfo>;
-        /**
-         * @deprecated Private property that may be changed or removed in the future
-         */
-        exitCodeCompletion(passed: boolean): void;
         exitOnCompletion: boolean;
         loadConfig(config: jasmine.JasmineConfig): void;
         loadConfigFile(configFilePath?: string): void;
@@ -1380,11 +1320,6 @@ declare module "jasmine" {
          */
         loadRequires(): void;
 
-        /**
-         * @deprecated set exitOnCompletion to false and use the promise returned
-         * from execute() instead.
-         */
-        onComplete(onCompleteCallback: (passed: boolean) => void): void;
         /**
          * Provide a fallback reporter if no other reporters have been specified.
          */

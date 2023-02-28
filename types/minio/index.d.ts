@@ -4,6 +4,7 @@
 //                 Lubomir Kaplan <https://github.com/castorw>
 //                 Panagiotis Kapros <https://github.com/loremaps>
 //                 Ben Watkins <https://github.com/OutdatedVersion>
+//                 Seohyun Yoon <https://github.com/seohyun0120>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -11,7 +12,7 @@
 // Import from dependencies
 import { Readable as ReadableStream } from 'stream';
 import { EventEmitter } from 'events';
-import { AgentOptions } from 'https';
+import { RequestOptions } from 'https';
 
 // Exports only from typings
 export type Region = 'us-east-1' |
@@ -45,8 +46,8 @@ export type NotificationEvent = 's3:ObjectCreated:*' |
 export type Mode = 'COMPLIANCE' | 'GOVERNANCE';
 export type LockUnit = 'Days' | 'Years';
 export type LegalHoldStatus = 'ON' | 'OFF';
-export type NoResultCallback = (error: Error|null) => void;
-export type ResultCallback<T> = (error: Error|null, result: T) => void;
+export type NoResultCallback = (error: Error | null) => void;
+export type ResultCallback<T> = (error: Error | null, result: T) => void;
 export type VersioningConfig = Record<string | number | symbol, unknown>;
 export type TagList = Record<string, string>;
 export type EmptyObject = Record<string, never>;
@@ -89,7 +90,7 @@ export interface BucketItem {
 }
 
 export interface BucketItemWithMetadata extends BucketItem {
-    metadata: ItemBucketMetadata;
+    metadata: ItemBucketMetadata | ItemBucketMetadataList;
 }
 
 export interface BucketItemStat {
@@ -117,6 +118,15 @@ export interface PostPolicyResult {
     formData: {
         [key: string]: any;
     };
+}
+
+export interface MetadataItem {
+    Key: string;
+    Value: string;
+}
+
+export interface ItemBucketMetadataList {
+    Items: MetadataItem[];
 }
 
 export interface ItemBucketMetadata {
@@ -174,6 +184,53 @@ export interface RetentionOptions {
 export interface LegalHoldOptions {
     versionId: string;
     status: LegalHoldStatus;
+}
+
+export interface InputSerialization {
+    CompressionType?: 'NONE' | 'GZIP' | 'BZIP2';
+    CSV?: {
+        AllowQuotedRecordDelimiter?: boolean;
+        Comments?: string;
+        FieldDelimiter?: string;
+        FileHeaderInfo?: 'NONE' | 'IGNORE' | 'USE';
+        QuoteCharacter?: string;
+        QuoteEscapeCharacter?: string;
+        RecordDelimiter?: string;
+    };
+    JSON?: {
+        Type: 'DOCUMENT' | 'LINES';
+    };
+    Parquet?: EmptyObject;
+}
+
+export interface OutputSerialization {
+    CSV?: {
+        FieldDelimiter?: string;
+        QuoteCharacter?: string;
+        QuoteEscapeCharacter?: string;
+        QuoteFields?: string;
+        RecordDelimiter?: string;
+    };
+    JSON?: {
+        RecordDelimiter?: string;
+    };
+}
+
+export interface SelectOptions {
+    expression: string;
+    expressionType?: string;
+    inputSerialization: InputSerialization;
+    outputSerialization: OutputSerialization;
+    requestProgress?: { Enabled: boolean };
+    scanRange?: { Start: number, End: number };
+}
+
+export interface SourceObjectStats {
+    size: number;
+    metaData: string;
+    lastModicied: Date;
+    versionId: string;
+    etag: string;
 }
 
 // No need to export this. But without it - linter error.
@@ -267,14 +324,14 @@ export class Client {
     fGetObject(bucketName: string, objectName: string, filePath: string, callback: NoResultCallback): void;
     fGetObject(bucketName: string, objectName: string, filePath: string): Promise<void>;
 
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size: number, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size?: number, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
 
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
 
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions, callback: ResultCallback<BucketItemCopy>): void;
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions): Promise<BucketItemCopy>;
@@ -332,6 +389,12 @@ export class Client {
     setObjectLegalHold(bucketName: string, objectName: string, setOptions: LegalHoldOptions, callback: NoResultCallback): void;
     setObjectLegalHold(bucketName: string, objectName: string, setOptions?: LegalHoldOptions): Promise<void>;
 
+    composeObject(destObjConfig: CopyDestinationOptions, sourceObjList: CopySourceOptions[], callback: ResultCallback<SourceObjectStats>): void;
+    composeObject(destObjConfig: CopyDestinationOptions, sourceObjList: CopySourceOptions[]): Promise<SourceObjectStats>;
+
+    selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions, callback: NoResultCallback): void;
+    selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions): Promise<void>;
+
     // Presigned operations
     presignedUrl(httpMethod: string, bucketName: string, objectName: string, callback: ResultCallback<string>): void;
     presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
@@ -368,14 +431,14 @@ export class Client {
     setBucketPolicy(bucketName: string, bucketPolicy: string, callback: NoResultCallback): void;
     setBucketPolicy(bucketName: string, bucketPolicy: string): Promise<void>;
 
-    listenBucketNotification(bucketName: string, prefix: string, suffix: string, events: NotificationEvent[]): EventEmitter;
+    listenBucketNotification(bucketName: string, prefix: string, suffix: string, events: NotificationEvent[]): NotificationPoller;
 
     // Custom Settings
     setS3TransferAccelerate(endpoint: string): void;
 
     // Other
     newPostPolicy(): PostPolicy;
-    setRequestOptions(options: AgentOptions): void;
+    setRequestOptions(options: RequestOptions): void;
 
     // Minio extensions that aren't necessary present for Amazon S3 compatible storage servers
     extensions: {
@@ -403,7 +466,10 @@ export class PostPolicy {
     setKeyStartsWith(prefix: string): void;
     setBucket(bucketName: string): void;
     setContentType(type: string): void;
+    setContentTypeStartsWith(prefix: string): void;
     setContentLengthRange(min: number, max: number): void;
+    setContentDisposition(disposition: string): void;
+    setUserMetaData(metadata: Record<string, string>): void;
 }
 
 export class NotificationPoller extends EventEmitter {
@@ -414,7 +480,7 @@ export class NotificationPoller extends EventEmitter {
 }
 
 export class NotificationConfig {
-    add(target: TopicConfig|QueueConfig|CloudFunctionConfig): void;
+    add(target: TopicConfig | QueueConfig | CloudFunctionConfig): void;
 }
 
 export class TopicConfig extends TargetConfig {
@@ -427,6 +493,49 @@ export class QueueConfig extends TargetConfig {
 
 export class CloudFunctionConfig extends TargetConfig {
     constructor(arn: string);
+}
+
+export class CopySourceOptions {
+    constructor(options: {
+        Bucket: string,
+        Object: string,
+        VersionID?: string,
+        MatchETag?: string,
+        NoMatchETag?: string,
+        MatchModifiedSince?: string,
+        MatchUnmodifiedSince?: string,
+        MatchRange?: boolean,
+        Start?: number,
+        End?: number,
+        Encryption?: {
+            type: string;
+            SSEAlgorithm?: string;
+            KMSMasterKeyID?: string;
+        },
+    });
+
+    getHeaders(): Record<string, string>;
+    validate(): boolean;
+}
+
+export class CopyDestinationOptions {
+    constructor(options: {
+        Bucket: string,
+        Object: string,
+        Encryption?: {
+            type: string;
+            SSEAlgorithm?: string;
+            KMSMasterKeyID?: string;
+        },
+        UserMetadata?: Record<string, unknown>,
+        UserTags?: Record<string, unknown> | string,
+        LegalHold?: LegalHoldStatus,
+        RetainUntilDate?: string,
+        Mode?: Mode,
+    });
+
+    getHeaders(): Record<string, string>;
+    validate(): boolean;
 }
 
 export function buildARN(partition: string, service: string, region: string, accountId: string, resource: string): string;

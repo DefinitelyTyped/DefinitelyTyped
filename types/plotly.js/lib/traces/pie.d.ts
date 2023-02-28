@@ -77,21 +77,23 @@ export interface PieHoverLabel {
 
 export type PieInsideTextOrientation = 'horizontal' | 'radial' | 'tangential' | 'auto';
 
-export interface PieData extends Pick<PlotData,
-    | 'name'
-    | 'visible'
-    | 'showlegend'
-    | 'legendgroup'
-    | 'opacity'
-    | 'ids'
-    | 'labels'
-    | 'hovertext'
-    | 'automargin'
-    | 'textinfo'
-    | 'direction'
-    | 'hole'
-    | 'rotation'
-> {
+export interface PieData
+    extends Pick<
+        PlotData,
+        | 'name'
+        | 'visible'
+        | 'showlegend'
+        | 'legendgroup'
+        | 'opacity'
+        | 'ids'
+        | 'labels'
+        | 'hovertext'
+        | 'automargin'
+        | 'textinfo'
+        | 'direction'
+        | 'hole'
+        | 'rotation'
+    > {
     type: 'pie';
     title: Partial<PieDataTitle>;
     values: Array<number | string>;

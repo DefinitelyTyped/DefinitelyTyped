@@ -19,13 +19,13 @@ class Example1 extends Ember.Object.extend({
     }),
 }) {}
 
-const unwrappedGetters1: UnwrapComputedPropertyGetters<Example1> = {} as any;
+declare const unwrappedGetters1: UnwrapComputedPropertyGetters<Example1>;
 unwrappedGetters1.firstName; // $ExpectType string
 unwrappedGetters1.lastName; // $ExpectType string
 unwrappedGetters1.fullName; // $ExpectType string
 unwrappedGetters1.allNames; // $ExpectType string[]
 
-const unwrappedSetters1: UnwrapComputedPropertySetters<Example1> = {} as any;
+declare const unwrappedSetters1: UnwrapComputedPropertySetters<Example1>;
 unwrappedSetters1.firstName; // $ExpectType string
 unwrappedSetters1.lastName; // $ExpectType string
 unwrappedSetters1.fullName; // $ExpectType string
@@ -56,15 +56,13 @@ class Example2 extends Ember.Object.extend({
 }
 const ex2 = new Example2();
 
-const unwrappedGetters2: UnwrapComputedPropertyGetters<typeof ex2> = (ex2 as any) as UnwrapComputedPropertyGetters<
-    typeof ex2
->;
+declare const unwrappedGetters2: UnwrapComputedPropertyGetters<typeof ex2>;
 assertType<string>(unwrappedGetters2.firstName); // $ExpectType string
 assertType<string>(unwrappedGetters2.lastName); // $ExpectType string
 assertType<string>(unwrappedGetters2.fullName); // $ExpectType string
 assertType<string[]>(unwrappedGetters2.allNames); // $ExpectType string[]
 
-const unwrappedSetters2: UnwrapComputedPropertySetters<typeof ex2> = null as any;
+declare const unwrappedSetters2: UnwrapComputedPropertySetters<typeof ex2>;
 assertType<string>(unwrappedSetters2.firstName); // $ExpectType string
 assertType<string>(unwrappedSetters2.lastName); // $ExpectType string
 assertType<string>(unwrappedSetters2.fullName); // $ExpectType string

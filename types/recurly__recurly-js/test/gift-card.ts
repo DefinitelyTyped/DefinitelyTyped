@@ -9,7 +9,7 @@ export default function giftCard() {
     }
   });
 
-  // $ExpectError
+  // @ts-expect-error
   recurly.giftCard('basic', (error, giftCard) => {
     if (error) {
       error.message;

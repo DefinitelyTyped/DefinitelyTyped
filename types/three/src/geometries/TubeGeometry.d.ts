@@ -36,5 +36,3 @@ export class TubeGeometry extends BufferGeometry {
 
     static fromJSON(data: any): TubeGeometry;
 }
-
-export { TubeGeometry as TubeBufferGeometry };

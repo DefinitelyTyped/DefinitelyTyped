@@ -1,14 +1,15 @@
-// Type definitions for k6 0.35
+// Type definitions for k6 0.43
 // Project: https://k6.io/docs/
 // Definitions by: na-- <https://github.com/na-->
-//                 Ivan Mirić <https://github.com/imiric>
 //                 Mihail Stoykov <https://github.com/MStoykov>
 //                 Ivan <https://github.com/codebien>
-//                 Inanc Gumus <https://github.com/inancgumus>
-//                 yorugac <https://github.com/yorugac>
+//                 Ivan Mirić <https://github.com/imiric>
+//                 Théo Crevon <https://github.com/oleiade>
+//                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
+//                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
+// TypeScript Version: 3.9
 
 /**
  * k6 JavaScript API.
@@ -40,6 +41,10 @@ import './html';
 import './http';
 import './metrics';
 import './options';
+import './experimental/redis';
+import './experimental/timers';
+import './experimental/tracing';
+import './experimental/websockets';
 import './ws';
 import './net/grpc';
 

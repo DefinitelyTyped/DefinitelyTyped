@@ -10,7 +10,7 @@ import { DiffOptions } from './diff-options';
 export namespace Tree {
     const enum WALK_MODE {
         WALK_PRE = 0,
-        WALK_POST = 1
+        WALK_POST = 1,
     }
 }
 

@@ -1,10 +1,8 @@
 type Region = 'eu1' | 'in1' | 'sg1' | 'us1' | 'sk1';
-
 interface PrivacyData {
     optOut?: boolean;
     useIP?: boolean;
 }
-
 interface Privacy extends Array<any> {
     push(...privacyArr: PrivacyData[]): 0;
 }
@@ -21,7 +19,6 @@ interface EventHandler extends Array<any> {
     push(evtName: string, ...evtNameOrData: EventNameOrData[]): 0;
     getDetails(evtName: string): EventDetails | undefined;
 }
-
 interface SiteData {
     Name?: string;
     Identity?: string | number;
@@ -48,7 +45,6 @@ interface UserLoginHandler extends Array<any> {
     push(...profileData: ProfileData[]): 0;
     clear(): void;
 }
-
 interface NotificationData {
     titleText: string;
     bodyText: string;
@@ -67,7 +63,6 @@ interface NotificationData {
     apnsWebPushId?: string;
     apnsWebPushServiceUrl?: string;
 }
-
 interface NotificationHandler extends Array<any> {
     push(notificationData: NotificationData): 0;
     push(
@@ -80,17 +75,26 @@ interface NotificationHandler extends Array<any> {
         askAgainTimeInSeconds?: number,
     ): 0;
 }
-
 interface User {
     getTotalVisits(): number | undefined;
     getLastVisit(): Date | undefined;
 }
-
 interface Session {
     getTimeElapsed(): number | undefined;
     getPageCount(): number | undefined;
 }
-
+interface notificationCallbackData {
+    msgContent: string;
+    msgId: string;
+}
+interface CustomNotificationEvent {
+    msgId: string;
+    pivotId?: string;
+    wzrk_slideNo?: number;
+    // evtData?: any;
+    kv?: any;
+    msgCTkv?: any;
+}
 declare class CleverTap {
     init(accountId: string, region?: Region, targetDomain?: string): void;
     privacy: Privacy;
@@ -107,6 +111,16 @@ declare class CleverTap {
     pageChanged(): void;
     spa: boolean;
     enablePersonalization: boolean;
+    addMultiValueForKey: (key: any, value: string | number) => void;
+    addMultiValuesForKey: (key: any, value: [string | number]) => void;
+    handleDecrementValue: (key: any, value: number) => void;
+    handleIncrementValue: (key: any, value: number) => void;
+    setOffline: (arg: boolean) => void;
+    renderNotificationViewed: (detail: CustomNotificationEvent) => void;
+    renderNotificationClicked: (detail: CustomNotificationEvent) => void;
+    notificationCallback: (arg: notificationCallbackData) => any;
+    removeMultiValueForKey: (key: any, value: string | number) => void;
+    removeMultiValuesForKey: (key: any, value: [string | number]) => void;
     raiseNotificationClicked: () => void;
 }
 

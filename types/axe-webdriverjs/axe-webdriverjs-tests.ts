@@ -1,7 +1,5 @@
-/// <reference types="node" />
 import { Result, RunOptions, Spec } from 'axe-core';
 import { AxeAnalysis, AxeBuilder, BuilderOptions } from 'axe-webdriverjs';
-import fs = require('fs');
 import { Builder, WebDriver } from 'selenium-webdriver';
 
 const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: BuilderOptions) => {
@@ -43,7 +41,7 @@ const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: Bu
 };
 
 const driver = new Builder().forBrowser('firefox').build();
-const axeSource = fs.readFileSync('./axe-1.0.js', 'utf8');
+const axeSource = 'some string literal';
 const axeBuilderOptions: BuilderOptions = {
     logIframeErrors: false,
 };

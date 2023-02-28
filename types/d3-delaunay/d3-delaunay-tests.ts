@@ -13,10 +13,10 @@ import * as d3 from 'd3-delaunay';
 const constructedDelaunay = new d3.Delaunay([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 const defaultDelaunayFromArray: d3.Delaunay<[number, number]> = d3.Delaunay.from([[0, 0], [1, 0], [0, 1], [1, 1]]);
 const defaultDelaunayFromIterator = d3.Delaunay.from((function*() {
-    yield [0, 0];
-    yield [1, 0];
-    yield [0, 1];
-    yield [1, 1];
+    yield [0, 0] as [number, number];
+    yield [1, 0] as [number, number];
+    yield [0, 1] as [number, number];
+    yield [1, 1] as [number, number];
 })());
 const customDelaunayFromArray = d3.Delaunay.from({length: 4}, (d, i) => i & 1, (d, i) => (i >> 1) & 1);
 const customDelaunayFromIterator = d3.Delaunay.from((function*() {

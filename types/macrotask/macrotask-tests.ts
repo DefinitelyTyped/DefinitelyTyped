@@ -1,7 +1,8 @@
 import { run, clear } from 'macrotask';
 
 const token = run(() => {});
-run(arg1 => {}); // $ExpectError
+// @ts-expect-error
+run(arg1 => {});
 
 run(
     (arg1, arg2) => {
@@ -11,10 +12,11 @@ run(
     'foo',
     1
 );
-// $ExpectError
+// @ts-expect-error
 run((arg1, arg2) => {}, 'foo');
-// $ExpectError
+// @ts-expect-error
 run((arg1: string, arg2: number) => {}, 'foo', 'bar');
 
 clear(token);
-clear({}); // $ExpectError
+// @ts-expect-error
+clear({});

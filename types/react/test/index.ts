@@ -70,7 +70,7 @@ declare const container: Element;
     class SettingStateFromCtorComponent extends React.Component<Props, State, Snapshot> {
         constructor(props: Props) {
             super(props);
-            // $ExpectError
+            // @ts-expect-error
             this.state = {
                 inputValue: 'hello'
             };
@@ -79,7 +79,6 @@ declare const container: Element;
     }
 
     class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
-        // $ExpectError -> this throws error on TS 2.6 uncomment once TS requirement is TS >= 2.7
         // state = {
         //     secondz: 0,
         //     inputValuez: 'hello'
@@ -89,11 +88,10 @@ declare const container: Element;
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
         render() { return null; }
         componentDidMount() {
-            // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
             console.log(this.state.inputValue);
         }
         mutateState() {
-            // $ExpectError
+            // @ts-expect-error
             this.state = {
                 inputValue: 'hello'
             };
@@ -101,18 +99,18 @@ declare const container: Element;
             // Even if state is not set, this is allowed by React
             this.setState({ inputValue: 'hello' });
             this.setState((prevState, props) => {
-                // $ExpectError
+                // @ts-expect-error
                 props = { foo: 'nope' };
-                // $ExpectError
+                // @ts-expect-error
                 props.foo = 'nope';
 
                 return { inputValue: prevState.inputValue + ' foo' };
             });
         }
         mutateProps() {
-            // $ExpectError
+            // @ts-expect-error
             this.props = {};
-            // $ExpectError
+            // @ts-expect-error
             this.props = {
                 key: 42,
                 ref: "myComponent42",
@@ -219,30 +217,13 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 
-const LegacyStatelessComponent2: React.SFC<SCProps> =
-    // props is contextually typed
-    props => DOM.div(null, props.foo);
-LegacyStatelessComponent2.displayName = "LegacyStatelessComponent2";
-LegacyStatelessComponent2.defaultProps = {
-    foo: 42
-};
-
-const FunctionComponent3: React.FunctionComponent<SCProps> =
-    // allows usage of props.children
-    // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
-
-const LegacyStatelessComponent3: React.SFC<SCProps> =
-    // allows usage of props.children
-    // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
-
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 
 // undesired: Rejects `false` because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
 // leaving here to document limitation and inspect error message
-const FunctionComponent5: React.FunctionComponent = () => false; // $ExpectError
+// @ts-expect-error
+const FunctionComponent5: React.FunctionComponent = () => false;
 
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
@@ -257,8 +238,6 @@ const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> =
 
 const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
     React.createFactory(FunctionComponent);
-const legacyStatelessComponentFactoryElement: React.SFCElement<SCProps> =
-    legacyStatelessComponentFactory(props);
 
 const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
     React.createFactory("div");
@@ -271,8 +250,6 @@ const elementNoState: React.CElement<Props, ModernComponentNoState> = React.crea
 const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
 const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
-const legacyStatelessComponentElement: React.SFCElement<SCProps> = React.createElement(FunctionComponent, scProps);
-const legacyStatelessComponentElementNullProps: React.SFCElement<SCProps> = React.createElement(FunctionComponent4, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
@@ -293,10 +270,6 @@ function foo3(child: React.ComponentClass<{ name: string }> | React.FunctionComp
     React.createElement(child, { name: "bar" });
 }
 
-function foo4(child: React.ComponentClass<{ name: string }> | React.SFC<{ name: string }> | string) {
-    React.createElement(child, { name: "bar" });
-}
-
 // React.cloneElement
 const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement(element, { foo: 43 });
 
@@ -314,8 +287,6 @@ const clonedElement3: React.CElement<Props, ModernComponent> =
     });
 const clonedfunctionComponentElement: React.FunctionComponentElement<SCProps> =
     React.cloneElement(functionComponentElement, { foo: 44 });
-const clonedlegacyStatelessComponentElement: React.SFCElement<SCProps> =
-    React.cloneElement(legacyStatelessComponentElement, { foo: 44 });
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
@@ -420,12 +391,12 @@ ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 // need the explicit type declaration for typescript < 3.1
 const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// $ExpectError
+// @ts-expect-error
 React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
 
 const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// $ExpectError
+// @ts-expect-error
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
 
 function RefCarryingComponent() {
@@ -595,7 +566,7 @@ type mappedChildrenArray5Type = typeof mappedChildrenArray5 extends React.Key[] 
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
 // The return type may not be an array
-// $ExpectError
+// @ts-expect-error
 const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
 
 //
@@ -768,11 +739,36 @@ declare var x: React.DOMElement<{
 }, Element>;
 
 // React 16 should be able to render its children directly
-class RenderChildren extends React.Component {
+class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     render() {
         const { children } = this.props;
         return children !== undefined ? children : null;
     }
+}
+
+// ReactNode tests
+{
+    // Mix of empty return and some return results in `(undefined | JSX.Element)[]`
+    const mixedEmptyReturn: React.ReactNode = ['a', 'b', null].map(label => {
+        if (!label) {
+            return;
+        }
+        return label;
+    });
+    // But just an empty return results in `void`.
+    // @ts-expect-error
+    const emptyReturn: React.ReactNode = ['a', 'b'].map(label => {
+        return;
+    });
+    // Mix of no return and some return results in `(undefined | JSX.Element)[]`
+    const mixedNoReturn: React.ReactNode = ['a', 'b', null].map(label => {
+        if (label) {
+            return label;
+        }
+    });
+    // But no return results in `void`.
+    // @ts-expect-error
+    const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
@@ -786,10 +782,6 @@ React.createElement(Memoized2, { bar: 'string' });
 
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
-const sfc: React.SFC<any> = Memoized2;
-// this $ExpectError is failing on TypeScript@next
-// // $ExpectError Property '$$typeof' is missing in type
-// const specialSfc2: React.SpecialSFC = props => null;
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",
@@ -801,7 +793,7 @@ type UnionProps =
     | ({ type: 'single'; value?: number } & React.RefAttributes<HTMLDivElement>)
     | ({ type: 'multiple'; value?: number[] } & React.RefAttributes<HTMLDivElement>);
 
-// $ExpectError
+// @ts-expect-error
 const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     type: 'single',
     value: [2],
@@ -823,9 +815,9 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     // we don't care about the value created by `new Wrapper()`.
     // We only care about the props we can pass to the component.
     let Wrapper: React.JSXElementConstructor<ExactProps>;
-    // $ExpectError
+    // @ts-expect-error
     Wrapper = class Narrower extends React.Component<NarrowerProps> {};
-    // $ExpectError
+    // @ts-expect-error
     Wrapper = (props: NarrowerProps) => null;
     Wrapper = class Exact extends React.Component<ExactProps> {};
     Wrapper = (props: ExactProps) => null;
@@ -834,7 +826,7 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
 
     React.createElement(Wrapper, { value: 'A' });
     React.createElement(Wrapper, { value: 'B' });
-    // $ExpectError
+    // @ts-expect-error
     React.createElement(Wrapper, { value: 'C' });
 }
 
@@ -846,12 +838,12 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     type InferredProps = React.ComponentPropsWithRef<React.JSXElementConstructor<Props>>;
     const props: Props = {
         value: 'inferred',
-        // $ExpectError
+        // @ts-expect-error
         notImplemented: 5
     };
     const inferredProps: InferredProps = {
         value: 'inferred',
-        // $ExpectError
+        // @ts-expect-error
         notImplemented: 5
     };
 }

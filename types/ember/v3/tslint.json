@@ -1,0 +1,7 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "space-before-function-paren": false,
+        "npm-naming": false
+    }
+}

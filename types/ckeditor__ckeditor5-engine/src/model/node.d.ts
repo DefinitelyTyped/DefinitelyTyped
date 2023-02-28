@@ -27,7 +27,7 @@ export default class Node {
 
     constructor(attrs?: Parameters<typeof toMap>[0]);
     getAncestors(options?: { includeSelf?: boolean | undefined; parentFirst?: boolean | undefined }): Array<Element | DocumentFragment>;
-    getAttribute(key: string): string | undefined;
+    getAttribute(key: string): string | number | boolean | undefined;
     getAttributeKeys(): IterableIterator<string>;
     getAttributes(): IterableIterator<[string, string | number | boolean]>;
     getCommonAncestor(node: Node, options?: { includeSelf?: boolean | undefined }): Element | DocumentFragment | null;

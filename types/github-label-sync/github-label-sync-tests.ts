@@ -41,4 +41,14 @@ githubLabelSync({
     accessToken: 'abc',
     repo: 'owner/name',
     labels: [],
+}).then(value => {
+    value[0].name;
+    value[0].type;
+    value[0].actual;
+    value[0].actual?.name;
+    value[0].actual?.color;
+    value[0].actual?.description;
+    value[0].expected?.name;
+    value[0].expected?.color;
+    value[0].expected?.description;
 });

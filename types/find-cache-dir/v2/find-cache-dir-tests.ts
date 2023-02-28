@@ -6,8 +6,10 @@ findCacheDir({ name: 'unicorns', files: ['foo', 'bar'] }); // $ExpectType string
 findCacheDir({ name: 'unicorns', cwd: 'foo' }); // $ExpectType string | null
 findCacheDir({ name: 'unicorns', create: true }); // $ExpectType string | null
 findCacheDir({ name: 'unicorns', thunk: false }); // $ExpectType string | null
-findCacheDir({}); // $ExpectError
-findCacheDir(); // $ExpectError
+// @ts-expect-error
+findCacheDir({});
+// @ts-expect-error
+findCacheDir();
 
 const thunk = findCacheDir({ name: 'unicorns', thunk: true });
 thunk; // $ExpectType ((...pathParts: string[]) => string) | null

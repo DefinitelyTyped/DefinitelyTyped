@@ -1,6 +1,6 @@
 import * as webdriver from './index';
 
-export class Server { }
+export class Server {}
 
 /**
  * @return {!Promise<string>} A promise that will resolve with the path
@@ -28,8 +28,7 @@ export function getRandomString(): string;
 /**
  * @implements {command.Executor}
  */
-export class CommandExecutor {
-}
+export class CommandExecutor {}
 
 /**
  * Configuration options specific to the {@link Driver SafariDriver}.
@@ -85,5 +84,4 @@ export class Driver extends webdriver.WebDriver {
      *     the driver under.
      */
     constructor(opt_config?: Options | webdriver.Capabilities, opt_flow?: webdriver.promise.ControlFlow);
-
 }

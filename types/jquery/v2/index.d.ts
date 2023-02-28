@@ -5,7 +5,6 @@
 //                 Steve Fenton <https://github.com/Steve-Fenton>
 //                 Diullei Gomes <https://github.com/Diullei>
 //                 Tass Iliopoulos <https://github.com/tasoili>
-//                 Jason Swearingen <https://github.com/jasons-novaleaf>
 //                 Sean Hill <https://github.com/seanski>
 //                 Guus Goossens <https://github.com/Guuz>
 //                 Kelly Summerlin <https://github.com/ksummerlin>
@@ -3632,10 +3631,10 @@ interface JQuery {
     /**
      * Remove elements from the set of matched elements.
      *
-     * @param selector A string containing a selector expression to match elements against.
+     * @param selector A string containing a selector expression, or an array of elements to match against the set.
      * @see {@link https://api.jquery.com/not/#not-selector}
      */
-    not(selector: string): JQuery;
+    not(selector: string|any[]): JQuery;
     /**
      * Remove elements from the set of matched elements.
      *

@@ -2,6 +2,7 @@
 // Project: https://github.com/cdimascio/node-mongodb-fixtures#readme
 // Definitions by: Chuah Chee Shian (shian15810) <https://github.com/shian15810>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 import { MongoClientOptions } from 'mongodb';
 

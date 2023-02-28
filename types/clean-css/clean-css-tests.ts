@@ -17,9 +17,9 @@ new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
   .minify(source, (error: any, minified: CleanCSS.Output): void => {
     // access minified.sourceMap for SourceMapGenerator object
     // see https://github.com/mozilla/source-map/#sourcemapgenerator for more details
-    // see https://github.com/jakubpawlowicz/clean-css/blob/master/bin/cleancss#L114 on how it's used in clean-css' CLI
+    // see https://github.com/clean-css/clean-css-cli/blob/8fc585e99d7bf4e812a5d4444ccbaf9967f24f10/index.js#L372-L374 on how it's used in clean-css' CLI
     console.log(minified.sourceMap);
-    minified.sourceMap.setSourceContent("bar.css", "");
+    minified.sourceMap?.setSourceContent("bar.css", "");
 });
 
 const inputSourceMap = { version: '3', sources: ['foo.css'], names: [], mappings: 'AAAA' };

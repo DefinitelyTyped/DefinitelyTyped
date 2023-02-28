@@ -261,6 +261,11 @@ export interface ToSQLOptions {
      * @default false
      */
     includeZone?: boolean | undefined;
+    /**
+     * include the space between the time and the offset, such as '05:15:16.345 -04:00'
+     * @default true
+     */
+    includeOffsetSpace?: boolean;
 }
 
 export interface ToISODateOptions {
@@ -277,6 +282,12 @@ export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
      * @default true
      */
     includeOffset?: boolean | undefined;
+
+    /**
+     * add the time zone format extension
+     * @default false
+     */
+    extendedZone?: boolean | undefined;
 }
 
 /** @deprecated alias for backwards compatibility */
@@ -734,6 +745,27 @@ export class DateTime {
      * @param o
      */
     static isDateTime(o: unknown): o is DateTime;
+
+    /**
+     * Produce the format string for a set of options
+     *
+     * @param formatOpts - Intl.DateTimeFormat constructor options and configuration options
+     * @param localeOpts - Opts to override the configuration options on this DateTime
+     *
+     * @example
+     * DateTime.parseFormatForOpts(DateTime.DATETIME_FULL); //=> "MMMM d, yyyyy, h:m a ZZZ"
+     */
+    static parseFormatForOpts(formatOpts?: DateTimeFormatOptions, localeOpts?: LocaleOptions): string | null;
+
+    /**
+     * Produce the fully expanded format token for the locale
+     * Does NOT quote characters, so quoted tokens will not round trip correctly
+     * @param fmt - the format string
+     * @param localeOpts - Opts to override the configuration options on this DateTime
+     */
+    static expandFormat(fmt: string, localeOpts?: LocaleOptions): string;
+
+    private constructor(config: unknown);
 
     // INFO
 
@@ -1354,6 +1386,11 @@ export class DateTime {
     toSeconds(): number;
 
     /**
+     * Returns the epoch seconds (as a whole number) of this DateTime.
+     */
+    toUnixInteger(): number;
+
+    /**
      * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.
      */
     toJSON(): string;
@@ -1436,7 +1473,7 @@ export class DateTime {
 
     /**
      * Equality check
-     * Two DateTimes are equal iff they represent the same millisecond, have the same zone and location, and are both valid.
+     * Two DateTimes are equal if and only if they represent the same millisecond, have the same zone and location, and are both valid.
      * To compare just the millisecond values, use `+dt1 === +dt2`.
      *
      * @param other - the other DateTime

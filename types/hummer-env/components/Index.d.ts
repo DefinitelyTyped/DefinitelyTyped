@@ -1,4 +1,5 @@
 /// <reference path="./BaseComponent.d.ts" />
+/// <reference path="./Button.d.ts" />
 /// <reference path="./CanvasView.d.ts" />
 /// <reference path="./HorizontalScroller.d.ts" />
 /// <reference path="./Image.d.ts" />

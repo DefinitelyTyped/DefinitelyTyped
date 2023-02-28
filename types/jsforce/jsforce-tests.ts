@@ -1,14 +1,7 @@
-import * as fs from 'fs';
-import * as stream from 'stream';
-import * as express from 'express';
-import * as glob from 'glob';
-
 import * as sf from 'jsforce';
-import { RecordReference, Record } from 'jsforce/record';
-import { SObject } from 'jsforce/salesforce-object';
-import { RecordResult } from 'jsforce/record-result';
-import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult } from 'jsforce/describe-result';
 import { SearchResult } from 'jsforce/connection';
+import { DescribeSObjectOptions, DescribeSObjectResult, Field } from 'jsforce/describe-result';
+import { SObject } from 'jsforce/salesforce-object';
 
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
@@ -17,8 +10,20 @@ const salesforceConnection: sf.Connection = new sf.Connection({
         clientId: '',
         clientSecret: '',
     },
-    refreshFn: (conn: sf.Connection, callback?: sf.Callback<sf.UserInfo>): Promise<sf.UserInfo> => {
-        return conn.login('username', 'password', callback);
+    refreshFn: async (
+        conn: sf.Connection,
+        callback?: (err: Error | null, accessToken: string, res?: unknown) => void,
+    ) => {
+        try {
+            const userInfo = await conn.login('username', 'password');
+            if (callback) {
+                callback(null, conn.accessToken, userInfo);
+            }
+        } catch (err) {
+            if (callback) {
+                callback(err, conn.accessToken);
+            }
+        }
     },
 });
 
@@ -31,7 +36,7 @@ async function testProxyOptions() {
     });
 
     // send invalid proxy values
-    // $ExpectError
+    // @ts-expect-error
     new sf.Connection({ httpProxy: { host: '127.0.0.1:8080' } });
 }
 
@@ -109,14 +114,14 @@ async function testSObject(connection: sf.Connection) {
     {
         // Test SObject.update
         // if we require that records have an id field this will fail
-        // //$ExpectError
+        // // @ts-expect-error
         await dummySObject.update({ thing: false });
 
         // If we require that the records have an Id field
         // await dummySObject.update({ thing: false, Id: 'asdf' }); // $ExpectType RecordResult
 
         // invalid field
-        // $ExpectError
+        // @ts-expect-error
         await dummySObject.update({ asdf: false });
 
         // with rest api options
@@ -151,6 +156,11 @@ async function testSObject(connection: sf.Connection) {
         dummySObject.update([{ thing: false }], (err, res) => {
             err; // $ExpectType Error | null
             res; // $ExpectType RecordResult[]
+        });
+
+        // find and update
+        dummySObject.find({ Id: '50130000000014C' }).update({
+            thing: true,
         });
     }
 
@@ -233,7 +243,7 @@ async function testSObject(connection: sf.Connection) {
         dummySObject.select(['thing', 'other']);
 
         // note the following should never compile:
-        // $ExpectError
+        // @ts-expect-error
         dummySObject.select(['lol']);
     }
 
@@ -614,6 +624,14 @@ async function testAnalytics(conn: sf.Connection): Promise<void> {
         Object.keys(reports[0]).forEach((key: string) => console.log(`key: ${key} : ${_report[key]}`));
         console.log('report keys from callback');
     });
+
+    const jsfReport: sf.Report = await conn.analytics.report('reportId');
+    const reportCallback = (err: Error | null, result: sf.ReportResult) => {
+        return result;
+    };
+    const reportResult1 = await jsfReport.execute({ details: true });
+    const reportResult2 = await jsfReport.execute({ details: true }, reportCallback);
+    const reportResult3 = await jsfReport.execute(reportCallback);
 }
 
 async function testExecuteAnonymous(conn: sf.Connection): Promise<void> {
@@ -879,14 +897,14 @@ async function testDescribe() {
         object.fields.forEach(field => {
             const type: sf.FieldType = field.type;
             // following should never compile
-            // $ExpectError
+            // @ts-expect-error
             const fail = type === 'hey';
 
             const isString = type === 'string';
         });
 
         // following should never compile (if StrictNullChecks is on)
-        // $ExpectError
+        // @ts-expect-error
         object.keyPrefix.length;
 
         console.log(`${sobject.name} Label: `, object.label);
@@ -903,6 +921,149 @@ async function testDescribe() {
         autofetch: false,
         maxConcurrentRequests: 15,
     });
+
+    const field: Field[] = [
+        {
+            aggregatable: true,
+            aiPredictionField: false,
+            autoNumber: false,
+            byteLength: 765,
+            calculated: false,
+            calculatedFormula: null,
+            cascadeDelete: false,
+            caseSensitive: false,
+            compoundFieldName: null,
+            controllerName: null,
+            createable: true,
+            custom: true,
+            defaultValue: '3',
+            defaultValueFormula: null,
+            defaultedOnCreate: true,
+            dependentPicklist: false,
+            deprecatedAndHidden: false,
+            digits: 0,
+            displayLocationInDecimal: false,
+            encrypted: false,
+            externalId: false,
+            extraTypeInfo: null,
+            filterable: true,
+            filteredLookupInfo: null,
+            formulaTreatNullNumberAsZero: false,
+            groupable: true,
+            highScaleNumber: false,
+            htmlFormatted: false,
+            idLookup: false,
+            inlineHelpText: 'test',
+            label: 'ABM Tier',
+            length: 255,
+            mask: null,
+            maskType: null,
+            name: 'ABM_Tier__c',
+            nameField: false,
+            namePointing: false,
+            nillable: true,
+            permissionable: true,
+            picklistValues: [
+                {
+                    active: true,
+                    defaultValue: true,
+                    label: '3',
+                    validFor: null,
+                    value: '3',
+                },
+                {
+                    active: true,
+                    defaultValue: false,
+                    label: '2',
+                    validFor: null,
+                    value: '2',
+                },
+                {
+                    active: true,
+                    defaultValue: false,
+                    label: '1',
+                    validFor: null,
+                    value: '1',
+                },
+            ],
+            polymorphicForeignKey: false,
+            precision: 0,
+            queryByDistance: false,
+            referenceTargetField: null,
+            referenceTo: [],
+            relationshipName: null,
+            relationshipOrder: null,
+            restrictedDelete: false,
+            restrictedPicklist: true,
+            scale: 0,
+            searchPrefilterable: false,
+            soapType: 'xsd:string',
+            sortable: true,
+            type: 'picklist',
+            unique: false,
+            updateable: true,
+            writeRequiresMasterRead: false,
+        },
+        {
+            aggregatable: true,
+            aiPredictionField: false,
+            autoNumber: false,
+            byteLength: 3900,
+            calculated: true,
+            calculatedFormula: 'Owner.FirstName & " " & Owner.LastName',
+            cascadeDelete: false,
+            caseSensitive: false,
+            compoundFieldName: null,
+            controllerName: null,
+            createable: false,
+            custom: true,
+            defaultValue: null,
+            defaultValueFormula: null,
+            defaultedOnCreate: false,
+            dependentPicklist: false,
+            deprecatedAndHidden: false,
+            digits: 0,
+            displayLocationInDecimal: false,
+            encrypted: false,
+            externalId: false,
+            extraTypeInfo: null,
+            filterable: true,
+            filteredLookupInfo: null,
+            formulaTreatNullNumberAsZero: true,
+            groupable: false,
+            highScaleNumber: false,
+            htmlFormatted: false,
+            idLookup: false,
+            inlineHelpText: null,
+            label: 'Account Owner Full Name',
+            length: 1300,
+            mask: null,
+            maskType: null,
+            name: 'AccountOwnerFullName__c',
+            nameField: false,
+            namePointing: false,
+            nillable: true,
+            permissionable: true,
+            picklistValues: [],
+            polymorphicForeignKey: false,
+            precision: 0,
+            queryByDistance: false,
+            referenceTargetField: null,
+            referenceTo: [],
+            relationshipName: null,
+            relationshipOrder: null,
+            restrictedDelete: false,
+            restrictedPicklist: false,
+            scale: 0,
+            searchPrefilterable: false,
+            soapType: 'xsd:string',
+            sortable: true,
+            type: 'string',
+            unique: false,
+            updateable: false,
+            writeRequiresMasterRead: false,
+        },
+    ];
 }
 
 async function testSoapApi(conn: sf.Connection): Promise<void> {

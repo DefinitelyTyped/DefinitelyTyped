@@ -1,17 +1,13 @@
-import { Node } from './Node';
+import { NodeValueOption } from './constants';
+import InputNode from './InputNode';
 
-export interface NodeUniformParams {
-    name?: string;
-    type?: string;
-    node?: Node;
-    needsUpdate?: boolean;
-}
+export default class NodeUniform {
+    isNodeUniform: true;
+    name: string;
+    type: string;
+    node: InputNode;
+    needsUpdate: boolean;
+    value: NodeValueOption;
 
-export class NodeUniform {
-    constructor(params?: NodeUniformParams);
-    name: string | undefined;
-    type: string | undefined;
-    node: Node | undefined;
-    needsUpdate: boolean | undefined;
-    value: any;
+    constructor(name: string, type: string, node: InputNode, needsUpdate?: boolean);
 }

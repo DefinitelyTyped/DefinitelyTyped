@@ -44,4 +44,15 @@ const testCases = [
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <dialog
+        onCancel={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+        onClose={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+    ></dialog>,
+    <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
 ];

@@ -6,7 +6,7 @@ import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { Arguments } from 'yargs';
+import { Arguments, CompletionCallback } from 'yargs';
 
 const stringVal = 'string';
 
@@ -140,8 +140,11 @@ async function Argv$parsing() {
     const argv1 = await yargs.parse();
     const argv2 = yargs(['-x', '1', '-y', '2']).parseSync();
     const argv3 = yargs.parseSync(['-x', '1', '-y', '2']);
-    const argv4 = await yargs();
+    const argv4 = await yargs(['-x', '1', '-y', '2']).parseAsync();
     console.log(argv1.x, argv2.x, argv3.x, argv4.x);
+
+    // $ExpectType Argv<{}>
+    yargs();
 
     // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; } | Promise<{ [x: string]: unknown; _: (string | number)[]; $0: string; }>
     yargs.parse();
@@ -153,7 +156,7 @@ async function Argv$parsing() {
     yargs.argv;
 
     // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; } | Promise<{ [x: string]: unknown; _: (string | number)[]; $0: string; }>
-    yargs();
+    yargs().argv;
 
     // $ExpectType { [x: string]: unknown; update: boolean | undefined; extern: boolean | undefined; _: (string | number)[]; $0: string; }
     yargs(['--update'])
@@ -309,16 +312,19 @@ function Argv$command() {
             'get',
             'make a get HTTP request',
             (yargs) => {
-                return yargs.option('u', {
-                    alias: 'url',
+                return yargs.option('url', {
+                    alias: 'u',
+                    type: 'string',
                     describe: 'the URL to make an HTTP request to'
                 });
             },
             (argv) => {
                 console.dir(argv.url);
             },
-            // middlewares
-            [],
+            [(argv) => {
+                // $ExpectType string | undefined
+                argv.url;
+            }],
             // deprecated
             'use --newGet'
         )
@@ -488,6 +494,26 @@ function Argv$completion_hide() {
             }, 10);
         });
     }).argv;
+
+    // fallback func
+    yargs.completion('completion', false, (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completion: string[]) => void) => {
+        // if 'apple' present return default completions
+        if (argv._.includes('apple')) {
+            completionFilter();
+        } else {
+            completionFilter((err: Error | null, defaultCompletions: string[] | undefined) => {
+                if (defaultCompletions === undefined) {
+                    done([]);
+                    return;
+                }
+                const filteredCompletions = defaultCompletions.filter(
+                    completion => !completion.includes('banana'),
+                );
+                // else return default completions w/o 'banana'
+                done(filteredCompletions);
+            });
+        }
+    }).argv;
 }
 
 function Argv$completion_sync() {
@@ -525,6 +551,29 @@ function Argv$completion_promise() {
                     resolve(['apple', 'banana']);
                 }, 10);
             });
+        })
+        .argv;
+}
+
+function Argv$completion_fallback() {
+    const argv = yargs
+        .completion('completion', (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completion: string[]) => void) => {
+            // if 'apple' present return default completions
+            if (argv._.includes('apple')) {
+                completionFilter();
+            } else {
+                completionFilter((err: Error | null, defaultCompletions: string[] | undefined) => {
+                    if (defaultCompletions === undefined) {
+                        done([]);
+                        return;
+                    }
+                    const filteredCompletions = defaultCompletions.filter(
+                        completion => !completion.includes('banana'),
+                    );
+                    // else return default completions w/o 'banana'
+                    done(filteredCompletions);
+                });
+            }
         })
         .argv;
 }
@@ -617,9 +666,10 @@ function Argv$locale() {
 function Argv$middleware() {
     const mwFunc1 = (argv: Arguments) => console.log(`I'm a middleware function`, argv);
     const mwFunc2 = (argv: Arguments) => console.log(`I'm another middleware function`, argv);
+    const mwFunc3 = async (argv: Arguments) => console.log(`I'm another middleware function`, argv);
 
     const argv = yargs
-        .middleware([mwFunc1, mwFunc2])
+        .middleware([mwFunc1, mwFunc2, mwFunc3])
         .middleware((argv) => {
             if (process.env.HOME) argv.home = process.env.HOME;
         }, true)
@@ -773,10 +823,24 @@ function Argv$getCompletion() {
         .option('foobar', {})
         .option('foobaz', {})
         .completion()
-        .getCompletion(['./test.js', '--foo'], (completions) => {
-            console.log(completions);
+        .getCompletion(['./test.js', '--foo'], (err, completions) => {
+          if (err !== null) {
+            console.error(err.message);
+          }
+          console.log(completions.length);
         })
         .argv;
+}
+
+function Argv$getCompletionPromise() {
+    const ya = yargs
+        .option('foobar', {})
+        .option('foobaz', {})
+        .completion()
+        .getCompletion(['./test.js', '--foo'])
+        .then(completions => {
+          console.log(completions.length);
+        });
 }
 
 function Argv$getHelp() {
@@ -972,6 +1036,41 @@ async function Argv$inferOptionTypes() {
         .option("normalize", { normalize: true })
         .parseSync();
 
+    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date; count: number | "no"; _: (string | number)[]; $0: string; }
+    yargs
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("choices", { choices: colors, default: "red" } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("numberChoices", { choices: stages, default: 1 } as const)
+        .option("coerce", { coerce: () => new Date(), default: "abc" })
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("count", { type: "count", default: "no" } as const)
+        .parseSync();
+
+    // $ExpectType { [x: string]: unknown; p: ("x" | "y")[] | undefined; q: string[] | undefined; r: "x" | "y" | undefined; s: ("x" | "y")[] | undefined; _: (string | number)[]; $0: string; }
+    yargs()
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("p", {
+            array: true,
+            choices: ["x", "y"],
+            type: "string",
+        } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("q", {
+            array: true,
+            type: "string",
+        } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("r", {
+            choices: ["x", "y"],
+            type: "string",
+        } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("s", {
+            choices: ["x", "y"],
+            type: "array",
+        } as const).parseSync();
+
     // $ExpectType (string | number)[] | undefined
     (await yargs.array("x").argv).x;
 
@@ -1072,26 +1171,30 @@ function Argv$inferRequiredOptionTypes() {
 }
 
 function Argv$inferMultipleOptionTypes() {
-    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
+    // tslint:disable-next-line
+    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; d: number; e: number; c: number; _: (string | number)[]; $0: string; } ||  { [x: string]: unknown; b: boolean; a: string; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
     yargs
         .option({ a: { default: "a" }, b: { default: false } })
         .number(["c", "d", "e"])
         .demandOption(["c", "d", "e"])
         .parseSync();
 
-    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
+    // tslint:disable-next-line
+    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; d: number; e: number; c: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
     yargs
         .options({ a: { default: "a" }, b: { default: false } })
         .number(["c", "d", "e"])
         .demandOption(["c", "d", "e"])
         .parseSync();
 
-    // $ExpectType { [x: string]: unknown; a: number; b: string; c: boolean; _: (string | number)[]; $0: string; }
+    // tslint:disable-next-line
+    // $ExpectType { [x: string]: unknown; a: number; b: string; c: boolean; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: string; a: number; c: Date; _: (string | number)[]; $0: string; }
     yargs
         .default({ a: 42, b: "b", c: false })
         .parseSync();
 
-    // $ExpectType { [x: string]: unknown; a: number; b: string; c: Date; _: (string | number)[]; $0: string; }
+    // tslint:disable-next-line
+    // $ExpectType { [x: string]: unknown; a: number; b: string; c: Date; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: string; a: number; c: Date; _: (string | number)[]; $0: string; }
     yargs
         .coerce({ a: Date.parse, b: String.prototype.toLowerCase, c: (s: string) => new Date(s) })
         .demandOption(["a", "b", "c"])
@@ -1111,7 +1214,8 @@ function Argv$inferMultipleOptionTypes() {
         })
         .parseSync();
 
-    // $ExpectType { [x: string]: unknown; a: number | undefined; b: string | undefined; c: Color; _: (string | number)[]; $0: string; }
+    // tslint:disable-next-line
+    // $ExpectType { [x: string]: unknown; a: number | undefined; b: string | undefined; c: Color; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: string | undefined; a: number | undefined; c: Color; _: (string | number)[]; $0: string; }
     yargs
         .choices({ a: [1, 2, 3], b: ["black", "white"], c: colors })
         .demandOption("c")
@@ -1125,7 +1229,8 @@ function Argv$inferOptionTypesForAliases() {
         .alias("u", "url")
         .parseSync();
 
-    // $ExpectType { [x: string]: unknown; v: boolean; loud: boolean; noisy: boolean; verbose: boolean; n: boolean; _: (string | number)[]; $0: string; }
+    // tslint:disable-next-line
+    // $ExpectType { [x: string]: unknown; v: boolean; loud: boolean; noisy: boolean; verbose: boolean; n: boolean; _: (string | number)[]; $0: string; } || { [x: string]: unknown; v: boolean; verbose: boolean; loud: boolean; noisy: boolean; n: boolean; _: (string | number)[]; $0: string; }
     yargs
         .option("v", { default: false })
         .alias("v", ["loud", "noisy", "verbose"])
@@ -1138,6 +1243,11 @@ function Argv$inferOptionTypesForAliases() {
         .alias("n", "count")
         .alias("num", ["n", "count"])
         .parseSync();
+
+    // $ExpectType { [x: string]: unknown; u: string | undefined; url: string | undefined; _: (string | number)[]; $0: string; }
+    yargs
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("u", { type: "string", alias: "url" } as const).parseSync();
 }
 
 async function Argv$inferArrayOptionTypes() {
@@ -1249,7 +1359,7 @@ async function Argv$fallbackToUnknownForUnknownOptions() {
     // $ExpectType unknown
     argv.c;
 
-    // $ExpectError
+    // @ts-expect-error
     const x: string = (await yargs.argv).x;
     return x;
 }
@@ -1262,7 +1372,25 @@ function Argv$parsed() {
     const parsedArgs = yargs.parsed;
 }
 
-async function Argv$defaultCommandWithPositional(): Promise<string> {
+function Argv$optionsOfTwoCommandsDoNotCollide() {
+    return yargs
+    .command(
+        ["foo"],
+        "foo command",
+        (yargs) => yargs.option("a", { type: "string", required: true }),
+        (argv) => { const a: string = argv.a; })
+    .command(
+        ["bar"],
+        "bar command",
+        (yargs) => yargs.option("b", { type: "number", required: true }),
+        (argv) => {
+            // @ts-expect-error
+            const a: string = argv.a;
+            const b: number = argv.b;
+        }).parseSync();
+}
+
+function Argv$defaultCommandWithPositional() {
     const argv = yargs.command(
         "$0 <arg>",
         "default command",
@@ -1272,9 +1400,9 @@ async function Argv$defaultCommandWithPositional(): Promise<string> {
                 describe: "argument",
                 type: "string",
             }),
-        () => { }).argv;
-
-    return (await argv).arg;
+        (argv) => { const arg = argv.arg; }).parseSync();
+    // @ts-expect-error
+    const a: string = argv.arg;
 }
 
 function Argv$commandsWithAsynchronousBuilders() {
@@ -1288,8 +1416,8 @@ function Argv$commandsWithAsynchronousBuilders() {
                     describe: "argument",
                     type: "string",
                 })),
-        () => { }).parseSync();
-
+        (argv) => { const arg1: string = argv.arg; }).parseSync();
+    // @ts-expect-error
     const arg1: string = argv1.arg;
 
     const argv2 = yargs.command({
@@ -1302,9 +1430,9 @@ function Argv$commandsWithAsynchronousBuilders() {
                     describe: "argument",
                     type: "string",
                 })),
-        handler: () => {}
+        handler: (argv) => { const arg2: string = argv.arg; }
     }).parseSync();
-
+    // @ts-expect-error
     const arg2: string = argv2.arg;
 }
 

@@ -9,7 +9,7 @@ export namespace Blame {
         TRACK_COPIES_SAME_COMMIT_MOVES = 2,
         TRACK_COPIES_SAME_COMMIT_COPIES = 4,
         TRACK_COPIES_ANY_COMMIT_COPIES = 8,
-        FIRST_PARENT = 16
+        FIRST_PARENT = 16,
     }
 }
 

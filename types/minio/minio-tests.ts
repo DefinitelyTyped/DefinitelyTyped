@@ -240,6 +240,44 @@ minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', s
 minio.setObjectLegalHold('testBucket', 'hello.jpg');
 minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', status: 'OFF'});
 
+const destObjConfig = new Minio.CopyDestinationOptions({ Bucket: 'testBucket', Object: '100MB.zip' });
+const sourceObjList = [
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partA' }),
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partB' }),
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partC' }),
+];
+
+minio.composeObject(destObjConfig, sourceObjList, (error: Error | null, result: Minio.SourceObjectStats) => { console.log(error, result); });
+minio.composeObject(destObjConfig, sourceObjList);
+minio.composeObject(destObjConfig, sourceObjList)
+  .then((result) => {
+    console.log(result);
+  });
+
+minio.selectObjectContent(
+  'testBucket',
+  'hello.jpg',
+  {
+    expression: "SELECT * FROM s3object s",
+    expressionType: 'SQL',
+    inputSerialization: { CSV: { FileHeaderInfo: 'USE' }, CompressionType: 'NONE' },
+    outputSerialization: { CSV: { RecordDelimiter: '\n', FieldDelimiter: ',' }},
+    requestProgress: { Enabled: true },
+  },
+  (error: Error | null) => { console.log(error); }
+);
+minio.selectObjectContent(
+  'testBucket',
+  'hello.jpg',
+  {
+    expression: "SELECT * FROM s3object s",
+    expressionType: 'SQL',
+    inputSerialization: { CSV: { FileHeaderInfo: 'USE' }, CompressionType: 'NONE' },
+    outputSerialization: { CSV: { RecordDelimiter: '\n', FieldDelimiter: ',' }},
+    requestProgress: { Enabled: true },
+  },
+);
+
 // Presigned operations
 minio.presignedUrl('GET', 'testBucket', 'hello.jpg', (error: Error|null, url: string) => { console.log(error, url); });
 minio.presignedUrl('GET', 'testBucket', 'hello.jpg', 84600, (error: Error|null, url: string) => { console.log(error, url); });
@@ -290,6 +328,12 @@ minio.presignedPutObject('testBucket', 'hello.jpg', 84600);
 const policy = minio.newPostPolicy();
 policy.setBucket('testBucket');
 policy.setKey('hello.jpg');
+policy.setContentLengthRange(0, 100);
+policy.setContentDisposition('testDisposition.jpg');
+policy.setContentType('image/jpeg');
+policy.setContentTypeStartsWith('image/');
+policy.setUserMetaData({ key: 'value' });
+
 minio.presignedPostPolicy(policy, (error: Error|null, data: Minio.PostPolicyResult) => { console.log(error, data); });
 minio.presignedPostPolicy(policy);
 
@@ -306,7 +350,9 @@ minio.setBucketNotification('testBucket', notificationConfig);
 minio.removeAllBucketNotification('testBucket', (error: Error|null) => { console.log(error); });
 minio.removeAllBucketNotification('testBucket');
 
-minio.listenBucketNotification('testBucket', 'pref_', '_suf', [ Minio.ObjectCreatedAll ]);
+const poller = minio.listenBucketNotification('testBucket', 'pref_', '_suf', [Minio.ObjectCreatedAll]);
+poller.start();
+poller.stop();
 
 minio.getBucketPolicy('testBucket', (error: Error|null, policy: string) => { console.log(error, policy); });
 minio.getBucketPolicy('testBucket');
@@ -324,3 +370,7 @@ minio.extensions.listObjectsV2WithMetadata('testBucket');
 minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_');
 minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_', true);
 minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_', true, 'some_object.jpg');
+
+// @ts-expect-error
+minio.setRequestOptions();
+minio.setRequestOptions({ auth: 'foo', port: 12345 });

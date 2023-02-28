@@ -10,6 +10,14 @@ declare namespace jsrsasign.KJUR.asn1.csr {
         };
     }
 
+    interface ParamResponse {
+        subject: { array?: Array<[{ type: string; value: string; ds: string }]>; str: string };
+        sbjpubkey: string;
+        extreq?: Array<{ extname: string; array?: any[] }>;
+        sigalg: string;
+        sighex: string;
+    }
+
     /**
      * Certification Request (CSR/PKCS#10) utilities class
      * @description
@@ -72,12 +80,14 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          */
         function newCSRPEM(param?: {
             subject:
-                | StringParam & { certissuer?: string | undefined; certsubject?: string | undefined }
-                | x509.X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined }
-                | { ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined };
-            ext?: Array<{
-                subjectAltName: ArrayParam<{ dns: string }>;
-            }> | undefined;
+                | (StringParam & { certissuer?: string | undefined; certsubject?: string | undefined })
+                | (x509.X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined })
+                | ({ ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined });
+            ext?:
+                | Array<{
+                      subjectAltName: ArrayParam<{ dns: string }>;
+                  }>
+                | undefined;
             sbjpubkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;
             sigalg: string;
             sbjprvkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;
@@ -103,5 +113,41 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          * console.log(o.subject.name) → "/C=US/O=Test"
          */
         function getInfo(sPEM: string): PEMInfo;
+
+        /**
+         * get field values from CSR/PKCS#10 PEM string
+         * @param sPEM PEM string of CSR/PKCS#10
+         * @returns JSON object with parsed parameters such as name or public key
+         * @description
+         * This method parses PEM CSR/PKCS#1 string and retrieves
+         * fields such as subject name and public key.
+         * Following parameters are available in the
+         * resulted JSON object.
+         *
+         * - {X500Name}subject - subject name parameters
+         * - {String}sbjpubkey - PEM string of subject public key
+         * - {Array}extreq - array of extensionRequest parameters
+         * - {String}sigalg - name of signature algorithm field
+         * - {String}sighex - hexadecimal string of signature value
+         *
+         * Returned JSON object can be passed to
+         * {@link KJUR.asn1.csr.CertificationRequest} class constructor.
+         *
+         * CAUTION:
+         * Returned JSON value format have been changed without
+         * backward compatibility since jsrsasign 9.0.0 asn1csr 2.0.0.
+         *
+         * @example
+         * KJUR.asn1.csr.CSRUtil.getParam("-----BEGIN CERTIFICATE REQUEST...") &rarr;
+         * {
+         *   subject: { array:[[{type:"C",value:"JP",ds:"prn"}],...],
+         *              str: "/C=JP/O=Test"},
+         *   sbjpubkey: "-----BEGIN PUBLIC KEY...",
+         *   extreq: [{extname:"subjectAltName",array:[{dns:"example.com"}]}]
+         *   sigalg: "SHA256withRSA",
+         *   sighex: "1ab3df.."
+         * }
+         */
+        function getParam(sPEM: string): ParamResponse;
     }
 }

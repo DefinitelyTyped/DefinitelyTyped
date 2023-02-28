@@ -1,4 +1,4 @@
-import { Material, Vector3 } from '../../../src/Three';
+import { Material, Object3D, Vector3 } from '../../../src/Three';
 
 import { LightningStrike, RayParameters } from '../geometries/LightningStrike';
 
@@ -24,9 +24,9 @@ export interface StormParams {
     onLightningDown?: (lightning: LightningStrike) => void;
 }
 
-export class LightningStorm {
+export class LightningStorm extends Object3D {
     constructor(stormParams?: StormParams);
     update(time: number): void;
-    copy(source: LightningStorm): LightningStorm;
+    copy(source: LightningStorm, recursive?: boolean): this;
     clone(): this;
 }

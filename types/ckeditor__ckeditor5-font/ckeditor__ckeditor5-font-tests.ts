@@ -26,7 +26,10 @@ Font.requires.map(Plugin => new Plugin(editor));
 new Font(editor);
 
 FontSize.requires.map(Plugin => new Plugin(editor).init());
-new FontSize(editor);
+// $ExpectType FontSizeOption[]
+new FontSize(editor).normalizeSizeOptions(['']);
+// $ExpectType FontSizeOption[]
+new FontSize(editor).normalizeSizeOptions([5]);
 
 FontColor.requires.map(Plugin => new Plugin(editor));
 new FontColor(editor);
@@ -63,7 +66,7 @@ new ColorTableView(new Locale(), {
     removeButtonLabel: '',
     documentColorsLabel: '',
     documentColorsCount: 0,
-});
+}).destroy();
 
 new ColorUI(editor, { commandName: '', icon: '', componentName: '', dropdownLabel: '' }).init();
 

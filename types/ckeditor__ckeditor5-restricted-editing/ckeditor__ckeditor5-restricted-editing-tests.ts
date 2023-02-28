@@ -38,6 +38,7 @@ new RestrictedEditingExceptionCommand(editor).refresh();
 
 new RestrictedEditingModeNavigationCommand(editor, 'forward').execute();
 new RestrictedEditingModeNavigationCommand(editor, 'backward').refresh();
+new RestrictedEditingModeNavigationCommand(editor, 'backward').affectsData === false;
 
 converters.upcastHighlightToMarker({ converterPriority: 'low', view: '', model: Element.fromJSON({name: 'div'}) });
 converters.setupExceptionHighlighting(editor);

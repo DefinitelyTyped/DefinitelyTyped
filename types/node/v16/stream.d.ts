@@ -18,6 +18,7 @@
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
+    import { Blob as NodeBlob } from 'node:buffer';
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
     class internal extends EventEmitter {
@@ -408,7 +409,7 @@ declare module 'stream' {
              * @since v8.0.0
              * @param error Error which will be passed as payload in `'error'` event
              */
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -639,9 +640,9 @@ declare module 'stream' {
              * @param encoding The encoding if `chunk` is a string
              * @param callback Callback for when the stream is finished.
              */
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding: BufferEncoding, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding: BufferEncoding, cb?: () => void): this;
             /**
              * The `writable.cork()` method forces all written data to be buffered in memory.
              * The buffered data will be flushed when either the {@link uncork} or {@link end} methods are called.
@@ -707,7 +708,7 @@ declare module 'stream' {
              * @since v8.0.0
              * @param error Optional, an error to emit with `'error'` event.
              */
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -839,7 +840,7 @@ declare module 'stream' {
              *
              * @since v16.8.0
              */
-            static from(src: Stream | Blob | ArrayBuffer | string | Iterable<any> | AsyncIterable<any> | AsyncGeneratorFunction | Promise<any> | Object): Duplex;
+            static from(src: Stream | NodeBlob | ArrayBuffer | string | Iterable<any> | AsyncIterable<any> | AsyncGeneratorFunction | Promise<any> | Object): Duplex;
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
                 chunks: Array<{
@@ -853,9 +854,9 @@ declare module 'stream' {
             write(chunk: any, encoding?: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: BufferEncoding): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): this;
             cork(): void;
             uncork(): void;
         }
@@ -1238,6 +1239,19 @@ declare module 'stream' {
             ref(): void;
             unref(): void;
         }
+
+        /**
+         * Returns whether the stream has encountered an error.
+         * @since v16.14.0
+         */
+        function isErrored(stream: Readable | Writable | NodeJS.ReadableStream | NodeJS.WritableStream): boolean;
+
+        /**
+         * Returns whether the stream is readable.
+         * @since v16.14.0
+         */
+        function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
+
         const promises: typeof streamPromises;
         const consumers: typeof streamConsumers;
     }

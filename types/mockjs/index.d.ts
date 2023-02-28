@@ -20,12 +20,20 @@ declare namespace mockjs {
         version: number;
     }
 
+    interface MockjsRequestOptions {
+        url: string;
+        type: string;
+        body: any;
+    }
+
+    type templateOrFn = ((options: MockjsRequestOptions) => any) | object;
+
     // Mockjs.mock()
     // see https://github.com/nuysoft/Mock/wiki/Mock.mock()
     interface MockjsMock {
-        (rurl: S | RegExp, rtype: S, template: any): Mockjs;
+        (rurl: S | RegExp, rtype: S, template: templateOrFn): Mockjs;
 
-        (rurl: S | RegExp, template: any): Mockjs;
+        (rurl: S | RegExp, template: templateOrFn): Mockjs;
 
         (template: any): any;
     }
@@ -62,7 +70,7 @@ declare namespace mockjs {
         string(pool?: S | N, min?: N, max?: N): S;
 
         // Random.range
-        range(start?: N, stop?: N, step?: N): N;
+        range(start?: N, stop?: N, step?: N): N[];
     }
 
     // Mockjs.Random - Date
@@ -80,7 +88,7 @@ declare namespace mockjs {
 
         // Random.now
         now(util: RandomDateUtilString, format?: S): S;
-        mow(format?: S): S;
+        now(format?: S): S;
     }
 
     // Mockjs.Random - Image

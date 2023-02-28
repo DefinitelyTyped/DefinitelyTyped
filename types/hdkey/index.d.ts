@@ -8,7 +8,7 @@
 /// <reference types="node"/>
 
 declare class HDNode {
-    static fromMasterSeed(seed: Buffer): HDNode;
+    static fromMasterSeed(seed: Buffer, versions?: { private: number; public: number }): HDNode;
     publicKey: Buffer;
     privateKey: Buffer;
     chainCode: Buffer;

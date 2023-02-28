@@ -1,9 +1,9 @@
 import { decrypt, encrypt, decryptKeyInfo, encryptKeyInfo, EncryptOptions } from 'xml-encryption';
 
 // no key
-// $ExpectError
+// @ts-expect-error
 decrypt('enc', {}, (err, res) => {});
-// $ExpectError
+// @ts-expect-error
 decryptKeyInfo('enc', {});
 
 decrypt(
@@ -17,9 +17,9 @@ decrypt(
 // $ExpectType Buffer
 const decrypted = decryptKeyInfo('enc', { key: 'mykey' });
 
-// $ExpectError
+// @ts-expect-error
 encrypt('dec', {}, (err, res) => {});
-// $ExpectError
+// @ts-expect-error
 encryptKeyInfo(Buffer.from('dec'), {}, (err, res) => {});
 
 const encryptOptions: EncryptOptions = {

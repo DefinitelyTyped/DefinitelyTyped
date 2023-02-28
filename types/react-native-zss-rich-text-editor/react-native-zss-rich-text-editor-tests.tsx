@@ -6,7 +6,7 @@ interface Props {
 }
 
 export class WyswygComponent extends React.Component<Props> {
-  private editorInst: RichTextEditor;
+  private editorInst: RichTextEditor | null = null;
 
   render() {
     const {value} = this.props;
@@ -17,7 +17,7 @@ export class WyswygComponent extends React.Component<Props> {
     />;
   }
 
-  private readonly saveEditorReference = (ref: RichTextEditor) => {
+  private readonly saveEditorReference = (ref: RichTextEditor | null) => {
     this.editorInst = ref;
   }
 }

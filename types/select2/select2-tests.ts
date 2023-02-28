@@ -84,11 +84,29 @@ interface ServerResult {
 $("#mySelect2").select2({
     ajax: {
         url: "/example/api",
+        delay: 250,
+        cache: true,
+        dataType: "json",
         processResults: (data: ServerResult) => {
             return {
-                results: data.items
+                results: data.items,
             };
-        }
+        },
+        transport: (params, success, failure) => {
+            const $request = $.ajax(params);
+
+            $request.then(success);
+            $request.fail(failure);
+
+            return $request;
+        },
+        data: params => {
+            const queryParameters = {
+                q: params.term,
+            };
+
+            return queryParameters;
+        },
     }
 });
 
@@ -295,7 +313,15 @@ $("#mySelect2").select2({
 // Dropdown placement
 
 $("#mySelect2").select2({
+    dropdownParent: document.getElementById("myModal")!
+});
+
+$("#mySelect2").select2({
     dropdownParent: $("#myModal")
+});
+
+$("#mySelect2").select2({
+    dropdownParent: "#myModal"
 });
 
 // =====================================================

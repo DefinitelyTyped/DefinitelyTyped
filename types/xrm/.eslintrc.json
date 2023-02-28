@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "no-const-enum": "off",
+        "no-unnecessary-generics": "off"
+    }
+}

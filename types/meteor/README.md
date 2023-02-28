@@ -2,8 +2,7 @@
 
 ## Description
 
-These are the definitions for version 1.4 of Meteor.  These definitions were generated from the same [Meteor data.js file](https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs](http://docs.meteor.com/).  The code that generates these definitions can be found [here](https://github.com/meteor-typescript/meteor-typescript-libs/).
-
+These are the definitions for version 2.6 of Meteor.  These definitions were long ago (Meteor 1.x days) generated from the same [Meteor data.js file](https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs](http://docs.meteor.com/) but are now updated manually.
 
 ## Meteor `typescript` package
 

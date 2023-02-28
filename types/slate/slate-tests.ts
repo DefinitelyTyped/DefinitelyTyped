@@ -27,7 +27,7 @@ const data = Data.create({ foo: "bar " });
 // $ExpectType any
 data.get('hoge');
 
-// $ExpectError
+// @ts-expect-error
 data['foo'];
 
 const value = Value.create({ data });

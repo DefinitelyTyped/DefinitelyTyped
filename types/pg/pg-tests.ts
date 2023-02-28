@@ -293,6 +293,9 @@ pool.end().then(() => console.log('pool has ended'));
 // Set allowExitOnIdle on pool constructor
 const poolExitOnIdle = new Pool({ allowExitOnIdle: true });
 
+// Set maxUses on pool constructor
+const poolMaxUses = new Pool({ maxUses: 100 });
+
 // client constructor tests
 // client config object tested above
 let c = new Client(); // empty constructor allowed

@@ -146,14 +146,16 @@ fileSync({ mode: 644 }); // $ExpectType FileResult
 
 // need to test this type via assignments, TS4.1 resolves this type
 // as Pick<FileResult, "name" | "removeCallback"> instead of FileResultNoFd
-const fileResult_: FileResult = fileSync({ discardDescriptor: true }); // $ExpectError
+// @ts-expect-error
+const fileResult_: FileResult = fileSync({ discardDescriptor: true });
 const fileResultNoFd: FileResultNoFd = fileSync({ discardDescriptor: true });
 
 fileResult.fd; // $ExpectType number
 fileResult.name; // $ExpectType string
 fileResult.removeCallback; // $ExpectType () => void
 
-fileResultNoFd.fd; // $ExpectError
+// @ts-expect-error
+fileResultNoFd.fd;
 fileResultNoFd.name; // $ExpectType string
 fileResultNoFd.removeCallback; // $ExpectType () => void
 

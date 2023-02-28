@@ -1,19 +1,17 @@
 // Type definitions for ember-modal-dialog 3.0
 // Project: https://github.com/yapplabs/ember-modal-dialog#readme
-// Definitions by: Frank Tan <https://github.com/tansongyang>
-//                 Mike North <https://github.com/mike-north>
-//                 Dan Freeman <https://github.com/dfreeman>
+// Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 declare module 'ember-modal-dialog/components/modal-dialog' {
-    import Ember from 'ember';
+    import Component from '@ember/component';
 
-    // https://github.com/yapplabs/ember-modal-dialog/blob/v2.4.1/addon/components/modal-dialog.js#L28
+    // https://github.com/yapplabs/ember-modal-dialog/blob/v3.0.3/addon/components/modal-dialog.js
     // https://www.npmjs.com/package/ember-modal-dialog#configurable-properties
-    export default class ModalDialog extends Ember.Component {
+    export default class ModalDialog extends Component {
         /**
          * Toggles presence of overlay div in DOM
          */

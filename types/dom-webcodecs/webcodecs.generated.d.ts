@@ -105,10 +105,10 @@ interface PlaneLayout {
 }
 
 interface VideoColorSpaceInit {
-    fullRange?: boolean | undefined;
-    matrix?: VideoMatrixCoefficients | undefined;
-    primaries?: VideoColorPrimaries | undefined;
-    transfer?: VideoTransferCharacteristics | undefined;
+    fullRange?: boolean | null | undefined;
+    matrix?: VideoMatrixCoefficients | null | undefined;
+    primaries?: VideoColorPrimaries | null | undefined;
+    transfer?: VideoTransferCharacteristics | null | undefined;
 }
 
 interface VideoDecoderConfig {
@@ -411,7 +411,7 @@ type EncodedAudioChunkType = "delta" | "key";
 type EncodedVideoChunkType = "delta" | "key";
 type HardwarePreference = "no-preference" | "prefer-hardware" | "prefer-software";
 type LatencyMode = "quality" | "realtime";
-type VideoColorPrimaries = "bt470bg" | "bt709" | "smpte170m";
-type VideoMatrixCoefficients = "bt470bg" | "bt709" | "rgb" | "smpte170m";
+// type VideoColorPrimaries = "bt470bg" | "bt709" | "smpte170m";
+// type VideoMatrixCoefficients = "bt470bg" | "bt709" | "rgb" | "smpte170m";
 type VideoPixelFormat = "BGRA" | "BGRX" | "I420" | "I420A" | "I422" | "I444" | "NV12" | "RGBA" | "RGBX";
-type VideoTransferCharacteristics = "bt709" | "iec61966-2-1" | "smpte170m";
+// type VideoTransferCharacteristics = "bt709" | "iec61966-2-1" | "smpte170m";

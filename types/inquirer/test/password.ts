@@ -1,9 +1,9 @@
-import inquirer = require('inquirer');
+import inquirer, { Validator } from 'inquirer';
 
 /**
  * Password prompt example
  */
-const requireLetterAndNumber: inquirer.Validator = value => {
+const requireLetterAndNumber: Validator = value => {
     if (/\w/.test(value) && /\d/.test(value)) {
         return true;
     }

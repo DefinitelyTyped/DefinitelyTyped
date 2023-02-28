@@ -9,15 +9,26 @@ agent((req, opts) => {}, { timeout: 1000 }); // $ExpectType Agent
 agent(async (req, opts) => {}); // $ExpectType Agent
 agent(async (req, opts) => {}, { timeout: 1000 }); // $ExpectType Agent
 
-agent(0); // $ExpectError
-agent(1); // $ExpectError
-agent(''); // $ExpectError
-agent(true); // $ExpectError
-agent(null); // $ExpectError
+// @ts-expect-error
+agent(0);
+// @ts-expect-error
+agent(1);
+// @ts-expect-error
+agent('');
+// @ts-expect-error
+agent(true);
+// @ts-expect-error
+agent(null);
 
-agent((req, opts) => {}, 0); // $ExpectError
-agent((req, opts) => {}, 1); // $ExpectError
-agent((req, opts) => {}, ''); // $ExpectError
-agent((req, opts) => {}, true); // $ExpectError
-agent((req, opts) => {}, null); // $ExpectError
-agent((req, opts) => {}, (req, opts) => {}); // $ExpectError
+// @ts-expect-error
+agent((req, opts) => {}, 0);
+// @ts-expect-error
+agent((req, opts) => {}, 1);
+// @ts-expect-error
+agent((req, opts) => {}, '');
+// @ts-expect-error
+agent((req, opts) => {}, true);
+// @ts-expect-error
+agent((req, opts) => {}, null);
+// @ts-expect-error
+agent((req, opts) => {}, (req, opts) => {});

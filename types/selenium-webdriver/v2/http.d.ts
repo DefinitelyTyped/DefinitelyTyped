@@ -42,7 +42,6 @@ export class HttpResponse {
     toString(): string;
 }
 
-
 export function post(path: string): any;
 export function del(path: string): any;
 export function get(path: string): any;

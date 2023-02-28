@@ -4,8 +4,8 @@ let testFile: File = new File([""], "filename");
 const testArchive = new Archive(testFile, { workerUrl: 'test'});
 
 Archive.init({ workerUrl: 'test' });
-Archive.open(testFile);
-Archive.open(testFile, { workerUrl: 'test' });
+Archive.open(testFile).then(e => void e);
+Archive.open(testFile, { workerUrl: 'test' }).then(e => void e);
 
 const FilesObject1: { [key: string]: any } = {
     test2: testFile

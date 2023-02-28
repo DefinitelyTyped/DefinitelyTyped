@@ -48,7 +48,7 @@ class SampleComponent extends React.Component<Props> {
           text='text'
         />
 
-        <WrappedText ref={generateTestHook('WrappedText')}>
+        <WrappedText accessibilityRole='button' ref={generateTestHook('WrappedText')}>
           Wrapped text
         </WrappedText>
 
@@ -107,5 +107,13 @@ const testHookStore = new TestHookStore();
   reporter={sampleReporter}
 >
   <HookedSampleComponent foo="test" />
-  <SampleFunctionComponent/>
+</Tester>;
+// React.Children.only would throw
+// @ts-expect-error
+<Tester specs={[sampleSpec]} store={testHookStore} />;
+// React.Children.only would throw
+// @ts-expect-error
+<Tester specs={[sampleSpec]} store={testHookStore}>
+  <HookedSampleComponent foo="test" />
+  <SampleFunctionComponent />
 </Tester>;

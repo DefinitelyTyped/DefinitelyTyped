@@ -81,6 +81,21 @@ NetlifyIdentityWidget.off('error', (err) => {});
 // Use the current logged in user
 const user = NetlifyIdentityWidget.currentUser();
 
+// User could be null
+// @ts-expect-error
+const userID = user.id;
+
+if (user != null) {
+  // user_metadata could be null
+  // @ts-expect-error
+  const name = user.user_metadata.full_name;
+
+  if (user.user_metadata != null) {
+    // $ExpectType string | undefined
+    const name = user.user_metadata.full_name;
+  }
+}
+
 // If a user is logged in, logout returns a Promise<void>
 const logoutPromise = NetlifyIdentityWidget.logout();
 if (logoutPromise) {

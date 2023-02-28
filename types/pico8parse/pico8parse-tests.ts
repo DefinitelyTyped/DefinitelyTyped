@@ -33,3 +33,16 @@ console.log(JSON.stringify(nod2));
 // $ExpectType Chunk
 const ast6 = parser.parse(luaCode, { onCreateNode: (n: parser.ast.Node) => void n });
 console.log(JSON.stringify(ast6));
+
+// $ExpectType Comment[] | undefined
+const com1 = parser.parse(luaCode, { comments: true }).comments;
+console.log(JSON.stringify(com1));
+
+const err1 = new parser.SyntaxError();
+// $ExpectType number
+const index = err1.index;
+// $ExpectType number
+const line = err1.line;
+// $ExpectType number
+const column = err1.column;
+console.log(JSON.stringify({ index, line, column }));

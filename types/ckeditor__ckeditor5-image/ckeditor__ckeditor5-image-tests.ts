@@ -1,8 +1,9 @@
 import CKDataTransfer from '@ckeditor/ckeditor5-clipboard/src/datatransfer';
 import { Editor } from '@ckeditor/ckeditor5-core';
+import PluginCollection from '@ckeditor/ckeditor5-core/src/plugincollection';
 import { DowncastWriter, StylesProcessor, ViewDocument } from '@ckeditor/ckeditor5-engine';
 import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
-import ModelSelection from '@ckeditor/ckeditor5-engine/src/model/selection';
+import { default as ModelSelection, default as Selection } from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import {
@@ -29,6 +30,11 @@ import {
     ImageUploadProgress,
     ImageUploadUI,
 } from '@ckeditor/ckeditor5-image';
+import {
+    downcastSrcsetAttribute,
+    upcastImageFigure,
+    upcastPicture,
+} from '@ckeditor/ckeditor5-image/src/image/converters';
 import ImageLoadObserver from '@ckeditor/ckeditor5-image/src/image/imageloadobserver';
 import ImageTypeCommand from '@ckeditor/ckeditor5-image/src/image/imagetypecommand';
 import InsertImageCommand from '@ckeditor/ckeditor5-image/src/image/insertimagecommand';
@@ -36,14 +42,15 @@ import * as ImageUIUtils from '@ckeditor/ckeditor5-image/src/image/ui/utils';
 import * as utils from '@ckeditor/ckeditor5-image/src/image/utils';
 import ImageBlock from '@ckeditor/ckeditor5-image/src/imageblock';
 import ImageCaptionUI from '@ckeditor/ckeditor5-image/src/imagecaption/imagecaptionui';
+import ImageCaptionUtils from '@ckeditor/ckeditor5-image/src/imagecaption/imagecaptionutils';
 import ToggleImageCaptionCommand from '@ckeditor/ckeditor5-image/src/imagecaption/toggleimagecaptioncommand';
-import * as ImageCaptionUtils from '@ckeditor/ckeditor5-image/src/imagecaption/utils';
 import ImageInsertFormRowView from '@ckeditor/ckeditor5-image/src/imageinsert/ui/imageinsertformrowview';
 import ImageInsertPanelView from '@ckeditor/ckeditor5-image/src/imageinsert/ui/imageinsertpanelview';
 import * as ImageInsertUtils from '@ckeditor/ckeditor5-image/src/imageinsert/utils';
 import ResizeImageCommand from '@ckeditor/ckeditor5-image/src/imageresize/resizeimagecommand';
 import * as ImageStyleConverters from '@ckeditor/ckeditor5-image/src/imagestyle/converters';
 import ImageStyleCommand from '@ckeditor/ckeditor5-image/src/imagestyle/imagestylecommand';
+import { default as ImageStyleutils } from '@ckeditor/ckeditor5-image/src/imagestyle/utils';
 import ImageTextAlternativeCommand from '@ckeditor/ckeditor5-image/src/imagetextalternative/imagetextalternativecommand';
 import TextAlternativeFormView from '@ckeditor/ckeditor5-image/src/imagetextalternative/ui/textalternativeformview';
 import { isHtmlIncluded } from '@ckeditor/ckeditor5-image/src/imageupload/imageuploadediting';
@@ -52,13 +59,6 @@ import * as ImageUploadUtils from '@ckeditor/ckeditor5-image/src/imageupload/uti
 import ImageUtils from '@ckeditor/ckeditor5-image/src/imageutils';
 import PictureEditing from '@ckeditor/ckeditor5-image/src/pictureediting';
 import { Locale } from '@ckeditor/ckeditor5-utils';
-import {
-    downcastSrcsetAttribute,
-    upcastImageFigure,
-    upcastPicture,
-} from '@ckeditor/ckeditor5-image/src/image/converters';
-import { default as ImageStyleutils } from '@ckeditor/ckeditor5-image/src/imagestyle/utils';
-import PluginCollection from '@ckeditor/ckeditor5-core/src/plugincollection';
 
 const downcastWriter = new DowncastWriter(new ViewDocument(new StylesProcessor()));
 class MyEditor extends Editor {}
@@ -108,11 +108,11 @@ isHtmlIncluded(new CKDataTransfer(new DataTransfer()));
 
 new ImageLoadObserver(new View(new StylesProcessor()));
 
-// $ExpectError
+// @ts-expect-error
 new InsertImageCommand(editor).execute();
-// $ExpectError
+// @ts-expect-error
 new InsertImageCommand(editor).execute('');
-// $ExpectError
+// @ts-expect-error
 new InsertImageCommand(editor).execute(['']);
 new InsertImageCommand(editor).execute({ source: '' });
 new InsertImageCommand(editor).execute({ source: ['', ''] });
@@ -139,17 +139,17 @@ imageUtils.isInlineImageView(viewElement);
 imageUtils.findViewImgElement(viewElement).getPath()[0];
 
 // $ExpectType Element | null
-ImageCaptionUtils.getCaptionFromModelSelection(imageUtils, new ModelSelection(null));
-// $ExpectType true
-ImageCaptionUtils.matchImageCaptionViewElement(imageUtils, viewElement)!.name;
+new ImageCaptionUtils(editor).getCaptionFromModelSelection(new Selection());
+// $ExpectType true | undefined
+new ImageCaptionUtils(editor).matchImageCaptionViewElement(viewElement)?.name;
 // $ExpectType Element | null
-ImageCaptionUtils.getCaptionFromImageModelElement(modelElement);
+new ImageCaptionUtils(editor).getCaptionFromImageModelElement(modelElement);
 
-// $ExpectError
+// @ts-expect-error
 new ImageInsertFormRowView();
 new ImageInsertFormRowView(new Locale());
 
-new ImageInsertPanelView(new Locale());
+new ImageInsertPanelView(new Locale()).destroy();
 
 ImageInsertUtils.prepareIntegrations(editor).foo.setTemplate;
 ImageInsertUtils.createLabeledInputView(new Locale()).setTemplate;
@@ -165,7 +165,8 @@ new ImageStyleCommand(editor, [{ icon: '', name: '', className: '', title: '' }]
 
 new ImageTextAlternativeCommand(editor).execute({ newValue: '' });
 
-new TextAlternativeFormView(new Locale()).setTemplate;
+new TextAlternativeFormView(new Locale()).setTemplate({ tag: 'p' });
+new TextAlternativeFormView(new Locale()).destroy();
 
 new UploadImageCommand(editor);
 
@@ -279,12 +280,6 @@ new MyEditor({
     },
 });
 
-// $ExpectType ContainerElement
-utils.createImageViewElement(
-    downcastWriter,
-    utils.determineImageTypeForInsertionAtSelection(new Schema(), new ModelSelection()),
-);
-
 // $ExpectType MatcherPattern
 utils.getImgViewElementMatcher(
     editor,
@@ -311,6 +306,9 @@ editor.plugins.get('ImageCaptionEditing');
 
 // $ExpectType ImageCaptionUI
 editor.plugins.get('ImageCaptionUI');
+
+// $ExpectType ImageCaptionUtils
+editor.plugins.get('ImageCaptionUtils');
 
 // $ExpectType ImageEditing
 editor.plugins.get('ImageEditing');
@@ -412,3 +410,9 @@ downcastSrcsetAttribute(imageUtils, 'imageBlock');
 
 ImageStyleutils.getDefaultStylesConfiguration(true, true);
 ImageStyleutils.getDefaultDropdownDefinitions(new PluginCollection(editor));
+
+// $ExpectType ContainerElement
+utils.createInlineImageViewElement(downcastWriter);
+
+// $ExpectType ContainerElement
+utils.createBlockImageViewElement(downcastWriter);

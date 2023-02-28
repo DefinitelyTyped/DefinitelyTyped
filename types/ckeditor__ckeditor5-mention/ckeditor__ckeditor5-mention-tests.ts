@@ -22,7 +22,7 @@ const element = new DowncastWriter(new Document(new StylesProcessor())).createEm
 
 myEditor.plugins.get(Mention).toMentionAttribute(element, { foo: 'bar' }).foo === 'bar';
 
-// $ExpectError
+// @ts-expect-error
 myEditor.plugins.get(Mention).toMentionAttribute(element).foo;
 // $ExpectType number
 myEditor.plugins.get(Mention).toMentionAttribute(element, { foo: 5 }).foo;
@@ -60,7 +60,7 @@ command.execute({
 const htmlEl = document.createElement('div');
 new DomWrapperView(new Locale(), htmlEl).domElement === htmlEl;
 new DomWrapperView(new Locale(), htmlEl).element! === htmlEl;
-// $ExpectError
+// @ts-expect-error
 new DomWrapperView(htmlEl).element! === htmlEl;
 
 // $ExpectType ((ButtonView | DomWrapperView<HTMLElement>) & { id: string; }) | null

@@ -1,4 +1,4 @@
-import levelup from 'levelup';
+import levelup = require('levelup');
 import { AbstractLevelDOWN } from 'abstract-leveldown';
 
 interface StringEncoding {
@@ -38,6 +38,10 @@ db.del("key", (error) => {});
 db.del("key", {keyEncoding: "json"}, (error) => {});
 db.del("key", {sync: true}, (error) => {});
 
+db.getMany(["key1", "key2"], {keyEncoding: "json"}, (error, values) => {});
+db.getMany(["key1", "key2"], {fillCache: true}, (error, values) => {});
+db.getMany(["key1", "key2"], (error, values) => {});
+
 db.batch([{
     type          : 'put'
     , key           : ([1, 2, 3])
@@ -56,6 +60,12 @@ db.batch()
 db.isOpen();
 // $ExpectType boolean
 db.isClosed();
+
+// $ExpectType "closed" | "open" | "opening" | "new" | "closing"
+db.status;
+
+// $ExpectType boolean
+db.isOperational();
 
 db.createReadStream()
     .on('data', (data: any) => {

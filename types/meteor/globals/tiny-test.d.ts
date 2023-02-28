@@ -29,7 +29,7 @@ declare interface ITinytestAssertions {
     _stringEqual(actual: string, expected: string, msg?: string): void;
 }
 
-declare module Tinytest {
+declare namespace Tinytest {
     function add(description: string, func: (test: ITinytestAssertions) => void): void;
 
     function addAsync(description: string, func: (test: ITinytestAssertions) => void): void;

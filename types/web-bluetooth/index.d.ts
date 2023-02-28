@@ -137,20 +137,23 @@ interface BluetoothRemoteGATTServer {
 }
 
 interface BluetoothDeviceEventHandlers {
-    onadvertisementreceived: (this: this, ev: Event) => any;
+    onadvertisementreceived: (this: this, ev: BluetoothAdvertisingEvent) => any;
     ongattserverdisconnected: (this: this, ev: Event) => any;
+}
+
+interface WatchAdvertisementsOptions {
+    signal?: AbortSignal;
 }
 
 interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
     readonly id: string;
     readonly name?: string | undefined;
     readonly gatt?: BluetoothRemoteGATTServer | undefined;
-    readonly uuids?: string[] | undefined;
-    watchAdvertisements(): Promise<void>;
-    unwatchAdvertisements(): void;
+    forget(): Promise<void>;
+    watchAdvertisements(options?: WatchAdvertisementsOptions): Promise<void>;
     readonly watchingAdvertisements: boolean;
     addEventListener(type: "gattserverdisconnected", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "advertisementreceived", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisingEvent) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 

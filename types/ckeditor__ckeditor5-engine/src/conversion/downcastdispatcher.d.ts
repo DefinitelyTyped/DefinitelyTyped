@@ -114,7 +114,7 @@ export default class DowncastDispatcher<T = {}> implements Emitter {
     convertMarkerAdd(markerName: string, markerRange: Range, writer: DowncastWriter): void;
     convertMarkerRemove(markerName: string, markerRange: Range, writer: DowncastWriter): void;
     convertRemove(position: Position, length: number, name: string, writer: DowncastWriter): void;
-    convertSelection(selection: Selection, markers: MarkerCollection, writer: DowncastWriter): void;
+    convertSelection(selection: Selection | DocumentSelection, markers: MarkerCollection, writer: DowncastWriter): void;
     reconvertElement(element: Element, writer: DowncastWriter): void;
 
     on<N extends string>(

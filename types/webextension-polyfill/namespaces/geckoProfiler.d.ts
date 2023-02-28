@@ -11,7 +11,6 @@ export namespace GeckoProfiler {
     type ProfilerFeature =
         | "java"
         | "js"
-        | "leaf"
         | "mainthreadio"
         | "fileio"
         | "fileioall"
@@ -19,8 +18,6 @@ export namespace GeckoProfiler {
         | "screenshots"
         | "seqstyle"
         | "stackwalk"
-        | "threads"
-        | "jstracer"
         | "jsallocations"
         | "nostacksampling"
         | "preferencereads"
@@ -32,6 +29,9 @@ export namespace GeckoProfiler {
         | "cpuallthreads"
         | "samplingallthreads"
         | "markersallthreads"
+        | "unregisteredthreads"
+        | "processcpu"
+        | "power"
         | "responsiveness";
 
     type supports = "windowLength";

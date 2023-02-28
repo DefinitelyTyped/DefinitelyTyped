@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DS from 'ember-data';
+import DS, { ModelSchema } from 'ember-data';
 
 class Session extends Ember.Service {}
 declare module '@ember/service' {
@@ -50,7 +50,7 @@ class GetterTest extends DS.JSONAPIAdapter {
 }
 
 const UseAjax = DS.JSONAPIAdapter.extend({
-    query(store: DS.Store, type: string, query: object) {
+    query(store: DS.Store, type: ModelSchema, query: object) {
         const url = 'https://api.example.com/my-api';
         return this.ajax(url, 'POST', {
             param: 'foo',
@@ -59,22 +59,22 @@ const UseAjax = DS.JSONAPIAdapter.extend({
 });
 
 const UseAjaxOptions = DS.JSONAPIAdapter.extend({
-    query(store: DS.Store, type: string, query: object) {
+    query(store: DS.Store, type: ModelSchema, query: object) {
         const url = 'https://api.example.com/my-api';
         const options = this.ajaxOptions(url, 'DELETE', {
             foo: 'bar',
         });
-        return Ember.$.ajax(url, {
+        return fetch(url, {
             ...options,
         });
     },
 });
 
 const UseAjaxOptionsWithOptionalThirdParams = DS.JSONAPIAdapter.extend({
-    query(store: DS.Store, type: string, query: object) {
+    query(store: DS.Store, type: ModelSchema, query: object) {
         const url = 'https://api.example.com/my-api';
         const options = this.ajaxOptions(url, 'DELETE');
-        return Ember.$.ajax(url, {
+        return fetch(url, {
             ...options,
         });
     },

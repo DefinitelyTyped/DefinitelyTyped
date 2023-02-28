@@ -53,11 +53,11 @@ spreedly_iframe.tokenizeCreditCard({ // $ExpectType void
     shipping_phone_number: '+15555555555',
     metadata: { test: 'value' },
 });
-// $ExpectError
+// @ts-expect-error
 spreedly_iframe.tokenizeCreditCard({});
-// $ExpectError
+// @ts-expect-error
 spreedly_iframe.tokenizeCreditCard({ first_name: 'First name' });
-// $ExpectError
+// @ts-expect-error
 spreedly_iframe.tokenizeCreditCard({ last_name: 'Last name' });
 spreedly_iframe.validate(); // $ExpectType void
 spreedly_card_types.forEach((spreedly_card_type) => {

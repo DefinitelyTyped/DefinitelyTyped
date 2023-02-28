@@ -65,6 +65,9 @@ thenableVoid = chai.assert.doesNotBecome(thenableNum, "foo", "optional message")
 thenableVoid = chai.assert.isRejected(thenableNum, "optional message");
 thenableVoid = chai.assert.isRejected(thenableNum, Error, "optional message");
 thenableVoid = chai.assert.isRejected(thenableNum, /error message matcher/, "optional message");
+thenableVoid = chai.assert.eventually.equal(thenableNum, 3);
+thenableVoid = chai.assert.eventually.closeTo(thenableNum, 3.001, 0.1);
+thenableVoid = chai.assert.eventually.property(thenableNum, 'foo');
 
 // Check that original chai assertions are not broken
 var undef: void;

@@ -583,6 +583,8 @@ declare namespace jspreadsheet {
         defaultColWidth?: number | undefined;
         /** Allow table edition: bool */
         editable?: boolean | undefined;
+        /** Allow freezing columns: number */
+        freezeColumns?: number | undefined;
         /** Include header titles on download: bool */
         includeHeadersOnDownload?: boolean | undefined;
         /** Activate the table lazyloading */

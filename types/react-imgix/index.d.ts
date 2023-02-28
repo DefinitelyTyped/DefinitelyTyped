@@ -1,8 +1,9 @@
-// Type definitions for react-imgix 9.3
+// Type definitions for react-imgix 9.5
 // Project: https://github.com/imgix/react-imgix
 // Definitions by: Sherwin Heydarbeygi <https://github.com/sherwinski>
 //                 Luis Ball <https://github.com/luqven>
 //                 Frederick Fogerty <https://github.com/frederickfogerty>
+//                 Alice Lawrie <https://github.com/atlawrie/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
@@ -221,10 +222,11 @@ interface AttributeConfig {
 }
 
 interface SrcSetParams {
-    widths: number[];
-    widthTolerance: number;
-    minWidth: number;
-    maxWidth: number;
+    widths?: number[];
+    widthTolerance?: number;
+    minWidth?: number;
+    maxWidth?: number;
+    devicePixelRatios?: number[];
 }
 
 type ImgixHTMLAttributes =
@@ -246,6 +248,7 @@ export interface SharedImgixAndSourceProps extends CommonProps {
     disableQualityByDPR?: boolean | undefined;
     disableSrcSet?: boolean | undefined;
     disableLibraryParam?: boolean | undefined;
+    disablePathEncoding?: boolean | undefined;
     imgixParams?: ImgixParams | undefined;
     srcSetOptions?: SrcSetParams | undefined;
     sizes?: string | undefined;

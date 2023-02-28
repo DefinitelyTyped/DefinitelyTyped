@@ -1,2 +1,0 @@
-src/suggestiondescriptionfactory.d.ts
-src/ui/view/suggestionthreadview.d.ts

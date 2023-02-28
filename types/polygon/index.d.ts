@@ -93,7 +93,7 @@ declare class Polygon {
     /**
      * Scales this polygon around `origin` (default is `this.center()`) and will return a new polygon if requested with `returnNew`
      */
-    scale(amount: number, origin: Vec2, returnNew?: boolean): Polygon;
+    scale(amount: number, origin?: Vec2 | null, returnNew?: boolean): Polygon;
 
     /**
      * Returns true if `vec2` is inside the polygon
@@ -143,7 +143,7 @@ declare class Polygon {
     /**
      * Rotate by origin `vec2` (default `this.center()`) by radians `rads` and return a clone if `returnNew` is specified
      */
-    rotate(rads: number, vec2: Vec2, returnNew?: boolean): Polygon;
+    rotate(rads: number, origin?: Vec2 | null, returnNew?: boolean): Polygon;
 
     /**
      * Translate by `vec2` and return a clone if `returnNew` is specified

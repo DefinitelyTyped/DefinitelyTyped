@@ -1,13 +1,20 @@
 import asyncPool = require('tiny-async-pool');
 
-const expected = JSON.stringify(['A', 'B', 'C']);
+const expected = ['A', 'B', 'C'];
 
-asyncPool(5, ['a', 'b', 'c'], (value) => {
-  return new Promise((resolve) => {
-    resolve(value.toUpperCase);
-  });
-}).then((results) => {
-  if (JSON.stringify(results) !== expected) {
-    throw new Error('Result is not equal to expected result!');
-  }
+const getValues = async () => {
+    const result: string[] = [];
+
+    for await (const _ of asyncPool(5, ['a', 'b', 'c'], (value: string) =>
+        Promise.resolve(result.push(value.toUpperCase())),
+    )) {
+        // do nothing
+    }
+    return result;
+};
+
+getValues().then(result => {
+    if (result.length !== 3 || !result.every(r => expected.includes(r))) {
+        throw new Error('Result is not equal to expected result!');
+    }
 });

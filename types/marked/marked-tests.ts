@@ -15,6 +15,14 @@ tokenizer.emStrong = function emStrong(src, _maskedSrc, _prevChar) {
     return token;
 };
 
+tokenizer.inlineText = function inlineText(...args: Parameters<marked.Tokenizer['inlineText']>) {
+    const p = this.inlineText(...args);
+
+    if (p) p.raw = p.text;
+
+    return p;
+};
+
 let options: marked.MarkedOptions = {
     baseUrl: '',
     gfm: true,
@@ -75,6 +83,9 @@ const tokens2 = lexer.lex(text);
 console.log(tokens2);
 const tokens3 = lexer.inlineTokens(text, tokens);
 console.log(tokens3);
+// verifying that the second param to inlineTokens can be ignored
+const tokens3a = lexer.inlineTokens(text);
+console.log(tokens3a);
 const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
 const lexerOptions: marked.MarkedOptions = lexer.options;
 
@@ -88,6 +99,29 @@ renderer.hr = () => {
 renderer.checkbox = checked => {
     return checked ? 'CHECKED' : 'UNCHECKED';
 };
+
+class ExtendedRenderer extends marked.Renderer {
+    code = (code: string, language: string | undefined, isEscaped: boolean): string => super.code(code, language, isEscaped);
+    blockquote = (quote: string): string => super.blockquote(quote);
+    html = (html: string): string => super.html(html);
+    heading = (text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string => super.heading(text, level, raw, slugger);
+    hr = (): string => super.hr();
+    list = (body: string, ordered: boolean, start: number): string => super.list(body, ordered, start);
+    listitem = (text: string, task: boolean, checked: boolean): string => super.listitem(text, task, checked);
+    checkbox = (checked: boolean): string => super.checkbox(checked);
+    paragraph = (text: string): string => super.paragraph(text);
+    table = (header: string, body: string): string => super.table(header, body);
+    tablerow = (content: string): string => super.tablerow(content);
+    tablecell = (content: string, flags: { header: boolean; align: 'center' | 'left' | 'right' | null }): string => super.tablecell(content, flags);
+    strong = (text: string): string => super.strong(text);
+    em = (text: string): string => super.em(text);
+    codespan = (code: string): string => super.codespan(code);
+    br = (): string => super.br();
+    del = (text: string): string => super.del(text);
+    link = (href: string, title: string, text: string): string => super.link(href, title, text);
+    image = (href: string, title: string, text: string): string => super.image(href, title, text);
+}
+
 const rendererOptions: marked.MarkedOptions = renderer.options;
 
 const textRenderer = new marked.TextRenderer();
@@ -124,11 +158,9 @@ marked.use({
             return false;
         },
         listitem(text, task, checked) {
-            if (task)
-                return `<li class="task-list-item ${checked ? "checked" : ""}">${text}</li>\n`;
-            else
-                return `<li>${text}</li>\n`;
-        }
+            if (task) return `<li class="task-list-item ${checked ? 'checked' : ''}">${text}</li>\n`;
+            else return `<li>${text}</li>\n`;
+        },
     },
     tokenizer: {
         codespan(src) {
@@ -158,17 +190,16 @@ interface NameToken {
 const tokenizerExtension: marked.TokenizerExtension = {
     name: 'name',
     level: 'block',
-    start: (src: string) => src.indexOf('name'),
+    start: (src: string) => src.match(/name/)?.index,
     tokenizer(src: string): NameToken | void {
         if (src === 'name') {
             const token: NameToken = {
                 type: 'name',
                 raw: src,
                 text: src,
-                tokens: [],
+                tokens: this.lexer.inline(src),
                 items: [],
             };
-            this.lexer.inline(token.text, token.tokens);
             this.lexer.inline(token.text, token.items);
             return token;
         }
@@ -181,13 +212,15 @@ const rendererExtension: marked.RendererExtension = {
     renderer(t) {
         const token = t as NameToken;
         if (token.text === 'name') {
+            // verifying that the second param to parseInline can be ignored
+            console.log(this.parser.parseInline(token.items));
             return this.parser.parse(token.items);
         }
         return false;
     },
 };
 
-const tokenizerAndRendererExtension = {
+const tokenizerAndRendererExtension: marked.TokenizerAndRendererExtension = {
     name: 'name',
     level: 'block',
     tokenizer(src: string) {
@@ -211,6 +244,43 @@ const tokenizerAndRendererExtension = {
 marked.use({
     extensions: [tokenizerExtension, rendererExtension, tokenizerAndRendererExtension],
 });
+
+const asyncExtension: marked.MarkedExtension = {
+    async: true,
+    async walkTokens(token) {
+        if (token.type === 'code') {
+            await Promise.resolve(3);
+            token.text += 'foobar';
+        }
+    },
+};
+
+marked.use(asyncExtension);
+
+(async () => {
+    const md = '# foobar';
+    const asyncMarked: string = await marked(md, { async: true });
+    const promiseMarked: Promise<string> = marked(md, { async: true });
+    const notAsyncMarked: string = marked(md, { async: false });
+    const defaultMarked: string = marked(md);
+    // $ExpectType void
+    marked(md, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, { async: true }, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, { async: false }, (_: any, res: string) => { res; });
+
+    const asyncMarkedParse: string = await marked.parse(md, { async: true });
+    const promiseMarkedParse: Promise<string> = marked.parse(md, { async: true, headerIds: false });
+    const notAsyncMarkedParse: string = marked.parse(md, { async: false });
+    const defaultMarkedParse: string = marked.parse(md);
+    // $ExpectType void
+    marked.parse(md, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, { async: true }, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, { async: false }, (_: any, res: string) => { res; });
+})();
 
 // Tests for List and ListItem
 // Dumped from markdown list parsed data
@@ -260,13 +330,13 @@ const listAndListItemText: marked.Tokens.List = {
 import { Lexer, Parser, Tokenizer, Renderer, TextRenderer, Slugger } from 'marked';
 
 const lexer2 = new Lexer();
-const tokens4 = lexer2.lex("# test");
+const tokens4 = lexer2.lex('# test');
 const parser2 = new Parser();
 console.log(parser2.parse(tokens4));
 
 const slugger2 = new Slugger();
 console.log(slugger2.slug('Test Slug'));
 
-marked.use({renderer: new Renderer()});
-marked.use({renderer: new TextRenderer()});
-marked.use({tokenizer: new Tokenizer()});
+marked.use({ renderer: new Renderer() });
+marked.use({ renderer: new TextRenderer() });
+marked.use({ tokenizer: new Tokenizer() });

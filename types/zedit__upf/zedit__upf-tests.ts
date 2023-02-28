@@ -9,17 +9,28 @@ patcherUrl; // $ExpectType string
 xelib; // $ExpectType XELibModule
 
 // Check for xelib functions disallowed in modules
-xelib.Initialize(''); // $ExpectError
-xelib.Finalize(); // $ExpectError
-xelib.SetSortMode(SortMode.None); // $ExpectError
-xelib.ClearMessages(); // $ExpectError
-xelib.GetExceptionMessage(); // $ExpectError
-xelib.SetGamePath(''); // $ExpectError
-xelib.SetLanguage(''); // $ExpectError
-xelib.SetGameMode(GameMode.gmSSE); // $ExpectError
-xelib.GetLoadOrder(); // $ExpectError
-xelib.GetActivePlugins(); // $ExpectError
-xelib.LoadPlugins(); // $ExpectError
+// @ts-expect-error
+xelib.Initialize('');
+// @ts-expect-error
+xelib.Finalize();
+// @ts-expect-error
+xelib.SetSortMode(SortMode.None);
+// @ts-expect-error
+xelib.ClearMessages();
+// @ts-expect-error
+xelib.GetExceptionMessage();
+// @ts-expect-error
+xelib.SetGamePath('');
+// @ts-expect-error
+xelib.SetLanguage('');
+// @ts-expect-error
+xelib.SetGameMode(GameMode.gmSSE);
+// @ts-expect-error
+xelib.GetLoadOrder();
+// @ts-expect-error
+xelib.GetActivePlugins();
+// @ts-expect-error
+xelib.LoadPlugins();
 
 // Use all optional parameters
 registerPatcher({

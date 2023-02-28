@@ -264,6 +264,30 @@ function testViews() {
     });
 }
 
+function testPlugins() {
+    const plugin: PouchDB.Plugin<{ foo: number, getFoo: () => number }> = {
+        foo: 42,
+        getFoo: () => 42,
+    };
+    const PouchDBWithPlugin = PouchDB.plugin(plugin);
+    const PouchDBWithPluginCb = PouchDB.plugin<{ foo: number, getFoo: () => number }>(db => {
+        db.foo = 42;
+        db.getFoo = () => 42;
+    });
+
+    const db1 = new PouchDBWithPlugin('dbplugins1');
+    // $ExpectType number
+    db1.foo;
+    // $ExpectType number
+    db1.getFoo();
+
+    const db2 = new PouchDBWithPluginCb('dbplugins2');
+    // $ExpectType number
+    db2.foo;
+    // $ExpectType number
+    db2.getFoo();
+}
+
 function heterogeneousGenericsDatabase(db: PouchDB.Database) {
     interface Cat {
         meow: string;
@@ -294,7 +318,8 @@ function heterogeneousGenericsDatabase(db: PouchDB.Database) {
                     db.put(row.doc);
                     db.put<Cat>(row.doc);
                     // Generic strictness test
-                    db.put<Boot>(row.doc); // $ExpectError
+                    // @ts-expect-error
+                    db.put<Boot>(row.doc);
                 }
             }
         });

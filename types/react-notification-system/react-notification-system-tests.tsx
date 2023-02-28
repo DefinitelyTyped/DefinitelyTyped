@@ -2,7 +2,7 @@ import * as React from 'react';
 import NotificationSystem = require('react-notification-system');
 
 class MyComponent extends React.Component {
-    private notificationSystem: NotificationSystem.System = null;
+    private notificationSystem: NotificationSystem = null;
 
     private notification: NotificationSystem.Notification = {
         title: 'Notification title',
@@ -54,7 +54,7 @@ class MyComponent extends React.Component {
             }
         };
 
-        const ref = (instance: NotificationSystem.System) => {
+        const ref = (instance: NotificationSystem) => {
             this.notificationSystem = instance
         }
 

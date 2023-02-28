@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { Curves } from 'three/examples/jsm/curves/CurveExtras';
+import { GrannyKnot } from 'three/examples/jsm/curves/CurveExtras';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 
@@ -61,11 +61,11 @@ function init() {
 
     //
 
-    const GrannyKnot = new Curves.GrannyKnot();
+    const grannyKnot = new GrannyKnot();
 
     const torus = new ParametricGeometries.TorusKnotGeometry(50, 10, 50, 20, 2, 3);
     const sphere = new ParametricGeometries.SphereGeometry(50, 20, 10);
-    const tube = new ParametricGeometries.TubeGeometry(GrannyKnot, 100, 3, 8, true);
+    const tube = new ParametricGeometries.TubeGeometry(grannyKnot, 100, 3, 8, true);
 
     object = new THREE.Mesh(torus, material);
     object.position.set(-200, 0, -200);

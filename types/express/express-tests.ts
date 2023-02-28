@@ -142,7 +142,8 @@ namespace express_tests {
     // Params defaults to typed object
     router.get('/:foo', req => {
         req.params.foo; // $ExpectType string
-        req.params[0]; // $ExpectError
+        // @ts-expect-error
+        req.params[0];
     });
 
     // Params can used as an array
@@ -168,27 +169,31 @@ namespace express_tests {
     router.get<{ foo: string; bar: number }>('/:foo/:bar', req => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
-        req.params.baz; // $ExpectError
+        // @ts-expect-error
+        req.params.baz;
     });
 
     // Params can be a custom type and can be specified via an explicit param type (express-serve-static-core)
     router.get('/:foo/:bar', (req: Request<{ foo: string; bar: number }>) => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
-        req.params.baz; // $ExpectError
+        // @ts-expect-error
+        req.params.baz;
     });
 
     // Params can be a custom type and can be specified via an explicit param type (express)
     router.get('/:foo/:bar', (req: express.Request<{ foo: string; bar: number }>) => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
-        req.params.baz; // $ExpectError
+        // @ts-expect-error
+        req.params.baz;
     });
 
     // Query can be a custom type
     router.get('/:foo', (req: express.Request<{}, any, any, { q: string }>) => {
         req.query.q; // $ExpectType string
-        req.query.a; // $ExpectError
+        // @ts-expect-error
+        req.query.a;
     });
 
     // Query will be defaulted to any
@@ -199,7 +204,8 @@ namespace express_tests {
     // Locals can be a custom type
     router.get('/locals', (req, res: express.Response<any, { foo: boolean }>) => {
         res.locals.foo; // $ExpectType boolean
-        res.locals.bar; // $ExpectError
+        // @ts-expect-error
+        res.locals.bar;
     });
 
     // Response will default to any type
@@ -210,8 +216,10 @@ namespace express_tests {
     // Response will be of Type provided
     router.get('/', (req: Request, res: express.Response<string>) => {
         res.json();
-        res.json(1); // $ExpectError
-        res.send(1); // $ExpectError
+        // @ts-expect-error
+        res.json(1);
+        // @ts-expect-error
+        res.send(1);
     });
 
     app.use((req, res, next) => {

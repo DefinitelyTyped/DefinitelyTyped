@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";
@@ -12,6 +12,8 @@ declare module "sap/ui/rta/api/startAdaptation" {
    * Starts UI adaptation, initiated for an application at the passed root control instance. With this API
    * you are also able to modify the UI adaptation plugins list and or add some event handler functions to
    * be called on start, failed and stop events.
+   *
+   * @returns Resolves when UI adaptation was successfully started
    */
   export default function startAdaptation(
     /**
@@ -67,6 +69,8 @@ declare module "sap/ui/rta/api/startKeyUserAdaptation" {
    *
    * Starts key user adaptation, initiated for an application at the passed root control instance. It subsequently
    * extends to all valid child controls.
+   *
+   * @returns Resolves when UI adaptation was successfully started
    */
   export default function startKeyUserAdaptation(
     /**
@@ -112,5 +116,9 @@ declare namespace sap {
     "sap/ui/rta/service/Property": undefined;
 
     "sap/ui/rta/service/Selection": undefined;
+
+    "sap/ui/rta/service/SupportTools": undefined;
+
+    "sap/ui/rta/util/ReloadManager": undefined;
   }
 }

@@ -1,13 +1,15 @@
-// Type definitions for Mapbox GL JS 2.6
+// Type definitions for Mapbox GL JS 2.7
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 André Fonseca <https://github.com/amxfonseca>
 //                 makspetrov <https://github.com/Nosfit>
+//                 Michael Bullington <https://github.com/mbullington>
+//                 Olivier Pascal <https://github.com/pascaloliv>
+//                 Marko Schilde <https://github.com/mschilde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -87,6 +89,7 @@ declare namespace mapboxgl {
         | 'format'
         | 'literal'
         | 'number'
+        | 'number-format'
         | 'object'
         | 'string'
         | 'image'
@@ -140,6 +143,7 @@ declare namespace mapboxgl {
         // Color
         | 'rgb'
         | 'rgba'
+        | 'to-rgba'
         // Math
         | '-'
         | '*'
@@ -324,7 +328,7 @@ declare namespace mapboxgl {
                 | { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
                 | ImageData
                 | ImageBitmap,
-            options?: { pixelRatio?: number | undefined; sdf?: boolean | undefined },
+            options?: { pixelRatio?: number | undefined; sdf?: boolean | undefined, stretchX?: [number, number][] | undefined, stretchY?: [number, number][] | undefined, content?: [number, number, number, number] | undefined },
         ): void;
 
         updateImage(
@@ -359,15 +363,15 @@ declare namespace mapboxgl {
 
         getFilter(layer: string): any[];
 
-        setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
+        setPaintProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getPaintProperty(layer: string, name: string): any;
 
-        setLayoutProperty(layer: string, name: string, value: any): this;
+        setLayoutProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getLayoutProperty(layer: string, name: string): any;
 
-        setLight(options: mapboxgl.Light, lightOptions?: any): this;
+        setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
         getLight(): mapboxgl.Light;
 
@@ -555,7 +559,7 @@ declare namespace mapboxgl {
 
         on<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         on<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -563,7 +567,7 @@ declare namespace mapboxgl {
 
         once<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -572,7 +576,7 @@ declare namespace mapboxgl {
 
         off<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         off<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -596,6 +600,9 @@ declare namespace mapboxgl {
 
         getFog(): Fog | null;
         setFog(fog: Fog): this;
+
+        getProjection(): Projection;
+        setProjection(projection: Projection | string): this;
     }
 
     export interface MapboxOptions {
@@ -770,6 +777,13 @@ declare namespace mapboxgl {
         pitch?: number | undefined;
 
         /**
+         * A style's projection property sets which projection a map is rendered in.
+         *
+         * @default 'mercator'
+         */
+        projection?: Projection;
+
+        /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
          *
          * @default true
@@ -847,6 +861,14 @@ declare namespace mapboxgl {
          * @default null
          */
         testMode?: boolean | undefined;
+        /**
+         * Sets the map's worldview. A worldview determines the way that certain disputed boundaries are rendered.
+         * By default, GL JS will not set a worldview so that the worldview of Mapbox tiles will be determined by
+         * the vector tile source's TileJSON. Valid worldview strings must be an ISO alpha-2 country code.
+         *
+         * @default null
+         */
+        worldview?: string | undefined;
     }
 
     type quat = number[];
@@ -1136,6 +1158,7 @@ declare namespace mapboxgl {
             showAccuracyCircle?: boolean | undefined;
             showUserLocation?: boolean | undefined;
             showUserHeading?: boolean | undefined;
+            geolocation?: Geolocation | undefined;
         });
         trigger(): boolean;
     }
@@ -1281,16 +1304,17 @@ declare namespace mapboxgl {
     }
 
     export interface Style {
+        layers: AnyLayer[];
+        sources: Sources;
+
         bearing?: number | undefined;
         center?: number[] | undefined;
         fog?: Fog | undefined;
         glyphs?: string | undefined;
-        layers?: AnyLayer[] | undefined;
         metadata?: any;
         name?: string | undefined;
         pitch?: number | undefined;
         light?: Light | undefined;
-        sources?: Sources | undefined;
         sprite?: string | undefined;
         terrain?: TerrainSpecification | undefined;
         transition?: Transition | undefined;
@@ -1332,7 +1356,8 @@ declare namespace mapboxgl {
         | CanvasSourceRaw
         | VectorSource
         | RasterSource
-        | RasterDemSource;
+        | RasterDemSource
+        | CustomSourceInterface<HTMLImageElement | ImageData | ImageBitmap>;
 
     interface VectorSourceImpl extends VectorSource {
         /**
@@ -1359,10 +1384,11 @@ declare namespace mapboxgl {
         | CanvasSource
         | VectorSourceImpl
         | RasterSource
-        | RasterDemSource;
+        | RasterDemSource
+        | CustomSource<HTMLImageElement | ImageData | ImageBitmap>;
 
     export interface Source {
-        type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas';
+        type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas' | 'custom';
     }
 
     /**
@@ -1396,7 +1422,12 @@ declare namespace mapboxgl {
     }
 
     export interface GeoJSONSourceOptions {
-        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string | undefined;
+        data?:
+            | GeoJSON.Feature<GeoJSON.Geometry>
+            | GeoJSON.FeatureCollection<GeoJSON.Geometry>
+            | GeoJSON.Geometry
+            | string
+            | undefined;
 
         maxzoom?: number | undefined;
 
@@ -1518,9 +1549,29 @@ declare namespace mapboxgl {
         exaggeration?: PropertyValueSpecification<number> | undefined;
     }
 
+    /**
+     * @see https://github.com/mapbox/tilejson-spec/tree/master/3.0.0#33-vector_layers
+     */
+    type SourceVectorLayer = {
+        id: string;
+        fields?: Record<string, string>;
+        description?: string;
+        minzoom?: number;
+        maxzoom?: number;
+
+        // Non standard extensions that are valid in a Mapbox context.
+        source?: string;
+        source_name?: string;
+    };
+
     interface VectorSource extends Source {
         type: 'vector';
+        format?: 'pbf';
+
         url?: string | undefined;
+        id?: string;
+        name?: string;
+
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
         scheme?: 'xyz' | 'tms' | undefined;
@@ -1528,10 +1579,16 @@ declare namespace mapboxgl {
         maxzoom?: number | undefined;
         attribution?: string | undefined;
         promoteId?: PromoteIdSpecification | undefined;
+
+        vector_layers?: SourceVectorLayer[];
     }
 
     interface RasterSource extends Source {
+        name?: string;
         type: 'raster';
+        id?: string;
+        format?: 'webp' | string;
+
         url?: string | undefined;
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
@@ -1543,7 +1600,10 @@ declare namespace mapboxgl {
     }
 
     interface RasterDemSource extends Source {
+        name?: string;
         type: 'raster-dem';
+        id?: string;
+
         url?: string | undefined;
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
@@ -1552,6 +1612,36 @@ declare namespace mapboxgl {
         tileSize?: number | undefined;
         attribution?: string | undefined;
         encoding?: 'terrarium' | 'mapbox' | undefined;
+    }
+
+    interface CustomSourceInterface<T> {
+        id: string;
+        type: 'custom';
+        dataType: 'raster';
+        minzoom?: number;
+        maxzoom?: number;
+        scheme?: string;
+        tileSize?: number;
+        attribution?: string;
+        bounds?: [number, number, number, number];
+        hasTile?: (tileID: { z: number; x: number; y: number }) => boolean;
+        loadTile: (tileID: { z: number; x: number; y: number }, options: { signal: AbortSignal }) => Promise<T>;
+        prepareTile?: (tileID: { z: number; x: number; y: number }) => T | undefined;
+        unloadTile?: (tileID: { z: number; x: number; y: number }) => void;
+        onAdd?: (map: Map) => void;
+        onRemove?: (map: Map) => void;
+    }
+
+    interface CustomSource<T> extends Source {
+        id: string;
+        type: 'custom';
+        scheme: string;
+        minzoom: number;
+        maxzoom: number;
+        tileSize: number;
+        attribution: string;
+
+        _implementation: CustomSourceInterface<T>;
     }
 
     /**
@@ -2425,7 +2515,7 @@ declare namespace mapboxgl {
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-field'?: string | StyleFunction | Expression | undefined;
-        'text-font'?: string | string[] | Expression | undefined;
+        'text-font'?: string[] | Expression | undefined;
         'text-size'?: number | StyleFunction | Expression | undefined;
         'text-max-width'?: number | StyleFunction | Expression | undefined;
         'text-line-height'?: number | Expression | undefined;
@@ -2566,4 +2656,18 @@ declare namespace mapboxgl {
     export type ElevationQueryOptions = {
         exaggerated: boolean;
     };
+
+    export interface Projection {
+        name:
+            | 'albers'
+            | 'equalEarth'
+            | 'equirectangular'
+            | 'lambertConformalConic'
+            | 'mercator'
+            | 'naturalEarth'
+            | 'winkelTripel'
+            | 'globe';
+        center?: [number, number];
+        parallels?: [number, number];
+    }
 }

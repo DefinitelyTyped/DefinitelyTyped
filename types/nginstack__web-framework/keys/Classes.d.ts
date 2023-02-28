@@ -26,6 +26,7 @@ export const GROUPS_ROLES_AND_USERS: number;
 export const GROUPS: number;
 export const HOSTS: number;
 export const IMAGE_RELATIONS: number;
+export const INACTIVE_SESSION_HANDLINGS: number;
 export const INFRASTRUCTURE: number;
 export const INTERNAL_DATABASES: number;
 export const LATITUDE_FORMATS: number;

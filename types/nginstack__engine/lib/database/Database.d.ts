@@ -18,7 +18,7 @@ declare class Database {
     authenticateUser(userId: string, password: string): number;
     login(userId: string, password: string): boolean;
     loginByAuthToken(idToken: string): void;
-    loginBySession(session: any): boolean;
+    loginBySession(session: Session): boolean;
     logout(): void;
     query(sql: string | string[], options?: any): DataSet | DataSet[];
     executeSQL(sql: string | string[]): void;
@@ -33,7 +33,13 @@ declare class Database {
         ignoredTables?: string
     ): DataSet;
     getExecutionPlan(sql: string): void;
-    runScript(scriptKeyOrURI: number | string, parameters?: any, options?: any): any;
+    runScript(
+        scriptKeyOrURI: number | string,
+        parameters?: any,
+        options?: {
+            timeout?: number;
+        }
+    ): any;
     tableExists(tableName: string): boolean;
     viewExists(viewName: string): boolean;
     columnExists(tableOrViewName: string, columnName: string): boolean;
@@ -51,19 +57,21 @@ declare class Database {
     ): void;
     discardEndpointInfoCache(): void;
     discardCaches(): void;
-    sendMail(mail: any): void;
+    sendEmail(email: Email): void;
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
 }
 declare namespace Database {
-    export { fromConfig, VersionInfo, DatabaseVersionInfo };
+    export { fromConfig, Email, Session, VersionInfo, DatabaseVersionInfo };
 }
 import Connection = require('../connection/Connection.js');
 interface DatabaseVersionInfo {
     server: VersionInfo;
     client: VersionInfo;
 }
+type Session = import('../session/Session');
 import DataSet = require('../dataset/DataSet.js');
 import DBKey = require('../dbkey/DBKey.js');
+type Email = import('../email/Email');
 declare function fromConfig(key: DBKey | number): Database;
 interface VersionInfo {
     major: number;

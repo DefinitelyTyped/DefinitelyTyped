@@ -3,9 +3,19 @@ import { ReactAttr } from "../../../typings/shared";
 
 export interface FileUploaderDropContainerProps extends ReactAttr<HTMLLabelElement> {
     /**
+     * Specify the types of files that this input should be able to receive
+     */
+    accept?: readonly string[] | undefined;
+
+    /**
      * Provide a custom className to be applied to the container node
      */
     className?: string | undefined;
+
+    /**
+     * Specify whether file input is disabled
+     */
+    disabled?: boolean | undefined;
 
     /**
      * Provide a unique id for the underlying <input> node
@@ -30,6 +40,17 @@ export interface FileUploaderDropContainerProps extends ReactAttr<HTMLLabelEleme
     name?: string | undefined;
 
     /**
+     * Event handler that is called after files are added to the uploader
+     * The event handler signature looks like `onAddFiles(evt, { addedFiles })`
+     */
+    onAddFiles?: ((event: React.DragEvent<HTMLElement>, content: { addedFiles: File[] }) => void) | undefined;
+
+    /**
+     * Provide a custom regex pattern for the acceptedTypes
+     */
+    pattern?: string;
+
+    /**
      * Provide an accessibility role for the <FileUploaderButton>
      */
     role?: string | undefined;
@@ -38,22 +59,6 @@ export interface FileUploaderDropContainerProps extends ReactAttr<HTMLLabelEleme
      * Provide a custom tabIndex value for the <FileUploaderButton>
      */
     tabIndex?: number | undefined;
-
-    /**
-     * Specify whether file input is disabled
-     */
-    disabled?: boolean | undefined;
-
-    /**
-     * Specify the types of files that this input should be able to receive
-     */
-    accept?: readonly string[] | undefined;
-
-    /**
-     * Event handler that is called after files are added to the uploader
-     * The event handler signature looks like `onAddFiles(evt, { addedFiles })`
-     */
-    onAddFiles?: ((event: React.DragEvent<HTMLElement>, content: { addedFiles: File[] }) => void) | undefined;
 }
 
 declare const FileUploaderDropContainer: React.FC<FileUploaderDropContainerProps>;

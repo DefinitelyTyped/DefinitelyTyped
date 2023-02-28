@@ -59,8 +59,8 @@ export declare class Peripheral extends events.EventEmitter {
     discoverAllServicesAndCharacteristics(callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
     discoverSomeServicesAndCharacteristics(serviceUUIDs: string[], characteristicUUIDs: string[], callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
 
-    readHandle(handle: Buffer, callback: (error: string, data: Buffer) => void): void;
-    writeHandle(handle: Buffer, data: Buffer, withoutResponse: boolean, callback: (error: string) => void): void;
+    readHandle(handle: number, callback: (error: string, data: Buffer) => void): void;
+    writeHandle(handle: number, data: Buffer, withoutResponse: boolean, callback: (error: string) => void): void;
     toString(): string;
 
     on(event: "connect", listener: (error: string) => void): this;

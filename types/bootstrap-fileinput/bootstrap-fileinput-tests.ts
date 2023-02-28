@@ -20,6 +20,10 @@ $('document').on('ready', () => {
             overwriteInitial: false,
             theme: 'fas',
             deleteUrl: 'http://localhost/file-delete.php',
+            preProcessUpload: (fileId, file) => {
+                return file;
+            },
+            browseOnZoneClick: true,
         })
         .on('fileuploaded', (event, previewId, index, fileId) => {
             console.log('File Uploaded', `ID: ${fileId}, Thumb ID: ${previewId}`);

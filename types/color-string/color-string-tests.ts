@@ -24,17 +24,20 @@ color = colorString.get.rgb('invalid color string');
 colorString.get.rgb(null); // $ExpectType null
 colorString.get.rgb('#FFF'); // $ExpectType Color
 colorString.get.rgb(null as string | null); // $ExpectType Color | null
-colorString.get.rgb(); // $ExpectError
+// @ts-expect-error
+colorString.get.rgb();
 
 colorString.get.hwb(null); // $ExpectType null
 colorString.get.hwb('hwb(60, 3%, 60%)'); // $ExpectType Color
 colorString.get.hwb(null as string | null); // $ExpectType Color | null
-colorString.get.hwb(); // $ExpectError
+// @ts-expect-error
+colorString.get.hwb();
 
 colorString.get.hsl(null); // $ExpectType null
 colorString.get.hsl('hsl(360, 100%, 50%)'); // $ExpectType Color
 colorString.get.hsl(null as string | null); // $ExpectType Color | null
-colorString.get.hsl(); // $ExpectError
+// @ts-expect-error
+colorString.get.hsl();
 
 let stringifiedColor: string;
 stringifiedColor = colorString.to.hex([255, 255, 255]);

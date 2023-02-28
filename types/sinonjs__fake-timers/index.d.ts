@@ -25,10 +25,11 @@ export type FakeMethod =
     | 'cancelAnimationFrame'
     | 'requestIdleCallback'
     | 'cancelIdleCallback'
-    | 'performance';
+    | 'performance'
+    | 'queueMicrotask';
 
 /**
- * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).
+ * Global methods available to every clock and also as standalone methods (inside `timers` global object).
  */
 export interface GlobalTimers<TTimerId extends TimerId> {
     /**
@@ -274,7 +275,7 @@ export type BrowserClock = FakeClock<number>;
  */
 export type NodeClock = FakeClock<NodeTimer> & {
     /**
-     * Mimicks process.hrtime().
+     * Mimics process.hrtime().
      *
      * @param prevTime   Previous system time to calculate time elapsed.
      * @returns High resolution real time as [seconds, nanoseconds].
@@ -338,8 +339,8 @@ export interface FakeTimerInstallOpts {
     now?: number | Date | undefined;
 
     /**
-     * An array with explicit function names to hijack. When not set, @sinonjs/fake-timers will automatically fake all methods except nextTick
-     * e.g., FakeTimers.install({ toFake: ["setTimeout", "nextTick"]}) will fake only setTimeout and nextTick
+     * An array with names of global methods and APIs to fake. By default, `@sinonjs/fake-timers` does not replace `nextTick()` and `queueMicrotask()`.
+     * For instance, `FakeTimers.install({ toFake: ['setTimeout', 'nextTick'] })` will fake only `setTimeout()` and `nextTick()`
      */
     toFake?: FakeMethod[] | undefined;
 

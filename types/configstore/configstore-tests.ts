@@ -1,8 +1,8 @@
-import Configstore = require("configstore");
-const cs = new Configstore("foo");
+import Configstore from 'configstore';
+const cs = new Configstore('foo');
 
-let value = "value";
-let key = "key";
+let value = 'value';
+let key = 'key';
 let num: number;
 let store: any;
 let path: string;

@@ -3362,6 +3362,8 @@ function test_not() {
     var el1 = $("<div/>")[0];
     var el2 = $("<div/>")[0];
     $("p").not([el1, el2]);
+
+    $(["a", "c", "b"]).not(["b", "c", "a"]);
 }
 
 function test_EventIsNewable() {

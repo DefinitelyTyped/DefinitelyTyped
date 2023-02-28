@@ -33,7 +33,7 @@ const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node(
 
 containerElement = svg;
 containerElement = g;
-// $ExpectError
+// @ts-expect-error
 containerElement = canvas; // fails, incompatible type
 
 // --------------------------------------------------------------------------
@@ -54,7 +54,7 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(axis
 leftAxis = leftAxis.scale(axisScaleNumber);
 
 bottomAxis = bottomAxis.scale(axisScaleString);
-// $ExpectError
+// @ts-expect-error
 bottomAxis = bottomAxis.scale(axisScaleNumber); // fails, domain of scale incompatible with domain of axis
 
 const axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
@@ -132,15 +132,15 @@ svgTransition.call(leftAxis);
 const pathSelection: Selection<SVGPathElement, any, any, any> = select<SVGPathElement, any>('path');
 const pathTransition = svgSelection.transition();
 
-// // $ExpectError
+// // @ts-expect-error
 // pathSelection.call(bottomAxis);
-// // $ExpectError
+// // @ts-expect-error
 // pathSelection.call(bottomAxis);
 
 const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
 const canvasTransition = canvasSelection.transition();
 
-// $ExpectError
+// @ts-expect-error
 canvasSelection.call(rightAxis); // fails, incompatible context container element
-// $ExpectError
+// @ts-expect-error
 canvasTransition.call(rightAxis); // fails, incompatible context container element

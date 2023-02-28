@@ -1,4 +1,5 @@
-declare module Blaze {
+
+declare namespace Blaze {
     var View: ViewStatic;
 
     interface ViewStatic {

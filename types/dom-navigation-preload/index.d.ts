@@ -25,6 +25,6 @@ declare var NavigationPreloadManager: {
 
 /*~ https://w3c.github.io/ServiceWorker/#dictdef-navigationpreloadstate */
 interface NavigationPreloadState {
-    enabled: boolean;
-    headerValue: string;
+    enabled?: boolean;
+    headerValue?: string;
 }

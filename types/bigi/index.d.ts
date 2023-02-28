@@ -51,7 +51,7 @@ declare class bigi {
     min(a: bigi): bigi;
     mod(a: bigi): bigi;
     modInt(n: number): bigi;
-    modInverse(m: number): bigi;
+    modInverse(m: bigi): bigi;
     modPow(e: any, m: any): any;
     modPowInt(e: any, m: any): any;
     multiply(a: bigi): bigi;

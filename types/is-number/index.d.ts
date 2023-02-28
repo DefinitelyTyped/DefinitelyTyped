@@ -10,4 +10,4 @@ export = is_number;
  * @param num Any value that should be tested for being a number
  * @returns true if the parameter is a valid number, otherwise false
  */
-declare function is_number(num: any): boolean;
+declare function is_number(num: unknown): boolean;

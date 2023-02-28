@@ -1,5 +1,4 @@
 import { Emitter } from './emittermixin';
-import { Emitter as DomEmitter } from './dom/emittermixin';
 
 export interface BindChain {
     to<O1 extends Observable, K1 extends keyof O1>(
@@ -94,8 +93,7 @@ export interface Observable extends Emitter {
      * properties and methods, but means that `foo.set( 'bar', 1 )` may be slightly slower than `foo.bar = 1`.
      *
      */
-    set(option: Record<string, unknown>): void;
-    set(name: string, value: unknown): void;
+    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void;
     /**
      * Binds {@link #set observable properties} to other objects implementing the
      * {@link module:utils/observablemixin~Observable} interface.

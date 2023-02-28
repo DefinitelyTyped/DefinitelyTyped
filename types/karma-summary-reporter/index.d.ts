@@ -1,4 +1,4 @@
-// Type definitions for karma-summary-reporter 1.10
+// Type definitions for karma-summary-reporter 3.1
 // Project: https://github.com/sth/karma-summary-reporter#readme
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
 //                 Stephan Hohe <https://github.com/sth>
@@ -41,5 +41,15 @@ declare module 'karma' {
          * * 'ifneeded': Show only if there are test results shown from multiple browsers
          */
         browserList?: 'always' | 'never' | 'ifneeded' | undefined;
+
+        /**
+         * Use custom symbols to indicate success and failure:
+         * * success: used for successful test results
+         * * failure: used for failed test results
+         */
+        symbols?: {
+            success?: string | undefined;
+            failure?: string | undefined;
+        } | undefined;
     }
 }

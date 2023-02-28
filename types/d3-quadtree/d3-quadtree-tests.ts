@@ -112,13 +112,13 @@ quadtree = quadtree.cover(50, 90);
 // add(...) ------------------------------------------------------------------
 
 quadtree = quadtree.add({ x: 35, y: 35 });
-// $ExpectError
+// @ts-expect-error
 quadtree = quadtree.add({x: 35}); // fails, incompatible data type
 
 // addAll(...) ---------------------------------------------------------------
 
 quadtree = quadtree.addAll(testData);
-// $ExpectError
+// @ts-expect-error
 quadtree = quadtree.addAll([{x: 35}, {x: 55, y: 13}]); // fails, incompatible data type
 
 // remove(...) ---------------------------------------------------------------
@@ -194,7 +194,7 @@ quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
     }
 });
 
-// $ExpectError
+// @ts-expect-error
 quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
     return 10; // fails wrong return type
 });

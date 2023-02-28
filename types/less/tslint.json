@@ -9,7 +9,6 @@
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false
     }

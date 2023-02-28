@@ -1,6 +1,6 @@
-import Observer from "../src/util/observer";
-import { XHROptions } from "./xhr";
-import * as util from "../src/util";
+import Observer from '../src/util/observer';
+import { XHROptions } from './xhr';
+import * as util from '../src/util';
 
 export type WaveSurferUtil = typeof util;
 

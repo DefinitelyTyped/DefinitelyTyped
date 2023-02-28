@@ -128,6 +128,7 @@ declare function DiceCoefficient(str1: string, str2: string): number;
 
 interface Stemmer {
     stem(token: string): string;
+    removeStopWords(moreStopWords: string[]): void;
     tokenizeAndStem(text: string): string[];
     attach(): void;
 }
@@ -155,6 +156,7 @@ interface BayesClassifierCallback {
     (err: any, classifier: any): void;
 }
 declare class BayesClassifier {
+    constructor(stem?: Stemmer);
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
     addDocument(text: string[], stem: string): void;

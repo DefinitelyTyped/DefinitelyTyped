@@ -11,8 +11,8 @@ gitRawCommits(gitOptions);
 // $ExpectType Readable
 gitRawCommits(gitOptions, execOptions);
 
-// $ExpectError
+// @ts-expect-error
 gitRawCommits();
 
-// $ExpectError
+// @ts-expect-error
 gitRawCommits(execOptions, gitOptions);

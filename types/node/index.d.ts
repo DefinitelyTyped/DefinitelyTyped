@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 17.0
+// Type definitions for non-npm package Node.js 18.14
 // Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -21,7 +21,6 @@
 //                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Seth Westphal <https://github.com/westy92>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
@@ -34,7 +33,6 @@
 //                 Junxiao Shi <https://github.com/yoursunny>
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 //                 ExE Boss <https://github.com/ExE-Boss>
-//                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Victor Perin <https://github.com/victorperin>
@@ -42,6 +40,8 @@
 //                 NodeJS Contributors <https://github.com/NodeJS>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 wafuwafu13 <https://github.com/wafuwafu13>
+//                 Matteo Collina <https://github.com/mcollina>
+//                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -68,7 +68,7 @@
  * IN THE SOFTWARE.
  */
 
-// NOTE: These definitions support NodeJS and TypeScript 3.7+.
+// NOTE: These definitions support NodeJS and TypeScript 4.9+.
 
 // Reference required types from the default lib:
 /// <reference lib="es2020" />
@@ -93,6 +93,7 @@
 /// <reference path="dns/promises.d.ts" />
 /// <reference path="dns/promises.d.ts" />
 /// <reference path="domain.d.ts" />
+/// <reference path="dom-events.d.ts" />
 /// <reference path="events.d.ts" />
 /// <reference path="fs.d.ts" />
 /// <reference path="fs/promises.d.ts" />
@@ -109,12 +110,14 @@
 /// <reference path="punycode.d.ts" />
 /// <reference path="querystring.d.ts" />
 /// <reference path="readline.d.ts" />
+/// <reference path="readline/promises.d.ts" />
 /// <reference path="repl.d.ts" />
 /// <reference path="stream.d.ts" />
 /// <reference path="stream/promises.d.ts" />
 /// <reference path="stream/consumers.d.ts" />
 /// <reference path="stream/web.d.ts" />
 /// <reference path="string_decoder.d.ts" />
+/// <reference path="test.d.ts" />
 /// <reference path="timers.d.ts" />
 /// <reference path="timers/promises.d.ts" />
 /// <reference path="tls.d.ts" />

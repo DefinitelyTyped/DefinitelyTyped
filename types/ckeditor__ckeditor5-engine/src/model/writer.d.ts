@@ -36,7 +36,7 @@ export default class Writer {
     createDocumentFragment(): DocumentFragment;
     createElement(name: string, attributes?: Record<string, string | number | boolean>): Element;
     createPositionAfter(item: Item): Position;
-    createPositionAt(itemOrPosition: Item, offset?: number | 'end' | 'before' | 'after'): Position;
+    createPositionAt(itemOrPosition: DocumentFragment | Item, offset?: number | 'end' | 'before' | 'after'): Position;
     createPositionAt(itemOrPosition: Position): Position;
     createPositionBefore(item: Item): Position;
     createPositionFromPath(root: Element | DocumentFragment, path: number[], stickiness?: PositionStickiness): Position;

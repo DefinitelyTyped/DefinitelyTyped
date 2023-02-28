@@ -16,8 +16,8 @@ stringHeap.push("foo");
 numberHeap.insert(0);
 stringHeap.insert("foo");
 
-var numberIdentifier: number = numberHeap.pop();
-var stringIdentifier: string = stringHeap.pop();
+var numberIdentifier: number | undefined = numberHeap.pop();
+var stringIdentifier: string | undefined = stringHeap.pop();
 
 numberIdentifier = numberHeap.replace(1);
 stringIdentifier = stringHeap.replace("bar");
@@ -30,6 +30,15 @@ stringHeap.heapify();
 
 numberHeap.updateItem(2);
 stringHeap.updateItem("bar");
+
+var containsItem: boolean = numberHeap.contains(3);
+containsItem = numberHeap.has(2);
+
+containsItem = stringHeap.contains("bar");
+containsItem = stringHeap.has("foo");
+
+numberHeap.clear();
+stringHeap.clear();
 
 var booleanIdentifier: boolean = numberHeap.empty();
 booleanIdentifier = stringHeap.empty();

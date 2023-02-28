@@ -12,7 +12,8 @@ async function fn(i: number) {
 const fn1 = stopcock(fn);
 fn1(1); // $ExpectType Promise<string>
 fn1.size; // $ExpectType number
-fn1.size = 1; // $ExpectError
+// @ts-expect-error
+fn1.size = 1;
 // $ExpectType LimiterFunction<(i: string, n: number) => undefined>
 const fn2 = stopcock((i: string, n: number) => void 0);
 fn2('foo', 2); // $ExpectType Promise<undefined>

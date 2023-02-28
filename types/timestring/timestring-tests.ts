@@ -1,10 +1,15 @@
 import timestring = require('timestring');
 
-timestring(); // $ExpectError
-timestring(1); // $ExpectError
-timestring('1s', 'parsec'); // $ExpectError
-timestring('1s', 'ms', 'options'); // $ExpectError
-timestring('1s', 'ms', { options: true }); // $ExpectError
+// @ts-expect-error
+timestring();
+// @ts-expect-error
+timestring(1);
+// @ts-expect-error
+timestring('1s', 'parsec');
+// @ts-expect-error
+timestring('1s', 'ms', 'options');
+// @ts-expect-error
+timestring('1s', 'ms', { options: true });
 
 // $ExpectType number
 timestring('1s');

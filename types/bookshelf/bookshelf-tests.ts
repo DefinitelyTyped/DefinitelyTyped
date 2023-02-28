@@ -581,7 +581,7 @@ new Posts().fetch().then(collection => {
             JSON.stringify(model);
         });
     // withRelated is not a valid option in model.load()
-    // $ExpectError
+    // @ts-expect-error
     collection.at(1).load(['author', 'content'], { withRelated: ['comments.tags'] })
     collection.at(2).load({ comments(qb) {
         qb.where('comments.is_approved', '=', true)

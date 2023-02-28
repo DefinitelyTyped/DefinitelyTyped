@@ -1,6 +1,6 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
-import Observer from "../util/observer";
-import WaveSurfer from "../wavesurfer";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
 export default class MicrophonePlugin extends Observer implements WaveSurferPlugin {
     constructor(params: MicrophonePluginParams, ws: WaveSurfer);
@@ -52,7 +52,7 @@ export default class MicrophonePlugin extends Observer implements WaveSurferPlug
 }
 
 export interface Browser {
-    browser: "firefox" | "chrome" | "edge" | "safari" | "Not a supported browser.";
+    browser: 'firefox' | 'chrome' | 'edge' | 'safari' | 'Not a supported browser.';
     minVersion: number | null;
     version: number | null;
 }

@@ -319,7 +319,7 @@ export interface LoaderOptions {
      * @default
      * undefined
      */
-    prependData?: string | LoaderOptions.Callback<string> | undefined;
+    additionalData?: string | LoaderOptions.Callback<string> | undefined;
 
     /**
      * Enables/Disables generation of source maps.
@@ -402,6 +402,36 @@ export interface LoaderOptions {
      * true
      */
     webpackImporter?: boolean | undefined;
+    /**
+     * Treats the @warn rule as a webpack warning.
+     *
+     * Note: It will be true by default in the next major release.
+     *
+     * **webpack.config.js**
+     *
+     * ```js
+     * module.exports = {
+     *  module: {
+     *    rules: [
+     *      {
+     *        test: /\.s[ac]ss$/i,
+     *        use: [
+     *          'style-loader',
+     *          'css-loader',
+     *          {
+     *            loader: 'sass-loader',
+     *            options: {
+     *              warnRuleAsWarning: false,
+     *            },
+     *          },
+     *        ],
+     *      },
+     *    ],
+     *  },
+     * };
+     * ```
+     */
+    warnRuleAsWarning ?: boolean | undefined;
 }
 
 export namespace LoaderOptions {

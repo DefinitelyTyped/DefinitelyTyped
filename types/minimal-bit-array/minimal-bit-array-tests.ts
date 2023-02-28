@@ -1,6 +1,7 @@
 import * as BitArray from "minimal-bit-array";
 
-new BitArray('abc'); // $ExpectError
+// @ts-expect-error
+new BitArray('abc');
 const bitArray: BitArray = new BitArray(123);
 bitArray.get(12); // $ExpectType boolean
 bitArray.set(34, true); // $ExpectType boolean

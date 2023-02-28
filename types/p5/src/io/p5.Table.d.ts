@@ -254,7 +254,19 @@ declare module '../../index' {
          *   multidimensional array.
          */
         getArray(): any[];
+
+        /**
+         *   An array containing the names of the columns in
+         *   the table, if the "header" the table is loaded
+         *   with the "header" parameter.
+         */
         columns: string[];
+
+        /**
+         *   An array containing the p5.TableRow objects that
+         *   make up the rows of the table. The same result as
+         *   calling getRows()
+         */
         rows: TableRow[];
     }
 }

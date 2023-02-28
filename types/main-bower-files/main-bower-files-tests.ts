@@ -9,6 +9,8 @@ gulp.task("main-bower-files:simple", () => {
         .pipe(gulp.dest("dist/bower"));
 });
 
+mainBowerFiles(undefined, (_: Error | null) => {});
+
 gulp.task("main-bower-files:options", () => {
     var files = mainBowerFiles({
         debugging: false,

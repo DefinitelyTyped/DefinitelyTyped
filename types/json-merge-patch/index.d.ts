@@ -3,31 +3,15 @@
 // Definitions by: Jimmy Leung <https://github.com/jimmy-leung-coherent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type JsonValue =
-    | string
-    | number
-    | boolean
-    | JsonObject
-    | JsonArray;
-interface JsonArray extends Array<JsonValue> {}
-interface JsonObject extends Record<string, JsonValue> {}
-
-interface Serializable {
-    toJSON: () => JsonObject | null;
-}
-
-type ValidJson = JsonObject | Serializable | JsonArray | Array<JsonObject | Serializable>;
-
-
 declare module "json-merge-patch" {
-    function apply(target: ValidJson, patch: null): null;
-    function apply(target: ValidJson, patch: ValidJson): ValidJson;
-    function apply(target: ValidJson, patch: JsonValue): JsonValue;
+    function apply(target: any, patch: null): null;
+    function apply<U>(target: any, patch: U): U;
+    function apply<T>(target: T, patch: T): T;
 
-    function generate(before: ValidJson, after: null): null;
-    function generate(before: ValidJson, after: ValidJson): ValidJson | undefined;
-    function generate(before: ValidJson, after: JsonValue): JsonValue;
+    function generate(before: any, after: null): null;
+    function generate<U>(before: any, after: U): U | undefined;
+    function generate<T>(before: T, after: T): T | undefined;
 
-    function merge(patch1: ValidJson, patch2: null): null;
-    function merge(patch1: ValidJson, patch2: ValidJson): ValidJson;
+    function merge(patch1: any, patch2: null): null;
+    function merge<T>(patch1: T, patch2: T): T;
 }

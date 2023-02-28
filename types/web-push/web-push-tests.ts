@@ -42,7 +42,7 @@ error.name;
 
 // ContentEncoding should only allow named types
 
-// $ExpectError
+// @ts-expect-error
 const notAValidEncoding: ContentEncoding = 'hello world';
 
 // The exported values should match the "enum" type
@@ -62,7 +62,7 @@ const buffer: Buffer = anything;
 encrypt('publicKey', 'userAuth', buffer, supportedContentEncodings.AES_128_GCM);
 
 // Only valid encoding should be allowed
-// $ExpectError
+// @ts-expect-error
 encrypt('publicKey', 'userAuth', 'myPayload', 'unknownEncoding');
 
 // $ExpectType string
@@ -88,11 +88,11 @@ getVapidHeaders('audience', 'subject', 'publicKey', 'privateKey', supportedConte
 getVapidHeaders('audience', 'subject', 'publicKey', 'privateKey', supportedContentEncodings.AES_128_GCM);
 
 // Buffers are not supported here
-// $ExpectError
+// @ts-expect-error
 getVapidHeaders('audience', buffer, 'publicKey', 'privateKey', supportedContentEncodings.AES_128_GCM);
-// $ExpectError
+// @ts-expect-error
 getVapidHeaders('audience', 'subject', buffer, 'privateKey', supportedContentEncodings.AES_128_GCM);
-// $ExpectError
+// @ts-expect-error
 getVapidHeaders('audience', 'subject', 'publicKey', buffer, supportedContentEncodings.AES_128_GCM);
 
 // =====================
@@ -124,11 +124,11 @@ setGCMAPIKey(null);
 setVapidDetails('subject', 'privateKey', 'publicKey');
 
 // Buffers are not supported here
-// $ExpectError
+// @ts-expect-error
 setVapidDetails(buffer, 'publicKey', 'privateKey');
-// $ExpectError
+// @ts-expect-error
 setVapidDetails('subject', buffer, 'privateKey');
-// $ExpectError
+// @ts-expect-error
 setVapidDetails('subject', 'publicKey', buffer);
 
 // ==================
@@ -233,15 +233,15 @@ generateRequestDetails(pushSubscription, null).body;
 generateRequestDetails(pushSubscription, null, requestOptions).body;
 
 // PushSubscription must have all its values
-// $ExpectError
+// @ts-expect-error
 generateRequestDetails({});
-// $ExpectError
+// @ts-expect-error
 generateRequestDetails({ endpoint: 'endpoint' });
-// $ExpectError
+// @ts-expect-error
 generateRequestDetails({ keys: { p256dh: 'p256dh', auth: 'auth' } });
-// $ExpectError
+// @ts-expect-error
 generateRequestDetails({ endpoint: null, keys: { p256dh: 'p256dh', auth: 'auth' } });
-// $ExpectError
+// @ts-expect-error
 generateRequestDetails({ endpoint: 'endpoint', keys: null });
 
 generateRequestDetails({ endpoint: 'endpoint', keys: { p256dh: 'p256dh', auth: 'auth' } });
@@ -284,15 +284,15 @@ sendNotification(pushSubscription);
 sendNotification(pushSubscription, null, requestOptions);
 
 // PushSubscription must have all its values
-// $ExpectError
+// @ts-expect-error
 sendNotification({}, 'payload');
-// $ExpectError
+// @ts-expect-error
 sendNotification({ endpoint: 'endpoint' }, 'payload');
-// $ExpectError
+// @ts-expect-error
 sendNotification({ keys: { p256dh: 'p256dh', auth: 'auth' } }, 'payload');
-// $ExpectError
+// @ts-expect-error
 sendNotification({ endpoint: null, keys: { p256dh: 'p256dh', auth: 'auth' } }, 'payload');
-// $ExpectError
+// @ts-expect-error
 sendNotification({ endpoint: 'endpoint', keys: null }, 'payload');
 
 sendNotification({ endpoint: 'endpoint', keys: { p256dh: 'p256dh', auth: 'auth' } }, 'payload');

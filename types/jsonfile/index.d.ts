@@ -1,4 +1,4 @@
-// Type definitions for jsonfile 6.0
+// Type definitions for jsonfile 6.1
 // Project: https://github.com/jprichardson/node-jsonfile#readme
 // Definitions by: Daniel Bowring <https://github.com/dbowring>
 //                 BendingBender <https://github.com/BendingBender>
@@ -51,7 +51,7 @@ export type JFWriteOptions =
     | null;
 
 export type ReadCallback = (err: NodeJS.ErrnoException | null, data: any) => void;
-export type WriteCallback = (err: NodeJS.ErrnoException) => void;
+export type WriteCallback = (err: NodeJS.ErrnoException | null) => void;
 
 /**
  * @see {@link https://github.com/jprichardson/node-jsonfile#readfilefilename-options-callback}

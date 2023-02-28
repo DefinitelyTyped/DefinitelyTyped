@@ -1,9 +1,6 @@
-// Type definitions for auth0 2.34
+// Type definitions for auth0 2.35
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Seth Westphal <https://github.com/westy92>
-//                 Ian Howe <https://github.com/ianhowe76>
-//                 Dan Rumney <https://github.com/dancrumb>
-//                 Peter <https://github.com/pwrnrd>
+// Definitions by: Ian Howe <https://github.com/ianhowe76>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
@@ -13,6 +10,7 @@
 //                 Dan Ursin <https://github.com/danursin>
 //                 Nathan Hardy <https://github.com/nhardy>
 //                 Nicholas Molen <https://github.com/robotastronaut>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
@@ -24,6 +22,7 @@ export interface ManagementClientOptions {
     scope?: string | undefined;
     tokenProvider?: TokenProvider | undefined;
     retry?: RetryOptions | undefined;
+    telemetry?: boolean | undefined;
 }
 
 export interface TokenProvider {
@@ -257,13 +256,15 @@ export interface Client {
     client_aliases?: string[] | undefined;
     allowed_clients?: string[] | undefined;
     allowed_logout_urls?: string[] | undefined;
-    jwt_configuration?: {
-        // The amount of time (in seconds) that the token will be valid after being issued
-        lifetime_in_seconds?: number | undefined;
-        scopes?: {} | undefined;
-        // The algorithm used to sign the JsonWebToken
-        alg?: 'HS256' | 'RS256' | undefined;
-    } | undefined;
+    jwt_configuration?:
+        | {
+              // The amount of time (in seconds) that the token will be valid after being issued
+              lifetime_in_seconds?: number | undefined;
+              scopes?: {} | undefined;
+              // The algorithm used to sign the JsonWebToken
+              alg?: 'HS256' | 'RS256' | undefined;
+          }
+        | undefined;
     /**
      * A set of grant types that the client is authorized to use
      */
@@ -272,11 +273,13 @@ export interface Client {
      * Client signing keys.
      */
     signing_keys?: string[] | undefined;
-    encryption_key?: {
-        pub?: string | undefined;
-        cert?: string | undefined;
-        subject?: string | undefined;
-    } | undefined;
+    encryption_key?:
+        | {
+              pub?: string | undefined;
+              cert?: string | undefined;
+              subject?: string | undefined;
+          }
+        | undefined;
     sso?: boolean | undefined;
     /**
      * `true` to disable Single Sign On, `false` otherwise (default: `false`)
@@ -454,11 +457,13 @@ export type Strategy =
     | 'guardian'
     | 'instagram'
     | 'ip'
+    | 'line'
     | 'linkedin'
     | 'miicard'
     | 'oauth1'
     | 'oauth2'
     | 'office365'
+    | 'oidc'
     | 'paypal'
     | 'paypal-sandbox'
     | 'pingfederate'
@@ -596,20 +601,23 @@ export interface Identity {
     provider: string;
     isSocial: boolean;
     access_token?: string | undefined;
-    profileData?: {
-        email?: string | undefined;
-        email_verified?: boolean | undefined;
-        name?: string | undefined;
-        phone_number?: string | undefined;
-        phone_verified?: boolean | undefined;
-        request_language?: string | undefined;
-    } | undefined;
+    profileData?:
+        | {
+              email?: string | undefined;
+              email_verified?: boolean | undefined;
+              name?: string | undefined;
+              phone_number?: string | undefined;
+              phone_verified?: boolean | undefined;
+              request_language?: string | undefined;
+          }
+        | undefined;
 }
 
 export interface AuthenticationClientOptions {
     clientId?: string | undefined;
     clientSecret?: string | undefined;
     domain: string;
+    telemetry?: boolean | undefined;
 }
 
 interface Environment {
@@ -633,9 +641,19 @@ export interface RequestSMSOptions {
     phone_number: string;
 }
 
-export interface VerifyOptions {
+export interface VerifySMSOptions {
+    username: string;
+    otp: string;
+}
+
+export interface VerifySMSOptionsDeprecated {
     username: string;
     password: string;
+}
+
+export interface VerifyEmailOptions {
+    email: string;
+    otp: string;
 }
 
 export interface DelegationTokenOptions {
@@ -653,8 +671,9 @@ export interface ResetPasswordOptions {
 }
 
 export interface ResetPasswordEmailOptions {
-    email: string;
+    client_id?: string | undefined;
     connection: string;
+    email: string;
 }
 
 export interface ClientCredentialsGrantOptions {
@@ -745,6 +764,7 @@ export type UnlinkAccountsParamsProvider =
     | 'guardian'
     | 'instagram'
     | 'ip'
+    | 'line'
     | 'linkedin'
     | 'miicard'
     | 'oauth1'
@@ -937,10 +957,12 @@ export interface EmailVerificationTicketOptions {
     user_id: string;
     client_id?: string | undefined;
     organization_id?: string | undefined;
-    identity?: {
-        user_id: string;
-        provider: string;
-    } | undefined;
+    identity?:
+        | {
+              user_id: string;
+              provider: string;
+          }
+        | undefined;
     ttl_sec?: number | undefined;
     includeEmailInRedirect?: boolean | undefined;
 }
@@ -975,6 +997,8 @@ export interface SignInOptions {
     username: string;
     otp: string;
     realm?: 'email' | 'sms';
+    audience?: string | undefined;
+    scope?: string | undefined;
     /**
      * @deprecated
      */
@@ -990,11 +1014,15 @@ export interface SocialSignInOptions {
     connection: string;
 }
 
+/**
+ * @see {https://auth0.com/docs/authenticate/passwordless/implement-login/embedded-login/relevant-api-endpoints#post-oauth-token}
+ */
 export interface SignInToken {
     access_token: string;
-    id_token?: string | undefined;
-    token_type?: string | undefined;
-    expiry: number;
+    refresh_token?: string | undefined;
+    id_token: string;
+    token_type: string;
+    expires_in: number;
 }
 
 export interface RequestSMSCodeOptions extends RequestSMSOptions {
@@ -1120,11 +1148,11 @@ export class AuthenticationClient {
     requestSMSCode(data: RequestSMSOptions): Promise<any>;
     requestSMSCode(data: RequestSMSOptions, cb: (err: Error, message: string) => void): void;
 
-    verifyEmailCode(data: VerifyOptions): Promise<any>;
-    verifyEmailCode(data: VerifyOptions, cb: (err: Error, message: string) => void): void;
+    verifyEmailCode(data: VerifyEmailOptions): Promise<any>;
+    verifyEmailCode(data: VerifyEmailOptions, cb: (err: Error, message: string) => void): void;
 
-    verifySMSCode(data: VerifyOptions): Promise<any>;
-    verifySMSCode(data: VerifyOptions, cb: (err: Error, message: string) => void): void;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated): Promise<any>;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated, cb: (err: Error, message: string) => void): void;
 
     getDelegationToken(data: DelegationTokenOptions): Promise<any>;
     getDelegationToken(data: DelegationTokenOptions, cb: (err: Error, message: string) => void): void;
@@ -1145,9 +1173,16 @@ export class AuthenticationClient {
     ): void;
 
     passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
-    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions): Promise<TokenResponse>;
+    passwordGrant(
+        options: PasswordGrantOptions,
+        additionalOptions: PasswordGrantAdditionalOptions,
+    ): Promise<TokenResponse>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
-    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions, cb: (err: Error, response: TokenResponse) => void): void;
+    passwordGrant(
+        options: PasswordGrantOptions,
+        additionalOptions: PasswordGrantAdditionalOptions,
+        cb: (err: Error, response: TokenResponse) => void,
+    ): void;
 
     refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<TokenResponse>;
     refreshToken(
@@ -1160,13 +1195,15 @@ export interface Organization {
     id: string;
     name: string;
     display_name?: string | undefined;
-    branding?: {
-        logo_url?: string | undefined;
-        colors: {
-            primary: string;
-            page_background: string;
-        };
-    } | undefined;
+    branding?:
+        | {
+              logo_url?: string | undefined;
+              colors?: {
+                  primary: string;
+                  page_background: string;
+              } | undefined;
+          }
+        | undefined;
     metadata?: any;
 }
 
@@ -1177,26 +1214,30 @@ export interface OrganizationsPaged extends Omit<Page, 'length'> {
 export interface CreateOrganization {
     name: string;
     display_name?: string | undefined;
-    branding?: {
-        logo_url?: string | undefined;
-        colors: {
-            primary: string;
-            page_background: string;
-        };
-    } | undefined;
+    branding?:
+        | {
+              logo_url?: string | undefined;
+              colors?: {
+                  primary: string;
+                  page_background: string;
+              } | undefined;
+          }
+        | undefined;
     metadata?: any;
 }
 
 export interface UpdateOrganization {
     name?: string | undefined;
     display_name?: string | undefined;
-    branding?: {
-        logo_url?: string | undefined;
-        colors: {
-            primary: string;
-            page_background: string;
-        };
-    } | undefined;
+    branding?:
+        | {
+              logo_url?: string | undefined;
+              colors?: {
+                  primary: string;
+                  page_background: string;
+              };
+          }
+        | undefined;
     metadata?: any;
 }
 
@@ -1289,10 +1330,239 @@ export interface VerifyEmail {
     user_id: string;
     organization_id?: string | undefined;
     client_id?: string | undefined;
-    identity?: {
-        user_id: string;
-        provider: string;
-    } | undefined;
+    identity?:
+        | {
+              user_id: string;
+              provider: string;
+          }
+        | undefined;
+}
+
+export interface LogEvent {
+    /** API audience the event applies to. */
+    audience?: string;
+    /** ID of the client (application). */
+    client_id?: string;
+    /** Name of the client (application). */
+    client_name?: string;
+    /** Name of the connection the event relates to. */
+    connection?: string;
+    /** ID of the connection the event relates to. */
+    connection_id?: string;
+    /** Date when the event occurred in ISO 8601 format. */
+    date?: string;
+    /** Description of this event. */
+    description?: string;
+    /** Additional useful details about this event (structure is dependent upon event type). */
+    details?: unknown;
+    /** Hostname the event applies to. */
+    hostname?: string;
+    /** IP address of the log event source. */
+    ip?: string;
+    /** Whether the client was a mobile device (true) or desktop/laptop/server (false). */
+    isMobile?: boolean;
+    /** Information about the location that triggered this event based on the ip. */
+    location_info?: {
+        /** Full city name in English. */
+        city_name?: string;
+        /** Continent the country is located within. Can be AF (Africa), AN (Antarctica), AS (Asia), EU (Europe), NA (North America), OC (Oceania) or SA (South America). */
+        continent_code?: string;
+        /** Two-letter Alpha-2 ISO 3166-1 country code. */
+        country_code?: string;
+        /** Three-letter Alpha-3 ISO 3166-1 country code. */
+        country_code3?: string;
+        /** Full country name in English. */
+        country_name?: string;
+        /** Global latitude (horizontal) position. */
+        latitude?: string;
+        /** Global longitude (vertical) position. */
+        longitude?: string;
+        /** Time zone name as found in the IANA tz database. https?://www.iana.org/time-zones */
+        time_zone?: string;
+    };
+    /** Unique ID of the event. */
+    log_id?: string;
+    /** Scope permissions applied to the event. */
+    scope?: string;
+    /** Name of the strategy involved in the event. */
+    strategy?: string;
+    /** Type of strategy involved in the event. */
+    strategy_type?: string;
+    /** Type of event. */
+    type?: LogEventTypeCode;
+    /** ID of the user involved in the event. */
+    user_id?: string;
+    /** User agent string from the client device that caused the event. */
+    user_agent?: string;
+    /** Name of the user involved in the event. */
+    user_name?: string;
+}
+
+/** https://auth0.com/docs/deploy-monitor/logs/log-event-type-codes */
+export type LogEventTypeCode =
+    | 'admin_update_launch'
+    | 'api_limit'
+    | 'cls'
+    | 'cs'
+    | 'depnote'
+    | 'du'
+    | 'f'
+    | 'fapi'
+    | 'fc'
+    | 'fce'
+    | 'fco'
+    | 'fcoa'
+    | 'fcp'
+    | 'fcph'
+    | 'fcpn'
+    | 'fcpr'
+    | 'fcpro'
+    | 'fcu'
+    | 'fd'
+    | 'fdeac'
+    | 'fdeaz'
+    | 'fdecc'
+    | 'fdu'
+    | 'feacft'
+    | 'feccft'
+    | 'fede'
+    | 'fens'
+    | 'feoobft'
+    | 'feotpft'
+    | 'fepft'
+    | 'fepotpft'
+    | 'fercft'
+    | 'fertft'
+    | 'ferrt'
+    | 'fi'
+    | 'flo'
+    | 'fn'
+    | 'fp'
+    | 'fs'
+    | 'fsa'
+    | 'fu'
+    | 'fui'
+    | 'fv'
+    | 'fvr'
+    | 'gd_auth_failed'
+    | 'gd_auth_rejected'
+    | 'gd_auth_succeed'
+    | 'gd_enrollment_complete'
+    | 'gd_otp_rate_limit_exceed'
+    | 'gd_recovery_failed'
+    | 'gd_recovery_rate_limit_exceed'
+    | 'gd_recovery_succeed'
+    | 'gd_send_pn'
+    | 'gd_send_sms'
+    | 'gd_send_sms_failure'
+    | 'gd_send_voice'
+    | 'gd_send_voice_failure'
+    | 'gd_start_auth'
+    | 'gd_start_enroll'
+    | 'gd_tenant_update'
+    | 'gd_unenroll'
+    | 'gd_update_device_account'
+    | 'limit_delegation'
+    | 'limit_mu'
+    | 'limit_wc'
+    | 'limit_sul'
+    | 'mfar'
+    | 'mgmt_api_read'
+    | 'pla'
+    | 'pwd_leak'
+    | 's'
+    | 'sapi'
+    | 'sce'
+    | 'scoa'
+    | 'scp'
+    | 'scph'
+    | 'scpn'
+    | 'scpr'
+    | 'scu'
+    | 'sd'
+    | 'sdu'
+    | 'seacft'
+    | 'seccft'
+    | 'sede'
+    | 'sens'
+    | 'seoobft'
+    | 'seotpft'
+    | 'sepft'
+    | 'sercft'
+    | 'sertft'
+    | 'si'
+    | 'srrt'
+    | 'slo'
+    | 'ss'
+    | 'ssa'
+    | 'sui'
+    | 'sv'
+    | 'svr'
+    | 'sys_os_update_end'
+    | 'sys_os_update_start'
+    | 'sys_update_end'
+    | 'sys_update_start'
+    | 'ublkdu'
+    | 'w';
+
+export interface LogsQuery {
+    /** A comma separated list of fields to include or exclude */
+    fields?: string;
+    /** For checkpoint pagination, log event Id from which to start selection from. */
+    from?: string;
+    /** true if the fields specified are to be included in the result, false otherwise. */
+    include_fields?: boolean;
+    /** true if a query summary must be included in the result, false otherwise. Default false */
+    include_totals?: boolean;
+    /** Page number. Zero based */
+    page?: number;
+    /** The amount of entries per page */
+    per_page?: number;
+    /** Search Criteria using Query String Syntax */
+    q?: string;
+    /** The field to use for sorting. */
+    sort?: string;
+    /** When using the `from` parameter, the number of entries to retrieve. Default 50, max 100. */
+    take?: number;
+}
+
+export interface UsersLogsQuery {
+    id: string;
+    per_page?: number;
+    page?: number;
+    sort?: string;
+    include_totals?: boolean;
+}
+
+export interface GetDeviceCredentialsParams {
+    user_id: string;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    fields?: string;
+    include_fields?: boolean;
+    client_id?: string;
+    type?: 'public_key' | 'refresh_token' | 'rotating_refresh_token';
+}
+
+export interface DeviceCredential {
+    id?: string;
+    device_name?: string;
+    device_id?: string;
+    type?: string;
+    user_id?: string;
+    client_id?: string;
+    last_used?: string;
+}
+
+export interface SendEnrollmentTicketData {
+    user_id: string;
+    send_mail?: boolean;
+}
+
+export interface SendEnrollmentTicketResponse {
+    ticket_id: string;
+    ticket_url: string;
 }
 
 export class OrganizationsManager {
@@ -1301,10 +1571,16 @@ export class OrganizationsManager {
 
     getAll(): Promise<Organization[]>;
     getAll(cb: (err: Error, organizations: Organization[]) => void): void;
-    getAll(params: PagingOptions & { include_totals?: false; }): Promise<Organization[]>;
-    getAll(params: PagingOptions & { include_totals: true; }): Promise<OrganizationsPaged>;
-    getAll(params: PagingOptions & { include_totals?: false; }, cb: (err: Error, organizations: Organization[]) => void): void;
-    getAll(params: PagingOptions & { include_totals: true; }, cb: (err: Error, pagedOrganizations: OrganizationsPaged) => void): void;
+    getAll(params: PagingOptions & { include_totals?: false }): Promise<Organization[]>;
+    getAll(params: PagingOptions & { include_totals: true }): Promise<OrganizationsPaged>;
+    getAll(
+        params: PagingOptions & { include_totals?: false },
+        cb: (err: Error, organizations: Organization[]) => void,
+    ): void;
+    getAll(
+        params: PagingOptions & { include_totals: true },
+        cb: (err: Error, pagedOrganizations: OrganizationsPaged) => void,
+    ): void;
     getAll(params: CheckpointPagingOptions): Promise<Organization[]>;
     getAll(params: CheckpointPagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
 
@@ -1352,10 +1628,16 @@ export class OrganizationsManager {
         cb: (err: Error, connection: OrganizationConnection) => void,
     ): void;
 
-    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false; }): Promise<OrganizationMember[]>;
-    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true; }): Promise<OrganizationMembersPaged>;
-    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false; }, cb: (err: Error, members: OrganizationMember[]) => void): void;
-    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true; }, cb: (err: Error, pagedMembers: OrganizationMembersPaged) => void): void;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false }): Promise<OrganizationMember[]>;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true }): Promise<OrganizationMembersPaged>;
+    getMembers(
+        params: ObjectWithId & PagingOptions & { include_totals?: false },
+        cb: (err: Error, members: OrganizationMember[]) => void,
+    ): void;
+    getMembers(
+        params: ObjectWithId & PagingOptions & { include_totals: true },
+        cb: (err: Error, pagedMembers: OrganizationMembersPaged) => void,
+    ): void;
     getMembers(params: ObjectWithId & CheckpointPagingOptions): Promise<OrganizationMember[]>;
     getMembers(
         params: ObjectWithId & CheckpointPagingOptions,
@@ -1406,7 +1688,9 @@ export class OrganizationsManager {
     deleteInvitation(params: ObjectWithId & { invitation_id: string }, cb: (err: Error) => void): void;
 
     getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false }): Promise<Role[]>;
-    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true }): Promise<Omit<RolePage, 'length'>>;
+    getMemberRoles(
+        params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true },
+    ): Promise<Omit<RolePage, 'length'>>;
     getMemberRoles(
         params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false },
         cb: (err: Error, roles: Role[]) => void,
@@ -1430,8 +1714,10 @@ export class OrganizationsManager {
         cb: (err: Error) => void,
     ): void;
 }
+
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     organizations: OrganizationsManager;
+    users: UsersManager;
 
     constructor(options: ManagementClientOptions);
 
@@ -1493,14 +1779,14 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // Device Keys
-    getDeviceCredentials(): Promise<User<A, U>>;
-    getDeviceCredentials(cb: (err: Error, data: any) => void): void;
+    getDeviceCredentials(params: GetDeviceCredentialsParams): Promise<DeviceCredential[]>;
+    getDeviceCredentials(params: GetDeviceCredentialsParams, cb: (err: Error, data: DeviceCredential[]) => void): void;
 
     createDevicePublicKey(data: Data): Promise<User<A, U>>;
     createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;
 
-    deleteDeviceCredential(params: ClientParams): Promise<User<A, U>>;
-    deleteDeviceCredential(params: ClientParams, cb: (err: Error, data: any) => void): void;
+    deleteDeviceCredential(params: ObjectWithId): Promise<void>;
+    deleteDeviceCredential(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // Roles
     getRoles(): Promise<Role[]>;
@@ -1617,6 +1903,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
     linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
+    // User Logs
+    getUserLogs(params: UsersLogsQuery): Promise<Array<LogEvent>>;
+    getUserLogs(params: UsersLogsQuery, cb: (err: Error, data: Array<LogEvent>) => void): void;
+
     // User roles
     getUserRoles(params: ObjectWithId): Promise<Role[]>;
     getUserRoles(params: ObjectWithId, cb: (err: Error, roles: Role[]) => void): void;
@@ -1709,8 +1999,14 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getJob(params: ObjectWithId): Promise<Job>;
     getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
 
+    /**
+     * @deprecated use @see importUsersJob instead
+     */
     importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
     importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
+
+    importUsersJob(data: ImportUsersOptions): Promise<ImportUsersJob>;
+    importUsersJob(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
 
     exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
     exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
@@ -1729,11 +2025,12 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     createEmailVerificationTicket(data: EmailVerificationTicketOptions, cb?: (err: Error, data: any) => void): void;
 
     // Logs
-    getLog(params: ObjectWithId): Promise<any>;
-    getLog(params: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+    getLog(params: ObjectWithId): Promise<LogEvent>;
+    getLog(params: ObjectWithId, cb?: (err: Error, data: LogEvent) => void): void;
 
-    getLogs(): Promise<any>;
-    getLogs(cb?: (err: Error, data: any) => void): void;
+    getLogs(query?: LogsQuery): Promise<Array<LogEvent>>;
+    getLogs(cb?: (err: Error, data: Array<LogEvent>) => void): void;
+    getLogs(query?: LogsQuery, cb?: (err: Error, data: Array<LogEvent>) => void): void;
 
     // Resource Server
     createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
@@ -1773,11 +2070,20 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     deleteCustomDomain(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // User enrollment
+    getGuardianEnrollment(params: ObjectWithId): Promise<Enrollment>;
+    getGuardianEnrollment(params: ObjectWithId, cb: (err: Error, response: Enrollment) => void): void;
+
     getGuardianEnrollments(params: ObjectWithId): Promise<Enrollment[]>;
     getGuardianEnrollments(params: ObjectWithId, cb: (err: Error, response: Enrollment[]) => void): void;
 
     deleteGuardianEnrollment(params: ObjectWithId): Promise<void>;
     deleteGuardianEnrollment(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+    createGuardianEnrollmentTicket(data: SendEnrollmentTicketData): Promise<SendEnrollmentTicketResponse>;
+    createGuardianEnrollmentTicket(
+        data: SendEnrollmentTicketData,
+        cb: (err: Error, data: SendEnrollmentTicketResponse) => void,
+    ): void;
 
     // MFA invalidate remember browser
     invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
@@ -1787,8 +2093,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getGrants(params: GetGrantsParams): Promise<GrantResponse[]>;
     getGrants(params: GetGrantsParams, cb?: (err: Error, grants: GrantResponse[]) => void): void;
 
-    deleteGrant(params: ObjectWithId & {user_id: string}): Promise<void>;
-    deleteGrant(params: ObjectWithId & {user_id: string}, cb?: (err: Error) => void): void;
+    deleteGrant(params: ObjectWithId & { user_id: string }): Promise<void>;
+    deleteGrant(params: ObjectWithId & { user_id: string }, cb?: (err: Error) => void): void;
 }
 
 export class DatabaseAuthenticator<A = AppMetadata, U = UserMetadata> {
@@ -1804,16 +2110,23 @@ export class DatabaseAuthenticator<A = AppMetadata, U = UserMetadata> {
     signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
 
     signUp(data: SignUpUserData): Promise<User<A, U>>;
-    signIn(data: SignUpUserData, cb: (err: Error, data: User) => void): void;
+    signUp(data: SignUpUserData, cb: (err: Error, data: User) => void): void;
 }
 
 export class OAuthAuthenticator {
     constructor(options: OAuthClientOptions);
 
     passwordGrant(options: PasswordGrantOptions): Promise<SignInToken>;
-    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions): Promise<SignInToken>;
+    passwordGrant(
+        options: PasswordGrantOptions,
+        additionalOptions: PasswordGrantAdditionalOptions,
+    ): Promise<SignInToken>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: SignInToken) => void): void;
-    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions, cb: (err: Error, response: SignInToken) => void): void;
+    passwordGrant(
+        options: PasswordGrantOptions,
+        additionalOptions: PasswordGrantAdditionalOptions,
+        cb: (err: Error, response: SignInToken) => void,
+    ): void;
 
     signIn(data: SignInOptions): Promise<SignInToken>;
     signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
@@ -1837,11 +2150,19 @@ export class PasswordlessAuthenticator {
 
     sendEmail(userData: RequestEmailCodeOrLinkOptions, options?: PasswordlessOptions): Promise<any>;
     sendEmail(userData: RequestEmailCodeOrLinkOptions, cb: (err: Error, message: string) => void): void;
-    sendEmail(userData: RequestEmailCodeOrLinkOptions, options: PasswordlessOptions, cb: (err: Error, message: string) => void): void;
+    sendEmail(
+        userData: RequestEmailCodeOrLinkOptions,
+        options: PasswordlessOptions,
+        cb: (err: Error, message: string) => void,
+    ): void;
 
     sendSMS(userData: RequestSMSCodeOptions, options?: PasswordlessOptions): Promise<any>;
     sendSMS(userData: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
-    sendSMS(userData: RequestSMSCodeOptions, options: PasswordlessOptions, cb: (err: Error, message: string) => void): void;
+    sendSMS(
+        userData: RequestSMSCodeOptions,
+        options: PasswordlessOptions,
+        cb: (err: Error, message: string) => void,
+    ): void;
 }
 
 export interface RevokeRefreshTokenOptions {
@@ -1865,4 +2186,7 @@ export class UsersManager<A = AppMetadata, U = UserMetadata> {
 
     impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
     impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;
+
+    getUserOrganizations(data: ObjectWithId): Promise<Organization[]>;
+    getUserOrganizations(data: ObjectWithId, cb: (err: Error, orgs: Organization[]) => void): void;
 }

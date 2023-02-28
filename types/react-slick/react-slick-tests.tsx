@@ -67,12 +67,21 @@ const defaultSettings: Settings = {
 };
 
 class SliderTest extends React.Component {
-  private slider: Slider;
+  private slider: Slider | null = null;
+
+  componentDidMount() {
+    const slides = this.slider?.innerSlider?.list?.querySelectorAll(".slick-slide");
+    slides?.forEach((slide, index) => {
+      const dataIndex = slide.getAttribute("data-test") || index.toString();
+      slide.setAttribute("data-test", dataIndex);
+    });
+  }
+
   render() {
     return <div>
       <Slider
         {...defaultSettings}
-        ref={(component: Slider) => { this.slider = component; }}
+        ref={(component: Slider | null) => { this.slider = component; }}
       >
         <div><h3>1</h3></div>
         <div><h3>2</h3></div>
@@ -82,9 +91,9 @@ class SliderTest extends React.Component {
         <div><h3>6</h3></div>
       </Slider>
       <div style={{ textAlign: "center" }}>
-        <button className="button" onClick={(event) => { this.slider.slickPrev(); }}>Previous</button>
-        <button className="button" onClick={(event) => { this.slider.slickNext(); }}>Next</button>
-        <button className="button" onClick={(event) => { this.slider.slickGoTo(1); }}>First</button>
+        <button className="button" onClick={(event) => { this.slider!.slickPrev(); }}>Previous</button>
+        <button className="button" onClick={(event) => { this.slider!.slickNext(); }}>Next</button>
+        <button className="button" onClick={(event) => { this.slider!.slickGoTo(1); }}>First</button>
       </div>
     </div>;
   }

@@ -5,7 +5,6 @@
 //                 Frank Tan <https://github.com/tansongyang>
 //                 Nicholas Boll <https://github.com/nicholasboll>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
-//                 Thomas Charlat <https://github.com/kallikrein>
 //                 Valentin Descamps <https://github.com/val1984>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Anatoli Papirovski <https://github.com/apapirovski>
@@ -26,16 +25,14 @@ import {
     ClassAttributes,
     Component,
     ComponentClass,
-    ComponentType,
-    FunctionComponent,
     Context,
+    JSXElementConstructor,
     NamedExoticComponent,
     ReactNode
 } from 'react';
 
 import {
     Action,
-    ActionCreator,
     AnyAction,
     Dispatch,
     Store
@@ -65,7 +62,7 @@ export interface DispatchProp<A extends Action = AnyAction> {
 }
 
 export type AdvancedComponentDecorator<TProps, TOwnProps> =
-    (component: ComponentType<TProps>) => NamedExoticComponent<TOwnProps>;
+    (component: JSXElementConstructor<TProps>) => NamedExoticComponent<TOwnProps>;
 
 /**
  * A property P will be present if:
@@ -105,7 +102,7 @@ export type Shared<
     };
 
 // Infers prop type from component C
-export type GetProps<C> = C extends ComponentType<infer P>
+export type GetProps<C> = C extends JSXElementConstructor<infer P>
     ? C extends ComponentClass<P> ? ClassAttributes<InstanceType<C>> & P : P
     : never;
 
@@ -115,7 +112,7 @@ export type GetLibraryManagedProps<C> = JSX.LibraryManagedAttributes<C, GetProps
 
 // Defines WrappedComponent and derives non-react statics.
 export type ConnectedComponent<
-    C extends ComponentType<any>,
+    C extends JSXElementConstructor<any>,
     P
 > = NamedExoticComponent<P> & hoistNonReactStatics.NonReactStatics<C> & {
     WrappedComponent: C;
@@ -126,7 +123,7 @@ export type ConnectedComponent<
 // render. Also adds new prop requirements from TNeedsProps.
 // Uses distributive omit to preserve discriminated unions part of original prop type
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
-    <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
+    <C extends JSXElementConstructor<Matching<TInjectedProps, GetProps<C>>>>(
         component: C
     ) => ConnectedComponent<C, DistributiveOmit<GetLibraryManagedProps<C>, keyof Shared<TInjectedProps, GetLibraryManagedProps<C>>> & TNeedsProps>;
 
@@ -200,7 +197,7 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> =
  * @param options
  */
 export interface Connect<DefaultState = DefaultRootState> {
-    // tslint:disable:no-unnecessary-generics
+    /* eslint-disable no-unnecessary-generics */
     (): InferableComponentEnhancer<DispatchProp>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
@@ -236,13 +233,13 @@ export interface Connect<DefaultState = DefaultRootState> {
     <no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: null | undefined,
-        mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<undefined, DispatchProp, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
-        mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<TStateProps, DispatchProp, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
@@ -298,7 +295,7 @@ export interface Connect<DefaultState = DefaultRootState> {
         mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
         options?: Options<State, TStateProps, TOwnProps, TMergedProps>
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
-    // tslint:enable:no-unnecessary-generics
+    /* eslint-enable no-unnecessary-generics */
 }
 
 /**
@@ -396,7 +393,7 @@ export interface Options<State = DefaultRootState, TStateProps = {}, TOwnProps =
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
 export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions
 ): AdvancedComponentDecorator<TProps, TOwnProps>;
@@ -503,7 +500,7 @@ export const ReactReduxContext: Context<ReactReduxContextValue>;
  */
 export function batch(cb: () => void): void;
 
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable no-unnecessary-generics */
 
 /**
  * Compares two arbitrary values for shallow equality. Object values are compared based on their keys, i.e. they must
@@ -645,4 +642,4 @@ export function createDispatchHook<S = RootStateOrAny, A extends Action = AnyAct
     context?: Context<ReactReduxContextValue<S, A>>,
 ): () => Dispatch<A>;
 
-// tslint:enable:no-unnecessary-generics
+/* eslint-enable no-unnecessary-generics */

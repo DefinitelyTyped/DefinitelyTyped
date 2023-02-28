@@ -3,9 +3,10 @@
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component } from 'react';
+import { Component, ReactNode } from 'react';
 
 export interface InkTextAnimationProps {
+    children?: ReactNode;
     name?: 'rainbow' | 'pulse' | 'glitch' | 'radar' | 'neon';
     speed?: number;
 }

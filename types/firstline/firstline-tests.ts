@@ -6,5 +6,5 @@ firstline('./my-file.txt');
 firstline('./my-file.txt', { lineEnding: '\r' });
 // $ExpectType: Promise<string>
 firstline('./my-file.txt', { lineEnding: '\r', encoding: 'ascii' });
-// $ExpectError
+// @ts-expect-error
 firstline('./my-file.txt', { lineEnding: '\r', encoding: 'utf88' });

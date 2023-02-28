@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.39
+// Type definitions for ArcGIS API for JavaScript 3.40
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -1591,6 +1591,8 @@ declare module "esri" {
     authNamespace?: string;
     /** The number of minutes the token will be valid for. */
     expiration?: number;
+    /** Set this property to specify the type of authentication to use. */
+    flowType?: string;
     /** The locale for the OAuth sign in page. */
     locale?: string;
     /** The minimum time in minutes before a saved token is due to expire that it should still be considered valid for use. */
@@ -2855,7 +2857,7 @@ declare module "esri/ServerInfo" {
   class ServerInfo {
     /** The token service URL used to generate tokens for ArcGIS Server Admin resources. */
     adminTokenServiceUrl: string;
-    /** Version of the ArcGIS Server REST API deployed on this server. */
+    /** Version of the ArcGIS Server or Portal deployed on the server. */
     currentVersion: number;
     /** Indicates whether the server is a Portal instance. */
     hasPortal: boolean;
@@ -2867,6 +2869,8 @@ declare module "esri/ServerInfo" {
     shortLivedTokenValidity: number;
     /** The token service URL used to generate tokens for the secured resources on the server. */
     tokenServiceUrl: string;
+    /** Indicates whether the server is configured to work with web tier authentication. */
+    webTierAuth: boolean;
     /** Return the properties of this object in JSON. */
     toJson(): any;
   }
@@ -3022,6 +3026,8 @@ declare module "esri/arcgis/OAuthInfo" {
     authNamespace: string;
     /** The number of minutes the token that the token is valid. */
     expiration: number;
+    /** Set this property to specify the type of authentication to use. */
+    flowType: string;
     /** The locale for the OAuth sign in page. */
     locale: string;
     /** The minimum time in minutes before a saved token is due to expire that it should still be considered valid for use. */
@@ -12279,7 +12285,7 @@ declare module "esri/layers/layer" {
   export = Layer;
 }
 
-declare module "esri/layers/pixelfilters/StretchFilter" {
+declare module "esri/layers/pixelFilters/StretchFilter" {
   import esri = require("esri");
 
   /** A stretch filter used to work with client -side pixel data to enhance raster/image appearances. */
@@ -13440,9 +13446,9 @@ declare module "esri/renderers/UniqueValueRenderer" {
      * @param attributeField Specify either the attribute field the renderer uses to match values or starting at version 3.3, a function that returns a value to be compared against unique values.
      * @param attributeField2 If needed, specify an additional attribute field the renderer uses to match values.
      * @param attributeField3 If needed, specify an additional attribute field the renderer uses to match values.
-     * @param fieldDelimeter String inserted between the values of different fields.
+     * @param fieldDelimiter String inserted between the values of different fields.
      */
-    constructor(defaultSymbol: Symbol, attributeField: string | Function, attributeField2?: string, attributeField3?: string, fieldDelimeter?: string);
+    constructor(defaultSymbol: Symbol, attributeField: string | Function, attributeField2?: string, attributeField3?: string, fieldDelimiter?: string);
     /**
      * Creates a new Unique Value Renderer.
      * @param json JSON object representing the UniqueValueRenderer.

@@ -1,0 +1,17 @@
+{
+    "exclude": ["close-old-issues.js", "fix-tslint.js"],
+    "compilerOptions": {
+        "noUnusedLocals": true,
+        "target": "es6",
+        "module": "esnext",
+        "strict": true,
+        "baseUrl": "../types",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "typeRoots": ["../types"],
+        "types": [],
+        "checkJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es2019"]
+    }
+}

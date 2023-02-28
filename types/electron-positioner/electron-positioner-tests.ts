@@ -4,7 +4,7 @@ import { BrowserWindow } from 'electron';
 const positioner = new Positioner(new BrowserWindow());
 const rectangle: Electron.Rectangle = { x: 0, y: 0, width: 0, height: 0 };
 
-// $ExpectError
+// @ts-expect-error
 positioner.move('trayLeft');
 
 // $ExpectType void
@@ -16,7 +16,7 @@ positioner.move('topLeft');
 // $ExpectType void
 positioner.move('topLeft', rectangle);
 
-// $ExpectError
+// @ts-expect-error
 positioner.calculate('trayLeft');
 
 // $ExpectType { x: number; y: number; }
@@ -30,13 +30,13 @@ positioner.calculate('topLeft', rectangle);
 
 const positionOrTrayPosition = 'trayLeft' as Positioner.Position | Positioner.TrayPosition;
 
-// $ExpectError
+// @ts-expect-error
 positioner.move(positionOrTrayPosition);
 
 // $ExpectType void
 positioner.move(positionOrTrayPosition, rectangle);
 
-// $ExpectError
+// @ts-expect-error
 positioner.calculate(positionOrTrayPosition);
 
 // $ExpectType { x: number; y: number; }

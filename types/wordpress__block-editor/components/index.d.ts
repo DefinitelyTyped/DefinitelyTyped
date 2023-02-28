@@ -56,3 +56,8 @@ export { default as WritingFlow } from './writing-flow';
  * State Related Components
  */
 export { default as BlockEditorProvider } from './provider';
+
+/*
+ * Hooks
+ */
+export { useBlockProps } from './use-block-props';

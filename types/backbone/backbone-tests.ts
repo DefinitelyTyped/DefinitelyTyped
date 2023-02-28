@@ -581,7 +581,8 @@ class SVGView extends Backbone.View<Backbone.Model, SVGGraphicsElement> {
 
 function testViewWithoutModel() {
     const view = new Backbone.View<undefined>();
-    view.model.id; // $ExpectError
+    // @ts-expect-error
+    view.model.id;
     const view2 = new Backbone.View<Backbone.Model>({
         model: new Backbone.Model()
     });
@@ -597,43 +598,60 @@ class TypedModel extends Backbone.Model<TypedModelAttributes> {}
 
 function testTypedModel() {
     const model = new TypedModel();
-    model.set('unknownAttr', 'stringValue'); // $ExpectError
-    model.set('stringAttr', 1); // $ExpectError
+    // @ts-expect-error
+    model.set('unknownAttr', 'stringValue');
+    // @ts-expect-error
+    model.set('stringAttr', 1);
     model.set('stringAttr', 'stringValue'); // $ExpectType TypedModel
-    model.get('unknownAttr'); // $ExpectError
+    // @ts-expect-error
+    model.get('unknownAttr');
     model.get('stringAttr'); // $ExpectType string | undefined
     model.attributes; // $ExpectType Partial<TypedModelAttributes>
     model.changedAttributes(); // $ExpectType false | Partial<TypedModelAttributes>
-    model.changedAttributes({ unknownAttr: 1 }); // $ExpectError
+    // @ts-expect-error
+    model.changedAttributes({ unknownAttr: 1 });
     model.clear(); // $ExpectType TypedModel
     model.destroy(); // $ExpectType false | JQueryXHR
-    model.escape('unknownAttr'); // $ExpectError
+    // @ts-expect-error
+    model.escape('unknownAttr');
     model.escape('stringAttr'); // $ExpectType string
-    model.has('unknownAttr'); // $ExpectError
+    // @ts-expect-error
+    model.has('unknownAttr');
     model.has('stringAttr'); // $ExpectType boolean
-    model.hasChanged('unknownAttr'); // $ExpectError
+    // @ts-expect-error
+    model.hasChanged('unknownAttr');
     model.hasChanged('stringAttr'); // $ExpectType boolean
-    model.previous('unknownAttr'); // $ExpectError
+    // @ts-expect-error
+    model.previous('unknownAttr');
     model.previous('numberAttr'); // $ExpectType number | null | undefined
     model.previousAttributes(); // $ExpectType Partial<TypedModelAttributes>
-    model.save({ unknownAttr: 'value' }); // $ExpectError
+    // @ts-expect-error
+    model.save({ unknownAttr: 'value' });
     model.save(); // $ExpectType JQueryXHR
     model.save({ stringAttr: 'stringValue' }); // $ExpectType JQueryXHR
     model.save(null, { patch: true }); // $ExpectType JQueryXHR
-    model.unset('unknownAttr'); // $ExpectError
+    // @ts-expect-error
+    model.unset('unknownAttr');
     model.unset('stringAttr'); // $ExpectType TypedModel
-    model.validate({ unknownAttr: 'value' }); // $ExpectError
+    // @ts-expect-error
+    model.validate({ unknownAttr: 'value' });
     model.validate({ stringAttr: 'value' });
-    model.pick('unknownAttr'); // $ExpectError
-    model.pick(['unknownAttr', 'numberAttr']); // $ExpectError
+    // @ts-expect-error
+    model.pick('unknownAttr');
+    // @ts-expect-error
+    model.pick(['unknownAttr', 'numberAttr']);
     model.pick('stringAttr', 'numberAttr');
-    model.pick(['stringAttr'])['numberAttr']; // $ExpectError
+    // @ts-expect-error
+    model.pick(['stringAttr'])['numberAttr'];
     model.pick(['stringAttr'])['stringAttr']; // $ExpectType string | undefined
     model.pick(['stringAttr', 'numberAttr']);
-    model.omit('unknownAttr'); // $ExpectError
-    model.omit(['unknownAttr', 'numberAttr']); // $ExpectError
+    // @ts-expect-error
+    model.omit('unknownAttr');
+    // @ts-expect-error
+    model.omit(['unknownAttr', 'numberAttr']);
     model.omit(['stringAttr'])['numberAttr']; // $ExpectType number | undefined
-    model.omit(['stringAttr'])['stringAttr']; // $ExpectError
+    // @ts-expect-error
+    model.omit(['stringAttr'])['stringAttr'];
     model.omit('stringAttr', 'numberAttr');
     model.omit(['stringAttr', 'numberAttr']);
 }
@@ -648,7 +666,8 @@ function testRouter() {
         },
     });
 
-    router = new Backbone.Router({ routes: 'not object' }); // $ExpectError
+    // @ts-expect-error
+    router = new Backbone.Router({ routes: 'not object' });
 
     router.route('search/:query/p:num', 'search', (query, num) => {});
     router.route(/search/, (query, num) => {});

@@ -1,7 +1,6 @@
 // Type definitions for react-table 7.7
 // Project: https://github.com/tannerlinsley/react-table
 // Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
-//                 Michael Stramel <https://github.com/stramel>
 //                 Rohit Garg <https://github.com/gargroh>
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +10,7 @@
 // tslint:disable:no-empty-interface
 // no-empty-interface is disabled to allow easy extension with declaration merging
 
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable no-unnecessary-generics */
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
@@ -27,7 +26,6 @@ import {
     ReactElement,
     ReactFragment,
     ReactNode,
-    ReactText,
 } from 'react';
 
 export {};
@@ -320,7 +318,9 @@ export type HeaderProps<D extends object> = TableInstance<D> & {
     column: ColumnInstance<D>;
 };
 
-export type FooterProps<D extends object> = TableInstance<D> & {};
+export type FooterProps<D extends object> = TableInstance<D> & {
+    column: ColumnInstance<D>;
+};
 
 export type CellProps<D extends object, V = any> = TableInstance<D> & {
     column: ColumnInstance<D>;
@@ -814,7 +814,7 @@ export type UseSortByOptions<D extends object> = Partial<{
     maxMultiSortColCount: number;
     disableSortRemove: boolean;
     disabledMultiRemove: boolean;
-    orderByFn: (rows: Array<Row<D>>, sortFns: Array<SortByFn<D>>, directions: boolean[]) => Array<Row<D>>;
+    orderByFn: (rows: Array<Row<D>>, sortFns: Array<OrderByFn<D>>, directions: boolean[]) => Array<Row<D>>;
     sortTypes: Record<string, SortByFn<D>>;
     autoResetSortBy?: boolean | undefined;
 }>;
@@ -852,6 +852,7 @@ export interface UseSortByColumnProps<D extends object> {
     isSortedDesc: boolean | undefined;
 }
 
+export type OrderByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>) => number;
 export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>, desc?: boolean) => number;
 
 export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic' | 'string' | 'number';
@@ -873,7 +874,7 @@ export type StringKey<D> = Extract<keyof D, string>;
 export type IdType<D> = StringKey<D> | string;
 export type CellValue<V = any> = V;
 
-export type Renderer<Props> = ComponentType<Props> | ReactElement | ReactText | ReactFragment;
+export type Renderer<Props> = ComponentType<Props> | ReactElement | string | number | ReactFragment;
 
 export interface PluginHook<D extends object> {
     (hooks: Hooks<D>): void;
@@ -885,7 +886,7 @@ export type TableDispatch<A = any> = (action: A) => void;
 // utils
 export function defaultOrderByFn<D extends object = {}>(
     arr: Array<Row<D>>,
-    funcs: Array<SortByFn<D>>,
+    funcs: Array<OrderByFn<D>>,
     dirs: boolean[],
 ): Array<Row<D>>;
 

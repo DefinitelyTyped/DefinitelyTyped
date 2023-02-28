@@ -9,7 +9,7 @@ class Slider extends React.Component<ReactSliderProps> {
                 trackClassName="classnameForBar"
                 withTracks={false}
                 marks={5}
-                renderMark={props => <span {...props} />}
+                renderMark={props => <div {...props} />}
                 {...this.props}
             />
         );
@@ -40,12 +40,12 @@ function SingleThumbSliders() {
                 orientation="horizontal"
                 pageFn={step => step * 15}
                 pearling
-                renderMark={props => <span {...props} />}
+                renderMark={props => <div {...props} />}
                 renderThumb={(props, { index, value, valueNow }) => {
-                    return <span {...props}>{index + valueNow + value}</span>;
+                    return <div {...props}>{index + valueNow + value}</div>;
                 }}
                 renderTrack={(props, { index, value }) => {
-                    return <span {...props}>{index + value}</span>;
+                    return <div {...props}>{index + value}</div>;
                 }}
                 snapDragDisabled
                 step={2}
@@ -84,12 +84,12 @@ function MultipleThumbSliders() {
                 onBeforeChange={value => value.join()}
                 onChange={value => value.join()}
                 renderThumb={({ ref, ...props }, { value }) => (
-                    <span ref={ref} {...props}>
+                    <div ref={ref} {...props}>
                         {value.join()}
-                    </span>
+                    </div>
                 )}
                 renderTrack={(props, { value }) => {
-                    return <span {...props}>{value.join()}</span>;
+                    return <div {...props}>{value.join()}</div>;
                 }}
             />
 
@@ -116,7 +116,7 @@ interface CustomThumbProps extends React.HTMLProps<HTMLDivElement> {
 
 const CustomThumb = React.forwardRef<HTMLDivElement, CustomThumbProps>((props, ref) => {
     const { show, ...otherProps } = props;
-    return show ? <span ref={ref} {...otherProps} /> : null;
+    return show ? <div ref={ref} {...otherProps} /> : null;
 });
 
 function SliderWithCustomThumb() {

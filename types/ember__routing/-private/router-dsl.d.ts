@@ -1,5 +1,5 @@
 export default class RouterDSL {
-    constructor(name: string, options: object);
+    constructor(name: string | null, options: object);
     route(name: string, callback: (this: RouterDSL) => void): void;
     route(
         name: string,
@@ -12,7 +12,7 @@ export default class RouterDSL {
             as?: string | undefined;
             path?: string | undefined;
             resetNamespace?: boolean | undefined;
-            engineInfo?: any;
+            engineInfo?: unknown;
         },
     ): void;
 }

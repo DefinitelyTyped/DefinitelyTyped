@@ -20,6 +20,11 @@ ghpages.publish(
             email: 'daniel@example.com',
         },
         history: true,
+        async beforeAdd(git) {
+            return Promise.resolve().then(() => {
+                return git.rm('hello-outdated-world.txt');
+            });
+        },
     },
     callback,
 );

@@ -306,6 +306,11 @@ export interface TableProps extends React.ClassAttributes<Table> {
     onRowClick?: TableRowEventHandler | undefined;
 
     /**
+     * Callback that is called when a contextual-menu event happens on a row.
+     */
+    onRowContextMenu?: TableRowEventHandler | undefined;
+
+    /**
      * Callback that is called when a row is double clicked.
      */
     onRowDoubleClick?: TableRowEventHandler | undefined;
@@ -592,6 +597,8 @@ export interface ColumnGroupHeaderProps {
  * Component that defines the attributes of a table column group.
  */
 export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
+    children?: React.ReactNode;
+
     /**
      * The horizontal alignment of the table cell content.
      */

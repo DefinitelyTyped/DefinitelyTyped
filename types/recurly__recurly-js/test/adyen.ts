@@ -1,7 +1,7 @@
 export default function adyen() {
   const adyen = window.recurly.Adyen();
 
-  // $ExpectError
+  // @ts-expect-error
   adyen.on('fake-event', () => {});
   adyen.on('token', () => {});
   adyen.start({ invoiceUuid: 'invoice-uuid' });
@@ -12,6 +12,6 @@ export default function adyen() {
     shopperLocale: 'en_PL'
   });
 
-  // $ExpectError
+  // @ts-expect-error
   adyen.start();
 }

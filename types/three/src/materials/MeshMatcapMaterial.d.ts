@@ -18,7 +18,7 @@ export interface MeshMatcapMaterialParameters extends MaterialParameters {
     displacementScale?: number | undefined;
     displacementBias?: number | undefined;
     alphaMap?: Texture | null | undefined;
-
+    fog?: boolean | undefined;
     flatShading?: boolean | undefined;
 }
 
@@ -100,6 +100,12 @@ export class MeshMatcapMaterial extends Material {
      * @default false
      */
     flatShading: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshMatcapMaterialParameters): void;
 }

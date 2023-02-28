@@ -23,4 +23,4 @@ iquery.toSql(); // $ExpectType string
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(53, 54); // $ExpectType boolean
+testMajorVersions(68, 69); // $ExpectType boolean

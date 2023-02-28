@@ -1,5 +1,5 @@
 import * as R from 'ramda';
 
 () => {
-  const a: 'TEST' = R.toUpper('TesT');
+    const a: 'TEST' = R.toUpper('TesT');
 };

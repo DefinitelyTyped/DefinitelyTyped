@@ -1,7 +1,7 @@
-import MultiCanvas from "../src/drawer.multicanvas";
-import { PluginDefinition } from "./plugin";
-import { DrawingContextAttributes } from "./util";
-import { XHROptions } from "./xhr";
+import MultiCanvas from '../src/drawer.multicanvas';
+import { PluginDefinition } from './plugin';
+import { DrawingContextAttributes } from './util';
+import { XHROptions } from './xhr';
 
 export interface WaveSurferParams {
     /** Use your own previously initialized AudioContext or leave blank (default: null). */
@@ -22,7 +22,7 @@ export interface WaveSurferParams {
      * MediaElement is a fallback for unsupported browsers.
      * MediaElementWebAudio allows to use WebAudio API also with big audio files, loading audio like with MediaElement backend (HTML5 audio tag).
      */
-    backend?: "WebAudio" | "MediaElement" | "MediaElementWebAudio" | undefined;
+    backend?: 'WebAudio' | 'MediaElement' | 'MediaElementWebAudio' | undefined;
     /** Change background color of the waveform container (default: null). */
     backgroundColor?: string | undefined;
     /** The height of the wave bars (default: 1). */
@@ -52,6 +52,8 @@ export interface WaveSurferParams {
     forceDecode?: boolean | undefined;
     /** The height of the waveform. Measured in pixels (default: 128). */
     height?: number | undefined;
+    /** Whether to hide the mouse cursor when one would normally be shown by default (default: false). */
+    hideCursor?: boolean | undefined;
     /** Whether to hide the horizontal scrollbar when one would normally be shown (default: false). */
     hideScrollbar?: boolean | undefined;
     /** If true, ignores device silence mode. */
@@ -65,7 +67,7 @@ export interface WaveSurferParams {
     /** (Use with backend MediaElement or MediaElementWebAudio) Enable the native controls for the media element (default: false). */
     mediaControls?: boolean | undefined;
     /** (Use with backend MediaElement or MediaElementWebAudio) 'audio'|'video' ('video' only for MediaElement) */
-    mediaType?: "audio" | "video" | undefined;
+    mediaType?: 'audio' | 'video' | undefined;
     /** Minimum number of pixels per second of audio (default: 20). */
     minPxPerSec?: number | undefined;
     /** If true, normalize by the maximum peak instead of 1.0 (default: false). */

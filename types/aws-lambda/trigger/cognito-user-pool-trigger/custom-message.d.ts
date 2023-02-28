@@ -5,13 +5,17 @@ export interface BaseCustomMessageTriggerEvent<T extends string> extends BaseTri
   request: {
       userAttributes: StringMap;
       codeParameter: string;
-      usernameParameter: string;
+      linkParameter: string;
+        /**
+         * This is null for all events other than the AdminCreateUser action.
+         */
+      usernameParameter: string | null;
       clientMetadata?: StringMap | undefined;
   };
   response: {
-      smsMessage: string;
-      emailMessage: string;
-      emailSubject: string;
+      smsMessage: string | null;
+      emailMessage: string | null;
+      emailSubject: string | null;
   };
 }
 

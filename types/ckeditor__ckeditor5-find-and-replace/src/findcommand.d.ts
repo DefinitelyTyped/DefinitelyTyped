@@ -9,9 +9,13 @@ export default class FindCommand extends Command {
      * Creates a new `FindCommand` instance.
      */
     constructor(editor: Editor, state: FindAndReplaceState);
-    // The find command is always enabled.
-    readonly isEnabled: true;
-    // It does not affect data so should be enabled in read-only mode.
+    /**
+     * The find command is always enabled.
+     */
+    get isEnabled(): true;
+    /**
+     * It does not affect data so should be enabled in read-only mode.
+     */
     readonly affectsData: false;
     /**
      * Executes the command.

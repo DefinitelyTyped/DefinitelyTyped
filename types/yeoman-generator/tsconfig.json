@@ -9,6 +9,14 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
+        "paths": {
+            "inquirer": [
+                "inquirer/v8"
+            ],
+            "inquirer/*": [
+                "inquirer/v8/*"
+            ]
+        },
         "typeRoots": [
             "../"
         ],

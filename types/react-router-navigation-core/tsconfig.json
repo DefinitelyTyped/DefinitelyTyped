@@ -6,6 +6,9 @@
         ],
         "types": [],
         "paths": {
+            "react": [
+                "react/v17"
+            ],
             "react-navigation": [
                 "react-navigation/v1"
             ],

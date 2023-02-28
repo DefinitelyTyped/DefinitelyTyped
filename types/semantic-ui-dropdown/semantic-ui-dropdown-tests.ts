@@ -11,6 +11,7 @@ function test_dropdown_static() {
 function test_dropdown() {
     const selector = '.ui.dropdown';
     $(selector).dropdown('setup menu'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('change values'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('refresh'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('toggle'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('show'); // $ExpectType JQuery<HTMLElement>
@@ -298,8 +299,10 @@ function test_dropdown() {
     });
     $(selector).dropdown(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).dropdown('foo'); // $ExpectError
-    $(selector).dropdown({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).dropdown('foo');
+    // @ts-expect-error
+    $(selector).dropdown({ foo: 'bar' });
 }
 
 import dropdown = require('semantic-ui-dropdown');

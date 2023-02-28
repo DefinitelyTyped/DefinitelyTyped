@@ -1,4 +1,7 @@
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
+
+// Set global volume
+Howler.volume(0.8);
 
 const sound1 = new Howl({
     src: ['sound.mp3'],
@@ -62,3 +65,6 @@ sound5.seek(5);
 // Get/set the position of playback for a sound by id
 sound5.seek(id1);
 sound5.seek(id1, 5);
+
+// $ExpectType Howl
+sound5.off('play', 2);

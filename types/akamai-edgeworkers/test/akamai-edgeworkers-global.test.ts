@@ -1,3 +1,4 @@
+import { createResponse } from 'create-response';
 export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.setHeader()
     request.setHeader("from-set-header-1", ["value-1", "trailer-1"]);
@@ -41,6 +42,12 @@ export function onOriginRequest(request: EW.IngressOriginRequest) {
     // getVariable
     const v = request.getVariable("var") || [];
     request.setHeader("variable", v);
+
+    // respondWith
+    const target = request.getHeader("target");
+    if (target != null && target[0] === 'onOriginRequest-respondWith') {
+        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    }
 }
 
 export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.EgressOriginResponse) {
@@ -80,11 +87,21 @@ export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.E
 
     // Verify we set status
     response.status = 189;
+    // respondWith
+    const target = request.getHeader("target");
+    if (target != null && target[0] === 'onOriginResponse-respondWith') {
+        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    }
 }
 
 export function onClientResponse(request: EW.EgressClientRequest, response: EW.EgressClientResponse) {
     if (request.getHeader("should-status")) {
         response.status = 234;
+        return;
+    }
+
+    if (response.getHeader("should-respondWith")) {
+        request.respondWith(444, {}, "wanted a respond with");
         return;
     }
 
@@ -114,6 +131,11 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
 
     // Verify we set status
     response.status = 123;
+    // respondWith
+    const target = request.getHeader("target");
+    if (target != null && target[0] === 'onClientResponse-respondWith') {
+        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    }
 }
 
 export function responseProvider(request: EW.ResponseProviderRequest) {
@@ -125,4 +147,16 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
     // get a specific header and do string operations
     const acceptHeader = headers["accept-encoding"];
     acceptHeader.forEach(val => val.toUpperCase());
+
+    // EW.ResponseProviderRequest.text()
+    const stringBody = request.text();
+
+    // EW.ResponseProviderRequest.json()
+    const jsonBody = request.json();
+
+    // getVariable
+    const v = request.getVariable("var") || [];
+
+    // EW.ResponseProviderRequest.arrayBuffer()
+    const arrayBufferBody = request.arrayBuffer();
 }

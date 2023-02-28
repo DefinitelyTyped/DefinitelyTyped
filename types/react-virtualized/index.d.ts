@@ -4,7 +4,6 @@
 //                 John Gunther <https://github.com/guntherjh>
 //                 Konstantin Nesterov <https://github.com/wasd171>
 //                 Steve Zhang <https://github.com/Stevearzh>
-//                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Brandon Hall <https://github.com/brandonhall>
 //                 Sebastian Busch <https://github.com/sbusch>
 //                 Adam Zmenak <https://github.com/azmenak>

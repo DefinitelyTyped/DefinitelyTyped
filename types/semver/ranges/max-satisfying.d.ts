@@ -8,7 +8,7 @@ import semver = require('../index');
 declare function maxSatisfying<T extends string | SemVer>(
     versions: ReadonlyArray<T>,
     range: string | Range,
-    optionsOrLoose?: boolean | semver.Options,
+    optionsOrLoose?: boolean | semver.RangeOptions,
 ): T | null;
 
 export = maxSatisfying;

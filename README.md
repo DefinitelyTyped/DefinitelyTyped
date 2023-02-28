@@ -2,8 +2,8 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
-and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -12,7 +12,7 @@ and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/RE
 This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
-* Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* Most recent build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * All packages are type-checking/linting cleanly on typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour and a half: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -53,9 +53,9 @@ or just look for any ".d.ts" files in the package and manually include them with
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
 
 <details>
-<summary>Currently versions 3.8 and above are tested...</summary>
+<summary>Currently versions 4.1 and above are tested...</summary>
 
-If you're using TypeScript 2.0 to 3.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+If you're using TypeScript 2.0 to 4.0, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -87,14 +87,14 @@ You may need to add manual [references](https://www.typescriptlang.org/docs/hand
 
 ## How can I contribute?
 
-Definitely Typed only works because of contributions by users like you! 
+Definitely Typed only works because of contributions by users like you!
 
 ### Testing
 
 Before you share your improvement with the world, use the types yourself by creating a `typename.d.ts` file in your project and filling out its exports:
 
 ```ts
-declare module "libname" { 
+declare module "libname" {
   // Types inside here
   export function helloWorldMessage(): string
 }
@@ -178,6 +178,7 @@ Your package should have this structure:
 | [`<my-package>-tests.ts`](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | [`tsconfig.json`](#tsconfigjson) | This allows you to run `tsc` within the package. |
 | [`tslint.json`](#linter-tslintjson)   | Enables linting. |
+| [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarely) Needed only to disable lint rules written for eslint. |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -219,7 +220,7 @@ If a package was never on Definitely Typed, it does not need to be added to `not
 
 Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
-This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+This script uses [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) to run the TypeScript compiler against your dts files.
 
 Once you have all your changes ready, use `npm run test-all` to see how your changes affect other modules.
 
@@ -260,7 +261,7 @@ const result = twoslash("//")
 + // Handle options param
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // When the param is incorrect
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -268,23 +269,38 @@ If you're wondering where to start with test code, the examples in the README of
 
 You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
 
-Use `$ExpectType` to assert that an expression is of a given type, and `$ExpectError` to assert that a compile error. Examples:
+Use `$ExpectType` to assert that an expression is of a given type, and `@ts-expect-error` to assert that a compile error. Examples:
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("one");
 ```
 
-For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+For more details, see [dtslint](https://github.com/Microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+
+##### Linter: `.eslintrc.json`
+
+Definitely Typed is in the process of switching to eslint for linting.
+Unlike tslint, you don't need a config file to enable linting.
+Like tslint, you should disable specific rules only on specific lines:
+
+
+```ts
+// eslint-disable-next-line no-const-enum
+const enum Const { One }
+const enum Enum { Two } // eslint-disable-line no-const-enum
+```
+
+You can still disable rules with an .eslintrc.json, but should not in new packages.
 
 #### `tsconfig.json`
 
@@ -330,6 +346,18 @@ This list is updated by a human, which gives us the chance to make sure that `@t
 In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
 Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
+The second reason to create your own package.json is to specify ES modules.
+If the implementation package uses ESM and specifies `"type": "module"`, then you should add a package.json with the same:
+
+```json
+{
+    "private": true,
+    "type": "module"
+}
+```
+
+This also applies if the implementation package has `exports` in its package.json.
+
 #### `OTHER_FILES.txt`
 
 If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
@@ -340,7 +368,8 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 * Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
   ```tsx
   // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  // @ts-expect-error
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
@@ -353,7 +382,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
   Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
   Exception: `new Map<string, number>()` is OK.
-* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-type-expressions) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
 * `var foo: string | any`:
   When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
   Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
@@ -399,7 +428,7 @@ PRs that have been approved by an author listed in the definition's header are u
 
 #### I'd like to submit a change to a very popular project, why are they treated differently?
 
-For changes to very popular modules, e.g. Node/Express/Jest which have many millions of downloads each per week on npm, the requirements for contributions are a bit higher. 
+For changes to very popular modules, e.g. Node/Express/Jest which have many millions of downloads each per week on npm, the requirements for contributions are a bit higher.
 Changes to these projects can have massive ecosystem effects, and so we treat changes to them with a lot of care.
 These modules require both a sign-off from a DT maintainer, and enthusiastic support from the module owners. The bar for passing this can be quite high, and often PRs can go stale because it doesn't have a champion.
 If you're finding that no-one is committing, try to make your PR have a smaller focus.
@@ -423,7 +452,7 @@ No. We've explored trying to make DT's code-formatting consistent before but rea
 
 #### Can I request a definition?
 
-Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### What about type definitions for the DOM?
 
@@ -555,7 +584,7 @@ Because the root folder should always contain the type declarations for the late
 
 For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.
 Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version.
-At the time of writing, the [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
+At the time of writing, the [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
 
 ```json
 {
@@ -597,15 +626,13 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 ```json
 {
-  "paths": {
-    "@foo/*": ["foo__*"]
+  "compilerOptions": {
+    "paths": {
+      "@foo/*": ["foo__*"]
+    }
   }
 }
 ```
-
-#### The file history in GitHub looks incomplete.
-
-GitHub doesn't [support](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 ## License
 

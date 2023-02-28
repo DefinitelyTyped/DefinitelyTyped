@@ -89,7 +89,8 @@ api.getUserSummary('76561197960287930').then(res => {
     const res2 = res; // $ExpectType PlayerSummary
 
     // The getters should not be assignable
-    res.createdAt = new Date(); // $ExpectError
+    // @ts-expect-error
+    res.createdAt = new Date();
 });
 
 api.getUserSummary(['76561197960287930', '76561197960287934']).then(res => {
@@ -98,7 +99,8 @@ api.getUserSummary(['76561197960287930', '76561197960287934']).then(res => {
 });
 
 // The imported structure types should not be instantiable as a class as they are not exported by the package
-const a = new SteamAPI.Player({}); // $ExpectError
+// @ts-expect-error
+const a = new SteamAPI.Player({});
 
 // The helper types should be importable
 const avatar: SteamAPI.Avatar = {

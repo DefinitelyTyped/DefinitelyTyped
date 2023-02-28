@@ -15,6 +15,8 @@ const data = [
     { details: { firstName: "John", lastName: "Jones" }, job: "developer" }
 ];
 
+const dataFunction = () => data;
+
 const dataString = `firstname,lastname
 Ahmed,Tomi
 Raed,Labes
@@ -241,6 +243,19 @@ render(
         uFEFF={true}
         onClick={asyncOnClickVoid}
         asyncOnClick={true}
+    />,
+    node
+);
+render(
+    <CSVDownload
+        data={dataFunction}
+        headers={headers}
+        target="_blank"
+        separator=","
+        filename="bob.csv"
+        uFEFF
+        onClick={asyncOnClickVoid}
+        asyncOnClick
     />,
     node
 );

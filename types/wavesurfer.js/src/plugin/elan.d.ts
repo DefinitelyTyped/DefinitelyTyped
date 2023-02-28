@@ -1,6 +1,6 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
-import Observer from "../util/observer";
-import WaveSurfer from "../wavesurfer";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
 export default class ElanPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: ElanPluginParams, ws: WaveSurfer);

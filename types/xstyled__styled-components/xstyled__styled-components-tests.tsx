@@ -33,7 +33,7 @@ const StyledDiv = styled.div``;
 const StyledDivBox = styled.divBox``;
 
 const sum = (a: number) => a * a;
-// $ExpectError
+// @ts-expect-error
 sum('b');
 
 const Main = () => {
@@ -41,41 +41,41 @@ const Main = () => {
 
     const breakpoint = useBreakpoint();
 
-    // $ExpectError
+    // @ts-expect-error
     breakpoint = 'abc';
 
     let width = useViewportWidth();
 
-    // $ExpectError
+    // @ts-expect-error
     width = false;
 
     let isUp = useUp('md');
 
-    // $ExpectError
+    // @ts-expect-error
     isUp = useUp(1);
 
-    // $ExpectError
+    // @ts-expect-error
     isUp = '';
 
     let isDown = useDown('md');
 
-    // $ExpectError
+    // @ts-expect-error
     isDown = useDown(1);
 
-    // $ExpectError
+    // @ts-expect-error
     isDown = '';
 
     const [colorMode, setColorMode] = useColorMode();
 
     setColorMode(colorMode);
 
-    // $ExpectError
+    // @ts-expect-error
     setColorMode(123);
 
     return (
         <Box
             as="main"
-            // $ExpectError
+            // @ts-expect-error
             minWidth={breakpoints.thin}
             maxWidth={breakpoints.md}
             width={width}
@@ -86,10 +86,10 @@ const Main = () => {
 
             <WithRequiredProp foo={true} />
             <WithRequiredProp foo={false} />
-            // $ExpectError
+            {/* @ts-expect-error */}
             <WithRequiredProp />
             <WithOptionalProp />
-            // $ExpectError
+            {/* @ts-expect-error */}
             <StyledDiv mt={2} />
             <StyledDivBox mt={2} />
         </Box>
@@ -102,7 +102,7 @@ const ColorMode = () => {
             <ColorModeProvider target={document.body} targetSelector="#small-react-app">
                 {getColorModeInitScriptElement()}
                 {getColorModeInitScriptElement({ target: 'document.body' })}
-                // $ExpectError
+                {/* @ts-expect-error */}
                 {getColorModeInitScriptElement({})}
             </ColorModeProvider>
 
@@ -115,8 +115,8 @@ const ColorMode = () => {
 
 let colorModeScriptTag = getColorModeInitScriptTag();
 colorModeScriptTag = getColorModeInitScriptTag({ target: 'document.getElementById("small-react-app")' });
-// $ExpectError
+// @ts-expect-error
 colorModeScriptTag = getColorModeInitScriptTag({});
 
-// $ExpectError
+// @ts-expect-error
 colorModeScriptTag = 111;

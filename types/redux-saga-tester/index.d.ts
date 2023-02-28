@@ -1,11 +1,13 @@
 // Type definitions for redux-saga-tester 1.0
 // Project: https://github.com/wix/redux-saga-tester#readme
-// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>, Law Smith <https://github.com/lawsumisu>
+// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>
+//                 Law Smith <https://github.com/lawsumisu>
+//                 Björn Böing <https://github.com/BreakBB>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 import { Task } from 'redux-saga';
-import { AnyAction, Middleware, Reducer, ReducersMapObject } from 'redux';
+import { AnyAction, Middleware, Reducer, ReducersMapObject, Store } from 'redux';
 
 export type SagaFunction = (...args: any[]) => any;
 
@@ -20,6 +22,11 @@ export interface SagaTesterOptions<StateType> {
 
 export default class SagaTester<StateType extends object> {
     constructor(options?: SagaTesterOptions<StateType>);
+
+    /**
+     * The reference of the redux store.
+     */
+    store: Store<StateType>;
 
     /**
      * Starts execution of the provided saga.

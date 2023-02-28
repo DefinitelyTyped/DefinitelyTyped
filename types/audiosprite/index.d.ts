@@ -1,4 +1,4 @@
-// Type definitions for audiosprite 0.6
+// Type definitions for audiosprite 0.7
 // Project: https://github.com/tonistiigi/audiosprite
 // Definitions by: Gyusun Yeom <https://github.com/Perlmint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,6 +33,7 @@ declare namespace audiosprite {
         channels?: Channels | undefined;
         rawparts?: string | undefined;
         logger?: Logger | undefined;
+        ignorerounding?: boolean | undefined;
     }
 
     interface Logger {

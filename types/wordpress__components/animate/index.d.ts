@@ -2,7 +2,7 @@ import { ComponentType, ReactNode } from 'react';
 
 declare namespace Animate {
     interface BaseProps {
-        type: 'appear' | 'slide-in';
+        type: 'appear' | 'slide-in' | 'loading';
         children(props: { className: string }): ReactNode;
     }
 
@@ -20,7 +20,11 @@ declare namespace Animate {
         } | undefined;
     }
 
-    type Props = AppearProps | SlideInProps;
+    interface LoadingProps extends BaseProps {
+        type: 'loading';
+    }
+
+    type Props = AppearProps | SlideInProps | LoadingProps;
 }
 declare const Animate: ComponentType<Animate.Props>;
 

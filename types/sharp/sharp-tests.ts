@@ -4,7 +4,7 @@ import { createReadStream, createWriteStream } from 'fs';
 
 // Test samples taken from the official documentation
 
-const input: Buffer = new Buffer(0);
+const input: Buffer = Buffer.alloc(0);
 const readableStream: NodeJS.ReadableStream = createReadStream(input);
 const writableStream: NodeJS.WritableStream = createWriteStream(input);
 
@@ -27,7 +27,7 @@ sharp('input.png')
     .rotate(180)
     .resize(300)
     .flatten({ background: '#ff6600' })
-    .composite([{ input: 'overlay.png', gravity: sharp.gravity.southeast }])
+    .composite([{ input: 'overlay.png', gravity: sharp.gravity.southeast, animated: false, failOn: 'warning' }])
     .sharpen()
     .withMetadata()
     .withMetadata({
@@ -75,6 +75,8 @@ readableStream.pipe(transformer).pipe(writableStream);
 
 console.log(sharp.format);
 console.log(sharp.versions);
+console.log(sharp.vendor.current);
+console.log(sharp.vendor.installed.join(', '));
 
 sharp.queue.on('change', (queueLength: number) => {
     console.log(`Queue contains ${queueLength} task(s)`);
@@ -154,6 +156,16 @@ sharp('input.tiff')
         // output_files contains 512x512 tiles grouped by zoom level
     });
 
+sharp('input.tiff')
+    .png()
+    .tile({
+        size: 512,
+        center: true,
+        layout: 'iiif3',
+        id: 'https://my.image.host/iiif',
+    })
+    .toFile('output');
+
 sharp(input)
     .resize(200, 300, {
         fit: 'contain',
@@ -220,6 +232,22 @@ sharp(input)
         // when resolveWithObject is true
     });
 
+sharp(input)
+    .resize(640, 480, { withoutEnlargement: true })
+    .toFormat('jpeg')
+    .toBuffer()
+    .then((outputBuffer: Buffer) => {
+        // outputBuffer contains JPEG image data no larger than the input
+    });
+
+sharp(input)
+    .resize(640, 480, { withoutReduction: true })
+    .toFormat('jpeg')
+    .toBuffer()
+    .then((outputBuffer: Buffer) => {
+        // outputBuffer contains JPEG image data no smaller than the input
+    });
+
 // Output to tif
 sharp(input)
     .resize(100, 100)
@@ -257,6 +285,7 @@ sharp('input.gif')
     .linear(1)
     .linear(1, 0)
     .linear(null, 0)
+    .linear([0.25, 0.5, 0.75], [150, 100, 50])
 
     .recomb([
         [0.3588, 0.7044, 0.1368],
@@ -310,10 +339,10 @@ sharp(input).png().png({}).png({
 sharp(input)
     .avif()
     .avif({})
-    .avif({ quality: 50, lossless: false, speed: 5, chromaSubsampling: '4:2:0' })
+    .avif({ quality: 50, lossless: false, effort: 5, chromaSubsampling: '4:2:0' })
     .heif()
     .heif({})
-    .heif({ quality: 50, compression: 'hevc', lossless: false, speed: 5 })
+    .heif({ quality: 50, compression: 'hevc', lossless: false, effort: 5, chromaSubsampling: '4:2:0' })
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
         console.log(data);
@@ -323,7 +352,18 @@ sharp(input)
 sharp(input)
     .gif()
     .gif({})
-    .gif({ pageHeight: 5, loop: 0, delay: [], force: true })
+    .gif({ loop: 0, delay: [], force: true })
+    .gif({ delay: 30 })
+    .gif({ reoptimise: true })
+    .gif({ reoptimize: false })
+    .toBuffer({ resolveWithObject: true })
+    .then(({ data, info }) => {
+        console.log(data);
+        console.log(info);
+    });
+
+sharp(input)
+    .tiff({ compression: 'packbits' })
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
         console.log(data);
@@ -364,12 +404,50 @@ sharp({
     .toBuffer()
     .then(largeImage => sharp(input).composite([{ input: largeImage, limitInputPixels: false }]));
 
+// From https://github.com/lovell/sharp/pull/2685
+// Accept premultiplied raw inputs
+sharp('input.png', {
+    raw: {
+        width: 25000,
+        height: 25000,
+        channels: 4,
+        premultiplied: true,
+    },
+})
+    .raw()
+    .toBuffer(err => {
+        if (err) throw err;
+    });
+
 // Taken from API documentation at
 // https://sharp.pixelplumbing.com/api-operation#clahe
 // introducted
 sharp('input.jpg').clahe({ width: 10, height: 10 }).toFile('output.jpg');
 
 sharp('input.jpg').clahe({ width: 10, height: 10, maxSlope: 5 }).toFile('outfile.jpg');
+
+// Support `unlimited` input option
+sharp('input.png', { unlimited: true }).resize(320, 240).toFile('outfile.png');
+
+// Support `subifd` input option for tiffs
+sharp('input.tiff', { subifd: 3 }).resize(320, 240).toFile('outfile.png');
+
+// Support creating with noise
+sharp({
+    create: {
+        background: 'red',
+        channels: 4,
+        height: 100,
+        width: 100,
+        noise: {
+            type: 'gaussian',
+            mean: 128,
+            sigma: 30,
+        },
+    },
+})
+    .png()
+    .toFile('output.png');
 
 sharp(new Uint8Array(input.buffer)).toFile('output.jpg');
 
@@ -384,6 +462,15 @@ sharp(input)
     .gamma()
     .toColourspace('srgb') // this is the default, but included here for clarity
     .toBuffer();
+
+// From https://github.com/lovell/sharp/pull/1439
+// Second parameter to gamma operation for different output gamma
+sharp(input)
+    .resize(129, 111)
+    .gamma(2.2, 3.0)
+    .toBuffer(err => {
+        if (err) throw err;
+    });
 
 // Support for raw depth specification
 sharp('16bpc.png')
@@ -411,3 +498,156 @@ sharp(input)
 
 // Support for specifying a timeout
 sharp('someImage.png').timeout({ seconds: 30 }).resize(300, 300).toBuffer();
+
+// Support for `effort` in different formats
+sharp('input.tiff').png({ effort: 9 }).toFile('out.png');
+sharp('input.tiff').webp({ effort: 9 }).toFile('out.webp');
+sharp('input.tiff').avif({ effort: 9 }).toFile('out.avif');
+sharp('input.tiff').heif({ effort: 9 }).toFile('out.heif');
+sharp('input.tiff').gif({ effort: 9 }).toFile('out.gif');
+
+// Support for `colors`/`colours` for gif output
+sharp('input.gif').gif({ colors: 16 }).toFile('out.gif');
+sharp('input.gif').gif({ colours: 16 }).toFile('out.gif');
+
+// Support for `dither` for gif/png output
+sharp('input.gif').gif({ dither: 0.5 }).toFile('out.gif');
+sharp('input.gif').png({ dither: 0.5 }).toFile('out.png');
+
+// Support for `interFrameMaxError` for gif output
+sharp('input.gif').gif({ interFrameMaxError: 0 }).toFile('out.gif');
+
+// Support for `interPaletteMaxError` for gif output
+sharp('input.gif').gif({ interPaletteMaxError: 0 }).toFile('out.gif');
+
+// Support for `resolutionUnit` for tiff output
+sharp('input.tiff').tiff({ resolutionUnit: 'cm' }).toFile('out.tiff');
+
+// Support for `jp2` output with different options
+sharp('input.tiff').jp2().toFile('out.jp2');
+sharp('input.tiff').jp2({ quality: 50 }).toFile('out.jp2');
+sharp('input.tiff').jp2({ lossless: true }).toFile('out.jp2');
+sharp('input.tiff').jp2({ tileWidth: 128, tileHeight: 128 }).toFile('out.jp2');
+sharp('input.tiff').jp2({ chromaSubsampling: '4:2:0' }).toFile('out.jp2');
+
+// Support for `jxl` output with different options
+sharp('input.tiff').jxl().toFile('out.jxl');
+sharp('input.tiff').jxl({ distance: 15.0 }).toFile('out.jxl');
+sharp('input.tiff').jxl({ quality: 50 }).toFile('out.jxl');
+sharp('input.tiff').jxl({ decodingTier: 4 }).toFile('out.jxl');
+sharp('input.tiff').jxl({ lossless: true }).toFile('out.jxl');
+sharp('input.tiff').jxl({ effort: 7 }).toFile('out.jxl');
+
+// Support `minSize` and `mixed` webp options
+sharp('input.tiff').webp({ minSize: 1000, mixed: true }).toFile('out.gif');
+
+// 'failOn' input param
+sharp('input.tiff', { failOn: 'none' });
+sharp('input.tiff', { failOn: 'truncated' });
+sharp('input.tiff', { failOn: 'error' });
+sharp('input.tiff', { failOn: 'warning' });
+
+// Sharpen operation taking an object instead of three params
+sharp('input.tiff').sharpen().toBuffer();
+sharp('input.tiff').sharpen({ sigma: 2 }).toBuffer();
+sharp('input.tiff')
+    .sharpen({
+        sigma: 2,
+        m1: 0,
+        m2: 3,
+        x1: 3,
+        y2: 15,
+        y3: 15,
+    })
+    .toBuffer();
+
+// Affine operator + interpolator hash
+sharp().affine(
+    [
+        [1, 0.3],
+        [0.1, 0.7],
+    ],
+    {
+        background: 'white',
+        interpolator: sharp.interpolators.nohalo,
+    },
+);
+
+sharp().affine([1, 1, 1, 1], {
+    background: 'white',
+    idx: 0,
+    idy: 0,
+    odx: 0,
+    ody: 0,
+});
+
+const bicubic: string = sharp.interpolators.bicubic;
+const bilinear: string = sharp.interpolators.bilinear;
+const locallyBoundedBicubic: string = sharp.interpolators.locallyBoundedBicubic;
+const nearest: string = sharp.interpolators.nearest;
+const nohalo: string = sharp.interpolators.nohalo;
+const vertexSplitQuadraticBasisSpline: string = sharp.interpolators.vertexSplitQuadraticBasisSpline;
+
+// Triming
+sharp(input).trim('#000').toBuffer();
+sharp(input).trim(10).toBuffer();
+sharp(input).trim({ background: '#bf1942', threshold: 30 }).toBuffer();
+
+// Text input
+sharp({
+    text: {
+        text: 'Hello world',
+        align: 'centre',
+        dpi: 72,
+        font: 'Arial',
+        fontfile: 'path/to/arial.ttf',
+        height: 500,
+        width: 500,
+        rgba: true,
+        justify: true,
+        spacing: 10,
+    },
+})
+    .png()
+    .toBuffer({ resolveWithObject: true })
+    .then(out => {
+        console.log(out.info.textAutofitDpi);
+    });
+
+// Text composite
+sharp('input.png').composite([
+    {
+        input: {
+            text: {
+                text: 'Okay then',
+                font: 'Comic Sans',
+            },
+        },
+    },
+]);
+
+// From https://github.com/lovell/sharp/pull/1835
+sharp('input.png').composite([
+    {
+        input: {
+            text: {
+                text: 'Okay then',
+                font: 'Comic Sans',
+            },
+        },
+        blend: 'color-burn',
+        top: 0,
+        left: 0,
+        premultiplied: true,
+    },
+]);
+
+// https://github.com/lovell/sharp/pull/402
+(['fs', 'zip'] as const).forEach(container => {
+    sharp().tile({ container });
+});
+
+// From https://github.com/lovell/sharp/issues/2238
+sharp('input.png').tile({
+    basename: 'output.dz.tiles',
+});

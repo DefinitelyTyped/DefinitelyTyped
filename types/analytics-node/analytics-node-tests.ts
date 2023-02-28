@@ -8,6 +8,7 @@ function testConfig(): void {
     host: "http://example.com",
     enable: true,
     timeout: 1000,
+    errorHandler: (err) => console.error(err)
   });
 }
 
@@ -18,6 +19,19 @@ function testConfigWithStringTimeout(): void {
     host: "http://example.com",
     enable: true,
     timeout: '1000',
+    errorHandler: (err) => console.error(err)
+  });
+}
+
+function testConfigWithFlushedSet(): void {
+  analytics = new Analytics('YOUR_WRITE_KEY', {
+    flushAt: 20,
+    flushInterval: 10000,
+    host: "http://example.com",
+    enable: true,
+    timeout: 1000,
+    flushed: true,
+    errorHandler: (err) => console.error(err)
   });
 }
 

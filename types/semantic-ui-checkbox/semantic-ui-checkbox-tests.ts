@@ -111,8 +111,10 @@ function test_checkbox() {
     });
     $(selector).checkbox(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).checkbox('foo'); // $ExpectError
-    $(selector).checkbox({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).checkbox('foo');
+    // @ts-expect-error
+    $(selector).checkbox({ foo: 'bar' });
 }
 
 import checkbox = require('semantic-ui-checkbox');

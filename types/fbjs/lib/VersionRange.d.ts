@@ -29,5 +29,5 @@ declare namespace VersionRange {
     function contains(range: string, version: string): boolean;
 }
 
-// tslint:disable-next-line export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = VersionRange;

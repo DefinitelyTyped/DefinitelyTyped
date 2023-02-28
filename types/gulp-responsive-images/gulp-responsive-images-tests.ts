@@ -1,10 +1,12 @@
 import gulpResponsiveImages = require('gulp-responsive-images');
 
-gulpResponsiveImages(); // $ExpectError
+// @ts-expect-error
+gulpResponsiveImages();
 
 gulpResponsiveImages({});       // $ExpectType Transform
 
-gulpResponsiveImages({ 1: "abcd" }); // $ExpectError
+// @ts-expect-error
+gulpResponsiveImages({ 1: "abcd" });
 
 gulpResponsiveImages({
     'hero.png': [

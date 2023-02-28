@@ -1,0 +1,35 @@
+export class Black {
+    static set engine(arg: Engine);
+    static get engine(): Engine;
+    static set input(arg: Input);
+    static get input(): Input;
+    static set audio(arg: MasterAudio);
+    static get audio(): MasterAudio;
+    static set time(arg: Time);
+    static get time(): Time;
+    static set device(arg: Device);
+    static get device(): Device;
+    static set assets(arg: AssetManager);
+    static get assets(): AssetManager;
+    static get stage(): Stage;
+    static get driver(): VideoNullDriver;
+    static set camera(arg: Camera);
+    static get camera(): Camera;
+    static get magic(): number;
+    private mEngine;
+    private mInput;
+    private mAudio;
+    private mTime;
+    private mDevice;
+    private mAssets;
+    private mCamera;
+}
+import { AssetManager } from './assets/AssetManager';
+import { MasterAudio } from './audio/MasterAudio';
+import { Time } from './core/Time';
+import { Camera } from './display/Camera';
+import { Stage } from './display/Stage';
+import { VideoNullDriver } from './drivers/VideoNullDriver';
+import { Engine } from './Engine';
+import { Input } from './input/Input';
+import { Device } from './system/Device';

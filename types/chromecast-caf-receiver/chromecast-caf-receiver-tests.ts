@@ -187,6 +187,24 @@ cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
     .addEventListener(cast.framework.events.EventType.TRACKS_CHANGED, () => {});
 
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_CHANGED, (timedMetadataEvent) => {
+        const { id, dashTimedMetadata, hlsTimedMetadata, startTime, endTime } = timedMetadataEvent.timedMetadataInfo;
+    });
+
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_ENTER, (timedMetadataEvent) => {
+        const { id, dashTimedMetadata, hlsTimedMetadata, startTime, endTime } = timedMetadataEvent.timedMetadataInfo;
+    });
+
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_EXIT, (timedMetadataEvent) => {
+        const { id, dashTimedMetadata, hlsTimedMetadata, startTime, endTime } = timedMetadataEvent.timedMetadataInfo;
+    });
+
 // CastDebugLogger
 const debugLogger = cast.debug.CastDebugLogger.getInstance();
 

@@ -14,7 +14,7 @@ export = InquirerFuzzyPath;
 /**
  * Provides the functionality to create a new Inquirer plugin
  */
-declare class InquirerFuzzyPath<T> extends InquirerAutocomplete<T> {
+declare class InquirerFuzzyPath<T extends Answers> extends InquirerAutocomplete<T> {
     /**
      * Create new InquirerFuzzyPath
      *

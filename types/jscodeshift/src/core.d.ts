@@ -26,7 +26,7 @@ declare namespace core {
     }
 
     interface FileInfo {
-        /** The absolute path to the current file. */
+        /** The path to the current file. */
         path: string;
         /** The source code of the current file. */
         source: string;

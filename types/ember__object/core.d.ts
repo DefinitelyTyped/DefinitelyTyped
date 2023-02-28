@@ -27,7 +27,7 @@ export default class CoreObject {
      * Defines the properties that will be concatenated from the superclass (instead of overridden).
      * @default null
      */
-    concatenatedProperties: any[];
+    concatenatedProperties: string[] | null;
 
     /**
      * Destroyed object property flag. If this property is true the observers and bindings were
@@ -237,22 +237,12 @@ export default class CoreObject {
         T3 extends EmberClassArguments
     >(this: Statics, arg1: T1, arg2: T2, arg3: T3): Statics & T1 & T2 & T3;
 
-    static detect<Statics, Instance>(
-        this: Statics & EmberClassConstructor<Instance>,
-        obj: any
-    ): obj is Objectify<Statics> & EmberClassConstructor<Instance>;
-
-    static detectInstance<Instance>(
-        this: EmberClassConstructor<Instance>,
-        obj: any
-    ): obj is Instance;
-
     /**
      * Iterate over each computed property for the class, passing its name and any
      * associated metadata (see metaForProperty) to the callback.
      */
     static eachComputedProperty(
-        callback: (...args: any[]) => any,
+        callback: (...args: any[]) => unknown,
         binding: {}
     ): void;
     /**

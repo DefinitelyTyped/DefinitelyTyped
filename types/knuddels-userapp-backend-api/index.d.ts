@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.20211209174657
+// Type definitions for non-npm package Knuddels UserApps API 1.20220921162223
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -237,6 +237,10 @@ declare global {
          */
         static popupContent(htmlFile: HTMLFile, width: number /* optional */, height?: number): AppContent;
         /**
+         * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_isResponsive
+         */
+        isResponsive(): boolean;
+        /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_getHeight
          */
         getHeight(): number;
@@ -260,6 +264,10 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_getAppViewMode
          */
         getAppViewMode(): AppViewMode;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_setResponsive
+         */
+        setResponsive(isResponsive: boolean): void;
     }
 
     /**
@@ -270,6 +278,10 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_getGlobalAppInstance
          */
         getGlobalAppInstance(): GlobalAppInstance | null;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_isConnectedUsingDirectConnection
+         */
+        isConnectedUsingDirectConnection(): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_getAppContent
          */
@@ -1091,6 +1103,37 @@ declare global {
     }
 
     /**
+     * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html
+     */
+    class GenderDetailed {
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#method_toGender
+         * @since AppServer 20220811170542
+         */
+        toGender(): Gender;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_Male
+         */
+        static readonly Male: GenderDetailed;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_Female
+         */
+        static readonly Female: GenderDetailed;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_NonBinaryHe
+         */
+        static readonly NonBinaryHe: GenderDetailed;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_NonBinaryShe
+         */
+        static readonly NonBinaryShe: GenderDetailed;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_Unknown
+         */
+        static readonly Unknown: GenderDetailed;
+    }
+
+    /**
      * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html
      * @since AppServer 20210921-153142
      */
@@ -1317,6 +1360,16 @@ declare global {
          */
         getAppConfig(): GlobalAppConfig;
         /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getAddAsFavoriteChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getAddAsFavoriteChatCommand(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getOpenAppChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getOpenAppChatCommand(): string;
+        /**
          * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_closeActiveSessions
          */
         closeActiveSessions(): void;
@@ -1325,13 +1378,23 @@ declare global {
          */
         getActiveSessions(): AppContentSession[];
         /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_openGlobalApp
+         */
+        openGlobalApp(user: User, forceReplace?: boolean): AppContentSession;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getRemoveAsFavoriteChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getRemoveAsFavoriteChatCommand(): string;
+        /**
          * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getActiveSession
          */
         getActiveSession(userId: number): AppContentSession | null;
         /**
-         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getOpenSlashCommand
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_hasAsFavorite
+         * @since AppServer 20220502-152500
          */
-        getOpenSlashCommand(): string;
+        hasAsFavorite(user: User): boolean;
     }
 
     /**
@@ -1728,8 +1791,8 @@ declare global {
             knuddelAmount: KnuddelAmount,
             params?: {
                 payoutTimeoutMinutes?: number;
-                shouldSealPot?: ((pot: KnuddelPot) => boolean);
-                onPotSealed?: ((pot: KnuddelPot) => void);
+                shouldSealPot?: (pot: KnuddelPot) => boolean;
+                onPotSealed?: (pot: KnuddelPot) => void;
             },
         ): KnuddelPot;
         /**
@@ -1969,7 +2032,7 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/Quest.html#method_setSolved
          * @since AppServer 82290, ChatServer 82290
          */
-        setSolved(count?: number): void;
+        setSolved(): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Quest.html#method_getQuestKey
          * @since AppServer 82290, ChatServer 82290
@@ -1999,7 +2062,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/QuestAccess.html#method_solvedQuest
          */
-        solvedQuest(questKey: string, count: number): void;
+        solvedQuest(questKey: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/QuestAccess.html#method_getQuests
          * @since AppServer 82290, ChatServer 82290
@@ -2142,7 +2205,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_replaceAll
          */
-        replaceAll(search: string | RegExp, replacement: string): string;
+        replaceAll(regexp: string | RegExp, replacement: string): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_capitalize
          * @since AppServer 92695
@@ -2430,6 +2493,11 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getAge
          */
         getAge(): number;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/User.html#method_getGenderDetailed
+         * @since AppServer 20220811170542
+         */
+        getGenderDetailed(): GenderDetailed;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_isChannelModerator
          */

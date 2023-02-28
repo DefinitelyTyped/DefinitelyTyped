@@ -5,87 +5,295 @@
 //                 Dylan Hackworth <https://github.com/dylhack>
 //                 Sankarsan Kampa <https://github.com/k3rn31p4nic>
 //                 Brian Dashore <https://github.com/bdashore3>
+//                 HanchaiN <https://github.com/HanchaiN>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
 
+export type Listener = (...args: any[]) => void;
+
 export function register(id: string): boolean;
 
-export class Client extends EventEmitter {
-    constructor(options: RPCClientOptions)
+export type eventNames = 'ready' | 'connected' | 'disconnected' | string;
 
-    application: {
-        description: string
-        icon: string
-        id: string
-        rpc_origins: string[]
-        name: string
-    };
+export type RPCEvents =
+    | 'CURRENT_USER_UPDATE'
+    | 'GUILD_STATUS'
+    | 'GUILD_CREATE'
+    | 'CHANNEL_CREATE'
+    | 'RELATIONSHIP_UPDATE'
+    | 'VOICE_CHANNEL_SELECT'
+    | 'VOICE_STATE_CREATE'
+    | 'VOICE_STATE_DELETE'
+    | 'VOICE_STATE_UPDATE'
+    | 'VOICE_SETTINGS_UPDATE'
+    | 'VOICE_SETTINGS_UPDATE_2'
+    | 'VOICE_CONNECTION_STATUS'
+    | 'SPEAKING_START'
+    | 'SPEAKING_STOP'
+    | 'GAME_JOIN'
+    | 'GAME_SPECTATE'
+    | 'ACTIVITY_JOIN'
+    | 'ACTIVITY_JOIN_REQUEST'
+    | 'ACTIVITY_SPECTATE'
+    | 'ACTIVITY_INVITE'
+    | 'NOTIFICATION_CREATE'
+    | 'MESSAGE_CREATE'
+    | 'MESSAGE_UPDATE'
+    | 'MESSAGE_DELETE'
+    | 'LOBBY_DELETE'
+    | 'LOBBY_UPDATE'
+    | 'LOBBY_MEMBER_CONNECT'
+    | 'LOBBY_MEMBER_DISCONNECT'
+    | 'LOBBY_MEMBER_UPDATE'
+    | 'LOBBY_MESSAGE'
+    | 'CAPTURE_SHORTCUT_CHANGE'
+    | 'OVERLAY'
+    | 'OVERLAY_UPDATE'
+    | 'ENTITLEMENT_CREATE'
+    | 'ENTITLEMENT_DELETE'
+    | 'USER_ACHIEVEMENT_UPDATE'
+    | 'READY'
+    | 'ERROR';
 
-    user: {
-        username: string
-        discriminator: string
-        id: string
-        avatar: string
-    };
+export class BaseClient extends EventEmitter {}
 
+/**
+ * The main hub for interacting with Discord RPC
+ */
+export class Client extends BaseClient {
+    /**
+     * @param options Options for the client.
+     * You must provide a transport
+     */
+    constructor(options: RPCClientOptions);
+
+    /**
+     * Application used in this client
+     */
+    application?: ClientApplication;
+
+    /**
+     * User used in this application
+     */
+    user?: User;
+
+    /**
+     * Search and connect to RPC
+     */
     connect(clientId: string): Promise<Client>;
+    /**
+     * Performs authentication flow. Automatically calls Client#connect if needed.
+     * @param options Options for authentication.
+     * At least one property must be provided to perform login.
+     * @example client.login({ clientId: '1234567', clientSecret: 'abcdef123' });
+     */
     login(options?: RPCLoginOptions): Promise<this>;
 
-    getGuild(id: string, timeout?: number): Promise<Guild>;
+    /**
+     * Fetch a guild
+     * @param id Guild ID
+     * @param timeout Timeout request
+     */
+    getGuild(id: Snowflake, timeout?: number): Promise<Guild>;
+    /**
+     * Fetch all guilds
+     * @param timeout Timeout request
+     */
     getGuilds(timeout?: number): Promise<Guild[]>;
 
-    getChannel(id: string, timeout?: number): Promise<Channel>;
-    getChannels(id?: string, timeout?: number): Promise<Channel[]>;
+    /**
+     * Get a channel
+     * @param id Channel ID
+     * @param timeout Timeout request
+     */
+    getChannel(id: Snowflake, timeout?: number): Promise<Channel>;
+    /**
+     * Get all channels
+     * @param id Guild ID
+     * @param timeout Timeout request
+     */
+    getChannels(id?: Snowflake, timeout?: number): Promise<Channel[]>;
 
+    /**
+     * Tell discord which devices are certified
+     * @param devices Certified devices to send to discord
+     */
     setCertifiedDevices(devices: CertifiedDevice[]): Promise<null>;
 
-    setUserVoiceSettings(id: string, settings: UserVoiceSettings): Promise<any>;
+    /**
+     * Set the voice settings for a user, by id
+     * @param id ID of the user to set
+     * @param settings Settings
+     */
+    setUserVoiceSettings(id: Snowflake, settings: UserVoiceSettings): Promise<any>;
 
-    selectVoiceChannel(id: string, options?: { timeout?: number | undefined, force?: boolean | undefined }): Promise<Channel>;
-    selectTextChannel(id: string, options?: { timeout: number, force: boolean }): Promise<Channel>;
+    /**
+     * Move the user to a voice channel
+     * @param id ID of the voice channel
+     * @param options Options
+     */
+    selectVoiceChannel(
+        id: Snowflake,
+        options?: {
+            /**
+             * Timeout for the command
+             */
+            timeout?: number | undefined;
+            /**
+             * Force this move. This should only be done if you
+             * have explicit permission from the user.
+             */
+            force?: boolean | undefined;
+        },
+    ): Promise<Channel>;
+    /**
+     * Move the user to a text channel
+     * @param id ID of the voice channel
+     * @param options Options
+     */
+    selectTextChannel(
+        id: Snowflake,
+        options?: {
+            /**
+             * Timeout for the command
+             */
+            timeout?: number;
+        },
+    ): Promise<Channel>;
 
+    /**
+     * Get current voice settings
+     */
     getVoiceSettings(): Promise<VoiceSettings>;
+    /**
+     * Set current voice settings, overriding the current settings until this session disconnects.
+     * This also locks the settings for any other rpc sessions which may be connected.
+     * @param args Settings
+     */
     setVoiceSettings(args: VoiceSettings): Promise<any>;
 
-    captureShortcut(callback: (shortcut: Array<{ type: number, code: number, name: string }>, stop: () => void) => void): Promise<() => void>;
+    /**
+     * Capture a shortcut using the client
+     * The callback takes (key, stop) where `stop` is a function that will stop capturing.
+     * This `stop` function must be called before disconnecting or else the user will have
+     * to restart their client.
+     * @param callback Callback handling keys
+     */
+    captureShortcut(
+        callback: (key: Array<{ type: number; code: number; name: string }>, stop: () => void) => void,
+    ): Promise<() => void>;
 
+    /**
+     * Sets the presence for the logged in user.
+     * @param args The rich presence to pass.
+     * @param pid The application's process ID. Defaults to the executing process' PID.
+     */
     setActivity(args?: Presence, pid?: number): Promise<any>;
+    /**
+     * Clears the currently set presence, if any. This will hide the "Playing X" message
+     * displayed below the user's name.
+     * @param pid The application's process ID. Defaults to the executing process' PID.
+     */
     clearActivity(pid?: number): Promise<any>;
 
-    sendJoinInvite(user: { id: string } | string): Promise<any>;
+    /**
+     * Invite a user to join the game the RPC user is currently playing
+     * @param user The user to invite
+     */
+    sendJoinInvite(user: User | User['id']): Promise<any>;
 
-    sendJoinRequest(user: { id: string } | string): Promise<any>;
-    closeJoinRequest(user: { id: string } | string): Promise<any>;
+    /**
+     * Request to join the game the user is playing
+     * @param user The user whose game you want to request to join
+     */
+    sendJoinRequest(user: User | User['id']): Promise<any>;
+    /**
+     * Reject a join request from a user
+     * @param user The user whose request you wish to reject
+     */
+    closeJoinRequest(user: User | User['id']): Promise<any>;
 
     createLobby(type: string, capacity: number, metadata: any): Promise<any>;
-    updateLobby(lobby: { id: string } | string, options?: { type: string, owner: { id: string } | string, capacity: number, metadata: any }): Promise<any>;
+    updateLobby(
+        lobby: { id: string } | string,
+        options?: { type: string; owner: { id: string } | string; capacity: number; metadata: any },
+    ): Promise<any>;
     deleteLobby(lobby: { id: string } | string): Promise<any>;
     connectToLobby(id: string, secret: string): Promise<any>;
     sendToLobby(lobby: { id: string } | string, data: any): Promise<any>;
     disconnectFromLobby(lobby: { id: string } | string): Promise<any>;
     updateLobbyMember(lobby: { id: string } | string, user: { id: string } | string, metadata: any): Promise<any>;
 
-    subscribe(event: string, callback: (data: any) => void): Promise<Subscription>;
-    subscribe(event: string, args: any, callback: (data: any) => void): Promise<Subscription>;
+    /**
+     * Subscribe to an event
+     * @param event Name of event e.g. `MESSAGE_CREATE`
+     * @param args Args for event e.g. `{ channel_id: '1234' }`
+     */
+    subscribe(event: RPCEvents, args: any): Promise<Subscription>;
 
+    /**
+     * Destroy the client
+     */
     destroy(): Promise<void>;
 
-    on(event: 'ready' | 'connected', listener: () => void): this;
-    once(event: 'ready' | 'connected', listener: () => void): this;
-    off(event: 'ready' | 'connected', listener: () => void): this;
+    on(event: eventNames, listener: Listener): this;
+    once(event: eventNames, listener: Listener): this;
+    off(event: eventNames, listener: Listener): this;
 }
 
-export interface RPCClientOptions {
+export interface ClientApplication {
+    description: string;
+    icon: string;
+    id: string;
+    rpc_origins: string[];
+    name: string;
+}
+
+export interface User {
+    username?: string;
+    discriminator?: string;
+    id: string;
+    avatar?: string;
+}
+
+export type Snowflake = string;
+
+export interface ClientOptions {
+    [option: string]: any;
+}
+
+export interface RPCClientOptions extends ClientOptions {
+    /**
+     * RPC transport. one of `ipc` or `websocket`
+     */
     transport: 'ipc' | 'websocket';
 }
 
 export interface RPCLoginOptions {
+    /**
+     * Client ID
+     */
     clientId: string;
+    /**
+     * Client secret
+     */
     clientSecret?: string | undefined;
+    /**
+     * Access token
+     */
     accessToken?: string | undefined;
+    /**
+     * RPC token
+     */
     rpcToken?: string | undefined;
+    /**
+     * Token endpoint
+     */
     redirectUri?: string | undefined;
+    /**
+     * Scopes to authorize with
+     */
     scopes?: string[] | undefined;
     prompt?: 'none' | 'consent' | undefined;
 }
@@ -105,60 +313,118 @@ export interface Channel {
     id: string;
     name: string;
 
-  /**
-   * Guild text: 0, Guild voice: 2, DM: 1, Group DM: 3
-   */
+    /**
+     * Guild text: 0, Guild voice: 2, DM: 1, Group DM: 3
+     */
     type: number;
 
     guild_id?: string | undefined;
 
-  /**
-   * (text)
-   */
+    /**
+     * (text)
+     */
     topic?: string | undefined;
 
-  /**
-   * (voice)
-   */
+    /**
+     * (voice)
+     */
     bitrate?: number | undefined;
 
-  /**
-   * (voice) 0 if none
-   */
+    /**
+     * (voice) 0 if none
+     */
     user_limit?: number | undefined;
 
-  /**
-   * (text)
-   */
+    /**
+     * (text)
+     */
     position?: number | undefined;
 
-  /**
-   * (voice) https://discordapp.com/developers/docs/resources/voice#voice-state-object
-   */
+    /**
+     * (voice) https://discordapp.com/developers/docs/resources/voice#voice-state-object
+     */
     voice_states?: any[] | undefined;
 
-  /**
-   * (text) https://discordapp.com/developers/docs/resources/channel#message-object
-   */
+    /**
+     * (text) https://discordapp.com/developers/docs/resources/channel#message-object
+     */
     messages?: any[] | undefined;
 }
 
 export interface CertifiedDevice {
-    type: 'audioinput' | 'audiooutput' | 'videoinput';
+    /**
+     * One of `AUDIO_INPUT`, `AUDIO_OUTPUT`, `VIDEO_INPUT`
+     */
+    type: 'AUDIO_INPUT' | 'AUDIO_OUTPUT' | 'VIDEO_INPUT';
+    /**
+     * This device's Windows UUID
+     */
     uuid: string;
-    vendor: { name: string, url: string };
-    model: { name: string, url: string };
+    /**
+     * Vendor information
+     */
+    vendor: {
+        /**
+         * Vendor's name
+         */
+        name: string;
+        /**
+         * Vendor's url
+         */
+        url: string;
+    };
+    /**
+     * Model information
+     */
+    model: {
+        /**
+         * Model's name
+         */
+        name: string;
+        /**
+         * Model's url
+         */
+        url: string;
+    };
+    /**
+     * Array of related product's Windows UUIDs
+     */
     related: string[];
-    echoCancellation?: boolean | undefined;
-    noiseSuppression?: boolean | undefined;
-    automaticGainControl?: boolean | undefined;
-    hardwareMute?: boolean | undefined;
+    /**
+     * If the device has echo cancellation
+     */
+    echoCancellation: boolean;
+    /**
+     * If the device has noise suppression
+     */
+    noiseSuppression: boolean;
+    /**
+     * If the device has automatic gain control
+     */
+    automaticGainControl: boolean;
+    /**
+     * If the device has a hardware mute
+     */
+    hardwareMute: boolean;
 }
 
 export interface UserVoiceSettings {
-    id: string;
-    pan?: { left: number, right: number } | undefined;
+    /**
+     * ID of the user these settings apply to
+     */
+    id: Snowflake;
+    /**
+     * Pan settings, an object with `left` and `right` set between
+     * 0.0 and 1.0, inclusive
+     */
+    pan?: { left: number; right: number } | undefined;
+    /**
+     * The volume
+     */
     volume?: number | undefined;
+    /**
+     * If the user is muted
+     */
     mute?: boolean | undefined;
 }
 
@@ -170,20 +436,26 @@ export interface VoiceSettings {
     silenceWarning: boolean;
     deaf: boolean;
     mute: boolean;
-    input?: {
-        device: string,
-        volume: number
-    } | undefined;
-    output?: {
-        device: string,
-        volume: number
-    } | undefined;
-    mode?: {
-        autoThreshold: boolean,
-        threshold: number,
-        shortcut: Array<{ type: number, code: number, name: string }>,
-        delay: number
-    } | undefined;
+    input?:
+        | {
+              device: string;
+              volume: number;
+          }
+        | undefined;
+    output?:
+        | {
+              device: string;
+              volume: number;
+          }
+        | undefined;
+    mode?:
+        | {
+              autoThreshold: boolean;
+              threshold: number;
+              shortcut: Array<{ type: number; code: number; name: string }>;
+              delay: number;
+          }
+        | undefined;
 }
 
 export interface Presence {
@@ -202,5 +474,5 @@ export interface Presence {
     matchSecret?: string | undefined;
     spectateSecret?: string | undefined;
     joinSecret?: string | undefined;
-    buttons?: Array<{ label: string, url: string }> | undefined;
+    buttons?: Array<{ label: string; url: string }> | undefined;
 }

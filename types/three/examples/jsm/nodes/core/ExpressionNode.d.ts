@@ -1,5 +1,7 @@
-import { FunctionNode } from './FunctionNode';
+import { NodeTypeOption } from './constants';
+import TempNode from './TempNode';
 
-export class ExpressionNode extends FunctionNode {
-    constructor(src: string, type?: string, keywords?: object, extensions?: object, includes?: object[]);
+export default class ExpressionNode extends TempNode {
+    snipped: string; /* sic */
+    constructor(snipped?: string, nodeType?: NodeTypeOption);
 }

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "postcss": "5 - 7"
-    }
-}

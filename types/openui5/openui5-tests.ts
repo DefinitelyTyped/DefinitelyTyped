@@ -5,6 +5,7 @@ import XMLView from "sap/ui/core/mvc/XMLView";
 import Controller from "sap/ui/core/mvc/Controller";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import ODataModel from "sap/ui/model/odata/v2/ODataModel";
+import ODataV4Model from "sap/ui/model/odata/v4/ODataModel";
 import Text from "sap/m/Text";
 import Table from "sap/m/Table";
 import Toolbar from "sap/m/Toolbar";
@@ -20,6 +21,13 @@ import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
 import MessagePage from "sap/m/MessagePage";
 import { TitleLevel } from "sap/ui/core/library";
+import DateTimePicker from "sap/m/DateTimePicker";
+import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
+import RenderManager from "sap/ui/core/RenderManager";
+import NumberFormat from "sap/ui/core/format/NumberFormat";
+import CalendarUtils from "sap/ui/core/date/CalendarUtils";
+import PlanningCalendar from "sap/m/PlanningCalendar";
+import WebSocket from "sap/ui/core/ws/WebSocket";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -31,9 +39,7 @@ Core.attachInit(() => {
     new Text({
         text: "Hello World"
     }).placeAt("content");
-});
 
-Core.attachInit(() => {
     new XMLView({
         viewName: "sap.ui.demo.wt.App"
     }).placeAt("content");
@@ -53,11 +59,19 @@ class Ctrl extends Controller {
             }
         };
         const oModel = new JSONModel(oData);
-        this.getView().setModel(oModel);
+        const view = this.getView();
+        if (!view) {
+            return;
+        }
 
-        const dp = new DatePicker();
+        view.setModel(oModel);
+
+        const dp = new DatePicker({dateValue: "{myModel>/myPropertyName}"});
         dp.setShowCurrentDateButton(true);
-        this.getView().addContent(dp);
+
+        const rm: RenderManager = Core.getRenderManager();
+        rm.openEnd();
+        view.addContent(dp);
     }
 }
 
@@ -66,10 +80,18 @@ export class BaseController extends Controller {
         return (<UIComponent> this.getOwnerComponent()).getRouter();
     }
     getJSONModel(name: string) {
-        return <JSONModel> this.getView().getModel(name);
+        const view = this.getView();
+        if (!view) {
+            return;
+        }
+        return <JSONModel> view.getModel(name);
     }
     getModel(name: string) {
-        return this.getView().getModel(name);
+        const view = this.getView();
+        if (!view) {
+            return;
+        }
+        return view.getModel(name);
     }
     suspendDefaultTarget() {
         const router = (<UIComponent> this.getOwnerComponent()).getRouter();
@@ -131,12 +153,37 @@ const oTriggerButton = new Button({
         oFileUploader.upload();
     }
 });
+
+const dateTimePicker = new DateTimePicker({showCurrentTimeButton: true});
+dateTimePicker.setShowCurrentTimeButton(!dateTimePicker.getShowCurrentTimeButton());
 oUploadDialog.addContent(oFileUploader);
 oUploadDialog.addContent(oTriggerButton);
+oUploadDialog.addContent(dateTimePicker);
 oUploadDialog.open();
 
 const messagePage: MessagePage = new MessagePage();
 messagePage.setTitleLevel(TitleLevel.H1);
+const focusable = messagePage.isFocusable();
 
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
+const context = odataV4ListBinding.getKeepAliveContext("x");
+const odataV4Model = odataV4ListBinding.getModel() as ODataV4Model;
+odataV4Model.delete("something");
+let eTagMap: Record<string, string | null>;
+eTagMap = odataV4Model.getMetaModel().getETags();
+odataV4Model.getKeyPredicate("some/path", {});
+
+const showTimeZone = DateFormatTimezoneDisplay.Show;
+
+const integer = NumberFormat.getIntegerInstance({
+    strictGroupingValidation: true
+});
+
+const weekConfigurationValues = CalendarUtils.getWeekConfigurationValues();
+
+const pc = new PlanningCalendar();
+pc.getSecondaryCalendarType();
+
+const ws = new WebSocket("someUrl");
+ws.close("end");

@@ -6,6 +6,7 @@ new GoogleStrategy({
   clientID: 'clientid',
   clientSecret: 'shhh',
   passReqToCallback: true,
+  scope: "scope",
 }, (
   req: Request,
   accessToken: string,

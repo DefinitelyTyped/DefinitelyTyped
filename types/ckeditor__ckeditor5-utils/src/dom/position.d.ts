@@ -1,4 +1,4 @@
-import Rect from "./rect";
+import Rect from './rect';
 
 /**
  * Calculates the `position: absolute` coordinates of a given element so it can be positioned with respect to the
@@ -64,22 +64,49 @@ import Rect from "./rect";
 export function getOptimalPosition(options: Options): Position;
 
 /**
- * An object describing a position in `position: absolute` coordinate
- * system, along with position name.
+ * A position class which instances are created and used by the {@link module:utils/dom/position~getOptimalPosition} helper.
+ *
+ * {@link module:utils/dom/position~Position#top} and {@link module:utils/dom/position~Position#left} properties of the position instance
+ * translate directly to the `top` and `left` properties in CSS "`position: absolute` coordinate system". If set on the positioned element
+ * in DOM, they will make it display it in the right place in the viewport.
  */
-export interface Position {
+export class Position {
     /**
-     * Top position offset.
+     * Creates an instance of the {@link module:utils/dom/position~Position} class.
      */
-    top: number;
+    constructor(
+        positioningFunction?: (
+            targetRect: Rect,
+            elementRect: Rect,
+            viewportRect: Rect,
+        ) => {
+            left: number;
+            top: number;
+            name: string;
+            config?: Record<string, unknown>;
+        } | null,
+        options?: {
+            elementRect: Rect;
+            targetRect: Rect;
+            viewportRect: Rect;
+            positionedElementAncestor?: HTMLElement | null;
+        },
+    );
+
+    readonly name: string;
+    readonly config?: Record<string, unknown>;
+
     /**
-     * Left position offset.
+     * The left value in pixels in the CSS `position: absolute` coordinate system.
+     * Set it on the positioned element in DOM to move it to the position.
      */
-    left: number;
+    readonly left: number;
+
     /**
-     * Name of the position.
+     * The top value in pixels in the CSS `position: absolute` coordinate system.
+     * Set it on the positioned element in DOM to move it to the position.
      */
-    name: string;
+    readonly top: number;
 }
 
 /**
@@ -113,4 +140,20 @@ export interface Options {
      * the most inside visible viewport.
      */
     fitInViewport?: boolean;
+    /**
+     * Viewport offset config object. It restricts the visible viewport available to the `getOptimalPosition()` from each side.
+     *
+     *    {
+     *      top: 50,
+     *      right: 50,
+     *      bottom: 50,
+     *      left: 50
+     *    }
+     */
+    viewportOffsetConfig?: {
+        top: number;
+        right: number;
+        bottom: number;
+        left: number;
+    };
 }

@@ -26,7 +26,6 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
@@ -36,7 +35,6 @@
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
-//                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
@@ -360,7 +358,7 @@ export interface HostComponent<P> extends Pick<React.ComponentClass<P>, Exclude<
 
 // see react-jsx.d.ts
 export function createElement<P>(
-    type: React.ReactType,
+    type: React.ElementType,
     props?: P,
     ...children: React.ReactNode[]
 ): React.ReactElement<P>;
@@ -454,7 +452,7 @@ export interface PressableAndroidRippleConfig {
     foreground?: null | boolean | undefined;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
      */
@@ -962,6 +960,11 @@ export interface TextPropsIOS {
 
 export interface TextPropsAndroid {
     /**
+     * Specifies the disabled state of the text view for testing purposes.
+     */
+    disabled?: boolean | undefined;
+
+    /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
     selectable?: boolean | undefined;
@@ -1451,6 +1454,8 @@ export interface TextInputSelectionChangeEventData extends TargetedEvent {
  */
 export interface TextInputKeyPressEventData {
     key: string;
+    eventCount?: number | null | undefined;
+    target?: number | null | undefined;
 }
 
 /**
@@ -5022,7 +5027,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
      *
      * @platform android
      */
-    touchSoundDisabled?: boolean | null | undefined;
+    touchSoundDisabled?: boolean | undefined;
 }
 
 /**
@@ -5052,7 +5057,7 @@ export interface TouchableWithoutFeedbackProps
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean | null | undefined;
+    disabled?: boolean | undefined;
 
     /**
      * This defines how far your touch can start away from the button.
@@ -7005,11 +7010,11 @@ export interface ActionSheetIOSOptions {
     title?: string | undefined;
     options: string[];
     cancelButtonIndex?: number | undefined;
-    destructiveButtonIndex?: number | undefined;
+    destructiveButtonIndex?: number | number[] | undefined | null;
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
-    userInterfaceStyle?: string | undefined;
+    userInterfaceStyle?: 'light' | 'dark' | undefined;
     disabledButtonIndices?: number[] | undefined;
 }
 
@@ -8541,9 +8546,11 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue | undefined;
 }
 
-export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean;
+export interface SwitchChangeEventData extends TargetedEvent {
+  value: boolean;
 }
+
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**
@@ -9716,9 +9723,8 @@ export function unstable_enableLogBox(): void;
 /**
  * React Native also implements unstable_batchedUpdates
  */
-export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
-export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-export function unstable_batchedUpdates(callback: () => any): void;
+export function unstable_batchedUpdates<A, R>(callback: (a: A) => R, a: A): R;
+export function unstable_batchedUpdates<R>(callback: () => R): R;
 
 //////////////////////////////////////////////////////////////////////////
 //

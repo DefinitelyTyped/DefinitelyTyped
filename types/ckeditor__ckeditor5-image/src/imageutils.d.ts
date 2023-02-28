@@ -1,10 +1,11 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 import { DocumentSelection, DowncastWriter, Element } from '@ckeditor/ckeditor5-engine';
-import Selection, { Selectable } from '@ckeditor/ckeditor5-engine/src/model/selection';
-import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
+import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
 import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
-import ViewSelection from '@ckeditor/ckeditor5-engine/src/view/selection';
+import Selection, { Selectable } from '@ckeditor/ckeditor5-engine/src/model/selection';
 import ViewDocumentSelection from '@ckeditor/ckeditor5-engine/src/view/documentselection';
+import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
+import ViewSelection from '@ckeditor/ckeditor5-engine/src/view/selection';
 
 export default class ImageUtils extends Plugin {
     static readonly pluginName: 'ImageUtils';
@@ -72,7 +73,7 @@ export default class ImageUtils extends Plugin {
     /**
      * Checks if the provided model element is an `image`.
      */
-    isBlockImage(modelElement?: ModelElement | null): boolean;
+    isBlockImage(modelElement?: ModelElement | DocumentFragment | null): boolean;
 
     /**
      * Checks if the provided model element is an `imageInline`.

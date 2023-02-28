@@ -1,4 +1,4 @@
-import WaveSurfer from "../src/wavesurfer";
+import WaveSurfer from '../src/wavesurfer';
 
 export abstract class WaveSurferPlugin {
     constructor(params: Record<string, unknown>, ws: WaveSurfer);
@@ -17,7 +17,7 @@ export interface PluginDefinition {
     /** The plugin parameters, they are the first parameter passed to the plugin class constructor function. */
     params: PluginParams;
     /** The plugin instance factory, is called with the dependency specified in extends. Returns the plugin class. */
-    instance: { new (params: PluginDefinition["params"], ws: WaveSurfer): WaveSurferPlugin };
+    instance: { new (params: PluginDefinition['params'], ws: WaveSurfer): WaveSurferPlugin };
 }
 
 export interface PluginParams {

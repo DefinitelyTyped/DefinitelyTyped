@@ -330,6 +330,11 @@ declare class BN {
     idivn(b: number): BN;
 
     /**
+     * @description division with remainder
+     */
+    divmod(b: BN, mode?: 'div' | 'mod', positive?: boolean): { div: BN; mod: BN };
+
+    /**
      * @description reduct
      */
     mod(b: BN): BN;
@@ -516,8 +521,7 @@ declare class BN {
 }
 
 /**
- * Big-Number class with additionnal methods that are using modular
- * operation.
+ * BN operations in a reduction context.
  */
 declare class RedBN extends BN {
     /**
@@ -528,22 +532,22 @@ declare class RedBN extends BN {
     /**
      * @description modular addition
      */
-    redAdd(b: BN): RedBN;
+    redAdd(b: RedBN): RedBN;
 
     /**
      * @description in-place modular addition
      */
-    redIAdd(b: BN): RedBN;
+    redIAdd(b: RedBN): RedBN;
 
     /**
      * @description modular subtraction
      */
-    redSub(b: BN): RedBN;
+    redSub(b: RedBN): RedBN;
 
     /**
      * @description in-place modular subtraction
      */
-    redISub(b: BN): RedBN;
+    redISub(b: RedBN): RedBN;
 
     /**
      * @description modular shift left
@@ -553,12 +557,12 @@ declare class RedBN extends BN {
     /**
      * @description modular multiplication
      */
-    redMul(b: BN): RedBN;
+    redMul(b: RedBN): RedBN;
 
     /**
      * @description in-place modular multiplication
      */
-    redIMul(b: BN): RedBN;
+    redIMul(b: RedBN): RedBN;
 
     /**
      * @description modular square

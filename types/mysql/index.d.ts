@@ -595,11 +595,6 @@ export interface MysqlError extends Error {
     fieldCount?: number | undefined;
 
     /**
-     * The stack trace for the error
-     */
-    stack?: string | undefined;
-
-    /**
      * Boolean, indicating if this error is terminal to the connection object.
      */
     fatal: boolean;

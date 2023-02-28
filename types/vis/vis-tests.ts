@@ -237,7 +237,8 @@ network.setOptions(options);
 let nodeWidthConstraintOptions: NodeOptions = {
     widthConstraint: {
         maximum: 100
-    }
+    },
+    opacity: 0.8
 };
 nodeWidthConstraintOptions = {
     widthConstraint: false

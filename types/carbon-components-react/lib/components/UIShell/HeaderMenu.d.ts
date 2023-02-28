@@ -1,7 +1,8 @@
 import * as React from "react";
-import { FCReturn, ForwardRefProps, ReactLIAttr } from "../../../typings/shared";
+import { FCReturn, ReactLIAttr } from "../../../typings/shared";
 
 interface HeaderMenuProps<RP = {}> extends ReactLIAttr {
+    isCurrentPage?: boolean | undefined;
     menuLinkName: string,
     focusRef?(element: HTMLElement): void;
     renderMenuContent?: React.ComponentType<RP> | undefined,

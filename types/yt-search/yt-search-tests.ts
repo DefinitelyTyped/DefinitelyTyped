@@ -27,11 +27,11 @@ yts({ videoId: '' });
 // $ExpectType Promise<PlaylistMetadataResult>
 yts({ listId: '' });
 
-// $ExpectError
+// @ts-expect-error
 yts();
 
-// $ExpectError
+// @ts-expect-error
 yts({});
 
-// $ExpectError
+// @ts-expect-error
 yts({ query: '', videoId: '' });

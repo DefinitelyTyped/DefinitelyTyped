@@ -6,7 +6,7 @@ export namespace Cred {
         DEFAULT = 8,
         SSH_INTERACTIVE = 16,
         USERNAME = 32,
-        SSH_MEMORY = 64
+        SSH_MEMORY = 64,
     }
 }
 

@@ -11,7 +11,8 @@ const handle = 1 as Handle;
 const elHandle = 1 as ElementHandle;
 
 // Check that numbers for Handles error
-xelib.Name(1); // $ExpectError
+// @ts-expect-error
+xelib.Name(1);
 
 const [ca, ct]: [keyof typeof ConflictAll, keyof typeof ConflictThis] = xelib.GetConflictData(0, elHandle, true);
 xelib.GetConflictData(0, elHandle); // $ExpectType [ConflictAll, ConflictThis]

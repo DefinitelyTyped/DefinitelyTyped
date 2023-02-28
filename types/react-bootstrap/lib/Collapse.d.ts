@@ -3,6 +3,7 @@ import { TransitionCallbacks } from 'react-bootstrap';
 
 declare namespace Collapse {
     export interface CollapseProps extends TransitionCallbacks, React.ClassAttributes<Collapse> {
+        children?: React.ReactNode;
         dimension?: 'height' | 'width' | { ( ):string } | undefined;
         getDimensionValue?: (( dimension:number, element:React.ReactElement ) => number) | undefined;
         in?: boolean | undefined;

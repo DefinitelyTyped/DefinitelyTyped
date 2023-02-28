@@ -1360,7 +1360,7 @@ export function random(): Emoji;
 export function search(searchTerm: string): Emoji[];
 export function which(emoji_code: string): string;
 export function unemojify(str: string): string;
-export function find(emoji: string): Emoji;
+export function find(emoji: string): Emoji | undefined;
 export function hasEmoji(str: string): boolean;
 export function strip(str: string): string;
 export function replace(str: string, replacement: ((emoji: Emoji) => string) | string, cleanSpaces?: boolean): string;

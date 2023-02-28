@@ -91,7 +91,7 @@ declare namespace jsrsasign.KJUR.crypto {
          * @example
          * md.digest()
          */
-        digest(): void;
+        digest(): string;
 
         /**
          * performs final update on the digest using string, then completes the digest computation
@@ -100,7 +100,7 @@ declare namespace jsrsasign.KJUR.crypto {
          * @example
          * md.digestString('aaa')
          */
-        digestString(str: string): void;
+        digestString(str: string): string;
 
         /**
          * performs final update on the digest using hexadecimal string, then completes the digest computation
@@ -109,7 +109,7 @@ declare namespace jsrsasign.KJUR.crypto {
          * @example
          * md.digestHex('0f2abd')
          */
-        digestHex(hex: string): void;
+        digestHex(hex: string): string;
 
         /**
          * get canonical hash algorithm name

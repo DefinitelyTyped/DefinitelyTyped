@@ -4,7 +4,7 @@ const decodedStringWithPrecision: Array<[number, number]> = polyline.decode('_p~
 const encoded: string = polyline.encode([[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]]);
 const encodedWithPrecision: string = polyline.encode([[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]], 2);
 
-// $ExpectError
+// @ts-expect-error
 const encodedMissingLng: string = polyline.encode([[38.5, -120.2], [40.7], [43.252, -126.453]]);
 
 const fromGeoJSON: string = polyline.fromGeoJSON({

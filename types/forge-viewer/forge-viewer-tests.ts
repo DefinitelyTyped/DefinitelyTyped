@@ -16,13 +16,19 @@ Autodesk.Viewing.Initializer(options, async () => {
         console.error('Failed to create a Viewer: WebGL not supported.');
         return;
     }
-
+    if (!viewer.running) {
+        console.error('Failed to run a Viewer');
+        return;
+    }
     const documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ';
     const doc = await loadDocument(documentId);
 
     await doc.downloadAecModelData();
     const aecModelData = await Autodesk.Viewing.Document.getAecModelData(doc.getRoot());
-    const defaultViewable = doc.getRoot().getDefaultGeometry();
+    const root = doc.getRoot();
+    const defaultViewable = root.getDefaultGeometry();
+    const masterView = root.getDefaultGeometry(true);
+    const largestView = root.getDefaultGeometry(false, true);
     const model = await viewer.loadDocumentNode(doc, defaultViewable);
 
     globalTests();
@@ -30,6 +36,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     bufferReaderTest(model);
     callbackTests(viewer);
     cameraTests(viewer);
+    extensionTests(viewer);
     formattingTests();
     fragListTests(model);
     instanceTreeTests(model);
@@ -38,12 +45,14 @@ Autodesk.Viewing.Initializer(options, async () => {
     preferencesTests(viewer);
     showHideTests(viewer);
     worldUpTests(viewer);
+    selectionTests(viewer);
     await bulkPropertiesTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
     await dataVizPlanarTests(viewer);
     await edit2DTests(viewer);
     await measureTests(viewer);
+    await multipageTests(viewer);
     await pixelCompareTests(viewer);
     await propertyTests(viewer);
     await propertyDbTests(model);
@@ -51,6 +60,8 @@ Autodesk.Viewing.Initializer(options, async () => {
     await streamLineTests(viewer);
     await stringExtractorTests(viewer);
     await visualClustersTests(viewer);
+    // shutdown the viewer
+    viewer.tearDown();
 });
 
 function globalTests(): void {
@@ -117,7 +128,7 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
 }
 
 async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+    const propResults = await new Promise<Autodesk.Viewing.PropertyResult[]>((resolve, reject) => {
         const instanceTree = model.getInstanceTree();
         const ids: number[] = [];
 
@@ -128,16 +139,21 @@ async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void>
         });
 
         model.getBulkProperties(ids, {
-            propFilter: [ "Name"] },
+            propFilter: ["Name"]
+        },
             (propResults) => {
-                resolve();
+                resolve(propResults);
             }
         );
     });
+    // $ExpectType string | null
+    propResults[0].properties[0].units;
+    // $ExpectType string | number
+    propResults[0].properties[0].displayValue;
 }
 
 async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    await viewer.loadExtension('Autodesk.DataVisualization');
+    await viewer.loadExtension('Autodesk.CompGeom');
     const pln = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 
     Autodesk.Extensions.CompGeom.makePlaneBasis(pln);
@@ -172,7 +188,9 @@ async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
     heatmapData.addChild(level);
     heatmapData.initialize(viewer.model);
     await ext.setupSurfaceShading(viewer.model, heatmapData);
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
+        alpha: 0.7
+    });
 
     const getSensorValue = (device: any, sensorType: any) => {
         const value = Math.random();
@@ -200,7 +218,9 @@ async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise
     await ext.setupSurfaceShading(viewer.model, heatmapData, {
         type: 'PlanarHeatmap'
     });
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
+        alpha: 0.7
+    });
 
     const getSensorValue = (device: any, sensorType: any) => {
         const value = Math.random();
@@ -413,19 +433,6 @@ async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> 
     const resXor = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Xor);
 }
 
-async function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.Measure');
-
-    // $ExpectType string
-    ext.getName();
-    const modes = ext.getModes();
-
-    modes.forEach((m) => {
-        // $ExpectType boolean
-        ext.isActive(m);
-    });
-}
-
 function fragListTests(model: Autodesk.Viewing.Model): void {
     const fragId = 1; // hard coded value for testing
     const fragList = model.getFragmentList();
@@ -439,6 +446,14 @@ function fragListTests(model: Autodesk.Viewing.Model): void {
     fragList.getAnimTransform(fragId, s, r, t);
 }
 
+function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const extensions = viewer.getLoadedExtensions();
+
+    for (const ext in extensions) {
+        console.debug(ext);
+    }
+}
+
 function formattingTests(): void {
     // $ExpectType string
     Autodesk.Viewing.Private.formatValueWithUnits(10, Autodesk.Viewing.Private.ModelUnits.CENTIMETER, 3, 2);
@@ -447,12 +462,35 @@ function formattingTests(): void {
 async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.Measure') as Autodesk.Extensions.Measure.MeasureExtension;
 
+    // $ExpectType string
+    ext.getName();
+    const modes = ext.getModes();
+
+    modes.forEach((m) => {
+        // $ExpectType boolean
+        ext.isActive(m);
+    });
     ext.sharedMeasureConfig.units = 'in';
     ext.calibrateByScale('in', 0.0254);
     const m = ext.getMeasurementList();
 
     ext.deleteMeasurements();
     ext.setMeasurements(m);
+}
+
+async function multipageTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Multipage') as Autodesk.Viewing.Extensions.Multipage.MultipageExtension;
+
+    // $ExpectType any[]
+    ext.getAllPages();
+    // $ExpectType string
+    ext.focusFirstPage();
+    // $ExpectType number
+    ext.getCurrentPageIndex();
+    // $ExpectType string
+    ext.focusLastPage();
+    // $ExpectType number
+    ext.getCurrentPageIndex();
 }
 
 async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {
@@ -515,4 +553,81 @@ function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
             reject(new Error(errorMsg));
         });
     });
+}
+
+function checkColorEquals() {
+    const color1 = new THREE.Color(255, 127, 39);
+    const color2 = new THREE.Color(255, 127, 39);
+    const color3 = new THREE.Color(128, 128, 255);
+
+    color1.equals(color2); // $ExpectType boolean
+
+    if (!color1.equals(color2))
+        throw new Error("Colors must be equal");
+
+    if (color1.equals(color3))
+        throw new Error("Colors must not be equal");
+}
+
+function checkColorGetHexString() {
+    const color = new THREE.Color(255, 127, 39);
+
+    color.getHexString(); // $ExpectType string
+
+    if (color.getHexString() !== "805827")
+        throw new Error("Failed to get color hex string");
+}
+
+function checkColorAsMaterialCreationParameter() {
+    const color = new THREE.Color(5, 128, 57);
+
+    const materials = [
+        new THREE.MeshBasicMaterial({ color }),
+        new THREE.LineBasicMaterial({ color }),
+        new THREE.LineDashedMaterial({ color }),
+        new THREE.MeshLambertMaterial({ color }),
+        new THREE.MeshPhongMaterial({ color }),
+        new THREE.MeshStandardMaterial({ color })
+    ];
+
+    for (const material of materials) {
+        if (!material.color.equals(color))
+            throw new Error("Failed to instantiate material with color object");
+    }
+}
+
+function checkMeshAllowsBufferGeometry() {
+    const boxGeometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(10, 10, 10));
+    const boxMaterial = new THREE.MeshPhongMaterial({ color: "#ff0000" });
+    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+
+    if (!(boxMesh.geometry instanceof THREE.BufferGeometry))
+        throw new Error("Mesh geometry is not a BufferGeometry!");
+}
+
+function matrixSetPositionTest(): void {
+    const matrix = new THREE.Matrix4();
+
+    matrix.setPosition(new THREE.Vector3(1, 1, 1)); // $ExpectType Matrix4
+}
+
+function selectionTests(viewer: Autodesk.Viewing.GuiViewer3D) {
+    const rootId = viewer.model.getRootId();
+
+    viewer.select(rootId);
+
+    const aggregateSelection = viewer.getAggregateSelection();
+
+    if (aggregateSelection.length !== 1)
+        throw new Error("Should return exactly one object");
+
+    const selection = aggregateSelection[0];
+
+    if (selection.model !== viewer.model)
+        throw new Error("Selection model differs from viewer model");
+
+    if (selection.selection.length !== 1 || selection.selection[0] !== rootId)
+        throw new Error("Something is wron with aggregate selection!");
+
+    viewer.select([]);
 }

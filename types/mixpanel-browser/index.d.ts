@@ -1,10 +1,9 @@
-// Type definitions for mixpanel-browser 2.36
+// Type definitions for mixpanel-browser 2.38
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
 //                 Kristian Randall <https://github.com/randak>
 //                 Dan Wilt <https://github.com/dwilt>
-//                 Lee Dogeon <https://github.com/moreal>
 //                 Justin Helmer <https://github.com/justinhelmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -68,7 +67,6 @@ export interface Config {
     test: boolean;
     verbose: boolean;
     img: boolean;
-    track_pageview: boolean;
     debug: boolean;
     track_links_timeout: number;
     cookie_expiration: number;

@@ -35,49 +35,67 @@ madge('', {
     dependencyFilter: (id: string) => id !== 'filtered-path'
 });
 
-madge(); // $ExpectError
-madge(0); // $ExpectError
-madge('', 0); // $ExpectError
-madge('', { unexpectedConfig: 1 }); // $ExpectError
+// @ts-expect-error
+madge();
+// @ts-expect-error
+madge(0);
+// @ts-expect-error
+madge('', 0);
+// @ts-expect-error
+madge('', { unexpectedConfig: 1 });
 
 (async () => {
     await madge(''); // $ExpectType MadgeInstance
-    await madge(); // $ExpectError
+    // @ts-expect-error
+    await madge();
 
     (await madge('')).obj(); // $ExpectType MadgeModuleDependencyGraph
-    (await madge('')).obj(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).obj(0);
 
     (await madge('')).warnings(); // $ExpectType MadgeWarnings
-    (await madge('')).warnings(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).warnings(0);
 
     (await madge('')).circular(); // $ExpectType string[][]
-    (await madge('')).circular(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).circular(0);
 
     (await madge('')).circularGraph(); // $ExpectType MadgeModuleDependencyGraph
-    (await madge('')).circularGraph(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).circularGraph(0);
 
     (await madge('')).depends(''); // $ExpectType string[]
-    (await madge('')).depends(); // $ExpectError
-    (await madge('')).depends(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).depends();
+    // @ts-expect-error
+    (await madge('')).depends(0);
 
     (await madge('')).orphans(); // $ExpectType string[]
-    (await madge('')).orphans(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).orphans(0);
 
     (await madge('')).leaves(); // $ExpectType string[]
-    (await madge('')).leaves(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).leaves(0);
 
     (await madge('')).dot(); // $ExpectType Promise<string>
     (await madge('')).dot(true); // $ExpectType Promise<string>
     (await madge('')).dot(false); // $ExpectType Promise<string>
-    (await madge('')).dot(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).dot(0);
 
     (await madge('')).image(''); // $ExpectType Promise<string>
-    (await madge('')).image(); // $ExpectError
-    (await madge('')).image(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).image();
+    // @ts-expect-error
+    (await madge('')).image(0);
     (await madge('')).image('', true); // $ExpectType Promise<string>
     (await madge('')).image('', false); // $ExpectType Promise<string>
-    (await madge('')).image('', 0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).image('', 0);
 
     (await madge('')).svg(); // $ExpectType Promise<Buffer>
-    (await madge('')).svg(0); // $ExpectError
+    // @ts-expect-error
+    (await madge('')).svg(0);
 })();

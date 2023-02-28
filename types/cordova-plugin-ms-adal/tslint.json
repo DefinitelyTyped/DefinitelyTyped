@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
@@ -11,7 +10,6 @@
         "one-line": false,
         "prefer-const": false,
         "semicolon": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }
