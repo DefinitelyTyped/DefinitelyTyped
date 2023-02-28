@@ -103,7 +103,7 @@ declare namespace G {
         /**
          * Emitted when an unexpected error is encountered.
          */
-        on(event: 'end', callback: (matches: Match[]) => void): this;
+        on(event: 'end', callback: (matches: ReadonlyArray<Match>) => void): this;
         /**
          * Temporarily stop the search
          */
