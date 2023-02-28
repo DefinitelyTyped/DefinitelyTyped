@@ -132,7 +132,7 @@ declare module 'fs' {
      */
     export class Stats {}
 
-    export interface StatFsBase<T> {
+    export interface StatsFsBase<T> {
         /** Type of file system. */
         type: T;
         /**  Optimal transfer block size. */
@@ -149,19 +149,19 @@ declare module 'fs' {
         ffree: T;
     }
 
-    export interface StatFs extends StatFsBase<number> {}
+    export interface StatsFs extends StatsFsBase<number> {}
 
     /**
      * Provides information about a mounted file system
      *
-     * Objects returned from {@link statFs} and {@link statFsSync} are of this type.
+     * Objects returned from {@link statfs} and {@link statfsSync} are of this type.
      * If `bigint` in the `options` passed to those methods is true, the numeric values
      * will be `bigint` instead of `number`.
      * @since v19.6.0
      */
-    export class StatFs {}
+    export class StatsFs {}
 
-    export interface BigIntStatFs extends StatFsBase<bigint> {}
+    export interface BigIntStatsFs extends StatsFsBase<bigint> {}
 
     export interface StatFsOptions {
         bigint?: boolean | undefined;
@@ -1123,7 +1123,7 @@ declare module 'fs' {
      * @param path A path to an existing file or directory on the file system to be queried.
      * @param callback
      */
-    export function statfs(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: StatFs) => void): void;
+    export function statfs(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: StatsFs) => void): void;
     export function statfs(
         path: PathLike,
         options:
@@ -1131,16 +1131,16 @@ declare module 'fs' {
                   bigint?: false | undefined;
               })
             | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: StatFs) => void
+        callback: (err: NodeJS.ErrnoException | null, stats: StatsFs) => void
     ): void;
     export function statfs(
         path: PathLike,
         options: StatFsOptions & {
             bigint: true;
         },
-        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStatFs) => void
+        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStatsFs) => void
     ): void;
-    export function statfs(path: PathLike, options: StatFsOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: StatFs | BigIntStatFs) => void): void;
+    export function statfs(path: PathLike, options: StatFsOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: StatsFs | BigIntStatsFs) => void): void;
     export namespace statfs {
         /**
          * Asynchronous statfs(2) - Returns information about the mounted file system which contains path. The callback gets two arguments (err, stats) where stats is an <fs.StatFs> object.
@@ -1151,14 +1151,14 @@ declare module 'fs' {
             options?: StatFsOptions & {
                 bigint?: false | undefined;
             }
-        ): Promise<StatFs>;
+        ): Promise<StatsFs>;
         function __promisify__(
             path: PathLike,
             options: StatFsOptions & {
                 bigint: true;
             }
-        ): Promise<BigIntStatFs>;
-        function __promisify__(path: PathLike, options?: StatFsOptions): Promise<StatFs | BigIntStatFs>;
+        ): Promise<BigIntStatsFs>;
+        function __promisify__(path: PathLike, options?: StatFsOptions): Promise<StatsFs | BigIntStatsFs>;
     }
 
     /**
@@ -1172,15 +1172,15 @@ declare module 'fs' {
         options?: StatFsOptions & {
             bigint?: false | undefined;
         }
-    ): StatFs;
+    ): StatsFs;
     export function statfsSync(
         path: PathLike,
         options: StatFsOptions & {
             bigint: true;
         }
-    ): BigIntStatFs;
+    ): BigIntStatsFs;
 
-    export function statfsSync(path: PathLike, options?: StatFsOptions): StatFs | BigIntStatFs;
+    export function statfsSync(path: PathLike, options?: StatFsOptions): StatsFs | BigIntStatsFs;
     /**
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
