@@ -196,11 +196,11 @@ interface ServiceBase {
 }
 
 export type ServiceV1_2 = ServiceBase & {
-    services: ServiceV1_2[];
+    services?: ServiceV1_2[];
 };
 
 export type ServiceV1_3 = ServiceBase & {
-    services: ServiceV1_3[];
+    services?: ServiceV1_3[];
     properties?: Properties;
 };
 
