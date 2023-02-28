@@ -10,7 +10,6 @@
 //                 Lucas Silva Souza <https://github.com/lksilva>
 //                 Siarhey Belofost <https://github.com/SergeyBelofost>
 //                 Mark Nelissen <https://github.com/marknelissen>
-//                 Eric Kenney <https://github.com/KenneyE>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Jan Michalak <https://github.com/michalak111>
 //                 Tom Price <https://github.com/tomtom5152>
