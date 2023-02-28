@@ -1,10 +1,22 @@
-import * as pica from 'pica';
 import * as imageBlobReduce from 'image-blob-reduce';
 
+// no options
+// $ExpectType ImageBlobReduce
+imageBlobReduce();
+
+// $ExpectType Pica
+imageBlobReduce.pica();
+
+// with incorrect options
+// @ts-expect-error
+imageBlobReduce({ pica: imageBlobReduce.pica });
+
+// with options
 const createOptions: imageBlobReduce.Options = {
-    pica,
+    pica: imageBlobReduce.pica(),
 };
 
+// $ExpectType ImageBlobReduce
 const imageReducer = imageBlobReduce(createOptions);
 
 imageReducer.use(

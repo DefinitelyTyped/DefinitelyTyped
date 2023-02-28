@@ -37,11 +37,24 @@ const fcoseLayout: fcose.FcoseLayoutOptions = {
     initialEnergyOnIncremental: 1,
 
     fixedNodeConstraint: [{nodeId: 'n1', position: {x: 100, y: 200}}],
-    alignmentConstraint: {vertical: [['n1', 'n2']], horizontal: [['n2', 'n4']]},
+    alignmentConstraint: {vertical: [['n1', 'n2', 'n3'], ['n4', 'n5']], horizontal: [['n2', 'n4']]},
     relativePlacementConstraint: [{top: 'n1', bottom: 'n2', gap: 100}, {left: 'n3', right: 'n4', gap: 75}],
 
     ready: () => {},
     stop: () => {},
+};
+
+// Some layout parameters are node- or edge-specific and can be specified as either a function or a constant.
+// Type-check both approaches:
+const objectSpecificsAsFunctions: Partial<fcose.FcoseLayoutOptions> = {
+    nodeRepulsion: node => 4500,
+    idealEdgeLength: edge => 50,
+    edgeElasticity: edge => 0.45,
+};
+const objectSpecificsAsConstants: Partial<fcose.FcoseLayoutOptions> = {
+    nodeRepulsion: 4500,
+    idealEdgeLength: 50,
+    edgeElasticity: 0.45,
 };
 
 const cy = cytoscape({

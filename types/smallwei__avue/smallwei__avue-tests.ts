@@ -1,3 +1,7 @@
+import Avue, { AvueCrudOption, AvueFormOption } from '@smallwei/avue';
+
+Avue.install;
+
 interface User {
     id: string;
     name: string;

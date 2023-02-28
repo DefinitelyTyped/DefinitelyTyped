@@ -1,4 +1,27 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.111.0
+
+declare module "sap/ui/mdc/enum/FilterBarValidationStatus" {
+  /**
+   * @SINCE 1.110
+   *
+   * Enumeration of the possible validation types.
+   */
+  enum FilterBarValidationStatus {
+    /**
+     * Filter field in error state.
+     */
+    FieldInErrorState = "undefined",
+    /**
+     * No errors detected.
+     */
+    NoError = "undefined",
+    /**
+     * Required filter filed without a value.
+     */
+    RequiredHasNoValue = "undefined",
+  }
+  export default FilterBarValidationStatus;
+}
 
 declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   import Metadata from "sap/ui/base/Metadata";
@@ -275,7 +298,7 @@ declare namespace sap {
 
     "sap/ui/mdc/enum/FieldDisplay": undefined;
 
-    "sap/ui/mdc/enum/OutParameterMode": undefined;
+    "sap/ui/mdc/enum/FilterBarValidationStatus": undefined;
 
     "sap/ui/mdc/enum/PersistenceMode": undefined;
 
@@ -283,19 +306,15 @@ declare namespace sap {
 
     "sap/ui/mdc/enum/PropagationReason": undefined;
 
+    "sap/ui/mdc/enum/ReasonMode": undefined;
+
     "sap/ui/mdc/enum/SelectType": undefined;
 
     "sap/ui/mdc/Field": undefined;
 
-    "sap/ui/mdc/field/BoolFieldHelp": undefined;
-
-    "sap/ui/mdc/field/ConditionFieldHelp": undefined;
-
     "sap/ui/mdc/field/ConditionsType": undefined;
 
     "sap/ui/mdc/field/ConditionType": undefined;
-
-    "sap/ui/mdc/field/CustomFieldHelp": undefined;
 
     "sap/ui/mdc/field/CustomFieldInfo": undefined;
 
@@ -307,31 +326,11 @@ declare namespace sap {
 
     "sap/ui/mdc/field/FieldBaseDelegate": undefined;
 
-    "sap/ui/mdc/field/FieldHelpBase": undefined;
-
-    "sap/ui/mdc/field/FieldHelpBaseDelegate": undefined;
-
     "sap/ui/mdc/field/FieldInfoBase": undefined;
 
     "sap/ui/mdc/field/FieldInput": undefined;
 
     "sap/ui/mdc/field/FieldMultiInput": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelp": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpContentWrapperBase": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpDelegate": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpMdcTableWrapper": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpMTableWrapper": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpUITableWrapper": undefined;
-
-    "sap/ui/mdc/field/InParameter": undefined;
-
-    "sap/ui/mdc/field/ListFieldHelp": undefined;
 
     "sap/ui/mdc/field/ListFieldHelpItem": undefined;
 
@@ -339,13 +338,9 @@ declare namespace sap {
 
     "sap/ui/mdc/field/MultiValueFieldItem": undefined;
 
-    "sap/ui/mdc/field/OutParameter": undefined;
-
     "sap/ui/mdc/field/TokenDisplay": undefined;
 
     "sap/ui/mdc/field/TokenizerDisplay": undefined;
-
-    "sap/ui/mdc/field/ValueHelpPanel": undefined;
 
     "sap/ui/mdc/FilterBar": undefined;
 
@@ -385,11 +380,13 @@ declare namespace sap {
 
     "sap/ui/mdc/MultiValueField": undefined;
 
+    "sap/ui/mdc/odata/TypeUtil": undefined;
+
     "sap/ui/mdc/odata/v4/FieldBaseDelegate": undefined;
 
-    "sap/ui/mdc/odata/v4/FieldValueHelpDelegate": undefined;
-
     "sap/ui/mdc/odata/v4/TableDelegate": undefined;
+
+    "sap/ui/mdc/odata/v4/TypeUtil": undefined;
 
     "sap/ui/mdc/odata/v4/ValueHelpDelegate": undefined;
 
@@ -434,6 +431,8 @@ declare namespace sap {
     "sap/ui/mdc/util/DateUtil": undefined;
 
     "sap/ui/mdc/util/FilterUtil": undefined;
+
+    "sap/ui/mdc/util/InfoBar": undefined;
 
     "sap/ui/mdc/util/PromiseCache": undefined;
 

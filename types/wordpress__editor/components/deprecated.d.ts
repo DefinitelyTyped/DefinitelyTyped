@@ -101,9 +101,6 @@ export const PanelColorSettings: typeof import('@wordpress/block-editor').PanelC
 export const PlainText: typeof import('@wordpress/block-editor').PlainText;
 
 /** @deprecated use import from '@wordpress/block-editor' instead. */
-export const PreserveScrollInReorder: typeof import('@wordpress/block-editor').PreserveScrollInReorder;
-
-/** @deprecated use import from '@wordpress/block-editor' instead. */
 export const RichText: typeof import('@wordpress/block-editor').RichText;
 
 /** @deprecated use import from '@wordpress/block-editor' instead. */

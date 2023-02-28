@@ -6497,7 +6497,7 @@ declare module 'vscode' {
 		/**
 		 * Outputs the given trace message to the channel. Use this method to log verbose information.
 		 *
-		 * The message is only loggeed if the channel is configured to display {@link LogLevel.Trace trace} log level.
+		 * The message is only logged if the channel is configured to display {@link LogLevel.Trace trace} log level.
 		 *
 		 * @param message trace message to log
 		 */
@@ -6506,7 +6506,7 @@ declare module 'vscode' {
 		/**
 		 * Outputs the given debug message to the channel.
 		 *
-		 * The message is only loggeed if the channel is configured to display {@link LogLevel.Debug debug} log level or lower.
+		 * The message is only logged if the channel is configured to display {@link LogLevel.Debug debug} log level or lower.
 		 *
 		 * @param message debug message to log
 		 */
@@ -6515,7 +6515,7 @@ declare module 'vscode' {
 		/**
 		 * Outputs the given information message to the channel.
 		 *
-		 * The message is only loggeed if the channel is configured to display {@link LogLevel.Info info} log level or lower.
+		 * The message is only logged if the channel is configured to display {@link LogLevel.Info info} log level or lower.
 		 *
 		 * @param message info message to log
 		 */
@@ -6524,7 +6524,7 @@ declare module 'vscode' {
 		/**
 		 * Outputs the given warning message to the channel.
 		 *
-		 * The message is only loggeed if the channel is configured to display {@link LogLevel.Warning warning} log level or lower.
+		 * The message is only logged if the channel is configured to display {@link LogLevel.Warning warning} log level or lower.
 		 *
 		 * @param message warning message to log
 		 */
@@ -6533,7 +6533,7 @@ declare module 'vscode' {
 		/**
 		 * Outputs the given error or error message to the channel.
 		 *
-		 * The message is only loggeed if the channel is configured to display {@link LogLevel.Error error} log level or lower.
+		 * The message is only logged if the channel is configured to display {@link LogLevel.Error error} log level or lower.
 		 *
 		 * @param error Error or error message to log
 		 */

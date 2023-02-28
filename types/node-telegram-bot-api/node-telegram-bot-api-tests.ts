@@ -24,6 +24,50 @@ MyTelegramBot.getWebHookInfo();
 MyTelegramBot.getUpdates({ timeout: 10 });
 MyTelegramBot.processUpdate({ update_id: 1 });
 MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true, allow_sending_without_reply: true });
+MyTelegramBot.sendMessage(1234, 'test-ForceReply-placeholder', {
+    reply_markup: {
+        force_reply: true,
+        input_field_placeholder: 'Placeholder here',
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ForceReply-no-placeholder', {
+    reply_markup: {
+        force_reply: true,
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ReplyKeyboardMarkup-placeholder', {
+    reply_markup: {
+        keyboard: [
+            [
+                {
+                    text: `Status: connected`,
+                    request_location: true,
+                },
+                {
+                    text: `Status: idle`,
+                },
+            ],
+        ],
+        is_persistent: true,
+        input_field_placeholder: 'text goes here',
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ReplyKeyboardMarkup-no-placeholder', {
+    reply_markup: {
+        keyboard: [
+            [
+                {
+                    text: `Status: connected`,
+                    request_location: true,
+                },
+                {
+                    text: `Status: idle`,
+                },
+            ],
+        ],
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true, allow_sending_without_reply: true });
 const res: TelegramBot.InlineQueryResultArticle = {
     id: '1',
     type: 'article',
@@ -111,7 +155,7 @@ MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
 MyTelegramBot.banChatMember(1234, 'myUserID');
 MyTelegramBot.unbanChatMember(1234, 'myUserID');
-MyTelegramBot.restrictChatMember(1234, 'myUserID', { can_add_web_page_previews: true, can_send_polls: false });
+MyTelegramBot.restrictChatMember(1234, 'myUserID', { permissions: { can_add_web_page_previews: true, can_send_polls: false } });
 MyTelegramBot.promoteChatMember(1234, 'myUserID', { can_change_info: true });
 MyTelegramBot.exportChatInviteLink(1234);
 MyTelegramBot.createChatInviteLink(1234, 'Foo', 1234, 1234, true);
@@ -183,7 +227,7 @@ MyTelegramBot.removeReplyListener(5466);
 MyTelegramBot.clearReplyListeners();
 MyTelegramBot.getChat(1234);
 MyTelegramBot.getChatAdministrators(1234);
-MyTelegramBot.getChatMembersCount(1234);
+MyTelegramBot.getChatMemberCount(1234);
 MyTelegramBot.getChatMember(1234, 'myUserID');
 MyTelegramBot.leaveChat(1234);
 MyTelegramBot.setChatStickerSet(1234, 'sticker');

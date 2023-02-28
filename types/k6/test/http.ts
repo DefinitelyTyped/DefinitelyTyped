@@ -15,6 +15,7 @@ import http, {
     post,
     put,
     request,
+    asyncRequest,
     batch,
     file,
     cookieJar,
@@ -196,8 +197,41 @@ responseBinary = request('post', address, {}, { responseType: 'binary' });
 request('post', address, {}, {}, 5);
 
 // request params
-responseDefault = request('post', address, {}, {timeout: '10s'});
-responseDefault = request('post', address, {}, {timeout: 10});
+responseDefault = request('post', address, {}, { timeout: '10s' });
+responseDefault = request('post', address, {}, { timeout: 10 });
+
+// asyncRequest
+// @ts-expect-error
+asyncRequest();
+// @ts-expect-error
+asyncRequest(5);
+// @ts-expect-error
+asyncRequest('get');
+// @ts-expect-error
+asyncRequest('get', 5);
+asyncRequest('get', addressFromHttpURL);
+asyncRequest('get', address).then((res) => {
+    responseDefault = res;
+});
+// @ts-expect-error
+asyncRequest('post', address, 5);
+asyncRequest('post', address, 'welcome to the internet').then((res) => {
+    responseDefault = res;
+});
+asyncRequest('post', address, {}).then((res) => { responseDefault = res; });
+asyncRequest('post', address, { query: 'quokka' }).then((res) => { responseDefault = res; });
+asyncRequest('post', address, new ArrayBuffer(8)).then((res) => { responseDefault = res; });
+// @ts-expect-error
+asyncRequest('post', address, {}, 5);
+asyncRequest('post', address, {}, { responseType: 'binary' }).then((res) => { responseBinary = res; });
+// @ts-expect-error
+asyncRequest('post', address, {}, { responseType: 'binary' }).then((res) => { responseDefault = res; });
+// @ts-expect-error
+asyncRequest('post', address, {}, {}, 5);
+
+// asyncRequest params
+asyncRequest('post', address, {}, { timeout: '10s' }).then((res) => { responseDefault = res; });
+asyncRequest('post', address, {}, { timeout: 10 }).then((res) => { responseDefault = res; });
 
 // batch
 // @ts-expect-error
@@ -471,7 +505,8 @@ setResponseCallback(expectedStatuses(200));
 
 http.setResponseCallback(http.expectedStatuses(200));
 
-request('post', address, {}, {responseCallback: expectedStatuses(200)});
+request('post', address, {}, { responseCallback: expectedStatuses(200) });
+asyncRequest('post', address, {}, { responseCallback: expectedStatuses(200) });
 
 http.cookieJar().clear('https://test.k6.io');
 http.cookieJar();

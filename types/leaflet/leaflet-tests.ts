@@ -1,4 +1,5 @@
 import * as L from 'leaflet';
+import * as geojson_types from 'geojson';
 
 const version = L.version;
 
@@ -882,3 +883,34 @@ export class ExtendedTileLayer extends L.TileLayer {
         }
     }
 }
+
+const polygonGeoJson = L.geoJSON<any, geojson_types.Polygon>(null, {
+    onEachFeature(polygonFeature, layer) {
+        // $ExpectType Polygon
+        polygonFeature.geometry;
+    }
+});
+
+const pointGeoJson = L.geoJSON<any, geojson_types.Point>(null, {
+    onEachFeature(polygonFeature, layer) {
+        // $ExpectType Point
+        polygonFeature.geometry;
+    }
+});
+
+// $ExpectType Polygon
+L.GeoJSON.getFeature(new L.Layer(), {} as geojson_types.Polygon).geometry;
+
+// $ExpectType Point
+L.GeoJSON.asFeature({} as geojson_types.Point).geometry;
+
+L.GeoJSON.geometryToLayer(
+    {} as geojson_types.Feature<geojson_types.MultiPolygon>,
+    {
+        filter(multiPolygon) {
+            // $ExpectType MultiPolygon
+            multiPolygon.geometry;
+            return true;
+        }
+    }
+);

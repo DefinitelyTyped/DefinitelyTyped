@@ -1275,13 +1275,12 @@ declare namespace OracleDB {
         queueName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
         queries?: {
-            /** Array of objects specifying the queries which were affected by the Query Change notification. */
-            tables: SubscriptionTables;
+            /** Array of objects specifying the tables which were affected by the notification. */
+            tables?: SubscriptionTable[];
         }[] | undefined;
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
-        /** Array of objects specifying the tables which were affected by the notification. */
-        tables?: SubscriptionTables[] | undefined;
+
         /** Buffer containing the identifier of the transaction which spawned the notification. */
         txId: Buffer;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
@@ -1289,9 +1288,9 @@ declare namespace OracleDB {
     }
 
     /**
-     * An object specifying which tables were affected by a subscription's notification.
+     * An object specifying the table that was affected by a subscription's notification.
      */
-    interface SubscriptionTables {
+    interface SubscriptionTable {
         /** Name of the table which was modified in some way. */
         name: string;
         /**
