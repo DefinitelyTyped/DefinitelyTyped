@@ -53,13 +53,13 @@ declare class Packet {
 
 declare namespace DNS {
     interface DnsClientOptions {
-        port: number,
-        retries: number,
-        timeout: number,
-        recursive: boolean,
-        resolverProtocol: 'UDP' | 'TCP',
-        nameServers: string[],
-        rootServers: string[]
+        port: number;
+        retries: number;
+        timeout: number;
+        recursive: boolean;
+        resolverProtocol: 'UDP' | 'TCP';
+        nameServers: string[];
+        rootServers: string[];
     }
 
     interface DnsRequest {
