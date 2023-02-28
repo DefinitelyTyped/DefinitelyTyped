@@ -1,1 +1,0 @@
-dist/alt/video.core.d.ts
