@@ -320,7 +320,6 @@ declare module 'fs/promises' {
             }
         ): Promise<BigIntStats>;
         stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
-      
         /**
          * Truncates the file.
          *
@@ -749,7 +748,7 @@ declare module 'fs/promises' {
         }
     ): Promise<BigIntStats>;
     function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
-     /**
+    /**
      * @since v19.6.0
      * @return Fulfills with an {fs.StatFs} for the file system.
      */
@@ -765,7 +764,7 @@ declare module 'fs/promises' {
             bigint: true;
         }
     ): Promise<BigIntStatFs>;
-    function statfs(path:PathLike, opts?: StatFsOptions): Promise<StatFs | BigIntStatFs>;  
+    function statfs(path: PathLike, opts?: StatFsOptions): Promise<StatFs | BigIntStatFs>;
 
     /**
      * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail.

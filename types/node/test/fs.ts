@@ -13,7 +13,6 @@ import * as util from 'node:util';
 import { URL } from 'node:url';
 import assert = require('node:assert');
 import { CopyOptions, CopySyncOptions, cpSync, cp } from 'fs';
-import { PathLike } from 'node:fs';
 
 {
     fs.writeFile("thebible.txt",
@@ -695,51 +694,49 @@ const bigIntStat: bigint = bigStats.atimeNs;
 const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.random() > 0.5 });
 
 async function testStatfs(
-    path: PathLike, 
-    opts: fs.StatFsOptions, 
+    path: fs.PathLike,
+    opts: fs.StatFsOptions,
     bigintMaybeFalse: fs.StatFsOptions & { bigint: false } | undefined,
-    bigintMaybeTrue: fs.StatFsOptions & { bigint: true } | undefined) 
-{
+    bigintMaybeTrue: fs.StatFsOptions & { bigint: true } | undefined) {
     // Callback mode
-    fs.statfs(path,(err,st:fs.StatFs)=>{}); 
-    fs.statfs(path,undefined,(err,st:fs.StatFs)=>{}); 
-    fs.statfs(path,{},(err,st:fs.StatFs)=>{}); 
-    fs.statfs(path,{bigint:true},(err,st:fs.BigIntStatFs)=>{}); 
-    fs.statfs(path,{bigint:false},(err,st:fs.StatFs)=>{}); 
-    fs.statfs(path,bigintMaybeTrue,(err,st)=>{
-        st // $ExpectType StatFs | BigIntStatFs
-    }); 
-    fs.statfs(path,bigintMaybeFalse,(err,st)=>{
-        st // $ExpectType StatFs
-    }); 
+    fs.statfs(path, (err, st: fs.StatFs) => {});
+    fs.statfs(path, undefined, (err, st: fs.StatFs) => {});
+    fs.statfs(path, {}, (err, st: fs.StatFs) => {});
+    fs.statfs(path, {bigint: true}, (err, st: fs.BigIntStatFs) => {});
+    fs.statfs(path, {bigint: false}, (err, st: fs.StatFs) => {});
+    fs.statfs(path, bigintMaybeTrue, (err, st) => {
+        st; // $ExpectType StatFs | BigIntStatFs
+    });
+    fs.statfs(path, bigintMaybeFalse, (err, st) => {
+        st; // $ExpectType StatFs
+    });
 
     // Sync mode
     fs.statfsSync(path); // $ExpectType StatFs
-    fs.statfsSync(path,undefined); // $ExpectType StatFs
-    fs.statfsSync(path,{}); // $ExpectType StatFs
-    fs.statfsSync(path,bigintMaybeTrue); // $ExpectType StatFs | BigIntStatFs
-    fs.statfsSync(path,bigintMaybeFalse); // $ExpectType StatFs
-    fs.statfsSync(path,{bigint:true}); // $ExpectType BigIntStatFs
-    fs.statfsSync(path,{bigint:false}); // $ExpectType StatFs
+    fs.statfsSync(path, undefined); // $ExpectType StatFs
+    fs.statfsSync(path, {}); // $ExpectType StatFs
+    fs.statfsSync(path, bigintMaybeTrue); // $ExpectType StatFs | BigIntStatFs
+    fs.statfsSync(path, bigintMaybeFalse); // $ExpectType StatFs
+    fs.statfsSync(path, { bigint: true }); // $ExpectType BigIntStatFs
+    fs.statfsSync(path, { bigint: false }); // $ExpectType StatFs
 
     // Promisify mode
     util.promisify(fs.statfs)(path); // $ExpectType Promise<StatFs>
-    util.promisify(fs.statfs)(path,undefined); // $ExpectType Promise<StatFs>
-    util.promisify(fs.statfs)(path,{}); // $ExpectType Promise<StatFs>
-    util.promisify(fs.statfs)(path,{bigint:true}); // $ExpectType Promise<BigIntStatFs>
-    util.promisify(fs.statfs)(path,{bigint:false}); // $ExpectType Promise<StatFs>
-    util.promisify(fs.statfs)(path, bigintMaybeTrue); // $ExpectType Promise<StatFs|BigIntStatFs>
+    util.promisify(fs.statfs)(path, undefined); // $ExpectType Promise<StatFs>
+    util.promisify(fs.statfs)(path, {}); // $ExpectType Promise<StatFs>
+    util.promisify(fs.statfs)(path, { bigint: true }); // $ExpectType Promise<BigIntStatFs>
+    util.promisify(fs.statfs)(path, { bigint: false }); // $ExpectType Promise<StatFs>
+    util.promisify(fs.statfs)(path, bigintMaybeTrue); // $ExpectType Promise<StatFs | BigIntStatFs>
     util.promisify(fs.statfs)(path, bigintMaybeFalse); // $ExpectType Promise<StatFs>
 
     // fs.promises mode
     fs.promises.statfs(path); // $ExpectType Promise<StatFs>
-    fs.promises.statfs(path,undefined); // $ExpectType Promise<StatFs>
-    fs.promises.statfs(path,{}); // $ExpectType Promise<StatFs>
-    fs.promises.statfs(path,{bigint:false}); // $ExpectType Promise<StatFs>
-    fs.promises.statfs(path,{bigint:true}); // $ExpectType Promise<BigIntStatFs>
-    fs.promises.statfs(path,bigintMaybeTrue); // $ExpectType Promise<StatFs|BigIntStatFs>
-    fs.promises.statfs(path,bigintMaybeFalse); // $ExpectType Promise<StatFs>
-
+    fs.promises.statfs(path, undefined); // $ExpectType Promise<StatFs>
+    fs.promises.statfs(path, {}); // $ExpectType Promise<StatFs>
+    fs.promises.statfs(path, { bigint: false }); // $ExpectType Promise<StatFs>
+    fs.promises.statfs(path, { bigint: true }); // $ExpectType Promise<BigIntStatFs>
+    fs.promises.statfs(path, bigintMaybeTrue); // $ExpectType Promise<StatFs | BigIntStatFs>
+    fs.promises.statfs(path, bigintMaybeFalse); // $ExpectType Promise<StatFs>
 }
 
 const bigStatFs: fs.BigIntStatFs = fs.statfsSync('.', { bigint: true });
