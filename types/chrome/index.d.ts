@@ -1729,26 +1729,13 @@ declare namespace chrome.contextMenus {
      * @param updateProperties The properties to update. Accepts the same values as the create function.
      * @param callback Called when the context menu has been updated.
      */
-    export function update(id: string, updateProperties: UpdateProperties, callback?: () => void): void;
-    /**
-     * Updates a previously created context menu item.
-     * @param id The ID of the item to update.
-     * @param updateProperties The properties to update. Accepts the same values as the create function.
-     * @param callback Called when the context menu has been updated.
-     */
-    export function update(id: number, updateProperties: UpdateProperties, callback?: () => void): void;
+    export function update(id: string | number, updateProperties: UpdateProperties, callback?: () => void): void;
     /**
      * Removes a context menu item.
      * @param menuItemId The ID of the context menu item to remove.
      * @param callback Called when the context menu has been removed.
      */
-    export function remove(menuItemId: string, callback?: () => void): void;
-    /**
-     * Removes a context menu item.
-     * @param menuItemId The ID of the context menu item to remove.
-     * @param callback Called when the context menu has been removed.
-     */
-    export function remove(menuItemId: number, callback?: () => void): void;
+    export function remove(menuItemId: string | number, callback?: () => void): void;
 
     /**
      * Since Chrome 21.
