@@ -134,7 +134,7 @@ export function mimeWordsDecode(str?: string): string;
  * flowed text (afterSpace=true)
  *
  * @param str String to be folded
- * @param afterSpace If true, leave a space in th end of a line
+ * @param afterSpace If true, leave a space in the end of a line
  * @return String with folded lines
  */
 export function foldLines(str?: string, afterSpace?: boolean): string;
