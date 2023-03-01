@@ -34,9 +34,12 @@ minio.makeBucket('testBucket', 'ap-southeast-2', (error: Error | null) => {
 minio.makeBucket('testBucket', (error: Error | null) => {
     console.log(error);
 });
-await minio.makeBucket('testBucket', 'eu-west-1', { ObjectLocking: false });
-await minio.makeBucket('testBucket', 'eu-west-1');
-await minio.makeBucket('testBucket');
+
+(async () => {
+    await minio.makeBucket('testBucket', 'eu-west-1', { ObjectLocking: false });
+    await minio.makeBucket('testBucket', 'eu-west-1');
+    await minio.makeBucket('testBucket');
+})()
 
 minio.listBuckets((error: Error | null, bucketList: Minio.BucketItemFromList[]) => {
     console.log(error, bucketList);
