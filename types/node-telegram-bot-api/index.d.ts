@@ -1449,14 +1449,14 @@ declare class TelegramBot extends EventEmitter {
     forwardMessage(
         chatId: TelegramBot.ChatId,
         fromChatId: TelegramBot.ChatId,
-        messageId: number | string,
+        messageId: number,
         options?: TelegramBot.ForwardMessageOptions,
     ): Promise<TelegramBot.Message>;
 
     copyMessage(
         chatId: TelegramBot.ChatId,
         fromChatId: TelegramBot.ChatId,
-        messageId: number | string,
+        messageId: number,
         options?: TelegramBot.CopyMessageOptions,
     ): Promise<TelegramBot.MessageId>;
 
@@ -1740,7 +1740,7 @@ declare class TelegramBot extends EventEmitter {
 
     onReplyToMessage(
         chatId: TelegramBot.ChatId,
-        messageId: number | string,
+        messageId: number,
         callback: (msg: TelegramBot.Message) => void,
     ): number;
 
@@ -1809,7 +1809,7 @@ declare class TelegramBot extends EventEmitter {
         options?: TelegramBot.GetGameHighScoresOptions,
     ): Promise<TelegramBot.GameHighScore[]>;
 
-    deleteMessage(chatId: TelegramBot.ChatId, messageId: string | number, options?: any): Promise<boolean>;
+    deleteMessage(chatId: TelegramBot.ChatId, messageId: number, options?: any): Promise<boolean>;
 
     sendInvoice(
         chatId: TelegramBot.ChatId,
