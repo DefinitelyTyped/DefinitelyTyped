@@ -90,6 +90,9 @@ declare namespace DNS {
         sendResponse: (response: DnsResponse) => void,
         remoteInfo: udp.RemoteInfo,
     ) => void;
+
+    type PacketClass = typeof DNS.Packet.CLASS[keyof typeof DNS.Packet.CLASS];
+    type PacketQuestion = keyof typeof DNS.Packet.TYPE;
 }
 
 declare class DnsServer extends EventEmitter {
@@ -126,6 +129,8 @@ declare class DNS {
     static createTCPServer: (...options: ConstructorParameters<typeof TcpDnsServer>) => TcpDnsServer;
     static TCPServer: typeof TcpDnsServer;
 
+    query(name: string, type: DNS.PacketQuestion, cls?: DNS.PacketClass, clientIp?: string): Promise<DNS.DnsResponse>;
+    resolve(domain: string, type?: DNS.PacketQuestion, cls?: DNS.PacketClass, clientIp?: string): Promise<DNS.DnsResponse>;
     resolveA(domain: string, clientIp?: string): Promise<DNS.DnsResponse>;
     resolveAAAA(domain: string): Promise<DNS.DnsResponse>;
     resolveMX(domain: string): Promise<DNS.DnsResponse>;

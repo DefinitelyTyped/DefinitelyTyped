@@ -14,8 +14,11 @@ const dnsCustom = new DNS({
     const result = await dns.resolveA('google.com');
     console.log(result.answers);
 
-    const result2 = await dnsCustom.resolveCNAME('google.com');
+    const result2 = await dns.resolveCNAME('google.com');
     console.log(result2.answers.filter(answer => answer.domain));
+
+    const result3 = await dnsCustom.resolve('google.com', 'TXT', DNS.Packet.CLASS.ANY)
+    console.log(result3.answers.filter(answer => answer.data));
 })();
 
 const { Packet } = DNS;
