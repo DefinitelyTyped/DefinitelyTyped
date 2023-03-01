@@ -255,6 +255,7 @@ export class Client {
         callback: NoResultCallback,
     ): void;
     makeBucket(bucketName: string, region: Region, callback: NoResultCallback): void;
+    makeBucket(bucketName: string, callback: NoResultCallback): void;
     makeBucket(bucketName: string, region?: Region, makeOpts?: { ObjectLocking: boolean }): Promise<void>;
 
     listBuckets(callback: ResultCallback<BucketItemFromList[]>): void;
