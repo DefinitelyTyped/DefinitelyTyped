@@ -46,6 +46,7 @@ ejsFunction = ejs.compile(template);
 ejsFunction = ejs.compile(template, options);
 ejsFunction = ejs.compile(template, { cache: true, filename: fileName });
 ejsFunction = ejs.compile(template, { cache: true, filename: fileName, root: './' });
+ejsFunction = ejs.compile(template, { cache: true, filename: fileName, root: ['./'] });
 ejsFunction = ejs.compile(template, { context: { foo: 'FOO' } });
 ejsFunction = ejs.compile(template, { compileDebug: false });
 ejsFunction = ejs.compile(template, { client: true });

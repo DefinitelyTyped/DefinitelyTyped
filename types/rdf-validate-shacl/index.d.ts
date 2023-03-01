@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as RDF from 'rdf-js';
-import ValidationReport = require('./src/validation-report');
+import { ValidationReport } from './src/validation-report';
 
 type Factory<OutQuad extends RDF.Quad = RDF.Quad,
     InQuad extends RDF.Quad = RDF.Quad,

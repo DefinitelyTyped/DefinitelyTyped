@@ -852,6 +852,19 @@ import { promisify } from 'node:util';
 }
 
 {
+    crypto.createPrivateKey({
+        key: 'abc123',
+        format: 'der',
+        encoding: 'hex'
+    });
+    crypto.createPublicKey({
+        key: 'abc123',
+        format: 'der',
+        encoding: 'hex'
+    });
+}
+
+{
     const keyObject = crypto.createSecretKey(Buffer.from('asdf')); // $ExpectType KeyObject
     keyObject instanceof crypto.KeyObject;
     assert.equal(keyObject.symmetricKeySize, 4);

@@ -1,4 +1,4 @@
-// Type definitions for Chroma.js 2.1
+// Type definitions for Chroma.js 2.4
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>, Charlie Zhuo <https://github.com/CharlieZhuo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,13 +14,15 @@ declare namespace chroma {
         hsv: [number, number, number];
         hsi: [number, number, number];
         lab: [number, number, number];
+        oklab: [number, number, number];
         lch: [number, number, number];
+        oklch: [number, number, number];
         hcl: [number, number, number];
         cmyk: [number, number, number, number];
         gl: [number, number, number, number];
     }
 
-    type InterpolationMode = 'rgb' | 'hsl' | 'hsv' | 'hsi' | 'lab' | 'lch' | 'hcl' | 'lrgb';
+    type InterpolationMode = 'rgb' | 'hsl' | 'hsv' | 'hsi' | 'lab' | 'oklab' | 'lch' | 'oklch' | 'hcl' | 'lrgb';
 
     interface ChromaStatic {
         /**
@@ -63,20 +65,24 @@ declare namespace chroma {
 
         valid(color: any, mode?: string): boolean;
 
-        hsl(h: number, s: number, l: number): Color;
+        hsl(h: number, s: number, l: number, alpha?: number): Color;
 
-        hsv(h: number, s: number, v: number): Color;
+        hsv(h: number, s: number, v: number, alpha?: number): Color;
 
         lab(lightness: number, a: number, b: number, alpha?: number): Color;
 
-        lch(l: number, c: number, h: number): Color;
+        oklab(lightness: number, a: number, b: number, alpha?: number): Color;
+
+        lch(l: number, c: number, h: number, alpha?: number): Color;
+
+        oklch(l: number, c: number, h: number, alpha?: number): Color;
 
         /**
          * Same meaning as lch(), but in different order.
          */
-        hcl(h: number, c: number, l: number): Color;
+        hcl(h: number, c: number, l: number, alpha?: number): Color;
 
-        rgb(r: number, g: number, b: number): Color;
+        rgb(r: number, g: number, b: number, alpha?: number): Color;
 
         /**
          * GL is a variant of RGB(A), with the only difference that the components are normalized to the range of 0..1.
@@ -381,6 +387,14 @@ declare namespace chroma {
         lab: () => ColorSpaces['lab'];
 
         /**
+         * Returns an array with the **L**, **a**, and **b** components.
+         *
+         * @example
+         * chroma('orange').oklab() === [0.7927,0.0566,0.1614]
+         */
+        oklab: () => ColorSpaces['oklab'];
+
+        /**
          * Returns an array with the **Lightness**, **chroma**, and **hue**
          * components.
          *
@@ -388,6 +402,15 @@ declare namespace chroma {
          * chroma('skyblue').lch() === [79.21,25.94,235.11]
          */
         lch: () => ColorSpaces['lch'];
+
+        /**
+         * Returns an array with the **Lightness**, **chroma**, and **hue**
+         * components.
+         *
+         * @example
+         * chroma('skyblue').oklch() === [0.8148,0.0819,225.8]
+         */
+        oklch: () => ColorSpaces['oklch'];
 
         /**
          * Alias of [lch](#color-lch), but with the components in reverse
@@ -435,7 +458,7 @@ declare namespace chroma {
          * @example
          * chroma.hcl(50, 40, 100)._rgb._unclipped === [322.65,235.24,196.7,1]
          */
-        _rgb: { _unclipped: ColorSpaces['rgb'] };
+        _rgb: { _unclipped: ColorSpaces['rgba'] };
     }
 
     interface Scale<OutType = Color> {

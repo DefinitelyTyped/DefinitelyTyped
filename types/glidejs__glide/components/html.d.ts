@@ -1,7 +1,8 @@
 export interface Html {
-    readonly root: Record<string, unknown>;
-    readonly track: Record<string, unknown>;
-    readonly wrapper: Record<string, unknown>;
+    readonly root: HTMLElement;
+    readonly track: HTMLElement;
+    readonly wrapper: HTMLElement;
+
     /**
      * Setup slider HTML nodes.
      */

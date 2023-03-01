@@ -63,7 +63,7 @@ const environmentProvider: IEnvironmentProvider<any> = {
     },
 };
 
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function JSResource<TModule extends any>(): JSResourceReference<TModule>;
 
 const query = graphql`

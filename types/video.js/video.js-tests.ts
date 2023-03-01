@@ -22,6 +22,7 @@ const playerOptions: VideoJsPlayerOptions = {
         pictureInPictureToggle: audioElement.tagName !== 'AUDIO',
     },
     textTrackSettings: {
+        pauseOnOpen: true,
         persistTextTrackSettings: false,
     },
     controls: true,

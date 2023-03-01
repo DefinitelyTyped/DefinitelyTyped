@@ -70,7 +70,7 @@ export interface StaticContext {
 export interface RouteComponentProps<
     Params extends { [K in keyof Params]?: string } = {},
     C extends StaticContext = StaticContext,
-    S = H.LocationState
+    S = H.LocationState,
 > {
     history: H.History<S>;
     location: H.Location<S>;
@@ -86,7 +86,7 @@ export interface RouteChildrenProps<Params extends { [K in keyof Params]?: strin
 
 export interface RouteProps<
     Path extends string = string,
-    Params extends { [K: string]: string | undefined } = ExtractRouteParams<Path, string>
+    Params extends { [K: string]: string | undefined } = ExtractRouteParams<Path, string>,
 > {
     location?: H.Location | undefined;
     component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any> | undefined;
@@ -157,13 +157,13 @@ export type ExtractRouteOptionalParam<T extends string, U = string | number | bo
 export type ExtractRouteParams<T extends string, U = string | number | boolean> = string extends T
     ? { [k in string]?: U }
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}/${infer Rest}`
-    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
-      ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
-      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})${infer Modifier extends '?' | '+' | '*' | ''}`
+        ? ExtractRouteOptionalParam<`${Param}${Modifier}`, U> & ExtractRouteParams<Rest, U>
+        : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
-    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
-      ? ExtractRouteOptionalParam<Param, U>
-      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})${infer Modifier extends '?' | '+' | '*' | ''}`
+        ? ExtractRouteOptionalParam<`${Param}${Modifier}`, U>
+        : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
     : {};
 
 export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;

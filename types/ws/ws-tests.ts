@@ -8,6 +8,19 @@ import * as wslib from "ws";
     const ws = new WebSocket("ws://www.host.com/path");
     ws.on("open", () => ws.send("something"));
     ws.on("message", data => {});
+    // @ts-expect-error
+    ws.send({ hello: 'world' });
+
+    ws.send(new Uint8Array([]));
+
+    const Any = null as any;
+
+    ws.send(Any as number);
+    ws.send(Any as ArrayBufferView);
+    ws.send(Any as { valueOf(): ArrayBuffer });
+    ws.send(Any as Uint8Array);
+    ws.send(Any as { valueOf(): Uint8Array });
+    ws.send(Any as { valueOf(): string });
 }
 
 {
@@ -47,7 +60,7 @@ import * as wslib from "ws";
 {
     const wss = new WebSocket.Server({ port: 8082 });
 
-    const broadcast = (data: any) => {
+    const broadcast = (data: string) => {
         wss.clients.forEach(ws => ws.send(data));
     };
 }
@@ -350,7 +363,10 @@ declare module 'ws' {
         }
     }
     const server = new http.Server();
-    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket, noServer: true});
+    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({
+        WebSocket: CustomWebSocket,
+        noServer: true
+    });
     webSocketServer.on('connection', (ws) => {
         // $ExpectType CustomWebSocket
         ws;

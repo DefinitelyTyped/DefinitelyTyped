@@ -1,4 +1,4 @@
-// Type definitions for react-calendar-timeline v0.26.6
+// Type definitions for react-calendar-timeline v0.28.0
 // Project: https://github.com/namespace-ee/react-calendar-timeline
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 Alex Maclean <https://github.com/acemac>
@@ -234,7 +234,7 @@ declare module 'react-calendar-timeline' {
         onCanvasClick?(groupId: Id, time: number, e: React.SyntheticEvent): void;
         onCanvasDoubleClick?(groupId: Id, time: number, e: React.SyntheticEvent): void;
         onCanvasContextMenu?(groupId: Id, time: number, e: React.SyntheticEvent): void;
-        onZoom?(timelineContext: TimelineContext): void;
+        onZoom?(timelineContext: TimelineContext, unit: Unit): void;
         moveResizeValidator?(
             action: 'move' | 'resize',
             itemId: Id,
@@ -245,6 +245,7 @@ declare module 'react-calendar-timeline' {
             visibleTimeStart: number,
             visibleTimeEnd: number,
             updateScrollCanvas: (start: number, end: number) => void,
+            unit: Unit
         ): any;
         onBoundsChange?(canvasTimeStart: number, canvasTimeEnd: number): any;
         itemRenderer?: ((props: ReactCalendarItemRendererProps<CustomItem>) => React.ReactNode) | undefined;
@@ -255,6 +256,7 @@ declare module 'react-calendar-timeline' {
         buffer?: number | undefined;
         // Fields that are in propTypes but not documented
         headerRef?: React.Ref<any> | undefined;
+        className?: string;
     }
 
     export interface TimelineTimeSteps {

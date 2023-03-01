@@ -152,8 +152,8 @@ export enum ErrorCode {
 export interface SnowflakeErrorExternal extends Error {
     code?: ErrorCode;
     sqlState?: string;
-    data?: object;
-    response?: object;
+    data?: Record<string, any>;
+    response?: Record<string, any>;
     responseBody?: string;
     cause?: Error;
     isFatal?: boolean;

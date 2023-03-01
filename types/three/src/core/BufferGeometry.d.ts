@@ -1,4 +1,6 @@
 import { BufferAttribute } from './BufferAttribute';
+import { InterleavedBufferAttribute } from './InterleavedBufferAttribute';
+import { GLBufferAttribute } from './GLBufferAttribute';
 import { Box3 } from './../math/Box3';
 import { Sphere } from './../math/Sphere';
 import { Matrix4 } from './../math/Matrix4';
@@ -6,7 +8,6 @@ import { Quaternion } from './../math/Quaternion';
 import { Vector2 } from './../math/Vector2';
 import { Vector3 } from './../math/Vector3';
 import { EventDispatcher } from './EventDispatcher';
-import { InterleavedBufferAttribute } from './InterleavedBufferAttribute';
 import { BuiltinShaderAttributeName } from '../constants';
 
 /**
@@ -47,7 +48,7 @@ export class BufferGeometry extends EventDispatcher {
      * @default {}
      */
     attributes: {
-        [name: string]: BufferAttribute | InterleavedBufferAttribute;
+        [name: string]: BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute;
     };
 
     /**
@@ -93,9 +94,11 @@ export class BufferGeometry extends EventDispatcher {
 
     setAttribute(
         name: BuiltinShaderAttributeName | (string & {}),
-        attribute: BufferAttribute | InterleavedBufferAttribute,
+        attribute: BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute,
     ): BufferGeometry;
-    getAttribute(name: BuiltinShaderAttributeName | (string & {})): BufferAttribute | InterleavedBufferAttribute;
+    getAttribute(
+        name: BuiltinShaderAttributeName | (string & {}),
+    ): BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute;
     deleteAttribute(name: BuiltinShaderAttributeName | (string & {})): BufferGeometry;
     hasAttribute(name: BuiltinShaderAttributeName | (string & {})): boolean;
 

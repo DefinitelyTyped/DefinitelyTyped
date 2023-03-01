@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { SSM } from 'aws-sdk';
+import { SSM } from 'aws-sdk2-types';
 
 export function getParameter(
     name: SSM.Types.PSParameterName,

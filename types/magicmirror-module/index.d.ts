@@ -76,6 +76,7 @@ declare module 'node_helper' {
 }
 
 declare module 'logger' {
+    function debug(message?: any, ...optionalParams: any[]): void;
     function info(message?: any, ...optionalParams: any[]): void;
     function log(message?: any, ...optionalParams: any[]): void;
     function error(message?: any, ...optionalParams: any[]): void;

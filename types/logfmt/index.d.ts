@@ -39,7 +39,7 @@ interface RequestLogger {
 
 interface Logfmt {
     stringify(data: object): string;
-    parse(line: string): object;
+    parse(line: string): Partial<Record<string, string | boolean | null>>;
 
     log(data?: object, stream?: WritableStream): void;
     time(label?: string): Logfmt;

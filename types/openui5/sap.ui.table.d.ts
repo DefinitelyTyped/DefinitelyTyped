@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.110.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -532,7 +532,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	http://scn.sap.com/docs/DOC-44986
+     * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
      * 	{@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -549,7 +549,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	http://scn.sap.com/docs/DOC-44986
+     * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
      * 	{@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -1242,7 +1242,12 @@ declare module "sap/ui/table/Column" {
 
   import Menu from "sap/ui/unified/Menu";
 
-  import { HorizontalAlign, CSSSize } from "sap/ui/core/library";
+  import {
+    HorizontalAlign,
+    ID,
+    CSSSize,
+    IColumnHeaderMenu,
+  } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1584,6 +1589,13 @@ declare module "sap/ui/table/Column" {
      * @returns Value of property `hAlign`
      */
     getHAlign(): HorizontalAlign | keyof typeof HorizontalAlign;
+    /**
+     * @SINCE 1.104
+     *
+     * ID of the element which is the current target of the association {@link #getHeaderMenu headerMenu}, or
+     * `null`.
+     */
+    getHeaderMenu(): ID;
     /**
      * Gets current value of property {@link #getHeaderSpan headerSpan}.
      *
@@ -2021,6 +2033,20 @@ declare module "sap/ui/table/Column" {
        * New value for property `hAlign`
        */
       sHAlign?: HorizontalAlign | keyof typeof HorizontalAlign
+    ): this;
+    /**
+     * @SINCE 1.104
+     *
+     * Sets the associated {@link #getHeaderMenu headerMenu}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderMenu(
+      /**
+       * ID of an element which becomes the new target of this headerMenu association; alternatively, an element
+       * instance may be given
+       */
+      oHeaderMenu: ID | IColumnHeaderMenu
     ): this;
     /**
      * Sets a new value for property {@link #getHeaderSpan headerSpan}.
@@ -2516,6 +2542,13 @@ declare module "sap/ui/table/Column" {
      * `menu` with a new instance of `sap.ui.unified.Menu`.
      */
     menu?: Menu;
+
+    /**
+     * @SINCE 1.104
+     *
+     * The menu that can be opened by the header element of this column.
+     */
+    headerMenu?: IColumnHeaderMenu | string;
 
     /**
      * @SINCE 1.33.0
@@ -3586,6 +3619,8 @@ declare module "sap/ui/table/RowActionItem" {
 
   import Event from "sap/ui/base/Event";
 
+  import Row from "sap/ui/table/Row";
+
   import { URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -3732,7 +3767,16 @@ declare module "sap/ui/table/RowActionItem" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * The item which was pressed.
+         */
+        item?: RowActionItem;
+        /**
+         * The table row to which the pressed item belongs to.
+         */
+        row?: Row;
+      }
     ): this;
     /**
      * Gets current value of property {@link #getIcon icon}.
@@ -5660,7 +5704,12 @@ declare module "sap/ui/table/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * busy state
+         */
+        busy?: boolean;
+      }
     ): this;
     /**
      * @SINCE 1.21.0
@@ -5867,7 +5916,16 @@ declare module "sap/ui/table/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * The column instance on which the custom filter button was pressed.
+         */
+        column?: Column;
+        /**
+         * Filter value.
+         */
+        value?: string;
+      }
     ): this;
     /**
      * Fires event {@link #event:filter filter} to attached listeners.
@@ -5903,7 +5961,12 @@ declare module "sap/ui/table/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * First visible row
+         */
+        firstVisibleRow?: int;
+      }
     ): this;
     /**
      * Fires event {@link #event:group group} to attached listeners.
@@ -6228,7 +6291,7 @@ declare module "sap/ui/table/Table" {
      */
     getEnableCustomFilter(): boolean;
     /**
-     * @EXPERIMENTAL (since 1.28) - This feature has a limited functionality.
+     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
      *
      * Gets current value of property {@link #getEnableGrouping enableGrouping}.
      *
@@ -7062,7 +7125,7 @@ declare module "sap/ui/table/Table" {
       bEnableCustomFilter?: boolean
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.28) - This feature has a limited functionality.
+     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
      *
      * Sets a new value for property {@link #getEnableGrouping enableGrouping}.
      *
@@ -7728,7 +7791,7 @@ declare module "sap/ui/table/Table" {
     enableColumnReordering?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @EXPERIMENTAL (since 1.28) - This feature has a limited functionality.
+     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
      *
      * Enables or disables grouping. If grouping is enabled, the table is grouped by the column which is defined
      * in the `groupBy` association.

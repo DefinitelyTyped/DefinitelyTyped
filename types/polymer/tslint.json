@@ -7,7 +7,6 @@
         "no-object-literal-type-assertion": false,
         "no-padding": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,

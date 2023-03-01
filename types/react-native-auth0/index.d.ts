@@ -1,4 +1,4 @@
-// Type definitions for react-native-auth0 2.14
+// Type definitions for react-native-auth0 2.17
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
@@ -74,6 +74,7 @@ export interface PasswordRealmParams {
 export interface RefreshTokenParams {
     refreshToken: string;
     scope?: string;
+    [key: string]: string | undefined;
 }
 
 export interface RevokeParams {
@@ -161,7 +162,7 @@ export type UserInfo<CustomClaims = {}> = {
 
 export class Auth {
     authorizeUrl(params: AuthorizeUrlParams): string;
-    /* tslint:disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<Credentials>;
     exchangeNativeSocial(params: ExchangeNativeSocialParams): Promise<Credentials>;
@@ -170,7 +171,7 @@ export class Auth {
     refreshToken(params: RefreshTokenParams): Promise<Credentials>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
-    /* tslint:disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line no-unnecessary-generics */
     userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
     passwordlessWithEmail(params: PasswordlessWithEmailParams): Promise<any>;
     passwordlessWithSMS(params: PasswordlessWithSMSParams): Promise<any>;
@@ -212,7 +213,7 @@ export interface PatchUserParams<T> {
 
 export class Users {
     constructor(options: UsersOptions);
-    /* tslint:disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line no-unnecessary-generics */
     getUser<T>(parameters: GetUserParams): Promise<Auth0User<T>>;
     patchUser<T>(parameters: PatchUserParams<T>): Promise<Auth0User<T>>;
 }
@@ -294,9 +295,15 @@ export class CredentialsManager {
         description?: string,
         cancelTitle?: string,
         fallbackTitle?: string,
+        strategy?: LocalAuthenticationStrategy,
     ): Promise<void>;
     hasValidCredentials(minTtl?: number): Promise<boolean>;
     clearCredentials(): Promise<boolean>;
+}
+
+export enum LocalAuthenticationStrategy {
+    deviceOwnerWithBiometrics = 1,
+    deviceOwner = 2,
 }
 
 /**
@@ -314,7 +321,8 @@ export default class Auth0 {
 
 export class Auth0ContextInterface {
     user: any;
-    error: any;
+    error: BaseError | null;
+    isLoading: boolean;
     authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
     clearSession(): Promise<void>;
     getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
@@ -324,6 +332,7 @@ export class Auth0ContextInterface {
         description?: string,
         cancelTitle?: string,
         fallbackTitle?: string,
+        strategy?: LocalAuthenticationStrategy,
     ): Promise<void>;
 }
 
@@ -336,3 +345,17 @@ export class Auth0Props {
 export function useAuth0(): Auth0ContextInterface;
 
 export const Auth0Provider: React.FC<Auth0Props>;
+
+/**
+ * Errors
+ */
+
+export interface BaseError extends Error {
+    name: string;
+    message: string;
+}
+
+export interface TimeoutError extends BaseError {
+    name: 'TimeoutError';
+    message: string;
+}

@@ -97,3 +97,9 @@ const disposable: vscode.Disposable = azdata.queryeditor.registerQueryEventListe
         return;
     }
 });
+
+const firewallRuleInfo: azdata.FirewallRuleInfo = {
+    serverName: 'mytestserver',
+    firewallRuleName: 'My Firewall Rule',
+    securityTokenMappings: {}
+};

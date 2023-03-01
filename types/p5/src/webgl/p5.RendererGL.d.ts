@@ -18,7 +18,7 @@ declare module '../../index' {
          *   The available attributes are:
          *
          *   alpha - indicates if the canvas contains an alpha
-         *   buffer default is true
+         *   buffer default is false
          *
          *   depth - indicates whether the drawing buffer has a
          *   depth buffer of at least 16 bits - default is true
@@ -61,7 +61,7 @@ declare module '../../index' {
          *   The available attributes are:
          *
          *   alpha - indicates if the canvas contains an alpha
-         *   buffer default is true
+         *   buffer default is false
          *
          *   depth - indicates whether the drawing buffer has a
          *   depth buffer of at least 16 bits - default is true

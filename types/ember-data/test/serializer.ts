@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DS from 'ember-data';
+import DS, { ModelSchema } from 'ember-data';
 
 interface Dict<T> {
     [key: string]: T | null | undefined;
@@ -21,7 +21,7 @@ const Customized = DS.JSONAPISerializer.extend({
     },
     normalizeResponse(
         store: DS.Store,
-        primaryModelClass: DS.Model,
+        primaryModelClass: ModelSchema<'user'>,
         payload: any,
         id: string | number,
         requestType: string,
