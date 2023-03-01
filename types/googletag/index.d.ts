@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-09-27) 3.0
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2023-02-08) 3.0
 // Project: https://developers.google.com/publisher-tag/reference
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -104,6 +104,23 @@ declare namespace googletag {
      * **Note**: Checking {@link googletag.pubadsReady} is discouraged. Please use {@link googletag.cmd.push} instead.
      */
     const pubadsReady: boolean | undefined;
+
+    /**
+     * Reference to the secure signal providers array.
+     *
+     * The secure signal providers array accepts a sequence of signal-generating functions and invokes them in order.
+     * It is intended to replace a standard array that is used to enqueue signal-generating functions to be invoked once GPT is loaded.
+     *
+     * @example
+     * window.googletag = window.googletag || { cmd: [], secureSignalProviders: [] };
+     * window.googletag.secureSignalProviders.push({
+     *   id: 'collector123',
+     *   collectorFunction: () => { return Promise.resolve('signal'); }
+     * });
+     *
+     * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
+     */
+    const secureSignalProviders: secureSignals.SecureSignalProvidersArray | secureSignals.SecureSignalProvider[];
 
     /**
      * Returns a reference to the {@link CompanionAdsService}.
@@ -1639,14 +1656,49 @@ declare namespace googletag {
          * It is documented for reference and type safety purposes only.
          */
         interface EventTypeMap {
+            /**
+             * Alias for {@link googletag.events.ImpressionViewableEvent}
+             */
             impressionViewable: ImpressionViewableEvent;
+
+            /**
+             * Alias for {@link googletag.events.RewardedSlotClosedEvent}
+             */
             rewardedSlotClosed: RewardedSlotClosedEvent;
+
+            /**
+             * Alias for {@link googletag.events.RewardedSlotGrantedEvent}
+             */
             rewardedSlotGranted: RewardedSlotGrantedEvent;
+
+            /**
+             * Alias for {@link googletag.events.RewardedSlotReadyEvent}
+             */
             rewardedSlotReady: RewardedSlotReadyEvent;
+
+            /**
+             * Alias for {@link googletag.events.SlotOnloadEvent}
+             */
             slotOnload: SlotOnloadEvent;
+
+            /**
+             * Alias for {@link googletag.events.SlotRenderEndedEvent}
+             */
             slotRenderEnded: SlotRenderEndedEvent;
+
+            /**
+             * Alias for {@link googletag.events.SlotRequestedEvent}
+             */
             slotRequested: SlotRequestedEvent;
+
+            /**
+             * Alias for {@link googletag.events.SlotResponseReceived}
+             */
             slotResponseReceived: SlotResponseReceived;
+
+            /**
+             * Alias for {@link googletag.events.SlotVisibilityChangedEvent}
+             */
             slotVisibilityChanged: SlotVisibilityChangedEvent;
         }
 
@@ -1797,15 +1849,21 @@ declare namespace googletag {
          *             'Slot', slot.getSlotElementId(), 'finished rendering.');
          *         // Log details of the rendered ad.
          *         console.log('Advertiser ID:', event.advertiserId);
-         *         console.log('Campaign ID: ', event.campaignId);
-         *         console.log('Creative ID: ', event.creativeId);
+         *         console.log('Campaign ID:', event.campaignId);
+         *         console.log('Company IDs:', event.companyIds);
+         *         console.log('Creative ID:', event.creativeId);
+         *         console.log('Creative Template ID:', event.creativeTemplateId);
+         *         console.log('Is backfill?:', event.isBackfill);
          *         console.log('Is empty?:', event.isEmpty);
+         *         console.log('Label IDs:', event.labelIds);
          *         console.log('Line Item ID:', event.lineItemId);
          *         console.log('Size:', event.size);
+         *         console.log('Slot content changed?:', event.slotContentChanged);
          *         console.log('Source Agnostic Creative ID:',
          *                     event.sourceAgnosticCreativeId);
          *         console.log('Source Agnostic Line Item ID:',
          *                     event.sourceAgnosticLineItemId);
+         *         console.log('Yield Group IDs:', event.yieldGroupIds);
          *         console.groupEnd();
          *         if (slot === targetSlot) {
          *           // Slot specific logic.
@@ -1827,14 +1885,34 @@ declare namespace googletag {
             campaignId: number | null;
 
             /**
+             * IDs of the companies that bid on the rendered backfill ad.
+             */
+            companyIds: number[] | null;
+
+            /**
              * Creative ID of the rendered reservation ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
              */
             creativeId: number | null;
 
             /**
+             * Creative template ID of the rendered reservation ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
+             */
+            creativeTemplateId: number | null;
+
+            /**
+             * Whether an ad was a backfill ad. Value is `true` if the ad was a backfill ad, `false` otherwise.
+             */
+            isBackfill: boolean;
+
+            /**
              * Whether an ad was returned for the slot. Value is `true` if no ad was returned, `false` otherwise.
              */
             isEmpty: boolean;
+
+            /**
+             * Label IDs of the rendered ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
+             */
+            labelIds: number[] | null;
 
             /**
              * Line item ID of the rendered reservation ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
@@ -1847,6 +1925,11 @@ declare namespace googletag {
             size: number[] | string | null;
 
             /**
+             * Whether the slot content was changed with the rendered ad. Value is `true` if the content was changed, `false` otherwise.
+             */
+            slotContentChanged: boolean;
+
+            /**
              * Creative ID of the rendered reservation or backfill ad.
              * Value is `null` if the ad is not a reservation or line item backfill, or the creative is rendered by services other than {@link PubAdsService}.
              */
@@ -1857,6 +1940,11 @@ declare namespace googletag {
              * Value is `null` if the ad is not a reservation or line item backfill, or the creative is rendered by services other than {@link PubAdsService}.
              */
             sourceAgnosticLineItemId: number | null;
+
+            /**
+             * IDs of the yield groups for the rendered backfill ad. Value is `null` for empty slots, reservation ads, and creatives rendered by services other than {@link PubAdsService}.
+             */
+            yieldGroupIds: number[] | null;
         }
 
         /**
@@ -1932,6 +2020,103 @@ declare namespace googletag {
              * The percentage of the ad's area that is visible. Value is a number between 0 and 100.
              */
             inViewPercentage: number;
+        }
+    }
+
+    /**
+     * This is the namespace that GPT uses for `secureSignals`.
+     */
+    namespace secureSignals {
+        /**
+         * Interface for returning a secure signal for a specific bidder or provider.
+         * One of `id` or `networkCode` must be provided, but not both.
+         */
+        type SecureSignalProvider = (BidderSignalProvider & { networkCode?: never }) | PublisherSignalProvider;
+
+        /**
+         * Returns a secure signal for a specific bidder.
+         *
+         * A bidder secure signal provider consists of 2 parts:
+         *
+         * 1. A collector function, which returns a `Promise` that resolves to a secure signal.
+         * 1. An `id` which identifies the bidder associated with the signal.
+         *
+         * To return a secure signal for a publisher, use {@link secureSignals.PublisherSignalProvider} instead.
+         *
+         * @example
+         *   // id is provided
+         *   googletag.secureSignalProviders.push({
+         *     id: 'collector123',
+         *     collectorFunction: () => {
+         *       // ...custom signal generation logic...
+         *       return Promise.resolve('signal');
+         *     }
+         *   });
+         *
+         * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
+         */
+        interface BidderSignalProvider {
+            /**
+             * A unique identifier for the collector associated with this secure signal, as registered in Google Ad Manager.
+             */
+            id: string;
+
+            /**
+             * A function which returns a `Promise` that resolves to a secure signal.
+             * @returns A [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves to a secure signal.
+             */
+            collectorFunction(): Promise<string>;
+        }
+
+        /**
+         * Returns a secure signal for a specific publisher.
+         *
+         * A publisher signal provider consists of 2 parts:
+         *
+         * 1. A collector function, which returns a `Promise` that resolves to a secure signal.
+         * 1. A `networkCode` which identifies the publisher associated with the signal.
+         *
+         * To return a secure signal for a bidder, use {@link secureSignals.BidderSignalProvider} instead.
+         *
+         * @example
+         *   // networkCode is provided
+         *   googletag.secureSignalProviders.push({
+         *     networkCode: '123456',
+         *     collectorFunction: () => {
+         *       // ...custom signal generation logic...
+         *       return Promise.resolve('signal');
+         *     }
+         *   });
+         *
+         * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
+         */
+        interface PublisherSignalProvider {
+            /**
+             * The network code (as seen in the ad unit path) for the publisher associated with this secure signal.
+             */
+            networkCode: string;
+
+            /**
+             * A function which returns a `Promise` that resolves to a secure signal.
+             * @returns A [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves to a secure signal.
+             */
+            collectorFunction(): Promise<string>;
+        }
+
+        /**
+         * An interface for managing secure signals.
+         */
+        interface SecureSignalProvidersArray {
+            /**
+             * Clears all cached signals from local storage.
+             */
+            clearAllCache(): void;
+
+            /**
+             * Adds a new {@link SecureSignalProvider} to the signal provider array and begins the signal generation process.
+             * @param provider The {@link SecureSignalProvider} object to be added to the array.
+             */
+            push(provider: SecureSignalProvider): void;
         }
     }
 }

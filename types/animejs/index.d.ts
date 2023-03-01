@@ -151,7 +151,7 @@ declare namespace anime {
     const running: AnimeInstance[];
     const easings: { [EasingFunction: string]: (t: number) => any };
     function remove(targets: AnimeTarget | ReadonlyArray<AnimeTarget>): void;
-    function get(targets: AnimeTarget, prop: string): string | number;
+    function get(targets: AnimeTarget, prop: string, unit?: string): string | number;
     function path(path: string | HTMLElement | SVGElement | null, percent?: number): (prop: string) => {
         el: HTMLElement | SVGElement,
         property: string,

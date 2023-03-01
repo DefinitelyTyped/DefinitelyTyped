@@ -12,7 +12,7 @@
 //                 koddsson <https://github.com/koddsson>
 //                 ficristo <https://github.com/ficristo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// TypeScript Version: 5.0
 
 export = CodeMirror;
 export as namespace CodeMirror;
@@ -550,19 +550,11 @@ declare namespace CodeMirror {
             eventName: K,
             handler: (instance: Editor, event: GlobalEventHandlersEventMap[K]) => void,
         ): void;
-        on<K extends DOMEvent & keyof DocumentAndElementEventHandlersEventMap>(
-            eventName: K,
-            handler: (instance: Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
-        ): void;
 
         off<T extends keyof EditorEventMap>(eventName: T, handler: EditorEventMap[T]): void;
         off<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(
             eventName: K,
             handler: (instance: Editor, event: GlobalEventHandlersEventMap[K]) => void,
-        ): void;
-        off<K extends DOMEvent & keyof DocumentAndElementEventHandlersEventMap>(
-            eventName: K,
-            handler: (instance: Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
         ): void;
 
         /** Expose the state object, so that the Editor.state.completionActive property is reachable */

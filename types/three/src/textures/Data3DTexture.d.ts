@@ -1,5 +1,5 @@
 import { Texture } from './Texture';
-import { TextureFilter } from '../constants';
+import { TextureFilter, Wrapping } from '../constants';
 
 export class Data3DTexture extends Texture {
     constructor(data: BufferSource, width: number, height: number, depth: number);
@@ -17,7 +17,7 @@ export class Data3DTexture extends Texture {
     /**
      * @default THREE.ClampToEdgeWrapping
      */
-    wrapR: boolean;
+    wrapR: Wrapping;
 
     /**
      * @default false

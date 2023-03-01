@@ -80,7 +80,7 @@ declare namespace Worker {
     interface CreateWorkerProps {
         name: string;
         phone: string;
-        teams: string;
+        teams: string | string[];
         vehicle?: Vehicle | undefined;
         capacity?: number | undefined;
         displayName?: string | undefined;
@@ -91,7 +91,7 @@ declare namespace Worker {
         displayName?: string | undefined;
         metadata?: OnfleetMetadata | undefined;
         name?: string | undefined;
-        teams?: string | undefined;
+        teams?: string | string[] | undefined;
         vehicle?: Vehicle | undefined;
     }
 

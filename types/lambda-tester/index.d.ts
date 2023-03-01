@@ -34,12 +34,12 @@ declare namespace lambdaTester {
         identity(cognitoIdentityId: string, cognitoIdentityPoolId: string): this;
         timeout(seconds: number): this;
         xray(): this;
-        expectSucceed(verifier: Verifier<HandlerResult<T>>): Promise<any>;
-        expectFail(verifier: Verifier<HandlerError<T>>): Promise<any>;
-        expectResult(verifier: Verifier<HandlerResult<T>>): Promise<any>;
-        expectError(verifier: Verifier<HandlerError<T>>): Promise<any>;
-        expectResolve(verifier: Verifier<HandlerResult<T>>): Promise<any>;
-        expectReject(verifier: Verifier<HandlerError<T>>): Promise<any>;
+        expectSucceed(verifier?: Verifier<HandlerResult<T>>): Promise<any>;
+        expectFail(verifier?: Verifier<HandlerError<T>>): Promise<any>;
+        expectResult(verifier?: Verifier<HandlerResult<T>>): Promise<any>;
+        expectError(verifier?: Verifier<HandlerError<T>>): Promise<any>;
+        expectResolve(verifier?: Verifier<HandlerResult<T>>): Promise<any>;
+        expectReject(verifier?: Verifier<HandlerError<T>>): Promise<any>;
     }
 }
 

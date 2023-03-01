@@ -7,13 +7,11 @@
         "no-declare-current-package": false,
         "no-object-literal-type-assertion": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "no-void-expression": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-declare-function": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "whitespace": false

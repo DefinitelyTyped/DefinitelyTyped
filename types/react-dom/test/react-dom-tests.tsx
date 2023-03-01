@@ -199,16 +199,15 @@ describe('React dom test utils', () => {
             it('accepts a callback that is void', () => {
                 ReactTestUtils.act(() => {});
             });
-            it('accepts a callback that returns null', () => {
-                ReactTestUtils.act(() => null);
-            });
             it('accepts a callback that returns a value', () => {
-                ReactTestUtils.act(() => "value");
+                const result = ReactTestUtils.act(() => "value");
+                result.then(x => {});
             });
-            it('returns a type that is Promise-like', () => {
+            it('returns void', () => {
                 // tslint:disable-next-line no-void-expression
                 const result = ReactTestUtils.act(() => {});
-                result.then(x => {});
+                // @ts-expect-error
+                result.then;
             });
         });
         describe('with async callback', () => {
@@ -219,7 +218,7 @@ describe('React dom test utils', () => {
                 await ReactTestUtils.act(async () => null);
             });
             it('a callback that returns a value', async () => {
-                await ReactTestUtils.act(async () => "value");
+                await ReactTestUtils.act(async () => 'value');
             });
             it('returns a Promise-like', () => {
                 const result = ReactTestUtils.act(async () => {});
@@ -228,6 +227,15 @@ describe('React dom test utils', () => {
         });
     });
 });
+
+async function batchTests() {
+    // $ExpectType string
+    const output1 = ReactDOM.unstable_batchedUpdates(input => {
+        // $ExpectType number
+        input;
+        return 'hi';
+    }, 1);
+}
 
 function createRoot() {
     const root = ReactDOMClient.createRoot(document.documentElement);

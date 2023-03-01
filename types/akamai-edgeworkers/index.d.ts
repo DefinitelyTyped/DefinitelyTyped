@@ -170,6 +170,12 @@ declare namespace EW {
          * of parsing the body as JSON.
          */
         json(): Promise<any>;
+
+        /**
+         * A promise that reads the body to completion and resolves to an ArrayBuffer containing the
+         * binary format of the request body.
+         */
+        arrayBuffer(): Promise<ArrayBuffer>;
     }
 
     interface Request {
@@ -223,7 +229,9 @@ declare namespace EW {
          * The cpcode used for reporting.
          */
         readonly cpCode: number;
+    }
 
+    interface HasBody {
         /**
          * The body associated with the incoming request.
          */
@@ -392,7 +400,7 @@ declare namespace EW {
     }
 
     // onOriginRequest
-    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, MutatesVariables {
+    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
     }
 
     // onOriginResponse
@@ -408,7 +416,7 @@ declare namespace EW {
     }
 
     // responseProvider
-    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody, ReadsVariables {
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody, ReadsVariables, HasBody {
     }
 
     interface Destination {
@@ -437,6 +445,16 @@ declare namespace EW {
      *   undefined is returned for that property
      */
     interface UserLocation {
+        /**
+         * The latitude value is a numerical string that specifies the latitude that the IP address maps to.
+         */
+        readonly latitude: string | undefined;
+
+        /**
+         * The longitude value is a numerical string that specifies the longitude that the IP address maps to.
+         */
+        readonly longitude: string | undefined;
+
         /**
          * The continent value is a two-letter code for the continent that
          * the IP address maps to.
@@ -486,6 +504,44 @@ declare namespace EW {
          * See the EdgeScape Users Guide for more details.
          */
         readonly zipCode: string | undefined;
+
+        /**
+         * The dma value is the mapping of major American metropolises to containing and neighbouring states.
+         */
+        readonly dma: string | undefined;
+
+        /**
+         * The timezone value is the timezone that the IP address maps to.
+         */
+        readonly timezone: string | undefined;
+
+        /**
+         * The networkType value specifies the network that the IP address maps to.
+         */
+        readonly networkType: string | undefined;
+
+        /**
+         * The bandwidth value estimates the expected bandwidth for the given IP address.
+         */
+        readonly bandwidth: string | undefined;
+
+        /**
+         * The areaCodes value includes the area codes that the IP address maps to
+         * (multiple values possible).
+         */
+        readonly areaCodes: string[] | undefined;
+
+        /**
+         * The fips value is a 5 digit numerical code to help map counties to states
+         * (multiple values possible).
+         *
+         * FIPS codes are numbers which uniquely identify geographic areas. State-level FIPS
+         * codes have two digits, county-level FIPS codes have five digits of which the
+         * first two are the FIPS code of the state to which the county belongs.
+         *
+         * For the list of FIPS codes mapped to location, go to https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt
+         */
+        readonly fips: string[] | undefined;
     }
 
     /**

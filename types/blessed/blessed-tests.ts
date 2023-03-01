@@ -202,6 +202,33 @@ blessed.box({
   content: "Foo"
 });
 
+blessed.list({
+  parent: screen,
+  left: -1,
+  top: "50%-1",
+  width: "50%+1",
+  height: "50%+3",
+  border: "line",
+  content: "List",
+  style: {
+    selected: {
+      bg: 'red'
+    },
+    item: {
+      bg: 'blue'
+    },
+    bg: "blue",
+    border: {
+      fg: '#000000',
+    },
+    focus: {
+      border: {
+        fg: 'white',
+      },
+    }
+  }
+});
+
 blessed
   .listtable({
     parent: screen,
@@ -783,6 +810,27 @@ setTimeout(() => {
 blessed.escape('{bold}{/bold}');
 blessed.parseTags('{bold}hi{/bold}');
 blessed.generateTags({ fg: 'red' }, 'red text');
+
+// https://github.com/chjj/blessed#list-from-box
+
+const list = blessed.list({
+  keys: true,
+  fg: 'white',
+  style: {
+    selected: {
+      fg: 'white',
+      bg: 'blue',
+    },
+  },
+  interactive: true,
+  label: 'Active Requests',
+  width: '100%',
+  height: '100%',
+  tags: true,
+  border: { type: 'line', fg: 1 },
+});
+
+list.setItems(['string1', 'string2', 'string3']);
 
 // https://github.com/chjj/blessed/blob/master/test/program-mouse.js
 

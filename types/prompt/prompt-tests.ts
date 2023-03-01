@@ -78,3 +78,5 @@ prompt.get(
 prompt.get(schema);
 
 prompt.colors = false;
+
+prompt.stop();

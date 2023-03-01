@@ -23,6 +23,12 @@ declare namespace serveStatic {
     var mime: typeof m;
     interface ServeStaticOptions<R extends http.ServerResponse = http.ServerResponse> {
         /**
+         * Enable or disable accepting ranged requests, defaults to true.
+         * Disabling this will not send Accept-Ranges and ignore the contents of the Range request header.
+         */
+        acceptRanges?: boolean | undefined;
+
+        /**
          * Enable or disable setting Cache-Control response header, defaults to true.
          * Disabling this will ignore the immutable and maxAge options.
          */

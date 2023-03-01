@@ -36,7 +36,11 @@ module.exports = override(
         ['ag-grid-react$']: path.resolve(__dirname, 'src/shared/agGridWrapper.js'),
     }),
 
-    adjustWorkbox(wb => ({ ...wb, skipWaiting: true, exclude: (wb.exclude || []).concat('index.html') })),
+    adjustWorkbox(workbox => ({
+        ...workbox,
+        skipWaiting: true,
+        exclude: (workbox.exclude || []).concat('index.html'),
+    })),
 );
 
 module.exports = {

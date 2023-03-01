@@ -2,6 +2,6 @@
     "private": true,
     "dependencies": {
         "@wordpress/core-data": "^5.0.0",
-        "@wordpress/element": "^4.0.0"
+        "@wordpress/element": "^5.0.0"
     }
 }

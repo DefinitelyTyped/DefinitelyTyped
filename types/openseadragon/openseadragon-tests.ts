@@ -60,3 +60,12 @@ const viewer3 = OpenSeadragon({
 const iiifTileSource = new IIIFTileSource({
     tileFormat: 'jpg',
 });
+
+const viewer4 = OpenSeadragon({
+    // @ts-expect-error
+    mouseNavEnabled: 2,
+});
+
+const viewer5 = OpenSeadragon({
+    mouseNavEnabled: true,
+});

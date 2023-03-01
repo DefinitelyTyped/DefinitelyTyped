@@ -13,6 +13,7 @@ export class USDZLoader extends Loader {
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
     ): void;
+    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Mesh>;
 
     parse(buffer: ArrayBuffer | string): THREE.Group;
 }

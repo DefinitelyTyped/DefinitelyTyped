@@ -1,9 +1,10 @@
-import * as AWS from "aws-sdk";
 import * as DynamoDBLockClient from "dynamodb-lock-client";
 
-const dynamodb = new AWS.DynamoDB.DocumentClient({
-    region: "us-east-1",
-});
+const dynamodb = {
+    get: () => {},
+    put: () => {},
+    delete: () => {},
+};
 
 const failClosedClient = new DynamoDBLockClient.FailClosed({
     dynamodb,

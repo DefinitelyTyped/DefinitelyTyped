@@ -593,6 +593,22 @@ declare namespace validator {
      */
     function isIdentityCard(str: string, locale?: 'any' | IdentityCardLocale): boolean;
 
+    interface IsIMEIOptions {
+        /**
+         * This value is `false` by default. Set to `true` to allow IMEI with hyphens.
+         */
+        allow_hyphens?: boolean | undefined;
+    }
+
+    /**
+     * Check if the string is a valid IMEI.
+     * Non-hyphenated (`###############`) only is supported by default.
+     * Use the `options` param to enable hyphenated (`##-######-######-#`) support.
+     *
+     * @param [options] - Options
+     */
+    function isIMEI(str: string, options?: IsIMEIOptions): boolean;
+
     /**
      * Check if the string is in a array of allowed values.
      *
@@ -1023,6 +1039,7 @@ declare namespace validator {
         | 'IT'
         | 'JP'
         | 'KE'
+        | 'KR'
         | 'LI'
         | 'LT'
         | 'LU'

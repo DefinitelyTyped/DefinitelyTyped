@@ -66,8 +66,8 @@ declare module 'mongoose' {
         [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
-    interface AggregatePaginateModel<T extends Document> extends Model<T> {
-        aggregatePaginate(
+    interface AggregatePaginateModel<D extends Document> extends Model<D> {
+        aggregatePaginate<T>(
             query?: Aggregate<T[]>,
             options?: PaginateOptions,
             callback?: (err: any, result: AggregatePaginateResult<T>) => void,

@@ -2,18 +2,12 @@
 // Project: https://github.com/shadowwalker/next-pwa#readme
 // Definitions by: Nivaldo Farias <https://github.com/NivaldoFarias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.6
+// Minimum TypeScript Version: 4.5
 
 /// <reference types="react"/>
 
+import type { RuntimeCaching, GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
 import type { NextConfig } from 'next';
-
-// match `workbox-build` ^6.5.4 types naming
-import type {
-    RuntimeCachingEntry as RuntimeCaching,
-    GenerateSWConfig as GenerateSWOptions,
-    InjectManifestConfig as InjectManifestOptions,
-} from 'workbox-build';
 
 declare global {
     interface PopStateEventInit extends EventInit {

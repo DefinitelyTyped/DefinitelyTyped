@@ -1,4 +1,5 @@
 import placeholder = require('@cloudfour/simple-svg-placeholder');
+import * as placeholderByImportFrom from '@cloudfour/simple-svg-placeholder';
 
 // $ExpectType string
 placeholder();
@@ -37,3 +38,6 @@ placeholder({
 
 // @ts-expect-error
 placeholder(300, 150);
+
+// $ExpectType string
+placeholderByImportFrom();
