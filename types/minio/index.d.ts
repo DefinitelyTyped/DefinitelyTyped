@@ -243,19 +243,19 @@ export class TargetConfig {
     addFilterPrefix(prefix: any): void;
 }
 
+export interface MakeBucketOpt {
+    ObjectLocking: boolean;
+}
+
 // Exports from library
 export class Client {
     constructor(options: ClientOptions);
 
     // Bucket operations
-    makeBucket(
-        bucketName: string,
-        region: Region,
-        makeOpts: { ObjectLocking: boolean },
-        callback: NoResultCallback,
-    ): void;
+    makeBucket(bucketName: string, region: Region, makeOpts: MakeBucketOpt, callback: NoResultCallback): void;
     makeBucket(bucketName: string, region: Region, callback: NoResultCallback): void;
-    makeBucket(bucketName: string, region?: Region, makeOpts?: { ObjectLocking: boolean }): Promise<void>;
+    makeBucket(bucketName: string, callback: NoResultCallback): void;
+    makeBucket(bucketName: string, region?: Region, makeOpts?: MakeBucketOpt): Promise<void>;
 
     listBuckets(callback: ResultCallback<BucketItemFromList[]>): void;
     listBuckets(): Promise<BucketItemFromList[]>;
