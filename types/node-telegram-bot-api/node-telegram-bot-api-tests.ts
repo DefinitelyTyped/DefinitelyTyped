@@ -77,8 +77,8 @@ const res: TelegramBot.InlineQueryResultArticle = {
     },
 };
 MyTelegramBot.answerInlineQuery('queryId', [res, res, res], { is_personal: true });
-MyTelegramBot.forwardMessage(1234, 5678, 'memberID', { disable_notification: true });
-MyTelegramBot.copyMessage(1234, 5678, 'msgId', { disable_notification: true, allow_sending_without_reply: false });
+MyTelegramBot.forwardMessage(1234, 5678, 90 , { disable_notification: true });
+MyTelegramBot.copyMessage(1234, 5678, 90, { disable_notification: true, allow_sending_without_reply: false });
 MyTelegramBot.sendPhoto(1234, 'photo/path');
 MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo' });
 MyTelegramBot.sendPhoto(
@@ -222,7 +222,7 @@ MyTelegramBot.downloadFile('My/File/ID', 'mydownloaddir/');
 MyTelegramBot.onText(/regex/, (msg, match) => {});
 MyTelegramBot.removeTextListener(/regex/);
 MyTelegramBot.clearTextListeners();
-MyTelegramBot.onReplyToMessage(1234, 'mymessageID', msg => {});
+MyTelegramBot.onReplyToMessage(1234, 567, msg => {});
 MyTelegramBot.removeReplyListener(5466);
 MyTelegramBot.clearReplyListeners();
 MyTelegramBot.getChat(1234);
@@ -235,7 +235,7 @@ MyTelegramBot.deleteChatStickerSet(1234);
 MyTelegramBot.sendGame(1234, 'MygameName', { reply_to_message_id: 1234 });
 MyTelegramBot.setGameScore('myUserID', 99, { message_id: 1234 });
 MyTelegramBot.getGameHighScores('myUserID', { message_id: 1234 });
-MyTelegramBot.deleteMessage(1234, 'mymessageID');
+MyTelegramBot.deleteMessage(1234, 567);
 MyTelegramBot.sendInvoice(
     1234,
     'Invoice Title',
