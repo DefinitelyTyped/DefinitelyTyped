@@ -28,6 +28,7 @@ const fcoseLayout: fcose.FcoseLayoutOptions = {
     nestingFactor: 0,
     numIter: 1,
     tile: true,
+    tilingCompareBy: (nodeId1: string, nodeId2: string) => nodeId1.localeCompare(nodeId2),
     tilingPaddingVertical: 1,
     tilingPaddingHorizontal: 1,
     gravity: 1,

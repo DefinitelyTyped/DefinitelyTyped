@@ -1,4 +1,4 @@
-// Type definitions for cytoscape-fcose 2.1
+// Type definitions for cytoscape-fcose 2.2
 // Project: https://github.com/iVis-at-Bilkent/cytoscape.js-fcose
 // Definitions by: Paul Paulsen <https://github.com/Phpaulsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -92,6 +92,13 @@ declare namespace cytoscapeFcose {
         numIter?: number;
         // For enabling tiling
         tile?: boolean;
+        // The comparison function to be used while sorting nodes during tiling operation.
+        // Takes the ids of 2 nodes that will be compared as a parameter and the default tiling operation is performed when this option is not set.
+        // It works similar to ``compareFunction`` parameter of ``Array.prototype.sort()``
+        // If node1 is less then node2 by some ordering criterion ``tilingCompareBy(nodeId1, nodeId2)`` must return a negative value
+        // If node1 is greater then node2 by some ordering criterion ``tilingCompareBy(nodeId1, nodeId2)`` must return a positive value
+        // If node1 is equal to node2 by some ordering criterion ``tilingCompareBy(nodeId1, nodeId2)`` must return 0
+        tilingCompareBy?: (nodeId1: string, nodeId2: string) => number;
         // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
         tilingPaddingVertical?: number;
         // Represents the amount of the horizontal space to put between the zero degree members during the tiling operation(can also be a function)
