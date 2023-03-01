@@ -247,7 +247,7 @@ export class Client {
 
     // Bucket operations
     makeBucket(bucketName: string, region: Region, callback: NoResultCallback): void;
-    makeBucket(bucketName: string, region: Region): Promise<void>;
+    makeBucket(bucketName: string, region?: Region): Promise<void>;
 
     listBuckets(callback: ResultCallback<BucketItemFromList[]>): void;
     listBuckets(): Promise<BucketItemFromList[]>;
