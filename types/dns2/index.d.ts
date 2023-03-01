@@ -91,8 +91,8 @@ declare namespace DNS {
         remoteInfo: udp.RemoteInfo,
     ) => void;
 
-    type PacketClass = typeof DNS.Packet.CLASS[keyof typeof DNS.Packet.CLASS];
-    type PacketQuestion = keyof typeof DNS.Packet.TYPE;
+    type PacketClass = typeof Packet.CLASS[keyof typeof Packet.CLASS];
+    type PacketQuestion = keyof typeof Packet.TYPE;
 }
 
 declare class DnsServer extends EventEmitter {
