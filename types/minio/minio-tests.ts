@@ -31,6 +31,9 @@ minio.makeBucket('testBucket', 'ap-southeast-2', { ObjectLocking: true }, (error
 minio.makeBucket('testBucket', 'ap-southeast-2', (error: Error | null) => {
     console.log(error);
 });
+minio.makeBucket('testBucket', (error: Error | null) => {
+    console.log(error);
+});
 minio.makeBucket('testBucket', 'eu-west-1');
 minio.makeBucket('testBucket');
 
