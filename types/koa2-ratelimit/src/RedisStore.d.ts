@@ -1,4 +1,4 @@
-import { ClientOpts, RedisClient } from 'redis';
+import { RedisClientOptions, RedisClientType } from 'redis';
 
 import { RateLimitOptions } from '..';
 import Store = require('./Store');
