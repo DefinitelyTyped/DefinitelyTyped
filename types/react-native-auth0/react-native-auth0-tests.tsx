@@ -75,7 +75,7 @@ auth0.auth
     .refreshToken({
         refreshToken: 'refresh-token',
         scope: 'openid',
-        appId: 'Mobile'
+        appId: 'Mobile',
     })
     .then(res => res);
 
@@ -285,27 +285,20 @@ auth0.credentialsManager.hasValidCredentials();
 auth0.credentialsManager.hasValidCredentials(123);
 
 function Test() {
-    const {
-        user,
-        error,
-        authorize,
-        clearSession,
-        getCredentials,
-        clearCredentials,
-        requireLocalAuthentication,
-    }: {
-        user: any;
-        error: BaseError | null;
-        authorize: (parameters: AuthorizeParams, options?: AuthorizeOptions) => Promise<void>;
-        clearSession: (parameters?: ClearSessionParams) => Promise<void>;
-        getCredentials: (scope?: string, minTtl?: number, parameters?: any) => Promise<Credentials>;
-        clearCredentials: () => Promise<void>;
-        requireLocalAuthentication: () => Promise<void>;
-    } = useAuth0();
+    const { isLoading, error, authorize, clearSession, getCredentials, clearCredentials, requireLocalAuthentication } =
+        useAuth0();
+
+    // can be used without args
+    authorize();
+    clearSession();
+    getCredentials();
+    clearCredentials();
+    requireLocalAuthentication();
 
     return (
         <Auth0Provider domain={'type'} clientId={'type'}>
-            Test
+            {!!isLoading && 'Loading'}
+            {!!error && error.message}
         </Auth0Provider>
     );
 }
