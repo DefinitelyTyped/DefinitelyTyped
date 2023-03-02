@@ -1,4 +1,5 @@
 // Type definitions for ZIM at https://zimjs.com
+// Project: https://github.com/danzen/zimjs
 // Definitions by: Dan Zen (Dr. Abstract)
 // with thanks to Lucas Joel, Manthan224, Geoffrey Nwachukwu, Kenil Domadia, and a lost teacher
 // Documentation : https://zimjs.com/docs.html
