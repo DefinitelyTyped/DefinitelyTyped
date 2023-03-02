@@ -7,11 +7,11 @@
 // Documentation : https://zimjs.com/docs.html
 // with thanks to Lucas Joel, Manthan224, Geoffrey Nwachukwu, Kenil Domadia, and a lost teacher
 
-// import "../createjs-lib/index.d.ts";
-import "../easeljs-lib/index.d.ts";
-import "../preloadjs/index.d.ts";
-import "../soundjs/index.t.ts";
-import "../tweenjs/index.t.ts"
+/// <reference path="../createjs-lib/index.d.ts" />
+/// <reference path="../easeljs/index.d.ts" />
+/// <reference path="../preloadjs/index.d.ts" />
+/// <reference path="../soundjs/index.d.ts" />
+/// <reference path="../tweenjs/index.d.ts" />
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // INSTRUCTIONS
