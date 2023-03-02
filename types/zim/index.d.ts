@@ -1,6 +1,6 @@
 // Type definitions for ZIM at https://zimjs.com
 // Project: https://github.com/danzen/zimjs
-// Definitions by: Dan Zen
+// Definitions by: Dan Zen <https://github.com/danzen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.3
 
