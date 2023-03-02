@@ -43,7 +43,7 @@ declare namespace previewEmail {
          */
         urlTransform?: UrlTransform | undefined;
         /**
-         * whether or not to open the iOS Simulator with the preview url file path 
+         * whether or not to open the iOS Simulator with the preview url file path
          * (defaults to true via process.env.NODE_ENV !== 'test' and will only run if macOS detected and not in a CI environment)
          * @default true
          */
