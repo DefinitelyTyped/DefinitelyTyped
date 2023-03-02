@@ -1,10 +1,10 @@
 // Type definitions for ZIM at https://zimjs.com
 // Project: https://github.com/danzen/zimjs
-// Definitions by: Dan Zen (Dr. Abstract)
-// Documentation : https://zimjs.com/docs.html
+// Definitions by: Dan Zen
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.3
 
+// Documentation : https://zimjs.com/docs.html
 // with thanks to Lucas Joel, Manthan224, Geoffrey Nwachukwu, Kenil Domadia, and a lost teacher
 
 /// <reference path="../createjs-lib/index.d.ts" />
