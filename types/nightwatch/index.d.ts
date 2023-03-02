@@ -6114,7 +6114,6 @@ export interface WebDriverProtocolElements {
      *         console.log(result.value);
      *       });
      *     });
-     *     
      *   },
      *
      *   'es6 async demo Test': async function(browser) {
