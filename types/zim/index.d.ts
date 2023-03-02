@@ -2,6 +2,7 @@
 // Project: https://github.com/danzen/zimjs
 // Definitions by: Dan Zen (Dr. Abstract)
 // Documentation : https://zimjs.com/docs.html
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.3
 
 // with thanks to Lucas Joel, Manthan224, Geoffrey Nwachukwu, Kenil Domadia, and a lost teacher
