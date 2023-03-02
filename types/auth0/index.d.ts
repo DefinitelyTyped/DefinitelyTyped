@@ -464,6 +464,7 @@ export type Strategy =
     | 'oauth2'
     | 'office365'
     | 'oidc'
+    | 'okta'
     | 'paypal'
     | 'paypal-sandbox'
     | 'pingfederate'
