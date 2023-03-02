@@ -12,6 +12,7 @@
 //                 Vlad Poluch <https://github.com/vlapo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Matteo Nista <https://github.com/Mattewn99>
+//                 Roman Babiak <https://github.com/Almost-Infinity>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _isBoolean from './lib/isBoolean';
@@ -271,10 +272,17 @@ declare namespace validator {
      */
     function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
 
+    interface IsCreditCardOptions {
+        /**
+         * @default undefined
+         */
+        provider?: 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa' | '';
+    }
+
     /**
      * Check if the string is a credit card.
      */
-    function isCreditCard(str: string): boolean;
+    function isCreditCard(str: string, options?: IsCreditCardOptions): boolean;
 
     interface IsCurrencyOptions {
         /**
