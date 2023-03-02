@@ -17,7 +17,6 @@
     "forceConsistentCasingInFileNames": true
     },
     "files": [
-    "index.d.ts",
-    "zim-tests.ts"
+    "index.d.ts"
     ]
 }
