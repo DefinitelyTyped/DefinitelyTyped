@@ -18,7 +18,6 @@ import { EventEmitter } from 'events';
 import { ServerOptions } from 'https';
 import { Options } from 'request';
 import { Readable, Stream } from 'stream';
-import { ChatId } from './index.js';
 
 declare namespace TelegramBot {
     interface TextListener {
