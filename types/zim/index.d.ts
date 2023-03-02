@@ -7,7 +7,7 @@
 // Documentation : https://zimjs.com/docs.html
 // with thanks to Lucas Joel, Manthan224, Geoffrey Nwachukwu, Kenil Domadia, and a lost teacher
 
-import "../createjs-lib/index.d.ts";
+// import "../createjs-lib/index.d.ts";
 import "../easeljs-lib/index.d.ts";
 import "../preloadjs/index.d.ts";
 import "../soundjs/index.t.ts";
