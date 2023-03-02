@@ -4,6 +4,7 @@
 // Documentation : https://zimjs.com/docs.html
 
 /// <reference path="../createjs-lib/index.d.ts" />
+/// <reference path="../createjs/index.d.ts" />
 /// <reference path="../easeljs/index.d.ts" />
 /// <reference path="../preloadjs/index.d.ts" />
 /// <reference path="../soundjs/index.d.ts" />
@@ -156,7 +157,7 @@ interface zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -198,13 +199,13 @@ interface zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -213,13 +214,13 @@ interface zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
 }
 
@@ -232,7 +233,7 @@ interface zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -648,7 +649,7 @@ declare class Container extends createjs.Container implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -690,13 +691,13 @@ declare class Container extends createjs.Container implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -705,13 +706,13 @@ declare class Container extends createjs.Container implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     loop(config_or_call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
     loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
@@ -813,7 +814,7 @@ declare class Sprite extends createjs.Sprite implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -855,13 +856,13 @@ declare class Sprite extends createjs.Sprite implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -870,13 +871,13 @@ declare class Sprite extends createjs.Sprite implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     run(time?:number, label?:string, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, startFrame?:number, end ?:number, tweek?:number, id?:string, globalControl?:boolean):this
     pauseRun(state?:boolean):this
@@ -984,7 +985,7 @@ declare class Shape extends createjs.Shape implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -1026,13 +1027,13 @@ declare class Shape extends createjs.Shape implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -1041,13 +1042,13 @@ declare class Shape extends createjs.Shape implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     cache(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number, scale?:number, options?:{}, margin?:number):this
     hasProp(prop:string):boolean
@@ -1172,7 +1173,7 @@ declare class Bitmap extends createjs.Bitmap implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -1214,13 +1215,13 @@ declare class Bitmap extends createjs.Bitmap implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -1229,13 +1230,13 @@ declare class Bitmap extends createjs.Bitmap implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     // clone():this
     hasProp(prop:string):boolean
@@ -1244,7 +1245,7 @@ declare class Bitmap extends createjs.Bitmap implements zimDisplay {
     keyOut(color?:string, tolerance?:number, replacement?:color):this
     getColorAt(x:number, y:number, array?:boolean):string|[number]
     drawImageData(x?:number, y?:number, sourceX?:number, srcY?:number, srcWidth?:number, srcHeight?:number):void
-    static fromData(data:any, callback:Function):void 
+    static fromData(data:any, callback:Function):void
     imageData:{data:[number]}
     svg:SVGElement
 }
@@ -1339,7 +1340,7 @@ declare class MovieClip extends createjs.MovieClip implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -1381,13 +1382,13 @@ declare class MovieClip extends createjs.MovieClip implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -1396,13 +1397,13 @@ declare class MovieClip extends createjs.MovieClip implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     hasProp(prop:string):boolean
     dispose():boolean
@@ -1499,7 +1500,7 @@ declare class SVGContainer extends Container implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -1541,13 +1542,13 @@ declare class SVGContainer extends Container implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -1556,13 +1557,13 @@ declare class SVGContainer extends Container implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     svg:string
 }
@@ -1577,7 +1578,7 @@ declare class Circle extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -1600,7 +1601,7 @@ declare class Rectangle extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -1621,7 +1622,7 @@ declare class Triangle extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -1645,7 +1646,7 @@ declare class Poly extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -1668,7 +1669,7 @@ declare class Line extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -1702,7 +1703,7 @@ declare class Squiggle extends Container {
     readonly colorCommand:createjs.Graphics.Fill
     thickness:number
     readonly thicknessCommand:createjs.Graphics.Stroke
-    readonly dashedCommand:createjs.Graphics.StrokeDash
+    readonly dashedCommand:any
     approximateBounds(num?:number, showPoints?:boolean):this
     addPoint(percent?:number, controlType?:string):this
     addPoints(num?:number, controlType?:string, startPoint?:number, spread?:boolean, dataOnly?:boolean, points?:any[]):this
@@ -1715,12 +1716,12 @@ declare class Squiggle extends Container {
     setPoints(data:any[][]):this
     changeControl(config_or_index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean):this
     changeControl(config:{index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean}):this
-    transformPoints(transformType:string, amount:number, x?:number, y?:number):this    
+    transformPoints(transformType:string, amount:number, x?:number, y?:number):this
     reversePoints(points:[any]):this
     appendPoints(original:[any], points:[any], controlType?:string):this
     prependPoints(original:[any], points:[any], controlType?:string):this
     splitPoints(points:[any], index?:number, trimEnds?:boolean):Squiggle
-    makeBlob(controlType?:string, mergeDist?:boolean):Blob    
+    makeBlob(controlType?:string, mergeDist?:boolean):Blob
     update(normalized?:boolean):this
     showControls():this
     hideControls():this
@@ -1766,15 +1767,15 @@ declare class Flare extends Container {
     colorRange:number
     borderColor:color
     borderWidth:number
-    borderDashedCommand:createjs.Graphics.StrokeDash
+    borderDashedCommand:any
     closeColor:color
     closeBorderColor:color
     closeBorderWidth:number
-    closeBorderDashedCommand:createjs.Graphics.StrokeDash
+    closeBorderDashedCommand:any
     spineColor:color
     spineBorderColor:color
     spineBorderWidth:number
-    spineBorderDashedCommand:createjs.Graphics.StrokeDash
+    spineBorderDashedCommand:any
 
     thicknessA:number
     thicknessB:number
@@ -1810,7 +1811,7 @@ declare class FlareBox extends Container {
     colorRange:number
     borderColor:color
     borderWidth:number
-    borderDashedCommand:createjs.Graphics.StrokeDash
+    borderDashedCommand:any
 }
 
 declare class Label extends Container implements zimComponent {
@@ -2488,7 +2489,7 @@ declare class Connectors extends Container implements zimComponent {
     getSteps(popup?:boolean):this
     setSteps(steps:[]):this
     addBase(base:DisplayObject, baseInfo?:number|[]):this
-    removeBase(base:DisplayObject):this    
+    removeBase(base:DisplayObject):this
     setAvailableIndexes(indexes:number|[number]):this
     node:DisplayObject
     creator:DisplayObject
@@ -2955,7 +2956,7 @@ declare class ShadowEffect extends createjs.BlurFilter {
     quality:number
     inner:boolean
     knockout:boolean
-    hideObject:boolean    
+    hideObject:boolean
 }
 declare class ColorEffect extends createjs.ColorFilter {
     constructor (config_or_redMultiplier?:number|zimVee, greenMultiplier?:number|zimVee, blueMultiplier?:number|zimVee, alphaMultiplier?:number|zimVee, redOffset?:number|zimVee, greenOffset?:number|zimVee, blueOffset?:number|zimVee, alphaOffset?:number|zimVee, style?:boolean, group?:string, inherit?:{})
@@ -3011,9 +3012,9 @@ declare class Flipper {
     clone():Flipper
     dispose():boolean
     readonly type:string
-    readonly flipped:boolean 
-    readonly front:DisplayObject 
-    readonly back:DisplayObject 
+    readonly flipped:boolean
+    readonly front:DisplayObject
+    readonly back:DisplayObject
 }
 declare class Book extends Container {
     constructor (config_or_width?:number, height?:number, pages?:[DisplayObject], startPage?:number, rollUp?:boolean|number, radius?:number, backgroundColor?:color, arrows?:boolean)
@@ -3024,7 +3025,7 @@ declare class Book extends Container {
     page:number
     readonly direction:string
     readonly lastPage:number
-    readonly pages:[DisplayObject] 
+    readonly pages:[DisplayObject]
     readonly moving:boolean
 }
 declare class Scroller extends createjs.EventDispatcher {
@@ -3167,12 +3168,12 @@ declare class Generator extends Container {
     redraw(clear?:boolean, setup?:boolean):this
     restamp(clear?:boolean, setup?:boolean):this
     pause(state?:boolean|zimVee, time?:number|zimVee):this
-    stop():this     
+    stop():this
     readonly type:string
     readonly drawing:Container
     readonly shape:Shape
     count:number
-    maxCount:number 
+    maxCount:number
     drawCount:number
     color:string|zimVee
     readonly currentColor:string
@@ -3185,7 +3186,7 @@ declare class Generator extends Container {
     linePoints:[]
     readonly paused:boolean
     stack:[]
-    colorStrokeStack:[]  
+    colorStrokeStack:[]
 }
 declare class Emitter extends Container {
     constructor (config_or_obj?:DisplayObject|zimVee, width?:number, height?:number, interval?:number|zimVee, num?:number|zimVee, life?:number|zimVee, fade?:boolean, shrink?:boolean, decayTime?:number, decayStart?:number, trace?:boolean, traceFadeTime?:number, traceShiftX?:number, traceShiftY?:number, angle?:number|zimVee, force?:number|zimVee, gravity?:number, wind?:number, layers?:string, animation?:{}|zimVee, random?:{}, horizontal?:boolean, vertical?:boolean, sink?:DisplayObject|{x:number,y:number}, sinkForce?:number, cache?:boolean, events?:boolean, startPaused?:boolean, pool?:boolean, poolMin?:number, particles?:Container, style?:boolean, group?:string, inherit?:{})
@@ -3386,7 +3387,7 @@ declare class Frame extends createjs.EventDispatcher {
     readonly isLoading:boolean
     readonly isDefault:boolean
     readonly isFullscreen:boolean
-    readonly leftMouseDown:boolean 
+    readonly leftMouseDown:boolean
     readonly width:number
     readonly height:number
     readonly scale:number
@@ -3450,10 +3451,10 @@ declare class Vid extends Container {
     play():this
     pause(state?:boolean):this
     keyOut(color?:string, tolerance?:number, replacement?:color):this
-    readonly duration:number 
+    readonly duration:number
     currentTime:number
-    volume:number 
-    readonly videoPaused:boolean 
+    volume:number
+    readonly videoPaused:boolean
     readonly source:HTMLVideoElement
     readonly bitmap:Bitmap
 }
@@ -3592,7 +3593,7 @@ declare namespace zim {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -3610,9 +3611,9 @@ declare namespace zim {
             setPoints(data:any[][]):this
             changeControl(config_or_index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean):this
             changeControl(config:{index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean}):this
-            transformPoints(transformType:string, amount:number, x?:number, y?:number):this  
+            transformPoints(transformType:string, amount:number, x?:number, y?:number):this
             reversePoints(points:[any]):this
-            makeSquiggle(index?:number):Squiggle          
+            makeSquiggle(index?:number):Squiggle
             update(normalized?:boolean):this
             showControls():this
             hideControls():this
@@ -4042,7 +4043,7 @@ export class Container extends createjs.Container implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -4084,13 +4085,13 @@ export class Container extends createjs.Container implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -4099,13 +4100,13 @@ export class Container extends createjs.Container implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     loop(config_or_call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
     loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
@@ -4207,7 +4208,7 @@ export class Sprite extends createjs.Sprite implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -4249,13 +4250,13 @@ export class Sprite extends createjs.Sprite implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -4264,13 +4265,13 @@ export class Sprite extends createjs.Sprite implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     run(time?:number, label?:string, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, startFrame?:number, end ?:number, tweek?:number, id?:string, globalControl?:boolean):this
     pauseRun(state?:boolean):this
@@ -4378,7 +4379,7 @@ export class Shape extends createjs.Shape implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -4420,13 +4421,13 @@ export class Shape extends createjs.Shape implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -4435,13 +4436,13 @@ export class Shape extends createjs.Shape implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     cache(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number, scale?:number, options?:{}, margin?:number):this
     hasProp(prop:string):boolean
@@ -4566,7 +4567,7 @@ export class Bitmap extends createjs.Bitmap implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -4608,13 +4609,13 @@ export class Bitmap extends createjs.Bitmap implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -4623,13 +4624,13 @@ export class Bitmap extends createjs.Bitmap implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     // clone():this
     hasProp(prop:string):boolean
@@ -4638,7 +4639,7 @@ export class Bitmap extends createjs.Bitmap implements zimDisplay {
     keyOut(color?:string, tolerance?:number, replacement?:color):this
     getColorAt(x:number, y:number, array?:boolean):string|[number]
     drawImageData(x?:number, y?:number, sourceX?:number, srcY?:number, srcWidth?:number, srcHeight?:number):void
-    static fromData(data:any, callback:Function):void 
+    static fromData(data:any, callback:Function):void
     imageData:{data:[number]}
     svg:SVGElement
 }
@@ -4733,7 +4734,7 @@ export class MovieClip extends createjs.MovieClip implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -4775,13 +4776,13 @@ export class MovieClip extends createjs.MovieClip implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -4790,13 +4791,13 @@ export class MovieClip extends createjs.MovieClip implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     hasProp(prop:string):boolean
     dispose():boolean
@@ -4893,7 +4894,7 @@ export class SVGContainer extends Container implements zimDisplay {
     ble(color:color):this
     dye(blendMode:string):this
     hov(value?:any, prop?:string):this
-    rot(rotation:number):this    
+    rot(rotation:number):this
     siz(width:number, height?:number, only?:boolean):this
     ske(skewx:number, skewY?:number):this
     reg(regx:number, regY?:number, still?:boolean):this
@@ -4935,13 +4936,13 @@ export class SVGContainer extends Container implements zimDisplay {
     name:string
     draggable:boolean
     effects:{string:createjs.Filter}
-    hue:number 
-    saturation:number 
-    brightness:number 
+    hue:number
+    saturation:number
+    brightness:number
     contrast:number
-    hueBatch:number 
-    saturationBatch:number 
-    brightnessBatch:number 
+    hueBatch:number
+    saturationBatch:number
+    brightnessBatch:number
     contrastBatch:number
     blendMode:string
     readonly paused:boolean
@@ -4950,13 +4951,13 @@ export class SVGContainer extends Container implements zimDisplay {
     group:string
     dynamic:boolean
     dragPaused:boolean
-    // animate properties 
+    // animate properties
     readonly animating:boolean
     readonly waiting:boolean
     readonly tweenState:{}
     percentSpeed:number
     rate:number
-    percentComplete:number    
+    percentComplete:number
     // END ZIM Display Interface
     svg:string
 }
@@ -4971,7 +4972,7 @@ export class Circle extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -4994,7 +4995,7 @@ export class Rectangle extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -5015,7 +5016,7 @@ export class Triangle extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -5039,7 +5040,7 @@ export class Poly extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -5062,7 +5063,7 @@ export class Line extends Container implements zimShape {
     borderColor:color
     readonly borderColorCommand:createjs.Graphics.Stroke
     borderWidth:number
-    readonly borderDashedCommand:createjs.Graphics.StrokeDash
+    readonly borderDashedCommand:any
     setColorRange(color1?:color, color2?:color):this
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
@@ -5096,7 +5097,7 @@ export class Squiggle extends Container {
     readonly colorCommand:createjs.Graphics.Fill
     thickness:number
     readonly thicknessCommand:createjs.Graphics.Stroke
-    readonly dashedCommand:createjs.Graphics.StrokeDash
+    readonly dashedCommand:any
     approximateBounds(num?:number, showPoints?:boolean):this
     addPoint(percent?:number, controlType?:string):this
     addPoints(num?:number, controlType?:string, startPoint?:number, spread?:boolean, dataOnly?:boolean, points?:any[]):this
@@ -5109,12 +5110,12 @@ export class Squiggle extends Container {
     setPoints(data:any[][]):this
     changeControl(config_or_index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean):this
     changeControl(config:{index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean}):this
-    transformPoints(transformType:string, amount:number, x?:number, y?:number):this    
+    transformPoints(transformType:string, amount:number, x?:number, y?:number):this
     reversePoints(points:[any]):this
     appendPoints(original:[any], points:[any], controlType?:string):this
     prependPoints(original:[any], points:[any], controlType?:string):this
     splitPoints(points:[any], index?:number, trimEnds?:boolean):Squiggle
-    makeBlob(controlType?:string, mergeDist?:boolean):Blob    
+    makeBlob(controlType?:string, mergeDist?:boolean):Blob
     update(normalized?:boolean):this
     showControls():this
     hideControls():this
@@ -5160,15 +5161,15 @@ export class Flare extends Container {
     colorRange:number
     borderColor:color
     borderWidth:number
-    borderDashedCommand:createjs.Graphics.StrokeDash
+    borderDashedCommand:any
     closeColor:color
     closeBorderColor:color
     closeBorderWidth:number
-    closeBorderDashedCommand:createjs.Graphics.StrokeDash
+    closeBorderDashedCommand:any
     spineColor:color
     spineBorderColor:color
     spineBorderWidth:number
-    spineBorderDashedCommand:createjs.Graphics.StrokeDash
+    spineBorderDashedCommand:any
 
     thicknessA:number
     thicknessB:number
@@ -5204,7 +5205,7 @@ export class FlareBox extends Container {
     colorRange:number
     borderColor:color
     borderWidth:number
-    borderDashedCommand:createjs.Graphics.StrokeDash
+    borderDashedCommand:any
 }
 
 export class Label extends Container implements zimComponent {
@@ -5882,7 +5883,7 @@ export class Connectors extends Container implements zimComponent {
     getSteps(popup?:boolean):this
     setSteps(steps:[]):this
     addBase(base:DisplayObject, baseInfo?:number|[]):this
-    removeBase(base:DisplayObject):this    
+    removeBase(base:DisplayObject):this
     setAvailableIndexes(indexes:number|[number]):this
     node:DisplayObject
     creator:DisplayObject
@@ -6349,7 +6350,7 @@ export class ShadowEffect extends createjs.BlurFilter {
     quality:number
     inner:boolean
     knockout:boolean
-    hideObject:boolean    
+    hideObject:boolean
 }
 export class ColorEffect extends createjs.ColorFilter {
     constructor (config_or_redMultiplier?:number|zimVee, greenMultiplier?:number|zimVee, blueMultiplier?:number|zimVee, alphaMultiplier?:number|zimVee, redOffset?:number|zimVee, greenOffset?:number|zimVee, blueOffset?:number|zimVee, alphaOffset?:number|zimVee, style?:boolean, group?:string, inherit?:{})
@@ -6405,9 +6406,9 @@ export class Flipper {
     clone():Flipper
     dispose():boolean
     readonly type:string
-    readonly flipped:boolean 
-    readonly front:DisplayObject 
-    readonly back:DisplayObject 
+    readonly flipped:boolean
+    readonly front:DisplayObject
+    readonly back:DisplayObject
 }
 export class Book extends Container {
     constructor (config_or_width?:number, height?:number, pages?:[DisplayObject], startPage?:number, rollUp?:boolean|number, radius?:number, backgroundColor?:color, arrows?:boolean)
@@ -6418,7 +6419,7 @@ export class Book extends Container {
     page:number
     readonly direction:string
     readonly lastPage:number
-    readonly pages:[DisplayObject] 
+    readonly pages:[DisplayObject]
     readonly moving:boolean
 }
 export class Scroller extends createjs.EventDispatcher {
@@ -6561,12 +6562,12 @@ export class Generator extends Container {
     redraw(clear?:boolean, setup?:boolean):this
     restamp(clear?:boolean, setup?:boolean):this
     pause(state?:boolean|zimVee, time?:number|zimVee):this
-    stop():this     
+    stop():this
     readonly type:string
     readonly drawing:Container
     readonly shape:Shape
     count:number
-    maxCount:number 
+    maxCount:number
     drawCount:number
     color:string|zimVee
     readonly currentColor:string
@@ -6579,7 +6580,7 @@ export class Generator extends Container {
     linePoints:[]
     readonly paused:boolean
     stack:[]
-    colorStrokeStack:[]  
+    colorStrokeStack:[]
 }
 export class Emitter extends Container {
     constructor (config_or_obj?:DisplayObject|zimVee, width?:number, height?:number, interval?:number|zimVee, num?:number|zimVee, life?:number|zimVee, fade?:boolean, shrink?:boolean, decayTime?:number, decayStart?:number, trace?:boolean, traceFadeTime?:number, traceShiftX?:number, traceShiftY?:number, angle?:number|zimVee, force?:number|zimVee, gravity?:number, wind?:number, layers?:string, animation?:{}|zimVee, random?:{}, horizontal?:boolean, vertical?:boolean, sink?:DisplayObject|{x:number,y:number}, sinkForce?:number, cache?:boolean, events?:boolean, startPaused?:boolean, pool?:boolean, poolMin?:number, particles?:Container, style?:boolean, group?:string, inherit?:{})
@@ -6780,7 +6781,7 @@ export class Frame extends createjs.EventDispatcher {
     readonly isLoading:boolean
     readonly isDefault:boolean
     readonly isFullscreen:boolean
-    readonly leftMouseDown:boolean 
+    readonly leftMouseDown:boolean
     readonly width:number
     readonly height:number
     readonly scale:number
@@ -6844,10 +6845,10 @@ export class Vid extends Container {
     play():this
     pause(state?:boolean):this
     keyOut(color?:string, tolerance?:number, replacement?:color):this
-    readonly duration:number 
+    readonly duration:number
     currentTime:number
-    volume:number 
-    readonly videoPaused:boolean 
+    volume:number
+    readonly videoPaused:boolean
     readonly source:HTMLVideoElement
     readonly bitmap:Bitmap
 }
