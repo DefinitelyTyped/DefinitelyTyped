@@ -35,6 +35,20 @@ pendo.initialize({
     }
 });
 
+pendo.initialize({
+    visitor: {
+        id: "PUT_VISITOR_ID_HERE",
+        name: "Neo",
+        email: "neo@thematrix.io",
+        role: "godlike"
+    },
+    account: {
+        id: "PUT_ACCOUNT_ID_HERE",
+        name: "CorpSchmorp"
+    },
+    cookieDomain: ".example.com"
+});
+
 pendo.setGuidesDisabled(true);
 pendo.stopGuides();
 
