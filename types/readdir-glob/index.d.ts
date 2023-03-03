@@ -11,7 +11,7 @@ import { EventEmitter } from 'events';
 
 declare function readdirGlob(root: string, options: G.Options): readdirGlob.ReaddirGlob;
 
-declare namespace G {
+declare namespace readdirGlob {
     interface Options {
         /**
          * Glob pattern or Array of Glob patterns to match the found files with. A file has to match at least one of the provided patterns to be returned.
