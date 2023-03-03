@@ -6,9 +6,9 @@ import Store = require('./Store');
 export = RedisStore;
 
 declare class RedisStore extends Store {
-    client: RedisClient;
+    client: RedisClientType;
 
-    constructor(config?: ClientOpts);
+    constructor(config?: RedisClientOptions);
 
     incr(key: string, options: RateLimitOptions, weight: number): Promise<{ counter: number; dateEnd: number }>;
     decrement(key: string, options: RateLimitOptions, weight: number): Promise<void>;
