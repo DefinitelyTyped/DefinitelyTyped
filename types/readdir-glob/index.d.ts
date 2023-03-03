@@ -9,7 +9,7 @@ import * as fs from 'fs';
 import { EventEmitter } from 'events';
 
 
-declare function readdirGlob(root: string, options: G.Options): readdirGlob.ReaddirGlob;
+declare function readdirGlob(root: string, options: readdirGlob.Options): readdirGlob.ReaddirGlob;
 
 declare namespace readdirGlob {
     interface Options {
