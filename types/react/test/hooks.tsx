@@ -413,5 +413,5 @@ function SetInvalidFunctionalState() {
         }}>
             {state()}
         </button>
-    )
+    );
 }
