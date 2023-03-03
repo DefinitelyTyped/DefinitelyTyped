@@ -1,0 +1,53 @@
+{
+    "name": "@types/react-native-snap-carousel",
+    "version": "3.8.5",
+    "description": "TypeScript definitions for react-native-snap-carousel",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-native-snap-carousel",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "jnbt",
+            "url": "https://github.com/jnbt",
+            "githubUsername": "jnbt"
+        },
+        {
+            "name": "Jacob Froman",
+            "url": "https://github.com/j-fro",
+            "githubUsername": "j-fro"
+        },
+        {
+            "name": "Nikolay Polukhin",
+            "url": "https://github.com/gazaret",
+            "githubUsername": "gazaret"
+        },
+        {
+            "name": "Guillaume Amat",
+            "url": "https://github.com/GuillaumeAmat",
+            "githubUsername": "GuillaumeAmat"
+        },
+        {
+            "name": "Vitor Luiz Cavalcanti",
+            "url": "https://github.com/VitorLuizC",
+            "githubUsername": "VitorLuizC"
+        },
+        {
+            "name": "Lemon Garrett",
+            "url": "https://github.com/egarrett94",
+            "githubUsername": "egarrett94"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/react-native-snap-carousel"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-native": "*"
+    },
+    "typesPublisherContentHash": "4e519c6f4fac891110b78494a65aebc42e0341005344ef302f2a1d3414d667e9",
+    "typeScriptVersion": "3.7"
+}
