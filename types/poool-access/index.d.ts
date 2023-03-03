@@ -150,7 +150,7 @@ export namespace Poool {
             pageType?: 'premium' | 'free',
             mode?: 'hide' | 'excerpt' | 'custom',
             percent?: number,
-        }) => void;
+        }) => AccessFactory;
         texts: AccessTexts;
         on: (event: EventsList, callback: (...props: any) => any) => AccessFactory;
         once: (event: EventsList, callback: (...props: any) => any) => AccessFactory;
