@@ -2,26 +2,26 @@ import sdNotify = require('sd-notify');
 
 // $ExpectType void
 sdNotify.ready();
-// $ExpectError
+// @ts-expect-error
 sdNotify.ready(123);
 
 // $ExpectType void
 sdNotify.startWatchdogMode(2800);
-// $ExpectError
+// @ts-expect-error
 sdNotify.startWatchdogMode();
-// $ExpectError
+// @ts-expect-error
 sdNotify.startWatchdogMode('2800');
 
 // $ExpectType void
 sdNotify.stopWatchdogMode();
-// $ExpectError
+// @ts-expect-error
 sdNotify.stopWatchdogMode(123);
 
 // $ExpectType void
 sdNotify.sendStatus('OK');
-// $ExpectError
+// @ts-expect-error
 sdNotify.sendStatus();
-// $ExpectError
+// @ts-expect-error
 sdNotify.sendStatus(123);
 
 // $ExpectType void
@@ -29,24 +29,24 @@ sdNotify.journalPrint(['OK', 'But']);
 
 // $ExpectType void
 sdNotify.stopping(1);
-// $ExpectError
+// @ts-expect-error
 sdNotify.stopping();
-// $ExpectError
+// @ts-expect-error
 sdNotify.stopping('1');
 
 // $ExpectType void
 sdNotify.watchdog();
-// $ExpectError
+// @ts-expect-error
 sdNotify.watchdog(1);
 
 // $ExpectType number
 sdNotify.watchdogInterval();
-// $ExpectError
+// @ts-expect-error
 sdNotify.watchdogInterval(1);
 
 // $ExpectType void
 sdNotify.sendState(['STATUS=', 'OK']);
-// $ExpectError
+// @ts-expect-error
 sdNotify.sendState();
-// $ExpectError
+// @ts-expect-error
 sdNotify.sendState(1);
