@@ -127,4 +127,4 @@ declare namespace readdirGlob {
     }
 }
 
-export = G;
+export = readdirGlob;
