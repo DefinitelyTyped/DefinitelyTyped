@@ -47,5 +47,16 @@ const rate5 = RateLimit.middleware({
     store: new Stores.Sequelize(new Sequelize({})),
 });
 
+const rate6 = RateLimit.middleware({
+    store: new Stores.Redis({
+        socket: {
+            host: "localhost,
+            port: parseInt("6379"),
+        },
+        password: "my@pass,
+        database: 1
+    })
+});
+
 const app = new Koa();
 app.use(rate2);
