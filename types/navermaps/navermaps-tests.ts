@@ -172,6 +172,90 @@ const getVectorMap = naver.maps.NaverStyleMapTypeOptions.getVectorMap();
 const getWorldMap = naver.maps.NaverStyleMapTypeOptions.getWorldMap();
 
 /**
+ * Polygon Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-4-polygon-hole.example.html
+ */
+const arrayPaths = [
+    [
+        new naver.maps.LatLng(37.37544345085402, 127.11224555969238),
+        new naver.maps.LatLng(37.37230584065902, 127.10791110992432),
+        new naver.maps.LatLng(37.35975408751081, 127.10795402526855),
+        new naver.maps.LatLng(37.359924641705476, 127.11576461791992),
+        new naver.maps.LatLng(37.35931064479073, 127.12211608886719),
+        new naver.maps.LatLng(37.36043630196386, 127.12293148040771),
+        new naver.maps.LatLng(37.36354029942161, 127.12310314178465),
+        new naver.maps.LatLng(37.365211629488016, 127.12456226348876),
+        new naver.maps.LatLng(37.37544345085402, 127.11224555969238),
+    ],
+    [
+        new naver.maps.LatLng(37.368485964153784, 127.10971355438232),
+        new naver.maps.LatLng(37.368520071054576, 127.11464881896971),
+        new naver.maps.LatLng(37.36350619025713, 127.11473464965819),
+        new naver.maps.LatLng(37.363403862670665, 127.1097993850708),
+        new naver.maps.LatLng(37.368485964153784, 127.10971355438232),
+    ],
+];
+const kvoArrayPaths = new naver.maps.KVOArray([
+    new naver.maps.KVOArray([
+        new naver.maps.LatLng(37.37544345085402, 127.11224555969238),
+        new naver.maps.LatLng(37.37230584065902, 127.10791110992432),
+        new naver.maps.LatLng(37.35975408751081, 127.10795402526855),
+        new naver.maps.LatLng(37.359924641705476, 127.11576461791992),
+        new naver.maps.LatLng(37.35931064479073, 127.12211608886719),
+        new naver.maps.LatLng(37.36043630196386, 127.12293148040771),
+        new naver.maps.LatLng(37.36354029942161, 127.12310314178465),
+        new naver.maps.LatLng(37.365211629488016, 127.12456226348876),
+        new naver.maps.LatLng(37.37544345085402, 127.11224555969238),
+    ]),
+    new naver.maps.KVOArray([
+        new naver.maps.LatLng(37.368485964153784, 127.10971355438232),
+        new naver.maps.LatLng(37.368520071054576, 127.11464881896971),
+        new naver.maps.LatLng(37.36350619025713, 127.11473464965819),
+        new naver.maps.LatLng(37.363403862670665, 127.1097993850708),
+        new naver.maps.LatLng(37.368485964153784, 127.10971355438232),
+    ]),
+]);
+const literalArrayPaths: naver.maps.ArrayOfCoordsLiteral[] = [
+    [
+        [37.37544345085402, 127.11224555969238],
+        [37.37230584065902, 127.10791110992432],
+        [37.35975408751081, 127.10795402526855],
+        [37.359924641705476, 127.11576461791992],
+        [37.35931064479073, 127.12211608886719],
+        [37.36043630196386, 127.12293148040771],
+        [37.36354029942161, 127.12310314178465],
+        [37.365211629488016, 127.12456226348876],
+        [37.37544345085402, 127.11224555969238],
+    ],
+    [
+        [37.368485964153784, 127.10971355438232],
+        [37.368520071054576, 127.11464881896971],
+        [37.36350619025713, 127.11473464965819],
+        [37.363403862670665, 127.1097993850708],
+        [37.368485964153784, 127.10971355438232],
+    ],
+];
+
+const polygon = new naver.maps.Polygon({
+    map: map,
+    paths: arrayPaths,
+    fillColor: '#ff0000',
+    fillOpacity: 0.3,
+    strokeColor: '#ff0000',
+    strokeOpacity: 0.6,
+    strokeWeight: 3,
+});
+polygon.setPaths(arrayPaths);
+polygon.setPaths(kvoArrayPaths);
+polygon.setPaths(literalArrayPaths);
+expectType<naver.maps.ArrayOfCoords[] | naver.maps.KVOArray<naver.maps.KVOArrayOfCoords>>(polygon.getPaths());
+
+polygon.setOptions("paths", kvoArrayPaths);
+polygon.setOptions("paths", literalArrayPaths);
+expectType<naver.maps.ArrayOfCoords[] | naver.maps.KVOArray<naver.maps.KVOArrayOfCoords> | naver.maps.ArrayOfCoordsLiteral[]>(polygon.getOptions("paths"));
+expectType<naver.maps.PolygonOptions>(polygon.getOptions());
+
+/**
  * Panorama Basic Example
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-panorama-simple.example.html
  */
