@@ -401,3 +401,17 @@ function useUsers(): string[] {
         () => objectStore.getServerState().users,
     );
 }
+
+function SetInvalidFunctionalState() {
+    const [state, setState] = React.useState(() => () => "foo");
+
+    return (
+        <button onClick={() => {
+            // Type 'string' is not assignable to type '() => string'.
+            // @ts-expect-error
+            setState(() => "bar");
+        }}>
+            {state()}
+        </button>
+    )
+}
