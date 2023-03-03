@@ -50,10 +50,10 @@ const rate5 = RateLimit.middleware({
 const rate6 = RateLimit.middleware({
     store: new Stores.Redis({
         socket: {
-            host: "localhost,
-            port: parseInt("6379"),
+            host: "localhost",
+            port: 6379,
         },
-        password: "my@pass,
+        password: "my@pass",
         database: 1
     })
 });
