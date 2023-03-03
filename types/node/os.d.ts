@@ -133,6 +133,13 @@ declare module 'os' {
      */
     function cpus(): CpuInfo[];
     /**
+     * Returns an estimate of the default amount of parallelism a program should use. Always returns a value greater than zero.
+     *
+     * This function is a small wrapper about libuv's [`uv_available_parallelism()`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_available_parallelism).
+     * @since 18.4.0
+     */
+    function availableParallelism(): number;
+    /**
      * Returns the operating system name as returned by [`uname(3)`](https://linux.die.net/man/3/uname). For example, it
      * returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
      *
