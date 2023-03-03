@@ -48,7 +48,7 @@ declare module 'string_decoder' {
          * @since v0.1.99
          * @param buffer A `Buffer`, or `TypedArray`, or `DataView` containing the bytes to decode.
          */
-        write(buffer: Buffer): string;
+        write(buffer: Buffer | Uint8Array | Int8Array | Uint8ClampedArray | Uint16Array | Int16Array | Uint32Array | Int32Array | BigUint64Array | BigInt64Array | Float32Array | Float64Array | DataView): string;
         /**
          * Returns any remaining input stored in the internal buffer as a string. Bytes
          * representing incomplete UTF-8 and UTF-16 characters will be replaced with
@@ -59,7 +59,7 @@ declare module 'string_decoder' {
          * @since v0.9.3
          * @param buffer A `Buffer`, or `TypedArray`, or `DataView` containing the bytes to decode.
          */
-        end(buffer?: Buffer): string;
+        end(buffer?: Buffer | Uint8Array | Int8Array | Uint8ClampedArray | Uint16Array | Int16Array | Uint32Array | Int32Array | BigUint64Array | BigInt64Array | Float32Array | Float64Array | DataView): string;
     }
 }
 declare module 'node:string_decoder' {
