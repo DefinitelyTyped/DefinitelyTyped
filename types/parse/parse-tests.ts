@@ -1689,43 +1689,43 @@ function testObject() {
     }
 
     function testNullableArrays(
-        objTyped: Parse.Object<{ unionList?: Array<'foo' | 'bar'> | null }>
+        objTyped: Parse.Object<{ stringList?: string[] | null }>
     ) {
-        // $ExpectType false | Object<{ unionList?: ("foo" | "bar")[] | null | undefined; }>
-        objTyped.add('unionList', 'foo');
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.add('stringList', 'foo');
 
         // @ts-expect-error
-        objTyped.add('unionList', "baz");
+        objTyped.add('stringList', 4);
 
-        // $ExpectType false | Object<{ unionList?: ("foo" | "bar")[] | null | undefined; }>
-        objTyped.addAll('unionList', ['foo']);
-
-        // @ts-expect-error
-        objTyped.addAll('unionList', ["baz"]);
-
-        // $ExpectType false | Object<{ unionList?: ("foo" | "bar")[] | null | undefined; }>
-        objTyped.addAllUnique('unionList', ['foo', 'bar']);
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addAll('stringList', ['foo']);
 
         // @ts-expect-error
-        objTyped.addAllUnique('unionList', ["baz"]);
+        objTyped.addAll('stringList', [4]);
 
-        // $ExpectType false | Object<{ unionList?: ("foo" | "bar")[] | null | undefined; }>
-        objTyped.addUnique('unionList', 'foo');
-
-        // @ts-expect-error
-        objTyped.addUnique('unionList', "baz");
-
-        // $ExpectType false | Object<{ unionList?: ("foo" | "bar")[] | null | undefined; }>
-        objTyped.remove('unionList', 'bar');
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addAllUnique('stringList', ['foo', 'bar']);
 
         // @ts-expect-error
-        objTyped.remove('unionList', "baz");
+        objTyped.addAllUnique('stringList', [4]);
 
-        // $ExpectType false | Object<{ unionList?: ("foo" | "bar")[] | null | undefined; }>
-        objTyped.removeAll('unionList', ['bar']);
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addUnique('stringList', 'foo');
 
         // @ts-expect-error
-        objTyped.removeAll('unionList', ["baz"]);
+        objTyped.addUnique('stringList', 4);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.remove('stringList', 'bar');
+
+        // @ts-expect-error
+        objTyped.remove('stringList', 4);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.removeAll('stringList', ['bar']);
+
+        // @ts-expect-error
+        objTyped.removeAll('stringList', [4]);
     }
 }
 
