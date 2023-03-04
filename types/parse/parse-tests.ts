@@ -1689,39 +1689,39 @@ function testObject() {
     }
 
     function testNullableArrays(
-        objTyped: Parse.Object<{ unionList?: ('foo' | 'bar')[] | null }>
+        objTyped: Parse.Object<{ unionList?: Array<'foo' | 'bar'> | null }>
     ) {
-        // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
+        // $ExpectType false | Object<{ unionList?: Array<'foo' | 'bar'>; }>
         objTyped.add('unionList', 'foo');
 
         // @ts-expect-error
         objTyped.add('unionList', "baz");
 
-        // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
+        // $ExpectType false | Object<{ unionList?: Array<'foo' | 'bar'>; }>
         objTyped.addAll('unionList', ['foo']);
 
         // @ts-expect-error
         objTyped.addAll('unionList', ["baz"]);
 
-        // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
+        // $ExpectType false | Object<{ unionList?: Array<'foo' | 'bar'>; }>
         objTyped.addAllUnique('unionList', ['foo', 'bar']);
 
         // @ts-expect-error
         objTyped.addAllUnique('unionList', ["baz"]);
 
-        // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
+        // $ExpectType false | Object<{ unionList?: Array<'foo' | 'bar'>; }>
         objTyped.addUnique('unionList', 'foo');
 
         // @ts-expect-error
         objTyped.addUnique('unionList', "baz");
 
-        // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
+        // $ExpectType false | Object<{ unionList?: Array<'foo' | 'bar'>; }>
         objTyped.remove('unionList', 'bar');
 
         // @ts-expect-error
         objTyped.remove('unionList', "baz");
 
-        // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
+        // $ExpectType false | Object<{ unionList?: Array<'foo' | 'bar'>; }>
         objTyped.removeAll('unionList', ['bar']);
 
         // @ts-expect-error
