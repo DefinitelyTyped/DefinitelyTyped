@@ -31,11 +31,15 @@ export interface ListIconProps {
     className?: string | undefined;
 }
 
-export interface ListItemProps {
+export interface ListItemProps extends React.HTMLAttributes<HTMLLIElement> {
     children?: React.ReactNode;
     className?: string | undefined;
     selected?: boolean | undefined;
     onClick?: ((...args: any[]) => any) | undefined;
+    /** URL to navigate to if list item is a link */
+    url?: string;
+    /** Internal use only */
+    navigation?: boolean;
 }
 
 export interface ListTextProps {

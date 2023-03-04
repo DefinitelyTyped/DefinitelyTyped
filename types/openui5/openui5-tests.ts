@@ -26,6 +26,8 @@ import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisp
 import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
 import CalendarUtils from "sap/ui/core/date/CalendarUtils";
+import PlanningCalendar from "sap/m/PlanningCalendar";
+import WebSocket from "sap/ui/core/ws/WebSocket";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -161,6 +163,7 @@ oUploadDialog.open();
 
 const messagePage: MessagePage = new MessagePage();
 messagePage.setTitleLevel(TitleLevel.H1);
+const focusable = messagePage.isFocusable();
 
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
@@ -178,3 +181,9 @@ const integer = NumberFormat.getIntegerInstance({
 });
 
 const weekConfigurationValues = CalendarUtils.getWeekConfigurationValues();
+
+const pc = new PlanningCalendar();
+pc.getSecondaryCalendarType();
+
+const ws = new WebSocket("someUrl");
+ws.close("end");

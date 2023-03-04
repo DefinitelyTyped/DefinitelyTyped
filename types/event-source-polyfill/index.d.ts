@@ -46,9 +46,9 @@ export interface MessageEvent extends Event {
 }
 
 export class EventSourcePolyfill {
-    static readonly CLOSED: number;
-    static readonly CONNECTING: number;
-    static readonly OPEN: number;
+    static readonly CLOSED: 2;
+    static readonly CONNECTING: 0;
+    static readonly OPEN: 1;
 
     constructor(url: string, options?: EventSourcePolyfillInit);
 
@@ -59,9 +59,9 @@ export class EventSourcePolyfill {
     readonly readyState: number;
     readonly url: string;
     readonly withCredentials: boolean;
-    readonly CLOSED: number;
-    readonly CONNECTING: number;
-    readonly OPEN: number;
+    readonly CLOSED: 2;
+    readonly CONNECTING: 0;
+    readonly OPEN: 1;
 
     close(): void;
     dispatchEvent(event: Event): boolean;

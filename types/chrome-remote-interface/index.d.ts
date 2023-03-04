@@ -153,6 +153,22 @@ declare namespace CDP {
     // Generated content end.
     /////////////////////////////////////////////////
 
+    type GetEventFromString<D extends string, S extends string> = S extends `${D}.${infer E}` ? E : never;
+    type GetEvent<D extends string> = GetEventFromString<D, keyof ProtocolMappingApi.Events>;
+    type GetReturnType<D extends string, E extends string> =
+        `${D}.${E}` extends keyof ProtocolMappingApi.Events ?
+            ProtocolMappingApi.Events[`${D}.${E}`][0] : never;
+    type DoEventPromises<D extends string> = {
+        [event in GetEvent<D>]:
+            // tslint:disable-next-line: void-return
+            () => Promise<GetReturnType<D, event> extends undefined ? void : GetReturnType<D, event>>
+    };
+    type DoEventListeners<D extends string> = {
+        [event in GetEvent<D>]:
+            (listener: (params: GetReturnType<D, event>, sessionId?: string) => void) => () => Client
+    };
+    type DoEventObj<D> = D extends string ? DoEventPromises<D> & DoEventListeners<D> : {};
+
     type IsNullableObj<T> = Record<keyof T, undefined> extends T ? true : false;
     /**
      * Checks whether the only parameter of `T[key]` is nullable i.e. all of
@@ -165,7 +181,8 @@ declare namespace CDP {
                 T[key] :
             T[key]
     };
-    type ImproveAPI<T> = {[key in keyof T]: OptIfParamNullable<T[key]>};
+
+    type ImproveAPI<T> = {[key in keyof T]: DoEventObj<key> & OptIfParamNullable<T[key]>};
     interface StableDomains {
         Browser: ProtocolProxyApi.BrowserApi;
         Debugger: ProtocolProxyApi.DebuggerApi;

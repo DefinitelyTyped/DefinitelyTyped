@@ -3,7 +3,7 @@ import {
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
 } from '../common/api-gateway';
-import { Callback, Handler } from '../handler';
+import { Callback, CognitoIdentity, Handler } from '../handler';
 
 /**
  * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
@@ -44,6 +44,15 @@ export type APIGatewayProxyHandlerV2WithJWTAuthorizer<T = never> = Handler<
  */
 export type APIGatewayProxyHandlerV2WithLambdaAuthorizer<TAuthorizerContext, T = never> = Handler<
     APIGatewayProxyEventV2WithLambdaAuthorizer<TAuthorizerContext>,
+    APIGatewayProxyResultV2<T>
+>;
+
+/**
+ * Works with HTTP API integration Payload Format version 2.0 adds IAM Authroizer to RequestContext
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
+export type APIGatewayProxyHandlerV2WithIAMAuthorizer<T = never> = Handler<
+    APIGatewayProxyEventV2WithIAMAuthorizer,
     APIGatewayProxyResultV2<T>
 >;
 
@@ -237,12 +246,34 @@ export interface APIGatewayEventRequestContextJWTAuthorizer {
     };
 }
 
+/**
+ * IAM Authorizer Payload
+ */
+export interface APIGatewayEventRequestContextIAMAuthorizer {
+    iam: {
+        accessKey: string;
+        accountId: string;
+        callerId: string;
+        cognitoIdentity: null;
+        principalOrgId: string;
+        userArn: string;
+        userId: string;
+    };
+}
+
 export type APIGatewayProxyEventV2WithJWTAuthorizer = APIGatewayProxyEventV2WithRequestContext<
     APIGatewayEventRequestContextV2WithAuthorizer<APIGatewayEventRequestContextJWTAuthorizer>
 >;
 
 export type APIGatewayProxyEventV2WithLambdaAuthorizer<TAuthorizerContext> = APIGatewayProxyEventV2WithRequestContext<
     APIGatewayEventRequestContextV2WithAuthorizer<APIGatewayEventRequestContextLambdaAuthorizer<TAuthorizerContext>>
+>;
+
+/**
+ * Event type when invoking Lambda function URLs with IAM authorizer
+ */
+export type APIGatewayProxyEventV2WithIAMAuthorizer = APIGatewayProxyEventV2WithRequestContext<
+    APIGatewayEventRequestContextV2WithAuthorizer<APIGatewayEventRequestContextIAMAuthorizer>
 >;
 
 export interface APIGatewayEventRequestContextV2WithAuthorizer<TAuthorizer> extends APIGatewayEventRequestContextV2 {

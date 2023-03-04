@@ -18,7 +18,7 @@ export class PointLight extends Light {
 
     /**
      * Light's intensity.
-     * @default 1
+     * @default 2
      */
     intensity: number;
 
@@ -27,6 +27,14 @@ export class PointLight extends Light {
      * @default 0
      */
     distance: number;
+
+    /**
+     * If set to `true` light will cast dynamic shadows.
+     * **Warning**: This is expensive and requires tweaking to get shadows looking right.
+     * See the {@link PointLightShadow} for details.
+     * The default is `false`.
+     */
+    castShadow: boolean;
 
     /**
      * @default 1

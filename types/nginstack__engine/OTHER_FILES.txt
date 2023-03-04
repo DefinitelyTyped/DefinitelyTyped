@@ -21,7 +21,6 @@ lib/geo/latitudeToCoordinateFormat.d.ts
 lib/geo/longitudeToCoordinateFormat.d.ts
 lib/geo/parseCoordinate.d.ts
 lib/html/removeXssInjection.d.ts
-lib/jose/Algorithm.d.ts
 lib/jose/RegisteredClaimNames.d.ts
 lib/jose/RegisteredHeaderNames.d.ts
 lib/mime/findMimeTypeByFileExt.d.ts

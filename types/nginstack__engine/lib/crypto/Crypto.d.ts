@@ -33,7 +33,12 @@ declare namespace Crypto {
         DecryptOptions,
     };
 }
-declare function encrypt(data: string, key: string, cipher?: string, iv?: string): string;
+declare function encrypt(
+    data: string,
+    key: string | Uint8Array | ArrayBuffer,
+    cipher?: string,
+    iv?: string | Uint8Array | ArrayBuffer
+): string;
 declare function encryptBytes(
     cipher: string,
     data: Uint8Array | ArrayBuffer,
@@ -51,7 +56,12 @@ declare function encryptBytesWithAuth(
     data: Uint8Array;
     authTag: Uint8Array;
 };
-declare function decrypt(data: string, key: string, cipher?: string, iv?: string): string;
+declare function decrypt(
+    data: string,
+    key: string | Uint8Array | ArrayBuffer,
+    cipher?: string,
+    iv?: string | Uint8Array | ArrayBuffer
+): string;
 declare function decryptBytes(
     cipher: string,
     data: Uint8Array | ArrayBuffer,

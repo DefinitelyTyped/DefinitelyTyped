@@ -56,7 +56,7 @@ const BLOCK_INSTANCE: blocks.BlockInstance<{ foo: string }> = {
         </div>
     );
     const Enhanced = blocks.withBlockContentContext(OriginalComponent);
-    <Enhanced foo="bar" />;
+    <Enhanced foo="bar" BlockContent="cont" />;
 })();
 
 //
@@ -628,6 +628,13 @@ blocks.synchronizeBlocksWithTemplate(undefined, [
     ['my/foo', { foo: 'bar' }],
     ['my/foo', { foo: 'bar' }],
 ]);
+
+//
+// editor interaction
+// ----------------------------------------------------------------------------
+
+// $ExpectType ComponentType<BlockEditProps<{ foo: string; }>> | undefined
+blocks.getBlockType<{ foo: string; }>('my/foo')?.edit;
 
 //
 // utils

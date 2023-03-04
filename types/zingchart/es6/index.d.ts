@@ -7601,6 +7601,7 @@ declare namespace zingchart {
      */
     'minor-ticks'?: number;
     minorTicks?: number;
+    aperture?: number;
     /**
      * Gauge Charts Only: To set the minimum, maximum, and step scale values. '0:10' | '0:25:5' | ...
      */

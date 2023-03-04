@@ -1,0 +1,2 @@
+GraphQLUpload.d.ts
+processRequest.d.ts

@@ -558,3 +558,19 @@ be.useBlockProps.save();
 
 // $ExpectType Record<string, unknown>
 be.useBlockProps.save({ foo: "bar" });
+
+// $ExpectType string
+be.getTypographyClassesAndStyles({}, false).className;
+be.getTypographyClassesAndStyles({}, {}).className;
+be.getTypographyClassesAndStyles({}, {minFontSize: "33"}).className;
+
+// $ExpectType Record<string, string>
+be.getTypographyClassesAndStyles({}, false).style;
+be.getTypographyClassesAndStyles({}, {}).style;
+be.getTypographyClassesAndStyles({}, {minFontSize: "33"}).style;
+
+// $ExpectType "HELLO"
+be.useCachedTruthy("HELLO");
+
+// $ExpectType 42
+be.useCachedTruthy(42);

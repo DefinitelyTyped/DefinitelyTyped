@@ -124,6 +124,26 @@ export function request<RT extends ResponseType | undefined>(
 ): RefinedResponse<RT>;
 
 /**
+ * Make async request.
+ * https://k6.io/docs/javascript-api/k6-http/asyncrequest/
+ * @param method - HTTP method.
+ * @param url - Request URL.
+ * @param body - Request body. Object form encoded.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ * @example
+ * let formData = {name: 'k6'};
+ * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+ * http.asyncRequest('POST', url, formData, { headers: headers });
+ */
+export function asyncRequest<RT extends ResponseType | undefined>(
+    method: string,
+    url: string | HttpURL,
+    body?: RequestBody | null,
+    params?: RefinedParams<RT> | null
+): Promise<RefinedResponse<RT>>;
+
+/**
  * Batch multiple HTTP requests together,
  * to issue them in parallel over multiple TCP connections.
  * https://k6.io/docs/javascript-api/k6-http/batch-requests
@@ -902,6 +922,26 @@ declare namespace http {
         body?: RequestBody | null,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
+
+    /**
+     * Make async request.
+     * https://k6.io/docs/javascript-api/k6-http/asyncrequest/
+     * @param method - HTTP method.
+     * @param url - Request URL.
+     * @param body - Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @example
+     * let formData = {name: 'k6'};
+     * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+     * http.asyncRequest('POST', url, formData, { headers: headers });
+     */
+    function asyncRequest<RT extends ResponseType | undefined>(
+        method: string,
+        url: string | HttpURL,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): Promise<RefinedResponse<RT>>;
 
     /**
      * Creates a URL with set name tag.

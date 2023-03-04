@@ -3,6 +3,7 @@ import { Raycaster } from './../core/Raycaster';
 import { Object3D } from './../core/Object3D';
 import { BufferGeometry } from '../core/BufferGeometry';
 import { Intersection } from '../core/Raycaster';
+import { Vector3 } from '../math/Vector3';
 
 export class Mesh<
     TGeometry extends BufferGeometry = BufferGeometry,
@@ -18,5 +19,12 @@ export class Mesh<
     type: string;
 
     updateMorphTargets(): void;
+
+    /**
+     * Get the local-space position of the vertex at the given index,
+     * taking into account the current animation state of both morph targets and skinning.
+     */
+    getVertexPosition(index: number, target: Vector3): Vector3;
+
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 }

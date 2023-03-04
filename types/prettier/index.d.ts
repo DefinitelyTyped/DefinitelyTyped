@@ -545,7 +545,7 @@ export interface SupportOptionRange {
     step: number;
 }
 
-export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
+export type SupportOptionType = 'int' | 'string' | 'boolean' | 'choice' | 'path';
 
 export type CoreCategoryType = 'Config' | 'Editor' | 'Format' | 'Other' | 'Output' | 'Global' | 'Special';
 
@@ -589,6 +589,16 @@ export interface IntArraySupportOption extends BaseSupportOption<'int'> {
     array: true;
 }
 
+export interface StringSupportOption extends BaseSupportOption<'string'> {
+    default?: string | undefined;
+    array?: false | undefined;
+}
+
+export interface StringArraySupportOption extends BaseSupportOption<'string'> {
+    default?: Array<{ value: string[] }> | undefined;
+    array: true;
+}
+
 export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
     default?: boolean | undefined;
     array?: false | undefined;
@@ -624,6 +634,8 @@ export interface PathArraySupportOption extends BaseSupportOption<'path'> {
 export type SupportOption =
     | IntSupportOption
     | IntArraySupportOption
+    | StringSupportOption
+    | StringArraySupportOption
     | BooleanSupportOption
     | BooleanArraySupportOption
     | ChoiceSupportOption

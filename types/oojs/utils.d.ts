@@ -68,6 +68,10 @@ declare namespace OO {
 
     type ArgTuple = [] | [any] | [any, any] | [any, any, any] | [any, any, any, any] | [any, any, any, any, any];
 
+    type EventConnectionMap<T extends object, C, M extends object> = {
+        [K in keyof T]: EventConnectionMapEntry<C, (M & Record<string | number | symbol, any[]>)[K], T[K]>;
+    };
+
     type EventConnectionMapEntry<C, P extends any[], T> = T extends ArgTuple
         ? [EventHandler<C, (this: C, ...args: [...T, ...P]) => void>, ...T]
         : EventHandler<C, (this: C, ...args: P) => void>;

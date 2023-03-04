@@ -939,7 +939,7 @@ export namespace Users {
 
         /** Showing Users */
         show(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
-        show(userId: ZendeskID): Promise<ResponsePayload>;
+        show(userId: ZendeskID): Promise<ResponseModel>;
         showMany(userIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): ListPayload;
         showMany(userIds: ReadonlyArray<ZendeskID>): Promise<ListPayload>;
 

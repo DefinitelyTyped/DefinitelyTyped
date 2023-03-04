@@ -31,7 +31,8 @@ import * as dns from 'node:dns';
     server = http.createServer({
         insecureHTTPParser: true,
         keepAlive: true,
-        keepAliveInitialDelay: 1000
+        keepAliveInitialDelay: 1000,
+        keepAliveTimeout: 100
     }, reqListener);
 
     // test public props

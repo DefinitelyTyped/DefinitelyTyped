@@ -1190,11 +1190,13 @@ declare module 'crypto' {
         format?: KeyFormat | undefined;
         type?: 'pkcs1' | 'pkcs8' | 'sec1' | undefined;
         passphrase?: string | Buffer | undefined;
+        encoding?: string | undefined;
     }
     interface PublicKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
         type?: 'pkcs1' | 'spki' | undefined;
+        encoding?: string | undefined;
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
@@ -2357,7 +2359,7 @@ declare module 'crypto' {
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: BufferEncoding;
     type KeyType = 'rsa' | 'rsa-pss' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
-    type KeyFormat = 'pem' | 'der';
+    type KeyFormat = 'pem' | 'der' | 'jwk';
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
         cipher?: string | undefined;
@@ -3131,23 +3133,23 @@ declare module 'crypto' {
         /**
          * @default 'always'
          */
-        subject: 'always' | 'never';
+        subject?: 'always' | 'default' | 'never';
         /**
          * @default true
          */
-        wildcards: boolean;
+        wildcards?: boolean;
         /**
          * @default true
          */
-        partialWildcards: boolean;
+        partialWildcards?: boolean;
         /**
          * @default false
          */
-        multiLabelWildcards: boolean;
+        multiLabelWildcards?: boolean;
         /**
          * @default false
          */
-        singleLabelSubdomains: boolean;
+        singleLabelSubdomains?: boolean;
     }
     /**
      * Encapsulates an X509 certificate and provides read-only access to

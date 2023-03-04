@@ -9,7 +9,7 @@ export type DialogProps = {
     contentProps?: any;
     disableStyles?: boolean | undefined;
     footerProps?: any;
-    header?: string | undefined;
+    header?: string | React.ReactNode;
     headerProps?: any;
     headingLevel?: any;
     show?: boolean | undefined;

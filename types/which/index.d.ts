@@ -8,22 +8,22 @@
 /** Finds all instances of a specified executable in the PATH environment variable */
 declare function which(
     cmd: string,
-    options: which.AsyncOptions & which.OptionsAll,
+    options: which.Options & which.AsyncOptions & which.OptionsAll,
     cb: (err: Error | null, paths: ReadonlyArray<string> | undefined) => void,
 ): void;
 declare function which(
     cmd: string,
-    options: which.AsyncOptions & which.OptionsFirst,
+    options: which.Options & which.AsyncOptions & which.OptionsFirst,
     cb: (err: Error | null, path: string | undefined) => void,
 ): void;
 declare function which(
     cmd: string,
-    options: which.AsyncOptions,
+    options: which.Options & which.AsyncOptions,
     cb: (err: Error | null, path: string | ReadonlyArray<string> | undefined) => void,
 ): void;
 declare function which(cmd: string, cb: (err: Error | null, path: string | undefined) => void): void;
-declare function which(cmd: string, options: which.AsyncOptions & which.OptionsAll): Promise<string[]>;
-declare function which(cmd: string, options?: which.AsyncOptions & which.OptionsFirst): Promise<string>;
+declare function which(cmd: string, options: which.Options & which.AsyncOptions & which.OptionsAll): Promise<string[]>;
+declare function which(cmd: string, options?: which.Options & which.AsyncOptions & which.OptionsFirst): Promise<string>;
 
 declare namespace which {
     /** Finds all instances of a specified executable in the PATH environment variable */

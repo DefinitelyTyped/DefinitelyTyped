@@ -6,9 +6,12 @@ const client = Nightwatch.createClient({
   headless: true
 });
 
+const runner = Nightwatch.CliRunner();
+
 client.updateCapabilities({
   testCapability: 'one, two, three'
 });
+
 const browser = async () => {
     await client.launchBrowser();
 };

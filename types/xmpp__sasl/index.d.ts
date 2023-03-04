@@ -13,7 +13,7 @@ declare function sasl<TEntity extends Entity>(
     {
         streamFeatures,
     }: {
-        // tslint:disable-next-line:no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         streamFeatures: streamFeatures.StreamFeatures<TEntity>;
     },
     credentials: sasl.Credentials,

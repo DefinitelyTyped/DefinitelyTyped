@@ -1,8 +1,9 @@
-// Type definitions for k6 0.41
+// Type definitions for k6 0.43
 // Project: https://k6.io/docs/
 // Definitions by: na-- <https://github.com/na-->
 //                 Mihail Stoykov <https://github.com/MStoykov>
 //                 Ivan <https://github.com/codebien>
+//                 Ivan Mirić <https://github.com/imiric>
 //                 Théo Crevon <https://github.com/oleiade>
 //                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
@@ -42,6 +43,7 @@ import './metrics';
 import './options';
 import './experimental/redis';
 import './experimental/timers';
+import './experimental/tracing';
 import './experimental/websockets';
 import './ws';
 import './net/grpc';

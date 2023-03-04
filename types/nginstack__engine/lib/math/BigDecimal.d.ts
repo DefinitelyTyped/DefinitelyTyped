@@ -25,8 +25,8 @@ declare class BigDecimal {
     sqrt(): BigDecimal;
     floor(): BigDecimal;
     ceil(): BigDecimal;
-    toDecimalPlaces(): BigDecimal;
-    quantize(): BigDecimal;
+    toDecimalPlaces(places: number): BigDecimal;
+    quantize(value: number | BigDecimal | string): BigDecimal;
 }
 declare namespace BigDecimal {
     function config(params: {
