@@ -1692,37 +1692,37 @@ function testObject() {
         objTyped: Parse.Object<{ unionList?: ('foo' | 'bar')[] | null }>
     ) {
         // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
-        const addFooOrBar = (a:'foo'|'bar') => objTyped.add('unionList', a);
+        objTyped.add('unionList', 'foo');
 
         // @ts-expect-error
         objTyped.add('unionList', "baz");
 
         // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
-        const addAllFooOrBar = (a:('foo' | 'bar')[]) => objTyped.addAll('unionList', a);
+        objTyped.addAll('unionList', ['foo']);
 
         // @ts-expect-error
         objTyped.addAll('unionList', ["baz"]);
 
         // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
-        const addAllUniqueFooOrBar = (a:('foo' | 'bar')[]) => objTyped.addAllUnique('unionList', a);
+        objTyped.addAllUnique('unionList', ['foo', 'bar']);
 
         // @ts-expect-error
         objTyped.addAllUnique('unionList', ["baz"]);
 
         // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
-        const addUniqueFooOrBar = (a:('foo' | 'bar')) => objTyped.addUnique('unionList', a);
+        objTyped.addUnique('unionList', 'foo');
 
         // @ts-expect-error
         objTyped.addUnique('unionList', "baz");
 
         // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
-        const removeFooOrBar = (a:'foo'|'bar') => objTyped.remove('unionList', a);
+        objTyped.remove('unionList', 'bar');
 
         // @ts-expect-error
         objTyped.remove('unionList', "baz");
 
         // $ExpectType false | Object<{ unionList?: ('foo' | 'bar')[]; }>
-        const removeAllFooOrBar = (a:('foo' | 'bar')[]) => objTyped.removeAll('unionList', a);
+        objTyped.removeAll('unionList', ['bar']);
 
         // @ts-expect-error
         objTyped.removeAll('unionList', ["baz"]);
