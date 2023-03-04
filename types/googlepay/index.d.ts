@@ -964,7 +964,7 @@ declare namespace google.payments.api {
     /**
      * Detailed information about the transaction.
      */
-    interface TransactionInfo {
+    type TransactionInfo = {
         /**
          * Correlation ID to refer to this transaction.
          *
