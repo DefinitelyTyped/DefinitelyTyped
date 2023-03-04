@@ -993,21 +993,6 @@ declare namespace google.payments.api {
         countryCode?: string | undefined;
 
         /**
-         * Total price of this transaction.
-         *
-         * The format of this string should follow the regular expression
-         * format:
-         * `[0-9]+(\.[0-9][0-9])?` (e.g., `"10.45"`)
-         *
-         * This field is required if
-         * [[CheckoutOption.TransactionInfo.totalPriceStatus|`CheckoutOption.TransactionInfo.totalPriceStatus`]]
-         * is set to
-         * [[TotalPriceStatus|`ESTIMATED`]] or
-         * [[TotalPriceStatus|`FINAL`]].
-         */
-        totalPrice: string;
-
-        /**
          * Total price label of this transaction.
          *
          * The string will be shown as the total price label on the cart modal
@@ -1018,17 +1003,6 @@ declare namespace google.payments.api {
          * even if transactionInfo.displayItems is set.
          */
         totalPriceLabel?: string | undefined;
-
-        /**
-         * Status of this transaction's total price.
-         *
-         * This field is required.
-         *
-         * Note: some payment methods require that this field be set to
-         * [[TotalPriceStatus|`FINAL`]] and that
-         * the total price to be specified and final.
-         */
-        totalPriceStatus: TotalPriceStatus;
 
         /**
          * Transaction note.
@@ -1061,7 +1035,36 @@ declare namespace google.payments.api {
          * price. e.g. 'subtotal', 'discount'.
          */
         displayItems?: DisplayItem[] | undefined;
-    }
+    } & ({
+        /**
+         * Total price of this transaction.
+         *
+         * The format of this string should follow the regular expression
+         * format:
+         * `[0-9]+(\.[0-9][0-9])?` (e.g., `"10.45"`)
+         *
+         * This field is required if
+         * [[CheckoutOption.TransactionInfo.totalPriceStatus|`CheckoutOption.TransactionInfo.totalPriceStatus`]]
+         * is set to
+         * [[TotalPriceStatus|`ESTIMATED`]] or
+         * [[TotalPriceStatus|`FINAL`]].
+         */
+        totalPrice: string;
+        
+        /**
+         * Status of this transaction's total price.
+         *
+         * This field is required.
+         *
+         * Note: some payment methods require that this field be set to
+         * [[TotalPriceStatus|`FINAL`]] and that
+         * the total price to be specified and final.
+         */
+        totalPriceStatus: Exclude<TotalPriceStatus, 'NOT_CURRENTLY_KNOWN'>;
+    } | {
+        totalPriceStatus: Extract<TotalPriceStatus, 'NOT_CURRENTLY_KNOWN'>;
+        totalPrice?: never;
+    });
 
     /**
      * Data for a payment method.
