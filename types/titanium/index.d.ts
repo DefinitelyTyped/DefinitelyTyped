@@ -8863,176 +8863,6 @@ declare namespace Titanium {
 		const VISIBILITY_PUBLIC: number;
 
 		/**
-		 * An object that represents a single attendee of an event.
-		 */
-		namespace Attendee {
-			/**
-			 * The attendee email.
-			 */
-			const email: string;
-
-			/**
-			 * Indicates whether this attendee is the event organizer.
-			 */
-			const isOrganizer: boolean;
-
-			/**
-			 * The attendee name.
-			 */
-			const name: string;
-
-			/**
-			 * The role of the attendee.
-			 */
-			const role: number;
-
-			/**
-			 * The status of the attendee.
-			 */
-			const status: number;
-
-			/**
-			 * The type of the attendee.
-			 */
-			const type: number;
-
-			/**
-			 * Adds the specified callback as an event listener for the named event.
-			 */
-			function addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-			/**
-			 * Fires a synthesized event to any registered listeners.
-			 */
-			function fireEvent(name: string, event?: any): void;
-
-			/**
-			 * Removes the specified callback as an event listener for the named event.
-			 */
-			function removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-		}
-		/**
-		 * An object that is used to describe the recurrence pattern for a recurring event.
-		 */
-		namespace RecurrenceRule {
-			/**
-			 * Identifier for the recurrence rule's calendar.
-			 */
-			const calendarID: string;
-
-			/**
-			 * The days of the month that the event occurs, as an array of number objects.
-			 * Values can be from 1 to 31 and from -1 to -31. This parameter is only valid for
-			 * recurrence rules of type
-			 * [RECURRENCEFREQUENCY_MONTHLY](Titanium.Calendar.RECURRENCEFREQUENCY_MONTHLY).
-			 */
-			const daysOfTheMonth: number[];
-
-			/**
-			 * The days of the week that the event occurs, as an array of objects `daysOfWeek` and `Week`.
-			 */
-			const daysOfTheWeek: daysOfTheWeekDictionary[];
-
-			/**
-			 * The days of the year that the event occurs, as an array of number objects.
-			 * Values can be from 1 to 366 and from -1 to -366. This parameter is only valid for
-			 * recurrence rules of type [RECURRENCEFREQUENCY_YEARLY](Titanium.Calendar.RECURRENCEFREQUENCY_YEARLY).
-			 */
-			const daysOfTheYear: number[];
-
-			/**
-			 * End of a recurrence rule.
-			 */
-			const end: recurrenceEndDictionary;
-
-			/**
-			 * Frequency of the recurrence rule.
-			 */
-			const frequency: number;
-
-			/**
-			 * The interval between instances of this recurrence. For example, a weekly
-			 * recurrence rule with an interval of 2 occurs every other week. Must be greater than 0.
-			 */
-			const interval: number;
-
-			/**
-			 * The months of the year that the event occurs, as an array of Number objects.
-			 * Values can be from 1 to 12. This parameter is only valid for recurrence rules of
-			 * type [RECURRENCEFREQUENCY_YEARLY](Titanium.Calendar.RECURRENCEFREQUENCY_YEARLY).
-			 */
-			const monthsOfTheYear: number[];
-
-			/**
-			 * An array of ordinal numbers that filters which recurrences to include in the
-			 * recurrence rule's frequency. For example, a yearly recurrence rule that has a
-			 * [daysOfTheWeek](Titanium.Calendar.RecurrenceRule.daysOfTheWeek) value that specifies
-			 * Monday through Friday, and a `setPositions` array containing 2 and -1, occurs only
-			 * on the second weekday and last weekday of every year.
-			 */
-			const setPositions: number[];
-
-			/**
-			 * The weeks of the year that the event occurs, as an array of number objects.
-			 * Values can be from 1 to 53 and from -1 to -53. This parameter is only valid for
-			 * recurrence rules of type [RECURRENCEFREQUENCY_YEARLY](Titanium.Calendar.RECURRENCEFREQUENCY_YEARLY).
-			 */
-			const weeksOfTheYear: number[];
-
-			/**
-			 * Adds the specified callback as an event listener for the named event.
-			 */
-			function addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-			/**
-			 * Fires a synthesized event to any registered listeners.
-			 */
-			function fireEvent(name: string, event?: any): void;
-
-			/**
-			 * Removes the specified callback as an event listener for the named event.
-			 */
-			function removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-		}
-		/**
-		 * An object that represents a single reminder for an event in a calendar.
-		 */
-		namespace Reminder {
-			/**
-			 * Identifier of this reminder.
-			 */
-			const id: string;
-
-			/**
-			 * Method by which this reminder will be delivered.
-			 */
-			const method: number;
-
-			/**
-			 * Reminder notice period in minutes, that determines how long prior to the event this reminder
-			 * should trigger.
-			 */
-			const minutes: number;
-
-			/**
-			 * Adds the specified callback as an event listener for the named event.
-			 */
-			function addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-			/**
-			 * Fires a synthesized event to any registered listeners.
-			 */
-			function fireEvent(name: string, event?: any): void;
-
-			/**
-			 * Removes the specified callback as an event listener for the named event.
-			 */
-			function removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-		}
-		/**
 		 * An object that represents a single alert for an event in an calendar.
 		 */
 		class Alert extends Titanium.Proxy {
@@ -9081,6 +8911,56 @@ declare namespace Titanium {
 			 * The current state of the alert.
 			 */
 			readonly state: number;
+
+			/**
+			 * Adds the specified callback as an event listener for the named event.
+			 */
+			addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+			/**
+			 * Fires a synthesized event to any registered listeners.
+			 */
+			fireEvent(name: string, event?: any): void;
+
+			/**
+			 * Removes the specified callback as an event listener for the named event.
+			 */
+			removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+		}
+		/**
+		 * An object that represents a single attendee of an event.
+		 */
+		interface Attendee extends Titanium.Proxy {
+			/**
+			 * The attendee email.
+			 */
+			readonly email: string;
+
+			/**
+			 * Indicates whether this attendee is the event organizer.
+			 */
+			readonly isOrganizer: boolean;
+
+			/**
+			 * The attendee name.
+			 */
+			readonly name: string;
+
+			/**
+			 * The role of the attendee.
+			 */
+			readonly role: number;
+
+			/**
+			 * The status of the attendee.
+			 */
+			readonly status: number;
+
+			/**
+			 * The type of the attendee.
+			 */
+			readonly type: number;
 
 			/**
 			 * Adds the specified callback as an event listener for the named event.
@@ -9347,6 +9227,126 @@ declare namespace Titanium {
 			 * Sets the value of the specified extended property.
 			 */
 			setExtendedProperty(name: string, value: string): void;
+
+		}
+		/**
+		 * An object that is used to describe the recurrence pattern for a recurring event.
+		 */
+		interface RecurrenceRule extends Titanium.Proxy {
+			/**
+			 * Identifier for the recurrence rule's calendar.
+			 */
+			readonly calendarID: string;
+
+			/**
+			 * The days of the month that the event occurs, as an array of number objects.
+			 * Values can be from 1 to 31 and from -1 to -31. This parameter is only valid for
+			 * recurrence rules of type
+			 * [RECURRENCEFREQUENCY_MONTHLY](Titanium.Calendar.RECURRENCEFREQUENCY_MONTHLY).
+			 */
+			readonly daysOfTheMonth: number[];
+
+			/**
+			 * The days of the week that the event occurs, as an array of objects `daysOfWeek` and `Week`.
+			 */
+			readonly daysOfTheWeek: daysOfTheWeekDictionary[];
+
+			/**
+			 * The days of the year that the event occurs, as an array of number objects.
+			 * Values can be from 1 to 366 and from -1 to -366. This parameter is only valid for
+			 * recurrence rules of type [RECURRENCEFREQUENCY_YEARLY](Titanium.Calendar.RECURRENCEFREQUENCY_YEARLY).
+			 */
+			readonly daysOfTheYear: number[];
+
+			/**
+			 * End of a recurrence rule.
+			 */
+			readonly end: recurrenceEndDictionary;
+
+			/**
+			 * Frequency of the recurrence rule.
+			 */
+			readonly frequency: number;
+
+			/**
+			 * The interval between instances of this recurrence. For example, a weekly
+			 * recurrence rule with an interval of 2 occurs every other week. Must be greater than 0.
+			 */
+			readonly interval: number;
+
+			/**
+			 * The months of the year that the event occurs, as an array of Number objects.
+			 * Values can be from 1 to 12. This parameter is only valid for recurrence rules of
+			 * type [RECURRENCEFREQUENCY_YEARLY](Titanium.Calendar.RECURRENCEFREQUENCY_YEARLY).
+			 */
+			readonly monthsOfTheYear: number[];
+
+			/**
+			 * An array of ordinal numbers that filters which recurrences to include in the
+			 * recurrence rule's frequency. For example, a yearly recurrence rule that has a
+			 * [daysOfTheWeek](Titanium.Calendar.RecurrenceRule.daysOfTheWeek) value that specifies
+			 * Monday through Friday, and a `setPositions` array containing 2 and -1, occurs only
+			 * on the second weekday and last weekday of every year.
+			 */
+			readonly setPositions: number[];
+
+			/**
+			 * The weeks of the year that the event occurs, as an array of number objects.
+			 * Values can be from 1 to 53 and from -1 to -53. This parameter is only valid for
+			 * recurrence rules of type [RECURRENCEFREQUENCY_YEARLY](Titanium.Calendar.RECURRENCEFREQUENCY_YEARLY).
+			 */
+			readonly weeksOfTheYear: number[];
+
+			/**
+			 * Adds the specified callback as an event listener for the named event.
+			 */
+			addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+			/**
+			 * Fires a synthesized event to any registered listeners.
+			 */
+			fireEvent(name: string, event?: any): void;
+
+			/**
+			 * Removes the specified callback as an event listener for the named event.
+			 */
+			removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+		}
+		/**
+		 * An object that represents a single reminder for an event in a calendar.
+		 */
+		interface Reminder extends Titanium.Proxy {
+			/**
+			 * Identifier of this reminder.
+			 */
+			readonly id: string;
+
+			/**
+			 * Method by which this reminder will be delivered.
+			 */
+			readonly method: number;
+
+			/**
+			 * Reminder notice period in minutes, that determines how long prior to the event this reminder
+			 * should trigger.
+			 */
+			readonly minutes: number;
+
+			/**
+			 * Adds the specified callback as an event listener for the named event.
+			 */
+			addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+			/**
+			 * Fires a synthesized event to any registered listeners.
+			 */
+			fireEvent(name: string, event?: any): void;
+
+			/**
+			 * Removes the specified callback as an event listener for the named event.
+			 */
+			removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
 
 		}
 	}
@@ -9703,7 +9703,7 @@ declare namespace Titanium {
 			 * Asynchronously executes an array of SQL statements against the database and fires a callback with a possible Error, and an array of `ResultSet`.
 			 * On failure, this will call the callback with an [Error](PossibleBatchQueryError) that reports the failed `index`, and a second argument with the partial `results`.
 			 */
-			executeAllAsync(queries: ReadonlyArray<string>, callback?: (param0: PossibleBatchQueryError, param1: Titanium.Database.ResultSet[]) => void): Promise<Array<Titanium.Database.ResultSet>>;
+			executeAllAsync(queries: ReadonlyArray<string>, callback?: (param0: PossibleBatchQueryError, param1: Titanium.Database.ResultSet[]) => void): Promise<Titanium.Database.ResultSet[]>;
 
 			/**
 			 * Asynchronously executes an SQL statement against the database and fires a callback with a possible `Error` argument, and a second argument holding a possible `ResultSet`.
@@ -11120,210 +11120,6 @@ declare namespace Titanium {
 		const VIDEO_TIME_OPTION_PREVIOUS_SYNC: number;
 
 		/**
-		 * A representation of a media item returned by [openMusicLibrary](Titanium.Media.openMusicLibrary) or [queryMusicLibrary](Titanium.Media.queryMusicLibrary).
-		 */
-		namespace Item {
-			/**
-			 * Artist credited for the album containing this item.
-			 */
-			const albumArtist: string;
-
-			/**
-			 * The persistent identifier for an album artist.
-			 */
-			const albumArtistPersistentID: number;
-
-			/**
-			 * The key for the persistent identifier for an album.
-			 */
-			const albumPersistentID: number;
-
-			/**
-			 * Title of the album containing this item.
-			 */
-			const albumTitle: string;
-
-			/**
-			 * Number of tracks for the album containing this item.
-			 */
-			const albumTrackCount: number;
-
-			/**
-			 * Track number for this item.
-			 */
-			const albumTrackNumber: number;
-
-			/**
-			 * Artist credited for this item.
-			 */
-			const artist: string;
-
-			/**
-			 * Image for the item's artwork as a `Blob` object,  or `null` if no artwork is
-			 * available.
-			 */
-			const artwork: Titanium.Blob;
-
-			/**
-			 * A URL pointing to the media item.
-			 */
-			const assetURL: string;
-
-			/**
-			 * The number of musical beats per minute for the media item, corresponding
-			 * to the "BPM" field in the Info tab in the "Get Info" dialog in iTunes.
-			 */
-			const beatsPerMinute: number;
-
-			/**
-			 * The user's place in the media item the most recent time it was played.
-			 */
-			const bookmarkTime: string;
-
-			/**
-			 * Textual information about the media item, corresponding to the "Comments"
-			 * field in in the Info tab in the Get Info dialog in iTunes.
-			 */
-			const comments: string;
-
-			/**
-			 * Composer of this item.
-			 */
-			const composer: string;
-
-			/**
-			 * Date when the item was added to the music library.
-			 */
-			const dateAdded: Date;
-
-			/**
-			 * Total number of discs for the album containing this item.
-			 */
-			const discCount: number;
-
-			/**
-			 * Disc number for this item in the album.
-			 */
-			const discNumber: number;
-
-			/**
-			 * Genre of this item.
-			 */
-			const genre: string;
-
-			/**
-			 * The persistent identifier for a genre.
-			 */
-			const genrePersistentID: number;
-
-			/**
-			 * True if the item represents a protected asset.
-			 */
-			const hasProtectedAsset: boolean;
-
-			/**
-			 * True if the media item is an iCloud item.
-			 */
-			const isCloudItem: boolean;
-
-			/**
-			 * True if this item is part of a compilation album.
-			 */
-			const isCompilation: boolean;
-
-			/**
-			 * True if this item is marked as "Explicit".
-			 */
-			const isExplicit: boolean;
-
-			/**
-			 * The most recent calendar date on which the user played the media item.
-			 */
-			const lastPlayedDate: Date;
-
-			/**
-			 * Lyrics for this item.
-			 */
-			const lyrics: string;
-
-			/**
-			 * The type of the media.
-			 */
-			const mediaType: number;
-
-			/**
-			 * The key for the persistent identifier for the media item.
-			 */
-			const persistentID: string;
-
-			/**
-			 * Number of times the item has been played.
-			 */
-			const playCount: number;
-
-			/**
-			 * Length (in seconds) of this item.
-			 */
-			const playbackDuration: number;
-
-			/**
-			 * Used to enqueue store tracks by their ID.
-			 */
-			const playbackStoreID: number;
-
-			/**
-			 * The persistent identifier for an audio podcast.
-			 */
-			const podcastPersistentID: number;
-
-			/**
-			 * Title of a podcast item.
-			 */
-			const podcastTitle: string;
-
-			/**
-			 * Rating for this item.
-			 */
-			const rating: number;
-
-			/**
-			 * Date when this this item was released.
-			 */
-			const releaseDate: Date;
-
-			/**
-			 * Number of times this item has been skipped.
-			 */
-			const skipCount: number;
-
-			/**
-			 * Title of this item.
-			 */
-			const title: string;
-
-			/**
-			 * Corresponds to the "Grouping" field in the Info tab in the "Get Info"
-			 * dialog in iTunes.
-			 */
-			const userGrouping: string;
-
-			/**
-			 * Adds the specified callback as an event listener for the named event.
-			 */
-			function addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-			/**
-			 * Fires a synthesized event to any registered listeners.
-			 */
-			function fireEvent(name: string, event?: any): void;
-
-			/**
-			 * Removes the specified callback as an event listener for the named event.
-			 */
-			function removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-		}
-		/**
 		 * Android-specific media-related functionality.
 		 */
 		class Android extends Titanium.Module {
@@ -11850,6 +11646,210 @@ declare namespace Titanium {
 			 * Stops the current audio recording and returns the recorded audio file.
 			 */
 			stop(): Titanium.Filesystem.File;
+
+		}
+		/**
+		 * A representation of a media item returned by [openMusicLibrary](Titanium.Media.openMusicLibrary) or [queryMusicLibrary](Titanium.Media.queryMusicLibrary).
+		 */
+		interface Item extends Titanium.Proxy {
+			/**
+			 * Artist credited for the album containing this item.
+			 */
+			readonly albumArtist: string;
+
+			/**
+			 * The persistent identifier for an album artist.
+			 */
+			readonly albumArtistPersistentID: number;
+
+			/**
+			 * The key for the persistent identifier for an album.
+			 */
+			readonly albumPersistentID: number;
+
+			/**
+			 * Title of the album containing this item.
+			 */
+			readonly albumTitle: string;
+
+			/**
+			 * Number of tracks for the album containing this item.
+			 */
+			readonly albumTrackCount: number;
+
+			/**
+			 * Track number for this item.
+			 */
+			readonly albumTrackNumber: number;
+
+			/**
+			 * Artist credited for this item.
+			 */
+			readonly artist: string;
+
+			/**
+			 * Image for the item's artwork as a `Blob` object,  or `null` if no artwork is
+			 * available.
+			 */
+			readonly artwork: Titanium.Blob;
+
+			/**
+			 * A URL pointing to the media item.
+			 */
+			readonly assetURL: string;
+
+			/**
+			 * The number of musical beats per minute for the media item, corresponding
+			 * to the "BPM" field in the Info tab in the "Get Info" dialog in iTunes.
+			 */
+			readonly beatsPerMinute: number;
+
+			/**
+			 * The user's place in the media item the most recent time it was played.
+			 */
+			readonly bookmarkTime: string;
+
+			/**
+			 * Textual information about the media item, corresponding to the "Comments"
+			 * field in in the Info tab in the Get Info dialog in iTunes.
+			 */
+			readonly comments: string;
+
+			/**
+			 * Composer of this item.
+			 */
+			readonly composer: string;
+
+			/**
+			 * Date when the item was added to the music library.
+			 */
+			readonly dateAdded: Date;
+
+			/**
+			 * Total number of discs for the album containing this item.
+			 */
+			readonly discCount: number;
+
+			/**
+			 * Disc number for this item in the album.
+			 */
+			readonly discNumber: number;
+
+			/**
+			 * Genre of this item.
+			 */
+			readonly genre: string;
+
+			/**
+			 * The persistent identifier for a genre.
+			 */
+			readonly genrePersistentID: number;
+
+			/**
+			 * True if the item represents a protected asset.
+			 */
+			readonly hasProtectedAsset: boolean;
+
+			/**
+			 * True if the media item is an iCloud item.
+			 */
+			readonly isCloudItem: boolean;
+
+			/**
+			 * True if this item is part of a compilation album.
+			 */
+			readonly isCompilation: boolean;
+
+			/**
+			 * True if this item is marked as "Explicit".
+			 */
+			readonly isExplicit: boolean;
+
+			/**
+			 * The most recent calendar date on which the user played the media item.
+			 */
+			readonly lastPlayedDate: Date;
+
+			/**
+			 * Lyrics for this item.
+			 */
+			readonly lyrics: string;
+
+			/**
+			 * The type of the media.
+			 */
+			readonly mediaType: number;
+
+			/**
+			 * The key for the persistent identifier for the media item.
+			 */
+			readonly persistentID: string;
+
+			/**
+			 * Number of times the item has been played.
+			 */
+			readonly playCount: number;
+
+			/**
+			 * Length (in seconds) of this item.
+			 */
+			readonly playbackDuration: number;
+
+			/**
+			 * Used to enqueue store tracks by their ID.
+			 */
+			readonly playbackStoreID: number;
+
+			/**
+			 * The persistent identifier for an audio podcast.
+			 */
+			readonly podcastPersistentID: number;
+
+			/**
+			 * Title of a podcast item.
+			 */
+			readonly podcastTitle: string;
+
+			/**
+			 * Rating for this item.
+			 */
+			readonly rating: number;
+
+			/**
+			 * Date when this this item was released.
+			 */
+			readonly releaseDate: Date;
+
+			/**
+			 * Number of times this item has been skipped.
+			 */
+			readonly skipCount: number;
+
+			/**
+			 * Title of this item.
+			 */
+			readonly title: string;
+
+			/**
+			 * Corresponds to the "Grouping" field in the Info tab in the "Get Info"
+			 * dialog in iTunes.
+			 */
+			readonly userGrouping: string;
+
+			/**
+			 * Adds the specified callback as an event listener for the named event.
+			 */
+			addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+			/**
+			 * Fires a synthesized event to any registered listeners.
+			 */
+			fireEvent(name: string, event?: any): void;
+
+			/**
+			 * Removes the specified callback as an event listener for the named event.
+			 */
+			removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
 
 		}
 		/**
@@ -13901,64 +13901,6 @@ declare namespace Titanium {
 		const BATTERY_STATE_UNPLUGGED: number;
 
 		/**
-		 * The Display Caps object returned by the <Titanium.Platform.displayCaps> property.
-		 */
-		namespace DisplayCaps {
-			/**
-			 * Logical density of the display.
-			 */
-			const density: string;
-
-			/**
-			 * Display density expressed as dots-per-inch.
-			 */
-			const dpi: number;
-
-			/**
-			 * Logical density of the display, as a scaling factor for the Density Independent Pixel (dip)
-			 * unit.
-			 */
-			const logicalDensityFactor: number;
-
-			/**
-			 * Absolute height of the display in relation to UI orientation. Measured in platform-specific
-			 * units; pixels on Android and density-independent pixels (dip) on iOS.
-			 */
-			const platformHeight: number;
-
-			/**
-			 * Absolute width of the display in relation to UI orientation. Measured in platform-specific
-			 * units; pixels on Android and density-independent pixels (dip) on iOS.
-			 */
-			const platformWidth: number;
-
-			/**
-			 * Physical pixels per inch of the display in the X dimension.
-			 */
-			const xdpi: number;
-
-			/**
-			 * Physical pixels per inch of the display in the Y dimension.
-			 */
-			const ydpi: number;
-
-			/**
-			 * Adds the specified callback as an event listener for the named event.
-			 */
-			function addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-			/**
-			 * Fires a synthesized event to any registered listeners.
-			 */
-			function fireEvent(name: string, event?: any): void;
-
-			/**
-			 * Removes the specified callback as an event listener for the named event.
-			 */
-			function removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-		}
-		/**
 		 * The Android-specific Platform module, used to access the device's platform-related functionality.
 		 */
 		class Android extends Titanium.Module {
@@ -14031,6 +13973,64 @@ declare namespace Titanium {
 			 * Removes the specified callback as an event listener for the named event.
 			 */
 			static removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+		}
+		/**
+		 * The Display Caps object returned by the <Titanium.Platform.displayCaps> property.
+		 */
+		interface DisplayCaps extends Titanium.Proxy {
+			/**
+			 * Logical density of the display.
+			 */
+			readonly density: string;
+
+			/**
+			 * Display density expressed as dots-per-inch.
+			 */
+			readonly dpi: number;
+
+			/**
+			 * Logical density of the display, as a scaling factor for the Density Independent Pixel (dip)
+			 * unit.
+			 */
+			readonly logicalDensityFactor: number;
+
+			/**
+			 * Absolute height of the display in relation to UI orientation. Measured in platform-specific
+			 * units; pixels on Android and density-independent pixels (dip) on iOS.
+			 */
+			readonly platformHeight: number;
+
+			/**
+			 * Absolute width of the display in relation to UI orientation. Measured in platform-specific
+			 * units; pixels on Android and density-independent pixels (dip) on iOS.
+			 */
+			readonly platformWidth: number;
+
+			/**
+			 * Physical pixels per inch of the display in the X dimension.
+			 */
+			readonly xdpi: number;
+
+			/**
+			 * Physical pixels per inch of the display in the Y dimension.
+			 */
+			readonly ydpi: number;
+
+			/**
+			 * Adds the specified callback as an event listener for the named event.
+			 */
+			addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+			/**
+			 * Fires a synthesized event to any registered listeners.
+			 */
+			fireEvent(name: string, event?: any): void;
+
+			/**
+			 * Removes the specified callback as an event listener for the named event.
+			 */
+			removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
 
 		}
 	}
@@ -57297,56 +57297,6 @@ declare namespace Titanium {
 	 */
 	namespace XML {
 		/**
-		 * Each <Titanium.XML.Document> has a `doctype` attribute whose value is either 'null' or a <Titanium.XML.DocumentType> object.
-		 */
-		namespace DocumentType {
-			/**
-			 * A <Titanium.XML.NamedNodeMap> containing the general entities, both external and internal, declared in the DTD. Parameter entities are not contained. Duplicates are discarded.
-			 */
-			const entities: Titanium.XML.NamedNodeMap;
-
-			/**
-			 * The internal subset as a string.
-			 */
-			const internalSubset: string;
-
-			/**
-			 * The name of DTD; i.e., the name immediately following the `DOCTYPE` keyword.
-			 */
-			const name: string;
-
-			/**
-			 * A <Titanium.XML.NamedNodeMap> containing the notations declared in the DTD. Duplicates are discarded. Every node in this map also implements the <Titanium.XML.Notation> interface.
-			 */
-			const notations: Titanium.XML.NamedNodeMap;
-
-			/**
-			 * The public identifier of the external subset.
-			 */
-			const publicId: string;
-
-			/**
-			 * The system identifier of the external subset.
-			 */
-			const systemId: string;
-
-			/**
-			 * Adds the specified callback as an event listener for the named event.
-			 */
-			function addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-			/**
-			 * Fires a synthesized event to any registered listeners.
-			 */
-			function fireEvent(name: string, event?: any): void;
-
-			/**
-			 * Removes the specified callback as an event listener for the named event.
-			 */
-			function removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-		}
-		/**
 		 * This interface represents an entity, either parsed or unparsed, in an XML document. Note that this models the entity itself not the entity declaration. The nodeName attribute that is inherited from Node contains the name of the entity. An Entity node does not have any parent.
 		 * Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-527DCFF2) on Android and iOS.
 		 */
@@ -57695,6 +57645,56 @@ declare namespace Titanium {
 		 * A lightweight document object used as a container for a group of nodes.
 		 */
 		class DocumentFragment extends Titanium.XML.Node {
+			/**
+			 * Adds the specified callback as an event listener for the named event.
+			 */
+			addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+			/**
+			 * Fires a synthesized event to any registered listeners.
+			 */
+			fireEvent(name: string, event?: any): void;
+
+			/**
+			 * Removes the specified callback as an event listener for the named event.
+			 */
+			removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+		}
+		/**
+		 * Each <Titanium.XML.Document> has a `doctype` attribute whose value is either 'null' or a <Titanium.XML.DocumentType> object.
+		 */
+		interface DocumentType extends Titanium.XML.Node {
+			/**
+			 * A <Titanium.XML.NamedNodeMap> containing the general entities, both external and internal, declared in the DTD. Parameter entities are not contained. Duplicates are discarded.
+			 */
+			readonly entities: Titanium.XML.NamedNodeMap;
+
+			/**
+			 * The internal subset as a string.
+			 */
+			readonly internalSubset: string;
+
+			/**
+			 * The name of DTD; i.e., the name immediately following the `DOCTYPE` keyword.
+			 */
+			readonly name: string;
+
+			/**
+			 * A <Titanium.XML.NamedNodeMap> containing the notations declared in the DTD. Duplicates are discarded. Every node in this map also implements the <Titanium.XML.Notation> interface.
+			 */
+			readonly notations: Titanium.XML.NamedNodeMap;
+
+			/**
+			 * The public identifier of the external subset.
+			 */
+			readonly publicId: string;
+
+			/**
+			 * The system identifier of the external subset.
+			 */
+			readonly systemId: string;
+
 			/**
 			 * Adds the specified callback as an event listener for the named event.
 			 */
