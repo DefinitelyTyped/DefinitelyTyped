@@ -1282,7 +1282,7 @@ declare namespace WebpackModule {
          */
         defaultExport?: boolean;
         /**
-         * 	Whether to execute the filter on webpack exports. Defaults to false.
+         * Whether to execute the filter on webpack exports. Defaults to false.
          */
         searchExports?: boolean;
     }
@@ -1306,7 +1306,7 @@ declare namespace WebpackModule {
          */
         defaultExport?: boolean;
         /**
-         * 	Whether to execute the filter on webpack exports. Defaults to false.
+         * Whether to execute the filter on webpack exports. Defaults to false.
          */
         searchExports?: boolean;
     }
