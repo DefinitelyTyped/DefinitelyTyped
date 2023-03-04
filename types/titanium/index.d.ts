@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Titanium 11.1
+// Type definitions for non-npm package Titanium 12.0
 // Project: https://github.com/appcelerator/titanium_mobile
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Jan Vennemann <https://github.com/janvennemann>
@@ -765,12 +765,6 @@ interface ErrorCallbackArgs extends FailureResponse {
 	code?: number;
 
 	/**
-	 * The error code of the error (potentially system-dependent).
-	 * @deprecated Use the `code` property for a numeric error code.
-	 */
-	errorCode: never;
-
-	/**
 	 * Socket that experienced the error.
 	 */
 	socket?: Titanium.Network.Socket.TCP;
@@ -990,18 +984,6 @@ interface GeocodedAddress {
 	countryCode?: string;
 
 	/**
-	 * Country code. To be replaced by `countryCode`.
-	 * @deprecated Use the `countryCode` property for parity.
-	 */
-	country_code: never;
-
-	/**
-	 * Display address. Identical to `address`.
-	 * @deprecated Use the `address` property for parity.
-	 */
-	displayAddress: never;
-
-	/**
 	 * Latitude of the geocoded point.
 	 */
 	latitude?: number;
@@ -1040,12 +1022,6 @@ interface GeocodedAddress {
 	 * Street name.
 	 */
 	street1?: string;
-
-	/**
-	 * Postal code. To be replaced by `postalCode`
-	 * @deprecated Use the `postalCode` property for parity.
-	 */
-	zipcode: never;
 
 }
 /**
@@ -2169,7 +2145,7 @@ interface PhotoGalleryOptionsType {
 	/**
 	 * Function to call when the photo gallery is closed after a successful selection.
 	 */
-	success?: (param0: CameraMediaItemType) => void | (param0: CameraMediaMultipleItemsType) => void;
+	success?: ((param0: CameraMediaItemType) => void) | ((param0: CameraMediaMultipleItemsType) => void);
 
 }
 /**
@@ -2269,19 +2245,6 @@ interface PumpCallbackArgs extends ErrorResponse {
 	 * Error message, if any returned.
 	 */
 	error?: string;
-
-	/**
-	 * Text description of the error.
-	 * @deprecated Use error property to determine error message
-	 */
-	errorDescription: never;
-
-	/**
-	 * Whether an error was encountered. Set to 1 in the case of an error, 0
-	 * otherwise.
-	 * @deprecated Use success or code values to determine error conditions
-	 */
-	errorState: never;
 
 	/**
 	 * Stream being read from.
@@ -2412,19 +2375,6 @@ interface ReadCallbackArgs extends ErrorResponse {
 	 * Error message, if any returned.
 	 */
 	error?: string;
-
-	/**
-	 * Text description of the error.
-	 * @deprecated Use the `error` property to determine error message.
-	 */
-	errorDescription: never;
-
-	/**
-	 * Whether an error was encountered. Set to 1 in the case of an error, 0
-	 * otherwise.
-	 * @deprecated Use the `success` or `code` property values to determine error conditions.
-	 */
-	errorState: never;
 
 	/**
 	 * Stream being read.
@@ -5395,6 +5345,11 @@ declare namespace Titanium {
 			static createNotificationChannel(parameters: Dictionary<Titanium.Android.NotificationChannel>): Titanium.Android.NotificationChannel;
 
 			/**
+			 * Deletes a notification channel.
+			 */
+			static deleteNotificationChannel(id: string): void;
+
+			/**
 			 * Fires a synthesized event to any registered listeners.
 			 */
 			static fireEvent(name: string, event?: any): void;
@@ -6468,6 +6423,16 @@ declare namespace Titanium {
 			 */
 			const UTTYPE_XML: string;
 
+			/**
+			 * Use this module to communicate with the native iOS 16+ Dynamic Island APIs.
+			 */
+			interface ActivityAttributes {
+				/**
+				 * Starts a new activity (aka the Dynamic Island) with the provided parameters
+				 */
+				startActivity(value: any): void;
+
+			}
 			/**
 			 * A service that runs when the application is placed in the background.
 			 */
@@ -9403,14 +9368,6 @@ declare namespace Titanium {
 
 		/**
 		 * A [contactsAuthorization](Titanium.Contacts.contactsAuthorization) value
-		 * indicating that the application is not authorized to use the address book *and*
-		 * the user cannot change this application's status.
-		 * @deprecated iOS 9 and later does not use this constant anymore. Use the other available `AUTHORIZATION_*` constants instead.
-		 */
-		const AUTHORIZATION_RESTRICTED: never;
-
-		/**
-		 * A [contactsAuthorization](Titanium.Contacts.contactsAuthorization) value
 		 * indicating that the authorization state is unknown.
 		 */
 		const AUTHORIZATION_UNKNOWN: number;
@@ -9448,11 +9405,6 @@ declare namespace Titanium {
 			 * Name of this group.
 			 */
 			name: string;
-
-			/**
-			 * Record identifier of the group. Single value. Deprecated for iOS 9 and later.
-			 */
-			recordId: number;
 
 			/**
 			 * Adds a person to this group.
@@ -9510,11 +9462,6 @@ declare namespace Titanium {
 			 * Date of birth of the person. Single value.
 			 */
 			birthday: string;
-
-			/**
-			 * Date and time that the person record was created. Single value. Deprecated since iOS 9.
-			 */
-			readonly created: string;
 
 			/**
 			 * Dates associated with the person. Multi-value.
@@ -9596,11 +9543,6 @@ declare namespace Titanium {
 			 * Phonetic middle name of the person. Single value.
 			 */
 			middlePhonetic: string;
-
-			/**
-			 * Date and time that the person record was last modified. Single value. Deprecated since iOS 9.
-			 */
-			readonly modified: string;
 
 			/**
 			 * Nickname of the person. Single value.
@@ -13141,13 +13083,6 @@ declare namespace Titanium {
 	 */
 	namespace Network {
 		/**
-		 * Special hostname value for listening sockets, representing all
-		 * locally available network interfaces.
-		 * @deprecated
-		 */
-		const INADDR_ANY: never;
-
-		/**
 		 * A [networkType](Titanium.Network.networkType) value indicating that the device is
 		 * communicating over a local-area network.
 		 */
@@ -13203,33 +13138,6 @@ declare namespace Titanium {
 		const PROGRESS_UNKNOWN: number;
 
 		/**
-		 * Constant value specifying read-only mode for sockets.
-		 * @deprecated Used with the deprecated [Titanium.Network.TCPSocket](Titanium.Network.TCPSocket) only.
-		 * See [Socket](Titanium.Network.Socket) for constants used with
-		 * [TCP](Titanium.Network.Socket.TCP) sockets.
-		 *
-		 */
-		const READ_MODE: never;
-
-		/**
-		 * Constant value specifying read-write mode for sockets.
-		 * @deprecated Used with the deprecated [Titanium.Network.TCPSocket](Titanium.Network.TCPSocket) only.
-		 * See [Socket](Titanium.Network.Socket) for constants used with
-		 * [TCP](Titanium.Network.Socket.TCP) sockets.
-		 *
-		 */
-		const READ_WRITE_MODE: never;
-
-		/**
-		 * Constant value representing a socket in the LISTENING state.
-		 * @deprecated Used with the deprecated [Titanium.Network.TCPSocket](Titanium.Network.TCPSocket) only.
-		 * See [Socket](Titanium.Network.Socket) for constants used with
-		 * [TCP](Titanium.Network.Socket.TCP) sockets.
-		 *
-		 */
-		const SOCKET_LISTENING: never;
-
-		/**
 		 * Constant value specifying TLS version 1.0 for SSL.
 		 */
 		const TLS_VERSION_1_0: number;
@@ -13248,15 +13156,6 @@ declare namespace Titanium {
 		 * Constant value specifying TLS version 1.3 for SSL.
 		 */
 		const TLS_VERSION_1_3: number;
-
-		/**
-		 * Constant value specifying write-only mode for sockets.
-		 * @deprecated Used with the deprecated [Titanium.Network.TCPSocket](Titanium.Network.TCPSocket) only.
-		 * See [Socket](Titanium.Network.Socket) for constants used with
-		 * [TCP](Titanium.Network.Socket.TCP) sockets.
-		 *
-		 */
-		const WRITE_MODE: never;
 
 		/**
 		 * Socket module, used for creating sockets.
@@ -14562,9 +14461,24 @@ declare namespace Titanium {
 		const AUTOLINK_EMAIL_ADDRESSES: number;
 
 		/**
+		 * An option to detect strings with the format of a flight number from an airline.
+		 */
+		const AUTOLINK_FLIGHT_NUMBER: number;
+
+		/**
+		 * An option to detect strings with the format of information that the user might want to look up.
+		 */
+		const AUTOLINK_LOOKUP_SUGGESTION: number;
+
+		/**
 		 * Converts strings formatted as addresses into clickable links.
 		 */
 		const AUTOLINK_MAP_ADDRESSES: number;
+
+		/**
+		 * An option to detect strings with the format of money amounts.
+		 */
+		const AUTOLINK_MONEY: number;
 
 		/**
 		 * Disables converting strings into clickable links.
@@ -14575,6 +14489,16 @@ declare namespace Titanium {
 		 * Converts strings formatted as phone numbers into clickable links.
 		 */
 		const AUTOLINK_PHONE_NUMBERS: number;
+
+		/**
+		 * An option to detect strings with the format of physical values (length, temperatures, etc...)
+		 */
+		const AUTOLINK_PHYSICAL_VALUE: number;
+
+		/**
+		 * An option to detect strings with the format of a tracking number from a package delivery company.
+		 */
+		const AUTOLINK_SHIPMENT_TRACKING_NUMBER: number;
 
 		/**
 		 * Converts strings formatted as URLs into clickable links.
@@ -14908,12 +14832,6 @@ declare namespace Titanium {
 		const INPUT_TYPE_CLASS_TEXT: number;
 
 		/**
-		 * Use a keyboard appearance suitable for entering text on an alert.
-		 * @deprecated
-		 */
-		const KEYBOARD_APPEARANCE_ALERT: never;
-
-		/**
 		 * Use the platform-specific dark keyboard appearance.
 		 */
 		const KEYBOARD_APPEARANCE_DARK: number;
@@ -14927,54 +14845,6 @@ declare namespace Titanium {
 		 * Use the platform-specific light keyboard appearance.
 		 */
 		const KEYBOARD_APPEARANCE_LIGHT: number;
-
-		/**
-		 * Use a keyboard supporting all characters except emoji. Defaults to English letters layout on iOS.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_ASCII](Titanium.UI.KEYBOARD_TYPE_ASCII) instead.
-		 */
-		const KEYBOARD_ASCII: never;
-
-		/**
-		 * Use a number pad keyboard layout showing only numbers, decimal separator, and sign character.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD](Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD) instead.
-		 */
-		const KEYBOARD_DECIMAL_PAD: never;
-
-		/**
-		 * Use the default keyboard, depending on the platform.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_DEFAULT](Titanium.UI.KEYBOARD_TYPE_DEFAULT) instead.
-		 */
-		const KEYBOARD_DEFAULT: never;
-
-		/**
-		 * Use a keyboard suitable for composing email, with the standard keyboard layout.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_EMAIL](Titanium.UI.KEYBOARD_TYPE_EMAIL) instead.
-		 */
-		const KEYBOARD_EMAIL: never;
-
-		/**
-		 * Use a keyboard suitable for entering names and phone numbers, with the pad keyboard layout.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_NAMEPHONE_PAD](Titanium.UI.KEYBOARD_TYPE_NAMEPHONE_PAD) instead.
-		 */
-		const KEYBOARD_NAMEPHONE_PAD: never;
-
-		/**
-		 * Use a keyboard supporting all characters except emoji, defaulting to numbers layout on iOS.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION](Titanium.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION) instead.
-		 */
-		const KEYBOARD_NUMBERS_PUNCTUATION: never;
-
-		/**
-		 * Use a number pad keyboard layout only showing numbers for entering positive integers.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_NUMBER_PAD](Titanium.UI.KEYBOARD_TYPE_NUMBER_PAD) instead.
-		 */
-		const KEYBOARD_NUMBER_PAD: never;
-
-		/**
-		 * Use a keyboard with a phone-style number pad, with the pad keyboard layout.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_PHONE_PAD](Titanium.UI.KEYBOARD_TYPE_PHONE_PAD) instead.
-		 */
-		const KEYBOARD_PHONE_PAD: never;
 
 		/**
 		 * Use a keyboard supporting all characters except emoji. Defaults to English letters layout on iOS.
@@ -15030,12 +14900,6 @@ declare namespace Titanium {
 		 * Use a keyboard optimized for web search terms and URL entry.
 		 */
 		const KEYBOARD_TYPE_WEBSEARCH: number;
-
-		/**
-		 * Use a keyboard optimized for entering URLs, with the standard keyboard layout.
-		 * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_URL](Titanium.UI.KEYBOARD_TYPE_URL) instead.
-		 */
-		const KEYBOARD_URL: never;
 
 		/**
 		 * Standard landscape orientation (home button on left).
@@ -15662,36 +15526,6 @@ declare namespace Titanium {
 			 * Binary mask to get the vertical gravity of a gravity.
 			 */
 			const GRAVITY_VERTICAL_GRAVITY_MASK: number;
-
-			/**
-			 * Converts all detectable types of data into clickable links.
-			 * @deprecated Use [Titanium.UI.AUTOLINK_ALL](Titanium.UI.AUTOLINK_ALL) instead.
-			 */
-			const LINKIFY_ALL: never;
-
-			/**
-			 * Converts strings formatted as email addresses into clickable links.
-			 * @deprecated Use [Titanium.UI.AUTOLINK_EMAIL_ADDRESSES](Titanium.UI.AUTOLINK_EMAIL_ADDRESSES) instead.
-			 */
-			const LINKIFY_EMAIL_ADDRESSES: never;
-
-			/**
-			 * Converts strings formatted as addresses into clickable links.
-			 * @deprecated Use [Titanium.UI.AUTOLINK_MAP_ADDRESSES](Titanium.UI.AUTOLINK_MAP_ADDRESSES) instead.
-			 */
-			const LINKIFY_MAP_ADDRESSES: never;
-
-			/**
-			 * Converts strings formatted as phone numbers into clickable links.
-			 * @deprecated Use [Titanium.UI.AUTOLINK_PHONE_NUMBERS](Titanium.UI.AUTOLINK_PHONE_NUMBERS) instead.
-			 */
-			const LINKIFY_PHONE_NUMBERS: never;
-
-			/**
-			 * Converts strings formatted as URLs into clickable links.
-			 * @deprecated Use [Titanium.UI.AUTOLINK_URLS](Titanium.UI.AUTOLINK_URLS) instead.
-			 */
-			const LINKIFY_WEB_URLS: never;
 
 			/**
 			 * Always allow a user to over-scroll this view, provided it is a view that can scroll.
@@ -19097,14 +18931,549 @@ declare namespace Titanium {
 				action: string;
 
 			}
+			/**
+			 * Fired when the device detects a double click against the view.
+			 */
+			interface Snackbar_dblclick_Event extends SnackbarBaseEvent {
+				/**
+				 * Returns `true` if the double click passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired when the device detects a double tap against the view.
+			 */
+			interface Snackbar_doubletap_Event extends SnackbarBaseEvent {
+				/**
+				 * Returns `true` if the double tap passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired when the view element gains focus.
+			 */
+			interface Snackbar_focus_Event extends SnackbarBaseEvent {
+			}
+			/**
+			 * Fired when a hardware key is pressed in the view.
+			 */
+			interface Snackbar_keypressed_Event extends SnackbarBaseEvent {
+				/**
+				 * The code for the physical key that was pressed. For more details, see [KeyEvent](https://developer.android.com/reference/android/view/KeyEvent.html). This API is experimental and subject to change.
+				 */
+				keyCode: number;
+
+			}
+			/**
+			 * Fired when the device detects a long click.
+			 */
+			interface Snackbar_longclick_Event extends SnackbarBaseEvent {
+			}
+			/**
+			 * Fired when the device detects a long press.
+			 */
+			interface Snackbar_longpress_Event extends SnackbarBaseEvent {
+				/**
+				 * Returns `true` if the long press passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired when the device detects a pinch gesture.
+			 */
+			interface Snackbar_pinch_Event extends SnackbarBaseEvent {
+				/**
+				 * The average distance between each of the pointers forming the gesture in progress through
+				 * the focal point.
+				 */
+				currentSpan: number;
+
+				/**
+				 * The average X distance between each of the pointers forming the gesture in progress through
+				 * the focal point.
+				 */
+				currentSpanX: number;
+
+				/**
+				 * The average Y distance between each of the pointers forming the gesture in progress through
+				 * the focal point.
+				 */
+				currentSpanY: number;
+
+				/**
+				 * The X coordinate of the current gesture's focal point.
+				 */
+				focusX: number;
+
+				/**
+				 * The Y coordinate of the current gesture's focal point.
+				 */
+				focusY: number;
+
+				/**
+				 * Returns `true` if a scale gesture is in progress, `false` otherwise.
+				 */
+				inProgress: boolean;
+
+				/**
+				 * The previous average distance between each of the pointers forming the gesture in progress through
+				 * the focal point.
+				 */
+				previousSpan: number;
+
+				/**
+				 * The previous average X distance between each of the pointers forming the gesture in progress through
+				 * the focal point.
+				 */
+				previousSpanX: number;
+
+				/**
+				 * The previous average Y distance between each of the pointers forming the gesture in progress through
+				 * the focal point.
+				 */
+				previousSpanY: number;
+
+				/**
+				 * The scale factor relative to the points of the two touches in screen coordinates.
+				 */
+				scale: number;
+
+				/**
+				 * The event time of the current event being processed.
+				 */
+				time: number;
+
+				/**
+				 * The time difference in milliseconds between the previous accepted scaling event and the
+				 * current scaling event.
+				 */
+				timeDelta: number;
+
+				/**
+				 * The velocity of the pinch in scale factor per second.
+				 */
+				velocity: number;
+
+			}
+			/**
+			 * Fired when a layout cycle is finished.
+			 */
+			interface Snackbar_postlayout_Event extends SnackbarBaseEvent {
+			}
+			/**
+			 * Fired when the device detects a single tap against the view.
+			 */
+			interface Snackbar_singletap_Event extends SnackbarBaseEvent {
+				/**
+				 * Returns `true` if the single tap passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired when the device detects a swipe gesture against the view.
+			 */
+			interface Snackbar_swipe_Event extends SnackbarBaseEvent {
+				/**
+				 * Direction of the swipe--either 'left', 'right', 'up', or 'down'.
+				 */
+				direction: string;
+
+				/**
+				 * Returns `true` if the swipe passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * X coordinate of the event's endpoint from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event's endpoint from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired when a touch event is interrupted by the device.
+			 */
+			interface Snackbar_touchcancel_Event extends SnackbarBaseEvent {
+				/**
+				 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+				 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+				 */
+				altitudeAngle: number;
+
+				/**
+				 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+				 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+				 */
+				azimuthUnitVectorInViewX: number;
+
+				/**
+				 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+				 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+				 */
+				azimuthUnitVectorInViewY: number;
+
+				/**
+				 * The current force value of the touch event.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+				 */
+				force: number;
+
+				/**
+				 * Maximum possible value of the force property.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+				 */
+				maximumPossibleForce: number;
+
+				/**
+				 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * The current size of the touch area. Note: This property is only available on some Android devices.
+				 */
+				size: number;
+
+				/**
+				 * The time (in seconds) when the touch was used in correlation with the system start up.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+				 */
+				timestamp: number;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired when a touch event is completed.
+			 */
+			interface Snackbar_touchend_Event extends SnackbarBaseEvent {
+				/**
+				 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+				 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+				 */
+				altitudeAngle: number;
+
+				/**
+				 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+				 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+				 */
+				azimuthUnitVectorInViewX: number;
+
+				/**
+				 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+				 * Note: This property is only available for iOS devices that support the Apple Penciland are 9.1 or later.
+				 */
+				azimuthUnitVectorInViewY: number;
+
+				/**
+				 * The current force value of the touch event.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+				 */
+				force: number;
+
+				/**
+				 * Maximum possible value of the force property.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+				 */
+				maximumPossibleForce: number;
+
+				/**
+				 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * The current size of the touch area. Note: This property is only available on some Android devices.
+				 */
+				size: number;
+
+				/**
+				 * The time (in seconds) when the touch was used in correlation with the system start up.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+				 */
+				timestamp: number;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired as soon as the device detects movement of a touch.
+			 */
+			interface Snackbar_touchmove_Event extends SnackbarBaseEvent {
+				/**
+				 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+				 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+				 */
+				altitudeAngle: number;
+
+				/**
+				 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+				 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+				 */
+				azimuthUnitVectorInViewX: number;
+
+				/**
+				 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+				 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+				 */
+				azimuthUnitVectorInViewY: number;
+
+				/**
+				 * The current force value of the touch event.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+				 */
+				force: number;
+
+				/**
+				 * Maximum possible value of the force property.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+				 */
+				maximumPossibleForce: number;
+
+				/**
+				 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * The current size of the touch area. Note: This property is only available on some Android devices.
+				 */
+				size: number;
+
+				/**
+				 * The time (in seconds) when the touch was used in correlation with the system start up.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+				 */
+				timestamp: number;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired as soon as the device detects a touch gesture.
+			 */
+			interface Snackbar_touchstart_Event extends SnackbarBaseEvent {
+				/**
+				 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+				 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+				 */
+				altitudeAngle: number;
+
+				/**
+				 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+				 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+				 */
+				azimuthUnitVectorInViewX: number;
+
+				/**
+				 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+				 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+				 */
+				azimuthUnitVectorInViewY: number;
+
+				/**
+				 * The current force value of the touch event.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+				 */
+				force: number;
+
+				/**
+				 * Maximum possible value of the force property.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+				 */
+				maximumPossibleForce: number;
+
+				/**
+				 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * The current size of the touch area. Note: This property is only available on some Android devices.
+				 */
+				size: number;
+
+				/**
+				 * The time (in seconds) when the touch was used in correlation with the system start up.
+				 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+				 */
+				timestamp: number;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
+			/**
+			 * Fired when the device detects a two-finger tap against the view.
+			 */
+			interface Snackbar_twofingertap_Event extends SnackbarBaseEvent {
+				/**
+				 * Returns `true` if the tap passed through an overlapping window belonging to another app.
+				 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+				 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+				 * in your app intended for the overlay.
+				 */
+				obscured: boolean;
+
+				/**
+				 * X coordinate of the event from the `source` view's coordinate system.
+				 */
+				x: number;
+
+				/**
+				 * Y coordinate of the event from the `source` view's coordinate system.
+				 */
+				y: number;
+
+			}
 			interface SnackbarEventMap extends ProxyEventMap {
 				click: Snackbar_click_Event;
+
+				dblclick: Snackbar_dblclick_Event;
+
+				doubletap: Snackbar_doubletap_Event;
+
+				focus: Snackbar_focus_Event;
+
+				keypressed: Snackbar_keypressed_Event;
+
+				longclick: Snackbar_longclick_Event;
+
+				longpress: Snackbar_longpress_Event;
+
+				pinch: Snackbar_pinch_Event;
+
+				postlayout: Snackbar_postlayout_Event;
+
+				singletap: Snackbar_singletap_Event;
+
+				swipe: Snackbar_swipe_Event;
+
+				touchcancel: Snackbar_touchcancel_Event;
+
+				touchend: Snackbar_touchend_Event;
+
+				touchmove: Snackbar_touchmove_Event;
+
+				touchstart: Snackbar_touchstart_Event;
+
+				twofingertap: Snackbar_twofingertap_Event;
 
 			}
 			/**
 			 * Snackbars provide brief messages about app processes at the bottom of the screen.
 			 */
-			interface Snackbar {
+			class Snackbar extends Titanium.UI.View {
 				/**
 				 * Use with `length` to specify the display time.
 				 */
@@ -19121,9 +19490,145 @@ declare namespace Titanium {
 				readonly LENGTH_SHORT: number;
 
 				/**
+				 * Whether the view should be "hidden" from (i.e., ignored by) the accessibility service.
+				 */
+				accessibilityHidden: never;
+
+				/**
+				 * Briefly describes what performing an action (such as a click) on the view will do.
+				 */
+				accessibilityHint: never;
+
+				/**
+				 * A succint label identifying the view for the device's accessibility service.
+				 */
+				accessibilityLabel: never;
+
+				/**
+				 * A string describing the value (if any) of the view for the device's accessibility service.
+				 */
+				accessibilityValue: never;
+
+				/**
 				 * Text of the right hand action button
 				 */
 				action: string;
+
+				/**
+				 * Coordinate of the view about which to pivot an animation.
+				 */
+				anchorPoint: never;
+
+				/**
+				 * Background color of the view, as a color name or hex triplet.
+				 */
+				backgroundColor: never;
+
+				/**
+				 * Disabled background color of the view, as a color name or hex triplet.
+				 */
+				backgroundDisabledColor: never;
+
+				/**
+				 * Disabled background image for the view, specified as a local file path or URL.
+				 */
+				backgroundDisabledImage: never;
+
+				/**
+				 * Focused background color of the view, as a color name or hex triplet.
+				 */
+				backgroundFocusedColor: never;
+
+				/**
+				 * Focused background image for the view, specified as a local file path or URL.
+				 */
+				backgroundFocusedImage: never;
+
+				/**
+				 * A background gradient for the view.
+				 */
+				backgroundGradient: never;
+
+				/**
+				 * Background image for the view, specified as a local file path or URL.
+				 */
+				backgroundImage: never;
+
+				/**
+				 * Determines whether to tile a background across a view.
+				 */
+				backgroundRepeat: never;
+
+				/**
+				 * Selected background color of the view, as a color name or hex triplet.
+				 */
+				backgroundSelectedColor: never;
+
+				/**
+				 * Selected background image url for the view, specified as a local file path or URL.
+				 */
+				backgroundSelectedImage: never;
+
+				/**
+				 * Border color of the view, as a color name or hex triplet.
+				 */
+				borderColor: never;
+
+				/**
+				 * Radius for the rounded corners of the view's border.
+				 */
+				borderRadius: never;
+
+				/**
+				 * Border width of the view.
+				 */
+				borderWidth: never;
+
+				/**
+				 * View's bottom position, in platform-specific units.
+				 */
+				bottom: never;
+
+				/**
+				 * View's center position, in the parent view's coordinates.
+				 */
+				center: never;
+
+				/**
+				 * Array of this view's child views.
+				 */
+				readonly children: never;
+
+				/**
+				 * Whether view should be focusable while navigating with the trackball.
+				 */
+				focusable: never;
+
+				/**
+				 * View height, in platform-specific units.
+				 */
+				height: never;
+
+				/**
+				 * Determines whether the layout has wrapping behavior.
+				 */
+				horizontalWrap: never;
+
+				/**
+				 * Determines whether to keep the device screen on.
+				 */
+				keepScreenOn: never;
+
+				/**
+				 * Specifies how the view positions its children.
+				 * One of: 'composite', 'vertical', or 'horizontal'.
+				 */
+				layout: never;
+
+				/**
+				 * View's left position, in platform-specific units.
+				 */
+				left: never;
 
 				/**
 				 * Display time of the Snackbar
@@ -19136,9 +19641,134 @@ declare namespace Titanium {
 				message: string;
 
 				/**
+				 * Opacity of this view, from 0.0 (transparent) to 1.0 (opaque). Defaults to 1.0 (opaque).
+				 */
+				opacity: never;
+
+				/**
+				 * When on, animate call overrides current animation if applicable.
+				 */
+				overrideCurrentAnimation: never;
+
+				/**
+				 * The bounding box of the view relative to its parent, in system units.
+				 */
+				readonly rect: never;
+
+				/**
+				 * View's right position, in platform-specific units.
+				 */
+				right: never;
+
+				/**
+				 * The size of the view in system units.
+				 */
+				readonly size: never;
+
+				/**
+				 * Determines keyboard behavior when this view is focused. Defaults to <Titanium.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS>.
+				 */
+				softKeyboardOnFocus: never;
+
+				/**
+				 * The view's top position.
+				 */
+				top: never;
+
+				/**
+				 * Determines whether view should receive touch events.
+				 */
+				touchEnabled: never;
+
+				/**
+				 * Transformation matrix to apply to the view.
+				 */
+				transform: never;
+
+				/**
+				 * Determines the color of the shadow.
+				 */
+				viewShadowColor: never;
+
+				/**
+				 * Determines whether the view is visible.
+				 */
+				visible: never;
+
+				/**
+				 * View's width, in platform-specific units.
+				 */
+				width: never;
+
+				/**
+				 * Z-index stack order position, relative to other sibling views.
+				 */
+				zIndex: never;
+
+				/**
+				 * Adds a child to this view's hierarchy.
+				 */
+				add: never;
+
+				/**
+				 * Adds the specified callback as an event listener for the named event.
+				 */
+				addEventListener<K extends keyof SnackbarEventMap>(name: K, callback: (this: Titanium.UI.Android.Snackbar, event: SnackbarEventMap[K]) => void): void;
+
+				/**
+				 * Adds the specified callback as an event listener for the named event.
+				 */
+				addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+				/**
+				 * Animates this view.
+				 */
+				animate: never;
+
+				/**
+				 * Translates a point from this view's coordinate system to another view's coordinate system.
+				 */
+				convertPointToView: never;
+
+				/**
+				 * Fires a synthesized event to any registered listeners.
+				 */
+				fireEvent<K extends keyof SnackbarEventMap>(name: K, event?: SnackbarEventMap[K]): void;
+
+				/**
+				 * Fires a synthesized event to any registered listeners.
+				 */
+				fireEvent(name: string, event?: any): void;
+
+				/**
+				 * Removes a child view from this view's hierarchy.
+				 */
+				remove: never;
+
+				/**
+				 * Removes all child views from this view's hierarchy.
+				 */
+				removeAllChildren: never;
+
+				/**
+				 * Removes the specified callback as an event listener for the named event.
+				 */
+				removeEventListener<K extends keyof SnackbarEventMap>(name: K, callback: (this: Titanium.UI.Android.Snackbar, event: SnackbarEventMap[K]) => void): void;
+
+				/**
+				 * Removes the specified callback as an event listener for the named event.
+				 */
+				removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+				/**
 				 * Show the Snackbar
 				 */
-				show(): void;
+				show(options?: AnimatedOptions): void;
+
+				/**
+				 * Returns an image of the rendered view, as a Blob.
+				 */
+				toImage: never;
 
 			}
 		}
@@ -19228,6 +19858,18 @@ declare namespace Titanium {
 			const ACTION_POLICY_CANCEL: number;
 
 			/**
+			 * Indicates that the system should present the alert using the
+			 * critical, or caution, style.
+			 */
+			const ALERT_SEVERITY_CRITICAL: number;
+
+			/**
+			 * Indicates that the system should present the alert using the standard
+			 * alert style.
+			 */
+			const ALERT_SEVERITY_DEFAULT: number;
+
+			/**
 			 * All media types require a user gesture to begin playing.
 			 */
 			const AUDIOVISUAL_MEDIA_TYPE_ALL: number;
@@ -19246,174 +19888,6 @@ declare namespace Titanium {
 			 * Media types containing video require a user gesture to begin playing.
 			 */
 			const AUDIOVISUAL_MEDIA_TYPE_VIDEO: number;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_CLEAR](Titanium.UI.BLEND_MODE_CLEAR) instead.
-			 */
-			const BLEND_MODE_CLEAR: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_COLOR](Titanium.UI.BLEND_MODE_COLOR) instead.
-			 */
-			const BLEND_MODE_COLOR: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_COLOR_BURN](Titanium.UI.BLEND_MODE_COLOR_BURN) instead.
-			 */
-			const BLEND_MODE_COLOR_BURN: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_COLOR_DODGE](Titanium.UI.BLEND_MODE_COLOR_DODGE) instead.
-			 */
-			const BLEND_MODE_COLOR_DODGE: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_COPY](Titanium.UI.BLEND_MODE_COPY) instead.
-			 */
-			const BLEND_MODE_COPY: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_DARKEN](Titanium.UI.BLEND_MODE_DARKEN) instead.
-			 */
-			const BLEND_MODE_DARKEN: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_DESTINATION_ATOP](Titanium.UI.BLEND_MODE_DESTINATION_ATOP) instead.
-			 */
-			const BLEND_MODE_DESTINATION_ATOP: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_DESTINATION_IN](Titanium.UI.BLEND_MODE_DESTINATION_IN) instead.
-			 */
-			const BLEND_MODE_DESTINATION_IN: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_DESTINATION_OUT](Titanium.UI.BLEND_MODE_DESTINATION_OUT) instead.
-			 */
-			const BLEND_MODE_DESTINATION_OUT: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_DESTINATION_OVER](Titanium.UI.BLEND_MODE_DESTINATION_OVER) instead.
-			 */
-			const BLEND_MODE_DESTINATION_OVER: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_DIFFERENCE](Titanium.UI.BLEND_MODE_DIFFERENCE) instead.
-			 */
-			const BLEND_MODE_DIFFERENCE: never;
-
-			/**
-			 * Image mode constant. Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_EXCLUSION](Titanium.UI.BLEND_MODE_EXCLUSION) instead.
-			 */
-			const BLEND_MODE_EXCLUSION: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_HARD_LIGHT](Titanium.UI.BLEND_MODE_HARD_LIGHT) instead.
-			 */
-			const BLEND_MODE_HARD_LIGHT: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_HUE](Titanium.UI.BLEND_MODE_HUE) instead.
-			 */
-			const BLEND_MODE_HUE: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_LIGHTEN](Titanium.UI.BLEND_MODE_LIGHTEN) instead.
-			 */
-			const BLEND_MODE_LIGHTEN: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_LUMINOSITY](Titanium.UI.BLEND_MODE_LUMINOSITY) instead.
-			 */
-			const BLEND_MODE_LUMINOSITY: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_MULTIPLY](Titanium.UI.BLEND_MODE_MULTIPLY) instead.
-			 */
-			const BLEND_MODE_MULTIPLY: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_NORMAL](Titanium.UI.BLEND_MODE_NORMAL) instead.
-			 */
-			const BLEND_MODE_NORMAL: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_OVERLAY](Titanium.UI.BLEND_MODE_OVERLAY) instead.
-			 */
-			const BLEND_MODE_OVERLAY: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_PLUS_DARKER](Titanium.UI.BLEND_MODE_PLUS_DARKER) instead.
-			 */
-			const BLEND_MODE_PLUS_DARKER: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_PLUS_LIGHTER](Titanium.UI.BLEND_MODE_PLUS_LIGHTER) instead.
-			 */
-			const BLEND_MODE_PLUS_LIGHTER: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_SATURATION](Titanium.UI.BLEND_MODE_SATURATION) instead.
-			 */
-			const BLEND_MODE_SATURATION: never;
-
-			/**
-			 * Image mode constant. Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_SCREEN](Titanium.UI.BLEND_MODE_SCREEN) instead.
-			 */
-			const BLEND_MODE_SCREEN: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_SOFT_LIGHT](Titanium.UI.BLEND_MODE_SOFT_LIGHT) instead.
-			 */
-			const BLEND_MODE_SOFT_LIGHT: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_SOURCE_ATOP](Titanium.UI.BLEND_MODE_SOURCE_ATOP) instead.
-			 */
-			const BLEND_MODE_SOURCE_ATOP: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_SOURCE_IN](Titanium.UI.BLEND_MODE_SOURCE_IN) instead.
-			 */
-			const BLEND_MODE_SOURCE_IN: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_SOURCE_OUT](Titanium.UI.BLEND_MODE_SOURCE_OUT) instead.
-			 */
-			const BLEND_MODE_SOURCE_OUT: never;
-
-			/**
-			 * Use with [MaskedImage.mode](Titanium.UI.MaskedImage.mode) to specify a blend mode.
-			 * @deprecated Use [Titanium.UI.BLEND_MODE_XOR](Titanium.UI.BLEND_MODE_XOR) instead.
-			 */
-			const BLEND_MODE_XOR: never;
 
 			/**
 			 * Use with [BlurView.effect](Titanium.UI.iOS.BlurView.effect) to specify a blur effect.
@@ -20032,42 +20506,6 @@ declare namespace Titanium {
 			 * String that represents the magnifying glass on the table view index bar
 			 */
 			const TABLEVIEW_INDEX_SEARCH: string;
-
-			/**
-			 * User tapped the back or forward button.
-			 * @deprecated Not used with Titanium SDK 8.0.0 and later by replacing UIWebView with WKWebView.
-			 */
-			const WEBVIEW_NAVIGATIONTYPE_BACK_FORWARD: never;
-
-			/**
-			 * User resubmitted a form.
-			 * @deprecated Not used with Titanium SDK 8.0.0 and later by replacing UIWebView with WKWebView.
-			 */
-			const WEBVIEW_NAVIGATIONTYPE_FORM_RESUBMITTED: never;
-
-			/**
-			 * User submitted a form.
-			 * @deprecated Not used with Titanium SDK 8.0.0 and later by replacing UIWebView with WKWebView.
-			 */
-			const WEBVIEW_NAVIGATIONTYPE_FORM_SUBMITTED: never;
-
-			/**
-			 * User tapped a link.
-			 * @deprecated Not used with Titanium SDK 8.0.0 and later by replacing UIWebView with WKWebView.
-			 */
-			const WEBVIEW_NAVIGATIONTYPE_LINK_CLICKED: never;
-
-			/**
-			 * Some other action occurred.
-			 * @deprecated Not used with Titanium SDK 8.0.0 and later by replacing UIWebView with WKWebView.
-			 */
-			const WEBVIEW_NAVIGATIONTYPE_OTHER: never;
-
-			/**
-			 * User tapped the reload button.
-			 * @deprecated Not used with Titanium SDK 8.0.0 and later by replacing UIWebView with WKWebView.
-			 */
-			const WEBVIEW_NAVIGATIONTYPE_RELOAD: never;
 
 			/**
 			 * A set of constants for the style that can be used for the `style` property of
@@ -26144,12 +26582,6 @@ declare namespace Titanium {
 				contentView: Titanium.UI.View;
 
 				/**
-				 * Height of the popover.
-				 * @deprecated This property is deprecated. Set the height on the [Titanium.UI.iPad.Popover.contentView](Titanium.UI.iPad.Popover.contentView) property instead.
-				 */
-				height: never;
-
-				/**
 				 * Determines whether the layout has wrapping behavior.
 				 */
 				horizontalWrap: never;
@@ -26235,12 +26667,6 @@ declare namespace Titanium {
 				 * Determines whether the view is visible.
 				 */
 				visible: never;
-
-				/**
-				 * Width of the popover.
-				 * @deprecated This property is deprecated. Set the width on the [Titanium.UI.iPad.Popover.contentView](Titanium.UI.iPad.Popover.contentView) property instead.
-				 */
-				width: never;
 
 				/**
 				 * Z-index stack order position, relative to other sibling views.
@@ -28245,6 +28671,11 @@ declare namespace Titanium {
 			right: never;
 
 			/**
+			 * Indicates the severity of the alert in apps built with Mac Catalyst.
+			 */
+			severity: number;
+
+			/**
 			 * The size of the view in system units.
 			 */
 			readonly size: never;
@@ -28452,6 +28883,11 @@ declare namespace Titanium {
 			static createSearchView(parameters?: Dictionary<Titanium.UI.Android.SearchView>): Titanium.UI.Android.SearchView;
 
 			/**
+			 * Creates and returns an instance of <Titanium.UI.Android.Snackbar>.
+			 */
+			static createSnackbar(parameters?: Dictionary<Titanium.UI.Android.Snackbar>): Titanium.UI.Android.Snackbar;
+
+			/**
 			 * Fires a synthesized event to any registered listeners.
 			 */
 			static fireEvent(name: string, event?: any): void;
@@ -28460,6 +28896,11 @@ declare namespace Titanium {
 			 * Returns a <Ti.Color> instance for a color defined by the system or user resources (colors.xml)
 			 */
 			static getColorResource(resourceIdOrColorName: number | string): Titanium.UI.Color;
+
+			/**
+			 * Creates a harmonizing color
+			 */
+			static harmonizedColor(color: string | Titanium.UI.Color): string;
 
 			/**
 			 * Hides the soft keyboard.
@@ -34666,6 +35107,21 @@ declare namespace Titanium {
 		 * Fired when a list row has started moving.
 		 */
 		interface ListView_movestart_Event extends ListViewBaseEvent {
+			/**
+			 * section item index of the reference item.
+			 */
+			itemIndex: number;
+
+			/**
+			 * List section from which the item is moved.
+			 */
+			section: Titanium.UI.ListSection;
+
+			/**
+			 * section index of the reference item.
+			 */
+			sectionIndex: number;
+
 		}
 		/**
 		 * Fired when a list row has ended moving.
@@ -39379,6 +39835,11 @@ declare namespace Titanium {
 			readonly children: never;
 
 			/**
+			 * Text color of the Picker
+			 */
+			color: string | Titanium.UI.Color;
+
+			/**
 			 * Columns used for this picker, as an array of <Titanium.UI.PickerColumn> objects.
 			 */
 			columns: Titanium.UI.PickerColumn[];
@@ -40516,13 +40977,6 @@ declare namespace Titanium {
 			 * Translates a point from this view's coordinate system to another view's coordinate system.
 			 */
 			convertPointToView: never;
-
-			/**
-			 * Finishes a batch update of the View's layout properties and schedules a layout pass of the
-			 * view tree.
-			 * @deprecated Use the [applyProperties](Titanium.Proxy.applyProperties) method to batch-update layout properties.
-			 */
-			finishLayout: never;
 
 			/**
 			 * Fires a synthesized event to any registered listeners.
@@ -44218,6 +44672,11 @@ declare namespace Titanium {
 			 * [hintText](Titanium.UI.SearchBar.hintText) property.
 			 */
 			hinttextid: string;
+
+			/**
+			 * Color of the search and close icon. Search icon will only work for `iconified:false`.
+			 */
+			iconColor: string | Titanium.UI.Color;
 
 			/**
 			 * Collapses/expands the search view to/from a search icon.
@@ -48700,9 +49159,19 @@ declare namespace Titanium {
 			labels: string[] | BarItemType[];
 
 			/**
+			 * Color of the selected text
+			 */
+			selectedTextColor: string | Titanium.UI.Color;
+
+			/**
 			 * Style of the tabbed bar.
 			 */
 			style: number;
+
+			/**
+			 * Color of the text
+			 */
+			textColor: string | Titanium.UI.Color;
 
 			/**
 			 * Adds a child to this view's hierarchy.
@@ -51322,12 +51791,6 @@ declare namespace Titanium {
 		 */
 		class TextArea extends Titanium.UI.View {
 			/**
-			 * Determines the appearance of the keyboard displayed when this text area is focused.
-			 * @deprecated Use [Titanium.UI.TextArea.keyboardAppearance](Titanium.UI.TextArea.keyboardAppearance) instead.
-			 */
-			appearance: never;
-
-			/**
 			 * Hint text attributed string.
 			 */
 			attributedHintText: Titanium.UI.AttributedString;
@@ -52214,12 +52677,6 @@ declare namespace Titanium {
 		 */
 		class TextField extends Titanium.UI.View {
 			/**
-			 * Determines the appearance of the keyboard displayed when this field is focused.
-			 * @deprecated Use [Titanium.UI.TextField.keyboardAppearance](Titanium.UI.TextField.keyboardAppearance) instead.
-			 */
-			appearance: never;
-
-			/**
 			 * Hint text attributed string.
 			 */
 			attributedHintText: Titanium.UI.AttributedString;
@@ -52392,18 +52849,6 @@ declare namespace Titanium {
 			 * Sets the padding of this text field.
 			 */
 			padding: TextFieldPadding;
-
-			/**
-			 * Left padding of this text field.
-			 * @deprecated Use [Titanium.UI.TextField.padding](Titanium.UI.TextField.padding) for parity instead.
-			 */
-			paddingLeft: never;
-
-			/**
-			 * Right padding of this text field.
-			 * @deprecated Use [Titanium.UI.TextField.padding](Titanium.UI.TextField.padding) for parity instead.
-			 */
-			paddingRight: never;
 
 			/**
 			 * Obscure the input text from the user.
@@ -54314,13 +54759,6 @@ declare namespace Titanium {
 			convertPointToView(point: Point, destinationView: Titanium.UI.View): Point;
 
 			/**
-			 * Finishes a batch update of the View's layout properties and schedules a layout pass of the
-			 * view tree.
-			 * @deprecated Use the [applyProperties](Titanium.Proxy.applyProperties) method to batch-update layout properties.
-			 */
-			finishLayout: never;
-
-			/**
 			 * Fires a synthesized event to any registered listeners.
 			 */
 			fireEvent<K extends keyof ViewEventMap>(name: K, event?: ViewEventMap[K]): void;
@@ -54967,18 +55405,6 @@ declare namespace Titanium {
 			 * Error message, if any returned. May be undefined.
 			 */
 			error: string;
-
-			/**
-			 * A constant or underlying platform specific error code. Use code instead.
-			 * @deprecated Use the `code` property instead. Removed on ios in 8.0.0. Removed on android in 9.0.0.
-			 */
-			errorCode: never;
-
-			/**
-			 * Error message. Use error instead.
-			 * @deprecated Use the `error` property instead. Removed on ios in 8.0.0. Removed on android in 9.0.0.
-			 */
-			message: never;
 
 			/**
 			 * Indicates a successful operation. Returns `false`.
@@ -58172,12 +58598,6 @@ declare namespace Titanium {
 	 */
 	interface App_uncaughtException_Event extends AppBaseEvent {
 		/**
-		 * The backtrace of function calls when the error occurred.
-		 * @deprecated Use the `stack` property instead.
-		 */
-		backtrace: never;
-
-		/**
 		 * The column offset on the line where the error occured.
 		 */
 		column: number;
@@ -58820,12 +59240,6 @@ declare namespace Titanium {
 		static readonly defaultCalendar: Titanium.Calendar.Calendar;
 
 		/**
-		 * Returns an authorization constant indicating if the application has access to the events in the EventKit.
-		 * @deprecated Use the [Titanium.Calendar.calendarAuthorization](Titanium.Calendar.calendarAuthorization) property instead.
-		 */
-		static readonly eventsAuthorization: never;
-
-		/**
 		 * The Window or TabGroup whose Activity lifecycle should be triggered on the proxy.
 		 */
 		static lifecycleContainer: Titanium.UI.Window | Titanium.UI.TabGroup;
@@ -58884,12 +59298,6 @@ declare namespace Titanium {
 		 * Requests for calendar access.
 		 */
 		static requestCalendarPermissions(callback?: (param0: EventsAuthorizationResponse) => void): Promise<EventsAuthorizationResponse>;
-
-		/**
-		 * If authorization is unknown, the system will bring up a dialog requesting permission.
-		 * @deprecated Use [Titanium.Calendar.requestCalendarPermissions](Titanium.Calendar.requestCalendarPermissions) instead.
-		 */
-		static requestEventsAuthorization: never;
 
 	}
 	/**
@@ -59124,12 +59532,6 @@ declare namespace Titanium {
 
 		/**
 		 * Gets the group with the specified identifier.
-		 * @deprecated Use the [Titanium.Contacts.getGroupByIdentifier](Titanium.Contacts.getGroupByIdentifier) method instead.
-		 */
-		static getGroupByID: never;
-
-		/**
-		 * Gets the group with the specified identifier.
 		 */
 		static getGroupByIdentifier(id: string): Titanium.Contacts.Group;
 
@@ -59138,12 +59540,6 @@ declare namespace Titanium {
 		 * of these fields, that match the specified name.
 		 */
 		static getPeopleWithName(name: string): Titanium.Contacts.Person[];
-
-		/**
-		 * Gets the person with the specified identifier.
-		 * @deprecated Use the [Titanium.Contacts.getPersonByIdentifier](Titanium.Contacts.getPersonByIdentifier) method instead.
-		 */
-		static getPersonByID: never;
 
 		/**
 		 * Gets the person with the specified identifier.
@@ -59176,20 +59572,9 @@ declare namespace Titanium {
 		static removePerson(person: Titanium.Contacts.Person): void;
 
 		/**
-		 * If authorization is unknown, will bring up a dialog requesting permission.
-		 * @deprecated Use the [Titanium.Contacts.requestContactsPermissions](Titanium.Contacts.requestContactsPermissions) method instead.
-		 */
-		static requestAuthorization: never;
-
-		/**
 		 * Requests for contacts access.
 		 */
 		static requestContactsPermissions(callback?: (param0: ContactsAuthorizationResponse) => void): Promise<ContactsAuthorizationResponse>;
-
-		/**
-		 * Reverts all changes made by the previous save to the address book. Deprecated for >= iOS9.
-		 */
-		static revert(): void;
 
 		/**
 		 * Commits all pending changes to the underlying contacts database.
@@ -59562,15 +59947,6 @@ declare namespace Titanium {
 		static distanceFilter: number;
 
 		/**
-		 * Requested frequency for location updates, in milliseconds.
-		 * @deprecated Android legacy mode operation is deprecated. For new development, use
-		 * either simple mode or manual mode. See "Configurating Location Updates on Android"
-		 * in the main description of this class for more information.
-		 *
-		 */
-		static frequency: never;
-
-		/**
 		 * Indicates whether the current device supports a compass.
 		 */
 		static readonly hasCompass: boolean;
@@ -59614,15 +59990,6 @@ declare namespace Titanium {
 		 * Indicates whether the location updates may be paused.
 		 */
 		static pauseLocationUpdateAutomatically: boolean;
-
-		/**
-		 * Determines the preferred location provider.
-		 * @deprecated Android legacy mode operation is deprecated. For new development, use
-		 * either simple mode or manual mode. See "Configurating Location Updates on Android"
-		 * in the main description of this class for more information.
-		 *
-		 */
-		static preferredProvider: never;
 
 		/**
 		 * Specifies that an indicator be shown when the app makes use of continuous
@@ -60302,26 +60669,8 @@ declare namespace Titanium {
 
 		/**
 		 * Request the user's permission for audio recording.
-		 * @deprecated Use the [Titanium.Media.requestAudioRecorderPermissions](Titanium.Media.requestAudioRecorderPermissions) method instead.
-		 */
-		static requestAudioPermissions: never;
-
-		/**
-		 * Request the user's permission for audio recording.
 		 */
 		static requestAudioRecorderPermissions(callback?: (param0: MediaAuthorizationResponse) => void): Promise<MediaAuthorizationResponse>;
-
-		/**
-		 * Request the user's permission for audio recording.
-		 * @deprecated Use the [Titanium.Media.requestAudioRecorderPermissions](Titanium.Media.requestAudioRecorderPermissions) method instead.
-		 */
-		static requestAuthorization: never;
-
-		/**
-		 * Requests for camera access.
-		 * @deprecated Please use the [Titanium.Media.requestCameraPermissions](Titanium.Media.requestCameraPermissions) method instead.
-		 */
-		static requestCameraAccess: never;
 
 		/**
 		 * Requests for camera access.
@@ -60576,8 +60925,9 @@ declare namespace Titanium {
 		static createHTTPClient(parameters?: Dictionary<Titanium.Network.HTTPClient>): Titanium.Network.HTTPClient;
 
 		/**
-		 * Legacy method to create and return an instance of <Titanium.Network.TCPSocket>.
-		 * @deprecated Use [Titanium.Network.Socket.createTCP](Titanium.Network.Socket.createTCP) instead.
+		 * Creates and returns an instance of <Titanium.Network.TCPSocket>.
+		 * @deprecated Use [Titanium.Network.Socket.TCP](Titanium.Network.Socket.TCP) where possible.
+		 *
 		 */
 		static createTCPSocket: never;
 
@@ -60761,6 +61111,12 @@ declare namespace Titanium {
 		 * A Boolean value that indicates whether the user has limited ad tracking.
 		 */
 		static readonly isAdvertisingTrackingEnabled: boolean;
+
+		/**
+		 * A Boolean value that indicates whether the current app is running as a translated
+		 * binary using Rosetta on an Apple Silicon device.
+		 */
+		static readonly isTranslatedBinaryOnAppleSilicon: boolean;
 
 		/**
 		 * The Window or TabGroup whose Activity lifecycle should be triggered on the proxy.
@@ -62288,19 +62644,6 @@ interface WriteCallbackArgs extends ErrorResponse {
 	error?: string;
 
 	/**
-	 * Text description of the error.
-	 * @deprecated Use the `error` property to determine the error message.
-	 */
-	errorDescription: never;
-
-	/**
-	 * Whether an error was encountered. Set to 1 in the case of an error, 0
-	 * otherwise.
-	 * @deprecated Use the `success` or `code` property values to determine error conditions.
-	 */
-	errorState: never;
-
-	/**
 	 * Stream being written to.
 	 */
 	source?: Titanium.IOStream;
@@ -62320,19 +62663,6 @@ interface WriteStreamCallbackArgs extends ErrorResponse {
 	 * Number of bytes processed, or -1 in the event of an error or end of stream.
 	 */
 	bytesProcessed?: number;
-
-	/**
-	 * Text description of the error.
-	 * @deprecated Use error property to determine error message
-	 */
-	errorDescription: never;
-
-	/**
-	 * Whether an error was encountered. Set to 1 in the case of an error, 0
-	 * otherwise.
-	 * @deprecated Use success or code values to determine error conditions
-	 */
-	errorState: never;
 
 	/**
 	 * Stream being read from.
