@@ -918,7 +918,7 @@ declare namespace chrome.browserAction {
     /**
      * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
      */
-    export function setIcon(details: TabIconDetails, callback: Function): void;
+    export function setIcon(details: TabIconDetails, callback?: Function): void;
 
     /** Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup. */
     export var onClicked: BrowserClickedEvent;

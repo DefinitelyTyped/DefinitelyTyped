@@ -991,6 +991,23 @@ function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText(undefined);
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setIcon
+function testBrowserAcionSetIcon() {
+    chrome.browserAction.setIcon({ path: '/icon.png' });
+    chrome.browserAction.setIcon({ path: '/icon.png' }, console.log);
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' } });
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' } }, console.log);
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' }, tabId: 0 });
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' }, tabId: 0 }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setIcon();
+    // @ts-expect-error
+    chrome.browserAction.setIcon(null);
+    // @ts-expect-error
+    chrome.browserAction.setIcon(undefined);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/action/
 async function testActionForPromise() {
     await chrome.action.disable();
