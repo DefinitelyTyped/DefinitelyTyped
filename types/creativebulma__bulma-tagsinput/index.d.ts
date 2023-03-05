@@ -412,4 +412,6 @@ declare class BulmaTagsInput {
     off(eventName: string): void;
 }
 
+export as namespace BulmaTagsInput;
+
 export = BulmaTagsInput;
