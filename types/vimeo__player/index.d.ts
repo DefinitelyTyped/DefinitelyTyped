@@ -180,8 +180,8 @@ declare namespace Vimeo {
             volumechange: VolumeChangeEvent;
 
             /**
-             * Triggered when the playback rate of the video in the player changes. The ability to change rate can be disabled by the creator and the event will not fire for those videos. The new playback
-             * rate is returned with the event.
+             * Triggered when the playback rate of the video in the player changes. The ability to change rate can be disabled by the creator and the event will not fire for those videos. The new
+             * playback rate is returned with the event.
              */
             playbackratechange: PlaybackRateEvent;
 
@@ -196,8 +196,8 @@ declare namespace Vimeo {
             bufferend: never;
 
             /**
-             * Triggered when some kind of error is generated in the player. In general if you are using this API library, you should use `.catch()` on each method call instead of globally listening for
-             * error events.
+             * Triggered when some kind of error is generated in the player. In general if you are using this API library, you should use `.catch()` on each method call instead of globally listening
+             * for error events.
              *
              * If the error was generated from a method call, the name of that method will be included.
              */
