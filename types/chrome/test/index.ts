@@ -1055,7 +1055,26 @@ function testBrowserAcionSetIcon() {
     chrome.browserAction.setIcon(undefined);
 }
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setIcon
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setPopup
+function testBrowserAcionSetPopup() {
+    chrome.browserAction.setPopup({ popup: 'index.html' });
+    chrome.browserAction.setPopup({ popup: 'index.html' }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: 0 });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: 0 }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: null });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: null }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: undefined });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setPopup();
+    // @ts-expect-error
+    chrome.browserAction.setPopup(null);
+    // @ts-expect-error
+    chrome.browserAction.setPopup(undefined);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setTitle
 function testBrowserAcionSetTitle() {
     chrome.browserAction.setTitle({ title: 'Title' });
     chrome.browserAction.setTitle({ title: 'Title' }, console.log);

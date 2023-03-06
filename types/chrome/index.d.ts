@@ -793,7 +793,7 @@ declare namespace chrome.browserAction {
 
     export interface PopupDetails {
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number | undefined;
+        tabId?: number | null | undefined;
         /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
@@ -867,7 +867,7 @@ declare namespace chrome.browserAction {
      * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
      * @param callback Supported since Chrome 67
      */
-    export function setPopup(details: PopupDetails, callback: () => void): void;
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
