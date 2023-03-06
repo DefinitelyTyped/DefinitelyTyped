@@ -1,6 +1,6 @@
 import youTubePlayerFactory from 'youtube-player';
 import PlayerStates from 'youtube-player/dist/constants/PlayerStates';
-import { YouTubePlayer } from 'youtube-player/dist/types';
+import { PlayerSize, YouTubePlayer } from 'youtube-player/dist/types';
 
 youTubePlayerFactory('foo');
 const player: YouTubePlayer = youTubePlayerFactory(
@@ -35,8 +35,8 @@ const player: YouTubePlayer = youTubePlayerFactory(
         },
         events: {
             ready: (event: CustomEvent): void => {},
-            stateChange: (event: CustomEvent): void => {
-                console.log(player.getPlayerState() === PlayerStates.PLAYING);
+            stateChange: async (event: CustomEvent): Promise<void> => {
+                console.log((await player.getPlayerState()) === PlayerStates.PLAYING);
             },
             playbackQualityChange: (event: CustomEvent): void => {},
             playbackRateChange: (event: CustomEvent): void => {},
@@ -53,12 +53,15 @@ player.loadVideoById('doesNotExist');
 player.playVideo();
 player.pauseVideo();
 player.setSize(320, 200);
-if (player.isMuted()) {
-    player.unMute();
-} else {
-    player.mute();
-}
-player.setVolume(player.getVolume() / 2);
+const playerSize: Promise<PlayerSize> = player.getSize();
+(async () => {
+    if (await player.isMuted()) {
+        player.unMute();
+    } else {
+        player.mute();
+    }
+})();
+(async () => player.setVolume((await player.getVolume()) / 2))();
 
 player.on('stateChange', (event: CustomEvent<void> & {data: number}) => {
     switch (event.data) {

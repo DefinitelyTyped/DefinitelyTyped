@@ -43,8 +43,15 @@ export interface HostedFieldFieldOptions {
     expirationDate?: HostedFieldsField | undefined;
     expirationMonth?: HostedFieldsField | undefined;
     expirationYear?: HostedFieldsField | undefined;
-    number: HostedFieldsField;
+    number?: HostedFieldsField | undefined;
     postalCode?: HostedFieldsField | undefined;
+}
+
+/**
+ * @description The event payload sent from {@link HostedFields#on|on} when the `binAvailable` event is emitted.
+ */
+export interface HostedFieldsBinPayload {
+    bin: string;
 }
 
 /**
@@ -138,8 +145,18 @@ export interface HostedFieldsEvent extends HostedFieldsState {
  */
 export type HostedFieldsStateObject = HostedFieldsEvent;
 
-export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty'
-    | 'cardTypeChange' | 'validityChange' | 'inputSubmitRequest';
+export interface HostedFieldsEventTypeMap {
+    blur: HostedFieldsEvent;
+    focus: HostedFieldsEvent;
+    empty: HostedFieldsEvent;
+    notEmpty: HostedFieldsEvent;
+    cardTypeChange: HostedFieldsEvent;
+    validityChange: HostedFieldsEvent;
+    inputSubmitRequest: HostedFieldsEvent;
+    binAvailable: HostedFieldsBinPayload;
+}
+
+export type HostedFieldEventType = keyof HostedFieldsEventTypeMap;
 
 export interface HostedFieldsAccountDetails {
     bin: string;
@@ -156,6 +173,13 @@ export interface HostedFieldsTokenizePayload {
     details: HostedFieldsAccountDetails;
     type: string;
     description: string;
+    /**
+     * Provides details about regulatory environment.
+     * See https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#authentication-insight.
+     */
+    authenticationInsight?: {
+      regulationEnvironment?: 'psd2' | 'unregulated' | 'unavailable';
+    };
 }
 
 export interface HostedFields {
@@ -194,8 +218,13 @@ export interface HostedFields {
         styles?: any;
     }): Promise<HostedFields>;
     create(
-        options: { client?: Client | undefined; authorization?: string | undefined; fields: HostedFieldFieldOptions; styles?: any },
-        callback: callback,
+        options: {
+            client?: Client | undefined;
+            authorization?: string | undefined;
+            fields: HostedFieldFieldOptions;
+            styles?: any;
+        },
+        callback: callback<HostedFields>,
     ): void;
 
     /**
@@ -241,8 +270,8 @@ export interface HostedFields {
      */
     VERSION: string;
 
-    on(event: HostedFieldEventType, handler: (event: HostedFieldsEvent) => void): void;
-    off(event: HostedFieldEventType, handler: (event: HostedFieldsEvent) => void): void;
+    on<EventType extends HostedFieldEventType>(event: EventType, handler: (event: HostedFieldsEventTypeMap[EventType]) => void): void;
+    off<EventType extends HostedFieldEventType>(event: EventType, handler: (event: HostedFieldsEventTypeMap[EventType]) => void): void;
 
     teardown(callback?: callback): void;
     teardown(): Promise<void>;
@@ -287,8 +316,11 @@ export interface HostedFields {
         cardholderName?: string | undefined;
         billingAddress?: any;
     }): Promise<HostedFieldsTokenizePayload>;
-    tokenize(options: { vault?: boolean | undefined; cardholderName?: string | undefined; billingAddress?: any }, callback: callback): void;
-    tokenize(callback: callback): void;
+    tokenize(
+        options: { vault?: boolean | undefined; cardholderName?: string | undefined; billingAddress?: any },
+        callback: callback<HostedFieldsTokenizePayload>,
+    ): void;
+    tokenize(callback: callback<HostedFieldsTokenizePayload>): void;
 
     /**
      * Add a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.     *

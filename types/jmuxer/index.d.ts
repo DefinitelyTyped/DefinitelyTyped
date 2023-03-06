@@ -15,6 +15,7 @@ declare namespace JMuxer {
         fps?: number | undefined;
         debug?: boolean | undefined;
         onReady?: (() => void) | undefined;
+        onError?: ((data: any) => void) | undefined;
     }
 
     interface Feeder {
@@ -28,6 +29,7 @@ declare class JMuxer {
     constructor(options: JMuxer.Options);
     feed(data: JMuxer.Feeder): void;
     createStream(): Duplex;
+    reset(): void;
     destroy(): void;
 }
 export = JMuxer;

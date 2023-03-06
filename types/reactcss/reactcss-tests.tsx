@@ -1,11 +1,11 @@
 import * as React from "react"
-import { SFC } from "react"
+import { FC } from "react"
 import { render } from "react-dom"
 import { default as reactCSS, hover, loop, LoopableProps, HoverProps, CSS } from "reactcss"
 
 interface TestHoverProps extends HoverProps<any> { }
 
-const TestHover: SFC<TestHoverProps> = ({hover}) => {
+const TestHover: FC<TestHoverProps> = ({hover}) => {
     const styles = reactCSS<{title: CSS}>({
         default: {
             title: {
@@ -36,7 +36,7 @@ const TestHover: SFC<TestHoverProps> = ({hover}) => {
 
 interface TestLoopProps extends LoopableProps { }
 
-const TestLoop: SFC<TestLoopProps> = (props) => {
+const TestLoop: FC<TestLoopProps> = (props) => {
     const styles = reactCSS<{element: CSS}>({
         default: {
             element: {

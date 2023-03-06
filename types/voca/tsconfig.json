@@ -18,6 +18,17 @@
     },
     "files": [
         "index.d.ts",
-        "voca-tests.ts"
+        "voca-tests.ts",
+        "test/case-tests.ts",
+        "test/count-tests.ts",
+        "test/chop-tests.ts",
+        "test/escape-tests.ts",
+        "test/format-tests.ts",
+        "test/index-tests.ts",
+        "test/manipulate-tests.ts",
+        "test/query-tests.ts",
+        "test/split-tests.ts",
+        "test/strip-tests.ts",
+        "test/util-tests.ts"
     ]
 }

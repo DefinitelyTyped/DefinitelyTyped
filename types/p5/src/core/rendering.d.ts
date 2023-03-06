@@ -5,24 +5,31 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
-         *   Creates a canvas element in the document, and sets
-         *   the dimensions of it in pixels. This method should
-         *   be called only once at the start of setup. Calling
+         *   Creates a canvas element in the document and sets
+         *   its dimensions in pixels. This method should be
+         *   called only once at the start of setup(). Calling
          *   createCanvas more than once in a sketch will
          *   result in very unpredictable behavior. If you want
          *   more than one drawing canvas you could use
-         *   createGraphics (hidden by default but it can be
-         *   shown).  The system variables width and height are
-         *   set by the parameters passed to this function. If
-         *   createCanvas() is not used, the window will be
-         *   given a default size of 100x100 pixels.
+         *   createGraphics() (hidden by default but it can be
+         *   shown). Important note: in 2D mode (i.e. when
+         *   p5.Renderer is not set) the origin (0,0) is
+         *   positioned at the top left of the screen. In 3D
+         *   mode (i.e. when p5.Renderer is set to WEBGL), the
+         *   origin is positioned at the center of the canvas.
+         *   See this issue for more information.
          *
+         *   The system variables width and height are set by
+         *   the parameters passed to this function. If
+         *   createCanvas() is not used, the window will be
+         *   given a default size of 100×100 pixels.
          *
          *   For more ways to position the canvas, see the
          *   positioning the canvas wiki page.
          *   @param w width of the canvas
          *   @param h height of the canvas
          *   @param [renderer] either P2D or WEBGL
+         *   @return pointer to p5.Renderer holding canvas
          */
         createCanvas(w: number, h: number, renderer?: RENDERER): Renderer;
 
@@ -71,7 +78,7 @@ declare module '../../index' {
          *   - LIGHTEST - only the lightest colour succeeds: C
          *   = max(A*factor, B).
          *   - DIFFERENCE - subtract colors from underlying
-         *   image.
+         *   image. (2D)
          *   - EXCLUSION - similar to DIFFERENCE, but less
          *   extreme.
          *   - MULTIPLY - multiply the colors, result will
@@ -80,6 +87,8 @@ declare module '../../index' {
          *   of the colors.
          *   - REPLACE - the pixels entirely replace the others
          *   and don't utilize alpha (transparency) values.
+         *   - REMOVE - removes pixels from B with the alpha
+         *   strength of A.
          *   - OVERLAY - mix of MULTIPLY and SCREEN .
          *   Multiplies dark values, and screens light values.
          *   (2D)
@@ -93,7 +102,6 @@ declare module '../../index' {
          *   contrast, ignores lights. (2D)
          *   - SUBTRACT - remainder of A and B (3D)
          *
-         *
          *   (2D) indicates that this blend mode only works in
          *   the 2D renderer.
          *
@@ -102,20 +110,21 @@ declare module '../../index' {
          *   @param mode blend mode to set for canvas. either
          *   BLEND, DARKEST, LIGHTEST, DIFFERENCE, MULTIPLY,
          *   EXCLUSION, SCREEN, REPLACE, OVERLAY, HARD_LIGHT,
-         *   SOFT_LIGHT, DODGE, BURN, ADD, or SUBTRACT
+         *   SOFT_LIGHT, DODGE, BURN, ADD, REMOVE or SUBTRACT
          */
         blendMode(mode: BLEND_MODE): void;
 
         /**
-         * The p5.js API provides a lot of functionality for creating graphics, but there is
-         * some native HTML5 Canvas functionality that is not exposed by p5. You can still call
-         * it directly using the variable `drawingContext`, as in the example shown. This is
-         * the equivalent of calling `canvas.getContext('2d');` or `canvas.getContext('webgl');`.
-         * See this
-         * <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">
-         * reference for the native canvas API</a> for possible drawing functions you can call.
-         *
+         *   The p5.js API provides a lot of functionality for
+         *   creating graphics, but there is some native HTML5
+         *   Canvas functionality that is not exposed by p5.
+         *   You can still call it directly using the variable
+         *   drawingContext, as in the example shown. This is
+         *   the equivalent of calling canvas.getContext('2d');
+         *   or canvas.getContext('webgl');. See this
+         *   reference for the native canvas API for possible
+         *   drawing functions you can call.
          */
-        drawingContext: CanvasRenderingContext2D|WebGLRenderingContext;
+        drawingContext: any;
     }
 }

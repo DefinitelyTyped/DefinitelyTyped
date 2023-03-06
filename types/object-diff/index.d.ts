@@ -3,5 +3,5 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function diff(a: any, b: any): any;
+declare function diff(a: any, ...args: any[]): any;
 export = diff;

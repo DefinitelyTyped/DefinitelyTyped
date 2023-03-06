@@ -92,9 +92,18 @@ function testUnion(cmd: svgParser.Command): number {
   }
 }
 
-const cmds = svgParser.parseSVG('M 10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80');
-svgParser.makeAbsolute(cmds); // makeAbsolute() changes cmds in-place
+const cmds: svgParser.Command[] = svgParser.parseSVG('M 10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80');
+const cmds_made_absolute: svgParser.CommandMadeAbsolute[] = svgParser.makeAbsolute(cmds);
+// `makeAbsolute()` modifies the argument in place and returns it.
+// In TypeScript, the only way to modify the argument's type is to write
+// `function f(cs: Command[]): asserts cs is CommandMadeAbsolute[];`, but then this makes the function return void.
+// Hence, the only solution possible is to exploit the fact that this function returns the modified argument
+// and make the return value be of type `CommandMadeAbsolute[]` and the argument to remain in `Command[]`.
 
 assert(cmds.every(cmd => !cmd.relative)); // relative commands must not exist
 cmds.forEach(testUnion);  // doesn't really do much, but the function itself must type-check
 cmds.map(stringify).forEach(console.log); // could throw
+
+// If we access the return value, `.x0` and `.y0` are guaranteed to exist
+cmds_made_absolute.forEach(a => a.x0);
+cmds_made_absolute.forEach(a => a.y0);

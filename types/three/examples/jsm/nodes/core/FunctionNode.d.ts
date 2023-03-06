@@ -1,28 +1,17 @@
-import { TempNode } from './TempNode';
-import { NodeBuilder } from './NodeBuilder';
+import CodeNode, { CodeNodeInclude } from './CodeNode';
+import FunctionCallNode from './FunctionCallNode';
+import NodeBuilder from './NodeBuilder';
+import NodeFunction from './NodeFunction';
+import NodeFunctionInput from './NodeFunctionInput';
+import Node from './Node';
 
-export interface FunctionNodeInput {
-    name: string;
-    type: string;
-    qualifier: string;
-}
+export type FunctionNodeArguments = Node[] | { [name: string]: Node };
 
-export class FunctionNode extends TempNode {
-    constructor(src: string, includes?: object[], extensions?: object, keywords?: object, type?: string);
+export default class FunctionNode<P extends Node[] | { [name: string]: Node }> extends CodeNode {
+    keywords: { [key: string]: Node };
+    constructor(code?: string, includes?: CodeNodeInclude[]);
 
-    isMethod: boolean;
-    nodeType: string;
-    useKeywords: boolean;
-
-    inputs: FunctionNodeInput[] | undefined;
-    includes: object[] | undefined;
-    extensions: object | undefined;
-    keywords: object | undefined;
-
-    getShared(builder: NodeBuilder, output: string): boolean;
-    getType(builder: NodeBuilder): string;
-    getInputByName(name: string): FunctionNodeInput | undefined;
-    getIncludeByName(name: string): object | undefined;
-    parse(src: string, includes?: object[], extensions?: object, keywords?: object): void;
-    copy(source: FunctionNode): this;
+    getInputs(builder: NodeBuilder): NodeFunctionInput[];
+    getNodeFunction(builder: NodeBuilder): NodeFunction;
+    call(parameters: P): FunctionCallNode<P>;
 }

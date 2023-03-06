@@ -42,11 +42,14 @@ interface BootboxConfirmOptions extends BootboxDialogOptions<boolean> {
     buttons?: BootboxConfirmPromptButtonMap | undefined;
 }
 
+type BootboxInputType = "text" | "textarea" | "email" | "select" | "checkbox" | "date" | "time" | "number" | "password" | "radio" | "range";
+
 /** Bootbox options available for prompt modals */
 interface BootboxPromptOptions extends BootboxBaseOptions<string> {
     title: string;
+    message?: JQuery|any[]|Element|DocumentFragment|Text|string|((index: number, html: string) => string|Element|JQuery);
     value?: string | undefined;
-    inputType?: "text" | "textarea" | "email" | "select" | "checkbox" | "date" | "time" | "number" | "password" | "radio" | "range" | undefined;
+    inputType?: BootboxInputType | undefined;
     callback: (result: string) => any;
     buttons?: BootboxConfirmPromptButtonMap | undefined;
     inputOptions?: { text: string, value: string, group?: string | undefined }[] | undefined;
@@ -60,6 +63,14 @@ interface BootboxDefaultOptions {
     closeButton?: boolean | undefined;
     animate?: boolean | undefined;
     className?: string | undefined;
+	container?: string | Element | JQuery | undefined;
+	value?: string | number | Array<string> | undefined;
+	inputType?: BootboxInputType | undefined;
+	swapButtonOrder?: boolean | undefined;
+	centerVertical?: boolean | undefined;
+	multiple?: boolean | undefined;
+	scrollable?: boolean | undefined;
+	reusable?: boolean | undefined;
 }
 
 interface BootboxButton {

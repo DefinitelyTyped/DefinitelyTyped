@@ -5,11 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentType, FunctionComponent } from 'react';
+import { ComponentType, FunctionComponent, ReactNode } from 'react';
 
-export const Waiter: FunctionComponent;
+export const Waiter: FunctionComponent<{ children?: ReactNode }>;
 
 export interface WaitingContextWaitProps {
+    children?: ReactNode;
     fallback: JSX.Element;
 }
 

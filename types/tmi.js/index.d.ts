@@ -1,13 +1,14 @@
-// Type definitions for tmi.js 1.7
+// Type definitions for tmi.js 1.8
 // Project: https://github.com/tmijs/tmi.js
 // Definitions by: William Papsco <https://github.com/wpapsco>
 //                 Corbin Crutchley <https://github.com/crutchcorn>
 //                 Daniel Fischer <https://github.com/d-fischer>
+//                 Samil Deliogullari <https://github.com/samildeli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 // Twitch IRC docs: https://dev.twitch.tv/docs/irc/
-// Last updated: 2020/8/12
+// Last updated: 2023/2/10
 
 import { StrictEventEmitter } from "./strict-event-emitter-types";
 
@@ -51,8 +52,10 @@ export interface Actions {
 export interface Events {
     action(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     anongiftpaidupgrade(channel: string, username: string, userstate: AnonSubGiftUpgradeUserstate): void;
+    anonsubmysterygift(channel: string, numbOfSubs: number, methods: SubMethods, userstate: AnonSubMysteryGiftUserstate): void;
+    anonsubgift(channel: string, streakMonths: number, recipient: string, methods: SubMethods, userstate: AnonSubGiftUserstate): void;
     automod(channel: string, msgID: 'msg_rejected' | 'msg_rejected_mandatory', message: string): void;
-    ban(channel: string, username: string, reason: string): void;
+    ban(channel: string, username: string, reason: string, userstate: BanUserstate): void;
     chat(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     cheer(channel: string, userstate: ChatUserstate, message: string): void;
     clearchat(channel: string): void;
@@ -90,7 +93,7 @@ export interface Events {
     submysterygift(channel: string, username: string, numbOfSubs: number, methods: SubMethods, userstate: SubMysteryGiftUserstate): void;
     subscribers(channel: string, enabled: boolean): void;
     subscription(channel: string, username: string, methods: SubMethods, message: string, userstate: SubUserstate): void;
-    timeout(channel: string, username: string, reason: string, duration: number): void;
+    timeout(channel: string, username: string, reason: string, duration: number, userstate: TimeoutUserstate): void;
     unhost(channel: string, viewers: number): void;
     unmod(channel: string, username: string): void;
     vips(channel: string, vips: string[]): void;
@@ -204,15 +207,21 @@ export interface SubUserstate extends CommonSubUserstate {
 export interface SubMysteryGiftUserstate extends CommonSubUserstate {
     'message-type'?: "submysterygift" | undefined;
     "msg-param-sender-count"?: string | boolean | undefined;
+    'msg-param-origin-id': string;
 }
 
 export interface SubGiftUserstate extends CommonGiftSubUserstate {
     'message-type'?: "subgift" | undefined;
     "msg-param-sender-count"?: string | boolean | undefined;
+    'msg-param-origin-id': string;
 }
 
 export interface AnonSubGiftUserstate extends CommonGiftSubUserstate {
     "message-type"?: "anonsubgift" | undefined;
+}
+
+export interface AnonSubMysteryGiftUserstate extends CommonSubUserstate {
+    'message-type'?: "anonsubmysterygift" | undefined;
 }
 
 export interface SubGiftUpgradeUserstate extends CommonSubUserstate {
@@ -241,6 +250,16 @@ export interface RitualUserstate extends UserNoticeState {
     "msg-param-ritual-name"?: "new_chatter" | undefined;
 }
 
+export interface BanUserstate {
+    'room-id'?: string | undefined;
+    'target-user-id'?: string | undefined;
+    'tmi-sent-ts'?: string | undefined;
+}
+
+export interface TimeoutUserstate extends BanUserstate {
+    "ban-duration"?: string | undefined;
+}
+
 export type Userstate = ChatUserstate |
     SubUserstate |
     SubGiftUserstate |
@@ -249,7 +268,9 @@ export type Userstate = ChatUserstate |
     SubMysteryGiftUserstate |
     AnonSubGiftUpgradeUserstate |
     RaidUserstate |
-    RitualUserstate;
+    RitualUserstate |
+    BanUserstate |
+    TimeoutUserstate;
 
 export interface EmoteObj {
     [id: string]: [{
@@ -264,8 +285,10 @@ export type MsgID = "already_banned" |
     "already_subs_on" |
     "already_subs_off" |
     "bad_ban_admin" |
+    "bad_ban_anon" |
     "bad_ban_broadcaster" |
     "bad_ban_global_mod" |
+    "bad_ban_mod" |
     "bad_ban_self" |
     "bad_ban_staff" |
     "bad_commercial_error" |
@@ -274,7 +297,9 @@ export type MsgID = "already_banned" |
     "bad_mod_mod" |
     "bad_mod_banned" |
     "bad_timeout_admin" |
+    "bad_timeout_anon" |
     "bad_timeout_global_mod" |
+    "bad_timeout_mod" |
     "bad_timeout_self" |
     "bad_timeout_staff" |
     "bad_unban_no_ban" |
@@ -354,13 +379,16 @@ export interface Options {
         joinInterval?: number | undefined;
         globalDefaultChannel?: string | undefined;
         messagesLogLevel?: string | undefined;
+        skipMembership?: boolean | undefined;
+        skipUpdatingEmotesets?: boolean | undefined;
+        updateEmotesetsTimer?: number | undefined;
     } | undefined;
     connection?: {
         server?: string | undefined;
         port?: number | undefined;
         reconnect?: boolean | undefined;
         maxReconnectAttempts?: number | undefined;
-        maxReconnectInverval?: number | undefined;
+        maxReconnectInterval?: number | undefined;
         reconnectDecay?: number | undefined;
         reconnectInterval?: number | undefined;
         secure?: boolean | undefined;

@@ -1,6 +1,7 @@
 // Type definitions for react-bootstrap-table 2.6
 // Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>, Josué Us <https://github.com/UJosue10>
+// Definitions by: Frank Laub <https://github.com/flaub>
+//                 Aleksander Lode <https://github.com/alelode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8,7 +9,7 @@
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
-import { ComponentClass, Props, ReactElement } from 'react';
+import { ComponentClass, ReactElement } from 'react';
 import { EventEmitter } from 'events';
 
 /**
@@ -52,7 +53,10 @@ export interface RemoteObjSpec {
     pagination?: boolean | undefined;
 }
 
-export interface BootstrapTableProps extends Props<BootstrapTable> {
+export interface BootstrapTableProps {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<BootstrapTable> | undefined;
+
     /**
      * Set version='4' to use bootstrap@4, else bootstrap@3 is used.
      */
@@ -515,7 +519,9 @@ interface BootstrapTable extends ComponentClass<BootstrapTableProps> { }
 declare const BootstrapTable: BootstrapTable;
 export type DataAlignType = 'left' | 'center' | 'right' | 'start' | 'end';
 
-export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
+export interface TableHeaderColumnProps {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<TableHeaderColumn> | undefined;
     /**
      * The field of data you want to show on column.
      */

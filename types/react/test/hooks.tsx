@@ -1,5 +1,7 @@
 import * as React from "react";
 
+const {useSyncExternalStore} = React;
+
 interface PersonProps {
     name: string;
     age: number;
@@ -102,6 +104,31 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: 'The Answer' });
 
+    // Implicit any
+    // @ts-expect-error
+    const anyCallback = React.useCallback(value => {
+        // $ExpectType any
+        return value;
+    }, []);
+    // $ExpectType any
+    anyCallback({});
+    // $ExpectType (value: string) => number
+    const typedCallback = React.useCallback((value: string) => {
+        return Number(value);
+    }, []);
+    // $ExpectType number
+    typedCallback("1");
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // @ts-expect-error
+    typedCallback({});
+
+    function useContextuallyTypedCallback(fn: (event: Event) => string) {}
+    useContextuallyTypedCallback(React.useCallback(event => {
+        // $ExpectType Event
+        event;
+        return String(event);
+    }, []));
+
     // test useRef and its convenience overloads
     // $ExpectType MutableRefObject<number>
     React.useRef(0);
@@ -128,7 +155,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType MutableRefObject<number | undefined>
     React.useRef<number>();
     // don't just accept a potential undefined if there is a generic argument
-    // $ExpectError
+    // @ts-expect-error
     React.useRef<number>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
     // $ExpectType MutableRefObject<number>
@@ -146,7 +173,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeHandle(ref, () => ({ id }), [id]);
     // was named like this in the first alpha, renamed before release
-    // $ExpectError
+    // @ts-expect-error
     React.useImperativeMethods(ref, () => ({}), [id]);
 
     // make sure again this is not going to the |null convenience overload
@@ -160,7 +187,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     }, []);
     React.useEffect(() => {
         dispatch({ type: 'getOlder' });
-        // $ExpectError
+        // @ts-expect-error
         dispatch();
 
         simpleDispatch();
@@ -171,17 +198,17 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     React.useEffect(() => () => {});
     // indistinguishable
     React.useEffect(() => () => undefined);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => null);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => Math.random() ? null : undefined);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => () => null);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => () => Math.random() ? null : undefined);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => async () => {});
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(async () => () => {});
 
     React.useDebugValue(id, value => value.toFixed());
@@ -190,7 +217,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // allow passing an explicit undefined
     React.useMemo(() => {}, undefined);
     // but don't allow it to be missing
-    // $ExpectError
+    // @ts-expect-error
     React.useMemo(() => {});
 
     // useState convenience overload
@@ -205,7 +232,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType undefined
     React.useState(undefined)[0];
     // make sure the generic argument does reject actual potentially undefined inputs
-    // $ExpectError
+    // @ts-expect-error
     React.useState<number>(undefined)[0];
     // make sure useState does not widen
     const [toggle, setToggle] = React.useState(false);
@@ -234,3 +261,143 @@ const everyHookRef = React.createRef<{ id: number }>();
     // $ExpectType { id: number; } | null
     ref;
  }}/>;
+
+function useExperimentalHooks() {
+    // Implicit any
+    // @ts-expect-error
+    const anyEvent = React.experimental_useEvent(value => {
+        // $ExpectType any
+        return value;
+    });
+    // $ExpectType any
+    anyEvent({});
+    // $ExpectType (value: string) => number
+    const typedEvent = React.experimental_useEvent((value: string) => {
+        return Number(value);
+    });
+    // $ExpectType number
+    typedEvent('1');
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // @ts-expect-error
+    typedEvent({});
+
+    function useContextuallyTypedEvent(fn: (event: Event) => string) {}
+    useContextuallyTypedEvent(
+        React.experimental_useEvent(event => {
+            // $ExpectType Event
+            event;
+            return String(event);
+        }),
+    );
+
+    const [toggle, setToggle] = React.useState(false);
+
+    const [done, startTransition] = React.useTransition();
+    // $ExpectType boolean
+    done;
+
+    // $ExpectType boolean
+    const deferredToggle = React.useDeferredValue(toggle);
+
+    const [func] = React.useState(() => () => 0);
+
+    // $ExpectType () => number
+    func;
+    // $ExpectType () => number
+    const deferredFunc = React.useDeferredValue(func);
+
+    class Constructor {}
+    // $ExpectType typeof Constructor
+    const deferredConstructor = React.useDeferredValue(Constructor);
+
+    // $ExpectType () => string
+    const deferredConstructible = React.useDeferredValue(Constructible);
+
+    React.useInsertionEffect(() => {});
+    React.useInsertionEffect(() => {}, []);
+    React.useInsertionEffect(() => {
+        return () => {};
+    }, [toggle]);
+
+    return () => {
+        startTransition(() => {
+            setToggle(toggle => !toggle);
+        });
+
+        // The function must be synchronous, even if it can start an asynchronous update
+        // it's no different from an useEffect callback in this respect
+        // @ts-expect-error
+        startTransition(async () => {});
+
+        // Unlike Effect callbacks, though, there is no possible destructor to return
+        // @ts-expect-error
+        startTransition(() => () => {});
+    };
+
+    function Constructible() {
+        return '';
+    }
+}
+
+function startTransitionTest() {
+    function transitionToPage(page: string) {}
+
+    React.startTransition(() => {
+        transitionToPage('/');
+    });
+
+    // @ts-expect-error
+    React.startTransition(async () => {});
+}
+
+function Dialog() {
+    const id = React.useId();
+    const nameId = `${id}-name`;
+    const descriptionId = `${id}-description`;
+
+    return (
+        <div role="dialog" aria-labelledby={nameId} aria-describedby={descriptionId}>
+            <h2 id={nameId}>Name</h2>
+            <p id={descriptionId}>Description</p>
+        </div>
+    );
+}
+
+// keep in sync with `use-sync-external-store-tests.ts`
+interface Store<State> {
+    getState(): State;
+    getServerState(): State;
+    subscribe(onStoreChange: () => void): () => void;
+}
+
+declare const numberStore: Store<number>;
+function useVersion(): number {
+    return useSyncExternalStore(numberStore.subscribe, numberStore.getState);
+}
+
+function useStoreWrong() {
+    useSyncExternalStore(
+        // no unsubscribe returned
+        // @ts-expect-error
+        () => {
+            return null;
+        },
+        () => 1,
+    );
+
+    // `string` is not assignable to `number`
+    // @ts-expect-error
+    const version: number = useSyncExternalStore(
+        () => () => {},
+        () => '1',
+    );
+}
+
+declare const objectStore: Store<{ version: { major: number; minor: number }; users: string[] }>;
+function useUsers(): string[] {
+    return useSyncExternalStore(
+        objectStore.subscribe,
+        () => objectStore.getState().users,
+        () => objectStore.getServerState().users,
+    );
+}

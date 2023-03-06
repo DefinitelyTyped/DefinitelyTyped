@@ -10,10 +10,196 @@ import {
 import { Zone } from './zone';
 import { Duration, DurationLike, DurationUnits } from './duration';
 import { Interval } from './interval';
-import * as Formats from './impl/formats';
 
 export type DateTimeUnit = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
 export type ToRelativeUnit = 'years' | 'quarters' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds';
+
+export type MonthNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type WeekdayNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+export type DayNumbers =
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | 25
+    | 26
+    | 27
+    | 28
+    | 29
+    | 30
+    | 31;
+
+export type SecondNumbers =
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | 25
+    | 26
+    | 27
+    | 28
+    | 29
+    | 30
+    | 31
+    | 32
+    | 33
+    | 34
+    | 35
+    | 36
+    | 37
+    | 38
+    | 39
+    | 40
+    | 41
+    | 42
+    | 43
+    | 44
+    | 45
+    | 46
+    | 47
+    | 48
+    | 49
+    | 50
+    | 51
+    | 52
+    | 53
+    | 54
+    | 55
+    | 56
+    | 57
+    | 58
+    | 59;
+
+export type MinuteNumbers = SecondNumbers;
+
+export type HourNumbers =
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23;
+
+export type WeekNumbers =
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | 25
+    | 26
+    | 27
+    | 28
+    | 29
+    | 30
+    | 31
+    | 32
+    | 33
+    | 34
+    | 35
+    | 36
+    | 37
+    | 38
+    | 39
+    | 40
+    | 41
+    | 42
+    | 43
+    | 44
+    | 45
+    | 46
+    | 47
+    | 48
+    | 49
+    | 50
+    | 51
+    | 52
+    | 53;
+
+export type QuarterNumbers = 1 | 2 | 3 | 4;
+
+export type PossibleDaysInMonth = 28 | 29 | 30 | 31;
+export type PossibleDaysInYear = 365 | 366;
+export type PossibleWeeksInYear = 52 | 53;
 
 export interface ToObjectOutput extends DateTimeJSOptions {
     year: number;
@@ -75,6 +261,11 @@ export interface ToSQLOptions {
      * @default false
      */
     includeZone?: boolean | undefined;
+    /**
+     * include the space between the time and the offset, such as '05:15:16.345 -04:00'
+     * @default true
+     */
+    includeOffsetSpace?: boolean;
 }
 
 export interface ToISODateOptions {
@@ -91,6 +282,12 @@ export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
      * @default true
      */
     includeOffset?: boolean | undefined;
+
+    /**
+     * add the time zone format extension
+     * @default false
+     */
+    extendedZone?: boolean | undefined;
 }
 
 /** @deprecated alias for backwards compatibility */
@@ -104,6 +301,7 @@ export interface LocaleOptions {
     outputCalendar?: CalendarSystem | undefined;
     numberingSystem?: NumberingSystem | undefined;
 }
+
 export type ResolvedLocaleOptions = Required<LocaleOptions>;
 
 export interface DateTimeOptions extends LocaleOptions {
@@ -147,6 +345,15 @@ export interface DateObjectUnits {
 }
 
 export type ConversionAccuracy = 'casual' | 'longterm';
+
+/**
+ * @deprecated You should use Intl.DateTimeFormatOptions' fields and values instead.
+ */
+export type DateTimeFormatPresetValue = 'numeric' | 'short' | 'long';
+/**
+ * @deprecated Use Intl.DateTimeFormatOptions instead.
+ */
+export type DateTimeFormatPreset = Intl.DateTimeFormatOptions;
 
 export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
@@ -539,6 +746,27 @@ export class DateTime {
      */
     static isDateTime(o: unknown): o is DateTime;
 
+    /**
+     * Produce the format string for a set of options
+     *
+     * @param formatOpts - Intl.DateTimeFormat constructor options and configuration options
+     * @param localeOpts - Opts to override the configuration options on this DateTime
+     *
+     * @example
+     * DateTime.parseFormatForOpts(DateTime.DATETIME_FULL); //=> "MMMM d, yyyyy, h:m a ZZZ"
+     */
+    static parseFormatForOpts(formatOpts?: DateTimeFormatOptions, localeOpts?: LocaleOptions): string | null;
+
+    /**
+     * Produce the fully expanded format token for the locale
+     * Does NOT quote characters, so quoted tokens will not round trip correctly
+     * @param fmt - the format string
+     * @param localeOpts - Opts to override the configuration options on this DateTime
+     */
+    static expandFormat(fmt: string, localeOpts?: LocaleOptions): string;
+
+    private constructor(config: unknown);
+
     // INFO
 
     /**
@@ -607,28 +835,28 @@ export class DateTime {
      *
      * @example DateTime.local(2017, 5, 25).quarter //=> 2
      */
-    get quarter(): number;
+    get quarter(): QuarterNumbers;
 
     /**
      * Get the month (1-12).
      *
      * @example DateTime.local(2017, 5, 25).month //=> 5
      */
-    get month(): number;
+    get month(): MonthNumbers;
 
     /**
      * Get the day of the month (1-30ish).
      *
      * @example DateTime.local(2017, 5, 25).day //=> 25
      */
-    get day(): number;
+    get day(): DayNumbers;
 
     /**
      * Get the hour of the day (0-23).
      *
      * @example DateTime.local(2017, 5, 25, 9).hour //=> 9
      */
-    get hour(): number;
+    get hour(): HourNumbers;
 
     /**
      * Get the minute of the hour (0-59).
@@ -636,7 +864,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25, 9, 30).minute //=> 30
      */
-    get minute(): number;
+    get minute(): MinuteNumbers;
 
     /**
      * Get the second of the minute (0-59).
@@ -644,7 +872,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25, 9, 30, 52).second //=> 52
      */
-    get second(): number;
+    get second(): SecondNumbers;
 
     /**
      * Get the millisecond of the second (0-999).
@@ -670,7 +898,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).weekNumber //=> 21
      */
-    get weekNumber(): number;
+    get weekNumber(): WeekNumbers;
 
     /**
      * Get the day of the week.
@@ -680,7 +908,7 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 11, 31).weekday //=> 4
      */
-    get weekday(): number;
+    get weekday(): WeekdayNumbers;
 
     /**
      * Get the ordinal (meaning the day of the year)
@@ -776,7 +1004,7 @@ export class DateTime {
      * @example
      * DateTime.local(2016, 3).daysInMonth //=> 31
      */
-    get daysInMonth(): number;
+    get daysInMonth(): PossibleDaysInMonth;
 
     /**
      * Returns the number of days in this DateTime's year
@@ -786,7 +1014,7 @@ export class DateTime {
      * @example
      * DateTime.local(2013).daysInYear //=> 365
      */
-    get daysInYear(): number;
+    get daysInYear(): PossibleDaysInYear;
 
     /**
      * Returns the number of weeks in this DateTime's year
@@ -797,7 +1025,7 @@ export class DateTime {
      * @example
      * DateTime.local(2013).weeksInWeekYear //=> 52
      */
-    get weeksInWeekYear(): number;
+    get weeksInWeekYear(): PossibleWeeksInYear;
 
     /**
      * Returns the resolved Intl options for this DateTime.
@@ -1158,6 +1386,11 @@ export class DateTime {
     toSeconds(): number;
 
     /**
+     * Returns the epoch seconds (as a whole number) of this DateTime.
+     */
+    toUnixInteger(): number;
+
+    /**
      * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.
      */
     toJSON(): string;
@@ -1240,7 +1473,7 @@ export class DateTime {
 
     /**
      * Equality check
-     * Two DateTimes are equal iff they represent the same millisecond, have the same zone and location, and are both valid.
+     * Two DateTimes are equal if and only if they represent the same millisecond, have the same zone and location, and are both valid.
      * To compare just the millisecond values, use `+dt1 === +dt2`.
      *
      * @param other - the other DateTime
@@ -1333,110 +1566,110 @@ export class DateTime {
     /**
      * {@link DateTime.toLocaleString} format like 10/14/1983
      */
-    static get DATE_SHORT(): typeof Formats.DATE_SHORT;
+    static get DATE_SHORT(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983'
      */
-    static get DATE_MED(): typeof Formats.DATE_MED;
+    static get DATE_MED(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Fri, Oct 14, 1983'
      */
-    static get DATE_MED_WITH_WEEKDAY(): typeof Formats.DATE_MED_WITH_WEEKDAY;
+    static get DATE_MED_WITH_WEEKDAY(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983'
      */
-    static get DATE_FULL(): typeof Formats.DATE_FULL;
+    static get DATE_FULL(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Tuesday, October 14, 1983'
      */
-    static get DATE_HUGE(): typeof Formats.DATE_HUGE;
+    static get DATE_HUGE(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30 AM'. Only 12-hour if the locale is.
      */
-    static get TIME_SIMPLE(): typeof Formats.TIME_SIMPLE;
+    static get TIME_SIMPLE(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_SECONDS(): typeof Formats.TIME_WITH_SECONDS;
+    static get TIME_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM EDT'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_SHORT_OFFSET(): typeof Formats.TIME_WITH_SHORT_OFFSET;
+    static get TIME_WITH_SHORT_OFFSET(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_LONG_OFFSET(): typeof Formats.TIME_WITH_LONG_OFFSET;
+    static get TIME_WITH_LONG_OFFSET(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30', always 24-hour.
      */
-    static get TIME_24_SIMPLE(): typeof Formats.TIME_24_SIMPLE;
+    static get TIME_24_SIMPLE(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23', always 24-hour.
      */
-    static get TIME_24_WITH_SECONDS(): typeof Formats.TIME_24_WITH_SECONDS;
+    static get TIME_24_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 EDT', always 24-hour.
      */
-    static get TIME_24_WITH_SHORT_OFFSET(): typeof Formats.TIME_24_WITH_SHORT_OFFSET;
+    static get TIME_24_WITH_SHORT_OFFSET(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 Eastern Daylight Time', always 24-hour.
      */
-    static get TIME_24_WITH_LONG_OFFSET(): typeof Formats.TIME_24_WITH_LONG_OFFSET;
+    static get TIME_24_WITH_LONG_OFFSET(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '10/14/1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_SHORT(): typeof Formats.DATETIME_SHORT;
+    static get DATETIME_SHORT(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '10/14/1983, 9:30:33 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_SHORT_WITH_SECONDS(): typeof Formats.DATETIME_SHORT_WITH_SECONDS;
+    static get DATETIME_SHORT_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED(): typeof Formats.DATETIME_MED;
+    static get DATETIME_MED(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983, 9:30:33 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED_WITH_SECONDS(): typeof Formats.DATETIME_MED_WITH_SECONDS;
+    static get DATETIME_MED_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Fri, 14 Oct 1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED_WITH_WEEKDAY(): typeof Formats.DATETIME_MED_WITH_WEEKDAY;
+    static get DATETIME_MED_WITH_WEEKDAY(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983, 9:30 AM EDT'. Only 12-hour if the locale is.
      */
-    static get DATETIME_FULL(): typeof Formats.DATETIME_FULL;
+    static get DATETIME_FULL(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983, 9:30:33 AM EDT'. Only 12-hour if the locale is.
      */
-    static get DATETIME_FULL_WITH_SECONDS(): typeof Formats.DATETIME_FULL_WITH_SECONDS;
+    static get DATETIME_FULL_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Friday, October 14, 1983, 9:30 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get DATETIME_HUGE(): typeof Formats.DATETIME_HUGE;
+    static get DATETIME_HUGE(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Friday, October 14, 1983, 9:30:33 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get DATETIME_HUGE_WITH_SECONDS(): typeof Formats.DATETIME_HUGE_WITH_SECONDS;
+    static get DATETIME_HUGE_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 }

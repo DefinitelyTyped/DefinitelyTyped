@@ -15,12 +15,12 @@
 // TypeScript Version: 3.0
 
 /// <reference types="node" />
-/// <reference lib="dom" />
 
 import * as fs from "fs";
 import * as http from "http";
 import * as stream from "stream";
 import * as cookiejar from "cookiejar";
+import { Blob } from "buffer";
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -127,7 +127,7 @@ declare namespace request {
         text: string;
         type: string;
         unauthorized: boolean;
-        xhr: XMLHttpRequest;
+        xhr: any;
         redirects: string[];
     }
 
@@ -175,7 +175,7 @@ declare namespace request {
         type(val: string): this;
         unset(field: string): this;
         use(fn: Plugin): this;
-        withCredentials(): this;
+        withCredentials(on?: boolean): this;
         write(data: string | Buffer, encoding?: string): boolean;
         maxResponseSize(size: number): this;
     }

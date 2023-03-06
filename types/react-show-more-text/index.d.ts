@@ -16,6 +16,7 @@ export interface ReactShowMoreTextProps {
     more?: React.ReactNode | undefined;
     onClick?: ((expanded: boolean) => void) | undefined;
     width?: number | undefined;
+    truncatedEndingComponent?: React.ReactNode | undefined;
 }
 
 export class ReactShowMoreText extends React.Component<ReactShowMoreTextProps> { }

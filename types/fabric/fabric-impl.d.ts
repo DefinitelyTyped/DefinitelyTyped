@@ -174,11 +174,16 @@ interface IEvent<E extends Event = Event> {
     e: E;
     target?: Object | undefined;
     subTargets?: Object[] | undefined;
+    selected?: Object[] | undefined;
+    deselected?: Object[] | undefined;
+    action?: string | undefined;
     button?: number | undefined;
     isClick?: boolean | undefined;
     pointer?: Point | undefined;
     absolutePointer?: Point | undefined;
-    transform?: { corner: string; original: Object; originX: string; originY: string; width: number } | undefined;
+    transform?: Transform | undefined;
+    currentTarget?: Object | undefined;
+    currentSubTargets?: Object[] | undefined;
 }
 
 interface IFillOptions {
@@ -320,25 +325,20 @@ interface ICollection<T> {
     complexity(): number;
 }
 
+type EventName = 'object:modified' | 'object:moving' | 'object:scaling' | 'object:rotating' | 'object:skewing' | 'object:resizing' | 'object:selected' | 'object:added' | 'object:removed'
+    | 'group:selected' | 'before:transform' | 'before:selection:cleared' | 'selection:cleared' | 'selection:created' | 'selection:updated'
+    | 'mouse:up' | 'mouse:down' | 'mouse:move' | 'mouse:up:before' | 'mouse:down:before' | 'mouse:move:before' | 'mouse:dblclick' | 'mouse:wheel' | 'mouse:over' | 'mouse:out'
+    | 'drop:before' | 'drop' | 'dragover' | 'dragenter' | 'dragleave' | 'before:render' | 'after:render' | 'before:path:created' | 'path:created' | 'canvas:cleared'
+    | 'moving' | 'scaling' | 'rotating' | 'skewing' | 'resizing' | 'mouseup' | 'mousedown' | 'mousemove' | 'mouseup:before' | 'mousedown:before' | 'mousemove:before'
+    | 'mousedblclick' | 'mousewheel' | 'mouseover' | 'mouseout' | 'drop:before' | 'drop' | 'dragover' | 'dragenter' | 'dragleave';
+
 interface IObservable<T> {
     /**
      * Observes specified event
      * @param eventName Event name (eg. 'after:render')
      * @param handler Function that receives a notification when an event of the specified type occurs
      */
-    on(
-        eventName:
-            | 'mouse:up'
-            | 'mouse:down'
-            | 'mouse:move'
-            | 'mouse:up:before'
-            | 'mouse:down:before'
-            | 'mouse:move:before'
-            | 'mouse:dblclick'
-            | 'mouse:over'
-            | 'mouse:out',
-        handler: (e: IEvent<MouseEvent>) => void,
-    ): T;
+    on(eventName: EventName, handler: (e: IEvent<MouseEvent>) => void): T;
     on(eventName: 'mouse:wheel', handler: (e: IEvent<WheelEvent>) => void): T;
     on(eventName: string, handler: (e: IEvent) => void): T;
 
@@ -696,7 +696,12 @@ export class Gradient {
      */
     static fromElement(el: SVGGradientElement, instance: Object): Gradient;
 }
+
 export class Intersection {
+    status?: string | undefined;
+
+    points?: Point[] | undefined;
+
     constructor(status?: string);
     /**
      * Appends a point to intersection
@@ -721,7 +726,7 @@ export class Intersection {
     /**
      * Checks if polygon intersects rectangle
      */
-    static intersectPolygonRectangle(points: Point[], r1: number, r2: number): Intersection;
+    static intersectPolygonRectangle(points: Point[], r1: Point, r2: Point): Intersection;
 }
 
 interface IPatternOptions {
@@ -1194,23 +1199,16 @@ interface IStaticCanvasOptions {
     svgViewportTransformation?: boolean | undefined;
 }
 
-export interface FreeDrawingBrush {
-    /**
-     * Can be any regular color value.
-     */
-    color: string;
-
-    /**
-     * Brush width measured in pixels.
-     */
-    width: number;
-}
-
 export interface StaticCanvas
     extends IObservable<StaticCanvas>,
         IStaticCanvasOptions,
         ICollection<StaticCanvas>,
-        ICanvasAnimation<StaticCanvas> {}
+        ICanvasAnimation<StaticCanvas> {
+    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toDatalessJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toObject(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toDatalessObject(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+}
 export class StaticCanvas {
     /**
      * Constructor
@@ -1222,7 +1220,7 @@ export class StaticCanvas {
 
     _activeObject?: Object | Group | undefined;
 
-    freeDrawingBrush: FreeDrawingBrush;
+    freeDrawingBrush: BaseBrush;
 
     /**
      * Calculates canvas element offset relative to the document
@@ -1498,14 +1496,14 @@ export class StaticCanvas {
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} json string
      */
-    toDatalessJSON(propertiesToInclude?: string[]): string;
+    toDatalessJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
 
     /**
      * Returns JSON representation of canvas
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} JSON string
      */
-    toJSON(propertiesToInclude?: string[]): string;
+    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
 
     /**
      * Returns object representation of canvas
@@ -1622,7 +1620,7 @@ export class StaticCanvas {
      * Returns JSON representation of canvas
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    static toJSON(propertiesToInclude?: string[]): string;
+    static toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
 
     /**
      * Clones canvas instance
@@ -1638,6 +1636,26 @@ export class StaticCanvas {
      * @param [callback] Receives cloned instance as a first argument
      */
     cloneWithoutData(callback?: any): void;
+
+    /**
+     * Create a new HTMLCanvas element painted with the current canvas content.
+     * No need to resize the actual one or repaint it.
+     * Will transfer object ownership to a new canvas, paint it, and set everything back.
+     * This is an intermediary step used to get to a dataUrl but also it is useful to
+     * create quick image copies of a canvas without passing for the dataUrl string
+     * @param {Number} [multiplier] a zoom factor.
+     * @param {Object} [cropping] Cropping informations
+     * @param {Number} [cropping.left] Cropping left offset.
+     * @param {Number} [cropping.top] Cropping top offset.
+     * @param {Number} [cropping.width] Cropping width.
+     * @param {Number} [cropping.height] Cropping height.
+     */
+    toCanvasElement(multiplier?: number, cropping?: Readonly<{
+      left?: number;
+      top?: number;
+      width?: number;
+      height?: number;
+    }>): HTMLCanvasElement;
 
     /**
      * Populates canvas with data from the specified JSON.
@@ -1937,6 +1955,13 @@ export class Canvas {
      * @param [options] Options object
      */
     constructor(element: HTMLCanvasElement | string | null, options?: ICanvasOptions);
+    /**
+     * Constructor
+     * @param {HTMLCanvasElement | String} element <canvas> element to initialize instance on
+     * @param {Object} [options] Options object
+     * @return {Object} thisArg
+     */
+    initialize(element: HTMLCanvasElement | string | null, options?: ICanvasOptions): Canvas;
 
     /**
      * When true, target detection is skipped when hovering over canvas. This can be used to improve performance.
@@ -2045,7 +2070,7 @@ export class Canvas {
      * Returns currently active object
      * @return {fabric.Object} active object
      */
-    getActiveObject(): Object;
+    getActiveObject(): Object | null;
     /**
      * Returns an array with the current selected objects
      * @return {fabric.Object} active object
@@ -2176,7 +2201,7 @@ export class Canvas {
      * Returns JSON representation of canvas
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    static toJSON(propertiesToInclude?: string[]): string;
+    static toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
     /**
      * Removes all event listeners
      */
@@ -2518,10 +2543,10 @@ interface Image extends Object, IImageOptions {}
 export class Image {
     /**
      * Constructor
-     * @param element Image or Video element
+     * @param element Image element
      * @param [options] Options object
      */
-    constructor(element?: string | HTMLImageElement | HTMLVideoElement, options?: IImageOptions);
+    constructor(element: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, options?: IImageOptions);
     /**
      * Returns image or video element which this instance is based on
      * @return Image or Video element
@@ -3346,7 +3371,7 @@ export class Object {
      * Returns a JSON representation of an instance
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    toJSON(propertiesToInclude?: string[]): any;
+    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
 
     /**
      * Sets "angle" of an instance
@@ -3676,7 +3701,7 @@ export class Object {
      * @return {fabric.Object} thisArg
      * @chainable
      */
-    setCoords(skipCorners?: boolean): Object;
+    setCoords(skipCorners?: boolean): this;
     /**
      * Returns coordinates of object's bounding rectangle (left, top, width, height)
      * the box is intented as aligned to axis of canvas.
@@ -3721,12 +3746,12 @@ export class Object {
      * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
      * @param value New height value
      */
-    scaleToHeight(value: number, absolute?: boolean): Object;
+    scaleToHeight(value: number, absolute?: boolean): this;
     /**
      * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
      * @param value New width value
      */
-    scaleToWidth(value: number, absolute?: boolean): Object;
+    scaleToWidth(value: number, absolute?: boolean): this;
     /**
      * Checks if object intersects with another object
      * @param {Object} other Object to test
@@ -5388,6 +5413,14 @@ interface IAllFilters {
          */
         fromObject(object: any): IBlendImageFilter;
     };
+    Blur: {
+        new (options?: { blur?: number | undefined }): IBlurFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IBlurFilter;
+    };
     Brightness: {
         new (options?: {
             /**
@@ -5455,6 +5488,14 @@ interface IAllFilters {
          * @param object Object to create an instance from
          */
         fromObject(object: any): IGrayscaleFilter;
+    };
+    HueRotation: {
+        new (options?: { rotation?: number | undefined }): IHueRotationFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IHueRotationFilter;
     };
     Invert: {
         /**
@@ -5602,7 +5643,7 @@ interface IBaseFilter {
     /**
      * Returns a JSON representation of an instance
      */
-    toJSON(): string;
+    toJSON(): { version: string, objects: Object[] };
     /**
      * Apply the operation to a Uint8Array representing the pixels of an image.
      *
@@ -5622,6 +5663,13 @@ interface IBlendColorFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IBlendImageFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IBlurFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5665,6 +5713,13 @@ interface IGradientTransparencyFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IGrayscaleFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IHueRotationFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5783,6 +5838,10 @@ export class BaseBrush {
     width: number;
 
     /**
+     * Discard points that are less than `decimate` pixel distant from each other
+     */
+    decimate: number;
+    /**
      * Shadow object representing shadow of this shape.
      * <b>Backwards incompatibility note:</b> This property replaces "shadowColor" (String), "shadowOffsetX" (Number),
      * "shadowOffsetY" (Number) and "shadowBlur" (Number) since v1.2.12
@@ -5866,6 +5925,18 @@ export class PatternBrush extends PencilBrush {
 }
 export class PencilBrush extends BaseBrush {
     /**
+     * Constructor
+     * @param {Canvas} canvas
+    */
+    constructor(canvas: Canvas);
+    /**
+     * Constructor
+     * @param {Canvas} canvas
+     * @return {PencilBrush} Instance of a pencil brush
+    */
+    initialize(canvas: Canvas): PencilBrush;
+
+    /**
      * Converts points to SVG path
      * @param points Array of points
      */
@@ -5922,7 +5993,9 @@ interface IUtilAnimation {
      * In order to get a precise start time, `requestAnimFrame` should be called as an entry into the method
      * @param callback Callback to invoke
      */
-    requestAnimFrame(callback: Function): void;
+    requestAnimFrame(callback: Function): number;
+
+    cancelAnimFrame(id: number): void;
 }
 
 type IUtilAminEaseFunction = (t: number, b: number, c: number, d: number) => number;
@@ -6748,7 +6821,22 @@ export interface Transform {
     offsetY: number;
     originX: "left" | "right";
     originY: "top" | "bottom";
-    original: any;
+    original: {
+        angle: number;
+        fill: string;
+        flipX: boolean;
+        flipY: boolean;
+        height: number;
+        left: number;
+        originX: "left" | "right";
+        originY: "top" | "bottom";
+        scaleX: number;
+        scaleY: number;
+        skewX: number;
+        skewY: number;
+        top: number;
+        width: number;
+    };
     scaleX: number;
     scaleY: number;
     shiftKey: boolean;

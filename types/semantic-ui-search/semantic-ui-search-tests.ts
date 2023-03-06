@@ -263,8 +263,10 @@ function test_search() {
     });
     $(selector).search(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).search('foo'); // $ExpectError
-    $(selector).search({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).search('foo');
+    // @ts-expect-error
+    $(selector).search({ foo: 'bar' });
 }
 
 import search = require('semantic-ui-search');

@@ -1,6 +1,6 @@
 // Type definitions for oauth2orize 1.8
 // Project: https://github.com/jaredhanson/oauth2orize/
-// Definitions by: Wonshik Kim <https://github.com/wokim>, Kei Son <https://github.com/heycalmdown>, Steve Hipwell <https://github.com/stevehipwell>
+// Definitions by: Wonshik Kim <https://github.com/wokim>, Kei Son <https://github.com/heycalmdown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -46,7 +46,6 @@ export interface MiddlewareRequest extends IncomingMessage {
 
 export interface ServerOptions {
   store: any;
-  loadTransaction: boolean;
 }
 
 export function createServer(options?: ServerOptions): OAuth2Server;
@@ -60,6 +59,7 @@ export interface DecisionOptions {
   cancelField: string;
   userProperty: string;
   sessionKey: string;
+  loadTransaction: boolean;
 }
 
 export interface ErrorHandlerOptions {

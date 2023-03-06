@@ -20,4 +20,5 @@ const agent5 = new UserAgent([{ platform: 'Win32' }, /Mozilla/]);
 agent5.data; // random with multiple filters
 agent5.data.userAgent; // userAgent
 
-new UserAgent([{ platform: 'Win32' }, /Mozilla/, undefined, 20]); // $ExpectError
+// @ts-expect-error
+new UserAgent([{ platform: 'Win32' }, /Mozilla/, undefined, 20]);

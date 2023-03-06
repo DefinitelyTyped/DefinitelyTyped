@@ -1,6 +1,7 @@
 // Type definitions for draco3d 1.4
 // Project: https://github.com/google/draco#readme
 // Definitions by: Don McCurdy <https://github.com/donmccurdy>
+//                 Horizon0514 <https://github.com/horizon0514>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type TypedArray = Float32Array | Uint32Array | Uint16Array | Uint8Array | Int16Array | Int8Array;
@@ -18,6 +19,13 @@ export interface BaseModule {
     DracoUInt8Array: new () => DracoUInt8Array;
     DracoUInt16Array: new () => DracoUInt16Array;
     DracoUInt32Array: new () => DracoUInt32Array;
+
+    POSITION: number;
+    NORMAL: number;
+    TEX_COORD: number;
+    COLOR: number;
+    GENERIC: number;
+    INVALID: number;
 
     _malloc: (ptr: number) => number;
     _free: (ptr: number) => void;
@@ -37,19 +45,21 @@ export interface EncoderModule extends BaseModule {
     Encoder: new () => Encoder;
     MeshBuilder: new () => MeshBuilder;
 
-    POSITION: number;
-    NORMAL: number;
-    TEX_COORD: number;
-    COLOR: number;
-    GENERIC: number;
-
     MESH_SEQUENTIAL_ENCODING: number;
     MESH_EDGEBREAKER_ENCODING: number;
 }
 
+export interface DracoDecoderModuleProps {
+    wasmBinary?: ArrayBuffer;
+    onModuleLoaded?: (draco: DecoderModule) => void;
+}
+
+export type DracoDecoderModule = (props: DracoDecoderModuleProps) => Promise<DecoderModule>;
+
 export interface DecoderModule extends BaseModule {
     Decoder: new () => Decoder;
     DecoderBuffer: new () => DecoderBuffer;
+    PointCloud: new () => PointCloud;
 
     // GeometryType.
     TRIANGULAR_MESH: GeometryType;
@@ -72,7 +82,7 @@ export interface Encoder {
         bits: number,
         itemSize: number,
         origin: [number, number, number],
-        range: number
+        range: number,
     ): void;
     SetSpeedOptions(encodeSpeed: number, decodeSpeed: number): void;
     SetEncodingMethod(method: number): void;
@@ -84,6 +94,7 @@ export interface Encoder {
 
 export interface Decoder {
     DecodeBufferToMesh(buffer: DecoderBuffer, mesh: Mesh): Status;
+    DecodeBufferToPointCloud(buffer: DecoderBuffer, pointCloud: PointCloud): Status;
     GetAttributeByUniqueId: (mesh: Mesh, id: number) => Attribute;
     GetFaceFromMesh: (mesh: Mesh, index: number, array: DracoArray) => number;
     GetTrianglesUInt16Array: (mesh: Mesh, byteLength: number, ptr: number) => void;
@@ -93,7 +104,7 @@ export interface Decoder {
         attribute: Attribute,
         type: DataType,
         byteLength: number,
-        ptr: number
+        ptr: number,
     ) => void;
     GetAttributeFloatForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
     GetAttributeInt8ForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
@@ -103,6 +114,8 @@ export interface Decoder {
     GetAttributeUInt16ForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
     GetAttributeUInt32ForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
     GetEncodedGeometryType: (buffer: DecoderBuffer) => GeometryType;
+    GetAttributeId: (mesh: PointCloud, attributeType: number) => number;
+    GetAttribute: (mesh: PointCloud, id: number) => Attribute;
 }
 
 export interface DecoderBuffer {
@@ -130,6 +143,7 @@ export interface DracoUInt32Array extends DracoArray {}
 
 export interface Status {
     ok: () => boolean;
+    error_msg: () => string;
 }
 
 export interface Attribute {
@@ -142,56 +156,24 @@ export enum GeometryType {}
 // tslint:disable-next-line:no-empty-interface
 export enum DataType {}
 
-export interface Mesh {
+export interface PointCloud {
+    num_attributes: () => number;
+    num_points: () => number;
+}
+
+export interface Mesh extends PointCloud {
     ptr: number;
     num_faces: () => number;
-    num_points: () => number;
 }
 
 export interface MeshBuilder {
     AddFacesToMesh(mesh: Mesh, numFaces: number, faces: Uint16Array | Uint32Array): void;
-    AddUInt8Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddInt8Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddUInt16Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddInt16Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddUInt32Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddFloatAttribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
+    AddUInt8Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddInt8Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddUInt16Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddInt16Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddUInt32Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddFloatAttribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
 }
 
 export {};

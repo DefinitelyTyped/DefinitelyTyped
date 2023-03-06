@@ -1,6 +1,8 @@
+/// <reference types="react" />
+
 declare namespace ComponentFramework {
     /**
-     * Interface for the PowerApps Controls (Standard)
+     * Interface for the Power Apps Controls (Standard)
      */
     interface StandardControl<TInputs, TOutputs> {
         /**
@@ -34,6 +36,20 @@ declare namespace ComponentFramework {
          * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as "bound" or "output"
          */
         getOutputs?(): TOutputs;
+    }
+
+    /**
+     * Interface for Power Apps React controls
+     */
+     interface ReactControl<TInputs, TOutputs> extends StandardControl<TInputs, TOutputs> {
+        /**
+         * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
+         * offline status, control metadata values such as label, visible, etc.
+         * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names
+         * defined in the manifest, as well as utility functions
+         * @returns a React element
+         */
+        updateView(context: Context<TInputs>): React.ReactElement;
     }
 
     /**
@@ -452,7 +468,7 @@ declare namespace ComponentFramework {
          * Retrieves a collection of entity records.
          * @param entityType logical name of the entity type record to retrieve
          * @param options OData system query options or FetchXML query to retrieve your data.
-         * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrievemultiplerecords
+         * For support options, please refer to https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrievemultiplerecords
          * @param maxPageSize Max number of records to be retrieved per page
          * @returns The deferred object for the result of the operation. An object with interface RetrieveMultipleResponse will be resolved if successful.
          */
@@ -463,7 +479,7 @@ declare namespace ComponentFramework {
          * @param entityType logical name of the entity type record to retrieve
          * @param id GUID of the entity record you want to retrieve.
          * @param options OData system query options, $select and $expand, to retrieve your data.
-         * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord
+         * For support options, please refer to https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrieverecord
          * @returns The deferred object for the result of the operation. A JSON object with the retrieved properties and values will be resolved if successful.
          */
         retrieveRecord(entityType: string, id: string, options?: string): Promise<WebApi.Entity>;
@@ -1603,7 +1619,7 @@ declare namespace ComponentFramework {
 
         /**
          * Entity metadata refer to online documentation
-         * https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility/getentitymetadata
+         * https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getentitymetadata
          */
         interface EntityMetadata {
             [key: string]: any;

@@ -1,6 +1,6 @@
 // Type definitions for winston-loggly-bulk 3.0
 // Project: https://github.com/loggly/winston-loggly-bulk
-// Definitions by: Simcha Wood <https://github.com/SimchaWood>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -21,7 +21,7 @@ export interface LogglyOptions extends TransportStream.TransportStreamOptions {
     bufferOptions?: BufferOptions | undefined;
     isBulk?: boolean | undefined;
     json?: boolean | undefined;
-    networkErrorOnConsole?: boolean | undefined;
+    networkErrorsOnConsole?: boolean | undefined;
     proxy?: null | string | Url | undefined;
     stripColors?: boolean | undefined;
     subdomain: string;

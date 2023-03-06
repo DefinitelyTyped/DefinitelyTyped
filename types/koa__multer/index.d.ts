@@ -1,5 +1,5 @@
 // Type definitions for @koa/multer 2.0
-// Project: https://github.com/koa-modules/multer
+// Project: https://github.com/koajs/multer
 // Definitions by: benstevens48 <https://github.com/benstevens48>
 //                 Nikita Umnov <https://github.com/nomnes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,12 +40,12 @@ import { IncomingMessage } from 'http';
 declare module 'koa' {
     interface DefaultContext {
         file: multer.File;
-        files: multer.File[];
+        files: { [fieldname: string]: multer.File[] } | multer.File[] | undefined;
     }
 
     interface Request {
         file: multer.File;
-        files: multer.File[];
+        files: { [fieldname: string]: multer.File[] } | multer.File[] | undefined;
     }
 }
 

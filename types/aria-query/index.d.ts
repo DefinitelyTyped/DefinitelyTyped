@@ -1,21 +1,32 @@
-// Type definitions for aria-query 4.2
+// Type definitions for aria-query 5.0
 // Project: https://github.com/A11yance/aria-query#readme
 // Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-// index.js
-export type ARIARoleDefintionKey = ARIAAbstractRole | ARIARole | ARIADPubRole;
+// Disable automatic exports.
+export {};
 
-export const aria: Map<ARIAProperty, ARIAPropertyDefinition>;
+interface MapLike<Key, Value> {
+    entries: () => Array<[Key, Value]>;
+    get: (key: Key) => Value | undefined;
+    has: (key: Key) => boolean;
+    keys: () => Key[];
+    values: () => Value[];
+}
+
+// index.js
+export type ARIARoleDefinitionKey = ARIAAbstractRole | ARIARole | ARIADPubRole;
+
+export const aria: MapLike<ARIAProperty, ARIAPropertyDefinition>;
 export interface DOMDefinition {
     reserved?: boolean | undefined;
     interactive?: boolean | undefined;
 }
-export const dom: Map<string, DOMDefinition>;
-export const elementRoles: Map<ARIARoleRelationConcept, Set<ARIARoleDefintionKey>>;
-export const roles: Map<ARIARoleDefintionKey, ARIARoleDefinition>;
-export const roleElements: Map<ARIARoleDefintionKey, Set<ARIARoleRelationConcept>>;
+export const dom: MapLike<string, DOMDefinition>;
+export const elementRoles: MapLike<ARIARoleRelationConcept, Set<ARIARoleDefinitionKey>>;
+export const roles: MapLike<ARIARoleDefinitionKey, ARIARoleDefinition>;
+export const roleElements: MapLike<ARIARoleDefinitionKey, Set<ARIARoleRelationConcept>>;
 
 // types
 export type ARIAAbstractRole =
@@ -213,7 +224,6 @@ export type ARIAProperty =
     | 'aria-colspan'
     | 'aria-controls'
     | 'aria-current'
-    | 'aria-describedat'
     | 'aria-describedby'
     | 'aria-details'
     | 'aria-dropeffect'
@@ -320,12 +330,14 @@ export interface ARIARoleRelationConcept {
     attributes?: ARIARoleRelationConceptAttribute[] | undefined;
     // These constraints are drawn from the mapping between ARIA and HTML:
     // https://www.w3.org/TR/html-aria
-    constraints?: Array<
-        | 'direct descendant of document'
-        | 'direct descendant of ol, ul or menu'
-        | 'direct descendant of details element with the open attribute defined'
-        | 'descendant of table'
-    > | undefined;
+    constraints?:
+        | Array<
+              | 'direct descendant of document'
+              | 'direct descendant of ol, ul or menu'
+              | 'direct descendant of details element with the open attribute defined'
+              | 'descendant of table'
+          >
+        | undefined;
 }
 
 export interface ARIARoleRelationConceptAttribute {

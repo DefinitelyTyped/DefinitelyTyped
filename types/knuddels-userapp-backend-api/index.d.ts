@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.20210618111624
+// Type definitions for non-npm package Knuddels UserApps API 1.20220921162223
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -145,7 +145,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#property_chatCommands
          */
-        chatCommands?: { [commandName: string]: (user: User, params: string, command: string) => void } | undefined;
+        chatCommands?: { [commandName: string]: (user: User, params: string, command: string) => void };
     }
 
     /**
@@ -153,10 +153,25 @@ declare global {
      */
     class AppAccess {
         /**
+         * @see https://developer.knuddels.de/docs/classes/AppAccess.html#method_registerGlobalApp
+         * @since AppServer 20210803-133329
+         */
+        registerGlobalApp(globalAppConfig: GlobalAppConfig): GlobalAppInstance;
+        /**
          * @see https://developer.knuddels.de/docs/classes/AppAccess.html#method_getAllRunningAppsInChannel
          * @since AppServer 82904
          */
         getAllRunningAppsInChannel(includeSelf?: boolean): AppInstance[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppAccess.html#method_getGlobalAppInstance
+         * @since AppServer 20210803-133329
+         */
+        getGlobalAppInstance(globalAppId: string): GlobalAppInstance | null;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppAccess.html#method_getAllGlobalAppInstances
+         * @since AppServer 20210803-133329
+         */
+        getAllGlobalAppInstances(): GlobalAppInstance[];
         /**
          * @see https://developer.knuddels.de/docs/classes/AppAccess.html#method_getOwnInstance
          */
@@ -166,6 +181,11 @@ declare global {
          * @since AppServer 82904
          */
         getRunningAppInChannel(appId: string): AppInstance | null;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppAccess.html#method_unregisterGlobalApp
+         * @since AppServer 20210803-133329
+         */
+        unregisterGlobalApp(globalAppId: string): GlobalAppInstance | null;
     }
 
     /**
@@ -217,6 +237,10 @@ declare global {
          */
         static popupContent(htmlFile: HTMLFile, width: number /* optional */, height?: number): AppContent;
         /**
+         * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_isResponsive
+         */
+        isResponsive(): boolean;
+        /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_getHeight
          */
         getHeight(): number;
@@ -233,15 +257,31 @@ declare global {
          */
         sendEvent(type: string, data?: KnuddelsEvent): void;
         /**
+         * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_globalContent
+         */
+        static globalContent(htmlFile: HTMLFile, width: number /* optional */, height?: number): AppContent;
+        /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_getAppViewMode
          */
         getAppViewMode(): AppViewMode;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_setResponsive
+         */
+        setResponsive(isResponsive: boolean): void;
     }
 
     /**
      * @see https://developer.knuddels.de/docs/classes/AppContentSession.html
      */
     class AppContentSession {
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_getGlobalAppInstance
+         */
+        getGlobalAppInstance(): GlobalAppInstance | null;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_isConnectedUsingDirectConnection
+         */
+        isConnectedUsingDirectConnection(): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_getAppContent
          */
@@ -254,6 +294,10 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_sendEvent
          */
         sendEvent(type: string, data?: KnuddelsEvent): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_getOpenTimestamp
+         */
+        getOpenTimestamp(): Date;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_getAppViewMode
          */
@@ -449,6 +493,10 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/AppViewMode.html#property_Headerbar
          */
         const Headerbar: AppViewMode;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppViewMode.html#property_Global
+         */
+        const Global: AppViewMode;
     }
 
     /**
@@ -502,8 +550,8 @@ declare global {
             knuddelAmount: KnuddelAmount,
             reason: string,
             parameters?: {
-                onSuccess?: ((knuddelAmount: KnuddelAmount, reason: string) => void) | undefined;
-                onError?: ((knuddelAmount: KnuddelAmount, reason: string, message: string) => void) | undefined;
+                onSuccess?: (knuddelAmount: KnuddelAmount, reason: string) => void;
+                onError?: (knuddelAmount: KnuddelAmount, reason: string, message: string) => void;
             },
         ): void;
         /**
@@ -513,10 +561,10 @@ declare global {
             receivingUserOrAccount: User | KnuddelAccount,
             knuddelAmount: KnuddelAmount,
             parameters?: {
-                displayReasonText?: string | undefined;
-                transferDisplayType?: KnuddelTransferDisplayType | undefined;
-                onSuccess?: (() => void) | undefined;
-                onError?: ((message: string) => void) | undefined;
+                displayReasonText?: string;
+                transferDisplayType?: KnuddelTransferDisplayType;
+                onSuccess?: () => void;
+                onError?: (message: string) => void;
             },
         ): void;
         /**
@@ -806,6 +854,14 @@ declare global {
          */
         asNumber(): number;
         /**
+         * @see https://developer.knuddels.de/docs/classes/Color.html#method_fromHexString
+         */
+        static fromHexString(value: string): Color;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/Color.html#method_asHexString
+         */
+        asHexString(): string;
+        /**
          * @see https://developer.knuddels.de/docs/classes/Color.html#method_getBlue
          */
         getBlue(): number;
@@ -956,8 +1012,8 @@ declare global {
         getURL(
             urlString: string,
             parameters?: {
-                onSuccess?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                onFailure?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
+                onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+                onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
             },
         ): void;
         /**
@@ -966,9 +1022,9 @@ declare global {
         postURL(
             urlString: string,
             parameters?: {
-                onSuccess?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                onFailure?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                data?: Json | undefined;
+                onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+                onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+                data?: Json;
             },
         ): void;
         /**
@@ -977,10 +1033,10 @@ declare global {
         callURL(
             urlString: string,
             parameters?: {
-                onSuccess?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                onFailure?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                method?: 'GET' | 'POST' | undefined;
-                data?: Json | undefined;
+                onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+                onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+                method?: 'GET' | 'POST';
+                data?: Json;
             },
         ): void;
         /**
@@ -993,8 +1049,8 @@ declare global {
         touchURL(
             urlString: string,
             parameters?: {
-                onSuccess?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                onFailure?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
+                onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+                onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
             },
         ): void;
     }
@@ -1047,6 +1103,301 @@ declare global {
     }
 
     /**
+     * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html
+     */
+    class GenderDetailed {
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#method_toGender
+         * @since AppServer 20220811170542
+         */
+        toGender(): Gender;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_Male
+         */
+        static readonly Male: GenderDetailed;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_Female
+         */
+        static readonly Female: GenderDetailed;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_NonBinaryHe
+         */
+        static readonly NonBinaryHe: GenderDetailed;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_NonBinaryShe
+         */
+        static readonly NonBinaryShe: GenderDetailed;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GenderDetailed.html#property_Unknown
+         */
+        static readonly Unknown: GenderDetailed;
+    }
+
+    /**
+     * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html
+     * @since AppServer 20210921-153142
+     */
+    class GlobalAppCategory {}
+    namespace GlobalAppCategory {
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Action
+         */
+        const Action: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Adventure
+         */
+        const Adventure: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Puzzle
+         */
+        const Puzzle: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Flirt
+         */
+        const Flirt: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_BoardGame
+         */
+        const BoardGame: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_CardGame
+         */
+        const CardGame: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Useful
+         */
+        const Useful: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Quiz
+         */
+        const Quiz: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_RolePlaying
+         */
+        const RolePlaying: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Simulation
+         */
+        const Simulation: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_SocialGambling
+         */
+        const SocialGambling: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Sport
+         */
+        const Sport: GlobalAppCategory;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppCategory.html#property_Strategy
+         */
+        const Strategy: GlobalAppCategory;
+    }
+
+    /**
+     * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html
+     * @since AppServer 20210803-133329
+     */
+    class GlobalAppConfig {
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getShowDeveloper
+         */
+        getShowDeveloper(): boolean;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setMinStatus
+         */
+        setMinStatus(minStatus: UserStatus): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_isRestrictToOneIp
+         */
+        isRestrictToOneIp(): boolean;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setMinAge
+         */
+        setMinAge(minAge: number): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getId
+         */
+        getId(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setDisplayName
+         */
+        setDisplayName(displayName: string): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getAllowedGenders
+         */
+        getAllowedGenders(): Gender[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getFeaturedImagePath
+         */
+        getFeaturedImagePath(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setAllowedGenders
+         */
+        setAllowedGenders(...allowedGenders: Gender[][]): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getBlockedUserIds
+         */
+        getBlockedUserIds(): number[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getMinAge
+         */
+        getMinAge(): boolean;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getMaxAge
+         */
+        getMaxAge(): boolean;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getAllowedUserIds
+         */
+        getAllowedUserIds(): number[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setRestrictToOneIp
+         */
+        setRestrictToOneIp(restrictToOneIp: boolean): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getCategories
+         */
+        getCategories(): GlobalAppCategory[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_GlobalAppConfig
+         */
+        constructor(
+            globalAppId: string,
+            displayName: string,
+            openRequestHandler: (user: User, globalAppInstance: GlobalAppInstance) => AppContent,
+        );
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getMinStatus
+         */
+        getMinStatus(): UserStatus;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setAllowedUserIds
+         */
+        setAllowedUserIds(allowedUserIds: number[]): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getSessionOpenedCallback
+         */
+        getSessionOpenedCallback(): undefined | ((appContentSession: AppContentSession) => void);
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setMaxAge
+         */
+        setMaxAge(maxAge: number): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setShowDeveloper
+         */
+        setShowDeveloper(showDeveloper?: boolean): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getOpenRequestHandler
+         */
+        getOpenRequestHandler(): undefined | ((user: User, globalAppInstance: GlobalAppInstance) => AppContent);
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getFeaturedCardColor
+         */
+        getFeaturedCardColor(): Color;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setBlockedUserIds
+         */
+        setBlockedUserIds(blockedUserIds: number[]): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setCategories
+         */
+        setCategories(...categories: GlobalAppCategory[]): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getMinRegDays
+         */
+        getMinRegDays(): boolean;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getDisplayName
+         */
+        getDisplayName(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setFeaturedImagePath
+         */
+        setFeaturedImagePath(featuredImagePath?: string): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_getImagePath
+         */
+        getImagePath(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setImagePath
+         */
+        setImagePath(imagePath?: string): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setFeaturedCardColor
+         */
+        setFeaturedCardColor(featuredCardColor: Color): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setMinRegDays
+         */
+        setMinRegDays(minRegDays: number): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setOpenRequestHandler
+         */
+        setOpenRequestHandler(
+            openRequestHandler: (user: User, globalAppInstance: GlobalAppInstance) => AppContent,
+        ): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_toString
+         */
+        toString(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppConfig.html#method_setSessionOpenedCallback
+         */
+        setSessionOpenedCallback(sessionOpenedCallback?: (appContentSession: AppContentSession) => void): void;
+    }
+
+    /**
+     * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html
+     * @since AppServer 20210803-133329
+     */
+    class GlobalAppInstance {
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_setAppConfig
+         */
+        setAppConfig(appConfig: GlobalAppConfig): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getAppConfig
+         */
+        getAppConfig(): GlobalAppConfig;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getAddAsFavoriteChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getAddAsFavoriteChatCommand(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getOpenAppChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getOpenAppChatCommand(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_closeActiveSessions
+         */
+        closeActiveSessions(): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getActiveSessions
+         */
+        getActiveSessions(): AppContentSession[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_openGlobalApp
+         */
+        openGlobalApp(user: User, forceReplace?: boolean): AppContentSession;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getRemoveAsFavoriteChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getRemoveAsFavoriteChatCommand(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getActiveSession
+         */
+        getActiveSession(userId: number): AppContentSession | null;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_hasAsFavorite
+         * @since AppServer 20220502-152500
+         */
+        hasAsFavorite(user: User): boolean;
+    }
+
+    /**
      * @see https://developer.knuddels.de/docs/classes/HTMLFile.html
      */
     class HTMLFile {
@@ -1087,9 +1438,9 @@ declare global {
             knuddelAmount: KnuddelAmount,
             displayReasonText: string,
             parameters?: {
-                transferReason?: string | undefined;
-                onError?: ((message: string) => void) | undefined;
-                onSuccess?: (() => void) | undefined;
+                transferReason?: string;
+                onError?: (message: string) => void;
+                onSuccess?: () => void;
             },
         ): void;
         /**
@@ -1398,6 +1749,30 @@ declare global {
          */
         function getToplistAccess(): ToplistAccess;
         /**
+         * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getPerformanceStats
+         */
+        function getPerformanceStats(): [
+            [
+                {
+                    hookName: string;
+                    source: string;
+                    time: string;
+                    values: {
+                        calls: number;
+                        exec: number;
+                        execAvg: number;
+                        execMax: number;
+                        memAlloc: number;
+                        memAllocAvg: number;
+                        memAllocMax: number;
+                        wait: number;
+                        waitAvg: number;
+                        waitMax: number;
+                    };
+                },
+            ],
+        ];
+        /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getKnuddelPot
          */
         function getKnuddelPot(id: number): KnuddelPot | null;
@@ -1415,9 +1790,9 @@ declare global {
         function createKnuddelPot(
             knuddelAmount: KnuddelAmount,
             params?: {
-                payoutTimeoutMinutes?: number | undefined;
-                shouldSealPot?: ((pot: KnuddelPot) => boolean) | undefined;
-                onPotSealed?: ((pot: KnuddelPot) => void) | undefined;
+                payoutTimeoutMinutes?: number;
+                shouldSealPot?: (pot: KnuddelPot) => boolean;
+                onPotSealed?: (pot: KnuddelPot) => void;
             },
         ): KnuddelPot;
         /**
@@ -1541,6 +1916,11 @@ declare global {
             user: User,
             callback: (user: User, bonusEndTimestamp: number, shops: [KnuddelShop], result: string) => void,
         ): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/PaymentAccess.html#method_openKnuddelShop
+         * @since AppServer 20210713-180000, ChatServer 20210713-180000
+         */
+        openKnuddelShop(user: User, transferReason?: string): void;
     }
 
     /**
@@ -1652,7 +2032,7 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/Quest.html#method_setSolved
          * @since AppServer 82290, ChatServer 82290
          */
-        setSolved(count?: number): void;
+        setSolved(): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Quest.html#method_getQuestKey
          * @since AppServer 82290, ChatServer 82290
@@ -1679,6 +2059,10 @@ declare global {
          * @since AppServer 82290, ChatServer 82290
          */
         hasQuest(questKey: string): boolean;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/QuestAccess.html#method_solvedQuest
+         */
+        solvedQuest(questKey: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/QuestAccess.html#method_getQuests
          * @since AppServer 82290, ChatServer 82290
@@ -1925,9 +2309,9 @@ declare global {
             userPersistenceNumberKey: string,
             displayName: string,
             parameters?: {
-                labelMapping?: { [minValue: string]: string } | undefined;
-                ascending?: boolean | undefined;
-                sortIndex?: number | undefined;
+                labelMapping?: { [minValue: string]: string };
+                ascending?: boolean;
+                sortIndex?: number;
             },
         ): Toplist;
     }
@@ -2110,13 +2494,18 @@ declare global {
          */
         getAge(): number;
         /**
+         * @see https://developer.knuddels.de/docs/classes/User.html#method_getGenderDetailed
+         * @since AppServer 20220811170542
+         */
+        getGenderDetailed(): GenderDetailed;
+        /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_isChannelModerator
          */
         isChannelModerator(): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getAppContentSessions
          */
-        getAppContentSessions(): AppContentSession[];
+        getAppContentSessions(appViewMode?: AppViewMode): AppContentSession[];
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_sendAppContent
          */
@@ -2264,9 +2653,9 @@ declare global {
         eachAccessibleUser(
             callback: (user: User, index: number, accessibleUserCount: number, key?: string) => boolean,
             parameters?: {
-                onStart?: ((accessibleUserCount: number, key?: string) => void) | undefined;
-                onEnd?: ((accessibleUserCount: number, key?: string) => void) | undefined;
-                online?: boolean | undefined;
+                onStart?: (accessibleUserCount: number, key?: string) => void;
+                onEnd?: (accessibleUserCount: number, key?: string) => void;
+                online?: boolean;
             },
         ): void;
     }
@@ -2334,8 +2723,8 @@ declare global {
             key: string,
             user_or_userId: User | number,
             parameters?: {
-                ascending?: boolean | undefined;
-                count?: number | undefined;
+                ascending?: boolean;
+                count?: number;
             },
         ): UserPersistenceNumberEntry[];
         /**
@@ -2345,8 +2734,8 @@ declare global {
             key: string,
             user_or_userId: User | number,
             parameters?: {
-                ascending?: boolean | undefined;
-                minimumValue?: number | undefined;
+                ascending?: boolean;
+                minimumValue?: number;
             },
         ): number;
         /**
@@ -2368,11 +2757,11 @@ declare global {
         static getSortedEntries(
             key: string,
             parameters?: {
-                ascending?: boolean | undefined;
-                count?: number | undefined;
-                page?: number | undefined;
-                minimumValue?: number | undefined;
-                maximumValue?: number | undefined;
+                ascending?: boolean;
+                count?: number;
+                page?: number;
+                minimumValue?: number;
+                maximumValue?: number;
             },
         ): UserPersistenceNumberEntry[];
         /**
@@ -2382,13 +2771,13 @@ declare global {
             key: string,
             callback: (user: User, value: number, index: number, totalCount: number, key: string) => boolean,
             parameters?: {
-                ascending?: boolean | undefined;
-                minimumValue?: number | undefined;
-                maximumValue?: number | undefined;
-                maximumCount?: number | undefined;
-                onStart?: ((totalCount: number, key: string) => void) | undefined;
-                onEnd?: ((totalCount: number, key: string) => void) | undefined;
-                online?: boolean | undefined;
+                ascending?: boolean;
+                minimumValue?: number;
+                maximumValue?: number;
+                maximumCount?: number;
+                onStart?: (totalCount: number, key: string) => void;
+                onEnd?: (totalCount: number, key: string) => void;
+                online?: boolean;
             },
         ): void;
         /**
@@ -2398,8 +2787,8 @@ declare global {
             key: string,
             user_or_userId: User | number,
             parameters?: {
-                ascending?: boolean | undefined;
-                minimumValue?: number | undefined;
+                ascending?: boolean;
+                minimumValue?: number;
             },
         ): number;
         /**
@@ -2414,9 +2803,9 @@ declare global {
             key: string,
             value: number,
             parameters?: {
-                minimumValue?: number | undefined;
-                maximumValue?: number | undefined;
-                targetUsers?: User[] | undefined;
+                minimumValue?: number;
+                maximumValue?: number;
+                targetUsers?: User[];
             },
         ): number;
         /**
@@ -2429,8 +2818,8 @@ declare global {
         static getCount(
             key: string,
             parameters?: {
-                minimumValue?: number | undefined;
-                maximumValue?: number | undefined;
+                minimumValue?: number;
+                maximumValue?: number;
             },
         ): number;
         /**
@@ -2466,10 +2855,10 @@ declare global {
             key: string,
             callback: (user: User, value: object, index: number, totalCount: number, key: string) => boolean,
             parameters?: {
-                maximumCount?: number | undefined;
-                onStart?: ((totalCount: number, key: string) => void) | undefined;
-                onEnd?: ((totalCount: number, key: string) => void) | undefined;
-                online?: boolean | undefined;
+                maximumCount?: number;
+                onStart?: (totalCount: number, key: string) => void;
+                onEnd?: (totalCount: number, key: string) => void;
+                online?: boolean;
             },
         ): void;
         /**
@@ -2510,11 +2899,11 @@ declare global {
             key: string,
             callback: (user: User, value: string, index: number, totalCount: number, key: string) => boolean,
             parameters?: {
-                ascending?: boolean | undefined;
-                maximumCount?: number | undefined;
-                onStart?: ((totalCount: number, key: string) => void) | undefined;
-                onEnd?: ((totalCount: number, key: string) => void) | undefined;
-                online?: boolean | undefined;
+                ascending?: boolean;
+                maximumCount?: number;
+                onStart?: (totalCount: number, key: string) => void;
+                onEnd?: (totalCount: number, key: string) => void;
+                online?: boolean;
             },
         ): void;
         /**

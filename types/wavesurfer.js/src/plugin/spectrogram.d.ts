@@ -1,9 +1,9 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
-import Drawer from "../drawer";
-import Observer from "../util/observer";
-import WaveSurfer from "../wavesurfer";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Drawer from '../drawer';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
-declare module "../../wavesurfer" {
+declare module '../../wavesurfer' {
     interface WaveSurfer {
         FFT(bufferSize: number, sampleRate: number, windowFunc: WindowFunction, alpha: number): void;
     }
@@ -26,7 +26,7 @@ export default class SpectrogramPlugin extends Observer implements WaveSurferPlu
     readonly params: SpectrogramPluginParams;
     readonly pixelRatio: number;
     readonly spectrCc: CanvasRenderingContext2D;
-    readonly util: WaveSurfer["util"];
+    readonly util: WaveSurfer['util'];
     readonly wavesurfer: WaveSurfer;
     readonly width: number;
     readonly windowFunc: WindowFunction;
@@ -38,6 +38,8 @@ export interface SpectrogramPluginParams extends PluginParams {
     container: string | HTMLElement;
     /** Number of samples to fetch to FFT. Must be a power of 2. */
     fftSamples?: number | undefined;
+    /** Render with separate spectograms for the channels of the audio. */
+    splitChannels?: boolean | undefined;
     /** Set to true to display frequency labels. */
     labels?: boolean | undefined;
     /** Size of the overlapping window. Must be < fftSamples. Auto deduced from canvas size by default. */
@@ -49,19 +51,19 @@ export interface SpectrogramPluginParams extends PluginParams {
     /** Controls the size of the spectrogram in relation with its canvas (1 = Draw on the whole canvas. 2 = Draw on a quarter, i.e. 1/2 the length and 1/2 the width). */
     pixelRatio?: number | undefined;
     /** A 256 long array of 4-element arrays. Each entry should contain a float between 0 and 1 and specify r, g, b, and alpha. */
-    colorMap?: RGBA[] & { length: 256 } | undefined;
+    colorMap?: (RGBA[] & { length: 256 }) | undefined;
 }
 
 export type RGBA = [number, number, number, number];
 
 export type WindowFunction =
-    | "bartlett"
-    | "bartlettHann"
-    | "blackman"
-    | "cosine"
-    | "gauss"
-    | "hamming"
-    | "hann"
-    | "lanczoz"
-    | "rectangular"
-    | "triangular";
+    | 'bartlett'
+    | 'bartlettHann'
+    | 'blackman'
+    | 'cosine'
+    | 'gauss'
+    | 'hamming'
+    | 'hann'
+    | 'lanczoz'
+    | 'rectangular'
+    | 'triangular';

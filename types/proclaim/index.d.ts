@@ -1,6 +1,6 @@
 // Type definitions for proclaim 3.6
 // Project: https://github.com/rowanmanning/proclaim
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

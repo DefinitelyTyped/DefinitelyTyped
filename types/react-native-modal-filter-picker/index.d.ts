@@ -1,4 +1,4 @@
-// Type definitions for react-native-modal-filter-picker 1.3
+// Type definitions for react-native-modal-filter-picker 2.1
 // Project: https://github.com/hiddentao/react-native-modal-filter-picker#readme
 // Definitions by: Chang Yanwei <https://github.com/ywchang>
 //                 Cheng Gibson <https://github.com/nossbigg>
@@ -13,7 +13,6 @@ import {
   TextStyle,
   KeyboardAvoidingView,
   ModalProps,
-  ListViewProps,
   FlatListProps,
 } from 'react-native';
 
@@ -36,7 +35,7 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     showFilter?: boolean | undefined;
     modal?: ModalProps | undefined;
     selectedOption?: string | undefined;
-    listViewProps?: Partial<ListViewProps | FlatListProps<T>> | undefined;
+    flatListProps?: Partial<FlatListProps<T>> | undefined;
     renderOption?: ((option: T, isSelected: boolean) => JSX.Element) | undefined;
     renderList?: (() => JSX.Element) | undefined;
     renderCancelButton?: (() => JSX.Element) | undefined;

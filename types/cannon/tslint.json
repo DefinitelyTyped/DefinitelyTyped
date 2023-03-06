@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
         "interface-name": false,
@@ -14,7 +14,6 @@
         "prefer-const": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

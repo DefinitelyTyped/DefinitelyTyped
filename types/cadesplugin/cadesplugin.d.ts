@@ -1,3 +1,5 @@
+import CAPICOM_PROPID = CAPICOM.CAPICOM_PROPID;
+
 declare namespace CADES_Plugin {
     interface ObjectNames {
         "CAPICOM.Store": CAPICOM.Store;
@@ -32,6 +34,10 @@ declare namespace CADES_Plugin {
         readonly XmlDsigGost3410UrlObsolete: "http://www.w3.org/2001/04/xmldsig-more#gostr34102001-gostr3411";
         readonly XmlDsigGost3411Url: "urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr3411";
         readonly XmlDsigGost3411UrlObsolete: "http://www.w3.org/2001/04/xmldsig-more#gostr3411";
+        readonly XmlDsigGost3411Url2012256: 'urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256';
+        readonly XmlDsigGost3410Url2012256: 'urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34102012-gostr34112012-256';
+        readonly XmlDsigGost3411Url2012512: 'urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-512';
+        readonly XmlDsigGost3410Url2012512: 'urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34102012-gostr34112012-512';
     }
 
     interface EncodingType {
@@ -47,7 +53,7 @@ interface CADESPluginBase extends Promise<never>,
     CADES_Plugin.LogLevel, CAdESCOM.CADESCOM_XML_SIGNATURE_TYPE,
     CADES_Plugin.SignedXmlUrls, CAdESCOM.CADESCOM_CADES_TYPE,
     CADES_Plugin.EncodingType, CAPICOM.CAPICOM_CERTIFICATE_INCLUDE_OPTION,
-    CAPICOM.CertIntoTypePlugin, CAPICOM.KeyUsagePlugin,
+    CAPICOM.CertIntoTypePlugin, CAPICOM.KeyUsagePlugin, CAPICOM_PROPID,
     CAPICOM.PropIDPlugin, CAPICOM.OIDPlugin, CAPICOM.EKUPlugin,
     CAPICOM.CAPICOM_ATTRIBUTE, CAdESCOM.CADESCOM_ATTRIBUTE,
     CAdESCOM.CADESCOM_CONTENT_ENCODING_TYPE, CAdESCOM.CADESCOM_DISPLAY_DATA,

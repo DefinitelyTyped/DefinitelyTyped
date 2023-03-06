@@ -39,9 +39,9 @@ const OtherOptionsCameraApp: React.FC = () => {
 const BadApp: React.FC = () => {
     return (
         <Camera
-            // $ExpectError
+            // @ts-expect-error
             idealFacingMode={'back'}
-            // $ExpectError
+            // @ts-expect-error
             imageType={'tiff'}
         />
     );

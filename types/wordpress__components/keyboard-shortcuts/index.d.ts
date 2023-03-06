@@ -16,7 +16,7 @@ declare namespace KeyboardShortcuts {
          * separate `KeyboardShortcuts` element, which can be achieved by
          * assigning a unique `key` prop.
          */
-        shortcuts: Record<string, () => void>;
+        shortcuts: Record<string, (event: KeyboardEvent, combo: string) => void>;
         /**
          * By default, a callback will not be invoked if the key combination
          * occurs in an editable field. Pass `bindGlobal` as `true` if the key

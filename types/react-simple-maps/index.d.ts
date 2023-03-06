@@ -1,12 +1,12 @@
-// Type definitions for react-simple-maps 1.0
+// Type definitions for react-simple-maps 3.0
 // Project: https://github.com/zcreativelabs/react-simple-maps#readme
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
 //                 Andrej Mihajlov <https://github.com/pronebird>
 //                 Kouame Komenan  <https://github.com/komenank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import { GeoPath, GeoProjection } from 'd3-geo';
+import { D3ZoomEvent } from 'd3-zoom';
 import { Feature } from 'geojson';
 import * as React from 'react';
 
@@ -77,12 +77,10 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
      * @default false
      */
     disableZooming?: boolean | undefined;
-    onMoveStart?: ((position: { coordinates: [number, number], zoom: number }, event: any) => void) | undefined;
-    onMove?: ((position: {x: number, y: number, k: number, dragging: WheelEvent }, event: any) => void) | undefined;
-    onMoveEnd?: ((position: { coordinates: [number, number], zoom: number }, event: any) => void) | undefined;
-    onZoomStart?: ((event: any, position: Position) => void) | undefined;
-    onZoomEnd?: ((event: any, position: Position) => void) | undefined;
-    filterZoomEvent?: ((event: any) => boolean) | undefined;
+    onMoveStart?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    onMove?: ((position: {x: number, y: number, zoom: number, dragging: WheelEvent }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    onMoveEnd?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    filterZoomEvent?: ((element: SVGElement) => boolean) | undefined;
     translateExtent?: [[number, number], [number, number]] | undefined;
 }
 
@@ -92,7 +90,7 @@ interface GeographiesChildrenArgument {
     projection: GeoProjection;
 }
 
-export interface GeographiesProps extends React.SVGAttributes<SVGGElement> {
+export interface GeographiesProps extends Omit<React.SVGAttributes<SVGGElement>, 'children'> {
     parseGeographies?: ((features: Array<Feature<any, any>>) => Array<Feature<any, any>>) | undefined;
     geography?: string | Record<string, any> | string[] | undefined;
     children?: ((data: GeographiesChildrenArgument) => void) | undefined;

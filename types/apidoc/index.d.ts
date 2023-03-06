@@ -1,7 +1,8 @@
-// Type definitions for apidoc 0.22
+// Type definitions for apidoc 0.50
 // Project: https://github.com/apidoc/apidoc
 // Definitions by: rigwild <https://github.com/rigwild>
 //                 hoonga <https://github.com/hoonga>
+//                 NicolasCARPi <https://github.com/NicolasCARPi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ParsedFile {
@@ -23,7 +24,6 @@ export interface DocOptions {
     verbose?: boolean | undefined;
     single?: boolean | undefined;
     debug?: boolean | undefined;
-    parse?: boolean | undefined;
     colorize?: boolean | undefined;
     filters?: Record<string, string> | {
         [keys: string]: {
@@ -51,7 +51,7 @@ export interface DocOptions {
         [keys: string]: any;
     } | undefined;
     silent?: boolean | undefined;
-    simulate?: boolean | undefined;
+    dryRun?: boolean | undefined;
     markdown?: boolean | undefined;
     lineEnding?: string | undefined;
     encoding?: string | undefined;
@@ -59,4 +59,4 @@ export interface DocOptions {
     filterBy?: string | string[] | undefined;
 }
 
-export function createDoc(options: DocOptions): boolean | { data: Record<string, any>; project: Record<string, any> };
+export function createDoc(options: DocOptions): boolean | { data: Array<Record<string, any>>; project: Record<string, any> };

@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-track-changes 27.0
+// Type definitions for @ckeditor/ckeditor5-track-changes 32.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/track-changes.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

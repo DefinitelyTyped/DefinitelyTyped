@@ -1,6 +1,6 @@
-import { Editor, Plugin } from '@ckeditor/ckeditor5-core';
-import FindAndReplace from './findandreplace';
+import { Plugin } from '@ckeditor/ckeditor5-core';
 import FindAndReplaceFormView from './ui/findandreplaceformview';
+
 /**
  * The default find and replace UI. It introduces:
  *
@@ -13,17 +13,8 @@ import FindAndReplaceFormView from './ui/findandreplaceformview';
  */
 export default class FindAndReplaceUI extends Plugin {
     static readonly pluginName: 'FindAndReplaceUI';
-
-    searchText: string | undefined;
-    replaceText: string | undefined;
-    isSearching: boolean;
-    matchCount: null | number;
-    highlightOffset: null | number;
-    formView: FindAndReplaceFormView | null;
-    findAndReplacePlugin: FindAndReplace;
-
-    constructor(editor: Editor);
-
+    get formView(): FindAndReplaceFormView | null;
+    protected set formView(value: FindAndReplaceFormView | null);
     init(): void;
 }
 

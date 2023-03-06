@@ -43,7 +43,9 @@ declare namespace TagsInput {
 
     type RenderLayout = (tagElements: React.ReactElement[], inputElement: React.ReactElement) => React.ReactChild;
 
-    interface ReactTagsInputProps<Tag = any> extends React.Props<TagsInput<Tag>> {
+    interface ReactTagsInputProps<Tag = any> {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<TagsInput<Tag>> | undefined;
         value: Tag[];
         onChange: (tags: Tag[], changed: Tag[], changedIndexes: number[]) => void;
         onChangeInput?: ((value: string) => void) | undefined;

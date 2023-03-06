@@ -92,8 +92,7 @@ const customizedAssert2 = assert.customize({
 declare const set: Set<number>;
 assert(set.size === 0);
 set.add(0);
-// size has been asserted to be 0
-assert(set.size === 1); // $ExpectError
+assert(set.size === 1);
 
 declare const set2: Set<0>;
 set2.add(0);

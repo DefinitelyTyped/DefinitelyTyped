@@ -39,7 +39,7 @@ const testCases = [
     <input accept="image/*" capture />,
     <input accept="video/*" capture="user" />,
     <input accept="video/*" capture="environment" />,
-    // $ExpectError
+    // @ts-expect-error
     <input accept="video/*" capture="haha" />,
     <input accept="video/*" capture />,
     <input accept="audio/*" capture />,
@@ -51,11 +51,60 @@ const testCases = [
     <a target="some-frame"></a>,
     <input type="button" />,
     <input type="some-type" />,
-    // $ExpectError
+    // @ts-expect-error
     <input enterKeyHint="don" />,
-    <video disableRemotePlayback />,
+    <video disableRemotePlayback onResize={() => {}} />,
     <picture>
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <dialog
+        onCancel={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+        onClose={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+    ></dialog>,
+    <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <center></center>
+];
+
+// Needed to check these HTML elements in event callbacks.
+// "Imported" from typescript's lib.dom.d.ts.
+declare global {
+    interface HTMLDetailsElement {
+        open: boolean;
+    }
+
+    interface HTMLMeterElement {
+        optimum: number;
+    }
+
+    interface HTMLModElement {
+        cite: string;
+    }
+
+    interface HTMLOutputElement {
+        value: string;
+    }
+
+    interface HTMLQuoteElement {
+        cite: string;
+    }
+
+    interface HTMLTimeElement {
+        dateTime: string;
+    }
+}
+
+const eventCallbacksTestCases = [
+    <blockquote onClick={e => e.currentTarget.cite} />,
+    <del onClick={e => e.currentTarget.cite} />,
+    <details onClick={e => e.currentTarget.open} />,
+    <meter onClick={e => e.currentTarget.optimum} />,
+    <output onClick={e => e.currentTarget.value} />,
+    <time onClick={e => e.currentTarget.dateTime} />,
 ];

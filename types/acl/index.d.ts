@@ -2,7 +2,7 @@
 // Project: https://github.com/optimalbits/node_acl
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="node"/>
 

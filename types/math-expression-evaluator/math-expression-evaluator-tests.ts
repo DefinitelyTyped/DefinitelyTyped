@@ -30,6 +30,15 @@ Mexp.addToken([{
     preced: 11,
     token: "mexp"
 }]);
+
+Mexp.addToken([{
+    type: Mexp.tokenTypes.FUNCTION_WITH_N_ARGS,
+    token: 'maxof5',
+    show: 'maxof5',
+    numberOfArguments: 5,
+    value: (a, b) => Math.max.apply(Math, [a, b])
+}]);
+
 Mexp.lex("mexp3").toPostfix().postfixEval();
 
 Mexp.lex('mexp3').toPostfix();

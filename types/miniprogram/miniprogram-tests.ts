@@ -112,11 +112,15 @@ my.prompt({
     message: '',
 });
 
-my.showLoading();
+my.showLoading({
+    content: '',
+});
 
 my.hideLoading();
 
-my.showToast();
+my.showToast({
+    content: '',
+});
 
 my.hideToast();
 
@@ -366,7 +370,7 @@ my.getLocation({
     fail(res) {
         res.error;
         res.errorMessage;
-    }
+    },
 });
 
 my.request({ url: '' });
@@ -417,6 +421,25 @@ my.getSystemInfo({
         res.windowWidth;
     },
 });
+
+const sysInfo = my.getSystemInfoSync();
+sysInfo.app;
+sysInfo.brand;
+sysInfo.currentBattery;
+sysInfo.fontSizeSetting;
+sysInfo.language;
+sysInfo.model;
+sysInfo.pixelRatio;
+sysInfo.platform;
+sysInfo.screenHeight;
+sysInfo.screenWidth;
+sysInfo.statusBarHeight;
+sysInfo.storage;
+sysInfo.system;
+sysInfo.titleBarHeight;
+sysInfo.version;
+sysInfo.windowHeight;
+sysInfo.windowWidth;
 
 my.getNetworkType({
     success(res) {
@@ -551,6 +574,7 @@ my.getOpenUserInfo({
 my.tradePay({
     tradeNO: '201711152100110410533667792', // get the tradeNo from the server first
     success: res => {
+        res.resultCode;
         my.alert({
             content: JSON.stringify(res),
         });
@@ -574,4 +598,16 @@ my.signContract({
             content: JSON.stringify(res),
         });
     },
+});
+
+my.onMemoryWarning(arg => arg.level);
+
+my.offMemoryWarning();
+
+my.offMemoryWarning(arg => arg.level);
+
+my.hideBackHome();
+
+my.showActionSheet({
+    items: ['item 1', 'item 2'],
 });

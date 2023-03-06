@@ -36,6 +36,14 @@ declare namespace dtsGenerator {
          */
         baseDir?: string | undefined;
         /**
+         * The base directory for the project being bundled. It is assumed that this directory contains a
+         * tsconfig.json which will be parsed to determine the files that should be bundled as well as
+         * other configuration information like target
+         */
+        project?: string | undefined;
+        /** A list of files from the baseDir to bundle. */
+        files?: string[] | undefined;
+        /**
          * A list of glob patterns, relative to baseDir, that should be excluded from the bundle.
          * Use the --exclude flag one or more times on the command-line. Defaults to [ "node_modules\/**\/*.d.ts" ].
          */
@@ -50,10 +58,10 @@ declare namespace dtsGenerator {
          * Use the --types flag one or more times on the command-line.
          */
         types?: string[] | undefined;
-        /** A list of files from the baseDir to bundle. */
-        files?: string[] | undefined;
         /** The end-of-line character that should be used when outputting code. Defaults to os.EOL. */
         eol?: string | undefined;
+
+        includes?: string[] | undefined;
         /** The character(s) that should be used to indent the declarations in the output. Defaults to \t. */
         indent?: string | undefined;
         /** The module ID that should be used as the exported value of the package’s “main” module. */
@@ -64,14 +72,16 @@ declare namespace dtsGenerator {
         name: string;
         /** The filename where the generated bundle will be created. */
         out: string;
-        /**
-         * The base directory for the project being bundled. It is assumed that this directory contains a
-         * tsconfig.json which will be parsed to determine the files that should be bundled as well as
-         * other configuration information like target
-         */
-        project?: string | undefined;
+
+        outDir?: string | undefined;
+
+        prefix?: string | undefined;
+
+        rootDir?: string | undefined;
         /** The target environment for generated code. Defaults to ts.ScriptTarget.Latest. */
         target?: ts.ScriptTarget | undefined;
+
+        sendMessage?: ((message: any, ...optionalParams: any[]) => void) | undefined;
         /**
          * An optional callback provided by the invoker to customize the declared module ids the output d.ts files.
          * @see {@link https://github.com/SitePen/dts-generator/blob/master/docs/resolving-module-ids.md Resolving Module Ids}
@@ -82,5 +92,7 @@ declare namespace dtsGenerator {
          * @see {@link https://github.com/SitePen/dts-generator/blob/master/docs/resolving-module-ids.md Resolving Module Ids}
          */
         resolveModuleImport?(params: ResolveModuleImportParams): string;
+
+        verbose?: boolean | undefined;
     }
 }

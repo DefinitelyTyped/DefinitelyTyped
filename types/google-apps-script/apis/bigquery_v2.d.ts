@@ -674,7 +674,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  interface Bigquery {
+  interface BigQuery {
     Datasets?: BigQuery.Collection.DatasetsCollection | undefined;
     Jobs?: BigQuery.Collection.JobsCollection | undefined;
     Projects?: BigQuery.Collection.ProjectsCollection | undefined;
@@ -795,4 +795,4 @@ declare namespace GoogleAppsScript {
   }
 }
 
-declare var Bigquery: GoogleAppsScript.Bigquery;
+declare var BigQuery: GoogleAppsScript.BigQuery;

@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 
 () => {
-  R.eqBy(Math.abs, 5, -5); // => true
+    // $ExpectType boolean
+    R.eqBy(Math.abs, 5, -5); // => true
 };

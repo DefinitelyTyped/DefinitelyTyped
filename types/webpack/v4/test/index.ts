@@ -137,11 +137,11 @@ configuration = {
             callback(new Error('Boom!'));
 
             // A null error should include external parameters
-            // $ExpectError
+            // @ts-expect-error
             callback(null);
 
             // An error should include no other parameters
-            // $ExpectError
+            // @ts-expect-error
             callback('An error', 'externalName');
 
             // Continue without externalizing the import
@@ -466,41 +466,6 @@ plugin = new webpack.optimize.LimitChunkCountPlugin(options);
 plugin = new webpack.optimize.MinChunkSizePlugin(options);
 plugin = new webpack.optimize.OccurrenceOrderPlugin(preferEntry);
 plugin = new webpack.optimize.OccurrenceOrderPlugin(preferEntry);
-plugin = new webpack.optimize.UglifyJsPlugin(options);
-plugin = new webpack.optimize.UglifyJsPlugin();
-plugin = new webpack.optimize.UglifyJsPlugin({
-    parallel: true
-});
-plugin = new webpack.optimize.UglifyJsPlugin({
-    parallel: {
-        cache: true,
-        workers: 2
-    }
-});
-plugin = new webpack.optimize.UglifyJsPlugin({
-    compress: {
-        dead_code: true,
-        collapse_vars: true,
-        drop_debugger: true,
-    },
-    warnings: false,
-});
-plugin = new webpack.optimize.UglifyJsPlugin({
-    sourceMap: false,
-    comments: true,
-    beautify: true,
-    test: 'foo',
-    exclude: /node_modules/,
-    include: 'test'
-});
-plugin = new webpack.optimize.UglifyJsPlugin({
-    mangle: {
-        reserved: ['$super', '$', 'exports', 'require']
-    }
-});
-plugin = new webpack.optimize.UglifyJsPlugin({
-    comments: (astNode: any, comment: any) => false
-});
 plugin = new webpack.DefinePlugin(definitions);
 plugin = new webpack.DefinePlugin({
     VERSION: JSON.stringify("5fa3b9"),
@@ -778,6 +743,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
     this.async();
 
     this.addDependency('');
+    this.getDependencies();
 
     this.loadModule('path', (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => { });
     this.resolve('context', 'request', (err: Error, result: string) => { });

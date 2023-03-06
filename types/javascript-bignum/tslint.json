@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "dt-header": false,
         "no-trailing-whitespace": false,
         "npm-naming": false,
         "strict-export-declare-modifiers": false

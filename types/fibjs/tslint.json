@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
         "jsdoc-format": false,
@@ -13,7 +13,6 @@
         "npm-naming": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

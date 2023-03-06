@@ -1,7 +1,6 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false,
         "max-line-length": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,

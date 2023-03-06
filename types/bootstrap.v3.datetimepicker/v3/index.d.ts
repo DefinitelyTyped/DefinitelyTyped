@@ -1,6 +1,6 @@
 // Type definitions for Bootstrap datetimepicker v3 3.x
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
-// Definitions by: Jesica N. Fera <https://github.com/bayitajesi>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

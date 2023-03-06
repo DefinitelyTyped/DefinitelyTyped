@@ -30,7 +30,8 @@ const tom = Person2.create({
     name: 'Tom Dale',
 });
 
-const badTom = Person2.create({ name: 99 }); // $ExpectError
+// @ts-expect-error
+const badTom = Person2.create({ name: 99 });
 
 const yehuda = Person2.createPerson('Yehuda Katz');
 
@@ -56,13 +57,6 @@ interface AutoResizeMixin {
     resizable: true;
 }
 const AutoResizeMixin = Ember.Mixin.create({ resizable: true });
-
-const ResizableTextArea = Ember.TextArea.reopen(AutoResizeMixin, {
-    scaling: 1.0,
-});
-const text = ResizableTextArea.create();
-assertType<boolean>(text.resizable);
-assertType<number>(text.scaling);
 
 const Reopened = Ember.Object.reopenClass({ a: 1 }, { b: 2 }, { c: 3 });
 assertType<number>(Reopened.a);

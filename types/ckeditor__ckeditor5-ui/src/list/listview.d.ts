@@ -1,7 +1,7 @@
-import { FocusTracker, KeystrokeHandler } from "@ckeditor/ckeditor5-utils";
-import { DropdownPanelFocusable } from "../dropdown/dropdownpanelfocusable";
-import View from "../view";
-import ViewCollection from "../viewcollection";
+import { FocusTracker, KeystrokeHandler } from '@ckeditor/ckeditor5-utils';
+import { DropdownPanelFocusable } from '../dropdown/dropdownpanelfocusable';
+import View from '../view';
+import ViewCollection from '../viewcollection';
 
 export default class ListView<T = View> extends View implements DropdownPanelFocusable {
     readonly focusTracker: FocusTracker;
@@ -10,4 +10,5 @@ export default class ListView<T = View> extends View implements DropdownPanelFoc
 
     focus(): void;
     focusLast(): void;
+    destroy(): void;
 }

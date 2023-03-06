@@ -2,8 +2,6 @@
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>
 //                 Isman Usoh <https://github.com/isman-usoh>
-//                 François Nguyen <https://github.com/lith-light-g>
-//                 Kok Sam <https://github.com/sammkj>
 //                 Yui T. <https://github.com/yuit>
 //                 Yamagishi Kazutoshi <https://github.com/ykzts>
 //                 Justin Hall <https://github.com/wKovacs64>
@@ -38,6 +36,7 @@ export interface HelmetProps {
     async?: boolean | undefined;
     base?: any;
     bodyAttributes?: BodyProps | undefined;
+    children?: React.ReactNode;
     defaultTitle?: string | undefined;
     defer?: boolean | undefined;
     encodeSpecialCharacters?: boolean | undefined;

@@ -841,6 +841,11 @@ chrome.enterprise.platformKeys.getTokens((tokens) => {
     });
 });
 
+chrome.enterprise.platformKeys.challengeKey(
+    {scope: 'MACHINE', challenge: new Uint8Array(),
+    registerKey: {algorithm: 'ECDSA'}},
+    () => {})
+
 // #endregion chrome.enterprise
 
 // #region chrome.Event
@@ -1307,6 +1312,11 @@ chrome.runtime.getPackageDirectoryEntry((pentry) => {
 });
 
 chrome.runtime.reload();
+chrome.runtime.restart();
+chrome.runtime.restartAfterDelay(10);
+chrome.runtime.restartAfterDelay(10, () => {
+    console.log('This is a callback!');
+});
 chrome.runtime.requestUpdateCheck((status, details) => {
     if (status === chrome.runtime.RequestUpdateCheckStatus.THROTTLED) {
         if (details !== undefined) {
@@ -1640,9 +1650,7 @@ chrome.storage.managed.getBytesInUse((bytesInUse) => {
 
 // EVENT
 chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (changes.length > 0) {
-        return areaName === 'managed';
-    }
+    return areaName === changes.areaName.newValue;
 });
 
 // #endregion
@@ -1680,6 +1688,30 @@ function onPowerChanged() {
         }
     });
     chrome.system.powerSource.requestStatusUpdate();
+}
+
+async function getCpuInfo() {
+    function logCpuInfo(cpuInfo: chrome.system.cpu.CpuInfo) {
+        console.log('numOfProcessors: ', cpuInfo.numOfProcessors);
+        console.log('archName: ', cpuInfo.archName);
+        console.log('modelName: ', cpuInfo.modelName);
+        console.log('features: ', cpuInfo.features);
+        console.log('# Processors');
+        cpuInfo.processors.forEach((processor) => {
+            console.log('## Usage');
+            console.log('user: ', processor.usage.user);
+            console.log('kernel: ', processor.usage.kernel);
+            console.log('idle: ', processor.usage.idle);
+            console.log('total: ', processor.usage.total);
+        });
+    }
+
+    chrome.system.cpu.getInfo(cpuInfo => {
+        logCpuInfo(cpuInfo);
+    });
+
+    const cpuInfo = await chrome.system.cpu.getInfo();
+    logCpuInfo(cpuInfo);
 }
 
 // #endregion

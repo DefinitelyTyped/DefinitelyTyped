@@ -5,7 +5,6 @@
 //                 Garrett Griffin <https://github.com/grgisme>
 //                 Erik Myrold <https://github.com/emyrold>
 //                 Tim Woodruff <https://github.com/thisnameissoclever>
-//                 Anim Yeboah <https://github.com/ayeboah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

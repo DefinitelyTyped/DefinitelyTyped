@@ -22,7 +22,6 @@
 //                 David Recuenco <https://github.com/RecuencoJones>
 //                 Frederic Reisenhauer <https://github.com/freisenhauer>
 //                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
-//                 Simcha Wood <https://github.com/SimchaWood>
 //                 Steven Barnett <https://github.com/stevendesu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -1983,7 +1982,7 @@ declare namespace Joi {
         /**
          * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
          */
-        // tslint:disable-next-line:no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         object<TSchema = any, T = TSchema>(schema?: SchemaMap<T>): ObjectSchema<TSchema>;
 
         /**

@@ -41,3 +41,12 @@ klaw('/some/dir', { filter: filterFunc })
     .on('data', function(item: klaw.Item) {
         // only items of none hidden folders will reach here
     })
+
+async () => {
+    for await (const file of klaw('/some/dir')) {
+        // $ExpectType string
+        file.path;
+        // $ExpectType Stats
+        file.stats;
+    }
+}

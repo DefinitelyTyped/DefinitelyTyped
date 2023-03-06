@@ -1,4 +1,4 @@
-// Type definitions for @babel/core 7.1
+// Type definitions for @babel/core 7.20
 // Project: https://github.com/babel/babel/tree/master/packages/babel-core, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
@@ -17,7 +17,7 @@ import * as t from '@babel/types';
 export { ParserOptions, GeneratorOptions, t as types, template, traverse, NodePath, Visitor };
 
 export type Node = t.Node;
-export type ParseResult = t.File | t.Program;
+export type ParseResult = ReturnType<typeof import('@babel/parser').parse>;
 export const version: string;
 export const DEFAULT_EXTENSIONS: ['.js', '.jsx', '.es6', '.es', '.mjs'];
 
@@ -37,6 +37,14 @@ interface InputSourceMap {
 }
 
 export interface TransformOptions {
+    /**
+     * Specify which assumptions it can make about your code, to better optimize the compilation result. **NOTE**: This replaces the various `loose` options in plugins in favor of
+     * top-level options that can apply to multiple plugins
+     *
+     * @see https://babeljs.io/docs/en/assumptions
+     */
+    assumptions?: { [name: string]: boolean } | null | undefined;
+
     /**
      * Include the AST in the returned object
      *
@@ -96,6 +104,32 @@ export interface TransformOptions {
      * Default: `(root)`
      */
     babelrcRoots?: boolean | MatchPattern | MatchPattern[] | null | undefined;
+
+    /**
+     * Toggles whether or not browserslist config sources are used, which includes searching for any browserslist files or referencing the browserslist key inside package.json.
+     * This is useful for projects that use a browserslist config for files that won't be compiled with Babel.
+     *
+     * If a string is specified, it must represent the path of a browserslist configuration file. Relative paths are resolved relative to the configuration file which specifies
+     * this option, or to `cwd` when it's passed as part of the programmatic options.
+     *
+     * Default: `true`
+     */
+    browserslistConfigFile?: boolean | null | undefined;
+
+    /**
+     * The Browserslist environment to use.
+     *
+     * Default: `undefined`
+     */
+    browserslistEnv?: string | null | undefined;
+
+    /**
+     * By default `babel.transformFromAst` will clone the input AST to avoid mutations.
+     * Specifying `cloneInputAst: false` can improve parsing performance if the input AST is not used elsewhere.
+     *
+     * Default: `true`
+     */
+    cloneInputAst?: boolean | null | undefined;
 
     /**
      * Defaults to environment variable `BABEL_ENV` if set, or else `NODE_ENV` if set, or else it defaults to `"development"`
@@ -327,6 +361,33 @@ export interface TransformOptions {
     test?: MatchPattern | MatchPattern[] | undefined;
 
     /**
+     * Describes the environments you support/target for your project.
+     * This can either be a [browserslist-compatible](https://github.com/ai/browserslist) query (with [caveats](https://babeljs.io/docs/en/babel-preset-env#ineffective-browserslist-queries))
+     *
+     * Default: `{}`
+     */
+    targets?:
+        | string
+        | string[]
+        | {
+              esmodules?: boolean;
+              node?: Omit<string, 'current'> | 'current' | true;
+              safari?: Omit<string, 'tp'> | 'tp';
+              browsers?: string | string[];
+              android?: string;
+              chrome?: string;
+              deno?: string;
+              edge?: string;
+              electron?: string;
+              firefox?: string;
+              ie?: string;
+              ios?: string;
+              opera?: string;
+              rhino?: string;
+              samsung?: string;
+          };
+
+    /**
      * An optional callback that can be used to wrap visitor methods. **NOTE**: This is useful for things like introspection, and not really needed for implementing anything. Called as
      * `wrapPluginVisitorMethod(pluginAlias, visitorType, callback)`.
      */
@@ -336,7 +397,8 @@ export interface TransformOptions {
               visitorType: 'enter' | 'exit',
               callback: (path: NodePath, state: any) => void,
           ) => (path: NodePath, state: any) => void)
-        | null | undefined;
+        | null
+        | undefined;
 }
 
 export interface TransformCaller {
@@ -460,9 +522,11 @@ export interface BabelFile {
 export interface PluginPass {
     file: BabelFile;
     key: string;
-    opts: PluginOptions;
+    opts: object;
     cwd: string;
     filename: string | undefined;
+    get(key: unknown): any;
+    set(key: unknown, value: unknown): void;
     [key: string]: unknown;
 }
 
@@ -470,15 +534,18 @@ export interface BabelFileResult {
     ast?: t.File | null | undefined;
     code?: string | null | undefined;
     ignored?: boolean | undefined;
-    map?: {
-        version: number;
-        sources: string[];
-        names: string[];
-        sourceRoot?: string | undefined;
-        sourcesContent?: string[] | undefined;
-        mappings: string;
-        file: string;
-    } | null | undefined;
+    map?:
+        | {
+              version: number;
+              sources: string[];
+              names: string[];
+              sourceRoot?: string | undefined;
+              sourcesContent?: string[] | undefined;
+              mappings: string;
+              file: string;
+          }
+        | null
+        | undefined;
     metadata?: BabelFileMetadata | undefined;
 }
 
@@ -601,17 +668,20 @@ export interface ConfigItem {
      * Information about the plugin's file, if Babel knows it.
      *  *
      */
-    file?: {
-        /**
-         * The file that the user requested, e.g. `"@babel/env"`
-         */
-        request: string;
+    file?:
+        | {
+              /**
+               * The file that the user requested, e.g. `"@babel/env"`
+               */
+              request: string;
 
-        /**
-         * The full path of the resolved file, e.g. `"/tmp/node_modules/@babel/preset-env/lib/index.js"`
-         */
-        resolved: string;
-    } | null | undefined;
+              /**
+               * The full path of the resolved file, e.g. `"/tmp/node_modules/@babel/preset-env/lib/index.js"`
+               */
+              resolved: string;
+          }
+        | null
+        | undefined;
 }
 
 export type PluginOptions = object | undefined | false;

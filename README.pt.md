@@ -11,7 +11,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 Essa seção acompanha a saúde do respositório e o processo de publicação.
 Ela pode servir de ajuda para contribuidores que estejam passando por problemas com suas PRs e pacotes.
 
-* Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * Todos os pacotes estão sendo [publicados no npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -49,33 +49,16 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.6 e anteriores)
+#### Versões antigas do TypeScript (4.0 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.7 e acima são testadas.
-Se você está usando as versões 2.0 a 3.6 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 4.1 e acima são testadas.
+Se você está usando as versões 2.0 a 4.0 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
-Versão | Lançada em | Término do suporte
--- | -- | --
-2.8 | Março 2018 | Março 2020
-2.9 | Maio 2018 | Maio 2020
-3.0 | Julho 2018 | Julho 2020
-3.1 | Setembro 2018 | Setembro 2020
-3.2 | Novembro 2018 | Novembro 2020
-3.3 | Janeiro 2019 | Janeiro 2021
-3.4 | Março 2019 | Março 2021
-3.5 | Maio 2019 | Maio 2021
-3.6 | Agosto 2019 | Agosto 2021
-3.7 | Novembro 2019 | Novembro 2021
-3.8 | Fevereiro 2020 | Fevereiro 2022
-3.9 | Maio 2020 | Maio 2022
-4.0 | Agosto 2020 | Agosto 2022
-4.1 | Novembro 2020 | Novembro 2022
-4.2 | Fevereiro 2021 | Fevereiro 2023
-4.3 | Maio 2021 | Maio 2023
-4.0 | Agosto 2021 | Agosto 2023
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
 Por exemplo, se você executar o comando `npm dist-tags @types/react`, você verá que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:
@@ -204,7 +187,7 @@ Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado a
 
 Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 
-Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+Este script usa o [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
 
 #### Naming
 
@@ -242,7 +225,7 @@ const result = twoslash("//")
 + // Lida com o parâmetro options
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // Quando o parâmetro está incorreto
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -250,21 +233,21 @@ Se você está se perguntando por onde começar os testes em seu código, os exe
 
 Você pode [validar suas mudanças](#verificando) executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
 
-Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `$ExpectError`.
+Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `@ts-expect-error`.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("um");
 ```
 
-Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
+Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -297,7 +280,8 @@ Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em u
 * Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write path/to/package/**/*.ts`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
   ```tsx
   // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  // @ts-expect-error
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` se a função não adiciona valores a seus parâmetros.
 * `interface Foo { new(): Foo; }`:
@@ -367,7 +351,7 @@ Então eles estão errados, e nós não notamos ainda. Você pode ajudar enviand
 
 #### Posso requisitar uma definição?
 
-Aqui estão as [definições requisitadas atualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Aqui estão as [definições requisitadas atualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### Mas e as definições de tipo para a DOM?
 
@@ -492,7 +476,7 @@ Porque o diretório-raíz deve sempre conter as declarações de tipo para as ú
 
 Por exemplo, a biblioteca [`history`](https://github.com/ReactTraining/history/) introduziu mudanças drásticas entre a versão `2.x` e `3.x`.
 Mas porque muitos usuários ainda consumiam a antiga versão `2.x`, o mantenedor que queria atualizar as declarações de tipo dessa biblioteca para a versão `3.x` adidionou uma pasta `v2` dentro do repositório "history" que contém declarações de tipo para a versão anterior.
-No tempo de escrita, a [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) está assim:
+No tempo de escrita, a [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) está assim:
 
 ```json
 {
@@ -539,11 +523,6 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
     }
 }
 ```
-
-
-#### O histórico do arquivo no GitHub parece incompleto.
-
-O GitHub não [suporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) histórico de arquivos renomeados. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) ao invés disso.
 
 ## Licença
 

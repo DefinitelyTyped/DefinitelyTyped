@@ -126,8 +126,8 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     ingestSnapshot(snapshot: Pick<Snapshot<T>, 'v' | 'type' | 'data'>, callback?: Callback): void;
     destroy(callback?: Callback): void;
     create(data: any, callback?: Callback): void;
-    create(data: any, type?: OTType, callback?: Callback): void;
-    create(data: any, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
+    create(data: any, type?: string, callback?: Callback): void;
+    create(data: any, type?: string, options?: ShareDBSourceOptions, callback?: Callback): void;
     submitOp(data: any, options?: ShareDBSourceOptions, callback?: Callback): void;
     del(options: ShareDBSourceOptions, callback?: (err: Error) => void): void;
     whenNothingPending(callback: () => void): void;
@@ -137,6 +137,23 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     resume(): void;
     flush(): void;
 }
+
+export type ConnectionState = 'connecting' | 'connected' | 'disconnected' | 'stopped' | 'closed';
+export type ConnectionStateEventMap = {
+    [state in ConnectionState]: (reason: string) => void;
+};
+export interface ConnectionReceiveRequest {
+    data: any;
+}
+export type ConnectionEventMap = ConnectionStateEventMap & {
+    'connection error': (error: Error) => void;
+    'doc': (doc: Doc) => void;
+    'error': (error: Error) => void;
+    'pong': () => void;
+    'receive': (request: ConnectionReceiveRequest) => void;
+    'send': (message: any) => void;
+    'state': (newState: ConnectionState, reason: string) => void;
+};
 
 export interface DocEventMap<T> {
     'load': () => void;

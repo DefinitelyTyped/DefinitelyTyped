@@ -14,7 +14,7 @@ export interface SwitchProps extends Omit<ReactButtonAttr, "onClick" | "onKeyDow
     onClick?(data: { index: SwitchProps["index"], name: SwitchProps["name"], text: SwitchProps["text"] }): void, // required but has default value
     onKeyDown?(data: SwitchOnKeyDownData): void, // required but had default value
     selected?: boolean | undefined,
-    text: string,
+    text?: string | undefined,
 }
 
 declare const Switch: ForwardRefReturn<HTMLButtonElement, SwitchProps>;

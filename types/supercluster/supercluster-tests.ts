@@ -31,10 +31,12 @@ new Supercluster({});
 const index = new Supercluster({
     minZoom: 5,
     maxZoom: 16,
+    minPoints: 2,
     radius: 40,
     extent: 256,
     nodeSize: 64,
     log: true,
+    generateId: true,
     map: (props: TestPointProps): TestClusterProps => ({
         myTestClusterName: props.myTestFeatureName.toUpperCase()
     }),

@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
         "comment-format": false,
@@ -19,7 +19,6 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
         "whitespace": false

@@ -7,6 +7,8 @@
 
 /// <reference types="node"/>
 
+import _PackageJSON from './package-json';
+
 export = find;
 
 /**
@@ -37,54 +39,19 @@ declare namespace find {
          */
         filename: string;
     }
-
     interface Done {
         done: true;
         value: undefined;
         filename: undefined;
     }
 
-    interface PackageWithPath extends Package {
+    interface PackageWithPath extends _PackageJSON {
         /**
          * Path to the found `package.json` file.
          */
         __path: string;
     }
 
-    interface Package {
-        [k: string]: any;
-        name?: string | undefined;
-        version?: string | undefined;
-        files?: string[] | undefined;
-        bin?: { [k: string]: string } | undefined;
-        man?: string[] | undefined;
-        keywords?: string[] | undefined;
-        author?: Person | undefined;
-        maintainers?: Person[] | undefined;
-        contributors?: Person[] | undefined;
-        bundleDependencies?: { [name: string]: string } | undefined;
-        dependencies?: { [name: string]: string } | undefined;
-        devDependencies?: { [name: string]: string } | undefined;
-        optionalDependencies?: { [name: string]: string } | undefined;
-        description?: string | undefined;
-        engines?: { [type: string]: string } | undefined;
-        license?: string | undefined;
-        repository?: { type: string; url: string } | undefined;
-        bugs?: { url: string; email?: string | undefined } | { url?: string | undefined; email: string } | undefined;
-        homepage?: string | undefined;
-        scripts?: { [k: string]: string } | undefined;
-        readme?: string | undefined;
-        main?: string | undefined;
-        module?: string | undefined;
-        browser?: string | undefined;
-        type?: string | undefined;
-        types?: string | undefined;
-        typings?: string | undefined;
-    }
-
-    interface Person {
-        name?: string | undefined;
-        email?: string | undefined;
-        url?: string | undefined;
-    }
+    type Package = _PackageJSON;
+    type PackageJSON = _PackageJSON;
 }

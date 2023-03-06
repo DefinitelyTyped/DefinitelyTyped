@@ -1085,6 +1085,7 @@ declare namespace GoogleAppsScript {
       replaceAllText(findText: string, replaceText: string): Integer;
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
+      setSkipped(isSkipped: boolean): void;
       unlink(): void;
     }
     /**

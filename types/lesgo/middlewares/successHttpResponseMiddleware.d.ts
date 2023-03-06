@@ -1,21 +1,23 @@
-import { MiddlewareFunction } from "middy";
-import { HttpGatewayEvent } from "./normalizeHttpRequestMiddleware";
-
-export interface MiddlewareOptions {
-    headers?: Record<string, string>;
-    debugMode?: boolean;
-    zipWhenRequest?: Array<"ELB" | "APIGATEWAY">;
-}
-
-export interface SuccessHttpResponse {
-    headers: Record<string, string | null>;
-    statusCode: number;
-    body: string;
-    isBase64Encoded: boolean;
-}
+import middy from '@middy/core';
+import { HttpGatewayEvent } from './normalizeHttpRequestMiddleware';
+import { HttpMiddlewareOptions } from './httpMiddleware';
+import AuroraDbService from '../services/AuroraDbService';
+import AuroraDbRDSProxyService from '../services/AuroraDbRDSProxyService';
 
 export interface SuccessHttpMiddleware {
-    after: MiddlewareFunction<HttpGatewayEvent, SuccessHttpResponse>;
+    after: middy.MiddlewareFunction<HttpGatewayEvent, any>;
 }
 
-export default function successHttpResponseMiddleware(opts?: MiddlewareOptions): SuccessHttpMiddleware;
+export interface SuccessHttpMiddlewareOptions extends HttpMiddlewareOptions {
+    zipWhenRequest?: Array<'ELB' | 'APIGATEWAY'>;
+}
+
+export function successHttpResponseAfterHandler(
+    handler: middy.HandlerLambda<HttpGatewayEvent>,
+    next: middy.NextFunction,
+    opts?: SuccessHttpMiddlewareOptions,
+): void;
+
+export function successHttpResponseHandler(opts?: SuccessHttpMiddlewareOptions): any;
+
+export default function successHttpResponseMiddleware(opts?: SuccessHttpMiddlewareOptions): SuccessHttpMiddleware;

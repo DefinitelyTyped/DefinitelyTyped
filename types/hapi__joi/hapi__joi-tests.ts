@@ -1224,7 +1224,8 @@ userSchema = userSchema.append({
 });
 
 userSchema = userSchema.append({
-    height: Joi.number(), // $ExpectError
+    // @ts-expect-error
+    height: Joi.number(),
 });
 
 const userSchema2 = Joi.object<User>().keys({
@@ -1236,11 +1237,13 @@ const userSchema2 = Joi.object<User>().keys({
 const userSchemaError = Joi.object<User>().keys({
     name: Joi.string().required(),
     family: Joi.string(),
-    height: Joi.number(), // $ExpectError
+    // @ts-expect-error
+    height: Joi.number(),
 });
 
 const userSchemaObjectError = Joi.object<User>({
     name: Joi.string().required(),
     family: Joi.string(),
-    height: Joi.number(), // $ExpectError
+    // @ts-expect-error
+    height: Joi.number(),
 });

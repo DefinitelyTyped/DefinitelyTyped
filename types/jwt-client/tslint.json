@@ -1,7 +1,6 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
         "no-padding": false,
@@ -10,7 +9,6 @@
         "no-var-keyword": false,
         "one-line": false,
         "prefer-const": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

@@ -2191,6 +2191,7 @@ declare namespace webpack {
             constructor(options?: UglifyJsPlugin.Options);
         }
 
+        /** @deprecated use config.optimization.minimize instead */
         namespace UglifyJsPlugin {
             type CommentFilter = (astNode: any, comment: any) => boolean;
 
@@ -2386,6 +2387,11 @@ declare namespace webpack {
              * Add a directory as dependency of the loader result.
              */
             addContextDependency(directory: string): void;
+
+            /**
+             * Return all dependencies of the loader result.
+             */
+            getDependencies(): string[];
 
             /**
              * Remove all dependencies of the loader result. Even initial dependencies and these of other loaders. Consider using pitch.

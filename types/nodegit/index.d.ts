@@ -1,4 +1,4 @@
-// Type definitions for nodegit 0.27
+// Type definitions for nodegit 0.28
 // Project: https://github.com/nodegit/nodegit, http://nodegit.org
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>,
 //                 Tobias Nießen <https://github.com/tniessen>,
@@ -6,6 +6,8 @@
 //                 Jibril Saffi <https://github.com/IGI-111>
 //                 Benjamin Schuster-Boeckler <https://github.com/DaGaMs>
 //                 Julien Chaumond <https://github.com/julien-c>
+//                 Jake Murzy <https://github.com/jmurzy>
+//                 Niklas Wenzel <https://github.com/nikwen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';
@@ -34,6 +36,7 @@ export { ConvenientPatch } from './convenient-patch';
 export { CredUserpassPayload } from './cred-user-pass-payload';
 export { CredUsername } from './cred-username';
 export { Cred } from './cred';
+export { Credential } from './credential';
 export { CvarMap } from './cvar-map';
 export { DescribeFormatOptions } from './describe-format-options';
 export { DescribeOptions } from './describe-options';
@@ -111,6 +114,9 @@ export { Treebuilder } from './tree-builder';
 export { TreeEntry } from './tree-entry';
 export { TreeUpdate } from './tree-update';
 export { Tree } from './tree';
+export { Worktree } from './worktree';
+export { WorktreeAddOptions } from './worktree-add-options';
+export { WorktreePruneOptions } from './worktree-prune-options';
 export const version: string;
 declare const _: typeof Promise;
 export { _ as Promise };

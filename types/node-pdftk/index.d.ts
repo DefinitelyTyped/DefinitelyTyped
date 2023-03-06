@@ -277,10 +277,10 @@ export class PDFTK {
 }
 
 export interface ConfigureOptions {
-    bin: string;
-    Promise: PromiseConstructor;
-    ignoreWarnings: true;
-    tempDir: string;
+    bin?: string;
+    Promise?: PromiseConstructor;
+    ignoreWarnings?: true;
+    tempDir?: string;
 }
 
 export function input(file: string | Buffer | Buffer[] | Partial<Record<Letter, string | Buffer>>): PDFTK;

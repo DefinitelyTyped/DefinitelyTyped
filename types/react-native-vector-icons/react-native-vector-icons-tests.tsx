@@ -18,7 +18,6 @@ const CustomIcon = createIconSet(glyphMap, 'FontCustom', 'FontCustom.ttf');
 const CustomIconButton         = CustomIcon.Button;
 const CustomIconTabBarItem     = CustomIcon.TabBarItem;
 const CustomIconTabBarItemIOS  = CustomIcon.TabBarItemIOS;
-const CustomIconToolbarAndroid = CustomIcon.ToolbarAndroid;
 const CustomIcongetImageSource = CustomIcon.getImageSource;
 const CustomIcongetImageSourceSync = CustomIcon.getImageSourceSync;
 
@@ -48,6 +47,18 @@ class Example extends React.Component {
             Login with Facebook
           </Text>
         </FontAwesomeIcon.Button>
+
+        {/* FA5 Icon button with solid  */}
+        <FontAwesome5Icon.Button
+          backgroundColor="#3b5998"
+          name="facebook"
+          onPress={() => this.handleButton()}
+          solid
+        >
+          <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>
+            Login with Facebook
+          </Text>
+        </FontAwesome5Icon.Button>
       </View>
     );
   }
@@ -145,3 +156,6 @@ class OpaqueColorTest extends React.Component {
     );
   }
 }
+
+// $ExpectType string
+MaterialIcon.getFontFamily();

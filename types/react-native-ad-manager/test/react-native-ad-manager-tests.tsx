@@ -4,6 +4,7 @@ import { Interstitial, Banner, NativeAdsManager, AdLoadedEvent, AdFailedToLoadEv
 import NativeAdView from './NativeAdView';
 
 const BannerExample: React.FunctionComponent<{
+    children?: React.ReactNode;
     style?: ViewStyle | undefined;
     title: string;
 }> = ({ style, title, children, ...props }) => (

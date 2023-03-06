@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "interface-over-type-literal": false,
         "no-declare-current-package": false,
         "no-single-declare-module": false,

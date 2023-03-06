@@ -1,8 +1,8 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-empty-interface": false,
-        "no-padding": false,
+        "space-before-function-paren": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "npm-naming": false,

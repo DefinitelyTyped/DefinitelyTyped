@@ -6,6 +6,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Daniel Nixon <https://github.com/danielnixon>
 //                 Tony Ward <https://github.com/ynotdraw>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -43,6 +44,7 @@ export {
 
 export interface BrowserRouterProps {
     basename?: string | undefined;
+    children?: React.ReactNode;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
     forceRefresh?: boolean | undefined;
     keyLength?: number | undefined;
@@ -51,6 +53,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
 export interface HashRouterProps {
     basename?: string | undefined;
+    children?: React.ReactNode;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
     hashType?: 'slash' | 'noslash' | 'hashbang' | undefined;
 }
@@ -83,6 +86,7 @@ export interface NavLinkProps<S = H.LocationState> extends Omit<LinkProps<S>, "c
         | React.CSSProperties
         | ((isActive: boolean) => React.CSSProperties)
         | undefined;
+    sensitive?: boolean | undefined;
 }
 export function NavLink<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.

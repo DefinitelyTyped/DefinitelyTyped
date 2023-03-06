@@ -1,15 +1,15 @@
-import SQSService from "lesgo/services/SQSService";
+import SQSService from 'lesgo/services/SQSService';
 
 // $ExpectType SQSService<{ myqueue: { url: string; }; }>
 const queue = new SQSService(
     {
-        accessKeyId: "",
-        secretAccessKey: "mysecret",
-        region: "eu-central-1",
+        accessKeyId: '',
+        secretAccessKey: 'mysecret',
+        region: 'eu-central-1',
     },
     {
         myqueue: {
-            url: "SQS_QUEUE_URL",
+            url: 'SQS_QUEUE_URL',
         },
     },
 );
@@ -17,7 +17,7 @@ const queue = new SQSService(
 // $ExpectType Promise<SendMessageResult>
 queue.dispatch(
     {
-        body: "test",
+        body: 'test',
     },
-    "myqueue",
+    'myqueue',
 );

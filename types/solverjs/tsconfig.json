@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "ES2020.BigInt"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "solverjs-tests.ts",
+        "test/math-tests.ts",
+        "test/matrix-tests.ts",
+        "test/number-tests.ts",
+        "test/time-tests.ts",
+        "test/area-tests.ts",
+        "test/digital_storage-tests.ts",
+        "test/length-tests.ts",
+        "test/temperature-tests.ts",
+        "test/utils-tests.ts"
+    ]
+}

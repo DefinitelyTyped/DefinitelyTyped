@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/testing-library__jest-dom-global-tests.ts"
+        "test/testing-library__jest-dom-global-tests.ts",
+        "test/testing-library__jest-dom-extend-matchers-tests.ts"
     ]
 }

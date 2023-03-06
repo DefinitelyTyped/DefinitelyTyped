@@ -1,9 +1,6 @@
-import config = require("esri/config");
 import Map = require("esri/Map");
 import MapView = require("esri/views/MapView");
 import Point = require("esri/geometry/Point");
-
-console.log(config.assetsPath);
 
 class MapController {
   map: Map;
@@ -18,22 +15,17 @@ class MapController {
     });
 
     this.map = new Map({
-      basemap: { title: "topo" }
+      basemap: { title: "topo-vector" }
     });
 
     let view = new MapView({
       center: point,
       container: this.mapDiv,
       map: this.map,
-      zoom: 13
+      zoom: 7
     });
   }
 }
 
-import esriId = require("esri/identity/IdentityManager");
-
-esriId.enablePostMessageAuth();
-esriId.disablePostMessageAuth();
-
-import externalRenderers = require("esri/views/3d/externalRenderers");
-externalRenderers.forceWebGLContext(2);
+import esriRequest = require("esri/request");
+esriRequest("https://js.arcigs.com/");

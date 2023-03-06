@@ -3,7 +3,6 @@
 // Definitions by: Jessica Franco <https://github.com/Jessidhia>
 //                 Nick Winans <https://github.com/Nicell>
 //                 Elvis Wolcott <https://github.com/elviswolcott>
-//                 Yunho Seo <https://github.com/seoyunho>
 //                 Tarrence van As <https://github.com/tarrencev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9

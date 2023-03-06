@@ -1,4 +1,4 @@
-// Type definitions for koa-static-server 1.3
+// Type definitions for koa-static-server 1.5
 // Project: https://github.com/pkoretic/koa-static-server
 // Definitions by: wulunyi <https://github.com/wulunyi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,6 +51,10 @@ declare namespace KoaStaticServer {
      * Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested
      */
     gzip?: boolean | undefined;
+    /**
+     * Try to serve the brotli version of a file automatically when brotli is supported by a client and in the requested
+     */
+    brotli?: boolean | undefined;
     index?: string | undefined;
   }
 }

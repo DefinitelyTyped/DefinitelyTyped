@@ -7,7 +7,9 @@
 /// <reference types="react" />
 
 declare module "react-imageloader" {
-  interface ImageLoaderProps extends React.Props<ImageLoader> {
+  interface ImageLoaderProps {
+      children?: React.ReactNode;
+      ref?: React.LegacyRef<ImageLoader> | undefined;
       /** An optional class name for the wrapper component. */
       className?: string | undefined;
 

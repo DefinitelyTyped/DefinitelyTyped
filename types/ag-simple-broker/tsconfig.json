@@ -14,11 +14,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "sc-channel": [
-                "sc-channel/v1"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

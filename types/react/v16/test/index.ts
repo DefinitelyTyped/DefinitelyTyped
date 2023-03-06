@@ -3,13 +3,9 @@ import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
-import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
-import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
-import * as TestUtils from "react-addons-test-utils";
-import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
@@ -74,7 +70,7 @@ declare const container: Element;
     class SettingStateFromCtorComponent extends React.Component<Props, State, Snapshot> {
         constructor(props: Props) {
             super(props);
-            // $ExpectError
+            // @ts-expect-error
             this.state = {
                 inputValue: 'hello'
             };
@@ -83,7 +79,6 @@ declare const container: Element;
     }
 
     class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
-        // $ExpectError -> this throws error on TS 2.6 uncomment once TS requirement is TS >= 2.7
         // state = {
         //     secondz: 0,
         //     inputValuez: 'hello'
@@ -93,11 +88,10 @@ declare const container: Element;
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
         render() { return null; }
         componentDidMount() {
-            // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
             console.log(this.state.inputValue);
         }
         mutateState() {
-            // $ExpectError
+            // @ts-expect-error
             this.state = {
                 inputValue: 'hello'
             };
@@ -105,18 +99,18 @@ declare const container: Element;
             // Even if state is not set, this is allowed by React
             this.setState({ inputValue: 'hello' });
             this.setState((prevState, props) => {
-                // $ExpectError
+                // @ts-expect-error
                 props = { foo: 'nope' };
-                // $ExpectError
+                // @ts-expect-error
                 props.foo = 'nope';
 
                 return { inputValue: prevState.inputValue + ' foo' };
             });
         }
         mutateProps() {
-            // $ExpectError
+            // @ts-expect-error
             this.props = {};
-            // $ExpectError
+            // @ts-expect-error
             this.props = {
                 key: 42,
                 ref: "myComponent42",
@@ -246,7 +240,8 @@ const FunctionComponent4: React.FunctionComponent = props => null;
 
 // undesired: Rejects `false` because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
 // leaving here to document limitation and inspect error message
-const FunctionComponent5: React.FunctionComponent = () => false; // $ExpectError
+// @ts-expect-error
+const FunctionComponent5: React.FunctionComponent = () => false;
 
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
@@ -412,6 +407,12 @@ const ForwardingRefComponent = React.forwardRef((props: ForwardingRefComponentPr
     return React.createElement(RefComponent, { ref });
 });
 
+// Declaring forwardRef render function separately (not inline).
+const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React.ForwardedRef<RefComponent>)  => {
+    return React.createElement(RefComponent, { ref });
+};
+React.forwardRef(ForwardRefRenderFunction);
+
 const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
@@ -419,12 +420,12 @@ ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 // need the explicit type declaration for typescript < 3.1
 const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// $ExpectError
+// @ts-expect-error
 React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
 
 const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// $ExpectError
+// @ts-expect-error
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
 
 function RefCarryingComponent() {
@@ -594,7 +595,7 @@ type mappedChildrenArray5Type = typeof mappedChildrenArray5 extends React.Key[] 
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
 // The return type may not be an array
-// $ExpectError
+// @ts-expect-error
 const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
 
 //
@@ -639,33 +640,6 @@ createFragment({
 });
 
 //
-// CSSTransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(CSSTransitionGroup)({
-    component: createReactClass({
-        render: (): null => null
-    }),
-    childFactory: (c) => c,
-    transitionName: "transition",
-    transitionAppear: false,
-    transitionEnter: true,
-    transitionLeave: true,
-    id: "some-id",
-    className: "some-class"
-});
-
-React.createFactory(CSSTransitionGroup)({
-    transitionName: {
-        enter: "enter",
-        enterActive: "enterActive",
-        leave: "leave",
-        leaveActive: "leaveActive",
-        appear: "appear",
-        appearActive: "appearActive"
-    }
-});
-
-//
 // LinkedStateMixin addon
 // --------------------------------------------------------------------------
 createReactClass({
@@ -691,83 +665,12 @@ createReactClass({
 });
 
 //
-// Perf addon
-// --------------------------------------------------------------------------
-Perf.start();
-Perf.stop();
-const measurements = Perf.getLastMeasurements();
-Perf.printInclusive(measurements);
-Perf.printExclusive(measurements);
-Perf.printWasted(measurements);
-Perf.printOperations(measurements);
-Perf.printInclusive();
-Perf.printExclusive();
-Perf.printWasted();
-Perf.printOperations();
-
-console.log(Perf.getExclusive());
-console.log(Perf.getInclusive());
-console.log(Perf.getWasted());
-console.log(Perf.getOperations());
-console.log(Perf.getExclusive(measurements));
-console.log(Perf.getInclusive(measurements));
-console.log(Perf.getWasted(measurements));
-console.log(Perf.getOperations(measurements));
-
-// Renamed to printOperations().  Please use it instead.
-Perf.printDOM(measurements);
-Perf.printDOM();
-
-//
 // PureRenderMixin addon
 // --------------------------------------------------------------------------
 createReactClass({
     mixins: [PureRenderMixin],
     render() { return DOM.div(null); }
 });
-
-//
-// TestUtils addon
-// --------------------------------------------------------------------------
-
-const inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
-const node: Element = TestUtils.renderIntoDocument(DOM.div());
-
-TestUtils.Simulate.click(node);
-TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
-
-const renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
-renderer.render(React.createElement(Timer));
-const output: React.ReactElement<React.Props<Timer>> =
-    renderer.getRenderOutput();
-
-const foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
-    inst, ModernComponent);
-const foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
-    inst, ModernComponent);
-
-// ReactTestUtils custom type guards
-
-const emptyElement1: React.ReactElement<Props> = React.createElement(ModernComponent);
-if (TestUtils.isElementOfType(emptyElement1, FunctionComponent)) {
-    emptyElement1.props.foo;
-}
-const emptyElement2: React.ReactElement<SCProps> = React.createElement(FunctionComponent);
-if (TestUtils.isElementOfType(emptyElement2, FunctionComponent)) {
-    emptyElement2.props.foo;
-}
-
-if (TestUtils.isDOMComponent(container)) {
-    const reassignedContainer: Element = container;
-} else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
-    new ModernComponent({ hello: 'hi', foo: 3 }).props;
-}
-
-//
-// TransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
 
 //
 // update addon
@@ -802,6 +705,8 @@ function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
 function handler(e: React.MouseEvent) {
     eventHandler(e);
 }
+
+const keyboardExtendsUI: React.UIEventHandler = (e: React.KeyboardEvent) => {};
 
 //
 // The SyntheticEvent.target.value should be accessible for onChange
@@ -883,7 +788,7 @@ const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
 const sfc: React.SFC<any> = Memoized2;
 // this $ExpectError is failing on TypeScript@next
-// // $ExpectError Property '$$typeof' is missing in type
+// // @ts-expect-error Property '$$typeof' is missing in type
 // const specialSfc2: React.SpecialSFC = props => null;
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
@@ -891,3 +796,52 @@ const propsWithChildren: React.PropsWithChildren<Props> = {
     foo: 42,
     children: functionComponent,
 };
+
+// JSXElemenConstructor vs Component assignability
+{
+    interface ExactProps {
+        value: 'A' | 'B';
+    }
+    interface NarrowerProps {
+        value: 'A';
+    }
+    interface WiderProps {
+        value: 'A' | 'B' | 'C';
+    }
+
+    // We don't actually care about the concrete type of `Wrapper` i.e.
+    // we don't care about the value created by `new Wrapper()`.
+    // We only care about the props we can pass to the component.
+    let Wrapper: React.JSXElementConstructor<ExactProps>;
+    // @ts-expect-error
+    Wrapper = class Narrower extends React.Component<NarrowerProps> {};
+    // @ts-expect-error
+    Wrapper = (props: NarrowerProps) => null;
+    Wrapper = class Exact extends React.Component<ExactProps> {};
+    Wrapper = (props: ExactProps) => null;
+    Wrapper = class Wider extends React.Component<WiderProps> {};
+    Wrapper = (props: WiderProps) => null;
+
+    React.createElement(Wrapper, { value: 'A' });
+    React.createElement(Wrapper, { value: 'B' });
+    // @ts-expect-error
+    React.createElement(Wrapper, { value: 'C' });
+}
+
+// ComponentPropsWithRef and JSXElementConstructor
+{
+    interface Props {
+        value: string;
+    }
+    type InferredProps = React.ComponentPropsWithRef<React.JSXElementConstructor<Props>>;
+    const props: Props = {
+        value: 'inferred',
+        // @ts-expect-error
+        notImplemented: 5
+    };
+    const inferredProps: InferredProps = {
+        value: 'inferred',
+        // @ts-expect-error
+        notImplemented: 5
+    };
+}

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.20210326150104
+// Type definitions for non-npm package Knuddels UserApps API 1.20211209174657
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -76,7 +76,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_sendEvent
          */
-        function sendEvent(type: string, data: KnuddelsEvent): void;
+        function sendEvent(type: string, data?: KnuddelsEvent): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_addConnectionTypeChangeListener
          */
@@ -134,6 +134,11 @@ declare global {
              */
             setResizable(resizable: boolean): void;
             /**
+             * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getBrowserVersion
+             * @since STAPP: b210331
+             */
+            getBrowserVersion(): string;
+            /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setTitle
              */
             setTitle(newTitle: string): void;
@@ -143,10 +148,18 @@ declare global {
              */
             focus(): void;
             /**
+             * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setMinSize
+             */
+            setMinSize(width: number, height: number): void;
+            /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setIcons
              * @since Applet: 9.0bwj, AppServer: 84904
              */
             setIcons(...path: string[]): void;
+            /**
+             * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setMaxSize
+             */
+            setMaxSize(width: number, height: number): void;
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getAppViewMode
              * @since Applet: 9.0byl

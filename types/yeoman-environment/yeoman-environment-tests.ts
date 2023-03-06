@@ -34,20 +34,32 @@ defaultLogger("");
 customLogger.help("");
 
 /* Lookup */
-// $ExpectType string
+// $ExpectType string[]
 Env.lookupGenerator("");
-// $ExpectType string
+// $ExpectType string[]
 Env.lookupGenerator("", { localOnly: true });
+// $ExpectType string[]
+Env.lookupGenerator("", { localOnly: true, singleResult: false });
+// $ExpectType string[]
+Env.lookupGenerator("", { localOnly: true, singleResult: undefined });
+// $ExpectType string
+Env.lookupGenerator("", { singleResult: true });
 // $ExpectType string
 env.alias("foo");
 // $ExpectType void
 env.alias(/^([a-zA-Z0-9:\*]+)$/, "generator-$1");
 
 /* Generators-Creation */
-const result = env.create("./lib/generators/app", {});
+const result = env.create("./lib/generators/app", [], {});
 if (result instanceof Generator) {
     result.run();
 } else {
     // $ExpectType Error
     result;
 }
+
+(async () => {
+    await env.run("my-generator", {});
+    await env.runGenerator(null as any as Generator);
+    await env.start({});
+});

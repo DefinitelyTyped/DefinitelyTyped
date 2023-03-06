@@ -1,5 +1,5 @@
 // Type definitions for moc-better-sqlite3 6.2
-// Project: http://github.com/vazra/better-sqlite3
+// Project: https://github.com/vazra/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
 //                 Santiago Aguilar <https://github.com/sant123>

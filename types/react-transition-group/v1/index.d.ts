@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { HTMLAttributes, ReactElement, ReactType } from "react";
+import { HTMLAttributes, ReactElement, ElementType } from "react";
 
 export interface HTMLTransitionGroupProps<T> extends HTMLAttributes<T> {
-    component?: ReactType | undefined;
+    component?: ElementType | undefined;
     childFactory?(child: ReactElement): ReactElement;
 }
 

@@ -1,12 +1,16 @@
-import { Node } from './Node';
-import { NodeBuilder } from './NodeBuilder';
+import { OperatorNodeOp } from '../math/OperatorNode';
+import Node from './Node';
 
-export class VarNode extends Node {
-    constructor(type: string, value?: any);
+export default class VarNode extends Node {
+    node: Node;
+    name: string | null;
 
-    value: any;
-    nodeType: string;
+    constructor(node: Node, name?: string | null);
 
-    getType(builder: NodeBuilder): string;
-    copy(source: VarNode): this;
+    op(op: OperatorNodeOp, ...params: Node[]): this;
+    assign(...params: Node[]): this;
+    add(...params: Node[]): this;
+    sub(...params: Node[]): this;
+    mul(...params: Node[]): this;
+    div(...params: Node[]): this;
 }

@@ -12,6 +12,10 @@ webpackHotMiddlewareInstance = webpackHotMiddleware(compiler, {
     heartbeat: 2000
 });
 
+const multiCompiler = webpack([{}]);
+
+webpackHotMiddlewareInstance = webpackHotMiddleware(multiCompiler);
+
 const clientOpts: webpackHotMiddleware.ClientOptions = {
     path: '/__webpack_hmr',
     reload: true,

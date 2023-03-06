@@ -42,16 +42,19 @@ import {
     ToolbarView,
     TooltipView,
     View,
-    ViewCollection,
+    ViewCollection
 } from '@ckeditor/ckeditor5-ui';
 import preventDefault from '@ckeditor/ckeditor5-ui/src/bindings/preventdefault';
 import DropdownPanelView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview';
 import DropdownView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownview';
 import IframeView from '@ckeditor/ckeditor5-ui/src/iframe/iframeview';
+import InputView from '@ckeditor/ckeditor5-ui/src/input/inputview';
+import InputNumberView from '@ckeditor/ckeditor5-ui/src/inputnumber/inputnumberview';
+import { createLabeledInputNumber } from '@ckeditor/ckeditor5-ui/src/labeledfield/utils';
 import LabeledInputView from '@ckeditor/ckeditor5-ui/src/labeledinput/labeledinputview';
 import ListSeparatorView from '@ckeditor/ckeditor5-ui/src/list/listseparatorview';
 import ToolbarLineBreakView from '@ckeditor/ckeditor5-ui/src/toolbar/toolbarlinebreakview';
-import { DomEmitterMixin, EmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
+import { DomEmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
 
 let num = 0;
 let str = '';
@@ -65,10 +68,16 @@ let bool = true;
 let view = new View();
 view.isRendered === bool;
 let template: Template;
-if (typeof view.template !== 'boolean') {
-    template = view.template;
-}
 template = view.template as Template;
+
+view.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<View, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+view.set('foo');
 
 let htmlelement = template.render() as HTMLElement;
 
@@ -117,23 +126,37 @@ view.destroy();
 htmlelement = view.element!;
 view.element === null;
 
+// $ExpectType void | undefined
+view.disableCssTransitions?.();
+// $ExpectType void | undefined
+view.enableCssTransitions?.();
+
 /**
  * ViewCollection
  */
 let viewCollection: ViewCollection = view.createCollection();
 view = viewCollection.get(0) as View;
 viewCollection.get(0) === null;
-// $ExpectError
-viewCollection.get(0) === bool;
+// $ExpectType (View & { id: string; }) | null
+viewCollection.get(0);
 viewCollection.setParent(htmlelement);
 viewCollection.add(view);
-// $ExpectError
+// @ts-expect-error
 viewCollection.add([view]);
 viewCollection.addMany([view]);
 viewCollection.remove(view);
-// $ExpectError
+// @ts-expect-error
 viewCollection.remove([view]);
 viewCollection.destroy();
+
+viewCollection.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<ViewCollection<View>, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+viewCollection.set('foo');
 
 /**
  * Template
@@ -194,7 +217,7 @@ class MyModel extends Model {}
 const model = new MyModel();
 model.set({ a: 4 });
 model.a;
-// $ExpectError
+// @ts-expect-error
 model.a = num;
 
 /**
@@ -202,8 +225,9 @@ model.a = num;
  */
 const listView = new ListView(locale);
 listView.focus();
+listView.destroy();
 let focusTracker: FocusTracker = listView.focusTracker;
-// $ExpectError
+// @ts-expect-error
 listView.focusTracker as ListView;
 
 /**
@@ -232,7 +256,7 @@ str = tooltip.text;
  * clickOutsideHandler
  */
 clickOutsideHandler({
-    emitter: Object.create(EmitterMixin),
+    emitter: new View(),
     activator: () => false,
     contextElements: [document.createElement('div')],
     callback: () => {},
@@ -289,7 +313,7 @@ const colorDefinition = {
 const [colorDefinition1] = getLocalizedColorOptions(locale, [colorDefinition]);
 const [colorDefinition2] = normalizeColorOptions([colorDefinition1]);
 
-new ColorGridView(locale);
+new ColorGridView(locale).destroy();
 new ColorGridView(locale, { colorDefinitions: [colorDefinition1, colorDefinition2] });
 
 new ColorTileView(locale);
@@ -306,6 +330,7 @@ view = dropdownbuttonview.arrowView;
 const splitbuttonview = new SplitButtonView(locale);
 view = splitbuttonview.arrowView;
 view = splitbuttonview.actionView;
+splitbuttonview.destroy();
 
 /**
  * Dropdown
@@ -338,7 +363,7 @@ viewCollection = boxedEditor.main;
  */
 // $ExpectType boolean
 new InlineEditableUIView(locale, view)._hasExternalElement;
-// $ExpectError
+// @ts-expect-error
 new InlineEditableUIView(locale, view)._hasExternalElement = true;
 
 /**
@@ -359,7 +384,7 @@ str = iconview.viewBox;
 /**
  * InputTextView
  */
-let inputtextview = new InputTextView();
+let inputtextview = new InputTextView(locale);
 inputtextview.focus();
 inputtextview.focusTracker;
 
@@ -416,7 +441,8 @@ contextualballon.showStack('foo');
 const stickypanelview = new StickyPanelView();
 viewCollection = stickypanelview.content;
 num = stickypanelview.limiterBottomOffset;
-htmlelement = stickypanelview.limiterElement;
+// $ExpectType HTMLElement | null
+stickypanelview.limiterElement;
 
 /**
  * ToolipView
@@ -511,6 +537,39 @@ new ListSeparatorView().element!.tagName.startsWith('foo');
  */
 new ToolbarLineBreakView().render();
 new ToolbarLineBreakView().element!.tagName.startsWith('foo');
+
+/**
+ * InputView
+ */
+new InputView(locale).destroy();
+// $ExpectType string
+new InputView(locale).id;
+// $ExpectType string
+new InputView(locale).placeholder;
+// @ts-expect-error
+new InputView(locale).placeholder = '';
+new InputView(locale).destroy();
+new InputView(locale).focus();
+
+/**
+ * InputNumberView
+ */
+new InputNumberView(locale).destroy();
+// $ExpectType string
+new InputNumberView(locale).id;
+// $ExpectType string
+new InputNumberView(locale).placeholder;
+// @ts-expect-error
+new InputNumberView(locale).placeholder = '';
+new InputNumberView(locale).destroy();
+new InputNumberView(locale).focus();
+// $ExpectType number | undefined
+new InputNumberView(locale).min;
+// $ExpectType number | undefined
+new InputNumberView(locale).step;
+
+// $ExpectType InputNumberView
+createLabeledInputNumber(labeledfieldview, '', '');
 
 // $ExpectType BalloonToolbar
 editor.plugins.get('BalloonToolbar');

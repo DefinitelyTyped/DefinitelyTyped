@@ -1,7 +1,6 @@
 // Type definitions for webpack-hot-client 4.1
 // Project: https://github.com/webpack-contrib/webpack-hot-client
-// Definitions by: Ryan Clark <https://github.com/rynclark>
-//                 ZSkycat <https://github.com/ZSkycat>
+// Definitions by: ZSkycat <https://github.com/ZSkycat>
 //                 Brian Armstrong <https://github.com/barm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7

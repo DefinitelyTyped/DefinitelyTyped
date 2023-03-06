@@ -1,7 +1,6 @@
 import gfs = require('graceful-fs');
 import * as gfs2 from 'graceful-fs';
 import * as fs from 'fs';
-import * as fse from 'fs-extra';
 import { promisify } from 'util';
 
 const str = '';
@@ -17,9 +16,6 @@ const gracefulified = gfs.gracefulify(fs);
 const _fs: typeof fs = gracefulified;
 gracefulified.lutimes; // $ExpectType typeof lutimes
 promisify(gracefulified.lutimes); // $ExpectType (path: PathLike, atime: TimeLike, mtime: TimeLike) => Promise<void>
-
-const fseGrace = gfs.gracefulify(fse);
-fseGrace.lutimes; // $ExpectType typeof lutimes
 
 fs.lutimes(buf, str, str, err => {
     err; // $ExpectType ErrnoException | null

@@ -1,6 +1,7 @@
 // Type definitions for check-types 7.3
 // Project: https://gitlab.com/philbooth/check-types.js
 // Definitions by: idchlife <https://github.com/idchlife>
+//                 shov <https://github.com/shov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
@@ -99,8 +100,8 @@ interface CheckType {
     /* String predicates */
 
     string(a: any): a is string;
-    emptyString(a: string): boolean;
-    nonEmptyString(a: string): boolean;
+    emptyString(a: any): boolean;
+    nonEmptyString(a: any): boolean;
     contains(a: string, substring: string): boolean;
     match(a: string, b: RegExp): boolean;
 
@@ -134,8 +135,8 @@ interface CheckType {
     /* Object predicates */
 
     object: ObjectFunction;
-    emptyObject(a: object): boolean;
-    nonEmptyObject(a: object): boolean;
+    emptyObject(a: any): boolean;
+    nonEmptyObject(a: any): boolean;
     /**
      * Checking via instanceof
      */
@@ -152,8 +153,8 @@ interface CheckType {
     /* Array predicates */
 
     array: ArrayFunction;
-    emptyArray(a: any[]): boolean;
-    nonEmptyArray(a: any[]): boolean;
+    emptyArray(a: any): boolean;
+    nonEmptyArray(a: any): boolean;
     arrayLike: ArrayLikeFunction;
     iterable: IterableFunction;
     includes(a: any[], value: any): boolean;

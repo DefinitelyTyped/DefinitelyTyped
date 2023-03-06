@@ -105,6 +105,7 @@ export interface SideBySideMagnifierProps extends CommonProps {
 export const SideBySideMagnifier: React.ComponentType<SideBySideMagnifierProps>;
 
 export interface MagnifierContainerProps {
+    children?: React.ReactNode;
     style?: string | undefined;
     className?: string | undefined;
     autoInPlace?: boolean | undefined;

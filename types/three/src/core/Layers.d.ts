@@ -13,4 +13,5 @@ export class Layers {
     disable(channel: number): void;
     disableAll(): void;
     test(layers: Layers): boolean;
+    isEnabled(channel: number): boolean;
 }

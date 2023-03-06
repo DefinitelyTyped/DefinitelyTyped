@@ -86,7 +86,6 @@
     });
     fileHandle = await chooseFileSystemEntries({ type: 'save-file' });
     dirHandle = await chooseFileSystemEntries({ type: 'open-directory' });
-    dirHandle = await FileSystemDirectoryHandle.getSystemDirectory({ type: 'sandbox' });
     dirHandle = await dirHandle.getDirectory('subdir', { create: true });
     fileHandle = await dirHandle.getFile('file.txt');
 

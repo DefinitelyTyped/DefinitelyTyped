@@ -43,7 +43,7 @@ export default class Ftp extends EventEmitter {
     raw(command: string, arg1: any, arg2: any, callback: RawCallback): void;
     raw(command: string, arg1: any, arg2: any, arg3: any, callback: RawCallback): void;
     raw(command: string, arg1: any, arg2: any, arg3: any, arg4: any, callback: RawCallback): void;
-
+    auth(user: string, pass: string, callback: RawCallback): void;
     keepAlive(timeInMs?: number): void;
 
     destroy(): void;

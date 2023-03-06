@@ -108,9 +108,9 @@ declare namespace jsrsasign {
          * @param sMsg message string to be verified.
          * @param hSig hexadecimal string of signature.
          *             non-hexadecimal characters including new lines will be ignored.
-         * @return returns 1 if valid, otherwise 0
+         * @return returns true if valid, otherwise false
          */
-        verify(sMsg: string, hSig: string): 0 | 1;
+        verify(sMsg: string, hSig: string): boolean;
 
         /**
          * verifies a sigature for a message string with RSA public key by PKCS#1 PSS sign.

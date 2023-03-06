@@ -2,6 +2,16 @@ import * as http from 'http';
 import express = require('express');
 import { json, raw, text, urlencoded } from 'body-parser';
 
+import bodyParser = require('body-parser');
+
+// expected: deprecated
+bodyParser(); // $ExpectType NextHandleFunction
+// expected: no deprecation
+bodyParser.json();
+bodyParser.raw();
+bodyParser.text();
+bodyParser.urlencoded();
+
 const app = express();
 
 app.use(json());

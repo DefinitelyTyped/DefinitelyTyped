@@ -1,4 +1,4 @@
-// Type definitions for chai-dom
+// Type definitions for chai-dom 1.11
 // Project: https://github.com/nathanboktae/chai-dom
 // Definitions by: Matt Lewis <https://github.com/mattlewis92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ declare namespace Chai {
 
         attribute(name: string, value?: string): Assertion;
 
-        class(className: string): Assertion;
+        class(className: string | RegExp): Assertion;
 
         id(id: string): Assertion;
 
@@ -21,6 +21,8 @@ declare namespace Chai {
         text(text: string | string[]): Assertion;
 
         value(text: string): Assertion;
+
+        style(property: string, value: string): Assertion;
 
         empty: Assertion;
 
@@ -36,11 +38,15 @@ declare namespace Chai {
 
         trimmed: Assertion;
 
+        rendered: Assertion;
+
         visible: Assertion;
 
         tagName(name: string): Assertion;
 
         focus: Assertion;
+
+        checked: Assertion;
     }
 
     interface Include {

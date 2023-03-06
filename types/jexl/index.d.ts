@@ -5,6 +5,7 @@
 // TypeScript Version: 2.2
 
 import Expression, { Context } from './Expression';
+import Grammar from './Grammar';
 
 type TransformFunction = (value: any, ...args: any[]) => any;
 
@@ -85,7 +86,7 @@ declare class Jexl {
     addFunction(name: string, fn: FunctionFunction): void;
 
     /**
-     * Syntatic sugar for calling {@link #addFunction} repeatedly. This function
+     * Syntactic sugar for calling {@link #addFunction} repeatedly. This function
      * accepts a map of one or more expression function names to their javascript
      * function counterpart.
      * @param map A map of expression function names to javascript functions.
@@ -141,12 +142,17 @@ declare class Jexl {
      * @param operator The operator string to be removed
      */
     removeOp(operator: string): void;
+
+    /**
+     * The grammar used to compile the expression.
+     */
+    _grammar: Grammar;
 }
 
 /**
  * Jexl is the Javascript Expression Language, capable of parsing and
  * evaluating basic to complex expression strings, combined with advanced
- * xpath-like drilldown into native Javascript objects.
+ * xpath-like drill down into native Javascript objects.
  */
 declare class BuildableJexl extends Jexl {
     Jexl: { new(): Jexl };

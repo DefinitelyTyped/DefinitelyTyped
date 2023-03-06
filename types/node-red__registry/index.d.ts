@@ -1,4 +1,4 @@
-// Type definitions for @node-red/registry 1.1
+// Type definitions for @node-red/registry 1.2
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/registry, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,7 +25,7 @@ export = registry;
 declare namespace registry {
     interface RegistryModule {} // tslint:disable-line:no-empty-interface
 
-    interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred> {
+    interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;
     }
     interface NodeSetting<T> {
@@ -51,12 +51,12 @@ declare namespace registry {
          * @param constructor - the constructor function for this node type
          * @param opts - optional additional options for the node
          */
-        registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds>(
+        registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
-            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // tslint:disable-line:no-unnecessary-generics
+            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line no-unnecessary-generics
             opts?: {
                 credentials?: NodeCredentials<TCreds> | undefined;
-                settings?: NodeSettings<TSets> | undefined; // tslint:disable-line:no-unnecessary-generics
+                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line no-unnecessary-generics
             },
         ): void;
 
@@ -131,6 +131,7 @@ declare namespace registry {
         log: NodeApiLog;
         settings: TSets;
         events: EventEmitter;
+        hooks: util.Hooks;
         util: util.Util;
         version(): Promise<string>;
         require(id: string): any;

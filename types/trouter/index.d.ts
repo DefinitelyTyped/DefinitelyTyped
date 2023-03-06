@@ -1,6 +1,6 @@
 // Type definitions for trouter 3.1
 // Project: https://github.com/lukeed/trouter
-// Definitions by: Markus Lanz <https://github.com/stahlstift>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

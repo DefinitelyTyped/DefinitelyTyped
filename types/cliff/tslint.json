@@ -1,7 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "no-useless-files": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

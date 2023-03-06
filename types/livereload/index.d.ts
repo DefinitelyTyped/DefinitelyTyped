@@ -3,13 +3,13 @@
 // Definitions by: Hector Osuna <https://github.com/FanGoH/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Server as WebSocketServer } from 'ws';
+import { Server as WebSocketServer, WebSocket } from 'ws';
 import { Server as httpServer } from 'http';
 import { Server as httpsServer, ServerOptions } from 'https';
 import { EventEmitter } from 'events';
 import { FSWatcher } from 'fs';
 
-interface ServerConfig {
+export interface ServerConfig {
     /** Protocol Version defaults to "7" */
     version?: string | undefined;
     /** Sets server port number: Defaults to 35729 */
@@ -37,14 +37,14 @@ interface ServerConfig {
 }
 
 /** Create Server Parameters */
-interface CreateServerConfig extends ServerConfig {
+export interface CreateServerConfig extends ServerConfig {
     https?: ServerOptions | undefined;
     server?: httpServer | httpsServer | undefined;
     noListen?: boolean | undefined;
 }
 
 /** Live Reload Server object, provides main functionality */
-declare class LiveReloadServer extends EventEmitter {
+export class LiveReloadServer extends EventEmitter {
     config: ServerConfig;
     watcher: FSWatcher;
     server: WebSocketServer;

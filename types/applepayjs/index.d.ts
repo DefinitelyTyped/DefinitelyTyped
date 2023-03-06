@@ -181,6 +181,35 @@ declare class ApplePaySession extends EventTarget {
     static readonly STATUS_PIN_REQUIRED: number;
 }
 
+/**
+ * A customizable error type that you create to indicate problems with the address or contact information on an Apple Pay sheet.
+ */
+declare class ApplePayError implements ApplePayJS.ApplePayError {
+    /**
+     * Construct a new ApplePayError instance.
+     *
+     * @param errorCode - The error code for the new instance.
+     * @param contactField - The name of the field that contains the error.
+     * @param message - A localized, user-facing string that describes the error.
+     */
+    constructor(errorCode: ApplePayJS.ApplePayErrorCode, contactField?: ApplePayJS.ApplePayErrorContactField, message?: string);
+
+    /**
+     * The error code for this instance.
+     */
+    code: ApplePayJS.ApplePayErrorCode;
+
+    /**
+     * The name of the field that contains the error.
+     */
+    contactField?: ApplePayJS.ApplePayErrorContactField | undefined;
+
+    /**
+     * A localized, user-facing string that describes the error.
+     */
+    message: string;
+}
+
 declare namespace ApplePayJS {
     /**
      * Field names used for requesting contact information in a payment request.
@@ -455,6 +484,11 @@ declare namespace ApplePayJS {
          * The payment pass object currently selected to complete the payment.
          */
         paymentPass: ApplePayPaymentPass;
+
+        /**
+         * The billing contact associated with the card.
+         */
+        billingContact?: ApplePayPaymentContact | undefined;
     }
 
     /**

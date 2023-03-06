@@ -24,6 +24,8 @@ declare namespace ReactMasonryLayoutExport {
     }
 
     interface MasonryLayoutProps {
+        children: React.ReactElement[];
+
         id: string;
 
         /**

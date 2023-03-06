@@ -117,3 +117,16 @@ const StyledContent = React.forwardRef<HTMLDivElement, React.ComponentPropsWitho
 const StyledOverlay = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(({ children, className, ...props }, ref) => {
   return <div {...props} className={`sc-overlay ${className}`} ref={ref}>{children}</div>;
 });
+
+// tests for `appElement`
+const el1 = document.createElement("div");
+const el2 = document.getElementById("foo");
+const el1Children = el1.children;
+const fooClassList = document.querySelectorAll(".foo");
+
+const appElementTestHtmlElement = <ReactModal isOpen appElement={el1} />;
+const appElementTestHtmlElementArray = <ReactModal isOpen appElement={[el1, el2]} />;
+const appElementTestHtmlCollection = <ReactModal isOpen appElement={el1Children} />;
+const appElementTestNodeList = <ReactModal isOpen appElement={fooClassList} />;
+// @ts-expect-error
+const appElementTestExpectError = <ReactModal isOpen appElement={{}} />;

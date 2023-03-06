@@ -10,7 +10,6 @@
 //                 Saad Tazi <https://github.com/saadtazi>
 //                 Agustin N. R. Ramirez <https://github.com/agustin107>
 //                 Chancellor Clark <https://github.com/chanceaclark>
-//                 Benoît Sepe <https://github.com/ogdentrod>
 //                 Andre Nguyen <https://github.com/andrenguyener>
 //                 Qingqi Shi <https://github.com/qingqishi>
 //                 Jonathan Southern <https://github.com/JonathanSouthern>
@@ -26,6 +25,7 @@ declare module 'react-jsonschema-form' {
     };
 
     export interface FormProps<T> {
+        children?: React.ReactNode;
         /** Form schema */
         schema: JSONSchema6;
         /** If true, disabled prop is passed down to each field on the form */

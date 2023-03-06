@@ -36,6 +36,7 @@ export namespace Typist {
 }
 
 export interface TypistProps {
+    children?: React.ReactNode;
     className?: string | undefined;
     avgTypingDelay?: number | undefined;
     stdTypingDelay?: number | undefined;

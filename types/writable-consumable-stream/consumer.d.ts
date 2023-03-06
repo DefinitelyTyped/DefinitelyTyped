@@ -12,7 +12,6 @@ declare class Consumer<T> implements ConsumableStream.Consumer<T> {
 
     getStats(): Consumer.ConsumerStats;
 
-    resetBackpressure(): void;
     releaseBackpressure(packet: any): void;
     getBackpressure(): number;
 
@@ -22,6 +21,8 @@ declare class Consumer<T> implements ConsumableStream.Consumer<T> {
 
     next(): Promise<IteratorResult<T>>;
     return(): {};
+
+    [Symbol.asyncIterator](): AsyncIterator<T>;
 }
 
 export = Consumer;

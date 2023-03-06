@@ -19,11 +19,11 @@ interface State {
 const screen = Dimensions.get('window');
 
 class Example extends React.Component<{}, State> {
-  modal1: Modal;
-  modal2: Modal;
-  modal3: Modal;
+  modal1: Modal | null = null;
+  modal2: Modal | null = null;
+  modal3: Modal | null = null;
   modal4: Modal;
-  modal6: Modal;
+  modal6: Modal | null = null;
 
   state = {
     isOpen: false,
@@ -61,11 +61,11 @@ class Example extends React.Component<{}, State> {
 
     return (
       <View style={styles.wrapper}>
-        <Button title=" Basic modal" onPress={() => this.modal1.open()} />
-        <Button title="Position top" onPress={() => this.modal2.open()} />
+        <Button title=" Basic modal" onPress={() => this.modal1!.open()} />
+        <Button title="Position top" onPress={() => this.modal2!.open()} />
         <Button
           title="Position centered + backdrop + disable"
-          onPress={() => this.modal3.open()}
+          onPress={() => this.modal3!.open()}
         />
         <Button
           title="Position bottom + backdrop + slider"
@@ -77,12 +77,12 @@ class Example extends React.Component<{}, State> {
         />
         <Button
           title=" Position bottom + ScrollView"
-          onPress={() => this.modal6.open()}
+          onPress={() => this.modal6!.open()}
         />
 
         <Modal
           style={styles.modal}
-          ref={(ref: Modal) => (this.modal1 = ref)}
+          ref={(ref: Modal | null) => (this.modal1 = ref)}
           swipeToClose={this.state.swipeToClose}
           onClosed={() => this.onClose()}
           onOpened={() => this.onOpen()}
@@ -102,7 +102,7 @@ class Example extends React.Component<{}, State> {
           style={[styles.modal, styles.modal2]}
           backdrop={false}
           position={'top'}
-          ref={(ref: Modal) => (this.modal2 = ref)}
+          ref={(ref: Modal | null) => (this.modal2 = ref)}
         >
           <Text style={[styles.text, { color: 'white' }]}>Modal on top</Text>
         </Modal>
@@ -110,7 +110,7 @@ class Example extends React.Component<{}, State> {
         <Modal
           style={[styles.modal, styles.modal3]}
           position={'center'}
-          ref={(ref: Modal) => (this.modal3 = ref)}
+          ref={(ref: Modal | null) => (this.modal3 = ref)}
           isDisabled={this.state.isDisabled}
         >
           <Text style={styles.text}>Modal centered</Text>
@@ -134,7 +134,7 @@ class Example extends React.Component<{}, State> {
         <Modal
           style={[styles.modal, styles.modal4]}
           position={'bottom'}
-          ref={(ref: Modal) => (this.modal6 = ref)}
+          ref={(ref: Modal | null) => (this.modal6 = ref)}
           swipeArea={20}
         >
           <ScrollView>

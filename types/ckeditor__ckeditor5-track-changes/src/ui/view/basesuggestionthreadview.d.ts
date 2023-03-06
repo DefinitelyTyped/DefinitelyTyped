@@ -4,7 +4,7 @@ import { View } from '@ckeditor/ckeditor5-ui';
 import { Locale } from '@ckeditor/ckeditor5-utils';
 import Suggestion from '../../suggestion';
 
-export default class BaseSuggestionThreadView extends View {
+export default abstract class BaseSuggestionThreadView extends View {
     readonly commentThreadInputView: View | null;
     readonly commentsListView: View | null;
     createdAt: Date;
@@ -12,7 +12,8 @@ export default class BaseSuggestionThreadView extends View {
     isActive: boolean;
     isDirty: boolean;
     isEnabled: boolean;
-    readonly length: number;
+    get length(): number;
+    protected set length(value: number);
 
     constructor(
         locale: Locale,
@@ -30,5 +31,3 @@ export default class BaseSuggestionThreadView extends View {
     );
     focus(): void;
 }
-
-export {};

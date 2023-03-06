@@ -16,10 +16,10 @@ declare global {
 
 export namespace Plaid {
     interface CreateConfig {
-        clientName: string;
-        product: Product[];
-        key: string;
-        env: Environment;
+        clientName?: string | undefined;
+        product?: Product[] | undefined;
+        key?: string | undefined;
+        env?: Environment | undefined;
         onSuccess: OnSuccess;
         onExit?: OnExit | undefined;
         onEvent?: OnEvent | undefined;
@@ -35,6 +35,7 @@ export namespace Plaid {
         oauthNonce?: string | undefined;
         oauthRedirectUri?: string | undefined;
         oauthStateId?: string | undefined;
+        receivedRedirectUri?: string | null | undefined;
     }
 
     type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
@@ -43,7 +44,7 @@ export namespace Plaid {
     type OnLoad = () => void;
 
     interface LinkHandler {
-        open: () => void;
+        open: (institution_id?: string) => void; // the connect flow skips the 'Select your bank' step if `institution_id` is provided
         exit: (options?: ExitOptions) => void;
         destroy: () => void;
         institutions: Institution[];

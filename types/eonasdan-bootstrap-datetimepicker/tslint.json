@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
-        "dt-header": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
         "max-line-length": false,

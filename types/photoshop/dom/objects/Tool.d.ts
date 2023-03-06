@@ -1,10 +1,8 @@
 /**
+ * WIP. For now, only contains an id field. In the future, this may become a class.
  *
  * @targetfolder objects
  * @optionobject
- */
-/**
- * WIP. For now, only contains an id field. In the future, this may become a class.
  */
 export declare class Tool {
     /**

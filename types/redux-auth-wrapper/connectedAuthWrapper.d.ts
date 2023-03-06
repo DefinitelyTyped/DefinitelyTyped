@@ -1,4 +1,4 @@
-import { ReactType } from "react";
+import { ElementType } from "react";
 import { AuthBaseConfig, AuthWrapperDecorator } from ".";
 import { AuthWrapperConfig, InjectedAuthProps } from "./authWrapper";
 

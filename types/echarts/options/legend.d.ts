@@ -91,13 +91,13 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            width?: number | undefined;
+            width?: string | number | undefined;
             /**
              * Height of legend component. Adaptive by default.
              *
              * @default 'auto'
              */
-            height?: number | undefined;
+            height?: string | number | undefined;
             /**
              * The layout orientation of legend.
              *

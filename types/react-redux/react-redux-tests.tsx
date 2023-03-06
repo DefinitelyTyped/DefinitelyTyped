@@ -4,11 +4,9 @@ import * as ReactDOM from 'react-dom';
 import {
     Store,
     Dispatch,
-    AnyAction,
     ActionCreator,
     createStore,
     bindActionCreators,
-    ActionCreatorsMapObject,
     Reducer,
 } from 'redux';
 import {
@@ -18,7 +16,6 @@ import {
     Provider,
     DispatchProp,
     MapStateToProps,
-    Options,
     ReactReduxContext,
     ReactReduxContextValue,
     Selector,
@@ -351,6 +348,56 @@ function MapStateFactoryAndDispatchFactory() {
     const verify = <Test foo='bar' />;
 }
 
+function MapNothingAndMerge() {
+    interface OwnProps { foo: string; }
+    interface MergedProps { onClick: () => void; }
+
+    class TestComponent extends React.Component<MergedProps> { }
+
+    const actionCreator = (foo: string) => ({ type: 'AN_ACTION', foo });
+
+    const mergeProps = (stateProps: undefined, { dispatch }: DispatchProp, ownProps: OwnProps) => (
+        { onClick: () => dispatch(actionCreator(ownProps.foo)) }
+    );
+
+    const Test = connect(
+        null,
+        null,
+        mergeProps
+    )(TestComponent);
+
+    const verify = <Test foo='bar' />;
+}
+
+function MapStateAndMerge() {
+    interface OwnProps { foo: string; }
+    interface StateProps { bar: number; }
+    interface MergedProps {
+        bar: number;
+        onClick: () => void;
+    }
+
+    class TestComponent extends React.Component<MergedProps> { }
+
+    const actionCreator = (foo: string) => ({ type: 'AN_ACTION', foo });
+
+    const mapStateToProps = (stateProps: StateProps, ownProps: OwnProps) => ({
+        bar: 1
+    });
+
+    const mergeProps = (stateProps: StateProps, { dispatch }: DispatchProp, ownProps: OwnProps) => (
+        { ...stateProps, onClick: () => dispatch(actionCreator(ownProps.foo)) }
+    );
+
+    const Test = connect(
+        mapStateToProps,
+        null,
+        mergeProps
+    )(TestComponent);
+
+    const verify = <Test foo='bar' />;
+}
+
 function MapStateAndDispatchAndMerge() {
     interface OwnProps { foo: string; }
     interface StateProps { bar: number; }
@@ -479,7 +526,7 @@ const targetEl = document.getElementById('root');
 
 ReactDOM.render((
     <Provider store={store}>
-        {() => <App />}
+        <App />
     </Provider>
 ), targetEl);
 
@@ -511,7 +558,7 @@ declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
 
 ReactDOM.render(
     <Provider store={store}>
-        {() => <MyRootComponent />}
+        <MyRootComponent />
     </Provider>,
     document.body
 );
@@ -619,14 +666,15 @@ const WrappedTestComponent = connect()(TestComponent);
 const ADecoratedTestComponent: React.NamedExoticComponent<TestProp> = WrappedTestComponent;
 <WrappedTestComponent property1={42} />;
 
-const ATestComponent: React.NamedExoticComponent<TestProp> = TestComponent;  // $ExpectError
+// @ts-expect-error
+const ATestComponent: React.NamedExoticComponent<TestProp> = TestComponent;
 
 // stateless functions
 interface HelloMessageProps {
     dispatch: Dispatch;
     name: string;
 }
-const HelloMessage: React.StatelessComponent<HelloMessageProps> = (props) => {
+const HelloMessage: React.FunctionComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 };
 const ConnectedHelloMessage = connect()(HelloMessage);
@@ -890,7 +938,7 @@ function TestDispatchToPropsAsObject() {
     };
 
     type Props = { title: string; } & typeof dispatchToProps;
-    const HeaderComponent: React.StatelessComponent<Props> = (props) => {
+    const HeaderComponent: React.FunctionComponent<Props> = (props) => {
         return <h1>{props.title}</h1>;
     };
 
@@ -948,7 +996,7 @@ function TestWrappedComponent() {
     interface InnerProps {
         name: string;
     }
-    const Inner: React.StatelessComponent<InnerProps> = (props) => {
+    const Inner: React.FunctionComponent<InnerProps> = (props) => {
         return <h1>{props.name}</h1>;
     };
 
@@ -985,7 +1033,7 @@ function TestWithoutTOwnPropsDecoratedInference() {
         }
     }
 
-    const WithoutOwnPropsComponentStateless: React.StatelessComponent<ForwardedProps & StateProps & DispatchProp<any>> = () => (<div />);
+    const WithoutOwnPropsComponentStateless: React.FunctionComponent<ForwardedProps & StateProps & DispatchProp<any>> = () => (<div />);
 
     function mapStateToProps4(state: any, ownProps: OwnProps): StateProps {
         return { state: 'string' };
@@ -1002,16 +1050,20 @@ function TestWithoutTOwnPropsDecoratedInference() {
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
 
     // This should not compile, it is missing ForwardedProps
-    React.createElement(ConnectedWithOwnPropsClass, { own: 'string' }); // $ExpectError
-    React.createElement(ConnectedWithOwnPropsStateless, { own: 'string' }); // $ExpectError
+    // @ts-expect-error
+    React.createElement(ConnectedWithOwnPropsClass, { own: 'string' });
+    // @ts-expect-error
+    React.createElement(ConnectedWithOwnPropsStateless, { own: 'string' });
 
     // This should compile
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
     React.createElement(ConnectedWithOwnPropsStateless, { own: 'string', forwarded: 'string' });
 
     // This should not compile, it is missing ForwardedProps
-    React.createElement(ConnectedWithTypeHintClass, { own: 'string' });  // $ExpectError
-    React.createElement(ConnectedWithTypeHintStateless, { own: 'string' });  // $ExpectError
+    // @ts-expect-error
+    React.createElement(ConnectedWithTypeHintClass, { own: 'string' });
+    // @ts-expect-error
+    React.createElement(ConnectedWithTypeHintStateless, { own: 'string' });
 
     interface AllProps {
         own: string;
@@ -1173,11 +1225,13 @@ function TestFailsMoreSpecificInjectedProps() {
 
     // Since it is possible the injected props could fail to satisfy the decoration props,
     // the following line should fail to compile.
-    connect(mapStateToProps, mapDispatchToProps)(Component); // $ExpectError
+    // @ts-expect-error
+    connect(mapStateToProps, mapDispatchToProps)(Component);
 
     // Confirm that this also fails with functional components
     const FunctionalComponent = (props: MoreSpecificDecorationProps) => null;
-    connect(mapStateToProps, mapDispatchToProps)(Component); // $ExpectError
+    // @ts-expect-error
+    connect(mapStateToProps, mapDispatchToProps)(Component);
 }
 
 function TestLibraryManagedAttributes() {
@@ -1292,7 +1346,8 @@ function TestNonReactStatics() {
     // However, ConnectedComponent is still a ComponentClass, which specifies `defaultProps`
     // as an optional static member. We can force an error (and assert that `defaultProps`
     // wasn't hoisted) by reaching into the `defaultProps` object without a null check.
-    ConnectedComponent.defaultProps.bar; // $ExpectError
+    // @ts-expect-error
+    ConnectedComponent.defaultProps.bar;
 }
 
 function TestProviderContext() {
@@ -1300,7 +1355,8 @@ function TestProviderContext() {
     const nullContext = React.createContext(null);
 
     // To ensure type safety when consuming the context in an app, a null-context does not suffice.
-    <Provider store={store} context={nullContext}></Provider>; // $ExpectError
+    // @ts-expect-error
+    <Provider store={store} context={nullContext}></Provider>;
 
     // Providing a an object of the correct type ensures type safety when consuming the context.
     const initialContextValue: ReactReduxContextValue = { storeState: null, store };
@@ -1318,7 +1374,8 @@ function TestProviderContext() {
     </Provider>;
 
     // Null is not a valid value for the context.
-    <Provider store={store} context={null} />; // $ExpectError
+    // @ts-expect-error
+    <Provider store={store} context={null} />;
 }
 
 function TestSelector() {
@@ -1332,13 +1389,17 @@ function TestSelector() {
     const state = { key: 'value' };
     simpleSelect(state);
     notSimpleSelect(state, ownProps);
-    simpleSelect(state, ownProps); // $ExpectError
-    notSimpleSelect(state); // $ExpectError
+    // @ts-expect-error
+    simpleSelect(state, ownProps);
+    // @ts-expect-error
+    notSimpleSelect(state);
 }
 
 function testShallowEqual() {
-    shallowEqual(); // $ExpectError
-    shallowEqual('a'); // $ExpectError
+    // @ts-expect-error
+    shallowEqual();
+    // @ts-expect-error
+    shallowEqual('a');
     shallowEqual('a', 'a');
     shallowEqual({ test: 'test' }, { test: 'test' });
     shallowEqual({ test: 'test' }, 'a');
@@ -1383,14 +1444,18 @@ function testUseSelector() {
     };
     const { counter, active } = useSelector(selector);
     counter === 1;
-    counter === "321"; // $ExpectError
+    // @ts-expect-error
+    counter === "321";
     active === "hi";
-    active === {}; // $ExpectError
+    // @ts-expect-error
+    active === {};
 
-    const { extraneous } = useSelector(selector); // $ExpectError
+    // @ts-expect-error
+    const { extraneous } = useSelector(selector);
     useSelector(selector);
 
-    useSelector(selector, 'a'); // $ExpectError
+    // @ts-expect-error
+    useSelector(selector, 'a');
     useSelector(selector, (l, r) => l === r);
     useSelector(selector, (l, r) => {
         // $ExpectType { counter: number; active: string; }
@@ -1399,12 +1464,14 @@ function testUseSelector() {
     });
 
     const correctlyInferred: State = useSelector(selector, shallowEqual);
-    const inferredTypeIsNotString: string = useSelector(selector, shallowEqual); // $ExpectError
+    // @ts-expect-error
+    const inferredTypeIsNotString: string = useSelector(selector, shallowEqual);
 
     const compare = (_l: number, _r: number) => true;
     useSelector(() => 1, compare);
     const compare2 = (_l: number, _r: string) => true;
-    useSelector(() => 1, compare2); // $ExpectError
+    // @ts-expect-error
+    useSelector(() => 1, compare2);
 
     interface RootState {
         property: string;
@@ -1436,7 +1503,8 @@ function testUseStore() {
     const typedStore = useStore<TypedState, TypedAction>();
     const typedState = typedStore.getState();
     typedState.counter;
-    typedState.things.stuff; // $ExpectError
+    // @ts-expect-error
+    typedState.things.stuff;
 }
 
 // These should match the types of the hooks.
@@ -1505,7 +1573,8 @@ function testConnectedPropsWithStateAndActions() {
         return null;
     };
 
-    const ComponentWithDispatch: React.FC<OwnProps & ReduxProps> = ({ own, dispatch }) => null; // $ExpectError
+    // @ts-expect-error
+    const ComponentWithDispatch: React.FC<OwnProps & ReduxProps> = ({ own, dispatch }) => null;
 
     const connector = connect(
         (state: any) => ({ injected: '' }),
@@ -1522,7 +1591,8 @@ function testConnectReturnType() {
     const Test = connect()(TestComponent);
 
     const myHoc1 = <P, >(C: React.ComponentClass<P>): React.ComponentType<P> => C;
-    myHoc1(Test); // $ExpectError
+    // @ts-expect-error
+    myHoc1(Test);
 
     const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
     myHoc2(Test);
@@ -1539,28 +1609,36 @@ function testRef() {
 
     // Should not be able to pass any type of ref to a FunctionalComponent
     // ref is not a valid property
-    <ConnectedFunctionalComponent ref={React.createRef<any>()}></ConnectedFunctionalComponent>; // $ExpectError
-    <ConnectedFunctionalComponent ref={(ref: any) => {}}></ConnectedFunctionalComponent>; // $ExpectError
-    <ConnectedFunctionalComponent ref={''}></ConnectedFunctionalComponent>; // $ExpectError
+    // @ts-expect-error
+    <ConnectedFunctionalComponent ref={React.createRef<any>()}></ConnectedFunctionalComponent>;
+    // @ts-expect-error
+    <ConnectedFunctionalComponent ref={(ref: any) => {}}></ConnectedFunctionalComponent>;
+    // @ts-expect-error
+    <ConnectedFunctionalComponent ref={''}></ConnectedFunctionalComponent>;
 
     // Should be able to pass modern refs to a ForwardRefExoticComponent
     const modernRef: React.Ref<string> | undefined = undefined;
     <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
     // Should not be able to use legacy string refs
-    <ConnectedForwardedFunctionalComponent ref={''}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    // @ts-expect-error
+    <ConnectedForwardedFunctionalComponent ref={''}></ConnectedForwardedFunctionalComponent>;
     // ref type should agree with type of the forwarded ref
-    <ConnectedForwardedFunctionalComponent ref={React.createRef<number>()}></ConnectedForwardedFunctionalComponent>; // $ExpectError
-    <ConnectedForwardedFunctionalComponent ref={(ref: number) => {}}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    // @ts-expect-error
+    <ConnectedForwardedFunctionalComponent ref={React.createRef<number>()}></ConnectedForwardedFunctionalComponent>;
+    // @ts-expect-error
+    <ConnectedForwardedFunctionalComponent ref={(ref: number) => {}}></ConnectedForwardedFunctionalComponent>;
 
     // Should be able to use all refs including legacy string
     const classLegacyRef: React.LegacyRef<ClassComponent> | undefined = undefined;
     <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
-    <ConnectedClassComponent ref={(ref: ClassComponent) => {}}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={(ref: ClassComponent | null) => {}}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={''}></ConnectedClassComponent>;
     // ref type should be the typeof the wrapped component
-    <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
-    <ConnectedClassComponent ref={(ref: string) => {}}></ConnectedClassComponent>; // $ExpectError
+    // @ts-expect-error
+    <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>;
+    // @ts-expect-error
+    <ConnectedClassComponent ref={(ref: string) => {}}></ConnectedClassComponent>;
 }
 
 function testConnectDefaultState() {
@@ -1597,7 +1675,31 @@ function testPreserveDiscriminatedUnions() {
     const someParams = { key: 'value', foo: 'bar' };
 
     <ConnectedMyText type="plain" color="red" />;
-    <ConnectedMyText type="plain" color="red" params={someParams} />; // $ExpectError
-    <ConnectedMyText type="localized" color="red" />; // $ExpectError
+    // @ts-expect-error
+    <ConnectedMyText type="plain" color="red" params={someParams} />;
+    // @ts-expect-error
+    <ConnectedMyText type="localized" color="red" />;
     <ConnectedMyText type="localized" color="red" params={someParams} />;
+}
+
+/**
+ * The `withStyles` HOC in MUI returns a `JSXElementConstructor` instead of a `ComponentType` as of
+ * https://github.com/mui/material-ui/pull/24746.
+ */
+interface Props {
+    foo: number;
+    bar: boolean;
+}
+declare const TestComponentJSXElementConstructorIsAllowed: React.JSXElementConstructor<Props>;
+
+function testJSXElementConstructorIsAllowed() {
+    interface StoreState {
+        stateThings: number;
+    }
+    const mapStateToProps = (state: StoreState) => ({
+        foo: state.stateThings,
+    });
+
+    const ConnectedComponent = connect(mapStateToProps)(TestComponentJSXElementConstructorIsAllowed);
+    <ConnectedComponent bar />;
 }

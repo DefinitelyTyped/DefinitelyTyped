@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PDFDocumentProxy } from 'pdfjs-dist';
+import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
 
 export type RenderFunction = () => JSX.Element;
 
@@ -20,6 +20,12 @@ export interface Props {
      * @default 'Failed to load PDF file.'
      */
     error?: string | React.ReactElement | RenderFunction | undefined;
+
+    /**
+     * Link rel for links rendered in annotations.
+     * @default 'noopener noreferrer nofollow'
+     */
+    externalLinkRel?: string | undefined;
 
     /**
      * Defines link target for external links rendered in annotations.
@@ -90,7 +96,7 @@ export interface Props {
      * Function called when a password-protected PDF is loaded.
      * Defaults to a function that prompts the user for password.
      */
-    onPassword?: ((callback: (password: string) => void, reason: string) => void) | undefined;
+    onPassword?: ((callback: (password: string) => void, reason: number) => void) | undefined;
 
     /**
      * Function called in case of an error while retrieving document source from `file` prop.

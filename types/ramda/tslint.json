@@ -1,7 +1,6 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-construct": false,
-        "no-unnecessary-generics": false
+        "no-construct": false
     }
 }

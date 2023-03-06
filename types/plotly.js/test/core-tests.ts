@@ -1,46 +1,55 @@
 import * as Plotly from 'plotly.js/lib/core';
-import { Datum, ScatterData, Layout, newPlot, PlotData, ViolinData, CandlestickData, PieData } from 'plotly.js/lib/core';
+import {
+    Datum,
+    ScatterData,
+    Layout,
+    newPlot,
+    PlotData,
+    ViolinData,
+    CandlestickData,
+    PieData,
+} from 'plotly.js/lib/core';
 
 const graphDiv = '#test';
+const trace1 = {
+    x: [1999, 2000, 2001, 2002],
+    y: [10, 15, 13, 17],
+    customdata: [1, 2, 3],
+    type: 'scatter',
+} as ScatterData;
+const trace2 = {
+    x: [1999, 2000, 2001, 2002],
+    y: [16, 5, 11, 9],
+    customdata: [
+        [1, 'a'],
+        [2, 'b'],
+        [3, 'c'],
+    ],
+    type: 'scatter',
+} as ScatterData;
+const data = [trace1, trace2];
+const tickangle: 'auto' = 'auto';
+const layout = {
+    title: 'Sales Growth',
+    xaxis: {
+        title: 'Year',
+        showgrid: false,
+        zeroline: false,
+        tickangle,
+    },
+    yaxis: {
+        title: 'Percent',
+        showline: false,
+    },
+    uirevision: 'true',
+    datarevision: 0,
+    editrevision: 0,
+    selectionrevision: 0,
+};
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
 (() => {
-    const trace1 = {
-        x: [1999, 2000, 2001, 2002],
-        y: [10, 15, 13, 17],
-        customdata: [1, 2, 3],
-        type: 'scatter',
-    } as ScatterData;
-    const trace2 = {
-        x: [1999, 2000, 2001, 2002],
-        y: [16, 5, 11, 9],
-        customdata: [
-            [1, 'a'],
-            [2, 'b'],
-            [3, 'c'],
-        ],
-        type: 'scatter',
-    } as ScatterData;
-    const data = [trace1, trace2];
-    const tickangle: "auto" = "auto";
-    const layout = {
-        title: 'Sales Growth',
-        xaxis: {
-            title: 'Year',
-            showgrid: false,
-            zeroline: false,
-            tickangle
-        },
-        yaxis: {
-            title: 'Percent',
-            showline: false,
-        },
-        uirevision: 'true',
-        datarevision: 0,
-        editrevision: 0,
-        selectionrevision: 0
-    };
     Plotly.newPlot(graphDiv, data, layout);
 
     const violinTrace = {
@@ -94,35 +103,9 @@ const graphDiv = '#test';
             '2017-02-15',
         ],
         close: [
-            116.019997,
-            116.610001,
-            117.910004,
-            118.989998,
-            119.110001,
-            119.75,
-            119.25,
-            119.040001,
-            120,
-            119.989998,
-            119.779999,
-            120,
-            120.080002,
-            119.970001,
-            121.879997,
-            121.940002,
-            121.949997,
-            121.629997,
-            121.349998,
-            128.75,
-            128.529999,
-            129.080002,
-            130.289993,
-            131.529999,
-            132.039993,
-            132.419998,
-            132.119995,
-            133.289993,
-            135.020004,
+            116.019997, 116.610001, 117.910004, 118.989998, 119.110001, 119.75, 119.25, 119.040001, 120, 119.989998,
+            119.779999, 120, 120.080002, 119.970001, 121.879997, 121.940002, 121.949997, 121.629997, 121.349998, 128.75,
+            128.529999, 129.080002, 130.289993, 131.529999, 132.039993, 132.419998, 132.119995, 133.289993, 135.020004,
             135.509995,
         ],
         decreasing: {
@@ -131,36 +114,10 @@ const graphDiv = '#test';
             },
         },
         high: [
-            116.510002,
-            116.860001,
-            118.160004,
-            119.43,
-            119.379997,
-            119.93,
-            119.300003,
-            119.620003,
-            120.239998,
-            120.5,
-            120.089996,
-            120.449997,
-            120.809998,
-            120.099998,
-            122.099998,
-            122.440002,
-            122.349998,
-            121.629997,
-            121.389999,
-            130.490005,
-            129.389999,
-            129.190002,
-            130.5,
-            132.089996,
-            132.220001,
-            132.449997,
-            132.940002,
-            133.820007,
-            135.089996,
-            136.270004,
+            116.510002, 116.860001, 118.160004, 119.43, 119.379997, 119.93, 119.300003, 119.620003, 120.239998, 120.5,
+            120.089996, 120.449997, 120.809998, 120.099998, 122.099998, 122.440002, 122.349998, 121.629997, 121.389999,
+            130.490005, 129.389999, 129.190002, 130.5, 132.089996, 132.220001, 132.449997, 132.940002, 133.820007,
+            135.089996, 136.270004,
         ],
         increasing: {
             line: {
@@ -168,68 +125,16 @@ const graphDiv = '#test';
             },
         },
         low: [
-            115.75,
-            115.809998,
-            116.470001,
-            117.940002,
-            118.300003,
-            118.599998,
-            118.209999,
-            118.809998,
-            118.220001,
-            119.709999,
-            119.370003,
-            119.730003,
-            119.769997,
-            119.5,
-            120.279999,
-            121.599998,
-            121.599998,
-            120.660004,
-            120.620003,
-            127.010002,
-            127.779999,
-            128.160004,
-            128.899994,
-            130.449997,
-            131.220001,
-            131.119995,
-            132.050003,
-            132.75,
-            133.25,
-            134.619995,
+            115.75, 115.809998, 116.470001, 117.940002, 118.300003, 118.599998, 118.209999, 118.809998, 118.220001,
+            119.709999, 119.370003, 119.730003, 119.769997, 119.5, 120.279999, 121.599998, 121.599998, 120.660004,
+            120.620003, 127.010002, 127.779999, 128.160004, 128.899994, 130.449997, 131.220001, 131.119995, 132.050003,
+            132.75, 133.25, 134.619995,
         ],
         open: [
-            115.849998,
-            115.919998,
-            116.779999,
-            117.949997,
-            118.769997,
-            118.739998,
-            118.900002,
-            119.110001,
-            118.339996,
-            120,
-            119.400002,
-            120.449997,
-            120,
-            119.550003,
-            120.419998,
-            121.669998,
-            122.139999,
-            120.93,
-            121.150002,
-            127.029999,
-            127.980003,
-            128.309998,
-            129.130005,
-            130.539993,
-            131.350006,
-            131.649994,
-            132.460007,
-            133.080002,
-            133.470001,
-            135.520004,
+            115.849998, 115.919998, 116.779999, 117.949997, 118.769997, 118.739998, 118.900002, 119.110001, 118.339996,
+            120, 119.400002, 120.449997, 120, 119.550003, 120.419998, 121.669998, 122.139999, 120.93, 121.150002,
+            127.029999, 127.980003, 128.309998, 129.130005, 130.539993, 131.350006, 131.649994, 132.460007, 133.080002,
+            133.470001, 135.520004,
         ],
         type: 'candlestick',
         xaxis: 'x',
@@ -344,13 +249,13 @@ const graphDiv = '#test';
             },
             hoverinfo: 'label+percent+name',
             textinfo: 'none',
-        }
+        },
     ];
 
     const layout = {
         height: 400,
         width: 500,
-        grid: {rows: 2, columns: 2},
+        grid: { rows: 2, columns: 2 },
     };
 
     Plotly.newPlot(graphDiv, data, layout);
@@ -361,10 +266,10 @@ const graphDiv = '#test';
         {
             values: [16, 15, 12, 6, 5, 4, 42],
             labels: ['US', 'China', 'European Union', 'Russian Federation', 'Brazil', 'India', 'Rest of World'],
-            domain: {column: 0},
+            domain: { column: 0 },
             name: 'GHG Emissions',
             hoverinfo: 'label+percent+name',
-            hole: .4,
+            hole: 0.4,
             type: 'pie',
         },
         {
@@ -372,12 +277,12 @@ const graphDiv = '#test';
             labels: ['US', 'China', 'European Union', 'Russian Federation', 'Brazil', 'India', 'Rest of World'],
             text: 'CO2',
             textposition: 'inside',
-            domain: {column: 1},
+            domain: { column: 1 },
             name: 'CO2 Emissions',
             hoverinfo: 'label+percent+name',
-            hole: .4,
+            hole: 0.4,
             type: 'pie',
-        }
+        },
     ];
 
     const layout = {
@@ -405,26 +310,29 @@ const graphDiv = '#test';
         height: 400,
         width: 600,
         showlegend: false,
-        grid: {rows: 1, columns: 2},
+        grid: { rows: 1, columns: 2 },
+        griddash: 'solid',
     };
 
     Plotly.newPlot('myDiv', data, layout);
 })();
 
 (() => {
-    const data: Array<Partial<PieData>> = [{
-        type: "pie",
-        values: [2, 3, 4, 4],
-        labels: ["Wages", "Operating expenses", "Cost of sales", "Insurance"],
-        textinfo: "label+percent",
-        textposition: "outside",
-        automargin: true,
-    }];
+    const data: Array<Partial<PieData>> = [
+        {
+            type: 'pie',
+            values: [2, 3, 4, 4],
+            labels: ['Wages', 'Operating expenses', 'Cost of sales', 'Insurance'],
+            textinfo: 'label+percent',
+            textposition: 'outside',
+            automargin: true,
+        },
+    ];
 
     const layout = {
         height: 400,
         width: 400,
-        margin: {t: 0, b: 0, l: 0, r: 0},
+        margin: { t: 0, b: 0, l: 0, r: 0 },
         showlegend: false,
     };
 
@@ -432,13 +340,15 @@ const graphDiv = '#test';
 })();
 
 (() => {
-    const data: Array<Partial<PieData>> = [{
-        type: "pie",
-        values: [2, 3, 4, 4],
-        labels: ["Wages", "Operating expenses", "Cost of sales", "Insurance"],
-        textinfo: "label+percent",
-        insidetextorientation: "radial",
-    }];
+    const data: Array<Partial<PieData>> = [
+        {
+            type: 'pie',
+            values: [2, 3, 4, 4],
+            labels: ['Wages', 'Operating expenses', 'Cost of sales', 'Insurance'],
+            textinfo: 'label+percent',
+            insidetextorientation: 'radial',
+        },
+    ];
 
     const layout = {
         height: 700,
@@ -675,6 +585,17 @@ function rand() {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
     Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600, scale: 2 }).then(dataUrl => {
+        // use the dataUrl
+    });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.toImage raw data input
+(() => {
+    // Plotly.toImage will turn the plot data into a data URL string
+    // toImage takes the data as the first argument and an object specifying image properties as the other
+    Plotly.toImage({ data, layout }, { format: 'png', width: 800, height: 600, scale: 2 }).then(dataUrl => {
         // use the dataUrl
     });
 })();

@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-engine 28.0
+// Type definitions for @ckeditor/ckeditor5-engine 32.0
 // Project: https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-engine
 // Definitions by: Federico Panico <https://github.com/fedemp>
 //                 denisname <https://github.com/denisname>
@@ -28,6 +28,7 @@ export { default as TreeWalker } from './src/model/treewalker';
 export { default as Element } from './src/model/element';
 
 export { default as DomConverter } from './src/view/domconverter';
+export { default as Renderer } from './src/view/renderer';
 export { default as ViewDocument } from './src/view/document';
 
 export { getFillerOffset } from './src/view/containerelement';

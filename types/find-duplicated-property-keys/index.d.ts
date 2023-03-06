@@ -24,11 +24,8 @@ declare namespace findDuplicatedPropertyKeys {
         /**
          * The number of property keys having the same key and parent object
          */
+
         occurrence: number;
-        /**
-         * Is this property an array
-         */
-        isArray: boolean;
 
         /**
          * Returns a list of property keys, which represents the path to the property key of the current object.

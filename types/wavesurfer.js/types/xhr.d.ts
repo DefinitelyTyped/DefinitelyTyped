@@ -4,7 +4,7 @@ export interface XHROptions {
     mode?: string | undefined;
     credentials?: string | undefined;
     cache?: string | undefined;
-    responseType?: "arraybuffer" | "blob" | "json" | "text" | undefined;
+    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text' | undefined;
     requestHeaders?: XHRRequestHeader[] | undefined;
     redirect?: string | undefined;
     referrer?: string | undefined;

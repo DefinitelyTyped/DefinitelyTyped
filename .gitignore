@@ -3,7 +3,6 @@
 *.cmd
 *.pdb
 *.suo
-*.js
 *.user
 *.cache
 *.cs
@@ -29,13 +28,6 @@ _infrastructure/tests/build
 # IntelliJ based IDEs
 .idea
 *.iml
-
-*.js.map
-!*.js/
-!scripts/new-package.js
-!scripts/not-needed.js
-!scripts/lint.js
-!scripts/close-old-issues.js
 
 # npm
 node_modules

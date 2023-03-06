@@ -434,7 +434,7 @@ const targetEl = document.getElementById('root');
 
 ReactDOM.render((
     <Provider store={store}>
-        {() => <App />}
+        <App />
     </Provider>
 ), targetEl);
 
@@ -466,7 +466,7 @@ declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
 
 ReactDOM.render(
     <Provider store={store}>
-        {() => <MyRootComponent />}
+        <MyRootComponent />
     </Provider>,
     document.body
 );
@@ -574,14 +574,15 @@ const WrappedTestComponent = connect()(TestComponent);
 const ADecoratedTestComponent: React.ComponentClass<TestProp> = WrappedTestComponent;
 <WrappedTestComponent property1={42} />;
 
-const ATestComponent: React.ComponentClass<TestProp> = TestComponent;  // $ExpectError
+// @ts-expect-error
+const ATestComponent: React.ComponentClass<TestProp> = TestComponent;
 
 // stateless functions
 interface HelloMessageProps {
     dispatch: Dispatch;
     name: string;
 }
-const HelloMessage: React.StatelessComponent<HelloMessageProps> = (props) => {
+const HelloMessage: React.FunctionComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 };
 const ConnectedHelloMessage = connect()(HelloMessage);
@@ -845,7 +846,7 @@ function TestDispatchToPropsAsObject() {
     };
 
     type Props = { title: string; } & typeof dispatchToProps;
-    const HeaderComponent: React.StatelessComponent<Props> = (props) => {
+    const HeaderComponent: React.FunctionComponent<Props> = (props) => {
         return <h1>{props.title}</h1>;
     };
 
@@ -903,7 +904,7 @@ function TestWrappedComponent() {
     interface InnerProps {
         name: string;
     }
-    const Inner: React.StatelessComponent<InnerProps> = (props) => {
+    const Inner: React.FunctionComponent<InnerProps> = (props) => {
         return <h1>{props.name}</h1>;
     };
 
@@ -984,7 +985,7 @@ function TestWithoutTOwnPropsDecoratedInference() {
         }
     }
 
-    const WithoutOwnPropsComponentStateless: React.StatelessComponent<ForwardedProps & StateProps & DispatchProp<any>> = () => (<div />);
+    const WithoutOwnPropsComponentStateless: React.FunctionComponent<ForwardedProps & StateProps & DispatchProp<any>> = () => (<div />);
 
     function mapStateToProps4(state: any, ownProps: OwnProps): StateProps {
         return { state: 'string' };
@@ -1001,16 +1002,20 @@ function TestWithoutTOwnPropsDecoratedInference() {
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
 
     // This should not compile, it is missing ForwardedProps
-    React.createElement(ConnectedWithOwnPropsClass, { own: 'string' }); // $ExpectError
-    React.createElement(ConnectedWithOwnPropsStateless, { own: 'string' }); // $ExpectError
+    // @ts-expect-error
+    React.createElement(ConnectedWithOwnPropsClass, { own: 'string' });
+    // @ts-expect-error
+    React.createElement(ConnectedWithOwnPropsStateless, { own: 'string' });
 
     // This should compile
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
     React.createElement(ConnectedWithOwnPropsStateless, { own: 'string', forwarded: 'string' });
 
     // This should not compile, it is missing ForwardedProps
-    React.createElement(ConnectedWithTypeHintClass, { own: 'string' });  // $ExpectError
-    React.createElement(ConnectedWithTypeHintStateless, { own: 'string' });  // $ExpectError
+    // @ts-expect-error
+    React.createElement(ConnectedWithTypeHintClass, { own: 'string' });
+    // @ts-expect-error
+    React.createElement(ConnectedWithTypeHintStateless, { own: 'string' });
 
     interface AllProps {
         own: string;
@@ -1172,11 +1177,13 @@ function TestFailsMoreSpecificInjectedProps() {
 
     // Since it is possible the injected props could fail to satisfy the decoration props,
     // the following line should fail to compile.
-    connect(mapStateToProps, mapDispatchToProps)(Component); // $ExpectError
+    // @ts-expect-error
+    connect(mapStateToProps, mapDispatchToProps)(Component);
 
     // Confirm that this also fails with functional components
     const FunctionalComponent = (props: MoreSpecificDecorationProps) => null;
-    connect(mapStateToProps, mapDispatchToProps)(Component); // $ExpectError
+    // @ts-expect-error
+    connect(mapStateToProps, mapDispatchToProps)(Component);
 }
 
 function TestLibraryManagedAttributes() {

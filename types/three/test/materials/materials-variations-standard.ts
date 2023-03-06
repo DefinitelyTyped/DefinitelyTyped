@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
+import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 const container = document.createElement('div');
 
@@ -10,13 +12,13 @@ const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 let particleLight: THREE.Mesh;
 
-const loader = new THREE.FontLoader();
+const loader = new FontLoader();
 loader.load('fonts/gentilis_regular.typeface.json', font => {
     init(font);
     animate();
 });
 
-function init(font: THREE.Font) {
+function init(font: Font) {
     document.body.appendChild(container);
 
     camera.position.set(0.0, 400, 400 * 3.5);
@@ -83,7 +85,7 @@ function init(font: THREE.Font) {
         });
 
     function addLabel(name: string, location: THREE.Vector3) {
-        const textGeo = new THREE.TextGeometry(name, {
+        const textGeo = new TextGeometry(name, {
             font,
 
             size: 20,

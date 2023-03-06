@@ -30,6 +30,11 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     readonly volumeThreshold: number;
 
     /**
+     * Execute the action for this circuit with a provided this argument
+     */
+    call(context: any, ...args: TI): Promise<TR>;
+
+    /**
      * Clears the cache of this CircuitBreaker
      */
     clearCache(): void;
@@ -189,7 +194,7 @@ declare namespace CircuitBreaker {
         enabled?: boolean | undefined;
 
         /**
-         * Determines whether to allow failures without opening the circuit during a brief warmup period (`rollingCountDuration`)
+         * Determines whether to allow failures without opening the circuit during a brief warmup period (`rollingCountTimeout`)
          * This can help in situations where no matter what your `errorThresholdPercentage` is, if the
          * first execution times out or fails, the circuit immediately opens.
          * @default false

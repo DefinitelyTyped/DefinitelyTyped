@@ -7,7 +7,7 @@
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
 import { CSSProperties, ReactNode } from 'react';
-import { ColumnDescription } from 'react-bootstrap-table-next';
+import { ColumnDescription, SearchProps } from 'react-bootstrap-table-next';
 
 /**
  * declaration for table toolkit sub module
@@ -31,6 +31,7 @@ export interface TableSearchProps<T extends object = any> {
     placeholder?: string | undefined;
     onColumnMatch?: ((props: SearchMatchProps<T>) => void) | undefined;
     customMatchFunc?: ((props: SearchMatchProps<T>) => boolean) | undefined;
+    afterSearch?: (newResult: T[]) => void | undefined;
 }
 
 export interface CSVProps {
@@ -110,14 +111,13 @@ export namespace CSVExport {
     function ExportCSVButton(props: ExportCSVButtonProps): React.ReactElement | null;
 }
 
-export interface SearchBarProps {
-    onSearch: (searchText: string) => void;
+export interface SearchBarProps<T = any> extends SearchProps<T> {
     className?: string | undefined;
-    placeholder?: string | undefined;
     style?: CSSProperties | undefined;
     delay?: number | undefined;
     searchText?: string | undefined;
     tableId?: string | undefined;
+    ref?: React.RefObject<React.Component<SearchProps<T>>>;
 }
 export interface ClearSearchButtonProps {
     onClear?: (() => void) | undefined;

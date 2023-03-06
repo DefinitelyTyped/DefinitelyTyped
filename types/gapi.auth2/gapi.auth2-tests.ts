@@ -77,6 +77,21 @@ function test_render() {
   });
 }
 
+function test_listen() {
+  const signedInListener = gapi.auth2.getAuthInstance().isSignedIn.listen(isSignedIn => {
+      console.log(isSignedIn);
+  });
+  signedInListener.remove();
+  signedInListener.isActive;
+  signedInListener.trigger();
+  const currentUserListener = gapi.auth2.getAuthInstance().currentUser.listen(currentUser => {
+      console.log(currentUser);
+  });
+  currentUserListener.remove();
+  currentUserListener.isActive;
+  currentUserListener.trigger();
+}
+
 /* Example taken from https://developers.google.com/identity/sign-in/web/ */
 function onSignIn(googleUser: gapi.auth2.GoogleUser) {
   // Useful data for your client-side scripts:
@@ -159,4 +174,11 @@ function makeApiCall() {
     p.appendChild(document.createTextNode(`Hello, ${name}!`));
     document.getElementById('content').appendChild(p);
   });
+}
+
+async function test_await() {
+  // This used to result in TS1062: "Type is referenced directly or indirectly in the fulfillment callback of its own 'then' method"
+  // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+  const auth = await gapi.auth2.getAuthInstance();
+  console.log(auth.isSignedIn.get());
 }

@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { SSRPass } from 'three/examples/jsm/postprocessing/SSRPass';
-import { Reflector } from 'three/examples/jsm/objects/ReflectorForSSRPass';
+import { ReflectorForSSRPass } from 'three/examples/jsm/objects/ReflectorForSSRPass';
 
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
@@ -22,7 +22,7 @@ let camera: THREE.PerspectiveCamera;
 let scene: THREE.Scene;
 let renderer: THREE.WebGLRenderer;
 const otherMeshes: THREE.Mesh[] = [];
-let groundReflector: Reflector;
+let groundReflector: ReflectorForSSRPass;
 const selects: THREE.Mesh[] = [];
 
 const container = document.querySelector('#container') as Element;
@@ -79,7 +79,7 @@ function init() {
     });
 
     {
-        const geometry = new THREE.BoxBufferGeometry(0.05, 0.05, 0.05);
+        const geometry = new THREE.BoxGeometry(0.05, 0.05, 0.05);
         const material = new THREE.MeshStandardMaterial({ color: 'green' });
         const mesh = new THREE.Mesh(geometry, material);
         mesh.position.set(-0.12, plane.position.y + 0.025, 0.015);
@@ -88,7 +88,7 @@ function init() {
         selects.push(mesh);
     }
     {
-        const geometry = new THREE.IcosahedronBufferGeometry(0.025, 4);
+        const geometry = new THREE.IcosahedronGeometry(0.025, 4);
         const material = new THREE.MeshStandardMaterial({ color: 'cyan' });
         const mesh = new THREE.Mesh(geometry, material);
         mesh.position.set(-0.05, plane.position.y + 0.025, 0.08);
@@ -97,7 +97,7 @@ function init() {
         selects.push(mesh);
     }
     {
-        const geometry = new THREE.ConeBufferGeometry(0.025, 0.05, 64);
+        const geometry = new THREE.ConeGeometry(0.025, 0.05, 64);
         const material = new THREE.MeshStandardMaterial({ color: 'yellow' });
         const mesh = new THREE.Mesh(geometry, material);
         mesh.position.set(-0.05, plane.position.y + 0.025, -0.055);
@@ -106,8 +106,8 @@ function init() {
         selects.push(mesh);
     }
     {
-        const geometry = new THREE.PlaneBufferGeometry(8, 8);
-        groundReflector = new Reflector(geometry, {
+        const geometry = new THREE.PlaneGeometry(8, 8);
+        groundReflector = new ReflectorForSSRPass(geometry, {
             clipBias: 0.003,
             textureWidth: window.innerWidth,
             textureHeight: window.innerHeight,
@@ -150,7 +150,6 @@ function init() {
         camera,
         width: innerWidth,
         height: innerHeight,
-        encoding: THREE.sRGBEncoding,
         isPerspectiveCamera,
         groundReflector: params.groundReflector ? groundReflector : null,
         selects: params.groundReflector ? selects : null,

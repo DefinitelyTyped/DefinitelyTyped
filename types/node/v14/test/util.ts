@@ -1,6 +1,6 @@
-import * as util from 'util';
-import assert = require('assert');
-import { readFile } from 'fs';
+import * as util from 'node:util';
+import assert = require('node:assert');
+import { access, readFile } from 'node:fs';
 
 {
     // Old and new util.inspect APIs
@@ -224,7 +224,7 @@ function testUtilTypes(
         object; // $ExpectType Boolean
     }
     if (util.types.isBoxedPrimitive(object)) {
-        object; // $ExpectType String | Number | Boolean | BigInt | Symbol
+        object; // $ExpectType String | Number | Boolean | BigInt | Symbol || String | Number | Boolean | Symbol | BigInt
     }
     if (util.types.isDataView(object)) {
         object; // $ExpectType DataView
@@ -257,7 +257,7 @@ function testUtilTypes(
         object; // $ExpectType Map<any, any>
 
         if (util.types.isMap(readonlyMapOrRecord)) {
-            readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any>
+            readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any> || Map<any, any> | ReadonlyMap<any, any> || ReadonlyMap<any, any> | Map<any, any>
         }
     }
     if (util.types.isNativeError(object)) {
@@ -289,7 +289,7 @@ function testUtilTypes(
         object; // $ExpectType Set<any>
 
         if (util.types.isSet(readonlySetOrArray)) {
-            readonlySetOrArray; // $ExpectType ReadonlySet<any>
+            readonlySetOrArray; // $ExpectType ReadonlySet<any> || Set<any> | ReadonlySet<any> || ReadonlySet<any> | Set<any>
         }
     }
     if (util.types.isSharedArrayBuffer(object)) {
@@ -322,4 +322,18 @@ function testUtilTypes(
     if (util.types.isWeakSet(object)) {
         object; // $ExpectType WeakSet<any>
     }
+}
+
+{
+    const logger: util.DebugLogger = util.debuglog('section');
+    logger.enabled; // $ExpectType boolean
+    util.debuglog('section', (fn: util.DebugLoggerFunction) => { });
+    util.debug('section', (fn: util.DebugLoggerFunction) => { });
+}
+
+{
+    access('file/that/does/not/exist', (err) => {
+        const name = util.getSystemErrorName(err!.errno!);
+        console.error(name);
+    });
 }

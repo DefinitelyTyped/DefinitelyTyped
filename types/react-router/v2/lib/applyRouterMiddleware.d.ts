@@ -3,7 +3,7 @@ import Router from './Router';
 import RouterContext from './RouterContext';
 
 export interface Middleware {
-    renderRouterContext?: ((previous: RouterContext, props: React.Props<{}>) => RouterContext) | undefined;
-    renderRouteComponent?: ((previous: Router.RouteComponent, props: React.Props<{}>) => Router.RouteComponent) | undefined;
+    renderRouterContext?: ((previous: RouterContext, props: { children?: React.ReactNode; ref?: React.LegacyRef<{}> | undefined; }) => RouterContext) | undefined;
+    renderRouteComponent?: ((previous: Router.RouteComponent, props: { children?: React.ReactNode; ref?: React.LegacyRef<{}> | undefined; }) => Router.RouteComponent) | undefined;
 }
-export default function applyRouterMiddleware(...middlewares: Middleware[]): (renderProps: React.Props<{}>) => RouterContext;
+export default function applyRouterMiddleware(...middlewares: Middleware[]): (renderProps: { children?: React.ReactNode; ref?: React.LegacyRef<{}> | undefined; }) => RouterContext;

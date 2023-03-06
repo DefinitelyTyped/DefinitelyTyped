@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "dt-header": "off",
+        "trim-file": "off",
+        "no-unnecessary-generics": "off"
+    }
+}

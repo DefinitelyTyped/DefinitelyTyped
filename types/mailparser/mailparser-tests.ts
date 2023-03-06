@@ -1,4 +1,5 @@
 import { MailParser, simpleParser } from 'mailparser';
+import { getDecoder } from 'iconv-lite';
 
 const mailparser = new MailParser();
 
@@ -20,6 +21,20 @@ mailparser.on('data', data => {
         console.log(data.html);
     }
 });
+
+// Validate options
+const mailparser2 = new MailParser(
+    {
+       skipHtmlToText: true,
+       maxHtmlLengthToParse: 88,
+       formatDateString: (d: Date) => d.toDateString(),
+       skipImageLinks: true,
+       skipTextToHtml: true,
+       skipTextLinks: true,
+       Iconv: getDecoder("ascii"),
+       keepCidLinks: true
+    }
+);
 
 // Pipe file to MailParser
 // This example pipes a readableStream file to MailParser

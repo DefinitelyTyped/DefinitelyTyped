@@ -2,6 +2,8 @@ import ComputedProperty from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
 import NativeArray from '@ember/array/-private/native-array';
 import EmberArray from '@ember/array';
+import { AnyFn, MethodNamesOf, MethodParams, MethodReturns, MethodsOf } from 'ember/-private/type-utils';
+
 /**
  * This mixin defines the common interface implemented by enumerable objects
  * in Ember. Most of these methods follow the standard Array iteration
@@ -22,10 +24,6 @@ interface Enumerable<T> {
      */
     lastObject: T | undefined;
     /**
-     * @deprecated Use `Enumerable#includes` instead.
-     */
-    contains(obj: T): boolean;
-    /**
      * Iterates through the enumerable, calling the passed function on each
      * item. This method corresponds to the `forEach()` method defined in
      * JavaScript 1.6.
@@ -34,14 +32,14 @@ interface Enumerable<T> {
     /**
      * Alias for `mapBy`
      */
-    getEach(key: string): any[];
+    getEach<K extends keyof T>(key: K): Array<T[K]>;
     /**
      * Sets the value on the named property for each member. This is more
      * ergonomic than using other methods defined on this helper. If the object
      * implements Ember.Observable, the value will be changed to `set(),` otherwise
      * it will be set directly. `null` objects are skipped.
      */
-    setEach(key: string, value: any): any;
+    setEach<K extends keyof T>(key: K, value: T[K]): void;
     /**
      * Maps all of the items in the enumeration to another value, returning
      * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
@@ -51,7 +49,8 @@ interface Enumerable<T> {
      * Similar to map, this specialized function returns the value of the named
      * property on all items in the enumeration.
      */
-    mapBy(key: string): any[];
+    mapBy<K extends keyof T>(key: K): Array<T[K]>;
+    mapBy(key: string): unknown[];
     /**
      * Returns an array with all of the items in the enumeration that the passed
      * function returns true for. This method corresponds to `filter()` defined in
@@ -62,19 +61,19 @@ interface Enumerable<T> {
      * Returns an array with all of the items in the enumeration where the passed
      * function returns false. This method is the inverse of filter().
      */
-    reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
+    reject(callbackfn: (value: T, index: number, array: T[]) => unknown, thisArg?: any): NativeArray<T>;
     /**
      * Returns an array with just the items with the matched property. You
      * can pass an optional second argument with the target value. Otherwise
      * this will match any property that evaluates to `true`.
      */
-    filterBy(key: string, value?: any): NativeArray<T>;
+    filterBy<K extends keyof T>(key: K, value?: T[K]): NativeArray<T>;
     /**
      * Returns an array with the items that do not have truthy values for
      * key.  You can pass an optional second argument with the target value.  Otherwise
      * this will match any property that evaluates to false.
      */
-    rejectBy(key: string, value?: any): NativeArray<T>;
+    rejectBy<K extends keyof T>(key: K, value?: T[K]): NativeArray<T>;
     /**
      * Returns the first item in the array for which the callback returns true.
      * This method works similar to the `filter()` method defined in JavaScript 1.6
@@ -86,7 +85,7 @@ interface Enumerable<T> {
      * can pass an optional second argument with the target value. Otherwise
      * this will match any property that evaluates to `true`.
      */
-    findBy(key: string, value?: any): T | undefined;
+    findBy<K extends keyof T>(key: K, value?: T[K]): T | undefined;
     /**
      * Returns `true` if the passed function returns true for every item in the
      * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
@@ -97,7 +96,7 @@ interface Enumerable<T> {
      * argument for all items in the enumerable. This method is often simpler/faster
      * than using a callback.
      */
-    isEvery(key: string, value?: any): boolean;
+    isEvery<K extends keyof T>(key: K, value?: T[K]): boolean;
     /**
      * Returns `true` if the passed function returns true for any item in the
      * enumeration.
@@ -108,7 +107,7 @@ interface Enumerable<T> {
      * argument for any item in the enumerable. This method is often simpler/faster
      * than using a callback.
      */
-    isAny(key: string, value?: any): boolean;
+    isAny<K extends keyof T>(key: K, value?: T[K]): boolean;
     /**
      * This will combine the values of the enumerator into a single value. It
      * is a useful way to collect a summary value from an enumeration. This
@@ -120,7 +119,7 @@ interface Enumerable<T> {
      * implements it. This method corresponds to the implementation in
      * Prototype 1.6.
      */
-    invoke(methodName: keyof T, ...args: any[]): any[];
+    invoke<M extends MethodNamesOf<T>>(methodName: M, ...args: MethodParams<T, M>): Array<MethodReturns<T, M>>;
     /**
      * Simply converts the enumerable into a genuine array. The order is not
      * guaranteed. Corresponds to the method implemented by Prototype.
@@ -163,6 +162,6 @@ interface Enumerable<T> {
      */
     '[]': ComputedProperty<this>;
 }
-declare const Enumerable: Mixin<Enumerable<any>>;
 
+declare const Enumerable: Mixin<Enumerable<unknown>>;
 export default Enumerable;

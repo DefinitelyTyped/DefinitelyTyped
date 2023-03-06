@@ -1,7 +1,6 @@
 // Type definitions for jsdoc-to-markdown 7.0
 // Project: https://github.com/jsdoc2md/jsdoc-to-markdown
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
-//                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type StyleListFormat = 'none' | 'grouped' | 'table' | 'dl';
@@ -77,7 +76,7 @@ export interface JsdocOptions {
      * By default results are cached to speed up repeat invocations.
      * Set to true to disable this.
      */
-    noCache?: boolean | undefined;
+    'no-cache'?: boolean | undefined;
     /**
      * One or more filenames to process.
      * Accepts globs (e.g. *.js). Either files, source or data must be supplied.

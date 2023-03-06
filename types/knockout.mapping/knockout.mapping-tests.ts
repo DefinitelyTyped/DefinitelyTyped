@@ -38,7 +38,8 @@ let badUserMappingOptions: KnockoutMappingOptions<User> = {
     copy: ['height'],
     mappedProperties: ['age', 'name'],
     deferEvaluation: false,
-    create: (options: KnockoutMappingCreateOptions) => { }, // $ExpectError
+    // @ts-expect-error
+    create: (options: KnockoutMappingCreateOptions) => { },
 }
 
 let userMappingOptions: KnockoutMappingOptions<User> = {
@@ -65,11 +66,13 @@ mapping.fromJS(userInput, {}) // $ExpectType KnockoutObservableType<User>
 mapping.fromJS(userInput, {}, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
 mapping.fromJS(userInput, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
 mapping.fromJS(userInput, userMappingOptions, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
-mapping.fromJS(userInput, {}, userInput) // $ExpectError
-mapping.fromJS(userInput, userInput) // $ExpectError
+// @ts-expect-error
+mapping.fromJS(userInput, {}, userInput)
+// @ts-expect-error
+mapping.fromJS(userInput, userInput)
 
 let untypedObject: any = { age: 22 }
-mapping.fromJS(untypedObject) // $ExpectType any
+mapping.fromJS(untypedObject) // $ExpectType KnockoutObservable<any>
 
 ////////////////////////////////
 // fromJS function with JS object with Array properties
@@ -89,7 +92,6 @@ mapping.fromJS(numberInput) // $ExpectType KnockoutObservable<number>
 mapping.fromJS(stringInput) // $ExpectType KnockoutObservable<string>
 mapping.fromJS(symbolInput) // $ExpectType KnockoutObservable<symbol>
 
-// Typescript weirdly returns KnockoutObservable<false> | KnockoutObservable<true>
 let booleanMapped: KnockoutObservable<boolean> = mapping.fromJS(booleanInput)
 
 ////////////////////////////////
@@ -100,7 +102,8 @@ let numberArrayInput: number[]
 
 mapping.fromJS(userArrayInput) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
 mapping.fromJS(userArrayInput, {}) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
-mapping.fromJS(userArrayInput, {}, userArrayInput) // $ExpectError
+// @ts-expect-error
+mapping.fromJS(userArrayInput, {}, userArrayInput)
 
 // Could not solve this issue. Could not get this to return any when T is any. It returns a Union type of the possible values.
 mapping.fromJS(untypedArrayObject) // $ExpectType KnockoutObservableArray<any> | KnockoutObservableArray<KnockoutObservableType<any>>
@@ -116,7 +119,8 @@ let numberReadonlyArray: ReadonlyArray<number>
 
 mapping.fromJS(userReadonlyArrayInput) // $ExpectType KnockoutReadonlyObservableArray<KnockoutObservableType<User>>
 mapping.fromJS(userReadonlyArrayInput, {}) // $ExpectType KnockoutReadonlyObservableArray<KnockoutObservableType<User>>
-mapping.fromJS(userReadonlyArrayInput, {}, userArrayInput) // $ExpectError
+// @ts-expect-error
+mapping.fromJS(userReadonlyArrayInput, {}, userArrayInput)
 
 let mappedNumberReadonlyArrayViewModel = mapping.fromJS(numberReadonlyArray) // $ExpectType KnockoutReadonlyObservableArray<number>
 mapping.fromJS(numberReadonlyArray, {}, mappedNumberReadonlyArrayViewModel) // $ExpectType KnockoutReadonlyObservableArray<number>
@@ -147,10 +151,13 @@ mapping.toJS<User>(mappedUserViewModel, {}) // $ExpectType User
 
 // Here the method isn't typed literally, it has implicit type. Unfortunatly the typing fails to properly type object properties that are object themselves.
 // Could not solve this issue.
-let unmmapedUser: User = mapping.toJS(mappedUserViewModel) // $ExpectError
+// @ts-expect-error
+let unmmapedUser: User = mapping.toJS(mappedUserViewModel)
 
-mapping.toJS<number>(mappedUserViewModel) // $ExpectError
-mapping.toJS<User>(stringInput) // $ExpectError
+// @ts-expect-error
+mapping.toJS<number>(mappedUserViewModel)
+// @ts-expect-error
+mapping.toJS<User>(stringInput)
 
 mapping.toJS(ko.observable(2)) // $ExpectType number
 mapping.toJS(mappedNumberArrayViewModel) // $ExpectType number[]

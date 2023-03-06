@@ -33,7 +33,7 @@ declare class Benchmark {
     constructor(options: Benchmark.Options);
 
     id: number;
-    name: string;
+    name?: string;
     count: number;
     cycles: number;
     hz: number;
@@ -168,10 +168,12 @@ declare namespace Benchmark {
         static options: { name: string };
 
         constructor(name?: string, options?: Options);
+        constructor(options?: Options);
 
         length: number;
         aborted: boolean;
         running: boolean;
+        name?: string;
 
         abort(): Suite;
         add(name: string, fn: Function | string, options?: Options): Suite;

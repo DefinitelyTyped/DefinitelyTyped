@@ -13,13 +13,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Dispatch,
-    Store,
-    Reducer,
-    Middleware,
-    StoreEnhancer
-} from 'redux';
+import { Dispatch, Store, Reducer, Middleware, StoreEnhancer } from 'redux';
 import { History } from 'history';
 
 export type Nullable<T> = T | null | undefined;
@@ -33,6 +27,7 @@ export type ConfirmLeave = (state: object, action: object) => Nullable<string>;
 export type RouteThunk<TState = any> = (
     dispatch: Dispatch<any>,
     getState: StateGetter<TState>,
+    bag: Bag,
 ) => any | Promise<any>;
 
 export type RouteObject<TKeys = {}, TState = any> = TKeys & {
@@ -90,6 +85,8 @@ export interface Location {
     search?: string | undefined;
 }
 
+export type LocationKind = 'load' | 'back' | 'next' | 'pop' | 'stealth' | 'push' | 'replace' | 'redirect';
+
 export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
     type: string;
@@ -97,7 +94,7 @@ export interface LocationState<TKeys = {}, TState = any> {
     query?: Query | undefined;
     search?: string | undefined;
     prev: Location;
-    kind: Nullable<string>;
+    kind: Nullable<LocationKind>;
     history: Nullable<HistoryData>;
     routesMap: RoutesMap<TKeys, TState>;
     hasSSR?: boolean | undefined;
@@ -106,7 +103,7 @@ export interface LocationState<TKeys = {}, TState = any> {
 export interface ActionMetaLocation {
     current: Location;
     prev: Location;
-    kind: Nullable<string>;
+    kind: Nullable<LocationKind>;
     history: Nullable<HistoryData>;
 }
 
@@ -144,25 +141,14 @@ export interface HistoryLocation {
 
 export type HistoryAction = string;
 
-export type Listener = (
-    location: HistoryLocation,
-    action: HistoryAction
-) => void;
+export type Listener = (location: HistoryLocation, action: HistoryAction) => void;
 
 export type ScrollBehavior = object;
 
 export interface Router<TState = any> {
-    getStateForActionOriginal(
-        action: object,
-        state: Nullable<TState>
-    ): Nullable<TState>;
-    getStateForAction(
-        action: object,
-        state: Nullable<TState>
-    ): Nullable<TState>;
-    getPathAndParamsForState(
-        state: TState
-    ): { path: Nullable<string>; params: Nullable<Params> };
+    getStateForActionOriginal(action: object, state: Nullable<TState>): Nullable<TState>;
+    getStateForAction(action: object, state: Nullable<TState>): Nullable<TState>;
+    getPathAndParamsForState(state: TState): { path: Nullable<string>; params: Nullable<Params> };
     getActionForPathAndParams(path: string): Nullable<object>;
 }
 
@@ -190,22 +176,22 @@ export interface NavigatorsConfig<TKeys = {}, TState = any> {
         navigators: Navigators<TState>,
         action: object, // TODO check this
         navigationAction: Nullable<NavigationAction>,
-        route: Nullable<Route<TKeys, TState>>
+        route: Nullable<Route<TKeys, TState>>,
     ): object;
     navigationToAction(
         navigators: Navigators<TState>,
         store: Store<TState>,
         routesMap: RoutesMap<TKeys, TState>,
-        action: object
+        action: object,
     ): {
-            action: object;
-            navigationAction: Nullable<NavigationAction>;
-        };
+        action: object;
+        navigationAction: Nullable<NavigationAction>;
+    };
 }
 
 export interface Bag {
     action: ReceivedAction | Action;
-    extra: any;
+    extra?: any | undefined;
 }
 
 export interface Options<TKeys = {}, TState = any> {
@@ -247,7 +233,7 @@ export interface Options<TKeys = {}, TState = any> {
      *  or if you manually call dispatch(redirect({ type: NOT_FOUND })), where NOT_FOUND is an export from this package.
      *  The type in actions and state will be NOT_FOUND, which you can use to show a 404 page.
      */
-    notFoundPath?: string | undefined;
+    notFoundPath?: string | undefined | null;
     /**
      * Whether or not window.scrollTo(0, 0) should be run on route changes so the user starts each page at the top.
      */
@@ -300,7 +286,7 @@ export interface Options<TKeys = {}, TState = any> {
 }
 
 export interface Query {
-    [key: string]: string | undefined;
+    [key: string]: string | any;
 }
 
 export interface Params {
@@ -321,7 +307,7 @@ export const NOT_FOUND: '@@redux-first-router/NOT_FOUND';
 export function actionToPath<TKeys = {}, TState = any>(
     action: ReceivedAction,
     routesMap: RoutesMap<TKeys, TState>,
-    querySerializer?: QuerySerializer
+    querySerializer?: QuerySerializer,
 ): string;
 
 export function back(): void;
@@ -336,12 +322,12 @@ export function connectRoutes<TKeys = {}, TState = any>(
     routesMap: RoutesMap<TKeys, TState>,
     options?: Options<TKeys, TState>,
 ): {
-        reducer: Reducer<LocationState<TKeys, TState>>;
-        middleware: Middleware;
-        thunk(store: Store<TState>): Promise<Nullable<RouteThunk<TState>>>;
-        enhancer: StoreEnhancer;
-        initialDispatch?(): void;
-    };
+    reducer: Reducer<LocationState<TKeys, TState>>;
+    middleware: Middleware;
+    thunk(store: Store<TState>): Promise<Nullable<RouteThunk<TState>>>;
+    enhancer: StoreEnhancer;
+    initialDispatch?(): void;
+};
 
 export function go(n: number): void;
 
@@ -356,7 +342,7 @@ export function nextPath(): string | void;
 export function pathToAction<TKeys = {}, TState = any>(
     pathname: string,
     routesMap: RoutesMap<TKeys, TState>,
-    querySerializer?: QuerySerializer
+    querySerializer?: QuerySerializer,
 ): ReceivedAction;
 
 export function prevPath(): string | void;

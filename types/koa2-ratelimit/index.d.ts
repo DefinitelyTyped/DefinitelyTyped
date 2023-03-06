@@ -2,7 +2,7 @@
 // Project: https://github.com/ysocorp/koa2-ratelimit
 // Definitions by: Ovyerus <https://github.com/Ovyerus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 4.1
 
 import { Context } from 'koa';
 import MemoryStore = require('./src/MemoryStore');

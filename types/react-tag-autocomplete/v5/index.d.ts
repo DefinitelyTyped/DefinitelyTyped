@@ -127,7 +127,7 @@ export interface ReactTagsProps {
     /**
      * Provide a custom tag component to render. Default: null.
      */
-    tagComponent?: React.SFC<TagComponentProps> | undefined;
+    tagComponent?: React.FC<TagComponentProps> | undefined;
     /**
      * An array of tags that are displayed as pre-selected. Each tag must have an id and a name property. Default: []
      */

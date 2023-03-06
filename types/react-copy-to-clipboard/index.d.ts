@@ -21,6 +21,7 @@ declare namespace CopyToClipboard {
     }
 
     interface Props {
+        children?: React.ReactNode;
         text: string;
         onCopy?(text: string, result: boolean): void;
         options?: Options | undefined;

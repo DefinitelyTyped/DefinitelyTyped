@@ -46,6 +46,7 @@ export interface MacroContextObject {
     contents: string;
 }
 
+type ShadowWrapperCallback<T extends any[]> = (this: MacroContext, ...args: T) => void;
 export interface MacroContext {
     /**
      * The argument string parsed into an array of discrete arguments.
@@ -63,13 +64,19 @@ export interface MacroContext {
      * The current output element.
      * @since 2.0.0
      */
-    output: ParentNode;
+    output: DocumentFragment | HTMLElement;
 
     /**
      * The (execution) context object of the macro's parent, or null if the macro has no parent.
      * @since 2.0.0
      */
-    parent: object;
+    parent: null | object;
+
+    /**
+     * The parser instanced that generated the macro call.
+     * @since 2.0.0
+     */
+    parser: unknown;
 
     /**
      * The text of a container macro parsed into discrete payload objects by tag.
@@ -110,6 +117,22 @@ export interface MacroContext {
     contextSelectAll(filter: (context: MacroContextObject) => boolean): object[];
 
     /**
+     * Returns a callback function that wraps the given callbacks to provide access to the variable
+     * shadowing system.
+     * This is only useful if you have an asynchronous callback (such as a button being pressed)
+     * that invokes code/content that needs to access variables shadowed by `<<capture>>`.
+     * @param callback Executed when the wrapper is invoked. Receives access to variable shadows.
+     * @param doneCallback Executed after the main callback returns. Does not have access.
+     * @param startCallback Executed before the main callback is invoked. Does not have access.
+     * @since 2.14.0
+     */
+    createShadowWrapper<T extends any[]>(
+        callback: ShadowWrapperCallback<T>,
+        doneCallback?: ShadowWrapperCallback<T>,
+        startCallback?: ShadowWrapperCallback<T>,
+    ): (...args: T) => void;
+
+    /**
      * Renders the message prefixed with the name of the macro and returns false.
      * @param message The error message to output.
      * @since 2.0.0
@@ -119,8 +142,20 @@ export interface MacroContext {
 
 export interface MacroDefinition {
     handler: (this: MacroContext) => void;
+    /**
+     * Having this property signifies that this is a container macro
+     * This should be an array of child tag names or `null`
+     * @since 2.0.0
+     */
     tags?: string[] | null | undefined;
-    skipArgs?: boolean | undefined;
+    /**
+     * Disables parsing argument strings into discrete arguments.
+     * This is used by macros that only use the raw/full argument strings.
+     * `true` to affect all tags
+     * Or Array of tags to affect
+     * @since 2.0.0
+     */
+    skipArgs?: boolean | undefined | string[];
 }
 
 export interface MacroAPI {

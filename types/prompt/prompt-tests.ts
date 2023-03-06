@@ -49,9 +49,22 @@ prompt.get(
             type: 'string',
             required: true,
             message: 'Please dont use the demo credentials',
+            before: line => line.trim(),
             conform: surname => {
                 const name = prompt.history('name')!.value;
                 return name !== 'John' || surname !== 'Smith';
+            },
+        },
+        {
+            properties: {
+                name: {
+                    pattern: /^[a-zA-Z\s\-]+$/,
+                    message: 'Name must be only letters, spaces, or dashes',
+                    required: true,
+                },
+                password: {
+                    hidden: true,
+                },
             },
         },
     ],
@@ -60,4 +73,10 @@ prompt.get(
     },
 );
 
+// prompt 1.1 (at least) and higher also take a schema directly
+// per https://github.com/flatiron/prompt#prompting-with-validation-default-values-and-more-complex-properties , so add a test for that:
+prompt.get(schema);
+
 prompt.colors = false;
+
+prompt.stop();

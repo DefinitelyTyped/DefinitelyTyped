@@ -11,6 +11,52 @@
 
 /// <reference path='MediaStream.d.ts' />
 
+// https://www.w3.org/TR/webrtc/#idl-def-rtcerror
+interface RTCError extends DOMException {
+    readonly errorDetail: RTCErrorDetailType;
+    readonly httpRequestStatusCode: number | null;
+    readonly receivedAlert: number | null;
+    readonly sctpCauseCode: number | null;
+    readonly sdpLineNumber: number | null;
+    readonly sentAlert: number | null;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcerrorinit
+interface RTCErrorInit {
+    errorDetail: RTCErrorDetailType;
+    httpRequestStatusCode?: number | undefined;
+    receivedAlert?: number | undefined;
+    sctpCauseCode?: number | undefined;
+    sdpLineNumber?: number | undefined;
+    sentAlert?: number | undefined;
+}
+
+declare var RTCError: {
+    prototype: RTCError;
+    new (init: RTCErrorInit, message?: string): RTCError;
+};
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcerrorevent
+interface RTCErrorEvent extends Event {
+    readonly error: RTCError;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcerroreventinit
+interface RTCErrorEventInit extends EventInit {
+    error: RTCError;
+}
+
+declare var RTCErrorEvent: {
+    prototype: RTCErrorEvent;
+    new (type: string, eventInitDict: RTCErrorEventInit): RTCErrorEvent;
+};
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicecandidatepair
+interface RTCIceCandidatePair {
+    local?: RTCIceCandidate | undefined;
+    remote?: RTCIceCandidate | undefined;
+}
+
 // https://www.w3.org/TR/webrtc/#idl-def-rtcofferansweroptions
 interface RTCOfferAnswerOptions {
     voiceActivityDetection?: boolean | undefined; // default = true
@@ -27,20 +73,31 @@ interface RTCAnswerOptions extends RTCOfferAnswerOptions {
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtciceserver
 interface RTCIceServer {
-    //urls: string | string[];
-    credentialType?: RTCIceCredentialType | undefined; // default = 'password'
+    credential?: string | undefined;
+    urls: string | string[];
+    username?: string | undefined;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtciceparameters
 interface RTCIceParameters {
-    //usernameFragment: string;
-    //password: string;
+    iceLite?: boolean | undefined;
+    password?: string | undefined;
+    usernameFragment?: string | undefined;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicerole
+type RTCIceRole = 'controlled' | 'controlling' | 'unknown';
+
+interface RTCIceTransportEventMap {
+    "gatheringstatechange": Event;
+    "selectedcandidatepairchange": Event;
+    "statechange": Event;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcicetransport
 type IceTransportEventHandler = ((this: RTCIceTransport, ev: Event) => any) | null;
-interface RTCIceTransport {
-    //readonly role: RTCIceRole;
+interface RTCIceTransport extends EventTarget {
+    readonly role: RTCIceRole;
     //readonly component: RTCIceComponent;
     //readonly state: RTCIceTransportState;
     readonly gatheringState: RTCIceGatheringState;
@@ -48,18 +105,33 @@ interface RTCIceTransport {
     getRemoteCandidates(): RTCIceCandidate[];
     getLocalParameters(): RTCIceParameters | null;
     getRemoteParameters(): RTCIceParameters | null;
+    getSelectedCandidatePair(): RTCIceCandidatePair | null;
     onstatechange: IceTransportEventHandler;
     ongatheringstatechange: IceTransportEventHandler;
     onselectedcandidatepairchange: IceTransportEventHandler;
+    addEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+interface RTCDtlsTransportEventMap {
+    "error": Event;
+    "statechange": Event;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcdtlstransport
-type DtlsTransportEventHandler = ((this: RTCDtlsTransport, ev: Event) => any) | null;
-interface RTCDtlsTransport {
-    readonly transport: RTCIceTransport;
-    //readonly state: RTCDtlsTransportState;
+type DtlsTransportEventHandler<E extends Event> = ((this: RTCDtlsTransport, ev: E) => any) | null;
+interface RTCDtlsTransport extends EventTarget {
+    readonly iceTransport: RTCIceTransport;
+    readonly state: RTCDtlsTransportState;
     getRemoteCertificates(): ArrayBuffer[];
-    onstatechange: DtlsTransportEventHandler;
+    onerror: DtlsTransportEventHandler<Event>;
+    onstatechange: DtlsTransportEventHandler<Event>;
+    addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcodeccapability

@@ -1,6 +1,6 @@
 // Type definitions for date-utils 1.2
 // Project: https://jerrysievert.github.io/date-utils/
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type LanguageType = 'es' | 'fr' | 'pt-BR';

@@ -37,7 +37,7 @@ NATClient.findGateway((err, gatewayDevice) => {
         }
         console.log(service.service, service.SCPDURL, service.controlURL);
     });
-    gatewayDevice.run('action', ['arg'], (err2, res) => {
+    gatewayDevice.run('action', [['key', 'val']], (err2, res) => {
         if (err2 || res == null) {
             console.error(
                 'gatewayDevice.run',

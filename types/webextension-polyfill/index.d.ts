@@ -1,4 +1,4 @@
-// Type definitions for webextension-polyfill 0.8
+// Type definitions for webextension-polyfill 0.10
 // Project: https://github.com/mozilla/webextension-polyfill
 // Definitions by: Santo Pfingsten <https://github.com/Lusito>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,7 +19,7 @@ import { Commands as ImportedCommands } from "./namespaces/commands";
 import { ContentScripts as ImportedContentScripts } from "./namespaces/contentScripts";
 import { ContextualIdentities as ImportedContextualIdentities } from "./namespaces/contextualIdentities";
 import { Cookies as ImportedCookies } from "./namespaces/cookies";
-import { DeclarativeContent as ImportedDeclarativeContent } from "./namespaces/declarativeContent";
+import { DeclarativeNetRequest as ImportedDeclarativeNetRequest } from "./namespaces/declarativeNetRequest";
 import { Devtools as ImportedDevtools } from "./namespaces/devtools";
 import { Dns as ImportedDns } from "./namespaces/dns";
 import { Downloads as ImportedDownloads } from "./namespaces/downloads";
@@ -47,6 +47,7 @@ import { Pkcs11 as ImportedPkcs11 } from "./namespaces/pkcs11";
 import { Privacy as ImportedPrivacy } from "./namespaces/privacy";
 import { Proxy as ImportedProxy } from "./namespaces/proxy";
 import { Runtime as ImportedRuntime } from "./namespaces/runtime";
+import { Scripting as ImportedScripting } from "./namespaces/scripting";
 import { Search as ImportedSearch } from "./namespaces/search";
 import { Sessions as ImportedSessions } from "./namespaces/sessions";
 import { SidebarAction as ImportedSidebarAction } from "./namespaces/sidebarAction";
@@ -60,7 +61,6 @@ import { UserScripts as ImportedUserScripts } from "./namespaces/userScripts";
 import { WebNavigation as ImportedWebNavigation } from "./namespaces/webNavigation";
 import { WebRequest as ImportedWebRequest } from "./namespaces/webRequest";
 import { Windows as ImportedWindows } from "./namespaces/windows";
-import { Scripting as ImportedScripting } from "./namespaces/scripting";
 
 declare namespace Browser {
     const activityLog: ActivityLog.Static;
@@ -76,7 +76,7 @@ declare namespace Browser {
     const contentScripts: ContentScripts.Static;
     const contextualIdentities: ContextualIdentities.Static;
     const cookies: Cookies.Static;
-    const declarativeContent: DeclarativeContent.Static;
+    const declarativeNetRequest: DeclarativeNetRequest.Static;
     const devtools: Devtools.Static;
     const dns: Dns.Static;
     const downloads: Downloads.Static;
@@ -104,6 +104,7 @@ declare namespace Browser {
     const privacy: Privacy.Static;
     const proxy: Proxy.Static;
     const runtime: Runtime.Static;
+    const scripting: Scripting.Static;
     const search: Search.Static;
     const sessions: Sessions.Static;
     const sidebarAction: SidebarAction.Static;
@@ -117,7 +118,6 @@ declare namespace Browser {
     const webNavigation: WebNavigation.Static;
     const webRequest: WebRequest.Static;
     const windows: Windows.Static;
-    const scripting: Scripting.Static;
 
     interface Browser {
         activityLog: ActivityLog.Static;
@@ -133,7 +133,7 @@ declare namespace Browser {
         contentScripts: ContentScripts.Static;
         contextualIdentities: ContextualIdentities.Static;
         cookies: Cookies.Static;
-        declarativeContent: DeclarativeContent.Static;
+        declarativeNetRequest: DeclarativeNetRequest.Static;
         devtools: Devtools.Static;
         dns: Dns.Static;
         downloads: Downloads.Static;
@@ -161,6 +161,7 @@ declare namespace Browser {
         privacy: Privacy.Static;
         proxy: Proxy.Static;
         runtime: Runtime.Static;
+        scripting: Scripting.Static;
         search: Search.Static;
         sessions: Sessions.Static;
         sidebarAction: SidebarAction.Static;
@@ -174,7 +175,6 @@ declare namespace Browser {
         webNavigation: WebNavigation.Static;
         webRequest: WebRequest.Static;
         windows: Windows.Static;
-        scripting: Scripting.Static;
     }
 
     /* tslint:disable:strict-export-declare-modifiers */
@@ -191,7 +191,7 @@ declare namespace Browser {
     export import ContentScripts = ImportedContentScripts;
     export import ContextualIdentities = ImportedContextualIdentities;
     export import Cookies = ImportedCookies;
-    export import DeclarativeContent = ImportedDeclarativeContent;
+    export import DeclarativeNetRequest = ImportedDeclarativeNetRequest;
     export import Devtools = ImportedDevtools;
     export import Dns = ImportedDns;
     export import Downloads = ImportedDownloads;
@@ -219,6 +219,7 @@ declare namespace Browser {
     export import Privacy = ImportedPrivacy;
     export import Proxy = ImportedProxy;
     export import Runtime = ImportedRuntime;
+    export import Scripting = ImportedScripting;
     export import Search = ImportedSearch;
     export import Sessions = ImportedSessions;
     export import SidebarAction = ImportedSidebarAction;
@@ -232,10 +233,8 @@ declare namespace Browser {
     export import WebNavigation = ImportedWebNavigation;
     export import WebRequest = ImportedWebRequest;
     export import Windows = ImportedWindows;
-    export import Scripting = ImportedScripting;
     /* tslint:enable:strict-export-declare-modifiers */
 }
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = Browser;
-export as namespace browser;

@@ -1,4 +1,6 @@
-import { Provider, interactionPolicy, errors } from 'oidc-provider';
+import * as crypto from 'node:crypto';
+
+import Provider, { interactionPolicy, errors, JWKS } from 'oidc-provider';
 
 errors.AccessDenied.name;
 
@@ -13,14 +15,6 @@ new Provider('https://op.example.com', {
                 token.iat.toFixed();
                 parts.header = { foo: 'bar' };
                 parts.payload.foo = 'bar';
-                return parts;
-            },
-            async paseto(ctx, token, parts) {
-                ctx.oidc.issuer.substring(0);
-                token.iat.toFixed();
-                parts.footer = { foo: 'bar' };
-                parts.payload.foo = 'bar';
-                parts.assertion = 'bar';
                 return parts;
             },
         },
@@ -66,6 +60,43 @@ new Provider('https://op.example.com', {
         async findByUserCode(userCode: string) {},
         async findByUid(uid: string) {},
     }),
+});
+
+const jwks: JWKS = {
+    keys: [
+        {
+            kty: 'RSA',
+            d: 'foo',
+            n: 'foo',
+            e: 'AQAB',
+        },
+        {
+            kty: 'OKP',
+            x: 'foo',
+            d: 'foo',
+            crv: 'Ed25519',
+        },
+    ],
+};
+
+new Provider('https://op.example.com', { jwks });
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return undefined; } },
+    },
+});
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return 'foo'; } },
+    },
+});
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return new crypto.X509Certificate(Buffer.alloc(0)); } },
+    },
 });
 
 const provider = new Provider('https://op.example.com', {
@@ -159,18 +190,12 @@ const provider = new Provider('https://op.example.com', {
                 parts.payload.foo = 'bar';
                 return parts;
             },
-            paseto(ctx, token, parts) {
-                ctx.oidc.issuer.substring(0);
-                token.iat.toFixed();
-                parts.footer = { foo: 'bar' };
-                parts.payload.foo = 'bar';
-                return parts;
-            },
         },
     },
     httpOptions(url) {
         url.searchParams.keys();
-        return { timeout: 5000 };
+        const c = new AbortController();
+        return { signal: c.signal };
     },
     async expiresWithSession(ctx, token) {
         ctx.oidc.issuer.substring(0);
@@ -224,7 +249,7 @@ const provider = new Provider('https://op.example.com', {
     },
     scopes: ['foo', 'bar'],
     subjectTypes: ['public', 'pairwise'],
-    tokenEndpointAuthMethods: ['self_signed_tls_client_auth'],
+    clientAuthMethods: ['self_signed_tls_client_auth'],
     ttl: {
         CustomToken: 23,
         AccessToken(ctx, accessToken) {
@@ -355,8 +380,8 @@ const provider = new Provider('https://op.example.com', {
         webMessageResponseMode: { enabled: false, ack: 'draft' },
         revocation: { enabled: false },
         jwtIntrospection: { enabled: false, ack: 'draft' },
-        jwtResponseModes: { enabled: false, ack: 'draft' },
-        pushedAuthorizationRequests: { enabled: false, ack: 'draft' },
+        jwtResponseModes: { enabled: false },
+        pushedAuthorizationRequests: { enabled: false },
         registration: {
             enabled: true,
             initialAccessToken: true,
@@ -401,7 +426,6 @@ const provider = new Provider('https://op.example.com', {
         fapi: { enabled: false, profile: '1.0 Final' },
         ciba: {
             enabled: false,
-            ack: 'foo',
             deliveryModes: ['ping'],
             async triggerAuthenticationDevice(ctx, request, account, client) {
                 ctx.oidc.issuer.substring(0);
@@ -414,8 +438,8 @@ const provider = new Provider('https://op.example.com', {
             }
         },
         clientCredentials: { enabled: false },
-        backchannelLogout: { enabled: false, ack: 'draft' },
-        dPoP: { enabled: false, ack: 'draft', iatTolerance: 120 },
+        backchannelLogout: { enabled: false },
+        dPoP: { enabled: false, ack: 'draft' },
         deviceFlow: {
             enabled: false,
             charset: 'digits',
@@ -467,11 +491,11 @@ const provider = new Provider('https://op.example.com', {
         },
     },
     enabledJWA: {
-        tokenEndpointAuthSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
-        idTokenSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        requestObjectSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        userinfoSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        introspectionSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
+        clientAuthSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
+        idTokenSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
+        requestObjectSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
+        userinfoSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
+        introspectionSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
         authorizationSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
         idTokenEncryptionAlgValues: ['A128KW', 'A256KW', 'ECDH-ES', 'ECDH-ES+A128KW', 'ECDH-ES+A256KW', 'RSA-OAEP'],
         requestObjectEncryptionAlgValues: [

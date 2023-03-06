@@ -109,7 +109,7 @@ function render() {
 
     raycaster.setFromCamera(mouse, camera);
 
-    const intersects = raycaster.intersectObjects(scene.children);
+    const intersects = raycaster.intersectObjects<THREE.Mesh>(scene.children);
 
     if (intersects.length > 0) {
         const targetDistance = intersects[0].distance;
@@ -121,7 +121,7 @@ function render() {
                 (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.setHex(INTERSECTED.userData.currentHex);
             }
 
-            INTERSECTED = intersects[0].object as THREE.Mesh;
+            INTERSECTED = intersects[0].object;
             if (INTERSECTED) {
                 INTERSECTED.userData.currentHex = (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.getHex();
                 (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.setHex(0xff0000);

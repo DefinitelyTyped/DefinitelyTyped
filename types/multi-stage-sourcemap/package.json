@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "source-map": "^0.7.4"
+  }
+}

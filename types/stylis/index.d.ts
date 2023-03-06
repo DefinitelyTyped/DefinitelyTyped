@@ -6,20 +6,20 @@
 export as namespace stylis;
 
 export interface Element {
-    parent?: Element | undefined;
-    children?: Element[] | string | undefined;
-    root: Element;
+    parent: Element | null;
+    children: Element[] | string;
+    root: Element | null;
     type: string;
     props: string[] | string;
     value: string;
     length: number;
     return: string;
-    line?: number | undefined;
-    column?: number | undefined;
+    line: number;
+    column: number;
 }
 
 export type ArrayMapCallback = (value: string, index: number, array: string[]) => string;
-export type Middleware = (element: Element, index: number, children: Array<Element | string>, callback: Middleware) => string | void;
+export type Middleware = (element: Element, index: number, children: Element[], callback: Middleware) => string | void;
 
 // Enum.js
 
@@ -133,10 +133,10 @@ export function identifier(index: number): string;
 
 // Serializer.js
 
-export function serialize(children: Array<Element | string>, callback: Middleware): string;
+export function serialize(children: Element[], callback: Middleware): string;
 
 // @type {Middleware}
-export function stringify(element: Element, index: number, children: Array<Element | string>, callback: Middleware): string | void;
+export function stringify(element: Element, index: number, children: Element[], callback: Middleware): string;
 
 // Middleware.js
 
@@ -144,6 +144,6 @@ export function middleware(collection: Middleware[]): Middleware;
 export function rulesheet(callback: (ret: string) => void): Middleware;
 
 // @type {Middleware}
-export function prefixer(element: Element, index: number, children: Array<Element | string>, callback: Middleware): string | void;
+export function prefixer(element: Element, index: number, children: Element[], callback: Middleware): string | void;
 // @type {Middleware}
 export function namespace(element: Element): string | void;

@@ -13,10 +13,10 @@ const annotation2 = myCodeMirror.annotateScrollbar({
     listenForChanges: false,
 });
 
-// $ExpectError
+// @ts-expect-error
 myCodeMirror.annotateScrollbar();
 
-// $ExpectError
+// @ts-expect-error
 myCodeMirror.annotateScrollbar({
     listenForChanges: false,
 });

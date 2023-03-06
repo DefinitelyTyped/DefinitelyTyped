@@ -1,10 +1,9 @@
 // Type definitions for mysql 2.15
 // Project: https://github.com/mysqljs/mysql
 // Definitions by:  William Johnston <https://github.com/wjohnsto>
-//                     Kacper Polak <https://github.com/kacepe>
-//                     Krittanan Pingclasai <https://github.com/kpping>
-//                     James Munro <https://github.com/jdmunro>
-//                     Sanders DeNardi <https://github.com/sedenardi>
+//                 Krittanan Pingclasai <https://github.com/kpping>
+//                 James Munro <https://github.com/jdmunro>
+//                 Sanders DeNardi <https://github.com/sedenardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -594,11 +593,6 @@ export interface MysqlError extends Error {
      * The field count
      */
     fieldCount?: number | undefined;
-
-    /**
-     * The stack trace for the error
-     */
-    stack?: string | undefined;
 
     /**
      * Boolean, indicating if this error is terminal to the connection object.

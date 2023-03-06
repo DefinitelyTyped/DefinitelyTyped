@@ -1,11 +1,13 @@
-// Type definitions for Pdfkit v0.11.0
+// Type definitions for Pdfkit v0.12.3
 // Project: http://pdfkit.org
 // Definitions by: Eric Hillah <https://github.com/erichillah>
 //                 Erik Berreßem <https://github.com/she11sh0cked>
 //                 Jeroen Vervaeke <https://github.com/jeroenvervaeke/>
 //                 Thales Agapito <https://github.com/thalesagapito/>
 //                 Evgeny Baram <https://github.com/r4tz52/>
-//                 BamButz <https://github.com/BamButz/>
+//                 Benjamin Just <https://github.com/BamButz/>
+//                 Joanna Gabis <https://github.com/jg-mms/>
+//                 Robin Guinant <https://github.com/Foohx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -63,6 +65,22 @@ declare namespace PDFKit.Mixins {
         textAnnotation(x: number, y: number, w: number, h: number, text: string, option?: AnnotationOption): this;
     }
 
+    interface PDFAttachmentOptions {
+        name?: string;
+        type?: string;
+        description?: string;
+        hidden?: boolean;
+        creationDate?: Date;
+        modifiedDate?: Date;
+    }
+
+    interface PDFAttachment {
+        /**
+         * Embed content of `src` in PDF
+         */
+        file(src: Buffer | ArrayBuffer | string, options?: PDFAttachmentOptions): this;
+    }
+
     // The color forms accepted by PDFKit:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
     type ColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
@@ -108,8 +126,8 @@ declare namespace PDFKit.Mixins {
     type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer;
 
     interface PDFFont {
-        font(buffer: Buffer): this;
-        font(src: string, family?: string, size?: number): this;
+        font(src: PDFFontSource, size?: number): this;
+        font(src: PDFFontSource, family: string, size?: number): this;
         fontSize(size: number): this;
         currentLineHeight(includeGap?: boolean): number;
         registerFont(name: string, src?: PDFFontSource, family?: string): this;
@@ -166,7 +184,7 @@ declare namespace PDFKit.Mixins {
         /** Whether to stroke the text */
         stroke?: boolean | undefined;
         /** A URL to link this text to (shortcut to create an annotation) */
-        link?: string | undefined;
+        link?: string | null | undefined;
         /** Whether to underline the text */
         underline?: boolean | undefined;
         /** Whether to strike out the text */
@@ -190,6 +208,8 @@ declare namespace PDFKit.Mixins {
         bulletIndent?: number | undefined;
         /** The indent of text in a list */
         textIndent?: number | undefined;
+        destination?: string | undefined;
+        goTo?: string | undefined;
     }
 
     interface PDFText {
@@ -221,7 +241,7 @@ declare namespace PDFKit.Mixins {
         rect(x: number, y: number, w: number, h: number): this;
         roundedRect(x: number, y: number, w: number, h: number, r?: number): this;
         ellipse(x: number, y: number, r1: number, r2?: number): this;
-        circle(x: number, y: number, raduis: number): this;
+        circle(x: number, y: number, radius: number): this;
         polygon(...points: number[][]): this;
         path(path: string): this;
         fill(color?: ColorValue, rule?: RuleValue): this;
@@ -272,6 +292,35 @@ declare namespace PDFKit.Mixins {
         formList(name: string, x: number, y: number, w: number, h: number, options?: object): this;
         formRadioButton(name: string, x: number, y: number, w: number, h: number, options?: object): this;
         formCheckbox(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+    }
+
+    interface PDFMarking {
+        markContent(tag: string, options?: MarkingOptions): this;
+        endMarkedContent(): this;
+        struct(tag: string, options?: MarkingOptions, children?: PDFStructureElementChild | PDFStructureElementChild[]): PDFStructureElement;
+        addStructure(structElem: PDFStructureElement): this;
+        initMarkings(options?: { tagged?: boolean }): void;
+        initPageMarkings(pageMarkings: PageMarking[]): void;
+        endPageMarkings(page: PDFPage): PageMarking[];
+        markStructureContent(tag: string, options?: MarkingOptions): PDFStructureContent;
+        getMarkingsDictionary(): PDFKitReference;
+        getStructTreeRoot(): PDFKitReference;
+        createStructParentTreeNextKey(): number;
+        endMarkings(): void;
+    }
+    interface MarkingOptions {
+        type?: 'Pagination' | 'Layout' | 'Page';
+        bbox?: [number, number, number, number];
+        attached?: string[];
+        lang?: string;
+        alt?: string;
+        expanded?: string;
+        actual?: string;
+    }
+    interface PageMarking {
+        tag: string;
+        structContent?: PDFStructureContent;
+        options?: MarkingOptions;
     }
 }
 
@@ -347,8 +396,12 @@ declare namespace PDFKit {
         margin?: number | undefined;
         margins?: { top: number; left: number; bottom: number; right: number } | undefined;
         layout?: 'portrait' | 'landscape' | undefined;
+        font?: string | undefined;
 
         bufferPages?: boolean | undefined;
+        tagged?: boolean;
+        lang?: string;
+        displayTitle?: boolean;
     }
 
     interface PDFDocument
@@ -359,7 +412,9 @@ declare namespace PDFKit {
             Mixins.PDFText,
             Mixins.PDFVector,
             Mixins.PDFFont,
-            Mixins.PDFAcroForm {
+            Mixins.PDFAcroForm,
+            Mixins.PDFMarking,
+            Mixins.PDFAttachment {
         /**
          * PDF Version
          */
@@ -482,6 +537,47 @@ declare module 'pdfkit/js/reference' {
 
     export = PDFKitReference;
 }
+declare namespace PDFKit {
+    /** PDFStructureContent */
+    class PDFStructureContent {
+        constructor(pageRef: PDFKitReference, mcid: number);
+        push(structContent: PDFStructureContent): void;
+    }
+}
+
+declare module 'pdfkit/js/structure_content' {
+    var PDFStructureContent: PDFKit.PDFStructureContent;
+    export = PDFStructureContent;
+}
+
+declare namespace PDFKit {
+    type PDFStructureElementChild =
+        (() => any)
+        | PDFStructureElement
+        | PDFStructureContent;
+
+    /** PDFStructureElement */
+    class PDFStructureElement {
+        constructor(
+            document: PDFDocument,
+            type: string,
+            options?: { title?: string; lang?: string; alt?: string; expanded?: string; actual?: string },
+            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+        constructor(
+            document: PDFDocument,
+            type: string,
+            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+        add(el: PDFStructureElementChild): PDFStructureElement;
+        setParent(parentRef: PDFKitReference): void;
+        setAttached(): void;
+        end(): void;
+    }
+}
+
+declare module 'pdfkit/js/structure_element' {
+    var PDFStructureElement: PDFKit.PDFStructureElement;
+    export = PDFStructureElement;
+}
 
 declare module 'pdfkit/js/mixins/annotations' {
     var PDFKitAnnotation: PDFKit.Mixins.PDFAnnotation;
@@ -511,4 +607,9 @@ declare module 'pdfkit/js/mixins/text' {
 declare module 'pdfkit/js/mixins/vector' {
     var PDFKitVector: PDFKit.Mixins.PDFVector;
     export = PDFKitVector;
+}
+
+declare module 'pdfkit/js/mixins/markings' {
+    var PDFKitMarking: PDFKit.Mixins.PDFMarking;
+    export = PDFKitMarking;
 }

@@ -1,6 +1,12 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
+        "file-name-casing": false,
         "unified-signatures": false
-    }
+    },
+    "cliOptions": {
+      "exclude": [
+          "samples"
+      ]
+  }
 }

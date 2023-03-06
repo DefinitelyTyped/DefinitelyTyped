@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, StyleProp, TextStyle, View, ViewStyle } from 'react-native';
+import { Image, StyleProp, TextStyle, View, ViewStyle, TouchableOpacity } from 'react-native';
 import Onboarding, {
     DoneButtonProps,
     DotProps,
@@ -81,41 +81,57 @@ const Next: React.FC<NextButtonProps> = ({ isLight, ...props }) => (
     />
 );
 
-const App = () => (
-    <Onboarding
-        DotComponent={Square}
-        NextButtonComponent={Next}
-        SkipButtonComponent={Skip}
-        DoneButtonComponent={Done}
-        titleStyles={{ color: 'blue' }} // set default color for the title
-        pages={[
-            {
-                backgroundColor: '#fff',
-                image: <Image source={require('./images/circle.png')} />,
-                title: 'Onboarding',
-                subtitle: 'Done with React Native Onboarding Swiper',
-                titleStyles: { color: 'red' }, // overwrite default color
-            },
-            {
-                backgroundColor: '#fe6e58',
-                image: <Image source={require('./images/square.png')} />,
-                title: 'The Title',
-                subtitle: 'This is the subtitle that sumplements the title.',
-            },
-            {
-                backgroundColor: '#999',
-                image: <Image source={require('./images/triangle.png')} />,
-                title: 'Triangle',
-                subtitle: "Beautiful, isn't it?",
-            },
-        ]}
-    />
-);
+const App = () => {
+    const onboardingRef = React.useRef<Onboarding>(null);
+    const next = () => onboardingRef.current?.goNext();
+    return (
+        <Onboarding
+            ref={onboardingRef}
+            DotComponent={Square}
+            NextButtonComponent={Next}
+            SkipButtonComponent={Skip}
+            DoneButtonComponent={Done}
+            onSkip={() =>
+                onboardingRef.current?.flatList?.scrollToIndex({
+                    animated: true,
+                    index: 2,
+                })
+            }
+            titleStyles={{ color: 'blue' }} // set default color for the title
+            pages={[
+                {
+                    backgroundColor: '#fff',
+                    image: (
+                        <TouchableOpacity onPress={next}>
+                            <Image source={require('./images/circle.png')} />
+                        </TouchableOpacity>
+                    ),
+                    title: 'Onboarding',
+                    subtitle: 'Done with React Native Onboarding Swiper',
+                    titleStyles: { color: 'red' }, // overwrite default color
+                },
+                {
+                    backgroundColor: '#fe6e58',
+                    image: <Image source={require('./images/square.png')} />,
+                    title: 'The Title',
+                    subtitle: 'This is the subtitle that sumplements the title.',
+                },
+                {
+                    backgroundColor: '#999',
+                    image: <Image source={require('./images/triangle.png')} />,
+                    title: 'Triangle',
+                    subtitle: "Beautiful, isn't it?",
+                },
+            ]}
+        />
+    );
+};
 
 export default App;
 
 // mock Button component
 const Button: React.FC<{
+    children?: React.ReactNode;
     title: string | JSX.Element;
     buttonStyle: StyleProp<ViewStyle>;
     containerViewStyle: StyleProp<ViewStyle>;

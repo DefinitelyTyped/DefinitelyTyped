@@ -1,19 +1,18 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import Lang from '@ckeditor/ckeditor5-language';
-import Command from '@ckeditor/ckeditor5-language/src/textpartlanguagecommand';
-import * as utils from '@ckeditor/ckeditor5-language/src/utils';
 import TextPartLanguage from '@ckeditor/ckeditor5-language/src/textpartlanguage';
+import Command from '@ckeditor/ckeditor5-language/src/textpartlanguagecommand';
 import TextPartLanguageEditing from '@ckeditor/ckeditor5-language/src/textpartlanguageediting';
 import TextPartLanguageUI from '@ckeditor/ckeditor5-language/src/textpartlanguageui';
+import * as utils from '@ckeditor/ckeditor5-language/src/utils';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-new Lang.TextPartLanguage(editor);
-Lang.TextPartLanguage.requires.map(Plugin => new Plugin(editor).init());
+new TextPartLanguage(editor);
+TextPartLanguage.requires.map(Plugin => new Plugin(editor).init());
 
-new Lang.TextPartLanguageUI(editor).init();
-new Lang.TextPartLanguageEditing(editor).init();
+new TextPartLanguageUI(editor).init();
+new TextPartLanguageEditing(editor).init();
 
 new Command(editor).refresh();
 new Command(editor).execute();

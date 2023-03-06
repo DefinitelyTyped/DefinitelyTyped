@@ -30,6 +30,26 @@ check.assert.maybe.like(undefined, { foo: 'bar' }, 'with a message');
 
 check.assert.nonEmptyArray([1, 2], 'With a message');
 
+check.emptyArray([1, 2, 3]);
+check.emptyArray([]);
+check.emptyArray('foo');
+check.emptyArray(true);
+check.emptyArray(undefined);
+check.emptyArray(null);
+check.emptyArray(Symbol(''));
+check.emptyArray(0);
+check.emptyArray({});
+
+check.nonEmptyArray([1, 2, 3]);
+check.nonEmptyArray([]);
+check.nonEmptyArray('foo');
+check.nonEmptyArray(true);
+check.nonEmptyArray(undefined);
+check.nonEmptyArray(null);
+check.nonEmptyArray(Symbol(''));
+check.nonEmptyArray(0);
+check.nonEmptyArray({});
+
 check.assert.not.inRange(1, 2, 3);
 
 check.assert.not.inRange(1, 2, 3, 'With a message');
@@ -52,7 +72,25 @@ check.assert(
     Error,
 );
 
-check.apply(['foo', 'bar', ''], check.nonEmptyString);
+check.emptyString('foo');
+check.emptyString('');
+check.emptyString(true);
+check.emptyString(undefined);
+check.emptyString(null);
+check.emptyString(Symbol(''));
+check.emptyString(0);
+check.emptyString({});
+check.emptyString([]);
+
+check.nonEmptyString('foo');
+check.nonEmptyString('');
+check.nonEmptyString(true);
+check.nonEmptyString(undefined);
+check.nonEmptyString(null);
+check.nonEmptyString(Symbol(''));
+check.nonEmptyString(0);
+check.nonEmptyString({});
+check.nonEmptyString([]);
 
 check.any(check.apply([1, 2, 3, ''], check.string));
 
@@ -61,3 +99,23 @@ check.any(check.map({ foo: 0, bar: '' }, { foo: check.number, bar: check.string 
 check.all(check.map({ foo: 0, bar: '' }, { foo: check.number, bar: check.string }));
 
 check.all(check.apply([1, 2, 3, ''], check.string));
+
+check.emptyObject({});
+check.emptyObject({x: 1});
+check.emptyObject('foo');
+check.emptyObject(true);
+check.emptyObject(undefined);
+check.emptyObject(null);
+check.emptyObject(Symbol(''));
+check.emptyObject(0);
+check.emptyObject([]);
+
+check.nonEmptyObject({});
+check.nonEmptyObject({x: 1});
+check.nonEmptyObject('foo');
+check.nonEmptyObject(true);
+check.nonEmptyObject(undefined);
+check.nonEmptyObject(null);
+check.nonEmptyObject(Symbol(''));
+check.nonEmptyObject(0);
+check.nonEmptyObject([]);

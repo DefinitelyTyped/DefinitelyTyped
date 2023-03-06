@@ -32,18 +32,26 @@ export interface Client extends Resource {
      *  Creates the WebSocket connection, subscribing to the given apps.
      *
      *  @param apps - Name or array of names of the applications to be started.
-     *  @param subscribeAll - Subscribe to all Asterisk events (true/false).
-     *  @param [callback] - The callback to be called after applications have started.
+     *  @param [subscribeAll] - Subscribe to all Asterisk events (true/false).
      */
-    start(apps: string | string[], subscribeAll: boolean, callback?: (err: Error, ...args: any[]) => void): void;
+    start(apps: string | string[], subscribeAll?: boolean): Promise<void>;
 
     /**
      *  Creates the WebSocket connection, subscribing to the given apps.
      *
      *  @param apps - Name or array of names of the applications to be started.
-     *  @param [callback] - The callback to be called after applications have started.
+     *  @param subscribeAll - Subscribe to all Asterisk events (true/false).
+     *  @param callback - The callback to be called after applications have started.
      */
-    start(apps: string | string[], callback?: (err: Error, ...args: any[]) => void): void;
+    start(apps: string | string[], subscribeAll: boolean, callback: (err: Error, ...args: any[]) => void): void;
+
+    /**
+     *  Creates the WebSocket connection, subscribing to the given apps.
+     *
+     *  @param apps - Name or array of names of the applications to be started.
+     *  @param callback - The callback to be called after applications have started.
+     */
+    start(apps: string | string[], callback: (err: Error, ...args: any[]) => void): void;
 
     /**
      *  Closes the WebSocket connection.

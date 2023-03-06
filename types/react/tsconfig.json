@@ -19,6 +19,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "exactOptionalPropertyTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

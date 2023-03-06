@@ -1,6 +1,6 @@
 // Type definitions for @nick-thompson/elementary 0.9
 // Project: https://www.elementary.audio/
-// Definitions by: Hrle97 <https://github.com/Hrle97>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 

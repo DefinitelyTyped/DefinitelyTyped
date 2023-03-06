@@ -63,6 +63,9 @@ operation.stop();
 operation.reset();
 operation.attempts(); // $ExpectType number
 
+// accept an array of timeouts as well:
+retry.operation([2000, 3000, 4000]);
+
 retry.createTimeout(att); // $ExpectType number
 retry.createTimeout(att, createTimeoutOptions); // $ExpectType number
 

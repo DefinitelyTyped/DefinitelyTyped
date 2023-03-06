@@ -33,117 +33,147 @@ async function topLevel() {
     trackGenerator.readableControl.pipeTo(trackProcessor.writableControl);
 
     ////////////////////////////////////////////////////////////////////////////////
-    // Based on https://github.com/web-platform-tests/wpt/tree/5366cbd0021528a3415af60a585a45aa8a52a210/mediacapture-insertable-streams with assertions added.
+    // Based on https://github.com/web-platform-tests/wpt/tree/7463f07229f3cf71797d742c0f7bf6e161b7ae03/mediacapture-insertable-streams with assertions added.
 
     // MediaStreamTrackGenerator-audio.https.html
 
-    const audioBuffer = new AudioBuffer({
-        length: 300,
-        sampleRate: 3000,
-    });
+    const sampleRate = 30000;
 
-    const audioFrame = new AudioFrame({
+    const frames = sampleRate / 10;
+    const channels = 1;
+
+    // Generate a simple sin wave, so we have something.
+    const data = new Float32Array(frames * channels);
+    const hz = 100; // sound frequency
+    for (let i = 0; i < data.length; i++) {
+        const t = (i / sampleRate) * hz * (Math.PI * 2);
+        data[i] = Math.sin(t);
+    }
+
+    const audioData = new AudioData({
         timestamp: 1,
-        buffer: audioBuffer,
+        numberOfFrames: frames,
+        numberOfChannels: channels,
+        sampleRate,
+        data,
+        format: "f32",
     });
 
-    const generator1 = new MediaStreamTrackGenerator({ kind: "audio" });
+    {
+        const generator = new MediaStreamTrackGenerator({ kind: "audio" });
 
-    // $ExpectType WritableStreamDefaultWriter<AudioFrame>
-    const writer1 = generator1.writable.getWriter();
-    // $ExpectType void
-    await writer1.write(audioFrame);
+        // $ExpectType WritableStreamDefaultWriter<AudioData>
+        const writer = generator.writable.getWriter();
+        // $ExpectType void
+        await writer.write(audioData);
 
-    // $ExpectType "audio"
-    generator1.kind;
+        // $ExpectType "audio"
+        generator.kind;
 
-    // $ExpectType MediaStreamTrackState
-    generator1.readyState;
+        // $ExpectType MediaStreamTrackState
+        generator.readyState;
 
-    // $ExpectType void
-    generator1.stop();
+        // $ExpectType void
+        generator.stop();
+    }
 
-    const audioCaptureStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const audioCaptureTrack = audioCaptureStream.getAudioTracks()[0];
+    {
+        const capturedStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const upstreamTrack = capturedStream.getAudioTracks()[0];
 
-    const generator2 = new MediaStreamTrackGenerator({ signalTarget: audioCaptureTrack, kind: "audio" });
+        const generator = new MediaStreamTrackGenerator({ signalTarget: upstreamTrack, kind: "audio" });
 
-    // $ExpectType "audio"
-    generator2.kind;
+        // $ExpectType "audio"
+        generator.kind;
 
-    // $ExpectError
-    new MediaStreamTrackGenerator({ kind: "invalid kind" });
+        // @ts-expect-error
+        new MediaStreamTrackGenerator({ kind: "invalid kind" });
+    }
 
-    // $ExpectError
-    new MediaStreamTrackGenerator({ signalTarget: audioCaptureTrack });
+    {
+        const generator = new MediaStreamTrackGenerator({ kind: "video" });
+        generator.stop();
 
-    // $ExpectError
-    new MediaStreamTrackGenerator({ signalTarget: audioCaptureTrack, kind: "video" });
+        const writer3 = generator.writable.getWriter();
+        const data = audioData;
+        // @ts-expect-error
+        writer3.write(data);
+    }
 
-    // $ExpectError
-    new MediaStreamTrackGenerator({ signalTarget: "IamNotATrack" });
+    {
+        const generator = new MediaStreamTrackGenerator({ kind: "audio" });
 
-    const generator3 = new MediaStreamTrackGenerator({ kind: "video" });
-    const writer3 = generator3.writable.getWriter();
-
-    // $ExpectError
-    writer3.write(audioFrame);
-
-    new MediaStream([generator1]);
+        new MediaStream([generator]);
+    }
 
     // MediaStreamTrackGenerator-video.https.html
 
-    const videoFrame = new VideoFrame(imageBitmap, { timestamp: 1 });
+    const videoFrame = new VideoFrame(imageBitmap, { timestamp: 1, alpha: 'discard' });
 
-    const videoCaptureStream = await navigator.mediaDevices.getUserMedia({ video: true });
-    const videoCaptureTrack = videoCaptureStream.getVideoTracks()[0];
+    {
+        const generator = new MediaStreamTrackGenerator({ kind: 'video' });
 
-    const videoTrackProcessor = new MediaStreamTrackProcessor({ track: videoCaptureTrack });
+        // Use a MediaStreamTrackProcessor as a sink for |generator| to verify
+        // that |processor| actually forwards the frames written to its writable
+        // field.
+        const processor = new MediaStreamTrackProcessor({ track: generator });
 
-    // $ExpectType ReadableStreamDefaultReader<VideoFrame>
-    const reader = videoTrackProcessor.readable.getReader();
+        // $ExpectType ReadableStreamDefaultReader<VideoFrame>
+        const reader = processor.readable.getReader();
 
-    const readResult = await reader.read();
-    if (!readResult.done) {
-        // $ExpectType VideoFrame
-        readResult.value;
+        const result = await reader.read();
+        if (!result.done) {
+            // $ExpectType VideoFrame
+            result.value;
+        }
+
+        generator.writable.getWriter().write(videoFrame);
     }
 
-    const generator4 = new MediaStreamTrackGenerator({ kind: "video" });
+    {
+        const generator = new MediaStreamTrackGenerator({ kind: 'video' });
 
-    const processor4 = new MediaStreamTrackProcessor({ track: generator4 });
+        new MediaStream([generator]);
+    }
 
-    // $ExpectType ReadableStreamDefaultReader<VideoFrame>
-    processor4.readable.getReader();
+    {
+        const generator = new MediaStreamTrackGenerator({ kind: 'video' });
 
-    // $ExpectType WritableStreamDefaultWriter<VideoFrame>
-    const writer4 = generator4.writable.getWriter();
-    // $ExpectType void
-    await writer4.write(videoFrame);
+        // $ExpectType WritableStreamDefaultWriter<VideoFrame>
+        const writer = generator.writable.getWriter();
+        // $ExpectType void
+        await writer.write(videoFrame);
+    }
 
-    new MediaStream([generator4]);
+    {
+        const generator = new MediaStreamTrackGenerator({ kind: "video" });
 
-    // $ExpectType "video"
-    generator4.kind;
+        // $ExpectType "video"
+        generator.kind;
 
-    // $ExpectType MediaStreamTrackState
-    generator4.readyState;
+        // $ExpectType MediaStreamTrackState
+        generator.readyState;
 
-    // $ExpectType void
-    generator4.stop();
+        // $ExpectType void
+        generator.stop();
+    }
 
-    const generator5 = new MediaStreamTrackGenerator({ signalTarget: videoCaptureTrack, kind: "video" });
+    {
+        const generator = new MediaStreamTrackGenerator({ kind: "audio" });
 
-    // $ExpectType "video"
-    generator5.kind;
-
-    // $ExpectError
-    writer1.write(videoFrame);
+        const writer = generator.writable.getWriter();
+        // @ts-expect-error
+        writer.write(videoFrame);
+    }
 
     // MediaStreamTrackProcessor-audio.https.html
 
-    const audioTrackProcessor = new MediaStreamTrackProcessor({ track: audioCaptureTrack });
+    {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const track = stream.getTracks()[0] as MediaStreamAudioTrack;
+        const processor = new MediaStreamTrackProcessor({ track });
 
-    // $ExpectType ReadableStream<AudioFrame>
-    audioTrackProcessor.readable;
+        // $ExpectType ReadableStreamDefaultReader<AudioData>
+        const reader = processor.readable.getReader();
+    }
 }

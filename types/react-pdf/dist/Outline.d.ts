@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { PDFTreeNode } from 'pdfjs-dist';
+import { getDocument } from 'pdfjs-dist';
+
+// Internal Awaited type
+export {};
+type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
 export interface Props {
     /**
@@ -21,8 +25,9 @@ export interface Props {
 
     /**
      * Function called when the outline is successfully retrieved.
+     * Here infer `Outline` type by ts trick, since it is not exposed by `pdfjs-dist`.
      */
-    onLoadSuccess?: ((outline: PDFTreeNode[]) => void) | undefined;
+    onLoadSuccess?: ((outline: Awaited<ReturnType<Awaited<ReturnType<typeof getDocument>['promise']>['getOutline']>>) => void) | undefined;
 }
 
 export default class Outline extends React.Component<Props> { }

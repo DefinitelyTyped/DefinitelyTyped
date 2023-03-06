@@ -83,7 +83,7 @@ declare class Field {
     defaultValue: any;
     permissionFilterFieldName: string;
     userCanChangeNegativeKey: boolean;
-    rangeLimit: any;
+    rangeLimit: Limit;
     protected _getArrayFromList(list: any): any;
     masterFieldNames: string;
     multiple: boolean;
@@ -160,8 +160,12 @@ declare class Field {
     isTime(): boolean;
 }
 declare namespace Field {
-    export { Event, AdapterDescriptor };
+    export { Event, AdapterDescriptor, Limit };
 }
 type AdapterDescriptor = import('../event/AdapterDescriptor');
+interface Limit {
+    START: number;
+    END: number;
+}
 import FieldGroup = require('./FieldGroup.js');
 type Event = import('../event/Event');

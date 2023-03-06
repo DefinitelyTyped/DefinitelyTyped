@@ -41,7 +41,7 @@ driving.search(lnglat, lnglat, { waypoints: [lnglat] }, (status, result) => {
             poi.location;
             // $ExpectType string
             poi.name;
-            // $ExpectType "start" | "end" | "waypoint"
+            // $ExpectType "start" | "end" | "waypoint" || "end" | "start" | "waypoint"
             poi.type;
         }
         // $ExpectType string

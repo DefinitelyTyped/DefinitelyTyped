@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-consecutive-blank-lines": false,
         "no-trailing-whitespace": false,
@@ -7,7 +7,6 @@
         "npm-naming": false,
         "only-arrow-functions": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

@@ -1,6 +1,8 @@
-import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
+import { DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Literal } from 'rdf-js';
+import { GraphPointer } from 'clownface';
 import SHACLValidator = require('rdf-validate-shacl');
 import DataFactoryExt = require('rdf-ext/lib/DataFactory');
+import ValidationReport = require('rdf-validate-shacl/src/validation-report');
 
 const shapes: DatasetCore = <any> {};
 const data: DatasetCore = <any> {};
@@ -20,13 +22,14 @@ report1.conforms;
 for (const result of report1.results) {
     result.term; // $ExpectType BlankNode | NamedNode<string>
     result.dataset; // $ExpectType DatasetCore<Quad, Quad>
-    result.cf; // $ExpectType GraphPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>> || AnyPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>>
+    result.pointer; // $ExpectType GraphPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>> || AnyPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>>
     result.message; // $ExpectType (BlankNode | NamedNode<string> | Literal)[] || (BlankNode | Literal | NamedNode<string>)[]
     result.path; // $ExpectType BlankNode | NamedNode<string> | null
     result.focusNode; // $ExpectType BlankNode | NamedNode<string> | null
     result.severity; // $ExpectType NamedNode<string> | null
     result.sourceConstraintComponent; // $ExpectType BlankNode | NamedNode<string> | null
     result.sourceShape; // $ExpectType BlankNode | NamedNode<string> | null
+    result.detail; // $ExpectType ValidationResult<DataFactory<Quad, Quad> & DatasetCoreFactory<Quad, Quad, DatasetCore<Quad, Quad>>>[]
 }
 
 // $ExpectType BlankNode | NamedNode<string>
@@ -34,6 +37,9 @@ report1.term;
 
 // $ExpectType DatasetCore<Quad, Quad>
 report1.dataset;
+
+// $ExpectType GraphPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>> || AnyPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>>
+report1.pointer;
 
 const validator2 = new SHACLValidator(shapes, { factory: factory1 });
 
@@ -48,13 +54,14 @@ report2.conforms;
 for (const result of report2.results) {
     result.term; // $ExpectType BlankNode | NamedNode<string>
     result.dataset; // $ExpectType DatasetCore<Quad, Quad>
-    result.cf; // $ExpectType GraphPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>> || AnyPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>>
+    result.pointer; // $ExpectType GraphPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>> || AnyPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>>
     result.message; // $ExpectType (BlankNode | NamedNode<string> | Literal)[] || (BlankNode | Literal | NamedNode<string>)[]
     result.path; // $ExpectType BlankNode | NamedNode<string> | null
     result.focusNode; // $ExpectType BlankNode | NamedNode<string> | null
     result.severity; // $ExpectType NamedNode<string> | null
     result.sourceConstraintComponent; // $ExpectType BlankNode | NamedNode<string> | null
     result.sourceShape; // $ExpectType BlankNode | NamedNode<string> | null
+    result.detail; // $ExpectType ValidationResult<DataFactory<Quad, Quad> & DatasetCoreFactory<Quad, Quad, DatasetCore<Quad, Quad>>>[]
 }
 
 // $ExpectType BlankNode | NamedNode<string>
@@ -62,6 +69,9 @@ report2.term;
 
 // $ExpectType DatasetCore<Quad, Quad>
 report2.dataset;
+
+// $ExpectType GraphPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>> || AnyPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>>
+report2.pointer;
 
 const validator3 = new SHACLValidator(shapes, { factory: factory2 });
 
@@ -76,13 +86,14 @@ report3.conforms;
 for (const result of report3.results) {
     result.term; // $ExpectType BlankNodeExt | NamedNodeExt<string>
     result.dataset; // $ExpectType DatasetExt
-    result.cf; // $ExpectType GraphPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt> || AnyPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt>
+    result.pointer; // $ExpectType GraphPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt> || AnyPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt>
     result.message; // $ExpectType (BlankNodeExt | LiteralExt | NamedNodeExt<string>)[]
     result.path; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
     result.focusNode; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
     result.severity; // $ExpectType NamedNodeExt<string> | null
     result.sourceConstraintComponent; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
     result.sourceShape; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
+    result.detail; // $ExpectType ValidationResult<DataFactoryExt>[]
 }
 
 // $ExpectType BlankNodeExt | NamedNodeExt<string>
@@ -90,3 +101,13 @@ report3.term;
 
 // $ExpectType DatasetExt
 report3.dataset;
+
+// $ExpectType GraphPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt>
+report3.pointer;
+
+const pointer: GraphPointer<NamedNode> = <any> {};
+let reportFromCtor = new ValidationReport(pointer, { factory: factory1 });
+
+const nonResourcePointer: GraphPointer<Literal> = <any> {};
+// @ts-expect-error
+reportFromCtor = new ValidationReport(nonResourcePointer, { factory: factory1 });

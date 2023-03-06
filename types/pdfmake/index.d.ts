@@ -1,4 +1,4 @@
-// Type definitions for pdfmake 0.1
+// Type definitions for pdfmake 0.2
 // Project: http://pdfmake.org
 // Definitions by: Milen Stefanov <https://github.com/m1llen1um>
 //                 Rajab Shakirov <https://github.com/radziksh>
@@ -6,6 +6,7 @@
 //                 Andi Pätzold <https://github.com/andipaetzold>
 //                 Neal Mummau <https://github.com/nmummau>
 //                 Jean-Raphaël Matte <https://github.com/jeralm>
+//                 Michael Strobel <https://github.com/kryops>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

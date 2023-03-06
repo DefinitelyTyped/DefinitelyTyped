@@ -10,9 +10,7 @@ import * as React from 'react';
 // Turn off automatic exporting by exporting {}.
 export {};
 
-type RefCallback = (element: React.ReactNode | null) => void;
-
-type TestHookGeneratorWithRefCallback = (label: string, ref?: RefCallback) => RefCallback;
+type TestHookGeneratorWithRefCallback = (label: string, ref?: React.RefCallback<any>) => React.RefCallback<any>;
 
 type TestHookGeneratorWithRefObject = (label: string, ref?: React.RefObject<any>) => React.RefObject<any>;
 
@@ -24,9 +22,10 @@ export function hook<P extends {}>(WrappedComponent: React.ComponentClass<WithTe
 
 export function useCavy(): TestHookGenerator;
 
-export function wrap<P extends {}>(WrappedComponent: {} | React.FunctionComponent<P>): React.ComponentClass<P>;
+export function wrap<P extends {}>(WrappedComponent: React.ComponentClass<P> | React.FunctionComponent<P>): React.ComponentClass<P>;
 
 export interface TesterProps {
+    children: React.ReactElement;
     store: TestHookStore;
     specs: Array<(spec: TestScope) => void>;
     waitTime?: number | undefined;

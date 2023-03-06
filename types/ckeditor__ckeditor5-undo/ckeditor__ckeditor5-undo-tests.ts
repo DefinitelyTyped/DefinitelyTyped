@@ -1,9 +1,9 @@
-import { Editor } from "@ckeditor/ckeditor5-core";
-import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
-import { Undo, UndoEditing } from "@ckeditor/ckeditor5-undo";
-import UndoUI from "@ckeditor/ckeditor5-undo/src/undoui";
-import RedoCommand from "@ckeditor/ckeditor5-undo/src/redocommand";
-import UndoCommand from "@ckeditor/ckeditor5-undo/src/undocommand";
+import { Editor } from '@ckeditor/ckeditor5-core';
+import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
+import { Undo, UndoEditing } from '@ckeditor/ckeditor5-undo';
+import RedoCommand from '@ckeditor/ckeditor5-undo/src/redocommand';
+import UndoCommand from '@ckeditor/ckeditor5-undo/src/undocommand';
+import UndoUI from '@ckeditor/ckeditor5-undo/src/undoui';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -16,12 +16,15 @@ Undo.requires.length === 2;
 
 const command = new UndoCommand(editor);
 command.execute();
-command.execute(new Batch("transparent"));
+command.execute(new Batch({ isUndoable: true }));
 
 const redo = new RedoCommand(editor);
 redo.execute();
-// $ExpectError
+// @ts-expect-error
 redo.execute(new Batch());
+
+new UndoUI(editor).init();
+new UndoEditing(editor).init();
 
 // $ExpectType Undo
 editor.plugins.get('Undo');

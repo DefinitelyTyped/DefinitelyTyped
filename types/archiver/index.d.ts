@@ -1,4 +1,4 @@
-// Type definitions for archiver 5.1
+// Type definitions for archiver 5.3
 // Project: https://github.com/archiverjs/node-archiver
 // Definitions by:  Esri
 //                  Dolan Miu <https://github.com/dolanmiu>
@@ -27,7 +27,7 @@ declare namespace archiver {
 
     /** Check if the format is already registered. */
     function isRegisteredFormat(format: string): boolean;
-
+    // tslint:disable-next-line:ban-types Function
     function registerFormat(format: string, module: Function): void;
 
     interface EntryData {
@@ -89,9 +89,11 @@ declare namespace archiver {
         finalize(): Promise<void>;
 
         setFormat(format: string): this;
+        // tslint:disable-next-line:ban-types Function
         setModule(module: Function): this;
 
         pointer(): number;
+        // tslint:disable-next-line:ban-types Function
         use(plugin: Function): this;
 
         symlink(filepath: string, target: string, mode?: number): this;
@@ -125,6 +127,7 @@ declare namespace archiver {
         comment?: string | undefined;
         forceLocalTime?: boolean | undefined;
         forceZip64?: boolean | undefined;
+        /** @default false */
         namePrependSlash?: boolean | undefined;
         store?: boolean | undefined;
         zlib?: ZlibOptions | undefined;

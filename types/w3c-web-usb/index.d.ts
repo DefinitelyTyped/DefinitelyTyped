@@ -138,6 +138,7 @@ declare class USBDevice {
     readonly opened: boolean;
     open(): Promise<void>;
     close(): Promise<void>;
+    forget(): Promise<void>;
     selectConfiguration(configurationValue: number): Promise<void>;
     claimInterface(interfaceNumber: number): Promise<void>;
     releaseInterface(interfaceNumber: number): Promise<void>;

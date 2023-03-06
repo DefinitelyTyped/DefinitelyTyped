@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
-import Object from '@ember/object';
 import Array from '@ember/array';
 import Ember from 'ember'; // currently needed for Transition
-import Transition from '@ember/routing/-private/transition';
+import Transition from '@ember/routing/transition';
 
 // Ensure that Ember.Transition is private
-Ember.Transition; // $ExpectError
+// @ts-expect-error
+Ember.Transition;
 
 interface Post extends Ember.Object {
     title: string;
@@ -27,23 +27,6 @@ Route.extend({
     },
 });
 
-Route.extend({
-    actions: {
-        showModal(evt: { modalName: string }) {
-            this.render(evt.modalName, {
-                outlet: 'modal',
-                into: 'application',
-            });
-        },
-        hideModal(evt: { modalName: string }) {
-            this.disconnectOutlet({
-                outlet: 'modal',
-                parentView: 'application',
-            });
-        },
-    },
-});
-
 Ember.Route.extend({
     model() {
         return this.modelFor('post');
@@ -53,27 +36,6 @@ Ember.Route.extend({
 Route.extend({
     queryParams: {
         memberQp: { refreshModel: true },
-    },
-});
-
-Route.extend({
-    renderTemplate() {
-        this.render('photos', {
-            into: 'application',
-            outlet: 'anOutletName',
-        });
-    },
-});
-
-Route.extend({
-    renderTemplate(controller: Ember.Controller, model: {}) {
-        this.render('posts', {
-            view: 'someView', // the template to render, referenced by name
-            into: 'application', // the template to render into, referenced by name
-            outlet: 'anOutletName', // the outlet inside `options.into` to render into.
-            controller: 'someControllerName', // the controller to use for this template, referenced by name
-            model, // the model to set on `options.controller`.
-        });
     },
 });
 
@@ -95,8 +57,11 @@ Route.extend({
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',
 }) {
-    beforeModel(this: RouteUsingClass) {
-        return 'beforeModel can return anything, not just promises';
+    beforeModel() {
+        return Promise.resolve('beforeModel can return promises');
+    }
+    afterModel(resolvedModel: unknown, transition: Transition) {
+        return Promise.resolve('afterModel can also return promises');
     }
     intermediateTransitionWithoutModel() {
         this.intermediateTransitionTo('some-route');
@@ -106,5 +71,27 @@ class RouteUsingClass extends Route.extend({
     }
     intermediateTransitionWithMultiModel() {
         this.intermediateTransitionTo('some.other.route', 1, 2, {});
+    }
+}
+
+class WithNonReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return;
+    }
+
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return;
+    }
+}
+
+class WithBadReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        // @ts-expect-error
+        return "returning anything else is nonsensical (if 'legal')";
+    }
+
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        // @ts-expect-error
+        return "returning anything else is nonsensical (if 'legal')";
     }
 }

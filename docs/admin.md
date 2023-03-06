@@ -3,7 +3,7 @@
 Welcome! This is a resource for the person who is on call for Definitely Typed. The TypeScript team always has someone
 assigned to Definitely Typed duty, where they do a week on-call. You can see the [schedule here](http://aka.ms/DTRotation).
 
-When on-call, your goal is to try keep on top of the many open PRs for Definitely Typed; they are categorized into
+When on-call, your goal is to try to keep on top of the many open PRs for Definitely Typed; they are categorized into
 different sections inside the [Projects board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) on this repo.
 
 You should scan from left to right through the boards, and ideally try to start at the oldest PR in a section and work
@@ -51,7 +51,7 @@ You can control the life-cycle of PRs via "blessings", which are implicit operat
 * If a PR requires a *maintainer action*, you can move it to the `Waiting for Author to Merge` column to "merge-bless" it: make the bot offer the author to self-merge.
   This is particularly useful in cases where a PR author is unsure about something, and is trying to solicit review from owners or library authors: it makes it possible to defer the decision when to merge to the author, instead of starting an "are you ready" discussion.
 
-You can use either of these blessings in other cases too, the above are just the common use cases.  A review-blessing is only good to satisfy a maintainer review requirment (so other reviews will be needed), and a merge-blessing will usually make a PR self-mergable, but it will still wait until a PR is unconflicted and the CI is green.
+You can use either of these blessings in other cases too, the above are just the common use cases.  A review-blessing is only good to satisfy a maintainer review requirement (so other reviews will be needed), and a merge-blessing will usually make a PR self-mergeable, but it will still wait until a PR is unconflicted and the CI is green.
 
 Like a review, both kinds of blessings will be dismissed if the PR is updated.
 You can also undo a blessing by moving a PR to any other column.
@@ -115,7 +115,7 @@ The process of handling PRs:
 - [DT projects](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) — an automated board saying where open PRs live
 - [dt-merge-bot](https://github.com/DefinitelyTyped/dt-mergebot/) — the bot which sets the labels on PRs, and update's project status
 - [focus-dt](https://github.com/DefinitelyTyped/focus-dt) — a tool which controls chrome to load up the next PR to review, so you can focus
-- [dtslint](https://github.com/microsoft/dtslint) — the CLI tool used to validate PRs on Definitely Typed
+- [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) — the CLI tool used to validate PRs on Definitely Typed
 
 The process of deploying changes:
 

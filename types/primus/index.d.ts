@@ -124,7 +124,7 @@ interface PrimusOptions {
 }
 
 declare namespace Primus {
-    function createSocket(options?: PrimusOptions): typeof Socket;
+    function createSocket(options?: SocketOptions): typeof Socket;
 
     function createServer(options?: PrimusOptions): Primus;
     function createServer(fn: (spark: Spark) => void, options?: PrimusOptions): Primus;
@@ -180,6 +180,10 @@ declare namespace Primus {
         network?: boolean | undefined;
         transport?: object | undefined;
         queueSize?: number | undefined;
+        // https://www.npmjs.com/package/primus#connecting-from-the-server
+        transformer?: PrimusOptions["transformer"] | undefined;
+        parser?: PrimusOptions["parser"] | undefined;
+        plugin?: PrimusOptions["plugin"] | undefined;
     }
     class Socket extends Stream {
         constructor(options?: SocketOptions);

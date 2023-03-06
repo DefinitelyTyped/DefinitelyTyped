@@ -1,7 +1,9 @@
 import * as React from 'react';
 
 declare namespace OverlayTrigger {
-    export interface OverlayTriggerProps extends React.Props<OverlayTrigger> {
+    export interface OverlayTriggerProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<OverlayTrigger> | undefined;
         // Required
         overlay: any; // TODO: Add more specific type
 

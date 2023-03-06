@@ -41,6 +41,24 @@ const options: Options = {
     },
     close: true,
     backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
+    style: {
+        color: '#aabbcc',
+    },
+    escapeMarkup: true,
+    oldestFirst: true,
 };
 
 Toastify(options);
+
+// #60413
+const toast = Toastify({
+    text: 'Update is pending',
+    duration: 3000,
+    close: false,
+    stopOnFocus: true,
+    onClick: () => {
+        toast.hideToast(); // see this line
+    },
+});
+toast.options; // $ExpectType Options
+toast.toastElement; // $ExpectType Element | null

@@ -72,6 +72,7 @@ bootbox.prompt({
 });
 bootbox.prompt({
     title: "This is a prompt with a set of checkbox inputs!",
+    message: '<p>Please select an option below:</p>',
     inputType: 'checkbox',
     inputOptions: [
         {
@@ -145,7 +146,15 @@ bootbox.setDefaults({
     backdrop: false,
     className: 'newClassName',
     closeButton: true,
-    show: true
+    show: true,
+    container: 'body',
+    value: '',
+    inputType: "textarea",
+    swapButtonOrder: true,
+    centerVertical: true,
+    multiple: true,
+    scrollable: true,
+    reusable: true
 })
 
 bootbox.hideAll();

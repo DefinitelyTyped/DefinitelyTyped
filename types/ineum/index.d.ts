@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ineum-browser 187.0
+// Type definitions for non-npm package ineum-browser 216.0
 // Project: https://docs.instana.io/products/website_monitoring/api/
 // Definitions by: Enzo Volkmann <https://github.com/evolkmann>
 //                 Benjamin Blackmore <https://github.com/bripkens>
@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-// Website Monitoring API from Instana (status: 2020-09-29)
+// Website Monitoring API from Instana (status: 2022-01-11)
 
 declare function ineum(command: 'key' | 'page' | 'reportingUrl' | 'traceId', value: string): void;
 
@@ -63,9 +63,11 @@ declare function ineum(
 declare function ineum(
     command:
         | 'allowedOrigins'
+        | 'captureHeaders'
         | 'ignoreErrorMessages'
         | 'ignoreUrls'
         | 'ignoreUserTimings'
+        | 'secrets'
         | 'urlsToCheckForGraphQlInsights',
     values: RegExp[],
 ): void;

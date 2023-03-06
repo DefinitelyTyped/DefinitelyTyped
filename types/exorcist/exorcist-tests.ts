@@ -9,7 +9,8 @@ exorcist("path/to/file", "example.map", "/", "../"); // $ExpectType Stream
 exorcist("path/to/file", "example.map", "/", "../", true); // $ExpectType Stream
 exorcist(fs.createWriteStream("./some.map"), "example.map"); // $ExpectType Stream
 exorcist(fs.createWriteStream("./some.map"), "example.map", null, null, null); // $ExpectType Stream
-exorcist(fs.createWriteStream("./some.map")); // $ExpectError
+// @ts-expect-error
+exorcist(fs.createWriteStream("./some.map"));
 
 const stream = exorcist("path/to/file");
 stream.on("missing-map", missingMapMessage => {

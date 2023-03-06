@@ -45,6 +45,7 @@ export class Example extends React.Component {
                             symbolType: 'circle',
                             viewGenerator: node => <div>{node.name}</div>,
                             labelProperty: node => node.name || 'No name',
+                            labelPosition: 'bottom',
                         },
                         link: {
                             fontSize: 10,

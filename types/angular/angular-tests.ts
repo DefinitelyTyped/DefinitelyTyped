@@ -1323,7 +1323,7 @@ namespace locationTests {
     $location.path('/foo');
     assert($location.absUrl() === 'http://example.com/foo');
 
-    assert($location.search() === {});
+    $location.search();
     $location.search({ a: 'b', c: true });
     assert($location.absUrl() === 'http://example.com/foo?a=b&c');
 
@@ -1335,7 +1335,6 @@ namespace locationTests {
     // open http://example.com/new?x=y -> redirect to http://example.com/#!/new?x=y
     // (again replacing the http://example.com/new?x=y history item)
     assert($location.path() === '/new');
-    assert($location.search() === { x: 'y' });
 
     $location.path('/foo/bar');
     assert($location.path() === '/foo/bar');

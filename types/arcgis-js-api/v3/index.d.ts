@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.37
+// Type definitions for ArcGIS API for JavaScript 3.40
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -53,27 +53,27 @@ declare module "esri" {
   import WMTSLayerInfo = require("esri/layers/WMTSLayerInfo");
 
   export interface AGSMouseEvent extends MouseEvent {
-    graphic?: Graphic | undefined;
+    graphic?: Graphic;
     mapPoint: Point;
     screenPoint: ScreenPoint;
   }
   export interface AddOptions {
     /** The features that were added to the feature layer. */
-    addedGraphics?: Graphic[] | undefined;
+    addedGraphics?: Graphic[];
     /** The feature layer where the new feature(s) are added. */
-    featureLayer?: FeatureLayer | undefined;
+    featureLayer?: FeatureLayer;
   }
   export interface AggregatePointsOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** A field name from pointLayer based on which the points will be grouped. */
-    groupByField?: string | undefined;
+    groupByField?: string;
     /** When true, the polygons that have no points within them will be returned in the output. */
-    keepBoundariesWithNoPoints?: boolean | undefined;
+    keepBoundariesWithNoPoints?: boolean;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The point feature layer that will be aggregated into the polygons in the polygon feature layer. */
     pointLayer: FeatureLayer;
     /** The polygon layer to be shown selected in in the Choose area menu. */
@@ -81,102 +81,102 @@ declare module "esri" {
     /** An array of feature layer candidates to be selected as the input polygon layer. */
     polygonLayers: FeatureLayer[];
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
     /** An array of attribute field names and statistic types that you would like to aggregate for all points within each polygon. */
-    summaryFields?: string[] | undefined;
+    summaryFields?: string[];
   }
   export interface ArcGISDynamicMapServiceLayerOptions {
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** Specify the geodatabase version to display. */
-    gdbVersion?: string | undefined;
+    gdbVersion?: string;
     /** Id to assign to the layer. */
-    id?: string | undefined;
+    id?: string;
     /** Represents the image parameter options. */
-    imageParameters?: ImageParameters | undefined;
+    imageParameters?: ImageParameters;
     /** infoTemplates object. */
     infoTemplates?: any;
     /** Initial opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
     /** Specify the metadata of the layer. */
     resourceInfo?: any;
     /** When true, the layer's attribution is displayed on the map. */
-    showAttribution?: boolean | undefined;
+    showAttribution?: boolean;
     /**
      * By default, images are exported in MIME format, and the image is streamed to the client.
      * @deprecated
      */
-    useMapImage?: boolean | undefined;
+    useMapImage?: boolean;
     /** When true, the layer will update its content based on the map's time extent. */
-    useMapTime?: boolean | undefined;
+    useMapTime?: boolean;
     /** Initial visibility of the layer. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface ArcGISImageServiceLayerOptions {
     /** Id to assign to the layer. */
-    id?: string | undefined;
+    id?: string;
     /** The image service parameter options used when exporting an Image Service layer. */
-    imageServiceParameters?: ImageServiceParameters | undefined;
+    imageServiceParameters?: ImageServiceParameters;
     /** The template that defines the content to display in the map info window when the user clicks on a raster. */
-    infoTemplate?: InfoTemplate | undefined;
+    infoTemplate?: InfoTemplate;
     /** Initial opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** Specify the metadata of the layer. */
     resourceInfo?: any;
     /** By default, images are exported in MIME format, and the image is streamed to the client. */
-    useMapImage?: boolean | undefined;
+    useMapImage?: boolean;
     /** When true, the layer will update its content based on the map's time extent. */
-    useMapTime?: boolean | undefined;
+    useMapTime?: boolean;
     /** Initial visibility of the layer. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface ArcGISImageServiceVectorLayerOptions {
     /** Apply a function for visualization or post-processing purposes. */
     pixelFilter?: any;
     /** Set the default renderer from a list of predefined options. */
-    rendererStyle?: string | undefined;
+    rendererStyle?: string;
     /** A value used to aggregate pixels into tiles for visualization purposes. */
-    symbolTileSize?: number | undefined;
+    symbolTileSize?: number;
   }
   export interface ArcGISTiledMapServiceLayerOptions {
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** Lists which levels to draw. */
-    displayLevels?: number[] | undefined;
+    displayLevels?: number[];
     /** An array of objects that define areas where a tiled map service should not display tiles. */
-    exclusionAreas?: any[] | undefined;
+    exclusionAreas?: any[];
     /** Id to assign to the layer. */
-    id?: string | undefined;
+    id?: string;
     /** infoTemplates object. */
     infoTemplates?: any;
     /** Initial opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
     /** The purpose of resampling is to enlarge the image and fill in at the levels where there are no tiles available. */
-    resampling?: boolean | undefined;
+    resampling?: boolean;
     /** Number of levels beyond the last level where tiles are available. */
-    resamplingTolerance?: number | undefined;
+    resamplingTolerance?: number;
     /** Specify the metadata of the layer. */
     resourceInfo?: any;
     /** When true, the layer's attribution is displayed on the map. */
-    showAttribution?: boolean | undefined;
+    showAttribution?: boolean;
     /** Array of REST endpoints that can be used to retrieve tile images. */
-    tileServers?: string[] | undefined;
+    tileServers?: string[];
     /** Initial visibility of the layer. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface AttributeInspectorOptions {
     /** See the object specifications table below for the structure of the layerInfos  object. */
@@ -184,89 +184,89 @@ declare module "esri" {
   }
   export interface AttributionOptions {
     /** String used as the delimiter between attribution items. */
-    itemDelimiter?: string | undefined;
+    itemDelimiter?: string;
     /** Reference to the map object. */
     map: Map;
   }
   export interface BasemapGalleryOptions {
     /** List of basemap layer ids in the current map. */
-    basemapIds?: string[] | undefined;
+    basemapIds?: string[];
     /** An array of user-defined basemaps to display in the BasemapGallery. */
-    basemaps?: Basemap[] | undefined;
+    basemaps?: Basemap[];
     /** Specify an ArcGIS.com group that contains web maps that will be used as basemaps in the gallery. */
     basemapsGroup?: any;
     /** Specify your Bing Maps key if the basemap group you want to display in the gallery contains bing basemaps. */
-    bingMapsKey?: string | undefined;
+    bingMapsKey?: string;
     /** Reference to the map. */
     map: Map;
     /** Specify the portal url, including the instance name, used to access the group that contains the basemap gallery items. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** List of reference layer ids in the current map. */
-    referenceIds?: string[] | undefined;
+    referenceIds?: string[];
     /** When true, queries ArcGIS.com to retrieve available basemaps. */
-    showArcGISBasemaps?: boolean | undefined;
+    showArcGISBasemaps?: boolean;
   }
   export interface BasemapLayerOptions {
     /** If the url points to an image service, you can specify which band ids will display. */
-    bandIds?: number[] | undefined;
+    bandIds?: number[];
     /** The attribution information for the layer. */
-    copyright?: string | undefined;
+    copyright?: string;
     /** If the url points to a cached map service you can specify the levels to draw. */
-    displayLevels?: number[] | undefined;
+    displayLevels?: number[];
     /** Specify the full extent of the layer. */
-    fullExtent?: Extent | undefined;
+    fullExtent?: Extent;
     /** Specify the initial extent of the layer. */
-    initialExtent?: Extent | undefined;
+    initialExtent?: Extent;
     /** Set to true if the layer is a reference layer and should be drawn on top of all other layers in the map. */
-    isReference?: boolean | undefined;
+    isReference?: boolean;
     /** Initial opacity or transparency of the basemap layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** A url to a JSON file containing the stylesheet information to render the VectorTileLayer. */
-    styleUrl?: string | undefined;
+    styleUrl?: string;
     /** Specify subDomains where tiles are served to speed up tile retrieval (using subDomains gets around the browser limit of the max number of concurrent requests to a domain). */
-    subDomains?: string[] | undefined;
+    subDomains?: string[];
     /** The URL template used to retrieve the tiles. */
-    templateUrl?: string | undefined;
+    templateUrl?: string;
     /** Define the tile info for the layer including lods, rows, cols, origin and spatial reference. */
-    tileInfo?: TileInfo | undefined;
+    tileInfo?: TileInfo;
     /** Define additional tile server domains for the layer. */
-    tileServers?: string[] | undefined;
+    tileServers?: string[];
     /** The type of layer. */
-    type?: string | undefined;
+    type?: string;
     /** URL to the ArcGIS Server REST resource that represents a map or image service. */
-    url?: string | undefined;
+    url?: string;
     /** If the url points to a dynamic map service you can specify a subset of layers to display. */
-    visibleLayers?: number[] | undefined;
+    visibleLayers?: number[];
   }
   export interface BasemapOptions {
     /** The id of the basemap. */
-    id?: string | undefined;
+    id?: string;
     /** An array of layers to add to the basemap. */
     layers: BasemapLayer[];
     /** A URL to a thumbnail image for the basemap that will be displayed in the BasemapGallery. */
-    thumbnailUrl?: string | undefined;
+    thumbnailUrl?: string;
     /** Title for the basemap. */
-    title?: string | undefined;
+    title?: string;
   }
   export interface BasemapToggleOptions {
     /** The secondary basemap to toggle to. */
-    basemap?: string | undefined;
+    basemap?: string;
     /** Object containing the labels and URLs for the image of each basemap. */
     basemaps?: any;
     /** Map object that this dijit is associated with. */
     map: Map;
     /** Class used for styling the widget. */
-    theme?: string | undefined;
+    theme?: string;
     /** Whether the widget is visible by default. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface BlendRendererOptions {
     /** This determines how colors are blended together. */
-    blendMode?: string | undefined;
+    blendMode?: string;
     /** An array of objects to blend containing the field name and color to use. */
     fields: any[];
     /** The field to normalize. */
-    normalizationField?: string | undefined;
+    normalizationField?: string;
     /** An array of objects which determines opacity. */
     opacityStops: any[];
     /** The symbol in which the BlendRenderer is applied. */
@@ -274,151 +274,151 @@ declare module "esri" {
   }
   export interface BookmarkItemOptions {
     /** The extent for the specified bookmark item. */
-    extent?: Extent | undefined;
+    extent?: Extent;
     /** The name for the bookmark item. */
-    name?: string | undefined;
+    name?: string;
   }
   export interface BookmarksOptions {
     /** An array of BookmarkItem objects or a json object with the BookmarkItem format to initially display in the bookmark widget. */
-    bookmarks?: BookmarkItem[] | undefined;
+    bookmarks?: BookmarkItem[];
     /** When true, users can add, remove and edit bookmark items. */
-    editable?: boolean | undefined;
+    editable?: boolean;
     /** Reference to the map. */
     map: Map;
   }
   export interface CSVLayerOptions {
     /** The column delimiter. */
-    columnDelimiter?: string | undefined;
+    columnDelimiter?: string;
     /** Copyright information for the layer. */
-    copyright?: string | undefined;
+    copyright?: string;
     /** Enables feature reduction (for example clustering) on point layers. */
     featureReduction?: any;
     /** The fields property contains objects with "name", "alias" and "type" String properties. */
-    fields?: any[] | undefined;
+    fields?: any[];
     /** The latitude field name. */
-    latitudeFieldName?: string | undefined;
+    latitudeFieldName?: string;
     /** The longitude field name. */
-    longitudeFieldName?: string | undefined;
+    longitudeFieldName?: string;
     /** Opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** An array of strings which correspond to fields to include in the CSVLayer. */
-    outFields?: string[] | undefined;
+    outFields?: string[];
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
     /** Time information for the layer, such as start time field, end time field, track id field, layers time extent and the draw time interval. */
-    timeInfo?: TimeInfo | undefined;
+    timeInfo?: TimeInfo;
     /** Visibility of the layer. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface ChooseBestFacilitiesOptions {
     /** The URL to the analysis service, for example "http://analysis.arcgis.com/arcgis/rest/services/tasks/GPServer". */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** The number of facilities to choose when allocating demand locations. */
-    candidateCount?: number | undefined;
+    candidateCount?: number;
     /** Specify how much demand every facility in the candidateFacilitiesLayer is capable of supplying. */
-    candidateFacilitiesCapacity?: string | undefined;
+    candidateFacilitiesCapacity?: string;
     /** String value indicating the field name on the candidateFacilitiesLayer  representing how much demand each facility in the candidatesFacilitiesLayer is capable of supplying. */
-    candidateFacilitiesCapacityField?: string | undefined;
+    candidateFacilitiesCapacityField?: string;
     /** A point layer specifying one or more locations that act as facilities by providing some kind of service. */
-    candidateFacilitiesLayer?: FeatureLayer | undefined;
+    candidateFacilitiesLayer?: FeatureLayer;
     /** The amount of demand available at every demand locations. */
-    demand?: number | undefined;
+    demand?: number;
     /** String value indicating the field name on the demandLocationLayer  representing the amount of demand available at each demand location. */
-    demandField?: string | undefined;
+    demandField?: string;
     /** A point layer specifying the locations that have demand for facilities. */
-    demandLocationLayer?: FeatureLayer | undefined;
+    demandLocationLayer?: FeatureLayer;
     /** Array of point layers to be used for choosing the demandLocationLayer. */
     demandLocationLayers: FeatureLayer[];
     /** When true, Travel Modes (Driving Time) is enabled for the inputLayer with the point geometries (esriGeometryPoint). */
-    enableTravelModes?: boolean | undefined;
+    enableTravelModes?: boolean;
     /** Array of point layers used for setting the required facilities layer and candidate facilities layer. */
     featureLayers: FeatureLayer[];
     /** Sets the selected folder of the select folder dropdown. */
-    folderId?: string | undefined;
+    folderId?: string;
     /** Sets the selected folder of the select folder dropdown. */
-    folderName?: string | undefined;
+    folderName?: string;
     /** Reference to the map. */
-    map?: Map | undefined;
+    map?: Map;
     /** The maximum travel time or distance allowed between a demand location and its allocated facility. */
-    maxTravelRange?: number | undefined;
+    maxTravelRange?: number;
     /** String value indicating the field name on the demandLocationLayer specifying the maximum travel time or distance allowed between a demand location and its allocated facility. */
-    maxTravelRangeField?: string | undefined;
+    maxTravelRangeField?: string;
     /** The name of the output layer to be displayed in the result layer  nameinputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The percentage of the total demand that you want the chosen and required facilities to capture. */
-    percentDemandCoverage?: number | undefined;
+    percentDemandCoverage?: number;
     /** The URL to the ArcGIS organization or Portal site where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** Specify how much demand every facility in the requiredFacilitiesLayer is capable of supplying. */
-    requiredFacilitiesCapacity?: number | undefined;
+    requiredFacilitiesCapacity?: number;
     /** A field on the requiredFacilitiesLayer representing how much demand each facility in this layer is capable of supplying. */
-    requiredFacilitiesCapacityField?: string | undefined;
+    requiredFacilitiesCapacityField?: string;
     /** A point layer specifying one or more locations that act as facilities by providing some kind of service. */
-    requiredFacilitiesLayer?: FeatureLayer | undefined;
+    requiredFacilitiesLayer?: FeatureLayer;
     /** Indicates whether to return the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** Indicates whether the "choose extent checkbox" is displayed. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** Indicates whether to show the credit options. */
-    showCredits ?: boolean | undefined;
+    showCredits ?: boolean;
     /** Indicates whether the help links are displayed. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** Indicates whether to add an option to the UI that allows users to choose ready-to-use analysis layers from the Living Atlas Analysis Layers. */
-    showReadyToUseLayers?: boolean | undefined;
+    showReadyToUseLayers?: boolean;
     /** Indicates whether to display a dropdown menu listing valid input analysis layers. */
-    showSelectAnalysisLayer?: boolean | undefined;
+    showSelectAnalysisLayer?: boolean;
     /** Indicates whether the select folder dropdown will be displayed. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
     /** The default widget title with a custom title. */
-    title?: string | undefined;
+    title?: string;
   }
   export interface CircleOptions1 {
     /** Applicable when the spatial reference of the center point is either set to Web Mercator or geographic/geodesic as true would apply. */
-    geodesic?: boolean | undefined;
+    geodesic?: boolean;
     /** A circle can be thought of similar to a polygon. */
-    numberOfPoints?: number | undefined;
+    numberOfPoints?: number;
     /** Radius of the circle. */
-    radius?: number | undefined;
+    radius?: number;
     /** Unit of the radius. */
-    radiusUnit?: string | undefined;
+    radiusUnit?: string;
   }
   export interface CircleOptions2 {
     /** The center point of the circle. */
     center: Point | number[];
     /** Applicable when the spatial reference of the center point is either set to Web Mercator or geographic/geodesic as true would apply. */
-    geodesic?: boolean | undefined;
+    geodesic?: boolean;
     /** A circle can be thought of similar to a polygon. */
-    numberOfPoints?: number | undefined;
+    numberOfPoints?: number;
     /** The radius of the circle. */
-    radius?: number | undefined;
+    radius?: number;
     /** Unit of the radius. */
-    radiusUnit?: string | undefined;
+    radiusUnit?: string;
   }
   export interface ClassedColorSliderOptions {
     /** Data map containing renderer information. */
     breakInfos: any;
     /** Indicates the classification method used to divide the range of values into bins. */
-    classificationMethod?: string | undefined;
+    classificationMethod?: string;
     /** Required: Handles identified by their index values within the stops array. */
     handles: number[];
     /** Represents the histogram data object. */
     histogram?: any;
     /** Width of the histogram in pixels. */
-    histogramWidth?: number | undefined;
+    histogramWidth?: number;
     /** Indicates how data values are normalized. */
-    normalizationType?: string | undefined;
+    normalizationType?: string;
     /** Handle identified by its index value within the stops array. */
-    primaryHandle?: number | undefined;
+    primaryHandle?: number;
     /** Width of the widget ramp in pixels. */
-    rampWidth?: number | undefined;
+    rampWidth?: number;
     /** Displays slider handles when true. */
-    showHandles?: boolean | undefined;
+    showHandles?: boolean;
     /** Displays the histogram when true. */
-    showHistogram?: boolean | undefined;
+    showHistogram?: boolean;
     /** Displays slider labels when true. */
-    showLabels?: boolean | undefined;
+    showLabels?: boolean;
     /** Displays ticks on slider when true. */
-    showTicks?: boolean | undefined;
+    showTicks?: boolean;
     /** Represents the statistics data object. */
     statistics?: any;
   }
@@ -426,27 +426,27 @@ declare module "esri" {
     /** The data map containing renderer information. */
     breakInfos: any;
     /** Optional: Indicates the classification method used to divide the range of values into bins. */
-    classificationMethod?: string | undefined;
+    classificationMethod?: string;
     /** Required: Handles identified by their index values within the stops array. */
     handles: number[];
     /** Represents the histogram data object. */
     histogram?: any;
     /** Width of histogram in pixels. */
-    histogramWidth?: number | undefined;
+    histogramWidth?: number;
     /** Indicates how data values are normalized. */
-    normalizationType?: string | undefined;
+    normalizationType?: string;
     /** The handle identified by its index value within the stops array. */
-    primaryHandle?: number | undefined;
+    primaryHandle?: number;
     /** Width of slider ramp in pixels. */
-    rampWidth?: number | undefined;
+    rampWidth?: number;
     /** Displays slider handles when true. */
-    showHandles?: boolean | undefined;
+    showHandles?: boolean;
     /** Indicates whether to display the histogram. */
-    showHistogram?: boolean | undefined;
+    showHistogram?: boolean;
     /** Displays labels when true. */
-    showLabels?: boolean | undefined;
+    showLabels?: boolean;
     /** Displays slider ticks when true. */
-    showTicks?: boolean | undefined;
+    showTicks?: boolean;
     /** Optional: Represents the statistics data object. */
     statistics?: any;
   }
@@ -458,27 +458,27 @@ declare module "esri" {
     /** Optional: Represents the histogram data object. */
     histogram?: any;
     /** Width of histogram in pixels. */
-    histogramWidth?: number | undefined;
+    histogramWidth?: number;
     /** The absolute maximum value of the slider. */
-    maxValue?: number | undefined;
+    maxValue?: number;
     /** The absolute minimum value of the slider. */
-    minValue?: number | undefined;
+    minValue?: number;
     /** The handle identified by its index value within the stops array. */
-    primaryHandle?: number | undefined;
+    primaryHandle?: number;
     /** Width of widget ramp in pixels. */
-    rampWidth?: number | undefined;
+    rampWidth?: number;
     /** Displays handles when set to true. */
-    showHandles?: boolean | undefined;
+    showHandles?: boolean;
     /** Displays the histogram when true. */
-    showHistogram?: boolean | undefined;
+    showHistogram?: boolean;
     /** Displays labels when set to true. */
-    showLabels?: boolean | undefined;
+    showLabels?: boolean;
     /** Indicates whether to display percentage labels. */
-    showRatioLabels?: boolean | string | undefined;
+    showRatioLabels?: boolean | string;
     /** Displays tick marks when set to true. */
-    showTicks?: boolean | undefined;
+    showTicks?: boolean;
     /** Displays transparent background when set to true. */
-    showTransparentBackground?: boolean | undefined;
+    showTransparentBackground?: boolean;
     /** Represents a statistics data object. */
     statistics?: any;
     /** Additional options to customize slider. */
@@ -486,41 +486,41 @@ declare module "esri" {
   }
   export interface ColorPickerOptions {
     /** Indicates whether the widget displays collapsed. */
-    collapsed?: boolean | undefined;
+    collapsed?: boolean;
     /** Indicates whether the widget can be collapsed. */
-    collapsible?: boolean | undefined;
+    collapsible?: boolean;
     /** The selected color. */
     color: Color;
     /** The row size of the palette. */
-    colorsPerRow?: number | undefined;
+    colorsPerRow?: number;
     /** The set of available color options. */
-    palette?: Color[] | undefined;
+    palette?: Color[];
     /** Array of recent colors to show in the recent colors row. */
-    recentColors?: Color[] | undefined;
+    recentColors?: Color[];
     /** Toggles color selection being required. */
-    required?: boolean | undefined;
+    required?: boolean;
     /** Toggles the recent color row. */
-    showRecentColors?: boolean | undefined;
+    showRecentColors?: boolean;
     /** Toggles the transparency slider. */
-    showTransparencySlider?: boolean | undefined;
+    showTransparencySlider?: boolean;
   }
   export interface ConnectOriginsToDestinationsOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** The linear unit used with the distance value(s). */
-    distanceDefaultUnits?: string | undefined;
+    distanceDefaultUnits?: string;
     /** An array of feature layers containing destination points. */
     featureLayers: FeatureLayer[];
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The point feature layers containing the origin points. */
     originsLayers: FeatureLayer[];
     /** The name of the output layer to be shown in the Result layer name input box. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** Indicates whether to display a drop down menu listing valid input analysis layers. */
-    showSelectAnalysisLayer?: boolean | undefined;
+    showSelectAnalysisLayer?: boolean;
   }
   export interface CoordinatesLocationProviderOptions {
     /** The attribute field in the graphic object that contains the longitude (X) values. */
@@ -530,89 +530,89 @@ declare module "esri" {
   }
   export interface CreateBuffersOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** An array of buffer distances to buffer the input feature layer. */
-    bufferDistance?: number[] | undefined;
+    bufferDistance?: number[];
     /** The input point, line, or polygon feature layer to be buffered. */
     inputLayer: FeatureLayer;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: string | undefined;
+    showCredits?: string;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
   }
   export interface CreateDriveTimeAreasOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** The units of the breakValues parameter. */
-    breakUnits?: string | undefined;
+    breakUnits?: string;
     /** An array of driving time break values. */
-    breakValues?: number[] | undefined;
+    breakValues?: number[];
     /** The point feature layer around which drive-time areas will be drawn. */
     inputLayers: FeatureLayer[];
     /** The geometry type of the input layer. */
-    inputType?: string | undefined;
+    inputType?: string;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The rule of overlap. */
-    overlapPolicy?: string | undefined;
+    overlapPolicy?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
   }
   export interface CreateViewshedOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** Feature layer containing observation points to be used as input. */
     inputLayer: FeatureLayer;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
   }
   export interface CreateWatershedsOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** The feature layers containing input points used for calculating watersheds. */
     inputLayers: FeatureLayer[];
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** Indicates whether to display a drop down menu listing valid input analysis layers. */
-    showSelectAnalysisLayer?: boolean | undefined;
+    showSelectAnalysisLayer?: boolean;
   }
   export interface CutOptions {
     /** The feature(s) added to the feature layer by the cut operation. */
-    addedGraphics?: Graphic[] | undefined;
+    addedGraphics?: Graphic[];
     /** The feature layer that contains the cut feature(s). */
-    featureLayer?: FeatureLayer | undefined;
+    featureLayer?: FeatureLayer;
     /** The updated feature(s). */
-    postUpdatedGraphics?: Graphic[] | undefined;
+    postUpdatedGraphics?: Graphic[];
     /** The feature(s) before the cut operation is performed. */
-    preUpdatedGraphics?: Graphic[] | undefined;
+    preUpdatedGraphics?: Graphic[];
   }
   export interface DataAdapterFeatureLayerOptions {
     /** The query parameters to use in retrieving the data through the DataAdapter. */
@@ -622,189 +622,189 @@ declare module "esri" {
   }
   export interface DataBrowserOptions {
     /** Whether or not to display the hierarchy dropdown for countries with multiple hierarchies (for example USA has both Census and Landscape, Germany has both Census and Nexiga). */
-    allowHierarchies?: boolean | undefined;
+    allowHierarchies?: boolean;
     /** Show/hide country drop down. */
-    countryBox?: boolean | undefined;
+    countryBox?: boolean;
     /** Two-digit country code selected in the country drop down. */
-    countryID?: string | undefined;
+    countryID?: string;
     /** The hierarchy to load for a country (for example 'Census' or 'Landscape' for USA). */
-    hierarchyID?: string | undefined;
+    hierarchyID?: string;
     /** Text string to display on the back button on the second and third pages of the Data Browser. */
-    pageBackButton?: string | undefined;
+    pageBackButton?: string;
     /** Selected variables array. */
-    selection?: string[] | undefined;
+    selection?: string[];
     /** The maximum number of variables to select. */
-    selectionLimit?: number | undefined;
+    selectionLimit?: number;
     /** Whether to display the "Shopping Cart" of selected variables. */
-    shoppingCart?: boolean | undefined;
+    shoppingCart?: boolean;
     /** Title to show in the top left hand corner. */
-    title?: string | undefined;
+    title?: string;
   }
   export interface DeleteOptions {
     /** The features that were removed from the feature layer. */
-    deletedGraphics?: Graphic[] | undefined;
+    deletedGraphics?: Graphic[];
     /** The feature layer from which the feature(s) are removed. */
-    featureLayer?: FeatureLayer | undefined;
+    featureLayer?: FeatureLayer;
   }
   export interface DirectionsOptions {
     /** Defines the values that label each stop. */
-    alphabet?: string | string[] | boolean | undefined;
+    alphabet?: string | string[] | boolean;
     /** When true, solve will start when the last destination is complete and enter key is hit. */
-    autoSolve?: boolean | undefined;
+    autoSolve?: boolean;
     /** Display the 'Add Destination' button. */
-    canModifyStops?: boolean | undefined;
+    canModifyStops?: boolean;
     /** Center the map at the start of the selected route segment. */
-    centerAtSegmentStart?: boolean | undefined;
+    centerAtSegmentStart?: boolean;
     /** The locale used for the directions. */
-    directionsLanguage?: string | undefined;
+    directionsLanguage?: string;
     /** Length units. */
-    directionsLengthUnits?: string | undefined;
+    directionsLengthUnits?: string;
     /** Enable the dragging of stop locations on the map. */
-    dragging?: boolean | undefined;
+    dragging?: boolean;
     /** Focus the cursor in the stop input when a new stop is added. */
-    focusOnNewStop?: boolean | undefined;
+    focusOnNewStop?: boolean;
     /** The symbol that is used to denote the start location on the map. */
-    fromSymbol?: PictureMarkerSymbol | undefined;
+    fromSymbol?: PictureMarkerSymbol;
     /** The symbol that displays when the from location is dragged to a new location. */
-    fromSymbolDrag?: PictureMarkerSymbol | undefined;
+    fromSymbolDrag?: PictureMarkerSymbol;
     /** If available, this geometry service is used to provide latitude/longitude values for stops whose reverse geocoding did not return an address (Added at v3.11). */
-    geometryTaskUrl?: string | undefined;
+    geometryTaskUrl?: string;
     /** Reference to the map object. */
     map: Map;
     /** Activates the map-click-active toggle button when true. */
-    mapClickActive?: boolean | undefined;
+    mapClickActive?: boolean;
     /** Maximum number of stops. */
-    maxStops?: number | undefined;
+    maxStops?: number;
     /** Minimum number of stops. */
-    minStops?: number | undefined;
+    minStops?: number;
     /** When true, stops on the route are re-ordered to provide an optimal route. */
-    optimalRoute?: boolean | undefined;
+    optimalRoute?: boolean;
     /** If specified, this specifies the portal where the produced route layers are going to be stored and accessed. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** URL link to a custom print page. */
-    printPage?: string | undefined;
+    printPage?: string;
     /** If available, this print task is used to display an overview map of the route on the directions print page (Added at v3.11). */
-    printTaskUrl?: string | undefined;
+    printTaskUrl?: string;
     /** HTML string for providing a custom printing page */
-    printTemplate?: string | undefined;
+    printTemplate?: string;
     /** When true, the route will return to start point. */
-    returnToStart?: boolean | undefined;
+    returnToStart?: boolean;
     /** Define the symbol used to draw the route on the map. */
-    routeSymbol?: SimpleLineSymbol | undefined;
+    routeSymbol?: SimpleLineSymbol;
     /** Specify the service that will be used to calculate directions. */
-    routeTaskUrl?: string | undefined;
+    routeTaskUrl?: string;
     /** Used to define optional search options. */
     searchOptions?: any;
     /** Define the info template for the popup that appears when the popup for a route segment is displayed. */
-    segmentInfoTemplate?: InfoTemplate | undefined;
+    segmentInfoTemplate?: InfoTemplate;
     /** Specify the symbol used to render the individual route segments that display on the map when a direction step is clicked. */
-    segmentSymbol?: SimpleLineSymbol | undefined;
+    segmentSymbol?: SimpleLineSymbol;
     /** Defines whether the Directions widget will show the map-click-active toggle button. */
-    showActivateButton?: boolean | undefined;
+    showActivateButton?: boolean;
     /** Indicates whether to expose barriers when using the widget. */
-    showBarriersButton?: boolean | undefined;
+    showBarriersButton?: boolean;
     /** If true, the Clear button is shown. */
-    showClearButton?: boolean | undefined;
+    showClearButton?: boolean;
     /** If true, the toggle button group allowing user to choose between Miles and Kilometers is shown. */
-    showMilesKilometersOption?: boolean | undefined;
+    showMilesKilometersOption?: boolean;
     /** When true, the Optimize order option is shown. */
-    showOptimalRouteOption?: boolean | undefined;
+    showOptimalRouteOption?: boolean;
     /** When true the 'Print' button is displayed that allows users to display driving directions in a print page. */
-    showPrintPage?: boolean | undefined;
+    showPrintPage?: boolean;
     /** When true, the Return to start option is shown. */
-    showReturnToStartOption?: boolean | undefined;
+    showReturnToStartOption?: boolean;
     /** Display the 'Show Reverse Stops' button. */
-    showReverseStopsButton?: boolean | undefined;
+    showReverseStopsButton?: boolean;
     /** Applicable if the widget works with a Network Analyst Server federated with ArcGIS Online or Portal. */
-    showSaveButton?: boolean | undefined;
+    showSaveButton?: boolean;
     /** Highlight the route segment when a directions step is clicked. */
-    showSegmentHighlight?: boolean | undefined;
+    showSegmentHighlight?: boolean;
     /** Display a popup with segment details when a direction step is clicked. */
-    showSegmentPopup?: boolean | undefined;
+    showSegmentPopup?: boolean;
     /** When true, the Use traffic option is shown. */
-    showTrafficOption?: boolean | undefined;
+    showTrafficOption?: boolean;
     /** If true, and six Standard Travel Modes are supported by the service and accessible using current credentials, then two toggle button groups are shown: one to allow user to choose between Driving a Car, a Truck, and Walking, and one more group to choose between Fastest and Shortest routes. */
-    showTravelModesOption?: boolean | undefined;
+    showTravelModesOption?: boolean;
     /** True if currently calculating the route from the routing service. */
-    solving?: boolean | undefined;
+    solving?: boolean;
     /** List of graphics used to display the point marker. */
-    stopGraphics?: Graphic[] | undefined;
+    stopGraphics?: Graphic[];
     /** An array of points that define the stop locations. */
-    stops?: Point[] | number[][] | string[] | any[] | undefined;
+    stops?: Point[] | number[][] | string[] | any[];
     /** Define the info template for the popup that appears when a stop is clicked. */
-    stopsInfoTemplate?: InfoTemplate | undefined;
+    stopsInfoTemplate?: InfoTemplate;
     /** The symbol that displays on the map for the locations between the origin and final destination locations. */
-    stopSymbol?: PictureMarkerSymbol | undefined;
+    stopSymbol?: PictureMarkerSymbol;
     /** The symbol that displays when an intermediate location is dragged to a new location. */
-    stopSymbolDrag?: PictureMarkerSymbol | undefined;
+    stopSymbolDrag?: PictureMarkerSymbol;
     /** List of graphics used to display the text over the point marker. */
-    textGraphics?: Graphic[] | undefined;
+    textGraphics?: Graphic[];
     /** The text color for the text that appears for each destination. */
-    textSymbolColor?: Color | undefined;
+    textSymbolColor?: Color;
     /** The font used for the text that displays on the map for each stop location. */
-    textSymbolFont?: Font | undefined;
+    textSymbolFont?: Font;
     /** Define an x and/or y offset for the text symbols that are used for the stop locations on the map. */
     textSymbolOffset?: any;
     /** Specify a theme for the widget. */
-    theme?: string | undefined;
+    theme?: string;
     /** The symbol that is used to denote the final destination location on the map. */
-    toSymbol?: PictureMarkerSymbol | undefined;
+    toSymbol?: PictureMarkerSymbol;
     /** The symbol that displays when an final destination location is dragged to a new location. */
-    toSymbolDrag?: PictureMarkerSymbol | undefined;
+    toSymbolDrag?: PictureMarkerSymbol;
     /** When true, real-time traffic is used to plan the route. */
-    traffic?: boolean | undefined;
+    traffic?: boolean;
     /** The traffic layer used for real-time traffic. */
-    trafficLayer?: ArcGISDynamicMapServiceLayer | undefined;
+    trafficLayer?: ArcGISDynamicMapServiceLayer;
   }
   export interface DissolveBoundariesOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** An array of field names based on which polygons are merged. */
-    dissolveFields?: string[] | undefined;
+    dissolveFields?: string[];
     /** The layer containing polygon features that will be dissolved. */
     inputLayer: FeatureLayer;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
     /** An array of field names and statistical summary types that you wish to calculate from the polygons that are dissolved together. */
-    summaryFields?: string[] | undefined;
+    summaryFields?: string[];
   }
   export interface DotDensityRendererOptions {
     /** The color to be used for the background of the symbol. */
-    backgroundColor?: Color | undefined;
+    backgroundColor?: Color;
     /** The shape to be used for the dot. */
-    dotShape?: string | undefined;
+    dotShape?: string;
     /** The size of the dot in pixels. */
-    dotSize?: number | undefined;
+    dotSize?: number;
     /** The value that a dot represents. */
     dotValue: number;
     /** An array of objects, where each object defines a field to be mapped and its color. */
     fields: any[];
     /** The line symbol to use on the outline of the feature. */
-    outline?: LineSymbol | undefined;
+    outline?: LineSymbol;
   }
   export interface DrawOptions {
     /** Determines how much time to wait before adding a new point when using a freehand tool. */
-    drawTime?: number | undefined;
+    drawTime?: number;
     /** If true, tooltips are displayed when creating new graphics with the draw toolbar. */
-    showTooltips?: boolean | undefined;
+    showTooltips?: boolean;
     /** Determines how far the mouse moves before adding a new point when using one of the freehand tools. */
-    tolerance?: number | undefined;
+    tolerance?: number;
     /** Determines how far to offset the tool tip from the mouse pointer. */
-    tooltipOffset?: number | undefined;
+    tooltipOffset?: number;
   }
   export interface DriveBufferOptions {
     /** The radii to use to create ring buffers */
@@ -814,19 +814,19 @@ declare module "esri" {
   }
   export interface EditOptions {
     /** Specifies whether users can add new vertices. */
-    allowAddVertices?: boolean | undefined;
+    allowAddVertices?: boolean;
     /** Specifies whether users can delete vertices. */
-    allowDeleteVertices?: boolean | undefined;
+    allowDeleteVertices?: boolean;
     /** Line symbol used to draw the guild lines, displayed when moving vertices. */
-    ghostLineSymbol?: LineSymbol | undefined;
+    ghostLineSymbol?: LineSymbol;
     /** Marker symbol used to display the insertable vertices. */
-    ghostVertexSymbol?: MarkerSymbol | undefined;
+    ghostVertexSymbol?: MarkerSymbol;
     /** If users want to place the text symbol editor to a user defined HTML element. */
-    textSymbolEditorHolder?: Node | string | undefined;
+    textSymbolEditorHolder?: Node | string;
     /** When true, if the geometry is re-sized the aspect ration will be preserved. */
-    uniformScaling?: boolean | undefined;
+    uniformScaling?: boolean;
     /** Marker symbol used to draw the vertices. */
-    vertexSymbol?: MarkerSymbol | undefined;
+    vertexSymbol?: MarkerSymbol;
   }
   export interface EditorOptions {
     /** Create a new settings object that defines the capabilities of the widget. */
@@ -840,117 +840,117 @@ declare module "esri" {
     /** The URL to the elevation profile service. */
     profileTaskUrl: string;
     /** The measurement unit of the scalebar units. */
-    scalebarUnits?: string | undefined;
+    scalebarUnits?: string;
   }
   export interface EnrichLayerOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** An buffer distance or driving time value to buffer the input feature layer. */
-    distance?: number | undefined;
+    distance?: number;
     /** When true, Travel Modes (Driving Time) is enabled for inputLayer with point geometries (esriGeometryPoint). */
-    enableTravelModes?: boolean | undefined;
+    enableTravelModes?: boolean;
     /** The input feature layer to enrich with new data. */
     inputLayer: FeatureLayer;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
     /** When true, you can specify a time for traffic condition under Define areas to enrich - Driving Time. */
-    showTrafficWidget?: boolean | undefined;
+    showTrafficWidget?: boolean;
   }
   export interface ExtractDataOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** If true, the Clip features option in Study area will be ckecked. */
-    clip?: boolean | undefined;
+    clip?: boolean;
     /** The format of output data shown as the default selection in the Output data format menu. */
-    dataFormat?: string | undefined;
+    dataFormat?: string;
     /** An array for feature layers to be extracted. */
     featureLayers: FeatureLayer[];
     /** An array for feature layers to be extracted. */
-    inputLayers?: FeatureLayer[] | undefined;
+    inputLayers?: FeatureLayer[];
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
   }
   export interface FeatureLayerOptions {
     /** Indicates whether attribute features containing m-values can be edited. */
-    allowUpdateWithoutMValues?: boolean | undefined;
+    allowUpdateWithoutMValues?: boolean;
     /** Enable or disable the auto generalization of features from a non-editable layer in on-demand mode. */
-    autoGeneralize?: boolean | undefined;
+    autoGeneralize?: boolean;
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** Where clause to use as definition expression for layer. */
-    definitionExpression?: string | undefined;
+    definitionExpression?: string;
     /** When true, graphics are displayed during panning. */
-    displayOnPan?: boolean | undefined;
+    displayOnPan?: boolean;
     /** Set a callback function that will be invoked by  FeatureLayer.getEditSummary. */
-    editSummaryCallback?: Function | undefined;
+    editSummaryCallback?: Function;
     /** Enables feature reduction (for example clustering) on point layers. */
     featureReduction?: any;
     /** Specify the geodatabase version to display. */
-    gdbVersion?: string | undefined;
+    gdbVersion?: string;
     /** Unique ID to assign to the layer. */
-    id?: string | undefined;
+    id?: string;
     /** The template that defines the content to display in the map info window when the user clicks on a feature. */
-    infoTemplate?: InfoTemplate | undefined;
+    infoTemplate?: InfoTemplate;
     /** The maximum allowable offset, only applicable for layers that are not editable. */
-    maxAllowableOffset?: number | undefined;
+    maxAllowableOffset?: number;
     /** The query mode for the feature layer. */
-    mode?: number | undefined;
+    mode?: number;
     /** Initial opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** One or more fields used to order features by - for queries as well as for rendering. */
-    orderByFields?: string[] | undefined;
+    orderByFields?: string[];
     /** An array of strings which correspond to fields to include in the FeatureLayer. */
-    outFields?: string[] | undefined;
+    outFields?: string[];
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
     /** Specify the metadata of the layer. */
     resourceInfo?: any;
     /** When true, the layer's attribution is displayed on the map. */
-    showAttribution?: boolean | undefined;
+    showAttribution?: boolean;
     /** Indicates whether to show labels on the layer. */
-    showLabels?: boolean | undefined;
+    showLabels?: boolean;
     /** The dynamic layer or table source. */
-    source?: LayerSource | undefined;
+    source?: LayerSource;
     /** Specify the size of the virtual tiles, used in on-demand mode. */
-    tileHeight?: number | undefined;
+    tileHeight?: number;
     /** Specify the size of the virtual tiles, used in on-demand mode. */
-    tileWidth?: number | undefined;
+    tileWidth?: number;
     /** The name of the trackIdField. */
-    trackIdField?: string | undefined;
+    trackIdField?: string;
     /** When true, the layer will update its content based on the map's time extent. */
-    useMapTime?: boolean | undefined;
+    useMapTime?: boolean;
     /** Initial visibility of the layer. */
-    visible?: boolean | undefined;
+    visible?: boolean;
     /** Indicates if the layer will enable WebGL for rendering. */
-    webglEnabled?: boolean | undefined;
+    webglEnabled?: boolean;
   }
   export interface FeatureLayerStatisticsOptions {
     /** The feature layer that will be the source for calculating statistics. */
@@ -958,217 +958,217 @@ declare module "esri" {
   }
   export interface FeatureTableOptions {
     /** The number of features a service will try to fetch. */
-    batchCount?: number | undefined;
+    batchCount?: number;
     /** Object defining the date options specifically for formatting date and time editors. */
     dateOptions?: any;
     /** Sets the editing state for the FeatureTable. */
-    editable?: boolean | undefined;
+    editable?: boolean;
     /** The featureLayer that the table is associated with. */
     featureLayer: FeatureLayer;
     /** An array of objects representing field information. */
-    fieldInfos?: any[] | undefined;
+    fieldInfos?: any[];
     /** Reference to the 'Options' drop-down menu. */
     gridMenu?: any;
     /** Object that can be used to set properties used by the underlying dgrid. */
     gridOptions?: any;
     /** Columns to hide by default using the dGrid ColumnHider extension. */
-    hiddenFields?: string[] | undefined;
+    hiddenFields?: string[];
     /** A reference to the Map. */
-    map?: Map | undefined;
+    map?: Map;
     /** Adds additional functional menu items for the 'Options' drop-down menu. */
-    menuFunctions?: any[] | undefined;
+    menuFunctions?: any[];
     /** Attribute fields to include in the FeatureTable. */
-    outFields?: string[] | undefined;
+    outFields?: string[];
     /** Displays or hides the attachment column. */
-    showAttachments?: boolean | undefined;
+    showAttachments?: boolean;
     /** Displays or hides tooltips for column headers. */
-    showColumnHeaderTooltips?: boolean | undefined;
+    showColumnHeaderTooltips?: boolean;
     /** Shows or hides cyclical relationship. */
-    showCyclicalRelationships?: boolean | undefined;
+    showCyclicalRelationships?: boolean;
     /** Displays the data type of the field right under the field label. */
-    showDataTypes?: boolean | undefined;
+    showDataTypes?: boolean;
     /** Displays or hides total number of features and selected number of features in the grid header. */
-    showFeatureCount?: boolean | undefined;
+    showFeatureCount?: boolean;
     /** Displays or hides the FeatureTable header. */
-    showGridHeader?: boolean | undefined;
+    showGridHeader?: boolean;
     /** Displays or hides 'Options' drop-down menu of the FeatureTable. */
-    showGridMenu?: boolean | undefined;
+    showGridMenu?: boolean;
     /** Displays or hides the option to show related records in a table if the layer has pre-established relationship. */
-    showRelatedRecords?: boolean | undefined;
+    showRelatedRecords?: boolean;
     /** Displays or hides the 'Statistics' option in column menus for numeric fields. */
-    showStatistics?: boolean | undefined;
+    showStatistics?: boolean;
     /** Enables an interaction between the map and the feature table. */
-    syncSelection?: boolean | undefined;
+    syncSelection?: boolean;
     /** Enables pan/zoom to selected features on the map when the table in 'sync selection' mode. */
-    zoomToSelection?: boolean | undefined;
+    zoomToSelection?: boolean;
   }
   export interface FindHotSpotsOptions {
     /** An array of feature layer candidates to be selected as the aggregation polygon layer. */
     aggregationPolygonLayers: FeatureLayer[];
     /** The numeric field in the AnalysisLayer that will be analyzed. */
-    analysisField?: string | undefined;
+    analysisField?: string;
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** The feature layer for which hot spots will be calculated. */
     analysisLayer: FeatureLayer;
     /** An array of feature layer candidates to be selected as the bounding polygon layer. */
     boundingPolygonLayers: FeatureLayer[];
     /** When true, make process info to get analysis report. */
-    isProcessInfo?: boolean | undefined;
+    isProcessInfo?: boolean;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
   }
   export interface FindNearestOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** The feature layer from which the nearest features are found. */
     analysisLayer: FeatureLayer;
     /** When true, Travel Modes ( Driving Distance, Driving Time) are enabled for analysisLayer with point geometries (esriGeometryPoint). */
-    enableTravelModes?: boolean | undefined;
+    enableTravelModes?: boolean;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The maximum number of nearest locations to find for each feature in analysisLayer. */
-    maxCount?: number | undefined;
+    maxCount?: number;
     /** The feature layer to be shown selected in the "1. */
     nearLayer: FeatureLayer;
     /** An array of near layer candidates. */
     nearLayers: FeatureLayer[];
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** The maximum range to search for nearest locations from each feature in the analysisLayer. */
-    searchCutoff?: number | undefined;
+    searchCutoff?: number;
     /** The units of the searchCutoff parameter. */
-    searchCutoffUnits?: string | undefined;
+    searchCutoffUnits?: string;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
   }
   export interface FindTaskOptions {
     /** Specify the geodatabase version to display. */
-    gdbVersion?: string | undefined;
+    gdbVersion?: string;
   }
   export interface GalleryOptions {
     /** An array of items, see example below. */
     items: any[];
     /** Display the title for each item in the gallery. */
-    showTitle?: boolean | undefined;
+    showTitle?: boolean;
     /** Specify the size of the gallery's thumbnail image. */
-    thumbnailStyle?: string | undefined;
+    thumbnailStyle?: string;
   }
   export interface GaugeOptions {
     /** Text to display at the bottom of the gauge. */
-    caption?: string | undefined;
+    caption?: string;
     /** Color used for the arc indicator on the gauge. */
-    color?: string | undefined;
+    color?: string;
     /** Name of the attribute field used to drive the gauge. */
-    dataField?: string | undefined;
+    dataField?: string;
     /** Either "value" or "percentage". */
-    dataFormat?: string | undefined;
+    dataFormat?: string;
     /** Name of the attribute field used to display a feature name on the gauge. */
-    dataLabelField?: string | undefined;
+    dataLabelField?: string;
     /** When true, the gauge is created with JSON from an ArcGIS Online webmap. */
-    fromWebmap?: boolean | undefined;
+    fromWebmap?: boolean;
     /** A esri.layers.GraphicsLayer or esri.layers.FeatureLayer used to drive the gauge. */
-    layer?: GraphicsLayer | undefined;
+    layer?: GraphicsLayer;
     /** Maximum value that will be displayed on the gauge. */
-    maxDataValue?: number | undefined;
+    maxDataValue?: number;
     /** The text to display when a feature does not not a value for the dataLabelField. */
-    noDataLabel?: string | undefined;
+    noDataLabel?: string;
     /** Object passed to dojo.number.format to specify how data values are formatted. */
     numberFormat?: any;
     /** Text displayed above the gauge. */
-    title?: string | undefined;
+    title?: string;
     /** What to dsiplay after the value of the currently selected feature. */
-    unitLabel?: string | undefined;
+    unitLabel?: string;
   }
   export interface GenerateRendererTaskOptions {
     /** Prior to ArcGIS Server 10.2, map server/feature service only sample 1000 features to generate the renderer when using GenerateRenderer operation, which mean if there are more than 1000 features, it may run into the case that some feature will not be categorized into any breaks/unique values. */
-    checkValueRange?: boolean | undefined;
+    checkValueRange?: boolean;
     /** Specify the geodatabase version to display. */
-    gdbVersion?: string | undefined;
+    gdbVersion?: string;
   }
   export interface GeoRSSLayerOptions {
     /** The template used to display popup window for identify operation. */
-    infoTemplate?: InfoTemplate | undefined;
+    infoTemplate?: InfoTemplate;
     /** Opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** The output spatial reference for the GeoRSSLayer. */
-    outSpatialReference?: SpatialReference | undefined;
+    outSpatialReference?: SpatialReference;
     /** The default symbol use to display point features. */
-    pointSymbol?: Symbol | undefined;
+    pointSymbol?: Symbol;
     /** The default symbol used to display polygon features. */
-    polygonSymbol?: Symbol | undefined;
+    polygonSymbol?: Symbol;
     /** The default symbol used to display polyline features. */
-    polylineSymbol?: Symbol | undefined;
+    polylineSymbol?: Symbol;
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
   }
   export interface GeocoderOptions {
     /** By default, the Geocoder widget uses the Esri World Locator to find search locations. */
-    arcgisGeocoder?: boolean | any | undefined;
+    arcgisGeocoder?: boolean | any;
     /** When false, the geocoder will not display the auto-complete results menu. */
-    autoComplete?: boolean | undefined;
+    autoComplete?: boolean;
     /** When false, the geolocator will not navigate to the result after selection or search. */
-    autoNavigate?: boolean | undefined;
+    autoNavigate?: boolean;
     /** When false, the geocoder menu will not be displayed when more than one geocoder is set. */
-    geocoderMenu?: boolean | undefined;
+    geocoderMenu?: boolean;
     /** Defines the geocoders that will be used by the Geocoder widget. */
-    geocoders?: any[] | undefined;
+    geocoders?: any[];
     /** Specify a graphicsLayer to use when  highlightSymbol is true. */
-    graphicsLayer?: GraphicsLayer | undefined;
+    graphicsLayer?: GraphicsLayer;
     /** Indicates whether to show a graphic at a selected location. */
-    highlightLocation?: boolean | undefined;
+    highlightLocation?: boolean;
     /** Reference to the map. */
     map: Map;
     /** Maximum number of results to return. */
-    maxLocations?: number | undefined;
+    maxLocations?: number;
     /** Minimum number of characters entered into the search field before querying for results. */
-    minCharacters?: number | undefined;
+    minCharacters?: number;
     /** Number of milliseconds before querying for results will begin. */
-    searchDelay?: number | undefined;
+    searchDelay?: number;
     /** When false, the geocoder will not show search suggestions while typing. */
-    showResults?: boolean | undefined;
+    showResults?: boolean;
     /** Symbol to use when highlightLocation is true. */
-    symbol?: Symbol | undefined;
+    symbol?: Symbol;
     /** Specify a theme for the geocoder. */
-    theme?: string | undefined;
+    theme?: string;
     /** Start the geocoder with a default value. */
-    value?: string | undefined;
+    value?: string;
     /** Scale to zoom to when geocoder does not return an extent. */
-    zoomScale?: number | undefined;
+    zoomScale?: number;
   }
   export interface GeographicTransformationOptions {
     /** Geographic transformation steps. */
-    steps?: GeographicTransformationStep[] | undefined;
+    steps?: GeographicTransformationStep[];
   }
   export interface GeographicTransformationStepOptions {
     /** The well-known id (wkid) that represents a known geographic transformation. */
-    wkid?: number | undefined;
+    wkid?: number;
     /** The well-known text (wkt) that represents a known geographic transformation. */
-    wkt?: string | undefined;
+    wkt?: string;
   }
   export interface GeometryLocationProviderOptions {
     /** The attribute field in the graphic object that contains the JSON string representing the geometry. */
@@ -1178,23 +1178,23 @@ declare module "esri" {
   }
   export interface GraphicsLayerOptions {
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** List of attribute fields to be added as custom data attributes to graphics node. */
-    dataAttributes?: string | string[] | undefined;
+    dataAttributes?: string | string[];
     /** When true, graphics are displayed during panning. */
-    displayOnPan?: boolean | undefined;
+    displayOnPan?: boolean;
     /** Id to assign to the layer. */
-    id?: string | undefined;
+    id?: string;
     /** The info template for the layer. */
-    infoTemplate?: InfoTemplate | undefined;
+    infoTemplate?: InfoTemplate;
     /** Initial opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
     /** Indicates whether the layer is responsible for styling graphics. */
-    styling?: boolean | undefined;
+    styling?: boolean;
     /** Initial visibility of the layer. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface Handle {
     /** Remove the listener */
@@ -1202,15 +1202,15 @@ declare module "esri" {
   }
   export interface HeatmapRendererOptions {
     /** The radius (in pixels) of the circle over which the majority of each point's value is spread out. */
-    blurRadius?: number | undefined;
+    blurRadius?: number;
     /** An array of CSS color strings (#RGB, #RRGGBB, rgb(r,g,b), rgba(r,g,b,a)). */
     colors: string[];
     /** The name of the attribute field used to weight the heatmap points. */
-    field?: string | undefined;
+    field?: string;
     /** The pixel intensity value which is assigned the final color in the color ramp. */
-    maxPixelIntensity?: number | undefined;
+    maxPixelIntensity?: number;
     /** The pixel intensity value which is assigned the initial color in the color ramp. */
-    minPixelIntensity?: number | undefined;
+    minPixelIntensity?: number;
   }
   export interface HeatmapSliderOptions {
     /** An array of colorStop objects describing the renderer's color ramp with more specificity than just colors. */
@@ -1218,39 +1218,39 @@ declare module "esri" {
     /** Handles identified by their index values within the stops array. */
     handles: number[];
     /** Absolute maximum value of the slider. */
-    maxValue?: number | undefined;
+    maxValue?: number;
     /** Absolute minimum value of the slider. */
-    minValue?: number | undefined;
+    minValue?: number;
     /** Width of slider ramp in pixels. */
-    rampWidth?: number | undefined;
+    rampWidth?: number;
     /** Displays slider handles when true. */
-    showHandles?: boolean | undefined;
+    showHandles?: boolean;
     /** Displays slider labels when true. */
-    showLabels?: boolean | undefined;
+    showLabels?: boolean;
     /** Displays slider ticks when true. */
-    showTicks?: boolean | undefined;
+    showTicks?: boolean;
   }
   export interface HistogramTimeSliderOptions {
     /** Change color of histogram bars, default is "rgb(5, 112, 176)".color: "#555555" */
-    color?: string | undefined;
+    color?: string;
     /** Formats dates displayed by histogram slider.dateFormat: "DateFormat(selector: 'date', fullYear: true)" */
-    dateFormat?: string | undefined;
+    dateFormat?: string;
     /** Array of feature layers to be used by slider. */
-    layers?: Layer[] | undefined;
+    layers?: Layer[];
     /** With a stream layer, when the number of points on the map exceeds the maximum number allowed, this histogram will start removing bins at the beginning of the array if in the "show_partial" mode. */
-    mode?: string | undefined;
+    mode?: string;
     /** Sets resolution for histogram slider (seconds/minutes/hours/etc) using Esri date formats. */
-    timeInterval?: string | undefined;
+    timeInterval?: string;
   }
   export interface HomeButtonOptions {
     /** The extent used to zoom to when clicked. */
-    extent?: Extent | undefined;
+    extent?: Extent;
     /** Map object that this dijit is associated with. */
     map: Map;
     /** Class used for styling the widget. */
-    theme?: string | undefined;
+    theme?: string;
     /** Whether the widget is visible by default. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface HorizontalSliderOptions {
     /** Array of text labels to render - evenly spaced from left-to-right. */
@@ -1258,69 +1258,69 @@ declare module "esri" {
   }
   export interface IdentifyTaskOptions {
     /** Specify the geodatabase version to display. */
-    gdbVersion?: string | undefined;
+    gdbVersion?: string;
   }
   export interface ImageServiceMeasureOptions {
     /** The angular unit in which directions of line segments will be calculated. */
-    angularUnit?: string | undefined;
+    angularUnit?: string;
     /** The area unit in which areas of polygons will be calculated. */
-    areaUnit?: string | undefined;
+    areaUnit?: string;
     /** Defines whether to show the widget result in a popup or in the widget's result area when the widget has 'toolbar' layout. */
-    displayMeasureResultInPopup?: boolean | undefined;
+    displayMeasureResultInPopup?: boolean;
     /** Symbol to be used when drawing a polygon or extent. */
-    fillSymbol?: SimpleFillSymbol | undefined;
+    fillSymbol?: SimpleFillSymbol;
     /** Image service layer with which the toolbar is associated. */
     layer: ArcGISImageServiceLayer;
     /** Defines the layout of the widget. */
-    layout?: string | undefined;
+    layout?: string;
     /** The linear unit in which height, length, or perimeters will be calculated. */
-    linearUnit?: string | undefined;
+    linearUnit?: string;
     /** Symbol to be used when drawing a line. */
-    lineSymbol?: SimpleLineSymbol | undefined;
+    lineSymbol?: SimpleLineSymbol;
     /** Map instance with which the toolbar is associate. */
     map: Map;
     /** Symbol to be used when drawing a point. */
-    markerSymbol?: SimpleMarkerSymbol | undefined;
+    markerSymbol?: SimpleMarkerSymbol;
   }
   export interface ImageServiceMeasureToolOptions {
     /** The angular unit in which directions of line segments will be calculated. */
-    angularUnit?: string | undefined;
+    angularUnit?: string;
     /** The area unit in which areas of polygons will be calculated. */
-    areaUnit?: string | undefined;
+    areaUnit?: string;
     /** Symbol to be used when drawing a polygon or extent. */
-    fillSymbol?: SimpleFillSymbol | undefined;
+    fillSymbol?: SimpleFillSymbol;
     /** Image service layer the toolbar is associated with. */
     layer: ArcGISImageServiceLayer;
     /** The linear unit in which height, length, or perimeters will be calculated. */
-    linearUnit?: string | undefined;
+    linearUnit?: string;
     /** Symbol to be used when drawing a line. */
-    lineSymbol?: SimpleLineSymbol | undefined;
+    lineSymbol?: SimpleLineSymbol;
     /** Map instance the toolbar is associated with. */
     map: Map;
     /** Symbol to be used when drawing a point. */
-    markerSymbol?: SimpleMarkerSymbol | undefined;
+    markerSymbol?: SimpleMarkerSymbol;
   }
   export interface ImageSpatialReferenceOptions {
     /** The full Image Coordinate System object, which includes transformations and map spatial reference information specific to each image. */
     ics?: any;
     /** The OBJECTID of the image in a mosaic dataset. */
-    icsid?: number | undefined;
+    icsid?: number;
     /** The url of the image service. */
     url: string;
   }
   export interface KMLLayerOptions {
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** The output spatial reference for the KMLLayer. */
-    outSR?: SpatialReference | undefined;
+    outSR?: SpatialReference;
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
   }
   export interface LabelLayerOptions {
     /** ID assigned to the layer. */
-    id?: string | undefined;
+    id?: string;
     /** Display mode for the label layer. */
-    mode?: string | undefined;
+    mode?: string;
   }
   export interface LayerListOptions {
     /** An array of operational layers. */
@@ -1328,83 +1328,83 @@ declare module "esri" {
     /** Reference to the map. */
     map: Map;
     /** Indicates whether to remove underscores from the layer title. */
-    removeUnderscores?: boolean | undefined;
+    removeUnderscores?: boolean;
     /** Indicates whether to display a legend for the layer items. */
-    showLegend?: boolean | undefined;
+    showLegend?: boolean;
     /** Indicates whether to display the opacity slider. */
-    showOpacitySlider?: boolean | undefined;
+    showOpacitySlider?: boolean;
     /** Indicates whether to show sublayers in the list of layers. */
-    showSubLayers?: boolean | undefined;
+    showSubLayers?: boolean;
     /** The CSS class selector used to uniquely style the widget. */
-    theme?: string | undefined;
+    theme?: string;
     /** Indicates whether to show the LayerList widget. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface LayerOptions {
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
     /** When true, the layer's attribution is displayed on the map. */
-    showAttribution?: boolean | undefined;
+    showAttribution?: boolean;
   }
   export interface LayerSwipeOptions {
     /** The number of pixels to clip the swipe tool. */
-    clip?: number | undefined;
+    clip?: number;
     /** If the widget is enabled and layers can be swiped. */
-    enabled?: boolean | undefined;
+    enabled?: boolean;
     /** Indicates whether layer placement should be inverted (switched). */
-    invertPlacement?: boolean | undefined;
+    invertPlacement?: boolean;
     /** The layers to be swiped. */
     layers: Layer[];
     /** The number of pixels to place the tool from the left of the map. */
-    left?: number | undefined;
+    left?: number;
     /** Map object that this dijit is associated with. */
     map: Map;
     /** Class used for styling the widget. */
-    theme?: string | undefined;
+    theme?: string;
     /** The number of pixels to place the tool from the top of the map. */
-    top?: number | undefined;
+    top?: number;
     /** Type of swipe tool to use. */
-    type?: string | undefined;
+    type?: string;
   }
   export interface LegendOptions {
     /** Specify the alignment of the legend within the HTML element where the legend is rendered. */
-    arrangement?: number | undefined;
+    arrangement?: number;
     /** When false, the legend will not automatically update if the map changes scale or when layers are added are removed from the map. */
-    autoUpdate?: boolean | undefined;
+    autoUpdate?: boolean;
     /** Specify a subset of the layers in the map to display in the legend. */
-    layerInfos?: any[] | undefined;
+    layerInfos?: any[];
     /** Reference to the map. */
     map: Map;
     /** When true the legend will update with every scale change and displays only the layers and sub layers that are visible in the current map scale. */
-    respectCurrentMapScale?: boolean | undefined;
+    respectCurrentMapScale?: boolean;
   }
   export interface LocateButtonOptions {
     /** Centers the map to the location when a new position is returned. */
-    centerAt?: boolean | undefined;
+    centerAt?: boolean;
     /** The HTML5 Geolocation Position options for locating. */
     geolocationOptions?: any;
     /** If highlightLocation is on and this property is set then a graphic will be added to this layer instead of map.graphics. */
-    graphicsLayer?: GraphicsLayer | undefined;
+    graphicsLayer?: GraphicsLayer;
     /** If true, the users location will be highlighted with a point. */
-    highlightLocation?: boolean | undefined;
+    highlightLocation?: boolean;
     /** The infoTemplate used for the highlight graphic. */
-    infoTemplate?: InfoTemplate | undefined;
+    infoTemplate?: InfoTemplate;
     /** Map object that this dijit is associated with. */
     map: Map;
     /** The scale to zoom to when a users location has been found. */
-    scale?: number | undefined;
+    scale?: number;
     /** Sets the maps scale when a new position is returned. */
-    setScale?: boolean | undefined;
+    setScale?: boolean;
     /** The symbol used on the highlight graphic to highlight the users location on the map. */
-    symbol?: Symbol | undefined;
+    symbol?: Symbol;
     /** Class used for styling the widget. */
-    theme?: string | undefined;
+    theme?: string;
     /** When enabled, the button becomes a toggle that creates an event to watch for location changes. */
-    useTracking?: boolean | undefined;
+    useTracking?: boolean;
     /** Whether the widget is visible by default. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface LocatorLocationProviderOptions {
     /** Object that matches the Locator address fields to corresponding attribute names in the Graphic object. */
@@ -1414,137 +1414,137 @@ declare module "esri" {
   }
   export interface MapImageOptions {
     /** Specfiy an extent for the image. */
-    extent?: Extent | undefined;
+    extent?: Extent;
     /** Specify the url of the image. */
-    href?: string | undefined;
+    href?: string;
   }
   export interface MapOptions {
     /** Width of the attribution node relative to the map width. */
-    attributionWidth?: number | undefined;
+    attributionWidth?: number;
     /** When true the map will automatically resize when the browser window is resized or when the ContentPane widget enclosing the map is resized. */
-    autoResize?: boolean | undefined;
-    /** Specify a basemap for the map. */
-    basemap?: string | undefined;
+    autoResize?: boolean;
+    /** Specify a basemap for the map, for example "topo-vector" or "satellite". */
+    basemap?: string;
     /** The location where the map should be centered. */
-    center?: number[] | Point | undefined;
+    center?: number[] | Point;
     /** When true, graphics are displayed during panning. */
-    displayGraphicsOnPan?: boolean | undefined;
+    displayGraphicsOnPan?: boolean;
     /** If provided, the extent and projection of the map is set to the properties of Extent. */
-    extent?: Extent | undefined;
+    extent?: Extent;
     /** When true a fade effect is enabled for supported layers. */
-    fadeOnZoom?: boolean | undefined;
+    fadeOnZoom?: boolean;
     /** When true, for maps that contain tiled map service layers, you are guaranteed to have the initial extent defined using the extent constructor option shown completely on the map. */
-    fitExtent?: boolean | undefined;
+    fitExtent?: boolean;
     /** When the mapNavigation mode is set to 'css-transforms', CSS3 transforms will be used for map navigation when supported by the browser. */
-    force3DTransforms?: boolean | undefined;
+    force3DTransforms?: boolean;
     /** By default the map creates and uses an out-of-the-box esri/dijit/Popup. */
-    infoWindow?: InfoWindowBase | undefined;
+    infoWindow?: InfoWindowBase;
     /** Indicates whether to enable double-click on a map to recenter and zoom in a level by using SHIFT + Click. */
-    isClickRecenter?: boolean | undefined;
+    isClickRecenter?: boolean;
     /** Indicates whether double-clicking on map zooms in on extent. */
-    isDoubleClickZoom?: boolean | undefined;
+    isDoubleClickZoom?: boolean;
     /** Indicates whether to enable navigation of the map using a keyboard's arrow keys. */
-    isKeyboardNavigation?: boolean | undefined;
+    isKeyboardNavigation?: boolean;
     /** Indicates whether all map navigation is enabled. */
-    isMapNavigation?: boolean | undefined;
+    isMapNavigation?: boolean;
     /** Indicates whether panning is enabled within the map. */
-    isPan?: boolean | undefined;
+    isPan?: boolean;
     /** Indicates whether pinch zoom navigation is enabled on touch-enabled devices. */
-    isPinchZoom?: boolean | undefined;
+    isPinchZoom?: boolean;
     /** Indicates whether to enable a mouse drag to zoom into to a specific region on the map. */
-    isRubberBandZoom?: boolean | undefined;
+    isRubberBandZoom?: boolean;
     /** (Added at version 3.21). */
-    isScrollWheel?: boolean | undefined;
+    isScrollWheel?: boolean;
     /** If provided, the map is initialized with the specified levels of detail. */
-    lods?: LOD[] | undefined;
+    lods?: LOD[];
     /** Display the esri logo on the map. */
-    logo?: boolean | undefined;
+    logo?: boolean;
     /** Maximum visible scale of the map. */
-    maxScale?: number | undefined;
+    maxScale?: number;
     /** Maximum map zoom level. */
-    maxZoom?: number | undefined;
+    maxZoom?: number;
     /** Minimum visible scale of the map. */
-    minScale?: number | undefined;
+    minScale?: number;
     /** Minimum map zoom level. */
-    minZoom?: number | undefined;
+    minZoom?: number;
     /** Displays pan buttons on map. */
-    nav?: boolean | undefined;
+    nav?: boolean;
     /** Specify whether or not to use CSS3 transformations when panning and zooming. */
-    navigationMode?: string | undefined;
+    navigationMode?: string;
     /** Default value is true, indicating that the map will skip panning animation when calling map.centerAt() or map.setExtent() (for map.setExtent(), the animation is only skipped if the map's zoom level is not changing) if the panning distance is twice the distance of the current extent. */
-    optimizePanAnimation?: boolean | undefined;
+    optimizePanAnimation?: boolean;
     /** Specify a time period in milliseconds to ignore repeated calls to the resize method. */
-    resizeDelay?: number | undefined;
+    resizeDelay?: number;
     /** Initial map scale. */
-    scale?: number | undefined;
+    scale?: number;
     /** Enable or disable map attribution display. */
-    showAttribution?: boolean | undefined;
+    showAttribution?: boolean;
     /** If true and a map click event occurs, it may show the map's infoWindow. */
-    showInfoWindowOnClick?: boolean | undefined;
+    showInfoWindowOnClick?: boolean;
     /** Indicate whether to display labels. */
-    showLabels?: boolean | undefined;
+    showLabels?: boolean;
     /** Displays a slider on the map. */
-    slider?: boolean | undefined;
+    slider?: boolean;
     /** Define labels for the slider. */
-    sliderLabels?: string[] | undefined;
+    sliderLabels?: string[];
     /** Orientation of the zoom slider. */
-    sliderOrientation?: string | undefined;
+    sliderOrientation?: string;
     /** Position of the zoom slider within the map control. */
-    sliderPosition?: string | undefined;
+    sliderPosition?: string;
     /** Defines the slider style. */
-    sliderStyle?: string | undefined;
+    sliderStyle?: string;
     /** When true, for Apple computers with a trackpad or magic mouse use, swipe pans instead of zooming. */
-    smartNavigation?: boolean | undefined;
+    smartNavigation?: boolean;
     /** Indicates whether to enable WebGL rendering for FeatureLayers in the map. */
-    webglEnabled?: boolean | undefined;
+    webglEnabled?: boolean;
     /** When true, supports continuous pan across the dateline. */
-    wrapAround180?: boolean | undefined;
+    wrapAround180?: boolean;
     /** Initial zoom level of the map. */
-    zoom?: number | undefined;
+    zoom?: number;
   }
   export interface MeasurementOptions {
     /** Flag for showing full list of units in the Location tool. */
-    advancedLocationUnits?: boolean | undefined;
+    advancedLocationUnits?: boolean;
     /** The default area unit for the measure area tool. */
-    defaultAreaUnit?: string | undefined;
+    defaultAreaUnit?: string;
     /** The default length unit for the measure distance tool. */
-    defaultLengthUnit?: string | undefined;
+    defaultLengthUnit?: string;
     /** Fill symbol used to symbolize the polygons representing the areas measured for the measure area tool. */
-    fillSymbol?: SimpleFillSymbol | undefined;
+    fillSymbol?: SimpleFillSymbol;
     /** Allows the user to immediately measure previously-created geometry on dijit creation. */
-    geometry?: Point | Polyline | Polygon | undefined;
+    geometry?: Point | Polyline | Polygon;
     /** Line symbol used to draw the lines for the measure line and measure distance tools. */
-    lineSymbol?: SimpleLineSymbol | undefined;
+    lineSymbol?: SimpleLineSymbol;
     /** Reference to the map. */
     map: Map;
     /** Marker symbol used to draw the points for the measure line tool. */
-    pointSymbol?: MarkerSymbol | undefined;
+    pointSymbol?: MarkerSymbol;
   }
   export interface MergeLayersOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** The feature layer to be merged with the mergeLayer. */
     inputLayer: FeatureLayer;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** An array of feature layer candidates to be selected as the merge layer. */
     mergeLayers: FeatureLayer[];
     /** An array of values that describe how fields from the mergeLayer are to be modified. */
-    mergingAttributes?: string[] | undefined;
+    mergingAttributes?: string[];
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
   }
   /** Constants representing how the geometry is returned. */
   export interface NAOutputLine {
@@ -1588,51 +1588,53 @@ declare module "esri" {
     /** The registered application Id. */
     appId: string;
     /** Applications with the same value will share the stored token on the same host. */
-    authNamespace?: string | undefined;
+    authNamespace?: string;
     /** The number of minutes the token will be valid for. */
-    expiration?: number | undefined;
+    expiration?: number;
+    /** Set this property to specify the type of authentication to use. */
+    flowType?: string;
     /** The locale for the OAuth sign in page. */
-    locale?: string | undefined;
+    locale?: string;
     /** The minimum time in minutes before a saved token is due to expire that it should still be considered valid for use. */
-    minTimeUntilExpiration?: number | undefined;
+    minTimeUntilExpiration?: number;
     /** Set to true to show the OAuth sign in page in a popup window. */
-    popup?: boolean | undefined;
+    popup?: boolean;
     /** The relative page URL for the user to be sent to from the OAuth sign in page. */
-    popupCallbackUrl?: string | undefined;
+    popupCallbackUrl?: string;
     /** The window features passed to window.open(). */
-    popupWindowFeatures?: string | undefined;
+    popupWindowFeatures?: string;
     /** The ArcGIS for Portal URL. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
   }
   export interface ObliqueViewerOptions {
     /** Azimuth angle value for which to display oblique images. */
-    azimuthAngle?: number | undefined;
+    azimuthAngle?: number;
     /** Image service field that denotes the sensor azimuth value for a record. */
-    azimuthField?: string | undefined;
+    azimuthField?: string;
     /** Tolerance value applied when filtering azimuth images. */
-    azimuthTolerance?: number | undefined;
+    azimuthTolerance?: number;
     /** Image service field that denotes the sensor elevation value for a record. */
-    elevationField?: string | undefined;
+    elevationField?: string;
     /** Elevation value between 0 and 90 that differentiates an image as oblique or nadir. */
-    elevationThreshold?: number | undefined;
+    elevationThreshold?: number;
     /** Image service layer to be used as source for oblique images. */
     imageServiceLayer: ArcGISImageServiceLayer;
     /** Map object associated with the widget. */
     map: Map;
     /** When true, the widget doesn't refresh itself with new oblique records when the map's extent changes. */
-    noQueryOnExtentChange?: boolean | undefined;
+    noQueryOnExtentChange?: boolean;
     /** Raster info fields to be queried and displayed in the raster list. */
-    rasterInfoFields?: any[] | undefined;
+    rasterInfoFields?: any[];
     /** DOM Node or id, where the list element is to be placed. */
-    rasterListDiv?: string | Node | undefined;
+    rasterListDiv?: string | Node;
     /** When true, list is populated on data refresh. */
-    rasterListRefresh?: boolean | undefined;
+    rasterListRefresh?: boolean;
     /** DOM Node or id, where the oblique rotation gauge element is to be placed. */
-    rotationDiv?: string | Node | undefined;
+    rotationDiv?: string | Node;
     /** When true, thumbnail images for records are displayed in the list. */
-    showThumbnail?: boolean | undefined;
+    showThumbnail?: boolean;
     /** Sorting function that takes query results and sorts them. */
-    sorter?: Function | undefined;
+    sorter?: Function;
   }
   export interface OpacitySliderOptions {
     /** Handles identified by their index values within the stops array. */
@@ -1640,27 +1642,27 @@ declare module "esri" {
     /** Represents the histogram data object. */
     histogram?: any;
     /** Width of histogram in pixels. */
-    histogramWidth?: number | undefined;
+    histogramWidth?: number;
     /** The absolute maximum value of the slider. */
-    maxValue?: number | undefined;
+    maxValue?: number;
     /** The absolute minimum value of the slider. */
-    minValue?: number | undefined;
+    minValue?: number;
     /** The data map containing renderer information. */
     opacityInfo: any;
     /** The handle identified by its index value within the stops array. */
-    primaryHandle?: number | undefined;
+    primaryHandle?: number;
     /** Represents the width of the SVG ramp in pixels. */
-    rampWidth?: number | undefined;
+    rampWidth?: number;
     /** Displays slider handles when true. */
-    showHandles?: boolean | undefined;
+    showHandles?: boolean;
     /** Displays the histogram when true. */
-    showHistogram?: boolean | undefined;
+    showHistogram?: boolean;
     /** Displays slider labels when true. */
-    showLabels?: boolean | undefined;
+    showLabels?: boolean;
     /** Displays slider ticks when true. */
-    showTicks?: boolean | undefined;
+    showTicks?: boolean;
     /** Displays the transparent background when true. */
-    showTransparentBackground?: boolean | undefined;
+    showTransparentBackground?: boolean;
     /** Represents a statistics data object. */
     statistics?: any;
     /** Additional options to customize slider. */
@@ -1668,185 +1670,185 @@ declare module "esri" {
   }
   export interface OpenStreetMapLayerOptions {
     /** An array of levels at which to draw. */
-    displayLevels?: number[] | undefined;
+    displayLevels?: number[];
     /** Id to assign to the layer. */
-    id?: string | undefined;
+    id?: string;
     /** Initial opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** When true, tile resampling is enabled. */
-    resampling?: boolean | undefined;
+    resampling?: boolean;
     /** Number of levels beyond the last level where tiles are available. */
-    resamplingTolerance?: number | undefined;
+    resamplingTolerance?: number;
     /** An array of tile servers */
-    tileServers?: string[] | undefined;
+    tileServers?: string[];
     /** Initial visibility of the layer. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface OperationBaseOptions {
     /** Provide information about the operation. */
-    label?: string | undefined;
+    label?: string;
     /** Specify the type of operation, for example: "edit" or "navigation". */
-    type?: string | undefined;
+    type?: string;
   }
   export interface OverlayLayersOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** The feature layer that will be overlayed with the overlayLayer. */
     inputLayer: FeatureLayer;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** An array of feature layers to be overlaid with inputLayer. */
     overlayLayer: FeatureLayer[];
     /** Defines how two input layers are combined. */
-    overlayType?: string | undefined;
+    overlayType?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
     /** When the distance between features is less than the tolerance, the features in the overlay layer will snap to the features in the input layer. */
-    snapToInput?: boolean | undefined;
+    snapToInput?: boolean;
     /** The minimum distance separating all feature coordinates (nodes and vertices) as well as the distance a coordinate can move in X or Y (or both). */
-    tolerance?: number | undefined;
+    tolerance?: number;
   }
   export interface OverviewMapOptions {
     /** Specifies which corner of the map to attach the OverviewMap dijit. */
-    attachTo?: string | undefined;
+    attachTo?: string;
     /** Specify the base layer for the overview map. */
-    baseLayer?: Layer | undefined;
+    baseLayer?: Layer;
     /** Fill color for the extent rectangle. */
-    color?: string | undefined;
+    color?: string;
     /** The ratio between the size of the overview map and the extent rectangle displayed on the overview map. */
-    expandFactor?: number | undefined;
+    expandFactor?: number;
     /** Height of the overview map dijit in screen pixels. */
-    height?: number | undefined;
+    height?: number;
     /** Unique identifier for the dijit. */
-    id?: string | undefined;
+    id?: string;
     /** Reference to the map. */
     map: Map;
     /** Defines the visibility of the maximize/restore button. */
-    maximizeButton?: boolean | undefined;
+    maximizeButton?: boolean;
     /** Opacity of the extent rectangle, defined as a number between 0 (invisible) and 1 (opaque). */
-    opacity?: number | undefined;
+    opacity?: number;
     /** Specifies the initial visibility of the overview map. */
-    visible?: boolean | undefined;
+    visible?: boolean;
     /** Width of the overview map dijit in screen pixels. */
-    width?: number | undefined;
+    width?: number;
   }
   export interface PixelBlockOptions {
     /** Number of rows. */
     height: number;
     /** An array of nodata mask. */
-    mask?: any[] | undefined;
+    mask?: any[];
     /** A two dimensional array. */
     pixels: number[][];
     /** Pixel type. */
-    pixelType?: string | undefined;
+    pixelType?: string;
     /** Array of objects containing numeric statistical properties (for example minValue, maxValue, noDataValue, etc.). */
-    statistics?: any[] | undefined;
+    statistics?: any[];
     /** Number of columns. */
     width: number;
   }
   export interface PopupMobileOptions {
     /** Define the symbol used to highlight polygon features. */
-    fillSymbol?: FillSymbol | undefined;
+    fillSymbol?: FillSymbol;
     /** When true, the feature is highlighted, set to false to disable highlighting. */
-    highlight?: boolean | undefined;
+    highlight?: boolean;
     /** Define the symbol used to highlight line features. */
-    lineSymbol?: LineSymbol | undefined;
+    lineSymbol?: LineSymbol;
     /** Specify the margin (in pixels) to leave to the left of the popup window when it is maximized. */
-    marginLeft?: number | undefined;
+    marginLeft?: number;
     /** Specify the margin (in pixels) to leave at the top of the popup window when it is maximized. */
-    marginTop?: number | undefined;
+    marginTop?: number;
     /** Define the marker symbol used to highlight point features. */
-    markerSymbol?: MarkerSymbol | undefined;
+    markerSymbol?: MarkerSymbol;
     /** Specify the x-offset (in pixels) used when positioning the popup. */
-    offsetX?: number | undefined;
+    offsetX?: number;
     /** Specify the y-offset (in pixels) used when positioning the popup. */
-    offsetY?: number | undefined;
+    offsetY?: number;
     /** Define the number of levels to zoom in, default value is 4. */
-    zoomFactor?: number | undefined;
+    zoomFactor?: number;
   }
   export interface PopupOptions {
     /** Controls the placement of the popup window with respect to the geographic location. */
-    anchor?: string | undefined;
+    anchor?: string;
     /** Define the symbol used to highlight polygon features. */
-    fillSymbol?: FillSymbol | undefined;
+    fillSymbol?: FillSymbol;
     /** Number of milliseconds after which the popup window will be hidden when visibleWhenEmpty is false and there are no features to be displayed. */
-    hideDelay?: boolean | undefined;
+    hideDelay?: boolean;
     /** Indicates whether popup should highlight features. */
-    highlight?: boolean | undefined;
+    highlight?: boolean;
     /** Indicates whether a feature should remain highlighted after the user closes the popup window. */
-    keepHighlightOnHide?: boolean | undefined;
+    keepHighlightOnHide?: boolean;
     /** Define the symbol used to highlight line features. */
-    lineSymbol?: LineSymbol | undefined;
+    lineSymbol?: LineSymbol;
     /** Specify the margin (in pixels) to leave to the left of the popup window when it is maximized. */
-    marginLeft?: number | undefined;
+    marginLeft?: number;
     /** Specify the margin (in pixels) to leave at the top of the popup window when it is maximized. */
-    marginTop?: number | undefined;
+    marginTop?: number;
     /** Define the marker symbol used to highlight point features. */
-    markerSymbol?: MarkerSymbol | undefined;
+    markerSymbol?: MarkerSymbol;
     /** Specify the x-offset (in pixels) used when positioning the popup. */
-    offsetX?: number | undefined;
+    offsetX?: number;
     /** Specify the y-offset (in pixels) used when positioning the popup. */
-    offsetY?: number | undefined;
+    offsetY?: number;
     /** Indicates whether popup should display previous and next buttons in the title bar. */
-    pagingControls?: boolean | undefined;
+    pagingControls?: boolean;
     /** Indicates whether popup should display the title bar text that contains the page number and total number of available features. */
-    pagingInfo?: boolean | undefined;
+    pagingInfo?: boolean;
     /** Indicates whether the popup window should be displayed. */
-    popupWindow?: boolean | undefined;
+    popupWindow?: boolean;
     /** Indicates whether the feature's title should display within the body of the popup window as opposed to in the titlebar. */
-    titleInBody?: boolean | undefined;
+    titleInBody?: boolean;
     /** Indicates whether the popup window remains visible when there are no features to be displayed. */
-    visibleWhenEmpty?: boolean | undefined;
+    visibleWhenEmpty?: boolean;
     /** Define the number of levels to zoom in when the 'Zoom to' link is clicked. */
-    zoomFactor?: number | undefined;
+    zoomFactor?: number;
   }
   export interface PopupTemplateOptions {
     /** Positive or negative offset (in minutes) from UTC. */
-    utcOffset?: number | undefined;
+    utcOffset?: number;
   }
   export interface PrintOptions {
     /** Set to true if the print service is an asynchronous geoprocessing service. */
-    async?: boolean | undefined;
+    async?: boolean;
     /** Additional parameters for the print service. */
     extraParameters?: any;
     /** The map to  print. */
-    map?: Map | undefined;
+    map?: Map;
     /** An optional array of user-defined templates. */
-    templates?: PrintTemplate[] | undefined;
+    templates?: PrintTemplate[];
     /** The url to an export web map task. */
-    url?: string | undefined;
+    url?: string;
   }
   export interface PrintTaskOptions {
     /** Set to true if the print service is an asynchronous geoprocessing service. */
-    async?: boolean | undefined;
+    async?: boolean;
   }
   export interface ProcessorOptions {
     /** Start processing features immediately. */
-    autostart?: boolean | undefined;
+    autostart?: boolean;
     /** Whether the processor allow the feature layer to draw its features. */
-    drawFeatures?: boolean | undefined;
+    drawFeatures?: boolean;
     /** Whether the processor do the layer's I/O via a worker. */
-    fetchWithWorker?: boolean | undefined;
+    fetchWithWorker?: boolean;
     /** A FeatureLayer or array of FeatureLayers to attach the processor to. */
-    layers?: FeatureLayer[] | undefined;
+    layers?: FeatureLayer[];
     /** Uses all FeatureLayers associated with the map in the processor. */
-    map?: Map | undefined;
+    map?: Map;
     /** Whether the processor pass the features through without modification or delay to the FeatureLayer. */
-    passFeatures?: boolean | undefined;
+    passFeatures?: boolean;
     /** Whether the processor require Workers to function properly. */
-    requireWorkerSupport?: boolean | undefined;
+    requireWorkerSupport?: boolean;
   }
   export interface QueryTaskLocationProviderOptions {
     /** Object containing properties that will be used to query the ArcGIS layer. */
@@ -1860,70 +1862,70 @@ declare module "esri" {
   }
   export interface QueryTaskOptions {
     /** The geodatabase version to display. */
-    gdbVersion?: string | undefined;
+    gdbVersion?: string;
     /** The dynamic layer or table source. */
-    source?: LayerSource | undefined;
+    source?: LayerSource;
   }
   export interface RasterLayerOptions {
     /** Sets the layer's draw mode. */
-    drawMode?: boolean | undefined;
+    drawMode?: boolean;
     /** Sets the context of the Canvas. */
-    drawType?: string | undefined;
+    drawType?: string;
     /** Additional parameters defined in an  ImageServiceParameters object. */
-    imageServiceParameters?: ImageServiceParameters | undefined;
+    imageServiceParameters?: ImageServiceParameters;
     /** Applies a function for visualization or post-processing purposes. */
     pixelFilter?: any;
   }
   export interface RendererSliderOptions {
     /** Collection of indexes that indicates which children from the infos array to use as handles. */
-    handles?: number[] | undefined;
+    handles?: number[];
     /** Absolute maximum value allowed by the slider. */
     maximum: number;
     /** Top label for the slider. */
-    maxLabel?: string | undefined;
+    maxLabel?: string;
     /** Absolute minimum value allowed by the slider. */
     minimum: number;
     /** Bottom label for the slider. */
-    minLabel?: string | undefined;
+    minLabel?: string;
     /** Accuracy of the data (related to rounding). */
-    precision?: number | undefined;
+    precision?: number;
     /** Primary handle identified by its index value within the related infos array (color, size, break). */
-    primaryHandle?: number | undefined;
+    primaryHandle?: number;
     /** Toggle for showing the black handle bars. */
-    showHandles?: boolean | undefined;
+    showHandles?: boolean;
     /** Flexible toggle for showing labels (for example ["data", "handle"]). */
-    showLabels?: boolean | string[] | undefined;
+    showLabels?: boolean | string[];
     /** Toggle for showing the horizontal line indicators from the center of the handle. */
-    showTicks?: boolean | undefined;
+    showTicks?: boolean;
     /** Stores positions represented as numbers that fall between minimum and maximum. */
     values: number[];
   }
   export interface ReportPlayerOptions {
     /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
-    allowKeyboardNavigation?: boolean | undefined;
+    allowKeyboardNavigation?: boolean;
     /** As of version 3.26 Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
     config?: any;
     /** Specifies which export options are available for the report. */
-    dataProvider?: DataProviderGE | undefined;
+    dataProvider?: DataProviderGE;
     /** Specifies how the ReportPlayer should zoom by default. */
-    defaultZoomBehavior?: string | undefined;
+    defaultZoomBehavior?: string;
     /** Indicates whether interactive experience for panels should be enabled. */
-    enableDataDrilling?: boolean | undefined;
+    enableDataDrilling?: boolean;
     /** Specifies the resize mode of the ReportPlayer. */
-    resizeMode?: string | undefined;
+    resizeMode?: string;
     /** If true, indicates that panels should scale to fit the window. */
-    scaleSlidesToFitWindow?: boolean | undefined;
+    scaleSlidesToFitWindow?: boolean;
     /** Indicates whether the analysis area title will be shown in the toolbar. */
-    showAreaTitle?: boolean | undefined;
+    showAreaTitle?: boolean;
     /** Indicates whether the toolbar will be shown in a compact popup view. */
-    showToolbarInPopup?: boolean | undefined;
+    showToolbarInPopup?: boolean;
     /** Specifies the theme of the ReportPlayer. */
-    theme?: PlayerThemes | undefined;
+    theme?: PlayerThemes;
     /**
      * Specifies the display of the report in full page view, slide view, or stacked panel view.
      * @deprecated
      */
-    viewMode?: string | undefined;
+    viewMode?: string;
   }
   export interface RingBufferOptions {
     /** The radii to use to create ring buffers */
@@ -1933,77 +1935,77 @@ declare module "esri" {
   }
   export interface ScaleDependentRendererOptions {
     /** An array of objects where each object defines a renderer and  the zoom or scale range to which it applies. */
-    rendererInfos?: any[] | undefined;
+    rendererInfos?: any[];
   }
   export interface ScalebarOptions {
     /** Specify the scalebar position on the map. */
-    attachTo?: string | undefined;
+    attachTo?: string;
     /** Reference to the map. */
     map: Map;
     /** Specify the style for the scalebar. */
-    scalebarStyle?: string | undefined;
+    scalebarStyle?: string;
     /** Specify the scalebar units. */
-    scalebarUnit?: string | undefined;
+    scalebarUnit?: string;
   }
   export interface SearchOptions {
     /** The currently selected source. */
-    activeSourceIndex?: number | string | undefined;
+    activeSourceIndex?: number | string;
     /** Indicates whether to automatically add all the feature layers from the map. */
-    addLayersFromMap?: boolean | undefined;
+    addLayersFromMap?: boolean;
     /** This is the default value used as a hint for input text when searching on multiple sources. */
-    allPlaceholder?: string | undefined;
+    allPlaceholder?: string;
     /** Indicates whether to automatically navigate to the selected result. */
-    autoNavigate?: boolean | undefined;
+    autoNavigate?: boolean;
     /** Indicates whether to automatically select the first geocoded result (not the first suggestion). */
-    autoSelect?: boolean | undefined;
+    autoSelect?: boolean;
     /** Indicates whether to enable an option to collapse/expand the search into a button. */
-    enableButtonMode?: boolean | undefined;
+    enableButtonMode?: boolean;
     /** Indicates whether to show the selected feature on the map using the highlight symbol property. */
-    enableHighlight?: boolean | undefined;
+    enableHighlight?: boolean;
     /** Indicates whether to display the infoWindow on feature click. */
-    enableInfoWindow?: boolean | undefined;
+    enableInfoWindow?: boolean;
     /** Indicates whether to enable showing a label for the geometry.The default value is false. */
-    enableLabel?: boolean | undefined;
+    enableLabel?: boolean;
     /** Indicates whether to display the option to search "All" sources. */
-    enableSearchingAll?: boolean | undefined;
+    enableSearchingAll?: boolean;
     /** Indicates whether to enable the menu for selecting different sources. */
-    enableSourcesMenu?: boolean | undefined;
+    enableSourcesMenu?: boolean;
     /** Indicates whether or not to enable suggest on the widget. */
-    enableSuggestions?: boolean | undefined;
+    enableSuggestions?: boolean;
     /** Indicates whether to display suggest results. */
-    enableSuggestionsMenu?: boolean | undefined;
+    enableSuggestionsMenu?: boolean;
     /** Indicates whether to set the state of the enableButtonMode to expanded (true) or collapsed (false). */
-    expanded?: boolean | undefined;
+    expanded?: boolean;
     /** This the specified graphicsLayer to use for the highlightGraphic and labelGraphic instead of map.graphics. */
-    graphicsLayer?: Layer | undefined;
+    graphicsLayer?: Layer;
     /** A customized infoTemplate for the selected feature. */
-    infoTemplate?: InfoTemplate | undefined;
+    infoTemplate?: InfoTemplate;
     /** The text symbol for the label graphic. */
-    labelSymbol?: TextSymbol | undefined;
+    labelSymbol?: TextSymbol;
     /** The default distance specified in meters used to reverse geocode, (if not specified by source). */
-    locationToAddressDistance?: number | undefined;
+    locationToAddressDistance?: number;
     /** Reference to the map. */
-    map?: Map | undefined;
+    map?: Map;
     /** The default maximum number of results returned by the widget if not specified by source. */
-    maxResults?: number | undefined;
+    maxResults?: number;
     /** The default maximum number of suggestions returned by the widget if not specified by source. */
-    maxSuggestions?: number | undefined;
+    maxSuggestions?: number;
     /** The default minimum amount of characters needed for the search if not specified by source. */
-    minCharacters?: number | undefined;
+    minCharacters?: number;
     /** Indicates whether to show the infoWindow when a result is selected. */
-    showInfoWindowOnSelect?: boolean | undefined;
+    showInfoWindowOnSelect?: boolean;
     /** An array of source objects used to find search results. */
-    sources?: any[] | undefined;
+    sources?: any[];
     /** The millisecond delay after keyup and before making a suggest network request. */
-    suggestionDelay?: number | undefined;
+    suggestionDelay?: number;
     /** The CSS class selector used to uniquely style the widget. */
-    theme?: string | undefined;
+    theme?: string;
     /** Current value of the search box input text string. */
-    value?: string | undefined;
+    value?: string;
     /** Indicates whether to show the Search widget. */
-    visible?: boolean | undefined;
+    visible?: boolean;
     /** If the result does not have an associated extent, specify this number to use as the zoom scale for the result. */
-    zoomScale?: number | undefined;
+    zoomScale?: number;
   }
   export interface SizeInfoSliderOptions {
     /** Handles identified by their index values within the stops array. */
@@ -2011,23 +2013,23 @@ declare module "esri" {
     /** Represents the histogram data object. */
     histogram?: any;
     /** Width of the histogram in pixels. */
-    histogramWidth?: number | undefined;
+    histogramWidth?: number;
     /** The absolute maximum value of the slider. */
-    maxValue?: number | undefined;
+    maxValue?: number;
     /** The absolute minimum value of the slider. */
-    minValue?: number | undefined;
+    minValue?: number;
     /** The handle identified by its index value within the stops array. */
-    primaryHandle?: number | undefined;
+    primaryHandle?: number;
     /** Represents the width of the SVG ramp in pixels. */
-    rampWidth?: number | undefined;
+    rampWidth?: number;
     /** Displays slider handles when true. */
-    showHandles?: boolean | undefined;
+    showHandles?: boolean;
     /** Displays the histogram when true. */
-    showHistogram?: boolean | undefined;
+    showHistogram?: boolean;
     /** Displays labels when true. */
-    showLabels?: boolean | undefined;
+    showLabels?: boolean;
     /** Displays slider ticks when true. */
-    showTicks?: boolean | undefined;
+    showTicks?: boolean;
     /** Defines the size of the symbol where feature size is proportional to data value. */
     sizeInfo: any;
     /** Represents the statistics data object. */
@@ -2039,37 +2041,37 @@ declare module "esri" {
   }
   export interface SnappingManagerOptions {
     /** When true, snapping is always enabled. */
-    alwaysSnap?: boolean | undefined;
+    alwaysSnap?: boolean;
     /** See the object specifications table below for the structure of the  layerInfos  object. */
-    layerInfos?: any[] | undefined;
+    layerInfos?: any[];
     /** Reference to the map. */
     map: Map;
     /** When alwaysSnap is set to false use this option to define the key users press to enable snapping. */
     snapKey?: any;
     /** Define a symbol for the snapping location. */
-    snapPointSymbol?: SimpleMarkerSymbol | undefined;
+    snapPointSymbol?: SimpleMarkerSymbol;
     /** Specify the radius of the snapping circle in pixels. */
-    tolerance?: number | undefined;
+    tolerance?: number;
   }
   export interface SpatialIndexOptions {
     /** Start processing features immediately. */
-    autostart?: boolean | undefined;
+    autostart?: boolean;
     /** Whether the processor allow the feature layer to draw its features. */
-    drawFeatures?: boolean | undefined;
+    drawFeatures?: boolean;
     /** Whether the processor do the layer's I/O via a worker. */
-    fetchWithWorkers?: boolean | undefined;
+    fetchWithWorkers?: boolean;
     /** Index system specific options. */
     indexOptions?: any;
     /** The indexing system to use. */
-    indexType?: string | undefined;
+    indexType?: string;
     /** A FeatureLayer or array of FeatureLayers to attach the processor to. */
-    layers?: FeatureLayer[] | undefined;
+    layers?: FeatureLayer[];
     /** Uses all FeatureLayers associated with the map in the processor. */
-    map?: Map | undefined;
+    map?: Map;
     /** Whether the processor pass the features through without modification or delay to the FeatureLayer. */
-    passFeatures?: boolean | undefined;
+    passFeatures?: boolean;
     /** Whether the processor require Workers to function properly. */
-    requireWorkerSupport?: boolean | undefined;
+    requireWorkerSupport?: boolean;
   }
   export interface StandardGeographyQueryLocationProviderOptions {
     /** A template to be used to build the query for Standard Geography query. */
@@ -2081,125 +2083,125 @@ declare module "esri" {
   }
   export interface StreamLayerOptions1 {
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** Where clause to use as definition expression for layer. */
-    definitionExpression?: string | undefined;
+    definitionExpression?: string;
     /** The extent to use as the spatial filter for the layer. */
-    geometryDefinition?: Extent | undefined;
+    geometryDefinition?: Extent;
     /** Maximum number of observations to show for each unique track. */
-    maximumTrackPoints?: number | undefined;
+    maximumTrackPoints?: number;
     /** An array of strings corresponding with fields to include in the StreamLayer. */
-    outFields?: string[] | undefined;
+    outFields?: string[];
     /** Rules for purging data from the layer to avoid overloading the browser with too many features. */
     purgeOptions?: any;
   }
   export interface StreamLayerOptions2 {
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** The extent to use as the spatial filter for the layer. */
-    geometryDefinition?: Extent | undefined;
+    geometryDefinition?: Extent;
     /** Maximum number of observations to show for each unique track. */
-    maximumTrackPoints?: number | undefined;
+    maximumTrackPoints?: number;
     /** An array of strings corresponding with fields to include in the StreamLayer. */
-    outFields?: string[] | undefined;
+    outFields?: string[];
     /** Rules for purging data from the layer to avoid overloading the browser with too many features. */
     purgeOptions?: any;
     /** The URL to use for connecting to a socket. */
-    socketUrl?: string | undefined;
+    socketUrl?: string;
   }
   export interface StretchFilterOptions {
     /** Indicates whether to perform dynamic range adjustment using the current pixel data. */
-    dra?: boolean | undefined;
+    dra?: boolean;
     /** An array of gamma values, for example [0.8, 0.8, 0.8]. */
-    gamma?: number[] | undefined;
+    gamma?: number[];
     /** The maximum value of stretched pixels. */
-    max?: number | undefined;
+    max?: number;
     /** Percent of pixels clipped on the right histogram tail, for example 0.25. */
-    maxPercent?: number | undefined;
+    maxPercent?: number;
     /** The minimum value of stretched pixels. */
-    min?: number | undefined;
+    min?: number;
     /** Percent of pixels clipped on the left histogram tail, for example 1.5. */
-    minPercent?: number | undefined;
+    minPercent?: number;
     /** The number of standard deviations for StandardDeviation stretch, for example 2.5. */
-    numberOfStandardDeviations?: number | undefined;
+    numberOfStandardDeviations?: number;
     /** The output pixel type. */
-    outputPixelType?: string | undefined;
+    outputPixelType?: string;
     /** An array of arrays containing custom statistics objects. */
-    statistics?: any[][] | undefined;
+    statistics?: any[][];
     /** See the constants table for a list of possible stretchType values. */
-    stretchType?: number | undefined;
+    stretchType?: number;
     /** Indicates whether to perform non-linear gamma stretch. */
-    useGamma?: boolean | undefined;
+    useGamma?: boolean;
   }
   export interface SummarizeNearbyOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** An array of numbers that defines the search distance (for StraightLine or DrivingDistance) or time (for DrivingTime) shown in the distance input in the Find nearest features using a option. */
-    distance?: number[] | undefined;
+    distance?: number[];
     /** When true, Travel Modes (Driving Distance, Driving Time) are enabled for sumNearbyLayer with point geometries (esriGeometryPoint). */
-    enableTravelModes?: boolean | undefined;
+    enableTravelModes?: boolean;
     /** A field of the summarizeLayer features that you can use to calculate statistics separately for each unique attribute value. */
-    groupByField?: string | undefined;
+    groupByField?: string;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** Type of distance measurement shown as the defeault value in the Find nearest features using a option. */
-    nearType?: string | undefined;
+    nearType?: string;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** Type of units shown under the Total Area checkbox in the Add statistics from option. */
-    shapeUnits?: string | undefined;
+    shapeUnits?: string;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** Indicates whether to display a drop down menu listing valid input analysis layers. */
-    showSelectAnalysisLayer?: boolean | undefined;
+    showSelectAnalysisLayer?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
     /** An array of possible statistics attribute field names and summary types that you wish to calculate for all nearby features. */
-    summaryFields?: string[] | undefined;
+    summaryFields?: string[];
     /** The feature layer to be shown selected in the Choose layer to summarize dropdown. */
-    summaryLayer?: FeatureLayer | undefined;
+    summaryLayer?: FeatureLayer;
     /** An array of possible feature layers summarizing toward. */
     summaryLayers: FeatureLayer[];
     /** The point, line, or polygon feature layers from which distances will be measured to features in summarizeLayer. */
     sumNearbyLayers: FeatureLayer[];
     /** If true. */
-    sumShape?: boolean | undefined;
+    sumShape?: boolean;
     /** Type of units shown as the defeault value in the Find nearest features using a option. */
-    units?: string | undefined;
+    units?: string;
   }
   export interface SummarizeWithinOptions {
     /** The URL to the GPServer used to execute an analysis job. */
-    analysisGpServer?: string | undefined;
+    analysisGpServer?: string;
     /** A field name from summaryLayer that you can use to calculate statistics separately for each unique attribute value. */
-    groupByField?: string | undefined;
+    groupByField?: string;
     /** Reference to the map object. */
-    map?: Map | undefined;
+    map?: Map;
     /** The name of the output layer to be shown in the Result layer name inputbox. */
-    outputLayerName?: string | undefined;
+    outputLayerName?: string;
     /** The url to the ArcGIS.com site or in-house portal where the GP server is hosted. */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
     /** When true, returns the result of analysis as a client-side feature collection. */
-    returnFeatureCollection?: boolean | undefined;
+    returnFeatureCollection?: boolean;
     /** When true, the choose extent checkbox will be shown. */
-    showChooseExtent?: boolean | undefined;
+    showChooseExtent?: boolean;
     /** When true, the show credit option is visible. */
-    showCredits?: boolean | undefined;
+    showCredits?: boolean;
     /** When true, the help links will be shown. */
-    showHelp?: boolean | undefined;
+    showHelp?: boolean;
     /** When true, the select folder dropdown will be shown. */
-    showSelectFolder?: boolean | undefined;
+    showSelectFolder?: boolean;
     /** A list of field names and statistical summary type that you wish to calculate for all features in SummaryLayer that are within each polygon in sumWithinLayer. */
-    summaryFields?: string | undefined;
+    summaryFields?: string;
     /** The summary layer to be shown selected in in the Choose layer to summarize menu. */
-    summaryLayer?: FeatureLayer | undefined;
+    summaryLayer?: FeatureLayer;
     /** An array of summarize layer candidates. */
     summaryLayers: FeatureLayer[];
     /** The polygon feature layer to be summarized toward. */
@@ -2207,7 +2209,7 @@ declare module "esri" {
   }
   export interface SymbolStylerOptions {
     /** Added at v. */
-    portal?: string | any | undefined;
+    portal?: string | any;
     /**
      * Self response of Portal used as symbol provider.
      * @deprecated
@@ -2217,29 +2219,29 @@ declare module "esri" {
      * URL to Portal used as symbol provider.
      * @deprecated
      */
-    portalUrl?: string | undefined;
+    portalUrl?: string;
   }
   export interface TemplatePickerOptions {
     /** Number of visible columns. */
-    columns?: number | string | undefined;
+    columns?: number | string;
     /** Defines the text to be displayed when the template picker does not have any templates to display. */
-    emptyMessage?: string | undefined;
+    emptyMessage?: string;
     /** Array of input feature layers. */
-    featureLayers?: FeatureLayer[] | undefined;
+    featureLayers?: FeatureLayer[];
     /** Templates are grouped based on the containing feature layer. */
-    grouping?: boolean | undefined;
+    grouping?: boolean;
     /** An array of items described using the syntax below. */
-    items?: any[] | undefined;
+    items?: any[];
     /** Length of label description. */
-    maxLabelLength?: number | undefined;
+    maxLabelLength?: number;
     /** Number of visible rows. */
-    rows?: number | string | undefined;
+    rows?: number | string;
     /** Tooltip content contains the template name and description. */
-    showTooltip?: boolean | undefined;
+    showTooltip?: boolean;
     /** HTML style attributes for the widget. */
-    style?: string | undefined;
+    style?: string;
     /** When true, the template picker displays map service legend swatches for feature layers created in selection mode that have an associated map service added to the map as a dynamic map service layer. */
-    useLegend?: boolean | undefined;
+    useLegend?: boolean;
   }
   export interface TimeClassBreaksAgerOptions {
     /** The alpha opacity for the break. */
@@ -2255,137 +2257,137 @@ declare module "esri" {
   }
   export interface TimeSliderOptions {
     /** When true, subtracts one second to the time extent's end time to exclude data at the exact end time instant. */
-    excludeDataAtLeadingThumb?: boolean | undefined;
+    excludeDataAtLeadingThumb?: boolean;
     /** When true, adds one second to the time extent's start time to exclude data at the exact start time instant. */
-    excludeDataAtTrailingThumb?: boolean | undefined;
+    excludeDataAtTrailingThumb?: boolean;
   }
   export interface UndoManagerOptions {
     /** The maximum number of operations the UndoManager can perform. */
-    maxOperations?: number | undefined;
+    maxOperations?: number;
   }
   export interface UnionOptions {
     /** The feature(s) removed from the feature layer by the union operation. */
-    deletedGraphics?: Graphic[] | undefined;
+    deletedGraphics?: Graphic[];
     /** The feature layer that contains the unioned feature(s). */
-    featureLayer?: FeatureLayer | undefined;
+    featureLayer?: FeatureLayer;
     /** The updated feature(s). */
-    postUpdatedGraphics?: Graphic[] | undefined;
+    postUpdatedGraphics?: Graphic[];
     /** The feature(s) before the union operation is performed. */
-    preUpdatedGraphics?: Graphic[] | undefined;
+    preUpdatedGraphics?: Graphic[];
   }
   export interface UpdateOptions {
     /** The feature layer that contains the updated feature(s). */
-    featureLayer?: FeatureLayer | undefined;
+    featureLayer?: FeatureLayer;
     /** The updated feature(s). */
-    postUpdatedGraphics?: Graphic[] | undefined;
+    postUpdatedGraphics?: Graphic[];
     /** The feature(s) prior to the update. */
-    preUpdatedGraphics?: Graphic[] | undefined;
+    preUpdatedGraphics?: Graphic[];
   }
   export interface VEGeocoderOptions {
     /** Key used to access Bing Maps maps. */
-    bingMapsKey?: string | undefined;
+    bingMapsKey?: string;
     /** Specifies the culture in which to return results. */
-    culture?: string | undefined;
+    culture?: string;
   }
   export interface VETiledLayerOptions {
     /** Key used to access Bing Maps maps. */
-    bingMapsKey?: string | undefined;
+    bingMapsKey?: string;
     /** Class attribute to set for the layer's node. */
-    className?: string | undefined;
+    className?: string;
     /** Specifies the culture in which to return results. */
-    culture?: string | undefined;
+    culture?: string;
     /** Bing Maps style. */
-    mapStyle?: string | undefined;
+    mapStyle?: string;
     /** Refresh interval of the layer in minutes. */
-    refreshInterval?: number | undefined;
+    refreshInterval?: number;
   }
   export interface VectorFieldRendererOptions {
     /** Sets the flow direction of the data. */
-    flowRepresentation?: string | undefined;
+    flowRepresentation?: string;
     /** A symbol that can be defined if the style is set to STYLE_SINGLE_ARROW. */
-    singleArrowSymbol?: Symbol | undefined;
+    singleArrowSymbol?: Symbol;
     /** A predefined style. */
-    style?: string | undefined;
+    style?: string;
   }
   export interface VectorTileLayerOptions {
     /** Lists which levels of the layer to draw. */
-    displayLevels?: number[] | undefined;
+    displayLevels?: number[];
     /** Maximum visible scale for the layer. */
-    maxScale?: number | undefined;
+    maxScale?: number;
     /** Minimum visible scale for the layer. */
-    minScale?: number | undefined;
+    minScale?: number;
     /** Initial opacity or transparency of layer. */
-    opacity?: number | undefined;
+    opacity?: number;
     /** Visibility of the layer. */
-    visible?: boolean | undefined;
+    visible?: boolean;
   }
   export interface VisibleScaleRangeSliderOptions {
     /** Layer used to determine the suggested scale range and set the minScale, maxScale values. */
-    layer?: Layer | undefined;
+    layer?: Layer;
     /** Reference to the map. */
     map: Map;
     /** Region of preview scale thumbnails. */
-    region?: string | undefined;
+    region?: string;
   }
   export interface WCSConnectionOptions {
     /** The coverage identifier, defaults to the first coverage. */
-    coverageId?: string | undefined;
+    coverageId?: string;
     /** The version of WCSLayer, can be: 1.0.01.1.01.1.11.1.22.0.1 */
-    version?: string | undefined;
+    version?: string;
   }
   export interface WCSLayerOptions {
     /** The coverage identifier, defaults to the first coverage. */
-    coverageId?: string | undefined;
+    coverageId?: string;
     /** Sets the layer's draw mode. */
-    drawMode?: boolean | undefined;
+    drawMode?: boolean;
     /** Sets the context of the Canvas. */
-    drawType?: string | undefined;
+    drawType?: string;
     /** A function that takes a pixelData object as input and processes it. */
-    pixelFilter?: Function | undefined;
+    pixelFilter?: Function;
     /** The version of WCSLayer, can be: 1.0.01.1.01.1.11.1.22.0.1 */
-    version?: string | undefined;
+    version?: string;
     /** A WCS Connection object. */
-    wcsConnection?: WCSConnection | undefined;
+    wcsConnection?: WCSConnection;
   }
   export interface WFSLayerOptions {
     /** Use this to append custom parameters to WFS requests. */
     customParameters?: any;
     /** The template that defines the content to display in the map info window when the user clicks on a feature. */
-    infoTemplate?: InfoTemplate | undefined;
+    infoTemplate?: InfoTemplate;
     /** Specifies the maximum number of features to return in one response. */
-    maxFeatures?: number | undefined;
+    maxFeatures?: number;
     /** The query mode for the WFS layer. */
-    mode?: string | undefined;
+    mode?: string;
     /** The simple layer name (excluding the namespace). */
-    name?: string | undefined;
+    name?: string;
     /** URL to the WFS server. */
     url: string;
     /** OGC WFS version number. */
-    version?: string | undefined;
+    version?: string;
     /** The well-known ID of the spatial reference used by the WFSLayer. */
-    wkid?: string | undefined;
+    wkid?: string;
   }
   export interface WMSLayerInfoOptions {
     /** All the bounding extents defined for this layer. */
-    allExtents?: Extent[] | undefined;
+    allExtents?: Extent[];
     /** A description of the WMS layer. */
-    description?: string | undefined;
+    description?: string;
     /** The extent of the WMS Layer. */
-    extent?: Extent | undefined;
+    extent?: Extent;
     /** The URL to the legend image. */
-    legendURL?: string | undefined;
+    legendURL?: string;
     /** The name of the WMS layer. */
     name: string;
     /** Returns true if the layer can be queried and the service supports GetFeatureInfo with either text/html or text/plain formats. */
-    queryable?: boolean | undefined;
+    queryable?: boolean;
     /** Indicates if this layer should be included in the popup. */
-    showPopup?: boolean | undefined;
+    showPopup?: boolean;
     /** All the spatial references defined for this layer. */
-    spatialReferences?: SpatialReference[] | undefined;
+    spatialReferences?: SpatialReference[];
     /** WMSLayerInfos of the layer's sub layers. */
-    subLayers?: WMSLayerInfo[] | undefined;
+    subLayers?: WMSLayerInfo[];
     /** The title of the WMS layer. */
-    title?: string | undefined;
+    title?: string;
   }
   export interface WMSLayerOptions {
     /** The customLayerParameters object used for the WMS Layer. */
@@ -2393,35 +2395,35 @@ declare module "esri" {
     /** The customParameters object used for the WMS Layer. */
     customParameters?: any;
     /** Specify the map image format, valid options are png,jpg,bmp,gif,svg. */
-    format?: string | undefined;
+    format?: string;
     /** An optional resourceInfo object. */
     resourceInfo?: any;
     /** If the WMS service supports transparency, specify whether the image background is transparent. */
-    transparent?: boolean | undefined;
+    transparent?: boolean;
     /** A version number. */
-    version?: string | undefined;
+    version?: string;
     /** A list of layer names that represent the layers to include in the exported map. */
-    visibleLayers?: string[] | undefined;
+    visibleLayers?: string[];
   }
   export interface WMTSLayerInfoOptions {
     /** The description of the layer defined by the abstract property of the capabilities file or resource info. */
-    description?: string | undefined;
+    description?: string;
     /** Specify a format supported by the service. */
-    format?: string | undefined;
+    format?: string;
     /** The full extent of the WMTS layer. */
-    fullExtent?: Extent | undefined;
+    fullExtent?: Extent;
     /** The layer id. */
-    identifier?: string | undefined;
+    identifier?: string;
     /** The initial extent of the WMTS layer. */
-    initialExtent?: Extent | undefined;
+    initialExtent?: Extent;
     /** Specify the layer style. */
-    style?: string | undefined;
+    style?: string;
     /** A tile info object. */
-    tileInfo?: TileInfo | undefined;
+    tileInfo?: TileInfo;
     /** Define the tileMatrixSet for the layer. */
-    tileMatrixSet?: string | undefined;
+    tileMatrixSet?: string;
     /** The layer title. */
-    title?: string | undefined;
+    title?: string;
   }
   export interface WMTSLayerOptions {
     /** The customLayerParameters object used for the WMTS Layer. */
@@ -2429,29 +2431,29 @@ declare module "esri" {
     /** The customParameters object used for the WMTS Layer. */
     customParameters?: any;
     /** A WMTSLayerInfo object that when ResourceInfo options are not specified the map will display the first layer in the WMTS capabilities that matches the properties specified by WMTSLayerInfo. */
-    layerInfo?: WMTSLayerInfo | undefined;
+    layerInfo?: WMTSLayerInfo;
     /** An optional resource info object. */
     resourceInfo?: any;
     /** Specify the service type. */
-    serviceMode?: string | undefined;
+    serviceMode?: string;
   }
   export interface WebTiledLayerOptions {
     /** Define attribution information for the layer to be used by the Attribution widget. */
-    copyright?: string | undefined;
+    copyright?: string;
     /** Specify the full extent of the layer. */
-    fullExtent?: Extent | undefined;
+    fullExtent?: Extent;
     /** Specify the initial extent of the layer. */
-    initialExtent?: Extent | undefined;
+    initialExtent?: Extent;
     /** When true, tile resampling is enabled. */
-    resampling?: boolean | undefined;
+    resampling?: boolean;
     /** Number of levels beyond the last level where tiles are available. */
-    resamplingTolerance?: number | undefined;
+    resamplingTolerance?: number;
     /** Specify subDomains where tiles are served to speed up tile retrieval (using subDomains gets around the browser limit of the max number of concurrent requests to a domain). */
-    subDomains?: string[] | undefined;
+    subDomains?: string[];
     /** Define the tile info for the layer including lods, rows, cols, origin and spatial reference. */
-    tileInfo?: TileInfo | undefined;
+    tileInfo?: TileInfo;
     /** Define additional tile server domains for the layer. */
-    tileServers?: string[] | undefined;
+    tileServers?: string[];
   }
 }
 
@@ -2855,7 +2857,7 @@ declare module "esri/ServerInfo" {
   class ServerInfo {
     /** The token service URL used to generate tokens for ArcGIS Server Admin resources. */
     adminTokenServiceUrl: string;
-    /** Version of the ArcGIS Server REST API deployed on this server. */
+    /** Version of the ArcGIS Server or Portal deployed on the server. */
     currentVersion: number;
     /** Indicates whether the server is a Portal instance. */
     hasPortal: boolean;
@@ -2867,6 +2869,8 @@ declare module "esri/ServerInfo" {
     shortLivedTokenValidity: number;
     /** The token service URL used to generate tokens for the secured resources on the server. */
     tokenServiceUrl: string;
+    /** Indicates whether the server is configured to work with web tier authentication. */
+    webTierAuth: boolean;
     /** Return the properties of this object in JSON. */
     toJson(): any;
   }
@@ -3022,6 +3026,8 @@ declare module "esri/arcgis/OAuthInfo" {
     authNamespace: string;
     /** The number of minutes the token that the token is valid. */
     expiration: number;
+    /** Set this property to specify the type of authentication to use. */
+    flowType: string;
     /** The locale for the OAuth sign in page. */
     locale: string;
     /** The minimum time in minutes before a saved token is due to expire that it should still be considered valid for use. */
@@ -3479,9 +3485,12 @@ declare module "esri/arcgis/utils" {
 declare module "esri/basemaps" {
   /** This class contains properties referencing default basemaps used in the JS API that allow you to add map services as default basemaps in web applications. */
   var basemaps: {
-    /** The Light Gray Canvas basemap is designed to be used as a neutral background map for overlaying and emphasizing other map layers. */
+    /**
+     * [deprecated]  The services used in this basemap are now in Mature Support and are no longer updated - please use gray-vector instead.
+     * @deprecated
+     */
     gray: any;
-    /** The World Imagery with Labels map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer   https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer */
+    /** The World Imagery with Labels map is a detailed  imagery map layer and labels that is designed to be used as a basemap for various maps and applications. */
     hybrid: any;
     /** The Ocean Basemap is designed to be used as a basemap by marine GIS professionals and as a reference map by anyone interested in ocean data. */
     oceans: any;
@@ -3489,11 +3498,17 @@ declare module "esri/basemaps" {
     osm: any;
     /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications:  https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer. */
     satellite: any;
-    /** The Streets basemap presents a multiscale street map for the world: https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer. */
+    /**
+     * [deprecated]  The service used in this basemap is now in Mature Support and is no longer updated - please use streets-vector instead.
+     * @deprecated
+     */
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer. */
+    /**
+     * [deprecated]  The World_Topo_Map service used in this basemap is now in Mature Support and is no longer updated - please use topo-vector instead.
+     * @deprecated
+     */
     topo: any;
   };
   export = basemaps;
@@ -12270,7 +12285,7 @@ declare module "esri/layers/layer" {
   export = Layer;
 }
 
-declare module "esri/layers/pixelfilters/StretchFilter" {
+declare module "esri/layers/pixelFilters/StretchFilter" {
   import esri = require("esri");
 
   /** A stretch filter used to work with client -side pixel data to enhance raster/image appearances. */
@@ -12560,7 +12575,7 @@ declare module "esri/map" {
     setBackgroundColor(color: Color | string): void;
     /**
      * Change the map's current basemap.
-     * @param basemap A valid basemap name.
+     * @param basemap Specify a basemap for the map, for example "topo-vector" or "satellite".
      */
     setBasemap(basemap: string): void;
     /**
@@ -13431,9 +13446,9 @@ declare module "esri/renderers/UniqueValueRenderer" {
      * @param attributeField Specify either the attribute field the renderer uses to match values or starting at version 3.3, a function that returns a value to be compared against unique values.
      * @param attributeField2 If needed, specify an additional attribute field the renderer uses to match values.
      * @param attributeField3 If needed, specify an additional attribute field the renderer uses to match values.
-     * @param fieldDelimeter String inserted between the values of different fields.
+     * @param fieldDelimiter String inserted between the values of different fields.
      */
-    constructor(defaultSymbol: Symbol, attributeField: string | Function, attributeField2?: string, attributeField3?: string, fieldDelimeter?: string);
+    constructor(defaultSymbol: Symbol, attributeField: string | Function, attributeField2?: string, attributeField3?: string, fieldDelimiter?: string);
     /**
      * Creates a new Unique Value Renderer.
      * @param json JSON object representing the UniqueValueRenderer.

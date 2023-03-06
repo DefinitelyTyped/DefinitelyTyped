@@ -1,8 +1,9 @@
-import { Object3D, Sphere, Box3, Mesh, Texture, Vector3 } from '../../../src/Three';
+import { Mesh, Object3D, Texture, Vector3 } from '../../../src/Three';
+import { XRHandMeshModel } from './XRHandMeshModel';
 
 export class OculusHandModel extends Object3D {
     controller: Object3D;
-    motionController: Object3D | null;
+    motionController: XRHandMeshModel | null;
     envMap: Texture | null;
 
     mesh: Mesh | null;

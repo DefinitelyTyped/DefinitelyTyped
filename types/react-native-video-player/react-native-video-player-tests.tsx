@@ -7,4 +7,5 @@ import VideoPlayer from 'react-native-video-player';
     video={{ uri: 'sample.mp4' }}
     videoWidth={1280}
     videoHeight={720}
+    ignoreSilentSwitch="ignore"
 />;

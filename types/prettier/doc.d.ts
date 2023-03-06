@@ -218,4 +218,5 @@ export namespace utils {
         shouldTraverseConditionalGroups?: boolean,
     ): void;
     function willBreak(doc: Doc): boolean;
+    function canBreak(doc: Doc): boolean;
 }

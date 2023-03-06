@@ -1,6 +1,6 @@
-// Type definitions for feather-route-matcher 3.1
+// Type definitions for feather-route-matcher 4.0
 // Project: https://github.com/henrikjoreteg/feather-route-matcher
-// Definitions by: Eugeny Schibrikov <https://github.com/sHooKDT>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface RouteConfig<T> {
@@ -8,7 +8,7 @@ interface RouteConfig<T> {
 }
 
 interface Match<T> {
-    page: T;
+    value: T;
     url: string;
     params: { [key: string]: string } | null;
 }

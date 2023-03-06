@@ -21,6 +21,8 @@ class DefaultGridTest extends React.Component {
                 autoSize={true}
                 verticalCompact={true}
                 isBounded={true}
+                allowOverlap={true}
+                onDropDragOver={e => false}
                 resizeHandles={['e']}
                 resizeHandle={<div />}
             >
@@ -90,5 +92,17 @@ class ResponsiveGridWidthProviderTest extends React.Component {
                 <div key="3">c</div>
             </ResponsiveWidth>
         );
+    }
+}
+
+class InnerRefObjectTest extends React.Component {
+    render() {
+        return <ReactGridLayout innerRef={React.createRef<HTMLDivElement>()} />;
+    }
+}
+
+class InnerRefCallbackTest extends React.Component {
+    render() {
+        return <ReactGridLayout innerRef={(_: HTMLDivElement | null) => {}} />;
     }
 }

@@ -1,7 +1,10 @@
-import boxen = require('boxen');
-import UpdateNotifier = require('update-notifier');
+import updateNotifier, { Package, UpdateInfo } from 'update-notifier';
 
-let notifier = UpdateNotifier();
+declare const packageJson: Package;
+
+let notifier = updateNotifier({
+    pkg: packageJson,
+});
 
 if (notifier.update) {
     notifier.notify();
@@ -10,7 +13,7 @@ if (notifier.update) {
 notifier.update; // $ExpectType UpdateInfo | undefined
 
 // Also exposed as a class
-notifier = new UpdateNotifier.UpdateNotifier({
+notifier = updateNotifier({
     updateCheckInterval: 1000 * 60 * 60 * 24 * 7, // 1 week
 });
 
@@ -33,13 +36,13 @@ if (notifier.update) {
             },
             align: 'center',
             borderColor: 'yellow',
-            borderStyle: boxen.BorderStyle.Round,
+            borderStyle: 'round',
         },
     });
 }
 
 (async () => {
-    const update = await notifier.fetchInfo();
+    const update: UpdateInfo = await notifier.fetchInfo(); // $ExpectType UpdateInfo
     update.current; // $ExpectType string
     update.latest; // $ExpectType string
     update.name; // $ExpectType string

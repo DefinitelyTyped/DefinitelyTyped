@@ -9,7 +9,7 @@ import {
     PureComponent,
     ReactChild,
     ReactNode,
-    SFC,
+    FC,
     MouseEventHandler,
     TouchEventHandler,
     WheelEventHandler,
@@ -200,7 +200,7 @@ export interface SankeyPoint extends AbstractSeriesPoint {
 export interface SunburstPoint extends AbstractSeriesPoint {
     title: string;
     size?: number | undefined;
-    color?: number|string | undefined;
+    color?: number | string | undefined;
     label?: string | undefined;
     labelStyle?: CSSProperties | undefined;
     dontRotateLabel?: boolean | undefined;
@@ -416,11 +416,13 @@ export interface ArcSeriesProps extends AbstractSeriesProps<ArcSeriesPoint> {
 export class ArcSeries extends AbstractSeries<ArcSeriesProps> {}
 
 export interface LineMarkSeriesProps extends AbstractSeriesProps<LineMarkSeriesPoint> {
+    size?: number;
     curve?: string | ((x: any) => any) | undefined; // default: null
     getNull?: RVGetNull<LineMarkSeriesPoint> | undefined;
     lineStyle?: CSSProperties | undefined; // default: {}
     markStyle?: CSSProperties | undefined; // default: {}
     strokeStyle?: 'dashed' | 'solid' | undefined; // default: 'solid'
+    strokeWidth?: number;
 }
 export class LineMarkSeries extends AbstractSeries<LineMarkSeriesProps> {}
 
@@ -459,10 +461,12 @@ export interface HintProps {
     value?: { [key: string]: any } | undefined;
     format?: ((x: any) => Array<{ title: any; value: any }>) | undefined;
     style?: CSSProperties | undefined; // default: {}
-    align?: {
-        horizontal?: 'auto' | 'left' | 'right' | 'leftEdge' | 'rightEdge' | undefined;
-        vertical?: 'auto' | 'bottom' | 'top' | 'bottomEdge' | 'topEdge' | undefined;
-    } | undefined; // default: {'horizontal':'auto','vertical':'auto'}
+    align?:
+        | {
+              horizontal?: 'auto' | 'left' | 'right' | 'leftEdge' | 'rightEdge' | undefined;
+              vertical?: 'auto' | 'bottom' | 'top' | 'bottomEdge' | 'topEdge' | undefined;
+          }
+        | undefined; // default: {'horizontal':'auto','vertical':'auto'}
     getAlignStyle?: RVGetAlignStyle | undefined;
     orientation?: 'bottomleft' | 'bottomright' | 'topleft' | 'topright' | undefined;
 }
@@ -479,12 +483,14 @@ export interface ChartLabelProps {
 export class ChartLabel<T = any> extends PureComponent<ChartLabelProps & T> {}
 
 export interface BordersProps {
-    style?: {
-        bottom?: CSSProperties | undefined;
-        left?: CSSProperties | undefined;
-        right?: CSSProperties | undefined;
-        top?: CSSProperties | undefined;
-    } | undefined; // default: {'all':{},'bottom':{},'left':{},'right':{},'top':{}}
+    style?:
+        | {
+              bottom?: CSSProperties | undefined;
+              left?: CSSProperties | undefined;
+              right?: CSSProperties | undefined;
+              top?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'all':{},'bottom':{},'left':{},'right':{},'top':{}}
     marginTop?: number | undefined;
     marginBottom?: number | undefined;
     marginLeft?: number | undefined;
@@ -505,11 +511,13 @@ export interface CrosshairProps {
     orientation?: 'left' | 'right' | undefined;
     itemsFormat?: ((x: any) => Array<{ title: any; value: any }>) | undefined;
     titleFormat?: ((x: any) => { title: any; value: any }) | undefined;
-    style?: {
-        line?: CSSProperties | undefined;
-        title?: CSSProperties | undefined;
-        box?: CSSProperties | undefined;
-    } | undefined; // default: {'line':{},'title':{},'box':{}}
+    style?:
+        | {
+              line?: CSSProperties | undefined;
+              title?: CSSProperties | undefined;
+              box?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'line':{},'title':{},'box':{}}
 }
 export class Crosshair<T = any> extends PureComponent<CrosshairProps & T> {}
 
@@ -562,12 +570,14 @@ export interface XAxisProps {
     top?: number | undefined;
     left?: number | undefined;
     title?: string | undefined;
-    style?: CSSProperties & {
-        line?: CSSProperties | undefined;
-        ticks?: CSSProperties | undefined;
-        text?: CSSProperties | undefined;
-        title?: CSSProperties | undefined;
-    } | undefined;
+    style?:
+        | (CSSProperties & {
+              line?: CSSProperties | undefined;
+              ticks?: CSSProperties | undefined;
+              text?: CSSProperties | undefined;
+              title?: CSSProperties | undefined;
+          })
+        | undefined;
     className?: string | undefined;
     hideTicks?: boolean | undefined;
     hideLine?: boolean | undefined;
@@ -587,7 +597,7 @@ export interface XAxisProps {
     innerWidth?: number | undefined;
     innerHeight?: number | undefined;
 }
-export const XAxis: SFC<XAxisProps>;
+export const XAxis: FC<XAxisProps>;
 
 export interface YAxisProps {
     orientation?: 'left' | 'right' | undefined; // default: 'left'
@@ -598,12 +608,14 @@ export interface YAxisProps {
     top?: number | undefined;
     left?: number | undefined;
     title?: string | undefined;
-    style?: CSSProperties & {
-        line?: CSSProperties | undefined;
-        ticks?: CSSProperties | undefined;
-        text?: CSSProperties | undefined;
-        title?: CSSProperties | undefined;
-    } | undefined;
+    style?:
+        | (CSSProperties & {
+              line?: CSSProperties | undefined;
+              ticks?: CSSProperties | undefined;
+              text?: CSSProperties | undefined;
+              title?: CSSProperties | undefined;
+          })
+        | undefined;
     className?: string | undefined;
     hideTicks?: boolean | undefined;
     hideLine?: boolean | undefined;
@@ -623,7 +635,7 @@ export interface YAxisProps {
     innerWidth?: number | undefined;
     innerHeight?: number | undefined;
 }
-export const YAxis: SFC<YAxisProps>;
+export const YAxis: FC<YAxisProps>;
 
 export interface CircularGridLinesProps {
     centerX?: number | undefined; // default: 0
@@ -689,7 +701,7 @@ export interface VerticalGridLinesProps {
     innerWidth?: number | undefined;
     innerHeight?: number | undefined;
 }
-export const VerticalGridLines: SFC<VerticalGridLinesProps>;
+export const VerticalGridLines: FC<VerticalGridLinesProps>;
 
 export interface HorizontalGridLinesProps {
     direction?: 'horizontal' | undefined; // default: 'horizontal'
@@ -709,7 +721,7 @@ export interface HorizontalGridLinesProps {
     innerWidth?: number | undefined;
     innerHeight?: number | undefined;
 }
-export const HorizontalGridLines: SFC<HorizontalGridLinesProps>;
+export const HorizontalGridLines: FC<HorizontalGridLinesProps>;
 
 export interface VoronoiProps {
     className?: string | undefined; // default: ''
@@ -723,7 +735,7 @@ export interface VoronoiProps {
     x?: ((d: any) => number) | undefined;
     y?: ((d: any) => number) | undefined;
 }
-export const Voronoi: SFC<VoronoiProps>;
+export const Voronoi: FC<VoronoiProps>;
 
 export interface DiscreteColorLegendProps {
     className?: string | undefined; // default: ''
@@ -732,6 +744,9 @@ export interface DiscreteColorLegendProps {
               title: string;
               color?: string | undefined;
               disabled?: boolean | undefined;
+              strokeDasharray?: string;
+              strokeStyle?: string;
+              strokeWidth?: number;
           }
         | string
         | ReactChild
@@ -743,7 +758,7 @@ export interface DiscreteColorLegendProps {
     width?: number | undefined;
     orientation?: 'vertical' | 'horizontal' | undefined; // default: 'vertical'
 }
-export const DiscreteColorLegend: SFC<DiscreteColorLegendProps>;
+export const DiscreteColorLegend: FC<DiscreteColorLegendProps>;
 
 export interface SearchableDiscreteColorLegendProps {
     className?: string | undefined; // default: ''
@@ -767,7 +782,7 @@ export interface SearchableDiscreteColorLegendProps {
     searchPlaceholder?: string | undefined;
     searchFn?: ((items: any[], s: string) => any[]) | undefined;
 }
-export const SearchableDiscreteColorLegend: SFC<SearchableDiscreteColorLegendProps>;
+export const SearchableDiscreteColorLegend: FC<SearchableDiscreteColorLegendProps>;
 
 export interface ContinuousColorLegendProps {
     className?: string | undefined; // default: ''
@@ -780,7 +795,7 @@ export interface ContinuousColorLegendProps {
     startTitle: number | string;
     width?: number | undefined;
 }
-export const ContinuousColorLegend: SFC<ContinuousColorLegendProps>;
+export const ContinuousColorLegend: FC<ContinuousColorLegendProps>;
 
 export interface ContinuousSizeLegendProps {
     className?: string | undefined; // default: ''
@@ -792,7 +807,7 @@ export interface ContinuousSizeLegendProps {
     startTitle: number | string;
     width?: number | undefined;
 }
-export const ContinuousSizeLegend: SFC<ContinuousSizeLegendProps>;
+export const ContinuousSizeLegend: FC<ContinuousSizeLegendProps>;
 export interface Margin {
     left?: number | undefined;
     top?: number | undefined;
@@ -820,7 +835,8 @@ export interface TreemapProps {
         | 'binary'
         | 'circlePack'
         | 'partition'
-        | 'partition-pivot' | undefined; // default: 'squarify'
+        | 'partition-pivot'
+        | undefined; // default: 'squarify'
     onLeafClick?: RVValueEventHandler<TreemapPoint> | undefined;
     onLeafMouseOver?: RVValueEventHandler<TreemapPoint> | undefined;
     onLeafMouseOut?: RVValueEventHandler<TreemapPoint> | undefined;
@@ -879,11 +895,13 @@ export interface RadarChartProps {
     hideInnerMostValues?: boolean | undefined; // default: true
     margin?: Margin | number | undefined;
     startingAngle?: number | undefined; // default: 1.5707963267948966
-    style?: {
-        axes?: CSSProperties | undefined;
-        labels?: CSSProperties | undefined;
-        polygons?: CSSProperties | undefined;
-    } | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'polygons':{'strokeWidth':0.5,'strokeOpacity':1,'fillOpacity':0.1}}
+    style?:
+        | {
+              axes?: CSSProperties | undefined;
+              labels?: CSSProperties | undefined;
+              polygons?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'polygons':{'strokeWidth':0.5,'strokeOpacity':1,'fillOpacity':0.1}}
     tickFormat?: RVTickFormat | undefined;
     width: number;
 }
@@ -902,11 +920,13 @@ export interface ParallelCoordinatesProps {
     }>;
     height: number;
     margin?: Margin | number | undefined;
-    style?: {
-        axes?: CSSProperties | undefined;
-        labels?: CSSProperties | undefined;
-        lines?: CSSProperties | undefined;
-    } | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'lines':{'strokeWidth':1,'strokeOpacity':1}}
+    style?:
+        | {
+              axes?: CSSProperties | undefined;
+              labels?: CSSProperties | undefined;
+              lines?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'lines':{'strokeWidth':1,'strokeOpacity':1}}
     showMarks?: boolean | undefined;
     tickFormat?: RVTickFormat | undefined;
     width: number;
@@ -934,11 +954,13 @@ export interface SankeyProps {
     onLinkClick?: RVValueEventHandler<SankeyPoint> | undefined;
     onLinkMouseOver?: RVValueEventHandler<SankeyPoint> | undefined;
     onLinkMouseOut?: RVValueEventHandler<SankeyPoint> | undefined;
-    style?: {
-        links?: CSSProperties | undefined;
-        rects?: CSSProperties | undefined;
-        labels?: CSSProperties | undefined;
-    } | undefined; // default: {'links':{},'rects':{},'labels':{}}
+    style?:
+        | {
+              links?: CSSProperties | undefined;
+              rects?: CSSProperties | undefined;
+              labels?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'links':{},'rects':{},'labels':{}}
     width: number;
 }
 export class Sankey<T = any> extends Component<SankeyProps & T> {}

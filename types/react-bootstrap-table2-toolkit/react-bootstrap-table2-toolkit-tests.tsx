@@ -174,12 +174,7 @@ render(
 const { SearchBar, ClearSearchButton } = Search;
 
 render(
-    <ToolkitProvider
-        keyField="id"
-        data={products}
-        columns={productColumns}
-        search
-    >
+    <ToolkitProvider keyField="id" data={products} columns={productColumns} search>
         {({ baseProps, searchProps }) => (
             <>
                 <SearchBar {...searchProps} />
@@ -198,12 +193,7 @@ render(
 const { ExportCSVButton } = CSVExport;
 
 render(
-    <ToolkitProvider
-        keyField="id"
-        data={products}
-        columns={productColumns}
-        search
-    >
+    <ToolkitProvider keyField="id" data={products} columns={productColumns} search>
         {({ baseProps, csvProps }) => (
             <>
                 <ExportCSVButton {...csvProps}>Export</ExportCSVButton>

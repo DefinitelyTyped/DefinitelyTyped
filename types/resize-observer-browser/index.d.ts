@@ -44,5 +44,5 @@ interface ResizeObserverEntry {
     readonly contentRect: DOMRectReadOnly;
     readonly borderBoxSize: ReadonlyArray<ResizeObserverSize>;
     readonly contentBoxSize: ReadonlyArray<ResizeObserverSize>;
-    readonly devicePixelContentBoxSize?: ReadonlyArray<ResizeObserverSize> | undefined;
+    readonly devicePixelContentBoxSize: ReadonlyArray<ResizeObserverSize>;
 }

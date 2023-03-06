@@ -66,7 +66,7 @@ declare namespace Calendar {
          * - label: a formatted String of the date to render. To adjust the format of the label
          *          string use the dateFormat prop, listed below.
          */
-        dayComponent?: React.ReactType | undefined;
+        dayComponent?: React.ElementType | undefined;
         /**
          * The starting and lowest level view the calendar can navigate down to.
          */

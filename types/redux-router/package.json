@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@types/history": "^2.0.51",
         "redux": "^3.6.0"
     }
 }

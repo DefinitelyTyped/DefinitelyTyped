@@ -21,12 +21,12 @@ import {
 import * as passport from "passport";
 
 declare module "koa" {
-    interface Context {
+    interface ExtendableContext {
         login(user: any, options?: any): Promise<void>;
-        logIn: Context["login"];
+        logIn: ExtendableContext["login"];
 
         logout(): void;
-        logOut: Context["logout"];
+        logOut: ExtendableContext["logout"];
 
         isAuthenticated(): boolean;
         isUnauthenticated(): boolean;

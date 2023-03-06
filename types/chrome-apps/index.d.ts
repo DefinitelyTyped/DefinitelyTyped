@@ -1,6 +1,14 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingconst Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
+// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>
+//                 Adam Lay <https://github.com/AdamLay>
+//                 MIZUSHIMA Junki <https://github.com/mzsm>
+//                 Ingconst Stepanyan <https://github.com/RReverser>
+//                 Adam Pyle <https://github.com/pyle>
+//                 Matthew Kimber <https://github.com/matthewkimber>
+//                 otiai10 <https://github.com/otiai10>
+//                 RReverser <https://github.com/rreverser>
+//                 sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2740,6 +2748,43 @@ declare namespace chrome {
              */
             subtleCrypto: SubtleCrypto;
         }
+
+        /**
+         * Type of key to generate.
+         */
+        type Algorithm = 'RSA' | 'ECDSA';
+
+        interface RegisterKeyOptions {
+            /**
+             * Which algorithm the registered key should use.
+             */
+            algorithm: Algorithm;
+        }
+
+        /**
+         * Whether to use the Enterprise User Key or the Enterprise Machine Key.
+         */
+        type Scope = 'MACHINE' | 'USER';
+
+        interface ChallengeKeyOptions {
+            /**
+             * A challenge as emitted by the Verified Access Web API.
+             */
+            challenge: ArrayBuffer;
+            /**
+             * Which Enterprise Key to challenge.
+             */
+            scope: Scope;
+            /**
+             * If present, registers the challenged key with the specified
+             * scope's token. The key can then be associated with a certificate
+             * and used like any other signing key. Subsequent calls to this
+             * function will then generate a new Enterprise Key in the specified
+             * scope.
+             */
+            registerKey?: RegisterKeyOptions;
+        }
+
         /**
          * Returns the available Tokens.
          * In a regular user's session the list will always contain the user's token with id 'user'.
@@ -2774,6 +2819,39 @@ declare namespace chrome {
          * @param [callback] Called back when this operation is finished.
          */
         function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
+
+        /**
+         * @since Chrome 110.
+         * @description
+         * Similar to challengeMachineKey and challengeUserKey, but allows
+         * specifying the algorithm of a registered key. Challenges a
+         * hardware-backed Enterprise Machine Key and emits the response as part
+         * of a remote attestation protocol. Only useful on Chrome OS and in
+         * conjunction with the Verified Access Web API which both issues
+         * challenges and verifies responses.
+         *
+         * A successful verification by the Verified Access Web API is a strong
+         * signal that the current device is a legitimate Chrome OS device, the
+         * current device is managed by the domain specified during
+         * verification, the current signed-in user is managed by the domain
+         * specified during verification, and the current device state complies
+         * with enterprise device policy. For example, a policy may specify that
+         * the device must not be in developer mode. Any device identity emitted
+         * by the verification is tightly bound to the hardware of the current
+         * device. If "user" Scope is specified, the identity is also tighly
+         * bound to the current signed-in user.
+         *
+         * This function is highly restricted and will fail if the current
+         * device is not managed, the current user is not managed, or if this
+         * operation has not explicitly been enabled for the caller by
+         * enterprise device policy. The challenged key does not reside in the
+         * "system" or "user" token and is not accessible by any other API.
+         *
+         * @param options Object containing the fields defined in ChallengeKeyOptions.
+         * @param callback The callback parameter looks like: (response: ArrayBuffer) => void.
+         */
+        function challengeKey(options: ChallengeKeyOptions, callback: (repsonse: ArrayBuffer) => void): void;
+
         /**
          * @since Chrome 50.
          * @description
@@ -8053,6 +8131,18 @@ declare namespace chrome {
         function restart(): void;
 
         /**
+         * Restart the ChromeOS device when the app runs in kiosk mode after the
+         * given seconds. If called again before the time ends, the reboot will
+         * be delayed. If called with a value of -1, the reboot will be
+         * cancelled. It's a no-op in non-kiosk mode. It's only allowed to be
+         * called repeatedly by the first extension to invoke this API.
+         * @since Chrome 53.
+         * @param seconds
+         * @param callback
+         */
+        function restartAfterDelay(seconds: number, callback?: () => void): void;
+
+        /**
          * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response.
          * If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension.
          * Note that extensions cannot send messages to content scripts using this method.
@@ -9241,8 +9331,17 @@ declare namespace chrome {
             temperatures?: double[] | undefined;
         }
 
-        /** Queries basic CPU information of the system. */
+        /**
+         * Queries basic CPU information of the system.
+         * @param callback takes in an argument with CpuInfo
+         */
         function getInfo(callback: (info: CpuInfo) => void): void;
+
+        /**
+         * Queries basic CPU information of the system.
+         * @returns Promise<CpuInfo> only if callback is not specified
+         */
+        function getInfo(): Promise<CpuInfo>;
     }
 
     ////////////////////

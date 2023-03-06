@@ -1,4 +1,4 @@
-import levelup from 'levelup';
+import levelup = require('levelup');
 import sub from 'subleveldown';
 import { AbstractLevelDOWN } from 'abstract-leveldown';
 

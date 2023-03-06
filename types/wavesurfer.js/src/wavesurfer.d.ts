@@ -1,24 +1,24 @@
-import { Peaks, WaveSurferBackend } from "../types/backend";
-import { WaveSurferParams } from "../types/params";
-import { PluginDefinition } from "../types/plugin";
-import { WaveSurferUtil } from "../types/util";
-import CursorPlugin from "./plugin/cursor";
-import ElanPlugin from "./plugin/elan";
-import MarkersPlugin from "./plugin/markers";
-import MediaSessionPlugin from "./plugin/mediasession";
-import MicrophonePlugin from "./plugin/microphone";
-import MinimapPlugin from "./plugin/minimap";
-import PlayheadPlugin from "./plugin/playhead";
-import RegionsPlugin from "./plugin/regions";
-import SpectrogramPlugin from "./plugin/spectrogram";
-import TimelinePlugin from "./plugin/timeline";
-import Observer from "./util/observer";
+import { Peaks, WaveSurferBackend } from '../types/backend';
+import { WaveSurferParams } from '../types/params';
+import { PluginDefinition } from '../types/plugin';
+import { WaveSurferUtil } from '../types/util';
+import CursorPlugin from './plugin/cursor';
+import ElanPlugin from './plugin/elan';
+import MarkersPlugin from './plugin/markers';
+import MediaSessionPlugin from './plugin/mediasession';
+import MicrophonePlugin from './plugin/microphone';
+import MinimapPlugin from './plugin/minimap';
+import PlayheadPlugin from './plugin/playhead';
+import RegionsPlugin from './plugin/regions';
+import SpectrogramPlugin from './plugin/spectrogram';
+import TimelinePlugin from './plugin/timeline';
+import Observer from './util/observer';
 
 export default class WaveSurfer extends Observer {
     constructor(params: WaveSurferParams);
 
     static VERSION: string;
-    static util: WaveSurfer["util"];
+    static util: WaveSurfer['util'];
     static create(params: WaveSurferParams): WaveSurfer;
 
     backend: WaveSurferBackend;
@@ -56,7 +56,7 @@ export default class WaveSurfer extends Observer {
     destroy(): void;
     destroyPlugin(name: string): WaveSurfer;
     empty(): void;
-    exportImage(format?: string, quality?: number, type?: "dataURL" | "blob"): string | string[] | Promise<Blob[]>;
+    exportImage(format?: string, quality?: number, type?: 'dataURL' | 'blob'): string | string[] | Promise<Blob[]>;
     exportPCM(length?: number, accuracy?: number, noWindow?: boolean, start?: number, end?: number): Promise<Peaks>;
     getActivePlugins(): { [pluginName: string]: boolean };
     getBackgroundColor(): string;
@@ -67,9 +67,11 @@ export default class WaveSurfer extends Observer {
     getHeight(): number;
     getMute(): boolean;
     getPlaybackRate(): number;
-    getProgressColor(): string;
+    /** Get the fill color of the waveform behind the cursor. */
+    getProgressColor(channelIdx?: number | null): string;
     getVolume(): number;
-    getWaveColor(): CanvasGradient | string;
+    /** Get the fill color of the waveform after the cursor. */
+    getWaveColor(channelIdx?: number | null): CanvasGradient | string;
     init(): WaveSurfer;
     initPlugin(name: string): WaveSurfer;
     isPlaying(): boolean;
@@ -89,9 +91,12 @@ export default class WaveSurfer extends Observer {
     setMute(mute: boolean): void;
     setPlaybackRate(rate: number): void;
     setPlayEnd(position: number): void;
+    /** Set the fill color of the waveform behind the cursor. */
+    setProgressColor(color: string | CanvasGradient, channelIdx?: number | null): void;
     setSinkId(deviceId: string): Promise<any>;
     setVolume(newVolume: number): void;
-    setWaveColor(color: string | CanvasGradient): void;
+    /** Set the fill color of the waveform after the cursor. */
+    setWaveColor(color: string | CanvasGradient, channelIdx?: number | null): void;
     skip(offset: number): void;
     skipBackward(seconds?: number): void;
     skipForward(seconds?: number): void;

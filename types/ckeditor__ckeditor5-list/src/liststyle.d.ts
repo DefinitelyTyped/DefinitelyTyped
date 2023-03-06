@@ -1,9 +1,8 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import ListStyleEditing from './liststyleediting';
-import ListStyleUI from './liststyleui';
+import ListProperties from './listproperties';
 
 export default class ListStyle extends Plugin {
-    static readonly requires: [typeof ListStyleEditing, typeof ListStyleUI];
+    static readonly requires: [typeof ListProperties];
     static readonly pluginName: 'ListStyle';
 }
 

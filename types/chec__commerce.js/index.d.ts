@@ -1,8 +1,9 @@
-// Type definitions for @chec/commerce.js 2.7
+// Type definitions for @chec/commerce.js 2.8
 // Project: https://github.com/chec/commerce.js#readme
 // Definitions by: Robbie Averill <https://github.com/robbieaverill>
 //                 Guy Marriott <https://github.com/ScopeyNZ>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
+//                 Kyle Visca <https://github.com/kvisca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Cart, RequestMethod } from './features/cart';
@@ -27,7 +28,13 @@ declare class Commerce {
     services: Services;
 
     error: (response: any) => void | number[];
-    request: (endpoint: string, method?: RequestMethod, data?: object, extraHeaders?: any, returnFullResponse?: boolean) => any;
+    request: (
+        endpoint: string,
+        method?: RequestMethod,
+        data?: object,
+        extraHeaders?: any,
+        returnFullResponse?: boolean,
+    ) => any;
 }
 
 declare namespace Commerce {

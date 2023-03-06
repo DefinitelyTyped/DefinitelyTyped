@@ -1,7 +1,6 @@
 // Type definitions for restify 8.5
 // Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
-//                 Steve Hipwell <https://github.com/stevehipwell>
 //                 Leandro Almeida <https://github.com/leanazulyoro>
 //                 Mitchell Bundy <https://github.com/mgebundy>
 //                 Alexandre Moraes <https://github.com/alcmoraes>
@@ -74,6 +73,8 @@ export interface ServerOptions {
     ignoreTrailingSlash?: boolean | undefined;
 
     maxParamLength?: number | undefined;
+
+    strictFormatters?: boolean | undefined;
 }
 
 export interface AddressInterface {
@@ -637,6 +638,9 @@ export interface Request extends http.IncomingMessage {
 
     /** available when bodyParser plugin is used. */
     body?: any;
+
+    /** available when bodyParser plugin is used. */
+    rawBody?: any;
 
     /** available when queryParser or bodyParser plugin is used with mapParams enabled. */
     params?: any;

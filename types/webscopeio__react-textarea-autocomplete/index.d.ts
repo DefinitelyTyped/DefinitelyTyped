@@ -212,7 +212,7 @@ export interface TextareaState<TItem> {
     dataLoading: boolean;
     selectionEnd: number;
     selectionStart: number;
-    component?: React.SFC<ItemComponentProps<TItem>> | undefined;
+    component?: React.FC<ItemComponentProps<TItem>> | undefined;
 }
 
 declare class ReactTextareaAutocomplete<

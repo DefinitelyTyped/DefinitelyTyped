@@ -5,6 +5,7 @@ import {
     KinesisStreamHandler,
     KinesisStreamRecord,
     KinesisStreamRecordPayload,
+    KinesisStreamTumblingWindowHandler,
 } from "aws-lambda";
 
 const handler: KinesisStreamHandler = async (event, context, callback) => {
@@ -32,6 +33,38 @@ const handler: KinesisStreamHandler = async (event, context, callback) => {
     callback(new Error());
 };
 
+const tumblingWindowHandler: KinesisStreamTumblingWindowHandler = async (event, context, callback) => {
+    bool = event.isFinalInvokeForWindow;
+    bool = event.isWindowTerminatedEarly;
+    str = event.window.start;
+    str = event.window.end;
+
+    anyObj = event.state;
+
+    callback();
+    callback(new Error());
+
+    if (str === str) {
+        // return with state...
+        return { state: { one: 'two' } };
+    } else {
+        // or void
+        return;
+    }
+};
+
+const handlerWithResponse: KinesisStreamHandler = async (event, context, callback) => {
+    callback(
+        null,
+        {
+            batchItemFailures: [
+                {
+                    itemIdentifier: event.Records[0].kinesis.sequenceNumber
+                }
+            ]
+        });
+};
+
 const firehoseHandler: FirehoseTransformationHandler = async (event, context, callback) => {
     let firehoseRecordMetadata: FirehoseRecordMetadata | undefined;
 
@@ -51,6 +84,11 @@ const firehoseHandler: FirehoseTransformationHandler = async (event, context, ca
                 recordId: event.records[0].recordId,
                 result: 'Ok' as FirehoseRecordTransformationStatus,
                 data: 'eyJmb28iOiJiYXIifQ==',
+                metadata: {
+                    partitionKeys: {
+                        testPart: 'test1'
+                    }
+                }
             },
         ],
     };

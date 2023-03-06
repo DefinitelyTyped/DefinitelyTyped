@@ -4,6 +4,7 @@
  *  map = toMap( { 'foo': 1, 'bar': 2 } );
  *  map = toMap( [ [ 'foo', 1 ], [ 'bar', 2 ] ] );
  *  map = toMap( anotherMap );
- *
  */
-export default function toMap<T>(data: Record<string, T> | Array<[string, T]> | Map<string, T>): Map<string, T>;
+export default function toMap<K extends string, V extends any>(
+    data: Record<K, V> | Array<[K, V]> | Map<K, V>,
+): Map<K, V>;

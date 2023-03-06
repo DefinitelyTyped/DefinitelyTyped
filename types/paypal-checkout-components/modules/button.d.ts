@@ -6,7 +6,8 @@ export enum FundingOption {
     CREDIT,
     CARD,
     VENMO,
-    ELV
+    ELV,
+    PAYPAL,
 }
 
 export interface ButtonRenderer {
@@ -25,10 +26,12 @@ export interface ButtonRenderer {
             accessToken?: (() => void) | undefined;
             onClose?: (() => void) | undefined;
 
-            funding?: {
-                allowed?: FundingOption[] | undefined;
-                disallowed?: FundingOption[] | undefined;
-            } | undefined;
+            funding?:
+                | {
+                      allowed?: FundingOption[] | undefined;
+                      disallowed?: FundingOption[] | undefined;
+                  }
+                | undefined;
 
             sessionID?: string | undefined;
             buttonSessionID?: string | undefined;
@@ -48,4 +51,19 @@ export interface ButtonRenderer {
         },
         selector: string,
     ): void;
+}
+
+export interface ButtonsRenderer {
+    (options: {
+        style?: ButtonStyle | undefined;
+        fundingSource?: string | undefined;
+        createOrder?: (() => Promise<string>) | undefined;
+        createBillingAgreement?: (() => Promise<string>) | undefined;
+        onApprove: (data: AuthorizationData, actions: object) => Promise<AuthorizationResponse>;
+        onCancel?: ((data: CancellationData, actions: object) => void) | undefined;
+        onError?: ((error: string) => void) | undefined;
+        onInit?: (data: AuthorizationData, actions: object) => void;
+        onClick?: () => void;
+    }): ButtonsRenderer;
+    render(selector: string): void;
 }

@@ -1,8 +1,8 @@
-import csso = require('csso');
+import { minify, minifyBlock, syntax, version } from 'csso';
 
-csso.minify('.test { color: #ff0000; }').css;
-csso.minify('.test { color: #ff0000; }').map;
-csso.minify('.test { color: #ff0000; }', {
+minify('.test { color: #ff0000; }').css;
+minify('.test { color: #ff0000; }').map;
+minify('.test { color: #ff0000; }', {
     sourceMap: true,
     filename: '',
     debug: true,
@@ -12,12 +12,12 @@ csso.minify('.test { color: #ff0000; }', {
     forceMediaMerge: true,
     clone: false,
     comments: '',
-    logger: () => {}
+    logger: () => {},
 });
 
-csso.minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000').css; // $ExpectType string
-csso.minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000').map;
-csso.minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000', {
+minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000').css; // $ExpectType string
+minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000').map;
+minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000', {
     sourceMap: true,
     filename: '',
     debug: true,
@@ -39,20 +39,23 @@ csso.minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000', {
         },
         scopes: [
             ['a', 'b', 'c'],
-            ['d', 'e']
+            ['d', 'e'],
         ],
     },
 });
 
-csso.syntax.compress({ type: 'CDC' }).ast; // $ExpectType CssNode
-csso.syntax.compress({ type: 'CDC' }, {
-    restructure: false,
-    forceMediaMerge: true,
-    clone: false,
-    comments: '',
-    logger: () => {}
-}).ast; // $ExpectType CssNode
+syntax.compress({ type: 'CDC' }).ast; // $ExpectType CssNode
+syntax.compress(
+    { type: 'CDC' },
+    {
+        restructure: false,
+        forceMediaMerge: true,
+        clone: false,
+        comments: '',
+        logger: () => {},
+    },
+).ast; // $ExpectType CssNode
 
-csso.syntax.parse('.b {font-weight: bold}'); // $ExpectType CssNode
+syntax.parse('.b {font-weight: bold}'); // $ExpectType CssNode
 
-csso.version; // $ExpectType string
+version; // $ExpectType string

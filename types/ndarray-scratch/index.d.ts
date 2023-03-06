@@ -1,6 +1,6 @@
 // Type definitions for ndarray-scratch 1.2
 // Project: https://github.com/mikolalysenko/ndarray-scratch
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { NdArray } from "ndarray";

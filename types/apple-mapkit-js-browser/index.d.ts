@@ -1838,12 +1838,18 @@ declare namespace mapkit {
          *
          * @param query A string that represents the user's search term in progress.
          * @param callback A callback function or delegate object.
-         * @param options Autocomplete takes the same options hash as search
+         * @param options With the options hash, you have the option to constrain
+         * the search to a desired area using the coordinate or region properties.
+         * A coordinate or region supplied here overrides the same property supplied
+         * to the `mapkit.Search` constructor. You also have the option to override
+         * the language provided to the seach constructor.
+         * For example, `{ language: ‘fr-CA‘ }` tells the server to send results
+         * localized to Canadian French.
          */
         autocomplete(
             query: string,
             callback: SearchDelegate | AutocompleteSearchCallback,
-            options?: SearchOptions,
+            options?: SearchAutocompleteOptions,
         ): void;
         /**
          * Cancels a search request using its request ID.

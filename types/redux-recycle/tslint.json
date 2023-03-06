@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-consecutive-blank-lines": false,
-        "space-before-function-paren": false,
-        "trim-file": false
+        "space-before-function-paren": false
     }
 }

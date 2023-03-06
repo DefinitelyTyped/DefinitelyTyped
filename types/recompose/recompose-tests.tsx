@@ -135,7 +135,7 @@ function testWithHandlers() {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
         onChange: Function;
     }
-    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps & OutterProps> = ({onChange, onSubmit, foo}) =>
+    const InnerComponent: React.FunctionComponent<InnerProps & HandlerProps & OutterProps> = ({onChange, onSubmit, foo}) =>
       <div onClick={onSubmit}>{foo}</div>;
 
     const enhancer = withHandlers<OutterProps & InnerProps, HandlerProps>({
@@ -162,7 +162,8 @@ function testWithHandlers() {
         />
     )
 
-    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({ // $ExpectError
+    // @ts-expect-error
+    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({
       onChange: () => () => {},
       notAKeyOnHandlerProps: () => () => {},
     });
@@ -207,7 +208,7 @@ function testDefaultProps() {
 function testRenameProp() {
     interface InnerProps { c: string; b: number; }
     interface OutterProps { a: string; b: number; }
-    const innerComponent: React.StatelessComponent<InnerProps> = ({c, b}: InnerProps) => <div>{c}, {b}</div>;
+    const innerComponent: React.FunctionComponent<InnerProps> = ({c, b}: InnerProps) => <div>{c}, {b}</div>;
 
     const enhancer = renameProp("a", "c");
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
@@ -216,7 +217,7 @@ function testRenameProp() {
 function testRenameProps() {
     interface InnerProps { c: string; d: number; }
     interface OutterProps { a: string; b: number; }
-    const innerComponent: React.StatelessComponent<InnerProps> = ({c, d}: InnerProps) => <div>{c}, {d}</div>;
+    const innerComponent: React.FunctionComponent<InnerProps> = ({c, d}: InnerProps) => <div>{c}, {d}</div>;
 
     const enhancer = renameProps({ a:"c", b: "d" });
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
@@ -225,7 +226,7 @@ function testRenameProps() {
 function testFlattenProp() {
     interface InnerProps { a: string; b: string; y: {c: string; d: number;} }
     interface OutterProps { x: {a: string; b: number;}; y: {c: string; d: number;} }
-    const innerComponent: React.StatelessComponent<InnerProps> = (props: InnerProps) => <div></div>;
+    const innerComponent: React.FunctionComponent<InnerProps> = (props: InnerProps) => <div></div>;
 
     const enhancer = flattenProp("x");
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
@@ -234,7 +235,7 @@ function testFlattenProp() {
 function testWithState() {
     interface InnerProps { count: number; setCount: (count: number) => number }
     interface OutterProps { title: string }
-    const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
+    const InnerComponent: React.FunctionComponent<InnerProps> = (props) =>
       <div onClick={() => props.setCount(0)}></div>;
 
     // We can't infer types for TOutter with this form because
@@ -274,7 +275,7 @@ function testWithStateHandlers() {
     }
     interface OutterProps { initialCounter: number, power: number }
     type InnerProps = State & Updaters & OutterProps;
-    const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
+    const InnerComponent: React.FunctionComponent<InnerProps> = (props) =>
         <div>
             <div>{`Initial counter: ${props.initialCounter}`}</div>
             <div>{`Counter: ${props.counter}`}</div>
@@ -294,7 +295,8 @@ function testWithStateHandlers() {
 
     const updateNameTypecheckProof = withStateHandlers<State, Updaters, OutterProps>(
         (props: OutterProps) => ({ counter: props.initialCounter }),
-        { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), }, // $ExpectError
+        // @ts-expect-error
+        { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), },
     );
 
     // The inner props should be fully inferrable
@@ -320,7 +322,7 @@ function testWithReducer() {
     interface Action { type: string }
     interface InnerProps { title: string; count: number; dispatch: (a: Action) => void; }
     interface OutterProps { title: string; bar: number; }
-    const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
+    const InnerComponent: React.FunctionComponent<InnerProps> = (props) =>
       <div onClick={() => props.dispatch({type: "INCREMENT"})}></div>;
 
     // Same issue here inferring TOutter as with the "withState" form.
@@ -348,7 +350,7 @@ function testBranch() {
     interface InnerProps { count: number; update: () => void; }
     interface OutterProps { toggled: boolean }
 
-    const innerComponent: React.StatelessComponent<InnerProps> = (props: InnerProps) =>
+    const innerComponent: React.FunctionComponent<InnerProps> = (props: InnerProps) =>
       <div onClick={() => props.update()}>{props.count}</div>;
     const innerComponent2 = () => <div>Hello</div>;
 
@@ -392,7 +394,7 @@ function testOnlyUpdateForKeys() {
         foo: number;
         bar: string;
     }
-    const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
+    const component: React.FunctionComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
     onlyUpdateForKeys<Props>(['foo'])(component)
     // This should be a compile error
     // onlyUpdateForKeys<Props>(['fo'])(component)
@@ -407,7 +409,7 @@ function testLifecycle() {
     interface Instance {
         instanceValue: number
     }
-    const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
+    const component: React.FunctionComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
     lifecycle<Props, State, Instance>({
         instanceValue: 1,
         componentDidMount() {
@@ -421,8 +423,8 @@ function testSetStatic() {
         foo: string;
     }
 
-    let SfcResult: React.SFC<Props>;
-    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+    let SfcResult: React.FC<Props>;
+    const SfcComp: React.FC<Props> = (props) => (<div>{props.foo}</div>);
 
     let ClassResult: React.ComponentClass<Props, {}>;
     class ClassComp extends React.Component<Props> {
@@ -438,12 +440,14 @@ function testSetStatic() {
     SfcResult = hoc1(SfcComp);
     SfcResult = hoc2(SfcComp);
     SfcResult = hoc3(SfcComp);
-    SfcResult = hoc1(ClassComp); // $ExpectError
+    // @ts-expect-error
+    SfcResult = hoc1(ClassComp);
 
     ClassResult = hoc1(ClassComp);
     ClassResult = hoc2(ClassComp);
     ClassResult = hoc3(ClassComp);
-    ClassResult = hoc1(SfcComp); // $ExpectError
+    // @ts-expect-error
+    ClassResult = hoc1(SfcComp);
 }
 
 function testSetPropTypes() {
@@ -454,8 +458,8 @@ function testSetPropTypes() {
         foo: PropTypes.string.isRequired
     }
 
-    let SfcResult: React.SFC<Props>;
-    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+    let SfcResult: React.FC<Props>;
+    const SfcComp: React.FC<Props> = (props) => (<div>{props.foo}</div>);
 
     let ClassResult: React.ComponentClass<Props, {}>;
     class ClassComp extends React.Component<Props> {
@@ -467,12 +471,15 @@ function testSetPropTypes() {
     const hoc = setPropTypes(validationMap);
 
     SfcResult = hoc(SfcComp);
-    SfcResult = hoc(ClassComp); // $ExpectError
+    // @ts-expect-error
+    SfcResult = hoc(ClassComp);
 
     ClassResult = hoc(ClassComp);
-    ClassResult = hoc(SfcComp); // $ExpectError
+    // @ts-expect-error
+    ClassResult = hoc(SfcComp);
 
-    SfcResult = setPropTypes({ bar: PropTypes.string })(SfcComp); // $ExpectError
+    // @ts-expect-error
+    SfcResult = setPropTypes({ bar: PropTypes.string })(SfcComp);
 }
 
 function testSetDisplayName() {
@@ -480,8 +487,8 @@ function testSetDisplayName() {
         foo: string;
     }
 
-    let SfcResult: React.SFC<Props>;
-    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+    let SfcResult: React.FC<Props>;
+    const SfcComp: React.FC<Props> = (props) => (<div>{props.foo}</div>);
 
     let ClassResult: React.ComponentClass<Props, {}>;
     class ClassComp extends React.Component<Props> {
@@ -493,10 +500,12 @@ function testSetDisplayName() {
     const hoc = setDisplayName('NewDisplayName');
 
     SfcResult = hoc(SfcComp);
-    SfcResult = hoc(ClassComp); // $ExpectError
+    // @ts-expect-error
+    SfcResult = hoc(ClassComp);
 
     ClassResult = hoc(ClassComp);
-    ClassResult = hoc(SfcComp); // $ExpectError
+    // @ts-expect-error
+    ClassResult = hoc(SfcComp);
 }
 
 function testToRenderProps() {
@@ -542,7 +551,7 @@ function testFromRenderProps() {
         }
     }
 
-    const component: React.StatelessComponent<ComponentProps> = ({ outterValue, renderValue }) => (
+    const component: React.FunctionComponent<ComponentProps> = ({ outterValue, renderValue }) => (
         <div>{outterValue}{renderValue}</div>
     );
 
@@ -561,7 +570,9 @@ function testToClass() {
 
     const MyComponentClass: React.ComponentClass<Props> = toClass(MyComponent);
 
-    <MyComponentClass />; // $ExpectError
-    <MyComponentClass foo={2} />; // $ExpectError
+    // @ts-expect-error
+    <MyComponentClass />;
+    // @ts-expect-error
+    <MyComponentClass foo={2} />;
     <MyComponentClass foo={1} />;
 }

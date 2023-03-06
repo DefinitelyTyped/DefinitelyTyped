@@ -1,6 +1,6 @@
 // Type definitions for Google Recaptcha
 // Project: https://www.google.com/recaptcha
-// Definitions by: Brent Jenkins <https://github.com/brentj73>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Recaptcha {

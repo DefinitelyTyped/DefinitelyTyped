@@ -1,15 +1,3 @@
-/// <reference types="node" />
-import { EventEmitter } from 'events';
-import { Element } from './Element';
+import Parser from '../src/Parser';
 
-export class Parser extends EventEmitter {
-    constructor(options?: ParserOptions);
-
-    write(data: string): void;
-    end(data: string): void;
-}
-
-export interface ParserOptions {
-    Parser?: typeof Parser | undefined;
-    Element?: typeof Element | undefined;
-}
+export = Parser;

@@ -8,6 +8,7 @@ var env = f.checkEnvironment();
 env.errorDetails = "";
 env.isBrowserSupported = true;
 env.isFrameworkInstalled = true;
+env.isWebServicePresent = true;
 
 // Test getPrinters
 var printers = f.getPrinters();

@@ -86,7 +86,7 @@ declare namespace create {
             enable(name: string): Promise<void>;
             exists(name: string): Promise<boolean>;
             get(name: string): Promise<any>;
-            list(): Promise<any>;
+            list(folder?: string): Promise<any>;
         };
         node: {
             config(name: string): Promise<any>;

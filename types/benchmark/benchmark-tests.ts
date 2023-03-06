@@ -1,6 +1,16 @@
 import Benchmark = require("benchmark");
 
+// Constructor with no params
 var suite = new Benchmark.Suite;
+
+// Constructor with name param
+var suite = new Benchmark.Suite("just name");
+
+// Constructor with name and options
+var suite = new Benchmark.Suite("name and options", { async: true });
+
+// Constructor with just options
+var suite = new Benchmark.Suite({ name: "Just options" });
 
 // add tests
 suite.add('RegExp#test', function() {

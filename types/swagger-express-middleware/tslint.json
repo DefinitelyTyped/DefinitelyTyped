@@ -1,11 +1,10 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "interface-name": false,
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-any-union": false,
         "no-declare-current-package": false,
         "no-empty-interface": false,
         "no-padding": false,

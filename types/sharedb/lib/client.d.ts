@@ -2,7 +2,7 @@
 import * as ShareDB from './sharedb';
 import Agent = require('./agent');
 
-export class Connection {
+export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap> {
     constructor(ws: ShareDB.Socket);
 
     // This direct reference from connection to agent is not used internal to
@@ -19,6 +19,7 @@ export class Connection {
     nextSnapshotRequestId: number;
 
     state: string;
+    readonly canSend: boolean;
     debug: boolean;
 
     close(): void;
@@ -29,6 +30,32 @@ export class Connection {
     fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
     getPresence(channel: string): Presence;
     getDocPresence(collection: string, id: string): Presence;
+
+    /**
+     * Returns whether anything in this client is either:
+     * - In-flight, waiting on a response from the server
+     * - Pending (locally queued)
+     */
+    hasPending(): boolean;
+
+    /**
+     * Invokes the callback once nothing on this client is in-flight or pending.
+     *
+     * @see hasPending
+     */
+    whenNothingPending(callback: () => void): void;
+
+    /**
+     * Manually send a JSON-serializable message to the server.
+     *
+     * WARNING - This is mostly for internal use within sharedb.
+     *
+     * Prefer to use methods like `Doc#submitOp`, `Doc#subscribe`, `Connection#createFetchQuery`,
+     * etc., which will manage the necessary message exchanges.
+     */
+    send(message: Record<string, unknown>): void;
+
+    ping(): void;
 }
 export type Doc<T = any> = ShareDB.Doc<T>;
 export type Snapshot<T = any> = ShareDB.Snapshot<T>;

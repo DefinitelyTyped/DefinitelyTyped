@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MentionsInput, Mention, SuggestionDataItem } from 'react-mentions';
+import { MentionsInput, Mention, SuggestionDataItem, OnChangeHandlerFunc } from 'react-mentions';
 import {
     applyChangeToValue,
     combineRegExps,
@@ -27,12 +27,12 @@ import {
 interface TestProps {
     data: SuggestionDataItem[];
     value?: string | undefined;
-    onChange?: (() => void) | undefined;
+    onChange?: OnChangeHandlerFunc;
     onAdd?: (() => void) | undefined;
     regex: RegExp;
 }
 
-export const TestSimple: React.SFC<TestProps> = props => {
+export const TestSimple: React.FC<TestProps> = props => {
     const inputEl = React.createRef<HTMLTextAreaElement>();
 
     function handleClick() {
@@ -57,7 +57,7 @@ export const TestSimple: React.SFC<TestProps> = props => {
     );
 };
 
-export const TestMultipleTrigger: React.SFC<TestProps> = props => {
+export const TestMultipleTrigger: React.FC<TestProps> = props => {
     return (
         <MentionsInput value={props.value} onChange={props.onChange} placeholder={"Mention people using '@'"}>
             <Mention
@@ -74,6 +74,24 @@ export const TestMultipleTrigger: React.SFC<TestProps> = props => {
                 onAdd={props.onAdd}
             />
 
+            <Mention
+                trigger={props.regex}
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
+                data={search => [{ id: search, display: search }]}
+                onAdd={props.onAdd}
+            />
+        </MentionsInput>
+    );
+};
+
+export const TestCustomSuggestionContainer: React.FC<TestProps> = props => {
+    return (
+        <MentionsInput
+            value={props.value}
+            onChange={props.onChange}
+            placeholder={"Mention people using '@'"}
+            customSuggestionsContainer={children => <div className="suggestions">{children}</div>}
+        >
             <Mention
                 trigger={props.regex}
                 markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}

@@ -15,6 +15,10 @@ var poly: jsts.geom.Polygon = new jsts.geom.Polygon(lr);
 var precisionModel = new jsts.geom.PrecisionModel();
 var factory = new jsts.geom.GeometryFactory(precisionModel);
 var wktWriter = new jsts.io.WKTWriter(factory);
+var multiPoly: jsts.geom.MultiPolygon = new jsts.geom.MultiPolygon([poly], factory);
+var multiPoint: jsts.geom.MultiPoint = new jsts.geom.MultiPoint([p], factory);
+var multiLs: jsts.geom.MultiLineString = new jsts.geom.MultiLineString([ls], factory);
+var geomCollection: jsts.geom.GeometryCollection = new jsts.geom.GeometryCollection([p, ls], factory);
 const o: jsts.algorithm.Orientation = new jsts.algorithm.Orientation();
 const bnr: jsts.algorithm.BoundaryNodeRule = new jsts.algorithm.BoundaryNodeRule();
 
@@ -84,8 +88,15 @@ e.setToNull();
 str = e.toString();
 e.translate(n, n);
 
-g.apply({});
+g.apply({filter: Geometry => {}});
+g = g.buffer(n);
+g = g.buffer(n, n);
 g = g.buffer(n, n, n);
+if (g instanceof jsts.geom.Polygon) {
+  poly = g;
+} else {
+  multiPoly = g;
+}
 g.checkNotGeometryCollection(g);
 g = g.clone();
 n = g.compare([{}], [{}]);
@@ -143,6 +154,7 @@ str = g.toString();
 bool = g.touches(g);
 g = g.union(g);
 bool = g.within(g);
+n = g.hashCode();
 
 c = ls.getCoordinateN(n);
 p = ls.getEndPoint();
@@ -153,9 +165,23 @@ n = ls.distance(ls);
 bool = ls.isClosed();
 bool = ls.isRing();
 
+bool = multiLs.equalsExact(g, n);
+g = multiLs.getBoundary();
+n = multiLs.getBoundaryDimension();
+n = multiLs.getDimension();
+str = multiLs.getGeometryType();
+bool = multiLs.isClosed();
+
 n = p.getX();
 n = p.getY();
 p = p.reverse();
+
+bool = multiPoint.equalsExact(g, n);
+g = multiPoint.getBoundary();
+n = multiPoint.getBoundaryDimension();
+n = multiPoint.getDimension();
+str = multiPoint.getGeometryType();
+bool = multiPoint.isValid();
 
 lr = poly.getExteriorRing();
 lr = poly.getInteriorRingN(n);
@@ -163,6 +189,9 @@ n = poly.getNumInteriorRing();
 
 var gjw: jsts.io.GeoJSONWriter = new jsts.io.GeoJSONWriter();
 obj = gjw.write(g);
+
+var gjr: jsts.io.GeoJSONReader = new jsts.io.GeoJSONReader(factory);
+g = gjr.read(obj);
 
 var wr: jsts.io.WKTReader = new jsts.io.WKTReader();
 g = wr.read(str);
@@ -256,3 +285,105 @@ bool = jsts.operation.relate.RelateOp.overlaps(g, g);
 bool = jsts.operation.relate.RelateOp.crosses(g, g);
 bool = jsts.operation.relate.RelateOp.contains(g, g);
 im0 = ro0.getIntersectionMatrix();
+
+var pr = new jsts.precision.GeometryPrecisionReducer(precisionModel);
+g = pr.reduce(g);
+g = jsts.precision.GeometryPrecisionReducer.reduce(g, precisionModel);
+g = jsts.precision.GeometryPrecisionReducer.reducePointwise(g, precisionModel);
+pr.setChangePrecisionModel(bool);
+pr.setPointwise(bool);
+pr.setRemoveCollapsedComponents(bool);
+
+var gl: jsts.operation.distance.GeometryLocation = new jsts.operation.distance.GeometryLocation(g, n, c);
+gl = new jsts.operation.distance.GeometryLocation(g, c);
+g = gl.getGeometryComponent();
+n = gl.getSegmentIndex();
+c = gl.getCoordinate();
+bool = gl.isInsideArea();
+str = gl.toString();
+
+var dop: jsts.operation.distance.DistanceOp = new jsts.operation.distance.DistanceOp(g, g);
+dop = new jsts.operation.distance.DistanceOp(g, g, n);
+n = dop.distance();
+[c, c] = dop.nearestPoints();
+[gl, gl] = dop.nearestLocations();
+n = jsts.operation.distance.DistanceOp.distance(g, g);
+bool = jsts.operation.distance.DistanceOp.isWithinDistance(g, g, n);
+[c, c] = jsts.operation.distance.DistanceOp.nearestPoints(g, g);
+
+var ch: jsts.algorithm.ConvexHull = new jsts.algorithm.ConvexHull(g);
+ch = new jsts.algorithm.ConvexHull([c], factory);
+g = ch.getConvexHull();
+
+var ipa: jsts.algorithm.InteriorPointArea = new jsts.algorithm.InteriorPointArea(g);
+c = ipa.getInteriorPoint();
+c = jsts.algorithm.InteriorPointArea.getInteriorPoint(g);
+
+var densifier: jsts.densify.Densifier = new jsts.densify.Densifier(g);
+densifier.setDistanceTolerance(n);
+g = densifier.getResultGeometry();
+g = jsts.densify.Densifier.densify(g, n);
+
+var li = new jsts.algorithm.LineIntersector();
+n = jsts.algorithm.LineIntersector.computeEdgeDistance(c, c, c);
+n = jsts.algorithm.LineIntersector.nonRobustComputeEdgeDistance(c, c, c);
+li.setPrecisionModel(precisionModel);
+c = li.getEndpoint(n, n);
+li.computeIntersection(c, c, c, c);
+str = li.toString();
+bool = li.hasIntersection();
+n = li.getIntersectionNum();
+c = li.getIntersection(n);
+bool = li.isIntersection(c);
+bool = li.isInteriorIntersection(n);
+bool = li.isProper();
+c = li.getIntersectionAlongSegment(n, n);
+n = li.getIndexAlongSegment(n, n);
+n = li.getEdgeDistance(n, n);
+
+var rli = new jsts.algorithm.RobustLineIntersector();
+rli.computeIntersection(c, c, c);
+rli.computeIntersection(c, c, c, c);
+
+var tps: jsts.simplify.TopologyPreservingSimplifier = new jsts.simplify.TopologyPreservingSimplifier(g);
+tps.setDistanceTolerance(n);
+g = tps.getResultGeometry();
+g = jsts.simplify.TopologyPreservingSimplifier.simplify(g, n);
+
+var spial = new jsts.algorithm.locate.SimplePointInAreaLocator(g);
+n = spial.locate(c);
+n = jsts.algorithm.locate.SimplePointInAreaLocator.locate(c, g);
+bool = jsts.algorithm.locate.SimplePointInAreaLocator.isContained(c, g);
+n = jsts.algorithm.locate.SimplePointInAreaLocator.locatePointInPolygon(c, poly);
+bool = jsts.algorithm.locate.SimplePointInAreaLocator.containsPointInPolygon(c, poly);
+
+p = factory.createPointFromInternalCoord(c, g);
+g = factory.toGeometry(e);
+precisionModel = factory.getPrecisionModel();
+ls = factory.createLineString();
+ls = factory.createLineString([c]);
+ls = factory.createLineString(seq);
+p = factory.createPoint();
+p = factory.createPoint(c);
+p = factory.createPoint(seq);
+multiPoint = factory.createMultiPoint();
+multiPoint = factory.createMultiPoint([p]);
+multiPoint = factory.createMultiPoint(seq);
+multiPoint = factory.createMultiPointFromCoords([c]);
+lr = factory.createLinearRing();
+lr = factory.createLinearRing([c]);
+lr = factory.createLinearRing(seq);
+poly = factory.createPolygon();
+poly = factory.createPolygon(lr, [lr]);
+poly = factory.createPolygon(seq);
+poly = factory.createPolygon([c]);
+poly = factory.createPolygon(lr);
+multiPoly = factory.createMultiPolygon();
+multiPoly = factory.createMultiPolygon([poly]);
+multiLs = factory.createMultiLineString();
+multiLs = factory.createMultiLineString([ls]);
+geomCollection = factory.createGeometryCollection();
+geomCollection = factory.createGeometryCollection([p, ls]);
+g = factory.createEmpty(n);
+g = factory.createGeometry(g);
+n = factory.getSRID();

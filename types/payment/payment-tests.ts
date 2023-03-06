@@ -14,3 +14,26 @@ Payment.fns.validateCardNumber(card);
 Payment.fns.validateCardExpiry("1 / 20");
 Payment.fns.validateCardExpiry("1", "20");
 Payment.fns.validateCardCVC("123", cardType);
+
+const newCardTypes = [
+    {
+        type: 'fakecardtype',
+        pattern: /\d{4}/,
+        length: [16],
+        cvcLength: [3],
+        luhn: true,
+        format: /\d{4}/,
+    },
+];
+
+Payment.setCardArray(newCardTypes);
+Payment.getCardArray();
+Payment.addToCardArray({
+    type: 'fakecardtype',
+    pattern: /\d{4}/,
+    length: [16],
+    cvcLength: [3],
+    luhn: true,
+    format: /\d{4}/,
+});
+Payment.removeFromCardArray('fakecardtype');

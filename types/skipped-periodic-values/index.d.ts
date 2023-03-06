@@ -1,6 +1,6 @@
 // Type definitions for skipped-periodic-values 1.0
 // Project: https://github.com/jmeas/skipped-periodic-values.js
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

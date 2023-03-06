@@ -30,6 +30,11 @@ declare class sharedb extends EventEmitter {
     pubsub: sharedb.PubSub;
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
     milestoneDb?: sharedb.MilestoneDB;
+    errorHandler: ErrorHandler;
+
+    readonly projections: {
+        readonly [name: string]: ReadonlyProjection;
+    };
 
     constructor(options?: {
         db?: any,
@@ -38,6 +43,8 @@ declare class sharedb extends EventEmitter {
         milestoneDb?: sharedb.MilestoneDB,
         suppressPublish?: boolean,
         maxSubmitRetries?: number,
+        doNotForwardSendPresenceErrorsToClient?: boolean,
+        errorHandler?: ErrorHandler;
 
         presence?: boolean,
         /**
@@ -90,14 +97,11 @@ declare class sharedb extends EventEmitter {
         fn: (context: sharedb.middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
     ): void;
 
-    on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
-    on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
-    on(event: 'error', callback: (err: Error) => void): this;
-    on(event: 'send', callback: (agent: Agent, response: ShareDB.ServerResponseSuccess | ShareDB.ServerResponseError) => void): this;
+    on<E extends keyof sharedb.BackendEventListenerMap>(event: E, callback: sharedb.BackendEventListenerMap[E]): this;
+    on(eventName: string | symbol, listener: (...args: any[]) => void): this;
 
-    addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
-    addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
-    addListener(event: 'error', callback: (err: Error) => void): this;
+    addListener<E extends keyof sharedb.BackendEventListenerMap>(event: E, callback: sharedb.BackendEventListenerMap[E]): this;
+    addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
 
     getOps(agent: Agent, index: string, id: string, from: number, to: number, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
     getOpsBulk(agent: Agent, index: string, id: string, fromMap: Record<string, number>, toMap: Record<string, number>, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
@@ -135,6 +139,13 @@ declare namespace sharedb {
 
     type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields, options: any, callback: DBQueryCallback) => void;
     type DBQueryCallback = (err: Error | null, snapshots: Snapshot[], extra?: any) => void;
+
+    interface BackendEventListenerMap {
+        error: (err: Error) => void;
+        send: (agent: Agent, response: ShareDB.ServerResponseSuccess | ShareDB.ServerResponseError) => void;
+        submitRequestEnd: (error: Error, request: SubmitRequest) => void;
+        timing: (type: string, time: number, request: any) => void;
+    }
 
     abstract class PubSub {
         private static shallowCopy(obj: any): any;
@@ -218,7 +229,9 @@ declare namespace sharedb {
             query: QueryContext;
             readSnapshots: ReadSnapshotsContext;
             receive: ReceiveContext;
+            receivePresence: PresenceContext;
             reply: ReplyContext;
+            sendPresence: PresenceContext;
             submit: SubmitContext;
         }
 
@@ -251,16 +264,25 @@ declare namespace sharedb {
             op: any;
         }
 
+        interface PresenceContext extends BaseContext {
+            presence: PresenceMessage;
+            collection?: string;
+        }
+
         interface QueryContext extends BaseContext {
             index: string;
             collection: string;
-            projection: Projection;
+            projection: ReadonlyProjection;
             fields: ProjectionFields;
+            /**
+             * @deprecated Use channels property instead
+             */
             channel: string;
+            channels: string[];
             query: any;
             options?: {[key: string]: any};
             db: DB | null;
-            snapshotProjection: Projection | null;
+            snapshotProjection: ReadonlyProjection | null;
         }
 
         interface ReadSnapshotsContext extends BaseContext {
@@ -285,9 +307,9 @@ declare namespace sharedb {
     }
 }
 
-interface Projection {
-    target: string;
-    fields: ProjectionFields;
+interface ReadonlyProjection {
+    readonly target: Readonly<string>;
+    readonly fields: Readonly<ProjectionFields>;
 }
 
 interface ProjectionFields {
@@ -296,7 +318,7 @@ interface ProjectionFields {
 
 interface SubmitRequest {
     index: string;
-    projection: Projection;
+    projection: ReadonlyProjection;
     collection: string;
     id: string;
     op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
@@ -322,4 +344,22 @@ interface GetOpsOptions {
     };
 }
 
+interface PresenceMessage {
+    a: 'p';
+    ch: string; // channel
+    src: string; // client ID
+    id: string; // presence ID
+    p: any; // presence payload
+    pv: number; // presence version
+    c?: string; // document collection
+    d?: string; // document ID
+    v?: number; // document version
+    t?: string; // document OT type
+}
+
 type BasicCallback = (err?: Error) => void;
+
+type ErrorHandler = (error: Error, context: ErrorHandlerContext) => void;
+interface ErrorHandlerContext {
+    agent?: Agent;
+}

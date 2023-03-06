@@ -14,11 +14,11 @@
 import { EventEmitter } from 'events';
 import * as processors from './lib/processors';
 
-export function parseString(str: convertableToString, callback: (err: Error, result: any) => void): void;
+export function parseString(str: convertableToString, callback: (err: Error | null, result: any) => void): void;
 export function parseString(
     str: convertableToString,
     options: ParserOptions,
-    callback: (err: Error, result: any) => void,
+    callback: (err: Error | null, result: any) => void,
 ): void;
 export function parseStringPromise(str: convertableToString, options?: ParserOptions): Promise<any>;
 
@@ -46,7 +46,7 @@ export class Builder {
 
 export class Parser extends EventEmitter {
     constructor(options?: ParserOptions);
-    parseString(str: convertableToString, cb?: Function): void;
+    parseString(str: convertableToString, cb?: (error: Error | null, result: any) => void): void;
     parseStringPromise(str: convertableToString): Promise<any>;
     reset(): void;
 }
@@ -59,7 +59,7 @@ export interface ParserOptions {
     normalizeTags?: boolean | undefined;
     normalize?: boolean | undefined;
     explicitRoot?: boolean | undefined;
-    emptyTag?: any;
+    emptyTag?: (() => any) | string;
     explicitArray?: boolean | undefined;
     ignoreAttrs?: boolean | undefined;
     mergeAttrs?: boolean | undefined;
@@ -96,6 +96,10 @@ export type OptionsV2 = ParserOptions & BuilderOptions;
 
 export interface convertableToString {
     toString(): string;
+}
+
+export class ValidationError extends Error {
+    constructor(message: string);
 }
 
 export { processors };

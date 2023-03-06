@@ -68,12 +68,12 @@ declare namespace Combobox {
          * This component is used to render each possible item in the Combobox. The default
          * component renders the text of the selected item (specified by textfield)
          */
-        itemComponent?: React.ReactType | undefined;
+        itemComponent?: React.ElementType | undefined;
         /**
          * An object of props that is passed directly to the underlying input component.
          */
         inputProps?: object | undefined;
-        listComponent?: React.ReactType | string | undefined;
+        listComponent?: React.ElementType | string | undefined;
         /**
          * An object of props that is passed directly to the underlying List component.
          */
@@ -87,7 +87,7 @@ declare namespace Combobox {
          * This component is used to render each option group, when groupBy is specified. By default
          * the groupBy value will be used.
          */
-        groupComponent?: React.ReactType | undefined;
+        groupComponent?: React.ElementType | undefined;
         /**
          * The same as an input placeholder, only works in browsers that support the placeholder
          * attribute for inputs
@@ -103,7 +103,7 @@ declare namespace Combobox {
          * instead of the default SlideDownTransition for fully customizable animations.
          * The transition component is also injected with a dropUp prop indicating the direction it should open.
          */
-        popupTransition?: React.ReactType | string | undefined;
+        popupTransition?: React.ElementType | string | undefined;
         /**
          * Specify a filtering method used to reduce the items in the dropdown as you type. It can
          * be used in conjunction with the suggest prop or instead of it. There are a few built-in

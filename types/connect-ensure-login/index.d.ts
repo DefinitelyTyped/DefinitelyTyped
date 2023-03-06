@@ -14,7 +14,7 @@ export interface LoggedInOptions {
     /**
      * set redirectTo in session, defaults to _true_
      */
-    setRedirectTo?: boolean | undefined;
+    setReturnTo?: boolean | undefined;
 }
 export interface LoggedOutOptions {
     /**

@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "jsdoc-format": false,
-        "no-any-union": false,
         "no-unnecessary-qualifier": false,
         "one-line": false,
         "only-arrow-functions": false

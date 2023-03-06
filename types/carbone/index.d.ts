@@ -1,4 +1,4 @@
-// Type definitions for carbone 1.2
+// Type definitions for carbone 3.2
 // Project: https://carbone.io
 // Definitions by: Artur Nerkowski <https://github.com/apatryda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,10 +49,14 @@ export interface Options {
     tempPath?: string | undefined;
     templatePath?: string | undefined;
     lang?: string | undefined;
+    timezone?: string | undefined;
     translations?: Translations | undefined;
     currencySource?: string | undefined;
     currencyTarget?: string | undefined;
     currencyRates?: CurrencyRates | undefined;
+    factories?: number | undefined;
+    startFactory?: boolean | undefined;
+    attempts?: number | undefined;
 }
 export function set(options: Options): void;
 export function reset(): void;
@@ -65,6 +69,7 @@ export interface RenderXMLOptions {
     complement?: object | undefined;
     formatters?: Formatters | undefined;
     lang?: string | undefined;
+    timezone?: string | undefined;
     translations?: Translations | undefined;
     existingVariables?: Variable[] | undefined;
     extension?: string | undefined;
@@ -78,6 +83,7 @@ export interface RenderOptions {
     convertTo?: string | object | undefined;
     variableStr?: string | undefined;
     lang?: string | undefined;
+    timezone?: string | undefined;
     translations?: Translations | undefined;
     enum?: Enums | undefined;
     currencySource?: string | undefined;

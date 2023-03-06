@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "cash-dom": "^8.1.1"
+    }
+}

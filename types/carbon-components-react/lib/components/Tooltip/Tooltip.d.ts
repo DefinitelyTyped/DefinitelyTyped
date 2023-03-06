@@ -9,6 +9,7 @@ export type TooltipOnChangeEvent<T extends Element> = React.FocusEvent<T> | Reac
 
 export interface TooltipProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     align?: TooltipAlignment | undefined;
+    autoOrientation?: boolean | undefined;
     defaultOpen?: boolean | undefined;
     direction?: Direction | undefined;
     focusTrap?: boolean | undefined;

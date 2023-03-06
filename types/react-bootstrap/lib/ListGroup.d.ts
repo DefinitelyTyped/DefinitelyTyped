@@ -3,7 +3,7 @@ import * as React from 'react';
 declare namespace ListGroup {
     interface ListGroupProps extends React.HTMLProps<ListGroup> {
         bsClass?: string | undefined;
-        componentClass?: React.ReactType | undefined; // Added since v0.30.0
+        componentClass?: React.ElementType | undefined; // Added since v0.30.0
         // TODO: Add more specific type
         fill?: boolean | undefined;
     }

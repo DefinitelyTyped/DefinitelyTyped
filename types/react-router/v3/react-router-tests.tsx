@@ -47,7 +47,7 @@ interface MasterContext {
     router: InjectedRouter;
 }
 
-class Master extends Component {
+class Master extends Component<{ children?: React.ReactNode }> {
     static contextTypes: ValidationMap<any> = {
         router: routerShape
     };
@@ -124,6 +124,7 @@ class UserList extends React.Component<UserListProps & WithRouterProps> {
 const UserListWithRouter = withRouter(UserList);
 
 interface AvatarProps {
+    children?: React.ReactNode;
     user: string;
 }
 
@@ -222,16 +223,20 @@ match({ history, routes }, (error, redirectLocation, renderProps) => {
     renderToString(<RouterContext {...renderProps} />);
 });
 
-ReactDOM.render((
+ReactDOM.render(
     <Router
         history={history}
         routes={routes}
-        render={applyRouterMiddleware({
-            renderRouteComponent: child => child
-        })}
-    >
-    </Router>
-), document.body);
+        render={props => {
+            const Context = applyRouterMiddleware({
+                renderRouteComponent: child => child,
+            })(props);
+
+            return <Context></Context>;
+        }}
+    ></Router>,
+    document.body,
+);
 
 const matchedPattern = matchPattern("/foo", "/foo/bar");
 
@@ -243,7 +248,7 @@ if (matchedPattern) {
 
 matchPattern("/foo", "/baz") === null;
 
-const CreateHref: React.SFC<WithRouterProps> = ({ router }) => (
+const CreateHref: React.FC<WithRouterProps> = ({ router }) => (
     <div>
         {router.createHref({ pathname: "/foo", query: { bar: "baz" } })}
         {router.createHref("/foo?bar=baz")}

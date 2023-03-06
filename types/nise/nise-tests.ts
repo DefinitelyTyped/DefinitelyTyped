@@ -44,6 +44,7 @@ function testFakeXMLHttpRequest() {
 
     xhr.setResponseHeaders({ Accept: 'application/json' });
     xhr.setResponseBody('body');
+    xhr.setStatus(404);
     xhr.respond(200, { Accept: 'application/json' }, 'body');
     xhr.error();
 }

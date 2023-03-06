@@ -43,17 +43,17 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
             ifProduction // $ExpectType IfUtilsFn
         } = getIfUtils('production');
 
-        // $ExpectType "value" | "alternate"
+        // $ExpectType "value" | "alternate" || "alternate" | "value"
         ifProduction('value', 'alternate'); // 'value'
     }
     {
         const { ifNotDev } = getIfUtils({ dev: false });
 
-        // $ExpectType "value" | "alternate"
+        // $ExpectType "value" | "alternate" || "alternate" | "value"
         ifNotDev('value', 'alternate'); // 'value'
     }
     {
-        // $ExpectError
+        // @ts-expect-error
         getIfUtils(false); // webpack-config-utils:getIfUtils.*?string\/Object/);
     }
     {
@@ -92,7 +92,7 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
     } = emptiedObject;
 
     {
-        // $ExpectError
+        // @ts-expect-error
         const {a, b, c, d} = emptiedObject;
     }
 

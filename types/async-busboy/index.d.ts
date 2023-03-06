@@ -1,28 +1,46 @@
-// Type definitions for async-busboy 0.7
+// Type definitions for async-busboy 1.1
 // Project: https://github.com/m4nuC/async-busboy#readme
 // Definitions by: Hiroshi Ioka <https://github.com/hirochachacha>
+//                 BendingBender <https://github.com/bendingbender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import * as fs from 'fs';
 import * as http from 'http';
-
 import busboy = require('busboy');
 
-interface Options extends busboy.BusboyConfig {
-  onFile: (
-    fieldname: string,
-    file: NodeJS.ReadableStream,
-    filename: string,
-    encoding: string,
-    mimetype: string) => void;
+export = asyncBusboy;
+
+declare function asyncBusboy(
+    req: http.IncomingMessage,
+    options: asyncBusboy.OnFileOptions,
+): Promise<asyncBusboy.OnFileResult>;
+declare function asyncBusboy(req: http.IncomingMessage, options?: asyncBusboy.Options): Promise<asyncBusboy.Result>;
+
+declare namespace asyncBusboy {
+    interface Options extends Omit<busboy.BusboyConfig, 'headers'> {
+        headers?: http.IncomingHttpHeaders | undefined;
+        onFile?: busboy.BusboyEvents['file'] | undefined;
+    }
+
+    type OnFileOptions = WithRequiredProps<Options, 'onFile'>;
+
+    interface Result {
+        fields: { [key: string]: unknown };
+        files: FileReadStream[];
+    }
+
+    type OnFileResult = Omit<Result, 'files'>;
+
+    interface FileReadStream extends fs.ReadStream {
+        fieldname: string;
+        filename: string;
+        transferEncoding: string;
+        encoding: string;
+        mimeType: string;
+        mime: string;
+    }
 }
 
-type AsyncBusboy = (
-  req: http.IncomingMessage,
-  options?: Options
-) => Promise<{fields: {[key: string]: any}; files?: fs.ReadStream[] | undefined}>;
-
-declare const asyncBusboy: AsyncBusboy;
-
-export = asyncBusboy;
+type WithRequiredProps<T extends {}, K extends keyof T> = Omit<T, K> & {
+    [MK in K]-?: NonNullable<T[MK]>;
+};

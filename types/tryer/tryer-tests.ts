@@ -1,41 +1,42 @@
 import * as tryer from "tryer";
 
-tryer(); // $ExpectError
+// @ts-expect-error
+tryer();
 
-// $ExpectError
+// @ts-expect-error
 tryer({ action: null });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ fail: null });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ fail: null });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ interval: null });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ limit: null });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ pass: null });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ until: null });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ when: null });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ when: () => 1 });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ until: () => 1 });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ limit: "notNumber" });
 
-// $ExpectError
+// @ts-expect-error
 tryer({ interval: "notNumber" });
 
 tryer({});

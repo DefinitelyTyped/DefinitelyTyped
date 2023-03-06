@@ -11,7 +11,7 @@ export interface NetlifyFormState {
     error: boolean;
     success: boolean;
     recaptchaError?: boolean | undefined;
-    recaptcha?: Recaptcha | undefined;
+    recaptcha?: React.ReactElement | undefined;
 }
 
 export interface NetlifyFormProps {

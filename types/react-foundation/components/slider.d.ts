@@ -44,7 +44,7 @@ export interface TwoHandleSliderState {
  * @param {Object} props
  * @returns {XML}
  */
-export declare const SliderHandle: React.StatelessComponent<SliderHandleProps>;
+export declare const SliderHandle: React.FunctionComponent<SliderHandleProps>;
 export interface SliderHandleProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 export interface SliderFillProps {
@@ -56,7 +56,7 @@ export interface SliderFillProps {
  * @param {Object} props
  * @returns {XML}
  */
-export declare const SliderFill: React.StatelessComponent<SliderFillProps>;
+export declare const SliderFill: React.FunctionComponent<SliderFillProps>;
 export interface SliderCommonProps {
     className?: string | undefined;
     isVertical?: boolean | undefined;

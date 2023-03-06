@@ -27,7 +27,7 @@ class TestChild extends React.Component implements TransitionGroupChildLifecycle
     }
 }
 
-const Test: React.StatelessComponent = () => {
+const Test: React.FunctionComponent = () => {
     return (
         <div>
             <TransitionGroup component="ul" className="animated-list">

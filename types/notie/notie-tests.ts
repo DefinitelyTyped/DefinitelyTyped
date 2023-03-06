@@ -1,22 +1,115 @@
-notie.alert(1, 'Success!', 1.5);
-notie.alert(2, 'Warning<br><b>with</b><br><i>HTML</i><br><u>included.</u>', 2);
-notie.alert(3, 'Error.', 2.5);
-notie.alert(4, 'Information.', 2);
+import { alert, force, confirm, input, select, date, setOptions, hideAlerts } from 'notie';
 
-notie.confirm('Are you sure you want to do that?', 'Yes', 'Cancel', function() {
-    notie.alert(1, 'Good choice!', 2);
-});
-notie.confirm('Are you sure?', 'Yes', 'Cancel', function() {
-    notie.confirm('Are you <b>really</b> sure?', 'Yes', 'Cancel', function() {
-        notie.confirm('Are you really <b>really</b> sure?', 'Yes', 'Cancel', function() {
-            notie.alert(1, 'Okay, jeez...', 2);
-        });
-    });
-});
+// @ts-expect-error
+alert({});
+alert({ text: 'Hello, World!', position: 'bottom' });
+alert({ text: 'Hello, World!', type: 4 });
+alert({ text: 'Hello, World!', type: 'info' });
 
-notie.input('Please enter your email address:', 'Submit', 'Cancel', 'email', 'name@example.com', function(value_entered) {
-    notie.alert(1, 'You entered: ' + value_entered, 2);
+// @ts-expect-error
+force({});
+force({
+    text: 'Alert',
+    callback() {
+        alert({ text: 'callback' });
+    },
 });
-notie.input('What city do you live in?', 'Submit', 'Cancel', 'text', 'Enter your city:', function(value_entered) {
-    notie.alert(1, 'You entered: ' + value_entered, 2);
-}, 'New York');
+force({ text: 'Alert' }, () => alert({ text: 'callback' }));
+
+// @ts-expect-error
+confirm({});
+confirm({ text: 'Are you sure?' });
+confirm({
+    text: 'Are you sure?',
+    submitCallback() {
+        alert({ text: 'Confirmed' });
+    },
+    cancelCallback() {
+        alert({ text: 'Cancelled' });
+    },
+});
+confirm({ text: 'Are you sure?' }, () => alert({ text: 'Confirmed' }));
+confirm(
+    { text: 'Are you sure?' },
+    () => alert({ text: 'Confirmed' }),
+    () => alert({ text: 'Cancelled' }),
+);
+
+// @ts-expect-error
+input({});
+input({
+    text: 'Input',
+    submitCallback() {
+        alert({ text: 'Confirmed' });
+    },
+    cancelCallback() {
+        alert({ text: 'Cancelled' });
+    },
+});
+input({ text: 'Input' }, () => alert({ text: 'Confirmed' }));
+input(
+    { text: 'Input' },
+    () => alert({ text: 'Confirmed' }),
+    () => alert({ text: 'Cancelled' }),
+);
+
+// @ts-expect-error
+select({});
+// @ts-expect-error
+select({ text: 'Select' });
+select({
+    text: 'Select',
+    choices: [
+        {
+            type: 'abc',
+            text: 'Option 1',
+            handler: () => {},
+        },
+        {
+            text: 'Option 2',
+            handler: () => {},
+        },
+    ],
+});
+select({
+    text: 'Select',
+    choices: [{ text: 'foo', handler: () => {} }],
+    cancelCallback() {
+        alert({ text: 'Cancelled' });
+    },
+});
+select(
+    {
+        text: 'Select',
+        choices: [{ text: 'foo', handler: () => {} }],
+    },
+    () => alert({ text: 'Cancelled' }),
+);
+
+// @ts-expect-error
+date({});
+date({ value: new Date() });
+date({
+    value: new Date(),
+    submitCallback() {
+        alert({ text: 'Confirmed' });
+    },
+    cancelCallback() {
+        alert({ text: 'Cancelled' });
+    },
+});
+date({ value: new Date() }, () => alert({ text: 'Confirmed' }));
+date(
+    { value: new Date() },
+    () => alert({ text: 'Confirmed' }),
+    () => alert({ text: 'Cancelled' }),
+);
+
+setOptions({});
+setOptions({ dateMonths: [] });
+setOptions({ classes: {} });
+setOptions({ ids: {} });
+setOptions({ positions: {} });
+
+hideAlerts();
+hideAlerts(() => alert({ text: 'Alerts hidden' }));

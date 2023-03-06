@@ -1,6 +1,8 @@
 import indy from 'indy-sdk';
 import { Buffer } from 'buffer/';
 
+indy.setLogger((level, target, message, modulePath, file, line) => {});
+
 indy.openBlobStorageWriter('default', {
     base_dir: 'dir',
     uri_pattern: 'uri_pattern',
@@ -9,6 +11,39 @@ indy.openBlobStorageReader('default', {
     base_dir: 'dir',
 });
 
+const credential: indy.Cred = {
+    cred_def_id: 'cred_def_id',
+    schema_id: 'schema_id',
+    signature: 'signature',
+    signature_correctness_proof: 'signature_correctness_proof',
+    values: {},
+};
+const revRegs: indy.RevRegs = {
+    'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
+        1615468964: {
+            value: {
+                accum: '10',
+            },
+            ver: '1.0',
+        },
+    },
+};
+const revStates: indy.RevStates = {
+    'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
+        1615468964: {
+            rev_reg: {
+                value: {
+                    accum: '10',
+                },
+                ver: '1.0',
+            },
+            timestamp: 1234,
+            witness: {
+                some: 'value',
+            },
+        },
+    },
+};
 const revRegDef: indy.RevocRegDef = {
     id: '10',
     revocDefType: 'CL_ACCUM',
@@ -19,9 +54,24 @@ const revRegDef: indy.RevocRegDef = {
         maxCredNum: 10,
         tailsHash: 'xxxxx',
         tailsLocation: 'xxxxx',
-        publicKeys: ['pub1', 'pub2'],
+        publicKeys: {
+            accumKey: {
+                z: '1',
+            },
+        },
     },
     ver: '2',
+};
+
+const indyCredentialInfo: indy.IndyCredentialInfo = {
+    referent: 'referent',
+    attrs: {
+        key: 'value',
+    },
+    schema_id: 'schema_id',
+    cred_def_id: 'cred_def_id',
+    rev_reg_id: '123jaja',
+    cred_rev_id: '12408120',
 };
 
 const walletConfig: indy.WalletConfig = { id: 'wallet' };
@@ -29,6 +79,10 @@ const walletCredentials: indy.WalletCredentials = { key: 'key' };
 const importExportConfig: indy.WalletExportImportConfig = {
     key: 'export_key',
     path: 'some-path',
+};
+const rekeyWalletCredentials: indy.OpenWalletCredentials = {
+    key: 'old_key',
+    rekey: 'new_key',
 };
 const credDef: indy.CredDef = {
     id: 'id',
@@ -61,8 +115,26 @@ const proofReq: indy.IndyProofRequest = {
     },
     non_revoked: { from: 80, to: 100 },
 };
+const proofRequestWithNamesArray: indy.IndyProofRequest = {
+    nonce: 'nonce',
+    name: 'proof_req_1',
+    version: '0.1',
+    requested_attributes: {
+        attr1_referent: { names: ['name', 'address'] },
+    },
+    requested_predicates: {
+        predicate1_referent: { name: 'age', p_type: '>=', p_value: 18 },
+    },
+    non_revoked: { from: 80, to: 100 },
+};
 const ledgerRejectResponse: indy.LedgerRejectResponse = {
     op: 'REJECT',
+    reqId: 1615465027340221000,
+    reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
+    identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
+};
+const ledgerReqnackResponse: indy.LedgerReqnackResponse = {
+    op: 'REQNACK',
     reqId: 1615465027340221000,
     reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
     identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
@@ -151,6 +223,7 @@ const ledgerReadReply: indy.LedgerReadReplyResponse = {
 
 indy.createWallet(walletConfig, walletCredentials);
 indy.openWallet(walletConfig, walletCredentials);
+indy.openWallet(walletConfig, rekeyWalletCredentials);
 indy.exportWallet(10, importExportConfig);
 indy.importWallet(walletConfig, walletCredentials, importExportConfig);
 indy.createKey(1, { seed: 'seed' });
@@ -170,6 +243,7 @@ indy.signRequest(10, 'myDid', ledgerRequest);
 indy.signAndSubmitRequest(10, 10, 'myDid', ledgerRequest);
 indy.submitRequest(10, ledgerRequest);
 indy.parseGetNymResponse(ledgerRejectResponse);
+indy.parseGetNymResponse(ledgerReqnackResponse);
 indy.buildNymRequest('myDid', 'targetDid', 'verKey', 'alias', 'TRUSTEE');
 indy.buildGetSchemaRequest('myDid', 'a');
 indy.parseGetSchemaResponse(ledgerWriteReply);
@@ -212,8 +286,10 @@ indy.closeWalletSearch(10);
 indy.createPoolLedgerConfig('not_a_real_pool', {
     genesis_txn: '/not/a/real/file.txn',
 });
+indy.deletePoolLedgerConfig('not_a_real_pool');
 indy.setProtocolVersion(1);
 indy.openPoolLedger('name', { timeout: 1000 });
+indy.closePoolLedger(10);
 indy.proverCreateMasterSecret(10, 'masterSecretName');
 indy.proverCreateCredentialReq(10, 'proverDid', credOffer, credDef, 'master_secret');
 indy.issuerCreateCredentialOffer(10, 'credDefId');
@@ -235,7 +311,7 @@ indy.proverStoreCredential(
     {},
     {
         cred_def_id: 'cred_def_id',
-        rev_reg_def_id: 'rev_reg_def_id',
+        rev_reg_id: 'rev_reg_id',
         schema_id: 'schema_id',
         signature: 'signature',
         signature_correctness_proof: 'signature_correctness_proof',
@@ -245,8 +321,22 @@ indy.proverStoreCredential(
     null,
 );
 indy.proverGetCredential(10, 'outCredId');
+indy.proverGetCredentials(10, {
+    cred_def_id: 'cred_def_id',
+    issuer_did: 'issuer_did',
+    schema_id: 'schema_id',
+    schema_issuer_did: 'schema_issuer_did',
+    schema_name: 'schema_name',
+    schema_version: 'schema_version',
+});
+indy.proverDeleteCredential(10, 'credId');
 indy.generateNonce();
+indy.generateWalletKey();
+indy.generateWalletKey({ seed: 'seed' });
+indy.buildAttribRequest('myDid', 'myDid', null, { endpoint: 'value' }, null);
+indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
+indy.proverGetCredentialsForProofReq(10, proofRequestWithNamesArray);
 indy.proverSearchCredentialsForProofReq(10, proofReq, {});
 indy.proverFetchCredentialsForProofReq(10, 'attr1_referent', 100);
 indy.proverCloseCredentialsSearchForProofReq(10);
@@ -254,7 +344,7 @@ indy.verifierVerifyProof(
     proofReq,
     {
         proof: 'proof',
-        identifiers: [{ schema_id: 'shcema_id'}],
+        identifiers: [{ schema_id: 'schema_id', cred_def_id: 'cred_def_id' }],
         requested_proof: {
             requested_predicates: {},
             revealed_attr_groups: {},
@@ -266,7 +356,7 @@ indy.verifierVerifyProof(
     {},
     {},
     {},
-    {},
+    revRegs,
 );
 indy.proverCreateProof(
     10,
@@ -284,19 +374,38 @@ indy.proverCreateProof(
 
 indy.createRevocationState(
     10,
-    {},
+    {
+        id: '',
+        revocDefType: 'CL_ACCUM',
+        tag: '',
+        credDefId: '',
+        value: {
+            issuanceType: 'ISSUANCE_BY_DEFAULT',
+            maxCredNum: 0,
+            tailsHash: '',
+            tailsLocation: '',
+            publicKeys: {
+                accumKey: {
+                    z: '12',
+                },
+            },
+        },
+        ver: '',
+    },
     {
         value: {
             prevAccum: 'prevAccum',
             accum: 'accum',
             issued: [],
-            revoked: []
+            revoked: [],
         },
-        ver: 'ver'
+        ver: 'ver',
     },
     new Date().getDate(),
-    'credRevId'
+    'credRevId',
 );
+
+indy.listMyDidsWithMeta(10);
 
 // TODO
 // cache + payment
@@ -307,7 +416,6 @@ indy.createRevocationState(
 // indy.issuerRotateCredentialDefStart(wh, credDefId, null)
 // indy.issuerRotateCredentialDefApply()
 // indy.toUnqualified(qualified))
-// indy.proverDeleteCredential(wh, outCredId)
 // indy.proverSearchCredentials(wh, { schema_id: schemaId })
 // indy.proverFetchCredentials(sh, totalCount)
 // indy.proverCloseCredentialsSearch(sh)
@@ -315,11 +423,9 @@ indy.createRevocationState(
 // indy.generateWalletKey({})
 // indy.exportWallet(handle, exportConfig)
 // indy.importWallet(walletConfig, walletCredentials, exportConfig)
-// indy.listPools()
 // indy.refreshPoolLedger(-1)
 // indy.deletePoolLedgerConfig(pool.name)
 // indy.closePoolLedger(poolH)
-// indy.setLogger(logFn)
 // indy.setRuntimeConfig({ crypto_thread_pool_size: 4 })
 // indy.setDefaultLogger('trace')
 // indy.setKeyMetadata(10, 'verkey', 'foobar')
@@ -327,7 +433,6 @@ indy.createRevocationState(
 // indy.cryptoAuthCrypt(10, 'stewardVerkey', 'trusteeVerkey', Buffer.from('message'))
 // indy.cryptoAuthDecrypt(10, 'trusteeVerkey', Buffer.from('encrypted'))
 // indy.cryptoAnonDecrypt(10, 'trusteeVerkey', Buffer.from('encrypted'))
-// indy.listMyDidsWithMeta(10)
 // indy.keyForDid(10, 10, 'did')
 // indy.replaceKeysStart(10, 'did', {})
 // indy.replaceKeysApply(10, 'did')
@@ -346,7 +451,6 @@ indy.createRevocationState(
 // indy.buildPoolRestartRequest(myDid, 'start', '0')
 // indy.buildPoolUpgradeRequest(myDid, 'some upgrade action', '2.0.0', 'cancel', 'abc12345', -1, null, null, false, false, null)
 // indy.buildGetDdoRequest(myDid, trusteeDid)
-// indy.buildGetTxnRequest(myDid, null, data[1].seqNo)
 // indy.buildNodeRequest(myDid, myDid, {
 //     node_ip: '10.0.0.100',
 //     node_port: 9710,
@@ -357,6 +461,7 @@ indy.createRevocationState(
 //     blskey: 'CnEDk9HrMnmiHXEV1WFgbVCRteYnPqsJwrTdcZaNhFVW'
 //   })
 // indy.issuerCreateAndStoreRevocReg(wh, myDid, null, 'tag1', credDefId, { max_cred_num: 5 }, writerH)
+indy.buildGetTxnRequest('myDid', 'DOMAIN', 10);
 indy.buildRevocRegDefRequest('myDid', revRegDef);
 indy.buildGetRevocRegDefRequest('myDid', 'revRegDefId');
 indy.parseGetRevocRegDefResponse(ledgerRejectResponse);

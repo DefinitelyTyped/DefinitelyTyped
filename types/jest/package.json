@@ -1,7 +1,12 @@
 {
     "private": true,
     "dependencies": {
-        "jest-diff": "^27.0.0",
-        "pretty-format": "^27.0.0"
+        "expect": "^29.0.0",
+        "pretty-format": "^29.0.0"
+    },
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        }
     }
 }

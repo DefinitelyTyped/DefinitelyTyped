@@ -38,14 +38,12 @@ class TestComponentWithConfig extends React.Component<{ a?: number | undefined }
                                 textAlign: "center"
                             }
                         }}
-                    >
-                    </Radium.Style>
+                    />
                     <Radium.Style scopeSelector="test"
                         rules={{
                             background: "green"
                         }}
-                    >
-                    </Radium.Style>
+                    />
                 </Radium.StyleRoot>
             </div>
         )
@@ -71,14 +69,12 @@ class TestComponentWithConfigInStyleRoot
                                 textAlign: "center"
                             }
                         }}
-                    >
-                    </Radium.Style>
+                    />
                     <Radium.Style scopeSelector="test"
                         rules={{
                             background: "green"
                         }}
-                    >
-                    </Radium.Style>
+                    />
                 </Radium.StyleRoot>
             </div>
         )

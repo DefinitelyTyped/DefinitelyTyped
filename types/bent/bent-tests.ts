@@ -15,15 +15,15 @@ bent('https://example.com', 'string');
 // $ExpectType RequestFunction<string>
 bent<string>(200, 'string');
 
-// $ExpectType RequestFunction<Buffer | ArrayBuffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
 bent('buffer');
-// $ExpectType RequestFunction<Buffer | ArrayBuffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
 bent('buffer', 'GET');
-// $ExpectType RequestFunction<Buffer | ArrayBuffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
 bent('GET', 'buffer');
-// $ExpectType RequestFunction<Buffer | ArrayBuffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
 bent('https://example.com', 'buffer');
-// $ExpectType RequestFunction<Buffer | ArrayBuffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
 bent<Buffer | ArrayBuffer>(200, 'buffer');
 
 // $ExpectType RequestFunction<any>
@@ -59,7 +59,7 @@ bent('string')('https://example.com');
 bent('json')('https://example.com');
 // $ExpectType Promise<Body>
 bent<Body>('json')('https://example.com');
-// $ExpectType Promise<Buffer | ArrayBuffer>
+// $ExpectType Promise<Buffer | ArrayBuffer> || Promise<ArrayBuffer | Buffer>
 bent('buffer')('https://example.com');
 // $ExpectType Promise<BentResponse>
 bent(200)('https://example.com') as Promise<BentResponse>;

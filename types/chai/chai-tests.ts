@@ -2,7 +2,7 @@
 import * as chai from 'chai';
 
 const expect = chai.expect;
-const assert = chai.assert;
+const assert: typeof chai.assert = chai.assert; // assertion aliases require explicit type annotation
 const should = chai.should();
 const util = chai.util;
 
@@ -1373,6 +1373,14 @@ function oneOf() {
     expect('Today is sunny').to.contain.oneOf(['sunny', 'cloudy']);
 }
 
+function deepOneOf() {
+    expect({z: 3}).to.be.deep.oneOf([{z: 3}]);
+    expect({z: 3}).to.deep.be.oneOf([{z: 3}]);
+
+    expect({z: 3}).to.not.be.deep.oneOf([{x: 1}, {y: 2}]);
+    expect({z: 3}).to.not.deep.be.oneOf([{x: 1}, {y: 2}]);
+}
+
 function testInspectType() {
     const x: string = util.inspect([1, 2, 3], false, 4, false);
     expect(x).to.be.equal('[ 1, 2, 3 ]');
@@ -1398,7 +1406,10 @@ suite('assert', () => {
         const foo = 'bar' as string;
         assert(foo === 'bar', 'expected foo to equal `bar`');
 
-        assert(foo === 'baz', 'expected foo to equal `bar`');
+        function assertTypeNever(_: never) {}
+        if (foo !== 'bar') {
+            assertTypeNever(foo);
+        }
     });
 
     test('isTrue', () => {
@@ -1779,59 +1790,57 @@ suite('assert', () => {
     });
 
     test('throws', () => {
-        assert.throws(() => {
-            throw new Error('foo');
-        });
-        assert.throws(() => {
-            throw new Error('bar');
-        }, 'bar');
-        assert.throws(() => {
-            throw new Error('bar');
-        }, /bar/);
-        assert.throws(() => {
-            throw new Error('bar');
-        }, Error);
-        assert.throws(() => {
-            throw new Error('bar');
-        }, Error, 'bar');
+        const errorInstance = new ReferenceError('foo');
+        const fn = () => {
+            throw errorInstance;
+        };
 
-        assert.throws(() => {
-            throw new Error('foo');
-        }, TypeError);
+        assert.throws(fn);
+        assert.throws(fn, 'foo');
+        assert.throws(fn, /foo/);
+        assert.throws(fn, ReferenceError);
+        assert.throws(fn, errorInstance);
+        assert.throws(fn, ReferenceError, 'foo');
+        assert.throws(fn, errorInstance, 'foo');
+        assert.throws(fn, ReferenceError, /foo/);
+        assert.throws(fn, errorInstance, /foo/);
 
-        assert.throws(() => {
-            throw new Error('foo');
-        }, 'bar');
-
-        assert.throws(() => {
-            throw new Error('foo');
-        }, Error, 'bar');
-
-        assert.throws(() => {
-            throw new Error('foo');
-        }, TypeError, 'bar');
-
-        assert.throws(() => {
-        });
-
-        assert.throws(() => {
-            throw new Error('');
-        }, 'bar');
-
-        assert.throws(() => {
-            throw new Error('');
-        }, /bar/);
+        assert.throws(fn, null, null, 'message');
+        assert.throws(fn, 'foo', null, 'message');
+        assert.throws(fn, /foo/, null, 'message');
+        assert.throws(fn, ReferenceError, null, 'message');
+        assert.throws(fn, errorInstance, null, 'message');
+        assert.throws(fn, ReferenceError, 'foo', 'message');
+        assert.throws(fn, errorInstance, 'foo', 'message');
+        assert.throws(fn, ReferenceError, /foo/, 'message');
+        assert.throws(fn, errorInstance, /foo/, 'message');
     });
 
     test('doesNotThrow', () => {
-        assert.doesNotThrow(() => {
-        });
-        assert.doesNotThrow(() => {
-        }, 'foo');
+        const errorInstance = new ReferenceError('foo');
+        const fn = () => {
+            throw new Error('bar');
+        };
 
-        assert.doesNotThrow(() => {
-            throw new Error('foo');
-        });
+        assert.doesNotThrow(() => {});
+        assert.doesNotThrow(fn, 'foo');
+        assert.doesNotThrow(fn, /foo/);
+        assert.doesNotThrow(fn, ReferenceError);
+        assert.doesNotThrow(fn, errorInstance);
+        assert.doesNotThrow(fn, ReferenceError, 'foo');
+        assert.doesNotThrow(fn, errorInstance, 'foo');
+        assert.doesNotThrow(fn, ReferenceError, /foo/);
+        assert.doesNotThrow(fn, errorInstance, /foo/);
+
+        assert.doesNotThrow(fn, null, null, 'message');
+        assert.doesNotThrow(fn, 'foo', null, 'message');
+        assert.doesNotThrow(fn, /foo/, null, 'message');
+        assert.doesNotThrow(fn, ReferenceError, null, 'message');
+        assert.doesNotThrow(fn, errorInstance, null, 'message');
+        assert.doesNotThrow(fn, ReferenceError, 'foo', 'message');
+        assert.doesNotThrow(fn, errorInstance, 'foo', 'message');
+        assert.doesNotThrow(fn, ReferenceError, /foo/, 'message');
+        assert.doesNotThrow(fn, errorInstance, /foo/, 'message');
     });
 
     test('ifError', () => {

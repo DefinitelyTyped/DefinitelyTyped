@@ -17,6 +17,10 @@ new Onfleet('test-api-key', 20000);
 new Onfleet('test-api-key', 20000, bottleneckOptions);
 // with api key, timeout, bottleneck options, base URL
 new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com');
+// with api key, timeout, bottleneck options, base URL, default path
+new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com', '/api');
+// with api key, timeout, bottleneck options, base URL, default path, api version
+new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com', '/api', '/v5');
 
 onfleet.verifyKey().then().catch();
 
@@ -30,15 +34,46 @@ const testAddress = {
 
 async function testTasks(onfleet: Onfleet) {
     // test tasks.get
-    await onfleet.tasks.get('fake_task_id');
-    await onfleet.tasks.get({ from: 1455072025000 });
-    await onfleet.tasks.get({ from: 145507202500, lastId: 'fake_task_id' });
+    const task = await onfleet.tasks.get('fake_task_id');
+    // test tasks.get GetTaskResult props
+    task.estimatedCompletionTime;
+    task.eta;
+    task.trackingViewed;
+    task.completionDetails.notes;
+    task.completionDetails.success;
+    const result = await onfleet.tasks.get({ from: 1455072025000 });
+    for (const resultTask of result.tasks) {
+        resultTask.pickupTask;
+        resultTask.eta;
+    }
+    if (result.lastId) {
+        await onfleet.tasks.get({ from: 1455072025000, lastId: result.lastId });
+    }
     await onfleet.tasks.get('fake_task_id', 'shortId');
 
     // test tasks.create
     const dummyTask = await onfleet.tasks.create({
         recipients: ['fake_recipient_id'],
         destination: 'fake_destination_id',
+    });
+
+    // test tasks.batchCreate
+    const dummyTasks = await onfleet.tasks.batchCreate({
+        tasks: [
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+        ],
+    });
+
+    // test tasks.autoAssign
+    await onfleet.tasks.autoAssign({
+        tasks: dummyTasks.tasks.map(task => task.id),
     });
 
     const taskCreated = await onfleet.tasks.create({
@@ -100,7 +135,9 @@ async function testTasks(onfleet: Onfleet) {
     await onfleet.tasks.deleteOne(clonedDummyTask.id);
 
     // test tasks.forceComplete
-    await onfleet.tasks.forceComplete(dummyTask.id);
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: false } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true, notes: 'test note' } });
 
     // test tasks.matchMetadata
     await onfleet.tasks.matchMetadata([

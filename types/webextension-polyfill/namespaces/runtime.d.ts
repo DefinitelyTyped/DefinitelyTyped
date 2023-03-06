@@ -49,6 +49,13 @@ export namespace Runtime {
          * Optional.
          */
         sender?: MessageSender;
+
+        /**
+         * If the port was disconnected due to an error, this will be set to an object with a string property message,
+         * giving you more information about the error. See onDisconnect.
+         * Optional.
+         */
+        error?: PortErrorType;
     }
 
     /**
@@ -92,7 +99,7 @@ export namespace Runtime {
     /**
      * The machine's processor architecture.
      */
-    type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64";
+    type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64" | "noarch";
 
     /**
      * An object containing information about the current platform.
@@ -220,6 +227,14 @@ export namespace Runtime {
         message?: string;
     }
 
+    /**
+     * If the port was disconnected due to an error, this will be set to an object with a string property message,
+     * giving you more information about the error. See onDisconnect.
+     */
+    interface PortErrorType {
+        message: string;
+    }
+
     interface Static {
         /**
          * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app.
@@ -242,7 +257,7 @@ export namespace Runtime {
          *
          * @returns The manifest details.
          */
-        getManifest(): Manifest.ManifestBase;
+        getManifest(): Manifest.WebExtensionManifest;
 
         /**
          * Converts a relative path within an app/extension install directory to a fully-qualified URL.
@@ -251,6 +266,14 @@ export namespace Runtime {
          * @returns The fully-qualified URL to the resource.
          */
         getURL(path: string): string;
+
+        /**
+         * Get the frameId of any window global or frame element.
+         *
+         * @param target A WindowProxy or a Browsing Context container element (IFrame, Frame, Embed, Object) for the target frame.
+         * @returns The frameId of the target frame, or -1 if it doesn't exist.
+         */
+        getFrameId(target: any): number;
 
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics,
@@ -370,6 +393,19 @@ export namespace Runtime {
         onInstalled: Events.Event<(details: OnInstalledDetailsType) => void>;
 
         /**
+         * Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up.
+         * Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed
+         * to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent
+         * and the page won't be unloaded.
+         */
+        onSuspend: Events.Event<() => void>;
+
+        /**
+         * Sent after onSuspend to indicate that the app won't be unloaded after all.
+         */
+        onSuspendCanceled: Events.Event<() => void>;
+
+        /**
          * Fired when an update is available, but isn't installed immediately because the app is currently running.
          * If you do nothing, the update will be installed the next time the background page gets unloaded,
          * if you want it to be installed sooner you can explicitly call $(ref:runtime.reload).
@@ -402,16 +438,30 @@ export namespace Runtime {
          *
          * @param message Optional. The message sent by the calling script.
          * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessage: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessage: Events.Event<
+            (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
+        >;
 
         /**
          * Fired when a message is sent from another extension/app. Cannot be used in a content script.
          *
          * @param message Optional. The message sent by the calling script.
          * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessageExternal: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessageExternal: Events.Event<
+            (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
+        >;
 
         /**
          * This will be defined during an API method callback if there was an error

@@ -1,6 +1,6 @@
 // Type definitions for barbellweights 0.4
 // Project: https://github.com/toddhibbs/barbellweight#readme
-// Definitions by: evelijn <https://github.com/evelijn>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface options {

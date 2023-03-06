@@ -26,18 +26,15 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
-//                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
-//                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
@@ -358,7 +355,7 @@ export interface HostComponent<P> extends Pick<React.ComponentClass<P>, Exclude<
 
 // see react-jsx.d.ts
 export function createElement<P>(
-    type: React.ReactType,
+    type: React.ElementType,
     props?: P,
     ...children: React.ReactNode[]
 ): React.ReactElement<P>;
@@ -451,7 +448,7 @@ export interface PressableAndroidRippleConfig {
     radius?: null | number | undefined;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
      */
@@ -951,6 +948,11 @@ export interface TextPropsIOS {
 
 export interface TextPropsAndroid {
     /**
+     * Specifies the disabled state of the text view for testing purposes.
+     */
+    disabled?: boolean | undefined;
+
+    /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
     selectable?: boolean | undefined;
@@ -990,6 +992,8 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * The default is `true`.
      */
     allowFontScaling?: boolean | undefined;
+
+    children?: React.ReactNode;
 
     /**
      * This can be one of the following values:
@@ -1433,6 +1437,8 @@ export interface TextInputSelectionChangeEventData extends TargetedEvent {
  */
 export interface TextInputKeyPressEventData {
     key: string;
+    eventCount?: number | null | undefined;
+    target?: number | null | undefined;
 }
 
 /**
@@ -1770,152 +1776,6 @@ export class TextInput extends TextInputBase {
      */
     clear: () => void;
 }
-
-export type ToolbarAndroidAction = {
-    /**
-     *  title: required, the title of this action
-     */
-    title: string;
-
-    /**
-     * icon: the icon for this action, e.g. require('./some_icon.png')
-     */
-    icon?: ImageURISource | undefined;
-
-    /**
-     * show: when to show this action as an icon or hide it in the overflow menu: always, ifRoom or never
-     */
-    show?: 'always' | 'ifRoom' | 'never' | undefined;
-
-    /**
-     * showWithText: boolean, whether to show text alongside the icon or not
-     */
-    showWithText?: boolean | undefined;
-};
-
-export interface ToolbarAndroidProps extends ViewProps {
-    /**
-     * Sets possible actions on the toolbar as part of the action menu. These are displayed as icons
-     * or text on the right side of the widget. If they don't fit they are placed in an 'overflow'
-     * menu.
-     *
-     * This property takes an array of objects, where each object has the following keys:
-     *
-     * * `title`: **required**, the title of this action
-     * * `icon`: the icon for this action, e.g. `require('./some_icon.png')`
-     * * `show`: when to show this action as an icon or hide it in the overflow menu: `always`,
-     * `ifRoom` or `never`
-     * * `showWithText`: boolean, whether to show text alongside the icon or not
-     */
-    actions?: ToolbarAndroidAction[] | undefined;
-
-    /**
-     * Sets the content inset for the toolbar ending edge.
-     * The content inset affects the valid area for Toolbar content other
-     * than the navigation button and menu. Insets define the minimum
-     * margin for these components and can be used to effectively align
-     * Toolbar content along well-known gridlines.
-     */
-    contentInsetEnd?: number | undefined;
-
-    /**
-     * Sets the content inset for the toolbar starting edge.
-     * The content inset affects the valid area for Toolbar content
-     * other than the navigation button and menu. Insets define the
-     * minimum margin for these components and can be used to effectively
-     * align Toolbar content along well-known gridlines.
-     */
-    contentInsetStart?: number | undefined;
-
-    /**
-     * Sets the toolbar logo.
-     */
-    logo?: ImageURISource | undefined;
-
-    /**
-     * Sets the navigation icon.
-     */
-    navIcon?: ImageURISource | undefined;
-
-    /**
-     * Callback that is called when an action is selected. The only
-     * argument that is passed to the callback is the position of the
-     * action in the actions array.
-     */
-    onActionSelected?: ((position: number) => void) | undefined;
-
-    /**
-     * Callback called when the icon is selected.
-     */
-    onIconClicked?: (() => void) | undefined;
-
-    /**
-     * Sets the overflow icon.
-     */
-    overflowIcon?: ImageURISource | undefined;
-
-    /**
-     * Used to set the toolbar direction to RTL.
-     * In addition to this property you need to add
-     * android:supportsRtl="true"
-     * to your application AndroidManifest.xml and then call
-     * setLayoutDirection(LayoutDirection.RTL) in your MainActivity
-     * onCreate method.
-     */
-    rtl?: boolean | undefined;
-
-    /**
-     * Sets the toolbar subtitle.
-     */
-    subtitle?: string | undefined;
-
-    /**
-     * Sets the toolbar subtitle color.
-     */
-    subtitleColor?: ColorValue | undefined;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testID?: string | undefined;
-
-    /**
-     * Sets the toolbar title.
-     */
-    title?: string | undefined;
-
-    /**
-     * Sets the toolbar title color.
-     */
-    titleColor?: ColorValue | undefined;
-}
-
-/**
- * React component that wraps the Android-only [`Toolbar` widget][0]. A Toolbar can display a logo,
- * navigation icon (e.g. hamburger menu), a title & subtitle and a list of actions. The title and
- * subtitle are expanded so the logo and navigation icons are displayed on the left, title and
- * subtitle in the middle and the actions on the right.
- *
- * If the toolbar has an only child, it will be displayed between the title and actions.
- *
- * Although the Toolbar supports remote images for the logo, navigation and action icons, this
- * should only be used in DEV mode where `require('./some_icon.png')` translates into a packager
- * URL. In release mode you should always use a drawable resource for these icons. Using
- * `require('./some_icon.png')` will do this automatically for you, so as long as you don't
- * explicitly use e.g. `{uri: 'http://...'}`, you will be good.
- *
- * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
- */
-declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
-declare const ToolbarAndroidBase: Constructor<NativeMethods> & typeof ToolbarAndroidComponent;
-
-/**
- * ToolbarAndroid has been deprecated and removed from the package since React Native v0.61.0.
- * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
- * @see https://github.com/react-native-community/toolbar-android
- * @deprecated
- */
-export class ToolbarAndroid extends ToolbarAndroidBase {}
 
 /**
  * Gesture recognition on mobile devices is much more complicated than web.
@@ -2460,6 +2320,8 @@ export interface ViewProps
         GestureResponderHandlers,
         Touchable,
         AccessibilityProps {
+    children?: React.ReactNode;
+
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -2732,6 +2594,8 @@ export class InputAccessoryView extends React.Component<InputAccessoryViewProps>
 
 export interface InputAccessoryViewProps {
     backgroundColor?: ColorValue | undefined;
+
+    children?: React.ReactNode;
 
     /**
      * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
@@ -5163,7 +5027,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
      *
      * @platform android
      */
-    touchSoundDisabled?: boolean | null | undefined;
+    touchSoundDisabled?: boolean | undefined;
 }
 
 /**
@@ -5173,6 +5037,8 @@ export interface TouchableWithoutFeedbackProps
     extends TouchableWithoutFeedbackPropsIOS,
         TouchableWithoutFeedbackPropsAndroid,
         AccessibilityProps {
+    children?: React.ReactNode;
+
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -5191,7 +5057,7 @@ export interface TouchableWithoutFeedbackProps
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean | null | undefined;
+    disabled?: boolean | undefined;
 
     /**
      * This defines how far your touch can start away from the button.
@@ -7067,11 +6933,11 @@ export interface ActionSheetIOSOptions {
     title?: string | undefined;
     options: string[];
     cancelButtonIndex?: number | undefined;
-    destructiveButtonIndex?: number | undefined;
+    destructiveButtonIndex?: number | number[] | undefined | null;
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
-    userInterfaceStyle?: string | undefined;
+    userInterfaceStyle?: 'light' | 'dark' | undefined;
     disabledButtonIndices?: number[] | undefined;
 }
 
@@ -8579,9 +8445,11 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue | undefined;
 }
 
-export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean
+export interface SwitchChangeEventData extends TargetedEvent {
+  value: boolean;
 }
+
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**
@@ -9748,9 +9616,8 @@ export function unstable_enableLogBox(): void;
 /**
  * React Native also implements unstable_batchedUpdates
  */
-export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
-export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-export function unstable_batchedUpdates(callback: () => any): void;
+export function unstable_batchedUpdates<A, R>(callback: (a: A) => R, a: A): R;
+export function unstable_batchedUpdates<R>(callback: () => R): R;
 
 //////////////////////////////////////////////////////////////////////////
 //

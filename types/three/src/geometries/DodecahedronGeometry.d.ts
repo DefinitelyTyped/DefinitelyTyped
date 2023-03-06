@@ -14,5 +14,3 @@ export class DodecahedronGeometry extends PolyhedronGeometry {
 
     static fromJSON(data: any): DodecahedronGeometry;
 }
-
-export { DodecahedronGeometry as DodecahedronBufferGeometry };

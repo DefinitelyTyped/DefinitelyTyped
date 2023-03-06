@@ -9,12 +9,12 @@ const camera = new THREE.PerspectiveCamera(50, 2, 0.1, 10);
 const scene = new THREE.Scene();
 
 const vrButton = document.createElement('button');
-let currentSession: THREE.XRSession | null = null;
+let currentSession: XRSession | null = null;
 let mesh: THREE.Mesh;
 
 init();
 
-async function onSessionStarted(session: THREE.XRSession): Promise<void> {
+async function onSessionStarted(session: XRSession): Promise<void> {
     session.addEventListener('end', onSessionEnded);
 
     await renderer.xr.setSession(session);
@@ -23,23 +23,23 @@ async function onSessionStarted(session: THREE.XRSession): Promise<void> {
     currentSession = session;
 }
 
-function onSessionEnded(): void {
+async function onSessionEnded(): Promise<void> {
     if (currentSession == null) {
         return;
     }
 
     currentSession.removeEventListener('end', onSessionEnded);
+    await renderer.xr.setSession(null);
     vrButton.innerText = 'Enter VR';
 
     currentSession = null;
 }
 
-async function checkVRSupport(): Promise<THREE.XR | null> {
-    if ('xr' in navigator) {
-        const xr: THREE.XR = (navigator as any).xr;
-        const isSupported = await xr.isSessionSupported('immersive-vr').catch(() => false);
+async function checkVRSupport(): Promise<XRSystem | null> {
+    if ('xr' in navigator && navigator.xr) {
+        const isSupported = await navigator.xr.isSessionSupported('immersive-vr').catch(() => false);
         if (isSupported) {
-            return xr;
+            return navigator.xr;
         } else {
             return null;
         }

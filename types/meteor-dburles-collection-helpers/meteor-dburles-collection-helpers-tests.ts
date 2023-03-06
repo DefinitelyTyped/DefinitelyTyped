@@ -62,7 +62,7 @@ Books.helpers({
     },
     foo: 'bar',
 });
-// $ExpectError
+// @ts-expect-error
 Books.helpers({
     author() {
         return Authors.findOne(this.authorId);
@@ -109,9 +109,9 @@ interface OptionalHelpers {
 
 const optionalHelpers = new Mongo.Collection<OptionalHelpers>('optionalHelpers');
 // optional helpers still have to be provided when calling helpers
-// $ExpectError
+// @ts-expect-error
 optionalHelpers.helpers({});
-// $ExpectError
+// @ts-expect-error
 optionalHelpers.helpers({
     increment() {
         this.value++;
@@ -135,7 +135,7 @@ optionalHelpers.find(optionalHelper1).fetch()[0].increment();
 
 const foundOptionalHelpers1: OptionalHelpers = optionalHelpers.findOne(optionalHelper1)!;
 // however, variables of the interface type will be missing their helpers unless declared as Full<T>
-// $ExpectError
+// @ts-expect-error
 foundOptionalHelpers1.increment();
 
 // you can do this, but it's kinda ugly imo
@@ -258,7 +258,7 @@ complicatedMembers.helpers({
     helperMethodOrString: () => "method",
 });
 
-// $ExpectError
+// @ts-expect-error
 complicatedMembers.helpers({
     helperUnion: 3,
     helperNumber: 5,
@@ -269,7 +269,7 @@ complicatedMembers.helpers({
     helperMethodOrString: () => "method",
 });
 
-// $ExpectError
+// @ts-expect-error
 complicatedMembers.helpers({
     methodUnion: () => true,
     helperNumber: 5,
@@ -280,7 +280,7 @@ complicatedMembers.helpers({
     helperMethodOrString: () => "method",
 });
 
-// $ExpectError
+// @ts-expect-error
 complicatedMembers.helpers({
     methodUnion: () => true,
     helperUnion: 3,
@@ -291,7 +291,7 @@ complicatedMembers.helpers({
     helperMethodOrString: () => "method",
 });
 
-// $ExpectError
+// @ts-expect-error
 complicatedMembers.helpers({
     methodUnion: () => true,
     helperUnion: 3,
@@ -302,7 +302,7 @@ complicatedMembers.helpers({
     helperMethodOrString: () => "method",
 });
 
-// $ExpectError
+// @ts-expect-error
 complicatedMembers.helpers({
     methodUnion: () => true,
     helperUnion: 3,
@@ -313,7 +313,7 @@ complicatedMembers.helpers({
     helperMethodOrString: () => "method",
 });
 
-// $ExpectError
+// @ts-expect-error
 complicatedMembers.helpers({
     methodUnion: () => true,
     helperUnion: 3,
@@ -324,7 +324,7 @@ complicatedMembers.helpers({
     helperMethodOrString: () => "method",
 });
 
-// $ExpectError
+// @ts-expect-error
 complicatedMembers.helpers({
     methodUnion: () => true,
     helperUnion: 3,
@@ -335,7 +335,7 @@ complicatedMembers.helpers({
     helperMethodOrString: () => "method",
 });
 
-// $ExpectError
+// @ts-expect-error
 complicatedMembers.helpers({
     methodUnion: () => true,
     helperUnion: 3,
@@ -437,7 +437,7 @@ const aohInstance = actuallyOptionalHelpers.findOne(aohId)!;
 // since they don't have to be provided, users of an item with optional helpers aren't promised those helpers will be present
 let aohName: string | undefined = aohInstance.optionalHelperName;
 const aohValue: number | undefined = aohInstance.optionalHelperValue;
-// $ExpectError
+// @ts-expect-error
 aohInstance.getValue();
 
 // asserting their existence works

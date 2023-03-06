@@ -1,7 +1,6 @@
 // Type definitions for react-native-side-menu 1.1
 // Project: https://github.com/react-native-community/react-native-side-menu#readme
 // Definitions by: Jules Samuel Randolph <https://github.com/jsamr>
-//                 Matt Pawley <https://github.com/toughdeveloper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ReactNode, Component } from 'react';

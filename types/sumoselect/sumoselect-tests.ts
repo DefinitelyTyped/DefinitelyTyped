@@ -24,6 +24,8 @@ $('.SlectBox').SumoSelect({
     locale: ['OK', 'Cancel', 'Select All'],
     up: false,
     showTitle: true,
+    max: null,
+    renderLi: (li, originalOption) => li,
 });
 
 // events
@@ -39,6 +41,8 @@ $('select.SlectBox')[0].sumo.add('india', 3);
 $('select.SlectBox')[0].sumo.add('india', 'Indian');
 $('select.SlectBox')[0].sumo.add('india', 'Indian', 0);
 $('select.SlectBox')[0].sumo.remove(2);
+$('select.SlectBox')[0].sumo.removeAll();
+$('select.SlectBox')[0].sumo.find('india');
 $('select.SlectBox')[0].sumo.selectItem(2);
 $('select.SlectBox')[0].sumo.selectItem('volo');
 $('select.SlectBox')[0].sumo.unSelectItem(2);

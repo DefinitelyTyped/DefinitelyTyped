@@ -1,0 +1,51 @@
+name: Update support window diagram
+on:
+  # When our dependencies change
+  push:
+    paths:
+      - .github/workflows/support-window.yml
+      - package.json
+      - scripts/support-window.js
+      - scripts/jsconfig.json
+  # Manually, when TypeScript is released
+  # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  support-window:
+    permissions:
+      contents: write  # for Git to git push
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        #with:
+        #  cache: npm
+      - run: npm install
+      - name: Fetch TypeScript versions and release dates from npm
+        run: |
+          npm view --json typescript time |
+            jq '
+              to_entries
+              # Earliest non-pre-release <major>.<minor>
+              | map(
+                (.key |= capture("^(?<version>[0-9]+\\.[0-9]+)\\.[0-9]+$").version)
+                | select(.key)
+              )
+              | unique_by(.key)
+              | from_entries
+            ' > docs/support-window.json
+      - name: Make SVG diagram
+        run: node --experimental-json-modules scripts/support-window > docs/support-window.svg
+      - run: git add docs/support-window.json docs/support-window.svg
+      - run: git config user.name .github/workflows/support-window.yml
+      - run: git config user.email bot@typescriptlang.org
+      - run: |
+          git diff --quiet --cached ||
+          git commit \
+            --message "[README] 🤖 Update support window diagram" \
+            --message "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+      - run: git push

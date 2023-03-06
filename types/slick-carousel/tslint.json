@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "no-boolean-literal-compare": false,
         "no-irregular-whitespace": false,
         "no-padding": false,

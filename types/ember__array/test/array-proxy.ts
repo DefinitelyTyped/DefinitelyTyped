@@ -12,8 +12,8 @@ proxy.get('firstObject'); // 'amoeba'
 
 const overridden = ArrayProxy.create({
     content: A(pets),
-    objectAtContent(idx: number): string {
-        return this.get('content').objectAt(idx)!.toUpperCase();
+    objectAtContent(idx: number): string | undefined {
+        return this.get('content').objectAt(idx)?.toUpperCase();
     },
 });
 

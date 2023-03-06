@@ -3,7 +3,6 @@
 // Definitions by: Elias Meire <https://github.com/elsmr>
 //                 AppLover69 <https://github.com/AppLover69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
 
 interface MediaRecorderErrorEventInit extends EventInit {
     error: DOMException;
@@ -15,7 +14,7 @@ interface MediaRecorderErrorEvent extends Event {
 
 declare var MediaRecorderErrorEvent: {
     prototype: MediaRecorderErrorEvent;
-    new(type: string, eventInitDict: MediaRecorderErrorEventInit): MediaRecorderErrorEvent;
+    new (type: string, eventInitDict: MediaRecorderErrorEventInit): MediaRecorderErrorEvent;
 };
 
 interface BlobEventInit extends EventInit {
@@ -30,7 +29,7 @@ interface BlobEvent extends Event {
 
 declare var BlobEvent: {
     prototype: BlobEvent;
-    new(type: string, eventInitDict: BlobEventInit): BlobEvent;
+    new (type: string, eventInitDict: BlobEventInit): BlobEvent;
 };
 
 type BitrateMode = 'vbr' | 'cbr';
@@ -44,12 +43,12 @@ interface MediaRecorderOptions {
 }
 
 interface MediaRecorderEventMap {
-    "dataavailable": BlobEvent;
-    "error": Event;
-    "pause": Event;
-    "resume": Event;
-    "start": Event;
-    "stop": Event;
+    dataavailable: BlobEvent;
+    error: Event;
+    pause: Event;
+    resume: Event;
+    start: Event;
+    stop: Event;
 }
 
 interface MediaRecorder extends EventTarget {
@@ -67,10 +66,26 @@ interface MediaRecorder extends EventTarget {
     onstart: ((this: MediaRecorder, event: Event) => any) | null;
     onstop: ((this: MediaRecorder, event: Event) => any) | null;
 
-    addEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof MediaRecorderEventMap>(
+        type: K,
+        listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof MediaRecorderEventMap>(
+        type: K,
+        listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 
     start(timeslice?: number): void;
     stop(): void;
@@ -81,7 +96,7 @@ interface MediaRecorder extends EventTarget {
 
 declare var MediaRecorder: {
     prototype: MediaRecorder;
-    new(stream: MediaStream, options?: MediaRecorderOptions): MediaRecorder;
+    new (stream: MediaStream, options?: MediaRecorderOptions): MediaRecorder;
     isTypeSupported(type: string): boolean;
 };
 

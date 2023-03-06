@@ -68,8 +68,19 @@ const images: Carousel.Images = [
     }
 />;
 
+// Should allow thumbnails
+<Carousel
+    thumbnails={
+        <ul>
+            <li>thumb</li>
+        </ul>
+    }
+>
+    <></>
+</Carousel>;
+
 // Carousel without the images props should be an error
-// $ExpectError
+// @ts-expect-error
 <Carousel />;
 
 // Carousel without images but with children should work normally
@@ -78,14 +89,42 @@ const images: Carousel.Images = [
 </Carousel>;
 
 // Image object without the required src should be an error
-// $ExpectError
+// @ts-expect-error
 <Carousel images={[{ alt: 'alt description' }]} />;
 
-// Test carouselRef methods
+// Should support new params on the onIndexChange callback
+<Carousel
+    onIndexChange={({ curIndex, curIndexForDisplay }) => {
+        console.log(curIndex, curIndexForDisplay);
+    }}
+>
+    <></>
+</Carousel>;
+
+// Test using the carousel with imperative handlers
+// https://github.com/yifaneye/react-gallery-carousel#handlers
 const carouselRef = React.useRef<Carousel.CarouselRef<HTMLDivElement>>(null);
 
 <Carousel ref={carouselRef} images={images} />;
 
 carouselRef.current?.play();
+carouselRef.current?.pause();
+carouselRef.current?.toggleIsPlaying();
+carouselRef.current?.maximize();
 carouselRef.current?.minimize();
+carouselRef.current?.toggleIsMaximized();
+carouselRef.current?.goLeft();
+carouselRef.current?.goRight();
 carouselRef.current?.goToIndex(2);
+
+// Test small and large widget positions
+<Carousel
+    minIcon={<i></i>}
+    maxIcon={<i></i>}
+    hasLeftButton="bottomRight"
+    hasRightButton="bottomRight"
+    hasCaptions="bottom"
+    hasDotButtons="top"
+>
+    <></>
+</Carousel>;

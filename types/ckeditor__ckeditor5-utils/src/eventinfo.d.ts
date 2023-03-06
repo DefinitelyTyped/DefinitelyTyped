@@ -1,10 +1,10 @@
-import { Emitter } from "./emittermixin";
+import { Emitter } from './emittermixin';
 
 /**
  * The event object passed to event callbacks. It is used to provide information about the event as well as a tool to
  * manipulate it.
  */
-export default class EventInfo<S extends Emitter = Emitter, N extends string = ""> {
+export default class EventInfo<S extends Emitter | Node | Window = Emitter, N extends string = string> {
     constructor(source: S, name: N);
     /**
      * The object that fired the event.

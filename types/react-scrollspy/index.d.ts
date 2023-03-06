@@ -7,6 +7,8 @@
 import * as React from 'react';
 
 export interface ScrollspyProps {
+    children?: React.ReactNode;
+
     // Array of target element IDs
     items: ReadonlyArray<string>;
 

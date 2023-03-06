@@ -44,7 +44,8 @@ const implicitLog = Roarr.child((message) => {
     message;                    // $Expect MessageType
     message.message = message.message.replace("foo", "bar");
     message.context["new key"] = "new value";
-    message.context.logLevel = "50"; // $ExpectError
+    // @ts-expect-error
+    message.context.logLevel = "50";
 
     return message;
 });

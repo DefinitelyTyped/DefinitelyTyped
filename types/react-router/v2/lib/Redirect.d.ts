@@ -7,7 +7,9 @@ type self = typeof self;
 export default self;
 
 declare namespace self {
-    interface RedirectProps extends React.Props<Redirect> {
+    interface RedirectProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Redirect> | undefined;
         path?: Router.RoutePattern | undefined;
         from?: Router.RoutePattern | undefined; // alias for path
         to: Router.RoutePattern;

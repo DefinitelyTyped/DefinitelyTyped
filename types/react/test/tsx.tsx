@@ -13,15 +13,9 @@ FunctionComponent.defaultProps = {
 };
 <FunctionComponent />;
 <slot name="slot1"></slot>;
-
-const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
-    return <div>{foo}{children}</div>;
-};
-FunctionComponent2.displayName = "FunctionComponent4";
-FunctionComponent2.defaultProps = {
-    foo: 42
-};
-<FunctionComponent2>24</FunctionComponent2>;
+// `FunctionComponent` has no `children`
+// @ts-expect-error
+<FunctionComponent>24</FunctionComponent>;
 
 const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
@@ -32,7 +26,7 @@ VoidFunctionComponent.defaultProps = {
 };
 <VoidFunctionComponent />;
 
-// $ExpectError
+// @ts-expect-error
 const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
 };
@@ -40,7 +34,53 @@ VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
 VoidFunctionComponent2.defaultProps = {
     foo: 42
 };
-<VoidFunctionComponent2>24</VoidFunctionComponent2>; // $ExpectError
+// @ts-expect-error
+<VoidFunctionComponent2>24</VoidFunctionComponent2>;
+
+const ComponentWithChildren1: React.FunctionComponent<React.PropsWithChildren> = ({children}) => {
+    return <div>{children}</div>;
+};
+<ComponentWithChildren1></ComponentWithChildren1>;
+// @ts-expect-error
+<ComponentWithChildren1 foo={42}></ComponentWithChildren1>;
+// @ts-expect-error
+<ComponentWithChildren1 foo="42"></ComponentWithChildren1>;
+// @ts-expect-error
+<ComponentWithChildren1 bar={42}></ComponentWithChildren1>;
+// @ts-expect-error
+<ComponentWithChildren1 bar="42"></ComponentWithChildren1>;
+
+interface ComponentWithChildren2Props {
+    foo?: number | undefined;
+}
+const ComponentWithChildren2: React.FunctionComponent<React.PropsWithChildren<ComponentWithChildren2Props>> = ({children}) => {
+    return <div>{children}</div>;
+};
+<ComponentWithChildren2></ComponentWithChildren2>;
+<ComponentWithChildren2 foo={42}></ComponentWithChildren2>;
+// @ts-expect-error
+<ComponentWithChildren2 foo="42"></ComponentWithChildren2>;
+// @ts-expect-error
+<ComponentWithChildren2 bar={42}></ComponentWithChildren2>;
+// @ts-expect-error
+<ComponentWithChildren2 bar="42"></ComponentWithChildren2>;
+
+interface ComponentWithChildren3Props {
+    foo?: number | undefined;
+    bar: number;
+}
+const ComponentWithChildren3: React.FunctionComponent<React.PropsWithChildren<ComponentWithChildren3Props>> = ({children}) => {
+    return <div>{children}</div>;
+};
+// @ts-expect-error
+<ComponentWithChildren3></ComponentWithChildren3>;
+// @ts-expect-error
+<ComponentWithChildren3 foo={42}></ComponentWithChildren3>;
+// @ts-expect-error
+<ComponentWithChildren3 foo="42"></ComponentWithChildren3>;
+<ComponentWithChildren3 bar={42}></ComponentWithChildren3>;
+// @ts-expect-error
+<ComponentWithChildren3 bar="42"></ComponentWithChildren3>;
 
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
@@ -82,8 +122,10 @@ VoidFunctionComponent2.defaultProps = {
 <button type="submit">foo</button>;
 <button type="reset">foo</button>;
 <button type="button">foo</button>;
-<button type="botton">foo</button>; // $ExpectError
-<button type={"botton" as string}>foo</button>; // $ExpectError
+// @ts-expect-error
+<button type="botton">foo</button>;
+// @ts-expect-error
+<button type={"botton" as string}>foo</button>;
 
 interface Props {
     hello: string;
@@ -112,9 +154,9 @@ const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
 const ContextWithRenderProps = React.createContext('defaultValue');
 
 // unstable APIs should not be part of the typings
-// $ExpectError
+// @ts-expect-error
 const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
-// $ExpectError
+// @ts-expect-error
 <ContextWithRenderProps.Consumer unstable_observedBits={4}>
     {(value: unknown) => null}
 </ContextWithRenderProps.Consumer>;
@@ -143,19 +185,25 @@ const ContextUsingUnstableObservedBits = React.createContext(undefined, (previou
 // Below tests that setState() works properly for both regular and callback modes
 class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
     handleSomething = () => {
-      this.setState({ foo: '' }); // $ExpectError
+      // @ts-expect-error
+      this.setState({ foo: '' });
       this.setState({ foo: true });
       this.setState({ foo: true, bar: true });
       this.setState({});
       this.setState(null);
-      this.setState({ foo: true, foo2: true }); // $ExpectError
-      this.setState(() => ({ foo: '' })); // $ExpectError
+      // @ts-expect-error
+      this.setState({ foo: true, foo2: true });
+      // @ts-expect-error
+      this.setState(() => ({ foo: '' }));
       this.setState(() => ({ foo: true }));
       this.setState(() => ({ foo: true, bar: true }));
-      this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
-      this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
+      // @ts-expect-error
+      this.setState(() => ({ foo: true, foo2: true }));
+      // @ts-expect-error
+      this.setState(() => ({ foo: '', foo2: true }));
       this.setState(() => ({ })); // ok!
-      this.setState({ foo: true, bar: undefined}); // $ExpectError
+      // @ts-expect-error
+      this.setState({ foo: true, bar: undefined});
       this.setState(prevState => (prevState.bar ? { bar: false } : null));
     }
 }
@@ -232,10 +280,12 @@ class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', st
 const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
 
 const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
-componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
+// @ts-expect-error
+componentWithBadLifecycle.getSnapshotBeforeUpdate = () => {
     return 'number';
 };
-componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
+// @ts-expect-error
+componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => {
     return;
 };
 
@@ -256,15 +306,15 @@ const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDiv
 <Memoized4 ref={memoized4Ref}/>;
 
 const Memoized5 = React.memo<{ test: boolean }>(
-    prop => <>{prop.test && prop.children}</>,
-    (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test
+    prop => <>{prop.test}</>,
+    (prevProps, nextProps) => nextProps.test === prevProps.test
 );
 
 <Memoized5 test/>;
 
 const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 <Memoized6/>;
-// $ExpectError
+// @ts-expect-error
 <Memoized6 foo/>;
 
 // NOTE: this test _requires_ TypeScript 3.1
@@ -291,20 +341,19 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 </React.Suspense>;
 
 <React.Suspense fallback={null}/>;
-// $ExpectError
 <React.Suspense/>;
 
 // unstable API should not be part of the typings
-// $ExpectError
+// @ts-expect-error
 <React.Suspense fallback={null} unstable_avoidThisFallback />;
 
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
 
     render() {
-        // $ExpectType any
-        this.context.foo;
-        return this.context.foo;
+        // $ExpectType unknown
+        this.context;
+        return (this.context as any).foo;
     }
 }
 
@@ -337,10 +386,25 @@ const divRef = React.createRef<HTMLDivElement>();
 
 <ForwardRef ref={divFnRef}/>;
 <ForwardRef ref={divRef}/>;
-<ForwardRef ref='string'/>; // $ExpectError
+// @ts-expect-error
+<ForwardRef ref='string'/>;
 <ForwardRef2 ref={divFnRef}/>;
 <ForwardRef2 ref={divRef}/>;
-<ForwardRef2 ref='string'/>; // $ExpectError
+// @ts-expect-error
+<ForwardRef2 ref='string'/>;
+
+const htmlElementFnRef = (instance: HTMLElement | null) => {};
+const htmlElementRef = React.createRef<HTMLElement>();
+<div ref={htmlElementFnRef} />;
+<div ref={htmlElementRef} />;
+// `current` is nullable
+const unsoundDivFnRef = (current: HTMLDivElement) => {};
+declare const unsoundDivObjectRef: { current: HTMLDivElement };
+// `current` is nullable but type-checks
+// this is consistent with ref objects
+// If this ever not type-checks, `<div ref={unsoundDivObjectRef}` should also fail type-checking
+<div ref={unsoundDivFnRef} />;
+<div ref={unsoundDivObjectRef} />;
 
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef}/>;
@@ -348,7 +412,8 @@ const newContextRef = React.createRef<NewContext>();
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref}/>);
 <ForwardNewContext ref={newContextRef}/>;
-<ForwardNewContext ref='string'/>; // $ExpectError
+// @ts-expect-error
+<ForwardNewContext ref='string'/>;
 
 const ForwardRef3 = React.forwardRef(
     (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} | undefined }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
@@ -361,11 +426,14 @@ const ForwardRef3 = React.forwardRef(
 const { Profiler } = React;
 
 // 'id' is missing
-<Profiler />; // $ExpectError
+// @ts-expect-error
+<Profiler />;
 // 'onRender' is missing
-<Profiler id="test" />; // $ExpectError
+// @ts-expect-error
+<Profiler id="test" />;
 // 'number' is not assignable to 'string'
-<Profiler id={2} />; // $ExpectError
+// @ts-expect-error
+<Profiler id={2} />;
 
 <Profiler
   id="test"
@@ -402,9 +470,9 @@ imgProps.decoding = 'auto';
 imgProps.decoding = 'sync';
 imgProps.loading = 'eager';
 imgProps.loading = 'lazy';
-// $ExpectError
+// @ts-expect-error
 imgProps.loading = 'nonsense';
-// $ExpectError
+// @ts-expect-error
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
 // $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
@@ -413,14 +481,18 @@ type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
 type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
 
-const HasClassName: React.ReactType<{ className?: string | undefined }> = 'a';
-const HasFoo: React.ReactType<{ foo: boolean }> = 'a'; // $ExpectError
-const HasFoo2: React.ReactType<{ foo: boolean }> = (props: { foo: boolean }) => null;
-const HasFoo3: React.ReactType<{ foo: boolean }> = (props: { foo: string }) => null; // $ExpectError
-const HasHref: React.ReactType<{ href?: string | undefined }> = 'a';
-const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div'; // $ExpectError
+const HasClassName: React.ElementType<{ className?: string | undefined }> = 'a';
+// @ts-expect-error
+const HasFoo: React.ElementType<{ foo: boolean }> = 'a';
+const HasFoo2: React.ElementType<{ foo: boolean }> = (props: { foo: boolean }) => null;
+// @ts-expect-error
+const HasFoo3: React.ElementType<{ foo: boolean }> = (props: { foo: string }) => null;
+const HasHref: React.ElementType<{ href?: string | undefined }> = 'a';
+// @ts-expect-error
+const HasHref2: React.ElementType<{ href?: string | undefined }> = 'div';
 
-const CustomElement: React.ReactType = 'my-undeclared-element'; // $ExpectError
+// @ts-expect-error
+const CustomElement: React.ElementType = 'my-undeclared-element';
 
 // custom elements now need to be declared as intrinsic elements
 declare global {
@@ -431,7 +503,7 @@ declare global {
     }
 }
 
-const CustomElement2: React.ReactType = 'my-declared-element';
+const CustomElement2: React.ElementType = 'my-declared-element';
 
 interface TestPropTypesProps {
     foo: string;
@@ -491,4 +563,161 @@ function Example() {
         <CustomSelectOption value="two">Two</CustomSelectOption>
         </CustomSelect>
     );
+}
+
+function reactNodeTests() {
+    function *createChildren() {
+        yield <div key="one">one</div>;
+        yield <div key="two">two</div>;
+    }
+
+    <div>{Object.freeze([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    <div>{new Set([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    // TODO: This warns at runtime so we should probably reject it as well
+    <div>
+        {
+            new Map([
+                ['one', <div key="one">one</div>],
+                ['two', <div key="two">two</div>],
+            ])
+        }
+    </div>;
+    <div>{createChildren()}</div>;
+}
+
+function elementTypeTests() {
+    const ReturnVoid = () => {};
+    class RenderVoid extends React.Component {
+        // @ts-expect-error
+        render() {}
+    }
+
+    const ReturnUndefined = () => undefined;
+    class RenderUndefined extends React.Component {
+        render() {
+          return undefined;
+        }
+    }
+
+    const ReturnNull = () => null;
+    class RenderNull extends React.Component {
+        render() {
+          return null;
+        }
+    }
+
+    const ReturnNumber = () => 0xeac1;
+    class RenderNumber extends React.Component {
+        render() {
+          return 0xeac1;
+        }
+    }
+
+    const ReturnString = () => 'Hello, Dave!';
+    class RenderString extends React.Component {
+        render() {
+          return 'Hello, Dave!';
+        }
+    }
+
+    const ReturnSymbol = () => Symbol.for('react');
+    class RenderSymbol extends React.Component {
+        // @ts-expect-error
+        render() {
+          return Symbol.for('react');
+        }
+    }
+
+    const ReturnArray = () => [<div key="one" />];
+    class RenderArray extends React.Component {
+        render() {
+          return [<div key="one" />];
+        }
+    }
+
+    const ReturnElement = () => <div />;
+    class RenderElement extends React.Component {
+        render() {
+          return <div />;
+        }
+    }
+
+    const ReturnReactNode = ({children}: {children?: React.ReactNode}) => children;
+    class RenderReactNode extends React.Component<{children?: React.ReactNode}> {
+        render() {
+          return this.props.children;
+        }
+    }
+
+    // Desired behavior.
+    // @ts-expect-error
+    <ReturnVoid />;
+    // @ts-expect-error
+    React.createElement(ReturnVoid);
+    // @ts-expect-error
+    <RenderVoid />;
+    // @ts-expect-error
+    React.createElement(RenderVoid);
+
+    // Undesired behavior. Returning `undefined` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnUndefined />;
+    // @ts-expect-error
+    React.createElement(ReturnUndefined);
+    <RenderUndefined />;
+    React.createElement(RenderUndefined);
+
+    // Desired behavior.
+    <ReturnNull />;
+    React.createElement(ReturnNull);
+    <RenderNull />;
+    React.createElement(RenderNull);
+
+    // Undesired behavior. Returning `number` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnNumber />;
+    // @ts-expect-error
+    React.createElement(ReturnNumber);
+    <RenderNumber />;
+    React.createElement(RenderNumber);
+
+    // Undesired behavior. Returning `string` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnString />;
+    // @ts-expect-error
+    React.createElement(ReturnString);
+    <RenderString />;
+    React.createElement(RenderString);
+
+    // Desired behavior.
+    // @ts-expect-error
+    <ReturnSymbol />;
+    // @ts-expect-error
+    React.createElement(ReturnSymbol);
+    // @ts-expect-error
+    <RenderSymbol />;
+    // @ts-expect-error
+    React.createElement(RenderSymbol);
+
+    // Undesired behavior. Returning `Array` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnArray />;
+    // @ts-expect-error
+    React.createElement(ReturnArray);
+    <RenderArray />;
+    React.createElement(RenderArray);
+
+    // Desired behavior.
+    <ReturnElement />;
+    React.createElement(ReturnElement);
+    <RenderElement />;
+    React.createElement(RenderElement);
+
+    // Undesired behavior. Returning `ReactNode` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnReactNode />;
+    // @ts-expect-error
+    React.createElement(ReturnReactNode);
+    <RenderReactNode />;
+    React.createElement(RenderReactNode);
 }

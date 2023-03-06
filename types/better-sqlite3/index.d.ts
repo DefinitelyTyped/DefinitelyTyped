@@ -1,13 +1,16 @@
-// Type definitions for better-sqlite3 7.4
-// Project: http://github.com/JoshuaWise/better-sqlite3
+// Type definitions for better-sqlite3 7.6
+// Project: https://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
 //                 Santiago Aguilar <https://github.com/sant123>
 //                 Alessandro Vergani <https://github.com/loghorn>
 //                 Andrew Kaiser <https://github.com/andykais>
 //                 Mark Stewart <https://github.com/mrkstwrt>
+//                 Florian Stamer <https://github.com/stamerf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
+
+/// <reference types="node" />
 
 type VariableArgFunction = (...params: any[]) => any;
 type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
@@ -17,6 +20,8 @@ declare namespace BetterSqlite3 {
         database: Database;
         source: string;
         reader: boolean;
+        readonly: boolean;
+        busy: boolean;
 
         run(...params: BindParameters): Database.RunResult;
         get(...params: BindParameters): any;
@@ -76,10 +81,11 @@ declare namespace BetterSqlite3 {
         backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
         table(name: string, options: VirtualTableOptions): this;
         unsafeMode(unsafe?: boolean): this;
+        serialize(options?: Database.SerializeOptions): Buffer;
     }
 
     interface DatabaseConstructor {
-        new (filename: string, options?: Database.Options): Database;
+        new (filename: string | Buffer, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 
@@ -87,7 +93,7 @@ declare namespace BetterSqlite3 {
     }
 }
 
-declare class SqliteError implements Error {
+declare class SqliteError extends Error {
     name: string;
     message: string;
     code: string;
@@ -105,6 +111,11 @@ declare namespace Database {
         fileMustExist?: boolean | undefined;
         timeout?: number | undefined;
         verbose?: ((message?: any, ...additionalArgs: any[]) => void) | undefined;
+        nativeBinding?: string | undefined;
+    }
+
+    interface SerializeOptions {
+        attached?: string;
     }
 
     interface PragmaOptions {
@@ -115,6 +126,7 @@ declare namespace Database {
         varargs?: boolean | undefined;
         deterministic?: boolean | undefined;
         safeIntegers?: boolean | undefined;
+        directOnly?: boolean | undefined;
     }
 
     interface AggregateOptions extends RegistrationOptions {
@@ -137,7 +149,7 @@ declare namespace Database {
         ? BetterSqlite3.Statement<BindParameters>
         : BetterSqlite3.Statement<[BindParameters]>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
-    type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
+    type Transaction<T extends VariableArgFunction = VariableArgFunction> = BetterSqlite3.Transaction<T>;
     type Database = BetterSqlite3.Database;
 }
 

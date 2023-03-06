@@ -1,17 +1,3 @@
-import { FocusTracker } from "@ckeditor/ckeditor5-utils";
-import View from "../view";
+import InputView from '../input/inputview';
 
-export default class InputTextView extends View {
-    ariaDescribedById: string;
-    readonly focusTracker: FocusTracker;
-    hasError: boolean;
-    id: string;
-    readonly isEmpty: boolean;
-    readonly isFocused: boolean;
-    isReadOnly: boolean;
-    placeholder: string;
-    value: string;
-
-    focus(): void;
-    select(): void;
-}
+export default class InputTextView extends InputView {}

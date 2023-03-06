@@ -1,7 +1,6 @@
 // Type definitions for react-slick 0.23
 // Project: https://github.com/akiran/react-slick
-// Definitions by: Andrey Balokha <https://github.com/andrewBalekha>
-//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Shannor Trotty <https://github.com/Shannor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +10,7 @@ import * as React from "react";
 
 type ComponentConstructor<TProps> =
     | React.ComponentClass<TProps>
-    | React.StatelessComponent<TProps>;
+    | React.FunctionComponent<TProps>;
 
 export interface CustomArrowProps {
     className?: string | undefined;
@@ -26,9 +25,13 @@ export interface ResponsiveObject {
     settings: "unslick" | Settings;
 }
 
+export interface InnerSlider {
+    list?: HTMLDivElement;
+}
+
 export type SwipeDirection = "left" | "down" | "right" | "up" | string;
 
-export type LazyLoadTypes = "ondemand" | "progressive";
+export type LazyLoadTypes = "ondemand" | "progressive" | "anticipated";
 
 export interface Settings {
     accessibility?: boolean | undefined;
@@ -42,6 +45,7 @@ export interface Settings {
     beforeChange?(currentSlide: number, nextSlide: number): void;
     centerMode?: boolean | undefined;
     centerPadding?: string | undefined;
+    children?: React.ReactNode;
     className?: string | undefined;
     cssEase?: string | undefined;
     customPaging?(index: number): JSX.Element;
@@ -87,6 +91,7 @@ export interface Settings {
 }
 
 declare class Slider extends React.Component<Settings, never> {
+    innerSlider?: InnerSlider | undefined;
     slickNext(): void;
     slickPause(): void;
     slickPlay(): void;

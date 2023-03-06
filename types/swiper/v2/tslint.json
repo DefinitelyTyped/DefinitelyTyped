@@ -1,8 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "no-single-declare-module": false,
-        "prefer-template": false
-    }
-}

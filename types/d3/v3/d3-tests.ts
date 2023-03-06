@@ -2726,7 +2726,7 @@ function testEnterSizeEmpty() {
 
 }
 
-// Example from Matthias Jobst http://github.com/MatthiasJobst
+// Example from Matthias Jobst https://github.com/MatthiasJobst
 // Checks the brush with different Axis types
 class BrushAxisTest {
     brush: d3.svg.Brush<any,Date,Date>;

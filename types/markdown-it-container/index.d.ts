@@ -12,7 +12,7 @@ declare namespace markdownItContainer {
     interface ContainerOpts {
         marker?: string | undefined;
         validate?(params: string): boolean;
-        render?(tokens: Token[], index: number, options: any, env: any, self: Renderer): void;
+        render?(tokens: Token[], index: number, options: any, env: any, self: Renderer): string;
     }
 
     function container_plugin(md: MarkdownIt, name: string, opts: ContainerOpts): void;

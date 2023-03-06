@@ -253,6 +253,28 @@ declare var MEMFS: Emscripten.FileSystemType;
 declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
 
+// https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html
+type StringToType<R extends any> = R extends Emscripten.JSType
+  ? {
+      number: number;
+      string: string;
+      array: number[] | string[] | boolean[] | Uint8Array | Int8Array;
+      boolean: boolean;
+      null: null;
+    }[R]
+  : never;
+
+type ArgsToType<T extends Array<Emscripten.JSType | null>> = Extract<
+  {
+    [P in keyof T]: StringToType<T[P]>;
+  },
+  any[]
+>;
+
+type ReturnToType<R extends Emscripten.JSType | null> = R extends null
+  ? null
+  : StringToType<Exclude<R, null>>;
+
 // Below runtime function/variable declarations are exportable by
 // -s EXTRA_EXPORTED_RUNTIME_METHODS. You can extend or merge
 // EmscriptenModule interface to add runtime functions.
@@ -267,19 +289,26 @@ declare var IDBFS: Emscripten.FileSystemType;
 //
 // See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
 
-declare function ccall(
-    ident: string,
-    returnType: Emscripten.JSType | null,
-    argTypes: Emscripten.JSType[],
-    args: Emscripten.TypeCompatibleWithC[],
-    opts?: Emscripten.CCallOpts,
-): any;
-declare function cwrap(
-    ident: string,
-    returnType: Emscripten.JSType | null,
-    argTypes: Emscripten.JSType[],
-    opts?: Emscripten.CCallOpts,
-): (...args: any[]) => any;
+declare function cwrap<
+  I extends Array<Emscripten.JSType | null> | [],
+  R extends Emscripten.JSType | null
+>(
+  ident: string,
+  returnType: R,
+  argTypes: I,
+  opts?: Emscripten.CCallOpts
+): (...arg: ArgsToType<I>) => ReturnToType<R>;
+
+declare function ccall<
+  I extends Array<Emscripten.JSType | null> | [],
+  R extends Emscripten.JSType | null
+>(
+  ident: string,
+  returnType: R,
+  argTypes: I,
+  args: ArgsToType<I>,
+  opts?: Emscripten.CCallOpts
+): ReturnToType<R>;
 
 declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
 declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;

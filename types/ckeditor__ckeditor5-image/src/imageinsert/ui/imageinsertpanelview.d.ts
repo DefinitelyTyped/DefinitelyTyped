@@ -7,9 +7,11 @@ export default class ImageInsertPanelView extends View {
     readonly insertButtonView: ButtonView;
     readonly cancelButtonView: ButtonView;
     readonly dropdownView: DropdownView;
-    imageURLInputValue: string;
+    get imageURLInputValue(): string;
+    protected set imageURLInputValue(value: string);
     readonly focusTracker: FocusTracker;
     readonly keystrokes: KeystrokeHandler;
-    getIntegration(name: string): View;
+    getIntegration(name: string): View | undefined;
     focus(): void;
+    destroy(): void;
 }

@@ -2,6 +2,7 @@
 "use strict";
 
 import conventionalChangelogCore from "conventional-changelog-core";
+import gitRawCommits from "git-raw-commits";
 
 namespace Module {
     declare const context: conventionalChangelogCore.Context;
@@ -9,7 +10,7 @@ namespace Module {
     declare const options: conventionalChangelogCore.Options;
     declare const parserOpts: conventionalChangelogCore.ParserOptions;
     declare const writerOpts: conventionalChangelogCore.WriterOptions;
-
+    declare const execOpts: gitRawCommits.ExecOptions;
     // $ExpectType Readable
     conventionalChangelogCore();
     // $ExpectType Readable
@@ -22,4 +23,6 @@ namespace Module {
     conventionalChangelogCore(options, context, gitRawCommitsOpts, parserOpts);
     // $ExpectType Readable
     conventionalChangelogCore(options, context, gitRawCommitsOpts, parserOpts, writerOpts);
+    // $ExpectType Readable
+    conventionalChangelogCore(options, context, gitRawCommitsOpts, parserOpts, writerOpts, execOpts);
 }

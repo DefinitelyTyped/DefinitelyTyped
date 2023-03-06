@@ -12,6 +12,7 @@ export interface Point {
 }
 
 export interface SparklinesProps {
+    children?: React.ReactNode;
     data?: number[] | undefined;
     limit?: number | undefined;
     width?: number | undefined;

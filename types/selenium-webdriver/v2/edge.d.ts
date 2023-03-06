@@ -10,7 +10,11 @@ export class Driver extends webdriver.WebDriver {
      * @param {promise.ControlFlow=} opt_flow The control flow to use, or
      *     {@code null} to use the currently active flow.
      */
-    constructor(opt_config?: webdriver.Capabilities | Options, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow);
+    constructor(
+        opt_config?: webdriver.Capabilities | Options,
+        opt_service?: remote.DriverService,
+        opt_flow?: webdriver.promise.ControlFlow,
+    );
 
     /**
      * This function is a no-op as file detectors are not supported by this
@@ -24,7 +28,6 @@ export class Driver extends webdriver.WebDriver {
  * Class for managing MicrosoftEdgeDriver specific options.
  */
 export class Options {
-
     /**
      * Extracts the MicrosoftEdgeDriver specific options from the given
      * capabilities object.

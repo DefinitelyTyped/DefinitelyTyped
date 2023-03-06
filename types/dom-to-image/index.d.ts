@@ -9,7 +9,7 @@ export interface DomToImage {
   toPng(node: Node, options?: Options): Promise<string>;
   toJpeg(node: Node, options?: Options): Promise<string>;
   toBlob(node: Node, options?: Options): Promise<Blob>;
-  toPixelData(node: Node, options?: Options): Promise<string>;
+  toPixelData(node: Node, options?: Options): Promise<Uint8ClampedArray>;
 }
 
 export interface Options {

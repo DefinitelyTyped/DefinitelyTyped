@@ -1,6 +1,7 @@
 // Type definitions for google-map-react 2.1
 // Project: https://github.com/google-map-react/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
+//                 Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -9,11 +10,12 @@ import * as React from 'react';
 declare class googleMapReact extends React.Component<googleMapReact.Props> {}
 
 declare namespace googleMapReact {
-    type BootstrapURLKeys = ({ key: string } | { client: string; v: string }) & {
+    type BootstrapURLKeys = ({ key: string } | { client: string }) & {
+        version?: string | undefined;
         language?: string | undefined;
         region?: string | undefined;
         libraries?: string[] | string | undefined;
-        id?: string | undefined
+        id?: string | undefined;
     };
 
     interface MapTypeStyle {
@@ -38,6 +40,7 @@ declare namespace googleMapReact {
         gestureHandling?: string | undefined;
         heading?: number | undefined;
         keyboardShortcuts?: boolean | undefined;
+        mapId?: string | undefined;
         mapTypeControl?: boolean | undefined;
         mapTypeControlOptions?: any;
         mapTypeId?: string | undefined;
@@ -63,30 +66,197 @@ declare namespace googleMapReact {
     }
 
     interface Maps {
-        Animation: any;
-        ControlPosition: any;
-        MapTypeControlStyle: any;
-        MapTypeId: any;
-        NavigationControlStyle: any;
-        ScaleControlStyle: any;
-        StrokePosition: any;
-        SymbolPath: any;
-        ZoomControlStyle: any;
-        DirectionsStatus: any;
-        DirectionsTravelMode: any;
-        DirectionsUnitSystem: any;
-        DistanceMatrixStatus: any;
-        DistanceMatrixElementStatus: any;
-        ElevationStatus: any;
-        GeocoderLocationType: any;
-        GeocoderStatus: any;
-        KmlLayerStats: any;
-        MaxZoomStatus: any;
-        StreetViewStatus: any;
-        TransitMode: any;
-        TransitRoutePreference: any;
-        TravelMode: any;
-        UnitSystem: any;
+        Animation: {
+            BOUNCE: number;
+            DROP: number;
+            Qz: number;
+            Uz: number;
+        };
+        ControlPosition: {
+            BOTTOM: number;
+            BOTTOM_CENTER: number;
+            BOTTOM_LEFT: number;
+            BOTTOM_RIGHT: number;
+            CENTER: number;
+            LEFT: number;
+            LEFT_BOTTOM: number;
+            LEFT_CENTER: number;
+            LEFT_TOP: number;
+            RIGHT: number;
+            RIGHT_BOTTOM: number;
+            RIGHT_CENTER: number;
+            RIGHT_TOP: number;
+            TOP: number;
+            TOP_CENTER: number;
+            TOP_LEFT: number;
+            TOP_RIGHT: number;
+        };
+        DirectionsStatus: {
+            INVALID_REQUEST: string;
+            MAX_WAYPOINTS_EXCEEDED: string;
+            NOT_FOUND: string;
+            OK: string;
+            OVER_QUERY_LIMIT: string;
+            REQUEST_DENIED: string;
+            UNKNOWN_ERROR: string;
+            ZERO_RESULTS: string;
+        };
+        /** @deprecated - Use `TravelMode` instead */
+        DirectionsTravelMode: {
+            BICYCLING: string;
+            DRIVING: string;
+            TRANSIT: string;
+            TWO_WHEELER: string;
+            WALKING: string;
+        };
+        /** @deprecated - Use `UnitSystem` instead */
+        DirectionsUnitSystem: {
+            IMPERIAL: number;
+            METRIC: number;
+        };
+        DistanceMatrixStatus: {
+            INVALID_REQUEST: string;
+            MAX_DIMENSIONS_EXCEEDED: string;
+            MAX_ELEMENTS_EXCEEDED: string;
+            OK: string;
+            OVER_QUERY_LIMIT: string;
+            REQUEST_DENIED: string;
+            UNKNOWN_ERROR: string;
+        };
+        DistanceMatrixElementStatus: {
+            NOT_FOUND: string;
+            OK: string;
+            ZERO_RESULTS: string;
+        };
+        ElevationStatus: {
+            INVALID_REQUEST: string;
+            OK: string;
+            OVER_QUERY_LIMIT: string;
+            REQUEST_DENIED: string;
+            UNKNOWN_ERROR: string;
+            yz: string;
+        };
+        GeocoderLocationType: {
+            APPROXIMATE: string;
+            GEOMETRIC_CENTER: string;
+            RANGE_INTERPOLATED: string;
+            ROOFTOP: string;
+        };
+        GeocoderStatus: {
+            OK: string;
+            UNKNOWN_ERROR: string;
+            OVER_QUERY_LIMIT: string;
+            REQUEST_DENIED: string;
+            INVALID_REQUEST: string;
+            ZERO_RESULTS: string;
+            ERROR: string;
+        };
+        KmlLayerStatus: {
+            DOCUMENT_NOT_FOUND: string;
+            DOCUMENT_TOO_LARGE: string;
+            FETCH_ERROR: string;
+            INVALID_DOCUMENT: string;
+            INVALID_REQUEST: string;
+            LIMITS_EXCEEDED: string;
+            OK: string;
+            TIMED_OUT: string;
+            UNKNOWN: string;
+        };
+        MapTypeControlStyle: {
+            DEFAULT: number;
+            DROPDOWN_MENU: number;
+            HORIZONTAL_BAR: number;
+            INSET: number;
+            INSET_LARGE: number;
+        };
+        MapTypeId: {
+            HYBRID: string;
+            ROADMAP: string;
+            SATELLITE: string;
+            TERRAIN: string;
+        };
+        MaxZoomStatus: {
+            ERROR: string;
+            OK: string;
+        };
+        NavigationControlStyle: {
+            ANDROID: number;
+            DEFAULT: number;
+            Ot: number;
+            SMALL: number;
+            Vz: number;
+            ZOOM_PAN: number;
+        };
+        RenderingType: {
+            RASTER: string;
+            UNINITIALIZED: string;
+            VECTOR: string;
+        };
+        ScaleControlStyle: {
+            DEFAULT: number;
+        };
+        StreetViewPreference: {
+            BEST: string;
+            NEAREST: string;
+        };
+        StreetViewStatus: {
+            OK: string;
+            UNKNOWN_ERROR: string;
+            ZERO_RESULTS: string;
+        };
+        StreetViewSource: {
+            DEFAULT: string;
+            OUTDOOR: string;
+        };
+        StrokePosition: {
+            CENTER: number;
+            INSIDE: number;
+            OUTSIDE: number;
+        };
+        SymbolPath: {
+            CIRCLE: number;
+            BACKWARD_CLOSED_ARROW: number;
+            BACKWARD_OPEN_ARROW: number;
+            FORWARD_CLOSED_ARROW: number;
+            FORWARD_OPEN_ARROW: number;
+        };
+        TrafficModel: {
+            BEST_GUESS: string;
+            OPTIMISTIC: string;
+            PESSIMISTIC: string;
+        };
+        TransitMode: {
+            BUS: string;
+            RAIL: string;
+            SUBWAY: string;
+            TRAIN: string;
+            TRAM: string;
+        };
+        TransitRoutePreference: {
+            FEWER_TRANSFERS: string;
+            LESS_WALKING: string;
+        };
+        TravelMode: {
+            BICYCLING: string;
+            DRIVING: string;
+            TRANSIT: string;
+            TWO_WHEELER: string;
+            WALKING: string;
+        };
+        UnitSystem: {
+            IMPERIAL: number;
+            METRIC: number;
+        };
+        /**
+         * @deprecated - The Zoom control is available in only one style, and
+         * `google.maps.ZoomControlStyle` is therefore no longer available.
+         */
+        ZoomControlStyle: {
+            DEFAULT: number;
+            LARGE: number;
+            Ot: number;
+            SMALL: number;
+        };
     }
 
     interface Bounds {
@@ -145,6 +315,7 @@ declare namespace googleMapReact {
     }
 
     interface Props {
+        children?: React.ReactNode;
         bootstrapURLKeys?: BootstrapURLKeys | undefined;
         defaultCenter?: Coords | undefined;
         center?: Coords | undefined;

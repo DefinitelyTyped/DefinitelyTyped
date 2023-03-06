@@ -17,8 +17,7 @@ declare module '../../index' {
          *   the left edge of your text to the x value you give
          *   in text(). If you write textAlign(RIGHT, TOP), you
          *   are aligning the right edge of your text to the x
-         *   value and the top of edge of the text to the y
-         *   value.
+         *   value and the top edge of the text to the y value.
          *   @param horizAlign horizontal alignment, either
          *   LEFT, CENTER, or RIGHT
          *   @param [vertAlign] vertical alignment, either TOP,
@@ -40,8 +39,7 @@ declare module '../../index' {
          *   the left edge of your text to the x value you give
          *   in text(). If you write textAlign(RIGHT, TOP), you
          *   are aligning the right edge of your text to the x
-         *   value and the top of edge of the text to the y
-         *   value.
+         *   value and the top edge of the text to the y value.
          */
         textAlign(): object;
 
@@ -104,6 +102,7 @@ declare module '../../index' {
          *   Calculates and returns the width of any character
          *   or text string.
          *   @param theText the String of characters to measure
+         *   @return the calculated width
          */
         textWidth(theText: string): number;
 
@@ -122,5 +121,31 @@ declare module '../../index' {
          *   descender below the baseline.
          */
         textDescent(): number;
+
+        /**
+         *   Specifies how lines of text are wrapped within a
+         *   text box. This requires a max-width set on the
+         *   text area, specified in text() as parameter x2.
+         *   WORD wrap style only breaks lines at spaces. A
+         *   single string without spaces that exceeds the
+         *   boundaries of the canvas or text area is not
+         *   truncated, and will overflow the desired area,
+         *   disappearing at the canvas edge.
+         *
+         *   CHAR wrap style breaks lines wherever needed to
+         *   stay within the text box.
+         *
+         *   WORD is the default wrap style, and both styles
+         *   will still break lines at any line breaks (\n)
+         *   specified in the original text. The text area
+         *   max-height parameter (y2) also still applies to
+         *   wrapped text in both styles, lines of text that do
+         *   not fit within the text area will not be drawn to
+         *   the screen.
+         *   @param wrapStyle text wrapping style, either WORD
+         *   or CHAR
+         *   @return wrapStyle
+         */
+        textWrap(wrapStyle: WRAP_STYLE): string;
     }
 }

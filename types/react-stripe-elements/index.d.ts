@@ -34,8 +34,8 @@ export namespace ReactStripeElements {
         stripeAccount?: string | undefined;
     }
     type StripeProviderProps =
-        | { apiKey: string; stripe?: never | undefined } & StripeProviderOptions
-        | { apiKey?: never | undefined; stripe: stripe.Stripe | null } & StripeProviderOptions;
+        | { children?: React.ReactNode, apiKey: string; stripe?: never | undefined } & StripeProviderOptions
+        | { children?: React.ReactNode, apiKey?: never | undefined; stripe: stripe.Stripe | null } & StripeProviderOptions;
 
     interface StripeOverrideProps {
         /*
@@ -100,7 +100,7 @@ export namespace ReactStripeElements {
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {}
 
-export class Elements extends React.Component<stripe.elements.ElementsCreateOptions> {}
+export class Elements extends React.Component<stripe.elements.ElementsCreateOptions & { children?: React.ReactNode }> {}
 
 export function injectStripe<P extends object>(
     WrappedComponent: React.ComponentType<P & ReactStripeElements.InjectedStripeProps>,

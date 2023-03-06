@@ -14,17 +14,21 @@ declare class Service {
             Resources: {
                 [key: string]: any;
             };
-            Outputs?: {
-                [key: string]: any;
-            } | undefined;
+            Outputs?:
+                | {
+                      [key: string]: any;
+                  }
+                | undefined;
         };
 
         name: string;
+        stackTags?: { [key: string]: any };
         stage: string;
         region: string;
         runtime?: string | undefined;
         timeout?: number | undefined;
         versionFunctions: boolean;
+        layers?: Array<string | Record<string, string>> | undefined;
     };
     serverless: Serverless;
     service: string | null;

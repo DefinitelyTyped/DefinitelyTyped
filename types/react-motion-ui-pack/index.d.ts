@@ -9,6 +9,7 @@ import * as motion from 'react-motion';
 
 declare namespace Transition {
     interface TransitionProps {
+        children?: React.ReactNode;
         component?: string | boolean | React.ReactElement | undefined;
         runOnMount?: boolean | undefined;
         appear?: motion.Style | undefined;

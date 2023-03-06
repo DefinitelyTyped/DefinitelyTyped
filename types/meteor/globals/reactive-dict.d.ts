@@ -1,3 +1,4 @@
+
 declare class ReactiveDict<O = EJSONable> {
     /**
      * Constructor for a ReactiveDict, which represents a reactive dictionary of key/value pairs.
@@ -32,7 +33,7 @@ declare class ReactiveDict<O = EJSONable> {
      * `Tracker.autorun` computations, that called
      * `ReactiveDict.get` on this `key`.)
      */
-    set(object: O): void;
+    set(object: Partial<O>): void;
     /**
      * Get the value assiciated with a key. If inside a reactive
      * computation, invalidate the computation the next time the

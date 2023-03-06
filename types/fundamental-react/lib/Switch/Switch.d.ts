@@ -2,6 +2,7 @@ import * as React from "react";
 
 export interface SwitchProps {
     checked?: boolean | undefined;
+    children?: React.ReactNode;
     className?: string | undefined;
     compact?: boolean | undefined;
     disabled?: boolean | undefined;

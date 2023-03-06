@@ -1,4 +1,4 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const SSAOShader: {
     defines: {
@@ -6,19 +6,19 @@ export const SSAOShader: {
         KERNEL_SIZE: number;
     };
     uniforms: {
-        tDiffuse: Uniform;
-        tNormal: Uniform;
-        tDepth: Uniform;
-        tNoise: Uniform;
-        kernel: Uniform;
-        cameraNear: Uniform;
-        cameraFar: Uniform;
-        resolution: Uniform;
-        cameraProjectionMatrix: Uniform;
-        cameraInverseProjectionMatrix: Uniform;
-        kernelRadius: Uniform;
-        minDistance: Uniform;
-        maxDistance: Uniform;
+        tDiffuse: IUniform;
+        tNormal: IUniform;
+        tDepth: IUniform;
+        tNoise: IUniform;
+        kernel: IUniform;
+        cameraNear: IUniform;
+        cameraFar: IUniform;
+        resolution: IUniform;
+        cameraProjectionMatrix: IUniform;
+        cameraInverseProjectionMatrix: IUniform;
+        kernelRadius: IUniform;
+        minDistance: IUniform;
+        maxDistance: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
@@ -29,9 +29,9 @@ export const SSAODepthShader: {
         PERSPECTIVE_CAMERA: number;
     };
     uniforms: {
-        tDepth: Uniform;
-        cameraNear: Uniform;
-        cameraFar: Uniform;
+        tDepth: IUniform;
+        cameraNear: IUniform;
+        cameraFar: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
@@ -39,8 +39,8 @@ export const SSAODepthShader: {
 
 export const SSAOBlurShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        resolution: Uniform;
+        tDiffuse: IUniform;
+        resolution: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

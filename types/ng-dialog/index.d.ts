@@ -1,6 +1,7 @@
 // Type definitions for ngDialog 0.6
 // Project: https://github.com/likeastore/ngDialog
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -253,7 +254,7 @@ declare module 'angular' {
             /**
              * Scope object that will be passed to dialog. If you use controller with separate $scope service this object will be passed to $scope.$parent param.
              */
-            scope?: IDialogScope | undefined;
+            scope?: ng.IScope | undefined;
 
             /**
              * An optional map of dependencies which should be injected into the controller. If any of these dependencies

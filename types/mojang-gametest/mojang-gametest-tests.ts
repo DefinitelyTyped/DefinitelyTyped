@@ -1,101 +1,142 @@
-/* *****************************************************************************
-   Copyright (c) Microsoft Corporation.
-   ***************************************************************************** */
+import * as mc from 'mojang-minecraft';
 
-import * as mc from "mojang-minecraft";
-import * as gt from "mojang-gametest";
+const overworld = mc.world.getDimension('overworld');
 
-gt.register("StarterTests", "simpleMobTest", (test: gt.Test) => {
-  const attackerId = "fox";
-  const victimId = "chicken";
+export function simpleMobTest(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
+    gt.register('StarterTests', 'simpleMobTest', (test: gt.Test) => {
+        const attackerId = 'fox';
+        const victimId = 'chicken';
 
-  test.spawn(attackerId, new mc.BlockLocation(5, 2, 5));
-  test.spawn(victimId, new mc.BlockLocation(2, 2, 2));
+        test.spawn(attackerId, new mc.BlockLocation(5, 2, 5));
+        test.spawn(victimId, new mc.BlockLocation(2, 2, 2));
 
-  test.assertEntityPresentInArea(victimId, true);
+        test.assertEntityPresentInArea(victimId, true);
 
-  test.succeedWhen(() => {
-    test.assertEntityPresentInArea(victimId, false);
-  });
-}).maxTicks(400).structureName("startertests:mediumglass");
-
-function phantomsShouldFlyFromCats(test: gt.Test) {
-  const catEntityType = "cat";
-  const phantomEntityType = "phantom";
-
-  test.spawn(catEntityType, new mc.BlockLocation(4, 3, 3));
-  test.spawn(phantomEntityType, new mc.BlockLocation(4, 3, 3));
-
-  test.succeedWhenEntityPresent(phantomEntityType, new mc.BlockLocation(4, 6, 3), true);
-}
-gt.register("MobBehaviorTests", "phantoms_should_fly_from_cats", phantomsShouldFlyFromCats)
-  .structureName("gametests:glass_cells")
-  .tag("suite:broken");
-
-function minibiomes(test: gt.Test) {
-  const minecartEntityType = "minecart";
-  const pigEntityType = "pig";
-
-  const minecart = test.spawn(minecartEntityType, new mc.BlockLocation(9, 7, 7));
-  const pig = test.spawn(pigEntityType, new mc.BlockLocation(9, 7, 7));
-
-  test.setBlockType(mc.MinecraftBlockTypes.cobblestone, new mc.BlockLocation(10, 7, 7));
-
-  const minecartRideableComp = minecart.getComponent("minecraft:rideable");
-
-  minecartRideableComp.addRider(pig);
-
-  test.succeedWhenEntityPresent(pigEntityType, new mc.BlockLocation(8, 3, 1), true);
-}
-gt.register("ChallengeTests", "minibiomes", minibiomes).structureName("gametests:minibiomes").maxTicks(160);
-
-function collapsing(test: gt.Test) {
-  const zoglinEntityType = "zoglin";
-  const shulkerEntityType = "shulker";
-
-  for (let i = 0; i < 3; i++) {
-    test.spawn(zoglinEntityType, new mc.BlockLocation(i + 2, 2, 3));
-    test.spawn(shulkerEntityType, new mc.BlockLocation(4, 2, i + 2));
-  }
-
-  test.pressButton(new mc.BlockLocation(6, 8, 5));
-
-  test.succeedWhen(() => {
-    Utilities.assertEntityInSpecificArea(test, zoglinEntityType, 0, 8, 0, 12, 12, 12);
-  });
+        test.succeedWhen(() => {
+            test.assertEntityPresentInArea(victimId, false);
+        });
+    })
+        .maxTicks(400)
+        .structureName('gametests:mediumglass');
 }
 
-gt.register("ChallengeTests", "collapsing", collapsing).structureName("gametests:collapsing_space").maxTicks(160);
+export default class SampleManager {
+    tickCount = 0;
 
-// tslint:disable-next-line:no-unnecessary-class
-export class Utilities {
-  static fillBlock(test: gt.Test, blockType: mc.BlockType, xFrom: number, yFrom: number, zFrom: number, xTo: number, yTo: number, zTo: number) {
-    for (let i = xFrom; i <= xTo; i++) {
-      for (let j = yFrom; j <= yTo; j++) {
-        for (let k = zFrom; k <= zTo; k++) {
-          test.setBlockType(blockType, new mc.BlockLocation(i, j, k));
+    _availableFuncs: {
+        [name: string]: Array<(log: (message: string, status?: number) => void, location: mc.Location) => void>;
+    };
+
+    pendingFuncs: Array<{
+        name: string;
+        func: (log: (message: string, status?: number) => void, location: mc.Location) => void;
+        location: mc.Location;
+    }> = [];
+
+    gameplayLogger(message: string, status?: number) {
+        if (status !== undefined && status > 0) {
+            message = 'SUCCESS: ' + message;
+        } else if (status !== undefined && status < 0) {
+            message = 'FAIL: ' + message;
         }
-      }
+
+        this.say(message);
     }
-  }
+    say(message: string) {
+        mc.world.getDimension('overworld').runCommand('say ' + message);
+    }
 
-  static assertEntityInSpecificArea(test: gt.Test, entityType: string, xFrom: number, yFrom: number, zFrom: number, xTo: number, yTo: number, zTo: number) {
-    let count = 0;
+    newChatMessage(chatEvent: mc.ChatEvent) {
+        const message = chatEvent.message.toLowerCase();
 
-    for (let i = xFrom; i <= xTo; i++) {
-      for (let j = yFrom; j <= yTo; j++) {
-        for (let k = zFrom; k <= zTo; k++) {
-          try {
-            test.assertEntityPresent(entityType, new mc.BlockLocation(i, j, k), false);
-          } catch (Exception) {
-            count++;
-          }
+        if (message.startsWith('howto') && chatEvent.sender) {
+            const nearbyBlock = chatEvent.sender.getBlockFromViewVector();
+            if (!nearbyBlock) {
+                this.gameplayLogger('Please look at the block where you want me to run this.');
+                return;
+            }
+
+            const nearbyBlockLoc = nearbyBlock.location;
+            const nearbyLoc = new mc.Location(nearbyBlockLoc.x, nearbyBlockLoc.y + 1, nearbyBlockLoc.z);
+
+            const sampleId = message.substring(5).trim();
+
+            if (sampleId.length < 2) {
+                let availableFuncStr = 'Here is my list of available samples:';
+
+                for (const sampleFuncKey in this._availableFuncs) {
+                    availableFuncStr += ' ' + sampleFuncKey;
+                }
+
+                this.say(availableFuncStr);
+            } else {
+                for (const sampleFuncKey in this._availableFuncs) {
+                    if (sampleFuncKey.toLowerCase() === sampleId) {
+                        const sampleFunc = this._availableFuncs[sampleFuncKey];
+
+                        this.runSample(sampleFuncKey + this.tickCount, sampleFunc, nearbyLoc);
+
+                        return;
+                    }
+                }
+
+                this.say(`I couldn't find the sample '${sampleId}"'`);
+            }
         }
-      }
     }
 
-    if (count === 0) {
-      throw Error("Entity type was not found.");
+    runSample(
+        sampleId: string,
+        snippetFunctions: Array<(log: (message: string, status?: number) => void, location: mc.Location) => void>,
+        targetLocation: mc.Location,
+    ) {
+        for (let i = snippetFunctions.length - 1; i >= 0; i--) {
+            this.pendingFuncs.push({ name: sampleId, func: snippetFunctions[i], location: targetLocation });
+        }
     }
-  }
+
+    worldTick() {
+        if (this.tickCount % 10 === 0) {
+            if (this.pendingFuncs.length > 0) {
+                const funcSet = this.pendingFuncs.pop();
+
+                if (funcSet) {
+                    funcSet.func(this.gameplayLogger, funcSet.location);
+                }
+            }
+        }
+
+        this.tickCount++;
+    }
+
+    constructor() {
+        this._availableFuncs = {};
+
+        this.gameplayLogger = this.gameplayLogger.bind(this);
+
+        mc.world.events.tick.subscribe(this.worldTick.bind(this));
+        mc.world.events.chat.subscribe(this.newChatMessage.bind(this));
+    }
+
+    registerSamples(sampleSet: {
+        [name: string]: Array<(log: (message: string, status?: number) => void, location: mc.Location) => void>;
+    }) {
+        for (const sampleKey in sampleSet) {
+            if (sampleKey.length > 1 && sampleSet[sampleKey]) {
+                this._availableFuncs[sampleKey] = sampleSet[sampleKey];
+            }
+        }
+    }
+}
+
+import * as gt from 'mojang-gametest';
+
+const mojangGameTestFuncs: {
+    [name: string]: Array<(log: (message: string, status?: number) => void, location: mc.Location) => void>;
+} = {
+    simpleMobTest: [simpleMobTest],
+};
+
+export function register(sampleManager: SampleManager) {
+    sampleManager.registerSamples(mojangGameTestFuncs);
 }

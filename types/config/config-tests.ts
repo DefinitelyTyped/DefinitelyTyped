@@ -14,6 +14,7 @@ var has: boolean = config.has("");
 // util tests:
 var extended1: any = config.util.extendDeep({}, {});
 var extended2: any = config.util.extendDeep({}, {}, 20);
+var extended3: any = config.util.extendDeep({}, {}, {}, 20);
 
 var clone1: any = config.util.cloneDeep({});
 var clone2: any = config.util.cloneDeep({}, 20);

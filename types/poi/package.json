@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@types/webpack-dev-server": "3",
         "cac": "~6.4.2",
         "webpack-chain": "^5.2.4"
     }

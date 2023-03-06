@@ -18,6 +18,7 @@ function TestEdgeOptions() {
     options = options.excludeSwitches('a', 'b', 'c');
     options = options.detachDriver(true);
     options = options.setChromeBinaryPath('path');
+    options = options.setEdgeChromiumBinaryPath('path');
     options = options.setEdgeLogFile('logfile');
     options = options.setLocalState('state');
     options = options.androidActivity('com.example.Activity');
@@ -28,8 +29,10 @@ function TestEdgeOptions() {
     options = options.androidProcess('com.android.edge');
     options = options.androidUseRunningApp(true);
     options = options.setPerfLoggingPrefs({
-        enableNetwork: true, enablePage: true,
-        traceCategories: 'category', bufferUsageReportingInterval: 1000
+        enableNetwork: true,
+        enablePage: true,
+        traceCategories: 'category',
+        bufferUsageReportingInterval: 1000,
     });
     options = options.setUserPreferences('preferences');
 }

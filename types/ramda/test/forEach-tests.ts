@@ -1,11 +1,11 @@
 import * as R from 'ramda';
 
 (() => {
-  function printXPlusFive(x: number) {
-    console.log(x + 5);
-  }
+    function printXPlusFive(x: number) {
+        console.log(x + 5);
+    }
 
-  R.forEach(printXPlusFive, [1, 2, 3]);
+    R.forEach(printXPlusFive, [1, 2, 3]);
 })();
 
 // (() => {
@@ -14,13 +14,13 @@ import * as R from 'ramda';
 // })();
 
 () => {
-  function printXPlusFive(x: number) {
-    console.log(x + 5);
-  }
+    function printXPlusFive(x: number) {
+        console.log(x + 5);
+    }
 
-  R.forEach(printXPlusFive, [1, 2, 3]); // => [1, 2, 3]
-  R.forEach(printXPlusFive)([1, 2, 3]); // => [1, 2, 3]
-  // -> 6
-  // -> 7
-  // -> 8
+    R.forEach(printXPlusFive, [1, 2, 3]); // => [1, 2, 3]
+    R.forEach(printXPlusFive)([1, 2, 3]); // => [1, 2, 3]
+    // -> 6
+    // -> 7
+    // -> 8
 };

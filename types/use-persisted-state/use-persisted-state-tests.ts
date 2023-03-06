@@ -27,19 +27,39 @@ createPersistedState('myKey', { getItem, setItem });
 /**
  * At least one argument must be provided.
  */
-createPersistedState(); // $ExpectError
+// @ts-expect-error
+createPersistedState();
 
 /**
  * The `key` argument must be of type `string`.
  */
-createPersistedState(1);               // $ExpectError
-createPersistedState({});              // $ExpectError
-createPersistedState(Symbol.iterator); // $ExpectError
-createPersistedState(undefined);       // $ExpectError
+// @ts-expect-error
+createPersistedState(1);
+// @ts-expect-error
+createPersistedState({});
+// @ts-expect-error
+createPersistedState(Symbol.iterator);
+// @ts-expect-error
+createPersistedState(undefined);
 
 /**
  * The `provider` argument, when passed, must partially implement `Storage`.
  */
-createPersistedState('myKey', { });                               // $ExpectError
-createPersistedState('myKey', { getItem: localStorage.getItem }); // $ExpectError
-createPersistedState('myKey', { setItem: localStorage.setItem }); // $ExpectError
+// @ts-expect-error
+createPersistedState('myKey', { });
+// @ts-expect-error
+createPersistedState('myKey', { getItem: localStorage.getItem });
+// @ts-expect-error
+createPersistedState('myKey', { setItem: localStorage.setItem });
+
+/**
+ * createPersistedState takes an optional type parameter, which carries through
+ * to the returned hook
+ *
+ * (based on the README example)
+ */
+const useCounterState = createPersistedState<number>('count');
+const initialCount = 1;
+const [count, setCount] = useCounterState(initialCount);
+count; // $ExpectType number
+setCount; // $ExpectType Dispatch<SetStateAction<number>>

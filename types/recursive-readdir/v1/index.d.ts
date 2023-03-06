@@ -1,6 +1,6 @@
 // Type definitions for recursive-readdir v1.2.1
 // Project: https://github.com/jergason/recursive-readdir/
-// Definitions by: Elisée Maurer <https://github.com/elisee>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

@@ -1,7 +1,7 @@
 import * as webdriver from './index';
 import * as remote from './remote';
 
-export class Driver extends webdriver.WebDriver {
+export class Driver extends webdriver.ChromiumWebDriver {
   /**
    * Creates a new browser session for Microsoft's Edge browser.
    *
@@ -13,13 +13,6 @@ export class Driver extends webdriver.WebDriver {
    */
   static createSession(
     opt_config?: webdriver.CreateSessionCapabilities, opt_service?: remote.DriverService): Driver;
-
-  /**
-   * This function is a no-op as file detectors are not supported by this
-   * implementation.
-   * @override
-   */
-  setFileDetector(): void;
 }
 
 export interface IOptionsValues {
@@ -121,13 +114,14 @@ export class Options extends webdriver.Capabilities {
   setChromeBinaryPath(path: string): Options;
 
   /**
-   * Instruct the EdgeDriver to use Edge Chromium if true.
-   * Otherwise, use Edge Legacy (EdgeHTML). Defaults to using Edge Legacy.
+   * Sets the path to the edge binary to use
    *
-   * @param {boolean} useEdgeChromium
+   * The binary path be absolute or relative to the msedgedriver server
+   * executable, but it must exist on the machine that will launch edge chromium.
+   * @param {string} path The path to the edgedriver binary to use.
    * @return {!Options} A self reference.
    */
-  setEdgeChromium(useEdgeChromium: boolean): Options;
+  setEdgeChromiumBinaryPath(path: string): Options;
 
   /**
    * Sets whether to leave the started Edge browser running if the controlling

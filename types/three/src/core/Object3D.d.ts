@@ -51,8 +51,11 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     children: Object3D[];
 
     /**
-     * Up direction.
-     * @default THREE.Object3D.DefaultUp.clone()
+     * This is used by the {@link lookAt} method, for example, to determine the orientation of the result.
+     *
+     * Default is {@link Object3D.DEFAULT_UP} - that is, `( 0, 1, 0 )`.
+     *
+     * @default {@link Object3D.DEFAULT_UP}
      */
     up: Vector3;
 
@@ -103,11 +106,17 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     matrixWorld: Matrix4;
 
     /**
-     * When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also
-     * recalculates the matrixWorld property.
-     * @default THREE.Object3D.DefaultMatrixAutoUpdate
+     * When this is set, it calculates the matrix of position, (rotation or quaternion) and
+     * scale every frame and also recalculates the matrixWorld property. Default is {@link Object3D.DEFAULT_MATRIX_AUTO_UPDATE} (true).
      */
     matrixAutoUpdate: boolean;
+
+    /**
+     * If set, then the renderer checks every frame if the object and its children need matrix updates.
+     * When it isn't, then you have to maintain all matrices in the object and its children yourself.
+     * Default is {@link Object3D.DEFAULT_MATRIX_WORLD_AUTO_UPDATE} (true).
+     */
+    matrixWorldAutoUpdate: boolean;
 
     /**
      * When this is set, it calculates the matrixWorld in that frame and resets this property to false.
@@ -119,6 +128,7 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      * @default new THREE.Layers()
      */
     layers: Layers;
+
     /**
      * Object gets rendered if true.
      * @default true
@@ -207,22 +217,60 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
         group: Group,
     ) => void;
 
-    static DefaultUp: Vector3;
-    static DefaultMatrixAutoUpdate: boolean;
+    /**
+     * The default {@link up} direction for objects, also used as the default position for {@link DirectionalLight},
+     * {@link HemisphereLight} and {@link Spotlight} (which creates lights shining from the top down).
+     *
+     * Set to ( 0, 1, 0 ) by default.
+     */
+    static DEFAULT_UP: Vector3;
 
     /**
-     * This updates the position, rotation and scale with the matrix.
+     * The default setting for {@link matrixAutoUpdate} for newly created Object3Ds.
+     */
+    static DEFAULT_MATRIX_AUTO_UPDATE: boolean;
+
+    /**
+     * The default setting for {@link matrixWorldAutoUpdate} for newly created Object3Ds.
+     */
+    static DEFAULT_MATRIX_WORLD_AUTO_UPDATE: boolean;
+
+    /**
+     * Applies the matrix transform to the object and updates the object's position, rotation and scale.
      */
     applyMatrix4(matrix: Matrix4): void;
 
+    /**
+     * Applies the rotation represented by the quaternion to the object.
+     */
     applyQuaternion(quaternion: Quaternion): this;
 
+    /**
+     * axis -- A normalized vector in object space.
+     * angle -- angle in radians
+     * @param axis A normalized vector in object space.
+     * @param angle angle in radians
+     */
     setRotationFromAxisAngle(axis: Vector3, angle: number): void;
 
+    /**
+     * Calls setRotationFromEuler(euler) on the .quaternion.
+     * @param euler Euler angle specifying rotation amount.
+     */
     setRotationFromEuler(euler: Euler): void;
 
+    /**
+     * Calls setFromRotationMatrix(m) on the .quaternion.
+     *
+     * Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
+     * @param m rotate the quaternion by the rotation component of the matrix.
+     */
     setRotationFromMatrix(m: Matrix4): void;
 
+    /**
+     * Copy the given quaternion into .quaternion.
+     * @param q normalized Quaternion
+     */
     setRotationFromQuaternion(q: Quaternion): void;
 
     /**
@@ -240,24 +288,25 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     rotateOnWorldAxis(axis: Vector3, angle: number): this;
 
     /**
-     *
-     * @param angle
+     * Rotates the object around x axis in local space.
+     * @param angle the angle to rotate in radians.
      */
     rotateX(angle: number): this;
 
     /**
-     *
-     * @param angle
+     * Rotates the object around y axis in local space.
+     * @param angle the angle to rotate in radians.
      */
     rotateY(angle: number): this;
 
     /**
-     *
-     * @param angle
+     * Rotates the object around z axis in local space.
+     * @param angle the angle to rotate in radians.
      */
     rotateZ(angle: number): this;
 
     /**
+     * Translate an object by distance along an axis in object space. The axis is assumed to be normalized.
      * @param axis	A normalized vector in object space.
      * @param distance	The distance to translate.
      */
@@ -294,10 +343,13 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     worldToLocal(vector: Vector3): Vector3;
 
     /**
-     * Rotates object to face point in space.
+     * Optionally, the x, y and z components of the world space position.
+     * Rotates the object to face a point in world space.
+     * This method does not support objects having non-uniformly-scaled parent(s).
      * @param vector A world vector to look at.
      */
-    lookAt(vector: Vector3 | number, y?: number, z?: number): void;
+    lookAt(vector: Vector3): void;
+    lookAt(x: number, y: number, z: number): void;
 
     /**
      * Adds object as child of this object.
@@ -336,7 +388,23 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      */
     getObjectByName(name: string): Object3D | undefined;
 
-    getObjectByProperty(name: string, value: string): Object3D | undefined;
+    /**
+     * Searches through an object and its children, starting with the object itself,
+     * and returns the first with a property that matches the value given.
+     *
+     * @param name - the property name to search for.
+     * @param value - value of the given property.
+     */
+    getObjectByProperty(name: string, value: any): Object3D | undefined;
+
+    /**
+     * Searches through an object and its children, starting with the object itself,
+     * and returns all the objects with a property that matches the value given.
+     *
+     * @param name - the property name to search for.
+     * @param value - value of the given property.
+     */
+    getObjectsByProperty(name: string, value: any): Object3D[];
 
     getWorldPosition(target: Vector3): Vector3;
     getWorldQuaternion(target: Quaternion): Quaternion;
@@ -361,6 +429,11 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      */
     updateMatrixWorld(force?: boolean): void;
 
+    /**
+     * Updates the global transform of the object.
+     * @param updateParents recursively updates global transform of ancestors.
+     * @param updateChildren recursively updates global transform of descendants.
+     */
     updateWorldMatrix(updateParents: boolean, updateChildren: boolean): void;
 
     toJSON(meta?: { geometries: any; materials: any; textures: any; images: any }): any;

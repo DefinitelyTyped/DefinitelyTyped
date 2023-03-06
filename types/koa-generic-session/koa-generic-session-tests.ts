@@ -8,12 +8,12 @@ const app = new Koa();
 app.use(
     session({
         key: 'sessionKey',
-        store: MemoryStore(),
+        store: new MemoryStore(),
         ttl: 60 * 60,
         prefix: 'a-prefix',
         cookie: {
             path: '/test',
-            rewrite: false,
+            domain: 'localhost',
             signed: false,
             maxAge: 60 * 60,
             secure: true,
@@ -25,26 +25,51 @@ app.use(
         reconnectTimeout: 100,
         rolling: false,
         sessionIdStore: {
-            get: () => 'something',
-            set: (sid: string, session: Session) => {},
-            reset: () => {},
+            get() {
+              return this.cookies.get('koa.sid', { signed: true });
+            },
+
+            set(sid, session) {
+              this.cookies.set('koa.sid', sid, session.cookie);
+            },
+
+            reset() {
+              this.cookies.set('koa.sid', null, { expires: new Date(0) });
+            }
         },
-        genSid: (length: number) => 'aSid',
+        genSid(length: number) {
+          if (this.hostname === 'foo' && length > 20) {
+            return 'aSid';
+          } else {
+            return Promise.resolve('bSid');
+          }
+        },
         errorHandler: (error: Error, type: string, ctx: Koa.Context) => {},
         valid: (ctx: Koa.Context, session: Session) => true,
         beforeSave: (ctx: Koa.Context, session: Session) => {},
     }),
 );
 
+// Test module augmentation
+declare module 'koa-generic-session' {
+  interface Session {
+    foo: 'bar';
+  }
+}
+
 app.use((context: Koa.Context) => {
     if (!context.session) {
+        return;
+    }
+
+    if (!context.sessionId) {
         return;
     }
 
     context.regenerateSession();
     context.sessionSave = true;
     context.session.cookie;
-    context.session['key'] = 'value';
+    context.session.foo = 'bar';
     context.session = null;
 });
 

@@ -1,9 +1,8 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "dt-header": false,
         "no-redundant-jsdoc-2": false,
         "no-reference-import": false,
         "no-trailing-whitespace": false,
@@ -11,12 +10,7 @@
         "npm-naming": [
             true,
             {
-                "errors": [
-                    [
-                        "NeedsExportEquals",
-                        false
-                    ]
-                ],
+                "errors": [["NeedsExportEquals", false]],
                 "mode": "code"
             }
         ],

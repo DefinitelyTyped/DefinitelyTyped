@@ -1,86 +1,115 @@
-// Type definitions for dateformat 3.0
+// Type definitions for dateformat 5.0
 // Project: https://github.com/felixge/node-dateformat
 // Definitions by: Kombu <https://github.com/aicest>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 export as namespace dateFormat;
-export = dateFormat;
 
 /**
- * dateFormat()
- *
- * Accepts a date, a mask, or a date and a mask.
- * Returns a formatted version of the given date.
- * The date defaults to the current date/time.
- * The mask defaults to dateFormat.masks.default.
- *
- * https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L18
+ * @param date Defaults to the current date/time.
+ * @param mask Defaults to `masks.default`.
+ * @returns A formatted version of the given date.
  */
-declare function dateFormat(
-    date?: Date | string | number,
-    mask?: string,
-    utc?: boolean,
-    gmt?: boolean
-): string;
-declare function dateFormat(mask?: string, utc?: boolean, gmt?: boolean): string;
+export default function dateFormat(date?: Date | string | number, mask?: string, utc?: boolean, gmt?: boolean): string;
+export default function dateFormat(mask?: string, utc?: boolean, gmt?: boolean): string;
 
-declare namespace dateFormat {
-    const masks: DateFormatMasks;
-    let i18n: DateFormatI18n;
+/**
+ * Get proper timezone abbreviation or timezone offset.
+ *
+ * This will fall back to `GMT+xxxx` if it does not recognize the
+ * timezone within the `timezone` RegEx above. Currently only common
+ * American and Australian timezone abbreviations are supported.
+ */
+export function formatTimezone(date: string | Date): string;
 
+/**
+ * Predefined Formats
+ */
+export let masks: DateFormatMasks;
+
+/**
+ * Internationalization strings
+ *
+ * @example
+ * import { i18n } from 'dateformat';
+ *
+ * i18n.dayNames = [
+ *     'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+ *     'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+ * ];
+ * i18n.monthNames = [
+ *     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+ *     'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+ * ];
+ * i18n.timeNames = [
+ *     'a', 'p', 'am', 'pm', 'A', 'P', 'AM', 'PM'
+ * ];
+ */
+export let i18n: DateFormatI18n;
+
+export interface DateFormatMasks {
     /**
-     * dateFormat.masks
-     *
-     * Predefined Formats
-     *
-     * @see https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L107
+     * @default "ddd mmm dd yyyy HH:MM:ss"
      */
-    interface DateFormatMasks {
-        default: string;
-        shortDate: string;
-        mediumDate: string;
-        longDate: string;
-        fullDate: string;
-        shortTime: string;
-        mediumTime: string;
-        longTime: string;
-        isoDate: string;
-        isoTime: string;
-        isoDateTime: string;
-        isoUtcDateTime: string;
-        expiresHeaderFormat: string;
-        [key: string]: string;
-    }
-
+    default: string;
     /**
-     * dateFormat.i18n
-     *
-     * Internationalization strings
-     *
-     * Example:
-     *
-     * @example ```
-     * dateFormat.i18n = {
-     *     dayNames: [
-     *         'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
-     *         'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
-     *     ],
-     *     monthNames: [
-     *         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-     *         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-     *     ],
-     *     timeNames: [
-     *         'a', 'p', 'am', 'pm', 'A', 'P', 'AM', 'PM'
-     *     ]
-     * };```
-     *
-     * @see https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L124
+     * @default "m/d/yy"
      */
-    interface DateFormatI18n {
-        dayNames: string[];
-        monthNames: string[];
-        timeNames: string[];
-    }
+    shortDate: string;
+    /**
+     * @default "mm/dd/yyyy"
+     */
+    paddedShortDate: string;
+    /**
+     * @default "mmm d, yyyy"
+     */
+    mediumDate: string;
+    /**
+     * @default "mmmm d, yyyy"
+     */
+    longDate: string;
+    /**
+     * @default "dddd, mmmm d, yyyy"
+     */
+    fullDate: string;
+    /**
+     * @default "h:MM TT"
+     */
+    shortTime: string;
+    /**
+     * @default "h:MM:ss TT"
+     */
+    mediumTime: string;
+    /**
+     * @default "h:MM:ss TT Z"
+     */
+    longTime: string;
+    /**
+     * @default "yyyy-mm-dd"
+     */
+    isoDate: string;
+    /**
+     * @default "HH:MM:ss"
+     */
+    isoTime: string;
+    /**
+     * @default "yyyy-mm-dd'T'HH:MM:sso"
+     */
+    isoDateTime: string;
+    /**
+     * @default "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+     */
+    isoUtcDateTime: string;
+    /**
+     * @default "ddd, dd mmm yyyy HH:MM:ss Z"
+     */
+    expiresHeaderFormat: string;
+    [key: string]: string;
+}
+
+export interface DateFormatI18n {
+    dayNames: string[];
+    monthNames: string[];
+    timeNames: string[];
 }

@@ -154,3 +154,23 @@ rsync.include('/a/file')
 
 // as Array
 rsync.include(['/a/file', '/b/file']);
+
+// Static build
+Rsync.build({
+  source: '/path/to/source',
+  destination: 'server:/path/to/destination',
+  exclude: ['.git'],
+  flags: 'avz',
+  shell: 'ssh'
+});
+
+// Static build with different argument formats
+Rsync.build({
+  flags: [ 'avz', '123' ],
+})
+
+// Static build for methods that don't take arguments
+Rsync.build({
+    progress: true,
+    archive: true
+});

@@ -1,3 +1,3 @@
-import { Element } from './Element';
+import tag from '../src/tag';
 
-export function tag(literals: string[], ...substitutions: string[]): Element;
+export = tag;

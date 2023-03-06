@@ -1,6 +1,6 @@
 import og = require('open-graph');
 
-const url = 'http://github.com/samholmes/node-open-graph/raw/master/test.html';
+const url = 'https://github.com/samholmes/node-open-graph/raw/master/test.html';
 
 og(url, (err, meta) => {
     if (meta) {
@@ -13,6 +13,6 @@ og.parse('content', {
     strict: true,
 });
 
-og.getHTML('http://github.com/samholmes/node-open-graph/raw/master/test.html', (err, data) => {
+og.getHTML('https://github.com/samholmes/node-open-graph/raw/master/test.html', (err, data) => {
     data; // $ExpectType string | undefined
 });

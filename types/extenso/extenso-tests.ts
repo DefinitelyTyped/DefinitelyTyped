@@ -14,7 +14,8 @@ extenso('16', { locale: 'pt' }); // $ExpectType string
 extenso(42, { mode: 'currency' }); // $ExpectType string
 extenso(42, { mode: 'currency', currency: { type: 'BRL' } }); // $ExpectType string
 extenso(42, { mode: 'currency', currency: { type: 'EUR' } }); // $ExpectType string
-extenso(42, { mode: 'currency', currency: { type: 'USD' } }); // $ExpectError
+// @ts-expect-error
+extenso(42, { mode: 'currency', currency: { type: 'USD' } });
 
 extenso('42', { number: { gender: 'm' } }); // $ExpectType string
 extenso('42', { number: { gender: 'f' } }); // $ExpectType string

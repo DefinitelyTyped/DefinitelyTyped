@@ -16,6 +16,8 @@ export interface AriaModalProps {
      */
     alert?: boolean | undefined;
 
+    children?: React.ReactNode;
+
     /**
      * By default, the modal is active when mounted, deactivated when unmounted.
      * However, you can also control its active/inactive state by changing
@@ -155,7 +157,7 @@ export interface AriaModalProps {
      * You can use it to do whatever diverse and sundry things you feel like
      * doing after the modal activates.
      */
-    onEnter?(): any;
+    onEnter?(): void;
 
     /**
      * This function needs to handles the state change of exiting (or deactivating) the modal.
@@ -165,7 +167,7 @@ export interface AriaModalProps {
      * That also makes it easier to create your own "close modal" buttons; because you
      * have the function that closes the modal right there, written by you, at your disposal.
      */
-    onExit?(): any;
+    onExit?(event: React.MouseEvent | React.KeyboardEvent): void;
 
     /**
      * If true, the modal dialog's focus trap will be paused.
@@ -193,5 +195,5 @@ export type RequiredAriaTypes<T = Pick<AriaModalProps, 'titleId'>, U = Pick<Aria
     { [K in keyof T]-? : T[K] } & { [P in keyof U]: never} | { [X in keyof T]: never } & { [Y in keyof U]-?: U[Y]};
 
 export default class AriaModal extends React.PureComponent<AriaModalProps & RequiredAriaTypes> {
-    static renderTo(node: HTMLElement | string): React.ReactType;
+    static renderTo(node: HTMLElement | string): React.ElementType;
 }

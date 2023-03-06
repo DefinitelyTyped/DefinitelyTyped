@@ -1,12 +1,35 @@
 import profile = require('npm-profile');
 
 const token = '9849cae7-8f02-430f-b0fe-162980afe765';
+const username = 'fake-user';
 const password = 'terrible-password';
+const email = 'fake@email.com';
+const registry = '';
 const readonly = true;
 const cidr_whitelist: string[] = [];
 
 (async () => {
     try {
+        // $ExpectType ProfileAuthToken
+        const loginResult = await profile.login(async (url) => { },
+            async (creds: profile.ProfileAuthCredentials) => creds, { registry });
+
+        // $ExpectType ProfileAuthToken
+        const loginWebResult = await profile.loginWeb(async (url) => { }, { registry });
+
+        // $ExpectType ProfileAuthToken
+        const loginCouchResult = await profile.loginCouch(username, email, password, { registry });
+
+        // $ExpectType ProfileAuthToken
+        const addUserCouchResult = await profile.adduserCouch(username, email, password, { registry });
+
+        // $ExpectType ProfileAuthToken
+        const addUserResult = await profile.adduser(async (url) => { },
+            async (creds: profile.ProfileAuthCredentials) => creds, { registry });
+
+        // $ExpectType ProfileAuthToken
+        const addUserWebResult = await profile.adduserWeb(async (url) => { }, { registry });
+
         // $ExpectType ProfileData
         const result = await profile.get({ token });
 

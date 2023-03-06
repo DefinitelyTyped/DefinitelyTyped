@@ -5,6 +5,7 @@
             "dom",
             "es6"
         ],
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -24,6 +25,6 @@
     },
     "files": [
         "index.d.ts",
-        "wordpress__notices-tests.ts"
+        "wordpress__notices-tests.tsx"
     ]
 }

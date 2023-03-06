@@ -12,7 +12,7 @@ export interface Options {
     id?: string | undefined;
     page?: boolean | undefined;
     pdfOpenParams?: Record<string, string | number | boolean> | undefined;
-    fallbackLink?: boolean | undefined;
+    fallbackLink?: boolean | string | undefined;
     width?: string | undefined;
     height?: string | undefined;
     assumptionMode?: boolean | undefined;

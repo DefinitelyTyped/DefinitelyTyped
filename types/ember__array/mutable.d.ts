@@ -13,7 +13,7 @@ interface MutableArray<T> extends EmberArray<T>, MutableEnumerable<T> {
     /**
      * __Required.__ You must implement this method to apply this mixin.
      */
-    replace(idx: number, amt: number, objects: any[]): any;
+    replace(idx: number, amt: number, objects: T[]): this;
     /**
      * Remove all elements from the array. This is useful if you
      * want to reuse an existing array without having to recreate it.
@@ -23,7 +23,7 @@ interface MutableArray<T> extends EmberArray<T>, MutableEnumerable<T> {
      * This will use the primitive `replace()` method to insert an object at the
      * specified index.
      */
-    insertAt(idx: number, object: {}): this;
+    insertAt(idx: number, object: T): this;
     /**
      * Remove an object at the specified index using the `replace()` primitive
      * method. You can pass either a single index, or a start and a length.
@@ -70,6 +70,6 @@ interface MutableArray<T> extends EmberArray<T>, MutableEnumerable<T> {
      */
     setObjects(objects: EmberArray<T>): this;
 }
-declare const MutableArray: Mixin<MutableArray<any>>;
 
+declare const MutableArray: Mixin<MutableArray<unknown>>;
 export default MutableArray;

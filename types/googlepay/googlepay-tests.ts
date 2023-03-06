@@ -26,7 +26,7 @@ const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecifi
     }
 });
 
-// $ExpectError
+// @ts-expect-error
 allowedPaymentMethods[0].tokenizationSpecification = {
     type: 'DIRECT',
     parameters: {
@@ -105,11 +105,12 @@ function addGooglePayButton() {
             parameters: {
                 allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
                 allowedCardNetworks,
+                cvcRequired: false
             },
         }]
     };
 
-    // $ExpectError
+    // @ts-expect-error
     buttonOptions.buttonType = 'xyz';
     buttonOptions.buttonType = 'book';
     buttonOptions.buttonType = 'buy';
@@ -125,7 +126,7 @@ function addGooglePayButton() {
     buttonOptions.buttonSizeMode = undefined;
     buttonOptions.buttonSizeMode = 'fill';
     buttonOptions.buttonSizeMode = 'static';
-    // $ExpectError
+    // @ts-expect-error
     buttonOptions.buttonSizeMode = 'unknown';
 
     buttonOptions.buttonRootNode = undefined;
@@ -134,12 +135,12 @@ function addGooglePayButton() {
     const node = document.createElement('div').getRootNode() as ShadowRoot;
     buttonOptions.buttonRootNode = node;
 
-    // $ExpectError
+    // @ts-expect-error
     buttonOptions.buttonRootNode = document.createElement('div');
 
     buttonOptions.buttonLocale = '';
     buttonOptions.buttonLocale = undefined;
-    // $ExpectError
+    // @ts-expect-error
     buttonOptions.buttonLocale = {};
     buttonOptions.buttonLocale = 'en';
     buttonOptions.buttonLocale = 'qw';
@@ -197,7 +198,7 @@ function onGooglePaymentButtonClick() {
 
     request.callbackIntents = ['PAYMENT_AUTHORIZATION'];
     request.callbackIntents = ['OFFER'];
-    // $ExpectError
+    // @ts-expect-error
     request.callbackIntents = ['OFFER_INFO'];
 
     client.loadPaymentData(request)

@@ -19,22 +19,30 @@ declare namespace ValidationReport {
     interface ValidationResult<F extends Factory = Factory> {
         term: BlankNodeOf<F> | NamedNodeOf<F>;
         dataset: DatasetOf<F>;
-        cf: GraphPointer<BlankNodeOf<F> | NamedNodeOf<F>, DatasetOf<F>>;
+        pointer: GraphPointer<BlankNodeOf<F> | NamedNodeOf<F>, DatasetOf<F>>;
         readonly message: Array<BlankNodeOf<F> | NamedNodeOf<F> | LiteralOf<F>>;
         readonly path: BlankNodeOf<F> | NamedNodeOf<F> | null;
         readonly focusNode: BlankNodeOf<F> | NamedNodeOf<F> | null;
         readonly severity: NamedNodeOf<F> | null;
         readonly sourceConstraintComponent: BlankNodeOf<F> | NamedNodeOf<F> | null;
         readonly sourceShape: BlankNodeOf<F> | NamedNodeOf<F> | null;
+        readonly detail: Array<ValidationResult<F>>;
+    }
+
+    interface ValidationReport<F extends Factory = Factory> {
+        term: BlankNodeOf<F> | NamedNodeOf<F>;
+        dataset: DatasetOf<F>;
+        pointer: GraphPointer<BlankNodeOf<F> | NamedNodeOf<F>, DatasetOf<F>>;
+        conforms: boolean;
+        results: Array<ValidationResult<F>>;
     }
 }
 
+interface ValidationReport<F extends Factory = Factory> extends ValidationReport.ValidationReport<F> {}
+
+// tslint:disable-next-line:no-unnecessary-class
 declare class ValidationReport<F extends Factory = Factory> {
-    constructor(resultQuads: RDF.Quad[], options: ValidationReport.Options<F>);
-    term: BlankNodeOf<F> | NamedNodeOf<F>;
-    dataset: DatasetOf<F>;
-    conforms: boolean;
-    results: Array<ValidationReport.ValidationResult<F>>;
+    constructor(resultQuads: GraphPointer<RDF.BlankNode | RDF.NamedNode>, options: ValidationReport.Options<F>);
 }
 
 export = ValidationReport;

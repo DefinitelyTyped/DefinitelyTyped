@@ -6,7 +6,7 @@
  * The timer functions within Node.js implement a similar API as the timers API
  * provided by Web Browsers but use a different internal implementation that is
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/timers.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/timers.js)
  */
 declare module 'timers' {
     import { Abortable } from 'node:events';
@@ -62,6 +62,13 @@ declare module 'timers' {
                 [Symbol.toPrimitive](): number;
             }
         }
+        /**
+         * Schedules execution of a one-time `callback` after `delay` milliseconds. The `callback` will likely not be invoked in precisely `delay` milliseconds.
+         * Node.js makes no guarantees about the exact timing of when callbacks will fire, nor of their ordering. The callback will be called as close as possible to the time specified.
+         * When `delay` is larger than `2147483647` or less than `1`, the `delay` will be set to `1`. Non-integer delays are truncated to an integer.
+         * If `callback` is not a function, a [TypeError](https://nodejs.org/api/errors.html#class-typeerror) will be thrown.
+         * @since v0.0.1
+         */
         function setTimeout<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
@@ -69,7 +76,7 @@ declare module 'timers' {
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
-        function clearTimeout(timeoutId: NodeJS.Timeout): void;
+        function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
         function setInterval<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timer;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
@@ -77,7 +84,7 @@ declare module 'timers' {
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }
-        function clearInterval(intervalId: NodeJS.Timeout): void;
+        function clearInterval(intervalId: NodeJS.Timeout | string | number | undefined): void;
         function setImmediate<TArgs extends any[]>(callback: (...args: TArgs) => void, ...args: TArgs): NodeJS.Immediate;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
@@ -85,7 +92,7 @@ declare module 'timers' {
         namespace setImmediate {
             const __promisify__: typeof setImmediatePromise;
         }
-        function clearImmediate(immediateId: NodeJS.Immediate): void;
+        function clearImmediate(immediateId: NodeJS.Immediate | undefined): void;
         function queueMicrotask(callback: () => void): void;
     }
 }

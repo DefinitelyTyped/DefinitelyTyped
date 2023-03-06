@@ -1,4 +1,4 @@
-// Type definitions for Marked 3.0
+// Type definitions for Marked 4.0
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -10,11 +10,19 @@
 //                 Sarun Intaralawan <https://github.com/sarunint>
 //                 Tony Brix <https://github.com/UziTech>
 //                 Anatolii Titov <https://github.com/Toliak>
+//                 Jean-Francois Cere <https://github.com/jfcere>
+//                 Mykhaylo Stolyarchuk <https://github.com/MykSto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace marked;
+/**
+ * Compiles markdown to HTML asynchronously.
+ *
+ * @param src String of markdown source to be compiled
+ * @param options Hash of options, having async: true
+ * @return Promise of string of compiled HTML
+ */
+export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
 
-export = marked;
 /**
  * Compiles markdown to HTML synchronously.
  *
@@ -22,30 +30,37 @@ export = marked;
  * @param options Optional hash of options
  * @return String of compiled HTML
  */
-declare function marked(src: string, options?: marked.MarkedOptions): string;
+export function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  */
-declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): void;
+export function marked(src: string, callback: (error: any, parseResult: string) => void): void;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param options Hash of options
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  */
-declare function marked(
+export function marked(
     src: string,
     options: marked.MarkedOptions,
-    callback: (error: any | undefined, parseResult: string) => void,
+    callback: (error: any, parseResult: string) => void,
 ): void;
 
-declare namespace marked {
+export class Lexer extends marked.Lexer {}
+export class Parser extends marked.Parser {}
+export class Tokenizer<T = never> extends marked.Tokenizer<T> {}
+export class Renderer<T = never> extends marked.Renderer<T> {}
+export class TextRenderer extends marked.TextRenderer {}
+export class Slugger extends marked.Slugger {}
+
+export namespace marked {
     const defaults: MarkedOptions;
 
     /**
@@ -61,21 +76,35 @@ declare namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, callback: (error: any | undefined, parseResult: string) => void): string;
+    function parse(src: string, callback: (error: any, parseResult: string) => void): void;
 
     /**
-     * Compiles markdown to HTML.
+     * Compiles markdown to HTML asynchronously.
      *
      * @param src String of markdown source to be compiled
-     * @param options Hash of options
+     * @param options Hash of options having async: true
+     * @return Promise of string of compiled HTML
+     */
+    function parse(src: string, options: MarkedOptions & {async: true}): Promise<string>;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
+     * @return String of compiled HTML
+     */
+    function parse(src: string, options?: MarkedOptions): string;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(
-        src: string,
-        options?: MarkedOptions,
-        callback?: (error: any | undefined, parseResult: string) => void,
-    ): string;
+    function parse(src: string, options: MarkedOptions, callback: (error: any, parseResult: string) => void): void;
 
     /**
      * @param src Tokenized source as array of tokens
@@ -122,34 +151,39 @@ declare namespace marked {
     class Tokenizer<T = never> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        space(this: TokenizerThis, src: string): Tokens.Space | T;
-        code(this: TokenizerThis, src: string): Tokens.Code | T;
-        fences(this: TokenizerThis, src: string): Tokens.Code | T;
-        heading(this: TokenizerThis, src: string): Tokens.Heading | T;
-        hr(this: TokenizerThis, src: string): Tokens.Hr | T;
-        blockquote(this: TokenizerThis, src: string): Tokens.Blockquote | T;
-        list(this: TokenizerThis, src: string): Tokens.List | T;
-        html(this: TokenizerThis, src: string): Tokens.HTML | T;
-        def(this: TokenizerThis, src: string): Tokens.Def | T;
-        table(this: TokenizerThis, src: string): Tokens.Table | T;
-        lheading(this: TokenizerThis, src: string): Tokens.Heading | T;
-        paragraph(this: TokenizerThis, src: string): Tokens.Paragraph | T;
-        text(this: TokenizerThis, src: string): Tokens.Text | T;
-        escape(this: TokenizerThis, src: string): Tokens.Escape | T;
-        tag(this: TokenizerThis, src: string): Tokens.Tag | T;
-        link(this: TokenizerThis, src: string): Tokens.Image | Tokens.Link | T;
+        space(this: Tokenizer & TokenizerThis, src: string): Tokens.Space | T;
+        code(this: Tokenizer & TokenizerThis, src: string): Tokens.Code | T;
+        fences(this: Tokenizer & TokenizerThis, src: string): Tokens.Code | T;
+        heading(this: Tokenizer & TokenizerThis, src: string): Tokens.Heading | T;
+        hr(this: Tokenizer & TokenizerThis, src: string): Tokens.Hr | T;
+        blockquote(this: Tokenizer & TokenizerThis, src: string): Tokens.Blockquote | T;
+        list(this: Tokenizer & TokenizerThis, src: string): Tokens.List | T;
+        html(this: Tokenizer & TokenizerThis, src: string): Tokens.HTML | T;
+        def(this: Tokenizer & TokenizerThis, src: string): Tokens.Def | T;
+        table(this: Tokenizer & TokenizerThis, src: string): Tokens.Table | T;
+        lheading(this: Tokenizer & TokenizerThis, src: string): Tokens.Heading | T;
+        paragraph(this: Tokenizer & TokenizerThis, src: string): Tokens.Paragraph | T;
+        text(this: Tokenizer & TokenizerThis, src: string): Tokens.Text | T;
+        escape(this: Tokenizer & TokenizerThis, src: string): Tokens.Escape | T;
+        tag(this: Tokenizer & TokenizerThis, src: string): Tokens.Tag | T;
+        link(this: Tokenizer & TokenizerThis, src: string): Tokens.Image | Tokens.Link | T;
         reflink(
-            this: TokenizerThis,
+            this: Tokenizer & TokenizerThis,
             src: string,
             links: Tokens.Link[] | Tokens.Image[],
         ): Tokens.Link | Tokens.Image | Tokens.Text | T;
-        emStrong(this: TokenizerThis, src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong | T;
-        codespan(this: TokenizerThis, src: string): Tokens.Codespan | T;
-        br(this: TokenizerThis, src: string): Tokens.Br | T;
-        del(this: TokenizerThis, src: string): Tokens.Del | T;
-        autolink(this: TokenizerThis, src: string, mangle: (cap: string) => string): Tokens.Link | T;
-        url(this: TokenizerThis, src: string, mangle: (cap: string) => string): Tokens.Link | T;
-        inlineText(this: TokenizerThis, src: string, smartypants: (cap: string) => string): Tokens.Text | T;
+        emStrong(
+            this: Tokenizer & TokenizerThis,
+            src: string,
+            maskedSrc: string,
+            prevChar: string,
+        ): Tokens.Em | Tokens.Strong | T;
+        codespan(this: Tokenizer & TokenizerThis, src: string): Tokens.Codespan | T;
+        br(this: Tokenizer & TokenizerThis, src: string): Tokens.Br | T;
+        del(this: Tokenizer & TokenizerThis, src: string): Tokens.Del | T;
+        autolink(this: Tokenizer & TokenizerThis, src: string, mangle: (cap: string) => string): Tokens.Link | T;
+        url(this: Tokenizer & TokenizerThis, src: string, mangle: (cap: string) => string): Tokens.Link | T;
+        inlineText(this: Tokenizer & TokenizerThis, src: string, smartypants: (cap: string) => string): Tokens.Text | T;
     }
 
     type TokenizerObject = Partial<Omit<Tokenizer<false>, 'constructor' | 'options'>>;
@@ -157,39 +191,39 @@ declare namespace marked {
     class Renderer<T = never> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        code(this: RendererThis, code: string, language: string | undefined, isEscaped: boolean): string | T;
-        blockquote(this: RendererThis, quote: string): string | T;
-        html(this: RendererThis, html: string): string | T;
+        code(this: Renderer | RendererThis, code: string, language: string | undefined, isEscaped: boolean): string | T;
+        blockquote(this: Renderer | RendererThis, quote: string): string | T;
+        html(this: Renderer | RendererThis, html: string): string | T;
         heading(
-            this: RendererThis,
+            this: Renderer | RendererThis,
             text: string,
             level: 1 | 2 | 3 | 4 | 5 | 6,
             raw: string,
             slugger: Slugger,
         ): string | T;
-        hr(this: RendererThis): string | T;
-        list(this: RendererThis, body: string, ordered: boolean, start: number): string | T;
-        listitem(this: RendererThis, text: string): string | T;
-        checkbox(this: RendererThis, checked: boolean): string | T;
-        paragraph(this: RendererThis, text: string): string | T;
-        table(this: RendererThis, header: string, body: string): string | T;
-        tablerow(this: RendererThis, content: string): string | T;
+        hr(this: Renderer | RendererThis): string | T;
+        list(this: Renderer | RendererThis, body: string, ordered: boolean, start: number): string | T;
+        listitem(this: Renderer | RendererThis, text: string, task: boolean, checked: boolean): string | T;
+        checkbox(this: Renderer | RendererThis, checked: boolean): string | T;
+        paragraph(this: Renderer | RendererThis, text: string): string | T;
+        table(this: Renderer | RendererThis, header: string, body: string): string | T;
+        tablerow(this: Renderer | RendererThis, content: string): string | T;
         tablecell(
-            this: RendererThis,
+            this: Renderer | RendererThis,
             content: string,
             flags: {
                 header: boolean;
                 align: 'center' | 'left' | 'right' | null;
             },
         ): string | T;
-        strong(this: RendererThis, text: string): string | T;
-        em(this: RendererThis, text: string): string | T;
-        codespan(this: RendererThis, code: string): string | T;
-        br(this: RendererThis): string | T;
-        del(this: RendererThis, text: string): string | T;
-        link(this: RendererThis, href: string | null, title: string | null, text: string): string | T;
-        image(this: RendererThis, href: string | null, title: string | null, text: string): string | T;
-        text(this: RendererThis, text: string): string | T;
+        strong(this: Renderer | RendererThis, text: string): string | T;
+        em(this: Renderer | RendererThis, text: string): string | T;
+        codespan(this: Renderer | RendererThis, code: string): string | T;
+        br(this: Renderer | RendererThis): string | T;
+        del(this: Renderer | RendererThis, text: string): string | T;
+        link(this: Renderer | RendererThis, href: string | null, title: string | null, text: string): string | T;
+        image(this: Renderer | RendererThis, href: string | null, title: string | null, text: string): string | T;
+        text(this: Renderer | RendererThis, text: string): string | T;
     }
 
     type RendererObject = Partial<Omit<Renderer<false>, 'constructor' | 'options'>>;
@@ -217,7 +251,7 @@ declare namespace marked {
         static parse(src: Token[] | TokensList, options?: MarkedOptions): string;
         static parseInline(src: Token[], options?: MarkedOptions): string;
         parse(src: Token[] | TokensList): string;
-        parseInline(src: Token[], renderer: Renderer): string;
+        parseInline(src: Token[], renderer?: Renderer): string;
         next(): Token;
     }
 
@@ -232,8 +266,8 @@ declare namespace marked {
         lex(src: string): TokensList;
         blockTokens(src: string, tokens: Token[]): Token[];
         blockTokens(src: string, tokens: TokensList): TokensList;
-        inline(src: string, tokens: Token[]): void;
-        inlineTokens(src: string, tokens: Token[]): Token[];
+        inline(src: string, tokens?: Token[]): Token[];
+        inlineTokens(src: string, tokens?: Token[]): Token[];
         state: {
             inLink: boolean;
             inRawBlock: boolean;
@@ -457,7 +491,7 @@ declare namespace marked {
     interface TokenizerExtension {
         name: string;
         level: 'block' | 'inline';
-        start?: ((this: TokenizerThis, src: string) => number) | undefined;
+        start?: ((this: TokenizerThis, src: string) => number | void) | undefined;
         tokenizer: (this: TokenizerThis, src: string, tokens: Token[] | TokensList) => Tokens.Generic | void;
         childTokens?: string[] | undefined;
     }
@@ -471,7 +505,14 @@ declare namespace marked {
         renderer: (this: RendererThis, token: Tokens.Generic) => string | false;
     }
 
+    type TokenizerAndRendererExtension = TokenizerExtension | RendererExtension | (TokenizerExtension & RendererExtension);
+
     interface MarkedExtension {
+        /**
+         * True will tell marked to await any walkTokens functions before parsing the tokens and returning an HTML string.
+         */
+        async?: boolean;
+
         /**
          * A prefix URL for any relative link.
          */
@@ -486,7 +527,7 @@ declare namespace marked {
          * Add tokenizers and renderers to marked
          */
         extensions?:
-            | Array<TokenizerExtension | RendererExtension | (TokenizerExtension & RendererExtension)>
+            | TokenizerAndRendererExtension[]
             | undefined;
 
         /**
@@ -510,11 +551,7 @@ declare namespace marked {
          * with an error if any occurred during highlighting and a string
          * if highlighting was successful)
          */
-        highlight?(
-            code: string,
-            lang: string,
-            callback?: (error: any | undefined, code?: string) => void,
-        ): string | void;
+        highlight?(code: string, lang: string, callback?: (error: any, code?: string) => void): string | void;
 
         /**
          * Set the prefix for code block classes.

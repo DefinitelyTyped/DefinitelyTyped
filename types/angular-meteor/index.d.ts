@@ -2,7 +2,7 @@
 // Project: https://github.com/Urigo/angular-meteor
 // Definitions by: Peter Grman <https://github.com/pgrm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="meteor" />
 

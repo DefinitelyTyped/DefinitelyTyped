@@ -1,17 +1,17 @@
-import AttributeElement from "../view/attributeelement";
-import DowncastWriter from "../view/downcastwriter";
-import ConversionHelpers from "./conversionhelpers";
+import AttributeElement from '../view/attributeelement';
+import DowncastWriter from '../view/downcastwriter';
+import ConversionHelpers from './conversionhelpers';
 import DowncastDispatcher, {
     DowncastConversionApi,
     DowncastDispatcherCallback,
     DowncastEventDataTypes,
-} from "./downcastdispatcher";
-import { ElementDefinition } from "../view/elementdefinition";
-import ModelElement from "../model/element";
-import ContainerElement from "../view/containerelement";
-import Element from "../view/element";
-import UIElement from "../view/uielement";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+} from './downcastdispatcher';
+import { ElementDefinition } from '../view/elementdefinition';
+import ModelElement from '../model/element';
+import ContainerElement from '../view/containerelement';
+import Element from '../view/element';
+import UIElement from '../view/uielement';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 
 export interface HighlightDescriptor {
     attributes?: Record<string, string | number | boolean> | undefined;
@@ -20,29 +20,29 @@ export interface HighlightDescriptor {
     priority?: number | undefined;
 }
 
-export function clearAttributes(): DowncastDispatcherCallback<"selection">;
-export function convertCollapsedSelection(): DowncastDispatcherCallback<"selection">;
-export function convertRangeSelection(): DowncastDispatcherCallback<"selection">;
+export function clearAttributes(): DowncastDispatcherCallback<'selection'>;
+export function convertCollapsedSelection(): DowncastDispatcherCallback<'selection'>;
+export function convertRangeSelection(): DowncastDispatcherCallback<'selection'>;
 export function createViewElementFromHighlightDescriptor(
     writer: DowncastWriter,
     descriptor: HighlightDescriptor,
 ): AttributeElement;
-export function insertText(): DowncastDispatcherCallback<"insert:$text">;
-export function remove(): DowncastDispatcherCallback<"remove">;
+export function insertText(): DowncastDispatcherCallback<'insert:$text'>;
+export function remove(): DowncastDispatcherCallback<'remove'>;
 export function wrap(
     elementCreator: (modelAttributeValue: any, conversionApi: DowncastConversionApi) => Element | void | null,
 ): DowncastDispatcherCallback<`attribute:${string}:$text` | `attribute:${string}`>;
 export function insertElement(
     elementCreator: (modelItem: ModelElement, conversionApi: DowncastConversionApi) => Element | void | null,
-): DowncastDispatcherCallback<"insert" | `insert:${string}`>;
+): DowncastDispatcherCallback<'insert' | `insert:${string}`>;
 export function insertUIElement(
     elementOrElementCreator:
         | UIElement
         | ((
-              data: DowncastEventDataTypes["addMarker"] & { isOpening: boolean },
+              data: DowncastEventDataTypes['addMarker'] & { isOpening: boolean },
               conversionApi: DowncastConversionApi,
           ) => UIElement | void | null),
-): DowncastDispatcherCallback<"addMarker" | `addMarker:${string}`>;
+): DowncastDispatcherCallback<'addMarker' | `addMarker:${string}`>;
 
 export default class DowncastHelpers extends ConversionHelpers<DowncastHelpers> {
     add(conversionHelper: (dispatcher: DowncastDispatcher) => void): this;
@@ -52,9 +52,7 @@ export default class DowncastHelpers extends ConversionHelpers<DowncastHelpers> 
         view:
             | string
             | { key: string; value: string }
-            | ((
-                  modelAttributeValue: any,
-              ) => {
+            | ((modelAttributeValue: any) => {
                   key: string;
                   value: string | string[] | Record<string, string>;
               });
@@ -67,7 +65,8 @@ export default class DowncastHelpers extends ConversionHelpers<DowncastHelpers> 
     }): this;
     elementToElement(config?: {
         model: string;
-        view: ElementDefinition | ((element: Element, api: DowncastConversionApi) => ContainerElement);
+        view: ElementDefinition | ((element: ModelElement, api: DowncastConversionApi) => ContainerElement);
+        converterPriority?: PriorityString | number | undefined;
         triggerBy?: { attributes: string[]; children: string[] } | undefined;
     }): this;
     markerToData(config?: {

@@ -138,5 +138,5 @@ declare namespace UserAgent {
     function isPlatformArchitecture(query: string): boolean;
 }
 
-// tslint:disable-next-line export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = UserAgent;

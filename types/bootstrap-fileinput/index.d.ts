@@ -1,4 +1,4 @@
-// Type definitions for bootstrap-fileinput 5.0
+// Type definitions for bootstrap-fileinput 5.2
 // Project: https://github.com/kartik-v/bootstrap-fileinput
 // Definitions by: Ché Coxshall <https://github.com/CheCoxshall>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -182,6 +182,11 @@ declare namespace BootstrapFileInput {
          */
         showUpload?: boolean | undefined;
         /**
+         * Whether to display the file browse button. Defaults to true
+         * @default true
+         */
+         showBrowse?: boolean | undefined;
+        /**
          * Whether to display the file upload cancel button.
          * @default true
          * This will be only enabled and displayed when an AJAX upload is in process.
@@ -199,6 +204,12 @@ declare namespace BootstrapFileInput {
          * When set to false, a next batch of files selected for upload will clear these thumbnails from preview.
          */
         showUploadedThumbs?: boolean | undefined;
+        /**
+         * Whether to enable file browse/select on clicking of the preview zone.
+         * @default false
+         * @see {@link https://plugins.krajee.com/file-input/plugin-options#browseOnZoneClick}
+         */
+        browseOnZoneClick?: boolean | undefined;
         /**
          * Whether to automatically replace the files in the preview after the maxFileCount limit is reached and a new set of file(s) is/are selected.
          * This will only work if a valid maxFileCount is set.
@@ -849,6 +860,11 @@ declare namespace BootstrapFileInput {
          */
         textEncoding?: string | undefined;
         /**
+         * Callback to pre process upload which will return a converted or encrypted file content.
+         * See {@link https://plugins.krajee.com/file-input/plugin-options#preProcessUpload}
+         */
+        preProcessUpload?: ((fileId: string, file: File) => File) | undefined;
+        /**
          * additional ajax settings to pass to the plugin before submitting the ajax request for upload.
          * Applicable only for ajax uploads.
          * This can be useful to pass additional tokens to headers or one can use it for setting other ajax options for advanced cases.
@@ -867,6 +883,28 @@ declare namespace BootstrapFileInput {
          * @default true
          */
         showAjaxErrorDetails?: boolean | undefined;
+        /**
+         * whether to merge the ajax callback functions set in ajaxSettings with the default plugin callbacks for beforeSend, success, error, complete.
+         * @default false
+         * In addition to boolean false, the following string values can be set:
+         * 'before': when set to 'before', the ajax callbacks set in ajaxSettings will be merged before the default plugin callback.
+         * 'after': when set to 'after', the ajax callbacks set in ajaxSettings will be merged after the default plugin callback.
+         */
+        mergeAjaxCallbacks?: boolean | string;
+        /**
+         * whether to merge the ajax callback functions set in ajaxDeleteSettings with the default plugin callbacks for beforeSend, success, error, complete.
+         * @default false
+         * In addition to boolean false, the following string values can be set:
+         * 'before': when set to 'before', the ajax callbacks set in ajaxDeleteSettings will be merged before the default plugin callback.
+         * 'after': when set to 'after', the ajax callbacks set in ajaxDeleteSettings will be merged after the default plugin callback.
+         */
+         mergeAjaxDeleteCallbacks?: boolean | string;
+         /**
+          * whether the initial preview content set is to be parsed as data instead of raw markup.
+          * @default false
+          * for backward compatibility (prior to v4.3.2).
+          */
+         initialPreviewAsData?: boolean | undefined;
     }
 
     interface PreviewConfig {

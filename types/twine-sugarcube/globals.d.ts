@@ -2,6 +2,7 @@ import { SimpleAudioAPI } from "./audio";
 import { ConfigAPI } from "./config";
 import { EngineAPI } from "./engine";
 import { MacroAPI } from "./macro";
+import { SaveAPI } from "./save";
 import { ScriptingAPI } from "./scripting";
 import { SettingsAPI } from "./settings";
 import { StateAPI } from "./state";
@@ -74,6 +75,7 @@ declare global {
     const Fullscreen: FullscreenAPI;
     const LoadScreen: LoadScreenAPI;
 
+    const Save: SaveAPI;
     const Scripting: ScriptingAPI;
     const Setting: SettingsAPI;
     const State: StateAPI;

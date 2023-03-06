@@ -48,5 +48,5 @@ const loaderContext: webpack.loader.LoaderContext = null!;
 // $ExpectType string
 getCSSModuleLocalIdent(loaderContext, '', '', {});
 
-// $ExpectError
+// @ts-expect-error
 getCSSModuleLocalIdent({}, '', '', {});

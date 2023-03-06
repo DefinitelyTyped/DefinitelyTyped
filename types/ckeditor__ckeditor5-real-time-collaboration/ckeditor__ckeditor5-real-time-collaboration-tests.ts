@@ -1,27 +1,36 @@
 import { Users } from '@ckeditor/ckeditor5-collaboration-core/src/users';
 import { Editor } from '@ckeditor/ckeditor5-core';
-import RTC from '@ckeditor/ckeditor5-real-time-collaboration';
 import { Collection } from '@ckeditor/ckeditor5-utils';
-import PresenceList from '@ckeditor/ckeditor5-real-time-collaboration/src/presencelist';
+import {
+    PresenceList,
+    RealTimeCollaborationClient,
+    RealTimeCollaborativeComments,
+    RealTimeCollaborativeEditing,
+    RealTimeCollaborativeTrackChanges,
+    Sessions,
+} from '@ckeditor/ckeditor5-real-time-collaboration';
+import CloudServicesCommentsAdapter from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativecomments/cloudservicescommentsadapter';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-new RTC.Sessions().register('', new Collection());
-new RTC.Sessions().unregister('');
-new RTC.Sessions().getUserRole(new Users()).startsWith('');
-new RTC.Sessions().mySessionId.startsWith('');
-new RTC.Sessions().getUserSessions(new RTC.Sessions().getUserBySessionId(''), '').has('');
+new Sessions().register('', new Collection());
+new Sessions().unregister('');
+new Sessions().getUserRole(new Users()).startsWith('');
+new Sessions().mySessionId.startsWith('');
+new Sessions().getUserSessions(new Sessions().getUserBySessionId(''), '').has('');
 
-new RTC.PresenceList(editor);
+new PresenceList(editor);
 
-new RTC.RealTimeCollaborationClient(editor);
+new RealTimeCollaborationClient(editor);
 
-new RTC.RealTimeCollaborativeEditing(editor);
+new RealTimeCollaborativeEditing(editor);
 
-new RTC.RealTimeCollaborativeComments(editor);
+new RealTimeCollaborativeComments(editor);
 
-new RTC.RealTimeCollaborativeTrackChanges(editor);
+new RealTimeCollaborativeTrackChanges(editor);
+
+new CloudServicesCommentsAdapter(editor);
 
 // $ExpectType PresenceList
 editor.plugins.get('PresenceList');
@@ -37,3 +46,6 @@ editor.plugins.get('RealTimeCollaborativeEditing');
 
 // $ExpectType RealTimeCollaborativeTrackChanges
 editor.plugins.get('RealTimeCollaborativeTrackChanges');
+
+// $ExpectType CloudServicesCommentsAdapter
+editor.plugins.get('CloudServicesCommentsAdapter');

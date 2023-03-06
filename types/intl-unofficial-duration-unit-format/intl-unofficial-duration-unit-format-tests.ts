@@ -6,7 +6,7 @@ new DurationUnitFormat('en').format(10);
 
 new DurationUnitFormat(['en-GB', 'en-US']).format(10);
 
-// $ExpectError
+// @ts-expect-error
 new DurationUnitFormat('en').format(undefined);
 
 new DurationUnitFormat('en', {
@@ -18,7 +18,7 @@ new DurationUnitFormat('en', {
 });
 
 new DurationUnitFormat('en', {
-    // $ExpectError
+    // @ts-expect-error
     style: 'wrong',
 });
 
@@ -33,13 +33,13 @@ new DurationUnitFormat('en', {
 
 new DurationUnitFormat('en', {
     formatUnits: {
-        // $ExpectError
+        // @ts-expect-error
         wrong: '{value}',
     },
 });
 
 new DurationUnitFormat('en', {
-    // $ExpectError
+    // @ts-expect-error
     formatUnits: {},
 });
 

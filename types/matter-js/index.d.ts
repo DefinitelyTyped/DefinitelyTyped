@@ -1,10 +1,11 @@
-// Type definitions for Matter.js - 0.17.1
+// Type definitions for Matter.js - 0.18
 // Project: https://github.com/liabru/matter-js
-// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
-//                 David Asmuth <https://github.com/piranha771>,
-//                 Piotr Pietrzak <https://github.com/hasparus>,
+// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
+//                 David Asmuth <https://github.com/piranha771>
+//                 Piotr Pietrzak <https://github.com/hasparus>
 //                 Dale Whinham <https://github.com/dwhinham>
 //                 slikts <https://github.com/slikts>
+//                 Steven Snoeijen <https://github.com/stevensnoeijen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -22,16 +23,16 @@ declare namespace Matter {
     export function use(...plugins: (Plugin | string)[]): void;
 
     /**
-    * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
-    *
-    * @class Axes
-    */
+     * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
+     *
+     * @class Axes
+     */
     export class Axes {
         /**
          * Creates a new set of axes from the given vertices.
          * @method fromVertices
-         * @param {vertices} vertices
-         * @return {axes} A new axes from the given vertices
+         * @param {Vertices} vertices
+         * @returns {axes} A new axes from the given vertices
          */
         static fromVertices(vertices: Array<Vector>): Array<Vector>;
         /**
@@ -55,13 +56,13 @@ declare namespace Matter {
     }
 
     /**
-    * The `Matter.Bodies` module contains factory methods for creating rigid body models
-    * with commonly used body configurations (such as rectangles, circles and other polygons).
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Bodies
-    */
+     * The `Matter.Bodies` module contains factory methods for creating rigid body models
+     * with commonly used body configurations (such as rectangles, circles and other polygons).
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Bodies
+     */
     export class Bodies {
         /**
          * Creates a new rigid body model with a circle hull.
@@ -71,9 +72,9 @@ declare namespace Matter {
          * @param {number} x
          * @param {number} y
          * @param {number} radius
-         * @param {object} [options]
+         * @param {any} [options]
          * @param {number} [maxSides]
-         * @return {body} A new circle body
+         * @returns {Body} A new circle body
          */
         static circle(x: number, y: number, radius: number, options?: IBodyDefinition, maxSides?: number): Body;
 
@@ -86,8 +87,8 @@ declare namespace Matter {
          * @param {number} y
          * @param {number} sides
          * @param {number} radius
-         * @param {object} [options]
-         * @return {body} A new regular polygon body
+         * @param {any} [options]
+         * @returns {Body} A new regular polygon body
          */
         static polygon(x: number, y: number, sides: number, radius: number, options?: IChamferableBodyDefinition): Body;
 
@@ -100,10 +101,16 @@ declare namespace Matter {
          * @param {number} y
          * @param {number} width
          * @param {number} height
-         * @param {object} [options]
-         * @return {body} A new rectangle body
+         * @param {any} [options]
+         * @returns {Body} A new rectangle body
          */
-        static rectangle(x: number, y: number, width: number, height: number, options?: IChamferableBodyDefinition): Body;
+        static rectangle(
+            x: number,
+            y: number,
+            width: number,
+            height: number,
+            options?: IChamferableBodyDefinition,
+        ): Body;
 
         /**
          * Creates a new rigid body model with a trapezoid hull.
@@ -115,121 +122,137 @@ declare namespace Matter {
          * @param {number} width
          * @param {number} height
          * @param {number} slope
-         * @param {object} [options]
-         * @return {body} A new trapezoid body
+         * @param {any} [options]
+         * @returns {Body} A new trapezoid body
          */
-        static trapezoid(x: number, y: number, width: number, height: number, slope: number, options?: IChamferableBodyDefinition): Body;
+        static trapezoid(
+            x: number,
+            y: number,
+            width: number,
+            height: number,
+            slope: number,
+            options?: IChamferableBodyDefinition,
+        ): Body;
         /**
-        * Creates a body using the supplied vertices (or an array containing multiple sets of vertices).
-        * If the vertices are convex, they will pass through as supplied.
-        * Otherwise if the vertices are concave, they will be decomposed if [poly-decomp.js](https://github.com/schteppe/poly-decomp.js) is available.
-        * Note that this process is not guaranteed to support complex sets of vertices (e.g. those with holes may fail).
-        * By default the decomposition will discard collinear edges (to improve performance).
-        * It can also optionally discard any parts that have an area less than `minimumArea`.
-        * If the vertices can not be decomposed, the result will fall back to using the convex hull.
-        * The options parameter is an object that specifies any `Matter.Body` properties you wish to override the defaults.
-        * See the properties section of the `Matter.Body` module for detailed information on what you can pass via the `options` object.
-        * @method fromVertices
-        * @param {number} x
-        * @param {number} y
-        * @param [[vector]] vertexSets
-        * @param {object} [options]
-        * @param {bool} [flagInternal=false]
-        * @param {number} [removeCollinear=0.01]
-        * @param {number} [minimumArea=10]
-        * @param {number} [removeDuplicatePoints=0.01]
-        * @return {body}
-        */
-        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vector>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number, removeDuplicatePoints?: number): Body;
+         * Creates a body using the supplied vertices (or an array containing multiple sets of vertices).
+         * If the vertices are convex, they will pass through as supplied.
+         * Otherwise if the vertices are concave, they will be decomposed if [poly-decomp.js](https://github.com/schteppe/poly-decomp.js) is available.
+         * Note that this process is not guaranteed to support complex sets of vertices (e.g. those with holes may fail).
+         * By default the decomposition will discard collinear edges (to improve performance).
+         * It can also optionally discard any parts that have an area less than `minimumArea`.
+         * If the vertices can not be decomposed, the result will fall back to using the convex hull.
+         * The options parameter is an object that specifies any `Matter.Body` properties you wish to override the defaults.
+         * See the properties section of the `Matter.Body` module for detailed information on what you can pass via the `options` object.
+         * @method fromVertices
+         * @param {number} x
+         * @param {number} y
+         * @param {Vertex[][]} vertexSets
+         * @param {any} [options]
+         * @param {boolean} [flagInternal=false]
+         * @param {number} [removeCollinear=0.01]
+         * @param {number} [minimumArea=10]
+         * @param {number} [removeDuplicatePoints=0.01]
+         * @returns {Body}
+         */
+        static fromVertices(
+            x: number,
+            y: number,
+            vertexSets: Array<Array<Vector>>,
+            options?: IBodyDefinition,
+            flagInternal?: boolean,
+            removeCollinear?: number,
+            minimumArea?: number,
+            removeDuplicatePoints?: number,
+        ): Body;
     }
 
     export interface IBodyDefinition {
         /**
          * A `Number` specifying the angle of the body, in radians.
          *
-        * @property angle
-        * @type number
-        * @default 0
-        */
+         * @property angle
+         * @type {number | undefined}
+         * @default 0
+         */
         angle?: number | undefined;
         /**
          * A `Number` that _measures_ the current angular speed of the body after the last `Body.update`. It is read-only and always positive (it's the magnitude of `body.angularVelocity`).
          *
-        * @readOnly
-        * @property angularSpeed
-        * @type number
-        * @default 0
-        */
+         * @readOnly
+         * @property angularSpeed
+         * @type {number | undefined}
+         * @default 0
+         */
         angularSpeed?: number | undefined;
         /**
          * A `Number` that _measures_ the current angular velocity of the body after the last `Body.update`. It is read-only.
          * If you need to modify a body's angular velocity directly, you should apply a torque or simply change the body's `angle` (as the engine uses position-Verlet integration).
          *
-        * @readOnly
-        * @property angularVelocity
-        * @type number
-        * @default 0
-        */
+         * @readOnly
+         * @property angularVelocity
+         * @type {number | undefined}
+         * @default 0
+         */
         angularVelocity?: number | undefined;
         /**
          * A `Number` that _measures_ the area of the body's convex hull, calculated at creation by `Body.create`.
          *
-        * @property area
-        * @type string
-        * @default
-        */
+         * @property area
+         * @type {string | undefined}
+         * @default
+         */
         area?: number | undefined;
         /**
          * An array of unique axis vectors (edge normals) used for collision detection.
          * These are automatically calculated from the given convex hull (`vertices` array) in `Body.create`.
          * They are constantly updated by `Body.update` during the simulation.
          *
-        * @property axes
-        * @type vector[]
-        */
+         * @property axes
+         * @type {Vector[] | undefined}
+         */
         axes?: Array<Vector> | undefined;
         /**
          * A `Bounds` object that defines the AABB region for the body.
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
          *
-        * @property bounds
-        * @type bounds
-        */
+         * @property bounds
+         * @type {Bounds | undefined}
+         */
         bounds?: Bounds | undefined;
         /**
          * A `Number` that defines the density of the body, that is its mass per unit area.
          * If you pass the density via `Body.create` the `mass` property is automatically calculated for you based on the size (area) of the object.
          * This is generally preferable to simply setting mass and allows for more intuitive definition of materials (e.g. rock has a higher density than wood).
          *
-        * @property density
-        * @type number
-        * @default 0.001
-        */
+         * @property density
+         * @type {number | undefined}
+         * @default 0.001
+         */
         density?: number | undefined;
         /**
          * A `Vector` that specifies the force to apply in the current step. It is zeroed after every `Body.update`. See also `Body.applyForce`.
-        *
-        * @property force
-        * @type vector
-        * @default { x: 0, y: 0 }
-        */
+         *
+         * @property force
+         * @type {Vector | undefined}
+         * @default { x: 0, y: 0 }
+         */
         force?: Vector | undefined;
         /**
          * A `Number` that defines the friction of the body. The value is always positive and is in the range `(0, 1)`.
-        * A value of `0` means that the body may slide indefinitely.
-        * A value of `1` means the body may come to a stop almost instantly after a force is applied.
-        *
-        * The effects of the value may be non-linear.
-        * High values may be unstable depending on the body.
-        * The engine uses a Coulomb friction model including static and kinetic friction.
-        * Note that collision response is based on _pairs_ of bodies, and that `friction` values are _combined_ with the following formula:
-        *
-        *     Math.min(bodyA.friction, bodyB.friction)
-        *
-        * @property friction
-        * @type number
-        * @default 0.1
-        */
+         * A value of `0` means that the body may slide indefinitely.
+         * A value of `1` means the body may come to a stop almost instantly after a force is applied.
+         *
+         * The effects of the value may be non-linear.
+         * High values may be unstable depending on the body.
+         * The engine uses a Coulomb friction model including static and kinetic friction.
+         * Note that collision response is based on _pairs_ of bodies, and that `friction` values are _combined_ with the following formula:
+         *
+         *     Math.min(bodyA.friction, bodyB.friction)
+         *
+         * @property friction
+         * @type {number | undefined}
+         * @default 0.1
+         */
         friction?: number | undefined;
         /**
          * A `Number` that defines the air friction of the body (air resistance).
@@ -237,48 +260,48 @@ declare namespace Matter {
          * The higher the value, the faster a body slows when moving through space.
          * The effects of the value are non-linear.
          *
-        * @property frictionAir
-        * @type number
-        * @default 0.01
-        */
+         * @property frictionAir
+         * @type {number | undefined}
+         * @default 0.01
+         */
         frictionAir?: number | undefined;
         /**
          * An integer `Number` uniquely identifying number generated in `Body.create` by `Common.nextId`.
          *
-        * @property id
-        * @type number
-        */
+         * @property id
+         * @type {number | undefined}
+         */
         id?: number | undefined;
         /**
          * A `Number` that defines the moment of inertia (i.e. second moment of area) of the body.
          * It is automatically calculated from the given convex hull (`vertices` array) and density in `Body.create`.
          * If you modify this value, you must also modify the `body.inverseInertia` property (`1 / inertia`).
          *
-        * @property inertia
-        * @type number
-        */
+         * @property inertia
+         * @type {number | undefined}
+         */
         inertia?: number | undefined;
         /**
          * A `Number` that defines the inverse moment of inertia of the body (`1 / inertia`).
          * If you modify this value, you must also modify the `body.inertia` property.
          *
-        * @property inverseInertia
-        * @type number
-        */
+         * @property inverseInertia
+         * @type {number | undefined}
+         */
         inverseInertia?: number | undefined;
         /**
          * A `Number` that defines the inverse mass of the body (`1 / mass`).
          * If you modify this value, you must also modify the `body.mass` property.
          *
-        * @property inverseMass
-        * @type number
-        */
+         * @property inverseMass
+         * @type {number | undefined}
+         */
         inverseMass?: number | undefined;
         /**
          * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
          *
          * @property isSensor
-         * @type boolean
+         * @type {boolean | undefined}
          * @default false
          */
         isSensor?: boolean | undefined;
@@ -286,67 +309,68 @@ declare namespace Matter {
          * A flag that indicates whether the body is considered sleeping. A sleeping body acts similar to a static body, except it is only temporary and can be awoken.
          * If you need to set a body as sleeping, you should use `Sleeping.set` as this requires more than just setting this flag.
          *
-        * @property isSleeping
-        * @type boolean
-        * @default false
-        */
+         * @property isSleeping
+         * @type {boolean | undefined}
+         * @default false
+         */
         isSleeping?: boolean | undefined;
         /**
          * A flag that indicates whether a body is considered static. A static body can never change position or angle and is completely fixed.
          * If you need to set a body as static after its creation, you should use `Body.setStatic` as this requires more than just setting this flag.
          *
-        * @property isStatic
-        * @type boolean
-        * @default false
-        */
+         * @property isStatic
+         * @type {boolean | undefined}
+         * @default false
+         */
         isStatic?: boolean | undefined;
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
-        * @property label
-        * @type string
-        * @default "Body"
-        */
+         * @property label
+         * @type {string | undefined}
+         * @default "Body"
+         */
 
         label?: string | undefined;
         /**
          * A `Number` that defines the mass of the body, although it may be more appropriate to specify the `density` property instead.
          * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
          *
-        * @property mass
-        * @type number
-        */
+         * @property mass
+         * @type {number | undefined}
+         */
         mass?: number | undefined;
         /**
          * A `Number` that _measures_ the amount of movement a body currently has (a combination of `speed` and `angularSpeed`). It is read-only and always positive.
-        * It is used and updated by the `Matter.Sleeping` module during simulation to decide if a body has come to rest.
-        *
-        * @readOnly
-        * @property motion
-        * @type number
-        * @default 0
-        */
+         * It is used and updated by the `Matter.Sleeping` module during simulation to decide if a body has come to rest.
+         *
+         * @readOnly
+         * @property motion
+         * @type {number | undefined}
+         * @default 0
+         */
         motion?: number | undefined;
         /**
          * An object reserved for storing plugin-specific properties.
          *
          * @property plugin
-         * @type {}
+         * @type {{}}
          */
         plugin?: any;
         /**
          * A `Vector` that specifies the current world-space position of the body.
          *
-        * @property position
-        * @type vector
-        * @default { x: 0, y:      */
+         * @property position
+         * @type {Vector | undefined}
+         * @default { x: 0, y: 0 }
+         */
         position?: Vector | undefined;
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-        *
-        * @property render
-        * @type object
-        */
+         *
+         * @property render
+         * @type {IBodyRenderOptions | undefined}
+         */
         render?: IBodyRenderOptions | undefined;
         /**
          * A `Number` that defines the restitution (elasticity) of the body. The value is always positive and is in the range `(0, 1)`.
@@ -354,89 +378,89 @@ declare namespace Matter {
          * A value of `0.8` means the body may bounce back with approximately 80% of its kinetic energy.
          * Note that collision response is based on _pairs_ of bodies, and that `restitution` values are _combined_ with the following formula:
          *
-        *     Math.max(bodyA.restitution, bodyB.restitution)
-        *
-        * @property restitution
-        * @type number
-        * @default 0
-        */
+         *     Math.max(bodyA.restitution, bodyB.restitution)
+         *
+         * @property restitution
+         * @type {number | undefined}
+         * @default 0
+         */
         restitution?: number | undefined;
         /**
          * A `Number` that defines the number of updates in which this body must have near-zero velocity before it is set as sleeping by the `Matter.Sleeping` module (if sleeping is enabled by the engine).
          *
-        * @property sleepThreshold
-        * @type number
-        * @default 60
-        */
+         * @property sleepThreshold
+         * @type {number | undefined}
+         * @default 60
+         */
         sleepThreshold?: number | undefined;
         /**
          * A `Number` that specifies a tolerance on how far a body is allowed to 'sink' or rotate into other bodies.
          * Avoid changing this value unless you understand the purpose of `slop` in physics engines.
          * The default should generally suffice, although very large bodies may require larger values for stable stacking.
          *
-        * @property slop
-        * @type number
-        * @default 0.05
-        */
+         * @property slop
+         * @type {number | undefined}
+         * @default 0.05
+         */
         slop?: number | undefined;
         /**
          * A `Number` that _measures_ the current speed of the body after the last `Body.update`. It is read-only and always positive (it's the magnitude of `body.velocity`).
          *
-        * @readOnly
-        * @property speed
-        * @type number
-        * @default 0
-        */
+         * @readOnly
+         * @property speed
+         * @type {number | undefined}
+         * @default 0
+         */
         speed?: number | undefined;
         /**
          * A `Number` that allows per-body time scaling, e.g. a force-field where bodies inside are in slow-motion, while others are at full speed.
-        *
-        * @property timeScale
-        * @type number
-        * @default 1
-        */
+         *
+         * @property timeScale
+         * @type {number | undefined}
+         * @default 1
+         */
         timeScale?: number | undefined;
         /**
          * A `Number` that specifies the torque (turning force) to apply in the current step. It is zeroed after every `Body.update`.
-        *
-        * @property torque
-        * @type number
-        * @default 0
-        */
+         *
+         * @property torque
+         * @type {number | undefined}
+         * @default 0
+         */
         torque?: number | undefined;
         /**
          * A `String` denoting the type of object.
-        *
-        * @property type
-        * @type string
-        * @default "body"
-        */
+         *
+         * @property type
+         * @type {string | undefined}
+         * @default "body"
+         */
         type?: string | undefined;
         /**
          * A `Vector` that _measures_ the current velocity of the body after the last `Body.update`. It is read-only.
          * If you need to modify a body's velocity directly, you should either apply a force or simply change the body's `position` (as the engine uses position-Verlet integration).
          *
-        * @readOnly
-        * @property velocity
-        * @type vector
-        * @default { x: 0, y: 0 }
-        */
+         * @readOnly
+         * @property velocity
+         * @type vector
+         * @default { x: 0, y: 0 }
+         */
         velocity?: Vector | undefined;
         /**
          * An array of `Vector` objects that specify the convex hull of the rigid body.
          * These should be provided about the origin `(0, 0)`. E.g.
          *
-        *     [{ x: 0, y: 0 }, { x: 25, y: 50 }, { x: 50, y: 0 }]
-        *
-        * When passed via `Body.create`, the vertices are translated relative to `body.position` (i.e. world-space, and constantly updated by `Body.update` during simulation).
-        * The `Vector` objects are also augmented with additional properties required for efficient collision detection.
-        *
-        * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
-        * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
-        *
-        * @property vertices
-        * @type vector[]
-        */
+         *     [{ x: 0, y: 0 }, { x: 25, y: 50 }, { x: 50, y: 0 }]
+         *
+         * When passed via `Body.create`, the vertices are translated relative to `body.position` (i.e. world-space, and constantly updated by `Body.update` during simulation).
+         * The `Vector` objects are also augmented with additional properties required for efficient collision detection.
+         *
+         * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
+         * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
+         *
+         * @property vertices
+         * @type {Vector[] | undefined}
+         */
         vertices?: Array<Vector> | undefined;
         /**
          * An array of bodies that make up this body.
@@ -446,18 +470,18 @@ declare namespace Matter {
          * Parts themselves should never be added to a `World`, only the parent body should be.
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
          *
-        * @property parts
-        * @type body[]
-        */
+         * @property parts
+         * @type {Body[] | undefined}
+         */
         parts?: Array<Body> | undefined;
         /**
          * A self reference if the body is _not_ a part of another body.
          * Otherwise this is a reference to the body that this is a part of.
          * See `body.parts`.
          *
-        * @property parent
-        * @type body
-        */
+         * @property parent
+         * @type {Body | undefined}
+         */
         parent?: Body | undefined;
         /**
          * A `Number` that defines the static friction of the body (in the Coulomb friction model).
@@ -465,57 +489,55 @@ declare namespace Matter {
          * The higher the value (e.g. `10`), the more force it will take to initially get the body moving when nearly stationary.
          * This value is multiplied with the `friction` property to make it easier to change `friction` and maintain an appropriate amount of static friction.
          *
-        * @property frictionStatic
-        * @type number
-        * @default 0.5
-        */
+         * @property frictionStatic
+         * @type {number | undefined}
+         * @default 0.5
+         */
         frictionStatic?: number | undefined;
         /**
          * An `Object` that specifies the collision filtering properties of this body.
          *
-        * Collisions between two bodies will obey the following rules:
-        * - If the two bodies have the same non-zero value of `collisionFilter.group`,
-        *   they will always collide if the value is positive, and they will never collide
-        *   if the value is negative.
-        * - If the two bodies have different values of `collisionFilter.group` or if one
-        *   (or both) of the bodies has a value of 0, then the category/mask rules apply as follows:
-        *
-        * Each body belongs to a collision category, given by `collisionFilter.category`. This
-        * value is used as a bit field and the category should have only one bit set, meaning that
-        * the value of this property is a power of two in the range [1, 2^31]. Thus, there are 32
-        * different collision categories available.
-        *
-        * Each body also defines a collision bitmask, given by `collisionFilter.mask` which specifies
-        * the categories it collides with (the value is the bitwise AND value of all these categories).
-        *
-        * Using the category/mask rules, two bodies `A` and `B` collide if each includes the other's
-        * category in its mask, i.e. `(categoryA & maskB) !== 0` and `(categoryB & maskA) !== 0`
-        * are both true.
-        *
-        * @property collisionFilter
-        * @type object
-        */
+         * Collisions between two bodies will obey the following rules:
+         * - If the two bodies have the same non-zero value of `collisionFilter.group`,
+         *   they will always collide if the value is positive, and they will never collide
+         *   if the value is negative.
+         * - If the two bodies have different values of `collisionFilter.group` or if one
+         *   (or both) of the bodies has a value of 0, then the category/mask rules apply as follows:
+         *
+         * Each body belongs to a collision category, given by `collisionFilter.category`. This
+         * value is used as a bit field and the category should have only one bit set, meaning that
+         * the value of this property is a power of two in the range [1, 2^31]. Thus, there are 32
+         * different collision categories available.
+         *
+         * Each body also defines a collision bitmask, given by `collisionFilter.mask` which specifies
+         * the categories it collides with (the value is the bitwise AND value of all these categories).
+         *
+         * Using the category/mask rules, two bodies `A` and `B` collide if each includes the other's
+         * category in its mask, i.e. `(categoryA & maskB) !== 0` and `(categoryB & maskA) !== 0`
+         * are both true.
+         *
+         * @property collisionFilter
+         * @type {ICollisionFilter | undefined}
+         */
         collisionFilter?: ICollisionFilter | undefined;
-
     }
 
     export interface IBodyRenderOptions {
-
         /**
          * A flag that indicates if the body should be rendered.
          *
-        * @property render.visible
-        * @type boolean
-        * @default true
-        */
+         * @property render.visible
+         * @type {boolean | undefined}
+         * @default true
+         */
         visible?: boolean | undefined;
 
         /**
          * An `Object` that defines the sprite properties to use when rendering, if any.
          *
-        * @property render.sprite
-        * @type object
-        */
+         * @property render.sprite
+         * @type {IBodyRenderOptionsSprite | undefined}
+         */
         sprite?: IBodyRenderOptionsSprite | undefined;
 
         /**
@@ -536,7 +558,6 @@ declare namespace Matter {
         */
         strokeStyle?: string | undefined;
 
-
         /*
          * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
          */
@@ -547,27 +568,27 @@ declare namespace Matter {
         /**
          * An `String` that defines the path to the image to use as the sprite texture, if any.
          *
-        * @property render.sprite.texture
-        * @type string
-        */
+         * @property render.sprite.texture
+         * @type {string}
+         */
         texture: string;
 
         /**
          * A `Number` that defines the scaling in the x-axis for the sprite, if any.
          *
-        * @property render.sprite.xScale
-        * @type number
-        * @default 1
-        */
+         * @property render.sprite.xScale
+         * @type {number}
+         * @default 1
+         */
         xScale: number;
 
         /**
          * A `Number` that defines the scaling in the y-axis for the sprite, if any.
          *
-        * @property render.sprite.yScale
-        * @type number
-        * @default 1
-        */
+         * @property render.sprite.yScale
+         * @type {number}
+         * @default 1
+         */
         yScale: number;
     }
 
@@ -584,9 +605,9 @@ declare namespace Matter {
         /**
          * Applies a force to a body from a given world-space position, including resulting torque.
          * @method applyForce
-         * @param {body} body
-         * @param {vector} position
-         * @param {vector} force
+         * @param {Body} body
+         * @param {Vector} position
+         * @param {Vector} force
          */
         static applyForce(body: Body, position: Vector, force: Vector): void;
 
@@ -596,13 +617,13 @@ declare namespace Matter {
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
          * @param {} options
-         * @return {body} body
+         * @returns {Body} body
          */
         static create(options: IBodyDefinition): Body;
         /**
          * Rotates a body by a given angle relative to its current angle, without imparting any angular velocity.
          * @method rotate
-         * @param {body} body
+         * @param {Body} body
          * @param {number} rotation
          */
         static rotate(body: Body, rotation: number): void;
@@ -611,22 +632,22 @@ declare namespace Matter {
          * If `isNonColliding` is `true`, returns the next unique group index for which bodies will _not_ collide.
          * See `body.collisionFilter` for more information.
          * @method nextGroup
-         * @param {bool} [isNonColliding=false]
-         * @return {Number} Unique group index
+         * @param {boolean} [isNonColliding=false]
+         * @returns {Number} Unique group index
          */
         static nextGroup(isNonColliding: boolean): number;
         /**
          * Returns the next unique category bitfield (starting after the initial default category `0x0001`).
          * There are 32 available. See `body.collisionFilter` for more information.
          * @method nextCategory
-         * @return {Number} Unique category bitfield
+         * @returns {Number} Unique category bitfield
          */
         static nextCategory(): number;
         /**
          * Given a property and a value (or map of), sets the property(s) on the body, using the appropriate setter functions if they exist.
          * Prefer to use the actual setter functions in performance critical situations.
          * @method set
-         * @param {body} body
+         * @param {Body} body
          * @param {} settings A property name (or map of properties and values) to set on the body.
          * @param {} value The value to set if `settings` is a single property name.
          */
@@ -634,14 +655,14 @@ declare namespace Matter {
         /**
          * Sets the mass of the body. Inverse mass and density are automatically updated to reflect the change.
          * @method setMass
-         * @param {body} body
+         * @param {Body} body
          * @param {number} mass
          */
         static setMass(body: Body, mass: number): void;
         /**
          * Sets the density of the body. Mass is automatically updated to reflect the change.
          * @method setDensity
-         * @param {body} body
+         * @param {Body} body
          * @param {number} density
          */
         static setDensity(body: Body, density: number): void;
@@ -649,7 +670,7 @@ declare namespace Matter {
          * Sets the moment of inertia (i.e. second moment of area) of the body of the body.
          * Inverse inertia is automatically updated to reflect the change. Mass is not changed.
          * @method setInertia
-         * @param {body} body
+         * @param {Body} body
          * @param {number} inertia
          */
         static setInertia(body: Body, interna: number): void;
@@ -658,13 +679,13 @@ declare namespace Matter {
          * Vertices will be automatically transformed to be orientated around their centre of mass as the origin.
          * They are then automatically translated to world space based on `body.position`.
          *
-        * The `vertices` argument should be passed as an array of `Matter.Vector` points (or a `Matter.Vertices` array).
-        * Vertices must form a convex hull, concave hulls are not supported.
-        *
-        * @method setVertices
-        * @param {body} body
-        * @param {vector[]} vertices
-        */
+         * The `vertices` argument should be passed as an array of `Matter.Vector` points (or a `Matter.Vertices` array).
+         * Vertices must form a convex hull, concave hulls are not supported.
+         *
+         * @method setVertices
+         * @param {Body} body
+         * @param {Vector[]} vertices
+         */
         static setVertices(body: Body, vertices: Array<Vector>): void;
         /**
          * Sets the parts of the `body` and updates mass, inertia and centroid.
@@ -672,9 +693,9 @@ declare namespace Matter {
          * By default the convex hull will be automatically computed and set on `body`, unless `autoHull` is set to `false.`
          * Note that this method will ensure that the first part in `body.parts` will always be the `body`.
          * @method setParts
-         * @param {body} body
+         * @param {Body} body
          * @param [body] parts
-         * @param {bool} [autoHull=true]
+         * @param {boolean} [autoHull=true]
          */
         static setParts(body: Body, parts: Body[], autoHull?: boolean): void;
         /**
@@ -692,64 +713,62 @@ declare namespace Matter {
         /**
          * Sets the position of the body instantly. Velocity, angle, force etc. are unchanged.
          * @method setPosition
-         * @param {body} body
-         * @param {vector} position
+         * @param {Body} body
+         * @param {Vector} position
          */
         static setPosition(body: Body, position: Vector): void;
         /**
          * Sets the angle of the body instantly. Angular velocity, position, force etc. are unchanged.
          * @method setAngle
-         * @param {body} body
+         * @param {Body} body
          * @param {number} angle
          */
         static setAngle(body: Body, angle: number): void;
         /**
          * Sets the linear velocity of the body instantly. Position, angle, force etc. are unchanged. See also `Body.applyForce`.
          * @method setVelocity
-         * @param {body} body
-         * @param {vector} velocity
+         * @param {Body} body
+         * @param {Vector} velocity
          */
         static setVelocity(body: Body, velocity: Vector): void;
         /**
          * Sets the angular velocity of the body instantly. Position, angle, force etc. are unchanged. See also `Body.applyForce`.
          * @method setAngularVelocity
-         * @param {body} body
+         * @param {Body} body
          * @param {number} velocity
          */
         static setAngularVelocity(body: Body, velocity: number): void;
 
-
-
         /**
          * Sets the body as static, including isStatic flag and setting mass and inertia to Infinity.
          * @method setStatic
-         * @param {body} body
-         * @param {bool} isStatic
+         * @param {Body} body
+         * @param {boolean} isStatic
          */
         static setStatic(body: Body, isStatic: boolean): void;
 
         /**
          * Scales the body, including updating physical properties (mass, area, axes, inertia), from a world-space point (default is body centre).
          * @method scale
-         * @param {body} body
+         * @param {Body} body
          * @param {number} scaleX
          * @param {number} scaleY
-         * @param {vector} [point]
+         * @param {Vector} [point]
          */
         static scale(body: Body, scaleX: number, scaleY: number, point?: Vector): void;
 
         /**
          * Moves a body by a given vector relative to its current position, without imparting any velocity.
          * @method translate
-         * @param {body} body
-         * @param {vector} translation
+         * @param {Body} body
+         * @param {Vector} translation
          */
         static translate(body: Body, translation: Vector): void;
 
         /**
          * Performs a simulation step for the given `body`, including updating position and angle using Verlet integration.
          * @method update
-         * @param {body} body
+         * @param {Body} body
          * @param {number} deltaTime
          * @param {number} timeScale
          * @param {number} correction
@@ -759,60 +778,61 @@ declare namespace Matter {
         /**
          * A `Number` specifying the angle of the body, in radians.
          *
-        * @property angle
-        * @type number
-        * @default 0
-        */
+         * @property angle
+         * @type {number}
+         * @default 0
+         */
         angle: number;
         /**
          * A `Number` that _measures_ the current angular speed of the body after the last `Body.update`. It is read-only and always positive (it's the magnitude of `body.angularVelocity`).
          *
-        * @readOnly
-        * @property angularSpeed
-        * @type number
-        * @default 0
-        */
-        angularSpeed: number;
+         * @readOnly
+         * @property angularSpeed
+         * @type {number}
+         * @default 0
+         */
+        readonly angularSpeed: number;
         /**
          * A `Number` that _measures_ the current angular velocity of the body after the last `Body.update`. It is read-only.
          * If you need to modify a body's angular velocity directly, you should apply a torque or simply change the body's `angle` (as the engine uses position-Verlet integration).
          *
-        * @readOnly
-        * @property angularVelocity
-        * @type number
-        * @default 0
-        */
-        angularVelocity: number;
+         * @readOnly
+         * @property angularVelocity
+         * @type {number}
+         * @default 0
+         */
+        readonly angularVelocity: number;
         /**
          * A `Number` that _measures_ the area of the body's convex hull, calculated at creation by `Body.create`.
          *
-        * @property area
-        * @type string
-        * @default
-        */
+         * @property area
+         * @type {number}
+         * @default
+         */
         area: number;
         /**
          * An array of unique axis vectors (edge normals) used for collision detection.
          * These are automatically calculated from the given convex hull (`vertices` array) in `Body.create`.
          * They are constantly updated by `Body.update` during the simulation.
          *
-        * @property axes
-        * @type vector[]
-        */
+         * @property axes
+         * @type {Vector[]}
+         */
         axes: Array<Vector>;
         /**
          * A `Bounds` object that defines the AABB region for the body.
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
          *
-        * @property bounds
-        * @type bounds
-        */
+         * @property bounds
+         * @type {Bounds}
+         */
         bounds: Bounds;
         /**
          * A `Number` that is set to the radius of the object if the body was constructed using `Bodies.circle`.
          * May have a value of `null` if the body is no longer a circle (i.e. was scaled with a scaleX != scaleY).
          *
          * @property circleRadius
+         * @type {number  | undefined}
          * @default 0
          */
         circleRadius?: number | undefined;
@@ -821,35 +841,35 @@ declare namespace Matter {
          * If you pass the density via `Body.create` the `mass` property is automatically calculated for you based on the size (area) of the object.
          * This is generally preferable to simply setting mass and allows for more intuitive definition of materials (e.g. rock has a higher density than wood).
          *
-        * @property density
-        * @type number
-        * @default 0.001
-        */
+         * @property density
+         * @type {number}
+         * @default 0.001
+         */
         density: number;
         /**
          * A `Vector` that specifies the force to apply in the current step. It is zeroed after every `Body.update`. See also `Body.applyForce`.
-        *
-        * @property force
-        * @type vector
-        * @default { x: 0, y: 0 }
-        */
+         *
+         * @property force
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
         force: Vector;
         /**
          * A `Number` that defines the friction of the body. The value is always positive and is in the range `(0, 1)`.
-        * A value of `0` means that the body may slide indefinitely.
-        * A value of `1` means the body may come to a stop almost instantly after a force is applied.
-        *
-        * The effects of the value may be non-linear.
-        * High values may be unstable depending on the body.
-        * The engine uses a Coulomb friction model including static and kinetic friction.
-        * Note that collision response is based on _pairs_ of bodies, and that `friction` values are _combined_ with the following formula:
-        *
-        *     Math.min(bodyA.friction, bodyB.friction)
-        *
-        * @property friction
-        * @type number
-        * @default 0.1
-        */
+         * A value of `0` means that the body may slide indefinitely.
+         * A value of `1` means the body may come to a stop almost instantly after a force is applied.
+         *
+         * The effects of the value may be non-linear.
+         * High values may be unstable depending on the body.
+         * The engine uses a Coulomb friction model including static and kinetic friction.
+         * Note that collision response is based on _pairs_ of bodies, and that `friction` values are _combined_ with the following formula:
+         *
+         *     Math.min(bodyA.friction, bodyB.friction)
+         *
+         * @property friction
+         * @type {number}
+         * @default 0.1
+         */
         friction: number;
         /**
          * A `Number` that defines the air friction of the body (air resistance).
@@ -857,109 +877,110 @@ declare namespace Matter {
          * The higher the value, the faster a body slows when moving through space.
          * The effects of the value are non-linear.
          *
-        * @property frictionAir
-        * @type number
-        * @default 0.01
-        */
+         * @property frictionAir
+         * @type {number}
+         * @default 0.01
+         */
         frictionAir: number;
         /**
          * An integer `Number` uniquely identifying number generated in `Body.create` by `Common.nextId`.
          *
-        * @property id
-        * @type number
-        */
+         * @property id
+         * @type {number}
+         */
         id: number;
         /**
          * A `Number` that defines the moment of inertia (i.e. second moment of area) of the body.
          * It is automatically calculated from the given convex hull (`vertices` array) and density in `Body.create`.
          * If you modify this value, you must also modify the `body.inverseInertia` property (`1 / inertia`).
          *
-        * @property inertia
-        * @type number
-        */
+         * @property inertia
+         * @type {number}
+         */
         inertia: number;
         /**
          * A `Number` that defines the inverse moment of inertia of the body (`1 / inertia`).
          * If you modify this value, you must also modify the `body.inertia` property.
          *
-        * @property inverseInertia
-        * @type number
-        */
+         * @property inverseInertia
+         * @type {number}
+         */
         inverseInertia: number;
         /**
          * A `Number` that defines the inverse mass of the body (`1 / mass`).
          * If you modify this value, you must also modify the `body.mass` property.
          *
-        * @property inverseMass
-        * @type number
-        */
+         * @property inverseMass
+         * @type {number}
+         */
         inverseMass: number;
         /**
          * A flag that indicates whether the body is considered sleeping. A sleeping body acts similar to a static body, except it is only temporary and can be awoken.
          * If you need to set a body as sleeping, you should use `Sleeping.set` as this requires more than just setting this flag.
          *
-        * @property isSleeping
-        * @type boolean
-        * @default false
-        */
+         * @property isSleeping
+         * @type {boolean}
+         * @default false
+         */
         isSleeping: boolean;
         /**
          * A flag that indicates whether a body is considered static. A static body can never change position or angle and is completely fixed.
          * If you need to set a body as static after its creation, you should use `Body.setStatic` as this requires more than just setting this flag.
          *
-        * @property isStatic
-        * @type boolean
-        * @default false
-        */
+         * @property isStatic
+         * @type {boolean}
+         * @default false
+         */
         isStatic: boolean;
         /**
          * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
          *
-        * @property isSensor
-        * @type boolean
-        * @default false
-        */
+         * @property isSensor
+         * @type {boolean}
+         * @default false
+         */
         isSensor: boolean;
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
-        * @property label
-        * @type string
-        * @default "Body"
-        */
+         * @property label
+         * @type {string}
+         * @default "Body"
+         */
 
         label: string;
         /**
          * A `Number` that defines the mass of the body, although it may be more appropriate to specify the `density` property instead.
          * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
          *
-        * @property mass
-        * @type number
-        */
+         * @property mass
+         * @type {number}
+         */
         mass: number;
         /**
          * A `Number` that _measures_ the amount of movement a body currently has (a combination of `speed` and `angularSpeed`). It is read-only and always positive.
-        * It is used and updated by the `Matter.Sleeping` module during simulation to decide if a body has come to rest.
-        *
-        * @readOnly
-        * @property motion
-        * @type number
-        * @default 0
-        */
-        motion: number;
+         * It is used and updated by the `Matter.Sleeping` module during simulation to decide if a body has come to rest.
+         *
+         * @readOnly
+         * @property motion
+         * @type {number}
+         * @default 0
+         */
+        readonly motion: number;
         /**
          * A `Vector` that specifies the current world-space position of the body.
          *
-        * @property position
-        * @type vector
-        * @default { x: 0, y:      */
+         * @property position
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
         position: Vector;
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-        *
-        * @property render
-        * @type object
-        */
+         *
+         * @property render
+         * @type {any}
+         */
         render: IBodyRenderOptions;
         /**
          * A `Number` that defines the restitution (elasticity) of the body. The value is always positive and is in the range `(0, 1)`.
@@ -967,89 +988,89 @@ declare namespace Matter {
          * A value of `0.8` means the body may bounce back with approximately 80% of its kinetic energy.
          * Note that collision response is based on _pairs_ of bodies, and that `restitution` values are _combined_ with the following formula:
          *
-        *     Math.max(bodyA.restitution, bodyB.restitution)
-        *
-        * @property restitution
-        * @type number
-        * @default 0
-        */
+         *     Math.max(bodyA.restitution, bodyB.restitution)
+         *
+         * @property restitution
+         * @type {number}
+         * @default 0
+         */
         restitution: number;
         /**
          * A `Number` that defines the number of updates in which this body must have near-zero velocity before it is set as sleeping by the `Matter.Sleeping` module (if sleeping is enabled by the engine).
          *
-        * @property sleepThreshold
-        * @type number
-        * @default 60
-        */
+         * @property sleepThreshold
+         * @type {number}
+         * @default 60
+         */
         sleepThreshold: number;
         /**
          * A `Number` that specifies a tolerance on how far a body is allowed to 'sink' or rotate into other bodies.
          * Avoid changing this value unless you understand the purpose of `slop` in physics engines.
          * The default should generally suffice, although very large bodies may require larger values for stable stacking.
          *
-        * @property slop
-        * @type number
-        * @default 0.05
-        */
+         * @property slop
+         * @type {number}
+         * @default 0.05
+         */
         slop: number;
         /**
          * A `Number` that _measures_ the current speed of the body after the last `Body.update`. It is read-only and always positive (it's the magnitude of `body.velocity`).
          *
-        * @readOnly
-        * @property speed
-        * @type number
-        * @default 0
-        */
-        speed: number;
+         * @readOnly
+         * @property speed
+         * @type {number}
+         * @default 0
+         */
+        readonly speed: number;
         /**
          * A `Number` that allows per-body time scaling, e.g. a force-field where bodies inside are in slow-motion, while others are at full speed.
-        *
-        * @property timeScale
-        * @type number
-        * @default 1
-        */
+         *
+         * @property timeScale
+         * @type {number}
+         * @default 1
+         */
         timeScale: number;
         /**
          * A `Number` that specifies the torque (turning force) to apply in the current step. It is zeroed after every `Body.update`.
-        *
-        * @property torque
-        * @type number
-        * @default 0
-        */
+         *
+         * @property torque
+         * @type {number}
+         * @default 0
+         */
         torque: number;
         /**
          * A `String` denoting the type of object.
-        *
-        * @property type
-        * @type string
-        * @default "body"
-        */
+         *
+         * @property type
+         * @type {string}
+         * @default "body"
+         */
         type: string;
         /**
          * A `Vector` that _measures_ the current velocity of the body after the last `Body.update`. It is read-only.
          * If you need to modify a body's velocity directly, you should either apply a force or simply change the body's `position` (as the engine uses position-Verlet integration).
          *
-        * @readOnly
-        * @property velocity
-        * @type vector
-        * @default { x: 0, y: 0 }
-        */
-        velocity: Vector;
+         * @readOnly
+         * @property velocity
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
+        readonly velocity: Vector;
         /**
          * An array of `Vector` objects that specify the convex hull of the rigid body.
          * These should be provided about the origin `(0, 0)`. E.g.
          *
-        *     [{ x: 0, y: 0 }, { x: 25, y: 50 }, { x: 50, y: 0 }]
-        *
-        * When passed via `Body.create`, the vertices are translated relative to `body.position` (i.e. world-space, and constantly updated by `Body.update` during simulation).
-        * The `Vector` objects are also augmented with additional properties required for efficient collision detection.
-        *
-        * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
-        * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
-        *
-        * @property vertices
-        * @type vector[]
-        */
+         *     [{ x: 0, y: 0 }, { x: 25, y: 50 }, { x: 50, y: 0 }]
+         *
+         * When passed via `Body.create`, the vertices are translated relative to `body.position` (i.e. world-space, and constantly updated by `Body.update` during simulation).
+         * The `Vector` objects are also augmented with additional properties required for efficient collision detection.
+         *
+         * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
+         * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
+         *
+         * @property vertices
+         * @type {Vector[]}
+         */
         vertices: Array<Vector>;
         /**
          * An array of bodies that make up this body.
@@ -1059,18 +1080,18 @@ declare namespace Matter {
          * Parts themselves should never be added to a `World`, only the parent body should be.
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
          *
-        * @property parts
-        * @type body[]
-        */
+         * @property parts
+         * @type {Body[]}
+         */
         parts: Array<Body>;
         /**
          * A self reference if the body is _not_ a part of another body.
          * Otherwise this is a reference to the body that this is a part of.
          * See `body.parts`.
          *
-        * @property parent
-        * @type body
-        */
+         * @property parent
+         * @type {Body}
+         */
         parent: Body;
         /**
          * An object reserved for storing plugin-specific properties.
@@ -1084,93 +1105,91 @@ declare namespace Matter {
          * The higher the value (e.g. `10`), the more force it will take to initially get the body moving when nearly stationary.
          * This value is multiplied with the `friction` property to make it easier to change `friction` and maintain an appropriate amount of static friction.
          *
-        * @property frictionStatic
-        * @type number
-        * @default 0.5
-        */
+         * @property frictionStatic
+         * @type {number}
+         * @default 0.5
+         */
         frictionStatic: number;
         /**
          * An `Object` that specifies the collision filtering properties of this body.
          *
-        * Collisions between two bodies will obey the following rules:
-        * - If the two bodies have the same non-zero value of `collisionFilter.group`,
-        *   they will always collide if the value is positive, and they will never collide
-        *   if the value is negative.
-        * - If the two bodies have different values of `collisionFilter.group` or if one
-        *   (or both) of the bodies has a value of 0, then the category/mask rules apply as follows:
-        *
-        * Each body belongs to a collision category, given by `collisionFilter.category`. This
-        * value is used as a bit field and the category should have only one bit set, meaning that
-        * the value of this property is a power of two in the range [1, 2^31]. Thus, there are 32
-        * different collision categories available.
-        *
-        * Each body also defines a collision bitmask, given by `collisionFilter.mask` which specifies
-        * the categories it collides with (the value is the bitwise AND value of all these categories).
-        *
-        * Using the category/mask rules, two bodies `A` and `B` collide if each includes the other's
-        * category in its mask, i.e. `(categoryA & maskB) !== 0` and `(categoryB & maskA) !== 0`
-        * are both true.
-        *
-        * @property collisionFilter
-        * @type object
-        */
+         * Collisions between two bodies will obey the following rules:
+         * - If the two bodies have the same non-zero value of `collisionFilter.group`,
+         *   they will always collide if the value is positive, and they will never collide
+         *   if the value is negative.
+         * - If the two bodies have different values of `collisionFilter.group` or if one
+         *   (or both) of the bodies has a value of 0, then the category/mask rules apply as follows:
+         *
+         * Each body belongs to a collision category, given by `collisionFilter.category`. This
+         * value is used as a bit field and the category should have only one bit set, meaning that
+         * the value of this property is a power of two in the range [1, 2^31]. Thus, there are 32
+         * different collision categories available.
+         *
+         * Each body also defines a collision bitmask, given by `collisionFilter.mask` which specifies
+         * the categories it collides with (the value is the bitwise AND value of all these categories).
+         *
+         * Using the category/mask rules, two bodies `A` and `B` collide if each includes the other's
+         * category in its mask, i.e. `(categoryA & maskB) !== 0` and `(categoryB & maskA) !== 0`
+         * are both true.
+         *
+         * @property collisionFilter
+         * @type {ICollisionFilter}
+         */
         collisionFilter: ICollisionFilter;
-
     }
 
     /**
-    * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
-    *
-    * @class Bounds
-    */
+     * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
+     *
+     * @class Bounds
+     */
     export class Bounds {
-
         min: Vector;
         max: Vector;
 
         /**
          * Creates a new axis-aligned bounding box (AABB) for the given vertices.
          * @method create
-         * @param {vertices} vertices
-         * @return {bounds} A new bounds object
+         * @param {Vertices} vertices
+         * @returns {Bounds} A new bounds object
          */
         static create(vertices: Vertices): Bounds;
         /**
          * Updates bounds using the given vertices and extends the bounds given a velocity.
          * @method update
-         * @param {bounds} bounds
-         * @param {vertices} vertices
-         * @param {vector} velocity
+         * @param {Bounds} bounds
+         * @param {Vertices} vertices
+         * @param {Vector} velocity
          */
         static update(bounds: Bounds, vertices: Vertices, velocity: Vector): void;
         /**
          * Returns true if the bounds contains the given point.
          * @method contains
-         * @param {bounds} bounds
-         * @param {vector} point
-         * @return {boolean} True if the bounds contain the point, otherwise false
+         * @param {Bounds} bounds
+         * @param {Vector} point
+         * @returns {boolean} True if the bounds contain the point, otherwise false
          */
         static contains(bounds: Bounds, point: Vector): boolean;
         /**
          * Returns true if the two bounds intersect.
          * @method overlaps
-         * @param {bounds} boundsA
-         * @param {bounds} boundsB
-         * @return {boolean} True if the bounds overlap, otherwise false
+         * @param {Bounds} boundsA
+         * @param {Bounds} boundsB
+         * @returns {boolean} True if the bounds overlap, otherwise false
          */
         static overlaps(boundsA: Bounds, boundsB: Bounds): boolean;
         /**
-        * Translates the bounds by the given vector.
-        * @method translate
-        * @param {bounds} bounds
-        * @param {vector} vector
-        */
+         * Translates the bounds by the given vector.
+         * @method translate
+         * @param {Bounds} bounds
+         * @param {Vector} vector
+         */
         static translate(bounds: Bounds, vector: Vector): void;
         /**
          * Shifts the bounds to the given position.
          * @method shift
-         * @param {bounds} bounds
-         * @param {vector} position
+         * @param {Bounds} bounds
+         * @param {Vector} position
          */
         static shift(bounds: Bounds, position: Vector): void;
     }
@@ -1181,10 +1200,10 @@ declare namespace Matter {
          * To add or remove bodies you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allBodies` method.
          *
-        * @property bodies
-        * @type body[]
-        * @default []
-        */
+         * @property bodies
+         * @type body[]
+         * @default []
+         */
         bodies?: Array<Body> | undefined;
 
         /**
@@ -1192,10 +1211,10 @@ declare namespace Matter {
          * To add or remove composites you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allComposites` method.
          *
-        * @property composites
-        * @type composite[]
-        * @default []
-        */
+         * @property composites
+         * @type composite[]
+         * @default []
+         */
         composites?: Array<Composite> | undefined;
 
         /**
@@ -1203,18 +1222,18 @@ declare namespace Matter {
          * To add or remove constraints you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allConstraints` method.
          *
-        * @property constraints
-        * @type constraint[]
-        * @default []
-        */
+         * @property constraints
+         * @type constraint[]
+         * @default []
+         */
         constraints?: Array<Constraint> | undefined;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
          *
-        * @property id
-        * @type number
-        */
+         * @property id
+         * @type {number}
+         */
         id?: number | undefined;
 
         /**
@@ -1222,82 +1241,90 @@ declare namespace Matter {
          * Most `Matter.Composite` methods will automatically set this flag to `true` to inform the engine of changes to be handled.
          * If you need to change it manually, you should use the `Composite.setModified` method.
          *
-        * @property isModified
-        * @type boolean
-        * @default false
-        */
+         * @property isModified
+         * @type {boolean}
+         * @default false
+         */
         isModified?: boolean | undefined;
 
         /**
          * An arbitrary `String` name to help the user identify and manage composites.
          *
-        * @property label
-        * @type string
-        * @default "Composite"
-        */
+         * @property label
+         * @type {string}
+         * @default "Composite"
+         */
         label?: string | undefined;
 
         /**
-        * The `Composite` that is the parent of this composite. It is automatically managed by the `Matter.Composite` methods.
-        *
-        * @property parent
-        * @type composite
-        * @default null
-        */
+         * The `Composite` that is the parent of this composite. It is automatically managed by the `Matter.Composite` methods.
+         *
+         * @property parent
+         * @type composite
+         * @default null
+         */
         parent?: Composite | undefined;
 
         /**
          * A `String` denoting the type of object.
          *
-        * @property type
-        * @type string
-        * @default "composite"
-        */
+         * @property type
+         * @type {string}
+         * @default "composite"
+         */
         type?: String | undefined;
     }
 
     /**
-    * The `Matter.Composite` module contains methods for creating and manipulating composite bodies.
-    * A composite body is a collection of `Matter.Body`, `Matter.Constraint` and other `Matter.Composite`, therefore composites form a tree structure.
-    * It is important to use the functions in this module to modify composites, rather than directly modifying their properties.
-    * Note that the `Matter.World` object is also a type of `Matter.Composite` and as such all composite methods here can also operate on a `Matter.World`.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Composite
-    */
+     * The `Matter.Composite` module contains methods for creating and manipulating composite bodies.
+     * A composite body is a collection of `Matter.Body`, `Matter.Constraint` and other `Matter.Composite`, therefore composites form a tree structure.
+     * It is important to use the functions in this module to modify composites, rather than directly modifying their properties.
+     * Note that the `Matter.World` object is also a type of `Matter.Composite` and as such all composite methods here can also operate on a `Matter.World`.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Composite
+     */
     export class Composite {
         /**
          * Generic add function. Adds one or many body(s), constraint(s) or a composite(s) to the given composite.
          * Triggers `beforeAdd` and `afterAdd` events on the `composite`.
          * @method add
-         * @param {composite} composite
-         * @param {} object
-         * @return {composite} The original composite with the objects added
+         * @param {Composite} composite
+         * @param {any} object
+         * @returns {Composite} The original composite with the objects added
          */
-        static add(composite: Composite, object: Body | Composite | Constraint | MouseConstraint | Array<Body | Composite | Constraint | MouseConstraint>): Composite;
+        static add(
+            composite: Composite,
+            object:
+                | Body
+                | Composite
+                | Constraint
+                | MouseConstraint
+                | Array<Body | Composite | Constraint | MouseConstraint>,
+        ): Composite;
 
         /**
          * Returns all bodies in the given composite, including all bodies in its children, recursively.
          * @method allBodies
-         * @param {composite} composite
-         * @return {body[]} All the bodies
+         * @param {Composite} composite
+         * @returns {Body[]} All the bodies
          */
         static allBodies(composite: Composite): Array<Body>;
 
         /**
          * Returns all composites in the given composite, including all composites in its children, recursively.
          * @method allComposites
-         * @param {composite} composite
-         * @return {composite[]} All the composites
+         * @param {Composite} composite
+         * @returns {Composite[]} All the composites
          */
         static allComposites(composite: Composite): Array<Composite>;
 
         /**
          * Returns all constraints in the given composite, including all constraints in its children, recursively.
          * @method allConstraints
-         * @param {composite} composite
-         * @return {constraint[]} All the constraints
+         * @param {Composite} composite
+         * @returns {Constraint[]} All the constraints
          */
         static allConstraints(composite: Composite): Array<Constraint>;
 
@@ -1305,7 +1332,7 @@ declare namespace Matter {
          * Removes all bodies, constraints and composites from the given composite.
          * Optionally clearing its children recursively.
          * @method clear
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {boolean} keepStatic
          * @param {boolean} [deep=false]
          */
@@ -1313,20 +1340,20 @@ declare namespace Matter {
 
         /**
          * Creates a new composite. The options parameter is an object that specifies any properties you wish to override the defaults.
-        * See the properites section below for detailed information on what you can pass via the `options` object.
-        * @method create
-        * @param {} [options]
-        * @return {composite} A new composite
-        */
+         * See the properites section below for detailed information on what you can pass via the `options` object.
+         * @method create
+         * @param {} [options]
+         * @returns {Composite} A new composite
+         */
         static create(options?: ICompositeDefinition): Composite;
 
         /**
          * Searches the composite recursively for an object matching the type and id supplied, null if not found.
          * @method get
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} id
          * @param {string} type
-         * @return {object} The requested object, if found
+         * @returns {any} The requested object, if found
          */
         static get(composite: Composite, id: number, type: string): Body | Composite | Constraint;
 
@@ -1334,17 +1361,21 @@ declare namespace Matter {
          * Moves the given object(s) from compositeA to compositeB (equal to a remove followed by an add).
          * @method move
          * @param {compositeA} compositeA
-         * @param {object[]} objects
+         * @param {(Body | Composite | Constraint)[]} objects
          * @param {compositeB} compositeB
-         * @return {composite} Returns compositeA
+         * @returns {Composite} Returns compositeA
          */
-        static move(compositeA: Composite, objects: Array<Body | Composite | Constraint>, compositeB: Composite): Composite;
+        static move(
+            compositeA: Composite,
+            objects: Array<Body | Composite | Constraint>,
+            compositeB: Composite,
+        ): Composite;
 
         /**
          * Assigns new ids for all objects in the composite, recursively.
          * @method rebase
-         * @param {composite} composite
-         * @return {composite} Returns composite
+         * @param {Composite} composite
+         * @returns {Composite} Returns composite
          */
         static rebase(composite: Composite): Composite;
 
@@ -1353,145 +1384,138 @@ declare namespace Matter {
          * Optionally searching its children recursively.
          * Triggers `beforeRemove` and `afterRemove` events on the `composite`.
          * @method remove
-         * @param {composite} composite
-         * @param {} object
+         * @param {Composite} composite
+         * @param {any} object
          * @param {boolean} [deep=false]
-         * @return {composite} The original composite with the objects removed
+         * @returns {Composite} The original composite with the objects removed
          */
         static remove(composite: Composite, object: Body | Composite | Constraint, deep?: boolean): Composite;
 
-
-
-        /**
-         * Sets the composite's `isModified` flag.
-         * If `updateParents` is true, all parents will be set (default: false).
-         * If `updateChildren` is true, all children will be set (default: false).
-         * @method setModified
-         * @param {composite} composite
-         * @param {boolean} isModified
-         * @param {boolean} [updateParents=false]
-         * @param {boolean} [updateChildren=false]
-         */
-        static setModified(composite: Composite, isModified: boolean, updateParents?: boolean, updateChildren?: boolean): void;
         /**
          * Translates all children in the composite by a given vector relative to their current positions,
          * without imparting any velocity.
          * @method translate
-         * @param {composite} composite
-         * @param {vector} translation
-         * @param {bool} [recursive=true]
+         * @param {Composite} composite
+         * @param {Vector} translation
+         * @param {boolean} [recursive=true]
          */
         static translate(composite: Composite, translation: Vector, recursive?: boolean): void;
         /**
          * Rotates all children in the composite by a given angle about the given point, without imparting any angular velocity.
          * @method rotate
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} rotation
-         * @param {vector} point
-         * @param {bool} [recursive=true]
+         * @param {Vector} point
+         * @param {boolean} [recursive=true]
          */
         static rotate(composite: Composite, rotation: number, point: Vector, recursive?: boolean): void;
         /**
          * Scales all children in the composite, including updating physical properties (mass, area, axes, inertia), from a world-space point.
          * @method scale
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} scaleX
          * @param {number} scaleY
-         * @param {vector} point
-         * @param {bool} [recursive=true]
+         * @param {Vector} point
+         * @param {boolean} [recursive=true]
          */
         static scale(composite: Composite, scaleX: number, scaleY: number, point: Vector, recursive?: boolean): void;
 
+        /**
+         * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
+         *
+         * @property id
+         * @type {number}
+         */
+        id: number;
+
+        /**
+         * A `String` denoting the type of object.
+         *
+         * @property type
+         * @type {string}
+         * @default "composite"
+         * @readOnly
+         */
+        readonly type: string;
+
+        /**
+         * An arbitrary `String` name to help the user identify and manage composites.
+         *
+         * @property label
+         * @type {string}
+         * @default "Composite"
+         */
+        label: string;
+
+        /**
+         * A flag that specifies whether the composite has been modified during the current step.
+         * This is automatically managed when bodies, constraints or composites are added or removed.
+         *
+         * @property isModified
+         * @type {boolean}
+         * @default false
+         */
+        isModified: boolean;
+
+        /**
+         * The `Composite` that is the parent of this composite. It is automatically managed by the `Matter.Composite` methods.
+         *
+         * @property parent
+         * @type {Composite|null}
+         * @default null
+         */
+        parent: Composite | null;
 
         /**
          * An array of `Body` that are _direct_ children of this composite.
          * To add or remove bodies you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allBodies` method.
          *
-        * @property bodies
-        * @type body[]
-        * @default []
-        */
+         * @property bodies
+         * @type {Body[]}
+         * @default []
+         */
         bodies: Array<Body>;
-
-        /**
-         * An array of `Composite` that are _direct_ children of this composite.
-         * To add or remove composites you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
-         * If you wish to recursively find all descendants, you should use the `Composite.allComposites` method.
-         *
-        * @property composites
-        * @type composite[]
-        * @default []
-        */
-        composites: Array<Composite>;
 
         /**
          * An array of `Constraint` that are _direct_ children of this composite.
          * To add or remove constraints you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allConstraints` method.
          *
-        * @property constraints
-        * @type constraint[]
-        * @default []
-        */
+         * @property constraints
+         * @type {Constraint[]}
+         * @default []
+         */
         constraints: Array<Constraint>;
 
         /**
-         * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
+         * An array of `Composite` that are _direct_ children of this composite.
+         * To add or remove composites you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
+         * If you wish to recursively find all descendants, you should use the `Composite.allComposites` method.
          *
-        * @property id
-        * @type number
-        */
-        id: number;
+         * @property composites
+         * @type {Composite[]}
+         * @default []
+         */
+        composites: Array<Composite>;
 
         /**
-         * A flag that specifies whether the composite has been modified during the current step.
-        * Most `Matter.Composite` methods will automatically set this flag to `true` to inform the engine of changes to be handled.
-        * If you need to change it manually, you should use the `Composite.setModified` method.
-        *
-        * @property isModified
-        * @type boolean
-        * @default false
-        */
-        isModified: boolean;
-
-        /**
-         * An arbitrary `String` name to help the user identify and manage composites.
+         * An object reserved for storing plugin-specific properties.
          *
-        * @property label
-        * @type string
-        * @default "Composite"
-        */
-        label: string;
-
-        /**
-         * The `Composite` that is the parent of this composite. It is automatically managed by the `Matter.Composite` methods.
-         *
-        * @property parent
-        * @type composite
-        * @default null
-        */
-        parent: Composite;
-
-        /**
-         * A `String` denoting the type of object.
-         *
-        * @property type
-        * @type string
-        * @default "composite"
-        */
-        type: String;
-
+         * @property plugin
+         * @type {Plugin}
+         */
+        plugin: Plugin;
     }
 
     /**
-    * The `Matter.Composites` module contains factory methods for creating composite bodies
-    * with commonly used configurations (such as stacks and chains).
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Composites
-    */
+     * The `Matter.Composites` module contains factory methods for creating composite bodies
+     * with commonly used configurations (such as stacks and chains).
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Composites
+     */
     export class Composites {
         /**
          * This has now moved to the [car example](https://github.com/liabru/matter-js/blob/master/examples/car.js), follow that instead as this function is deprecated here.
@@ -1502,32 +1526,39 @@ declare namespace Matter {
          * @param {number} width
          * @param {number} height
          * @param {number} wheelSize
-         * @return {composite} A new composite car body
+         * @returns {Composite} A new composite car body
          */
         static car(xx: number, yy: number, width: number, height: number, wheelSize: number): Composite;
 
         /**
          * Chains all bodies in the given composite together using constraints.
          * @method chain
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} xOffsetA
          * @param {number} yOffsetA
          * @param {number} xOffsetB
          * @param {number} yOffsetB
-         * @param {object} options
-         * @return {composite} A new composite containing objects chained together with constraints
+         * @param {any} options
+         * @returns {Composite} A new composite containing objects chained together with constraints
          */
-        static chain(composite: Composite, xOffsetA: number, yOffsetA: number, xOffsetB: number, yOffsetB: number, options: any): Composite;
+        static chain(
+            composite: Composite,
+            xOffsetA: number,
+            yOffsetA: number,
+            xOffsetB: number,
+            yOffsetB: number,
+            options: any,
+        ): Composite;
 
         /**
          * Connects bodies in the composite with constraints in a grid pattern, with optional cross braces.
          * @method mesh
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} columns
          * @param {number} rows
          * @param {boolean} crossBrace
-         * @param {object} options
-         * @return {composite} The composite containing objects meshed together with constraints
+         * @param {any} options
+         * @returns {Composite} The composite containing objects meshed together with constraints
          */
         static mesh(composite: Composite, columns: number, rows: number, crossBrace: boolean, options: any): Composite;
 
@@ -1540,24 +1571,32 @@ declare namespace Matter {
          * @param {number} number
          * @param {number} size
          * @param {number} length
-         * @return {composite} A new composite newtonsCradle body
+         * @returns {Composite} A new composite newtonsCradle body
          */
         static newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
 
         /**
          * Create a new composite containing bodies created in the callback in a pyramid arrangement.
-        * This function uses the body's bounds to prevent overlaps.
-        * @method pyramid
-        * @param {number} xx
-        * @param {number} yy
-        * @param {number} columns
-        * @param {number} rows
-        * @param {number} columnGap
-        * @param {number} rowGap
-        * @param {function} callback
-        * @return {composite} A new composite containing objects created in the callback
-        */
-        static pyramid(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, callback: Function): Composite;
+         * This function uses the body's bounds to prevent overlaps.
+         * @method pyramid
+         * @param {number} xx
+         * @param {number} yy
+         * @param {number} columns
+         * @param {number} rows
+         * @param {number} columnGap
+         * @param {number} rowGap
+         * @param {function} callback
+         * @returns {Composite} A new composite containing objects created in the callback
+         */
+        static pyramid(
+            xx: number,
+            yy: number,
+            columns: number,
+            rows: number,
+            columnGap: number,
+            rowGap: number,
+            callback: Function,
+        ): Composite;
 
         /**
          * This has now moved to the [softBody example](https://github.com/liabru/matter-js/blob/master/examples/softBody.js)
@@ -1574,9 +1613,20 @@ declare namespace Matter {
          * @param {number} particleRadius
          * @param {} particleOptions
          * @param {} constraintOptions
-         * @return {composite} A new composite softBody
+         * @returns {Composite} A new composite softBody
          */
-        static softBody(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, crossBrace: boolean, particleRadius: number, particleOptions: any, constraintOptions: any): Composite;
+        static softBody(
+            xx: number,
+            yy: number,
+            columns: number,
+            rows: number,
+            columnGap: number,
+            rowGap: number,
+            crossBrace: boolean,
+            particleRadius: number,
+            particleOptions: any,
+            constraintOptions: any,
+        ): Composite;
 
         /**
          * Create a new composite containing bodies created in the callback in a grid arrangement.
@@ -1589,80 +1639,88 @@ declare namespace Matter {
          * @param {number} columnGap
          * @param {number} rowGap
          * @param {function} callback
-         * @return {composite} A new composite containing objects created in the callback
+         * @returns {Composite} A new composite containing objects created in the callback
          */
-        static stack(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, callback: Function): Composite;
+        static stack(
+            xx: number,
+            yy: number,
+            columns: number,
+            rows: number,
+            columnGap: number,
+            rowGap: number,
+            callback: Function,
+        ): Composite;
     }
 
     export interface IConstraintDefinition {
         /**
          * The first possible `Body` that this constraint is attached to.
          *
-        * @property bodyA
-        * @type body
-        * @default null
-        */
+         * @property bodyA
+         * @type body
+         * @default null
+         */
         bodyA?: Body | undefined;
 
         /**
          * The second possible `Body` that this constraint is attached to.
          *
-        * @property bodyB
-        * @type body
-        * @default null
-        */
+         * @property bodyB
+         * @type body
+         * @default null
+         */
         bodyB?: Body | undefined;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
          *
-        * @property id
-        * @type number
-        */
+         * @property id
+         * @type {number}
+         */
         id?: number | undefined;
 
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
-        * @property label
-        * @type string
-        * @default "Constraint"
-        */
+         * @property label
+         * @type {string}
+         * @default "Constraint"
+         */
         label?: string | undefined;
 
         /**
          * A `Number` that specifies the target resting length of the constraint.
          * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
          *
-        * @property length
-        * @type number
-        */
+         * @property length
+         * @type {number}
+         */
         length?: number | undefined;
 
         /**
          * A `Vector` that specifies the offset of the constraint from center of the `constraint.bodyA` if defined, otherwise a world-space position.
          *
-        * @property pointA
-        * @type vector
-        * @default { x: 0, y: 0 }
-        */
+         * @property pointA
+         * @type vector
+         * @default { x: 0, y: 0 }
+         */
         pointA?: Vector | undefined;
 
         /**
          * A `Vector` that specifies the offset of the constraint from center of the `constraint.bodyA` if defined, otherwise a world-space position.
          *
-        * @property pointB
-        * @type vector
-        * @default { x: 0, y: 0 }
-        */
+         * @property pointB
+         * @type vector
+         * @default { x: 0, y: 0 }
+         */
         pointB?: Vector | undefined;
 
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
          *
-        * @property render
-        * @type object
-        */
+         * @property render
+         * @type {any}
+         */
         render?: IConstraintRenderDefinition | undefined;
 
         /**
@@ -1670,10 +1728,10 @@ declare namespace Matter {
          * A value of `1` means the constraint should be very stiff.
          * A value of `0.2` means the constraint acts like a soft spring.
          *
-        * @property stiffness
-        * @type number
-        * @default 1
-        */
+         * @property stiffness
+         * @type {number}
+         * @default 1
+         */
         stiffness?: number | undefined;
 
         /**
@@ -1684,7 +1742,7 @@ declare namespace Matter {
          * A value of `0` means the constraint will apply no damping.
          *
          * @property damping
-         * @type number
+         * @type {number}
          * @default 0
          */
         damping?: number | undefined;
@@ -1692,10 +1750,10 @@ declare namespace Matter {
         /**
          * A `String` denoting the type of object.
          *
-        * @property type
-        * @type string
-        * @default "constraint"
-        */
+         * @property type
+         * @type {string}
+         * @default "constraint"
+         */
         type?: string | undefined;
     }
 
@@ -1704,38 +1762,38 @@ declare namespace Matter {
          * A `Number` that defines the line width to use when rendering the constraint outline.
          * A value of `0` means no outline will be rendered.
          *
-        * @property render.lineWidth
-        * @type number
-        * @default 2
-        */
+         * @property render.lineWidth
+         * @type {number}
+         * @default 2
+         */
         lineWidth?: number | undefined;
 
         /**
          * A `String` that defines the stroke style to use when rendering the constraint outline.
          * It is the same as when using a canvas, so it accepts CSS style property values.
          *
-        * @property render.strokeStyle
-        * @type string
-        * @default a random colour
-        */
+         * @property render.strokeStyle
+         * @type {string}
+         * @default a random colour
+         */
         strokeStyle?: string | undefined;
 
         /**
          * A flag that indicates if the constraint should be rendered.
          *
-        * @property render.visible
-        * @type boolean
-        * @default true
-        */
+         * @property render.visible
+         * @type {boolean}
+         * @default true
+         */
         visible?: boolean | undefined;
 
         /**
          * A `Boolean` that defines if the constraint's anchor points should be rendered.
          *
-        * @property render.anchors
-        * @type boolean
-        * @default true
-        */
+         * @property render.anchors
+         * @type {boolean}
+         * @default true
+         */
         anchors?: boolean | undefined;
 
         /**
@@ -1743,23 +1801,22 @@ declare namespace Matter {
          * 'line', 'pin', 'spring'. An appropriate render type will be automatically
          * chosen unless one is given in options.
          *
-        * @property render.type
-        * @type string
-        * @default 'line'
-        */
+         * @property render.type
+         * @type {string}
+         * @default 'line'
+         */
         type?: 'line' | 'pin' | 'spring' | undefined;
     }
 
-
     /**
-    * The `Matter.Constraint` module contains methods for creating and manipulating constraints.
-    * Constraints are used for specifying that a fixed distance must be maintained between two bodies (or a body and a fixed world-space position).
-    * The stiffness of constraints can be modified to create springs or elastic.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Constraint
-    */
+     * The `Matter.Constraint` module contains methods for creating and manipulating constraints.
+     * Constraints are used for specifying that a fixed distance must be maintained between two bodies (or a body and a fixed world-space position).
+     * The stiffness of constraints can be modified to create springs or elastic.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Constraint
+     */
     export class Constraint {
         /**
          * Creates a new constraint.
@@ -1767,16 +1824,15 @@ declare namespace Matter {
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
          * @param {} options
-         * @return {constraint} constraint
+         * @returns {constraint} constraint
          */
         static create(options: IConstraintDefinition): Constraint;
-
 
         /**
          * Returns the world-space position of `constraint.pointA`, accounting for `constraint.bodyA`.
          * @method pointAWorld
          * @param {constraint} constraint
-         * @returns {vector} the world-space position
+         * @returns {Vector} the world-space position
          */
         static pointAWorld(constraint: Constraint): Vector;
 
@@ -1784,79 +1840,78 @@ declare namespace Matter {
          * Returns the world-space position of `constraint.pointB`, accounting for `constraint.bodyB`.
          * @method pointBWorld
          * @param {constraint} constraint
-         * @returns {vector} the world-space position
+         * @returns {Vector} the world-space position
          */
         static pointBWorld(constraint: Constraint): Vector;
-
 
         /**
          * The first possible `Body` that this constraint is attached to.
          *
-        * @property bodyA
-        * @type body
-        * @default null
-        */
+         * @property bodyA
+         * @type body
+         * @default null
+         */
         bodyA: Body;
 
         /**
          * The second possible `Body` that this constraint is attached to.
          *
-        * @property bodyB
-        * @type body
-        * @default null
-        */
+         * @property bodyB
+         * @type body
+         * @default null
+         */
         bodyB: Body;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
          *
-        * @property id
-        * @type number
-        */
+         * @property id
+         * @type {number}
+         */
         id: number;
 
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
-        * @property label
-        * @type string
-        * @default "Constraint"
-        */
+         * @property label
+         * @type {string}
+         * @default "Constraint"
+         */
         label: string;
 
         /**
          * A `Number` that specifies the target resting length of the constraint.
          * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
          *
-        * @property length
-        * @type number
-        */
+         * @property length
+         * @type {number}
+         */
         length: number;
 
         /**
          * A `Vector` that specifies the offset of the constraint from center of the `constraint.bodyA` if defined, otherwise a world-space position.
          *
-        * @property pointA
-        * @type vector
-        * @default { x: 0, y: 0 }
-        */
+         * @property pointA
+         * @type vector
+         * @default { x: 0, y: 0 }
+         */
         pointA: Vector;
 
         /**
          * A `Vector` that specifies the offset of the constraint from center of the `constraint.bodyA` if defined, otherwise a world-space position.
          *
-        * @property pointB
-        * @type vector
-        * @default { x: 0, y: 0 }
-        */
+         * @property pointB
+         * @type vector
+         * @default { x: 0, y: 0 }
+         */
         pointB: Vector;
 
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
          *
-        * @property render
-        * @type object
-        */
+         * @property render
+         * @type {any}
+         */
         render: IConstraintRenderDefinition;
 
         /**
@@ -1864,10 +1919,10 @@ declare namespace Matter {
          * A value of `1` means the constraint should be very stiff.
          * A value of `0.2` means the constraint acts like a soft spring.
          *
-        * @property stiffness
-        * @type number
-        * @default 1
-        */
+         * @property stiffness
+         * @type {number}
+         * @default 1
+         */
         stiffness: number;
 
         /**
@@ -1878,7 +1933,7 @@ declare namespace Matter {
          * A value of `0` means the constraint will apply no damping.
          *
          * @property damping
-         * @type number
+         * @type {number}
          * @default 0
          */
         damping: number;
@@ -1886,85 +1941,104 @@ declare namespace Matter {
         /**
          * A `String` denoting the type of object.
          *
-        * @property type
-        * @type string
-        * @default "constraint"
-        */
+         * @property type
+         * @type {string}
+         * @default "constraint"
+         */
         type: string;
     }
-
-
 
     export interface IEngineDefinition {
         /**
          * An integer `Number` that specifies the number of position iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
-        * @property positionIterations
-        * @type number
-        * @default 6
-        */
-        positionIterations?: number | undefined;
+         * @property positionIterations
+         * @type {number | undefined}
+         * @default 6
+         */
+        positionIterations?: number;
         /**
          * An integer `Number` that specifies the number of velocity iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
-        * @property velocityIterations
-        * @type number
-        * @default 4
-        */
-        velocityIterations?: number | undefined;
+         * @property velocityIterations
+         * @type {number | undefined}
+         * @default 4
+         */
+        velocityIterations?: number;
         /**
          * An integer `Number` that specifies the number of constraint iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          * The default value of `2` is usually very adequate.
          *
-        * @property constraintIterations
-        * @type number
-        * @default 2
-        */
-        constraintIterations?: number | undefined;
+         * @property constraintIterations
+         * @type {number | undefined}
+         * @default 2
+         */
+        constraintIterations?: number;
 
         /**
          * A flag that specifies whether the engine should allow sleeping via the `Matter.Sleeping` module.
          * Sleeping can improve stability and performance, but often at the expense of accuracy.
          *
-        * @property enableSleeping
-        * @type boolean
-        * @default false
-        */
-        enableSleeping?: boolean | undefined;
+         * @property enableSleeping
+         * @type {boolean | undefined}
+         * @default false
+         */
+        enableSleeping?: boolean;
+
+        /**
+         * An `Object` containing properties regarding the timing systems of the engine.
+         *
+         * @property timing
+         * @type {IEngineTimingOptions | undefined}
+         */
+        timing?: IEngineTimingOptions;
+
+        /**
+         * A `Matter.Detector` instance.
+         *
+         * @property detector
+         * @type {Detector | undefined}
+         * @default {Matter.Detector} instance
+         */
+        detector?: Detector;
+
+        /**
+         * A `Matter.Grid` instance.
+         *
+         * @deprecated replaced by `engine.detector`
+         * @property grid
+         * @type {Grid | undefined}
+         * @default a Matter.Grid instance
+         */
+        grid?: Grid;
+
+        /**
+         * A `World` composite object that will contain all simulated bodies and constraints.
+         *
+         * @property world
+         * @type world
+         * @default {Matter.World} instance
+         */
+        world?: World;
+
+        /**
+         * An object reserved for storing plugin-specific properties.
+         *
+         * @property plugin
+         * @type {{}}
+         */
+        plugin?: {};
+
         /**
          * The gravity to apply on all bodies in `engine.world`.
          *
          * @property gravity
-         * @type object
+         * @type {Partial<Gravity> | undefined}
          */
-        gravity: Partial<Gravity>;
-        /**
-         * An `Object` containing properties regarding the timing systems of the engine.
-        *
-        * @property timing
-        * @type object
-        */
-        timing?: IEngineTimingOptions | undefined;
-        /**
-         * An instance of a broadphase controller. The default value is a `Matter.Grid` instance created by `Engine.create`.
-         *
-        * @property broadphase
-        * @type grid
-        * @default a Matter.Grid instance
-        */
-        grid?: Grid | undefined;
-        /**
-         * A `World` composite object that will contain all simulated bodies and constraints.
-         *
-        * @property world
-        * @type world
-        * @default a Matter.World instance
-        */
-        world?: World | undefined;
-
+        gravity?: Partial<Gravity>;
     }
 
     export interface IEngineTimingOptions {
@@ -1975,7 +2049,7 @@ declare namespace Matter {
          * A value of `1.2` gives a speed-up effect.
          *
          * @property timing.timeScale
-         * @type number
+         * @type {number}
          * @default 1
          */
         timeScale: number;
@@ -1985,7 +2059,7 @@ declare namespace Matter {
          * It is incremented on every `Engine.update` by the given `delta` argument.
          *
          * @property timing.timestamp
-         * @type number
+         * @type {number}
          * @default 0
          */
         timestamp: number;
@@ -1997,7 +2071,7 @@ declare namespace Matter {
          * This value will also include the total execution time of all event handlers directly or indirectly triggered by the engine update.
          *
          * @property timing.lastElapsed
-         * @type number
+         * @type {number}
          * @default 0
          */
         lastElapsed: number;
@@ -2006,50 +2080,38 @@ declare namespace Matter {
          * A `Number` that represents the `delta` value used in the last engine update.
          *
          * @property timing.lastDelta
-         * @type number
+         * @type {number}
          * @default 0
          */
         lastDelta: number;
     }
 
     /**
-    * The `Matter.Engine` module contains methods for creating and manipulating engines.
-    * An engine is a controller that manages updating the simulation of the world.
-    * See `Matter.Runner` for an optional game loop utility.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Engine
-    */
+     * The `Matter.Engine` module contains methods for creating and manipulating engines.
+     * An engine is a controller that manages updating the simulation of the world.
+     * See `Matter.Runner` for an optional game loop utility.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Engine
+     */
     export class Engine {
         /**
-         * Clears the engine including the world, pairs and broadphase.
+         * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults.
+         * All properties have default values, and many are pre-calculated automatically based on other properties.
+         * See the properties section below for detailed information on what you can pass via the `options` object.
+         * @method create
+         * @param {IEngineDefinition} [options]
+         * @returns {Engine} engine
+         */
+        static create(options?: IEngineDefinition): Engine;
+
+        /**
+         * Clears the engine pairs and detector.
          * @method clear
          * @param {engine} engine
          */
         static clear(engine: Engine): void;
-
-        /**
-         * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults.
-         * All properties have default values, and many are pre-calculated automatically based on other properties.
-         * See the properties section below for detailed information on what you can pass via the `options` object.
-         * @method create
-         * @param {HTMLElement} element
-         * @param {object} [options]
-         * @return {engine} engine
-         */
-        static create(element?: HTMLElement | IEngineDefinition, options?: IEngineDefinition): Engine;
-
-        /**
-         * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults.
-         * All properties have default values, and many are pre-calculated automatically based on other properties.
-         * See the properties section below for detailed information on what you can pass via the `options` object.
-         * @method create
-         * @param {object} [options]
-         * @return {engine} engine
-         * @deprecated
-         */
-        static create(options?: IEngineDefinition): Engine;
 
         /**
          * Merges two engines by keeping the configuration of `engineA` but replacing the world with the one from `engineB`.
@@ -2058,7 +2120,6 @@ declare namespace Matter {
          * @param {engine} engineB
          */
         static merge(engineA: Engine, engineB: Engine): void;
-
 
         /**
          * Moves the simulation forward in time by `delta` ms.
@@ -2099,10 +2160,10 @@ declare namespace Matter {
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          * The default value of `2` is usually very adequate.
          *
-        * @property constraintIterations
-        * @type number
-        * @default 2
-        */
+         * @property constraintIterations
+         * @type {number}
+         * @default 2
+         */
         constraintIterations: number;
 
         /**
@@ -2114,27 +2175,17 @@ declare namespace Matter {
          * A flag that specifies whether the engine should allow sleeping via the `Matter.Sleeping` module.
          * Sleeping can improve stability and performance, but often at the expense of accuracy.
          *
-        * @property enableSleeping
-        * @type boolean
-        * @default false
-        */
-        enableSleeping: boolean;
-
-        /**
-         * A `Matter.Grid` instance.
-         *
-         * @property grid
-         * @type grid
-         * @default a Matter.Grid instance
+         * @property enableSleeping
+         * @type {boolean}
+         * @default false
          */
-        grid: Grid;
-
+        enableSleeping: boolean;
 
         /**
          * The gravity to apply on all bodies in `engine.world`.
          *
          * @property gravity
-         * @type object
+         * @type {Gravity}
          */
         gravity: Gravity;
 
@@ -2147,77 +2198,101 @@ declare namespace Matter {
          * An integer `Number` that specifies the number of position iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
-        * @property positionIterations
-        * @type number
-        * @default 6
-        */
+         * @property positionIterations
+         * @type {number}
+         * @default 6
+         */
         positionIterations: number;
 
         /**
          * An instance of a `Render` controller. The default value is a `Matter.Render` instance created by `Engine.create`.
          * One may also develop a custom renderer module based on `Matter.Render` and pass an instance of it to `Engine.create` via `options.render`.
          *
-        * A minimal custom renderer object must define at least three functions: `create`, `clear` and `world` (see `Matter.Render`).
-        * It is also possible to instead pass the _module_ reference via `options.render.controller` and `Engine.create` will instantiate one for you.
-        *
-        * @property render
-        * @type render
-        * @default a Matter.Render instance
-        */
+         * A minimal custom renderer object must define at least three functions: `create`, `clear` and `world` (see `Matter.Render`).
+         * It is also possible to instead pass the _module_ reference via `options.render.controller` and `Engine.create` will instantiate one for you.
+         *
+         * @property render
+         * @type render
+         * @default a Matter.Render instance
+         */
         render: Render;
 
         /**
          * An `Object` containing properties regarding the timing systems of the engine.
          *
-        * @property timing
-        * @type object
-        */
+         * @property timing
+         * @type {IEngineTimingOptions}
+         */
         timing: IEngineTimingOptions;
+
+        /**
+         * A `Matter.Detector` instance.
+         *
+         * @property detector
+         * @type {Detector}
+         * @default {Matter.Detector} instance
+         */
+        detector: Detector;
+
+        /**
+         * A `Matter.Grid` instance.
+         *
+         * @deprecated replaced by `engine.detector`
+         * @property grid
+         * @type grid
+         * @default a Matter.Grid instance
+         */
+        grid: Grid;
 
         /**
          * An integer `Number` that specifies the number of velocity iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
-        * @property velocityIterations
-        * @type number
-        * @default 4
-        */
+         * @property velocityIterations
+         * @type {number}
+         * @default 4
+         */
         velocityIterations: number;
 
         /**
          * A `World` composite object that will contain all simulated bodies and constraints.
          *
-        * @property world
-        * @type world
-        * @default a Matter.World instance
-        */
+         * @property world
+         * @type world
+         * @default a Matter.World instance
+         */
         world: World;
     }
 
-
-    export interface IGridDefinition {
-
-    }
+    export interface IGridDefinition { }
 
     /**
-    * The `Matter.Grid` module contains methods for creating and manipulating collision broadphase grid structures.
-    *
-    * @class Grid
-    */
+     * This module has now been replaced by `Matter.Detector`.
+     *
+     * All usage should be migrated to `Matter.Detector` or another alternative.
+     * For back-compatibility purposes this module will remain for a short term and then later removed in a future release.
+     *
+     * The `Matter.Grid` module contains methods for creating and manipulating collision broadphase grid structures.
+     *
+     * @class Grid
+     * @deprecated
+     */
     export class Grid {
         /**
          * Creates a new grid.
+         * @deprecated replaced by Matter.Detector
          * @method create
          * @param {} options
-         * @return {grid} A new grid
+         * @returns {grid} A new grid
          */
         static create(options?: IGridDefinition): Grid;
 
         /**
          * Updates the grid.
          * @method update
+         * @deprecated replaced by Matter.Detector
          * @param {grid} grid
-         * @param {body[]} bodies
+         * @param {Body[]} bodies
          * @param {engine} engine
          * @param {boolean} forceUpdate
          */
@@ -2225,26 +2300,26 @@ declare namespace Matter {
 
         /**
          * Clears the grid.
+         * @deprecated replaced by Matter.Detector
          * @method clear
          * @param {grid} grid
          */
         static clear(grid: Grid): void;
 
-
         /**
          * The width of a single grid bucket.
-         *
-        * @property type
-        * @type number
-        */
+         * @deprecated replaced by Matter.Detector
+         * @property type
+         * @type {number}
+         */
         bucketWidth: number;
 
         /**
          * The height of a single grid bucket.
-         *
-        * @property type
-        * @type number
-        */
+         * @deprecated replaced by Matter.Detector
+         * @property type
+         * @type {number}
+         */
         bucketHeight: number;
     }
 
@@ -2252,58 +2327,58 @@ declare namespace Matter {
         /**
          * The `Constraint` object that is used to move the body during interaction.
          *
-        * @property constraint
-        * @type constraint
-        */
-        constraint?: Constraint | undefined;
+         * @property constraint
+         * @type {IConstraintDefinition}
+         */
+        constraint?: IConstraintDefinition | undefined;
 
         /**
-        * An `Object` that specifies the collision filter properties.
-        * The collision filter allows the user to define which types of body this mouse constraint can interact with.
-        * See `body.collisionFilter` for more information.
-        *
-        * @property collisionFilter
-        * @type object
-        */
+         * An `Object` that specifies the collision filter properties.
+         * The collision filter allows the user to define which types of body this mouse constraint can interact with.
+         * See `body.collisionFilter` for more information.
+         *
+         * @property collisionFilter
+         * @type {any}
+         */
         collisionFilter?: ICollisionFilter | undefined;
 
         /**
          * The `Body` that is currently being moved by the user, or `null` if no body.
          *
-        * @property body
-        * @type body
-        * @default null
-        */
+         * @property body
+         * @type body
+         * @default null
+         */
         body?: Body | undefined;
 
         /**
          * The `Mouse` instance in use. If not supplied in `MouseConstraint.create`, one will be created.
          *
-        * @property mouse
-        * @type mouse
-        * @default mouse
-        */
+         * @property mouse
+         * @type mouse
+         * @default mouse
+         */
         mouse?: Mouse | undefined;
 
         /**
          * A `String` denoting the type of object.
          *
-        * @property type
-        * @type string
-        * @default "constraint"
-        */
+         * @property type
+         * @type {string}
+         * @default "constraint"
+         */
 
         type?: string | undefined;
     }
 
     /**
-    * The `Matter.MouseConstraint` module contains methods for creating mouse constraints.
-    * Mouse constraints are used for allowing user interaction, providing the ability to move bodies via the mouse or touch.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class MouseConstraint
-    */
+     * The `Matter.MouseConstraint` module contains methods for creating mouse constraints.
+     * Mouse constraints are used for allowing user interaction, providing the ability to move bodies via the mouse or touch.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class MouseConstraint
+     */
     export class MouseConstraint {
         /**
          * Creates a new mouse constraint.
@@ -2312,82 +2387,174 @@ declare namespace Matter {
          * @method create
          * @param {engine} engine
          * @param {} options
-         * @return {MouseConstraint} A new MouseConstraint
+         * @returns {MouseConstraint} A new MouseConstraint
          */
         static create(engine: Engine, options?: IMouseConstraintDefinition): MouseConstraint;
 
         /**
          * The `Constraint` object that is used to move the body during interaction.
          *
-        * @property constraint
-        * @type constraint
-        */
+         * @property constraint
+         * @type constraint
+         */
         constraint: Constraint;
 
         /**
-        * An `Object` that specifies the collision filter properties.
-        * The collision filter allows the user to define which types of body this mouse constraint can interact with.
-        * See `body.collisionFilter` for more information.
-        *
-        * @property collisionFilter
-        * @type object
-        */
+         * An `Object` that specifies the collision filter properties.
+         * The collision filter allows the user to define which types of body this mouse constraint can interact with.
+         * See `body.collisionFilter` for more information.
+         *
+         * @property collisionFilter
+         * @type {any}
+         */
         collisionFilter: ICollisionFilter;
 
         /**
-        * The `Body` that is currently being moved by the user, or `null` if no body.
-        *
-        * @property body
-        * @type body
-        * @default null
-        */
+         * The `Body` that is currently being moved by the user, or `null` if no body.
+         *
+         * @property body
+         * @type body
+         * @default null
+         */
         body: Body;
 
         /**
          * The `Mouse` instance in use. If not supplied in `MouseConstraint.create`, one will be created.
          *
-        * @property mouse
-        * @type mouse
-        * @default mouse
-        */
+         * @property mouse
+         * @type mouse
+         * @default mouse
+         */
         mouse: Mouse;
 
         /**
          * A `String` denoting the type of object.
          *
-        * @property type
-        * @type string
-        * @default "constraint"
-        */
+         * @property type
+         * @type {string}
+         * @default "constraint"
+         */
 
         type: string;
     }
 
     /**
-    * The `Matter.Pairs` module contains methods for creating and manipulating collision pair sets.
-    *
-    * @class Pairs
-    */
+     * The `Matter.Pairs` module contains methods for creating and manipulating collision pair sets.
+     *
+     * @class Pairs
+     */
     export class Pairs {
+        /**
+         * Creates a new pairs structure.
+         * @method create
+         * @param {any} options
+         * @returns {Pairs} A new pairs structure
+         */
+        static create(options: any): Pairs;
+
         /**
          * Clears the given pairs structure.
          * @method clear
-         * @param {pairs} pairs
-         * @return {pairs} pairs
+         * @param {Pairs} pairs
+         * @returns {Pairs} pairs
          */
-        static clear(pairs: any): any;
+        static clear(pairs: Pairs): Pairs;
+
+        /**
+         * Updates pairs given a list of collisions.
+         * @method update
+         * @param {Pairs} pairs
+         * @param {Collision[]} collisions
+         * @param {number} timestamp
+         */
+        static update(pairs: Pairs, collisions: Array<Collision>, timestamp: number): void;
     }
 
-    export interface IPair {
-        id: number;
+    export interface Vertex extends Vector {
+        index: number;
+        body: Body;
+        isInternal: boolean;
+    }
+
+    /**
+     * The `Matter.Contact` module contains methods for creating and manipulating collision contacts.
+     *
+     * @class Contact
+     */
+    export class Contact {
+        /**
+         * Creates a new contact.
+         * @method create
+         * @param {Vertex} vertex
+         * @returns {contact} A new contact
+         */
+        static create(vertex: Vertex): Contact;
+
+        vertex: Vertex;
+        normalImpulse: number;
+        tangentImpulse: number;
+    }
+
+    /**
+     * The `Matter.Pair` module contains methods for creating and manipulating collision pairs.
+     *
+     * @class Pair
+     */
+    export class Pair {
+        /**
+         * Creates a pair.
+         * @method create
+         * @param {Collision} collision
+         * @param {number} timestamp
+         * @returns {Pair} A new pair
+         */
+        static create(collision: Collision, timestamp: number): Pair;
+
+        /**
+         * Updates a pair given a collision.
+         * @method update
+         * @param {Pair} pair
+         * @param {Collision} collision
+         * @param {number} timestamp
+         */
+        static update(pair: Pair, collision: Collision, timestamp: number): void;
+
+        /**
+         * Set a pair as active or inactive.
+         * @method setActive
+         * @param {Pair} pair
+         * @param {boolean} isActive
+         * @param {number} timestamp
+         */
+        static setActive(pair: Pair, isActive: boolean, timestamp: number): void;
+
+        /**
+         * Get the id for the given pair.
+         * @method id
+         * @param {Body} bodyA
+         * @param {Body} bodyB
+         * @returns {string} Unique pairId
+         */
+        static id(bodyA: Body, bodyB: Body): string;
+
+        id: string;
         bodyA: Body;
         bodyB: Body;
-        contacts: any;
-        activeContacts: any;
+        collision: Collision;
+        /**
+         * @default {[]}
+         */
+        contacts: Contact[];
+        /**
+         * @default {[]}
+         */
+        activeContacts: Contact[];
         separation: number;
         isActive: boolean;
+        confirmedActive: boolean;
+        isSensor: boolean;
         timeCreated: number;
-        timeUpdated: number,
+        timeUpdated: number;
         inverseMass: number;
         friction: number;
         frictionStatic: number;
@@ -2396,49 +2563,49 @@ declare namespace Matter {
     }
 
     /**
-    * The `Matter.Query` module contains methods for performing collision queries.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Query
-    */
+     * The `Matter.Query` module contains methods for performing collision queries.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Query
+     */
     export class Query {
         /**
-        * Finds a list of collisions between body and bodies.
-        * @method collides
-        * @param {body} body
-        * @param {body[]} bodies
-        * @return {object[]} Collisions
-        */
-        static collides(body: Body, bodies: Array<Body>): Array<ICollision>;
+         * Finds a list of collisions between body and bodies.
+         * @method collides
+         * @param {Body} body
+         * @param {Body[]} bodies
+         * @returns {Collision[]} Collisions
+         */
+        static collides(body: Body, bodies: Array<Body>): Array<Collision>;
 
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
          * @method ray
-         * @param {body[]} bodies
-         * @param {vector} startPoint
-         * @param {vector} endPoint
+         * @param {Body[]} bodies
+         * @param {Vector} startPoint
+         * @param {Vector} endPoint
          * @param {number} [rayWidth]
-         * @return {object[]} Collisions
+         * @returns {Collision[]} Collisions
          */
-        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<ICollision>;
+        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<Collision>;
 
         /**
          * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
          * @method region
-         * @param {body[]} bodies
-         * @param {bounds} bounds
-         * @param {bool} [outside=false]
-         * @return {body[]} The bodies matching the query
+         * @param {Body[]} bodies
+         * @param {Bounds} bounds
+         * @param {boolean} [outside=false]
+         * @returns {Body[]} The bodies matching the query
          */
         static region(bodies: Array<Body>, bounds: Bounds, outside?: boolean): Array<Body>;
 
         /**
          * Returns all bodies whose vertices contain the given point, from the given set of bodies.
          * @method point
-         * @param {body[]} bodies
-         * @param {vector} point
-         * @return {body[]} The bodies matching the query
+         * @param {Body[]} bodies
+         * @param {Vector} point
+         * @returns {Body[]} The bodies matching the query
          */
         static point(bodies: Array<Body>, point: Vector): Array<Body>;
     }
@@ -2447,41 +2614,41 @@ declare namespace Matter {
         /**
          * A back-reference to the `Matter.Render` module.
          *
-        * @property controller
-        * @type render
-        */
+         * @property controller
+         * @type render
+         */
         controller?: any;
         /**
-        * A reference to the `Matter.Engine` instance to be used.
-        *
-        * @property engine
-        * @type engine
-        */
+         * A reference to the `Matter.Engine` instance to be used.
+         *
+         * @property engine
+         * @type engine
+         */
         engine: Engine;
         /**
          * A reference to the element where the canvas is to be inserted (if `render.canvas` has not been specified)
-        *
-        * @property element
-        * @type HTMLElement
-        * @default null
-        * @deprecated
-        */
+         *
+         * @property element
+         * @type HTMLElement
+         * @default null
+         * @deprecated
+         */
         element?: HTMLElement | undefined;
         /**
          * The canvas element to render to. If not specified, one will be created if `render.element` has been specified.
          *
-        * @property canvas
-        * @type HTMLCanvasElement
-        * @default null
-        */
+         * @property canvas
+         * @type HTMLCanvasElement
+         * @default null
+         */
         canvas?: HTMLCanvasElement | undefined;
 
         /**
          * The configuration options of the renderer.
          *
-        * @property options
-        * @type {}
-        */
+         * @property options
+         * @type {}
+         */
         options?: IRendererOptions | undefined;
 
         /**
@@ -2490,118 +2657,259 @@ declare namespace Matter {
          * This allows for creating views that can pan or zoom around the scene.
          * You must also set `render.options.hasBounds` to `true` to enable bounded rendering.
          *
-        * @property bounds
-        * @type bounds
-        */
+         * @property bounds
+         * @type bounds
+         */
         bounds?: Bounds | undefined;
 
         /**
          * The 2d rendering context from the `render.canvas` element.
          *
-        * @property context
-        * @type CanvasRenderingContext2D
-        */
+         * @property context
+         * @type CanvasRenderingContext2D
+         */
         context?: CanvasRenderingContext2D | undefined;
 
         /**
          * The sprite texture cache.
          *
-        * @property textures
-        * @type {}
-        */
+         * @property textures
+         * @type {}
+         */
         textures?: any;
-
-
     }
 
     export interface IRendererOptions {
         /**
          * The target width in pixels of the `render.canvas` to be created.
          *
-        * @property options.width
-        * @type number
-        * @default 800
-        */
+         * @property options.width
+         * @type {number}
+         * @default 800
+         */
         width?: number | undefined;
 
         /**
          * The target height in pixels of the `render.canvas` to be created.
          *
-        * @property options.height
-        * @type number
-        * @default 600
-        */
+         * @property options.height
+         * @type {number}
+         * @default 600
+         */
         height?: number | undefined;
 
         /**
          * A flag that specifies if `render.bounds` should be used when rendering.
          *
-        * @property options.hasBounds
-        * @type boolean
-        * @default false
-        */
+         * @property options.hasBounds
+         * @type {boolean}
+         * @default false
+         */
         hasBounds?: boolean | undefined;
 
         /**
          * Render wireframes only
-         * @type boolean
+         * @type {boolean}
          * @default true
          */
         wireframes?: boolean | undefined;
 
         /**
          * Sets scene background
-         * @type string
+         * @type {string}
          * default undefined
          */
-        background?: string | undefined
+        background?: string | undefined;
 
         /**
          * Sets wireframe background if `render.options.wireframes` is enabled
-         * @type string
+         * @type {string}
          * default undefined
          */
-        wireframeBackground?: string | undefined
+        wireframeBackground?: string | undefined;
 
         /**
          * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
-         * @type boolean
+         * @type {boolean}
          * default true
          */
         showSleeping?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body vertex numbers debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showVertexNumbers?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body velocity debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showVelocity?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the engine stats info overlay.
+         * From left to right, the values shown are:
+         * - body parts total
+         * - body total
+         * - constraints total
+         * - composites total
+         * - collision pairs total
+         * @type {boolean}
+         * @default false
+         */
+        showStats?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the collision resolver separations debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showSeparations?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body positions debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showPositions?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable performance charts.
+         * From left to right, the values shown are:
+         * - average render frequency (e.g. 60 fps)
+         * - exact engine delta time used for last update (e.g. 16.66ms)
+         * - average engine execution duration (e.g. 5.00ms)
+         * - average render execution duration (e.g. 0.40ms)
+         * - average effective play speed (e.g. '1.00x' is 'real-time')
+         * Each value is recorded over a fixed sample of past frames (60 frames).
+         * A chart shown below each value indicates the variance from the average over the sample. The more stable or fixed the value is the flatter the chart will appear.
+         * @type {boolean}
+         * @default false
+         */
+        showPerformance?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the mouse position debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showMousePosition?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body internal edges debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showInternalEdges?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body and part ids debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showIds?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the debug information overlay.
+         * This includes and has priority over the values of:
+         * - render.options.showStats
+         * - render.options.showPerformance
+         * @type {boolean}
+         * @default false
+         */
+        showDebug?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body convex hulls debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showConvexHulls?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body collisions debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showCollisions?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the collision broadphase debug overlay.
+         * @deprecated no longer implemented
+         * @type {boolean}
+         * @default false
+         */
+        showBroadphase?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body bounds debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showBounds?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body axes debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showAxes?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body angle debug overlay.
+         * @type {boolean}
+         * @default false
+         */
+        showAngleIndicator?: boolean | undefined;
+
+        /**
+         * The pixel ratio to use when rendering.
+         * @type {number}
+         * @default 1
+         */
+        pixelRatio?: number | undefined;
     }
 
     interface IRenderLookAtObject {
         bounds?: Bounds | undefined;
-        position?: {
+        position?:
+        | {
             x: number;
             y: number;
-        } | undefined;
-        min?: {
+        }
+        | undefined;
+        min?:
+        | {
             x: number;
             y: number;
-        } | undefined;
-        max?: {
+        }
+        | undefined;
+        max?:
+        | {
             x: number;
             y: number;
-        } | undefined;
+        }
+        | undefined;
     }
 
     /**
-    * The `Matter.Render` module is a simple HTML5 canvas based renderer for visualising instances of `Matter.Engine`.
-    * It is intended for development and debugging purposes, but may also be suitable for simple games.
-    * It includes a number of drawing options including wireframe, vector with support for sprites and viewports.
-    *
-    * @class Render
-    */
+     * The `Matter.Render` module is a simple HTML5 canvas based renderer for visualising instances of `Matter.Engine`.
+     * It is intended for development and debugging purposes, but may also be suitable for simple games.
+     * It includes a number of drawing options including wireframe, vector with support for sprites and viewports.
+     *
+     * @class Render
+     */
     export class Render {
         /**
          * Creates a new renderer. The options parameter is an object that specifies any properties you wish to override the defaults.
          * All properties have default values, and many are pre-calculated automatically based on other properties.
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
-         * @param {object} [options]
-         * @return {render} A new renderer
+         * @param {any} [options]
+         * @returns {render} A new renderer
          */
         static create(options: IRenderDefinition): Render;
         /**
@@ -2636,41 +2944,46 @@ declare namespace Matter {
          * @method lookAt
          * @param {Render} render
          * @param {IRenderLookAtObject | IRenderLookAtObject[]} objects
-         * @param {Vector} paddiing
+         * @param {Vector} padding
          * @param {boolean} center
          */
-        static lookAt(render: Render, objects: IRenderLookAtObject | IRenderLookAtObject[], paddiing?: Vector, center?: boolean): void;
+        static lookAt(
+            render: Render,
+            objects: IRenderLookAtObject | IRenderLookAtObject[],
+            padding?: Vector,
+            center?: boolean,
+        ): void;
 
         /**
-        * A back-reference to the `Matter.Render` module.
-        *
-        * @property controller
-        * @type render
-        */
+         * A back-reference to the `Matter.Render` module.
+         *
+         * @property controller
+         * @type render
+         */
         controller: any;
         /**
          * A reference to the element where the canvas is to be inserted (if `render.canvas` has not been specified)
-        *
-        * @property element
-        * @type HTMLElement
-        * @default null
-        */
+         *
+         * @property element
+         * @type HTMLElement
+         * @default null
+         */
         element: HTMLElement;
         /**
          * The canvas element to render to. If not specified, one will be created if `render.element` has been specified.
          *
-        * @property canvas
-        * @type HTMLCanvasElement
-        * @default null
-        */
+         * @property canvas
+         * @type HTMLCanvasElement
+         * @default null
+         */
         canvas: HTMLCanvasElement;
 
         /**
          * The configuration options of the renderer.
          *
-        * @property options
-        * @type {}
-        */
+         * @property options
+         * @type {}
+         */
         options: IRendererOptions;
 
         /**
@@ -2679,29 +2992,80 @@ declare namespace Matter {
          * This allows for creating views that can pan or zoom around the scene.
          * You must also set `render.options.hasBounds` to `true` to enable bounded rendering.
          *
-        * @property bounds
-        * @type bounds
-        */
+         * @property bounds
+         * @type bounds
+         */
         bounds: Bounds;
 
         /**
          * The 2d rendering context from the `render.canvas` element.
          *
-        * @property context
-        * @type CanvasRenderingContext2D
-        */
+         * @property context
+         * @type CanvasRenderingContext2D
+         */
         context: CanvasRenderingContext2D;
 
         /**
          * The sprite texture cache.
          *
-        * @property textures
-        * @type {}
-        */
+         * @property textures
+         * @type {}
+         */
         textures: any;
+
+        /**
+         * The mouse to render if render.options.showMousePosition is enabled.
+         *
+         * @property textures
+         * @type Mouse
+         * @default null
+         */
+        mouse: Mouse;
     }
 
+    /**
+     * The `Matter.Resolver` module contains methods for resolving collision pairs.
+     *
+     * @class Resolver
+     */
+    export class Resolver {
+        /**
+         * Apply position resolution.
+         * @method postSolvePosition
+         * @param {Body[]} bodies
+         */
+        static postSolvePosition(bodies: Array<Body>): void;
 
+        /**
+         * Prepare pairs for position solving.
+         * @method preSolvePosition
+         * @param {Pair[]} pairs
+         */
+        static preSolvePosition(pairs: Array<Pair>): void;
+
+        /**
+         * Prepare pairs for velocity solving.
+         * @method preSolveVelocity
+         * @param {Pair[]} pairs
+         */
+        static preSolveVelocity(pairs: Array<Pair>): void;
+
+        /**
+         * Find a solution for pair positions.
+         * @method solvePosition
+         * @param {Pair[]} pairs
+         * @param {number} timeScale
+         */
+        static solvePosition(pairs: Array<Pair>, timeScale: number): void;
+
+        /**
+         * Find a solution for pair velocities.
+         * @method solveVelocity
+         * @param {Pair[]} pairs
+         * @param {number} timeScale
+         */
+        static solveVelocity(pairs: Array<Pair>, timeScale: number): void;
+    }
 
     export interface IRunnerOptions {
         /**
@@ -2709,10 +3073,10 @@ declare namespace Matter {
          * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
          * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
          *
-        * @property isFixed
-        * @type boolean
-        * @default false
-        */
+         * @property isFixed
+         * @type {boolean}
+         * @default false
+         */
         isFixed?: boolean | undefined;
 
         /**
@@ -2720,33 +3084,33 @@ declare namespace Matter {
          * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
          * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
          *
-        * @property delta
-        * @type number
-        * @default 1000 / 60
-        */
+         * @property delta
+         * @type {number}
+         * @default 1000 / 60
+         */
         delta?: number | undefined;
 
         /**
          * A flag that specifies whether the runner is running or not.
          * @property enabled
-         * @type boolean
+         * @type {boolean}
          * @default true
          */
         enabled?: boolean | undefined;
     }
 
     /**
-    * The `Matter.Runner` module is an optional utility which provides a game loop,
-    * that handles updating and rendering a `Matter.Engine` for you within a browser.
-    * It is intended for demo and testing purposes, but may be adequate for simple games.
-    * If you are using your own game loop instead, then you do not need the `Matter.Runner` module.
-    * Instead just call `Engine.update(engine, delta)` in your own loop.
-    * Note that the method `Engine.run` is an alias for `Runner.run`.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Runner
-    */
+     * The `Matter.Runner` module is an optional utility which provides a game loop,
+     * that handles updating and rendering a `Matter.Engine` for you within a browser.
+     * It is intended for demo and testing purposes, but may be adequate for simple games.
+     * If you are using your own game loop instead, then you do not need the `Matter.Runner` module.
+     * Instead just call `Engine.update(engine, delta)` in your own loop.
+     * Note that the method `Engine.run` is an alias for `Runner.run`.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Runner
+     */
     export class Runner {
         /**
          * Creates a new Runner. The options parameter is an object that specifies any properties you wish to override the defaults.
@@ -2761,10 +3125,10 @@ declare namespace Matter {
          */
         static run(runner: Runner, engine: Engine): Runner;
         /**
-        * Continuously ticks a `Matter.Engine` by calling `Runner.tick` on the `requestAnimationFrame` event.
-        * @method run
-        * @param {engine} engine
-        */
+         * Continuously ticks a `Matter.Engine` by calling `Runner.tick` on the `requestAnimationFrame` event.
+         * @method run
+         * @param {engine} engine
+         */
         static run(engine: Engine): Runner;
         /**
          * A game loop utility that updates the engine and renderer by one step (a 'tick').
@@ -2786,19 +3150,19 @@ declare namespace Matter {
         static stop(runner: Runner): void;
         /**
          * Alias for `Runner.run`.
-        * @method start
-        * @param {runner} runner
-        * @param {engine} engine
-        */
+         * @method start
+         * @param {runner} runner
+         * @param {engine} engine
+         */
         static start(runner: Runner, engine: Engine): void;
 
         /**
          * A flag that specifies whether the runner is running or not.
          *
-        * @property enabled
-        * @type boolean
-        * @default true
-        */
+         * @property enabled
+         * @type {boolean}
+         * @default true
+         */
         enabled: boolean;
 
         /**
@@ -2806,10 +3170,10 @@ declare namespace Matter {
          * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
          * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
          *
-        * @property isFixed
-        * @type boolean
-        * @default false
-        */
+         * @property isFixed
+         * @type {boolean}
+         * @default false
+         */
         isFixed: boolean;
 
         /**
@@ -2817,29 +3181,29 @@ declare namespace Matter {
          * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
          * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
          *
-        * @property delta
-        * @type number
-        * @default 1000 / 60
-        */
+         * @property delta
+         * @type {number}
+         * @default 1000 / 60
+         */
         delta: number;
     }
 
     /**
-    * The `Matter.Sleeping` module contains methods to manage the sleeping state of bodies.
-    *
-    * @class Sleeping
-    */
+     * The `Matter.Sleeping` module contains methods to manage the sleeping state of bodies.
+     *
+     * @class Sleeping
+     */
     export class Sleeping {
         static set(body: Body, isSleeping: boolean): void;
     }
 
     /**
-    * The `Matter.Svg` module contains methods for converting SVG images into an array of vector points.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Svg
-    */
+     * The `Matter.Svg` module contains methods for converting SVG images into an array of vector points.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Svg
+     */
     export class Svg {
         /**
          * Converts an SVG path into an array of vector points.
@@ -2849,22 +3213,21 @@ declare namespace Matter {
          * @method pathToVertices
          * @param {SVGPathElement} path
          * @param {Number} [sampleLength=15]
-         * @return {Vector[]} points
+         * @returns {Vector[]} points
          */
         static pathToVertices(path: SVGPathElement, sampleLength: number): Array<Vector>;
     }
 
     /**
-    * The `Matter.Vector` module contains methods for creating and manipulating vectors.
-    * Vectors are the basis of all the geometry related operations in the engine.
-    * A `Matter.Vector` object is of the form `{ x: 0, y: 0 }`.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Vector
-    */
+     * The `Matter.Vector` module contains methods for creating and manipulating vectors.
+     * Vectors are the basis of all the geometry related operations in the engine.
+     * A `Matter.Vector` object is of the form `{ x: 0, y: 0 }`.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Vector
+     */
     export class Vector {
-
         x: number;
         y: number;
 
@@ -2873,212 +3236,211 @@ declare namespace Matter {
          * @method create
          * @param {number} x
          * @param {number} y
-         * @return {vector} A new vector
+         * @returns {Vector} A new vector
          */
         static create(x?: number, y?: number): Vector;
 
         /**
          * Returns a new vector with `x` and `y` copied from the given `vector`.
          * @method clone
-         * @param {vector} vector
-         * @return {vector} A new cloned vector
+         * @param {Vector} vector
+         * @returns {Vector} A new cloned vector
          */
         static clone(vector: Vector): Vector;
-
 
         /**
          * Returns the cross-product of three vectors.
          * @method cross3
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @param {vector} vectorC
-         * @return {number} The cross product of the three vectors
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @param {Vector} vectorC
+         * @returns {number} The cross product of the three vectors
          */
         static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector): number;
 
         /**
          * Adds the two vectors.
          * @method add
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @param {vector} [output]
-         * @return {vector} A new vector of vectorA and vectorB added
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @param {Vector} [output]
+         * @returns {Vector} A new vector of vectorA and vectorB added
          */
         static add(vectorA: Vector, vectorB: Vector, output?: Vector): Vector;
 
         /**
          * Returns the angle in radians between the two vectors relative to the x-axis.
          * @method angle
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @return {number} The angle in radians
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @returns {number} The angle in radians
          */
         static angle(vectorA: Vector, vectorB: Vector): number;
 
         /**
          * Returns the cross-product of two vectors.
          * @method cross
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @return {number} The cross product of the two vectors
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @returns {number} The cross product of the two vectors
          */
         static cross(vectorA: Vector, vectorB: Vector): number;
 
         /**
          * Divides a vector and a scalar.
          * @method div
-         * @param {vector} vector
+         * @param {Vector} vector
          * @param {number} scalar
-         * @return {vector} A new vector divided by scalar
+         * @returns {Vector} A new vector divided by scalar
          */
         static div(vector: Vector, scalar: number): Vector;
 
         /**
          * Returns the dot-product of two vectors.
          * @method dot
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @return {number} The dot product of the two vectors
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @returns {number} The dot product of the two vectors
          */
         static dot(vectorA: Vector, vectorB: Vector): number;
 
         /**
          * Returns the magnitude (length) of a vector.
          * @method magnitude
-         * @param {vector} vector
-         * @return {number} The magnitude of the vector
+         * @param {Vector} vector
+         * @returns {number} The magnitude of the vector
          */
         static magnitude(vector: Vector): number;
 
         /**
          * Returns the magnitude (length) of a vector (therefore saving a `sqrt` operation).
          * @method magnitudeSquared
-         * @param {vector} vector
-         * @return {number} The squared magnitude of the vector
+         * @param {Vector} vector
+         * @returns {number} The squared magnitude of the vector
          */
         static magnitudeSquared(vector: Vector): number;
 
         /**
          * Multiplies a vector and a scalar.
          * @method mult
-         * @param {vector} vector
+         * @param {Vector} vector
          * @param {number} scalar
-         * @return {vector} A new vector multiplied by scalar
+         * @returns {Vector} A new vector multiplied by scalar
          */
         static mult(vector: Vector, scalar: number): Vector;
 
         /**
          * Negates both components of a vector such that it points in the opposite direction.
          * @method neg
-         * @param {vector} vector
-         * @return {vector} The negated vector
+         * @param {Vector} vector
+         * @returns {Vector} The negated vector
          */
         static neg(vector: Vector): Vector;
 
         /**
          * Normalises a vector (such that its magnitude is `1`).
          * @method normalise
-         * @param {vector} vector
-         * @return {vector} A new vector normalised
+         * @param {Vector} vector
+         * @returns {Vector} A new vector normalised
          */
         static normalise(vector: Vector): Vector;
 
         /**
          * Returns the perpendicular vector. Set `negate` to true for the perpendicular in the opposite direction.
          * @method perp
-         * @param {vector} vector
-         * @param {bool} [negate=false]
-         * @return {vector} The perpendicular vector
+         * @param {Vector} vector
+         * @param {boolean} [negate=false]
+         * @returns {Vector} The perpendicular vector
          */
         static perp(vector: Vector, negate?: boolean): Vector;
 
         /**
          * Rotates the vector about (0, 0) by specified angle.
          * @method rotate
-         * @param {vector} vector
+         * @param {Vector} vector
          * @param {number} angle
-         * @return {vector} A new vector rotated about (0, 0)
+         * @returns {Vector} A new vector rotated about (0, 0)
          */
         static rotate(vector: Vector, angle: number): Vector;
 
         /**
          * Rotates the vector about a specified point by specified angle.
          * @method rotateAbout
-         * @param {vector} vector
+         * @param {Vector} vector
          * @param {number} angle
-         * @param {vector} point
-         * @param {vector} [output]
-         * @return {vector} A new vector rotated about the point
+         * @param {Vector} point
+         * @param {Vector} [output]
+         * @returns {Vector} A new vector rotated about the point
          */
         static rotateAbout(vector: Vector, angle: number, point: Vector, output?: Vector): Vector;
 
         /**
          * Subtracts the two vectors.
          * @method sub
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @param {vector} [output]
-         * @return {vector} A new vector of vectorA and vectorB subtracted
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @param {Vector} [output]
+         * @returns {Vector} A new vector of vectorA and vectorB subtracted
          */
         static sub(vectorA: Vector, vectorB: Vector, optional?: Vector): Vector;
     }
 
     /**
-    * The `Matter.Vertices` module contains methods for creating and manipulating sets of vertices.
-    * A set of vertices is an array of `Matter.Vector` with additional indexing properties inserted by `Vertices.create`.
-    * A `Matter.Body` maintains a set of vertices to represent the shape of the object (its convex hull).
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class Vertices
-    */
+     * The `Matter.Vertices` module contains methods for creating and manipulating sets of vertices.
+     * A set of vertices is an array of `Matter.Vector` with additional indexing properties inserted by `Vertices.create`.
+     * A `Matter.Body` maintains a set of vertices to represent the shape of the object (its convex hull).
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class Vertices
+     */
     export class Vertices {
         /**
          * Returns the average (mean) of the set of vertices.
          * @method mean
-         * @param {vertices} vertices
-         * @return {vector} The average point
+         * @param {Vertices} vertices
+         * @returns {Vector} The average point
          */
         static mean(vertices: Array<Vector>): Vector;
 
         /**
          * Sorts the input vertices into clockwise order in place.
          * @method clockwiseSort
-         * @param {vertices} vertices
-         * @return {vertices} vertices
+         * @param {Vertices} vertices
+         * @returns {Vertices} vertices
          */
         static clockwiseSort(vertices: Array<Vector>): Array<Vector>;
 
         /**
          * Returns true if the vertices form a convex shape (vertices must be in clockwise order).
          * @method isConvex
-         * @param {vertices} vertices
-         * @return {bool} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
+         * @param {Vertices} vertices
+         * @returns {boolean} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
          */
         static isConvex(vertices: Array<Vector>): boolean;
 
         /**
          * Returns the convex hull of the input vertices as a new array of points.
          * @method hull
-         * @param {vertices} vertices
-         * @return [vertex] vertices
+         * @param {Vertices} vertices
+         * @returns {Array<Vertex>} vertices
          */
-        static hull(vertices: Array<Vector>): Array<Vector>;
+        static hull(vertices: Array<Vertex>): Array<Vertex>;
 
         /**
          * Returns the area of the set of vertices.
          * @method area
-         * @param {vertices} vertices
-         * @param {bool} signed
-         * @return {number} The area
+         * @param {Vertices} vertices
+         * @param {boolean} signed
+         * @returns {number} The area
          */
         static area(vertices: Array<Vector>, signed: boolean): number;
 
         /**
          * Returns the centre (centroid) of the set of vertices.
          * @method centre
-         * @param {vertices} vertices
-         * @return {vector} The centre point
+         * @param {Vertices} vertices
+         * @returns {Vector} The centre point
          */
         static centre(vertices: Array<Vector>): Vector;
 
@@ -3086,22 +3448,27 @@ declare namespace Matter {
          * Chamfers a set of vertices by giving them rounded corners, returns a new set of vertices.
          * The radius parameter is a single number or an array to specify the radius for each vertex.
          * @method chamfer
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @param {number[]} radius
          * @param {number} quality
          * @param {number} qualityMin
          * @param {number} qualityMax
-         * @return {vertices} vertices
+         * @returns {Vertices} vertices
          */
-        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): Array<Vector>;
-
+        static chamfer(
+            vertices: Array<Vector>,
+            radius: number | Array<number>,
+            quality: number,
+            qualityMin: number,
+            qualityMax: number,
+        ): Array<Vector>;
 
         /**
          * Returns `true` if the `point` is inside the set of `vertices`.
          * @method contains
-         * @param {vertices} vertices
-         * @param {vector} point
-         * @return {boolean} True if the vertices contains point, otherwise false
+         * @param {Vertices} vertices
+         * @param {Vector} point
+         * @returns {boolean} True if the vertices contains point, otherwise false
          */
         static contains(vertices: Array<Vector>, point: Vector): boolean;
 
@@ -3109,18 +3476,18 @@ declare namespace Matter {
          * Creates a new set of `Matter.Body` compatible vertices.
          * The `points` argument accepts an array of `Matter.Vector` points orientated around the origin `(0, 0)`, for example:
          *
-        *     [{ x: 0, y: 0 }, { x: 25, y: 50 }, { x: 50, y: 0 }]
-        *
-        * The `Vertices.create` method returns a new array of vertices, which are similar to Matter.Vector objects,
-        * but with some additional references required for efficient collision detection routines.
-        *
-        * Note that the `body` argument is not optional, a `Matter.Body` reference must be provided.
-        *
-        * @method create
-        * @param {vector[]} points
-        * @param {body} body
-        * @return {vertices} vertices
-        */
+         *     [{ x: 0, y: 0 }, { x: 25, y: 50 }, { x: 50, y: 0 }]
+         *
+         * The `Vertices.create` method returns a new array of vertices, which are similar to Matter.Vector objects,
+         * but with some additional references required for efficient collision detection routines.
+         *
+         * Note that the `body` argument is not optional, a `Matter.Body` reference must be provided.
+         *
+         * @method create
+         * @param {Vector[]} points
+         * @param {Body} body
+         * @returns {Vertices} vertices
+         */
         static create(points: Array<Vector>, body: Body): Array<Vector>;
 
         /**
@@ -3129,48 +3496,48 @@ declare namespace Matter {
          * For parsing SVG paths, see `Svg.pathToVertices`.
          * @method fromPath
          * @param {string} path
-         * @param {body} body
-         * @return {vertices} vertices
+         * @param {Body} body
+         * @returns {Vertices} vertices
          */
         static fromPath(path: string, body: Body): Array<Vector>;
 
         /**
          * Returns the moment of inertia (second moment of area) of the set of vertices given the total mass.
          * @method inertia
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @param {number} mass
-         * @return {number} The polygon's moment of inertia
+         * @returns {number} The polygon's moment of inertia
          */
         static inertia(vertices: Array<Vector>, mass: number): number;
 
         /**
          * Rotates the set of vertices in-place.
          * @method rotate
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @param {number} angle
-         * @param {vector} point
-         * @return {vertices} vertices
+         * @param {Vector} point
+         * @returns {Vertices} vertices
          */
         static rotate(vertices: Array<Vector>, angle: number, point: Vector): Array<Vector>;
 
         /**
          * Scales the vertices from a point (default is centre) in-place.
          * @method scale
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @param {number} scaleX
          * @param {number} scaleY
-         * @param {vector} point
-         * @return {vertices} vertices
+         * @param {Vector} point
+         * @returns {Vertices} vertices
          */
         static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): Array<Vector>;
 
         /**
          * Translates the set of vertices in-place.
          * @method translate
-         * @param {vertices} vertices
-         * @param {vector} vector
+         * @param {Vertices} vertices
+         * @param {Vector} vector
          * @param {number} scalar
-         * @return {vertices} vertices
+         * @returns {Vertices} vertices
          */
         static translate(vertices: Array<Vector>, vector: Vector, scalar: number): Array<Vector>;
     }
@@ -3180,22 +3547,47 @@ declare namespace Matter {
         bounds?: Bounds | undefined;
     }
 
-    interface Gravity extends Vector {
+    interface Gravity {
+        /**
+         * The gravity x component.
+         *
+         * @property x
+         * @type {number}
+         * @default 0
+         */
+        x: number;
+
+        /**
+         * The gravity y component.
+         *
+         * @property y
+         * @type {number}
+         * @default 1
+         */
+        y: number;
+
+        /**
+         * The gravity scale factor.
+         *
+         * @property scale
+         * @type {number}
+         * @default 0.001
+         */
         scale: number;
     }
 
     /**
-    * The `Matter.World` module contains methods for creating and manipulating the world composite.
-    * A `Matter.World` is a `Matter.Composite` body, which is a collection of `Matter.Body`, `Matter.Constraint` and other `Matter.Composite`.
-    * A `Matter.World` has a few additional properties including `gravity` and `bounds`.
-    * It is important to use the functions in the `Matter.Composite` module to modify the world composite, rather than directly modifying its properties.
-    * There are also a few methods here that alias those in `Matter.Composite` for easier readability.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-    *
-    * @class World
-    * @extends Composite
-    */
+     * The `Matter.World` module contains methods for creating and manipulating the world composite.
+     * A `Matter.World` is a `Matter.Composite` body, which is a collection of `Matter.Body`, `Matter.Constraint` and other `Matter.Composite`.
+     * A `Matter.World` has a few additional properties including `gravity` and `bounds`.
+     * It is important to use the functions in the `Matter.Composite` module to modify the world composite, rather than directly modifying its properties.
+     * There are also a few methods here that alias those in `Matter.Composite` for easier readability.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     *
+     * @class World
+     * @extends Composite
+     */
     export class World extends Composite {
         /**
          * Add objects or arrays of objects of types: Body, Constraint, Composite
@@ -3203,14 +3595,22 @@ declare namespace Matter {
          * @param body
          * @returns world
          */
-        static add(world: World, body: Body | Composite | Constraint | MouseConstraint | Array<Body | Composite | Constraint | MouseConstraint>): World;
+        static add(
+            world: World,
+            body:
+                | Body
+                | Composite
+                | Constraint
+                | MouseConstraint
+                | Array<Body | Composite | Constraint | MouseConstraint>,
+        ): World;
 
         /**
          * An alias for Composite.addBody since World is also a Composite
          * @method addBody
          * @param {world} world
-         * @param {body} body
-         * @return {world} The original world with the body added
+         * @param {Body} body
+         * @returns {world} The original world with the body added
          */
         static addBody(world: World, body: Body): World;
 
@@ -3218,8 +3618,8 @@ declare namespace Matter {
          * An alias for Composite.add since World is also a Composite
          * @method addComposite
          * @param {world} world
-         * @param {composite} composite
-         * @return {world} The original world with the objects from composite added
+         * @param {Composite} composite
+         * @returns {world} The original world with the objects from composite added
          */
         static addComposite(world: World, composite: Composite): World;
 
@@ -3228,7 +3628,7 @@ declare namespace Matter {
          * @method addConstraint
          * @param {world} world
          * @param {constraint} constraint
-         * @return {world} The original world with the constraint added
+         * @returns {world} The original world with the constraint added
          */
         static addConstraint(world: World, constraint: Constraint): World;
 
@@ -3246,7 +3646,7 @@ declare namespace Matter {
          * @method create
          * @constructor
          * @param {} options
-         * @return {world} A new world
+         * @returns {world} A new world
          */
         static create(options: IWorldDefinition): World;
 
@@ -3255,7 +3655,6 @@ declare namespace Matter {
          */
         gravity: Gravity;
         bounds: Bounds;
-
     }
 
     export interface ICollisionFilter {
@@ -3289,121 +3688,120 @@ declare namespace Matter {
     }
 
     export class Common {
-
         /**
          * Extends the object in the first argument using the object in the second argument.
          * @method extend
-         * @param {} obj
+         * @param {any} obj
          * @param {boolean} deep
-         * @return {} obj extended
+         * @returns {any} obj extended
          */
-        static extend(obj: object, deep: boolean): object
+        static extend(obj: any, deep: boolean): any;
 
         /**
          * Creates a new clone of the object, if deep is true references will also be cloned.
          * @method clone
-         * @param {} obj
-         * @param {bool} deep
-         * @return {} obj cloned
+         * @param {any} obj
+         * @param {boolean} deep
+         * @returns {any} obj cloned
          */
-        static clone(obj: object, deep: boolean): object
+        static clone(obj: any, deep: boolean): any;
 
         /**
          * Returns the list of keys for the given object.
          * @method keys
-         * @param {} obj
-         * @return {string[]} keys
+         * @param {any} obj
+         * @returns {string[]} keys
          */
-        static keys(obj: object): Array<string>
+        static keys(obj: any): Array<string>;
 
         /**
          * Returns the list of values for the given object.
          * @method values
-         * @param {} obj
-         * @return {array} Array of the objects property values
+         * @param {any} obj
+         * @returns {array} Array of the objects property values
          */
-        static values(obj: object): Array<any>
+        static values(obj: any): Array<any>;
 
         /**
          * Gets a value from `base` relative to the `path` string.
          * @method get
-         * @param {} obj The base object
+         * @param {any} obj The base object
          * @param {string} path The path relative to `base`, e.g. 'Foo.Bar.baz'
          * @param {number} [begin] Path slice begin
          * @param {number} [end] Path slice end
-         * @return {} The object at the given path
+         * @returns {} The object at the given path
          */
-        static get(obj: object, path: string, begin: number, end: number): object
+        static get(obj: any, path: string, begin: number, end: number): any;
 
         /**
          * Sets a value on `base` relative to the given `path` string.
          * @method set
-         * @param {} obj The base object
+         * @param {any} obj The base object
          * @param {string} path The path relative to `base`, e.g. 'Foo.Bar.baz'
          * @param {} val The value to set
          * @param {number} [begin] Path slice begin
          * @param {number} [end] Path slice end
-         * @return {} Pass through `val` for chaining
+         * @returns {} Pass through `val` for chaining
          */
-        static set(obj: object, path: string, val: object, begin: number, end: number): Object
+        static set(obj: any, path: string, val: any, begin: number, end: number): any;
 
         /**
          * Shuffles the given array in-place.
          * The function uses a seeded random generator.
          * @method shuffle
          * @param {array} array
-         * @return {array} array shuffled randomly
+         * @returns {array} array shuffled randomly
          */
-        static shuffle(array: Array<any>): Array<any>
+        static shuffle(array: Array<any>): Array<any>;
 
         /**
          * Randomly chooses a value from a list with equal probability.
          * The function uses a seeded random generator.
          * @method choose
          * @param {array} choices
-         * @return {object} A random choice object from the array
+         * @returns {any} A random choice object from the array
          */
-        static choose(choices: Array<any>): any
+        static choose(choices: Array<any>): any;
 
         /**
          * Returns true if the object is a HTMLElement, otherwise false.
          * @method isElement
-         * @param {object} obj
-         * @return {boolean} True if the object is a HTMLElement, otherwise false
+         * @param {any} obj
+         * @returns {boolean} True if the object is a HTMLElement, otherwise false
          */
-        static isElement(obj: object): boolean
+        static isElement(obj: any): boolean;
 
         /**
          * Returns true if the object is an array.
          * @method isArray
-         * @param {object} obj
-         * @return {boolean} True if the object is an array, otherwise false
+         * @param {any} obj
+         * @returns {boolean} True if the object is an array, otherwise false
          */
-        static isArray(obj: object): boolean
+        static isArray(obj: any): boolean;
 
         /**
          * Returns true if the object is a function.
          * @method isFunction
-         * @param {object} obj
-         * @return {boolean} True if the object is a function, otherwise false
+         * @param {any} obj
+         * @returns {boolean} True if the object is a function, otherwise false
          */
-        static isFunction(obj: object): boolean
+        static isFunction(obj: any): boolean;
 
         /**
          * Returns true if the object is a plain object.
          * @method isPlainObject
-         * @param {object} obj
-         * @return {boolean} True if the object is a plain object, otherwise false
+         * @param {any} obj
+         * @returns {boolean} True if the object is a plain object, otherwise false
          */
-        static isPlainObject(obj: object): boolean
+        static isPlainObject(obj: any): boolean;
 
         /**
          * Returns true if the object is a string.
          * @method isString
-         * @param {object} obj
-         * @return {boolean} True if the object is a string, otherwise false
+         * @param {any} obj
+         * @returns {boolean} True if the object is a string, otherwise false
          */
-        static isString(obj: object): boolean
+        static isString(obj: any): boolean;
 
         /**
          * Returns the given value clamped between a minimum and maximum value.
@@ -3411,25 +3809,25 @@ declare namespace Matter {
          * @param {number} value
          * @param {number} min
          * @param {number} max
-         * @return {number} The value clamped between min and max inclusive
+         * @returns {number} The value clamped between min and max inclusive
          */
-        static clamp(value: number, min: number, max: number): number
+        static clamp(value: number, min: number, max: number): number;
 
         /**
          * Returns the sign of the given value.
          * @method sign
          * @param {number} value
-         * @return {number} -1 if negative, +1 if 0 or positive
+         * @returns {number} -1 if negative, +1 if 0 or positive
          */
-        static sign(value: number): number
+        static sign(value: number): number;
 
         /**
          * Returns the current timestamp since the time origin (e.g. from page load).
          * The result will be high-resolution including decimal places if available.
          * @method now
-         * @return {number} the current timestamp
+         * @returns {number} the current timestamp
          */
-        static now(): number
+        static now(): number;
 
         /**
          * Returns a random value between a minimum and a maximum value inclusive.
@@ -3437,17 +3835,17 @@ declare namespace Matter {
          * @method random
          * @param {number} min
          * @param {number} max
-         * @return {number} A random number between min and max inclusive
+         * @returns {number} A random number between min and max inclusive
          */
-        static random(min?: number, max?: number): number
+        static random(min?: number, max?: number): number;
 
         /**
          * Converts a CSS hex colour string into an integer.
          * @method colorToNumber
          * @param {string} colorString
-         * @return {number} An integer representing the CSS hex string
+         * @returns {number} An integer representing the CSS hex string
          */
-        static colorToNumber(colorString: string): number
+        static colorToNumber(colorString: string): number;
 
         /**
          * Shows a `console.log` message only if the current `Common.logLevel` allows it.
@@ -3455,7 +3853,7 @@ declare namespace Matter {
          * @method log
          * @param ...objs {} The objects to log.
          */
-        static log(): any
+        static log(): any;
 
         /**
          * Shows a `console.info` message only if the current `Common.logLevel` allows it.
@@ -3463,7 +3861,7 @@ declare namespace Matter {
          * @method info
          * @param ...objs {} The objects to log.
          */
-        static info(): any
+        static info(): any;
 
         /**
          * Shows a `console.warn` message only if the current `Common.logLevel` allows it.
@@ -3471,41 +3869,41 @@ declare namespace Matter {
          * @method warn
          * @param ...objs {} The objects to log.
          */
-        static warn(): any
+        static warn(): any;
 
         /**
          * Returns the next unique sequential ID.
          * @method nextId
-         * @return {number} Unique sequential ID
+         * @returns {number} Unique sequential ID
          */
-        static nextId(): number
+        static nextId(): number;
 
         /**
          * A cross browser compatible indexOf implementation.
          * @method indexOf
          * @param {array} haystack
-         * @param {object} needle
-         * @return {number} The position of needle in haystack, otherwise -1.
+         * @param {any} needle
+         * @returns {number} The position of needle in haystack, otherwise -1.
          */
-        static indexOf(haystack: Array<any>, needle: object): number
+        static indexOf(haystack: Array<any>, needle: any): number;
 
         /**
          * A cross browser compatible array map implementation.
          * @method map
          * @param {array} list
          * @param {function} func
-         * @return {array} Values from list transformed by func.
+         * @returns {array} Values from list transformed by func.
          */
-        static map(list: Array<any>, funct: Function): Array<any>
+        static map(list: Array<any>, funct: Function): Array<any>;
 
         /**
          * Takes a directed graph and returns the partially ordered set of vertices in topological order.
          * Circular dependencies are allowed.
          * @method topologicalSort
-         * @param {object} graph
-         * @return {array} Partially ordered set of vertices in topological order.
+         * @param {any} graph
+         * @returns {array} Partially ordered set of vertices in topological order.
          */
-        static topologicalSort(graph: object): Array<any>
+        static topologicalSort(graph: any): Array<any>;
 
         /**
          * Takes _n_ functions as arguments and returns a new function that calls them in order.
@@ -3516,9 +3914,9 @@ declare namespace Matter {
          * If any of the passed functions are a chain, then the chain will be flattened.
          * @method chain
          * @param ...funcs {function} The functions to chain.
-         * @return {function} A new function that calls the passed functions in order.
+         * @returns {function} A new function that calls the passed functions in order.
          */
-        static chain(): Function
+        static chain(): Function;
 
         /**
          * Chains a function to excute before the original function on the given `path` relative to `base`.
@@ -3527,9 +3925,9 @@ declare namespace Matter {
          * @param {} base The base object
          * @param {string} path The path relative to `base`
          * @param {function} func The function to chain before the original
-         * @return {function} The chained function that replaced the original
+         * @returns {function} The chained function that replaced the original
          */
-        static chainPathBefore(base: object, path: string, func: Function): Function
+        static chainPathBefore(base: any, path: string, func: Function): Function;
 
         /**
          * Chains a function to excute after the original function on the given `path` relative to `base`.
@@ -3538,9 +3936,9 @@ declare namespace Matter {
          * @param {} base The base object
          * @param {string} path The path relative to `base`
          * @param {function} func The function to chain after the original
-         * @return {function} The chained function that replaced the original
+         * @returns {function} The chained function that replaced the original
          */
-        static chainPathAfter(base: object, path: string, func: Function): Function
+        static chainPathAfter(base: any, path: string, func: Function): Function;
 
         /**
          * Used to require external libraries outside of the bundle.
@@ -3550,27 +3948,27 @@ declare namespace Matter {
          * @method _requireGlobal
          * @param {string} globalName The global module name
          * @param {string} moduleName The fallback CommonJS module name
-         * @return {} The loaded module
+         * @returns {} The loaded module
          */
-        static _requireGlobal(globalName: string, moduleName: string): any
+        static _requireGlobal(globalName: string, moduleName: string): any;
 
         /**
          * Uses `Common.warn` to log the given message one time only.
          * @method warnOnce
          * @param ...objs {} The objects to log.
          */
-        static warnOnce(...objs: Record<string, any>[]): void
+        static warnOnce(...objs: Record<string, any>[]): void;
 
         /**
          * Shows a deprecated console warning when the function on the given object is called.
          * The target function will be replaced with a new function that first shows the warning
          * and then calls the original function.
          * @method deprecated
-         * @param {object} obj The object or module
+         * @param {any} obj The object or module
          * @param {string} name The property name of the function on obj
          * @param {string} warning The one-time message to show if the function is called
          */
-        static deprecated(obj: Record<string, any>, prop: string, warning: string): void
+        static deprecated(obj: Record<string, any>, prop: string, warning: string): void;
 
         /**
          * Provide the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module to enable
@@ -3578,15 +3976,15 @@ declare namespace Matter {
          * @method setDecomp
          * @param {} decomp The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module.
          */
-        static setDecomp(decomp: any): void
+        static setDecomp(decomp: any): void;
 
         /**
          * Returns the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module provided through `Common.setDecomp`,
          * otherwise returns the global `decomp` if set.
          * @method getDecomp
-         * @return {} The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module if provided.
+         * @returns {} The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module if provided.
          */
-        static getDecomp(): any
+        static getDecomp(): any;
     }
 
     export interface IEvent<T> {
@@ -3618,7 +4016,7 @@ declare namespace Matter {
         /**
          * The collision pair
          */
-        pairs: Array<IPair>;
+        pairs: Array<Pair>;
     }
 
     export interface IMouseEvent<T> extends IEvent<T> {
@@ -3626,208 +4024,204 @@ declare namespace Matter {
     }
 
     export class Events {
-
         /**
-        * Fired when a body starts sleeping (where `this` is the body).
-        *
-        * @event sleepStart
-        * @this {body} The body that has started sleeping
-        * @param {} event An event object
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Body, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
+         * Fired when a body starts sleeping (where `this` is the body).
+         *
+         * @event sleepStart
+         * @this {Body} The body that has started sleeping
+         * @param {} event An event object
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Body, name: 'sleepStart', callback: (e: IEvent<Body>) => void): void;
         /**
          * Fired when a body ends sleeping (where `this` is the body).
          *
-        * @event sleepEnd
-        * @this {body} The body that has ended sleeping
-        * @param {} event An event object
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Body, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
+         * @event sleepEnd
+         * @this {Body} The body that has ended sleeping
+         * @param {} event An event object
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Body, name: 'sleepEnd', callback: (e: IEvent<Body>) => void): void;
 
         /**
-        * Fired when a call to `Composite.add` is made, before objects have been added.
-        *
-        * @event beforeAdd
-        * @param {} event An event object
-        * @param {} event.object The object(s) to be added (may be a single body, constraint, composite or a mixed array of these)
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "beforeAdd", callback: (e: IEventComposite<Composite>) => void): void;
+         * Fired when a call to `Composite.add` is made, before objects have been added.
+         *
+         * @event beforeAdd
+         * @param {} event An event object
+         * @param {} event.object The object(s) to be added (may be a single body, constraint, composite or a mixed array of these)
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'beforeAdd', callback: (e: IEventComposite<Composite>) => void): void;
 
         /**
          * Fired when a call to `Composite.add` is made, after objects have been added.
-        *
-        * @event afterAdd
-        * @param {} event An event object
-        * @param {} event.object The object(s) that have been added (may be a single body, constraint, composite or a mixed array of these)
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "afterAdd", callback: (e: IEventComposite<Composite>) => void): void;
+         *
+         * @event afterAdd
+         * @param {} event An event object
+         * @param {} event.object The object(s) that have been added (may be a single body, constraint, composite or a mixed array of these)
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'afterAdd', callback: (e: IEventComposite<Composite>) => void): void;
 
         /**
-        * Fired when a call to `Composite.remove` is made, before objects have been removed.
-        *
-        * @event beforeRemove
-        * @param {} event An event object
-        * @param {} event.object The object(s) to be removed (may be a single body, constraint, composite or a mixed array of these)
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "beforeRemove", callback: (e: IEventComposite<Composite>) => void): void;
+         * Fired when a call to `Composite.remove` is made, before objects have been removed.
+         *
+         * @event beforeRemove
+         * @param {} event An event object
+         * @param {} event.object The object(s) to be removed (may be a single body, constraint, composite or a mixed array of these)
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'beforeRemove', callback: (e: IEventComposite<Composite>) => void): void;
 
         /**
-        * Fired when a call to `Composite.remove` is made, after objects have been removed.
-        *
-        * @event afterRemove
-        * @param {} event An event object
-        * @param {} event.object The object(s) that have been removed (may be a single body, constraint, composite or a mixed array of these)
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "afterRemove", callback: (e: IEventComposite<Composite>) => void): void;
-
-
-        /**
-        * Fired after engine update and all collision events
-        *
-        * @event afterUpdate
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "afterUpdate", callback: (e: IEventTimestamped<Engine>) => void): void;
+         * Fired when a call to `Composite.remove` is made, after objects have been removed.
+         *
+         * @event afterRemove
+         * @param {} event An event object
+         * @param {} event.object The object(s) that have been removed (may be a single body, constraint, composite or a mixed array of these)
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'afterRemove', callback: (e: IEventComposite<Composite>) => void): void;
 
         /**
-        * Fired before rendering
-        *
-        * @event beforeRender
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "beforeRender", callback: (e: IEventTimestamped<Render>) => void): void;
-        /**
-        * Fired after rendering
-        *
-        * @event afterRender
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "afterRender", callback: (e: IEventTimestamped<Render>) => void): void;
-
+         * Fired after engine update and all collision events
+         *
+         * @event afterUpdate
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'afterUpdate', callback: (e: IEventTimestamped<Engine>) => void): void;
 
         /**
-        * Fired just before an update
-        *
-        * @event beforeUpdate
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "beforeUpdate", callback: (e: IEventTimestamped<Engine>) => void): void;
+         * Fired before rendering
+         *
+         * @event beforeRender
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'beforeRender', callback: (e: IEventTimestamped<Render>) => void): void;
+        /**
+         * Fired after rendering
+         *
+         * @event afterRender
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'afterRender', callback: (e: IEventTimestamped<Render>) => void): void;
 
         /**
-        * Fired after engine update, provides a list of all pairs that are colliding in the current tick (if any)
-        *
-        * @event collisionActive
-        * @param {} event An event object
-        * @param {} event.pairs List of affected pairs
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "collisionActive", callback: (e: IEventCollision<Engine>) => void): void;
-
+         * Fired just before an update
+         *
+         * @event beforeUpdate
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'beforeUpdate', callback: (e: IEventTimestamped<Engine>) => void): void;
 
         /**
-        * Fired after engine update, provides a list of all pairs that have ended collision in the current tick (if any)
-        *
-        * @event collisionEnd
-        * @param {} event An event object
-        * @param {} event.pairs List of affected pairs
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "collisionEnd", callback: (e: IEventCollision<Engine>) => void): void;
+         * Fired after engine update, provides a list of all pairs that are colliding in the current tick (if any)
+         *
+         * @event collisionActive
+         * @param {} event An event object
+         * @param {} event.pairs List of affected pairs
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'collisionActive', callback: (e: IEventCollision<Engine>) => void): void;
 
         /**
-        * Fired after engine update, provides a list of all pairs that have started to collide in the current tick (if any)
-        *
-        * @event collisionStart
-        * @param {} event An event object
-        * @param {} event.pairs List of affected pairs
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "collisionStart", callback: (e: IEventCollision<Engine>) => void): void;
+         * Fired after engine update, provides a list of all pairs that have ended collision in the current tick (if any)
+         *
+         * @event collisionEnd
+         * @param {} event An event object
+         * @param {} event.pairs List of affected pairs
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'collisionEnd', callback: (e: IEventCollision<Engine>) => void): void;
 
         /**
-        * Fired at the start of a tick, before any updates to the engine or timing
-        *
-        * @event beforeTick
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "beforeTick", callback: (e: IEventTimestamped<Runner>) => void): void;
+         * Fired after engine update, provides a list of all pairs that have started to collide in the current tick (if any)
+         *
+         * @event collisionStart
+         * @param {} event An event object
+         * @param {} event.pairs List of affected pairs
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'collisionStart', callback: (e: IEventCollision<Engine>) => void): void;
+
+        /**
+         * Fired at the start of a tick, before any updates to the engine or timing
+         *
+         * @event beforeTick
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'beforeTick', callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
          * Fired after engine timing updated, but just before update
-        *
-        * @event tick
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "tick", callback: (e: IEventTimestamped<Runner>) => void): void;
+         *
+         * @event tick
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'tick', callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
-        * Fired at the end of a tick, after engine update and after rendering
-        *
-        * @event afterTick
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "afterTick", callback: (e: IEventTimestamped<Runner>) => void): void;
+         * Fired at the end of a tick, after engine update and after rendering
+         *
+         * @event afterTick
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'afterTick', callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
-        * Fired before rendering
-        *
-        * @event beforeRender
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "beforeRender", callback: (e: IEventTimestamped<Runner>) => void): void;
+         * Fired before rendering
+         *
+         * @event beforeRender
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'beforeRender', callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
-        * Fired after rendering
-        *
-        * @event afterRender
-        * @param {} event An event object
-        * @param {number} event.timestamp The engine.timing.timestamp of the event
-        * @param {} event.source The source object of the event
-        * @param {} event.name The name of the event
-        */
-        static on(obj: Engine, name: "afterRender", callback: (e: IEventTimestamped<Runner>) => void): void;
+         * Fired after rendering
+         *
+         * @event afterRender
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on(obj: Engine, name: 'afterRender', callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
          * Fired when the mouse is down (or a touch has started) during the last step
@@ -3835,7 +4229,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousedown", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on(obj: MouseConstraint, name: 'mousedown', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3843,7 +4237,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousemove", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on(obj: MouseConstraint, name: 'mousemove', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3851,34 +4245,30 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mouseup", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
-
+        static on(obj: MouseConstraint, name: 'mouseup', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         static on(obj: any, name: string, callback: (e: any) => void): void;
 
         /**
          * Removes the given event callback. If no callback, clears all callbacks in eventNames. If no eventNames, clears all events.
          *
-        * @param obj
-        * @param eventName
-        * @param callback
-        */
+         * @param obj
+         * @param eventName
+         * @param callback
+         */
         static off(obj: any, eventName: string, callback: (e: any) => void): void;
 
         /**
          * Fires all the callbacks subscribed to the given object's eventName, in the order they subscribed, if any.
          *
-        * @param object
-        * @param eventNames
-        * @param event
-        */
+         * @param object
+         * @param eventNames
+         * @param event
+         */
         static trigger(object: any, eventNames: string, event?: any): void;
-
     }
 
-    type Dependency = { name: string, range: string }
-        | { name: string, version: string }
-        | string;
+    type Dependency = { name: string; range: string } | { name: string; version: string } | string;
 
     export class Plugin {
         name: string;
@@ -3889,8 +4279,8 @@ declare namespace Matter {
         /**
          * Registers a plugin object so it can be resolved later by name.
          * @method register
-         * @param plugin {} The plugin to register.
-         * @return {object} The plugin.
+         * @param {} plugin The plugin to register.
+         * @returns {any} The plugin.
          */
         static register(plugin: Plugin): Plugin;
 
@@ -3898,8 +4288,8 @@ declare namespace Matter {
          * Resolves a dependency to a plugin object from the registry if it exists.
          * The `dependency` may contain a version, but only the name matters when resolving.
          * @method resolve
-         * @param dependency {string} The dependency.
-         * @return {object} The plugin if resolved, otherwise `undefined`.
+         * @param {string} dependency The dependency.
+         * @returns {any} The plugin if resolved, otherwise `undefined`.
          */
         static resolve(dependency: string): Plugin | undefined;
 
@@ -3910,16 +4300,16 @@ declare namespace Matter {
          * - `version`
          * - `install`
          * @method isPlugin
-         * @param obj {} The obj to test.
-         * @return {boolean} `true` if the object can be considered a plugin otherwise `false`.
+         * @param {any} obj The obj to test.
+         * @returns {boolean} `true` if the object can be considered a plugin otherwise `false`.
          */
         static isPlugin(obj: {}): boolean;
 
         /**
          * Returns a pretty printed plugin name and version.
          * @method toString
-         * @param plugin {} The plugin.
-         * @return {string} Pretty printed plugin name and version.
+         * @param {} plugin The plugin.
+         * @returns {string} Pretty printed plugin name and version.
          */
         static toString(plugin: string | Plugin): string;
 
@@ -3928,11 +4318,11 @@ declare namespace Matter {
          * If `plugin.for` is not specified then it is assumed to be applicable.
          * The value of `plugin.for` is a string of the format `'module-name'` or `'module-name@version'`.
          * @method isFor
-         * @param plugin {} The plugin.
-         * @param module {} The module.
-         * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
+         * @param {} plugin The plugin.
+         * @param {} module The module.
+         * @returns {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: { name?: string | undefined, [_: string]: any }): boolean;
+        static isFor(plugin: Plugin, module: { name?: string | undefined;[_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -3947,24 +4337,24 @@ declare namespace Matter {
          * - A red cross ❌ indicates a dependency could not be resolved.
          * Avoid calling this function multiple times on the same module unless you intend to manually control installation order.
          * @method use
-         * @param module {} The module install plugins on.
+         * @param  {} The module install plugins on.
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
             module: { uses?: (Plugin | string)[] | undefined;[_: string]: any },
-            plugins: (Plugin | string)[]
+            plugins: (Plugin | string)[],
         ): void;
 
         /**
          * Recursively finds all of a module's dependencies and returns a flat dependency graph.
          * @method dependencies
-         * @param module {} The module.
-         * @return {object} A dependency graph.
+         * @param {Dependency} module The module.
+         * @returns {any} A dependency graph.
          */
         static dependencies(
             module: Dependency,
-            tracked?: { [_: string]: string[] }
-        ): { [_: string]: string[] } | string | undefined
+            tracked?: { [_: string]: string[] },
+        ): { [_: string]: string[] } | string | undefined;
 
         /**
          * Parses a dependency string into its components.
@@ -3972,10 +4362,10 @@ declare namespace Matter {
          * See documentation for `Plugin.versionParse` for a description of the format.
          * This function can also handle dependencies that are already resolved (e.g. a module object).
          * @method dependencyParse
-         * @param dependency {string} The dependency of the format `'module-name'` or `'module-name@version'`.
-         * @return {object} The dependency parsed into its components.
+         * @param {Dependency} dependency The dependency of the format `'module-name'` or `'module-name@version'`.
+         * @returns {any} The dependency parsed into its components.
          */
-        static dependencyParse(dependency: Dependency): { name: string, range: string };
+        static dependencyParse(dependency: Dependency): { name: string; range: string };
 
         /**
          * Parses a version string into its components.
@@ -3989,16 +4379,16 @@ declare namespace Matter {
          * - Any version `*`
          * @method versionParse
          * @param range {string} The version string.
-         * @return {object} The version range parsed into its components.
+         * @returns {any} The version range parsed into its components.
          */
         static versionParse(range: string): {
-            isRange: boolean,
-            version: string,
-            range: string,
-            operator: string
-            parts: number[],
-            prerelease: string,
-            number: number
+            isRange: boolean;
+            version: string;
+            range: string;
+            operator: string;
+            parts: number[];
+            prerelease: string;
+            number: number;
         };
 
         /**
@@ -4006,44 +4396,247 @@ declare namespace Matter {
          * See documentation for `Plugin.versionParse` for a description of the format.
          * If a version or range is not specified, then any version (`*`) is assumed to satisfy.
          * @method versionSatisfies
-         * @param version {string} The version string.
-         * @param range {string} The range string.
-         * @return {boolean} `true` if `version` satisfies `range`, otherwise `false`.
+         * @param {string} version The version string.
+         * @param {string} range The range string.
+         * @returns {boolean} `true` if `version` satisfies `range`, otherwise `false`.
          */
         static versionSatisfies(version: string, range: string): boolean;
-
-    }
-
-    export interface ICollision {
-        collided: boolean;
-        axisNumber: Number;
-        axisBody: Body;
-        bodyA: Body;
-        bodyB: Body;
-        parentA: Body;
-        parentB: Body;
-        depth: Number;
-        normal: Vector;
-        tangent: Vector;
-        penetration: Vector;
-        supports: Array<Vector>;
-        reused?: boolean | undefined;
     }
 
     /**
-    * The `Matter.SAT` module contains methods for detecting collisions using the Separating Axis Theorem.
-    *
-    * @class SAT
-    */
+     * The `Matter.Collision` module contains methods for detecting collisions between a given pair of bodies.
+     *
+     * For efficient detection between a list of bodies, see `Matter.Detector` and `Matter.Query`.
+     *
+     * See `Matter.Engine` for collision events.
+     */
+    export class Collision {
+        /**
+         * Creates a new collision record.
+         * @method create
+         * @param {Body} bodyA The first body part represented by the collision record
+         * @param {Body} bodyB The second body part represented by the collision record
+         * @returns {Collision} A new collision record
+         */
+        static create(bodyA: Body, bodyB: Body): Collision;
+
+        /**
+         * Detect collision between two bodies.
+         * @method collides
+         * @param {Body} bodyA
+         * @param {Body} bodyB
+         * @param {pairs} [Pairs] Optionally reuse collision records from existing pairs.
+         * @returns {collision|null} A collision record if detected, otherwise null
+         */
+        static collides(bodyA: Body, bodyB: Body, pairs: Pairs): Collision | null;
+
+        /**
+         * A reference to the pair using this collision record, if there is one.
+         *
+         * @property pair
+         * @type {Pair|null}
+         * @default null
+         */
+        pair: Pair | null;
+
+        /**
+         * A flag that indicates if the bodies were colliding when the collision was last updated.
+         *
+         * @property collided
+         * @type {boolean}
+         * @default false
+         */
+        collided: boolean;
+
+        /**
+         * The first body part represented by the collision (see also `collision.parentA`).
+         *
+         * @property bodyA
+         * @type {Body}
+         */
+        bodyA: Body;
+
+        /**
+         * The second body part represented by the collision (see also `collision.parentB`).
+         *
+         * @property bodyB
+         * @type {Body}
+         */
+        bodyB: Body;
+
+        /**
+         * The first body represented by the collision (i.e. `collision.bodyA.parent`).
+         *
+         * @property parentA
+         * @type {Body}
+         */
+        parentA: Body;
+
+        /**
+         * The second body represented by the collision (i.e. `collision.bodyB.parent`).
+         *
+         * @property parentB
+         * @type {Body}
+         */
+        parentB: Body;
+
+        /**
+         * A `Number` that represents the minimum separating distance between the bodies along the collision normal.
+         *
+         * @readOnly
+         * @property depth
+         * @type {number}
+         * @default 0
+         */
+        readonly depth: number;
+
+        /**
+         * A normalised `Vector` that represents the direction between the bodies that provides the minimum separating distance.
+         *
+         * @property normal
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
+        normal: Vector;
+
+        /**
+         * A normalised `Vector` that is the tangent direction to the collision normal.
+         *
+         * @property tangent
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
+        tangent: Vector;
+
+        /**
+         * A `Vector` that represents the direction and depth of the collision.
+         *
+         * @property penetration
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
+        penetration: Vector;
+
+        /**
+         * An array of body vertices that represent the support points in the collision.
+         * These are the deepest vertices (along the collision normal) of each body that are contained by the other body's vertices.
+         *
+         * @property supports
+         * @type {Vector[]}
+         * @default []
+         */
+        supports: Array<Vector>;
+    }
+
+    interface IDetectorOptions {
+        /**
+         * The array of `Matter.Body` between which the detector finds collisions.
+         *
+         * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
+         * @property bodies
+         * @type {Body[] | undefined}
+         * @default []
+         */
+        bodies?: Array<Body>;
+
+        /**
+         * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.
+         * @property pairs
+         * @type {Pairs | null | undefined}
+         * @default null
+         */
+        pairs?: Pairs | null;
+    }
+
+    /**
+     * The `Matter.Detector` module contains methods for efficiently detecting collisions between a list of bodies using a broadphase algorithm.
+     */
+    export class Detector {
+        /**
+         * Finds all collisions given a list of pairs.
+         * Creates a new collision detector.
+         * @method create
+         * @param {IDetectorOptions | undefined} options
+         * @returns {Detector} A new collision detector
+         */
+        static create(options?: IDetectorOptions): Detector;
+
+        /**
+         * Returns `true` if both supplied collision filters will allow a collision to occur.
+         * See `body.collisionFilter` for more information.
+         * @method canCollide
+         * @param ICollisionFilter filterA
+         * @param ICollisionFilter filterB
+         * @returns {boolean} `true` if collision can occur
+         */
+        static canCollide(filterA: ICollisionFilter, filterB: ICollisionFilter): boolean;
+
+        /**
+         * Clears the detector including its list of bodies.
+         * @method clear
+         * @param {Detector} detector
+         */
+        static clear(detector: Detector): void;
+
+        /**
+         * Efficiently finds all collisions among all the bodies in `detector.bodies` using a broadphase algorithm.
+         *
+         * _Note:_ The specific ordering of collisions returned is not guaranteed between releases and may change for performance reasons.
+         * If a specific ordering is required then apply a sort to the resulting array.
+         * @method collisions
+         * @param {Detector} detector
+         * @returns {Collision[]} collisions
+         */
+        static collisions(detector: Detector): Array<Collision>;
+
+        /**
+         * Sets the list of bodies in the detector.
+         * @method setBodies
+         * @param {Detector} detector
+         * @param {Body[]} bodies
+         */
+        static setBodies(detector: Detector, bodies: Body[]): void;
+
+        /**
+         * The array of `Matter.Body` between which the detector finds collisions.
+         *
+         * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
+         * @property bodies
+         * @type {Body[]}
+         * @default []
+         */
+        bodies: Array<Body>;
+
+        /**
+         * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.
+         * @property pairs
+         * @type {Pairs | null}
+         * @default null
+         */
+        pairs: Pairs | null;
+    }
+
+    /**
+     * This module has now been replaced by `Matter.Collision`.
+     *
+     * All usage should be migrated to `Matter.Collision`.
+     * For back-compatibility purposes this module will remain for a short term and then later removed in a future release.
+     *
+     * The `Matter.SAT` module contains methods for detecting collisions using the Separating Axis Theorem.
+     *
+     * @class SAT
+     * @deprecated
+     */
     export class SAT {
         /**
          * Detect collision between two bodies using the Separating Axis Theorem.
+         * @deprecated replaced by Collision.collides
          * @method collides
          * @param {Body} bodyA
          * @param {Body} bodyB
          * @param {Collision} previousCollision
-         * @return {Collision} collision
+         * @returns {Collision} collision
          */
-        static collides(bodyA: Body, bodyB: Body, previousCollision?: ICollision): ICollision;
+        static collides(bodyA: Body, bodyB: Body, previousCollision?: Collision): Collision;
     }
 }

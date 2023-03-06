@@ -5,5 +5,5 @@ const stream: Readable = streamifyArray([1, 2, 3]);
 stream.on('data', (d) => console.log('Data: ' + d));
 stream.on('end', () => console.log('Done!'));
 
-// $ExpectError
+// @ts-expect-error
 streamifyArray();

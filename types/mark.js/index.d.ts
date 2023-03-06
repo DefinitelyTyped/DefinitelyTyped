@@ -1,7 +1,6 @@
 // Type definitions for mark.js 8.11
 // Project: https://markjs.io/
 // Definitions by: Soner Köksal <https://github.com/renjfk>
-//                 Roman Hotsiy <https://github.com/RomanGotsiy>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 //                 Joao Lourenco <https://github.com/blackstarzes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,7 +35,7 @@ declare namespace Mark {
         each?(element: Element): void;
 
         filter?(
-            textNode: Element,
+            textNode: Text,
             term: string,
             marksSoFar: number,
             marksTotal: number
@@ -60,7 +59,7 @@ declare namespace Mark {
         ignoreGroups?: number | undefined;
         each?(element: Element): void;
         filter?(
-            textNode: Element,
+            textNode: Text,
             term: string,
             marksSoFar: number,
             marksTotal: number
@@ -79,7 +78,7 @@ declare namespace Mark {
         iframesTimeout?: number | undefined;
         each?(element: Element, range: Range): void;
         filter?(
-            textNode: Element,
+            textNode: Text,
             term: string,
             marksSoFar: number,
             marksTotal: number

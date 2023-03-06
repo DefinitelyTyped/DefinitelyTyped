@@ -9,7 +9,7 @@
 /**
  * Returned by NSpell.spell with the following properties:
  * @param correct - Whether word is correctly spelled
- * @param - forbidden - Whether word is actually correct, but forbidden from showing up as such (often by the users wish)
+ * @param forbidden - Whether word is actually correct, but forbidden from showing up as such (often by the users wish)
  * @param warn - Whether word is correct, but should trigger a warning (rarely used in dictionaries)
  */
 interface SpellCheck {
@@ -91,7 +91,7 @@ declare class NSpell {
  * make sure to pass one either in the constructor or to NSpell.dictionary
  * @param aff - Affix document to use. Must be in UTF-8 when buffer
  * @param dic - Dictionary document to use. Must be in UTF-8 when buffer
- * @param dictionary {Dictionary} - Object with aff (required) and dic (optional) properties
- * @param dictionary {Dictionary[]} - List of dictionary objects. The first must have an aff key, other aff keys are ignored
+ * @param dictionary - Object with aff (required) and dic (optional) properties
+ * @param dictionary - List of dictionary objects. The first must have an aff key, other aff keys are ignored
  */
 export = NSpell;

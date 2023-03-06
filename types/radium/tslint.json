@@ -1,15 +1,20 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-var-keyword": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "void-return": false,
-        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
+        "npm-naming": [
+            true,
+            {
+                "mode": "code",
+                "errors": [["NeedsExportEquals", false]]
+            }
+        ]
     }
 }

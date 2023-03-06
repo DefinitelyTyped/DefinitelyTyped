@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { CameraUtils } from 'three/examples/jsm/utils/CameraUtils';
+import * as CameraUtils from 'three/examples/jsm/utils/CameraUtils';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { MeshBasicMaterial } from 'three/src/Three';
 
@@ -78,7 +78,7 @@ function init() {
     leftPortalTexture = new THREE.WebGLRenderTarget(256, 256, {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
-        format: THREE.RGBFormat,
+        format: THREE.RGBAFormat,
     });
     leftPortal = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: leftPortalTexture.texture }));
     leftPortal.position.x = -30;
@@ -89,7 +89,7 @@ function init() {
     rightPortalTexture = new THREE.WebGLRenderTarget(256, 256, {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
-        format: THREE.RGBFormat,
+        format: THREE.RGBAFormat,
     });
     rightPortal = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: rightPortalTexture.texture }));
     rightPortal.position.x = 30;

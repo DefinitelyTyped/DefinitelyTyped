@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "esnext.asynciterable"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "ag-simple-broker": [
+                "ag-simple-broker/v4"
+            ],
+            "async-stream-emitter": [
+                "async-stream-emitter/v3"
+            ],
+            "consumable-stream": [
+                "consumable-stream/v1"
+            ],
+            "socketcluster-server": [
+                "socketcluster-server/v15"
+            ],
+            "stream-demux": [
+                "stream-demux/v7"
+            ],
+            "writable-consumable-stream": [
+                "writable-consumable-stream/v1"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "socketcluster-server-tests.ts"
+    ]
+}

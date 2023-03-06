@@ -87,6 +87,7 @@ export interface DropResult extends DragUpdate {
 }
 
 export interface DragDropContextProps {
+    children?: React.ReactNode;
     onBeforeDragStart?(initial: DragStart): void;
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;

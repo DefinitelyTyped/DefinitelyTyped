@@ -163,7 +163,7 @@ export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResu
     delay?: number | undefined;
     url?: string | ((params: QueryOptions) => string) | undefined;
     data?: ((params: QueryOptions) => PlainObject | string) | undefined;
-    transport?: ((settings: JQueryAjaxSettings, success?: (data: RemoteResult) => undefined, failure?: () => undefined) => void) | undefined;
+    transport?: ((settings: JQueryAjaxSettings, success: (data: RemoteResult) => undefined, failure: () => undefined) => void) | undefined;
     processResults?: ((data: RemoteResult, params: QueryOptions) => ProcessedResult<Result>) | undefined;
 }
 
@@ -211,7 +211,7 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     dropdownAutoWidth?: boolean | undefined;
     dropdownCss?: any;
     dropdownCssClass?: string | undefined;
-    dropdownParent?: JQuery | undefined;
+    dropdownParent?: HTMLElement | JQuery | string | undefined;
     escapeMarkup?: ((markup: string) => string) | undefined;
     initSelection?: ((element: JQuery, callback: (data: any) => void) => void) | undefined;
     language?: string | Translation | undefined;
@@ -252,7 +252,7 @@ export interface Select2Plugin<TElement = HTMLElement>  {
     };
 
     (): JQuery<TElement>;
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     <Result = DataFormat | GroupedDataFormat, RemoteResult = any>(options: Options<Result, RemoteResult>): JQuery<TElement>;
 
     /**

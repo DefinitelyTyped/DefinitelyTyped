@@ -1,4 +1,4 @@
-import * as querystring from 'querystring';
+import * as querystring from 'node:querystring';
 
 interface SampleObject { [key: string]: string; }
 
@@ -17,8 +17,10 @@ interface SampleObject { [key: string]: string; }
     result = querystring.stringify(obj, sep, eq);
     result = querystring.stringify(obj, sep, eq, options);
 
-    querystring.stringify({ foo: () => {} }); // $ExpectError
-    querystring.stringify({ foo: { bar: 1 } }); // $ExpectError
+    // @ts-expect-error
+    querystring.stringify({ foo: () => {} });
+    // @ts-expect-error
+    querystring.stringify({ foo: { bar: 1 } });
 
     querystring.stringify({
         foo: 'foo',
@@ -60,6 +62,6 @@ interface SampleObject { [key: string]: string; }
 
 {
     const queryInput: string | null | querystring.ParsedUrlQueryInput = {};
-    // $ExpectError
+    // @ts-expect-error
     const query: string | null | querystring.ParsedUrlQuery = queryInput;
 }

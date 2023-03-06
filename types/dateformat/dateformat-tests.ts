@@ -1,55 +1,86 @@
-/**
- * https://github.com/felixge/node-dateformat#usage
- */
-
-import * as dateFormat from 'dateformat';
+import dateFormat, { DateFormatI18n, DateFormatMasks, formatTimezone, i18n, masks } from 'dateformat';
 const now = new Date();
 
-// Basic usage
-dateFormat(now, 'dddd, mmmm dS, yyyy, h:MM:ss TT');
-// Saturday, June 9th, 2007, 5:46:21 PM
+// test type exports
+type Masks = DateFormatMasks;
+type I18n = DateFormatI18n;
 
-// You can use one of several named masks
-dateFormat(now, 'isoDateTime');
-// 2007-06-09T17:46:21
+dateFormat(); // $ExpectType string
+dateFormat(now); // $ExpectType string
+dateFormat('Jun 9 2007'); // $ExpectType string
+dateFormat(now.getTime()); // $ExpectType string
+dateFormat(now, 'dddd, mmmm dS, yyyy, h:MM:ss TT'); // $ExpectType string
+dateFormat('Jun 9 2007', 'dddd, mmmm dS, yyyy, h:MM:ss TT'); // $ExpectType string
+dateFormat(now.getTime(), 'dddd, mmmm dS, yyyy, h:MM:ss TT'); // $ExpectType string
+dateFormat(now, 'longTime', true); // $ExpectType string
+dateFormat('Jun 9 2007', 'longTime', true); // $ExpectType string
+dateFormat(now.getTime(), 'longTime', true); // $ExpectType string
+dateFormat(now, 'longTime', true, true); // $ExpectType string
+dateFormat('Jun 9 2007', 'longTime', true, true); // $ExpectType string
+dateFormat(now.getTime(), 'longTime', true, true); // $ExpectType string
+dateFormat('longTime', true); // $ExpectType string
+dateFormat('longTime', true, true); // $ExpectType string
 
-// ...Or add your own
-dateFormat.masks.hammerTime = 'HH:MM! "Can\'t touch this!"';
-dateFormat(now, 'hammerTime');
-// 17:46! Can't touch this!
+masks.default; // $ExpectType string
+masks.shortDate; // $ExpectType string
+masks.paddedShortDate; // $ExpectType string
+masks.mediumDate; // $ExpectType string
+masks.longDate; // $ExpectType string
+masks.fullDate; // $ExpectType string
+masks.shortTime; // $ExpectType string
+masks.mediumTime; // $ExpectType string
+masks.longTime; // $ExpectType string
+masks.isoDate; // $ExpectType string
+masks.isoTime; // $ExpectType string
+masks.isoDateTime; // $ExpectType string
+masks.isoUtcDateTime; // $ExpectType string
+masks.expiresHeaderFormat; // $ExpectType string
 
-// You can also provide the date as a string
-dateFormat('Jun 9 2007', 'fullDate');
-// Saturday, June 9, 2007
+masks.hammerTime = 'HH:MM! "Can\'t touch this!"';
 
-// Note that if you don't include the mask argument,
-// dateFormat.masks.default is used
-dateFormat(now);
-// Sat Jun 09 2007 17:46:21
+i18n.dayNames = [
+    'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+];
+i18n.monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
+i18n.timeNames = ['a', 'p', 'am', 'pm', 'A', 'P', 'AM', 'PM'];
 
-// And if you don't include the date argument,
-// the current date and time is used
-dateFormat();
-// Sat Jun 09 2007 17:46:22
-
-// You can also skip the date argument (as long as your mask doesn't
-// contain any numbers), in which case the current date/time is used
-dateFormat('longTime');
-// 5:46:22 PM EST
-
-// And finally, you can convert local time to UTC time. Simply pass in
-// true as an additional argument (no argument skipping allowed in this case):
-dateFormat(now, 'longTime', true);
-// 10:46:21 PM UTC
-
-// ...Or add the prefix "UTC:" or "GMT:" to your mask.
-dateFormat(now, 'UTC:h:MM:ss TT Z');
-// 10:46:21 PM UTC
-
-// You can also get the ISO 8601 week of the year:
-dateFormat(now, 'W');
-// 42
-
-// and also get the ISO 8601 numeric representation of the day of the week:
-dateFormat(now, 'N');
-// 6
+formatTimezone(now); // $ExpectType string
+formatTimezone('Tue Sep 08 2020 13:26:11 GMT-0500 (Central Daylight Time)'); // $ExpectType string

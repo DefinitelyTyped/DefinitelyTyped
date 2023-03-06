@@ -9,7 +9,6 @@
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Carven Zhang <https://github.com/zjy01>
-//                 Nikola Vidic <https://github.com/nidzov>
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>
@@ -171,7 +170,7 @@ declare namespace sequelize {
         /**
          * Apply a scope on the related model, or remove its default scope by passing false.
          */
-        scope?: string | boolean | undefined;
+        scope?: string | boolean | undefined | null;
     }
 
     /**
@@ -3177,9 +3176,9 @@ declare namespace sequelize {
      * Logic of where statement
      */
     type WhereLogic = Partial<{
-        $ne: string | number | WhereLogic;
+        $ne: string | number | WhereLogic | null;
         $in: Array<string | number> | literal;
-        $not: boolean | string | number | AnyWhereOptions;
+        $not: boolean | string | number | AnyWhereOptions | null;
         $notIn: Array<string | number> | literal;
         $gte: number | string | Date;
         $gt: number | string | Date;
@@ -3217,7 +3216,7 @@ declare namespace sequelize {
      * A hash of attributes to describe your search, accepting any field names. See `WhereOptions` for details.
      */
     interface AnyWhereOptions {
-        [field: string]: WhereOptions<any>[] | Object;
+        [field: string]: WhereOptions<any>[] | Object | null;
     }
 
     /**
@@ -3293,7 +3292,7 @@ declare namespace sequelize {
         /**
          * Load further nested related models
          */
-        include?: Array<Model<any, any> | IncludeOptions> | undefined;
+        include?: Array<Model<any, any> | IncludeOptions> | Model<any, any> | IncludeOptions | undefined;
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3356,7 +3355,7 @@ declare namespace sequelize {
          * If your association are set up with an `as` (eg. `X.hasMany(Y, { as: 'Z }`, you need to specify Z in
          * the as attribute when eager loading Y).
          */
-        include?: Array<Model<any, any> | IncludeOptions> | undefined;
+        include?: Array<Model<any, any> | IncludeOptions> | Model<any, any> | IncludeOptions | undefined;
 
         /**
          * Specifies an ordering. If a string is provided, it will be escaped. Using an array, you can provide
@@ -3437,7 +3436,7 @@ declare namespace sequelize {
         /**
          * Include options. See `find` for details
          */
-        include?: Array<Model<any, any> | IncludeOptions> | undefined;
+        include?: Array<Model<any, any> | IncludeOptions> | Model<any, any> | IncludeOptions | undefined;
 
         /**
          * Apply column on which COUNT() should be applied
@@ -3936,7 +3935,7 @@ declare namespace sequelize {
          * @see    {Sequelize#query}
          */
         findAll<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance[]>;
-        all<TCustomAttributes>(optionz?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance[]>;
+        all<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance[]>;
 
         /**
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will

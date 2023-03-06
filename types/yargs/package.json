@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.mts",
+                "default": "./index.d.ts"
+            }
+        },
+        "./helpers": {
+            "types": {
+                "import": "./helpers.d.mts",
+                "default": "./helpers.d.ts"
+            }
+        },
+        "./yargs": {
+            "types": {
+                "default": "./yargs.d.ts"
+            }
+        }
+    }
+}

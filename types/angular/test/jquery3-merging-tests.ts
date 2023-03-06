@@ -132,7 +132,7 @@ function JQuery() {
     }
 
     function children() {
-        // $ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLSpanElement>
         $('p').children('span');
 
         // $ExpectType JQuery<HTMLElement>

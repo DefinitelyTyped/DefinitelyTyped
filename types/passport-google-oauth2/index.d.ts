@@ -12,7 +12,7 @@ export interface StrategyOptions {
   clientSecret: string;
   callbackURL: string;
   passReqToCallback?: true | undefined;
-  scope?: string[] | undefined;
+  scope?: string[] | string | undefined;
   proxy?: boolean | undefined;
 }
 
@@ -21,7 +21,7 @@ export interface StrategyOptionsWithRequest {
   clientSecret: string;
   callbackURL: string;
   passReqToCallback: true;
-  scope?: string[] | undefined;
+  scope?: string[] | string | undefined;
 }
 
 export interface VerifyOptions {

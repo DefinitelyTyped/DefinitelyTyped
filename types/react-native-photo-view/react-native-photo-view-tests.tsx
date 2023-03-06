@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactNativePhotoView from 'react-native-photo-view';
 
-const test: React.SFC = () => (
+const test: React.FC = () => (
     <ReactNativePhotoView
         source={{uri: 'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png'}}
         loadingIndicatorSource={{uri: 'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png'}}

@@ -25,7 +25,8 @@ var doc = new PDFDocument({
         modifying: true,
         annotating: false,
         printing: 'lowResolution'
-    }
+    },
+    font: 'Arial',
 });
 
 doc.addPage({
@@ -127,6 +128,11 @@ doc.translate(280, 0)
 
 doc.circle(100, 100, 100).clip();
 
+doc.font('Arial', 30).text('The size is 30');
+
+var strOrBuf = Math.random() < 0.5 ? 'Arial' : Buffer.from('bytes');
+doc.font(strOrBuf);
+
 doc.fontSize(25)
     .fillColor('blue')
     .text('This is a link!', 20, 0);
@@ -195,6 +201,12 @@ doc.text('Text with features', { features: [ "kern" ] });
 
 doc.goTo(0, 0, 0, 0, 'lorem');
 
+doc.text('Text with destination', {destination: "test-anchor"});
+
+doc.text('Text with goTo', {goTo: 'test-anchor'});
+
+doc.text('Text with null link', { link: null });
+
 doc.image('path/to/image.png', {
     fit: [250, 300],
     align: 'center',
@@ -210,6 +222,12 @@ doc.image('path/to/image.png', {
     goTo: {},
     destination: 'lorem',
 });
+
+doc.file('/path/to/file/example.txt');
+
+doc.file(Buffer.from('this will be a text file'), { name: 'example.txt' });
+
+doc.file('data:text/plain;base64,YmFzZTY0IHN0cmluZw==', { name: 'base64.txt' });
 
 
 // AcroForm
@@ -255,3 +273,28 @@ var subDoc = new SubPDFDocument({});
 
 subDoc.moveTo(subDoc.page.width / 2, subDoc.page.height / 2).text(10);
 subDoc.lineWidth(3).segment(10, subDoc.page.width - 10, subDoc.page.height - 10, 10).stroke("#00FFFF");
+
+// Markings
+doc.markContent('Figure', { alt: 'some alternative value'});
+doc.endMarkedContent();
+const structureContent = doc.markStructureContent('P');
+doc.text('Test');
+doc.endMarkedContent();
+const structureElement = doc.struct('Div', {}, [structureContent]);
+doc.struct('Div', {}, structureContent);
+doc.addStructure(structureElement);
+doc.initMarkings();
+doc.initPageMarkings([{ tag: 'P' }]);
+doc.endPageMarkings(doc.page);
+doc.getMarkingsDictionary();
+doc.getStructTreeRoot();
+doc.createStructParentTreeNextKey();
+doc.endMarkings();
+// structure content methods
+const structureContent2 = doc.markStructureContent('H1');
+structureContent.push(structureContent2);
+// structure element methods
+structureElement.add(structureContent);
+structureElement.setAttached();
+structureElement.setParent(doc.ref({}));
+structureElement.end();

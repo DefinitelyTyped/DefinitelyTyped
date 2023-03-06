@@ -1,21 +1,15 @@
-import {
-    getAll,
-    getAllData,
-    getRandom,
-    getRandomData,
-    UserAgent
-} from "random-useragent";
+import { getAll, getAllData, getRandom, getRandomData, UserAgent } from 'random-useragent';
 
 function filter(value: UserAgent) {
-    return value.browserName !== "Chrome";
+    return value.browserName !== 'Chrome';
 }
 
-// $ExpectType string | null
+// $ExpectType string
 getRandom();
 // $ExpectType string | null
 getRandom(filter);
 
-// $ExpectType UserAgent | null
+// $ExpectType UserAgent
 getRandomData();
 // $ExpectType UserAgent | null
 getRandomData(filter);

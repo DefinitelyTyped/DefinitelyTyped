@@ -4,6 +4,7 @@ import {
     afterEach as importedAfterEach,
     beforeEach as importedBeforeEach,
     describe as importedDescribe,
+    xdescribe as importedXDescribe,
     it as importedIt,
     xit as importedXit,
 } from 'mocha';
@@ -45,6 +46,8 @@ const _beforeEach: typeof beforeEach = importedBeforeEach;
 const _beforeEach2: typeof importedBeforeEach = beforeEach;
 const _describe: typeof describe = importedDescribe;
 const _describe2: typeof importedDescribe = describe;
+const _xdescribe: typeof xdescribe = importedXDescribe;
+const _xdescribe2: typeof importedXDescribe = xdescribe;
 const _it: typeof it = importedIt;
 const _it2: typeof importedIt = it;
 const _xit: typeof xit = importedXit;
@@ -1017,6 +1020,7 @@ function test_require_fluentParams() {
 
     instance.bail(true)
         .bail()
+        .cleanReferencesAfterRun(true)
         .addFile('foo.js')
         .reporter('dot')
         .ui('bdd')
@@ -1456,3 +1460,9 @@ class TestClass2 {
 class TestClass3 {
 }
 // end of augmentations used by mocha-typescript
+
+function test_runnable_state(runnable: LocalMocha.Runnable) {
+    runnable.state = 'pending';
+    runnable.state = 'failed';
+    runnable.state = 'passed';
+}

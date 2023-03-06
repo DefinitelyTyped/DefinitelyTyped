@@ -1,7 +1,6 @@
 // Type definitions for dagre 0.7
 // Project: https://github.com/dagrejs/dagre
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-//                 Lisa Vallfors <https://github.com/Frankrike>
 //                 Pete Vilter <https://github.com/vilterp>
 //                 David Newell <https://github.com/rustedgrail>
 //                 Graham Lea <https://github.com/GrahamLea>
@@ -27,7 +26,7 @@ export namespace graphlib {
         hasEdge(outNodeName: string, inNodeName: string, name?: string): boolean;
         inEdges(inNodeName: string, outNodeName?: string): Edge[] | undefined;
         outEdges(outNodeName: string, inNodeName?: string): Edge[] | undefined;
-        removeEdge(outNodeName: string, inNodeName: string): Graph<T>;
+        removeEdge(outNodeName: string, inNodeName: string, name?: string): Graph<T>;
         setDefaultEdgeLabel(callback: string | ((v: string, w: string, name?: string) => string | Label)): Graph<T>;
         setEdge(params: Edge, value?: string | { [key: string]: any }): Graph<T>;
         setEdge(sourceId: string, targetId: string, value?: string | Label, name?: string): Graph<T>;

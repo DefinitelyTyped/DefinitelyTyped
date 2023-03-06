@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as I18n from "react-redux-i18n";
 
-class ReactReduxI18nTests_Translate1 extends React.Component<React.Props<{}>>{
+class ReactReduxI18nTests_Translate1 extends React.Component {
 
   render() {
     return (
@@ -12,7 +12,7 @@ class ReactReduxI18nTests_Translate1 extends React.Component<React.Props<{}>>{
 
 
 
-class ReactReduxI18nTests_Translate2 extends React.Component<React.Props<{}>>{
+class ReactReduxI18nTests_Translate2 extends React.Component {
 
   render() {
     return (
@@ -22,7 +22,7 @@ class ReactReduxI18nTests_Translate2 extends React.Component<React.Props<{}>>{
 }
 
 
-class ReactReduxI18nTests_Translate3 extends React.Component<React.Props<{}>>{
+class ReactReduxI18nTests_Translate3 extends React.Component {
 
   render() {
     return (
@@ -32,7 +32,7 @@ class ReactReduxI18nTests_Translate3 extends React.Component<React.Props<{}>>{
 }
 
 
-class ReactReduxI18nTests_Translate4 extends React.Component<React.Props<{}>>{
+class ReactReduxI18nTests_Translate4 extends React.Component {
 
   render() {
     return (

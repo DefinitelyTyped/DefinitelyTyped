@@ -1,6 +1,6 @@
 // Type definitions for react-google-places-suggest 3.4
 // Project: https://github.com/xuopled/react-google-places-suggest
-// Definitions by: Vasily Nesterov <https://github.com/vasilysn>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

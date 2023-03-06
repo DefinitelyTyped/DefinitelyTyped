@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/data-controls 1.0
+// Type definitions for @wordpress/data-controls 2.2
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data-controls/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,7 +24,7 @@ import { Action } from '@wordpress/data';
  * }
  * ```
  */
-export function apiFetch(options: APIFetchOptions): void;
+export function apiFetch(options: APIFetchOptions): unknown;
 
 /**
  * What you use to register the controls with your custom store.
@@ -59,6 +59,8 @@ export const controls: {
 };
 
 /**
+ * Deprecated in favor of the @wordpress/data dispatch method.
+ *
  * Dispatches a control action for triggering a registry dispatch.
  *
  * @param storeKey - The key for the store the action belongs to
@@ -79,6 +81,8 @@ export const controls: {
 export function dispatch(storeKey: string, actionName: string, ...args: any[]): void;
 
 /**
+ * Deprecated in favor of the @wordpress/data select method.
+ *
  * Dispatches a control action for triggering a registry select.
  *
  * Note: when this control action is handled, it automatically considers selectors that may have a

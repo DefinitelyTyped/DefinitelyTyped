@@ -1,4 +1,4 @@
-// Type definitions for trtc-js-sdk 4.8
+// Type definitions for trtc-js-sdk 4.9
 // Project: https://github.com/tencentyun/TRTCSDK#readme
 // Definitions by: yokots <https://github.com/yokots>
 //                 Wang KaiLing <https://github.com/wkl007>
@@ -208,7 +208,10 @@ export interface Client {
      * });
      * ```
      */
-    subscribe(stream: RemoteStream, options?: { audio?: boolean | undefined; video?: boolean | undefined }): Promise<void>;
+    subscribe(
+        stream: RemoteStream,
+        options?: { audio?: boolean | undefined; video?: boolean | undefined },
+    ): Promise<void>;
 
     /**
      * 取消订阅远端流
@@ -230,12 +233,6 @@ export interface Client {
 
     /** 获取当前房间内远端用户音视频 mute 状态列表。 */
     getRemoteMutedState(): RemoteMutedState[];
-
-    /**
-     * 设置是否默认接收远端流。该方法可在 join() 调用前使用，若在进房后调用，会接收不到后续进房的远端用户音视频流。
-     * @param muted 是否默认不接收远端流: true true 默认不接收任何远端流。false 默认接收所有远端流。（默认）
-     */
-    setDefaultMuteRemoteStreams(muted: boolean): void;
 
     /** 获取当前网络传输状况统计数据, 该方法需要在 `publish()` 后调用 */
     getTransportStats(): Promise<TransportStats>;
@@ -285,6 +282,11 @@ export interface ClientConfig {
      * - 2 表示本次是纯音频推流，录制文件为 MP3
      */
     pureAudioPushMode?: 1 | 2 | undefined;
+    /**
+     * autoSubscribe flag instead of deprecated Client.setDefaultMuteRemoteStreams
+     * default: true
+     */
+    autoSubscribe?: boolean;
 }
 
 /** 客户端事件 */

@@ -99,5 +99,7 @@ google.script.run.testFunctionWithMultipleParameters(
     }
 );
 google.script.run.testFunctionWithForm(new HTMLFormElement());
-google.script.run.testFunctionWithDateError(new Date()); // $ExpectError
-google.script.run.testFunctionWithFunctionError(() => {}); // $ExpectError
+// @ts-expect-error
+google.script.run.testFunctionWithDateError(new Date());
+// @ts-expect-error
+google.script.run.testFunctionWithFunctionError(() => {});

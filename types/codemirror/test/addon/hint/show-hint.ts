@@ -65,10 +65,10 @@ cm.showHint({
 
 const hintOptions: CodeMirror.ShowHintOptions = { scrollMargin: 5 };
 
-// $ExpectError
+// @ts-expect-error
 hintOptions.scrolMargn = 5;
 
-// $ExpectError
+// @ts-expect-error
 hintOptions.scrollMargin = '5';
 
 CodeMirror(document.body, { hintOptions });

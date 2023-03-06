@@ -1,10 +1,9 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
         "array-type": false,
         "comment-format": false,
-        "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-var-keyword": false,

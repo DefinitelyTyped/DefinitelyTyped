@@ -623,6 +623,7 @@ export type UpdateSource =
     | 'propUpdate';
 
 export interface CalendarProviderProps {
+    children?: React.ReactNode;
     /**
      * Initial date in 'yyyy-MM-dd' format. Default = Date()
      */

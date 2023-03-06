@@ -2,7 +2,6 @@
 // Project: http://tediousjs.github.io/tedious/
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Chris Thompson <https://github.com/cjthompson>
-//                 Suraiya Hameed <https://github.com/v-suhame>
 //                 Guilherme Amorim <https://github.com/guiampm>
 //                 Simon Childs <https://github.com/csharpsi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -258,7 +257,7 @@ export interface ConnectionOptions {
      * The version of TDS to use. If server doesn't support specified version, negotiated version is used instead. (default: 7_4).
      * Take this from tedious.TDS_VERSION.7_4 .
      */
-    tdsVersion?: number | undefined;
+    tdsVersion?: string | undefined;
 
     /**
      * Application name used for identifying a specific application in profiling, logging or tracing tools of SQL Server. (default: Tedious)
@@ -371,6 +370,16 @@ export interface ConnectionAuthenticationOptions {
      * Authentication token used when type is 'azure-active-directory-access-token'
      */
     token?: string | undefined;
+
+    /**
+     * Optional application (client) ID from your registered Azure application
+     */
+    clientId?: string | undefined;
+
+    /**
+     * Optional parameter for specific Azure tenant ID
+     */
+    tenantId?: string | undefined;
 }
 
 export interface ConnectionAuthentication {
@@ -446,9 +455,14 @@ export interface Request {
     on(event: 'requestCompleted', listener: () => void):this;
 
     /**
-     * A row resulting from execution of the SQL statement
+     * A row resulting from execution of the SQL statement with `config.options.useColumnNames` set to `false` (default).
      */
     on(event: 'row', listener: (columns: ColumnValue[]) => void):this;
+
+    /**
+     * A row resulting from execution of the SQL statement with `config.options.useColumnNames` set to `true`.
+     */
+    on(event: 'row', listener: (columns: Record<string, ColumnValue>) => void):this;
 
     /**
      * All rows from a result set have been provided (through row events). This token is used to indicate the completion of a SQL statement. As multiple SQL statements can be sent to the server in a single SQL batch, multiple done events can be generated. An done event is emited for each SQL statement in the SQL batch except variable declarations. For execution of SQL statements within stored procedures, doneProc and doneInProc events are used in place of done events.

@@ -1,4 +1,5 @@
-import TermMap = require('@rdfjs/term-map');
+import TermMap from '@rdfjs/term-map';
+import Factory from '@rdfjs/term-map/Factory';
 import { Term, Literal, BlankNode, NamedNode } from 'rdf-js';
 
 const literal: Literal = <any> {};
@@ -15,4 +16,11 @@ const initializedMap: Map<Term, number> = new TermMap([
 
 const specificKeyMap: Map<NamedNode, string> = new TermMap<NamedNode, string>([
     [named, 'foo']
+]);
+
+const exports: ['termMap'] = Factory.exports;
+const factory = new Factory();
+let fromFactory: Map<NamedNode, number> = factory.termMap();
+fromFactory = factory.termMap([
+    [named, 5]
 ]);

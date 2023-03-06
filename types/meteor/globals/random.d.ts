@@ -1,4 +1,4 @@
-declare module Random {
+declare namespace Random {
     function id(numberOfChars?: number): string;
 
     function secret(numberOfChars?: number): string;

@@ -12,6 +12,7 @@ import {
 import { IndexRouteProps } from "react-router/lib/IndexRoute";
 
 export interface RouteProps<Props = any> extends IndexRouteProps<Props> {
+    children?: React.ReactNode;
     path?: RoutePattern | undefined;
 }
 

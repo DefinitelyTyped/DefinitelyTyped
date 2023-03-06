@@ -8,6 +8,7 @@ function testConfig(): void {
     host: "http://example.com",
     enable: true,
     timeout: 1000,
+    errorHandler: (err) => console.error(err)
   });
 }
 
@@ -18,6 +19,19 @@ function testConfigWithStringTimeout(): void {
     host: "http://example.com",
     enable: true,
     timeout: '1000',
+    errorHandler: (err) => console.error(err)
+  });
+}
+
+function testConfigWithFlushedSet(): void {
+  analytics = new Analytics('YOUR_WRITE_KEY', {
+    flushAt: 20,
+    flushInterval: 10000,
+    host: "http://example.com",
+    enable: true,
+    timeout: 1000,
+    flushed: true,
+    errorHandler: (err) => console.error(err)
   });
 }
 
@@ -104,6 +118,34 @@ function testPage(): void {
   analytics.page({
     userId: '019mr8mf4r',
     category: 'Docs',
+    name: 'Node.js Library',
+    properties: {
+      url: 'https://segment.com/docs/libraries/node',
+      path: '/docs/libraries/node/',
+      title: 'Node.js Library - Segment',
+      referrer: 'https://github.com/segmentio/analytics-node'
+    }
+  }, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+}
+
+function testScreen(): void {
+  analytics.screen({
+    userId: '019mr8mf4r',
+    name: 'Node.js Library',
+    properties: {
+      url: 'https://segment.com/docs/libraries/node',
+      path: '/docs/libraries/node/',
+      title: 'Node.js Library - Segment',
+      referrer: 'https://github.com/segmentio/analytics-node'
+    }
+  });
+
+  analytics.screen({
+    userId: '019mr8mf4r',
     name: 'Node.js Library',
     properties: {
       url: 'https://segment.com/docs/libraries/node',

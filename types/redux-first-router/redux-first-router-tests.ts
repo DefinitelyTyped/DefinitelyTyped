@@ -13,7 +13,7 @@ import {
     Navigators,
     NavigationAction,
     Nullable,
-    Route
+    Route,
 } from 'redux-first-router';
 import {
     createStore,
@@ -24,7 +24,7 @@ import {
     StoreEnhancerStoreCreator,
     combineReducers,
     AnyAction,
-    Store
+    Store,
 } from 'redux';
 import { History } from 'history';
 
@@ -43,7 +43,7 @@ const routesMap: RoutesMap<Keys, State> = {
     HOME: '/',
     ADMIN: {
         path: '/admin',
-        role: 'admin'
+        role: 'admin',
     },
     STATUS: {
         path: '/status',
@@ -51,8 +51,8 @@ const routesMap: RoutesMap<Keys, State> = {
         thunk: (dispatch, getState) => {
             dispatch; // $ExpectType Dispatch<any>
             getState; // $ExpectType StateGetter<State>
-        }
-    }
+        },
+    },
 };
 
 const { reducer, middleware, enhancer, initialDispatch, thunk } = connectRoutes(routesMap, {
@@ -76,28 +76,25 @@ const { reducer, middleware, enhancer, initialDispatch, thunk } = connectRoutes(
         parse: params => {
             params; // $ExpectType string
             return {};
-        }
+        },
     },
     notFoundPath: 'not-found',
     scrollTop: true,
     restoreScroll: (history: History) => {
         return {};
     },
-    onBeforeChange: (dispatch: Dispatch, getState: StateGetter<State>, bag: Bag) => { },
-    onAfterChange: (dispatch: Dispatch, getState: StateGetter<State>, bag: Bag) => { },
-    onBackNext: (dispatch: Dispatch, getState: StateGetter<State>, bag: Bag) => { },
-    displayConfirmLeave: (message: string, callback: (unblock: boolean) => void) => { },
-    createHistory: (options?: any) => history
+    onBeforeChange: (dispatch: Dispatch, getState: StateGetter<State>, bag: Bag) => {},
+    onAfterChange: (dispatch: Dispatch, getState: StateGetter<State>, bag: Bag) => {},
+    onBackNext: (dispatch: Dispatch, getState: StateGetter<State>, bag: Bag) => {},
+    displayConfirmLeave: (message: string, callback: (unblock: boolean) => void) => {},
+    createHistory: (options?: any) => history,
 });
 
 const dumbMiddleware: Middleware = store => next => action => next(action);
 
 const composedMiddleware = applyMiddleware(middleware, dumbMiddleware);
 
-const storeEnhancer = compose(
-    enhancer,
-    composedMiddleware
-);
+const storeEnhancer = compose(enhancer, composedMiddleware);
 
 const combined = combineReducers<State>({ location: reducer });
 
@@ -110,20 +107,26 @@ thunk(store).then(t => {
 
 const receivedAction: ReceivedAction = {
     type: 'HOME',
-    payload: {}
+    payload: {},
 };
 actionToPath(receivedAction, routesMap); // $ExpectType string
 pathToAction('/', routesMap); // $ExpectType ReceivedAction
 
 const querySerializer: QuerySerializer = {
     stringify: params => '',
-    parse: queryString => ({})
+    parse: queryString => ({}),
 };
 actionToPath(receivedAction, routesMap, querySerializer); // $ExpectType string
 pathToAction('/', routesMap, querySerializer); // $ExpectType ReceivedAction
 
 const action: ReduxFirstRouterAction = {
-    type: 'HOME'
+    type: 'HOME',
+};
+redirect(action); // $ExpectType Action
+
+const secondAction: ReduxFirstRouterAction = {
+    type: 'PAGE',
+    query: { foo: 'bar' },
 };
 redirect(action); // $ExpectType Action
 

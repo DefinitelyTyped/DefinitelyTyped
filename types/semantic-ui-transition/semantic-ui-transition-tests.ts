@@ -86,7 +86,8 @@ function test_transition() {
     });
     $(selector).transition(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).transition({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).transition({ foo: 'bar' });
 }
 
 import transition = require('semantic-ui-transition');

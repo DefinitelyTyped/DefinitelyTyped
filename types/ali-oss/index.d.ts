@@ -1,4 +1,4 @@
-// Type definitions for ali-oss 6.0
+// Type definitions for ali-oss 6.16
 // Project: https://github.com/aliyun/oss-nodejs-sdk
 // Definitions by: Ptrdu <https://github.com/ptrdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -32,7 +32,7 @@ declare namespace OSS {
         /** use time (ms) of refresh STSToken interval it should be less than sts info expire interval, default is 300000ms(5min) when sts info expires. */
         refreshSTSTokenInterval?: number;
         /** used by auto set stsToken、accessKeyId、accessKeySecret when sts info expires. return value must be object contains stsToken、accessKeyId、accessKeySecret */
-        refreshSTSToken?: () => Promise<{accessKeyId: string, accessKeySecret: string, stsToken: string}>;
+        refreshSTSToken?: () => Promise<{ accessKeyId: string, accessKeySecret: string, stsToken: string }>;
     }
 
     /**
@@ -149,6 +149,8 @@ declare namespace OSS {
     interface ObjectMeta {
         /** object name on oss */
         name: string;
+        /** object url */
+        url: string;
         /** object last modified GMT date, e.g.: 2015-02-19T08:39:44.000Z */
         lastModified: string;
         /** object etag contains ", e.g.: "5B3C1A2E053D763E1B002CC607C5A0FE" */
@@ -158,7 +160,17 @@ declare namespace OSS {
         /** object size, e.g.: 344606 */
         size: number;
         storageClass: StorageType;
-        owner: OwnerType;
+        owner?: OwnerType;
+    }
+
+    interface BucketPolicy {
+        Version: string;
+        Statement: Array<{
+            Action: string[];
+            Effect: 'Allow' | 'Deny';
+            Principal: string[];
+            Resource: string[];
+        }>;
     }
 
     interface NormalSuccessResponse {
@@ -173,7 +185,11 @@ declare namespace OSS {
         rt: number;
     }
 
-    interface UserMeta {
+    /**
+     * @see x-oss-meta-* in https://help.aliyun.com/document_detail/31978.html for Aliyun user
+     * @see x-oss-meta-* in https://www.alibabacloud.com/help/en/doc-detail/31978.html for AlibabaCloud user
+     */
+    interface UserMeta extends Record<string, string | number> {
         uid: number;
         pid: number;
     }
@@ -239,6 +255,7 @@ declare namespace OSS {
         /** the remote addr */
         RemoteAddr: string;
     }
+
     // parameters type
     interface ListBucketsQueryType {
         /** search buckets using prefix key */
@@ -272,6 +289,28 @@ declare namespace OSS {
         delimiter?: string | undefined; // delimiter search scope e.g.
         /** max objects, default is 100, limit to 1000 */
         'max-keys': string | number;
+        /** Specifies that the object names in the response are URL-encoded. */
+        'encoding-type'?: 'url' | '';
+    }
+
+    interface ListV2ObjectsQuery {
+        /** search object using prefix key */
+        prefix?: string;
+        /** search start from token, including token key */
+        'continuation-token'?: string;
+        /** only search current dir, not including subdir */
+        delimiter?: string | number;
+        /** max objects, default is 100, limit to 1000  */
+        'max-keys'?: string;
+        /**
+         * The name of the object from which the list operation begins.
+         * If this parameter is specified, objects whose names are alphabetically greater than the start-after parameter value are returned.
+         */
+        'start-after'?: string;
+        /** Specifies whether to include the information about object owners in the response. */
+        'fetch-owner'?: boolean;
+        /** Specifies that the object names in the response are URL-encoded. */
+        'encoding-type'?: 'url' | '';
     }
 
     interface ListObjectResult {
@@ -406,9 +445,15 @@ declare namespace OSS {
         method?: HTTPMethods | undefined;
         /** set the request content type */
         'Content-Type'?: string | undefined;
+        /**  image process params, will send with x-oss-process e.g.: {process: 'image/resize,w_200'} */
         process?: string | undefined;
+        /** traffic limit, range: 819200~838860800 */
+        trafficLimit?: number | undefined;
+        /** additional signature parameters in url */
+        subResource?: object | undefined;
         /** set the response headers for download */
         response?: ResponseHeaderType | undefined;
+        /** set the callback for the operation */
         callback?: ObjectCallback | undefined;
     }
 
@@ -591,6 +636,18 @@ declare namespace OSS {
         /** the operation timeout */
         timeout?: number | undefined;
     }
+
+    interface GetBucketPolicyResult {
+        policy: BucketPolicy | null;
+        status: number;
+        res: NormalSuccessResponse;
+    }
+
+    interface PostObjectParams {
+        policy: string;
+        OSSAccessKeyId: string;
+        Signature: string;
+    }
 }
 
 // cluster
@@ -606,10 +663,15 @@ declare namespace OSS {
         schedule?: string | undefined;
     }
 
-    class Cluster {
+    class ClusterClient {
         constructor(options: ClusterOptions);
 
         list(query: ListObjectsQuery | null, options: RequestOptions): Promise<ListObjectResult>;
+
+        /**
+         * @since 6.12.0
+         */
+        listV2(query: ListV2ObjectsQuery | null, options?: RequestOptions): Promise<ListObjectResult>;
 
         put(name: string, file: any, options?: PutObjectOptions): Promise<PutObjectResult>;
 
@@ -634,6 +696,8 @@ declare namespace OSS {
         deleteMulti(names: string[], options?: DeleteMultiOptions): Promise<DeleteMultiResult>;
 
         signatureUrl(name: string, options?: SignatureUrlOptions): string;
+
+        asyncSignatureUrl(name: string, options?: SignatureUrlOptions): Promise<string>;
 
         putACL(name: string, acl: ACLType, options?: RequestOptions): Promise<NormalSuccessResponse>;
 
@@ -727,6 +791,11 @@ declare namespace OSS {
          * Create a signature url for directly download.
          */
         signatureUrl(name: string, options?: { expires?: string | undefined; timeout?: string | undefined }): string;
+
+        /**
+         * Basically the same as signatureUrl, if refreshSTSToken is configured asyncSignatureUrl will refresh stsToken
+         */
+        asyncSignatureUrl(name: string, options?: SignatureUrlOptions): Promise<string>;
     }
 }
 
@@ -886,11 +955,45 @@ declare class OSS {
      */
     deleteBucketCORS(name: string): Promise<OSS.NormalSuccessResponse>;
 
+    // policy operations
+    /**
+     * Adds or modify policy for a bucket.
+     */
+    putBucketPolicy(
+        name: string,
+        policy: OSS.BucketPolicy,
+        options?: OSS.RequestOptions
+    ): Promise<{
+        status: number,
+        res: OSS.NormalSuccessResponse,
+    }>;
+
+    /**
+     * Obtains the policy for a bucket.
+     */
+    getBucketPolicy(name: string, options?: OSS.RequestOptions): Promise<OSS.GetBucketPolicyResult>;
+
+    /**
+     * Deletes the policy added for a bucket.
+     */
+    deleteBucketPolicy(
+        name: string,
+        options?: OSS.RequestOptions
+    ): Promise<{
+        status: number,
+        res: OSS.NormalSuccessResponse,
+    }>;
+
     /********************************************************** Object operations ********************************************/
     /**
      * List objects in the bucket.
      */
     list(query: OSS.ListObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
+
+    /**
+     * List Objects in the bucket.(V2)
+     */
+    listV2(query: OSS.ListV2ObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
 
     /**
      * Add an object to the bucket.
@@ -945,6 +1048,7 @@ declare class OSS {
      * Copy an object from sourceName to name.
      */
     copy(name: string, sourceName: string, options?: OSS.CopyObjectOptions): Promise<OSS.CopyAndPutMetaResult>;
+    copy(name: string, sourceName: string, sourceBucket?: string, options?: OSS.CopyObjectOptions): Promise<OSS.CopyAndPutMetaResult>;
 
     /**
      * Set an exists object meta.
@@ -960,6 +1064,11 @@ declare class OSS {
      * Create a signature url for download or upload object. When you put object with signatureUrl ,you need to pass Content-Type.Please look at the example.
      */
     signatureUrl(name: string, options?: OSS.SignatureUrlOptions): string;
+
+    /**
+     * Basically the same as signatureUrl, if refreshSTSToken is configured asyncSignatureUrl will refresh stsToken
+     */
+    asyncSignatureUrl(name: string, options?: OSS.SignatureUrlOptions): Promise<string>;
 
     /**
      * Set object's ACL.
@@ -1056,6 +1165,16 @@ declare class OSS {
         uploadId: string,
         options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
+
+    /**
+     * get postObject params.
+     */
+    calculatePostSignature(
+        /**
+         * policy config object or JSON string
+         */
+        policy: object | string
+    ): OSS.PostObjectParams;
 
     /************************************************ RTMP Operations *************************************************************/
     /**

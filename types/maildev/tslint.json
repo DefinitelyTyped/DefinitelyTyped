@@ -1,9 +1,8 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "no-declare-current-package": false,
         "no-single-declare-module": false,

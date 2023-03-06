@@ -11,6 +11,7 @@ columnDef.aggregationHideLabel = true;
 columnDef.aggregationHideLabel = false;
 columnDef.aggregationType = 1;
 columnDef.aggregationType = function () { return 1; };
+columnDef.allowFloatWidth = true;
 columnDef.cellClass = 'test';
 columnDef.cellClass = (grid, gridRow, gridCol, rowIndex, colIndex) => {
     //types of grid, gridRow, gridCol, rowIndex and colIndex are flowed in correctly
@@ -151,8 +152,30 @@ anotherGridInstance.scrollTo();
 anotherGridInstance.scrollTo(rowEntityToScrollTo);
 anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
+anotherGridInstance.getRow(rowEntityToScrollTo);
+anotherGridInstance.getRowsByKey(true, "id", 42);
+anotherGridInstance.getRowsByKey(true, 123, {});
+anotherGridInstance.findRowByKey(true, 10, "42");
+anotherGridInstance.findRowByKey(true, "test", true);
+
 var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
+var row: IMyEntity = selectedRowEntities[0];
+var gridRow: uiGrid.IGridRow = selectedGridRows[0];
+
+gridApi.selection.clearSelectedRows();
+gridApi.selection.getSelectAllState();
+gridApi.selection.selectAllRows();
+gridApi.selection.selectAllVisibleRows();
+gridApi.selection.selectRow(row);
+gridApi.selection.selectRowByKey(true, "id", 42);
+gridApi.selection.selectRowByVisibleIndex(5);
+gridApi.selection.setModifierKeysToMultiSelect(true);
+gridApi.selection.setMultiSelect(true);
+gridApi.selection.toggleRowSelection(row);
+gridApi.selection.unSelectRow(row);
+gridApi.selection.unSelectRowByVisibleIndex(5);
+gridApi.selection.unSelectRowByKey(true, 10, "42");
 
 gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
     if (row.isExpanded) {
@@ -164,3 +187,5 @@ gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
 gridApi.expandable.expandAllRows();
 gridApi.expandable.collapseAllRows();
 gridApi.expandable.toggleAllRows();
+
+gridApi.treeBase.expandRow(gridRow, true);

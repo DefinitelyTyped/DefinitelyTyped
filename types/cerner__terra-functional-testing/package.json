@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "axe-core": "4.0.2"
+  }
+}

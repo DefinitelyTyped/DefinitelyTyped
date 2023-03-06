@@ -1,6 +1,29 @@
 import { callback } from './core';
 import { Client } from './client';
 
+// See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaylineitemtype
+export type ApplePayLineItemType = 'final' | 'pending';
+
+// See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymenttiming
+export type ApplePayPaymentTiming = 'immediate' | 'recurring' | 'deferred' | 'automaticReload';
+
+// See https://developer.apple.com/documentation/apple_pay_on_the_web/applepayrecurringpaymentdateunit
+export type ApplePayRecurringPaymentDateUnit = 'year' | 'month' | 'day' | 'hour' | 'minute';
+
+// See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaylineitem
+export interface ApplePayLineItem {
+    type?: ApplePayLineItemType;
+    label: string;
+    amount: string;
+    paymentTiming?: ApplePayPaymentTiming;
+    recurringPaymentStartDate?: Date;
+    recurringPaymentIntervalUnit?: ApplePayRecurringPaymentDateUnit;
+    recurringPaymentIntervalCount?: number;
+    recurringPaymentEndDate?: Date;
+    deferredPaymentDate?: Date;
+    automaticReloadPaymentThresholdAmount?: string;
+}
+
 // more info https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types/paymentrequest
 
 //  billingContact
@@ -38,6 +61,11 @@ export interface ApplePayPaymentRequest {
     merchantCapabilities: string[];
 
     billingContact?: any;
+    /**
+     * @description Optional array of items to display in the payment sheet per https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916120-lineitems
+     */
+    lineItems?: ApplePayLineItem[]; // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916120-lineitems
+
     shippingContact?: any;
     shippingMethods?: any;
     shippingType?: any;
@@ -45,9 +73,12 @@ export interface ApplePayPaymentRequest {
     requiredShippingContactFields?: any;
 }
 
+/**
+ * @deprecated - use ApplePaySession.STATUS_SUCCESS and similar instead
+ */
 export enum ApplePayStatusCodes {
     // The requested action succeeded.
-    STATUS_SUCCESS = 1,
+    STATUS_SUCCESS = 0,
     // The requested action failed.
     STATUS_FAILURE,
     // The billing address is not valid.
@@ -130,14 +161,54 @@ export class ApplePaySession {
     onshippingmethodselected: (event: any) => void;
 
     onvalidatemerchant: (event: any) => void;
+
+    /**
+     * The requested action succeeded.
+     */
+    static readonly STATUS_SUCCESS: number;
+
+    /**
+     * The requested action failed.
+     */
+    static readonly STATUS_FAILURE: number;
+
+    /**
+     * The billing address is not valid.
+     */
+    static readonly STATUS_INVALID_BILLING_POSTAL_ADDRESS: number;
+
+    /**
+     * The shipping address is not valid.
+     */
+    static readonly STATUS_INVALID_SHIPPING_POSTAL_ADDRESS: number;
+
+    /**
+     * The shipping contact information is not valid.
+     */
+    static readonly STATUS_INVALID_SHIPPING_CONTACT: number;
+
+    /**
+     * The PIN information is not valid. Cards on the China Union Pay network may require a PIN.
+     */
+    static readonly STATUS_PIN_INCORRECT: number;
+
+    /**
+     * The maximum number of tries for a PIN has been reached and the user has been locked out. Cards on the China Union Pay network may require a PIN.
+     */
+    static readonly STATUS_PIN_LOCKOUT: number;
+
+    /**
+     * The required PIN information was not provided. Cards on the China Union Pay payment network may require a PIN to authenticate the transaction.
+     */
+    static readonly STATUS_PIN_REQUIRED: number;
 }
 
 /**
  * @description Accept Apple Pay on the Web. *This component is currently in beta and is subject to change.*
  */
 export interface ApplePay {
-    create(options: { client: Client }): Promise<any>;
-    create(options: { client: Client }, callback?: callback): void;
+    create(options: { client: Client }): Promise<ApplePay>;
+    create(options: { client: Client }, callback?: callback<ApplePay>): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
@@ -145,12 +216,18 @@ export interface ApplePay {
     VERSION: string;
 
     /**
+     * @description A special merchant ID which represents the merchant association with Braintree. Required when using ApplePaySession.canMakePaymentsWithActiveCard.
+     */
+    merchantIdentifier?: string; // per https://braintree.github.io/braintree-web/current/ApplePay.html#merchantIdentifier
+
+    /**
      * Merges a payment request with Braintree defaults
      * The following properties are assigned to `paymentRequest` if not already defined
      * - countryCode
      * - currencyCode
      * - merchantCapabilities
-     * - supportedNetworks     * @example
+     * - supportedNetworks
+     * @example
      * var applePay = require('braintree-web/apple-pay');
      *
      * applePay.create({client: clientInstance}, function (createErr, applePayInstance) {
@@ -165,7 +242,18 @@ export interface ApplePay {
      *   // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
      *
      */
-    createPaymentRequest(paymentRequest: ApplePayPaymentRequest): ApplePayPaymentRequest;
+    createPaymentRequest(
+        paymentRequest: Omit<
+            ApplePayPaymentRequest,
+            'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+        > &
+            Partial<
+                Pick<
+                    ApplePayPaymentRequest,
+                    'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+                >
+            >,
+    ): ApplePayPaymentRequest;
 
     /**
      * Validates the merchant website, as required by ApplePaySession before payment can be authorized.     * - The canonical name for your store.
@@ -174,6 +262,7 @@ export interface ApplePay {
      * - Do not localize the name.     * Your Apple merchant identifier. This is the Apple Merchant ID created on the Apple Developer Portal.
      * Defaults to the merchant identifier specified in the Braintree Control Panel.
      * You can use this field to override the merchant identifier for this transaction.     * Pass the merchant session to your Apple Pay session's completeMerchantValidation method.
+     * If no callback is provided this returns a promise
      * @example
      * var applePay = require('braintree-web/apple-pay');
      *
@@ -201,9 +290,16 @@ export interface ApplePay {
         options: { validationURL: string; displayName?: string | undefined; merchantIdentifier?: string | undefined },
         callback: callback,
     ): void;
+    performValidation(options: {
+        validationURL: string;
+        displayName?: string | undefined;
+        merchantIdentifier?: string | undefined;
+    }): Promise<any>;
 
     /**
-     * Tokenizes an Apple Pay payment.     * @example
+     * Tokenizes an Apple Pay payment.
+     * If no callback is provided this will return a promise
+     * @example
      * var applePay = require('braintree-web/apple-pay');
      *
      * applePay.create({client: clientInstance}, function (createErr, applePayInstance) {
@@ -224,5 +320,6 @@ export interface ApplePay {
      *  };
      * });
      */
-    tokenize(options: { token: any }, callback: callback): void;
+    tokenize(options: { token: any }, callback: callback<ApplePayPayload>): void;
+    tokenize(options: { token: any }): Promise<ApplePayPayload>;
 }

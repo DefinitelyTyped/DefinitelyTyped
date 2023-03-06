@@ -4,7 +4,7 @@ var app = angular.module('testModule', ['ngDialog']);
 
 class DialogTestController {
 
-    constructor(ngDialog: angular.dialog.IDialogService) {
+    constructor(ngDialog: angular.dialog.IDialogService, scope: ng.IScope) {
 
         ngDialog.close("login-popup", "bye");
         ngDialog.closeAll("bye");
@@ -21,7 +21,8 @@ class DialogTestController {
             closeByEscape: false,
             data: "string",
             disableAnimation: false,
-            name: "login-popup"
+            name: "login-popup",
+            scope
         });
 
         loginDialog.closePromise.then((result) => {

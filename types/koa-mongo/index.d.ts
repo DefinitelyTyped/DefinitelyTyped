@@ -2,6 +2,7 @@
 // Project: https://github.com/nswbmw/koa-mongo
 // Definitions by: Andrea Giurgola <https://github.com/Shqrp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 import { Middleware } from "koa";
 import { Db, MongoClient, MongoClientOptions } from "mongodb";

@@ -272,14 +272,13 @@ export namespace ec {
         inspect(): string;
     }
 
-    class Signature {
+    interface Signature {
         r: BN;
         s: BN;
         recoveryParam: number | null;
 
-        constructor(options: SignatureInput, enc?: string);
-
-        toDER(enc?: string | null): any; // ?
+        toDER(): number[];
+        toDER(enc: "hex"): string;
     }
 
     interface SignatureOptions {

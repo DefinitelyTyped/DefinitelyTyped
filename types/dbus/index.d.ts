@@ -1,7 +1,6 @@
 // Type definitions for dbus 1.0
 // Project: https://github.com/Shouqun/node-dbus#readme
 // Definitions by: Luca Lindhorst <https://github.com/lal12>
-//                 Niels Becker <https://github.com/waeco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
@@ -10,7 +9,7 @@ declare namespace DBus {
     function getBus(type: busType): DBusConnection;
     function registerService(busName: busType, serviceName?: string): DBusService;
     interface DBusConnection {
-        /* tslint:disable-next-line:no-unnecessary-generics */
+        /* eslint-disable-next-line no-unnecessary-generics */
         getInterface<T = AnyInterfaceMethod>(serviceName: string, objectPath: string, interfaceName: string, callback: (err: Error | null, iface: DBusInterface<T>) => void): void;
         disconnect(): void;
         reconnect(callback: () => void): void;

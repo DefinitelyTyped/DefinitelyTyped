@@ -1,13 +1,14 @@
-// Type definitions for D3JS d3-shape module 3.0
+// Type definitions for D3JS d3-shape module 3.1
 // Project: https://github.com/d3/d3-shape/, https://d3js.org/d3-shape
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
+//                 Fil <https://github.com/Fil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.0
 
 import { Path } from 'd3-path';
 
@@ -334,7 +335,7 @@ export function arc(): Arc<any, DefaultArcObject>;
  *
  * The generic corresponds to the datum type representing a arc.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function arc<Datum>(): Arc<any, Datum>;
 /**
  * Constructs a new arc generator with the default settings.
@@ -346,7 +347,7 @@ export function arc<Datum>(): Arc<any, Datum>;
  *
  * The second generic corresponds to the datum type representing a arc.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function arc<This, Datum>(): Arc<This, Datum>;
 
 // -----------------------------------------------------------------------------------
@@ -589,7 +590,7 @@ export function pie(): Pie<any, number | { valueOf(): number }>;
  *
  * The generic refers to the data type of an element in the input array passed into the Pie generator.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function pie<Datum>(): Pie<any, Datum>;
 /**
  * Constructs a new pie generator with the default settings.
@@ -601,7 +602,7 @@ export function pie<Datum>(): Pie<any, Datum>;
  *
  * The second generic refers to the data type of an element in the input array passed into the Pie generator.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function pie<This, Datum>(): Pie<This, Datum>;
 
 // -----------------------------------------------------------------------------------
@@ -733,7 +734,7 @@ export interface Line<Datum> {
      *
      * The generic allows to cast the curve factory to a specific type, if known.
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
      * Sets the curve factory and returns this line generator.
@@ -895,7 +896,7 @@ export interface LineRadial<Datum> {
      *
      * The generic allows to cast the curve factory to a specific type, if known.
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
      * Sets the curve factory and returns this radial line generator.
@@ -932,7 +933,7 @@ export function lineRadial(): LineRadial<[number, number]>;
  *
  * The generic refers to the data type of an element in the input array passed into the radial line generator.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function lineRadial<Datum>(): LineRadial<Datum>;
 
 /**
@@ -947,7 +948,7 @@ export function radialLine(): RadialLine<[number, number]>;
 /**
  * @deprecated Use lineRadial<Datum>()
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function radialLine<Datum>(): RadialLine<Datum>;
 
 // -----------------------------------------------------------------------------------
@@ -1165,7 +1166,7 @@ export interface Area<Datum> {
      *
      * The generic allows to cast the curve factory to a specific type, if known.
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     curve<C extends CurveFactory>(): C;
     /**
      * Sets the curve factory and returns this area generator.
@@ -1438,7 +1439,7 @@ export interface AreaRadial<Datum> {
      *
      * The generic allows to cast the curve factory to a specific type, if known.
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     curve<C extends CurveFactory>(): C;
     /**
      * Sets the curve factory and returns this radial area generator.
@@ -1498,7 +1499,7 @@ export function areaRadial(): AreaRadial<[number, number]>;
  *
  * The generic refers to the data type of an element in the input array passed into the radial area generator.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function areaRadial<Datum>(): AreaRadial<Datum>;
 
 /**
@@ -1513,7 +1514,7 @@ export function radialArea(): RadialArea<[number, number]>;
 /**
  * @deprecated Use areaRadial<Datum>()
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function radialArea<Datum>(): RadialArea<Datum>;
 
 // -----------------------------------------------------------------------------------
@@ -1934,15 +1935,46 @@ export interface Link<This, LinkDatum, NodeDatum> {
 }
 
 /**
- * Constructs a new default link generator with horizontal tangents, for example, to visualize links in a tree diagram
- * rooted on the left edge of the display.
+ * Returns a new link generator using the specified curve. For example, to visualize links in a tree diagram rooted on the top edge of the display
+ *
+ * With the default settings the link generator accepts a link object conforming to the DefaultLinkObject interface.
+ */
+export function link(curve: CurveFactory): Link<any, DefaultLinkObject, [number, number]>;
+/**
+ * Returns a new link generator using the specified curve. For example, to visualize links in a tree diagram rooted on the top edge of the display
+ *
+ * Important: Ensure that the accessor functions are configured to work with the link and node datum types
+ * specified in the generics.
+ *
+ * The first generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The second generic corresponds to the datum type of the source/target node contained in the link object.
+ */
+// eslint-disable-next-line no-unnecessary-generics
+export function link<LinkDatum, NodeDatum>(curve: CurveFactory): Link<any, LinkDatum, NodeDatum>;
+/**
+ * Returns a new link generator using the specified curve. For example, to visualize links in a tree diagram rooted on the top edge of the display
+ *
+ * Important: Ensure that the accessor functions are configured to work with the link and node datum types
+ * specified in the generics.
+ *
+ * The first generic corresponds to the type of the "this" context within which the link generator and its accessor functions will be invoked.
+ *
+ * The second generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The third generic corresponds to the datum type of the source/target node contained in the link object.
+ */
+// eslint-disable-next-line no-unnecessary-generics
+export function link<This, LinkDatum, NodeDatum>(curve: CurveFactory): Link<This, LinkDatum, NodeDatum>;
+
+/**
+ * Shorthand for d3.link with d3.curveBumpX; suitable for visualizing links in a tree diagram rooted on the left edge of the display.
  *
  * With the default settings the link generator accepts a link object conforming to the DefaultLinkObject interface.
  */
 export function linkHorizontal(): Link<any, DefaultLinkObject, [number, number]>;
 /**
- * Constructs a new link generator with horizontal tangents, for example, to visualize links in a tree diagram
- * rooted on the left edge of the display.
+ * Shorthand for d3.link with d3.curveBumpX; suitable for visualizing links in a tree diagram rooted on the left edge of the display.
  *
  * Important: Ensure that the accessor functions are configured to work with the link and node datum types
  * specified in the generics.
@@ -1951,11 +1983,10 @@ export function linkHorizontal(): Link<any, DefaultLinkObject, [number, number]>
  *
  * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function linkHorizontal<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeDatum>;
 /**
- * Constructs a new link generator with horizontal tangents, for example, to visualize links in a tree diagram
- * rooted on the left edge of the display.
+ * Shorthand for d3.link with d3.curveBumpX; suitable for visualizing links in a tree diagram rooted on the left edge of the display.
  *
  * Important: Ensure that the accessor functions are configured to work with the link and node datum types
  * specified in the generics.
@@ -1966,19 +1997,17 @@ export function linkHorizontal<LinkDatum, NodeDatum>(): Link<any, LinkDatum, Nod
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function linkHorizontal<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum, NodeDatum>;
 
 /**
- * Constructs a new default link generator with vertical tangents, for example, to visualize links in a tree diagram
- * rooted on the top edge of the display.
+ * Shorthand for d3.link with d3.curveBumpX; suitable for visualizing links in a tree diagram rooted on the left edge of the display.
  *
  * With the default settings the link generator accepts a link object conforming to the DefaultLinkObject interface.
  */
 export function linkVertical(): Link<any, DefaultLinkObject, [number, number]>;
 /**
- * Constructs a new link generator with vertical tangents, for example, to visualize links in a tree diagram
- * rooted on the top edge of the display.
+ * Shorthand for d3.link with d3.curveBumpY; suitable for visualizing links in a tree diagram rooted on the top edge of the display.
  *
  * Important: Ensure that the accessor functions are configured to work with the link and node datum types
  * specified in the generics.
@@ -1987,11 +2016,10 @@ export function linkVertical(): Link<any, DefaultLinkObject, [number, number]>;
  *
  * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function linkVertical<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeDatum>;
 /**
- * Constructs a new link generator with vertical tangents, for example, to visualize links in a tree diagram
- * rooted on the top edge of the display.
+ * Shorthand for d3.link with d3.curveBumpY; suitable for visualizing links in a tree diagram rooted on the top edge of the display.
  *
  * Important: Ensure that the accessor functions are configured to work with the link and node datum types
  * specified in the generics.
@@ -2002,12 +2030,11 @@ export function linkVertical<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeD
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function linkVertical<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum, NodeDatum>;
 
 /**
- * A link generator for a radial coordinate system. The link shape generates a smooth cubic Bézier curve from a
- * source point to a target point. The tangents of the curve at the start and end are radial.
+ * Shorthand for d3.link with d3.curveBumpY; suitable for visualizing links in a tree diagram rooted on the top edge of the display.
  *
  * The first generic corresponds to the type of the "this" context within which the radial link generator and its accessor functions will be invoked.
  *
@@ -2128,7 +2155,7 @@ export function linkRadial(): LinkRadial<any, DefaultLinkObject, [number, number
  *
  * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function linkRadial<LinkDatum, NodeDatum>(): LinkRadial<any, LinkDatum, NodeDatum>;
 /**
  * Constructs a new link generator with radial tangents, for example, to visualize links in a tree diagram
@@ -2143,7 +2170,7 @@ export function linkRadial<LinkDatum, NodeDatum>(): LinkRadial<any, LinkDatum, N
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function linkRadial<This, LinkDatum, NodeDatum>(): LinkRadial<This, LinkDatum, NodeDatum>;
 
 // -----------------------------------------------------------------------------------
@@ -2287,45 +2314,86 @@ export function symbol<This, Datum>(
 ): Symbol<This, Datum>;
 
 /**
- * An array containing the set of all built-in symbol types: circle, cross, diamond, square, star, triangle, and wye.
+ * An array containing a set of symbol types designed for filling: circle, cross, diamond, square, star, triangle, and wye.
  * Useful for constructing the range of an ordinal scale should you wish to use a shape encoding for categorical data.
+ */
+export const symbolsFill: SymbolType[];
+
+/**
+ * An array containing a set of symbol types designed for stroking: circle, plus, x, triangle2, asterisk, square2, and diamond2.
+ * Useful for constructing the range of an ordinal scale should you wish to use a shape encoding for categorical data.
+ */
+export const symbolsStroke: SymbolType[];
+
+/**
+ * @deprecated Use symbolsFill
  */
 export const symbols: SymbolType[];
 
 /**
- * The circle symbol type.
+ * The asterisk symbol type; intended for stroking.
  */
-export const symbolCircle: SymbolType;
+ export const symbolAsterisk: SymbolType;
 
-/**
- * The Greek cross symbol type, with arms of equal length.
- */
-export const symbolCross: SymbolType;
+ /**
+  * The circle symbol type; intended for either filling or stroking.
+  */
+ export const symbolCircle: SymbolType;
 
-/**
- * The rhombus symbol type.
- */
-export const symbolDiamond: SymbolType;
+ /**
+  * The Greek cross symbol type, with arms of equal length; intended for filling.
+  */
+ export const symbolCross: SymbolType;
 
-/**
- * The square symbol type.
- */
-export const symbolSquare: SymbolType;
+ /**
+  * The rhombus symbol type; intended for filling.
+  */
+ export const symbolDiamond: SymbolType;
 
-/**
- * The pentagonal star (pentagram) symbol type.
- */
-export const symbolStar: SymbolType;
+ /**
+  * The rotated square symbol type; intended for stroking.
+  */
+ export const symbolDiamond2: SymbolType;
 
-/**
- * The up-pointing triangle symbol type.
- */
-export const symbolTriangle: SymbolType;
+ /**
+  * The plus symbol type; intended for stroking.
+  */
+ export const symbolPlus: SymbolType;
 
-/**
- * The Y-shape symbol type.
- */
-export const symbolWye: SymbolType;
+ /**
+  * The square symbol type; intended for filling.
+  */
+ export const symbolSquare: SymbolType;
+
+ /**
+  * The square2 symbol type; intended for stroking.
+  */
+ export const symbolSquare2: SymbolType;
+
+ /**
+  * The pentagonal star (pentagram) symbol type; intended for filling.
+  */
+ export const symbolStar: SymbolType;
+
+ /**
+  * The up-pointing triangle symbol type; intended for filling.
+  */
+ export const symbolTriangle: SymbolType;
+
+ /**
+  * The up-pointing triangle symbol type; intended for stroking.
+  */
+ export const symbolTriangle2: SymbolType;
+
+ /**
+  * The Y-shape symbol type; intended for filling.
+  */
+ export const symbolWye: SymbolType;
+
+ /**
+  * The X-shape symbol type; intended for stroking.
+  */
+ export const symbolX: SymbolType;
 
 // -----------------------------------------------------------------------------------
 // pointRadial
@@ -2496,7 +2564,7 @@ export function stack(): Stack<any, { [key: string]: number }, string>;
  *
  * The generic corresponds to the data type of an element in the data array passed into the stack generator.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function stack<Datum>(): Stack<any, Datum, string>;
 /**
  * Constructs a new stack generator with the default settings.
@@ -2507,7 +2575,7 @@ export function stack<Datum>(): Stack<any, Datum, string>;
  *
  * The second generic corresponds to the data type of key used to identify a series.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function stack<Datum, Key>(): Stack<any, Datum, Key>;
 /**
  * Constructs a new stack generator with the default settings.
@@ -2520,7 +2588,7 @@ export function stack<Datum, Key>(): Stack<any, Datum, Key>;
  *
  * The third generic corresponds to the data type of key used to identify a series.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function stack<This, Datum, Key>(): Stack<This, Datum, Key>;
 
 /**

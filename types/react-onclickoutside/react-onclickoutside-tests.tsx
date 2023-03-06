@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Component, MouseEvent, StatelessComponent } from 'react';
+import { Component, MouseEvent, FunctionComponent } from 'react';
 import { render } from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 

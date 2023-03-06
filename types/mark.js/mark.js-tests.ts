@@ -16,6 +16,10 @@ mark.markRanges([{start: 0, length: 10}], {
     className: 'highlight',
     each: (el: Element, range: Mark.Range) => {
         el.id = '';
+    },
+    filter: (text: Text) => {
+        text.textContent = '';
+        return true;
     }
 });
 

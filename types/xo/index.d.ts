@@ -4,7 +4,7 @@
 //                 Chuah Chee Shian (shian15810) <https://github.com/shian15810>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import eslint = require("eslint");
+import eslint = require('eslint');
 
 // eslint.CLIEngine.getErrorResults without modification
 // eslint.CLIEngine.getFormatter without modification
@@ -13,28 +13,36 @@ import eslint = require("eslint");
 /**
  * Can be used to filter out all the non error messages from the report object.
  */
-export const getErrorResults: typeof eslint.CLIEngine.getErrorResults;
+export const getErrorResults: typeof eslint.ESLint.getErrorResults;
 /**
  * Returns the formatter representing the given format
  * or null if no formatter with the given name can be found.
  * see {@link https://github.com/eslint/eslint/blob/master/docs/developer-guide/nodejs-api.md#clienginegetformatter}
  */
-export const getFormatter: typeof eslint.CLIEngine.prototype.getFormatter;
+export function getFormatter(
+    format?: string,
+): (results: eslint.ESLint.LintResult[], data?: eslint.ESLint.LintResultData) => string;
 /**
  * Used to output fixes from report to disk.
  * It does by looking for files that have an output property in their results
  */
 export function outputFixes(report: ResultReport): void;
 
+export function getConfig(
+    options: CLIEngineOptions & { filePath: string },
+): ReturnType<eslint.ESLint['calculateConfigForFile']>;
 export function lintText(text: string, options?: Options): ResultReport;
 export function lintFiles(patterns: string | string[], options?: Options): ResultReport | Promise<ResultReport>;
 
-export type CLIEngineOptions = Pick<
-    eslint.CLIEngine.Options,
-    "baseConfig" | "cwd" | "envs" | "extensions" | "fix" | "globals" | "ignore" | "parser" | "plugins" | "rules"
->;
-export type ESLintOptions = Pick<eslint.Linter.LintOptions, "filename">;
-export type ESLintConfig = Pick<eslint.Linter.Config, "extends" | "settings">;
+export type CLIEngineOptions = Pick<eslint.ESLint.Options, 'baseConfig' | 'cwd' | 'extensions' | 'fix' | 'ignore'> & {
+    envs?: string[] | undefined;
+    globals?: string[] | undefined;
+    parser?: string | undefined;
+    plugins?: string[];
+    rules?: { [name: string]: eslint.Linter.RuleLevel | eslint.Linter.RuleLevelAndOptions } | undefined;
+};
+export type ESLintOptions = Pick<eslint.Linter.LintOptions, 'filename'>;
+export type ESLintConfig = Pick<eslint.Linter.Config, 'extends' | 'settings'>;
 
 export type Options = {
     /** Some paths are ignored by default, including paths in .gitignore and .eslintignore. Additional ignores can be added here */
@@ -65,5 +73,5 @@ export type Options = {
 export interface ResultReport {
     readonly errorCount: number;
     readonly warningCount: number;
-    readonly results: eslint.CLIEngine.LintResult[];
+    readonly results: eslint.ESLint.LintResult[];
 }

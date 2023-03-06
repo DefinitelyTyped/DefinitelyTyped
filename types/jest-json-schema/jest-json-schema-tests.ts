@@ -40,3 +40,13 @@ it('schema matches data', () => {
     };
     expect({ hello: 'world', test: 'test' }).toMatchSchema(schema);
 });
+
+it('accepts a custom Ajv class', () => {
+    const FakeAjvClass = jest.fn().mockImplementation(() => ({
+        opts: { code: { formats: {} } },
+        addFormat: jest.fn(),
+        addKeyword: jest.fn(),
+    }));
+    matchersWithOptions({ AjvClass: FakeAjvClass });
+    expect(FakeAjvClass).toHaveBeenCalled();
+});

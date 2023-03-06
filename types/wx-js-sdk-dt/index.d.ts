@@ -38,6 +38,10 @@ declare namespace wx {
          * 需要使用的JS接口列表
          */
         jsApiList: string[];
+        /**
+         * 可选，需要使用的开放标签列表
+         */
+        openTagList?: string[] | undefined;
     }
 
     /**

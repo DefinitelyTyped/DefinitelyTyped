@@ -201,6 +201,7 @@ declare namespace figlet {
         | "Octal"
         | "Ogre"
         | "Old Banner"
+        | "Pagga"
         | "Patorjk's Cheese"
         | "Patorjk-HeX"
         | "Pawp"

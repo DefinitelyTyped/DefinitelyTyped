@@ -1,15 +1,15 @@
-// Type definitions for oidc-provider 7.6
+// Type definitions for oidc-provider 8.1
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as events from 'events';
-import * as url from 'url';
-import * as dns from 'dns';
-import * as http from 'http';
-import * as https from 'https';
-import * as http2 from 'http2';
-import * as crypto from 'crypto';
+import * as events from 'node:events';
+import * as url from 'node:url';
+import * as dns from 'node:dns';
+import * as http from 'node:http';
+import * as https from 'node:https';
+import * as http2 from 'node:http2';
+import * as crypto from 'node:crypto';
 
 import * as Koa from 'koa';
 
@@ -21,7 +21,7 @@ export type FindAccount = (
     sub: string,
     token?: AuthorizationCode | AccessToken | DeviceCode | BackchannelAuthenticationRequest,
 ) => CanBePromise<Account | undefined>;
-export type TokenFormat = 'opaque' | 'jwt' | 'paseto';
+export type TokenFormat = 'opaque' | 'jwt';
 export type FapiProfile = '1.0 ID2' | '1.0 Final';
 
 export type TTLFunction<T> = (ctx: KoaContextWithOIDC, token: T, client: Client) => number;
@@ -52,6 +52,10 @@ export interface JWK {
     y?: string | undefined;
 }
 
+export interface JWKS {
+    keys: JWK[];
+}
+
 export interface AllClientMetadata {
     client_id?: string | undefined;
     redirect_uris?: string[] | undefined;
@@ -70,7 +74,7 @@ export interface AllClientMetadata {
     id_token_signed_response_alg?: SigningAlgorithmWithNone | undefined;
     initiate_login_uri?: string | undefined;
     jwks_uri?: string | undefined;
-    jwks?: { keys: JWK[] } | undefined;
+    jwks?: JWKS | undefined;
     logo_uri?: string | undefined;
     policy_uri?: string | undefined;
     post_logout_redirect_uris?: string[] | undefined;
@@ -335,6 +339,7 @@ declare class PushedAuthorizationRequest extends BaseToken {
     constructor(properties: { request: string });
     readonly kind: 'PushedAuthorizationRequest';
     request: string;
+    dpopJkt?: string | undefined;
 }
 
 declare class RefreshToken extends BaseToken {
@@ -607,7 +612,7 @@ declare class Client {
     readonly idTokenSignedResponseAlg?: string | undefined;
     readonly initiateLoginUri?: string | undefined;
     readonly jwksUri?: string | undefined;
-    readonly jwks?: { keys: JWK[] } | undefined;
+    readonly jwks?: JWKS | undefined;
     readonly logoUri?: string | undefined;
     readonly policyUri?: string | undefined;
     readonly postLogoutRedirectUris?: string[] | undefined;
@@ -615,6 +620,7 @@ declare class Client {
     readonly scope?: string | undefined;
     readonly sectorIdentifierUri?: string | undefined;
     readonly subjectType?: SubjectTypes | undefined;
+    readonly clientAuthMethod?: string | undefined;
     readonly tokenEndpointAuthMethod?: string | undefined;
     readonly tosUri?: string | undefined;
 
@@ -624,6 +630,7 @@ declare class Client {
     readonly tlsClientAuthSanIp?: string | undefined;
     readonly tlsClientAuthSanEmail?: string | undefined;
     readonly tokenEndpointAuthSigningAlg?: string | undefined;
+    readonly clientAuthSigningAlg?: string | undefined;
     readonly userinfoSignedResponseAlg?: string | undefined;
     readonly introspectionSignedResponseAlg?: string | undefined;
     readonly introspectionEncryptedResponseAlg?: string | undefined;
@@ -676,12 +683,6 @@ export interface ResourceServer {
             key: crypto.KeyObject | Buffer;
             kid?: string | undefined;
         } | undefined;
-    } | undefined;
-    paseto?: {
-        version: 1 | 2 | 3 | 4;
-        purpose: 'local' | 'public';
-        key?: crypto.KeyObject | Buffer | undefined;
-        kid?: string | undefined;
     } | undefined;
 }
 
@@ -838,6 +839,7 @@ export interface AdapterPayload extends AllClientMetadata {
     sessionUid?: string | undefined;
     sid?: string | undefined;
     trusted?: string[] | undefined;
+    dpopJkt?: string | undefined;
     state?: UnknownObject | undefined;
     transient?: boolean | undefined;
     uid?: string | undefined;
@@ -877,12 +879,6 @@ declare class JWTStructured {
     payload: UnknownObject;
 }
 
-declare class PASETOStructured {
-    footer?: UnknownObject | undefined;
-    payload: UnknownObject;
-    assertion?: string | Buffer | undefined;
-}
-
 export interface Configuration {
     acrValues?: string[] | Set<string> | undefined;
 
@@ -904,11 +900,6 @@ export interface Configuration {
                 token: AccessToken | ClientCredentials,
                 parts: JWTStructured,
             ) => CanBePromise<JWTStructured>) | undefined;
-            paseto?: ((
-                ctx: KoaContextWithOIDC,
-                token: AccessToken | ClientCredentials,
-                parts: PASETOStructured,
-            ) => CanBePromise<PASETOStructured>) | undefined;
         } | undefined;
     } | undefined;
 
@@ -1019,23 +1010,22 @@ export interface Configuration {
 
         dPoP?: {
             enabled?: boolean | undefined;
-            iatTolerance?: number | undefined;
             ack?: string | undefined;
+            nonceSecret?: Buffer | undefined;
+            requireNonce?: (ctx: KoaContextWithOIDC) => boolean;
         } | undefined;
 
         backchannelLogout?: {
             enabled?: boolean | undefined;
-            ack?: string | undefined;
         } | undefined;
 
         fapi?: {
             enabled?: boolean | undefined;
-            profile?: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile) | undefined
+            profile: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile) | undefined
         } | undefined;
 
         ciba?: {
             enabled?: boolean | undefined;
-            ack?: string | undefined;
             deliveryModes: CIBADeliveryMode[];
             triggerAuthenticationDevice?: ((ctx: KoaContextWithOIDC, request: BackchannelAuthenticationRequest, account: Account, client: Client) => CanBePromise<void>) | undefined;
             validateBindingMessage?: ((ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>) | undefined;
@@ -1055,20 +1045,13 @@ export interface Configuration {
             ack?: string | undefined;
         } | undefined;
 
-        issAuthResp?: {
-            enabled?: boolean | undefined;
-            ack?: string | undefined;
-        } | undefined;
-
         jwtResponseModes?: {
             enabled?: boolean | undefined;
-            ack?: string | undefined;
         } | undefined;
 
         pushedAuthorizationRequests?: {
             requirePushedAuthorizationRequests?: boolean | undefined;
             enabled?: boolean | undefined;
-            ack?: string | undefined;
         } | undefined;
 
         rpInitiatedLogout?: {
@@ -1082,7 +1065,7 @@ export interface Configuration {
             certificateBoundAccessTokens?: boolean | undefined;
             selfSignedTlsClientAuth?: boolean | undefined;
             tlsClientAuth?: boolean | undefined;
-            getCertificate?: ((ctx: KoaContextWithOIDC) => string) | undefined;
+            getCertificate?: ((ctx: KoaContextWithOIDC) => crypto.X509Certificate | string | undefined) | undefined;
             certificateAuthorized?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
             certificateSubjectMatches?: ((
                 ctx: KoaContextWithOIDC,
@@ -1121,9 +1104,11 @@ export interface Configuration {
         code: AuthorizationCode | DeviceCode | BackchannelAuthenticationRequest,
     ) => CanBePromise<boolean>) | undefined;
 
-    jwks?: { keys: JWK[] } | undefined;
+    jwks?: JWKS | undefined;
 
     responseTypes?: ResponseType[] | undefined;
+
+    revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
 
     pkce?: {
         methods: PKCEMethods[];
@@ -1151,7 +1136,7 @@ export interface Configuration {
 
     pairwiseIdentifier?: ((ctx: KoaContextWithOIDC, accountId: string, client: Client) => CanBePromise<string>) | undefined;
 
-    tokenEndpointAuthMethods?: ClientAuthMethod[] | undefined;
+    clientAuthMethods?: ClientAuthMethod[] | undefined;
 
     ttl?: {
         AccessToken?: TTLFunction<AccessToken> | number | undefined;
@@ -1191,6 +1176,8 @@ export interface Configuration {
 
     allowOmittingSingleRegisteredRedirectUri?: boolean | undefined;
 
+    acceptQueryParamAccessTokens?: boolean | undefined;
+
     interactions?: {
         policy?: interactionPolicy.Prompt[] | undefined;
         url?: ((ctx: KoaContextWithOIDC, interaction: Interaction) => CanBePromise<string>) | undefined;
@@ -1212,7 +1199,7 @@ export interface Configuration {
         requestObjectEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
         requestObjectEncryptionEncValues?: EncryptionEncValues[] | undefined;
         requestObjectSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
-        tokenEndpointAuthSigningAlgValues?: SigningAlgorithm[] | undefined;
+        clientAuthSigningAlgValues?: SigningAlgorithm[] | undefined;
         userinfoEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
         userinfoEncryptionEncValues?: EncryptionEncValues[] | undefined;
         userinfoSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
@@ -1220,11 +1207,10 @@ export interface Configuration {
 }
 
 export interface HttpOptions {
-    timeout?: number | undefined;
+    signal?: AbortSignal | undefined;
     agent?: http.Agent | https.Agent | undefined;
-    lookup?: typeof dns.lookup | undefined;
+    dnsLookup?: typeof dns.lookup | undefined;
 }
-export type NoneAlg = 'none';
 export type AsymmetricSigningAlgorithm =
     | 'PS256'
     | 'PS384'
@@ -1239,13 +1225,12 @@ export type AsymmetricSigningAlgorithm =
     | 'RS512';
 export type SymmetricSigningAlgorithm = 'HS256' | 'HS384' | 'HS512';
 export type SigningAlgorithm = AsymmetricSigningAlgorithm | SymmetricSigningAlgorithm;
-export type SigningAlgorithmWithNone = AsymmetricSigningAlgorithm | SymmetricSigningAlgorithm | NoneAlg;
+export type SigningAlgorithmWithNone = AsymmetricSigningAlgorithm | SymmetricSigningAlgorithm;
 export type EncryptionAlgValues =
     | 'RSA-OAEP'
     | 'RSA-OAEP-256'
     | 'RSA-OAEP-384'
     | 'RSA-OAEP-512'
-    | 'RSA1_5'
     | 'ECDH-ES'
     | 'ECDH-ES+A128KW'
     | 'ECDH-ES+A192KW'
@@ -1256,9 +1241,6 @@ export type EncryptionAlgValues =
     | 'A128GCMKW'
     | 'A192GCMKW'
     | 'A256GCMKW'
-    | 'PBES2-HS256+A128KW'
-    | 'PBES2-HS384+A192KW'
-    | 'PBES2-HS512+A256KW'
     | 'dir';
 export type EncryptionEncValues =
     | 'A128CBC-HS256'
@@ -1286,7 +1268,7 @@ export interface InteractionResults {
     [key: string]: unknown;
 }
 
-export class Provider extends events.EventEmitter {
+export default class Provider extends events.EventEmitter {
     constructor(issuer: string, configuration?: Configuration);
 
     readonly issuer: string;
@@ -2078,6 +2060,9 @@ export namespace errors {
     class InvalidScope extends OIDCProviderError {
         constructor(description: string, scope: string);
     }
+    class InsufficientScope extends OIDCProviderError {
+        constructor(description: string, scope: string);
+    }
     class InvalidSoftwareStatement extends OIDCProviderError {
         constructor(description?: string, detail?: string);
     }
@@ -2125,5 +2110,11 @@ export namespace errors {
     }
     class WebMessageUriMismatch extends OIDCProviderError {
         constructor(description?: string, detail?: string);
+    }
+    class CustomOIDCProviderError extends OIDCProviderError {
+        constructor(message: string, description?: string);
+    }
+    class UnmetAuthenticationRequirements extends OIDCProviderError {
+        constructor(message: string, description?: string);
     }
 }

@@ -23,7 +23,12 @@ import {
     createOperationDescriptor,
     FragmentRefs,
     readInlineData,
+    requestSubscription,
+    fetchQuery,
+    ConnectionInterface,
 } from 'relay-runtime';
+
+import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -48,7 +53,7 @@ const storeWithOptions = new Store(source, {
 // ~~~~~~~~~~~~~~~~~~~~~
 // Define a function that fetches the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
-function fetchQuery(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
+function fetchFunction(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
     return fetch('/graphql', {
         method: 'POST',
         body: JSON.stringify({
@@ -61,7 +66,7 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
 }
 
 // Create a network layer from the fetch function
-const network = Network.create(fetchQuery);
+const network = Network.create(fetchFunction);
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
@@ -92,7 +97,7 @@ const environment = new Environment({
             handle(field, record, argValues) {
                 if (
                     record != null &&
-                    record.__typename === ROOT_TYPE &&
+                    record.getType() === ROOT_TYPE &&
                     field.name === 'user' &&
                     argValues.hasOwnProperty('id')
                 ) {
@@ -101,7 +106,7 @@ const environment = new Environment({
                 }
                 if (
                     record != null &&
-                    record.__typename === ROOT_TYPE &&
+                    record.getType() === ROOT_TYPE &&
                     field.name === 'story' &&
                     argValues.hasOwnProperty('story_id')
                 ) {
@@ -128,14 +133,16 @@ const environment = new Environment({
                 break;
         }
     },
-    requiredFieldLogger: (arg) => {
+    requiredFieldLogger: arg => {
         if (arg.kind === 'missing_field.log') {
             console.log(arg.fieldPath, arg.owner);
-        } else {
-            arg.kind; // $ExpectType "missing_field.throw"
+        } else if (arg.kind === 'missing_field.throw') {
             console.log(arg.fieldPath, arg.owner);
+        } else {
+            arg.kind; // $ExpectType "relay_resolver.error"
+            console.log(arg.fieldPath, arg.owner, arg.error);
         }
-    }
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -154,7 +161,18 @@ function handlerProvider(handle: any) {
     throw new Error(`handlerProvider: No handler provided for ${handle}`);
 }
 
-function storeUpdater(store: RecordSourceSelectorProxy) {
+// Updatable fragment.
+interface UserFragment_updatable$data {
+    name: string | null;
+    readonly id: string;
+    readonly ' $fragmentType': 'UserFragment_updatable';
+}
+interface UserFragment_updatable$key {
+    readonly ' $data'?: UserFragment_updatable$data;
+    readonly $updatableFragmentSpreads: FragmentRefs<'UserFragment_updatable'>;
+}
+
+function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
     store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
@@ -164,6 +182,15 @@ function storeUpdater(store: RecordSourceSelectorProxy) {
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
     }
+    const { updatableData } = store.readUpdatableFragment_EXPERIMENTAL(
+        graphql`
+            fragment UserComponent_user on User {
+                name
+            }
+        `,
+        dataRef,
+    );
+    updatableData.name = 'NewName';
 }
 
 interface MessageEdge {
@@ -217,9 +244,9 @@ function connectionHandlerWithoutStore() {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 store.publish(source);
-const get_store_recorditem = store.getSource().get("someDataId");
+const get_store_recorditem = store.getSource().get('someDataId');
 // $ExpectType Record<TConversation> | null | undefined
-const get_store_recorditem_typed = store.getSource().get<TConversation>("someDataId");
+const get_store_recorditem_typed = store.getSource().get<TConversation>('someDataId');
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitLocalUpdate
@@ -300,7 +327,7 @@ const node: ConcreteRequest = (function () {
             operationKind: 'query',
             name: 'FooQuery',
             id: null,
-            cacheID: null,
+            cacheID: '2e5967148a8303de3c58059c0eaa87c6',
             text: 'query FooQuery {\n  __typename\n}\n',
             metadata: {},
         },
@@ -428,40 +455,36 @@ const nodeFragment: ReaderFragment = {
 
 interface Module_data {
     readonly id: string;
-    readonly ' $refType': 'Module_data';
+    readonly ' $fragmentType': 'Module_data';
 }
 type Module_data$data = Module_data;
 interface Module_data$key {
     readonly ' $data'?: Module_data$data;
-    readonly ' $fragmentRefs': FragmentRefs<'Module_data'>;
+    readonly ' $fragmentSpreads': FragmentRefs<'Module_data'>;
 }
 
-function readData(
-  dataRef: Module_data$key,
-) {
-  // $ExpectType Module_data
-  readInlineData(
-    graphql`
-      fragment Module_data on Data @inline {
-        id
-      }
-    `,
-    dataRef,
-  );
+function readData(dataRef: Module_data$key) {
+    // $ExpectType Module_data
+    readInlineData(
+        graphql`
+            fragment Module_data on Data @inline {
+                id
+            }
+        `,
+        dataRef,
+    );
 }
 
-function readNullableData(
-  dataRef: Module_data$key | null,
-) {
-  // $ExpectType Module_data | null
-  readInlineData(
-    graphql`
-      fragment Module_data on Data @inline {
-        id
-      }
-    `,
-    dataRef,
-  );
+function readNullableData(dataRef: Module_data$key | null) {
+    // $ExpectType Module_data | null
+    readInlineData(
+        graphql`
+            fragment Module_data on Data @inline {
+                id
+            }
+        `,
+        dataRef,
+    );
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -478,15 +501,217 @@ const gqlQuery = graphql`
         page(id: $pageID) {
             name
         }
-   }
+    }
 `;
 
 const pageID = '110798995619330';
-const cacheConfig: CacheConfig = { force: true};
+const cacheConfig: CacheConfig = { force: true };
 const request = getRequest(gqlQuery);
-const variables: Variables = {pageID};
-const dataID: DataID = "dataID";
+const variables: Variables = { pageID };
+const dataID: DataID = 'dataID';
 const operation = createOperationDescriptor(request, variables);
 const operationWithCacheConfig = createOperationDescriptor(request, variables, cacheConfig);
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// MULTI ACTOR ENVIRONMENT
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+function multiActors() {
+    const environment = new multiActorEnvironment.MultiActorEnvironment({
+        createNetworkForActor(
+            id, // $ExpectType string
+        ) {
+            return network;
+        },
+        createStoreForActor(
+            id, // $ExpectType string
+        ) {
+            return store;
+        },
+    });
+
+    // $ExpectType ActorEnvironment
+    const actor = environment.forActor('test');
+
+    environment
+        .execute(actor, {
+            operation,
+        })
+        .toPromise();
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// Relay Resolvers
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+const { readFragment } = __internal.ResolverFragments;
+
+// Regular fragment.
+interface UserComponent_user {
+    readonly id: string;
+    readonly name: string;
+    readonly profile_picture: {
+        readonly uri: string;
+    };
+    readonly ' $fragmentType': 'UserComponent_user';
+}
+
+type UserComponent_user$data = UserComponent_user;
+
+interface UserComponent_user$key {
+    readonly ' $data'?: UserComponent_user$data | undefined;
+    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
+}
+
+function NonNullableFragmentResolver(userKey: UserComponent_user$key) {
+    // $ExpectType UserComponent_user
+    const data = readFragment(
+        graphql`
+            fragment UserComponent_user on User {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        userKey,
+    );
+
+    return `${data.name}, ${data.profile_picture.uri}`;
+}
+
+function NullableFragmentResolver(userKey: UserComponent_user$key | null) {
+    // $ExpectType UserComponent_user | null
+    readFragment(
+        graphql`
+            fragment UserComponent_user on User {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        userKey,
+    );
+}
+
+// Plural fragment @relay(plural: true)
+type UserComponent_users = ReadonlyArray<{
+    readonly id: string;
+    readonly name: string;
+    readonly profile_picture: {
+        readonly uri: string;
+    };
+    readonly ' $fragmentType': 'UserComponent_users';
+}>;
+type UserComponent_users$data = UserComponent_users;
+type UserComponent_users$key = ReadonlyArray<{
+    readonly ' $data'?: UserComponent_users$data | undefined;
+    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_users'>;
+}>;
+
+function NonNullableArrayFragmentResolver(usersKey: UserComponent_users$key) {
+    const data = readFragment(
+        graphql`
+            fragment UserComponent_users on User @relay(plural: true) {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        usersKey,
+    );
+
+    return data.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+}
+
+function NullableArrayFragmentResolver(usersKey: UserComponent_users$key | null) {
+    const data = readFragment(
+        graphql`
+            fragment UserComponent_users on User @relay(plural: true) {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        usersKey,
+    );
+
+    return data?.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+}
+
+function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_users$key[0] | null>) {
+    const data = readFragment(
+        graphql`
+            fragment UserComponent_users on User @relay(plural: true) {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        usersKey,
+    );
+
+    return data?.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// fetchQuery
+// ~~~~~~~~~~~~~~~~~~~~~
+
+fetchQuery(
+    environment,
+    node,
+    { variable: true },
+    {
+        networkCacheConfig: { force: true, poll: 1234 },
+        fetchPolicy: 'network-only',
+    },
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// requestSubscription
+// ~~~~~~~~~~~~~~~~~~~~~
+
+requestSubscription(environment, {
+    cacheConfig: { force: true, poll: 1234 },
+    subscription: node,
+    variables: { variable: true },
+    onCompleted: () => { return; },
+    onError: (_error) => { return; },
+    onNext: (_response) => { return; },
+    updater: (_store, _data) => { return; },
+});
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// ConnectionInterface
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const {
+    CURSOR,
+    EDGES,
+    END_CURSOR,
+    HAS_NEXT_PAGE,
+    HAS_PREV_PAGE,
+    NODE,
+    PAGE_INFO,
+    PAGE_INFO_TYPE,
+    START_CURSOR
+} = ConnectionInterface.get();
+
+ConnectionInterface.inject({
+    CURSOR: 'cursor',
+    EDGES: 'edges',
+    END_CURSOR: 'endCursor',
+    HAS_NEXT_PAGE: 'hasNextPage',
+    HAS_PREV_PAGE: 'hasPrevPage',
+    NODE: 'node',
+    PAGE_INFO: 'pageInfo',
+    PAGE_INFO_TYPE: 'PageInfo',
+    START_CURSOR: 'startCursor',
+});

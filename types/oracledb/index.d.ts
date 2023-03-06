@@ -1275,13 +1275,12 @@ declare namespace OracleDB {
         queueName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
         queries?: {
-            /** Array of objects specifying the queries which were affected by the Query Change notification. */
-            tables: SubscriptionTables;
+            /** Array of objects specifying the tables which were affected by the notification. */
+            tables?: SubscriptionTable[];
         }[] | undefined;
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
-        /** Array of objects specifying the tables which were affected by the notification. */
-        tables?: SubscriptionTables[] | undefined;
+
         /** Buffer containing the identifier of the transaction which spawned the notification. */
         txId: Buffer;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
@@ -1289,9 +1288,9 @@ declare namespace OracleDB {
     }
 
     /**
-     * An object specifying which tables were affected by a subscription's notification.
+     * An object specifying the table that was affected by a subscription's notification.
      */
-    interface SubscriptionTables {
+    interface SubscriptionTable {
         /** Name of the table which was modified in some way. */
         name: string;
         /**
@@ -1428,7 +1427,7 @@ declare namespace OracleDB {
         user?: string | undefined;
     }
 
-    interface DBError {
+    interface DBError extends Error {
         /**
          * The Oracle error number. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
@@ -2594,7 +2593,7 @@ declare namespace OracleDB {
 
         /**
          * This call fetches numRows rows of the ResultSet as an object or an array of column values,
-         * depending on the value of outFormat.
+         * depending on the value of outFormat. If no argument is passed, or numRows is zero, then all rows are fetched. 
          *
          * At the end of fetching, the ResultSet should be freed by calling close().
          *
@@ -2603,7 +2602,8 @@ declare namespace OracleDB {
          *
          * @param numRows The number of rows to fetch
          */
-        getRows(numRows: number): Promise<T[]>;
+        getRows(numRows?: number): Promise<T[]>;
+        getRows(callback: (error: DBError, rows: T[]) => void): void;
         getRows(numRows: number, callback: (error: DBError, rows: T[]) => void): void;
 
         /**

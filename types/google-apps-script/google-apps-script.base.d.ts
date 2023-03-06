@@ -6,6 +6,19 @@
 
 /// <reference path="google-apps-script.types.d.ts" />
 
+interface Console {
+  error(): void;
+  error(formatOrObject: object | string, ...values: any[]): void;
+  info(): void;
+  info(formatOrObject: object | string, ...values: any[]): void;
+  log(): void;
+  log(formatOrObject: object | string, ...values: any[]): void;
+  time(label: string): void;
+  timeEnd(label: string): void;
+  warn(): void;
+  warn(formatOrObject: object | string, ...values: any[]): void;
+}
+
 declare namespace GoogleAppsScript {
   namespace Base {
     /**
@@ -180,7 +193,40 @@ declare namespace GoogleAppsScript {
      *      Logger.log(png.getSize());
      *     }
      */
-    enum MimeType { GOOGLE_APPS_SCRIPT, GOOGLE_DRAWINGS, GOOGLE_DOCS, GOOGLE_FORMS, GOOGLE_SHEETS, GOOGLE_SITES, GOOGLE_SLIDES, FOLDER, BMP, GIF, JPEG, PNG, SVG, PDF, CSS, CSV, HTML, JAVASCRIPT, PLAIN_TEXT, RTF, OPENDOCUMENT_GRAPHICS, OPENDOCUMENT_PRESENTATION, OPENDOCUMENT_SPREADSHEET, OPENDOCUMENT_TEXT, MICROSOFT_EXCEL, MICROSOFT_EXCEL_LEGACY, MICROSOFT_POWERPOINT, MICROSOFT_POWERPOINT_LEGACY, MICROSOFT_WORD, MICROSOFT_WORD_LEGACY, ZIP }
+    interface MimeType {
+      GOOGLE_APPS_SCRIPT: string;
+      GOOGLE_DRAWINGS: string;
+      GOOGLE_DOCS: string;
+      GOOGLE_FORMS: string;
+      GOOGLE_SHEETS: string;
+      GOOGLE_SITES: string;
+      GOOGLE_SLIDES: string;
+      FOLDER: string;
+      SHORTCUT: string;
+      BMP: string;
+      GIF: string;
+      JPEG: string;
+      PNG: string;
+      SVG: string;
+      PDF: string;
+      CSS: string;
+      CSV: string;
+      HTML: string;
+      JAVASCRIPT: string;
+      PLAIN_TEXT: string;
+      RTF: string;
+      OPENDOCUMENT_GRAPHICS: string;
+      OPENDOCUMENT_PRESENTATION: string;
+      OPENDOCUMENT_SPREADSHEET: string;
+      OPENDOCUMENT_TEXT: string;
+      MICROSOFT_EXCEL: string;
+      MICROSOFT_EXCEL_LEGACY: string;
+      MICROSOFT_POWERPOINT: string;
+      MICROSOFT_POWERPOINT_LEGACY: string;
+      MICROSOFT_WORD: string;
+      MICROSOFT_WORD_LEGACY: string;
+      ZIP: string;
+    }
     /**
      * An enum representing the months of the year.
      */
@@ -306,18 +352,7 @@ declare namespace GoogleAppsScript {
      *       console.timeEnd(label);      // Stops the timer, logs execution duration.
      *     }
      */
-    interface console {
-      error(): void;
-      error(formatOrObject: object | string, ...values: any[]): void;
-      info(): void;
-      info(formatOrObject: object | string, ...values: any[]): void;
-      log(): void;
-      log(formatOrObject: object | string, ...values: any[]): void;
-      time(label: string): void;
-      timeEnd(label: string): void;
-      warn(): void;
-      warn(formatOrObject: object | string, ...values: any[]): void;
-    }
+
     /**
      * Apps Script has a non-standard Date Class
      *
@@ -506,10 +541,9 @@ declare namespace GoogleAppsScript {
 
 declare var Browser: GoogleAppsScript.Base.Browser;
 declare var Logger: GoogleAppsScript.Base.Logger;
-// conflicts with MimeType in lib.d.ts
-// declare var MimeType: GoogleAppsScript.Base.MimeType;
+declare var MimeType: GoogleAppsScript.Base.MimeType;
 declare var Session: GoogleAppsScript.Base.Session;
-declare var console: GoogleAppsScript.Base.console;
+declare var console: Console;
 
 // The name `Date` conflicts with lib.es5.d.ts.
 // - We cannot include lib.es5.d.ts with Apps Script though because Apps Script is ES3

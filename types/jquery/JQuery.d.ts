@@ -1780,7 +1780,9 @@ $( "div" ).children( ".selected" ).css( "color", "blue" );
 </html>
 ```
      */
-    children(selector?: JQuery.Selector): this;
+    children<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    children<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    children(selector?: JQuery.Selector): JQuery;
     /**
      * Remove from the queue all items that have not yet been run.
      * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
@@ -4526,9 +4528,9 @@ $( "*", document.body ).click(function( event ) {
 </html>
 ```
      */
-    get(index: number): TElement;
+    get(index: number): TElement | undefined;
     /**
-     * Retrieve the elements matched by the jQuery object.
+     * Retrieve the elements matched by the jQuery object. If the value of index is out of bounds — less than the negative number of elements or equal to or greater than the number of elements — it returns undefined.
      * @see \`{@link https://api.jquery.com/get/ }\`
      * @since 1.0
      * @example ​ ````Select all divs in the document and return the DOM Elements as an Array; then use the built-in reverse() method to reverse that array.
@@ -8703,7 +8705,7 @@ $( "span" ).click(function() {
      */
     parents<K extends keyof HTMLElementTagNameMap>(selector: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
     parents<K extends keyof SVGElementTagNameMap>(selector: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     parents<E extends HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.

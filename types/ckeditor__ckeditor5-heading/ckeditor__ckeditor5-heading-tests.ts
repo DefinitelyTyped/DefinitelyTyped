@@ -29,7 +29,7 @@ str = title.getBody({ rootName: str });
 str = title.getBody({ trim: 'none' });
 str = title.getBody({ rootName: str, trim: 'none' });
 
-// $ExpectError
+// @ts-expect-error
 new HeadingCommand(myEditor, ['']).execute();
 new HeadingCommand(myEditor, ['']).execute({ value: '' });
 

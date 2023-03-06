@@ -1,16 +1,18 @@
-// Type definitions for apollo-upload-client 14.1
+// Type definitions for apollo-upload-client 17.0
 // Project: https://github.com/jaydenseric/apollo-upload-client#readme
-// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>, tyankatsu <https://github.com/tyankatsu0105>
+// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>,
+//                 tyankatsu <https://github.com/tyankatsu0105>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 4.1
 
 // ==============================================================================
-// imports
+// exports
 // ==============================================================================
 
-import { ApolloLink } from '@apollo/client/core';
-import { HttpOptions } from '@apollo/client/link/http';
-import { isExtractableFile, ExtractableFile } from 'extract-files';
+export { default as createUploadLink } from './public/createUploadLink';
+export { default as formDataAppendFile } from './public/formDataAppendFile';
+export { default as isExtractableFile } from './public/isExtractableFile';
+export { default as ReactNativeFile } from './public/ReactNativeFile';
 
 // ==============================================================================
 // declare
@@ -21,32 +23,3 @@ declare global {
         fetch: WindowOrWorkerGlobalScope['fetch'];
     }
 }
-
-// ==============================================================================
-// types
-// ==============================================================================
-
-export type UploadLinkOptions = HttpOptions &
-    Partial<{
-        isExtractableFile: typeof isExtractableFile;
-        formDataAppendFile: typeof formDataAppendFile;
-    }>;
-
-// ==============================================================================
-// export
-// ==============================================================================
-
-export { ReactNativeFile, isExtractableFile } from 'extract-files';
-
-/**
- * Creates a [terminating Apollo Link](https://www.apollographql.com/docs/link/overview/#terminating-links) capable of file uploads.
- * @see https://github.com/jaydenseric/apollo-upload-client#function-createuploadlink
- */
-export function createUploadLink(uploadLinkOptions?: UploadLinkOptions): ApolloLink;
-
-/**
- * The default implementation for [`createUploadLink`](https://github.com/jaydenseric/apollo-upload-client#function-createuploadlink) `options.formDataAppendFile`
- * that uses the standard [`FormData.append`](https://developer.mozilla.org/en-US/docs/Web/API/FormData/append) method.
- * @see https://github.com/jaydenseric/apollo-upload-client#function-formdataappendfile
- */
-export function formDataAppendFile(formData: FormData, fieldName: string, file: ExtractableFile): void;

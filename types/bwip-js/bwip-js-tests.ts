@@ -85,3 +85,13 @@ const toCanvas = bwipjs.toCanvas("canvas2", {
     text: "testing",
 });
 toCanvas; // $ExpectType HTMLCanvasElement
+
+// Test the alttext fix as a browser implementation
+const canvasElement2 = document.createElement("canvasTextTest") as HTMLCanvasElement;
+canvasElement2.setAttribute("id", "canvasTextTest");
+const toCanvasText = bwipjs.toCanvas("canvasTextTest", {
+    bcid: "code128",
+    text: "1123581321345589",
+    alttext: "Alternative text"
+});
+toCanvasText; // $ExpectType HTMLCanvasElement

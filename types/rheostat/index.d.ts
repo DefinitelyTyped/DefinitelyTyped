@@ -33,16 +33,16 @@ export interface Events {
 export interface Props extends Events {
   algorithm?: Algorithm | undefined;
   autoAdjustVerticalPosition?: boolean | undefined;
-  background?: React.ReactType | undefined;
+  background?: React.ElementType | undefined;
   className?: string | undefined;
   disabled?: boolean | undefined;
-  handle?: React.ReactType | undefined;
+  handle?: React.ElementType | undefined;
   max?: number | undefined;
   min?: number | undefined;
   orientation?: Orientation | undefined;
-  pitComponent?: React.ReactType | undefined;
+  pitComponent?: React.ElementType | undefined;
   pitPoints?: number[] | undefined;
-  progressBar?: React.ReactType | undefined;
+  progressBar?: React.ElementType | undefined;
   snap?: boolean | undefined;
   snapPoints?: number[] | undefined;
   values?: number[] | undefined;

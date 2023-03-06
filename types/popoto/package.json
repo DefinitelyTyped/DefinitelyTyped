@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "neo4j-driver-lite": "^4.3.3"
+    }
+}

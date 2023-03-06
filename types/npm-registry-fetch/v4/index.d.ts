@@ -1,6 +1,6 @@
 // Type definitions for npm-registry-fetch 4.0
 // Project: https://github.com/npm/registry-fetch#readme
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

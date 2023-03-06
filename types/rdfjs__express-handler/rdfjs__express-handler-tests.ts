@@ -32,21 +32,25 @@ app.use(rdfHandler({
 }));
 
 async function streams(req: express.Request, res: express.Response) {
-    let stream: Stream = req.quadStream();
-    stream = req.quadStream({
-        baseIRI: 'foo'
-    });
+    if (req.quadStream) {
+        let stream: Stream = req.quadStream();
+        stream = req.quadStream({
+            baseIRI: 'foo'
+        });
 
-    await res.quadStream(stream);
+        await res.quadStream(stream);
+    }
 }
 
 async function datasets(req: express.Request, res: express.Response) {
-    let dataset: DatasetCore = await req.dataset();
-    dataset = await req.dataset({
-        baseIRI: 'foo'
-    });
+    if (req.dataset) {
+        let dataset: DatasetCore = await req.dataset();
+        dataset = await req.dataset({
+            baseIRI: 'foo'
+        });
 
-    await res.dataset(dataset);
+        await res.dataset(dataset);
+    }
 }
 
 async function attach(req: express.Request, res: express.Response) {

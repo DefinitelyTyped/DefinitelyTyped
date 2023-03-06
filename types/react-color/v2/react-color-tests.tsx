@@ -119,7 +119,8 @@ const CustomComponent: React.ComponentType<CustomProps> = (props: CustomProps) =
 
             <EditableInput onChange={onChangeInputNoLabel} />
             // prettier-ignore
-            <EditableInput label="Fails" onChange={onChangeInput} /> // $ExpectError
+            {/* @ts-expect-error */}
+            <EditableInput label="Fails" onChange={onChangeInput} />
         </div>
     );
 };

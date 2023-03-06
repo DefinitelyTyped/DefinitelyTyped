@@ -38,6 +38,7 @@ export interface RouterChildContext<Params extends { [K in keyof Params]?: strin
     };
 }
 export interface MemoryRouterProps {
+    children?: React.ReactNode;
     initialEntries?: H.LocationDescriptor[] | undefined;
     initialIndex?: number | undefined;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
@@ -69,7 +70,7 @@ export interface StaticContext {
 export interface RouteComponentProps<
     Params extends { [K in keyof Params]?: string } = {},
     C extends StaticContext = StaticContext,
-    S = H.LocationState
+    S = H.LocationState,
 > {
     history: H.History<S>;
     location: H.Location<S>;
@@ -85,7 +86,7 @@ export interface RouteChildrenProps<Params extends { [K in keyof Params]?: strin
 
 export interface RouteProps<
     Path extends string = string,
-    Params extends { [K: string]: string | undefined } = ExtractRouteParams<Path, string>
+    Params extends { [K: string]: string | undefined } = ExtractRouteParams<Path, string>,
 > {
     location?: H.Location | undefined;
     component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any> | undefined;
@@ -102,6 +103,7 @@ export class Route<T extends {} = {}, Path extends string = string> extends Reac
 > {}
 
 export interface RouterProps {
+    children?: React.ReactNode;
     history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> {}
@@ -113,6 +115,7 @@ export interface StaticRouterContext extends StaticContext {
 }
 export interface StaticRouterProps {
     basename?: string | undefined;
+    children?: React.ReactNode;
     location?: string | object | undefined;
     context?: StaticRouterContext | undefined;
 }
@@ -154,13 +157,13 @@ export type ExtractRouteOptionalParam<T extends string, U = string | number | bo
 export type ExtractRouteParams<T extends string, U = string | number | boolean> = string extends T
     ? { [k in string]?: U }
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}/${infer Rest}`
-    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
-      ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
-      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})${infer Modifier extends '?' | '+' | '*' | ''}`
+        ? ExtractRouteOptionalParam<`${Param}${Modifier}`, U> & ExtractRouteParams<Rest, U>
+        : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
-    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
-      ? ExtractRouteOptionalParam<Param, U>
-      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})${infer Modifier extends '?' | '+' | '*' | ''}`
+        ? ExtractRouteOptionalParam<`${Param}${Modifier}`, U>
+        : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
     : {};
 
 export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;

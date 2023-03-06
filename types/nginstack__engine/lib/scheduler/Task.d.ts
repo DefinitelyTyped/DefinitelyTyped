@@ -1,13 +1,9 @@
 export = Task;
 declare function Task(): void;
 declare class Task {
-    saveLocally(userId?: string, password?: string): void;
-    del(): void;
-    start(): void;
-    stop(): void;
-    setParameters(name: string, value: Array<string | number | boolean | Record<any, any>>): number;
-    status: string;
     name: string;
+    id: string;
+    status: string;
     period: string;
     day: number;
     hour: string | number;
@@ -23,4 +19,9 @@ declare class Task {
     preRequisiteTask: string;
     enabled: boolean;
     userKey: number;
+    saveLocally(userId?: string, password?: string): void;
+    del(): void;
+    start(): void;
+    stop(): void;
+    setParameters(name: string, value: Array<string | number | boolean | Record<any, any>>): number;
 }

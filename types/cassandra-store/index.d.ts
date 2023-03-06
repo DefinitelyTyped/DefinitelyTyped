@@ -1,6 +1,6 @@
 // Type definitions for cassandra-store 5.0
 // Project: https://github.com/webcc/cassandra-store
-// Definitions by: Ngo Quang Duong <https://github.com/QuangDuong120198>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 

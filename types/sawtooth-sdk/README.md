@@ -66,7 +66,7 @@ To assert that an expression is of a given type, use `$ExpectType`. To assert th
 // $ExpectType PublicKey
 const signerPubKey = signer.getPublicKey();
 
-// $ExpectError PrivateKey
+// @ts-expect-error PrivateKey
 const signerPubKey = signer.getPublicKey();
 ```
 

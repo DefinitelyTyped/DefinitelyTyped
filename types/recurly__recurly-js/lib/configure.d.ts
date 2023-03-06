@@ -1,39 +1,43 @@
 import { CardElementOptions, IndividualElementOptions } from './elements';
 
 export type RecurlyOptions = {
-  cors?: boolean | undefined;
+  cors?: boolean;
   publicKey: string;
-  currency?: string | undefined;
-  required?: string[] | undefined;
-  timeout?: number | undefined;
+  currency?: string;
+  required?: string[];
+  timeout?: number;
   fraud?: {
     kount?: {
-      dataCollector?: boolean | undefined;
-    } | undefined;
+      dataCollector?: boolean;
+      form?: HTMLElement,
+      udf?: {
+        [key: string]: string | number;
+      }
+    };
     braintree?: {
-      deviceData?: string | undefined;
-    } | undefined;
+      deviceData?: string;
+    };
     litle?: {
-      sessionId?: string | undefined;
-    } | undefined;
-  } | undefined;
+      sessionId?: string;
+    };
+  };
   risk?: {
     threeDSecure?: {
-      preflightDeviceDataCollector?: boolean | undefined;
-    } | undefined
-  } | undefined;
+      preflightDeviceDataCollector?: boolean;
+    }
+  };
 
   /**
    * @deprecated Use {@link https://developers.recurly.com/reference/recurly-js/index.html#elements|Elements} instead.
    */
   fields?: {
-    all?: IndividualElementOptions | undefined;
-    number?: IndividualElementOptions & { selector?: string | undefined } | undefined;
-    month?: IndividualElementOptions & { selector?: string | undefined } | undefined;
-    year?: IndividualElementOptions & { selector?: string | undefined } | undefined;
-    cvv?: IndividualElementOptions & { selector?: string | undefined } | undefined;
-    card?: CardElementOptions & { selector?: string | undefined } | undefined
-  } | undefined;
+    all?: IndividualElementOptions;
+    number?: IndividualElementOptions & { selector?: string };
+    month?: IndividualElementOptions & { selector?: string };
+    year?: IndividualElementOptions & { selector?: string };
+    cvv?: IndividualElementOptions & { selector?: string };
+    card?: CardElementOptions & { selector?: string }
+  };
 };
 
 export type Configure = (recurlyConfig: RecurlyOptions | string) => void;

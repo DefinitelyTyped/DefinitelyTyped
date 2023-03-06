@@ -1,30 +1,35 @@
-import totpGenerator = require('totp-generator');
+import totp = require('totp-generator');
 
-// $ExpectType number
-const totp = totpGenerator("key");
+// $ExpectType string
+const token = totp('key');
 
-const totpWithExplicitDefaultOptions = totpGenerator("key", {});
+const totpWithExplicitDefaultOptions = totp('key', {});
 
-// $ExpectError
-const totpWithNumberKey = totpGenerator(0, {});
+// @ts-expect-error
+const totpWithNumberKey = totp(0, {});
 
-// $ExpectError
-const totpWithStringOptions = totpGenerator("key", "");
+// @ts-expect-error
+const totpWithStringOptions = totp('key', '');
 
-const totpWithPeriodOption = totpGenerator("key", {
-    period: 60,
+const totpWithPeriodOption = totp('key', {
+  period: 60,
 });
 
-const totpWithAlgorithmOption = totpGenerator("key", {
-    algorithm: "SHA-512",
+const totpWithAlgorithmOption = totp('key', {
+  algorithm: 'SHA-512',
 });
 
-const totpWithDigitsOption = totpGenerator("key", {
-    digits: 8,
+const totpWithWrongAlgorithmOption = totp('key', {
+  // @ts-expect-error
+  algorithm: 'SHA-3',
 });
 
-const totpWithAllOptions = totpGenerator("key", {
-    period: 60,
-    algorithm: "SHA-512",
-    digits: 8,
+const totpWithDigitsOption = totp('key', {
+  digits: 8,
+});
+
+const totpWithAllOptions = totp('key', {
+  period: 60,
+  algorithm: 'SHA-512',
+  digits: 8,
 });

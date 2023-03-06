@@ -9,6 +9,7 @@ import './test/crypto';
 import './test/dgram';
 import './test/diagnostics_channel';
 import './test/dns';
+import './test/dom-events'; // dom-events behaves differently under lib-dom
 import './test/events';
 import './test/fs';
 import './test/globals';
@@ -27,6 +28,7 @@ import './test/readline';
 import './test/repl';
 import './test/stream';
 import './test/string_decoder';
+import './test/test';
 import './test/timers_promises';
 import './test/timers';
 import './test/tls';
@@ -59,7 +61,8 @@ import * as trace_events from 'node:trace_events';
         maxSockets: Infinity,
         maxFreeSockets: 256,
         maxCachedSessions: 100,
-        timeout: 15000
+        timeout: 15000,
+        family: 4,
     });
 
     agent = https.globalAgent;
@@ -106,7 +109,7 @@ import * as trace_events from 'node:trace_events';
             foo: number;
         }
 
-        class MyServerResponse extends http.ServerResponse {
+        class MyServerResponse<Request extends http.IncomingMessage = http.IncomingMessage> extends http.ServerResponse<Request> {
             foo: string;
         }
 

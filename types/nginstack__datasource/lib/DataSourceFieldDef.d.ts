@@ -2,9 +2,9 @@ export = DataSourceFieldDef;
 declare function DataSourceFieldDef(): void;
 declare class DataSourceFieldDef {
     name: string;
-    type: any;
+    type: string;
     classKey: number | null;
-    lookupType: any;
+    lookupType: number;
     options: {
         includeFieldNames: string;
         excludeFieldNames: string;

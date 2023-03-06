@@ -5,6 +5,7 @@ const prog = sade('my-cli');
 const argv = ['sirv', 'build'];
 
 prog.version('1.0.5')
+    .option('--global, -g')
     .option('--global, -g', 'An example global flag')
     .option('-c, --config', 'Provide path to custom config', 'foo.config.js');
 

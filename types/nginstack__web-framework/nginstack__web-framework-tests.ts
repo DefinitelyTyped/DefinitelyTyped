@@ -6,7 +6,7 @@ const gridField = new GridField('name', 'type', null); // $ExpectType GridField
 
 grid.classDefManager; // $ExpectType ClassDefManager
 grid.classesToValidatePermissions; // $ExpectType any[]
-grid.groups; // $ExpectType any
+grid.groups; // $ExpectType FieldGroupSet
 grid.toolbar; // $ExpectType { visible: boolean; }
 grid.fields; // $ExpectType FieldList
 grid.parent; // $ExpectType any
@@ -117,7 +117,11 @@ grid.colapse('nodeValue'); // $ExpectType void
 grid.toggleKeyVisibility(); // $ExpectType void
 grid.toggleFieldVisibility('field'); // $ExpectType void
 
+// Unresolved Files
+import InactiveSessionHandlings = require('@nginstack/web-framework/keys/InactiveSessionHandlings');
+InactiveSessionHandlings.LOCK_SCREEN; // $ExpectType number
+
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(51, 52); // $ExpectType boolean
+testMajorVersions(68, 69); // $ExpectType boolean

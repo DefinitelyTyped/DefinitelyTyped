@@ -49,8 +49,8 @@ function tests_simple() {
         picker.minDate; // $ExpectType Moment
         picker.maxDate; // $ExpectType Moment
         picker.showDropdowns; // $ExpectType boolean
-        picker.minYear; // $ExpectType number
-        picker.maxYear; // $ExpectType number
+        picker.minYear; // $ExpectType string | number
+        picker.maxYear; // $ExpectType string | number
         picker.showWeekNumbers; // $ExpectType boolean
         picker.showISOWeekNumbers; // $ExpectType boolean
         picker.timePicker; // $ExpectType boolean
@@ -60,8 +60,8 @@ function tests_simple() {
         picker.ranges; // $ExpectType { [name: string]: [DateOrString, DateOrString]; }
         picker.showCustomRangeLabel; // $ExpectType boolean
         picker.alwaysShowCalendars; // $ExpectType boolean
-        picker.opens; // $ExpectType "left" | "right" | "center"
-        picker.drops; // $ExpectType "down" | "up"
+        picker.opens; // $ExpectType "left" | "right" | "center" || "center" | "left" | "right"
+        picker.drops; // $ExpectType "down" | "up" || "up" | "down"
         picker.buttonClasses; // $ExpectType string[]
         picker.applyButtonClasses; // $ExpectType string
         picker.cancelButtonClasses; // $ExpectType string

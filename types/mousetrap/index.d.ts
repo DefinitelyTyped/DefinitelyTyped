@@ -3,7 +3,6 @@
 // Definitions by: Dániel Tar <https://github.com/qcz>
 //                 Alan Choi <https://github.com/alanhchoi>
 //                 Nic Barker <https://github.com/nicbarker>
-//                 Mitsuka Hanakura a.k.a ragg <https://github.com/ra-gg>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -19,7 +18,7 @@ declare namespace Mousetrap {
         stopCallback: (e: ExtendedKeyboardEvent, element: Element, combo: string) => boolean;
         bind(
             keys: string | string[],
-            callback: (e: ExtendedKeyboardEvent, combo: string) => any,
+            callback: (e: ExtendedKeyboardEvent, combo: string) => boolean | void,
             action?: string,
         ): MousetrapInstance;
         unbind(keys: string | string[], action?: string): MousetrapInstance;
@@ -31,7 +30,7 @@ declare namespace Mousetrap {
         stopCallback: (e: ExtendedKeyboardEvent, element: Element, combo: string) => boolean;
         bind(
             keys: string | string[],
-            callback: (e: ExtendedKeyboardEvent, combo: string) => any,
+            callback: (e: ExtendedKeyboardEvent, combo: string) => void,
             action?: string,
         ): this;
         unbind(keys: string | string[], action?: string): this;

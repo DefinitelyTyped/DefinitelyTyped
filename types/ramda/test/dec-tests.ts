@@ -1,5 +1,5 @@
 import * as R from 'ramda';
 
 () => {
-  R.dec(42); // => 41
+    R.dec(42); // => 41
 };

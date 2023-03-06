@@ -18,9 +18,6 @@
             ],
             "tapable": [
                 "tapable/v1"
-            ],
-            "webpack-dev-server": [
-                "webpack-dev-server/v3"
             ]
         },
         "types": [],

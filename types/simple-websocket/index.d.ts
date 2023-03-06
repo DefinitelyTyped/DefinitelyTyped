@@ -26,7 +26,7 @@ declare class Socket extends Duplex {
   send(chunk: any): void;
 
   /** Destroy and cleanup this websocket connection */
-  destroy(err?: Error): void;
+  destroy(err?: Error): any;
 }
 
 export = Socket;

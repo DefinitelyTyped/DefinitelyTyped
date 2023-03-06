@@ -65,6 +65,7 @@ export type CellFormatter = (value: any, props: {
 }) => string | JSX.Element;
 
 export interface ProviderProps {
+    children?: React.ReactNode;
     columns: Column[];
     className?: string | undefined;
     renderers?: Renderers | undefined;

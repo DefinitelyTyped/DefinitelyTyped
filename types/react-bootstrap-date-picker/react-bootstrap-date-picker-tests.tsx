@@ -1,7 +1,7 @@
 import * as React from "react";
 import DatePicker = require("react-bootstrap-date-picker");
 
-const Custom: React.StatelessComponent = () => {
+const Custom: React.FunctionComponent = () => {
     return (<div />);
 };
 

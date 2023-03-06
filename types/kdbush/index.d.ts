@@ -1,7 +1,6 @@
 // Type definitions for kdbush 3.0
 // Project: https://github.com/mourner/kdbush
 // Definitions by: DenisCarriere <https://github.com/DenisCarriere>
-//                 Christian Scott <https://github.com/chrfrasco>
 //                 SangYeob Bono Yu <https://github.com/deminoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -13,6 +12,9 @@ type ArrayType =
   | typeof Int32Array
   | typeof Float32Array
   | typeof Float64Array
+  | typeof Uint8Array
+  | typeof Uint16Array
+  | typeof Uint32Array
   | typeof Array;
 
 declare class KDBush<T> {

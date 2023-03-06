@@ -1,8 +1,8 @@
 import {
     AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
-    DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC
+    DOMElement, FunctionComponentElement, CElement,
+    ReactHTMLElement, DOMAttributes, FC
 } from 'react';
 
 import * as ReactTestUtils from ".";
@@ -24,6 +24,8 @@ export interface OptionalEventProperties {
     type?: string | undefined;
 }
 
+export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+
 export interface SyntheticEventData extends OptionalEventProperties {
     altKey?: boolean | undefined;
     button?: number | undefined;
@@ -39,7 +41,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
     deltaY?: number | undefined;
     deltaZ?: number | undefined;
     detail?: number | undefined;
-    getModifierState?(key: string): boolean;
+    getModifierState?(key: ModifierKey): boolean;
     key?: string | undefined;
     keyCode?: number | undefined;
     locale?: string | undefined;
@@ -157,7 +159,7 @@ export namespace Simulate {
 export function renderIntoDocument<T extends Element>(
     element: DOMElement<any, T>): T;
 export function renderIntoDocument(
-    element: SFCElement<any>): void;
+    element: FunctionComponentElement<any>): void;
 // If we replace `P` with `any` in this overload, then some tests fail because
 // calls to `renderIntoDocument` choose the last overload on the
 // subtype-relation pass and get an undesirably broad return type.  Using `P`
@@ -194,7 +196,7 @@ export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P>(
-    element: ReactElement, type: SFC<P>): element is SFCElement<P>;
+    element: ReactElement, type: FC<P>): element is FunctionComponentElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
@@ -296,8 +298,9 @@ export function createRenderer(): ShallowRenderer;
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 // tslint:disable-next-line: void-return
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
-export function act(callback: () => Promise<void>): Promise<undefined>;
+// While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
 export function act(callback: () => VoidOrUndefinedOnly): void;
+export function act<T>(callback: () => T | Promise<T>): Promise<T>;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.

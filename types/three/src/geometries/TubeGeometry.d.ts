@@ -11,7 +11,7 @@ export class TubeGeometry extends BufferGeometry {
      * @param [closed=false]
      */
     constructor(
-        path: Curve<Vector3>,
+        path?: Curve<Vector3>,
         tubularSegments?: number,
         radius?: number,
         radiusSegments?: number,
@@ -36,5 +36,3 @@ export class TubeGeometry extends BufferGeometry {
 
     static fromJSON(data: any): TubeGeometry;
 }
-
-export { TubeGeometry as TubeBufferGeometry };

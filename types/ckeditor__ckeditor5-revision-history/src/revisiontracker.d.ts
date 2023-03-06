@@ -3,7 +3,10 @@ import { RevisionHistoryAdapter } from './revisionhistory';
 
 export default class RevisionTracker {
     adapter: RevisionHistoryAdapter;
-    isDirty: boolean;
-    getCurrentRevision(data?: { name?: string | undefined }): Revision;
-    saveRevision(data?: { name?: string | undefined }): Revision;
+    addRevisionData(data: Record<string, unknown>): Revision;
+    saveRevision(
+        data?: { name?: string | undefined; id?: string | undefined; attributes?: Record<string, unknown> },
+        version?: number,
+    ): Revision;
+    update(): Promise<unknown>;
 }

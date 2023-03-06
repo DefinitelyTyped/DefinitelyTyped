@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "har-format-tests.ts"
+        "test/har-format-tests.ts"
     ]
 }

@@ -8,7 +8,6 @@ let ice1: RTCIceServer = {
     urls: 'stun:stun.l.google.com:19302',
     username: 'john',
     credential: '1234',
-    credentialType: 'password',
 };
 let ice2: RTCIceServer = { urls: ['stun:stunserver.org', 'stun:stun.example.com'] };
 let pc: RTCPeerConnection = new RTCPeerConnection({});
@@ -92,3 +91,34 @@ pc.getStats(
     (report: RTCStatsReport) => console.log('got report'),
     (error: DOMException) => console.log(error.message)
 ).then(() => console.log('getStats complete'));
+
+// RTCError
+const error = new RTCError({
+    errorDetail: 'dtls-failure',
+    httpRequestStatusCode: 400,
+    receivedAlert: 1,
+    sctpCauseCode: 1,
+    sdpLineNumber: 1,
+    sentAlert: 1,
+});
+
+// RPCDtlsTransport
+const dtlsTransport = pc.sctp!.transport;
+dtlsTransport.onerror = (ev: RTCErrorEvent) => console.log(ev.error.errorDetail);
+dtlsTransport.onstatechange = ev => console.log(ev.type);
+dtlsTransport.addEventListener('error', (ev: RTCErrorEvent) => console.log(ev.error.errorDetail));
+dtlsTransport.addEventListener('statechange', ev => console.log(ev.type));
+console.log(dtlsTransport.state);
+
+// RPCIceTransport
+const iceTransport = dtlsTransport.iceTransport;
+iceTransport.onstatechange = ev => console.log(ev.type);
+iceTransport.ongatheringstatechange = ev => console.log(ev.type);
+iceTransport.onselectedcandidatepairchange = ev => console.log(ev.type);
+iceTransport.addEventListener('statechange', ev => console.log(ev.type));
+iceTransport.addEventListener('ongatheringstatechange', ev => console.log(ev.type));
+iceTransport.addEventListener('onselectedcandidatepairchange', ev => console.log(ev.type));
+console.log(iceTransport.role);
+console.log(iceTransport.gatheringState);
+console.log(iceTransport.getSelectedCandidatePair()!.local);
+console.log(iceTransport.getSelectedCandidatePair()!.remote);

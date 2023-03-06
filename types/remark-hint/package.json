@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "remark": "^14.0.2",
+    "unified": "^10.1.2"
+  }
+}

@@ -94,12 +94,14 @@ export interface Author extends Identification, Metadata {
 
 export type TagVisibility = 'public' | 'internal';
 
-export interface Tag extends Identification, Metadata {
+export interface Tag extends Identification, Metadata, SocialMedia {
     name?: string | undefined;
     description?: Nullable<string> | undefined;
     feature_image?: Nullable<string> | undefined;
     visibility?: TagVisibility | undefined;
     url?: string | undefined;
+    canonical_url?: Nullable<string> | undefined;
+    accent_color?: Nullable<string> | undefined;
     count?: {
         posts: number;
     } | undefined;
@@ -109,6 +111,7 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
     // Identification
     uuid?: string | undefined;
     comment_id?: string | undefined;
+    featured?: boolean | undefined;
 
     // Post or Page
     title?: string | undefined;
@@ -117,7 +120,8 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
 
     // Image
     feature_image?: Nullable<string> | undefined;
-    featured?: boolean | undefined;
+    feature_image_alt?: Nullable<string> | undefined;
+    feature_image_caption?: Nullable<string> | undefined;
 
     // Dates
     created_at?: string | undefined;
@@ -208,9 +212,9 @@ export interface GhostContentAPIOptions {
     /**
      * Version of GhostContentAPI
      *
-     * Supported Versions: 'v2', 'v3', 'canary'
+     * Supported Versions: 'v2', 'v3', 'v4', 'v5.0', 'canary'
      */
-    version: 'v2' | 'v3' | 'canary';
+    version: 'v2' | 'v3' | 'v4' | 'v5.0' | 'canary';
     key: string;
     /** @deprecated since version v2 */
     host?: string | undefined;

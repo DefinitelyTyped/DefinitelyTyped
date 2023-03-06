@@ -7,7 +7,9 @@
 ///<reference types="react"/>
 
 declare namespace ReactTagCloud {
-    interface TagCloudProps extends React.Props<void> {
+    interface TagCloudProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<void> | undefined;
         tags: any[];
         maxSize: number;
         minSize: number;

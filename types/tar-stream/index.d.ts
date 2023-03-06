@@ -33,7 +33,8 @@ export interface Headers {
         | 'pax-global-header'
         | 'gnu-long-link-path'
         | 'gnu-long-path'
-        | null | undefined;
+        | null
+        | undefined;
     uname?: string | undefined;
     gname?: string | undefined;
     devmajor?: number | undefined;
@@ -51,7 +52,10 @@ export interface Pack extends stream.Readable {
 
 export interface Extract extends stream.Writable {
     on(event: string, listener: (...args: any[]) => void): this;
-    on(event: 'entry', listener: (headers: Headers, stream: stream.PassThrough, next: () => void) => void): this;
+    on(
+        event: 'entry',
+        listener: (headers: Headers, stream: stream.PassThrough, next: (error?: unknown) => void) => void,
+    ): this;
 }
 
 export interface ExtractOptions extends stream.WritableOptions {

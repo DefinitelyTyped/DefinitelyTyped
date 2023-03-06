@@ -54,7 +54,7 @@ declare class NanoCache {
     constructor(options?: Options);
     get(key: unknown): unknown;
     set(key: unknown, value: unknown, options?: Options): void;
-    delete(key: unknown): unknown;
+    del(key: unknown): unknown;
     clear(): void;
     clearExpired(): void;
     isTTLExpired(key: unknown): boolean;

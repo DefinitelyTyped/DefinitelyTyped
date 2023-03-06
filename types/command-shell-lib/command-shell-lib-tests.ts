@@ -17,13 +17,13 @@ prompt();
 
 // $ExpectType void
 showHelp({});
-// $ExpectError
+// @ts-expect-error
 showHelp({ invalid: {} });
-// $ExpectError
+// @ts-expect-error
 showHelp({ invalid: { description: 'This command is invalid, parameters missing', handler: () => {} } });
-// $ExpectError
+// @ts-expect-error
 showHelp({ invalid: { parameters: ['missing', 'description'], handler: () => {} } });
-// $ExpectError
+// @ts-expect-error
 showHelp({ invalid: { parameters: ['missing', 'handler'], description: '' } });
 // $ExpectType void
 showHelp({ valid: { parameters: ['valid'], description: 'This command is valid', handler: () => {} } });
@@ -33,14 +33,14 @@ executeCommander(['some', 'command'], {});
 
 // $ExpectType () => void
 showConfig({}, '');
-// $ExpectError
+// @ts-expect-error
 showConfig({}, null);
 
 // $ExpectType void
 initialize({}, 'This is a prompt string');
-// $ExpectError
+// @ts-expect-error
 initialize({}, null);
-// $ExpectError
+// @ts-expect-error
 initialize({ invalid: { parameters: ['missing', 'description'], handler: () => {} } }, 'invalid');
 
 // $ExpectType void
@@ -48,7 +48,7 @@ destroy();
 
 // $ExpectType () => void
 printName('someName');
-// $ExpectError
+// @ts-expect-error
 printName(0);
 
 // $ExpectType void
@@ -56,12 +56,12 @@ notImplemented();
 
 // $ExpectType void
 handleError(new Error());
-// $ExpectError
+// @ts-expect-error
 handleError('Only a message');
 
 // $ExpectType void
 setWriter({ log: (message?: any, ...optionalParams: any[]) => {} });
-// $ExpectError
+// @ts-expect-error
 setWriter({ logs: (message?: any, ...optionalParams: any[]) => {} });
 // $ExpectType void
 setWriter({ log: (message?: any) => {} });

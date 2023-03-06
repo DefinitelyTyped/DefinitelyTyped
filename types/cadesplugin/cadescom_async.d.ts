@@ -10,7 +10,8 @@ declare namespace CAdESCOM {
 
         propset_TSAAddress(TSAAddress: string): Promise<void>;
     }
-
+    interface CPAuthenticatedAttributes2Async extends CADES_Common.Async<CPAuthenticatedAttributes2>  {
+    }
     interface CadesSignedDataAsync extends CADES_Common.Async<CadesSignedData> {
         propset_DisplayData(displayData: CADES_Common.ValuesOf<CADESCOM_DISPLAY_DATA>): Promise<void>;
 
@@ -39,9 +40,12 @@ declare namespace CAdESCOM {
     }
 
     interface CPHashedDataAsync extends CADES_Common.Async<CPHashedData> {
-        propset_Algorithm(algorithm: CADES_Common.ValuesOf<CAPICOM.CAPICOM_HASH_ALGORITHM>): Promise<void>;
+        propset_Algorithm(algorithm: CADES_Common.ValuesOf<CADESCOM_HASH_ALGORITHM & CAPICOM.CAPICOM_HASH_ALGORITHM>): Promise<void>;
 
         propset_DataEncoding(dataEncoding: CADES_Common.ValuesOf<CADESCOM_CONTENT_ENCODING_TYPE>): Promise<void>;
+    }
+
+    interface CPAuthenticatedAttributes2Async extends CADES_Common.Async<CPAuthenticatedAttributes2> {
     }
 
     interface CPAttributeAsync extends CADES_Common.Async<CPAttribute> {

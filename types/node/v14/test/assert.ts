@@ -1,4 +1,4 @@
-import assert = require('assert');
+import assert = require('node:assert');
 
 {
     const { stack } = new assert.AssertionError({});
@@ -163,7 +163,7 @@ assert['fail'](true, true, 'works like a charm');
 {
     const a = 'test' as any;
     assert.strictEqual(a, 'test');
-    a; // $ExpectType string
+    a; // $ExpectType string || "test"
 }
 
 {

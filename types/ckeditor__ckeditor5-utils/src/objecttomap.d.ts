@@ -7,4 +7,4 @@
  * **Note**: For mixed data (`Object` or `Iterable`) there's a dedicated {@link module:utils/tomap~toMap} function.
  *
  */
-export default function objectToMap<T extends object>(obj: T): Map<keyof T, T[keyof T]>;
+export default function objectToMap<T extends Record<any, any>, K extends keyof T>(obj: T): Map<K, T[K]>;

@@ -1,4 +1,4 @@
-// Type definitions for mailparser 3.0
+// Type definitions for mailparser 3.4
 // Project: https://github.com/nodemailer/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 Andrey Volynkin <https://github.com/Avol-V>
@@ -7,6 +7,7 @@
 /// <reference types="node" />
 
 import StreamModule = require('stream');
+import { DecoderStream } from 'iconv-lite';
 import Stream = StreamModule.Stream;
 
 /**
@@ -292,7 +293,7 @@ export interface MessageText {
  * and emits data objects for attachments and text contents.
  */
 export class MailParser extends StreamModule.Transform {
-    constructor(options?: StreamModule.TransformOptions);
+    constructor(options?: MailParserOptions);
     on(event: string, callback: (any: any) => void): this;
     on(event: 'headers', callback: (headers: Headers) => void): this;
     on(event: 'data' | 'readable', callback: (data: AttachmentStream | MessageText) => void): this;
@@ -304,11 +305,23 @@ export class MailParser extends StreamModule.Transform {
 export type Source = Buffer | Stream | string;
 
 /**
- * Options object for simpleParser.
+ * Options object for MailParser.
  */
-export interface SimpleParserOptions extends StreamModule.TransformOptions {
+export interface MailParserOptions extends StreamModule.TransformOptions {
+    skipHtmlToText?: boolean | undefined;
+    maxHtmlLengthToParse?: number | undefined;
+    formatDateString?: ((d: Date) => string) | undefined;
+    skipImageLinks?: boolean | undefined;
+    skipTextToHtml?: boolean | undefined;
+    skipTextLinks?: boolean | undefined;
+    Iconv?: DecoderStream | undefined;
     keepCidLinks?: boolean | undefined;
 }
+
+/**
+ * Options for SimpleParser.
+ */
+export type SimpleParserOptions = MailParserOptions;
 
 /**
  * Parse email message to structure object.

@@ -34,9 +34,12 @@ import {
     MjmlStyle,
     MjmlTable,
     MjmlWrapper,
+    MjmlHtmlAttributes,
+    MjmlSelector,
+    MjmlHtmlAttribute
 } from 'mjml-react';
 
-import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle } from 'mjml-react/extensions';
+import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle, MjmlHtml } from 'mjml-react/extensions';
 
 import {
     addQueryParams,
@@ -45,6 +48,8 @@ import {
     namedEntityToHexCode,
     toMobileFontSize,
     useHttps,
+    renderToJson,
+    renderToJson2
 } from 'mjml-react/utils';
 
 function renderOutTestEmail() {
@@ -64,7 +69,7 @@ function renderOutTestEmail() {
                 </MjmlSection>
                 <MjmlSection>
                     <MjmlColumn>
-                        <MjmlButton padding="20px" backgroundColor="#346DB7" href="https://www.wix.com/">
+                        <MjmlButton padding="20px" backgroundColor="#346DB7" href="https://www.wix.com/" fontWeight="initial" letterSpacing="normal">
                             I like it!
                         </MjmlButton>
                     </MjmlColumn>
@@ -112,10 +117,25 @@ function renderOutTestEmail() {
         </MjmlClass>
     );
 }
+// TestMjmlHtmlAttributesTag
+{
+    const minProps: React.ReactNode = <MjmlHtmlAttributes />;
+    const maxProps: React.ReactNode = <MjmlHtmlAttributes>child</MjmlHtmlAttributes>;
+}
+// TestMjmlSelectorTag
+{
+    const minProps: React.ReactNode = <MjmlSelector path="div.hello" />;
+    const maxProps: React.ReactNode = <MjmlSelector path="div.hello">child</MjmlSelector>;
+}
+// TestMjmlHtmlAttributesTag
+{
+    const minProps: React.ReactNode = <MjmlHtmlAttribute name="data-testid" />;
+    const maxProps: React.ReactNode = <MjmlHtmlAttribute name="data-testid">child</MjmlHtmlAttribute>;
+}
 // TestMjmlBreakpointTag
 {
     const minProps: React.ReactNode = <MjmlBreakpoint />;
-    const maxProps: React.ReactNode = <MjmlBreakpoint width="">child</MjmlBreakpoint>;
+    const maxProps: React.ReactNode = <MjmlBreakpoint width="" />;
 }
 // TestMjmlBodyTag
 {
@@ -137,28 +157,33 @@ function renderOutTestEmail() {
 }
 // TestMjmlPreviewTag
 {
-    const minMaxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
+    const minProps: React.ReactNode = <MjmlPreview />;
+    const maxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
 
     // children cannot be anything other than string
     // prettier-ignore
-    const childError: React.ReactNode = <MjmlPreview><p>""</p></MjmlPreview>; // $ExpectError
+    // @ts-expect-error
+    const childError: React.ReactNode = <MjmlPreview><p>""</p></MjmlPreview>;
 }
 // TestMjmlStyleTag
 {
-    const minProps: React.ReactNode = <MjmlStyle>""</MjmlStyle>;
+    const minProps: React.ReactNode = <MjmlStyle />;
     const maxProps: React.ReactNode = <MjmlStyle inline>child</MjmlStyle>;
 
     // children cannot be anything other than string
     // prettier-ignore
-    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>; // $ExpectError
+    // @ts-expect-error
+    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>;
 }
 // TestMjmlTitleTag
 {
-    const minMaxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
+    const minProps: React.ReactNode = <MjmlTitle />;
+    const maxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
 
     // children cannot be anything other than string
     // prettier-ignore
-    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>; // $ExpectError
+    // @ts-expect-error
+    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>;
 }
 // TestMjmlButtonTag
 {
@@ -170,7 +195,8 @@ function renderOutTestEmail() {
     const minProps: React.ReactNode = <MjmlColumn />;
     const maxProps: React.ReactNode = <MjmlColumn>child</MjmlColumn>;
     const innerBackgroundColor: React.ReactNode = <MjmlColumn innerBackgroundColor="#BADA55">child</MjmlColumn>;
-    const innerBackgroundColorError: React.ReactNode = <MjmlColumn innerBackgroundColor={1}>child</MjmlColumn>; // $ExpectError
+    // @ts-expect-error
+    const innerBackgroundColorError: React.ReactNode = <MjmlColumn innerBackgroundColor={1}>child</MjmlColumn>;
 }
 // TestMjmlDividerTag
 {
@@ -238,18 +264,70 @@ function renderOutTestEmail() {
 {
     {
         const minProps: React.ReactNode = <MjmlAccordion />;
+        const maxProps: React.ReactNode = (
+            <MjmlAccordion
+                border="0"
+                containerBackgroundColor="#ffffff"
+                fontFamily="Arial"
+                iconAlign="left"
+                iconHeight="20px"
+                iconPosition="right"
+                iconUnwrappedAlt="close"
+                iconUnwrappedUrl="open.png"
+                iconWidth="20px"
+                iconWrappedAlt="open"
+                iconWrappedUrl="close.png"
+            >
+                child
+            </MjmlAccordion>
+        );
     }
     // MjmlAccordionElement
     {
         const minProps: React.ReactNode = <MjmlAccordionElement />;
-    }
-    // MjmlAccordionText
-    {
-        const minProps: React.ReactNode = <MjmlAccordionText />;
+        const maxProps: React.ReactNode = (
+            <MjmlAccordionElement
+                border="0"
+                backgroundColor="#ffffff"
+                fontFamily="Arial"
+                iconAlign="left"
+                iconHeight="20px"
+                iconPosition="right"
+                iconUnwrappedAlt="close"
+                iconUnwrappedUrl="open.png"
+                iconWidth="20px"
+                iconWrappedAlt="open"
+                iconWrappedUrl="close.png"
+            >
+                child
+            </MjmlAccordionElement>
+        );
     }
     // TestMjmlAccordionTitleTag
     {
         const minProps: React.ReactNode = <MjmlAccordionTitle />;
+        const maxProps: React.ReactNode = (
+            <MjmlAccordionTitle backgroundColor="#ffffff" color="#000000" fontFamily="Arial" fontSize="20px">
+                child
+            </MjmlAccordionTitle>
+        );
+    }
+    // MjmlAccordionText
+    {
+        const minProps: React.ReactNode = <MjmlAccordionText />;
+        const maxProps: React.ReactNode = (
+            <MjmlAccordionText
+                backgroundColor="#ffffff"
+                color="#000000"
+                fontFamily="Arial"
+                fontSize="20px"
+                fontWeight="5"
+                letterSpacing="1.5"
+                lineHeight="2"
+            >
+                child
+            </MjmlAccordionText>
+        );
     }
 }
 // TestMjmlCarouselTag

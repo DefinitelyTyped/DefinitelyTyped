@@ -1,12 +1,12 @@
-import { TempNode, TempNodeParams } from './TempNode';
-import { NodeBuilder } from './NodeBuilder';
+import { NodeTypeOption, NodeValueOption } from './constants';
+import Node from './Node';
+import NodeBuilder from './NodeBuilder';
 
-export class InputNode extends TempNode {
-    constructor(type: string, params?: TempNodeParams);
+export default abstract class InputNode extends Node {
+    isInputNode: true;
+    value: NodeValueOption;
 
-    readonly: boolean;
+    constructor(value: NodeValueOption, nodeType?: NodeTypeOption | null);
 
-    setReadonly(value: boolean): this;
-    getReadonly(builder: NodeBuilder): boolean;
-    copy(source: InputNode): this;
+    getInputType(builder: NodeBuilder): string | null;
 }

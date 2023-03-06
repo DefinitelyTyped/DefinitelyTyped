@@ -1,6 +1,6 @@
 // Type definitions for koa-graphql 0.8
 // Project: https://github.com/chentsulin/koa-graphql
-// Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 /// <reference types="node" />

@@ -1,6 +1,7 @@
 import { Handler } from "../handler";
 
-export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, void>;
+// tslint:disable-next-line:void-return
+export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, DynamoDBBatchResponse | void>;
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
 export interface AttributeValue {
@@ -42,4 +43,13 @@ export interface DynamoDBRecord {
 // http://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-ddb-update
 export interface DynamoDBStreamEvent {
     Records: DynamoDBRecord[];
+}
+
+// https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html#services-ddb-batchfailurereporting
+export interface DynamoDBBatchResponse {
+    batchItemFailures: DynamoDBBatchItemFailure[];
+}
+
+export interface DynamoDBBatchItemFailure {
+    itemIdentifier: string;
 }

@@ -1,6 +1,6 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
-import Observer from "../util/observer";
-import WaveSurfer from "../wavesurfer";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
 export default class TimelinePlugin extends Observer implements WaveSurferPlugin {
     constructor(params: TimelinePluginParams, ws: WaveSurfer);
@@ -42,7 +42,7 @@ export default class TimelinePlugin extends Observer implements WaveSurferPlugin
     readonly canvases: HTMLCanvasElement[];
     readonly container: string | HTMLElement;
     readonly params: TimelinePluginParams;
-    readonly util: WaveSurfer["util"];
+    readonly util: WaveSurfer['util'];
     readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }

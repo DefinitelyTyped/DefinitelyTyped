@@ -1,11 +1,9 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
-        "export-just-namespace": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,

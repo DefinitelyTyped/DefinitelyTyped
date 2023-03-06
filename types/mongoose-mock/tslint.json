@@ -1,6 +1,12 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false
+        "npm-naming": [
+            true,
+            {
+                "mode": "code",
+                "errors": [["NoDefaultExport", false]]
+            }
+        ]
     }
 }

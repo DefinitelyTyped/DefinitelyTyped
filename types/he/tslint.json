@@ -1,7 +1,6 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "jsdoc-format": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false

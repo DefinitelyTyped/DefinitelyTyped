@@ -1,9 +1,9 @@
+import LinkifyIt = require('linkify-it');
 import MarkdownIt = require('markdown-it/lib');
-import ParserInline = require('markdown-it/lib/parser_inline');
 import ParserBlock = require('markdown-it/lib/parser_block');
 import ParserCore = require('markdown-it/lib/parser_core');
+import ParserInline = require('markdown-it/lib/parser_inline');
 import Renderer = require('markdown-it/lib/renderer');
-import LinkifyIt = require('linkify-it');
 
 {
     const md = new MarkdownIt();
