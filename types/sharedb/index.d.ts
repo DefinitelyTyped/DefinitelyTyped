@@ -1,4 +1,4 @@
-// Type definitions for sharedb 3.2
+// Type definitions for sharedb 3.3
 // Project: https://github.com/share/sharedb
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
@@ -274,7 +274,11 @@ declare namespace sharedb {
             collection: string;
             projection: ReadonlyProjection;
             fields: ProjectionFields;
+            /**
+             * @deprecated Use channels property instead
+             */
             channel: string;
+            channels: string[];
             query: any;
             options?: {[key: string]: any};
             db: DB | null;

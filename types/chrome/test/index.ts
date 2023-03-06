@@ -1256,6 +1256,25 @@ async function testDynamicRules() {
             priority: 3,
         }],
     });
+
+    await chrome.declarativeNetRequest.updateDynamicRules({
+        addRules: [{
+            action: {
+                type: chrome.declarativeNetRequest.RuleActionType.MODIFY_HEADERS,
+                requestHeaders: [{
+                    header: "X-Test-Header",
+                    operation: chrome.declarativeNetRequest.HeaderOperation.SET,
+                    value: "test-value",
+                }],
+            },
+            condition: {
+                resourceTypes: [chrome.declarativeNetRequest.ResourceType.MAIN_FRAME],
+                domains: ["www.example.com"],
+            },
+            id: 2,
+            priority: 3,
+        }],
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/storage

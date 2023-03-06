@@ -150,6 +150,7 @@ backend.use('query', (context, callback) => {
         context.projection,
         context.fields,
         context.channel,
+        context.channels,
         context.query,
         context.options,
         context.snapshotProjection,
@@ -425,10 +426,8 @@ backend.getOpsBulk(agent, 'collection', 'id', {abc: 0}, {abc: 5}, {opsOptions: {
 
 class SocketLike {
     readyState = 1;
-
     close(reason?: number): void {}
     send(data: any): void {}
-
     onmessage: (event: any) => void;
     onclose: (event: any) => void;
     onerror: (event: any) => void;
