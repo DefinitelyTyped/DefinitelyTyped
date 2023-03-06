@@ -63,6 +63,7 @@ const initialState = {
 export function App() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
     const birthdayRef = React.useRef<React.ComponentRef<typeof FancyButton>>(null);
+    const [, setTarget] = React.useState<React.MouseEvent<HTMLDivElement, MouseEvent>['target']>()
 
     React.useLayoutEffect(() => {
         if (birthdayRef.current !== null) {
@@ -84,7 +85,7 @@ export function App() {
         </FancyButton>
         <div onClick={useCallback((e) => {
             // e's type should infer from onClick, even though onClick is nullable
-            console.log(e.target);   
+            setTarget(e.target);   
         }, [])} />
     </>;
 }
