@@ -11,6 +11,7 @@
 //   David Burns <https://github.com/AutomatedTester>
 //   Pirasis Leelatanon <https://github.com/1pete>
 //   Harmandeep Singh <https://github.com/SinghHrmn>
+//   Shubh Sheth <https://github.com/shubhsheth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
