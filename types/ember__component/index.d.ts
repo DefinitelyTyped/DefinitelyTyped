@@ -121,7 +121,7 @@ export function setComponentManager<T>(managerFactory: (owner: unknown) => Compo
  */
  export function getComponentTemplate(obj: object): TemplateFactory | undefined;
 
-export function setComponentTemplate(factory: TemplateFactory, obj: object): object;
+export function setComponentTemplate<T>(factory: TemplateFactory, obj: T): T;
 
 // In normal TypeScript, these built-in components are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces
