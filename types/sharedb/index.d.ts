@@ -242,6 +242,7 @@ declare namespace sharedb {
         }
 
         interface ApplyContext extends BaseContext, SubmitRequest {
+            $fixup: (op: any) => void;
         }
 
         interface CommitContext extends BaseContext, SubmitRequest {
