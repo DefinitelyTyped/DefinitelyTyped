@@ -1052,6 +1052,27 @@ function testBrowserAcionGetPopup() {
     chrome.browserAction.getPopup(console.log);
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
+function testBrowserAcionGetTitle() {
+    chrome.browserAction.getTitle({});
+    chrome.browserAction.getTitle({}, console.log);
+    chrome.browserAction.getTitle({ tabId: 0 });
+    chrome.browserAction.getTitle({ tabId: 0 }, console.log);
+    chrome.browserAction.getTitle({ tabId: null });
+    chrome.browserAction.getTitle({ tabId: null }, console.log);
+    chrome.browserAction.getTitle({ tabId: undefined });
+    chrome.browserAction.getTitle({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getTitle();
+    // @ts-expect-error
+    chrome.browserAction.getTitle(null);
+    // @ts-expect-error
+    chrome.browserAction.getTitle(undefined);
+    // @ts-expect-error
+    chrome.browserAction.getTitle(console.log);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeBackgroundColor
 function testBrowserAcionSetBadgeBackgroundColor() {
     chrome.browserAction.setBadgeBackgroundColor({ color: 'red' });
