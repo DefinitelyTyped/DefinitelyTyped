@@ -806,7 +806,7 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function enable(tabId?: number): Promise<void>;
+    export function enable(tabId?: number | null): Promise<void>;
     /**
      * Since Chrome 22.
      * Enables the browser action for a tab. By default, browser actions are enabled.
@@ -814,7 +814,7 @@ declare namespace chrome.browserAction {
      * @param callback Supported since Chrome 67
      */
     export function enable(callback?: () => void): void;
-    export function enable(tabId: number, callback?: () => void): void;
+    export function enable(tabId: number | null | undefined, callback?: () => void): void;
     /**
      * Sets the background color for the badge.
      * Strictly speaking, browserAction.setBadgeBackgroundColor() returns void and not a promise, but this is kept for backwards compatibility.
@@ -874,7 +874,7 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function disable(tabId?: number): Promise<void>;
+    export function disable(tabId?: number | null): Promise<void>;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
@@ -882,7 +882,7 @@ declare namespace chrome.browserAction {
      * @param callback Supported since Chrome 67
      */
     export function disable(callback: () => void): void;
-    export function disable(tabId: number, callback: () => void): void;
+    export function disable(tabId: number | null | undefined, callback: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the title of the browser action.

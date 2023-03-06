@@ -981,11 +981,22 @@ function testBrowserAcionEnable() {
     chrome.browserAction.enable(console.log);
     chrome.browserAction.enable(0);
     chrome.browserAction.enable(0, console.log);
+    chrome.browserAction.enable(null);
+    chrome.browserAction.enable(null, console.log);
+    chrome.browserAction.enable(undefined);
+    chrome.browserAction.enable(undefined, console.log);
+}
 
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor(null);
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor(undefined);
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-disable
+function testBrowserAcionDisable() {
+    chrome.browserAction.disable();
+    chrome.browserAction.disable(console.log);
+    chrome.browserAction.disable(0);
+    chrome.browserAction.disable(0, console.log);
+    chrome.browserAction.disable(null);
+    chrome.browserAction.disable(null, console.log);
+    chrome.browserAction.disable(undefined);
+    chrome.browserAction.disable(undefined, console.log);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeBackgroundColor
