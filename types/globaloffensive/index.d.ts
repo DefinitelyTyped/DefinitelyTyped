@@ -1,4 +1,4 @@
-// Type definitions for globaloffensive 2.2
+// Type definitions for globaloffensive 2.3
 // Project: https://github.com/DoctorMcKay/node-globaloffensive
 // Definitions by: joshuajeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -165,10 +165,19 @@ declare class GlobalOffensive extends EventEmitter {
      * @param callback A function to be called once the contents are loaded
      * @since v2.1
      */
-    getCasketContents(
-        casketId: string,
-        callback: (err: Error | null, items: GlobalOffensive.InventoryItem[]) => void,
-    ): Promise<GlobalOffensive.InventoryItem[]>;
+    getCasketContents(casketId: string, callback: (err: Error | null, items: GlobalOffensive.InventoryItem[]) => void): void;
+
+    /**
+     * Craft some items using a given recipe.
+     *
+     * You will receive a `craftingComplete` event in response.
+     * If crafting succeeded, you will also get `itemRemoved` events for each item you spent,
+     * and `itemAcquired` events for each item you received.
+     *
+     * @param items - IDs of items to craft
+     * @param recipe - The ID of the recipe to use
+     */
+    craft(items: number[], recipe: number): void;
 
     // EVENTS
     on<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
@@ -196,6 +205,7 @@ interface GlobalOffensiveEvents {
     itemRemoved: [item: GlobalOffensive.InventoryItem];
     itemCustomizationNotification: [itemIds: string[], notificationType: ValueOf<typeof ItemCustomizationNotification>];
     playersProfile: [profile: GlobalOffensive.Profile];
+    craftingComplete: [recipe: number, itemsGained: string[]];
 }
 
 declare namespace GlobalOffensive {
