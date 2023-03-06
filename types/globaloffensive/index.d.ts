@@ -165,7 +165,10 @@ declare class GlobalOffensive extends EventEmitter {
      * @param callback A function to be called once the contents are loaded
      * @since v2.1
      */
-    getCasketContents(casketId: string, callback: (err: Error | null, items: GlobalOffensive.InventoryItem[]) => void): void;
+    getCasketContents(
+        casketId: string,
+        callback: (err: Error | null, items: GlobalOffensive.InventoryItem[]) => void,
+    ): void;
 
     /**
      * Craft some items using a given recipe.
