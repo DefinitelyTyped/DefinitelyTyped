@@ -274,7 +274,11 @@ declare namespace sharedb {
             collection: string;
             projection: ReadonlyProjection;
             fields: ProjectionFields;
+            /**
+             * @deprecated Use channels property instead
+             */
             channel: string;
+            channels: string[];
             query: any;
             options?: {[key: string]: any};
             db: DB | null;
