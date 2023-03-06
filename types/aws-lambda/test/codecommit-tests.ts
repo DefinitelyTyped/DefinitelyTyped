@@ -27,4 +27,4 @@ const event: CodeCommitTriggerEvent = {
             userIdentityARN: "arn:aws:iam::123456789012:user/john@doe.com"
         }
     ]
-}
+};
