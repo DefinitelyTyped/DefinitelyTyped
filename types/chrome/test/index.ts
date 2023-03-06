@@ -975,8 +975,129 @@ async function testDeclarativeNetRequest() {
     })
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-enable
+function testBrowserAcionEnable() {
+    chrome.browserAction.enable();
+    chrome.browserAction.enable(console.log);
+    chrome.browserAction.enable(0);
+    chrome.browserAction.enable(0, console.log);
+    chrome.browserAction.enable(null);
+    chrome.browserAction.enable(null, console.log);
+    chrome.browserAction.enable(undefined);
+    chrome.browserAction.enable(undefined, console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-disable
+function testBrowserAcionDisable() {
+    chrome.browserAction.disable();
+    chrome.browserAction.disable(console.log);
+    chrome.browserAction.disable(0);
+    chrome.browserAction.disable(0, console.log);
+    chrome.browserAction.disable(null);
+    chrome.browserAction.disable(null, console.log);
+    chrome.browserAction.disable(undefined);
+    chrome.browserAction.disable(undefined, console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeBackgroundColor
+function testBrowserAcionGetBadgeBackgroundColor() {
+    chrome.browserAction.getBadgeBackgroundColor({}, console.log);
+    chrome.browserAction.getBadgeBackgroundColor({ tabId: 0 }, console.log);
+    chrome.browserAction.getBadgeBackgroundColor({ tabId: null }, console.log);
+    chrome.browserAction.getBadgeBackgroundColor({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getBadgeBackgroundColor();
+    // @ts-expect-error
+    chrome.browserAction.getBadgeBackgroundColor(null);
+    // @ts-expect-error
+    chrome.browserAction.getBadgeBackgroundColor(undefined);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeText
+function testBrowserAcionGetBadgeText() {
+    chrome.browserAction.getBadgeText({}, console.log);
+    chrome.browserAction.getBadgeText({ tabId: 0 }, console.log);
+    chrome.browserAction.getBadgeText({ tabId: null }, console.log);
+    chrome.browserAction.getBadgeText({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getBadgeText();
+    // @ts-expect-error
+    chrome.browserAction.getBadgeText(null);
+    // @ts-expect-error
+    chrome.browserAction.getBadgeText(undefined);
+    // @ts-expect-error
+    chrome.browserAction.getBadgeText(console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
+function testBrowserAcionGetPopup() {
+    chrome.browserAction.getPopup({});
+    chrome.browserAction.getPopup({}, console.log);
+    chrome.browserAction.getPopup({ tabId: 0 });
+    chrome.browserAction.getPopup({ tabId: 0 }, console.log);
+    chrome.browserAction.getPopup({ tabId: null });
+    chrome.browserAction.getPopup({ tabId: null }, console.log);
+    chrome.browserAction.getPopup({ tabId: undefined });
+    chrome.browserAction.getPopup({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getPopup();
+    // @ts-expect-error
+    chrome.browserAction.getPopup(null);
+    // @ts-expect-error
+    chrome.browserAction.getPopup(undefined);
+    // @ts-expect-error
+    chrome.browserAction.getPopup(console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
+function testBrowserAcionGetTitle() {
+    chrome.browserAction.getTitle({});
+    chrome.browserAction.getTitle({}, console.log);
+    chrome.browserAction.getTitle({ tabId: 0 });
+    chrome.browserAction.getTitle({ tabId: 0 }, console.log);
+    chrome.browserAction.getTitle({ tabId: null });
+    chrome.browserAction.getTitle({ tabId: null }, console.log);
+    chrome.browserAction.getTitle({ tabId: undefined });
+    chrome.browserAction.getTitle({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getTitle();
+    // @ts-expect-error
+    chrome.browserAction.getTitle(null);
+    // @ts-expect-error
+    chrome.browserAction.getTitle(undefined);
+    // @ts-expect-error
+    chrome.browserAction.getTitle(console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeBackgroundColor
+function testBrowserAcionSetBadgeBackgroundColor() {
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red' });
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red' }, console.log);
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red', tabId: 0 });
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red', tabId: 0 }, console.log);
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 });
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor();
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({});
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({ tabId: 0 });
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3] }, console.log);
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor(null);
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor(undefined);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
-function testSetBrowserBadgeText() {
+function testBrowserActionSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({});
     chrome.browserAction.setBadgeText({ text: "test" });
     chrome.browserAction.setBadgeText({ text: null });
@@ -989,6 +1110,61 @@ function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText();
     // @ts-expect-error
     chrome.browserAction.setBadgeText(undefined);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setIcon
+function testBrowserAcionSetIcon() {
+    chrome.browserAction.setIcon({ path: '/icon.png' });
+    chrome.browserAction.setIcon({ path: '/icon.png' }, console.log);
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' } });
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' } }, console.log);
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' }, tabId: 0 });
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' }, tabId: 0 }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setIcon();
+    // @ts-expect-error
+    chrome.browserAction.setIcon(null);
+    // @ts-expect-error
+    chrome.browserAction.setIcon(undefined);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setPopup
+function testBrowserAcionSetPopup() {
+    chrome.browserAction.setPopup({ popup: 'index.html' });
+    chrome.browserAction.setPopup({ popup: 'index.html' }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: 0 });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: 0 }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: null });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: null }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: undefined });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setPopup();
+    // @ts-expect-error
+    chrome.browserAction.setPopup(null);
+    // @ts-expect-error
+    chrome.browserAction.setPopup(undefined);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setTitle
+function testBrowserAcionSetTitle() {
+    chrome.browserAction.setTitle({ title: 'Title' });
+    chrome.browserAction.setTitle({ title: 'Title' }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: 0 });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: 0 }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: null });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: null }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: undefined });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setTitle();
+    // @ts-expect-error
+    chrome.browserAction.setTitle(null);
+    // @ts-expect-error
+    chrome.browserAction.setTitle(undefined);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/action/
