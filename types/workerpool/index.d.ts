@@ -37,7 +37,7 @@ export interface WorkerPool {
     exec<T extends (...args: any[]) => any>(
         method: T | string,
         params: Parameters<T> | null,
-        options?: { on?: (payload: any) => void; transfer?: any[] },
+        options?: { on?: (payload: any) => void; transfer?: Transferable[] },
     ): Promise<ReturnType<T>>;
 
     /**
@@ -64,13 +64,13 @@ export interface WorkerPool {
  */
 export class Transfer {
     message: any;
-    transfer: any[];
+    transfer: Transferable[];
 
     /**
      * @param message The object to deliver to the main thread.
      * @param transfer An array of transferable Objects to transfer ownership of.
      */
-    constructor(message: any, transfer: any[]);
+    constructor(message: any, transfer: Transferable[]);
 }
 
 export class Promise<T, E = Error> {
@@ -155,14 +155,13 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * Optionally, this callback can return an object containing one or more of the above properties.
      * The provided properties will be used to override the Pool properties for the worker being created.
      */
-    onCreateWorker?: ((options: WorkerHandlerOptions) => WorkerHandlerOptions) | undefined;
-
+    onCreateWorker?: ((options: WorkerHandlerOptions) => WorkerHandlerOptions | void) | undefined;
     /**
      * A callback that is called whenever a worker is being terminated.
      * It can be used to release resources that might have been allocated for this specific worker.
      * The callback is passed as argument an object as described for onCreateWorker, with each property sets with the value for the worker being terminated.
      */
-    onTerminateWorker?: ((options: WorkerHandlerOptions) => WorkerHandlerOptions) | undefined;
+    onTerminateWorker?: ((options: WorkerHandlerOptions) => void) | undefined;
 }
 
 /**
