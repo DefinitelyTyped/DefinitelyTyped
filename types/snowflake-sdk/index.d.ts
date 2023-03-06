@@ -468,7 +468,7 @@ export interface Statement {
     streamRows(options?: StreamOptions): Readable;
 }
 
-export type Bind = string | number;
+export type Bind = string | number | null;
 
 /**
  * Snowflake supports two variations of binding syntax.
