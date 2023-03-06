@@ -19,7 +19,7 @@ const event: CodeCommitTriggerEvent = {
             "eventPartNumber": 1,
             "eventSource": "aws:codecommit",
             "eventSourceARN": "arn:aws:codecommit:us-east-1:123456789012:TestRepo",
-            "eventTime": "2023-03-06T12: 39: 06.494+0000",
+            "eventTime": "2023-03-06T12:39:06.494+0000",
             "eventTotalParts": 1,
             "eventTriggerConfigId": "baa59553-44f2-4939-9f57-f1b1b2f6d031",
             "eventTriggerName": "my-trigger",
