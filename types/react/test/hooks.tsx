@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const {useSyncExternalStore} = React;
+const {useSyncExternalStore, useCallback} = React;
 
 interface PersonProps {
     name: string;
@@ -82,6 +82,10 @@ export function App() {
         <FancyButton onClick={() => dispatch({ type: "resetAge" })}>
             Let's start over.
         </FancyButton>
+        <div onClick={useCallback((e) => {
+            // e's type should infer from onClick, even though onClick is nullable
+            console.log(e.target);   
+        }, [])} />
     </>;
 }
 
