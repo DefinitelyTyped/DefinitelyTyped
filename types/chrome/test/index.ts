@@ -1055,6 +1055,25 @@ function testBrowserAcionSetIcon() {
     chrome.browserAction.setIcon(undefined);
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setIcon
+function testBrowserAcionSetTitle() {
+    chrome.browserAction.setTitle({ title: 'Title' });
+    chrome.browserAction.setTitle({ title: 'Title' }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: 0 });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: 0 }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: null });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: null }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: undefined });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setTitle();
+    // @ts-expect-error
+    chrome.browserAction.setTitle(null);
+    // @ts-expect-error
+    chrome.browserAction.setTitle(undefined);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/action/
 async function testActionForPromise() {
     await chrome.action.disable();

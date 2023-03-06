@@ -774,7 +774,7 @@ declare namespace chrome.browserAction {
         /** The string the browser action should display when moused over. */
         title: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number | undefined;
+        tabId?: number | null | undefined;
     }
 
     export interface TabDetails {
