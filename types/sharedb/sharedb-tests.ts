@@ -90,6 +90,9 @@ for (const action of submitRelatedActions) {
 
         if (agent.custom.user) {
             console.log(agent.custom.user.id);
+            console.log(agent.src);
+            console.log(agent.clientId);
+            console.log(agent.connectTime);
         }
         console.log(
             request.action,
