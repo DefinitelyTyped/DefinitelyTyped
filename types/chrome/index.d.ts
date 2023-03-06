@@ -774,12 +774,12 @@ declare namespace chrome.browserAction {
         /** The string the browser action should display when moused over. */
         title: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number | null | undefined;
+        tabId?: number | null;
     }
 
     export interface TabDetails {
         /** Optional. Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned.  */
-        tabId?: number | null | undefined;
+        tabId?: number | null;
     }
 
     export interface TabIconDetails {
@@ -793,7 +793,7 @@ declare namespace chrome.browserAction {
 
     export interface PopupDetails {
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number | null | undefined;
+        tabId?: number | null;
         /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
@@ -881,7 +881,7 @@ declare namespace chrome.browserAction {
      * @param callback Supported since Chrome 67
      */
     export function disable(callback: () => void): void;
-    export function disable(tabId: number | null | undefined, callback: () => void): void;
+    export function disable(tabId?: number | null, callback?: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the title of the browser action.
