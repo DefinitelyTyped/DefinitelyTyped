@@ -55,9 +55,6 @@ archiver.append(readStream, {
     name: 'sub/folder.xml',
 });
 
-archiver.glob('**', {
-    cwd: 'path/to/files',
-});
 archiver.glob('./path', {}, {});
 
 archiver.file('./path', { name: 'test' });

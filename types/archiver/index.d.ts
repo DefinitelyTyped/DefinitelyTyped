@@ -8,7 +8,7 @@
 
 import * as fs from 'fs';
 import * as stream from 'stream';
-import * as glob from 'glob';
+import * as ReaddirGlob from 'readdir-glob';
 import { ZlibOptions } from 'zlib';
 
 type Partial<T> = {
@@ -85,7 +85,7 @@ declare namespace archiver {
         /** if false is passed for destpath, the path of a chunk of data in the archive is set to the root */
         directory(dirpath: string, destpath: false | string, data?: Partial<EntryData> | EntryDataFunction): this;
         file(filename: string, data: EntryData): this;
-        glob(pattern: string, options?: glob.IOptions, data?: Partial<EntryData>): this;
+        glob(pattern: string, options?: ReaddirGlob.Options, data?: Partial<EntryData>): this;
         finalize(): Promise<void>;
 
         setFormat(format: string): this;
