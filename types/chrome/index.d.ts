@@ -779,7 +779,7 @@ declare namespace chrome.browserAction {
 
     export interface TabDetails {
         /** Optional. Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned.  */
-        tabId?: number | undefined;
+        tabId?: number | null | undefined;
     }
 
     export interface TabIconDetails {
