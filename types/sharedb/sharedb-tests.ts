@@ -150,6 +150,7 @@ backend.use('query', (context, callback) => {
         context.projection,
         context.fields,
         context.channel,
+        context.channels,
         context.query,
         context.options,
         context.snapshotProjection,
