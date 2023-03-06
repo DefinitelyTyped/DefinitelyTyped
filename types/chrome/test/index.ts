@@ -975,8 +975,31 @@ async function testDeclarativeNetRequest() {
     })
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeBackgroundColor
+function testBrowserAcionSetBadgeBackgroundColor() {
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red' });
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red' }, console.log);
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red', tabId: 0 });
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red', tabId: 0 }, console.log);
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 });
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor();
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({});
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({ tabId: 0 });
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3] }, console.log);
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor(null);
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor(undefined);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
-function testSetBrowserBadgeText() {
+function testBrowserActionSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({});
     chrome.browserAction.setBadgeText({ text: "test" });
     chrome.browserAction.setBadgeText({ text: null });

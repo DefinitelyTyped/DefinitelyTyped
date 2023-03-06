@@ -817,6 +817,7 @@ declare namespace chrome.browserAction {
     export function enable(tabId: number, callback: () => void): void;
     /**
      * Sets the background color for the badge.
+     * Strictly speaking, browserAction.setBadgeBackgroundColor() returns void and not a promise, but this is kept for backwards compatibility.
      * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
     export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Promise<void>;
@@ -824,7 +825,7 @@ declare namespace chrome.browserAction {
      * Sets the background color for the badge.
      * @param callback Supported since Chrome 67
      */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback: () => void): void;
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
     /**
      * Sets the badge text for the browser action. The badge is displayed on top of the icon.
      * @return The `setBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
