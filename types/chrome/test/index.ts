@@ -975,6 +975,19 @@ async function testDeclarativeNetRequest() {
     })
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-enable
+function testBrowserAcionEnable() {
+    chrome.browserAction.enable();
+    chrome.browserAction.enable(console.log);
+    chrome.browserAction.enable(0);
+    chrome.browserAction.enable(0, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor(null);
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor(undefined);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeBackgroundColor
 function testBrowserAcionSetBadgeBackgroundColor() {
     chrome.browserAction.setBadgeBackgroundColor({ color: 'red' });

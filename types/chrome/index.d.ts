@@ -813,8 +813,8 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @param callback Supported since Chrome 67
      */
-    export function enable(callback: () => void): void;
-    export function enable(tabId: number, callback: () => void): void;
+    export function enable(callback?: () => void): void;
+    export function enable(tabId: number, callback?: () => void): void;
     /**
      * Sets the background color for the badge.
      * Strictly speaking, browserAction.setBadgeBackgroundColor() returns void and not a promise, but this is kept for backwards compatibility.
