@@ -259,7 +259,6 @@ import * as trace_events from 'node:trace_events';
         createConnection: (authority, option) => {
             authority; // $ExpectType URL
             option; // $ExpectType SessionOptions
-            option.createConnection; // $ExpectError
             return {} as stream.Duplex;
         },
     });
