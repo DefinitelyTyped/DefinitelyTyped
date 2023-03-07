@@ -281,7 +281,16 @@ export interface OptionsPagination {
      * totalPages - Total pages in table
      * The function must return the contents of the counter, either the text value of the counter, valid HTML or a DOM node
      */
-    paginationCounter?: "rows" | "pages" | ((pageSize: number, currentRow: number, currentPage: number, totalRows: number, totalPages: number) => string|HTMLElement);
+    paginationCounter?:
+        | 'rows'
+        | 'pages'
+        | ((
+              pageSize: number,
+              currentRow: number,
+              currentPage: number,
+              totalRows: number,
+              totalPages: number,
+          ) => string | HTMLElement);
 
     /**
      * By default the counter will be displayed in the left of the table footer. If you would like it displayed in another element pass a DOM node or a CSS selector for that element.
@@ -507,6 +516,7 @@ export interface OptionsData {
     dataLoader?: boolean;
     dataLoaderLoading?: string | HTMLElement;
     dataLoaderError?: string;
+    dataLoaderErrorTimeout?: number;
     sortMode?: SortMode;
     filterMode?: SortMode;
 }
@@ -1602,7 +1612,7 @@ export type ColumnCalc =
     | 'count'
     | ((values: any[], data: any[], calcParams: {}) => any);
 
-export type ColumnCalcParams = (values: any, data: any) => any;
+export type ColumnCalcParams = { precision: number } | ((values: any, data: any) => any);
 
 export type Formatter =
     | 'plaintext'
@@ -2243,14 +2253,15 @@ export interface CellComponent {
 
 export interface EventCallBackMethods {
     validationFailed: (cell: CellComponent, value: any, validators: Validator[]) => void;
-    scrollHorizontal: (left: number) => void;
-    scrollVertical: (top: number) => void;
+    scrollHorizontal: (left: number, leftDir: boolean) => void;
+    scrollVertical: (top: number, topDir: boolean) => void;
     rowAdded: (row: RowComponent) => void;
     rowDeleted: (row: RowComponent) => void;
     rowMoving: (row: RowComponent) => void;
     rowMoved: (row: RowComponent) => void;
+    rowMoveCancelled: (row: RowComponent) => void;
     rowUpdated: (row: RowComponent) => void;
-    rowSelectionChanged: () => void;
+    rowSelectionChanged: (selectedData: any[], selectedRows: RowComponent[]) => void;
     rowSelected: (row: RowComponent) => void;
     rowDeselected: (row: RowComponent) => void;
     rowResized: (row: RowComponent) => void;
@@ -2277,6 +2288,7 @@ export interface EventCallBackMethods {
     dataTreeRowExpanded: (row: RowComponent, level: number) => void;
     dataTreeRowCollapsed: (row: RowComponent, level: number) => void;
     pageLoaded: (pageNo: number) => void;
+    pageSizeChanged: (pageSize: number) => void;
     headerClick: (event: UIEvent, column: ColumnComponent) => void;
     headerDblClick: (event: UIEvent, column: ColumnComponent) => void;
     headerContext: (event: UIEvent, column: ColumnComponent) => void;
@@ -2297,9 +2309,12 @@ export interface EventCallBackMethods {
     tableBuilding: () => void;
     tableBuilt: () => void;
     tableDestroyed: () => void;
+    dataChanged: (data: any[]) => void;
     dataLoading: (data: any[]) => void;
     dataLoaded: (data: any[]) => void;
-    dataChanged: (data: any[]) => void;
+    dataLoadError: (error: Error) => void;
+    dataProcessing: (data: any[]) => void;
+    dataProcessed: (data: any[]) => void;
     dataFiltering: (filters: Filter[]) => void;
     dataFiltered: (filters: Filter[], rows: RowComponent[]) => void;
     dataSorting: (sorters: SorterFromTable[]) => void;
@@ -2341,13 +2356,12 @@ export interface EventCallBackMethods {
     cellMouseOver: (event: UIEvent, cell: CellComponent) => void;
     cellMouseOut: (event: UIEvent, cell: CellComponent) => void;
     cellMouseMove: (event: UIEvent, cell: CellComponent) => void;
-    dataLoadError: (error: Error) => void;
-    dataProcessing: () => void;
-    dataProcessed: () => void;
     popupOpen: (cell: CellComponent) => void;
     popupClosed: (cell: CellComponent) => void;
     menuClosed: (cell: CellComponent) => void;
     menuOpened: (cell: CellComponent) => void;
+    TooltipClosed: (cell: CellComponent) => void;
+    TooltipOpened: (cell: CellComponent) => void;
 }
 
 declare class Tabulator {
@@ -2491,7 +2505,7 @@ declare class Tabulator {
     updateData: (data: Array<{}>) => Promise<void>;
 
     /** The addData method returns a promise, this can be used to run any other commands that have to be run after the data has been loaded into the table. By running them in the promise you ensure they are only run after the table has loaded the data. */
-    addData: (data?: Array<{}>, addToTop?: boolean, positionTarget?: RowLookup) => Promise<RowComponent>;
+    addData: (data?: Array<{}>, addToTop?: boolean, positionTarget?: RowLookup) => Promise<RowComponent[]>;
 
     /** If the data you are passing to the table contains a mix of existing rows to be updated and new rows to be added then you can call the updateOrAddData function. This will check each row object provided and update the existing row if available, or else create a new row with the data. */
     updateOrAddData: (data: Array<{}>) => Promise<RowComponent[]>;

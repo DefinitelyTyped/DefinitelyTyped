@@ -40,6 +40,12 @@ import * as os from 'node:os';
 }
 
 {
+    let result: number;
+
+    result = os.availableParallelism();
+}
+
+{
     let result: NodeJS.Dict<os.NetworkInterfaceInfo[]>;
 
     result = os.networkInterfaces();
