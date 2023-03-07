@@ -50,3 +50,8 @@ sdNotify.sendState(['STATUS=', 'OK']);
 sdNotify.sendState();
 // @ts-expect-error
 sdNotify.sendState(1);
+
+// $ExpectType void
+sdNotify.log.alert(['Hello there']);
+// @ts-expect-error
+sdNotify.log.alert();

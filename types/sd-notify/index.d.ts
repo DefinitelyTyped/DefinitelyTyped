@@ -3,7 +3,6 @@
 // Definitions by: Jan Beseda <https://github.com/Cheprer>
 //                 Rory Bradford <https://github.com/roryrjb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
 
 export type JournalPrint = (args: string[]) => void;
 
@@ -32,6 +31,7 @@ export interface Log {
     info: JournalPrint;
     debug: JournalPrint;
 }
+export const log: Log;
 
 // internal functions
 
@@ -48,5 +48,3 @@ export function watchdogInterval(): number;
  * Unwrapped sendStatus. Sends raw string without prepending `STATUS=` and appending new line char `\n`
  */
 export function sendState(args: string[]): void;
-
-export as namespace SdNotify;
