@@ -3634,8 +3634,8 @@ declare namespace google.maps {
      *     longitude wrapping.
      */
     constructor(
-        value: google.maps.LatLngAltitudeLiteral|google.maps.LatLng|
-        google.maps.LatLngLiteral,
+        value: google.maps.LatLngAltitudeLiteral|
+        google.maps.LatLngLiteral|google.maps.LatLng,
         noClampNoWrap?: boolean);
     /**
      * Returns the altitude.
@@ -3645,7 +3645,7 @@ declare namespace google.maps {
      * Comparison function.
      * @param other Another LatLngAltitude object.
      */
-    equals(other: google.maps.LatLngAltitude|null): boolean;
+    equals(other: null|google.maps.LatLngAltitude): boolean;
     /**
      * Returns the latitude.
      */
@@ -8413,6 +8413,53 @@ declare namespace google.maps.journeySharing {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
+   * DeliveryVehicleStop type
+   */
+  interface DeliveryVehicleStop {
+    /**
+     * The list of Tasks to be performed at this stop. <ul> <li><code>id</code>:
+     * the ID of the task. <li><code>extraDurationMillis</code>: the extra time
+     * it takes to perform the task, in milliseconds. </ul>
+     */
+    tasks: {extraDurationMillis: number|null, id: string|null}[];
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * The current state of a {@link
+   * google.maps.journeySharing.DeliveryVehicleStop}.
+   *
+   * When using `v=beta`, can be accessed by calling
+   * `const {DeliveryVehicleStopState} = await
+   * google.map.importLibrary("journeySharing")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  enum DeliveryVehicleStopState {
+    /**
+     * Arrived at stop. Assumes that when the vehicle is routing to the next
+     * stop, that all previous stops have been completed.
+     */
+    ARRIVED = 'ARRIVED',
+    /**
+     * Assigned and actively routing.
+     */
+    ENROUTE = 'ENROUTE',
+    /**
+     * Created, but not actively routing.
+     */
+    NEW = 'NEW',
+    /**
+     * Unknown.
+     */
+    UNSPECIFIED = 'UNSPECIFIED',
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
    * Delivery Fleet Location Provider.
    *
    * When using `v=beta`, can be accessed by calling
@@ -8821,10 +8868,6 @@ declare namespace google.maps.journeySharing {
     constructor(options: google.maps.journeySharing
                     .FleetEngineShipmentLocationProviderOptions);
     /**
-     * Returns the currently tracked task.
-     */
-    getTask(): google.maps.journeySharing.Task|null;
-    /**
      * Explicitly refreshes the tracked location.
      */
     refresh(): void;
@@ -8923,9 +8966,9 @@ declare namespace google.maps.journeySharing {
    */
   interface FleetEngineShipmentLocationProviderUpdateEvent {
     /**
-     * The task structure returned by the update. Unmodifiable.
+     * The task tracking info structure returned by the update. Unmodifiable.
      */
-    task: google.maps.journeySharing.Task|null;
+    taskTrackingInfo: google.maps.journeySharing.TaskTrackingInfo|null;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -9832,12 +9875,9 @@ declare namespace google.maps.journeySharing {
   interface ShipmentMarkerCustomizationFunctionParams extends
       google.maps.journeySharing.MarkerCustomizationFunctionParams {
     /**
-     * The task associated with this marker. <br><br>For information about the
-     * delivery vehicle servicing this task, use {@link
-     * google.maps.journeySharing.Task.latestVehicleLocationUpdate} and {@link
-     * google.maps.journeySharing.Task.remainingVehicleJourneySegments}.
+     * Information for the task associated with this marker.
      */
-    task: google.maps.journeySharing.Task;
+    taskTrackingInfo: google.maps.journeySharing.TaskTrackingInfo;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -9925,6 +9965,76 @@ declare namespace google.maps.journeySharing {
      * The task location represented by this marker.
      */
     task: google.maps.journeySharing.Task;
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * The details for a task tracking info object returned by Fleet Engine.
+   */
+  interface TaskTrackingInfo {
+    /**
+     * The estimated arrival time to the stop location.
+     */
+    estimatedArrivalTime: Date|null;
+    /**
+     * The estimated completion time of a Task.
+     */
+    estimatedTaskCompletionTime: Date|null;
+    /**
+     * Information specific to the last location update.
+     */
+    latestVehicleLocationUpdate:
+        google.maps.journeySharing.VehicleLocationUpdate|null;
+    /**
+     * The name in the format
+     * &quot;providers/{provider_id}/taskTrackingInfo/{tracking_id}&quot;, where
+     * <code>tracking_id</code> represents the tracking ID.
+     */
+    name: string;
+    /**
+     * The location where the Task will be completed.
+     */
+    plannedLocation: google.maps.LatLng|null;
+    /**
+     * The total remaining distance in meters to the <code>VehicleStop</code> of
+     * interest.
+     */
+    remainingDrivingDistanceMeters: number|null;
+    /**
+     * Indicates the number of stops the vehicle remaining until the task stop
+     * is reached, including the task stop. For example, if the vehicle&#39;s
+     * next stop is the task stop, the value will be 1.
+     */
+    remainingStopCount: number|null;
+    /**
+     * A list of points which when connected forms a polyline of the
+     * vehicle&#39;s expected route to the location of this task.
+     */
+    routePolylinePoints: google.maps.LatLng[]|null;
+    /**
+     * The current execution state of the Task.
+     */
+    state: string|null;
+    /**
+     * The outcome of attempting to execute a Task.
+     */
+    taskOutcome: string|null;
+    /**
+     * The time when the Task&#39;s outcome was set by the provider.
+     */
+    taskOutcomeTime: Date|null;
+    /**
+     * The tracking ID of a Task.<br> <ul> <li>Must be a valid Unicode
+     * string.</li> <li>Limited to a maximum length of 64 characters.</li>
+     * <li>Normalized according to <a
+     * href="http://www.unicode.org/reports/tr15/">Unicode Normalization Form
+     * C</a>.</li> <li>May not contain any of the following ASCII characters:
+     * &#39;/&#39;, &#39;:&#39;, &#39;?&#39;, &#39;,&#39;, or
+     * &#39;#&#39;.</li> </ul>
+     */
+    trackingId: string;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -10048,24 +10158,21 @@ declare namespace google.maps.journeySharing {
     /**
      * The travel distance from the previous stop to this stop, in meters.
      */
-    distanceMeters: number|null;
+    drivingDistanceMeters: number|null;
     /**
-     * The travel time from the previous stop to this stop, in milliseconds.
+     * The travel time from the previous stop this stop, in milliseconds.
      */
-    durationMillis: number|null;
+    drivingDurationMillis: number|null;
     /**
-     * The extra travel time due to the durations of the stop&#39;s tasks, in
-     * milliseconds.
-     */
-    extraDurationMillis: number|null;
-    /**
-     * The actual stop location.
-     */
-    location: google.maps.LatLngLiteral|null;
-    /**
-     * The path from the previous stop to this stop.
+     * The path from the previous waypoint (or the vehicle&#39;s current
+     * location, if this waypoint is the first in the list of waypoints) to this
+     * waypoint.
      */
     path: google.maps.LatLngLiteral[]|null;
+    /**
+     * The stops to be served by this vehicle.
+     */
+    stop: google.maps.journeySharing.DeliveryVehicleStop[]|null;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -10082,7 +10189,7 @@ declare namespace google.maps.journeySharing {
     /**
      * The location of the update.
      */
-    location: google.maps.LatLngLiteral|null;
+    location: google.maps.LatLngLiteral|null|google.maps.LatLng;
     /**
      * The speed in kilometers per hour.
      */
