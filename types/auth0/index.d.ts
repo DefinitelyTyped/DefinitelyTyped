@@ -543,7 +543,7 @@ export interface CreateConnection extends UpdateConnection {
 
 export interface GetConnectionsOptions extends PagingOptions {
     /** List of fields to include or exclude */
-    fields?: string[] | undefined;
+    fields?: string | string[] | undefined;
 
     /** true if the fields specified are to be included in the result, false otherwise. Default true */
     include_fields?: boolean | undefined;
