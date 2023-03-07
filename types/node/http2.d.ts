@@ -1053,10 +1053,10 @@ declare module 'http2' {
          */
         unknownProtocolTimeout?: number | undefined;
         selectPadding?(frameLen: number, maxFrameLen: number): number;
-        createConnection?: ((authority: url.URL, option: SessionOptions) => stream.Duplex) | undefined;
     }
     export interface ClientSessionOptions extends SessionOptions {
         maxReservedRemoteStreams?: number | undefined;
+        createConnection?: ((authority: url.URL, option: SessionOptions) => stream.Duplex) | undefined;
         protocol?: 'http:' | 'https:' | undefined;
     }
     export interface ServerSessionOptions extends SessionOptions {
