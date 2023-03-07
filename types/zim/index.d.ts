@@ -6959,8 +6959,8 @@ export class Three {
     readonly canvas:HTMLCanvasElement
     readonly DOMElement:any
     readonly scene:any
-    readonly camera:any
-    readonly resizeEvent:any
+    readonly camera:any;
+    readonly resizeEvent:any;
 }
 
 
