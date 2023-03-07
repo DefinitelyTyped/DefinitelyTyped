@@ -9,13 +9,13 @@ export type CodeCommitHandler = Handler<CodeCommitTrigger, void>;
 export interface CodeCommitTrigger {
     awsRegion: string;
     codecommit: {
-        references:
+        references: Array<
         {
             commit: string;
             created?: boolean;
             deleted?: boolean;
             ref: string;
-        }[];
+        }>;
     };
     customData: string;
     eventId: string;
