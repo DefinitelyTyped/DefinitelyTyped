@@ -431,9 +431,9 @@ declare namespace sharp {
         /**
          * Enhance output image contrast by stretching its luminance to cover the full dynamic range.
          * passing a lower or upper bin values will stretch the luminance such that the upper and lower
-         * bin values are at 0 to 255. all values above or below the upper and lower limit will be 
+         * bin values are at 0 to 255. all values above or below the upper and lower limit will be
          * clipped to 0 and 255.
-         * @param normalise true to enable and false to disable, or an object with a 
+         * @param normalise true to enable and false to disable, or an object with a
          * lower and upper bin value to stretch the luminance between those two values (defaults to true)
          * @returns A sharp instance that can be used to chain operations
          */
@@ -441,7 +441,7 @@ declare namespace sharp {
 
         /**
          * Alternative spelling of normalise.
-         * @param normalise true to enable and false to disable, or an object with a 
+         * @param normalise true to enable and false to disable, or an object with a
          * lower and upper bin value to stretch the luminance between those two values (defaults to true)
          * @returns A sharp instance that can be used to chain operations
          */
@@ -1202,7 +1202,7 @@ declare namespace sharp {
         /** lower percentage of luminance which to perform normalisation against */
         lowerBin?: boolean | undefined;
         /** upper percentage of luminance which to perform normalisation against */
-        upperBin?: number | undefined
+        upperBin?: number | undefined;
     }
 
     interface ResizeOptions {
