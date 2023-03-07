@@ -1,4 +1,5 @@
 import DOMPurify = require('dompurify');
+import { JSDOM } = require('jsdom');
 
 DOMPurify.addHook('beforeSanitizeElements', (el, data, config) => undefined);
 
@@ -66,6 +67,10 @@ customDOMPurify.sanitize(dirty);
 const customWindow: Window = window;
 const customDOMPurifyWithCustomWindow = createDOMPurify(customWindow);
 customDOMPurifyWithCustomWindow.sanitize(dirty);
+
+const jsdomWindow = new JSDOM('<!DOCTYPE html>').window;
+const customDOMPurifyWithJsdomWindow = createDOMPurify(jsdomWindow);
+customDOMPurifyWithJsdomWindow.sanitize(dirty);
 
 // test the 'DOMPurifyI' type is publicly accessible.
 function registerDomPurifyInstance(domPurify: DOMPurify.DOMPurifyI) {}
