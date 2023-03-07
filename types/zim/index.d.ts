@@ -1,17 +1,19 @@
 // Type definitions for ZIM at https://zimjs.com
 // Project: https://github.com/danzen/zimjs
-// Definitions by: Dan Zen <https://github.com/danzen>
+// Definitions by: Lucas Joel <https://github.com/lucasjoel1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.3
 
 // Documentation : https://zimjs.com/docs.html
 // with thanks to Lucas Joel, Manthan224, Geoffrey Nwachukwu, Kenil Domadia, and a lost teacher
 
-/// <reference path="../createjs-lib/index.d.ts" />
-/// <reference path="../easeljs/index.d.ts" />
-/// <reference path="../preloadjs/index.d.ts" />
-/// <reference path="../soundjs/index.d.ts" />
-/// <reference path="../tweenjs/index.d.ts" />
+/// <reference types="createjs-lib" />
+/// <reference types="easeljs" />
+/// <reference types="preloadjs" />
+/// <reference types="soundjs" />
+/// <reference types="tweenjs" />
+
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // INSTRUCTIONS
