@@ -433,14 +433,16 @@ declare namespace sharp {
          * passing a lower or upper bin values will stretch the luminance such that the upper and lower
          * bin values are at 0 to 255. all values above or below the upper and lower limit will be 
          * clipped to 0 and 255.
-         * @param normalise true to enable and false to disable (defaults to true)
+         * @param normalise true to enable and false to disable, or an object with a 
+         * lower and upper bin value to stretch the luminance between those two values (defaults to true)
          * @returns A sharp instance that can be used to chain operations
          */
         normalise(normalise?: boolean | NormalizeOptions): Sharp;
 
         /**
          * Alternative spelling of normalise.
-         * @param normalize true to enable and false to disable (defaults to true)
+         * @param normalise true to enable and false to disable, or an object with a 
+         * lower and upper bin value to stretch the luminance between those two values (defaults to true)
          * @returns A sharp instance that can be used to chain operations
          */
         normalize(normalize?: boolean | NormalizeOptions): Sharp;
