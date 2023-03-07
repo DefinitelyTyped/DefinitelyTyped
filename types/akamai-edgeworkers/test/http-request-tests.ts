@@ -9,7 +9,7 @@ httpRequest("url", {});
 httpRequest("url", { headers: { "Accept-Encoding": "zz" } });
 httpRequest("url", { method: "POST", body: "post payload" });
 httpRequest("url", { timeout: 9 });
-httpRequest("url", { 
+httpRequest("url", {
     method: "POST",
     body: new ReadableStream({start(controller) {
         controller.enqueue("This is a ReadableStream test");
