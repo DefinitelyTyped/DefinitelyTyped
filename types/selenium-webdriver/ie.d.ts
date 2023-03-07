@@ -198,6 +198,20 @@ export class Options extends webdriver.Capabilities {
    * @return {!Options} A self reference.
    */
   setProxy(proxy: webdriver.ProxyConfig): Options;
+
+  /**
+   * Sets the IEDriver to drive Chromium-based Edge in Internet Explorer mode.
+   * @param {boolean} attachEdgeChromium Whether to run in Chromium-based-Edge in IE mode
+   * @return {!Options} A self reference.
+   */
+  setEdgeChromium(attachEdgeChromium: boolean): Options;
+
+  /**
+   * Sets the path of the EdgeChromium driver.
+   * @param {string} path The EdgeChromium driver path
+   * @return {!Options} A self reference.
+   */
+  setEdgePath(path: string): Options;
 }
 
 /**

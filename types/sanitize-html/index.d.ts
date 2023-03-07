@@ -48,6 +48,7 @@ declare namespace sanitize {
     attribs: { [index: string]: string };
     text: string;
     tagPosition: number;
+    mediaChildren: string[];
   }
 
   // tslint:disable-next-line:interface-name

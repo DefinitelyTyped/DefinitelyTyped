@@ -54,7 +54,7 @@ import './net/grpc';
 /**
  * Run checks on a value.
  * https://k6.io/docs/javascript-api/k6/check-val-sets-tags/
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
@@ -79,7 +79,7 @@ export function fail(err?: string): never;
 /**
  * Run code inside a group.
  * https://k6.io/docs/javascript-api/k6/group-name-fn/
- * @typeParam RT - Return type.
+ * @template RT - Return type.
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
@@ -101,7 +101,7 @@ export function sleep(t: number): void;
 
 /**
  * Check procedure.
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  */
 export interface Checker<VT> {
     /**
@@ -114,7 +114,7 @@ export interface Checker<VT> {
 
 /**
  * Named check procedures.
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  */
 export interface Checkers<VT> {
     [description: string]: Checker<VT>;

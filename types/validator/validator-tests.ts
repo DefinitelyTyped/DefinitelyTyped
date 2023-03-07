@@ -138,8 +138,8 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isByteLength = validator.isByteLength;
     _isByteLength = isByteLengthFunc;
 
-    let _isCreditCard = validator.isCreditCard;
-    _isCreditCard = isCreditCardFunc;
+    let _isCreditCard = validator.isCreditCard; // $ExpectType (str: string, options?: IsCreditCardOptions | undefined) => boolean
+    _isCreditCard = isCreditCardFunc; // $ExpectType (str: string, options?: IsCreditCardOptions | undefined) => boolean
 
     let _isCurrency = validator.isCurrency;
     _isCurrency = isCurrencyFunc;
@@ -600,7 +600,9 @@ const any: any = null;
     const isByteLengthOptions: validator.IsByteLengthOptions = {};
     result = validator.isByteLength('sample', isByteLengthOptions);
 
-    result = validator.isCreditCard('sample');
+    const isCreditCardOptions: validator.IsCreditCardOptions = {};
+    result = validator.isCreditCard('sample'); // $ExpectType boolean
+    result = validator.isCreditCard('sample', isCreditCardOptions); // $ExpectType boolean
 
     const isCurrencyOptions: validator.IsCurrencyOptions = {};
     result = validator.isCurrency('sample');
