@@ -1,5 +1,7 @@
 import DOMPurify = require('dompurify');
-import { JSDOM } = require('jsdom');
+import jsdom = require('jsdom');
+
+const { JSDOM } = jsdom;
 
 DOMPurify.addHook('beforeSanitizeElements', (el, data, config) => undefined);
 
