@@ -451,8 +451,8 @@ import * as trace_events from 'trace_events';
 {
     http2.connect('https://foo.com', {
         createConnection: (authority, option) => {
-            authority; // $ExpectType url.URL
-            option; // $ExpectType http2.SessionOptions
+            authority; // $ExpectType URL
+            option; // $ExpectType SessionOptions
             option.createConnection; // $ExpectError
             return {} as stream.Duplex;
         },
