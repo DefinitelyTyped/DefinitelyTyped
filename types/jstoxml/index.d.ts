@@ -73,7 +73,7 @@ export interface XmlOptions {
      * If for some reason you want to avoid self-closing tags, you can pass in a special config option _selfCloseTag.
      * @default true
      */
-    _selfCloseTag?: boolean | undefined;
+    selfCloseTags?: boolean | undefined;
 }
 
 export function toXML(obj?: XmlElement | XmlElement[], options?: XmlOptions): string;
