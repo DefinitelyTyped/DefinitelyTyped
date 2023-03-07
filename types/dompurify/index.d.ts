@@ -7,6 +7,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Nicholas Ellul <https://github.com/NicholasEllul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.5
 /// <reference types="trusted-types"/>
 
 import { DOMWindow } from 'jsdom';
