@@ -15,7 +15,7 @@
 export as namespace async;
 
 export interface Dictionary<T> { [key: string]: T; }
-export type IterableCollection<T> = T[] | IterableIterator<T> | AsyncIterable<T> | Dictionary<T>;
+export type IterableCollection<T> = T[] | Iterable<T> | AsyncIterable<T> | Dictionary<T>;
 
 export interface ErrorCallback<E = Error> { (err?: E | null): void; }
 export interface AsyncBooleanResultCallback<E = Error> { (err?: E | null, truthValue?: boolean): void; }
