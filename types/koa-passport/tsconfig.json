@@ -13,6 +13,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "history": [ "v4"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
