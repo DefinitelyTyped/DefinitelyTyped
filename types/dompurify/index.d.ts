@@ -9,13 +9,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="trusted-types"/>
 
+import { DOMWindow } from 'jsdom';
+
 export as namespace DOMPurify;
 export = DOMPurify;
 
 declare const DOMPurify: createDOMPurifyI;
 
 interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
-    (window?: Window): DOMPurify.DOMPurifyI;
+    (window?: Window | DOMWindow): DOMPurify.DOMPurifyI;
 }
 
 declare namespace DOMPurify {
