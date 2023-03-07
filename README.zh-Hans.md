@@ -336,6 +336,16 @@ const enum Enum { Two } // eslint-disable-line no-const-enum
 在极少数情况下，`@types` 软件包因原始软件包包含了自己的类型定义而被删除，但你需要依赖旧的、已经删除的 `@types` 软件包。此时，你可以添加对 `@types` 软件包的依赖。
 在添加到允许的软件包列表中时，请务必解释一下原因，以便让人工维护者知道发生了什么。
 
+创建自己的 `package.json` 的第二个原因是为了使类型定义包成为 ECMAScript 模块。
+如果对应的软件包实现使用了 ES 模块并且指定了 `"type": "module"`，你可以新建一个 `package.json` 文件并添加相同内容：
+```json
+{
+    "private": true,
+    "type": "module"
+}
+```
+如果软件包在 `package.json` 中包含了 `export` 导出，这么做仍旧适用。
+
 #### `OTHER_FILES.txt`
 
 如果有一些文件需要包含在类型定义包中，但没有在测试文件或 `index.d.ts` 中被引用的话。你需要在 `OTHER_FILES.txt` 列出，一行一个文件。
@@ -360,7 +370,7 @@ const enum Enum { Two } // eslint-disable-line no-const-enum
   可接受的类型参数示例：`function id<T>(value: T): T;`。
   不可接受的类型参数示例：`function parseJson<T>(json: string): T;`。
   例外：`new Map<string, number>()` 是可以接受的。
-* 使用 `Function` 和 `Object` 类型基本上属于下下策。在绝大多数情况下，你都可以将其替换为更精确的类型。例如，如果你打算使用 [Function](https://www.typescriptlang.org/docs/handbook/functions.html#function-types)，或许 `(x: number) => number` 更适合；如果你打算使用 `Object`，或许 `{ x: number, y: number }` 会更好。对于完全无法确定的类型，应使用 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) 而不是 `Object`。如果仅知道某个类型为某种对象，请使用 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)，而不是 `Object` 或 `{ [key: string]: any }`。
+* 使用 `Function` 和 `Object` 类型基本上属于下下策。在绝大多数情况下，你都可以将其替换为更精确的类型。例如，如果你打算使用 [Function](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-type-expressions)，或许 `(x: number) => number` 更适合；如果你打算使用 `Object`，或许 `{ x: number, y: number }` 会更好。对于完全无法确定的类型，应使用 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) 而不是 `Object`。如果仅知道某个类型为某种对象，请使用 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)，而不是 `Object` 或 `{ [key: string]: any }`。
 * `var foo: string | any`:
  在联合类型中使用 `any` 将导致最终结果始终为 `any`。因此，即便类型中的 `string` 部分*看起来*很有用，但实际上在类型检查方面与 `any` 并无区别。根据你的实际目的，请考虑选择 `any`、`string`，或 `string | object`。
 
@@ -595,9 +605,11 @@ TypeScript 手册包含了优秀的[编写类型定义的一般信息](https://w
 
 ```json
 {
-    "paths":{
+  "compilerOptions": {
+    "paths": {
       "@foo/*": ["foo__*"]
     }
+  }
 }
 ```
 
