@@ -2561,7 +2561,6 @@ declare namespace chrome.devtools.panels {
 
     export interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> { }
 
-
     /** A sidebar created by the extension. */
     export interface ExtensionSidebarPane {
         /**
@@ -3702,7 +3701,7 @@ declare namespace chrome.fileSystemProvider {
         thumbnail: boolean;
         /** Set to true if is_directory value is requested. */
         isDirectory: boolean;
-        /** Set to true if is_directory value is requested. */
+        /** Set to true if name value is requested. */
         name: boolean;
         /** Set to true if size value is requested. */
         size: boolean;
@@ -3717,7 +3716,7 @@ declare namespace chrome.fileSystemProvider {
         directoryPath: string;
         /** Set to true if is_directory value is requested. */
         isDirectory: boolean;
-        /** Set to true if is_directory value is requested. */
+        /** Set to true if name value is requested. */
         name: boolean;
         /** Set to true if size value is requested. */
         size: boolean;

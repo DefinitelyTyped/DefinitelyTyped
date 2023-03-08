@@ -1920,52 +1920,52 @@ async function testOffscreenDocument() {
 // https://developer.chrome.com/docs/extensions/reference/fileSystemProvider/
 function testFileSystemProvider() {
     // Checking onGetMetadataRequested, its option and EntryMetadata.
-    chrome.fileSystemProvider.onGetMetadataRequested.addListener((
-        options: chrome.fileSystemProvider.MetadataRequestedEventOptions,
-        successCallback: (
-          metadata: chrome.fileSystemProvider.EntryMetadata
-        ) => void,
-        errorCallback: (error: string) => void,
-    ) => {
-        const entryMetadata: chrome.fileSystemProvider.EntryMetadata = {};
-        if (options.isDirectory) {
-          entryMetadata.isDirectory = true;
-        }
-        if (options.name) {
-          entryMetadata.name = 'some-file.txt';
-        }
-        if (options.size) {
-          entryMetadata.size = 42;
-        }
-        if (options.mimeType) {
-          entryMetadata.mimeType = 'text/plain';
-        }
-    }
+    chrome.fileSystemProvider.onGetMetadataRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.MetadataRequestedEventOptions,
+            successCallback: (metadata: chrome.fileSystemProvider.EntryMetadata) => void,
+            errorCallback: (error: string) => void,
+        ) => {
+            const entryMetadata: chrome.fileSystemProvider.EntryMetadata = {};
+            if (options.isDirectory) {
+                entryMetadata.isDirectory = true;
+            }
+            if (options.name) {
+                entryMetadata.name = 'some-file.txt';
+            }
+            if (options.size) {
+                entryMetadata.size = 42;
+            }
+            if (options.mimeType) {
+                entryMetadata.mimeType = 'text/plain';
+            }
+        },
     );
 
     // Checking onReadDirectoryRequested.
-    chrome.fileSystemProvider.onReadDirectoryRequested.addListener((
-        options: chrome.fileSystemProvider.DirectoryPathRequestedEventOptions,
-        successCallback: (
-          entries: chrome.fileSystemProvider.EntryMetadata[],
-          hasMore: boolean
-        ) => void,
-        errorCallback: (error: string) => void) => {
-        }
-      );
+    chrome.fileSystemProvider.onReadDirectoryRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.DirectoryPathRequestedEventOptions,
+            successCallback: (entries: chrome.fileSystemProvider.EntryMetadata[], hasMore: boolean) => void,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
 
     // Checking onGetActionsRequested.
-    chrome.fileSystemProvider.onGetActionsRequested.addListener((
-        options: chrome.fileSystemProvider.GetActionsRequestedOptions,
-        successCallback: (actions: chrome.fileSystemProvider.Action[]) => void,
-        errorCallback: (error: string) => void) => {}
+    chrome.fileSystemProvider.onGetActionsRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.GetActionsRequestedOptions,
+            successCallback: (actions: chrome.fileSystemProvider.Action[]) => void,
+            errorCallback: (error: string) => void,
+        ) => {},
     );
 
     // Checking onExecuteActionRequested.
-    chrome.fileSystemProvider.onExecuteActionRequested.addListener((
-        options: chrome.fileSystemProvider.ExecuteActionRequestedOptions,
-        successCallback: () => void,
-        errorCallback: (error: string) => void) => {}
-      );
-
+    chrome.fileSystemProvider.onExecuteActionRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.ExecuteActionRequestedOptions,
+            successCallback: () => void,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
 }
