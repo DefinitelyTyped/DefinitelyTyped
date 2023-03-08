@@ -6,7 +6,7 @@
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
+// Minimum TypeScript Version: 3.4
 
 import { GeneratorOptions } from '@babel/generator';
 import { ParserOptions } from '@babel/parser';
