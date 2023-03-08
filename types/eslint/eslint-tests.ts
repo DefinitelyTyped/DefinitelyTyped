@@ -477,7 +477,12 @@ rule = {
                 // @ts-expect-error
                 node.parent;
             },
-            'Program:exit'() {},
+            'Program:exit'(node) {
+                node.body;
+            },
+            'IfStatement:exit'(node) {
+                node.parent;
+            },
             'MemberExpression[object.name="req"]': (node: Rule.Node) => {
                 node.parent;
             },
