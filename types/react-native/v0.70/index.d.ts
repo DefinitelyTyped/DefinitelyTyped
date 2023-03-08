@@ -7227,6 +7227,14 @@ type AccessibilityAnnouncementFinishedEvent = {
 
 type AccessibilityAnnouncementFinishedEventHandler = (event: AccessibilityAnnouncementFinishedEvent) => void;
 
+type AccessibilitAnnouncementOptions = {
+    /**
+     * @platform ios
+     * queue the announcement behind existing speech
+     */
+    queue?: boolean
+}
+
 /**
  * @see https://reactnative.dev/docs/accessibilityinfo
  */
@@ -7298,6 +7306,12 @@ export interface AccessibilityInfoStatic {
      * Post a string to be announced by the screen reader.
      */
     announceForAccessibility: (announcement: string) => void;
+
+    /**
+     * Post a string to be announced by the screen reader with modification options.
+     * By default announcements will interrupt any existing speech, but on iOS they can be queued behind existing speech by setting queue to true in the options object.
+     */
+    announceForAccessibilityWithOptions: (announcement: string, options: AccessibilitAnnouncementOptions) => void;
 
     /**
      * Gets the timeout in millisecond that the user needs.
