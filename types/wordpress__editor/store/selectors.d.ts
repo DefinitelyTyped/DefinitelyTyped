@@ -1,6 +1,6 @@
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance } from '@wordpress/blocks';
-import { EntityRecord, User } from '@wordpress/core-data';
+import { EntityRecord, Page, Post, User } from '@wordpress/core-data';
 
 export {
     canInsertBlockType,
@@ -99,16 +99,16 @@ export function getAutosaveAttribute<T extends keyof EntityRecord<any>>(attribut
  * edits. Returns an object containing relevant default post values if the post has not yet been
  * saved.
  */
-export function getCurrentPost(): EntityRecord<any>;
+export function getCurrentPost(): Page | Post;
 
 /**
  * Returns an attribute value of the saved post.
  *
  * @param attributeName - Post attribute name.
  */
-export function getCurrentPostAttribute<T extends keyof EntityRecord<any>>(
+export function getCurrentPostAttribute<T extends keyof (Page | Post)>(
     attributeName: T
-): EntityRecord<any>[T] | undefined;
+): (Page | Post)[T] | undefined;
 
 /**
  * Returns the ID of the post currently being edited.
@@ -137,9 +137,9 @@ export function getCurrentPostType(): string;
  *
  * @param attributeName - Post attribute name.
  */
-export function getEditedPostAttribute<T extends keyof EntityRecord<any>>(
+export function getEditedPostAttribute<T extends keyof (Page | Post)>(
     attributeName: T
-): EntityRecord<any>[T] | undefined;
+): (Page | Post)[T] | undefined;
 
 /**
  * Returns the content of the post being edited, preferring raw string edit before falling back to
