@@ -112,6 +112,17 @@ export default class Drawflow {
      * Graph data object
      */
     drawflow: DrawflowExport;
+    
+    /**
+     * Nodes should use uuid instead of id
+     * @default false
+     */
+    useuuid: boolean;
+
+    /**
+     * The drawflow "canvas" element
+     */
+    precanvas: HTMLElement;
 
     start(): void;
 
