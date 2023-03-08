@@ -712,8 +712,9 @@ export class Linter {
 
 export namespace Linter {
     type Severity = 0 | 1 | 2;
+    type StringSeverity = "off" | "warn" | "error";
 
-    type RuleLevel = Severity | "off" | "warn" | "error";
+    type RuleLevel = Severity | StringSeverity;
     type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
     type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
@@ -985,7 +986,7 @@ export namespace ESLint {
         overrideConfig?: Linter.Config | undefined;
         overrideConfigFile?: string | undefined;
         plugins?: Record<string, Plugin> | undefined;
-        reportUnusedDisableDirectives?: "off" | "warn" | "error" | undefined;
+        reportUnusedDisableDirectives?: Linter.StringSeverity | undefined;
         resolvePluginsRelativeTo?: string | undefined;
         rulePaths?: string[] | undefined;
         useEslintrc?: boolean | undefined;
