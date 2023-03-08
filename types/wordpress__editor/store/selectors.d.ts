@@ -1,6 +1,6 @@
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance } from '@wordpress/blocks';
-import { EntityRecord, Schema } from '@wordpress/core-data';
+import { EntityRecord, User } from '@wordpress/core-data';
 
 export {
     canInsertBlockType,
@@ -99,16 +99,16 @@ export function getAutosaveAttribute<T extends keyof EntityRecord<any>>(attribut
  * edits. Returns an object containing relevant default post values if the post has not yet been
  * saved.
  */
-export function getCurrentPost(): Schema.Decontextualize<Schema.PostOrPage<'edit'>>;
+export function getCurrentPost(): EntityRecord<any>;
 
 /**
  * Returns an attribute value of the saved post.
  *
  * @param attributeName - Post attribute name.
  */
-export function getCurrentPostAttribute<T extends keyof Schema.PostOrPage<'edit'>>(
+export function getCurrentPostAttribute<T extends keyof EntityRecord<any>>(
     attributeName: T
-): Schema.Decontextualize<Schema.PostOrPage<'edit'>>[T] | undefined;
+): EntityRecord<any>[T] | undefined;
 
 /**
  * Returns the ID of the post currently being edited.
@@ -137,9 +137,9 @@ export function getCurrentPostType(): string;
  *
  * @param attributeName - Post attribute name.
  */
-export function getEditedPostAttribute<T extends keyof Schema.PostOrPage<'edit'>>(
+export function getEditedPostAttribute<T extends keyof EntityRecord<any>>(
     attributeName: T
-): Schema.Decontextualize<Schema.PostOrPage<'edit'>>[T] | undefined;
+): EntityRecord<any>[T] | undefined;
 
 /**
  * Returns the content of the post being edited, preferring raw string edit before falling back to
@@ -189,12 +189,12 @@ export function getPermalinkParts(): { postName: string; prefix: string; suffix?
  *
  * @returns Object of key value pairs comprising unsaved edits.
  */
-export function getPostEdits(): Partial<Schema.Decontextualize<Schema.PostOrPage<'edit'>>>;
+export function getPostEdits(): any;
 
 /**
  * Returns details about the post lock user.
  */
-export function getPostLockUser(): Schema.User | undefined | null;
+export function getPostLockUser(): User | undefined | null;
 
 /**
  * Returns state object prior to a specified optimist transaction ID, or `null` if the transaction
