@@ -1,4 +1,4 @@
-// Type definitions for drawflow 0.0.59
+// Type definitions for drawflow 0.0
 // Project: https://github.com/jerosoler/Drawflow
 // Definitions by: Benjamin Maisonneuve <https://github.com/BobBDE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
