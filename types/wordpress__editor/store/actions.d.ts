@@ -1,6 +1,5 @@
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance, TemplateArray } from '@wordpress/blocks';
-import { Autosave } from '@wordpress/core-data';
 
 export {
     clearSelectedBlock,

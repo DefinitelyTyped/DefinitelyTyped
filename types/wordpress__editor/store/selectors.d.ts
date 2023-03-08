@@ -1,6 +1,6 @@
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance } from '@wordpress/blocks';
-import { Autosave, Schema } from '@wordpress/core-data';
+import { EntityRecord, Schema } from '@wordpress/core-data';
 
 export {
     canInsertBlockType,
@@ -92,7 +92,7 @@ export function getActivePostLock(): string | undefined;
  *
  * @param attributeName - Autosave attribute name.
  */
-export function getAutosaveAttribute<T extends keyof Autosave>(attributeName: T): Autosave[T] | {};
+export function getAutosaveAttribute<T extends keyof EntityRecord<any>>(attributeName: T): EntityRecord<any>[T] | {};
 
 /**
  * Returns the post currently being edited in its last known saved state, not including unsaved
