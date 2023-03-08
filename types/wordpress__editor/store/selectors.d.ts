@@ -92,7 +92,7 @@ export function getActivePostLock(): string | undefined;
  *
  * @param attributeName - Autosave attribute name.
  */
-export function getAutosaveAttribute<T extends keyof EntityRecord<any>>(attributeName: T): EntityRecord<any>[T] | {};
+export function getAutosaveAttribute(attributeName: string): EntityRecord<any>[keyof EntityRecord<any>] | {};
 
 /**
  * Returns the post currently being edited in its last known saved state, not including unsaved
