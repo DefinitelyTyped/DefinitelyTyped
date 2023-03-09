@@ -5,6 +5,7 @@ import {
     File,
     constants,
     isUtf8,
+    isAscii,
     kMaxLength,
     kStringMaxLength,
     resolveObjectURL,
@@ -41,6 +42,11 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const bool1: boolean = isUtf8(new Buffer('hello'));
     const bool2: boolean = isUtf8(new ArrayBuffer(0));
     const bool3: boolean = isUtf8(new Uint8Array());
+}
+{
+    const bool1: boolean = isAscii(new Buffer('hello'));
+    const bool2: boolean = isAscii(new ArrayBuffer(0));
+    const bool3: boolean = isAscii(new Uint8Array());
 }
 
 // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
