@@ -10,43 +10,43 @@ import { Rgb } from '../rgb/types';
 import { Jch } from './types';
 
 declare const definition: {
-	mode: 'jch';
+    mode: 'jch';
 
-	parse: ['--jzczhz'];
-	serialize: '--jzczhz';
+    parse: ['--jzczhz'];
+    serialize: '--jzczhz';
 
-	toMode: {
-		jab: typeof convertJchToJab;
-		rgb: (c: Omit<Jch, 'mode'>) => Rgb;
-	};
+    toMode: {
+        jab: typeof convertJchToJab;
+        rgb: (c: Omit<Jch, 'mode'>) => Rgb;
+    };
 
-	fromMode: {
-		rgb: (c: Omit<Rgb, 'mode'>) => Jch;
-		jab: typeof convertJabToJch;
-	};
+    fromMode: {
+        rgb: (c: Omit<Rgb, 'mode'>) => Jch;
+        jab: typeof convertJabToJch;
+    };
 
-	channels: ['j', 'c', 'h', 'alpha'];
+    channels: ['j', 'c', 'h', 'alpha'];
 
-	ranges: {
-		j: [0, 0.221];
-		c: [0, 0.19];
-		h: [0, 360];
-	};
+    ranges: {
+        j: [0, 0.221];
+        c: [0, 0.19];
+        h: [0, 360];
+    };
 
-	interpolate: {
-		h: { use: typeof interpolatorLinear; fixup: typeof fixupHueShorter };
-		c: typeof interpolatorLinear;
-		j: typeof interpolatorLinear;
-		alpha: { use: typeof interpolatorLinear; fixup: typeof fixupAlpha };
-	};
+    interpolate: {
+        h: { use: typeof interpolatorLinear; fixup: typeof fixupHueShorter };
+        c: typeof interpolatorLinear;
+        j: typeof interpolatorLinear;
+        alpha: { use: typeof interpolatorLinear; fixup: typeof fixupAlpha };
+    };
 
-	difference: {
-		h: typeof differenceHueChroma;
-	};
+    difference: {
+        h: typeof differenceHueChroma;
+    };
 
-	average: {
-		h: typeof averageAngle;
-	};
+    average: {
+        h: typeof averageAngle;
+    };
 };
 
 export default definition;

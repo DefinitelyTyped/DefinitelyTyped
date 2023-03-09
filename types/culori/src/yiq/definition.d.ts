@@ -4,32 +4,32 @@ import { interpolatorLinear } from '../interpolate/linear';
 import { fixupAlpha } from '../fixup/alpha';
 
 declare const definition: {
-	mode: 'yiq';
+    mode: 'yiq';
 
-	toMode: {
-		rgb: typeof convertYiqToRgb;
-	};
+    toMode: {
+        rgb: typeof convertYiqToRgb;
+    };
 
-	fromMode: {
-		rgb: typeof convertRgbToYiq;
-	};
+    fromMode: {
+        rgb: typeof convertRgbToYiq;
+    };
 
-	channels: ['y', 'i', 'q', 'alpha'];
+    channels: ['y', 'i', 'q', 'alpha'];
 
-	parse: ['--yiq'];
-	serialize: '--yiq';
+    parse: ['--yiq'];
+    serialize: '--yiq';
 
-	ranges: {
-		i: [-0.595, 0.595];
-		q: [-0.522, 0.522];
-	};
+    ranges: {
+        i: [-0.595, 0.595];
+        q: [-0.522, 0.522];
+    };
 
-	interpolate: {
-		y: typeof interpolatorLinear;
-		i: typeof interpolatorLinear;
-		q: typeof interpolatorLinear;
-		alpha: { use: typeof interpolatorLinear; fixup: typeof fixupAlpha };
-	};
+    interpolate: {
+        y: typeof interpolatorLinear;
+        i: typeof interpolatorLinear;
+        q: typeof interpolatorLinear;
+        alpha: { use: typeof interpolatorLinear; fixup: typeof fixupAlpha };
+    };
 };
 
 export default definition;

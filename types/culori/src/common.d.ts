@@ -28,51 +28,45 @@ import { Xyz65 } from './xyz65/types';
 import { Yiq } from './yiq/types';
 
 export type Color =
-	| A98
-	| Cubehelix
-	| Dlab
-	| Dlch
-	| Hsi
-	| Hsl
-	| Hsv
-	| Hwb
-	| Jab
-	| Jch
-	| Lab
-	| Lab65
-	| Lch
-	| Lch65
-	| Lchuv
-	| Lrgb
-	| Luv
-	| Okhsl
-	| Okhsv
-	| Oklab
-	| Oklch
-	| P3
-	| Prophoto
-	| Rec2020
-	| Rgb
-	| Xyz50
-	| Xyz65
-	| Yiq;
+    | A98
+    | Cubehelix
+    | Dlab
+    | Dlch
+    | Hsi
+    | Hsl
+    | Hsv
+    | Hwb
+    | Jab
+    | Jch
+    | Lab
+    | Lab65
+    | Lch
+    | Lch65
+    | Lchuv
+    | Lrgb
+    | Luv
+    | Okhsl
+    | Okhsv
+    | Oklab
+    | Oklch
+    | P3
+    | Prophoto
+    | Rec2020
+    | Rgb
+    | Xyz50
+    | Xyz65
+    | Yiq;
 
 export type NonEmptyArray<T> = [T, ...T[]];
 
 export type Mode = Color['mode'];
 
-export type FindColorByMode<
-	M extends Mode,
-	C extends Color = Color
-> = C extends { mode: M } ? C : never;
+export type FindColorByMode<M extends Mode, C extends Color = Color> = C extends { mode: M } ? C : never;
 
-export type TakeColorChannels<M extends Mode> = Omit<
-	FindColorByMode<M>,
-	'mode'
->;
+export type TakeColorChannels<M extends Mode> = Omit<FindColorByMode<M>, 'mode'>;
 
 export type OverridesFunction = (values: number[], channel: string) => number;
 
 export type OverridesObject<M extends Mode> = Partial<{
-	[P in keyof TakeColorChannels<M>]: OverridesFunction;
+    [P in keyof TakeColorChannels<M>]: OverridesFunction;
 }>;

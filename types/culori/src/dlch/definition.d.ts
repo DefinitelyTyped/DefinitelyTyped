@@ -11,51 +11,51 @@ import { Dlch } from './types';
 import { Rgb } from '../rgb/types';
 
 declare const definition: {
-	mode: 'dlch';
+    mode: 'dlch';
 
-	parse: ['--din99o-lch'];
-	serialize: '--din99o-lch';
+    parse: ['--din99o-lch'];
+    serialize: '--din99o-lch';
 
-	toMode: {
-		lab65: typeof convertDlchToLab65;
-		dlab: (c: Omit<Dlch, 'mode'>) => Dlab;
-		rgb: (c: Omit<Dlch, 'mode'>) => Rgb;
-	};
+    toMode: {
+        lab65: typeof convertDlchToLab65;
+        dlab: (c: Omit<Dlch, 'mode'>) => Dlab;
+        rgb: (c: Omit<Dlch, 'mode'>) => Rgb;
+    };
 
-	fromMode: {
-		lab65: typeof convertLab65ToDlch;
-		dlab: (c: Omit<Dlab, 'mode'>) => Dlch;
-		rgb: (c: Omit<Rgb, 'mode'>) => Dlch;
-	};
+    fromMode: {
+        lab65: typeof convertLab65ToDlch;
+        dlab: (c: Omit<Dlab, 'mode'>) => Dlch;
+        rgb: (c: Omit<Rgb, 'mode'>) => Dlch;
+    };
 
-	channels: ['l', 'c', 'h', 'alpha'];
+    channels: ['l', 'c', 'h', 'alpha'];
 
-	ranges: {
-		l: [0, 100];
-		c: [0, 51.484];
-		h: [0, 360];
-	};
+    ranges: {
+        l: [0, 100];
+        c: [0, 51.484];
+        h: [0, 360];
+    };
 
-	interpolate: {
-		l: typeof interpolatorLinear;
-		c: typeof interpolatorLinear;
-		h: {
-			use: typeof interpolatorLinear;
-			fixup: typeof fixupHueShorter;
-		};
-		alpha: {
-			use: typeof interpolatorLinear;
-			fixup: typeof fixupAlpha;
-		};
-	};
+    interpolate: {
+        l: typeof interpolatorLinear;
+        c: typeof interpolatorLinear;
+        h: {
+            use: typeof interpolatorLinear;
+            fixup: typeof fixupHueShorter;
+        };
+        alpha: {
+            use: typeof interpolatorLinear;
+            fixup: typeof fixupAlpha;
+        };
+    };
 
-	difference: {
-		h: typeof differenceHueChroma;
-	};
+    difference: {
+        h: typeof differenceHueChroma;
+    };
 
-	average: {
-		h: typeof averageAngle;
-	};
+    average: {
+        h: typeof averageAngle;
+    };
 };
 
 export default definition;

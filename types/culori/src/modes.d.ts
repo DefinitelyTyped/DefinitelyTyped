@@ -31,11 +31,9 @@ import modeXyz65 from './xyz65/definition';
 import modeYiq from './yiq/definition';
 
 type Converters = {
-	[K1 in Mode]: {
-		[K2 in Mode]:
-			| ((c: Omit<FindColorByMode<K1>, 'mode'>) => FindColorByMode<K2>)
-			| undefined;
-	};
+    [K1 in Mode]: {
+        [K2 in Mode]: ((c: Omit<FindColorByMode<K1>, 'mode'>) => FindColorByMode<K2>) | undefined;
+    };
 };
 
 declare const converters: Converters;
@@ -44,43 +42,38 @@ declare const parsers: Parser[];
 declare const colorProfiles: Record<string, string>;
 
 type Definition =
-	| typeof modeA98
-	| typeof modeCubehelix
-	| typeof modeDlab
-	| typeof modeDlch
-	| typeof modeHsi
-	| typeof modeHsl
-	| typeof modeHsv
-	| typeof modeHwb
-	| typeof modeJab
-	| typeof modeJch
-	| typeof modeLab
-	| typeof modeLab65
-	| typeof modeLch
-	| typeof modeLch65
-	| typeof modeLchuv
-	| typeof modeLrgb
-	| typeof modeLuv
-	| typeof modeOkhsl
-	| typeof modeOkhsv
-	| typeof modeOklab
-	| typeof modeOklch
-	| typeof modeP3
-	| typeof modeProphoto
-	| typeof modeRec2020
-	| typeof modeRgb
-	| typeof modeXyz50
-	| typeof modeXyz65
-	| typeof modeYiq;
+    | typeof modeA98
+    | typeof modeCubehelix
+    | typeof modeDlab
+    | typeof modeDlch
+    | typeof modeHsi
+    | typeof modeHsl
+    | typeof modeHsv
+    | typeof modeHwb
+    | typeof modeJab
+    | typeof modeJch
+    | typeof modeLab
+    | typeof modeLab65
+    | typeof modeLch
+    | typeof modeLch65
+    | typeof modeLchuv
+    | typeof modeLrgb
+    | typeof modeLuv
+    | typeof modeOkhsl
+    | typeof modeOkhsv
+    | typeof modeOklab
+    | typeof modeOklch
+    | typeof modeP3
+    | typeof modeProphoto
+    | typeof modeRec2020
+    | typeof modeRgb
+    | typeof modeXyz50
+    | typeof modeXyz65
+    | typeof modeYiq;
 
-type FindDefinitionByMode<
-	M extends Mode,
-	D extends Definition = Definition
-> = D extends { mode: M } ? D : never;
+type FindDefinitionByMode<M extends Mode, D extends Definition = Definition> = D extends { mode: M } ? D : never;
 
-declare const useMode: <D extends Definition>(
-	_definition: D
-) => ConvertFn<D['mode']>;
+declare const useMode: <D extends Definition>(_definition: D) => ConvertFn<D['mode']>;
 
 declare const getMode: <M extends Mode>(mode: M) => FindDefinitionByMode<M>;
 
@@ -90,12 +83,4 @@ declare const useParser: (_parser: Parser) => undefined;
 
 declare const removeParser: (_parser: Parser) => undefined;
 
-export {
-	useMode,
-	getMode,
-	useParser,
-	removeParser,
-	converters,
-	parsers,
-	colorProfiles
-};
+export { useMode, getMode, useParser, removeParser, converters, parsers, colorProfiles };

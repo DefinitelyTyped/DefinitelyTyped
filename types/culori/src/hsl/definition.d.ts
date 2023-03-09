@@ -9,39 +9,39 @@ import { averageAngle } from '../average';
 import { Hsl } from './types';
 
 declare const definition: {
-	mode: 'hsl';
+    mode: 'hsl';
 
-	toMode: {
-		rgb: typeof convertHslToRgb;
-	};
+    toMode: {
+        rgb: typeof convertHslToRgb;
+    };
 
-	fromMode: {
-		rgb: typeof convertRgbToHsl;
-	};
+    fromMode: {
+        rgb: typeof convertRgbToHsl;
+    };
 
-	channels: ['h', 's', 'l', 'alpha'];
+    channels: ['h', 's', 'l', 'alpha'];
 
-	ranges: {
-		h: [0, 360];
-	};
+    ranges: {
+        h: [0, 360];
+    };
 
-	parse: [typeof parseHsl];
-	serialize: (c: Omit<Hsl, 'mode'>) => string;
+    parse: [typeof parseHsl];
+    serialize: (c: Omit<Hsl, 'mode'>) => string;
 
-	interpolate: {
-		h: { use: typeof interpolatorLinear; fixup: typeof fixupHueShorter };
-		s: typeof interpolatorLinear;
-		l: typeof interpolatorLinear;
-		alpha: { use: typeof interpolatorLinear; fixup: typeof fixupAlpha };
-	};
+    interpolate: {
+        h: { use: typeof interpolatorLinear; fixup: typeof fixupHueShorter };
+        s: typeof interpolatorLinear;
+        l: typeof interpolatorLinear;
+        alpha: { use: typeof interpolatorLinear; fixup: typeof fixupAlpha };
+    };
 
-	difference: {
-		h: typeof differenceHueSaturation;
-	};
+    difference: {
+        h: typeof differenceHueSaturation;
+    };
 
-	average: {
-		h: typeof averageAngle;
-	};
+    average: {
+        h: typeof averageAngle;
+    };
 };
 
 export default definition;

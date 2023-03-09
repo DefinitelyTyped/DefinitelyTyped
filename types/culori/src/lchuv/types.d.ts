@@ -1,7 +1,7 @@
 export interface Lchuv {
-	mode: 'lchuv';
-	l: number;
-	c: number;
-	h?: number;
-	alpha?: number;
+    mode: 'lchuv';
+    l: number;
+    c: number;
+    h?: number;
+    alpha?: number;
 }

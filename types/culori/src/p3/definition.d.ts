@@ -5,22 +5,21 @@ import { Rgb } from '../rgb/types';
 import { P3 } from './types';
 
 type P3DefinitionMixin = {
-	mode: 'p3';
-	parse: ['display-p3'];
-	serialize: 'display-p3';
+    mode: 'p3';
+    parse: ['display-p3'];
+    serialize: 'display-p3';
 
-	fromMode: {
-		rgb: (color: Omit<Rgb, 'mode'>) => P3;
-		xyz65: typeof convertXyz65ToP3;
-	};
+    fromMode: {
+        rgb: (color: Omit<Rgb, 'mode'>) => P3;
+        xyz65: typeof convertXyz65ToP3;
+    };
 
-	toMode: {
-		rgb: (color: Omit<P3, 'mode'>) => Rgb;
-		xyz65: typeof convertP3ToXyz65;
-	};
+    toMode: {
+        rgb: (color: Omit<P3, 'mode'>) => Rgb;
+        xyz65: typeof convertP3ToXyz65;
+    };
 };
 
-declare const definition: Omit<typeof rgb, keyof P3DefinitionMixin> &
-	P3DefinitionMixin;
+declare const definition: Omit<typeof rgb, keyof P3DefinitionMixin> & P3DefinitionMixin;
 
 export default definition;

@@ -6,29 +6,28 @@ import convertOklabToRgb from './convertOklabToRgb';
 import lab from '../lab/definition';
 
 type OklabDefinitionMixin = {
-	mode: 'oklab';
+    mode: 'oklab';
 
-	toMode: {
-		lrgb: typeof convertOklabToLrgb;
-		rgb: typeof convertOklabToRgb;
-	};
+    toMode: {
+        lrgb: typeof convertOklabToLrgb;
+        rgb: typeof convertOklabToRgb;
+    };
 
-	fromMode: {
-		lrgb: typeof convertLrgbToOklab;
-		rgb: typeof convertRgbToOklab;
-	};
+    fromMode: {
+        lrgb: typeof convertLrgbToOklab;
+        rgb: typeof convertRgbToOklab;
+    };
 
-	ranges: {
-		l: [0, 0.999];
-		a: [-0.233, 0.276];
-		b: [-0.311, 0.198];
-	};
+    ranges: {
+        l: [0, 0.999];
+        a: [-0.233, 0.276];
+        b: [-0.311, 0.198];
+    };
 
-	parse: ['--oklab'];
-	serialize: '--oklab';
+    parse: ['--oklab'];
+    serialize: '--oklab';
 };
 
-declare const definition: Omit<typeof lab, keyof OklabDefinitionMixin> &
-	OklabDefinitionMixin;
+declare const definition: Omit<typeof lab, keyof OklabDefinitionMixin> & OklabDefinitionMixin;
 
 export default definition;

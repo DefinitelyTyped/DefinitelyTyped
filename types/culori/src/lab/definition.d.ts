@@ -8,35 +8,35 @@ import { fixupAlpha } from '../fixup/alpha';
 import { Lab } from './types';
 
 declare const definition: {
-	mode: 'lab';
+    mode: 'lab';
 
-	toMode: {
-		xyz50: typeof convertLabToXyz50;
-		rgb: typeof convertLabToRgb;
-	};
+    toMode: {
+        xyz50: typeof convertLabToXyz50;
+        rgb: typeof convertLabToRgb;
+    };
 
-	fromMode: {
-		xyz50: typeof convertXyz50ToLab;
-		rgb: typeof convertRgbToLab;
-	};
+    fromMode: {
+        xyz50: typeof convertXyz50ToLab;
+        rgb: typeof convertRgbToLab;
+    };
 
-	channels: ['l', 'a', 'b', 'alpha'];
+    channels: ['l', 'a', 'b', 'alpha'];
 
-	ranges: {
-		l: [0, 100];
-		a: [-79.287, 93.55];
-		b: [-112.029, 93.388];
-	};
+    ranges: {
+        l: [0, 100];
+        a: [-79.287, 93.55];
+        b: [-112.029, 93.388];
+    };
 
-	parse: [typeof parseLab];
-	serialize: (c: Omit<Lab, 'mode'>) => string;
+    parse: [typeof parseLab];
+    serialize: (c: Omit<Lab, 'mode'>) => string;
 
-	interpolate: {
-		l: typeof interpolatorLinear;
-		a: typeof interpolatorLinear;
-		b: typeof interpolatorLinear;
-		alpha: { use: typeof interpolatorLinear; fixup: typeof fixupAlpha };
-	};
+    interpolate: {
+        l: typeof interpolatorLinear;
+        a: typeof interpolatorLinear;
+        b: typeof interpolatorLinear;
+        alpha: { use: typeof interpolatorLinear; fixup: typeof fixupAlpha };
+    };
 };
 
 export default definition;

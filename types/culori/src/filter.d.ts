@@ -12,11 +12,11 @@ declare const filterInvert: Filter;
 declare const filterHueRotate: Filter;
 
 export {
-	filterBrightness,
-	filterContrast,
-	filterSepia,
-	filterSaturate,
-	filterGrayscale,
-	filterInvert,
-	filterHueRotate
+    filterBrightness,
+    filterContrast,
+    filterSepia,
+    filterSaturate,
+    filterGrayscale,
+    filterInvert,
+    filterHueRotate,
 };
