@@ -1,24 +1,33 @@
-import { Editor } from '@ckeditor/ckeditor5-core';
 import { DowncastWriter, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
+import { Editor } from '@ckeditor/ckeditor5-core';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragment';
 import Position from '@ckeditor/ckeditor5-engine/src/view/position';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import { List, ListEditing, ListUI, TodoList, TodoListEditing, TodoListUI } from '@ckeditor/ckeditor5-list';
-import CheckTodoListCommand from '@ckeditor/ckeditor5-list/src/checktodolistcommand';
-import * as converters from '@ckeditor/ckeditor5-list/src/converters';
-import IndentCommand from '@ckeditor/ckeditor5-list/src/indentcommand';
-import ListCommand from '@ckeditor/ckeditor5-list/src/listcommand';
-import ListProperties from '@ckeditor/ckeditor5-list/src/listproperties';
-import ListReversedCommand from '@ckeditor/ckeditor5-list/src/listreversedcommand';
-import ListStartCommand from '@ckeditor/ckeditor5-list/src/liststartcommand';
-import ListStyleCommand from '@ckeditor/ckeditor5-list/src/liststylecommand';
-import * as todoConverters from '@ckeditor/ckeditor5-list/src/todolistconverters';
-import * as utils from '@ckeditor/ckeditor5-list/src/utils';
-import ListPropertiesView from '@ckeditor/ckeditor5-list/src/ui/listpropertiesview';
+import {
+    DocumentList,
+    DocumentListProperties,
+    List,
+    ListEditing,
+    ListUI,
+    TodoList,
+    TodoListEditing,
+    TodoListUI,
+} from '@ckeditor/ckeditor5-list';
 import { Locale } from '@ckeditor/ckeditor5-utils';
-import ListPropertiesEditing from '@ckeditor/ckeditor5-list/src/listpropertiesediting';
+import * as converters from '@ckeditor/ckeditor5-list/src/list/converters';
+import * as todoConverters from '@ckeditor/ckeditor5-list/src/todolist/todolistconverters';
+import * as utils from '@ckeditor/ckeditor5-list/src/list/utils';
+import CheckTodoListCommand from '@ckeditor/ckeditor5-list/src/todolist/checktodolistcommand';
+import IndentCommand from '@ckeditor/ckeditor5-list/src/list/indentcommand';
+import ListCommand from '@ckeditor/ckeditor5-list/src/list/listcommand';
+import ListProperties from '@ckeditor/ckeditor5-list/src/listproperties';
+import ListPropertiesEditing from '@ckeditor/ckeditor5-list/src/listproperties/listpropertiesediting';
+import ListPropertiesView from '@ckeditor/ckeditor5-list/src/listproperties/ui/listpropertiesview';
+import ListReversedCommand from '@ckeditor/ckeditor5-list/src/listproperties/listreversedcommand';
+import ListStartCommand from '@ckeditor/ckeditor5-list/src/listproperties/liststartcommand';
 import ListStyle from '@ckeditor/ckeditor5-list/src/liststyle';
+import ListStyleCommand from '@ckeditor/ckeditor5-list/src/listproperties/liststylecommand';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -59,6 +68,9 @@ new ListStyleCommand(editor, '').execute({ type: '' });
 
 new ListProperties(editor);
 ListProperties.requires.map(Plugin => new Plugin(editor).init());
+
+new DocumentList(editor);
+new DocumentListProperties(editor);
 
 todoConverters.modelViewInsertion(new Model(), () => {});
 todoConverters.modelViewChangeType(() => {}, new View(new StylesProcessor()));

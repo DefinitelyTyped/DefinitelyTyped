@@ -1,4 +1,6 @@
-import { diff, observableDiff, applyChange, Diff } from 'deep-diff';
+import type { Diff } from 'deep-diff';
+import deepDiff = require('deep-diff');
+const { diff, observableDiff, applyChange } = deepDiff;
 
 let lhs = {
     name: 'my object',
@@ -20,7 +22,7 @@ let rhs = {
     }
 };
 
-const differences: Array<Diff<any>> = diff(lhs, rhs);
+let differences: Array<Diff<any>> = diff(lhs, rhs);
 
 console.log(differences);
 
@@ -52,3 +54,27 @@ observableDiff(lhs, rhs, d => {
         applyChange(lhs, rhs, d);
     }
 });
+
+// --------------------------
+
+lhs = {
+    name: 'my object',
+    description: 'it\'s an object!',
+    details: {
+        it: 'has',
+        an: 'array',
+        with: ['a', 'few', 'elements']
+    }
+};
+
+rhs = {
+    name: 'updated object',
+    description: 'it\'s an object!',
+    details: {
+        it: 'has',
+        an: 'array',
+        with: ['a', 'few', 'more', 'elements', { than: 'before' }]
+    }
+};
+
+differences = deepDiff(lhs, rhs);

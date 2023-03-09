@@ -113,6 +113,13 @@ const tbscert = new KJUR.asn1.x509.TBSCertificate({
             names: ['digitalSignature', 'keyEncipherment'],
         },
         {
+            extname: 'authorityKeyIdentifier',
+            critical: true,
+            kid: { hex: '01020304' },
+            issuer: { str: '/C=US/CN=TEST' },
+            sn: { hex: '01020304' },
+        },
+        {
             extname: 'cRLDistributionPoints',
             array: [{ dpname: { full: [{ uri: 'http://example.com/a1.crl' }] } }],
         },
@@ -123,6 +130,7 @@ new KJUR.asn1.x509.Certificate({ tbsobj: tbscert, sigalg: 'SHA256withRSA', cakey
 // ASN1HEX
 ASN1HEX.checkStrictDER('0203012345');
 ASN1HEX.oidname('551d25');
+ASN1HEX.getString('01020304', 0);
 
 // X509CRL
 const x509crl = new X509CRL(`-----BEGIN X509 CRL-----

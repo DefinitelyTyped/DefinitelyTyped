@@ -3303,6 +3303,12 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
     getScrollResponder(): JSX.Element;
 }
 
+/**
+ * React Native provides RootTag and RootTagContext as identifiers for a window's root view
+ */
+ export type RootTag = number;
+ export const RootTagContext: React.Context<RootTag>;
+
 export interface SliderPropsAndroid extends ViewProps {
     /**
      * Color of the foreground switch grip.
@@ -9657,9 +9663,8 @@ export function unstable_enableLogBox(): void;
 /**
  * React Native also implements unstable_batchedUpdates
  */
-export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
-export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-export function unstable_batchedUpdates(callback: () => any): void;
+export function unstable_batchedUpdates<A, R>(callback: (a: A) => R, a: A): R;
+export function unstable_batchedUpdates<R>(callback: () => R): R;
 
 //////////////////////////////////////////////////////////////////////////
 //

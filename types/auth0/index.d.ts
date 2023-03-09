@@ -1,7 +1,6 @@
 // Type definitions for auth0 2.35
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Ian Howe <https://github.com/ianhowe76>
-//                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
@@ -23,6 +22,7 @@ export interface ManagementClientOptions {
     scope?: string | undefined;
     tokenProvider?: TokenProvider | undefined;
     retry?: RetryOptions | undefined;
+    telemetry?: boolean | undefined;
 }
 
 export interface TokenProvider {
@@ -464,6 +464,7 @@ export type Strategy =
     | 'oauth2'
     | 'office365'
     | 'oidc'
+    | 'okta'
     | 'paypal'
     | 'paypal-sandbox'
     | 'pingfederate'
@@ -538,6 +539,23 @@ export interface CreateConnection extends UpdateConnection {
      * The identity provider identifier for the connection.
      */
     strategy: Strategy;
+}
+
+export interface GetConnectionsOptions extends PagingOptions {
+    /** List of fields to include or exclude */
+    fields?: string | string[] | undefined;
+
+    /** true if the fields specified are to be included in the result, false otherwise. Default true */
+    include_fields?: boolean | undefined;
+
+    /** true if a query summary must be included in the result, false otherwise. Default false */
+    include_totals?: boolean | undefined;
+
+    /** Provide strategies to only retrieve connections with such strategies */
+    strategy?: Strategy | undefined;
+
+    /** Provide the name of the connection to retrieve */
+    name?: string | undefined;
 }
 
 export interface User<A = AppMetadata, U = UserMetadata> {
@@ -617,6 +635,7 @@ export interface AuthenticationClientOptions {
     clientId?: string | undefined;
     clientSecret?: string | undefined;
     domain: string;
+    telemetry?: boolean | undefined;
 }
 
 interface Environment {
@@ -1723,7 +1742,7 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getClientInfo(): ClientInfo;
 
     // Connections
-    getConnections(params: PagingOptions): Promise<Connection[]>;
+    getConnections(params?: GetConnectionsOptions): Promise<Connection[]>;
     getConnections(): Promise<Connection[]>;
     getConnections(cb: (err: Error, connections: Connection[]) => void): void;
 

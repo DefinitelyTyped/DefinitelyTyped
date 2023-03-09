@@ -651,28 +651,63 @@ SlidesApp.getActivePresentation().getSlides()[0].setSkipped(true);
 // Example of building a text validation
 const formAppTextValidation = FormApp.createTextValidation()
     .requireNumberBetween(1, 100)
+    .setHelpText('Please be between 1 and 100')
     .build();
 
 // Example of building a grid validation
 const formAppGridValidation = FormApp.createGridValidation()
     .requireLimitOneResponsePerColumn()
+    .setHelpText('You did it wrong')
     .build();
 
 // Example of building a grid validation
 const formAppCheckboxGridValidation = FormApp.createCheckboxGridValidation()
     .requireLimitOneResponsePerColumn()
+    .setHelpText('This is not fine')
     .build();
 
 // Example of building a checkbox validation
 const formAppCheckboxValidation = FormApp.createCheckboxValidation()
     .requireSelectAtLeast(1)
+    .setHelpText('Select one pls')
     .build();
 
 // Example of building a paragraph text validation
 const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
     .requireTextDoesNotContainPattern('string')
+    .setHelpText('Hey! You put a string in your string!')
     .build();
 
 const mimeTypes: string[] = [
     MimeType.GOOGLE_APPS_SCRIPT,
 ];
+
+// analytics reporting test
+const analyticsReporting = () => {
+    const gaData = AnalyticsReporting.Reports.batchGet({
+        reportRequests: [
+            {
+                viewId: "",
+                dateRanges: [
+                    {
+                        startDate: "2023-03-08",
+                        endDate: "2023-03-08",
+                    },
+                ],
+                metrics: [
+                    {
+                        expression: "some metrics",
+                        alias: "some metrics",
+                        formattingType: "some metrics",
+                    }
+                ],
+                dimensions: [
+                    {
+                        name: "some dimensions"
+                    }
+                ],
+                samplingLevel: "LARGE",
+            },
+        ],
+    });
+};

@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.40
+// Type definitions for Azure Data Studio 1.41
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.40 Extension API
+ * Type Definition for Azure Data Studio 1.41 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -2656,24 +2656,78 @@ declare module 'azdata' {
      * Represents a provider of resource
      */
     export interface ResourceProvider {
+        /**
+         * Creates a firewall rule for the given account
+         * @param account Account with which firewall rule request will be made.
+         * @param firewallruleInfo Firewall rule creation information
+         */
         createFirewallRule(account: Account, firewallruleInfo: FirewallRuleInfo): Thenable<CreateFirewallRuleResponse>;
+
+        /**
+         * Handles the response from the firewall rule creation request
+         * @param errorCode Error code from the firewall rule creation request
+         * @param errorMessage Error message from the firewall rule creation request
+         * @param connectionTypeId Connection type id of the firewall rule creation request
+         */
         handleFirewallRule(errorCode: number, errorMessage: string, connectionTypeId: string): Thenable<HandleFirewallRuleResponse>;
     }
 
+    /**
+     * Firewall rule creation information
+     */
     export interface FirewallRuleInfo {
+        /**
+         * Start of the IP address range
+         */
         startIpAddress?: string | undefined;
+        /**
+         * End of the IP address range
+         */
         endIpAddress?: string | undefined;
+        /**
+         * Fully qualified name of the server to create a new firewall rule on
+         */
         serverName: string;
+        /**
+         * Firewall rule name to set
+         */
+        firewallRuleName: string;
+        /**
+         * Per-tenant token mappings. Ideally would be set independently of this call,
+         * but for now this allows us to get the tokens necessary to find a server and open a firewall rule
+         */
         securityTokenMappings: {};
     }
 
+    /**
+     * Firewall rule creation response
+     */
     export interface CreateFirewallRuleResponse {
+        /**
+         * Whether or not request can be handled.
+         */
         result: boolean;
+        /**
+         * Contains error message, if request could not be handled.
+         */
         errorMessage: string;
     }
 
+    /**
+     * Response to the check for Firewall rule support given an error message
+     */
     export interface HandleFirewallRuleResponse {
+        /**
+         * Whether or not request can be handled.
+         */
         result: boolean;
+        /**
+         * Contains error message, if request could not be handled.
+         */
+        errorMessage: string;
+        /**
+         * If handled, the default IP address to send back; so users can tell what their blocked IP is.
+         */
         ipAddress: string;
     }
 

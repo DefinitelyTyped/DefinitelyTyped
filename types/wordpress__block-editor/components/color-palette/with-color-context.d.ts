@@ -1,4 +1,4 @@
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable no-unnecessary-generics */
 import { ComponentType } from 'react';
 
 import { EditorColor } from '../../';

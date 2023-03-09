@@ -56,11 +56,23 @@ declare namespace OO {
 
     type LeavesOf<T, D extends number> = T extends NonPlainObject ? T : Extract<NodesOf<T, D>, NonPlainObject>;
 
-    type CheckFunctionType<T, K extends keyof T> = K extends any
-        ? T[K] extends (...args: any[]) => any
+    type FunctionFieldsOf<T, F extends (...args: any[]) => any, K extends keyof T = keyof T> = K extends any
+        ? T[K] extends F
             ? K
             : never
         : never;
 
-    type ExtractFunctionKeys<T extends object> = Exclude<CheckFunctionType<T, keyof T>, never>;
+    type EventHandler<C, F extends (...args: any[]) => any = (this: C, ...args: any[]) => void> =
+        | FunctionFieldsOf<C, F>
+        | F;
+
+    type ArgTuple = [] | [any] | [any, any] | [any, any, any] | [any, any, any, any] | [any, any, any, any, any];
+
+    type EventConnectionMap<T extends object, C, M extends object> = {
+        [K in keyof T]: EventConnectionMapEntry<C, (M & Record<string | number | symbol, any[]>)[K], T[K]>;
+    };
+
+    type EventConnectionMapEntry<C, P extends any[], T> = T extends ArgTuple
+        ? [EventHandler<C, (this: C, ...args: [...T, ...P]) => void>, ...T]
+        : EventHandler<C, (this: C, ...args: P) => void>;
 }

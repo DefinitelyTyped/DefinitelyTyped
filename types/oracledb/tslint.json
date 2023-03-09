@@ -10,7 +10,6 @@
         "no-duplicate-imports": false,
         "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-void-expression": false,
         "semicolon": false,
         "unified-signatures": false

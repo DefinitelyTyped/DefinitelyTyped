@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const wildcards: string[];
-export default wildcards;
+export = wildcards;

@@ -1831,6 +1831,7 @@ declare namespace SpotifyApi {
         id: string | null;
         is_active: boolean;
         is_restricted: boolean;
+        is_private_session: boolean;
         name: string;
         type: string;
         volume_percent: number | null;

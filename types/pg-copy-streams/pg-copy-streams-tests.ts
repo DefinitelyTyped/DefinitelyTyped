@@ -13,7 +13,9 @@ copyStream.write('', err => {
 
   copyStream.end();
 });
+const insertedRows = copyStream.rowCount;
 
-const readStream = client.query(to('copy data to stdout;'));
+const readStream = client.query(to('copy data to stdout csv header;'));
 
 readStream.pipe(process.stdout);
+const selectedRows = readStream.rowCount - 1;

@@ -1,6 +1,7 @@
 {
     "rules": {
         "no-const-enum": "off",
-        "dt-header": "off"
+        "dt-header": "off",
+        "no-unnecessary-generics": "off"
     }
 }

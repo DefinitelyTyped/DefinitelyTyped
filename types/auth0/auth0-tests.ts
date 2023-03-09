@@ -401,6 +401,17 @@ management.assignPermissionsToUser(
     },
 );
 
+// Without telemetry
+new auth0.ManagementClient({
+    domain: 'xxx.auth0.com',
+    telemetry: false,
+});
+
+new auth0.AuthenticationClient({
+    domain: 'xxx.auth0.com',
+    telemetry: false,
+});
+
 // Using different client settings.
 const retryableManagementClient = new auth0.ManagementClient({
     clientId: '',
@@ -472,6 +483,16 @@ management.getConnections((err: Error, connections: auth0.Connection[]) => {});
 // Get all Connections with promise and pagination
 management
     .getConnections({ per_page: 25, page: 0 })
+    .then((connections: auth0.Connection[]) => {
+        console.log(connections);
+    })
+    .catch(err => {
+        // error handler
+    });
+
+// Get all Connections with params (with promise)
+management
+    .getConnections({ name: 'connectionName', strategy: 'auth0', include_fields: true, fields: ['id', 'name'] })
     .then((connections: auth0.Connection[]) => {
         console.log(connections);
     })

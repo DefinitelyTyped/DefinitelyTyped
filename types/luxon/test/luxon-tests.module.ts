@@ -261,6 +261,7 @@ i.toISO(); // $ExpectType string
 i.toISODate(); // $ExpectType string
 i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
+i.toLocaleString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration
 // @ts-expect-error

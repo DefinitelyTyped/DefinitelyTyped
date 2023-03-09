@@ -20,6 +20,7 @@ interface VaporStoreOptions {
 
 declare class Vapor {
     store(file: File, options?: VaporStoreOptions): Promise<any>;
+    withBaseAssetUrl(url?: string): void;
     asset(path: string): string;
 }
 

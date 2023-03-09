@@ -8,7 +8,7 @@ import { Map, LatLng, Point, LatLngExpression, PointExpression, LatLngBounds } f
 
 declare module 'leaflet' {
     class RasterCoords {
-        constructor(map: Map, imgsize: number[], tilesize?: number);
+        constructor(map: Map, imgsize: number[], tilesize?: number, setmaxbounds?: boolean);
 
         zoomLevel(): number;
         unproject(coords: PointExpression): LatLng;

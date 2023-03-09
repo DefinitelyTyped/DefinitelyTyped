@@ -23,6 +23,7 @@
         "test/nightwatch-tests.ts",
         "test/react.tsx",
         "test/testActions.ts",
+        "test/testAppiumCommands.ts",
         "test/testChromiumClientCommands.ts",
         "test/testClientCommands.ts",
         "test/testComponent.ts",

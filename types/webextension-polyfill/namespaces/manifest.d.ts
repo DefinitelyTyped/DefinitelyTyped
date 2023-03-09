@@ -182,6 +182,11 @@ export namespace Manifest {
         /**
          * Optional.
          */
+        declarative_net_request?: WebExtensionManifestDeclarativeNetRequestType;
+
+        /**
+         * Optional.
+         */
         devtools_page?: ExtensionURL;
 
         /**
@@ -342,6 +347,8 @@ export namespace Manifest {
         | "unlimitedStorage"
         | "captivePortal"
         | "contextualIdentities"
+        | "declarativeNetRequestFeedback"
+        | "declarativeNetRequestWithHostAccess"
         | "dns"
         | "geckoProfiler"
         | "identity"
@@ -349,7 +356,7 @@ export namespace Manifest {
         | "contextMenus"
         | "theme";
 
-    type Permission = PermissionNoPrompt | OptionalPermission | string;
+    type Permission = PermissionNoPrompt | OptionalPermission | "declarativeNetRequest" | string;
 
     type PermissionOrOrigin = Permission | MatchPattern;
 
@@ -656,6 +663,13 @@ export namespace Manifest {
 
     interface WebExtensionManifestBackgroundC3Type {
         service_worker: ExtensionURL;
+
+        /**
+         * Even though Manifest V3, does not support multiple background scripts, you can optionally declare the service worker as
+         * an ES Module by specifying "type": "module", which allows you to import further code.
+         * Optional.
+         */
+        type?: "module";
     }
 
     interface WebExtensionManifestOptionsUiType {
@@ -697,7 +711,15 @@ export namespace Manifest {
     interface WebExtensionManifestWebAccessibleResourcesC2ItemType {
         resources: string[];
 
-        matches: MatchPatternRestricted[];
+        /**
+         * Optional.
+         */
+        matches?: MatchPattern[];
+
+        /**
+         * Optional.
+         */
+        extension_ids?: Array<ExtensionID | "*">;
     }
 
     interface WebExtensionManifestChromeSettingsOverridesSearchProviderParamsItemType {
@@ -861,8 +883,29 @@ export namespace Manifest {
         description?: string;
     }
 
-    interface WebExtensionManifestExperimentApisType extends Experiments.ExperimentAPI {
-        [s: string]: unknown;
+    interface WebExtensionManifestDeclarativeNetRequestRuleResourcesItemType {
+        /**
+         * A non-empty string uniquely identifying the ruleset. IDs beginning with '_' are reserved for internal use.
+         */
+        id: string;
+
+        /**
+         * Whether the ruleset is enabled by default.
+         */
+        enabled: boolean;
+
+        /**
+         * The path of the JSON ruleset relative to the extension directory.
+         */
+        path: ExtensionURL;
+    }
+
+    interface WebExtensionManifestDeclarativeNetRequestType {
+        rule_resources: WebExtensionManifestDeclarativeNetRequestRuleResourcesItemType[];
+    }
+
+    interface WebExtensionManifestExperimentApisType {
+        [s: string]: Experiments.ExperimentAPI;
     }
 
     interface WebExtensionManifestOmniboxType {

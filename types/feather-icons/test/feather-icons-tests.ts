@@ -18,6 +18,11 @@ feather.icons['activity'].contents; // $ExpectType string
 feather.icons['activity'].tags; // $ExpectType string[]
 feather.icons['activity'].attrs; // $ExpectType FeatherAttributes
 feather.icons['activity'].toSvg(); // $ ExpectType FeatherToSvg
+/** @link https://github.com/feathericons/feather/tree/v4.29.0#feathericonsnametosvgattrs */
+feather.icons.circle.toSvg({ 'stroke-width': 1 }); // $ ExpectType FeatherToSvg
+feather.icons.circle.toSvg({ class: 'foo bar' }); // $ ExpectType FeatherToSvg
 
 // Test Function
 feather.replace(); // $ExpectType void
+/** @link https://github.com/feathericons/feather/tree/v4.29.0#featherreplaceattrs */
+feather.replace({ class: 'foo bar', 'stroke-width': 1 }); // $ExpectType void
