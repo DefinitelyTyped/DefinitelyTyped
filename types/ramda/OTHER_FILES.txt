@@ -253,7 +253,6 @@ es/zipObj.d.ts
 es/zipWith.d.ts
 es/includes.d.ts
 
-src/add.d.ts
 src/addIndex.d.ts
 src/adjust.d.ts
 src/all.d.ts
