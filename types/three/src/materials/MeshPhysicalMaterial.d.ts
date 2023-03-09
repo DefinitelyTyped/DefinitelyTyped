@@ -16,10 +16,16 @@ export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialPara
 
     sheen?: number | undefined;
     sheenColor?: Color | undefined;
+    sheneColorMap?: Texture | null | undefined;
     sheenRoughness?: number | undefined;
+    sheneRoughnessMap?: Texture | null | undefined;
 
     transmission?: number | undefined;
     transmissionMap?: Texture | null | undefined;
+
+    thickness?: number | undefined;
+    thicknessMap?: Texture | null | undefined;
+
     attenuationDistance?: number | undefined;
     attenuationColor?: Color | undefined;
 
@@ -27,6 +33,12 @@ export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialPara
     specularColor?: Color | undefined;
     specularIntensityMap?: Texture | null | undefined;
     specularColorMap?: Texture | null | undefined;
+
+    iridescenceMap?: Texture | null;
+    iridescenceIOR?: number;
+    iridescence?: number;
+    iridescenceThicknessRange?: number[];
+    iridescenceThicknessMap?: Texture | null;
 }
 
 export class MeshPhysicalMaterial extends MeshStandardMaterial {
