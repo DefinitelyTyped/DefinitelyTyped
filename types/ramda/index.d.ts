@@ -101,17 +101,7 @@ export * from './tools';
  */
 export const __: Placeholder;
 
-/**
- * Adds two values. Equivalent to `a + b` but curried.
- *
- * @example
- * ```typescript
- * R.add(2, 3);       //=>  5
- * R.add(7)(10);      //=> 17
- * ```
- */
-export function add(a: number, b: number): number;
-export function add(a: number): (b: number) => number;
+export * from './src/add';
 
 /**
  * Creates a new list iteration function from an existing one by adding two new parameters to its callback
