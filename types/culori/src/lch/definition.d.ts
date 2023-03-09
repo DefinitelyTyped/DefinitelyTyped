@@ -1,7 +1,5 @@
 import convertLabToLch from './convertLabToLch';
 import convertLchToLab from './convertLchToLab';
-import convertLabToRgb from '../lab/convertLabToRgb';
-import convertRgbToLab from '../lab/convertRgbToLab';
 import parseLch from './parseLch';
 import { fixupHueShorter } from '../fixup/hue';
 import { fixupAlpha } from '../fixup/alpha';
