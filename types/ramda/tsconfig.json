@@ -15,7 +15,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "src/add.d.ts",
         "index.d.ts",
         "test/add-tests.ts",
         "test/addIndex-tests.ts",
