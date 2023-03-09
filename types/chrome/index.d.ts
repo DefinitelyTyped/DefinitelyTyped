@@ -3562,17 +3562,17 @@ declare namespace chrome.fileSystemProvider {
     }
 
     export interface EntryMetadata {
-        /** True if it is a directory. */
+        /** True if it is a directory. Must be provided if requested in `options`. */
         isDirectory?: boolean;
-        /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. */
+        /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. Must be provided if requested in `options`. */
         name?: string;
-        /** File size in bytes. */
+        /** File size in bytes. Must be provided if requested in `options`. */
         size?: number;
-        /** The last modified time of this entry. */
+        /** The last modified time of this entry. Must be provided if requested in `options`. */
         modificationTime?: Date;
-        /** Optional. Mime type for the entry.  */
+        /** Optional. Mime type for the entry. Always optional, but should provided if requested in `options`. */
         mimeType?: string | undefined;
-        /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
+        /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event. */
         thumbnail?: string | undefined;
     }
 
