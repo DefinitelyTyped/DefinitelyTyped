@@ -20,24 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "fn.d.ts",
-        "tests/average.errors.ts",
-        "tests/average.types.ts",
-        "tests/blend.errors.ts",
-        "tests/blend.types.ts",
-        "tests/common.errors.ts",
-        "tests/common.types.ts",
-        "tests/converter.errors.ts",
-        "tests/converter.types.ts",
-        "tests/convertLrgbToRgb.types.ts",
-        "tests/filters.types.ts",
-        "tests/formatter.types.ts",
-        "tests/map.errors.ts",
-        "tests/map.types.ts",
-        "tests/modes.errors.ts",
-        "tests/modes.types.ts",
-        "tests/named.types.ts",
-        "tests/random.errors.ts",
-        "tests/random.types.ts",
+        "fn.d.ts"
     ]
 }
