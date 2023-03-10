@@ -1,4 +1,4 @@
-// Type definitions for opentok v2.13.0
+// Type definitions for opentok 2.14
 // Project: https://github.com/opentok/opentok-node
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
@@ -31,6 +31,8 @@ declare module 'opentok' {
       streamMode?: 'auto' | 'manual' | undefined;
       streams?: Stream[] | undefined;
       url: string;
+      delete(callback: (error: Error | null) => void): void;
+      stop(callback: (error: Error | null, archive?: Archive) => void): void;
     }
 
     export interface ArchiveOptions {
@@ -43,7 +45,7 @@ declare module 'opentok' {
       streamMode?: 'auto' | 'manual' | undefined;
     }
 
-    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
+    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions | ScreenshareArchiveLayoutOptions;
 
     export interface PredefinedArchiveLayoutOptions {
       type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation' | 'focus';
@@ -52,6 +54,11 @@ declare module 'opentok' {
     export interface CustomArchiveLayoutOptions {
       type: 'custom';
       stylesheet: string;
+    }
+
+    export interface ScreenshareArchiveLayoutOptions {
+      type: 'bestFit';
+      screenshareType?: 'bestFit' | 'horizontalPresentation' | 'verticalPresentation' | 'pip';
     }
 
     export type MediaMode = 'relayed' | 'routed';

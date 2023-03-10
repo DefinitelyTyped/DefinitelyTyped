@@ -774,12 +774,12 @@ declare namespace chrome.browserAction {
         /** The string the browser action should display when moused over. */
         title: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number | undefined;
+        tabId?: number | null;
     }
 
     export interface TabDetails {
         /** Optional. Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned.  */
-        tabId?: number | undefined;
+        tabId?: number | null;
     }
 
     export interface TabIconDetails {
@@ -793,7 +793,7 @@ declare namespace chrome.browserAction {
 
     export interface PopupDetails {
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number | undefined;
+        tabId?: number | null;
         /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
@@ -806,15 +806,15 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function enable(tabId?: number): Promise<void>;
+    export function enable(tabId?: number | null): Promise<void>;
     /**
      * Since Chrome 22.
      * Enables the browser action for a tab. By default, browser actions are enabled.
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @param callback Supported since Chrome 67
      */
-    export function enable(callback: () => void): void;
-    export function enable(tabId: number, callback: () => void): void;
+    export function enable(callback?: () => void): void;
+    export function enable(tabId: number | null | undefined, callback?: () => void): void;
     /**
      * Sets the background color for the badge.
      * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -824,7 +824,7 @@ declare namespace chrome.browserAction {
      * Sets the background color for the badge.
      * @param callback Supported since Chrome 67
      */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback: () => void): void;
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
     /**
      * Sets the badge text for the browser action. The badge is displayed on top of the icon.
      * @return The `setBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -866,14 +866,14 @@ declare namespace chrome.browserAction {
      * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
      * @param callback Supported since Chrome 67
      */
-    export function setPopup(details: PopupDetails, callback: () => void): void;
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function disable(tabId?: number): Promise<void>;
+    export function disable(tabId?: number | null): Promise<void>;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
@@ -881,7 +881,7 @@ declare namespace chrome.browserAction {
      * @param callback Supported since Chrome 67
      */
     export function disable(callback: () => void): void;
-    export function disable(tabId: number, callback: () => void): void;
+    export function disable(tabId?: number | null, callback?: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the title of the browser action.
@@ -918,7 +918,7 @@ declare namespace chrome.browserAction {
     /**
      * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
      */
-    export function setIcon(details: TabIconDetails, callback: Function): void;
+    export function setIcon(details: TabIconDetails, callback?: Function): void;
 
     /** Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup. */
     export var onClicked: BrowserClickedEvent;
@@ -3562,17 +3562,17 @@ declare namespace chrome.fileSystemProvider {
     }
 
     export interface EntryMetadata {
-        /** True if it is a directory. */
-        isDirectory: boolean;
-        /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. */
-        name: string;
-        /** File size in bytes. */
-        size: number;
-        /** The last modified time of this entry. */
-        modificationTime: Date;
-        /** Optional. Mime type for the entry.  */
+        /** True if it is a directory. Must be provided if requested in `options`. */
+        isDirectory?: boolean;
+        /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. Must be provided if requested in `options`. */
+        name?: string;
+        /** File size in bytes. Must be provided if requested in `options`. */
+        size?: number;
+        /** The last modified time of this entry. Must be provided if requested in `options`. */
+        modificationTime?: Date;
+        /** Optional. Mime type for the entry. Always optional, but should provided if requested in `options`. */
         mimeType?: string | undefined;
-        /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
+        /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event. */
         thumbnail?: string | undefined;
     }
 
@@ -3612,8 +3612,8 @@ declare namespace chrome.fileSystemProvider {
         fileSystemId: string;
         /** The unique identifier of this request. */
         requestId: number;
-        /** The path of the entry to return the list of actions for. */
-        entryPath: string;
+        /** List of paths of entries for the list of actions. */
+        entryPaths: string[];
     }
 
     /** @since Since Chrome 45. Warning: this is the current Beta channel. */
@@ -3630,8 +3630,8 @@ declare namespace chrome.fileSystemProvider {
         fileSystemId: string;
         /** The unique identifier of this request. */
         requestId: number;
-        /** The path of the entry to be used for the action. */
-        entryPath: string;
+        /** The set of paths of the entries to be used for the action. */
+        entryPaths: string[];
         /** The identifier of the action to be executed. */
         actionId: string;
     }
@@ -3699,11 +3699,33 @@ declare namespace chrome.fileSystemProvider {
     export interface MetadataRequestedEventOptions extends EntryPathRequestedEventOptions {
         /** Set to true if the thumbnail is requested. */
         thumbnail: boolean;
+        /** Set to true if is_directory value is requested. */
+        isDirectory: boolean;
+        /** Set to true if name value is requested. */
+        name: boolean;
+        /** Set to true if size value is requested. */
+        size: boolean;
+        /** Set to true if modificationTime value is requested. */
+        modificationTime: boolean;
+        /** Set to true if mimeType value is requested. */
+        mimeType: boolean;
     }
 
     export interface DirectoryPathRequestedEventOptions extends RequestedEventOptions {
         /** The path of the directory which is to be operated on. */
         directoryPath: string;
+        /** Set to true if is_directory value is requested. */
+        isDirectory: boolean;
+        /** Set to true if name value is requested. */
+        name: boolean;
+        /** Set to true if size value is requested. */
+        size: boolean;
+        /** Set to true if modificationTime value is requested. */
+        modificationTime: boolean;
+        /** Set to true if mimeType value is requested. */
+        mimeType: boolean;
+        /** Set to true if the thumbnail is requested. */
+        thumbnail: boolean;
     }
 
     export interface FilePathRequestedEventOptions extends RequestedEventOptions {
@@ -3878,6 +3900,24 @@ declare namespace chrome.fileSystemProvider {
     export interface OptionlessRequestedEvent
         extends chrome.events.Event<(successCallback: Function, errorCallback: (error: string) => void) => void> { }
 
+    export interface GetActionsRequested
+        extends chrome.events.Event<
+            (
+                options: GetActionsRequestedOptions,
+                successCallback: (actions: Action[]) => void,
+                errorCallback: (error: string) => void,
+            ) => void
+        > {}
+
+    export interface ExecuteActionRequested
+        extends chrome.events.Event<
+            (
+                options: ExecuteActionRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (error: string) => void,
+            ) => void
+        > {}
+
     /**
      * Mounts a file system with the given fileSystemId and displayName. displayName will be shown in the left panel of Files.app. displayName can contain any characters including '/', but cannot be an empty string. displayName must be descriptive but doesn't have to be unique. The fileSystemId must not be an empty string.
      * Depending on the type of the file system being mounted, the source option must be set appropriately.
@@ -3961,6 +4001,23 @@ declare namespace chrome.fileSystemProvider {
      * @since Since Chrome 45. Warning: this is the current Beta channel.
      */
     export var onRemoveWatcherRequested: EntryPathRecursiveRequestedEvent;
+
+    /**
+     * Raised when a list of actions for a set of files or directories at
+     * `entryPaths` is requested. All of the returned actions must
+     * be applicable to each entry. If there are no such actions, an empty array
+     * should be returned. The actions must be returned with the
+     * `successCallback` call. In case of an error,
+     * `errorCallback` must be called.
+     */
+    export var onGetActionsRequested: GetActionsRequested;
+
+    /**
+     * Raised when executing an action for a set of files or directories is
+     * requested. After the action is completed, `successCallback`
+     * must be called. On error, `errorCallback` must be called.
+     */
+    export var onExecuteActionRequested: ExecuteActionRequested;
 }
 
 ////////////////////

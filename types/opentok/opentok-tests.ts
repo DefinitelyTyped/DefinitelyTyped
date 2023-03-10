@@ -64,6 +64,14 @@ const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
   },
 };
 
+const archiveScreenshareLayoutOptions: OpenTok.ArchiveOptions = {
+  outputMode: 'composed',
+  layout: {
+    type: 'bestFit',
+    screenshareType: 'pip',
+  },
+}
+
 const patchStream: OpenTok.PatchStream = {
   hasAudio: false,
   hasVideo: true
