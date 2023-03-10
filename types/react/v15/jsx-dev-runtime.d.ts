@@ -1,4 +1,4 @@
-import { ElementType, Key } from '.';
+import { ElementType, Key, ReactElement } from '.';
 
 export { Fragment } from './jsx-runtime';
 
@@ -31,4 +31,4 @@ export function jsxDEV(
     isStatic: boolean,
     source?: JSXSource | undefined,
     self?: unknown,
-): JSX.Element;
+): ReactElement;
