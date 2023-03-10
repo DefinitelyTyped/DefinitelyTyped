@@ -34,7 +34,6 @@ export interface Carousel3dProps {
     onSlideChange: () => void;
     bias: string;
     onMainSlideClick?: (param: { index: number }) => void;
-    oneDirectional: boolean;
 }
 
 export interface SlideProps {
