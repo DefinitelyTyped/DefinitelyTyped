@@ -33,7 +33,7 @@ export interface Carousel3dProps {
     onLastSlide: () => void;
     onSlideChange: () => void;
     bias: string;
-    onMainSlideClick?: (param: { index: number }) => void;
+    onMainSlideClick: (param: { index: number }) => void;
 }
 
 export interface SlideProps {
