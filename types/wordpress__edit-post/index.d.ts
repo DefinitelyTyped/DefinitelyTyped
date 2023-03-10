@@ -4,11 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { dispatch, select } from '@wordpress/data';
+import { dispatch, select, StoreDescriptor } from '@wordpress/data';
 
 declare module '@wordpress/data' {
     function dispatch(key: 'core/edit-post'): typeof import('./store/actions');
     function select(key: 'core/edit-post'): typeof import('./store/selectors');
+}
+
+export interface EditPostStoreDescriptor extends StoreDescriptor {
+    name: 'core/edit-post';
+}
+
+declare module '@wordpress/edit-post' {
+    const store: EditPostStoreDescriptor;
 }
 
 export type MetaboxLocation = 'advanced' | 'normal' | 'side';
