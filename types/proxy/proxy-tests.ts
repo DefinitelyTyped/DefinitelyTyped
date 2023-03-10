@@ -1,7 +1,7 @@
-import http from 'http';
-import http2 from 'http2';
-import https from 'https';
-import proxy from 'proxy';
+import * as http from 'http';
+import * as http2 from 'http2';
+import * as https from 'https';
+import proxy = require('proxy');
 
 proxy();
 
