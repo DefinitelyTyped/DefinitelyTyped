@@ -1,11 +1,10 @@
-// Type definitions for @wordpress/data-controls 2.2
+// Type definitions for @wordpress/data-controls 2.28
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data-controls/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
 import { APIFetchOptions } from '@wordpress/api-fetch';
-import { Action } from '@wordpress/data';
 
 /**
  * Dispatches a control action for triggering an api fetch call.
@@ -53,9 +52,9 @@ export function apiFetch(options: APIFetchOptions): unknown;
  * @returns An object for registering the default controls with the store.
  */
 export const controls: {
-    API_FETCH: (action: Action) => Promise<any>;
-    DISPATCH: (action: Action) => void;
-    SELECT: (action: Action) => any;
+    API_FETCH: (action: any) => Promise<any>;
+    DISPATCH: (action: any) => void;
+    SELECT: (action: any) => any;
 };
 
 /**
