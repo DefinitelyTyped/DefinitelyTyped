@@ -25,8 +25,9 @@ interface ColorToPredefinedColorMapper<M extends Mode> {
     (color: string): FindColorByMode<M> | undefined;
 }
 
+declare function mapper(fn: MapFn<'rgb'>): ColorToRgbMapper;
 declare function mapper(fn: MapFn<Mode>, mode: null, preserve_mode?: false): ColorToSameColorMapper;
-declare function mapper(fn: MapFn<'rgb'>, mode?: undefined, preserve_mode?: false): ColorToRgbMapper;
+declare function mapper(fn: MapFn<'rgb'>, mode: undefined, preserve_mode?: false): ColorToRgbMapper;
 declare function mapper<M extends Mode>(fn: MapFn<M>, mode: M, preserve_mode?: false): ColorToPredefinedColorMapper<M>;
 declare function mapper(fn: MapFn<Mode>, mode: null, preserve_mode: true): ColorToSameColorMapper;
 declare function mapper(fn: MapFn<'rgb'>, mode: undefined, preserve_mode: true): ColorToSameColorMapper;
