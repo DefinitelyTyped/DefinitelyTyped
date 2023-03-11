@@ -28,13 +28,6 @@ type OverridesParameter<M extends Mode> =
     | OverridesObject<M>
     | OverridesWithUseFnsForChannels<M>;
 
-declare function interpolate_fn<M extends Mode>(
-    colors: ColorsParameter,
-    mode: M,
-    overrides: OverridesParameter<M>,
-    premap: MapFn<M>,
-): Interpolator<M>;
-
 declare function interpolate<M extends Mode = 'rgb'>(
     colors: ColorsParameter,
     mode?: M,
