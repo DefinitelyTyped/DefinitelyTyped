@@ -73,14 +73,14 @@ type Definition =
 
 type FindDefinitionByMode<M extends Mode, D extends Definition = Definition> = D extends { mode: M } ? D : never;
 
-declare const useMode: <D extends Definition>(_definition: D) => ConvertFn<D['mode']>;
+declare function useMode<D extends Definition>(_definition: D): ConvertFn<D['mode']>;
 
-declare const getMode: <M extends Mode>(mode: M) => FindDefinitionByMode<M>;
+declare function getMode<M extends Mode>(mode: M): FindDefinitionByMode<M>;
 
 type Parser = string | ((c: string) => Color);
 
-declare const useParser: (_parser: Parser) => undefined;
+declare function useParser(_parser: Parser): undefined;
 
-declare const removeParser: (_parser: Parser) => undefined;
+declare function removeParser(_parser: Parser): undefined;
 
 export { useMode, getMode, useParser, removeParser, converters, parsers, colorProfiles };
