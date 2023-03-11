@@ -4,7 +4,7 @@ import convertRgbToLab65 from './convertRgbToLab65';
 import convertXyz65ToLab65 from './convertXyz65ToLab65';
 import lab from '../lab/definition';
 
-type Lab65DefinitionMixin = {
+interface Lab65DefinitionMixin {
     mode: 'lab65';
 
     parse: ['--lab-d65'];
@@ -25,7 +25,7 @@ type Lab65DefinitionMixin = {
         a: [-86.182, 98.234];
         b: [-107.86, 94.477];
     };
-};
+}
 
 declare const definition: Omit<typeof lab, keyof Lab65DefinitionMixin> & Lab65DefinitionMixin;
 

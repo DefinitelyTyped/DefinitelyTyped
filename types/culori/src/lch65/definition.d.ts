@@ -4,7 +4,7 @@ import { Lab65 } from '../lab65/types';
 import { Rgb } from '../rgb/types';
 import { Lch65 } from './types';
 
-type Lch65DefinitionMixin = {
+interface Lch65DefinitionMixin {
     mode: 'lch65';
 
     parse: ['--lch-d65'];
@@ -25,7 +25,7 @@ type Lch65DefinitionMixin = {
         c: [0, 133.807];
         h: [0, 360];
     };
-};
+}
 
 declare const definition: Omit<typeof lch, keyof Lch65DefinitionMixin> & Lch65DefinitionMixin;
 
