@@ -16,7 +16,7 @@
     },
     "files": [
         "index.d.ts",
-        "tests/map-errors-tests.ts",
-        "tests/map-success-tests.ts"
+        "test/map.errors.ts",
+        "test/map.types.ts"
     ]
 }
