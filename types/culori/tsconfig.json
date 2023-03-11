@@ -15,6 +15,8 @@
         "noUnusedParameters": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "tests/map-errors-tests.ts",
+        "tests/map-success-tests.ts"
     ]
 }
