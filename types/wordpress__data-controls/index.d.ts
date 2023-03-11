@@ -80,7 +80,7 @@ export const controls: {
 export function dispatch(storeKey: string, actionName: string, ...args: any[]): void;
 
 /**
- * Deprecated in favor of the @wordpress/data select method.
+ * @deprecated since 5.7 in favor of built-in `resolveSelect` control in `@wordpress/data`
  *
  * Dispatches a control action for triggering a registry select.
  *
@@ -104,3 +104,8 @@ export function dispatch(storeKey: string, actionName: string, ...args: any[]): 
  * ```
  */
 export function select(storeKey: string, selectorName: string, ...args: any[]): void;
+
+/**
+ * @deprecated since 5.7 in favor of built-in `select` control in `@wordpress/data`
+ */
+export function syncSelect(storeKey: string, selectorName: string, ...args: any[]): void;
