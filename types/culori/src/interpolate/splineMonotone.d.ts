@@ -1,7 +1,7 @@
 import { Interpolator } from './Interpolator';
 
-export declare const interpolatorSplineMonotone: Interpolator;
+export const interpolatorSplineMonotone: Interpolator;
 
-export declare const interpolatorSplineMonotone2: Interpolator;
+export const interpolatorSplineMonotone2: Interpolator;
 
-export declare const interpolatorSplineMonotoneClosed: Interpolator;
+export const interpolatorSplineMonotoneClosed: Interpolator;

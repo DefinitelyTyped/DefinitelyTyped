@@ -1,5 +1,5 @@
 import { Interpolator } from './Interpolator';
 
-export declare const interpolatorSplineBasis: Interpolator;
+export const interpolatorSplineBasis: Interpolator;
 
-export declare const interpolatorSplineBasisClosed: Interpolator;
+export const interpolatorSplineBasisClosed: Interpolator;
