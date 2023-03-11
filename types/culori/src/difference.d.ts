@@ -10,17 +10,17 @@ export type DiffFn = (colorA: Color | string, colorB: Color | string) => number;
 
 declare function differenceEuclidean(mode?: Mode, weights?: [number, number, number, number]): DiffFn;
 
-declare const differenceCie76: () => DiffFn;
+declare function differenceCie76(): DiffFn;
 
-declare const differenceCie94: (kL?: number, K1?: number, K2?: number) => DiffFn;
+declare function differenceCie94(kL?: number, K1?: number, K2?: number): DiffFn;
 
-declare const differenceCiede2000: (Kl?: number, Kc?: number, Kh?: number) => DiffFn;
+declare function differenceCiede2000(Kl?: number, Kc?: number, Kh?: number): DiffFn;
 
-declare const differenceCmc: (l?: number, c?: number) => DiffFn;
+declare function differenceCmc(l?: number, c?: number): DiffFn;
 
-declare const differenceHyab: () => DiffFn;
+declare function differenceHyab(): DiffFn;
 
-declare const differenceKotsarenkoRamos: () => DiffFn;
+declare function differenceKotsarenkoRamos(): DiffFn;
 
 export {
     differenceHueChroma,
