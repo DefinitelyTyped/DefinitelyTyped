@@ -3,9 +3,9 @@
 // Definitions by: Euberdeveloper <https://github.com/Euberdeveloper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function load(importMaps: (string | {
+export function load(importMaps: ReadonlyArray<(string | {
     imports: Record<string, string>
-})[]): Promise<void>;
+})>): Promise<void>;
 export function clear(): void;
 export function plugin(): {
     name: string;
