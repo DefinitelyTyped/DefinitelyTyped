@@ -499,9 +499,9 @@ export class PresenceFilter extends Filter {
 export class SubstringFilter extends Filter {
     constructor(options: {
         attribute: string;
-        initial: string;
-        any?: string[] | undefined;
-        final?: string | undefined;
+        subInitial: string;
+        subAny?: string[] | undefined;
+        subFinal?: string | undefined;
     });
 }
 
