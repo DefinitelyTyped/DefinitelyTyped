@@ -1,6 +1,5 @@
-import { Color, FindColorByMode, Mode, OverridesObject } from '../common';
+import { Color, FindColorByMode, Mode, OverridesObject, TakeColorChannels } from '../common';
 import { MapFn } from '../map';
-import { TakeColorChannels } from '../common';
 
 type ColorPosition = [Color | string, number];
 type Position = number;
@@ -29,26 +28,28 @@ type OverridesParameter<M extends Mode> =
     | OverridesObject<M>
     | OverridesWithUseFnsForChannels<M>;
 
-declare function interpolate_fn<M extends Mode>(
+function interpolate_fn<M extends Mode>(
     colors: ColorsParameter,
     mode: M,
     overrides: OverridesParameter<M>,
     premap: MapFn<M>,
 ): Interpolator<M>;
 
-export declare function interpolate<M extends Mode = 'rgb'>(
+function interpolate<M extends Mode = 'rgb'>(
     colors: ColorsParameter,
     mode?: M,
     overrides?: OverridesParameter<M>,
 ): Interpolator<M>;
 
-export declare function interpolateWith<M extends Mode>(
+function interpolateWith<M extends Mode>(
     premap: MapFn<M>,
     postmap: MapFn<M>,
 ): (colors: ColorsParameter, mode?: M, overrides?: OverridesParameter<M>) => Interpolator<M>;
 
-export declare function interpolateWithPremultipliedAlpha<M extends Mode>(
+function interpolateWithPremultipliedAlpha<M extends Mode>(
     colors: ColorsParameter,
     mode?: M,
     overrides?: OverridesParameter<M>,
 ): Interpolator<M>;
+
+export { interpolate, interpolateWith, interpolateWithPremultipliedAlpha };
