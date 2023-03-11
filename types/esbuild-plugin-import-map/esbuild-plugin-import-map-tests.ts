@@ -1,6 +1,6 @@
 import * as importMap from "esbuild-plugin-import-map";
 
-// $ExpectType Promise
+// $ExpectType Promise<void>
 importMap.load({
     imports: {
         'lit-element': 'https://cdn.eik.dev/lit-element/v2'
@@ -10,8 +10,8 @@ importMap.load({
 const pluginResult = importMap.plugin();
 // $ExpectType string
 pluginResult.name;
-// $ExpectType Function
-pluginResult.setup
+// $ExpectType (build: any) => void
+pluginResult.setup;
 
 // $ExpectType void
 importMap.clear();

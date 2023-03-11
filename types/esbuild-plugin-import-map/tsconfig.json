@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "NodeNext",
+        "module": "commonjs",
         "lib": [
             "es6"
         ],
