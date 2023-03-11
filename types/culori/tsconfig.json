@@ -1,18 +1,20 @@
 {
     "compilerOptions": {
-        "noEmit": true,
-        "lib": ["es6"],
         "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
-        "target": "es6",
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "exactOptionalPropertyTypes": true,
-        "noUncheckedIndexedAccess": true,
-        "noUnusedLocals": false,
-        "noUnusedParameters": true
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
