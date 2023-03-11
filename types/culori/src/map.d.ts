@@ -3,11 +3,11 @@ import { Rgb } from './rgb/types';
 
 type Channel = string;
 
-export type MapFn<M extends Mode | null> = (
+export type MapFn<M extends Mode> = (
     v: number,
     ch: string,
     conv_color: M extends Mode ? FindColorByMode<M> : Color,
-    mode: M extends null ? null : M,
+    mode: M,
 ) => number;
 
 interface ColorToRgbMapper {
@@ -25,13 +25,9 @@ interface ColorToPredefinedColorMapper<M extends Mode> {
     (color: string): FindColorByMode<M> | undefined;
 }
 
-declare function mapper(fn: MapFn<'rgb'>): ColorToRgbMapper;
-declare function mapper(fn: MapFn<Mode>, mode: null, preserve_mode?: false): ColorToSameColorMapper;
-// tslint:disable-next-line:unified-signatures
-declare function mapper(fn: MapFn<'rgb'>, mode: undefined, preserve_mode?: false): ColorToRgbMapper;
-declare function mapper<M extends Mode>(fn: MapFn<M>, mode: M, preserve_mode?: false): ColorToPredefinedColorMapper<M>;
-declare function mapper(fn: MapFn<Mode>, mode: null, preserve_mode: true): ColorToSameColorMapper;
+declare function mapper(fn: MapFn<'rgb'>, mode?: undefined, preserve_mode?: false): ColorToRgbMapper;
 declare function mapper(fn: MapFn<'rgb'>, mode: undefined, preserve_mode: true): ColorToSameColorMapper;
+declare function mapper<M extends Mode>(fn: MapFn<M>, mode: M, preserve_mode?: false): ColorToPredefinedColorMapper<M>;
 declare function mapper<M extends Mode>(fn: MapFn<M>, mode: M, preserve_mode: true): ColorToSameColorMapper;
 
 declare function mapAlphaMultiply(v: number, ch: Channel, c: Color): number;
