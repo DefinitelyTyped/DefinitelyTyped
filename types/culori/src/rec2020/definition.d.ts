@@ -6,7 +6,7 @@ import convertRec2020ToXyz65 from './convertRec2020ToXyz65';
 import { Rec2020 } from './types';
 import { Rgb } from '../rgb/types';
 
-type Rec2020DefinitionMixin = {
+interface Rec2020DefinitionMixin {
     mode: 'rec2020';
 
     fromMode: {
@@ -21,7 +21,7 @@ type Rec2020DefinitionMixin = {
 
     parse: ['rec2020'];
     serialize: 'rec2020';
-};
+}
 
 declare const definition: Omit<typeof rgb, keyof Rec2020DefinitionMixin> & Rec2020DefinitionMixin;
 
