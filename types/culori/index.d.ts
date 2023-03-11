@@ -1,4 +1,4 @@
-// Type definitions for culori 2.0.3
+// Type definitions for culori 2.0
 // Project: https://github.com/Evercoder/culori
 // Definitions by: Bijela Gora <https://github.com/bijela-gora>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
