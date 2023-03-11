@@ -2,7 +2,7 @@ import { EventBridgeEvent } from './eventbridge';
 
 export type StepFunctionsExecutionStatus = 'RUNNING' | 'SUCCEEDED' | 'FAILED' | 'TIMED_OUT' | 'ABORTED';
 
-interface StepFunctionsExecutionStateChangeEventDetail<
+export interface StepFunctionsExecutionStateChangeEventDetail<
     Status extends StepFunctionsExecutionStatus = StepFunctionsExecutionStatus,
 > {
     executionArn: string;

@@ -89,6 +89,7 @@ export * from "./trigger/sqs";
 export * from './trigger/msk';
 export * from "./trigger/secretsmanager";
 export * from "./trigger/s3-event-notification";
+export * from "./trigger/step-functions";
 export * from "./trigger/amplify-resolver";
 
 export as namespace AWSLambda;
