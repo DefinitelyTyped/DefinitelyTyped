@@ -91,6 +91,10 @@ export interface Config {
     batch_request_timeout_ms: number;
 }
 
+// The methods above should NOT be exported as standalone functions
+// The analysis done by DT's PR bot suggests that they are missing, but they are not.
+// mixpanel-browser exports a Singleton rather than a class, so this confuses the bot
+
 export type VerboseResponse =
     | {
           status: 1;
