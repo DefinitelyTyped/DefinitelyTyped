@@ -3,7 +3,7 @@ import { Oklch } from './types';
 import { Oklab } from '../oklab/types';
 import { Rgb } from '../rgb/types';
 
-type OklchDefinitionMixin = {
+interface OklchDefinitionMixin {
     mode: 'oklch';
 
     toMode: {
@@ -24,7 +24,7 @@ type OklchDefinitionMixin = {
         c: [0, 0.322];
         h: [0, 360];
     };
-};
+}
 
 declare const definition: Omit<typeof lch, keyof OklchDefinitionMixin> & OklchDefinitionMixin;
 

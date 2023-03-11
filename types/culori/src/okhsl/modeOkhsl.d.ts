@@ -5,7 +5,7 @@ import modeHsl from '../hsl/definition';
 import { Rgb } from '../rgb/types';
 import { Okhsl } from './types';
 
-type OkhslDefinitionMixin = {
+interface OkhslDefinitionMixin {
     mode: 'okhsl';
     channels: ['h', 's', 'l', 'alpha'];
     parse: ['--okhsl'];
@@ -18,7 +18,7 @@ type OkhslDefinitionMixin = {
         oklab: typeof convertOkhslToOklab;
         rgb: (c: Omit<Okhsl, 'mode'>) => Rgb;
     };
-};
+}
 
 declare const modeOkhsl: Omit<typeof modeHsl, keyof OkhslDefinitionMixin> & OkhslDefinitionMixin;
 

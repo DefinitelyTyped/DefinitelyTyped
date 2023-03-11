@@ -4,7 +4,7 @@ import convertXyz65ToP3 from './convertXyz65ToP3';
 import { Rgb } from '../rgb/types';
 import { P3 } from './types';
 
-type P3DefinitionMixin = {
+interface P3DefinitionMixin {
     mode: 'p3';
     parse: ['display-p3'];
     serialize: 'display-p3';
@@ -18,7 +18,7 @@ type P3DefinitionMixin = {
         rgb: (color: Omit<P3, 'mode'>) => Rgb;
         xyz65: typeof convertP3ToXyz65;
     };
-};
+}
 
 declare const definition: Omit<typeof rgb, keyof P3DefinitionMixin> & P3DefinitionMixin;
 

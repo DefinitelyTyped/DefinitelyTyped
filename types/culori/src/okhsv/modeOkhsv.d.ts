@@ -5,7 +5,7 @@ import modeHsv from '../hsv/definition';
 import { Okhsv } from './types';
 import { Rgb } from '../rgb/types';
 
-type OkhsvDefinitionMixin = {
+interface OkhsvDefinitionMixin {
     mode: 'okhsv';
     channels: ['h', 's', 'v', 'alpha'];
     parse: ['--okhsv'];
@@ -18,7 +18,7 @@ type OkhsvDefinitionMixin = {
         oklab: typeof convertOkhsvToOklab;
         rgb: (color: Omit<Okhsv, 'mode'>) => Rgb;
     };
-};
+}
 
 declare const modeOkhsv: Omit<typeof modeHsv, keyof OkhsvDefinitionMixin> & OkhsvDefinitionMixin;
 

@@ -2,7 +2,7 @@ import rgb from '../rgb/definition';
 import convertRgbToLrgb from './convertRgbToLrgb';
 import convertLrgbToRgb from './convertLrgbToRgb';
 
-type LrgbDefinitionMixin = {
+interface LrgbDefinitionMixin {
     mode: 'lrgb';
 
     toMode: {
@@ -15,7 +15,7 @@ type LrgbDefinitionMixin = {
 
     parse: ['--srgb-linear'];
     serialize: '--srgb-linear';
-};
+}
 
 declare const definition: Omit<typeof rgb, keyof LrgbDefinitionMixin> & LrgbDefinitionMixin;
 

@@ -5,7 +5,7 @@ import convertOklabToRgb from './convertOklabToRgb';
 
 import lab from '../lab/definition';
 
-type OklabDefinitionMixin = {
+interface OklabDefinitionMixin {
     mode: 'oklab';
 
     toMode: {
@@ -26,7 +26,7 @@ type OklabDefinitionMixin = {
 
     parse: ['--oklab'];
     serialize: '--oklab';
-};
+}
 
 declare const definition: Omit<typeof lab, keyof OklabDefinitionMixin> & OklabDefinitionMixin;
 
