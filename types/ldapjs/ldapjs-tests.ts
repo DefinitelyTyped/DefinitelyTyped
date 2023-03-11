@@ -105,9 +105,9 @@ presenceFilter.matches({ cn: 'foo' });
 
 let substringFilter = new ldap.SubstringFilter({
     attribute: 'cn',
-    initial: 'foo',
-    any: ['bar'],
-    final: 'baz',
+    subInitial: 'foo',
+    subAny: ['bar'],
+    subFinal: 'baz',
 });
 substringFilter.matches({ cn: 'foobigbardogbaz' });
 
