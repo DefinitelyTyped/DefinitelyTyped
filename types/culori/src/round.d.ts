@@ -1,3 +1,1 @@
-type Integer = number;
-
-export default function round(precision: Integer): <T>(value: T) => T;
+export default function round(precision: number): <T>(value: T) => T;
