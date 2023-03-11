@@ -241,6 +241,7 @@ export const oklch: ConvertFn<'oklch'>;
 export const p3: ConvertFn<'p3'>;
 export const prophoto: ConvertFn<'prophoto'>;
 export const rec2020: ConvertFn<'rec2020'>;
+// tslint:disable-next-line:use-default-type-parameter
 export const rgb: ConvertFn<'rgb'>;
 export const xyz50: ConvertFn<'xyz50'>;
 export const xyz65: ConvertFn<'xyz65'>;
