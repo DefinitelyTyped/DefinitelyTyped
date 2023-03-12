@@ -21,7 +21,8 @@ declare namespace node_geocoder {
         | 'geocodio'
         | 'yandex'
         | 'teleport'
-        | 'pickpoint';
+        | 'pickpoint'
+        | 'virtualearth';
 
     interface BaseOptions {
         provider: string;
