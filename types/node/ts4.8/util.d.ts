@@ -1482,7 +1482,7 @@ declare module 'util' {
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
          */
-        entries(): IterableIterator<[name: string, value: string]>;
+        entries(): IterableIterator<[string, string]>;
         /**
          * Returns the value of the first name-value pair whose name is `name`.
          * If there are no such pairs, `null` is returned.

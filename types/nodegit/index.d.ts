@@ -36,6 +36,7 @@ export { ConvenientPatch } from './convenient-patch';
 export { CredUserpassPayload } from './cred-user-pass-payload';
 export { CredUsername } from './cred-username';
 export { Cred } from './cred';
+export { Credential } from './credential';
 export { CvarMap } from './cvar-map';
 export { DescribeFormatOptions } from './describe-format-options';
 export { DescribeOptions } from './describe-options';

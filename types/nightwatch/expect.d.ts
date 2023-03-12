@@ -157,6 +157,8 @@ export interface ExpectElement extends ExpectAssertions<ExpectElement> {
   domProperty(propertyName: string, message?: string): Awaitable<this, NightwatchExpectResult>;
 }
 
+export interface ExpectSection extends ExpectAssertions<ExpectSection>, ExpectElement {}
+
 export interface ExpectElements extends ExpectAssertions<ExpectElements> {
   /**
    * Checks if the number of elements specified by a selector is equal or not to a given value.
@@ -179,6 +181,11 @@ export interface Expect {
    * Expect assertions operating on a single element, specified by its CSS/Xpath selector.
    */
   element(property: Definition): ExpectElement;
+
+  /**
+   * Expect assertions operating on a page-object section, specified by '`@section_name`'.
+   */
+  section(property: Definition): ExpectSection;
 
   /**
    * Expect assertions operating on a collection of elements, specified by a CSS/Xpath selector.

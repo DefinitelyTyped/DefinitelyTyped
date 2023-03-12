@@ -433,6 +433,15 @@ const version4Tests = async () => {
         sql: 'test',
         callback: message => {
             console.log(message.queueName);
+            for (const query of message.queries ?? []) {
+                for (const table of query.tables ?? []) {
+                    console.log(table.name);
+                    for (const row of table.rows ?? []) {
+                        console.log(row.operation);
+                        console.log(row.rowid);
+                    }
+                }
+            }
         },
     });
 

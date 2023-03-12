@@ -3,7 +3,9 @@
 // Definitions by: Jacob Malone <https://github.com/jcbmln>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Options } from 'sass';
+/// <reference types="node" />
+
+import { LegacySharedOptions as Options } from 'sass';
 
 interface SassResults {
     css: string;
@@ -17,11 +19,11 @@ interface SassResults {
     };
 }
 
-interface SassOptions extends Options {
+type SassOptions = Options<'sync'> & {
     success?: ((results: SassResults) => any) | undefined;
     error?: ((err: Error) => any) | undefined;
     imagePaths?: string[] | undefined;
-}
+};
 
 interface GulpSassOptions extends SassOptions {
     errLogToConsole?: boolean | undefined;

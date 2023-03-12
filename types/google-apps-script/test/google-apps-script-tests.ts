@@ -681,3 +681,33 @@ const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
 const mimeTypes: string[] = [
     MimeType.GOOGLE_APPS_SCRIPT,
 ];
+
+// analytics reporting test
+const analyticsReporting = () => {
+    const gaData = AnalyticsReporting.Reports.batchGet({
+        reportRequests: [
+            {
+                viewId: "",
+                dateRanges: [
+                    {
+                        startDate: "2023-03-08",
+                        endDate: "2023-03-08",
+                    },
+                ],
+                metrics: [
+                    {
+                        expression: "some metrics",
+                        alias: "some metrics",
+                        formattingType: "some metrics",
+                    }
+                ],
+                dimensions: [
+                    {
+                        name: "some dimensions"
+                    }
+                ],
+                samplingLevel: "LARGE",
+            },
+        ],
+    });
+};
