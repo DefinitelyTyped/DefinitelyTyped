@@ -1789,6 +1789,7 @@ export interface NightwatchAPI
     verify: Assert;
 
     appium: AppiumCommands;
+    cookies: CookiesNsCommands;
 
     page: NightwatchPage & NightwatchCustomPageObjects;
 
@@ -2289,16 +2290,6 @@ export type EnhancedPageObject<
         navigate(url?: string, callback?: () => void): EnhancedPageObject<Commands, Elements, Sections>;
     };
 
-export interface Cookie {
-    name: string;
-    value: string;
-    path?: string;
-    domain?: string;
-    secure?: boolean;
-    expiry?: Date | number;
-    httpOnly?: boolean;
-}
-
 export interface SharedCommands extends ClientCommands, ElementCommands {}
 
 export interface WindowPosition { x: number; y: number; }
@@ -2686,6 +2677,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * }
      *
      * @see https://nightwatchjs.org/api/deleteCookie.html
+     *
+     * @deprecated In favour of `.cookies.delete()`.
      */
     deleteCookie(
         cookieName: string,
@@ -2703,6 +2696,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * }
      *
      * @see https://nightwatchjs.org/api/deleteCookies.html
+     *
+     * @deprecated In favour of `.cookies.deleteAll()`.
      */
     deleteCookies(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
@@ -2737,6 +2732,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * }
      *
      * @see https://nightwatchjs.org/api/getCookie.html
+     *
+     * @deprecated In favour of `.cookies.get()`.
      */
     getCookie(
         name: string,
@@ -2758,6 +2755,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * }
      *
      * @see https://nightwatchjs.org/api/getCookies.html
+     *
+     * @deprecated In favour of `.cookies.getAll()`.
      */
     getCookies(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie[]>) => void
@@ -3133,6 +3132,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * }
      *
      * @see https://nightwatchjs.org/api/setCookie.html
+     *
+     * @deprecated In favour of `.cookies.set()`.
      */
     setCookie(
         cookie: Cookie, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
@@ -5195,6 +5196,149 @@ export interface ElementCommands {
     ): Awaitable<this, string>;
 }
 
+export interface Cookie {
+    name: string;
+    value: string;
+    path?: string;
+    domain?: string;
+    secure?: boolean;
+    httpOnly?: boolean;
+    expiry?: number;
+    sameSite?: 'Lax' | 'Strict' | 'None';
+}
+
+export interface CookiesNsCommands {
+    /**
+     * Retrieve a single cookie visible to the current page.
+     *
+     * The cookie is returned as a cookie JSON object, with properties as defined [here](https://www.w3.org/TR/webdriver/#dfn-table-for-cookie-conversion).
+     *
+     * @example
+     * module.exports = {
+     *   'get a cookie': function (browser) {
+     *     browser
+     *       .cookies.get('test_cookie', function (result) {
+     *         const cookie = result.value;
+     *         this.assert.equal(cookie.name, 'test_cookie');
+     *         this.assert.equal(cookie.value, '123456');
+     *       });
+     *   },
+     *
+     *   'get a cookie with ES6 async/await': async function (browser) {
+     *     const cookie = await browser.cookies.get('test_cookie');
+     *     browser.assert.equal(cookie.name, 'test_cookie');
+     *     browser.assert.equal(cookie.value, '123456');
+     *   }
+     * };
+     */
+    get(
+        name: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie | null>) => void,
+    ): Awaitable<NightwatchAPI, Cookie | null>;
+
+    /**
+     * Retrieve all cookies visible to the current page.
+     *
+     * The cookies are returned as an array of cookie JSON object, with properties as defined [here](https://www.w3.org/TR/webdriver/#dfn-table-for-cookie-conversion).
+     *
+     * @example
+     * module.exports = {
+     *   'get all cookies': function (browser) {
+     *     browser
+     *       .cookies.getAll(function (result) {
+     *         this.assert.equal(result.value.length, 1);
+     *         this.assert.equal(result.value[0].name, 'test_cookie');
+     *       });
+     *   },
+     *
+     *   'get all cookies with ES6 async/await': async function (browser) {
+     *     const cookies = await browser.cookies.getAll();
+     *     browser.assert.equal(cookies.length, 1);
+     *     browser.assert.equal(cookies[0].name, 'test_cookie');
+     *   }
+     * };
+     */
+    getAll(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie[]>) => void,
+    ): Awaitable<NightwatchAPI, Cookie[]>;
+
+    /**
+     * Set a cookie, specified as a cookie JSON object, with properties as defined [here](https://www.w3.org/TR/webdriver/#dfn-table-for-cookie-conversion).
+     *
+     * @example
+     * module.exports = {
+     *   'set a cookie': function (browser) {
+     *     browser
+     *       .cookies.set({
+     *         name: "test_cookie",
+     *         value: "test_value",
+     *         path: "/", // (Optional)
+     *         domain: "example.org", // (Optional)
+     *         secure: false, // (Optional)
+     *         httpOnly: false, // (Optional)
+     *         expiry: 1395002765 // (Optional) time in seconds since midnight, January 1, 1970 UTC
+     *       });
+     *   },
+     *
+     *   'set a cookie with ES6 async/await': async function (browser) {
+     *     await browser.cookies.set({
+     *       name: 'test_cookie',
+     *       value: 'test_value',
+     *       domain: 'example.org', // (Optional)
+     *       sameSite: 'Lax' // (Optional)
+     *     });
+     *   }
+     * };
+     */
+    set(
+        cookie: Cookie,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Delete the cookie with the given name. This command is a no-op if there is no such cookie visible to the current page.
+     *
+     * @example
+     * module.exports = {
+     *   'delete a cookie': function (browser) {
+     *     browser
+     *       .cookies.delete('test_cookie', function () {
+     *         console.log('cookie deleted successfully');
+     *       });
+     *   },
+     *
+     *   'delete a cookie with ES6 async/await': async function (browser) {
+     *     await browser.cookies.delete('test_cookie');
+     *   }
+     * };
+     */
+    delete(
+        cookieName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Delete all cookies visible to the current page.
+     *
+     * @example
+     * module.exports = {
+     *   'delete all cookies': function (browser) {
+     *     browser
+     *       .cookies.deleteAll(function() {
+     *         console.log('all cookies deleted successfully');
+     *       });
+     *   },
+     *
+     *   'delete all cookies with ES6 async/await': async function (browser) {
+     *     await browser.cookies.deleteAll();
+     *   }
+     * };
+     */
+    deleteAll(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+}
+
 export interface AppiumCommands {
     /**
      * Get the current device orientation.
@@ -6408,6 +6552,7 @@ export interface WebDriverProtocolCookies {
      * @see setCookie
      * @see deleteCookie
      * @see deleteCookies
+     * @deprecated
      */
     cookie(method: string, callbackOrCookie?: () => void): this;
 }
