@@ -18,7 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "test/mapper.test.ts",
-        "test/average.test.ts"
+        "test/average.test.ts",
+        "test/blend.test.ts",
+        "test/mapper.test.ts"
     ]
 }
