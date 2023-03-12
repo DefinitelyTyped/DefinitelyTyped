@@ -157,7 +157,7 @@ declare module 'fs' {
      * Objects returned from {@link statfs} and {@link statfsSync} are of this type.
      * If `bigint` in the `options` passed to those methods is true, the numeric values
      * will be `bigint` instead of `number`.
-     * @since v19.6.0
+     * @since  v18.15.0
      */
     export class StatsFs {}
 
