@@ -7,7 +7,7 @@
 //                 Do Nam <https://github.com/namdien177>
 //                 Lyubin Pavel <https://github.com/pafik13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
+// TypeScript Version: 4.2
 
 export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
