@@ -28,6 +28,7 @@
         "test/formatCss.test.ts",
         "test/formatRgb.test.ts",
         "test/mapper.test.ts",
+        "test/random.test.ts",
         "test/useMode.test.ts"
     ]
 }
