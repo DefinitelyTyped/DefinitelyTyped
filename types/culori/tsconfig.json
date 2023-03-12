@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/mapper.test.ts"
+        "test/mapper.test.ts",
+        "test/average.test.ts"
     ]
 }
