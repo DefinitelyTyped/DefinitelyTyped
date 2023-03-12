@@ -13,6 +13,9 @@ const credentials: oauth2lib.ModuleOptions = {
     auth: {
         tokenHost: "https://api.oauth.com",
     },
+    http: {
+        json: true
+    }
 };
 
 const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode(credentials);

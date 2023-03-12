@@ -75,7 +75,7 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
         /**
          * JSON response parsing mode. Defaults to strict
          */
-        json?: true | "strict" | "force" | undefined;
+        json?: boolean | "strict" | "force" | undefined;
      } | undefined;
     options?: {
         /** Scope separator character. Some providers may require a different separator. Defaults to empty space */
