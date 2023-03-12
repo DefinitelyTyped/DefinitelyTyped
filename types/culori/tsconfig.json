@@ -21,6 +21,7 @@
         "test/average.test.ts",
         "test/blend.test.ts",
         "test/common.test.ts",
+        "test/converter.test.ts",
         "test/mapper.test.ts"
     ]
 }
