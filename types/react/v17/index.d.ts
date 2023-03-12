@@ -47,6 +47,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type NativeSubmitEvent = SubmitEvent;
 type Booleanish = boolean | 'true' | 'false';
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
@@ -1185,7 +1186,7 @@ declare namespace React {
         target: EventTarget & Target;
     }
 
-    interface FormEvent<T = Element> extends SyntheticEvent<T> {
+    interface FormEvent<T = Element> extends SyntheticEvent<T, NativeSubmitEvent> {
     }
 
     interface InvalidEvent<T = Element> extends SyntheticEvent<T> {

@@ -62,6 +62,7 @@ type NativeTouchEvent = TouchEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type NativeSubmitEvent = SubmitEvent
 
 // eslint-disable-next-line export-just-namespace
 export = React;
@@ -453,6 +454,7 @@ declare namespace React {
     }
 
     interface FormEvent<T> extends SyntheticEvent<T> {
+      nativeEvent: NativeSubmitEvent;
     }
 
     interface InvalidEvent<T> extends SyntheticEvent<T> {

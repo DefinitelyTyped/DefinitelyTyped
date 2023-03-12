@@ -51,6 +51,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type NativeSubmitEvent = SubmitEvent;
 type Booleanish = boolean | 'true' | 'false';
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
@@ -1187,7 +1188,7 @@ declare namespace React {
     }
 
     // tslint:disable-next-line:no-empty-interface
-    interface FormEvent<T = Element> extends SyntheticEvent<T> {
+    interface FormEvent<T = Element> extends SyntheticEvent<T, NativeSubmitEvent> {
     }
 
     interface InvalidEvent<T = Element> extends SyntheticEvent<T> {

@@ -20,6 +20,7 @@ interface PointerEvent extends Event { }
 interface TransitionEvent extends Event { }
 interface UIEvent extends Event { }
 interface WheelEvent extends Event { }
+interface SubmitEvent extends Event { }
 
 interface EventTarget { }
 interface Document { }
