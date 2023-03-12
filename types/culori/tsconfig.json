@@ -23,6 +23,7 @@
         "test/common.test.ts",
         "test/converter.test.ts",
         "test/convertLrgbToRgb.test.ts",
+        "test/filterBrightness.test.ts",
         "test/mapper.test.ts"
     ]
 }
