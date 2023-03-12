@@ -1230,13 +1230,12 @@ export class Layer extends Evented {
     options: LayerOptions;
 }
 
-export interface GridLayerOptions {
+export interface GridLayerOptions extends LayerOptions {
     tileSize?: number | Point | undefined;
     opacity?: number | undefined;
     updateWhenIdle?: boolean | undefined;
     updateWhenZooming?: boolean | undefined;
     updateInterval?: number | undefined;
-    attribution?: string | undefined;
     zIndex?: number | undefined;
     bounds?: LatLngBoundsExpression | undefined;
     minZoom?: number | undefined;
@@ -1379,7 +1378,6 @@ export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number | undefined;
     alt?: string | undefined;
     interactive?: boolean | undefined;
-    attribution?: string | undefined;
     crossOrigin?: CrossOrigin | boolean | undefined;
     errorOverlayUrl?: string | undefined;
     zIndex?: number | undefined;
