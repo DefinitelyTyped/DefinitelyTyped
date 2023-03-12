@@ -749,7 +749,7 @@ declare module 'fs/promises' {
     ): Promise<BigIntStats>;
     function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
     /**
-     * @since v19.6.0
+     * @since v18.15.0
      * @return Fulfills with an {fs.StatFs} for the file system.
      */
     function statfs(
