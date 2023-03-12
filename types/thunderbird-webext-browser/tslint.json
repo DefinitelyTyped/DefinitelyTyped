@@ -1,6 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "strict-export-declare-modifiers": false // workaround for objects whose names are reserved words in JavaScript
+        "strict-export-declare-modifiers": false
     }
 }
