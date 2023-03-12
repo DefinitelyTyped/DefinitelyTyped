@@ -1791,6 +1791,7 @@ export interface NightwatchAPI
     appium: AppiumCommands;
     cookies: CookiesNsCommands;
     alerts: AlertsNsCommands;
+    document: DocumentNsCommands;
 
     page: NightwatchPage & NightwatchCustomPageObjects;
 
@@ -2922,12 +2923,18 @@ export interface ClientCommands extends ChromiumClientCommands {
      * };
      *
      * @see https://nightwatchjs.org/api/injectScript.html
+     *
+     * @deprecated In favour of `.document.injectScript()`.
      */
     injectScript(
         scriptUrl: string,
-        id?: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<HTMLScriptElement>) => void,
-    ): Awaitable<this, HTMLScriptElement>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void,
+    ): Awaitable<this, WebElement>;
+    injectScript(
+        scriptUrl: string,
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void,
+    ): Awaitable<this, WebElement>;
 
     /**
      * Utility command to test if the log type is available.
@@ -3377,6 +3384,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *  };
      *
      * @see https://nightwatchjs.org/api/pageSource.html
+     *
+     * @deprecated In favour of `.document.pageSource()`.
      */
     pageSource(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
@@ -5431,6 +5440,80 @@ export interface AlertsNsCommands {
     ): Awaitable<NightwatchAPI, null>;
 }
 
+export interface DocumentNsCommands {
+    /**
+     * Utility command to load an external script into the page specified by url.
+     *
+     * @example
+     * module.exports = {
+     *   'inject external script': function (browser) {
+     *      browser.document.injectScript('<script-url>', function () {
+     *        console.log('script injected successfully');
+     *      });
+     *   },
+     *
+     *   'inject external script using ES6 async/await': async function (browser) {
+     *      await browser.document.injectScript('<script-url>', 'injected-script');
+     *   }
+     * };
+     */
+    injectScript(
+        scriptUrl: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void,
+    ): Awaitable<NightwatchAPI, WebElement>;
+    injectScript(
+        scriptUrl: string,
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void,
+    ): Awaitable<NightwatchAPI, WebElement>;
+
+    /**
+     * Get the string serialized source of the current page.
+     *
+     * @example
+     * module.exports = {
+     *   'get page source': function (browser) {
+     *      browser.document.source(function (result) {
+     *        console.log('current page source:', result.value);
+     *      });
+     *   },
+     *
+     *   'get page source using ES6 async/await': async function (browser) {
+     *      const pageSource = await browser.document.source();
+     *      console.log('current page source:', pageSource);
+     *   }
+     * };
+     *
+     * @alias pageSource
+     */
+    source(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<NightwatchAPI, string>;
+
+    /**
+     * Get the string serialized source of the current page.
+     *
+     * @example
+     * module.exports = {
+     *   'get page source': function (browser) {
+     *      browser.document.pageSource(function (result) {
+     *        console.log('current page source:', result.value);
+     *      });
+     *   },
+     *
+     *   'get page source using ES6 async/await': async function (browser) {
+     *      const pageSource = await browser.document.pageSource();
+     *      console.log('current page source:', pageSource);
+     *   }
+     * };
+     *
+     * @alias source
+     */
+    pageSource(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<NightwatchAPI, string>;
+}
+
 export interface AppiumCommands {
     /**
      * Get the current device orientation.
@@ -6526,6 +6609,8 @@ export interface WebDriverProtocolDocumentHandling {
      *
      * @example
      * browser.source();
+     *
+     * @deprecated In favour of `.document.source()`.
      */
     source(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
 
