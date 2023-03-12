@@ -1226,6 +1226,8 @@ export class Layer extends Evented {
     beforeAdd?(map: Map): this;
 
     protected _map: Map;
+
+    options: LayerOptions;
 }
 
 export interface GridLayerOptions {

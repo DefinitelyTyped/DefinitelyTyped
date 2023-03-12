@@ -163,6 +163,14 @@ const htmlElement = document.getElementById('foo');
 
 layer.addInteractiveTarget(htmlElement);
 layer.removeInteractiveTarget(htmlElement);
+// $ExpectType LayerOptions
+layer.options;
+
+let layerOptions: L.LayerOptions;
+layerOptions = {
+    attribution: 'anon',
+    pane: 'overlay',
+};
 
 const popupOptions: L.PopupOptions = {};
 
