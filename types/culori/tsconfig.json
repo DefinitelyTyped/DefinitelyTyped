@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/map.test.ts"
+        "test/mapper.test.ts"
     ]
 }
