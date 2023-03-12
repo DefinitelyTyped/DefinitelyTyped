@@ -1777,6 +1777,7 @@ function testDownloads() {
     chrome.downloads.acceptDanger(1, () => { })
     chrome.downloads.drag(1)
     chrome.downloads.setShelfEnabled(true)
+    chrome.downloads.setUiOptions({ enabled: true }, () => { })
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads
@@ -1791,6 +1792,7 @@ async function testDownloadsForPromise() {
     await chrome.downloads.erase({})
     await chrome.downloads.removeFile(1)
     await chrome.downloads.acceptDanger(1)
+    await chrome.downloads.setUiOptions({ enabled: true })
 }
 
 // https://developer.chrome.com/docs/extensions/reference/extension

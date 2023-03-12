@@ -2890,6 +2890,11 @@ declare namespace chrome.downloads {
         conflictAction?: string | undefined;
     }
 
+    export interface UiOptions {
+        /** Enable or disable the download UI. */
+        enabled: boolean;
+    }
+
     export interface DownloadChangedEvent extends chrome.events.Event<(downloadDelta: DownloadDelta) => void> { }
 
     export interface DownloadCreatedEvent extends chrome.events.Event<(downloadItem: DownloadItem) => void> { }
@@ -3026,6 +3031,19 @@ declare namespace chrome.downloads {
     export function drag(downloadId: number): void;
     /** Enable or disable the gray shelf at the bottom of every window associated with the current browser profile. The shelf will be disabled as long as at least one extension has disabled it. Enabling the shelf while at least one other extension has disabled it will return an error through runtime.lastError. Requires the "downloads.shelf" permission in addition to the "downloads" permission. */
     export function setShelfEnabled(enabled: boolean): void;
+    /**
+     * Change the download UI of every window associated with the current browser profile. As long as at least one extension has set UiOptions.enabled to false, the download UI will be hidden. Setting UiOptions.enabled to true while at least one other extension has disabled it will return an error through runtime.lastError. Requires the "downloads.ui" permission in addition to the "downloads" permission.
+     * @param options Encapsulate a change to the download UI.
+     * @since Chrome 105
+     */
+    export function setUiOptions(options: UiOptions): Promise<void>;
+    /**
+     * Change the download UI of every window associated with the current browser profile. As long as at least one extension has set UiOptions.enabled to false, the download UI will be hidden. Setting UiOptions.enabled to true while at least one other extension has disabled it will return an error through runtime.lastError. Requires the "downloads.ui" permission in addition to the "downloads" permission.
+     * @param options Encapsulate a change to the download UI.
+     * @param callback Called when the setUiOptions request is completed.
+     * @since Chrome 105
+     */
+    export function setUiOptions(options: UiOptions, callback: () => void): void;
 
     /** When any of a DownloadItem's properties except bytesReceived and estimatedEndTime changes, this event fires with the downloadId and an object containing the properties that changed. */
     export var onChanged: DownloadChangedEvent;
