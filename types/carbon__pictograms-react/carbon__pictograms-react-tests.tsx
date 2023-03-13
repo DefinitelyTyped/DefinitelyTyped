@@ -28,6 +28,7 @@ import {
     IbmZ,
     IbmZAndLinuxoneMultiFrame,
     Ai,
+    AppModernization,
 } from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
@@ -59,3 +60,4 @@ import {
 <IbmZ />; // $ExpectType Element
 <IbmZAndLinuxoneMultiFrame />; // $ExpectType Element
 <Ai />; // $ExpectType Element
+<AppModernization />; // $ExpectType Element
