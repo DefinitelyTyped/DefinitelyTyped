@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export type AnnounceList = string[][];
+type AnnounceList = string[][];
 
 interface CreateTorrentOptions {
     // name of the torrent (default = basename of `path`, or 1st file's name)
@@ -59,4 +59,7 @@ declare function createTorrent(
     cb: (err: Error | null, torrent: Buffer) => any,
 ): void;
 
+declare const announceList: AnnounceList;
+
 export default createTorrent;
+export {announceList}
