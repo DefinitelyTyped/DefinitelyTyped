@@ -235,6 +235,10 @@ docker.buildImage(
     },
 );
 
+docker.buildImage('.', { nocache: true }, (err, response) => {
+    // NOOP
+});
+
 docker.createContainer({ Tty: true }, (err, container) => {
     container.start((err, data) => {
         // NOOP

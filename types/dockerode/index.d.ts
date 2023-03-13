@@ -942,6 +942,7 @@ declare namespace Dockerode {
         platform?: string | undefined;
         target?: string | undefined;
         outputs?: string | undefined;
+        nocache?: boolean | undefined;
     }
 
     interface ImageDistributionOptions {
