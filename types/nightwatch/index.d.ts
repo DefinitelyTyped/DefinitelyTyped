@@ -6251,45 +6251,63 @@ export interface WebDriverProtocolElementState {
 
     /**
      * Determine if an element is currently displayed.
+     *
+     * @see https://nightwatchjs.org/api/elementIdDisplayed.html#apimethod-container
      */
     elementIdDisplayed(
         id: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
-    ): this;
+    ): Awaitable<this, boolean>;
 
     /**
      * Determine if an element is currently enabled.
+     *
+     * @see https://nightwatchjs.org/api/elementIdEnabled.html#apimethod-container
      */
     elementIdEnabled(
         id: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
-    ): this;
+    ): Awaitable<this, boolean>;
 
     /**
      * Retrieve the qualified tag name of the given element.
+     *
+     * @see https://nightwatchjs.org/api/elementIdName.html#apimethod-container
      */
-    elementIdName(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    elementIdName(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, string>;
 
     /**
      * Determine if an OPTION element, or an INPUT element of type checkbox or radio button is currently selected.
+     *
+     * @see https://nightwatchjs.org/api/elementIdSelected.html#apimethod-container
      */
     elementIdSelected(
         id: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
-    ): this;
+    ): Awaitable<this, boolean>;
 
     /**
      * Determine an element's size in pixels. The size will be returned as a JSON object with width and height properties.
+     *
+     * @see https://nightwatchjs.org/api/elementIdSize.html#apimethod-container
      */
     elementIdSize(
         id: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchSizeAndPosition>) => void,
+    ): Awaitable<this, NightwatchSizeAndPosition>;
 
     /**
      * Returns the visible text for the element.
+     *
+     * @see https://nightwatchjs.org/api/elementIdText.html#apimethod-container
      */
-    elementIdText(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    elementIdText(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, string>;
 }
 
 export interface WebDriverProtocolElementInteraction {
@@ -6298,8 +6316,13 @@ export interface WebDriverProtocolElementInteraction {
      *
      * @example
      * browser.elementIdClear(elementId);
+     *
+     * @see https://nightwatchjs.org/api/elementIdClear.html#apimethod-container
      */
-    elementIdClear(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    elementIdClear(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Scrolls into view the element and clicks the in-view center point.
@@ -6308,6 +6331,8 @@ export interface WebDriverProtocolElementInteraction {
      *
      * @example
      * browser.elementIdClick(elementId);
+     *
+     * @see https://nightwatchjs.org/api/elementIdClick.html#apimethod-container
      */
     elementIdClick(
         id: string,
@@ -6317,17 +6342,18 @@ export interface WebDriverProtocolElementInteraction {
     /**
      * Scrolls into view the form control element and then sends the provided keys to the element, or returns the current value of the element.
      * In case the element is not keyboard interactable, an <code>element not interactable error</code> is returned.
+     *
+     * @see https://nightwatchjs.org/api/elementIdValue.html#apimethod-container
      */
     elementIdValue(
         id: string,
-        value?: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, string>;
     elementIdValue(
         id: string,
-        value: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        value: string | string[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Send a sequence of key strokes to the active element. The sequence is defined in the same format as the `sendKeys` command.
@@ -6342,6 +6368,10 @@ export interface WebDriverProtocolElementInteraction {
      * .keys(browser.Keys.CONTROL) // hold down CONTROL key
      * .click('#element')
      * .keys(browser.Keys.NULL) // release all keys
+     *
+     * @see https://nightwatchjs.org/api/keys.html#apimethod-container
+     *
+     * @deprecated
      */
     keys(
         keysToSend: string | string[],
@@ -6354,7 +6384,7 @@ export interface WebDriverProtocolElementInteraction {
      * @example
      * browser.submit(elementID);
      */
-    submit(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    submit(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 }
 
 export interface WebDriverProtocolElementLocation {
@@ -6363,22 +6393,26 @@ export interface WebDriverProtocolElementLocation {
      *
      * The element's coordinates are returned as a JSON object with x and y properties.
      *
+     * @see https://nightwatchjs.org/api/elementIdLocation.html#apimethod-container
+     *
      * @deprecated
      */
     elementIdLocation(
         id: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchSizeAndPosition>) => void,
+    ): Awaitable<this, NightwatchSizeAndPosition>;
 
     /**
      * Determine an element's location on the screen once it has been scrolled into view.
+     *
+     * @see https://nightwatchjs.org/api/elementIdLocationInView.html#apimethod-container
      *
      * @deprecated
      */
     elementIdLocationInView(
         id: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
-    ): this;
+    ): Awaitable<this, NightwatchPosition>;
 }
 
 export interface WebDriverProtocolDocumentHandling {
@@ -6387,8 +6421,10 @@ export interface WebDriverProtocolDocumentHandling {
      *
      * @example
      * browser.source();
+     *
+     * @see https://nightwatchjs.org/api/source.html#apimethod-container
      */
-    source(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    source(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
 
     /**
      * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. The executed script is assumed to be synchronous.
@@ -6456,9 +6492,8 @@ export interface WebDriverProtocolDocumentHandling {
      */
     executeAsyncScript<T>(
         script: string | ((this: undefined, ...data: any[]) => T) | string,
-        args: any[],
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
-    ): this;
+    ): Awaitable<this, T>;
 
     /**
      * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. The executed script is assumed to be asynchronous.
@@ -6490,9 +6525,8 @@ export interface WebDriverProtocolDocumentHandling {
      */
     executeAsync(
         script: ((this: undefined, ...data: any[]) => any) | string,
-        args?: any[],
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
+    ): Awaitable<this, T>;
 }
 
 export interface WebDriverProtocolCookies {
@@ -6506,7 +6540,15 @@ export interface WebDriverProtocolCookies {
      * @see deleteCookie
      * @see deleteCookies
      */
-    cookie(method: string, callbackOrCookie?: () => void): this;
+    cookie(
+        method: "GET" | "POST" | "DELETE", 
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie[] | null>) => void
+    ): Awaitable<this, Cookie[] | null>;
+    cookie(
+        method: "GET" | "POST" | "DELETE", 
+        cookie: Cookie,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie[] | null>) => void
+    ): Awaitable<this, Cookie[] | null>;
 }
 
 export interface WebDriverProtocolUserActions {
@@ -6543,16 +6585,18 @@ export interface WebDriverProtocolUserActions {
      *     console.log('double click result', result);
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/doubleClick.html#apimethod-container
      */
     doubleClick(
         selector: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
     doubleClick(
         using: LocateStrategy,
         selector: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Move to the element and click (without releasing) in the middle of the given element.
@@ -6588,34 +6632,37 @@ export interface WebDriverProtocolUserActions {
      *   }
      * }
      *
+     * @see https://nightwatchjs.org/api/clickAndHold.html#apimethod-container
      */
     clickAndHold(
         selector: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
     clickAndHold(
         using: LocateStrategy,
         selector: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Release the depressed left mouse button at the current mouse coordinates (set by `.moveTo()`).
      *
      */
-    releaseMouseButton(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    releaseMouseButton(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Click at the current mouse coordinates (set by `.moveTo()`).
      *
      * The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button.
      *
+     * @see https://nightwatchjs.org/api/mouseButtonClick.html
+     *
      * @deprecated
      */
     mouseButtonClick(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Click and hold the left mouse button (at the coordinates set by the last `moveTo` command). Note that the next mouse-related command that should follow is `mouseButtonUp` .
@@ -6627,12 +6674,14 @@ export interface WebDriverProtocolUserActions {
      * **Since v2.0, this command is deprecated.** It is only available on older JSONWire-based drivers.
      * Please use the new [User Actions API](/api/useractions/).
      *
+     * @see https://nightwatchjs.org/api/mouseButtonDown.html
+     *
      * @deprecated
      */
     mouseButtonDown(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Releases the mouse button previously held (where the mouse is currently at). Must be called once for every `mouseButtonDown` command issued.
@@ -6643,12 +6692,14 @@ export interface WebDriverProtocolUserActions {
      * **Since v2.0, this command is deprecated.** It is only available on older JSONWire-based drivers.
      * Please use the new [User Actions API](/api/useractions/).
      *
+     * @see https://nightwatchjs.org/api/mouseButtonUp.html
+     *
      * @deprecated
      */
     mouseButtonUp(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Move the mouse by an offset of the specified [Web Element ID](https://www.w3.org/TR/webdriver1/#dfn-web-elements) or relative to the current mouse cursor, if no element is specified.
@@ -6660,13 +6711,15 @@ export interface WebDriverProtocolUserActions {
      * this.demoTest = function (browser) {
      *   browser.moveTo(null, 110, 100);
      * };
+     *
+     * @see https://nightwatchjs.org/api/moveTo.html#apimethod-container
      */
     moveTo(
-        element: string | null,
+        id: string | null,
         xoffset: number,
         yoffset: number,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Simulates a context-click(right click) event on the given DOM element.
@@ -6704,16 +6757,17 @@ export interface WebDriverProtocolUserActions {
      *   }
      * }
      *
+     * @see https://nightwatchjs.org/api/rightClick.html#apimethod-container
      */
     rightClick(
         selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): this;
+    ): Awaitable<this, null>;
     rightClick(
         using: LocateStrategy,
         selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): this;
+    ): Awaitable<this, null>;
 }
 
 export interface WebDriverProtocolUserPrompts {
@@ -6722,8 +6776,10 @@ export interface WebDriverProtocolUserPrompts {
      *
      * @example
      * browser.acceptAlert()
+     *
+     * @see https://nightwatchjs.org/api/acceptAlert.html#apimethod-container
      */
-    acceptAlert(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    acceptAlert(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Dismisses the currently displayed alert dialog. For confirm() and prompt() dialogs, this is equivalent to clicking the 'Cancel' button.
@@ -6732,24 +6788,30 @@ export interface WebDriverProtocolUserPrompts {
      *
      * @example
      * browser.dismissAlert();
+     *
+     * @see https://nightwatchjs.org/api/dismissAlert.html#apimethod-container
      */
-    dismissAlert(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    dismissAlert(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Gets the text of the currently displayed JavaScript alert(), confirm(), or prompt() dialog.
      *
      * @example
      * browser.getAlertText();
+     *
+     * @see https://nightwatchjs.org/api/getAlertText.html#apimethod-container
      */
-    getAlertText(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    getAlertText(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
 
     /**
      * Sends keystrokes to a JavaScript prompt() dialog.
      *
      * @example
      * browser.setAlertText('randomalert');
+     *
+     * @see https://nightwatchjs.org/api/setAlertText.html#apimethod-container
      */
-    setAlertText(value: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    setAlertText(value: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Automate the input of basic auth credentials whenever they arise.
@@ -6761,12 +6823,14 @@ export interface WebDriverProtocolUserPrompts {
      *      .navigateTo('http://browserspy.dk/password-ok.php');
      *  };
      *
+     * @see https://nightwatchjs.org/api/registerBasicAuth.html#apimethod-container
+     *
      */
     registerBasicAuth(
         username: string,
         password: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): this;
+    ): Awaitable<this, null>;
 }
 
 export interface WebDriverProtocolScreenCapture {

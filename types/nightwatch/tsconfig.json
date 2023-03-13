@@ -31,6 +31,7 @@
         "test/testElementCommands.ts",
         "test/testExpect.ts",
         "test/testProgrammaticApi.ts",
+        "test/testWebdriverProtocolCommands.ts",
         "test/utils.ts"
     ]
 }
