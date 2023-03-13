@@ -93,3 +93,7 @@ DOMPurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPuri
         event.forceKeepAttr = true;
     }
 });
+
+DOMPurify.sanitize('<a href="#" class="foo <br/>">abc</a>', {
+    ALLOW_SELF_CLOSE_IN_ATTR: false,
+});
