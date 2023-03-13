@@ -53,6 +53,6 @@ export default CKEDITOR;
 declare global {
     interface Window {
         CKEDITOR: CKEDITOR.CKEditorStatic;
-        CKEDITOR_BASEPATH: string;
+        CKEDITOR_BASEPATH: string | undefined;
     }
 }
