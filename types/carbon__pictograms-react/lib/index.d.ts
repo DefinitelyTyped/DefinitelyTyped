@@ -35,6 +35,7 @@ export { AnonymousUsers } from "../";
 export { Apartment } from "../";
 export { Api } from "../";
 export { AppDeveloper } from "../";
+export { AppModernization } from "../";
 export { Apple } from "../";
 export { Application } from "../";
 export { ApplicationSecurity } from "../";

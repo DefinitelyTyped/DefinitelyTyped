@@ -2129,15 +2129,6 @@ export type NightwatchAssert = (
 
 /**
  * Abstract assertion class that will subclass all defined assertions
- *
- * All assertions must implement the following api:
- *
- * - @param {T|function} expected
- * - @param {string} message
- * - @param {function} pass
- * - @param {function} value
- * - @param {function} command
- * - @param {function} - Optional failure
  */
 export interface NightwatchAssertion<T, U = any> {
     expected: (() => T) | T;

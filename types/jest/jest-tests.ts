@@ -1756,8 +1756,7 @@ test.each([
 
 declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
 test.each(constCases)('%s + %s', (...args) => {
-    // following assertion is skipped because of flaky testing
-    // _$ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
+    // $ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
     args;
 });
 
@@ -1767,8 +1766,7 @@ declare const constCasesWithMoreThanTen: [
 ];
 
 test.each(constCasesWithMoreThanTen)('should fall back with more than 10 args', (...args) => {
-    // following assertion is skipped because of flaky testing
-    // _$ExpectType [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] | [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
+    // $ExpectType [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] | [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
     args;
 });
 

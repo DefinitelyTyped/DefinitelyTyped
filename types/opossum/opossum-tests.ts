@@ -47,6 +47,7 @@ breaker.close(); // $ExpectType void
 breaker.disable(); // $ExpectType void
 breaker.enable(); // $ExpectType void
 breaker.shutdown(); // $ExpectType void
+breaker.toJSON(); // $ExpectType { state: State; status: Stats; }
 
 // Check the generic types pass down correctly from constructor to `fire` and events.
 const action = async (foo: string, bar: number) => {

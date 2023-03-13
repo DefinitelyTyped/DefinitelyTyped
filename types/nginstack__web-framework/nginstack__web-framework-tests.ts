@@ -117,10 +117,6 @@ grid.colapse('nodeValue'); // $ExpectType void
 grid.toggleKeyVisibility(); // $ExpectType void
 grid.toggleFieldVisibility('field'); // $ExpectType void
 
-// Unresolved Files
-import InactiveSessionHandlings = require('@nginstack/web-framework/keys/InactiveSessionHandlings');
-InactiveSessionHandlings.LOCK_SCREEN; // $ExpectType number
-
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }

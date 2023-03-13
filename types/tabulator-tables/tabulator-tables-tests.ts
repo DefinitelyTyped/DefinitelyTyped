@@ -100,6 +100,19 @@ table
         // handle error updating data
     });
 
+table
+    .addData([
+        { id: 5, name: 'jane' },
+        { id: 7, name: 'hayley' },
+    ])
+    .then(rows => {
+        // rows - array of the row components for the rows updated or added
+        // run code after data has been updated
+    })
+    .catch(error => {
+        // handle error updating data
+    });
+
 table.updateData([
     { id: 1, name: 'bob', gender: 'male' },
     { id: 2, name: 'Jenny', gender: 'female' },
@@ -362,7 +375,27 @@ colDef.bottomCalc = (values, data, calcParams) => {
     return {};
 };
 
+colDef.bottomCalcParams = (values, data) => {
+    return {};
+};
+
+colDef.bottomCalcParams = { precision: 2 };
+
 colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
+    return '';
+};
+
+colDef.topCalc = (values, data, calcParams) => {
+    return {};
+};
+
+colDef.topCalcParams = (values, data) => {
+    return {};
+};
+
+colDef.topCalcParams = { precision: 2 };
+
+colDef.topCalcFormatter = (cell, formatterParams, onRendered) => {
     return '';
 };
 
@@ -966,6 +999,7 @@ table = new Tabulator('#test', {
     renderVerticalBuffer: 300,
     dataLoaderError: 'Error Loading Data',
     dataLoaderLoading: 'Data Loading',
+    dataLoaderErrorTimeout: 50,
     dataLoader: false,
     sortMode: 'remote',
     pagination: true,
@@ -1001,10 +1035,15 @@ table.on('dataLoadError', () => {});
 table.on('dataProcessing', () => {});
 table.on('dataProcessed', () => {});
 table.on('rowMoving', () => {});
+table.on('rowMoveCancelled', row => {});
+table.on('rowSelectionChanged', (selectedData, selectedRows) => {});
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
 table.off('rowMoving', () => {});
 table.on('cellClick', () => {});
+table.on('scrollHorizontal', (left, leftDir) => {});
+table.on('scrollVertical', (top, topDir) => {});
+table.on('pageSizeChanged', pageSize => {});
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];
 
@@ -1194,6 +1233,8 @@ table.on('popupClosed', component => {});
 table.on('popupOpen', component => {});
 table.on('menuOpened', component => {});
 table.on('menuClosed', component => {});
+table.on('TooltipOpened', component => {});
+table.on('TooltipClosed', component => {});
 
 column.popup('test', 'bottom');
 
@@ -1202,34 +1243,34 @@ table = new Tabulator('#testPagination', {
     columns: [
         {
             field: 'test_inline',
-            title: 'Test inline'
-        }
+            title: 'Test inline',
+        },
     ],
     pagination: true,
-    paginationCounter: "rows"
+    paginationCounter: 'rows',
 });
 table = new Tabulator('#testPagination', {
     columns: [
         {
             field: 'test_inline',
-            title: 'Test inline'
-        }
+            title: 'Test inline',
+        },
     ],
     pagination: true,
-    paginationCounter: "pages"
+    paginationCounter: 'pages',
 });
 table = new Tabulator('#testPagination', {
     data: [],
     columns: [
         {
             field: 'test_inline',
-            title: 'Test inline'
-        }
+            title: 'Test inline',
+        },
     ],
     pagination: true,
     paginationCounter: (pageSize, currentRow, currentPage, totalRows, totalPages) => {
         return `${pageSize}, ${currentRow}, ${currentPage}, ${totalRows}, ${totalPages}`;
-    }
+    },
 });
 
 // Testing data loader element
@@ -1238,8 +1279,8 @@ table = new Tabulator('#testDataLoader', {
     columns: [
         {
             field: 'test_inline',
-            title: 'Test inline'
-        }
+            title: 'Test inline',
+        },
     ],
-    dataLoaderLoading: document.createElement("div") as HTMLElement
+    dataLoaderLoading: document.createElement('div') as HTMLElement,
 });
