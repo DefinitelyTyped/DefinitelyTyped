@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+export type AnnounceList = string[][];
+
 interface CreateTorrentOptions {
     // name of the torrent (default = basename of `path`, or 1st file's name)
     name?: string | undefined;
@@ -19,7 +21,7 @@ interface CreateTorrentOptions {
     // force a custom piece length (number of bytes)
     pieceLength?: number | undefined;
     // custom trackers (array of arrays of strings) (see [bep12](http://www.bittorrent.org/beps/bep_0012.html))
-    announceList?: string[][] | undefined;
+    announceList?: AnnounceList | undefined;
     // web seed urls (see [bep19](http://www.bittorrent.org/beps/bep_0019.html))
     urlList?: string[] | undefined;
     // add non-standard info dict entries, e.g. info.source, a convention for cross-seeding
@@ -57,4 +59,4 @@ declare function createTorrent(
     cb: (err: Error | null, torrent: Buffer) => any,
 ): void;
 
-export = createTorrent;
+export default createTorrent;
