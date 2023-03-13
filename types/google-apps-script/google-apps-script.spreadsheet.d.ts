@@ -1689,7 +1689,7 @@ declare namespace GoogleAppsScript {
       getDataRange(): Range;
       getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
-      // TODO add getDrawings function
+      getDrawings(): Drawing[];
       getFilter(): Filter | null;
       getFormUrl(): string | null;
       getFrozenColumns(): Integer;
