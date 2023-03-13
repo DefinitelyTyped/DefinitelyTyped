@@ -11,8 +11,8 @@ export interface OAuth2LoginProps {
     clientId: string;
     redirectUri: string;
     responseType: 'code' | 'token';
-    onSuccess?: (data: Record<string, any>) => void;
-    onFailure?: (err: Error) => void;
+    onSuccess: (data: Record<string, any>) => void;
+    onFailure: (err: Error) => void;
     buttonText?: string;
     children?: React.ReactChildren;
     popupWidth?: number;
