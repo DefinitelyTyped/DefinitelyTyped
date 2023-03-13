@@ -503,6 +503,8 @@ declare namespace GoogleAppsScript {
      * the arrow keys.
      */
     enum Direction { UP, DOWN, PREVIOUS, NEXT }
+    // TODO add Drawings Class 
+    // https://developers.google.com/apps-script/reference/spreadsheet/drawing?hl=en
     /**
      * Builder for area charts. For more details, see the Gviz
      * documentation.
@@ -1672,6 +1674,7 @@ declare namespace GoogleAppsScript {
       getDataRange(): Range;
       getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
+      // TODO add getDrawings function
       getFilter(): Filter | null;
       getFormUrl(): string | null;
       getFrozenColumns(): Integer;
