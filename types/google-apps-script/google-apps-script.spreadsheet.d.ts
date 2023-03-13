@@ -509,16 +509,16 @@ declare namespace GoogleAppsScript {
     interface Drawing {
       getContainerInfo(): ContainerInfo;
       getHeight(): Integer;
-      getOnAction(): String;
+      getOnAction(): string;
       getSheet(): Sheet;
       getWidth(): Integer;
-      getZIndex(): Number;
+      getZIndex(): number;
       remove(): void;
       setHeight(height: Integer): Drawing;
-      setOnAction(macroName: String): Drawing;
+      setOnAction(macroName: string): Drawing;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): Drawing;
       setWidth(width: Integer): Drawing;
-      setZIndex(zIndex: Number): Drawing;
+      setZIndex(zIndex: number): Drawing;
     }
     /**
      * Builder for area charts. For more details, see the Gviz
