@@ -12,7 +12,7 @@ export interface Node {
     after: string;
     before: string;
     sourceIndex: number;
-    nodes?: Child[];
+    nodes?: Child[] | undefined;
 
     walk(filter: string | RegExp, callback: WalkerCallback): void;
     walk(callback: WalkerCallback): void;
