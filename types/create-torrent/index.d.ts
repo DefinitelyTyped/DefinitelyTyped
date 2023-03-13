@@ -1,4 +1,4 @@
-// Type definitions for create-torrent 6.0.10
+// Type definitions for create-torrent 6.0
 // Project: https://github.com/webtorrent/create-torrent#readme
 // Definitions by: Jesse Chan <https://github.com/jesec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
