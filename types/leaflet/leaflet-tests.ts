@@ -33,6 +33,9 @@ latLngBounds = new L.LatLngBounds(latLng, latLng);
 latLngBounds = new L.LatLngBounds(latLngLiteral, latLngLiteral);
 latLngBounds = new L.LatLngBounds(latLngTuple, latLngTuple);
 
+latLngBounds.equals(latLngBounds); // $ExpectType boolean
+latLngBounds.equals(latLngBounds, 3); // $ExpectType boolean
+
 const pointTuple: L.PointTuple = [0, 0];
 
 let point: L.Point;

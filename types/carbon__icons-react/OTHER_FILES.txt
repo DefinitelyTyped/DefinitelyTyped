@@ -637,6 +637,8 @@ es/DocumentEpdf.d.ts
 es/DocumentExport.d.ts
 es/DocumentHorizontal.d.ts
 es/DocumentImport.d.ts
+es/DocumentMultiple_01.d.ts
+es/DocumentMultiple_02.d.ts
 es/DocumentPdf.d.ts
 es/DocumentPreliminary.d.ts
 es/DocumentProtected.d.ts
@@ -894,6 +896,7 @@ es/IbmMatch_360.d.ts
 es/IbmMq.d.ts
 es/IbmOpenEnterpriseLanguages.d.ts
 es/IbmPowerVs.d.ts
+es/IbmProcessMining.d.ts
 es/IbmTelehealth.d.ts
 es/IbmTenet.d.ts
 es/IbmToolchain.d.ts
@@ -1471,6 +1474,7 @@ es/RecordingFilledAlt.d.ts
 es/Recycle.d.ts
 es/Redo.d.ts
 es/RefEvapotranspiration.d.ts
+es/ReferenceArchitecture.d.ts
 es/ReflectHorizontal.d.ts
 es/ReflectVertical.d.ts
 es/watson-health/WatsonHealthRegionAnalysisArea.d.ts
@@ -1940,6 +1944,7 @@ es/UserServiceDesk.d.ts
 es/UserSettings.d.ts
 es/UserSimulation.d.ts
 es/UserSpeaker.d.ts
+es/UserSponsor.d.ts
 es/UserXRay.d.ts
 es/UserProfileAlt.d.ts
 es/UvIndex.d.ts
@@ -2020,6 +2025,7 @@ es/WeatherStation.d.ts
 es/Webhook.d.ts
 es/Websheet.d.ts
 es/Wheat.d.ts
+es/WhitePaper.d.ts
 es/Wifi.d.ts
 es/WifiController.d.ts
 es/WifiNotSecure.d.ts
@@ -2711,6 +2717,8 @@ lib/DocumentEpdf.d.ts
 lib/DocumentExport.d.ts
 lib/DocumentHorizontal.d.ts
 lib/DocumentImport.d.ts
+lib/DocumentMultiple_01.d.ts
+lib/DocumentMultiple_02.d.ts
 lib/DocumentPdf.d.ts
 lib/DocumentPreliminary.d.ts
 lib/DocumentProtected.d.ts
@@ -2968,6 +2976,7 @@ lib/IbmMatch_360.d.ts
 lib/IbmMq.d.ts
 lib/IbmOpenEnterpriseLanguages.d.ts
 lib/IbmPowerVs.d.ts
+lib/IbmProcessMining.d.ts
 lib/IbmTelehealth.d.ts
 lib/IbmTenet.d.ts
 lib/IbmToolchain.d.ts
@@ -3545,6 +3554,7 @@ lib/RecordingFilledAlt.d.ts
 lib/Recycle.d.ts
 lib/Redo.d.ts
 lib/RefEvapotranspiration.d.ts
+lib/ReferenceArchitecture.d.ts
 lib/ReflectHorizontal.d.ts
 lib/ReflectVertical.d.ts
 lib/watson-health/WatsonHealthRegionAnalysisArea.d.ts
@@ -4014,6 +4024,7 @@ lib/UserServiceDesk.d.ts
 lib/UserSettings.d.ts
 lib/UserSimulation.d.ts
 lib/UserSpeaker.d.ts
+lib/UserSponsor.d.ts
 lib/UserXRay.d.ts
 lib/UserProfileAlt.d.ts
 lib/UvIndex.d.ts
@@ -4094,6 +4105,7 @@ lib/WeatherStation.d.ts
 lib/Webhook.d.ts
 lib/Websheet.d.ts
 lib/Wheat.d.ts
+lib/WhitePaper.d.ts
 lib/Wifi.d.ts
 lib/WifiController.d.ts
 lib/WifiNotSecure.d.ts

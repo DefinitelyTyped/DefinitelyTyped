@@ -195,7 +195,7 @@ export class LatLngBounds {
     intersects(otherBounds: LatLngBoundsExpression): boolean;
     overlaps(otherBounds: LatLngBoundsExpression): boolean;
     toBBoxString(): string;
-    equals(otherBounds: LatLngBoundsExpression): boolean;
+    equals(otherBounds: LatLngBoundsExpression, maxMargin?: number): boolean;
     isValid(): boolean;
 }
 

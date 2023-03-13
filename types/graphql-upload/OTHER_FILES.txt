@@ -1,2 +1,2 @@
-GraphQLUpload.d.ts
-processRequest.d.ts
+GraphQLUpload.d.mts
+processRequest.d.mts
