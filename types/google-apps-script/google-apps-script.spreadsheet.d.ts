@@ -503,8 +503,23 @@ declare namespace GoogleAppsScript {
      * the arrow keys.
      */
     enum Direction { UP, DOWN, PREVIOUS, NEXT }
-    // TODO add Drawings Class 
-    // https://developers.google.com/apps-script/reference/spreadsheet/drawing?hl=en
+    /**
+     * Represents a drawing over a sheet in a spreadsheet.
+     */
+    interface Drawing {
+      getContainerInfo(): ContainerInfo;
+      getHeight(): Integer;
+      getOnAction(): String;
+      getSheet(): Sheet;
+      getWidth(): Integer;
+      getZIndex(): Number;
+      remove(): void;
+      setHeight(height: Integer): Drawing;
+      setOnAction(macroName: String): Drawing;
+      setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): Drawing;
+      setWidth(width: Integer): Drawing;
+      setZIndex(zIndex: Number): Drawing;
+    }
     /**
      * Builder for area charts. For more details, see the Gviz
      * documentation.
