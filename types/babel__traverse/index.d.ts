@@ -8,7 +8,6 @@
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Daniel Tschinder <https://github.com/danez>
-//                 Avery Warddhana <https://github.com/nullableVoidPtr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as t from '@babel/types';
