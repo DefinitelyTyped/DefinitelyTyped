@@ -2,7 +2,6 @@
 // Project: https://webextension-api.thunderbird.net/en/stable/
 // Definitions by: Jim Danner <https://github.com/JimDanner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
 // Generated using script at github.com/JimDanner/definitelytyped-thunderbird-webext-browser
 // derived from github.com/jsmnbom/definitelytyped-firefox-webext-browser by Jasmin Bom
 
