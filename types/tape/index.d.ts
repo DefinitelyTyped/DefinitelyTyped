@@ -81,7 +81,12 @@ declare namespace tape {
     /**
      * Create a new test harness instance, which is a function like test(), but with a new pending stack and test state.
      */
-    export function createHarness(): typeof tape;
+    export function createHarness(opts?: { autoclose?: boolean, noOnly?: boolean }): typeof tape;
+
+    /**
+     * Create a memoized test harness instance, which is a function like test(), but with a new pending stack and test state.
+     */
+    export function getHarness(opts?: { noOnly?: boolean, exit?: boolean, stream?: ReturnType<typeof import('through')> } & StreamOptions): typeof tape;
 
     /**
      * Create a stream of output, bypassing the default output stream that writes messages to console.log().
