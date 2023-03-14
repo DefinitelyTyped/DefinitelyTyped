@@ -1760,6 +1760,12 @@ test.each(constCases)('%s + %s', (...args) => {
     // _$ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
     args;
 });
+test.each(constCases)('%s + %s', (a, b, c) => {
+    a; // $ExpectType "a" | "d"
+    // following assertion is skipped because of flaky testing
+    b; // _$ExpectType "b" | 2
+    c; // $ExpectType "ab" | "d2"
+});
 
 declare const constCasesWithMoreThanTen: [
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
@@ -1800,6 +1806,15 @@ test.each([
 ])('', (a, b) => {
     a; // $ExpectType number
     b; // $ExpectType string
+});
+
+test.each([
+    [1, '1'],
+    [2, '2'],
+] as const)('', (a, b) => {
+    // following assertion is skipped because of flaky testing
+    a; // _$ExpectType 1 | 2
+    b; // $ExpectType "1" | "2"
 });
 
 test.only.each([
