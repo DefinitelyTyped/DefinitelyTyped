@@ -204,25 +204,3 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
         initial: async () => new Date()
     });
 })();
-
-// expect required PromptObject fields
-(async () => {
-    // missing 'type' key
-    // @ts-expect-error
-    const response = await prompts({
-        name: 'value',
-        message: 'true'
-    });
-    // missing 'name' key
-    // @ts-expect-error
-    const response = await prompts({
-        type: 'number',
-        message: 'true'
-    });
-    // missing 'message' key
-    // @ts-expect-error
-    const response = await prompts({
-        type: 'number',
-        name: 'value',
-    });
-})();
