@@ -28,7 +28,7 @@ const node = parser.parse('# a piece of _markdown_');
 
 const w = node.walker();
 const step = w.next();
-if (step.entering) {
+if (step?.entering) {
     logNode(step.node);
 }
 
