@@ -3,6 +3,7 @@
 // Definitions by: Elias Meire <https://github.com/elsmr>
 //                 AppLover69 <https://github.com/AppLover69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 5.1
 
 interface MediaRecorderErrorEventInit extends EventInit {
     error: DOMException;
@@ -32,7 +33,7 @@ declare var BlobEvent: {
     new (type: string, eventInitDict: BlobEventInit): BlobEvent;
 };
 
-type BitrateMode = 'vbr' | 'cbr';
+// type BitrateMode = 'vbr' | 'cbr';
 
 interface MediaRecorderOptions {
     mimeType?: string | undefined;
