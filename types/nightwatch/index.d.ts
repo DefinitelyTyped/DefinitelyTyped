@@ -6375,8 +6375,8 @@ export interface WebDriverProtocolElementInteraction {
      */
     keys(
         keysToSend: string | string[],
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element.

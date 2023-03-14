@@ -1,4 +1,4 @@
-import { NightwatchSizeAndPosition, Cookie, Element } from 'nightwatch';
+import { NightwatchSizeAndPosition, Cookie, JSON_WEB_OBJECT } from 'nightwatch';
 
 import { isNightwatchAPI, isNightwatchCallbackResult, isType } from './utils';
 
@@ -9,8 +9,8 @@ describe('elementIdAttribute command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdAttribute(webElement.getId(), 'title', function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string | null>(result);
@@ -34,8 +34,8 @@ describe('elementIdCssProperty command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdCssProperty(webElement.getId(), 'background-color', function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string | null>(result);
@@ -59,8 +59,8 @@ describe('elementIdDisplayed command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdDisplayed(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<boolean>(result);
@@ -84,8 +84,8 @@ describe('elementIdEnabled command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdEnabled(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<boolean>(result);
@@ -109,8 +109,8 @@ describe('elementIdName command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdName(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
@@ -134,8 +134,8 @@ describe('elementIdSelected command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdSelected(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<boolean>(result);
@@ -159,8 +159,8 @@ describe('submit command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.submit(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
@@ -184,8 +184,8 @@ describe('elementIdSize command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdSize(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<NightwatchSizeAndPosition>(result);
@@ -209,8 +209,8 @@ describe('elementIdText command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdText(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
@@ -234,8 +234,8 @@ describe('elementIdClear command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdClear(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
@@ -259,8 +259,8 @@ describe('elementIdClick command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdClick(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
@@ -284,8 +284,8 @@ describe('elementIdValue command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdValue(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
@@ -309,8 +309,8 @@ describe('elementIdLocation command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.findElement('input[type=text]', (result) => {
-            const webElement = result.value;
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdLocation(webElement.getId(), function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<NightwatchSizeAndPosition>(result);
@@ -334,7 +334,7 @@ describe('source command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.source((result) => {
+        browser.source(function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<string>(result);
         });
@@ -355,7 +355,7 @@ describe('doubleClick command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.doubleClick('input[type=text]', (result) => {
+        browser.doubleClick('input[type=text]', function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<null>(result);
         });
@@ -376,7 +376,7 @@ describe('clickAndHold command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.clickAndHold('input[type=text]', (result) => {
+        browser.clickAndHold('input[type=text]', function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<null>(result);
         });
@@ -397,7 +397,7 @@ describe('moveTo command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.moveTo(null, 100, 100, (result) => {
+        browser.moveTo(null, 100, 100, function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<null>(result);
         });
@@ -418,7 +418,7 @@ describe('rightClick command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.rightClick('input[type=text]', (result) => {
+        browser.rightClick('input[type=text]', function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<null>(result);
         });
@@ -432,7 +432,6 @@ describe('rightClick command demo', function() {
     after(browser => browser.end());
 });
 
-
 //
 // .acceptAlert
 //
@@ -441,7 +440,7 @@ describe('acceptAlert command demo', function() {
 
     test('demo test', function(browser) {
         browser.click('#show-alert')
-            .acceptAlert((result) => {
+            .acceptAlert(function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
@@ -463,7 +462,7 @@ describe('dismissAlert command demo', function() {
 
     test('demo test', function(browser) {
         browser.click('#show-alert')
-            .dismissAlert((result) => {
+            .dismissAlert(function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
@@ -485,7 +484,7 @@ describe('getAlertText command demo', function() {
 
     test('demo test', function(browser) {
         browser.click('#show-alert')
-            .getAlertText((result) => {
+            .getAlertText(function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
             });
@@ -507,7 +506,7 @@ describe('setAlertText command demo', function() {
 
     test('demo test', function(browser) {
         browser.click('#show-alert')
-            .setAlertText('nightwatch', (result) => {
+            .setAlertText('nightwatch', function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
@@ -525,9 +524,8 @@ describe('setAlertText command demo', function() {
 // .registerBasicAuth
 //
 describe('registerBasicAuth command demo', function() {
-
     test('demo test', function(browser) {
-        browser.registerBasicAuth('test', 'test', (result) => {
+        browser.registerBasicAuth('test', 'test', function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
@@ -543,9 +541,8 @@ describe('registerBasicAuth command demo', function() {
 // .cookie
 //
 describe('cookie command demo', function() {
-
     test('demo test', function(browser) {
-        browser.cookie('GET', (result) => {
+        browser.cookie('GET', function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<Cookie[] | null>(result);
             });
