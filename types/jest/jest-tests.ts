@@ -426,6 +426,18 @@ const seed1: number = jest.getSeed();
 // @ts-expect-error
 const seed2: number = jest.getSeed('foo');
 
+// https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value
+jest.replaceProperty({ foo: 'bar', baz: 1 }, 'foo', 'test');
+
+// @ts-expect-error
+jest.replaceProperty({ foo: 'bar', baz: 1 }, 'foo', 1);
+
+// @ts-expect-error
+jest.replaceProperty({ foo: 'bar', baz: 1 }, 'test', 1);
+
+// @ts-expect-error
+jest.replaceProperty({ foo: 'bar', baz: 1 }, 'baz', 'test');
+
 // $ExpectType number
 jest.now();
 // @ts-expect-error
