@@ -94,7 +94,7 @@ declare namespace tape {
      */
     export function createStream(opts?: tape.StreamOptions): NodeJS.ReadableStream;
 
-    interface Test {
+    export interface Test {
         /**
          * Create a subtest with a new test handle st from cb(st) inside the current test.
          * cb(st) will only fire when t finishes.
