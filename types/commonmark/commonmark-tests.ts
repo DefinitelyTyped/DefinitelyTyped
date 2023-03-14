@@ -70,7 +70,7 @@ function soft_breaks_as_spaces() {
 
 function text_to_ALL_CAPS(parsed: commonmark.Node) {
     const walker = parsed.walker();
-    let event: commonmark.NodeWalkingStep;
+    let event: commonmark.NodeWalkingStep | null;
     let node: commonmark.Node;
 
     event = walker.next();
@@ -85,7 +85,7 @@ function text_to_ALL_CAPS(parsed: commonmark.Node) {
 
 function emphasis_to_ALL_CAPS(parsed: commonmark.Node) {
     const walker = parsed.walker();
-    let event: commonmark.NodeWalkingStep;
+    let event: commonmark.NodeWalkingStep | null;
     let node: commonmark.Node;
     let inEmph = false;
 
