@@ -437,6 +437,9 @@ const replaceObjectA = {
 // $ExpectType ReplaceProperty<number>
 jest.replaceProperty(replaceObjectA, 'property', 2);
 
+// $ExpectType ReplaceProperty<() => void>
+jest.replaceProperty(replaceObjectA, 'method', () => {});
+
 let replaced: jest.ReplaceProperty<number>;
 replaced = jest.replaceProperty(replaceObjectA, 'property', 2);
 

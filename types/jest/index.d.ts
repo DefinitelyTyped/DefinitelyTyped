@@ -141,11 +141,12 @@ declare namespace jest {
      */
     function resetAllMocks(): typeof jest;
     /**
-     * available since Jest 21.1.0
-     * Restores all mocks back to their original value.
-     * Equivalent to calling .mockRestore on every mocked function.
-     * Beware that jest.restoreAllMocks() only works when mock was created with
-     * jest.spyOn; other mocks will require you to manually restore them.
+     * Restores all mocks and replaced properties back to their original value.
+     * Equivalent to calling `.mockRestore()` on every mocked function
+     * and `.restore()` on every replaced property.
+     *
+     * Beware that `jest.restoreAllMocks()` only works when the mock was created
+     * with `jest.spyOn()`; other mocks will require you to manually restore them.
      */
     function restoreAllMocks(): typeof jest;
     /**
@@ -287,8 +288,10 @@ declare namespace jest {
      */
     function retryTimes(numRetries: number, options?: { logErrorsBeforeRetry?: boolean }): typeof jest;
     /**
-     * Replace object[propertyKey] with a value.
-     * The property must already exist on the object. The same property might be replaced multiple times. Returns a Jest replaced property.
+     * Replaces property on an object with another value.
+     *
+     * @remarks
+     * For mocking functions, and 'get' or 'set' accessors, use `jest.spyOn()` instead.
      */
     function replaceProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): ReplaceProperty<T[K]>;
     /**
