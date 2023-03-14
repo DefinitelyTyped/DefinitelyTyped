@@ -5701,7 +5701,7 @@ export interface WebDriverProtocolSessions {
      * @see https://nightwatchjs.org/api/sessionLog.html
      */
     sessionLog(
-        typeString: string, callback?: (this: NightwatchAPI, log: NightwatchLogEntry[]) => void
+        typeString: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchLogEntry[]>) => void
     ): Awaitable<this, NightwatchLogEntry[]>;
 
     /**
@@ -5774,8 +5774,8 @@ export interface WebDriverProtocolNavigation {
      *
      * @see https://nightwatchjs.org/api/url.html
      */
-    url(url?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
     url(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
+    url(url?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Navigate backwards in the browser history, if possible.
@@ -5870,6 +5870,9 @@ export interface WebDriverProtocolCommandContexts {
      * @see https://nightwatchjs.org/api/windowMaximize.html
      */
     windowMaximize(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    windowMaximize(
         handleOrName?: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
@@ -5904,7 +5907,7 @@ export interface WebDriverProtocolCommandContexts {
     ): Awaitable<this, null>;
     windowPosition(
         windowHandle: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowPosition>) => void,
+        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowPosition>) => void,
     ): Awaitable<this, WindowPosition>;
 
     /**
@@ -5935,7 +5938,7 @@ export interface WebDriverProtocolCommandContexts {
     ): Awaitable<this, null>;
     windowSize(
         windowHandle: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowSizeAndPosition>) => void,
+        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowSizeAndPosition>) => void,
     ): Awaitable<this, WindowSizeAndPosition>;
 
     /**
@@ -6221,7 +6224,7 @@ export interface WebDriverProtocolElements {
      */
     elementActive(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-    ): Awaitable<this, boolean>;
+    ): Awaitable<this, string>;
 }
 
 export interface WebDriverProtocolElementState {

@@ -1,4 +1,12 @@
-import { NightwatchSizeAndPosition, Cookie, JSON_WEB_OBJECT } from 'nightwatch';
+import {
+    NightwatchSizeAndPosition,
+    Cookie,
+    JSON_WEB_OBJECT,
+    NightwatchLogEntry,
+    WindowPosition,
+    WindowSizeAndPosition,
+    ELEMENT_KEY
+} from 'nightwatch';
 
 import { isNightwatchAPI, isNightwatchCallbackResult, isType } from './utils';
 
@@ -552,4 +560,357 @@ describe('cookie command demo', function() {
         const result = await browser.cookie('GET');
         isType<Cookie[] | null>(result);
     });
+});
+
+//
+// .session
+//
+describe('session command demo', function() {
+    test('demo test', function(browser) {
+        browser.session(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<Record<string, any>>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.session();
+        isType<Record<string, any>>(result);
+    });
+});
+
+//
+// .sessionLog
+//
+describe('sessionLog command demo', function() {
+    test('demo test', function(browser) {
+        browser.sessionLog('driver', function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<NightwatchLogEntry[]>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.sessionLog('driver');
+        isType<NightwatchLogEntry[]>(result);
+    });
+});
+
+//
+// .sessionLogTypes
+//
+describe('sessionLogTypes command demo', function() {
+    test('demo test', function(browser) {
+        browser.sessionLogTypes(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<Array<'client' | 'driver' | 'browser' | 'server'>>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.sessionLogTypes();
+        isType<Array<'client' | 'driver' | 'browser' | 'server'>>(result);
+    });
+});
+
+//
+// .url
+//
+describe('url command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.url(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<string>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.url();
+        isType<string>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .title
+//
+describe('title command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.title(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<string>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.title();
+        isType<string>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .back
+//
+describe('back command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.back(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<null>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.back();
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .forward
+//
+describe('forward command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.forward(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<null>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.forward();
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .refresh
+//
+describe('refresh command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.refresh(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<null>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.refresh();
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .windowHandle
+//
+describe('windowHandle command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.windowHandle(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<string>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.windowHandle();
+        isType<string>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .windowMaximize
+//
+describe('windowMaximize command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.windowMaximize(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<null>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.windowMaximize();
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .windowPosition
+//
+describe('windowPosition command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.windowPosition('current', function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<WindowPosition>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.windowPosition('current', 22, 47);
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .windowSize
+//
+describe('windowSize command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.windowSize('current', function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<WindowSizeAndPosition>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.windowSize('current', 746, 1200);
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .frame
+//
+describe('frame command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.frame(null, function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<null>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.frame(null);
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .frameParent
+//
+describe('frameParent command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.frame(null).frameParent(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<null>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.frame(null).frameParent();
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .elementIdElement
+//
+describe('elementIdElement command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
+            browser.elementIdElement(webElement.getId(), 'css selector', 'body', function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<{ [ELEMENT_KEY]: string } | []>(result);
+            });
+        });
+    });
+
+    test('async demo test', async function(browser) {
+        const webElement = await browser.findElement('input[type=text]');
+        const result = await browser.elementIdElement(webElement.getId(), 'css selector', 'body');
+        isType<{ [ELEMENT_KEY]: string } | []>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .elementIdDoubleClick
+//
+describe('elementIdDoubleClick command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.findElement('input[type=text]', function(result) {
+            const webElement = result.value as JSON_WEB_OBJECT;
+            browser.elementIdDoubleClick(webElement.getId(), function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<null>(result);
+            });
+        });
+    });
+
+    test('async demo test', async function(browser) {
+        const webElement = await browser.findElement('input[type=text]');
+        const result = await browser.elementIdDoubleClick(webElement.getId());
+        isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .elementActive
+//
+describe('elementIdDoubleClick command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.elementActive(function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<string>(result);
+        });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.elementActive();
+        isType<string>(result);
+    });
+
+    after(browser => browser.end());
 });
