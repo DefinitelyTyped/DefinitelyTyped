@@ -539,6 +539,34 @@ const testSpecificCommands: NightwatchTests = {
 
         browser.end();
     },
+
+    executeAsyncScript: () => {
+        browser.executeAsyncScript(
+            done => {
+                setTimeout(() => {
+                    done(true);
+                }, 500);
+            },
+            [],
+            result => {
+                browser.assert.equal(result.value, true);
+            },
+        );
+
+        browser.executeAsyncScript(
+            (arg1, arg2, done) => {
+                setTimeout(() => {
+                    done(true);
+                }, 500);
+            },
+            [1, 2],
+            result => {
+                browser.assert.equal(result.value, true);
+            },
+        );
+
+        browser.end();
+    },
 };
 
 //

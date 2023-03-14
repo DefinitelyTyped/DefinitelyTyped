@@ -6495,9 +6495,9 @@ export interface WebDriverProtocolDocumentHandling {
      */
     executeAsyncScript<T>(
         script: string | ((this: undefined, ...data: any[]) => T) | string,
+        args?: any[],
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
-    ): this;
-
+    ): Awaitable<this, T>;
     /**
      * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. The executed script is assumed to be asynchronous.
      *
@@ -6526,11 +6526,11 @@ export interface WebDriverProtocolDocumentHandling {
      *    });
      * }
      */
-    executeAsync(
+    executeAsync<T>(
         script: ((this: undefined, ...data: any[]) => any) | string,
         args?: any[],
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
+    ): Awaitable<this, T>;
 }
 
 export interface WebDriverProtocolCookies {
