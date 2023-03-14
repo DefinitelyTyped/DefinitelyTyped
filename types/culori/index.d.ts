@@ -3,8 +3,6 @@
 // Definitions by: Bijela Gora <https://github.com/bijela-gora>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./fn/index.d.ts" />
-
 import modeA98 from './src/a98/definition';
 import modeCubehelix from './src/cubehelix/definition';
 import modeDlab from './src/dlab/definition';
