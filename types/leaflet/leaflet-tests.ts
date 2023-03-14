@@ -1,4 +1,5 @@
 import * as L from 'leaflet';
+import * as geojson_types from 'geojson';
 
 const version = L.version;
 
@@ -31,6 +32,9 @@ latLngBounds = L.latLngBounds([latLng, latLng, latLng]);
 latLngBounds = new L.LatLngBounds(latLng, latLng);
 latLngBounds = new L.LatLngBounds(latLngLiteral, latLngLiteral);
 latLngBounds = new L.LatLngBounds(latLngTuple, latLngTuple);
+
+latLngBounds.equals(latLngBounds); // $ExpectType boolean
+latLngBounds.equals(latLngBounds, 3); // $ExpectType boolean
 
 const pointTuple: L.PointTuple = [0, 0];
 
@@ -882,3 +886,34 @@ export class ExtendedTileLayer extends L.TileLayer {
         }
     }
 }
+
+const polygonGeoJson = L.geoJSON<any, geojson_types.Polygon>(null, {
+    onEachFeature(polygonFeature, layer) {
+        // $ExpectType Polygon
+        polygonFeature.geometry;
+    }
+});
+
+const pointGeoJson = L.geoJSON<any, geojson_types.Point>(null, {
+    onEachFeature(polygonFeature, layer) {
+        // $ExpectType Point
+        polygonFeature.geometry;
+    }
+});
+
+// $ExpectType Polygon
+L.GeoJSON.getFeature(new L.Layer(), {} as geojson_types.Polygon).geometry;
+
+// $ExpectType Point
+L.GeoJSON.asFeature({} as geojson_types.Point).geometry;
+
+L.GeoJSON.geometryToLayer(
+    {} as geojson_types.Feature<geojson_types.MultiPolygon>,
+    {
+        filter(multiPolygon) {
+            // $ExpectType MultiPolygon
+            multiPolygon.geometry;
+            return true;
+        }
+    }
+);

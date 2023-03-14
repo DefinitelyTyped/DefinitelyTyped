@@ -1,8 +1,4 @@
-import RNBackgroundDownloader, {
-    completeHandler,
-    DownloadTask,
-    DownloadTaskState,
-} from 'react-native-background-downloader';
+import RNBackgroundDownloader, { completeHandler, DownloadTask } from 'react-native-background-downloader';
 
 // Set global headers for downloader
 RNBackgroundDownloader.setHeaders({
@@ -35,24 +31,25 @@ const task = RNBackgroundDownloader.download({
 const taskFuncTest = (task: DownloadTask) => {
     // Check task state
     switch (task.state) {
-        case DownloadTaskState.DONE: {
+        case 'DONE': {
             console.log('Task is in state DONE');
             break;
         }
-        case DownloadTaskState.DOWNLOADING: {
+        case 'DOWNLOADING': {
             console.log('Task is in state DOWNLOADING');
             break;
         }
-        case DownloadTaskState.PAUSED: {
+        case 'PAUSED': {
             console.log('Task is in state PAUSED');
             break;
         }
-        case DownloadTaskState.FAILED: {
+        case 'FAILED': {
             console.log('Task is in state FAILED');
             break;
         }
-        case DownloadTaskState.STOPPED: {
+        case 'STOPPED': {
             console.log('Task is in state STOPPED');
+            break;
         }
     }
 

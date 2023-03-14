@@ -291,6 +291,12 @@ declare module 'net' {
          */
         readonly localFamily?: string;
         /**
+         * This is `true` if the socket is not connected yet, either because `.connect()`
+         * has not yet been called or because it is still in the process of connecting (see `socket.connecting`).
+         * @since v10.16.0
+         */
+        readonly pending: boolean;
+        /**
          * This property represents the state of the connection as a string.
          * @see {https://nodejs.org/api/net.html#socketreadystate}
          * @since v0.5.0

@@ -1,4 +1,4 @@
-import { Comment, WhileStatement } from 'estree';
+import { Comment, PrivateIdentifier, PropertyDefinition, StaticBlock, WhileStatement } from 'estree';
 import { AST, SourceCode, Rule, Linter, ESLint, RuleTester, Scope } from 'eslint';
 import { ESLintRules } from 'eslint/rules';
 
@@ -477,9 +477,26 @@ rule = {
                 // @ts-expect-error
                 node.parent;
             },
-            'Program:exit'() {},
+            'Program:exit'(node) {
+                node.body;
+            },
+            'IfStatement:exit'(node) {
+                node.parent;
+            },
             'MemberExpression[object.name="req"]': (node: Rule.Node) => {
                 node.parent;
+            },
+            PrivateIdentifier(node) {
+                const expected: PrivateIdentifier & Rule.NodeParentExtension = node;
+                expected.parent;
+            },
+            PropertyDefinition(node) {
+                const expected: PropertyDefinition & Rule.NodeParentExtension = node;
+                expected.parent;
+            },
+            StaticBlock(node) {
+                const expected: StaticBlock & Rule.NodeParentExtension = node;
+                expected.parent;
             },
         };
     },

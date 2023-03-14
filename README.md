@@ -2,7 +2,7 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
 and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
@@ -345,6 +345,18 @@ This list is updated by a human, which gives us the chance to make sure that `@t
 
 In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
 Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
+
+The second reason to create your own package.json is to specify ES modules.
+If the implementation package uses ESM and specifies `"type": "module"`, then you should add a package.json with the same:
+
+```json
+{
+    "private": true,
+    "type": "module"
+}
+```
+
+This also applies if the implementation package has `exports` in its package.json.
 
 #### `OTHER_FILES.txt`
 

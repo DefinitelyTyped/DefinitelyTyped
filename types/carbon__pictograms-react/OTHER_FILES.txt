@@ -36,6 +36,7 @@ es/anonymous--users/index.d.ts
 es/apartment/index.d.ts
 es/api/index.d.ts
 es/app--developer/index.d.ts
+es/app--modernization/index.d.ts
 es/apple/index.d.ts
 es/application/index.d.ts
 es/application--security/index.d.ts
@@ -999,6 +1000,7 @@ lib/anonymous--users/index.d.ts
 lib/apartment/index.d.ts
 lib/api/index.d.ts
 lib/app--developer/index.d.ts
+lib/app--modernization/index.d.ts
 lib/apple/index.d.ts
 lib/application/index.d.ts
 lib/application--security/index.d.ts

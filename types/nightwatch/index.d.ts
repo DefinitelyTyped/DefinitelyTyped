@@ -1769,6 +1769,11 @@ export interface NightwatchApiCommands {
     isEdge(): boolean;
     isInternetExplorer(): boolean;
     isOpera(): boolean;
+
+    /**
+     * Whether or not Nightwatch is being used to connect to an Appium server.
+     */
+    isAppiumClient(): boolean;
 }
 
 export interface NightwatchAPI
@@ -2124,15 +2129,6 @@ export type NightwatchAssert = (
 
 /**
  * Abstract assertion class that will subclass all defined assertions
- *
- * All assertions must implement the following api:
- *
- * - @param {T|function} expected
- * - @param {string} message
- * - @param {function} pass
- * - @param {function} value
- * - @param {function} command
- * - @param {function} - Optional failure
  */
 export interface NightwatchAssertion<T, U = any> {
     expected: (() => T) | T;
@@ -6683,7 +6679,13 @@ export interface WebDriverProtocolScreenCapture {
      * @example
      * browser.screenshot(true);
      */
-    screenshot(log_screenshot_data: boolean, callback?: (screenshotEncoded: string) => void): this;
+    screenshot(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, string>;
+    screenshot(
+        log_screenshot_data?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, string>;
 }
 
 export interface WebDriverProtocolMobileRelated {

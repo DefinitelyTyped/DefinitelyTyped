@@ -1,10 +1,10 @@
-// Type definitions for @carbon/pictograms-react 11.31
+// Type definitions for @carbon/pictograms-react 11.39
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/pictograms-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-/** 961 pictograms in total */
+/** 962 pictograms in total */
 
 export interface CarbonPictogramProps
   extends Omit<
@@ -64,6 +64,7 @@ export const AnonymousUsers: CarbonPictogramType;
 export const Apartment: CarbonPictogramType;
 export const Api: CarbonPictogramType;
 export const AppDeveloper: CarbonPictogramType;
+export const AppModernization: CarbonPictogramType;
 export const Apple: CarbonPictogramType;
 export const Application: CarbonPictogramType;
 export const ApplicationSecurity: CarbonPictogramType;

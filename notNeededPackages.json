@@ -1473,6 +1473,10 @@
             "libraryName": "fetch-jsonp",
             "asOfVersion": "1.1.0"
         },
+        "fhir-kit-client": {
+            "libraryName": "fhir-kit-client",
+            "asOfVersion": "1.6.7"
+        },
         "figures": {
             "libraryName": "figures",
             "asOfVersion": "3.0.0"
@@ -3037,6 +3041,10 @@
             "libraryName": "minipass",
             "asOfVersion": "3.3.5"
         },
+        "mkdirp": {
+            "libraryName": "mkdirp",
+            "asOfVersion": "2.0.0"
+        },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
             "asOfVersion": "1.1.0"
@@ -3084,6 +3092,10 @@
         "moment-timezone": {
             "libraryName": "moment-timezone",
             "asOfVersion": "0.5.30"
+        },
+        "monday-sdk-js": {
+            "libraryName": "monday-sdk-js",
+            "asOfVersion": "0.2.1"
         },
         "mongodb": {
             "libraryName": "mongodb",
@@ -3360,6 +3372,10 @@
         "okta__okta-vue": {
             "libraryName": "@okta/okta-vue",
             "asOfVersion": "3.1.0"
+        },
+        "ol": {
+            "libraryName": "ol",
+            "asOfVersion": "7.0.0"
         },
         "on-change": {
             "libraryName": "on-change",
@@ -4930,6 +4946,10 @@
         "sanitize-filename": {
             "libraryName": "sanitize-filename",
             "asOfVersion": "1.6.3"
+        },
+        "sass": {
+            "libraryName": "sass",
+            "asOfVersion": "1.45.0"
         },
         "sass-webpack-plugin": {
             "libraryName": "sass-webpack-plugin",

@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.111.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -239,21 +239,6 @@ declare module "sap/ui/unified/library" {
     ZoomOut = "ZoomOut",
   }
   /**
-   * @SINCE 1.81.0
-   *
-   * Types of HTTP request methods.
-   */
-  export enum FileUploaderHttpRequestMethod {
-    /**
-     * HTTP request POST method.
-     */
-    Post = "POST",
-    /**
-     * HTTP request PUT method.
-     */
-    Put = "PUT",
-  }
-  /**
    * @SINCE 1.48.0
    *
    * Types of display mode for overlapping appointments.
@@ -291,7 +276,7 @@ declare module "sap/ui/unified/library" {
        * The initial Blobs which can be used to determine a new array of Blobs for further processing.
        */
       aBlobs: Blob[]
-    ): Promise<any>;
+    ): Promise<Blob[]>;
   }
 
   /**
@@ -892,6 +877,16 @@ declare module "sap/ui/unified/Calendar" {
      */
     getFirstDayOfWeek(): int;
     /**
+     * @SINCE 1.111
+     *
+     * Gets current value of property {@link #getInitialFocusedDate initialFocusedDate}.
+     *
+     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     *
+     * @returns Value of property `initialFocusedDate`
+     */
+    getInitialFocusedDate(): object;
+    /**
      * Gets current value of property {@link #getIntervalSelection intervalSelection}.
      *
      * If set, interval selection is allowed
@@ -1284,6 +1279,23 @@ declare module "sap/ui/unified/Calendar" {
       iFirstDayOfWeek?: int
     ): this;
     /**
+     * @SINCE 1.111
+     *
+     * Sets a new value for property {@link #getInitialFocusedDate initialFocusedDate}.
+     *
+     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setInitialFocusedDate(
+      /**
+       * New value for property `initialFocusedDate`
+       */
+      oInitialFocusedDate?: object
+    ): this;
+    /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
      * If set, interval selection is allowed
@@ -1616,6 +1628,13 @@ declare module "sap/ui/unified/Calendar" {
       | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
       | PropertyBindingInfo
       | `{${string}}`;
+
+    /**
+     * @SINCE 1.111
+     *
+     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     */
+    initialFocusedDate?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Dates or date ranges for selected dates.
@@ -7775,6 +7794,22 @@ declare module "sap/ui/unified/CalendarLegend" {
    *
    * A legend for the Calendar Control. Displays special dates colors with their corresponding description.
    * The aggregation specialDates can be set herefor.
+   *
+   * Calendar Legend Navigation:
+   *
+   * If the Calendar Legend is associated with a `sap.ui.unified.Calendar` control, the users can navigate
+   * through the Calendar Legend items. Only special dates related to the navigated legend's item type are
+   * displayed in the calendar grid. **Note: ** Standard calendar legend items (Today, Selected, Working Day
+   * and Non-Working Day) are also navigatable, but focusing them does not affect the special dates display
+   * (all calendar special dates are displayed).
+   *
+   * Keyboard shortcuts (when the legend is navigatable):
+   *
+   *
+   * 	 - [Arrow Up], [Arrow Left] - Move to the previous calendar legend item
+   * 	 - [Arrow Down], [Arrow Right] - Move to the next calendar legend item
+   * 	 - [Home], [Page Up] - Move to the first calendar legend item
+   * 	 - [End], [Page Down] - Move to the last calendar legend item
    */
   export default class CalendarLegend extends Control {
     /**
@@ -13394,14 +13429,13 @@ declare module "sap/ui/unified/FileUploader" {
     CSSSize,
   } from "sap/ui/core/library";
 
-  import {
-    IProcessableBlobs,
-    FileUploaderHttpRequestMethod,
-  } from "sap/ui/unified/library";
+  import { IProcessableBlobs } from "sap/ui/unified/library";
 
   import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
 
   import Event from "sap/ui/base/Event";
+
+  import FileUploaderHttpRequestMethod from "sap/ui/unified/FileUploaderHttpRequestMethod";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -16138,6 +16172,25 @@ declare module "sap/ui/unified/FileUploader" {
      */
     afterDialogClose?: (oEvent: Event) => void;
   }
+}
+
+declare module "sap/ui/unified/FileUploaderHttpRequestMethod" {
+  /**
+   * @SINCE 1.81.0
+   *
+   * Types of HTTP request methods.
+   */
+  enum FileUploaderHttpRequestMethod {
+    /**
+     * HTTP request POST method.
+     */
+    Post = "POST",
+    /**
+     * HTTP request PUT method.
+     */
+    Put = "PUT",
+  }
+  export default FileUploaderHttpRequestMethod;
 }
 
 declare module "sap/ui/unified/FileUploaderParameter" {
@@ -20251,6 +20304,8 @@ declare namespace sap {
     "sap/ui/unified/DateTypeRange": undefined;
 
     "sap/ui/unified/FileUploader": undefined;
+
+    "sap/ui/unified/FileUploaderHttpRequestMethod": undefined;
 
     "sap/ui/unified/FileUploaderParameter": undefined;
 

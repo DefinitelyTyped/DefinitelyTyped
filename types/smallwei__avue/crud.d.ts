@@ -1,18 +1,52 @@
-interface AvueCrudColumn<T = any> extends AvueFormColumn<T> {
+import { DicItem } from './dic';
+import { AvueFormColumn, AvueFormGroup, AvueFormOption } from './form';
+
+export type AvueCrudDefaults = Record<string, AvueCrudColumn>;
+//  export type AvueCrudDefaults<T = any, K = T extends object ? keyof T : string> = {
+//   [key in K]?: AvueCrudColumn<T>;
+// };
+export interface PageOption {
+    /** 总条数,如果为0的话不显示分页 */
+    total?: number;
+    /** 当前页数 */
+    currentPage?: number;
+    /** 是否为分页按钮添加背景色 */
+    background?: boolean;
+    /** 每页显示条目个数，支持.sync修饰符 */
+    pageSize?: number;
+    /** 分页的数组分段 */
+    pageSizes?: number[];
+    /** 页码按钮的数量，当总页数超过该值时会折叠 */
+    pagerCount?: number;
+}
+
+export interface AvueCrudColumn<T = any> extends AvueFormColumn<T> {
+    /** 对应列的宽度 */
+    width?: number | string;
+    /** 对应列的最小宽度，与 width 的区别是 width 是固定的，minWidth 会把剩余宽度按比例分配给设置了 minWidth 的列 */
+    minWidth?: number | string;
+    /** 列是否固定在左侧或者右侧，true 表示固定在左侧 */
+    fixed?: boolean | 'left' | 'right';
+    /** 对应列是否可以排序，如果设置为 'custom'，则代表用户希望远程排序，需要监听 Table 的 sort-change 事件 */
+    sortable?: boolean | 'custom';
+    /** 用来格式化内容 */
+    formatter?: (row: T, value: any, label: string, column: Array<AvueCrudColumn<T>>) => string;
+    /** 当内容过长被隐藏时显示 tooltip */
+    overHidden?: boolean;
+    /** 表格内容对齐方式 */
+    align?: Align;
+    /** 表头对齐方式 */
+    headerAlign?: Align;
+    /** 传入true开启默认数据过滤的选项，也可以传入自定义数组格式，数组中的元素需要有text和value属性 */
+    filters?: boolean | [{ text: string; value: string | number }];
     /** 是否搜索 */
     search?: boolean;
     /** 搜索表单的默认值 */
-    searchValue?: string | number;
+    searchValue?: any;
     /** 搜索框辅助文字 */
     searchPlaceholder?: string;
-    /** 弹窗编辑文字提示 */
-    searchTip?: string;
-    /** 搜索框辅助文字提示展示方向 */
-    searchTipPlacement?: string;
     /** 搜索框栅列 */
     searchSpan?: number;
-    /** 搜索框大小 */
-    searchSize?: string;
     /** 搜索字段位置排序(序号越大越靠前) */
     searchOrder?: number;
     /** 搜索框的间距 */
@@ -22,276 +56,299 @@ interface AvueCrudColumn<T = any> extends AvueFormColumn<T> {
     /** 搜索框类型 */
     searchType?: string;
     /** 搜索框的标题宽度 */
-    searchLabelWidth?: number;
+    searchLabelWidth?: number | string;
     /** 搜索框的清除按钮 */
     searchClearable?: boolean;
     /** 搜索表单的是否多选 */
     searchMultiple?: boolean;
     /** 多选时是否将选中值按文字的形式展示 */
     searchTags?: boolean;
+    /** 搜索项标题位置 */
+    searchLabelPosition?: LabelPosition;
+    /** 弹窗编辑文字提示 */
+    searchTip?: string;
+    /** 搜索框辅助文字提示展示方向 */
+    searchTipPlacement?: string;
+    /** 搜索框大小 */
+    searchSize?: string;
     /** 是否可以输入搜索。 */
     searchFilterable?: boolean;
     /** 数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回true就会显示。 */
     searchFilterMethod?: (value: any, row: T, column: Array<AvueCrudColumn<T>>) => boolean;
     /** 表单新增时是否禁止 */
     addDisabled?: boolean;
+    /** 表单编辑时是否禁止 */
+    editDisabled?: boolean;
+    /** 表单查看时是否禁止 */
+    viewDisabled?: boolean;
     /** 表单新增时是否可见 */
     addDisplay?: boolean;
+    /** 表单编辑时是否可见 */
+    editDisplay?: boolean;
+    /** viewDisplay */
+    viewDisplay?: boolean;
     /** 表单新增时是否为查看模式 */
     addDetail?: boolean;
-    /** 列的对其方式 */
-    align?: string;
+    /** 表单编辑时是否为查看模式 */
+    editDetail?: boolean;
     /** 开启html转义 */
     html?: boolean;
     /** 开启行编辑模式 */
     cell?: boolean;
-    /** 表单编辑时是否禁止 */
-    editDisabled?: boolean;
-    /** 表单编辑时是否可见 */
-    editDisplay?: boolean;
-    /** 表单编辑时是否为查看模式 */
-    editDetail?: boolean;
-    /** viewDisplay */
-    viewDisplay?: boolean;
     /** 是否在动态搜索条件里面显示 */
     filter?: boolean;
     /** 数据过滤的选项是否多选 */
     filterMultiple?: boolean;
-    /** 传入true开启默认数据过滤的选项，也可以传入自定义数组格式，数组中的元素需要有text和value属性 */
-    filters?: boolean | [{ text: string; value: string | number }];
     /** 数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回true就会显示 */
     filterMethod?: (value: any, row: T, column: Array<AvueCrudColumn<T>>) => boolean;
-    /** 冻结列 */
-    fixed?: boolean;
-    /** 内容格式化 */
-    formatter?: (row: T, value: any, label: string, column: Array<AvueCrudColumn<T>>) => string;
     /** 是否加入动态现隐列 */
     showColumn?: boolean;
-    /** 开启排序 */
-    sortable?: boolean;
-    /** 列自定义 */
-    slot?: boolean;
-    /** 表单自定义 */
-    formslot?: boolean;
-    /** 表单标题自定义 */
-    labelslot?: boolean;
-    /** 表单错误自定义 */
-    errorslot?: boolean;
-    /** 表头自定义 */
-    headerslot?: boolean;
-    /** 表格搜索选项的自定义 */
-    searchslot?: boolean;
-    /** 组件下拉自定义 */
-    typeslot?: boolean;
-    /** 列宽度 */
-    width?: number;
-    /** 列最小宽度 */
-    minWidth?: number;
     /** 隐藏列 */
     hide?: boolean;
-    /** 文字超出隐藏 */
-    overHidden?: boolean;
     /** 表格打开表单的时候是否重新拉取字典 */
     dicFlag?: boolean;
     [x: string]: any;
 }
 
-interface AvueCrudGroup<T = any> {
-    icon?: string;
-    label?: string;
-    collapse?: boolean;
-    arrow?: boolean;
-    prop?: string;
+export interface AvueCrudGroup<T = any> extends AvueFormGroup<T> {
+    /** 表单新增时是否禁止 */
+    addDisabled?: boolean;
+    /** 表单编辑时是否禁止 */
+    editDisabled?: boolean;
+    /** 表单查看时是否禁止 */
+    viewDisabled?: boolean;
+    /** 表单新增时是否可见 */
+    addDisplay?: boolean;
+    /** 表单编辑时是否可见 */
+    editDisplay?: boolean;
+    /** viewDisplay */
+    viewDisplay?: boolean;
     column?: Array<AvueCrudColumn<T>>;
 }
 
-interface AvueCrudOption<T = any> extends AvueFormOption<T> {
-    /** 表格头部表格 */
-    title?: string;
-    /** 添加按钮 */
-    addBtn?: boolean;
-    /** 新增窗口文案 */
-    addTitle?: string;
-    /** 表格行编辑时添加按钮 */
-    addRowBtn?: boolean;
-    /** 表格列齐方式 */
-    align?: string;
-    /** 表格边框 */
-    border?: boolean;
-    /** 表格行编辑操作按钮 */
-    cellBtn?: boolean;
-    /** 表格以卡片分层模式显示，搜索部分和主体部分分层展示 */
-    card?: boolean;
-    /** 日期组件按钮 */
-    dateBtn?: boolean;
-    /** 行内删除按钮 */
-    delBtn?: boolean;
-    /** 表格的排序字段{prop:'date',order:'descending'}prop默认排序字段，order排序方式 */
-    defaultSort?: object;
-    /** 是否默认展开所有行，"expand"为true的时候有效 */
-    defaultExpandAll?: boolean;
-    /** 可以通过该属性设置目前的展开行，需要设置rowKey属性才能使用，该属性为展开行的keys数组。 */
-    expandRowKeys?: Array<string | number>;
-    /** 行内编辑按钮 */
-    editBtn?: boolean;
-    /** 编辑窗口文案 */
-    editTitle?: string;
-    /** 空数据时显示的文本内容，也可以通过slot="empty"设置 */
-    emptyText?: string;
-    /** 展开折叠行 */
-    expand?: boolean;
-    /** 展开折叠行宽度 */
-    expandWidth?: number;
-    /** 展开列是否行冻结 */
-    expandFixed?: boolean;
-    /** 导出Excel按钮 */
-    excelBtn?: boolean;
-    /** 自定义过滤表格列按钮 */
-    filterBtn?: boolean;
-    /** 是列的宽度是否自撑开属性 */
-    fit?: boolean;
-    /** 表格高度默认值为auto自动高度配合calcHeight属性使用 */
+export interface AvueCrudOption<T = any> extends AvueFormOption<T> {
+    /** 表格的高度，默认为自动高度。如果设置为auto，会自适应窗口高度，配合calcHeight参数去调节范围 */
     height?: number | string;
-    /** 表格高度默认值为auto自动高度配合calcHeight属性使用 */
+    /** 表格的最大高度 */
+    maxHeight?: number | string;
+    /** 表格的高度，默认为自动高度。如果设置为auto，会自适应窗口高度，配合calcHeight参数去调节范围 */
     calcHeight?: number | string;
-    /** 表格头部中间菜单显隐 */
-    header?: boolean;
-    /** 是否显示表格序号（根据分页会自动计算，比如每页10行，到了第二页就会从11开始记数） */
+    /** 是否为斑马纹 */
+    stripe?: boolean;
+    /** 是否显示表格序号 */
     index?: boolean;
-    /** 序号列标题名称 */
-    indexLabel?: string;
     /** 序号列宽度 */
     indexWidth?: number;
     /** 序号列是否冻结 */
     indexFixed?: boolean;
-    /** 行数据的Key的主键，用于其他相关操作 */
-    rowKey?: string;
-    /** 只负责样式控制表格如果选择一半，不会出现半选 */
-    indeterminate?: boolean;
-    /** 表格的最大高度 */
-    maxHeight?: number | string;
-    /** 是否显示操作菜单栏 */
+    /** 序号列标题名称 */
+    indexLabel?: string;
+    /** 是否显示操作栏 */
     menu?: boolean;
-    /** 表格右侧行操作按钮的排列方式 */
-    menuPosition?: string;
     /** 操作菜单栏的宽度 */
     menuWidth?: number;
-    /** 操作菜单的按钮样式 */
-    menuType?: string;
-    /** 菜单按钮的文字信息 */
-    menuBtnTitle?: string;
-    /** 操作列的文字 */
+    /** 操作栏标题 */
     menuTitle?: string;
     /** 操作列是否冻结 */
     menuFixed?: boolean;
-    /** 表格打印导出按钮 */
-    printBtn?: boolean;
-    /** 表格行数据复制按钮 */
-    copyBtn?: boolean;
-    /** 刷新按钮 */
-    refreshBtn?: boolean;
-    /** 保存按钮 */
-    saveBtn?: boolean;
-    /** 更新按钮 */
-    updateBtn?: boolean;
-    /** 取消按钮 */
-    cancelBtn?: boolean;
+    /** 操作菜单的按钮样式 */
+    menuType?: MenuType;
+    /** 操作栏表头的对齐方式 */
+    menuHeaderAlign?: Align;
+    /** 操作栏按钮的对齐方式 */
+    menuAlign?: Align;
+    /** 菜单按钮的文字信息 */
+    menuBtnTitle?: string;
+    /** 表格右侧行操作按钮的排列方式 */
+    menuPosition?: MenuPosition;
     /** 表格勾选列 */
     selection?: boolean;
     /** 表格勾选列的宽度 */
     selectionWidth?: number;
     /** 表格勾选列 */
     selectionFixed?: boolean;
-    /** 搜索显隐按钮 */
-    searchBtn?: boolean;
-    /** 表格右侧操作列显隐的按钮 */
-    columnBtn?: boolean;
-    /** selection为true 的列有效，类型为 Function，Function 的返回值用来决定这一行的 CheckBox 是否可以勾选 */
-    selectable?: (row: T) => boolean;
-    /** 仅对 selection为true 的列有效，类型为 Boolean，为 true 则会在数据更新之后保留之前选中的数据（需指定 rowKey） */
-    reserveSelection?: boolean;
     /** 清空选中按钮（当selection为true起作用） */
     selectClearBtn?: boolean;
+    /** 仅对 selection为true 的列有效，类型为 Boolean，为 true 则会在数据更新之后保留之前选中的数据（需指定 rowKey） */
+    reserveSelection?: boolean;
+    /** selection为true 的列有效，类型为 Function，Function 的返回值用来决定这一行的 CheckBox 是否可以勾选 */
+    selectable?: (row: T) => boolean;
+    /** 展开折叠行 */
+    expand?: boolean;
+    /** 展开折叠行宽度 */
+    expandWidth?: number;
+    /** 展开列是否行冻结 */
+    expandFixed?: boolean;
+    /** 表格边框 */
+    border?: boolean;
+    /** 是列的宽度是否自撑开属性 */
+    fit?: boolean;
     /** 是否显示表格的表头 */
     showHeader?: boolean;
+    /** 是否要高亮当前行 */
+    highlightCurrentRow?: boolean;
+    /** 行数据的Key的主键，用于其他相关操作 */
+    rowKey?: string;
+    /** 行数据的 Key，的父类Key用于局部刷新树形表格。 */
+    rowParentKey?: string;
+    /** 空数据时显示的文本内容，也可以通过slot="empty"设置 */
+    emptyText?: string;
+    /** 是否默认展开所有行，"expand"为true的时候有效 */
+    defaultExpandAll?: boolean;
+    /** 可以通过该属性设置目前的展开行，需要设置rowKey属性才能使用，该属性为展开行的keys数组。 */
+    expandRowKeys?: Array<string | number>;
+    /** 表格的排序字段{prop:'date',order:'descending'}prop默认排序字段，order排序方式 */
+    defaultSort?: { prop: string; order: 'ascending' | 'descending' };
     /** 是否在表尾显示合计行 */
     showSummary?: boolean;
-    /** 表格合计需要配置的字段 */
-    sumColumnList?: string[];
-    /** 表格条纹 */
-    stripe?: boolean;
-    /** 弹出框更新按钮标题 */
-    updateBtnTitle?: string;
-    /** 查看按钮 */
-    viewBtn?: boolean;
-    /** 查看窗口文案 */
-    viewTitle?: string;
+    /** 是否懒加载子节点数据,会调用tree-load方法回调 */
+    lazy?: boolean;
+    /** 表格标题 */
+    title?: string;
+    /** 新增按钮 */
+    addBtn?: boolean;
     /** 新增按钮文案 */
     addBtnText?: string;
+    /** 新增按钮图标 */
+    addBtnIcon?: string;
+    /** 编辑按钮 */
+    editBtn?: boolean;
     /** 编辑按钮文案 */
     editBtnText?: string;
+    /** 编辑按钮图标 */
+    editBtnIcon?: string;
+    /** 删除按钮 */
+    delBtn?: boolean;
     /** 删除按钮文案 */
     delBtnText?: string;
+    /** 删除按钮图标 */
+    delBtnIcon?: string;
+    /** 查看按钮 */
+    viewBtn?: boolean;
     /** 查看按钮文案 */
     viewBtnText?: string;
-    /** 搜索按钮文案 */
-    searchBtnText?: string;
-    /** 清空按钮文案 */
-    emptyBtnText?: string;
-    /** 取消按钮文案 */
-    cancelBtnText?: string;
-    /** 打印按钮文案 */
-    printBtnText?: string;
-    /** 导出按钮文案 */
-    excelBtnText?: string;
+    /** 查看按钮图标 */
+    viewBtnIcon?: string;
+    /** 修改按钮 */
+    updateBtn?: boolean;
     /** 修改按钮文案 */
     updateBtnText?: string;
+    /** 修改按钮图标 */
+    updateBtnIcon?: string;
+    /** 保存按钮 */
+    saveBtn?: boolean;
     /** 保存按钮文案 */
     saveBtnText?: string;
-    /** 是否为全屏Dialog */
+    /** 保存按钮图标 */
+    saveBtnIcon?: string;
+    /** 取消按钮 */
+    cancelBtn?: boolean;
+    /** 取消按钮文案 */
+    cancelBtnText?: string;
+    /** 取消按钮图标 */
+    cancelBtnIcon?: string;
+    /** 搜索显隐按钮 */
+    searchBtn?: boolean;
+    /** 搜索按钮文案 */
+    searchBtnText?: string;
+    /** 搜索按钮图标 */
+    searchBtnIcon?: string;
+    /** 清空按钮 */
+    emptyBtn?: boolean;
+    /** 清空按钮文案 */
+    emptyBtnText?: string;
+    /** 清空按钮图标 */
+    emptyBtnIcon?: string;
+    /** 打印按钮 */
+    printBtn?: boolean;
+    /** 导出按钮 */
+    excelBtn?: boolean;
+    /** 自定义过滤按钮 */
+    filterBtn?: boolean;
+    /** 刷新数据按钮 */
+    refreshBtn?: boolean;
+    /** 列操作按钮 */
+    columnBtn?: boolean;
+    /** 搜索显隐按钮 */
+    searchShowBtn?: boolean;
+    /** 行数据复制按钮 */
+    copyBtn?: boolean;
+    /** 新增窗口标题 */
+    addTitle?: string;
+    /** 编辑窗口标题 */
+    editTitle?: string;
+    /** 查看窗口标题 */
+    viewTitle?: string;
+    /** 表格弹窗是否可以拖拽 */
+    dialogDrag?: boolean;
+    /** 表格弹窗是否为全屏 */
     dialogFullscreen?: boolean;
-    /** dialogCustomClass */
+    /** 表格弹窗自定义class */
     dialogCustomClass?: string;
-    /** 是否可以通过按下ESC关闭Dialog */
+    /** 表格弹窗是否可以通过按下ESC关闭 */
     dialogEscape?: boolean;
-    /** 是否可以通过点击modal关闭Dialog */
+    /** 表格弹窗是否可以通过点击modal关闭 */
     dialogClickModal?: boolean;
-    /** 是否显示关闭按钮 */
+    /** 表格弹窗是否显示关闭按钮 */
     dialogCloseBtn?: boolean;
-    /** 是否需要遮罩层 */
+    /** 表格弹窗是否需要遮罩层 */
     dialogModal?: boolean;
-    /** 弹出框按钮的位置 */
-    dialogMenuPosition?: string;
-    /** 弹出表单的弹窗具体顶部的距离 */
+    /** 表格弹窗框按钮的位置 */
+    dialogMenuPosition?: MenuPosition;
+    /** 表格弹窗顶部的距离 */
     dialogTop?: string | number;
-    /** 弹出表单的类型 */
-    dialogType?: string;
-    /** Drawer 打开的方向 */
-    dialogDirection?: string;
-    /** 弹出表单的弹窗宽度 */
+    /** 表格弹窗方式 */
+    dialogType?: 'dialog' | 'drawer';
+    /** 表格抽屉打开方向 */
+    dialogDirection?: 'rtl' | 'ltr' | 'ttb' | 'btt';
+    /** 表格弹窗宽度 */
     dialogWidth?: string | number;
-    /** 弹出表单的弹窗高度 */
+    /** 表格弹窗高度 */
     dialogHeight?: string | number;
     /** 首次加载是否显示搜索 */
     searchShow?: boolean;
-    /** 搜索栏目折叠显隐按钮 */
-    searchShowBtn?: boolean;
-    /** 首次加载是否显示搜索 */
-    searchEnter?: boolean;
     /** 是否展示半收缩按钮 */
     searchIcon?: boolean;
     /** 展示半收缩按钮的触发条件个数 */
     searchIndex?: number;
-    /** 搜索框整体布局大小 */
-    searchSize?: string;
     /** 搜索操作按钮的位置 */
-    searchMenuPosition?: string;
-    /** 搜索操作按钮栅格占据的列数 */
-    searchMenuSpan?: number;
+    searchMenuPosition?: MenuPosition;
+    /** 搜索框辅助文字 */
+    searchPlaceholder?: string;
     /** 搜索项栅格占据的列数 */
     searchSpan?: number;
-    /** 表格树是否懒加载 */
-    lazy?: boolean;
+    /** 搜索框的间距 */
+    searchGutter?: number;
+    /** 搜索框的标题宽度 */
+    searchLabelWidth?: number | string;
+    /** 搜索项标题位置 */
+    searchLabelPosition?: LabelPosition;
+    /** 搜索框整体布局大小 */
+    searchSize?: Size;
+    /** 搜索操作按钮栅格占据的列数 */
+    searchMenuSpan?: number;
+    /** 首次加载是否显示搜索 */
+    searchEnter?: boolean;
+    /** 表格行编辑时添加按钮 */
+    addRowBtn?: boolean;
+    /** 表格列齐方式 */
+    align?: Align;
+    /** 表格行编辑操作按钮 */
+    cellBtn?: boolean;
+    /** 表格以卡片分层模式显示，搜索部分和主体部分分层展示 */
+    card?: boolean;
+    /** 日期组件按钮 */
+    dateBtn?: boolean;
+    /** 表格头部中间菜单显隐 */
+    header?: boolean;
+    /** 表头对齐方式 */
+    headerAlign?: Align;
+    /** 只负责样式控制表格如果选择一半，不会出现半选 */
+    indeterminate?: boolean;
+    /** 表格合计需要配置的字段 */
+    sumColumnList?: string[];
+    /** 弹出框更新按钮标题 */
+    updateBtnTitle?: string;
     /** 拖拽排序 */
     sortable?: boolean;
     /** 行拖拽排序 */
@@ -304,26 +361,7 @@ interface AvueCrudOption<T = any> extends AvueFormOption<T> {
     group?: Array<AvueCrudGroup<T>>;
 }
 
-interface PageOption {
-    /** 总条数,如果为0的话不显示分页 */
-    total?: number;
-    /** 当前页数 */
-    currentPage?: number;
-    /** 是否为分页按钮添加背景色 */
-    background?: boolean;
-    /** 每页显示条目个数，支持.sync修饰符 */
-    pageSize?: number;
-    /** 分页的数组分段 */
-    pageSizes?: number;
-    /** 页码按钮的数量，当总页数超过该值时会折叠 */
-    pagerCount?: number;
-}
-type CellEvent<T> = (row: any, column: TableColumnCtx<T>, cell: any, event: Event) => void;
-type RowEvent<T> = (row: any, column: TableColumnCtx<T>, event: Event) => void;
-type HeaderEvent<T> = (column: TableColumnCtx<T>, event: Event) => void;
-type AvueCrudDefaults = Record<string, AvueCrudColumn>;
-
-interface AvueCrudProps<T = any> {
+export interface AvueCrudProps<T = any> {
     /** 表单绑定值 v-model */
     modelValue?: T;
     /** 表格数据 */
@@ -383,11 +421,11 @@ interface AvueCrudProps<T = any> {
     /** 点击搜索后触发该事件 */
     onSearchChange?: (form: any, done: () => void) => any;
     /** 清空搜索回调方法 */
-    onSearchReset?: () => void;
+    onSearchReset?: () => any;
     /** dateBtn为true时的选择日期回调方法 */
     onDateChange?: (data: { value: string[] }) => any;
     /** 加载子节点数据的函数，lazy 为 true 时生效，函数第二个参数包含了节点的层级信息 */
-    onTreeLoad?: (row: T, treeNode: any, resolve: (data: T) => void) => any;
+    onTreeLoad?: (row: T, treeNode: any, resolve: (data: T[]) => void) => any;
     /** 分页页码改变时会触发 */
     onCurrentChange?: (current: number) => any;
     /** 分页条数改变时会触发 */
@@ -433,7 +471,7 @@ interface AvueCrudProps<T = any> {
     /** 更新配置项结构 */
     'onUpdate:defaults'?: (defaluts: AvueCrudDefaults) => any;
 }
-interface AvueCrudMethods<T = any> {
+export interface AvueCrudMethods<T = any> {
     /** 打开表单新增窗口 */
     rowAdd: () => void;
     /** 打开表单编辑窗口 */
@@ -454,8 +492,10 @@ interface AvueCrudMethods<T = any> {
     clearValidate: () => void;
     /** 用于多选表格，清空用户的选择 */
     clearSelection: () => void;
-    /** 用于多选表格，切换某一行的选中状态，如果使用了第二个参数，则是设置这一行选中与否（selected 为 true 则选中） */
+    /** 用于多选表格，切换某些行的选中状态，如果使用了第二个参数，则是设置这一行选中与否（selected 为 true 则选中） */
     toggleSelection: (rows?: T[], selected?: boolean) => void;
+    /** 用于多选表格，切换某一行的选中状态，如果使用了第二个参数，则可直接设置这一行选中与否 */
+    toggleRowSelection: (rows?: T, selected?: boolean) => void;
     /** 用于多选表格，切换所有行的选中状态 */
     toggleAllSelection: () => void;
     /** 用于可展开表格与树形表格，切换某一行的展开状态，如果使用了第二个参数，则是设置这一行展开与否（expanded 为 true 则展开） */
@@ -481,10 +521,12 @@ interface AvueCrudMethods<T = any> {
     rowSave: (row: T) => void;
     /** 表单更新调用 */
     rowUpdate: (row: T) => void;
+    /** 行新增 */
+    rowCellAdd: (row: T) => void;
+    /** 行编辑 */
+    rowCell: (row: T, index?: number) => void;
     /** 行删除 */
     rowDel: (row: T, index?: number) => void;
-    /** 打开行编辑 */
-    rowCell: (row: T, index?: number) => void;
     /** 打印表格 */
     rowPrint: () => void;
     /** 导出表格 */
@@ -494,53 +536,57 @@ interface AvueCrudMethods<T = any> {
     /** 清空搜索栏目的值 */
     searchReset: () => void;
 }
-interface AvueCrudSlots<T = any> {
-    // empty: () => VNode[];
-    // expand: (arg: { row: T; index: number }) => VNode[];
-    // menu: (arg: { row: T; type: string; disabled: boolean; size: string; index: number }) => VNode[];
-    // 'menu-form': (arg: { disabled: boolean; size: string; type: FormType }) => VNode[];
-    // header: () => VNode[];
-    // footer: () => VNode[];
-    // page: () => VNode[];
-    // 'menu-btn': () => VNode[];
-    // 'menu-left': (arg: { size: string }) => VNode[];
-    // 'menu-right': (arg: { size: string }) => VNode[];
-    // search: (arg: { row: T; search: T; size: string }) => VNode[];
-    // 'search-menu': (arg: { row: T; search: T; disabled: boolean; size: string }) => VNode[];
-    // [`${string}-search`]: (arg: {
-    //     value: any;
-    //     column: AvueCrudColumn<T>;
-    //     size: string;
-    //     disabled: boolean;
-    // }) => VNode[];
-    // [`${string}-header`]: (arg: { column: AvueCrudColumn<T> }) => VNode[];
-    // [`${string}-form`]: (arg: {
-    //     value: any;
-    //     column: AvueCrudColumn<T>;
-    //     label: string;
-    //     size: string;
-    //     readonly: boolean;
-    //     disabled: boolean;
-    //     dic: DicItem[];
-    // }) => VNode[];
-    // [x: string]: (arg: { row: T; index: number; dic: DicItem[]; size: string; label: string }) => VNode[];
-    [x: string]: (arg: {
-        row?: T;
-        type?: FormType | string;
-        index?: number;
-        dic?: DicItem[];
-        disabled?: boolean;
-        readonly?: boolean;
-        size?: string;
-        label?: string;
-        search?: T;
-        column?: AvueCrudColumn<T>;
+
+export interface AvueCrudSlots<T = any> {
+    empty: () => VNode[];
+    expand: (scoped: { row: T; index: number }) => VNode[];
+    menu: (scoped: { row: T; type: string; disabled: boolean; size: Size; index: number }) => VNode[];
+    'menu-form': (scoped: { disabled: boolean; size: Size; type?: FormType }) => VNode[];
+    header: () => VNode[];
+    footer: () => VNode[];
+    page: () => VNode[];
+    'menu-btn': () => VNode[];
+    'menu-left': (scoped: { size: Size }) => VNode[];
+    'menu-right': (scoped: { size: Size }) => VNode[];
+    search: (scoped: { row: T; search: T; size: Size }) => VNode[];
+    'search-menu': (scoped: { row: T; search: T; disabled: boolean; size: Size }) => VNode[];
+    [x: `${string}-search`]: (scoped: {
+        value: any;
+        column: AvueCrudColumn<T>;
+        size: Size;
+        disabled: boolean;
+        dic: DicItem[];
+    }) => VNode[];
+    [x: `${string}-header`]: (scoped: { column: AvueCrudColumn<T> }) => VNode[];
+    [x: `${string}-form`]: (scoped: {
+        row: T;
+        value: any;
+        column: AvueCrudColumn<T>;
+        label: string;
+        size: Size;
+        readonly: boolean;
+        disabled: boolean;
+        dic: DicItem[];
+    }) => VNode[];
+    // [x: string]: (scoped: { row: T; index: number; dic: DicItem[]; size: Size; label: string }) => VNode[];
+    [x: string]: (scoped: {
+        value: any;
+        row: T;
+        type: FormType;
+        index: number;
+        dic: DicItem[];
+        disabled: boolean;
+        readonly: boolean;
+        size: Size;
+        label: string;
+        search: T;
+        column: AvueCrudColumn<T>;
     }) => VNode[];
 }
 
-declare const AvueCrud: new <T = any>() => {
-    $props: AvueCrudProps<T>;
-    $slots: AvueCrudSlots<T>;
-};
+export type AvueCrudInstance = InstanceType<typeof AvueCrud> & AvueCrudMethods;
 
-type AvueCrudInstance = InstanceType<typeof AvueCrud> & AvueCrudMethods;
+export const AvueCrud: new () => {
+    $props: AvueCrudProps;
+    $slots: AvueCrudSlots;
+};

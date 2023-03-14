@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.51
+// Type definitions for non-npm package Google Maps JavaScript API 3.52
 // Project: https://developers.google.com/maps/
 // Definitions by: Alex Muramoto <https://github.com/amuramoto>
 //                 Angela Yu <https://github.com/wangela>
@@ -7,7 +7,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.51
+// Google Maps JS API Version: 3.52
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -381,9 +381,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface CoreLibrary {}
 }
 declare namespace google.maps {
@@ -2159,9 +2156,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface DrawingLibrary {}
 }
 declare namespace google.maps {
@@ -2202,9 +2196,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface ElevationLibrary {}
 }
 declare namespace google.maps {
@@ -2808,15 +2799,9 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface GeocodingLibrary {}
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface GeometryLibrary {
     encoding: typeof google.maps.geometry.encoding;
     poly: typeof google.maps.geometry.poly;
@@ -3649,8 +3634,8 @@ declare namespace google.maps {
      *     longitude wrapping.
      */
     constructor(
-        value: google.maps.LatLngAltitudeLiteral|google.maps.LatLng|
-        google.maps.LatLngLiteral,
+        value: google.maps.LatLngAltitudeLiteral|
+        google.maps.LatLngLiteral|google.maps.LatLng,
         noClampNoWrap?: boolean);
     /**
      * Returns the altitude.
@@ -3660,7 +3645,7 @@ declare namespace google.maps {
      * Comparison function.
      * @param other Another LatLngAltitude object.
      */
-    equals(other: google.maps.LatLngAltitude|null): boolean;
+    equals(other: null|google.maps.LatLngAltitude): boolean;
     /**
      * Returns the latitude.
      */
@@ -4842,9 +4827,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface MapsLibrary {}
 }
 declare namespace google.maps {
@@ -5219,9 +5201,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface MarkerLibrary {}
 }
 declare namespace google.maps {
@@ -5658,13 +5637,6 @@ declare namespace google.maps {
    */
   interface PlaceFeature extends google.maps.Feature {
     /**
-     * The display name.
-     * @deprecated <code>google.maps.PlaceFeature.displayName</code> is
-     *     deprecated, and will be removed February 2023. Use
-     *     <code>google.maps.PlaceFeature.fetchPlace()</code> instead.
-     */
-    displayName: string;
-    /**
      * Fetches a <code>Place</code> for this <code>PlaceFeature</code>. In the
      * resulting <code>Place</code> object, the <code>id</code> and the
      * <code>displayName</code> properties will be populated. (Additional fields
@@ -5682,9 +5654,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface PlacesLibrary {}
 }
 declare namespace google.maps {
@@ -6256,9 +6225,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface RoutesLibrary {}
 }
 declare namespace google.maps {
@@ -6396,9 +6362,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface StreetViewLibrary {}
 }
 declare namespace google.maps {
@@ -7689,9 +7652,6 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   */
   interface VisualizationLibrary {}
 }
 declare namespace google.maps {
@@ -8235,7 +8195,6 @@ declare namespace google.maps.geometry.spherical {
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Loads a <a
    * href="https://developers.google.com/maps/documentation/javascript/libraries">library</a>
    * of the Maps JavaScript API, resolving with the direct members of that API
@@ -8410,15 +8369,15 @@ declare namespace google.maps.journeySharing {
      * &quot;providers/{provider_id}/deliveryVehicles/{delivery_vehicle_id}&quot;.
      * The delivery_vehicle_id must be a unique identifier.
      */
-    name: string|null;
+    name: string;
     /**
      * The current navigation status of the vehicle.
      */
-    navigationStatus: string|null;
+    navigationStatus: string;
     /**
      * The remaining driving distance in the current route segment, in meters.
      */
-    remainingDistanceMeters: number|null;
+    remainingDistanceMeters: number;
     /**
      * The remaining driving duration in the current route segment, in
      * milliseconds.
@@ -8429,7 +8388,7 @@ declare namespace google.maps.journeySharing {
      * vehicle&#39;s most recently reported location.
      */
     remainingVehicleJourneySegments:
-        google.maps.journeySharing.VehicleJourneySegment[]|null;
+        google.maps.journeySharing.VehicleJourneySegment[];
   }
 }
 declare namespace google.maps.journeySharing {
@@ -8448,6 +8407,53 @@ declare namespace google.maps.journeySharing {
      * The delivery vehicle represented by this marker.
      */
     vehicle: google.maps.journeySharing.DeliveryVehicle;
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * DeliveryVehicleStop type
+   */
+  interface DeliveryVehicleStop {
+    /**
+     * The list of Tasks to be performed at this stop. <ul> <li><code>id</code>:
+     * the ID of the task. <li><code>extraDurationMillis</code>: the extra time
+     * it takes to perform the task, in milliseconds. </ul>
+     */
+    tasks: {extraDurationMillis: number|null, id: string|null}[];
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * The current state of a {@link
+   * google.maps.journeySharing.DeliveryVehicleStop}.
+   *
+   * When using `v=beta`, can be accessed by calling
+   * `const {DeliveryVehicleStopState} = await
+   * google.map.importLibrary("journeySharing")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  enum DeliveryVehicleStopState {
+    /**
+     * Arrived at stop. Assumes that when the vehicle is routing to the next
+     * stop, that all previous stops have been completed.
+     */
+    ARRIVED = 'ARRIVED',
+    /**
+     * Assigned and actively routing.
+     */
+    ENROUTE = 'ENROUTE',
+    /**
+     * Created, but not actively routing.
+     */
+    NEW = 'NEW',
+    /**
+     * Unknown.
+     */
+    UNSPECIFIED = 'UNSPECIFIED',
   }
 }
 declare namespace google.maps.journeySharing {
@@ -8862,10 +8868,6 @@ declare namespace google.maps.journeySharing {
     constructor(options: google.maps.journeySharing
                     .FleetEngineShipmentLocationProviderOptions);
     /**
-     * Returns the currently tracked task.
-     */
-    getTask(): google.maps.journeySharing.Task|null;
-    /**
      * Explicitly refreshes the tracked location.
      */
     refresh(): void;
@@ -8964,9 +8966,9 @@ declare namespace google.maps.journeySharing {
    */
   interface FleetEngineShipmentLocationProviderUpdateEvent {
     /**
-     * The task structure returned by the update. Unmodifiable.
+     * The task tracking info structure returned by the update. Unmodifiable.
      */
-    task: google.maps.journeySharing.Task|null;
+    taskTrackingInfo: google.maps.journeySharing.TaskTrackingInfo|null;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -9873,12 +9875,9 @@ declare namespace google.maps.journeySharing {
   interface ShipmentMarkerCustomizationFunctionParams extends
       google.maps.journeySharing.MarkerCustomizationFunctionParams {
     /**
-     * The task associated with this marker. <br><br>For information about the
-     * delivery vehicle servicing this task, use {@link
-     * google.maps.journeySharing.Task.latestVehicleLocationUpdate} and {@link
-     * google.maps.journeySharing.Task.remainingVehicleJourneySegments}.
+     * Information for the task associated with this marker.
      */
-    task: google.maps.journeySharing.Task;
+    taskTrackingInfo: google.maps.journeySharing.TaskTrackingInfo;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -9904,7 +9903,7 @@ declare namespace google.maps.journeySharing {
      * shipment, use the tracking_id field. Multiple tasks can have the same
      * tracking_id.
      */
-    name: string|null;
+    name: string;
     /**
      * The outcome of the task.
      */
@@ -9930,11 +9929,11 @@ declare namespace google.maps.journeySharing {
      * Information about the segments left to be completed for this task.
      */
     remainingVehicleJourneySegments:
-        google.maps.journeySharing.VehicleJourneySegment[]|null;
+        google.maps.journeySharing.VehicleJourneySegment[];
     /**
      * The current execution state of the task.
      */
-    status: string|null;
+    status: string;
     /**
      * The tracking ID of the shipment.
      */
@@ -9942,7 +9941,7 @@ declare namespace google.maps.journeySharing {
     /**
      * The task type; for example, a break or shipment.
      */
-    type: string|null;
+    type: string;
     /**
      * The ID of the vehicle performing this task.
      */
@@ -9966,6 +9965,76 @@ declare namespace google.maps.journeySharing {
      * The task location represented by this marker.
      */
     task: google.maps.journeySharing.Task;
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * The details for a task tracking info object returned by Fleet Engine.
+   */
+  interface TaskTrackingInfo {
+    /**
+     * The estimated arrival time to the stop location.
+     */
+    estimatedArrivalTime: Date|null;
+    /**
+     * The estimated completion time of a Task.
+     */
+    estimatedTaskCompletionTime: Date|null;
+    /**
+     * Information specific to the last location update.
+     */
+    latestVehicleLocationUpdate:
+        google.maps.journeySharing.VehicleLocationUpdate|null;
+    /**
+     * The name in the format
+     * &quot;providers/{provider_id}/taskTrackingInfo/{tracking_id}&quot;, where
+     * <code>tracking_id</code> represents the tracking ID.
+     */
+    name: string;
+    /**
+     * The location where the Task will be completed.
+     */
+    plannedLocation: google.maps.LatLng|null;
+    /**
+     * The total remaining distance in meters to the <code>VehicleStop</code> of
+     * interest.
+     */
+    remainingDrivingDistanceMeters: number|null;
+    /**
+     * Indicates the number of stops the vehicle remaining until the task stop
+     * is reached, including the task stop. For example, if the vehicle&#39;s
+     * next stop is the task stop, the value will be 1.
+     */
+    remainingStopCount: number|null;
+    /**
+     * A list of points which when connected forms a polyline of the
+     * vehicle&#39;s expected route to the location of this task.
+     */
+    routePolylinePoints: google.maps.LatLng[]|null;
+    /**
+     * The current execution state of the Task.
+     */
+    state: string|null;
+    /**
+     * The outcome of attempting to execute a Task.
+     */
+    taskOutcome: string|null;
+    /**
+     * The time when the Task&#39;s outcome was set by the provider.
+     */
+    taskOutcomeTime: Date|null;
+    /**
+     * The tracking ID of a Task.<br> <ul> <li>Must be a valid Unicode
+     * string.</li> <li>Limited to a maximum length of 64 characters.</li>
+     * <li>Normalized according to <a
+     * href="http://www.unicode.org/reports/tr15/">Unicode Normalization Form
+     * C</a>.</li> <li>May not contain any of the following ASCII characters:
+     * &#39;/&#39;, &#39;:&#39;, &#39;?&#39;, &#39;,&#39;, or
+     * &#39;#&#39;.</li> </ul>
+     */
+    trackingId: string;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -9997,11 +10066,11 @@ declare namespace google.maps.journeySharing {
      * In the format &quot;providers/{provider_id}/trips/{trip_id}&quot;. The
      * trip_id must be a unique identifier.
      */
-    name: string|null;
+    name: string;
     /**
      * Number of passengers on this trip; does not include the driver.
      */
-    passengerCount: number|null;
+    passengerCount: number;
     /**
      * The estimated future time when the passengers will be picked up, or the
      * actual time when they were picked up.
@@ -10019,23 +10088,23 @@ declare namespace google.maps.journeySharing {
      * An array of waypoints indicating the path from the current location to
      * the drop-off point.
      */
-    remainingWaypoints: google.maps.journeySharing.VehicleWaypoint[]|null;
+    remainingWaypoints: google.maps.journeySharing.VehicleWaypoint[];
     /**
      * Current status of the trip. Possible values are UNKNOWN_TRIP_STATUS, NEW,
      * ENROUTE_TO_PICKUP, ARRIVED_AT_PICKUP,
      * ARRIVED_AT_INTERMEDIATE_DESTINATION, ENROUTE_TO_INTERMEDIATE_DESTINATION,
      * ENROUTE_TO_DROPOFF, COMPLETE, or CANCELED.
      */
-    status: string|null;
+    status: string;
     /**
      * The type of the trip. Possible values are UNKNOWN_TRIP_TYPE, SHARED or
      * EXCLUSIVE.
      */
-    type: string|null;
+    type: string;
     /**
      * ID of the vehicle making this trip.
      */
-    vehicleId: string|null;
+    vehicleId: string;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -10089,24 +10158,21 @@ declare namespace google.maps.journeySharing {
     /**
      * The travel distance from the previous stop to this stop, in meters.
      */
-    distanceMeters: number|null;
+    drivingDistanceMeters: number|null;
     /**
-     * The travel time from the previous stop to this stop, in milliseconds.
+     * The travel time from the previous stop this stop, in milliseconds.
      */
-    durationMillis: number|null;
+    drivingDurationMillis: number|null;
     /**
-     * The extra travel time due to the durations of the stop&#39;s tasks, in
-     * milliseconds.
-     */
-    extraDurationMillis: number|null;
-    /**
-     * The actual stop location.
-     */
-    location: google.maps.LatLngLiteral|null;
-    /**
-     * The path from the previous stop to this stop.
+     * The path from the previous waypoint (or the vehicle&#39;s current
+     * location, if this waypoint is the first in the list of waypoints) to this
+     * waypoint.
      */
     path: google.maps.LatLngLiteral[]|null;
+    /**
+     * The stops to be served by this vehicle.
+     */
+    stop: google.maps.journeySharing.DeliveryVehicleStop[]|null;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -10123,7 +10189,7 @@ declare namespace google.maps.journeySharing {
     /**
      * The location of the update.
      */
-    location: google.maps.LatLngLiteral|null;
+    location: google.maps.LatLngLiteral|null|google.maps.LatLng;
     /**
      * The speed in kilometers per hour.
      */

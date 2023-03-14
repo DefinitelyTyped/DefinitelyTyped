@@ -1,6 +1,3 @@
-type Component = any;
-type VNode = any;
-
 type ColumnCls<T> = string | ((data: { row: T; rowIndex: number }) => string);
 
 type CellCls<T> =
@@ -93,3 +90,7 @@ type UploadUserFile = Omit<UploadFile, 'status' | 'uid'> & Partial<Pick<UploadFi
 interface FormItemRule extends RuleItem {
     trigger?: string | string[];
 }
+
+type CellEvent<T> = (row: any, column: TableColumnCtx<T>, cell: any, event: Event) => void;
+type RowEvent<T> = (row: any, column: TableColumnCtx<T>, event: Event) => void;
+type HeaderEvent<T> = (column: TableColumnCtx<T>, event: Event) => void;

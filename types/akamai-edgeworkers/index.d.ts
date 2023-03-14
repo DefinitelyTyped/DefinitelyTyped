@@ -229,7 +229,9 @@ declare namespace EW {
          * The cpcode used for reporting.
          */
         readonly cpCode: number;
+    }
 
+    interface HasBody {
         /**
          * The body associated with the incoming request.
          */
@@ -414,7 +416,7 @@ declare namespace EW {
     }
 
     // responseProvider
-    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody, ReadsVariables {
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody, ReadsVariables, HasBody {
     }
 
     interface Destination {
@@ -1083,16 +1085,19 @@ declare module "url-search-params" {
         /**
          * Iterate through the name/value pairs.
          */
+        // Minimum TypeScript Version: 4.6
         entries(): IterableIterator<[string, string]>;
 
         /**
          * Iterate through the names.
          */
+        // Minimum TypeScript Version: 4.6
         keys(): IterableIterator<string>;
 
         /**
          * Iterate through the values.
          */
+        // Minimum TypeScript Version: 4.6
         values(): IterableIterator<string>;
 
         /**

@@ -9,21 +9,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 5.0
 
-export enum CredentialsEncodingMode {
-    STRICT = 'strict',
-    LOOSE = 'loose',
-}
-
-export enum AuthorizationMethod {
-    HEADER = 'header',
-    BODY = 'body',
-  }
-
-export enum BodyFormat {
-    FORM = 'form',
-    JSON = 'json',
-}
-
 export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
         /** Service registered client id. When required by the spec this value will be automatically encoded. Required. */
@@ -76,11 +61,11 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
             /**
              * Acceptable http response content type. Defaults to application/json
              */
-            accept: string;
+            accept?: string;
             /**
              * Always overriden by the library to properly send the required credentials on each scenario
              */
-            authorization: string;
+            authorization?: string;
             [key: string]: unknown
         } | undefined;
         /**
@@ -100,15 +85,15 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
          * Use loose if your provider doesn't conform to the OAuth 2.0 specification.
          * Defaults to strict
          */
-        credentialsEncodingMode?: CredentialsEncodingMode | undefined;
+        credentialsEncodingMode?: 'strict' | 'loose' | undefined;
         /** Format of data sent in the request body. Defaults to form. */
-        bodyFormat?: BodyFormat | undefined;
+        bodyFormat?: 'form' | 'json' | undefined;
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
          * Defaults to header
          */
-        authorizationMethod?: AuthorizationMethod | undefined;
+        authorizationMethod?: 'header' | 'body' | undefined;
     } | undefined;
 }
 

@@ -5,7 +5,7 @@ import dasherize = require('dasherize');
         Expect strings to be dash-cased
     */
 }
-// $ExpectType string
+// $ExpectType `${string}common-var-name` || string
 dasherize('commonVarName');
 
 {
@@ -55,9 +55,9 @@ dasherizedArray[0]['some-prop-name'];
         Expect other types to be returned as is
     */
 }
-// $ExpectType number
+// $ExpectType 3 || number
 dasherize(3);
-// $ExpectType boolean
+// $ExpectType true || boolean
 dasherize(true);
 // $ExpectType Date
 dasherize(new Date());
