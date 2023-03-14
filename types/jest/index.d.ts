@@ -1,4 +1,4 @@
-// Type definitions for Jest 29.5
+// Type definitions for Jest 29.4
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -1490,6 +1490,17 @@ declare namespace jest {
          */
         results: Array<MockResult<T>>;
     }
+
+    interface ReplaceProperty<K> {
+        /**
+         * Restore property to its original value known at the time of mocking.
+         */
+        restore(): void;
+        /**
+         * Change the value of the property.
+         */
+        replaceValue(value: K): this;
+    }
 }
 
 // Jest ships with a copy of Jasmine. They monkey-patch its APIs and divergence/deprecation are expected.
@@ -1684,9 +1695,4 @@ declare namespace jasmine {
 
 interface ImportMeta {
     jest: typeof jest;
-}
-
-interface ReplaceProperty<K> {
-    replaceValue: (value: K) => this;
-    restore: () => void;
 }
