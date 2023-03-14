@@ -9,7 +9,6 @@ import {
     Button,
     ButtonGroup,
     Callout,
-    Card,
     Checkbox,
     Collage,
     ColorSchemeProvider,
@@ -24,6 +23,7 @@ import {
     FixedZIndex,
     Flex,
     Heading,
+    HelpButton,
     Icon,
     IconButton,
     IconButtonFloating,
@@ -43,6 +43,7 @@ import {
     PageHeader,
     Pog,
     Popover,
+    Popovereducational,
     Pulsar,
     RadioButton,
     RadioGroup,
@@ -71,6 +72,7 @@ import {
     useFocusVisible,
     useReducedMotion,
     Video,
+    WashAnimated,
 } from 'gestalt';
 import * as React from 'react';
 
@@ -151,7 +153,7 @@ const CheckUseReducedMotion = () => {
     <Button text={'Click me'} />
     <Button text={'Click me'} />
 </ButtonGroup>;
-<Card />;
+<WashAnimated />;
 <ComboBox
     accessibilityClearButtonLabel="combobox"
     id="combobox"
@@ -222,6 +224,16 @@ const CheckUseReducedMotion = () => {
 </Flex>;
 <Heading />;
 <Heading color="inverse" />;
+<HelpButton
+    accessibilityPopoverLabel=""
+    text=""
+    accessibilityLabel=""
+    link={{
+        externalLinkIcon: { color: 'brandPrimary', size: 100 },
+        href: '',
+        text: '',
+    }}
+/>;
 <Icon accessibilityLabel="icon" />;
 <IconButton
     accessibilityLabel="icon"
@@ -313,6 +325,7 @@ const CheckUseReducedMotion = () => {
 />;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current} />;
+<Popovereducational accessibilityLabel="" anchor={null} onDismiss={() => undefined} />;
 
 <Pulsar />;
 <RadioButton id="id" value="" onChange={() => {}} />;
@@ -496,7 +509,7 @@ const CheckUseReducedMotion = () => {
             onExpand={() => {}}
             expandedContents={
                 <Box maxWidth={236} padding={2} column={12}>
-                    <Card image={<Avatar name="luna avatar" src="https://i.ibb.co/QY9qR7h/luna.png" />}>
+                    <WashAnimated image={<Avatar name="luna avatar" src="https://i.ibb.co/QY9qR7h/luna.png" />}>
                         <Text align="center" weight="bold">
                             <Link href="https://pinterest.com">
                                 <Box paddingX={3} paddingY={2}>
@@ -505,7 +518,7 @@ const CheckUseReducedMotion = () => {
                             </Link>
                         </Text>
                         <Text>Row expanded</Text>
-                    </Card>
+                    </WashAnimated>
                 </Box>
             }
         >
@@ -599,7 +612,7 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 
-<Toast variant="error" text={<>Oops! Something went wrong. Please try again later.</>} />;
+<Toast text="hello" dissmissButton={{ onDismiss: () => undefined }} />;
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;
