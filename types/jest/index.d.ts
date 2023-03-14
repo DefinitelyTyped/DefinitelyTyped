@@ -287,6 +287,11 @@ declare namespace jest {
      */
     function retryTimes(numRetries: number, options?: { logErrorsBeforeRetry?: boolean }): typeof jest;
     /**
+     * Replace object[propertyKey] with a value.
+     * The property must already exist on the object. The same property might be replaced multiple times. Returns a Jest replaced property.
+     */
+    function replaceProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): ReplaceProperty<T[K]>;
+    /**
      * Exhausts tasks queued by setImmediate().
      * > Note: This function is only available when using modern fake timers
      * > implementation
@@ -1679,4 +1684,9 @@ declare namespace jasmine {
 
 interface ImportMeta {
     jest: typeof jest;
+}
+
+interface ReplaceProperty<K> {
+    replaceValue: (value: K) => this;
+    restore: () => void;
 }
