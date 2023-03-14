@@ -17,7 +17,7 @@ export interface CodeCommitTrigger {
             ref: string;
         }>;
     };
-    customData: string;
+    customData?: string;
     eventId: string;
     eventName: string;
     eventPartNumber: number;
