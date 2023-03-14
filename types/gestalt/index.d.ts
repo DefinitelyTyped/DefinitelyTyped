@@ -372,7 +372,7 @@ export interface CalloutProps {
  * Wash Animated Props Interface
  * https://gestalt.netlify.app/washanimated
  */
-export interface WashAnimated {
+export interface WashAnimatedProps {
     active?: boolean | undefined;
     children?: React.ReactNode | undefined;
     image?: React.ReactNode | undefined;
@@ -749,7 +749,7 @@ export interface HelpButtonLinkType {
  * Help Button props
  * https://gestalt.netlify.app/helpbutton
  */
-export interface HelpButton {
+export interface HelpButtonProps {
     /**
      * Supply a short, descriptive label screen readers. Follow the pattern `Click to learn more about [description]`.
      * See [Accessibility](https://gestalt.pinterest.systems/web/helpbutton#Accessibility) section for guidance.
@@ -776,7 +776,8 @@ export interface HelpButton {
      * - `href` is the URL that the hyperlink points to.
      * - `text` is the displayed text for the link. See the [link variant](https://gestalt.pinterest.systems/web/helpbutton#With-a-link) for more details.
      * - `target` see the [target Link variant](https://gestalt.pinterest.systems/web/link#Target) to learn more. If not defined the link will open in a new window.
-     * - Optionally use `accessibilityLabel` to supply a short, descriptive label for screen-readers to replace link texts that don't provide sufficient context about the link component behavior.
+     * - Optionally use `accessibilityLabel` to supply a short,
+     *      descriptive label for screen-readers to replace link texts that don't provide sufficient context about the link component behavior.
      *      Texts like "Click Here", or "Read More" can be confusing when a screen reader reads them out of context.
      *      In those cases, we must pass an alternative text to replace the link text.
      *      It populates `aria-label`. Screen readers read the `accessibilityLabel` prop, if present, instead of the link text.
@@ -2522,7 +2523,6 @@ export const Box: ReactForwardRef<HTMLDivElement, BoxProps>;
 export const Button: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>;
 export const ButtonGroup: React.FunctionComponent<ButtonGroupProps>;
 export const Callout: React.FunctionComponent<CalloutProps>;
-export const WashAnimated: React.FunctionComponent<WashAnimated>;
 export const ComboBox: React.FunctionComponent<ComboBoxProps>;
 export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
 export const Collage: React.FunctionComponent<CollageProps>;
@@ -2548,7 +2548,7 @@ export interface FlexSubCompnents {
 }
 export const Flex: React.FunctionComponent<FlexProps> & FlexSubCompnents;
 export const Heading: React.FunctionComponent<HeaderProps>;
-export const HelpButton: React.FunctionComponent<HelpButton>;
+export const HelpButton: React.FunctionComponent<HelpButtonProps>;
 export const Icon: React.FunctionComponent<IconProps>;
 export const IconButton: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, IconButtonProps>;
 export const IconButtonFloating: React.FunctionComponent<IconButtonFloatingProps>;
@@ -2634,5 +2634,7 @@ export interface UpsellSubCompnents {
 }
 export const Upsell: React.FunctionComponent<UpsellProps> & UpsellSubCompnents;
 export const Video: React.FunctionComponent<VideoProps>;
+export const WashAnimated: React.FunctionComponent<WashAnimatedProps>;
+
 export function useReducedMotion(): boolean;
 export function useFocusVisible(): { isFocusVisible: boolean };
