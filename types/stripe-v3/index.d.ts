@@ -121,6 +121,9 @@ declare namespace stripe {
             clientSecret: string,
             options?: ConfirmSofortPaymentOptions
         ): Promise<PaymentIntentResponse>;
+        verifyIdentity(
+            clientSecret: string,
+        ): Promise<VerificationSessionResult>;
     }
 
     type StripeRedirectResponse = never | {
@@ -854,6 +857,17 @@ declare namespace stripe {
     }
     interface SetupIntentResponse {
         setupIntent?: setupIntents.SetupIntent | undefined;
+        error?: Error | undefined;
+    }
+
+    interface VerificationSession {
+        id: string;
+    }
+
+    interface VerificationSessionResult {
+        verificationSession?: {
+            id: string;
+        };
         error?: Error | undefined;
     }
 
