@@ -574,6 +574,7 @@ const simpleRequestAuthorizerV2WithContext: APIGatewayRequestSimpleAuthorizerHan
 const iamRequestAuthorizerV2: APIGatewayRequestIAMAuthorizerHandlerV2 = async (event, context, callback) => {
     str = event.version;
     str = event.type;
+    str = event.methodArn;
     str = event.routeArn;
     array = event.identitySource;
     str = event.routeKey;
