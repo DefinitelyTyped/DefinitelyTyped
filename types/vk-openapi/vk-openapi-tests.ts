@@ -2248,7 +2248,7 @@ const params2: vk.OpenAPI.Retargeting.ProductEventParams = {
     // @ts-expect-error
     business_value: '100',
     // @ts-expect-error
-    currency_code: 007,
+    currency_code: 0o7,
     // @ts-expect-error
     total_price: '666',
     // @ts-expect-error
