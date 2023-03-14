@@ -1481,7 +1481,7 @@ declare namespace GoogleAppsScript {
       setDataValidations(rules: (DataValidation | null)[][]): Range;
       setFontColor(color: string | null): Range;
       setFontColorObject(color: Color | null): Range;
-      setFontColorObjects(colors: (Color|null)[][]): Range;
+      setFontColorObjects(colors: (Color | null)[][]): Range;
       setFontColors(colors: any[][]): Range;
       setFontFamilies(fontFamilies: (string | null)[][]): Range;
       setFontFamily(fontFamily: string | null): Range;
