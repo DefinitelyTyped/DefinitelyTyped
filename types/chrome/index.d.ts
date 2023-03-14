@@ -1720,7 +1720,7 @@ declare namespace chrome.contextMenus {
     /**
      * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
      * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
-     * @returns The ID of the newly created item.
+     * @return The ID of the newly created item.
      */
     export function create(createProperties: CreateProperties, callback?: () => void): number | string;
     /**
@@ -2117,7 +2117,7 @@ declare namespace chrome.declarativeContent {
         /**
          * Optional.
          * Since Chrome 45. Warning: this is the current Beta channel. More information available on the API documentation pages.
-         * Matches if the bookmarked state of the page is equal to the specified value. Requres the bookmarks permission.
+         * Matches if the bookmarked state of the page is equal to the specified value. Requires the bookmarks permission.
          */
         isBookmarked?: boolean | undefined;
     }
@@ -3205,7 +3205,7 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @since Chrome 82.
      * @description
      * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
-     * If the current user is not affiliated or no hostname has been set by the the enterprise policy, returns an empty string.
+     * If the current user is not affiliated or no hostname has been set by the enterprise policy, returns an empty string.
      * @param callback Called with the hostname of the device.
      */
     export function getDeviceHostname(callback: (hostname: string) => void): void;
@@ -3655,7 +3655,7 @@ declare namespace chrome.fileSystemProvider {
     }
 
     export interface MountOptions {
-        /** The string indentifier of the file system. Must be unique per each extension. */
+        /** The string identifier of the file system. Must be unique per each extension. */
         fileSystemId: string;
         /** A human-readable name for the file system. */
         displayName: string;
@@ -5176,7 +5176,7 @@ declare namespace chrome.input.ime {
     export var onKeyEvent: KeyEventEvent;
     /** This event is sent when an IME is deactivated. It signals that the IME will no longer be receiving onKeyPress events. */
     export var onDeactivated: DeactivatedEvent;
-    /** This event is sent when the properties of the current InputContext change, such as the the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
+    /** This event is sent when the properties of the current InputContext change, such as the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
     export var onInputContextUpdate: InputContextUpdateEvent;
     /** This event is sent when an IME is activated. It signals that the IME will be receiving onKeyPress events. */
     export var onActivate: ActivateEvent;
@@ -6396,7 +6396,7 @@ declare namespace chrome.proxy {
         proxyForFtp?: ProxyServer | undefined;
         /** Optional. The proxy server to be used for HTTP requests. */
         proxyForHttp?: ProxyServer | undefined;
-        /** Optional. The proxy server to be used for everthing else or if any of the specific proxyFor... is not specified. */
+        /** Optional. The proxy server to be used for everything else or if any of the specific proxyFor... is not specified. */
         fallbackProxy?: ProxyServer | undefined;
         /** Optional. The proxy server to be used for all per-URL requests (that is http, https, and ftp). */
         singleProxy?: ProxyServer | undefined;
@@ -6576,7 +6576,7 @@ declare namespace chrome.serial {
      * @description Update the option settings on an open serial port connection.
      * @param connectionId The id of the opened connection.
      * @param options Port configuration options.
-     * @param callback Called when the configuation has completed.
+     * @param callback Called when the configuration has completed.
      */
     export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean) => void): void;
 
@@ -7215,7 +7215,7 @@ declare namespace chrome.runtime {
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
     /**
      * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file.
-     * @returns The manifest details.
+     * @return The manifest details.
      */
     export function getManifest(): Manifest;
     /**
@@ -8287,7 +8287,7 @@ declare namespace chrome.system.display {
          * This is has no effect if not provided.
          * @see(See `enableUnifiedDesktop` for details).
          * @since Chrome 59
-         * */
+         */
         isUnified?: boolean | undefined;
 
         /**
@@ -8444,7 +8444,7 @@ declare namespace chrome.system.display {
         /**
          * The ratio between the display's current and default zoom.
          * For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
-         * */
+         */
         displayZoomFactor: number;
     }
 
@@ -9763,7 +9763,7 @@ declare namespace chrome.tabs {
      * Gets the current zoom settings of a specified tab.
      * @since Chrome 42.
      * @param callback Called with the tab's current zoom settings.
-     * Paramater zoomSettings: The tab's current zoom settings.
+     * Parameter zoomSettings: The tab's current zoom settings.
      */
     export function getZoomSettings(callback: (zoomSettings: ZoomSettings) => void): void;
     /**
@@ -9777,7 +9777,7 @@ declare namespace chrome.tabs {
      * @since Chrome 42.
      * @param tabId Optional. The ID of the tab to get the current zoom settings from; defaults to the active tab of the current window.
      * @param callback Called with the tab's current zoom settings.
-     * Paramater zoomSettings: The tab's current zoom settings.
+     * Parameter zoomSettings: The tab's current zoom settings.
      */
     export function getZoomSettings(tabId: number, callback: (zoomSettings: ZoomSettings) => void): void;
     /**
@@ -9803,26 +9803,26 @@ declare namespace chrome.tabs {
     export function discard(callback: (tab: Tab) => void): void;
     export function discard(tabId: number, callback: (tab: Tab) => void): void;
     /**
-     * Go foward to the next page, if one is available.
+     * Go forward to the next page, if one is available.
      * @since Chrome 72.
      * @return The `goForward` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
     export function goForward(): Promise<void>;
     /**
-     * Go foward to the next page, if one is available.
+     * Go forward to the next page, if one is available.
      * @since Chrome 72.
      * @param callback Optional. Called after the operation is completed.
      */
     export function goForward(callback: () => void): void;
     /**
-     * Go foward to the next page, if one is available.
+     * Go forward to the next page, if one is available.
      * @since Chrome 72.
      * @param tabId Optional. The ID of the tab to navigate forward; defaults to the selected tab of the current window.
      * @return The `goForward` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
     export function goForward(tabId: number): Promise<void>;
     /**
-     * Go foward to the next page, if one is available.
+     * Go forward to the next page, if one is available.
      * @since Chrome 72.
      * @param tabId Optional. The ID of the tab to navigate forward; defaults to the selected tab of the current window.
      * @param callback Optional. Called after the operation is completed.
@@ -11870,11 +11870,11 @@ declare namespace chrome.declarativeNetRequest {
          */
         isCaseSensitive?: boolean | undefined;
 
-        /** The regular expresson to check. */
+        /** The regular expression to check. */
         regex: string;
 
         /** Whether the regex specified requires capturing.
-         * Capturing is only required for redirect rules which specify a regexSubstition action.
+         * Capturing is only required for redirect rules which specify a regexSubstitution action.
          * The default is false.
          */
         requireCapturing?: boolean | undefined;
@@ -11981,7 +11981,7 @@ declare namespace chrome.declarativeNetRequest {
     /**
      * Returns the number of static rules an extension can enable before the global static rule limit is reached.
      * @return The `getAvailableStaticRuleCount` method provides its result via callback or returned as a `Promise` (MV3 only).
-     * */
+     */
     export function getAvailableStaticRuleCount(): Promise<number>;
 
     /** Returns the current set of dynamic rules for the extension.
