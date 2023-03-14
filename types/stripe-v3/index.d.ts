@@ -860,10 +860,6 @@ declare namespace stripe {
         error?: Error | undefined;
     }
 
-    interface VerificationSession {
-        id: string;
-    }
-
     interface VerificationSessionResult {
         verificationSession?: {
             id: string;
