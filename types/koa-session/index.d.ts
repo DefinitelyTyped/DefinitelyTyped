@@ -1,4 +1,4 @@
-// Type definitions for koa-session 6.4.0
+// Type definitions for koa-session 6.4
 // Project: https://github.com/koajs/session
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
