@@ -60,7 +60,7 @@ export interface Credentials {
     client_id: string;
     client_secret: string;
     grant_type: string;
-    scope?: Scope;
+    scope?: Scope | undefined;
 }
 
 /**
@@ -71,7 +71,7 @@ export interface AuthToken {
     access_token: string;
     expires_in: number;
     token_type: string;
-    refresh_token?: string;
+    refresh_token?: string | undefined;
 }
 
 export class AuthClientTwoLegged {
@@ -97,7 +97,7 @@ export class AuthClientThreeLegged {
     ): Promise<AuthToken>;
 
     refreshToken(
-        credentials: { refresh_token?: string },
+        credentials: { refresh_token?: string | undefined },
         scope?: Scope[]
     ): Promise<AuthToken>;
 }
@@ -111,7 +111,7 @@ export interface PostBucketsPayloadAllow {
 
 export interface PostBucketsPayload {
     bucketKey: string;
-    allow?: PostBucketsPayloadAllow[];
+    allow?: PostBucketsPayloadAllow[] | undefined;
     policyKey: string;
 }
 
@@ -124,7 +124,7 @@ export class BucketsApi {
      */
     createBucket(
         postBuckets: PostBucketsPayload,
-        opts: { xAdsRegion?: string },
+        opts: { xAdsRegion?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -151,7 +151,7 @@ export class BucketsApi {
      * This endpoint will return the buckets owned by the application. This endpoint supports pagination.
      */
     getBuckets(
-        opts: { region?: string; limit?: number; startAt?: string },
+        opts: { region?: string | undefined; limit?: number | undefined; startAt?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -159,20 +159,20 @@ export class BucketsApi {
 
 export interface JobPayloadInput {
     urn: string;
-    compressedUrn?: boolean;
-    rootFilename?: string;
+    compressedUrn?: boolean | undefined;
+    rootFilename?: string | undefined;
 }
 
 export interface JobObjOutputPayloadAdvanced {
-    exportFileStructure?: string;
-    modelGuid?: string;
-    objectIds?: string[];
+    exportFileStructure?: string | undefined;
+    modelGuid?: string | undefined;
+    objectIds?: string[] | undefined;
 }
 
 export interface JobPayloadItem {
     type: string;
-    views?: string[];
-    advanced?: JobObjOutputPayloadAdvanced;
+    views?: string[] | undefined;
+    advanced?: JobObjOutputPayloadAdvanced | undefined;
 }
 
 export interface JobPayloadOutput {
@@ -180,32 +180,32 @@ export interface JobPayloadOutput {
 }
 
 export interface JobPayloadMisc {
-    workflow?: string;
-    workflowAttributes?: object;
+    workflow?: string | undefined;
+    workflowAttributes?: object | undefined;
 }
 
 export interface JobPayload {
     input: JobPayloadInput;
     output: JobPayloadOutput;
-    misc?: JobPayloadMisc;
+    misc?: JobPayloadMisc | undefined;
 }
 
 export interface JobSvf2OutputPayload {
     type: string;
-    views?: string[];
-    advanced?: JobSvf2OutputPayloadAdvanced;
+    views?: string[] | undefined;
+    advanced?: JobSvf2OutputPayloadAdvanced | undefined;
 }
 
 export type JobSvf2OutputPayloadAdvanced = JobSvfOutputPayloadAdvanced;
 
 export interface JobSvfOutputPayload {
     type: string;
-    views?: string[];
-    advanced?: JobSvfOutputPayloadAdvanced;
+    views?: string[] | undefined;
+    advanced?: JobSvfOutputPayloadAdvanced | undefined;
 }
 
 export interface JobSvfOutputPayloadAdvanced {
-    conversionMethod?: string;
+    conversionMethod?: string | undefined;
     buildingStoreys: string;
     spaces: string;
     openingElements: string;
@@ -315,7 +315,7 @@ export class DerivativesApi {
     getDerivativeManifest(
         urn: string,
         derivativeUrn: string,
-        opts: { range?: number, acceptEncoding?: string },
+        opts: { range?: number | undefined, acceptEncoding?: string | undefined},
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -337,7 +337,7 @@ export class DerivativesApi {
      * Formats table for more details about supported translations. Note that we are constantly adding new file formats to the list of Forge translations.
      */
     getFormats(
-        opts: { ifModifiedSince?: Date; acceptEncoding?: string },
+        opts: { ifModifiedSince?: Date | undefined; acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -352,7 +352,7 @@ export class DerivativesApi {
      */
     getManifest(
         urn: string,
-        opts: { acceptEncoding?: string },
+        opts: { acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -366,7 +366,7 @@ export class DerivativesApi {
      */
     getMetadata(
         urn: string,
-        opts: { acceptEncoding?: string },
+        opts: { acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -381,7 +381,7 @@ export class DerivativesApi {
     getModelviewMetadata(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string, xAdsForce?: boolean, xAdsFormat?: string, forceget?: boolean },
+        opts: { acceptEncoding?: string | undefined, xAdsForce?: boolean | undefined, xAdsFormat?: string | undefined, forceget?: boolean | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -396,7 +396,7 @@ export class DerivativesApi {
     getModelviewProperties(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string, xAdsForce?: boolean, xAdsFormat?: string, forceget?: boolean, objectid?: number },
+        opts: { acceptEncoding?: string | undefined, xAdsForce?: boolean | undefined, xAdsFormat?: string | undefined, forceget?: boolean | undefined, objectid?: number | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -406,7 +406,7 @@ export class DerivativesApi {
      */
     getThumbnail(
         urn: string,
-        opts: { width?: number; height?: number; guid?: string },
+        opts: { width?: number | undefined; height?: number | undefined; guid?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -430,7 +430,7 @@ export class DerivativesApi {
      */
     translate(
         job: JobPayload,
-        opts: { xAdsForce?: boolean },
+        opts: { xAdsForce?: boolean | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -448,13 +448,13 @@ export interface BaseAttributesExtensionObject {
     type: string;
     version: string;
     schema: JsonApiLink;
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface CreateFolderDataAttributesExtension {
     type: string;
     version: string;
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface CreateFolderDataAttributes {
@@ -477,19 +477,19 @@ export interface CreateFolderDataRelationships {
 
 export interface CreateFolderData {
     type: string;
-    attributes?: CreateFolderDataAttributes;
-    relationships?: CreateFolderDataRelationships;
+    attributes?: CreateFolderDataAttributes | undefined;
+    relationships?: CreateFolderDataRelationships | undefined;
 }
 
 export interface CreateFolder {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateFolderData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateFolderData | undefined;
 }
 
 export interface CreateRefDataMetaExtension {
     type: string;
     version: string;
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface CreateRefDataMeta {
@@ -499,18 +499,18 @@ export interface CreateRefDataMeta {
 export interface CreateRefData {
     type: string;
     id: string;
-    meta?: CreateRefDataMeta;
+    meta?: CreateRefDataMeta | undefined;
 }
 
 export interface CreateRef {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateRefData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateRefData | undefined;
 }
 
 export interface CommandsAttributesExtensionObject {
     type: string;
     version: string;
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface CommandsAttributesObject {
@@ -528,7 +528,7 @@ export interface CommandsRelationshipsObject {
 export interface CommandsBodyObject {
     jsonapi: JsonApiVersionJsonapi;
     data: CommandsBodyObjectData;
-    included?: object;
+    included?: object | undefined;
 }
 
 export interface CommandsBodyObjectData {
@@ -557,11 +557,11 @@ export class FoldersApi {
         projectId: string,
         folderId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterExtensionType?: string[];
-            pageNumber?: number;
-            pageLimit?: number;
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterExtensionType?: string[] | undefined;
+            pageNumber?: number | undefined;
+            pageLimit?: number | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -586,9 +586,9 @@ export class FoldersApi {
         projectId: string,
         folderId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterExtensionType?: string[];
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterExtensionType?: string[] | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -602,11 +602,11 @@ export class FoldersApi {
         projectId: string,
         folderId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterRefType?: string[];
-            filterDirection?: string;
-            filterExtensionType?: string[];
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterRefType?: string[] | undefined;
+            filterDirection?: string | undefined;
+            filterExtensionType?: string[] | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -649,7 +649,7 @@ export class HubsApi {
      * Returns a collection of accessible hubs for this member. A Hub represents an A360 Team/Personal hub or a BIM 360 account.
      */
     getHubs(
-        opts: { filterId?: string[]; filterExtensionType?: string[] },
+        opts: { filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -657,7 +657,7 @@ export class HubsApi {
 
 export interface CreateStorageDataAttributes {
     name: string;
-    extension?: BaseAttributesExtensionObject;
+    extension?: BaseAttributesExtensionObject | undefined;
 }
 
 export interface CreateItemDataRelationshipsTipData {
@@ -666,7 +666,7 @@ export interface CreateItemDataRelationshipsTipData {
 }
 
 export interface CreateItemDataRelationshipsTip {
-    data?: CreateItemDataRelationshipsTipData;
+    data?: CreateItemDataRelationshipsTipData | undefined;
 }
 
 export interface StorageRelationshipsTargetData {
@@ -675,18 +675,18 @@ export interface StorageRelationshipsTargetData {
 }
 
 export interface CreateStorageDataRelationshipsTarget {
-    data?: StorageRelationshipsTargetData;
+    data?: StorageRelationshipsTargetData | undefined;
 }
 
 export interface CreateItemDataRelationships {
-    tip?: CreateItemDataRelationshipsTip;
-    parent?: CreateStorageDataRelationshipsTarget;
+    tip?: CreateItemDataRelationshipsTip | undefined;
+    parent?: CreateStorageDataRelationshipsTarget | undefined;
 }
 
 export interface CreateItemData {
     type: string;
-    attributes?: CreateStorageDataAttributes;
-    relationships?: CreateItemDataRelationships;
+    attributes?: CreateStorageDataAttributes | undefined;
+    relationships?: CreateItemDataRelationships | undefined;
 }
 
 export interface CreateItemRelationshipsStorageData {
@@ -695,23 +695,23 @@ export interface CreateItemRelationshipsStorageData {
 }
 
 export interface CreateItemRelationshipsStorage {
-    data?: CreateItemRelationshipsStorageData;
+    data?: CreateItemRelationshipsStorageData | undefined;
 }
 
 export interface CreateItemRelationships {
-    storage?: CreateItemRelationshipsStorage;
+    storage?: CreateItemRelationshipsStorage | undefined;
 }
 
 export interface CreateItemIncluded {
     type: string;
     id: string;
-    attributes?: CreateStorageDataAttributes;
-    relationships?: CreateItemRelationships;
+    attributes?: CreateStorageDataAttributes | undefined;
+    relationships?: CreateItemRelationships | undefined;
 }
 
 export interface CreateItem {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateItemData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateItemData | undefined;
     included: CreateItemIncluded[];
 }
 
@@ -739,7 +739,7 @@ export class ItemsApi {
     getItemRefs(
         projectId: string,
         itemId: string,
-        opts: { filterType?: string[]; filterId?: string[]; filterExtensionType?: string[] },
+        opts: { filterType?: string[] | undefined; filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -752,11 +752,11 @@ export class ItemsApi {
         projectId: string,
         itemId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterRefType?: string;
-            filterDirection?: string;
-            filterExtensionType?: string[];
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterRefType?: string | undefined;
+            filterDirection?: string | undefined;
+            filterExtensionType?: string[] | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -779,12 +779,12 @@ export class ItemsApi {
         projectId: string,
         itemId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterExtensionType?: string[];
-            filterVersionNumber?: number[];
-            pageNumber?: number;
-            pageLimit?: number;
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterExtensionType?: string[] | undefined;
+            filterVersionNumber?: number[] | undefined;
+            pageNumber?: number | undefined;
+            pageLimit?: number | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -879,7 +879,7 @@ export class ObjectsApi {
         bucketKey: string,
         objectName: string,
         postBucketsSigned: PostBucketsSigned,
-        opts: { access?: string },
+        opts: { access?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -909,7 +909,7 @@ export class ObjectsApi {
     getObject(
         bucketKey: string,
         objectName: string,
-        opts: { range?: string; ifNoneMatch?: string; ifModifiedSince?: Date; acceptEncoding?: string },
+        opts: { range?: string | undefined; ifNoneMatch?: string | undefined; ifModifiedSince?: Date | undefined; acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -920,7 +920,7 @@ export class ObjectsApi {
     getObjectDetails(
         bucketKey: string,
         objectName: string,
-        opts: { ifModifiedSince?: Date; _with?: string },
+        opts: { ifModifiedSince?: Date | undefined; _with?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -930,7 +930,7 @@ export class ObjectsApi {
      */
     getObjects(
         bucketKey: string,
-        opts: { limit?: number; beginsWith?: string; startAt?: string },
+        opts: { limit?: number | undefined; beginsWith?: string | undefined; startAt?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -942,11 +942,11 @@ export class ObjectsApi {
     getSignedResource(
         id: string,
         opts: {
-            range?: string;
-            ifNoneMatch?: string;
-            ifModifiedSince?: string;
-            acceptEncoding?: string;
-            region?: string;
+            range?: string | undefined;
+            ifNoneMatch?: string | undefined;
+            ifModifiedSince?: string | undefined;
+            acceptEncoding?: string | undefined;
+            region?: string | undefined;
         }
     ): Promise<ApiResponse>;
 
@@ -972,7 +972,7 @@ export class ObjectsApi {
         contentRange: string,
         sessionId: string,
         body: string | Buffer,
-        opts: { contentDisposition?: string; ifMatch?: string },
+        opts: { contentDisposition?: string | undefined; ifMatch?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -987,7 +987,7 @@ export class ObjectsApi {
         objectName: string,
         contentLength: number,
         body: string | Buffer,
-        opts: { contentDisposition?: string; ifMatch?: string },
+        opts: { contentDisposition?: string | undefined; ifMatch?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -1001,7 +1001,7 @@ export class ObjectsApi {
         id: string,
         contentLength: number,
         body: string | Buffer,
-        opts: { contentDisposition?: string; xAdsRegion?: string; ifMatch?: string }
+        opts: { contentDisposition?: string | undefined; xAdsRegion?: string | undefined; ifMatch?: string | undefined }
     ): Promise<ApiResponse>;
 
     /**
@@ -1013,7 +1013,7 @@ export class ObjectsApi {
         contentRange: number,
         sessionId: string,
         body: string | Buffer,
-        opts: { contentDisposition?: string; xAdsRegion?: string; ifMatch?: string }
+        opts: { contentDisposition?: string | undefined; xAdsRegion?: string | undefined; ifMatch?: string | undefined }
     ): Promise<ApiResponse>;
 
     // New S3 Stuff
@@ -1362,18 +1362,18 @@ export class ObjectsApi {
 }
 
 export interface CreateStorageDataRelationships {
-    target?: CreateStorageDataRelationshipsTarget;
+    target?: CreateStorageDataRelationshipsTarget | undefined;
 }
 
 export interface CreateStorageData {
     type: string;
-    attributes?: CreateStorageDataAttributes;
-    relationships?: CreateStorageDataRelationships;
+    attributes?: CreateStorageDataAttributes | undefined;
+    relationships?: CreateStorageDataRelationships | undefined;
 }
 
 export interface CreateStorage {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateStorageData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateStorageData | undefined;
 }
 
 export class ProjectsApi {
@@ -1385,7 +1385,7 @@ export class ProjectsApi {
      */
     getHubProjects(
         hubId: string,
-        opts: { filterId?: string[]; filterExtensionType?: string[] },
+        opts: { filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -1448,23 +1448,23 @@ export interface CreateVersionDataRelationshipsItemData {
 }
 
 export interface CreateVersionDataRelationshipsItem {
-    data?: CreateVersionDataRelationshipsItemData;
+    data?: CreateVersionDataRelationshipsItemData | undefined;
 }
 
 export interface CreateVersionDataRelationships {
-    item?: CreateVersionDataRelationshipsItem;
-    storage?: CreateItemRelationshipsStorage;
+    item?: CreateVersionDataRelationshipsItem | undefined;
+    storage?: CreateItemRelationshipsStorage | undefined;
 }
 
 export interface CreateVersionData {
     type: string;
-    attributes?: CreateStorageDataAttributes;
-    relationships?: CreateVersionDataRelationships;
+    attributes?: CreateStorageDataAttributes | undefined;
+    relationships?: CreateVersionDataRelationships | undefined;
 }
 
 export interface CreateVersion {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateVersionData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateVersionData | undefined;
 }
 
 export class VersionsApi {
@@ -1497,7 +1497,7 @@ export class VersionsApi {
     getVersionRefs(
         projectId: string,
         versionId: string,
-        opts: { filterType?: string[]; filterId?: string[]; filterExtensionType?: string[] },
+        opts: { filterType?: string[] | undefined; filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -1510,11 +1510,11 @@ export class VersionsApi {
         projectId: string,
         versionId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterRefType?: string[];
-            filterDirection?: string;
-            filterExtensionType?: string[];
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterRefType?: string[] | undefined;
+            filterDirection?: string | undefined;
+            filterExtensionType?: string[] | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -1592,17 +1592,17 @@ export namespace WebhooksApi {
     }
 
     interface HooksOptions {
-        acceptEncoding?: string;
-        xAdsRegion?: RegionEnum;
-        status?: StatusEnum;
-        pageState?: string;
-        scopeName?: string;
-        scopeValue?: string;
+        acceptEncoding?: string | undefined;
+        xAdsRegion?: RegionEnum | undefined;
+        status?: StatusEnum | undefined;
+        pageState?: string | undefined;
+        scopeName?: string | undefined;
+        scopeValue?: string | undefined;
         hookAttribute?: any;
-        tenant?: string;
-        filter?: string;
+        tenant?: string | undefined;
+        filter?: string | undefined;
         hubId: string;
-        projectId?: string;
+        projectId?: string | undefined;
     }
 }
 
@@ -1678,7 +1678,7 @@ export namespace TokensApi {
     }
 
     interface TokensOptions {
-        xAdsRegion?: RegionEnum;
+        xAdsRegion?: RegionEnum | undefined;
     }
 }
 
