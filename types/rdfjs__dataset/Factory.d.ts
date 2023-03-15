@@ -1,4 +1,4 @@
-import { BaseQuad, Quad } from 'rdf-js';
+import { BaseQuad, Quad } from '@rdfjs/types';
 import DatasetCore from './DatasetCore';
 
 export default class Factory {
