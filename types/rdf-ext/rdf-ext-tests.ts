@@ -1,5 +1,5 @@
 import rdf from 'rdf-ext';
-import { Literal, Quad, NamedNode, Stream, Sink, DatasetCore, DatasetCoreFactory, BlankNode, Variable, DefaultGraph } from '@rdfjs/types';
+import { Literal, Quad, NamedNode, Stream, Sink, DatasetCore, DatasetCoreFactory, BlankNode, Variable, DefaultGraph, Term } from '@rdfjs/types';
 import QuadExt from 'rdf-ext/lib/Quad';
 import BlankNodeExt from 'rdf-ext/lib/BlankNode';
 import DefaultGraphExt from 'rdf-ext/lib/DefaultGraph';
@@ -12,9 +12,9 @@ import DataFactory, { DataFactoryExt } from 'rdf-ext/DataFactory';
 import Traverser from '@rdfjs/traverser/Traverser';
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
-import Environment from '@rdfjs/environment/Environment';
+import Environment, { Environment as IEnvironment } from '@rdfjs/environment/Environment';
 import ClownfaceFactory from 'rdf-ext/ClownfaceFactory';
-import DatasetFactory from 'rdf-ext/DatasetFactory';
+import DatasetFactoryExt, { DatasetFactory } from 'rdf-ext/DatasetFactory';
 
 function rdfExt_factory() {
     const baseFactory: DatasetCoreFactory = rdf;
@@ -229,6 +229,21 @@ function dataset_empty(): boolean {
 function dataset_merge(): DatasetExt {
     const other: DatasetExt = <any> {};
     return rdf.dataset().merge(other);
+}
+
+function dataset_map(): DatasetExt {
+    const other: DatasetExt = <any> {};
+    return rdf.dataset().map((q: QuadExt): Quad => <any> {});
+}
+
+function dataset_match() {
+    let matched: DatasetExt;
+    const term: Term = <any> {};
+    matched = rdf.dataset().match(null, null, null, null);
+    matched = rdf.dataset().match(term);
+    matched = rdf.dataset().match(null, term);
+    matched = rdf.dataset().match(null, null, term);
+    matched = rdf.dataset().match(null, null, null, term);
 }
 
 function dataset_merge_array(): DatasetExt {
@@ -464,7 +479,7 @@ function testScore() {
 function testBundledFactories() {
     const env = new Environment([
         ClownfaceFactory,
-        DatasetFactory,
+        DatasetFactoryExt,
         DataFactory,
     ]);
 
@@ -473,4 +488,8 @@ function testBundledFactories() {
         quad,
         clownface,
     } = env;
+}
+
+function testEnvironmentAssignable() {
+    const datasetEnv: IEnvironment<DatasetFactory> = rdf;
 }
