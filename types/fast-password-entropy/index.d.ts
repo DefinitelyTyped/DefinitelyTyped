@@ -9,4 +9,6 @@
  * Based on http://resources.infosecinstitute.com/password-security-complexity-vs-length/
  *
  */
-export default function passwordEntropy(str: string): number;
+declare function passwordEntropy(str: string): number;
+
+export = passwordEntropy;

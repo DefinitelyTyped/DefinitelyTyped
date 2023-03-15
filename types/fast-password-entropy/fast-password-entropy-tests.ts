@@ -1,3 +1,3 @@
-import passwordEntropy from 'fast-password-entropy';
+import passwordEntropy from "fast-password-entropy";
 
-const entropy: number = passwordEntropy('password123');
+const entropy: number = passwordEntropy("password123");
