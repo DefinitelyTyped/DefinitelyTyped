@@ -52,11 +52,14 @@ declare namespace PassportTwitterToken {
 
 
     export interface TwitterProfile extends passport.Profile {
+        provider: string;
+        id: string;
+        displayName: string;
         username: string;
         _json: TwitterProfileJsonResponse;
     }
 
-    interface DoneCallback {
+    export interface DoneCallback {
         (error: any, user?: any, info?: any): void;
     }
 
