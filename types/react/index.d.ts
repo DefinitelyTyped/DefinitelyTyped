@@ -80,7 +80,7 @@ declare namespace React {
         | (new (props: P) => Component<any, any>);
 
     interface RefObject<T> {
-        readonly current: T | null;
+        current: T | null;
     }
     // Bivariance hack for consistent unsoundness with RefObject
     type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
@@ -541,7 +541,7 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
-    type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+    type ForwardedRef<T> = ((instance: T | null) => void) | RefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
         (props: P, ref: ForwardedRef<T>): ReactElement | null;
@@ -876,10 +876,6 @@ declare namespace React {
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => (void | Destructor);
 
-    interface MutableRefObject<T> {
-        current: T;
-    }
-
     // This will technically work if you give a Consumer<T> or Provider<T> but it's deprecated and warns
     /**
      * Accepts a context object (the value returned from `React.createContext`) and returns the current
@@ -1005,7 +1001,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
-    function useRef<T>(initialValue: T): MutableRefObject<T>;
+    function useRef<T>(initialValue: T): RefObject<T>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
