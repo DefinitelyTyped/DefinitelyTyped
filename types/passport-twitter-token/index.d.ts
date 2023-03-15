@@ -39,7 +39,7 @@ declare namespace PassportTwitterToken {
         passReqToCallback: true;
     }
 
-    type TwitterProfileJsonResponse = {
+    interface TwitterProfileJsonResponse {
         id: number;
         id_str: string;
         name: string;
@@ -48,7 +48,7 @@ declare namespace PassportTwitterToken {
         profile_background_image_url_https: string;
         profile_image_url_https: string;
         email: string;
-    };
+    }
 
     interface TwitterProfile extends passport.Profile {
         provider: string;
@@ -62,20 +62,19 @@ declare namespace PassportTwitterToken {
         (error: any, user?: any, info?: any): void;
     }
 
-    type VerifyFunction = (
-        accessToken: string,
-        accessTokenSecret: string,
-        profile: TwitterProfile,
-        done: DoneCallback,
-    ) => void;
+    interface VerifyFunction {
+        (accessToken: string, accessTokenSecret: string, profile: TwitterProfile, done: DoneCallback): void;
+    }
 
-    type VerifyFunctionWithRequest = (
-        req: express.Request,
-        accessToken: string,
-        accessTokenSecret: string,
-        profile: TwitterProfile,
-        done: DoneCallback,
-    ) => void;
+    interface VerifyFunctionWithRequest {
+        (
+            req: express.Request,
+            accessToken: string,
+            accessTokenSecret: string,
+            profile: TwitterProfile,
+            done: DoneCallback,
+        ): void;
+    }
 
     interface StrategyInstance {
         name: string;
