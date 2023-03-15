@@ -32,7 +32,7 @@ export interface DatasetExt extends Dataset<QuadExt> {
 
     toCanonical(): string;
 
-    toSteam(): Stream;
+    toStream(): Stream<QuadExt>;
 
     equals(other: DatasetCore): boolean;
 }

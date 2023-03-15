@@ -351,6 +351,12 @@ function dataset_forEach() {
     });
 }
 
+function dataset_toStream() {
+    const dataset: DatasetExt = <any> {};
+    // $ExpectType Stream<QuadExt>
+    const stream = dataset.toStream();
+}
+
 function testDataFactory() {
     const namedNode = rdf.namedNode('foo'); // $ExpectType NamedNodeExt<"foo">
     const literal = rdf.literal('foo'); // $ExpectType LiteralExt
