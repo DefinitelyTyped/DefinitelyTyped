@@ -7,7 +7,7 @@
 import { Batch } from '@mparticle/event-models';
 
 // Placeholder for Dictionary-like Types
-type Dictionary<V = any> = Record<string, V>;
+export type Dictionary<V = any> = Record<string, V>;
 
 export as namespace mParticle;
 export {};
