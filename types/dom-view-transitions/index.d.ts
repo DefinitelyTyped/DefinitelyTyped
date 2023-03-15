@@ -1,6 +1,7 @@
 // Type definitions for non-npm package dom-view-transitions-browser 1.0
 // Project: https://drafts.csswg.org/css-view-transitions-1/
-// Definitions by: Thomas Wilkinson <https://github.com/tbondwilkinson>
+// Definitions by: Jake Archibald <https://github.com/jakearchibald>
+//                 Thomas Wilkinson <https://github.com/tbondwilkinson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Document {
