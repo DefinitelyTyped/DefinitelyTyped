@@ -426,6 +426,61 @@ const seed1: number = jest.getSeed();
 // @ts-expect-error
 const seed2: number = jest.getSeed('foo');
 
+/* Replace property */
+// https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value
+
+const replaceObjectA = {
+    method: () => {},
+    property: 1,
+};
+
+// $ExpectType ReplaceProperty<number>
+jest.replaceProperty(replaceObjectA, 'property', 2);
+
+// $ExpectType ReplaceProperty<() => void>
+jest.replaceProperty(replaceObjectA, 'method', () => {});
+
+let replaced: jest.ReplaceProperty<number>;
+replaced = jest.replaceProperty(replaceObjectA, 'property', 2);
+
+// $ExpectType void
+jest.replaceProperty(replaceObjectA, 'property', 2).replaceValue(3).restore();
+
+// @ts-expect-error: property does not exist
+jest.replaceProperty(replaceObjectA, 'invalid', 1);
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceObjectA, 'property', 'some text');
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceObjectA, 'property', 1).replaceValue('some text');
+
+interface ReplaceComplexObject {
+    numberOrUndefined: number | undefined;
+    optionalString?: string;
+    multipleTypes: number | string | { foo: number } | null;
+}
+declare const replaceComplexObject: ReplaceComplexObject;
+
+// $ExpectType ReplaceProperty<number | undefined>
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', undefined);
+
+// $ExpectType ReplaceProperty<number | undefined>
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 1);
+
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 'some string');
+
+// $ExpectType ReplaceProperty<string | undefined>
+jest.replaceProperty(replaceComplexObject, 'optionalString', 'foo');
+
+// $ExpectType ReplaceProperty<string | undefined>
+jest.replaceProperty(replaceComplexObject, 'optionalString', undefined);
+
+// $ExpectType ReplaceProperty<string | number | { foo: number; } | null>
+jest.replaceProperty(replaceComplexObject, 'multipleTypes', 1)
+    .replaceValue('foo')
+    .replaceValue({ foo: 1 })
+    .replaceValue(null);
+
 // $ExpectType number
 jest.now();
 // @ts-expect-error
