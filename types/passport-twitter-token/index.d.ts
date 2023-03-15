@@ -50,7 +50,6 @@ declare namespace PassportTwitterToken {
         email: string;
     };
 
-
     export interface TwitterProfile extends passport.Profile {
         provider: string;
         id: string;
@@ -75,7 +74,7 @@ declare namespace PassportTwitterToken {
         accessToken: string,
         accessTokenSecret: string,
         profile: TwitterProfile,
-        done: DoneCallback
+        done: DoneCallback,
     ) => void;
 
     interface StrategyInstance {
@@ -85,11 +84,10 @@ declare namespace PassportTwitterToken {
     }
 
     interface StrategyStatic {
-        new(options: StrategyOptions, verify: VerifyFunction): StrategyInstance;
-        new(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest): StrategyInstance;
+        new (options: StrategyOptions, verify: VerifyFunction): StrategyInstance;
+
+        new (options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest): StrategyInstance;
     }
-
-
 }
 
 declare const PassportTwitterToken: PassportTwitterToken.StrategyStatic;

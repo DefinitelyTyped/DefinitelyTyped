@@ -1,16 +1,16 @@
 import * as express from 'express';
 import * as passport from 'passport';
-import * as PassportTwitterToken from "./index";
+import * as PassportTwitterToken from './index';
 
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, {username: 'podpli'})
-    }
-}
+        callback(null, { username: 'podpli' });
+    },
+};
 
 const options: PassportTwitterToken.StrategyOptions = {
     consumerKey: 'consumerKey',
-    consumerSecret: 'consumerSecret'
+    consumerSecret: 'consumerSecret',
 };
 
 const optionsWithCustomTokenFields: PassportTwitterToken.StrategyOptions = {
@@ -23,28 +23,37 @@ const optionsWithCustomTokenFields: PassportTwitterToken.StrategyOptions = {
 const optionsWithRequest: PassportTwitterToken.StrategyOptionsWithRequest = {
     consumerKey: 'consumerKey',
     consumerSecret: 'consumerSecret',
-    passReqToCallback: true
+    passReqToCallback: true,
 };
 
-const verify: PassportTwitterToken.VerifyFunction =
-    (accessToken: string, accessTokenSecret: string, profile: PassportTwitterToken.TwitterProfile, done: PassportTwitterToken.DoneCallback) => {
-        User.findOrCreate(profile.id, profile.provider, (err, user) => {
-            if (err) {
-                done(err);
-            }
-            done(null, user);
-        });
-    };
+const verify: PassportTwitterToken.VerifyFunction = (
+    accessToken: string,
+    accessTokenSecret: string,
+    profile: PassportTwitterToken.TwitterProfile,
+    done: PassportTwitterToken.DoneCallback,
+) => {
+    User.findOrCreate(profile.id, profile.provider, (err, user) => {
+        if (err) {
+            done(err);
+        }
+        done(null, user);
+    });
+};
 
-const verifyWithRequest: PassportTwitterToken.VerifyFunctionWithRequest =
-    (req: express.Request, accessToken: string, accessTokenSecret: string, profile: PassportTwitterToken.TwitterProfile, done: PassportTwitterToken.DoneCallback) => {
-        User.findOrCreate(profile.id, profile.provider, (err, user) => {
-            if (err) {
-                done(err);
-            }
-            done(null, user);
-        });
-    };
+const verifyWithRequest: PassportTwitterToken.VerifyFunctionWithRequest = (
+    req: express.Request,
+    accessToken: string,
+    accessTokenSecret: string,
+    profile: PassportTwitterToken.TwitterProfile,
+    done: PassportTwitterToken.DoneCallback,
+) => {
+    User.findOrCreate(profile.id, profile.provider, (err, user) => {
+        if (err) {
+            done(err);
+        }
+        done(null, user);
+    });
+};
 
 passport.use(new PassportTwitterToken(options, verify));
 passport.use(new PassportTwitterToken(optionsWithCustomTokenFields, verify));
