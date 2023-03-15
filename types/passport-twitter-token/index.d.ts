@@ -39,7 +39,7 @@ declare namespace PassportTwitterToken {
         passReqToCallback: true;
     }
 
-    export type TwitterProfileJsonResponse = {
+    type TwitterProfileJsonResponse = {
         id: number;
         id_str: string;
         name: string;
@@ -50,7 +50,7 @@ declare namespace PassportTwitterToken {
         email: string;
     };
 
-    export interface TwitterProfile extends passport.Profile {
+    interface TwitterProfile extends passport.Profile {
         provider: string;
         id: string;
         displayName: string;
@@ -58,7 +58,7 @@ declare namespace PassportTwitterToken {
         _json: TwitterProfileJsonResponse;
     }
 
-    export interface DoneCallback {
+    interface DoneCallback {
         (error: any, user?: any, info?: any): void;
     }
 
