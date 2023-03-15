@@ -1399,58 +1399,58 @@ declare module "html-rewriter" {
     interface Element {
         /**
          * Insert new content immediately after the end tag of the matched element.
-         * @param tag is the new text to insert.
-         * @param trailing_opt When the value is true, elements that are missing a close tag will have one inserted.
+         * @param text is the new text to insert.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
          */
-        after(tag: string, trailing_opt?: TrailingOpt): void;
+        after(text: string, trailing_opt?: TrailingOpt): void;
 
         /**
          * Insert content right before the end tag of the element.
-         * @param tag is the new text to insert.
-         * @param trailing_opt When the value is true, elements that are missing a close tag will have one inserted.
+         * @param text is the new text to insert.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
          */
-        append(tag: string, trailing_opt?: TrailingOpt): void;
+        append(text: string, trailing_opt?: TrailingOpt): void;
 
         /**
          * Insert new content immediately before the start tag of the matched element.
-         * @param tag is the new text to insert.
+         * @param text is the new text to insert.
          */
-        before(tag: string): void;
+        before(text: string): void;
 
         /**
          * Read the value of a given attribute name on the tag or undefined if it doesn’t exist.
-         * @param tag is the case-insensitive name of the attribute.
+         * @param text is the case-insensitive name of the attribute.
          */
-        getAttribute(tag: string): string | undefined;
+        getAttribute(text: string): string | undefined;
 
         /**
          * Insert content right after the start tag of the element.
-         * @param tag is the new text to insert.
+         * @param text is the new text to insert.
          */
-        prepend(tag: string): void;
+        prepend(text: string): void;
 
         /**
          * Removes the attribute if exists.
-         * @param tag is the case-insensitive name of the attribute. If an attribute was removed, it is returned.
+         * @param text is the case-insensitive name of the attribute. If an attribute was removed, it is returned.
          */
-        removeAttribute(tag: string): string | undefined;
+        removeAttribute(text: string): string | undefined;
 
         /**
          * Remove the children of the current element and insert content in place of them.
-         * @param tag is the text to replace.
-         * @param trailing_opt When the value is true, elements that are missing a close tag will have one inserted.
+         * @param text is the text to replace.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
          */
-        replaceChildren(tag: string, trailing_opt?: TrailingOpt): void;
+        replaceChildren(text: string, trailing_opt?: TrailingOpt): void;
 
         /**
          * Remove the current element and its children, and insert the passed content in its place.
-         * @param tag is the text to replace.
+         * @param text is the text to replace.
          */
-        replaceWith(tag: string): void;
+        replaceWith(text: string): void;
 
         /**
-         * Set an attribute to a provided value, creating the attribute if it doesn’t exist.
-         * @param name is case-insensitive. Any non-string value will be converted into a string, e.g., null will be converted to "null".
+         * Set an attribute to a provided value, creating the attribute if it doesn't exist.
+         * @param name is case-insensitive string.
          * @param value is the attribute value of `name`.
          * @param quote_opt is an optional third argument that controls how quotes are applied to the attribute value.
          * It must include a property named quote, whose value is a string containing either a single or double quote.
@@ -1464,7 +1464,7 @@ declare module "html-rewriter" {
      */
     interface TrailingOpt {
         /**
-         * When `insert_implicit_close` the value is true, elements that are missing a close tag will have one inserted.
+         * When `insert_implicit_close` is true, elements that are missing a close tag will have one inserted.
          */
         readonly insert_implicit_close: boolean;
     }
