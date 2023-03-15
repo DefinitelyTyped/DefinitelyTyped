@@ -7690,6 +7690,11 @@ declare namespace chrome.sessions {
      * Parameter sessions: The list of closed entries in reverse order that they were closed (the most recently closed tab or window will be at index 0). The entries may contain either tabs or windows.
      */
     export function getRecentlyClosed(callback: (sessions: Session[]) => void): void;
+     /**
+     * Gets the list of recently closed tabs and/or windows.
+     * @return onResolved: The list of closed entries in reverse order that they were closed (the most recently closed tab or window will be at index 0). The entries may contain either tabs or windows.
+     */
+    export function getRecentlyClosed(filter?: Filter): Promise<Session[]>;
     /**
      * Retrieves all devices with synced sessions.
      * @param callback
@@ -7703,13 +7708,31 @@ declare namespace chrome.sessions {
      */
     export function getDevices(callback: (devices: Device[]) => void): void;
     /**
+     * Retrieves all devices with synced sessions.
+     * @return onResolved: The list of sessions.Device objects for each synced session, sorted in order from device with most recently modified session to device with least recently modified session. tabs.Tab objects are sorted by recency in the windows.Window of the sessions.Session objects.
+     */
+    export function getDevices(filter?: Filter): Promise<Device[]>;
+    /**
      * Reopens a windows.Window or tabs.Tab, with an optional callback to run when the entry has been restored.
      * @param sessionId Optional.
      * The windows.Window.sessionId, or tabs.Tab.sessionId to restore. If this parameter is not specified, the most recently closed session is restored.
      * @param callback Optional.
      * Parameter restoredSession: A sessions.Session containing the restored windows.Window or tabs.Tab object.
      */
-    export function restore(sessionId?: string, callback?: (restoredSession: Session) => void): void;
+    export function restore(sessionId: string, callback: (restoredSession: Session) => void): void;
+    /**
+     * Reopens a windows.Window or tabs.Tab, with an optional callback to run when the entry has been restored.
+     * @param callback Optional.
+     * Parameter restoredSession: A sessions.Session containing the restored windows.Window or tabs.Tab object.
+     */
+    export function restore(callback: (restoredSession: Session) => void): void;
+    /**
+     * Reopens a windows.Window or tabs.Tab.
+     * @param sessionId Optional.
+     * The windows.Window.sessionId, or tabs.Tab.sessionId to restore. If this parameter is not specified, the most recently closed session is restored.
+     * @return onResolved: A sessions.Session containing the restored windows.Window or tabs.Tab object.
+     */
+    export function restore(sessionId?: string): Promise<Session>;
 
     /** Fired when recently closed tabs and/or windows are changed. This event does not monitor synced sessions changes. */
     export var onChanged: SessionChangedEvent;
