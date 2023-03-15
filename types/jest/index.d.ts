@@ -45,6 +45,7 @@ declare var xtest: jest.It;
 
 declare const expect: jest.Expect;
 
+// Remove once https://github.com/microsoft/TypeScript/issues/53255 is fixed.
 type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
     1: [T[0]];
     2: [T[0], T[1]];
