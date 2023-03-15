@@ -818,11 +818,11 @@ export interface PostBucketsSigned {
 
 export interface ObjectS3Download {
     status: `complete` | `chunked` | `fallback`;
-    url?: string;
-    urls?: string[];
-    params?: { [key: string]: string };
-    size?: number;
-    sha1?: string;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    params?: { [key: string]: string } | undefined;
+    size?: number | undefined;
+    sha1?: string | undefined;
 }
 
 export interface UploadedResource {
@@ -854,7 +854,7 @@ export interface DownloadedResource {
     };
     data: Buffer;
     progress: number;
-    error?: boolean;
+    error?: boolean | undefined;
 }
 
 export class ObjectsApi {
@@ -1045,14 +1045,14 @@ export class ObjectsApi {
         bucketKey: string,
         objectKey: string,
         opts: {
-            ifNoneMatch?: string;
-            ifModifiedSince?: Date;
-            responseContentType?: string;
-            responseContentDisposition?: string;
-            responseCacheControl?: string;
-            publicResourceFallback?: boolean;
-            useCdn?: boolean;
-            minutesExpiration?: number;
+            ifNoneMatch?: string | undefined;
+            ifModifiedSince?: Date | undefined;
+            responseContentType?: string | undefined;
+            responseContentDisposition?: string | undefined;
+            responseCacheControl?: string | undefined;
+            publicResourceFallback?: boolean | undefined;
+            useCdn?: boolean | undefined;
+            minutesExpiration?: number | undefined;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
@@ -1098,17 +1098,17 @@ export class ObjectsApi {
         body: {
             requests: Array<{
                 objectKey: string;
-                'response-content-type'?: string;
-                'response-content-disposition'?: string;
-                'response-cache-control'?: string;
-                'If-None-Match'?: string;
-                'If-Modified-Since'?: Date;
+                'response-content-type'?: string | undefined;
+                'response-content-disposition'?: string | undefined;
+                'response-cache-control'?: string | undefined;
+                'If-None-Match'?: string | undefined;
+                'If-Modified-Since'?: Date | undefined;
             }>
         },
         opts: {
-            publicResourceFallback?: boolean;
-            useCdn?: boolean;
-            minutesExpiration?: number;
+            publicResourceFallback?: boolean | undefined;
+            useCdn?: boolean | undefined;
+            minutesExpiration?: number | undefined;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
@@ -1140,11 +1140,11 @@ export class ObjectsApi {
         bucketKey: string,
         objectKey: string,
         opts: {
-            uploadKey?: string;
-            firstParts?: number;
-            parts?: number;
-            useAcceleration?: boolean;
-            minutesExpiration?: number;
+            uploadKey?: string | undefined;
+            firstParts?: number | undefined;
+            parts?: number | undefined;
+            useAcceleration?: boolean | undefined;
+            minutesExpiration?: number | undefined;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
@@ -1180,14 +1180,14 @@ export class ObjectsApi {
         body: {
             requests: Array<{
                 objectKey: string;
-                uploadKey?: string;
-                firstParts?: number;
-                parts?: number;
+                uploadKey?: string | undefined;
+                firstParts?: number | undefined;
+                parts?: number | undefined;
             }>;
         },
         opts: {
-            useAcceleration?: boolean;
-            minutesExpiration?: number;
+            useAcceleration?: boolean | undefined;
+            minutesExpiration?: number | undefined;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
@@ -1219,15 +1219,15 @@ export class ObjectsApi {
         bucketKey: string,
         objectKey: string,
         body: {
-            uploadKey?: string;
-            size?: number;
-            eTags?: string[];
+            uploadKey?: string | undefined;
+            size?: number | undefined;
+            eTags?: string[] | undefined;
         },
         opts: {
-            xAdsMetaContentType?: string;
-            xAdsMetaContentDisposition?: string;
-            xAdsMetaContentEncoding?: string;
-            xAdsMetaCacheControl?: string;
+            xAdsMetaContentType?: string | undefined;
+            xAdsMetaContentDisposition?: string | undefined;
+            xAdsMetaContentEncoding?: string | undefined;
+            xAdsMetaCacheControl?: string | undefined;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
@@ -1261,13 +1261,13 @@ export class ObjectsApi {
         body: {
             requests: Array<{
                 objectKey: string;
-                uploadKey?: string;
-                size?: number;
-                eTags?: string[];
-                xAdsMetaContentType?: string;
-                xAdsMetaContentDisposition?: string;
-                xAdsMetaContentEncoding?: string;
-                xAdsMetaCacheControl?: string;
+                uploadKey?: string | undefined;
+                size?: number | undefined;
+                eTags?: string[] | undefined;
+                xAdsMetaContentType?: string | undefined;
+                xAdsMetaContentDisposition?: string | undefined;
+                xAdsMetaContentEncoding?: string | undefined;
+                xAdsMetaCacheControl?: string | undefined;
             }>;
         },
         oauth2client: AuthClient,
@@ -1297,15 +1297,15 @@ export class ObjectsApi {
         bucketKey: string,
         objects: Array<{
             objectKey: string;
-            responseType?: DownloadResponseType;
+            responseType?: DownloadResponseType | undefined;
         }>,
         opts: {
-            publicResourceFallback?: boolean;
-            useCdn?: boolean;
-            minutesExpiration?: number;
-            chunkSize?: number;
-            onDownloadProgress?: (progressEvent: any) => void;
-            onRefreshToken?: () => void;
+            publicResourceFallback?: boolean | undefined;
+            useCdn?: boolean | undefined;
+            minutesExpiration?: number | undefined;
+            chunkSize?: number | undefined;
+            onDownloadProgress?: (progressEvent: any) => void | undefined;
+            onRefreshToken?: () => void | undefined;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
@@ -1342,19 +1342,19 @@ export class ObjectsApi {
         objects: Array<{
             objectKey: string;
             data: string | Buffer;
-            eTags?: string[];
-            xAdsMetaContentType?: string;
-            xAdsMetaContentDisposition?: string;
-            xAdsMetaContentEncoding?: string;
-            xAdsMetaCacheControl?: string;
+            eTags?: string[] | undefined;
+            xAdsMetaContentType?: string | undefined;
+            xAdsMetaContentDisposition?: string | undefined;
+            xAdsMetaContentEncoding?: string | undefined;
+            xAdsMetaCacheControl?: string | undefined;
         }>,
         opts: {
-            chunkSize?: number;
-            maxBatches?: number;
-            useAcceleration?: boolean;
-            minutesExpiration?: number;
-            onUploadProgress?: (progressEvent: any) => void;
-            onRefreshToken?: () => void;
+            chunkSize?: number | undefined;
+            maxBatches?: number | undefined;
+            useAcceleration?: boolean | undefined;
+            minutesExpiration?: number | undefined;
+            onUploadProgress?: (progressEvent: any) => void | undefined;
+            onRefreshToken?: () => void | undefined;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
