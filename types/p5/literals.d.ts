@@ -95,6 +95,4 @@ declare module './index' {
     type WAIT = 'wait';
     type WEBGL = 'webgl';
     type WORD = 'word';
-    type AUDIO = "audio";
-    type VIDEO = "video";
 }
