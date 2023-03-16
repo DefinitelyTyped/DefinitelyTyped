@@ -27,7 +27,6 @@
         "test/Asset-tests.ts",
         "test/DeltaBundler/types-tests.ts",
         "test/lib/reporting-tests.ts",
-        "test/ModuleGraph/types-tests.ts",
         "test/shared/types-tests.ts",
         "test/src/lib/TerminalReporter-tests.ts",
         "test/src/shared/output/bundle-tests.ts",
