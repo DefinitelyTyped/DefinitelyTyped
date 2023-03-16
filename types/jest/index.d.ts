@@ -1,4 +1,4 @@
-// Type definitions for Jest 29.4
+// Type definitions for Jest 29.5
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -330,40 +330,70 @@ declare namespace jest {
      */
     function replaceProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): ReplaceProperty<T[K]>;
     /**
-     * Exhausts tasks queued by setImmediate().
-     * > Note: This function is only available when using modern fake timers
-     * > implementation
+     * Exhausts tasks queued by `setImmediate()`.
+     *
+     * @remarks
+     * This function is only available when using legacy fake timers implementation.
      */
     function runAllImmediates(): void;
     /**
-     * Exhausts the micro-task queue (usually interfaced in node via process.nextTick).
+     * Exhausts the micro-task queue (i.e., tasks in Node.js scheduled with `process.nextTick()`).
      */
     function runAllTicks(): void;
     /**
-     * Exhausts both the macro-task queue (i.e., all tasks queued by setTimeout(),
-     * setInterval(), and setImmediate()) and the micro-task queue (usually interfaced
-     * in node via process.nextTick).
+     * Exhausts both the macro-task queue (i.e., tasks queued by `setTimeout()`, `setInterval()`
+     * and `setImmediate()`) and the micro-task queue (i.e., tasks in Node.js scheduled with
+     * `process.nextTick()`).
      */
     function runAllTimers(): void;
     /**
-     * Executes only the macro-tasks that are currently pending (i.e., only the
-     * tasks that have been queued by setTimeout() or setInterval() up to this point).
-     * If any of the currently pending macro-tasks schedule new macro-tasks,
-     * those new tasks will not be executed by this call.
+     * Asynchronous equivalent of `jest.runAllTimers()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function runAllTimersAsync(): Promise<void>;
+    /**
+     * Executes only the macro-tasks that are currently pending (i.e., only the tasks that
+     * have been queued by `setTimeout()`, `setInterval()` and `setImmediate()` up to this point).
      */
     function runOnlyPendingTimers(): void;
     /**
-     * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
-     * queued via setTimeout() or setInterval(), and would be executed within this timeframe
-     * will be executed.
+     * Asynchronous equivalent of `jest.runOnlyPendingTimers()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function runOnlyPendingTimersAsync(): Promise<void>;
+    /**
+     * Advances all timers by `msToRun` milliseconds. All pending macro-tasks that have been
+     * queued by `setTimeout()`, `setInterval()` and `setImmediate()`, and would be executed
+     * within this time frame will be executed.
      */
     function advanceTimersByTime(msToRun: number): void;
     /**
-     * Advances all timers by the needed milliseconds so that only the next
-     * timeouts/intervals will run. Optionally, you can provide steps, so it
-     * will run steps amount of next timeouts/intervals.
+     * Asynchronous equivalent of `jest.advanceTimersByTime()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersByTimeAsync(msToRun: number): Promise<void>;
+    /**
+     * Advances all timers by the needed milliseconds so that only the next timeouts/intervals will run.
+     * Optionally, you can provide steps, so it will run steps amount of next timeouts/intervals.
      */
     function advanceTimersToNextTimer(step?: number): void;
+    /**
+     * Asynchronous equivalent of `jest.advanceTimersToNextTimer()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersToNextTimerAsync(steps?: number): Promise<void>;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.

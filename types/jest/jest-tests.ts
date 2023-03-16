@@ -366,9 +366,16 @@ jest.autoMockOff()
 // $ExpectType void
 jest.advanceTimersByTime(9001);
 
+// $ExpectType Promise<void>
+jest.advanceTimersByTimeAsync(9001);
+
 // $ExpectType void
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
+
+// $ExpectType Promise<void>
+jest.advanceTimersToNextTimerAsync();
+jest.advanceTimersToNextTimerAsync(2);
 
 // $ExpectType void
 jest.clearAllTimers();
@@ -390,8 +397,14 @@ jest.runAllTicks();
 // $ExpectType void
 jest.runAllTimers();
 
+// $ExpectType Promise<void>
+jest.runAllTimersAsync();
+
 // $ExpectType void
 jest.runOnlyPendingTimers();
+
+// $ExpectType Promise<void>
+jest.runOnlyPendingTimersAsync();
 
 // https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers();
