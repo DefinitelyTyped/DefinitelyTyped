@@ -330,13 +330,6 @@ declare namespace jest {
      */
     function replaceProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): ReplaceProperty<T[K]>;
     /**
-     * Replaces property on an object with another value.
-     *
-     * @remarks
-     * For mocking functions, and 'get' or 'set' accessors, use `jest.spyOn()` instead.
-     */
-    function replaceProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): ReplaceProperty<T[K]>;
-    /**
      * Exhausts tasks queued by `setImmediate()`.
      *
      * @remarks
