@@ -33,7 +33,7 @@ export type GetTransformOptions = (
     entryPoints: ReadonlyArray<string>,
     options: GetTransformOptionsOpts,
     getDependenciesOf: (filePath: string) => Promise<string[]>,
-) => Promise<ExtraTransformOptions>;
+) => Promise<Partial<ExtraTransformOptions>>;
 
 export type Middleware = (
     incomingMessage: IncomingMessage,
