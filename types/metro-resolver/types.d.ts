@@ -131,7 +131,11 @@ export interface CustomResolutionContext extends ResolutionContext {
     readonly resolveRequest: CustomResolver;
 }
 
-export type CustomResolver = (context: ResolutionContext, moduleName: string, platform: string | null) => Resolution;
+export type CustomResolver = (
+    context: CustomResolutionContext,
+    moduleName: string,
+    platform: string | null,
+) => Resolution;
 
 export type CustomResolverOptions = Readonly<{
     [option: string]: unknown;

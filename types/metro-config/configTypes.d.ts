@@ -178,21 +178,23 @@ export interface WatcherConfigT {
     };
 }
 
-export interface WatcherInputConfigT extends Omit<WatcherConfigT, 'healthCheck'> {
+export interface WatcherInputConfigT extends Partial<Omit<WatcherConfigT, 'healthCheck'>> {
     healthCheck?: Partial<WatcherConfigT['healthCheck']>;
 }
 
-export interface InputConfigT extends Omit<MetalConfigT, 'cacheStores'> {
+export interface InputConfigT extends Partial<Omit<MetalConfigT, 'cacheStores'>> {
     readonly cacheStores?:
         | ReadonlyArray<CacheStore<TransformResult>>
         | ((metroCache: MetroCache) => ReadonlyArray<CacheStore<TransformResult>>);
-    readonly resolver?: ResolverConfigT;
-    readonly server?: ServerConfigT;
-    readonly serializer?: SerializerConfigT;
-    readonly symbolicator?: SymbolicatorConfigT;
-    readonly transformer?: TransformerConfigT;
+    readonly resolver?: Partial<ResolverConfigT>;
+    readonly server?: Partial<ServerConfigT>;
+    readonly serializer?: Partial<SerializerConfigT>;
+    readonly symbolicator?: Partial<SymbolicatorConfigT>;
+    readonly transformer?: Partial<TransformerConfigT>;
     readonly watcher?: Partial<WatcherInputConfigT>;
 }
+
+export type MetroConfig = InputConfigT;
 
 export interface IntermediateConfigT extends MetalConfigT {
     resolver: ResolverConfigT;
