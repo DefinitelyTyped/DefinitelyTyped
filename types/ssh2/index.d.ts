@@ -1798,7 +1798,7 @@ export interface AgentInboundRequest {
 }
 
 export interface SigningRequestOptions {
-    hash: 'sha256' | 'sha512';
+    hash?: 'sha1' | 'sha256' | 'sha512';
 }
 
 export class AgentProtocol extends Duplex {
