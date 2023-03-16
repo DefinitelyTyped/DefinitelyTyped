@@ -732,6 +732,7 @@ export interface FragmentPointer {
     __fragmentOwner: RequestDescriptor;
 }
 
+// tslint:disable:no-redundant-jsdoc-2
 /**
  * The partial shape of an object with a '...Fragment @module(name: "...")'
  * selection
@@ -741,6 +742,7 @@ export interface ModuleImportPointer {
     readonly __module_component: unknown;
     readonly $fragmentSpreads: unknown;
 }
+// tslint:enable:no-redundant-jsdoc-2
 
 /**
  * A callback for resolving a Selector from a source.

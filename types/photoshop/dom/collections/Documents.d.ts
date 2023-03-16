@@ -1,10 +1,10 @@
 import { Document } from "../Document";
 import { Photoshop } from "../Photoshop";
-import { DocumentCreateOptions } from "../objects/CreateOptions";
+import { DocumentCreateOptions } from "../types/DocumentTypes";
 /**
- * A collections class allowing for array access into the applications
+ * A collections class allowing for array access into the application's
  * list of documents that are currently open,
- * while also providing familiar methods from ExtendScript, like `getByName`
+ * while also providing familiar methods from ExtendScript, like `getByName`.
  *
  * ```javascript
  * // Iterate through all the documents
@@ -17,7 +17,8 @@ export declare class Documents extends Array<Document> {
     /** @ignore */
     constructor();
     /**
-     * Used to access the documents in the collection
+     * Used to access the documents in the collection.
+     * @minVersion 22.5
      */
     [index: number]: Document;
     /** @ignore */
@@ -25,21 +26,25 @@ export declare class Documents extends Array<Document> {
         get: (obj: any, key: any) => any;
     };
     /**
-     * Find the first document with the matching name
+     * Find the first document with the matching name.
+     * @minVersion 22.5
      */
     getByName(name: string): Document;
     /**
-     * Number of [[Document]] elements in this collection
+     * Number of [[Document]] elements in this collection.
+     * @minVersion 22.5
      */
     get length(): number;
     /**
-     * The owner application of this Documents collection
+     * The owner application of this Documents collection.
+     * @minVersion 22.5
      */
     get parent(): Photoshop;
     /**
-     * The name for this object collection: Documents
+     * The name for this object collection: Documents.
+     * @minVersion 22.5
      */
-    get typename(): string;
+    get typename(): "Documents";
     /**
      * Create a new document.
      *
@@ -54,9 +59,6 @@ export declare class Documents extends Array<Document> {
      * resolution 300 pixels per inch, mode: @RGBColorMode and a fill of white with
      * no transparency.
      *
-     * @param options @DocumentCreateOptions
-     *
-     * @async
      * ```javascript
      * // "Default Photoshop Size" 7x5 inches at 300ppi
      * let newDoc1 = await app.documents.add();
@@ -69,6 +71,9 @@ export declare class Documents extends Array<Document> {
      * });
      * let newDoc3 = await app.documents.add({preset: "My Default Size 1"});
      * ```
+     * @async
+     * @param options @DocumentCreateOptions
+     * @minVersion 22.5
      */
     add(options?: DocumentCreateOptions): Promise<Document | null>;
 }

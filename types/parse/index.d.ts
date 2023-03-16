@@ -557,13 +557,13 @@ declare global {
             attributes: T;
             className: string;
 
-            add<K extends { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T]>(
+            add<K extends { [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never }[keyof T]>(
                 attr: K,
-                item: T[K][number],
+                item: NonNullable<T[K]>[number],
             ): this | false;
-            addAll<K extends { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T]>(
+            addAll<K extends { [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never }[keyof T]>(
                 attr: K,
-                items: T[K],
+                items: NonNullable<T[K]>,
             ): this | false;
             addAllUnique: this['addAll'];
             addUnique: this['add'];

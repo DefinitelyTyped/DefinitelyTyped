@@ -1,4 +1,4 @@
-// Type definitions for koa-session 5.10
+// Type definitions for koa-session 6.4
 // Project: https://github.com/koajs/session
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
@@ -58,9 +58,14 @@ declare namespace session {
         manuallyCommit(): Promise<void>;
 
         /**
+         * regenerate this session
+         */
+        regenerate(callback?: () => void): void;
+
+        /**
          * save this session no matter whether it is populated
          */
-        save(): void;
+        save(callback?: () => void): void;
 
         /**
          * allow to put any value on session object

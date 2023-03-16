@@ -625,7 +625,7 @@ export type ResponseBody = string | bytes | null;
 /**
  * Refined response body.
  * Best possible type given `responseType` from request parameters.
- * @typeParam RT - `Params.responseType` value.
+ * @template RT - `Params.responseType` value.
  * @privateRemarks Default type is a union due to depending on program options.
  */
 export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends 'binary'

@@ -439,6 +439,61 @@ const seed1: number = jest.getSeed();
 // @ts-expect-error
 const seed2: number = jest.getSeed('foo');
 
+/* Replace property */
+// https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value
+
+const replaceObjectA = {
+    method: () => {},
+    property: 1,
+};
+
+// $ExpectType ReplaceProperty<number>
+jest.replaceProperty(replaceObjectA, 'property', 2);
+
+// $ExpectType ReplaceProperty<() => void>
+jest.replaceProperty(replaceObjectA, 'method', () => {});
+
+let replaced: jest.ReplaceProperty<number>;
+replaced = jest.replaceProperty(replaceObjectA, 'property', 2);
+
+// $ExpectType void
+jest.replaceProperty(replaceObjectA, 'property', 2).replaceValue(3).restore();
+
+// @ts-expect-error: property does not exist
+jest.replaceProperty(replaceObjectA, 'invalid', 1);
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceObjectA, 'property', 'some text');
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceObjectA, 'property', 1).replaceValue('some text');
+
+interface ReplaceComplexObject {
+    numberOrUndefined: number | undefined;
+    optionalString?: string;
+    multipleTypes: number | string | { foo: number } | null;
+}
+declare const replaceComplexObject: ReplaceComplexObject;
+
+// $ExpectType ReplaceProperty<number | undefined>
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', undefined);
+
+// $ExpectType ReplaceProperty<number | undefined>
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 1);
+
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 'some string');
+
+// $ExpectType ReplaceProperty<string | undefined>
+jest.replaceProperty(replaceComplexObject, 'optionalString', 'foo');
+
+// $ExpectType ReplaceProperty<string | undefined>
+jest.replaceProperty(replaceComplexObject, 'optionalString', undefined);
+
+// $ExpectType ReplaceProperty<string | number | { foo: number; } | null>
+jest.replaceProperty(replaceComplexObject, 'multipleTypes', 1)
+    .replaceValue('foo')
+    .replaceValue({ foo: 1 })
+    .replaceValue(null);
+
 // $ExpectType number
 jest.now();
 // @ts-expect-error
@@ -1688,6 +1743,17 @@ describe.each([
     });
 });
 
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34617
+
+it.each<number>([1, 2, 3])('dummy: %d', (num, done) => {
+    done();
+});
+
+const casesReadonlyArray = [[1, 2, 3] as ReadonlyArray<number>] as ReadonlyArray<ReadonlyArray<number>>;
+it.each(casesReadonlyArray)('%d', (a, b, c) => {
+    expect(a + b).toBe(c);
+});
+
 interface Case {
     a: number;
     b: number;
@@ -1699,9 +1765,10 @@ describe.each`
     ${1} | ${1} | ${2}
     ${1} | ${2} | ${3}
     ${2} | ${1} | ${3}
-`('$a + $b', ({ a, b, expected }: Case) => {
+`('$a + $b', ({ a, b, expected }: Case, done) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
+        done();
     });
 });
 
@@ -1767,11 +1834,27 @@ test.each([
     5000,
 );
 
+test.each([
+    [
+        { prop1: true, prop2: true },
+        { prop1: true, prop2: true },
+    ],
+    [{ prop1: true }, { prop1: true, prop2: false }],
+])('%j -> %j', (input, output) => {
+    console.log(input, output);
+});
+
 declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
 test.each(constCases)('%s + %s', (...args) => {
     // following assertion is skipped because of flaky testing
     // _$ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
     args;
+});
+test.each(constCases)('%s + %s', (a, b, c) => {
+    a; // $ExpectType "a" | "d"
+    // following assertion is skipped because of flaky testing
+    b; // _$ExpectType "b" | 2
+    c; // $ExpectType "ab" | "d2"
 });
 
 declare const constCasesWithMoreThanTen: [
@@ -1813,6 +1896,15 @@ test.each([
 ])('', (a, b) => {
     a; // $ExpectType number
     b; // $ExpectType string
+});
+
+test.each([
+    [1, '1'],
+    [2, '2'],
+] as const)('', (a, b) => {
+    // following assertion is skipped because of flaky testing
+    a; // _$ExpectType 1 | 2
+    b; // $ExpectType "1" | "2"
 });
 
 test.only.each([

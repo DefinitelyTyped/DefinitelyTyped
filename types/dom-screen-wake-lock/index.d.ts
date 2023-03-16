@@ -2,8 +2,7 @@
 // Project: https://w3c.github.io/screen-wake-lock/
 // Definitions by: Chris Milson <https://github.com/chrismilson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type WakeLockType = 'screen';
+// Minimum TypeScript Version: 5.1
 
 /**
  * A WakeLockSentinel provides a handle to a platform wake lock, and it holds on
@@ -25,7 +24,7 @@ interface WakeLockSentinel extends EventTarget {
      * WakeLockSentinel's handle being released does not necessarily mean that
      * the underlying wake lock has been released.
      */
-    onrelease: EventListener;
+    onrelease: ((this: WakeLockSentinel, ev: Event) => any) | null;
 }
 
 /**

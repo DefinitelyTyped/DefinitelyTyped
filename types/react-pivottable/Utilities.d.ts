@@ -32,7 +32,7 @@ interface Pivot {
     /**
      * key to aggregators object specifying the aggregator to use for computations
      */
-    agregatorName?: string;
+    aggregatorName?: string;
 
     /**
      * @link https://github.com/nicolaskruchten/pivottable/wiki/Aggregators
