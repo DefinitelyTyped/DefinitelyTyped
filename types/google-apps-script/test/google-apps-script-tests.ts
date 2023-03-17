@@ -745,4 +745,4 @@ const sheetFontColorObjects = () => {
         [SpreadsheetApp.newColor().setRgbColor("#008000").build(), SpreadsheetApp.newColor().setRgbColor("#000080").build()],
     ];
     sheet.getRange("A1:B2").setFontColorObjects(multipleBuilders);
-}
+};
