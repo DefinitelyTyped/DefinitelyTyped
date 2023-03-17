@@ -171,19 +171,23 @@ export function pointInPolygon(point: Point, polygon: Polygon): boolean;
 
 /**
  * Returns a boolean representing whether a point is located on one of the edges of a polygon.
+ * An optional epsilon number, such as 1e-6, can be passed to reduce the precision with which the relationship is measured.
  */
-export function pointOnPolygon(point: Point, polygon: Polygon): boolean;
+export function pointOnPolygon(point: Point, polygon: Polygon, epsilon?: number): boolean;
 
 /**
  * Returns a boolean representing whether a point is collinear with a line and is also located on the line segment.
+ * An optional epsilon number, such as 1e-6, can be passed to reduce the precision with which the relationship is measured.
  * See also pointWithLine.
  */
-export function pointOnLine(point: Point, line: Line): boolean;
+export function pointOnLine(point: Point, line: Line, epsilon?: number): boolean;
 
 /**
- * Returns a boolean representing whether a point is collinear with a line. See also pointOnLine.
+ * Returns a boolean representing whether a point is collinear with a line.
+ * An optional epsilon number, such as 1e-6, can be passed to reduce the precision with which the relationship is measured.
+ * See also pointOnLine.
  */
-export function pointWithLine(point: Point, line: Line): boolean;
+export function pointWithLine(point: Point, line: Line, epsilon?: number): boolean;
 
 /**
  * Returns a boolean representing whether a point is to the left of a line.

@@ -58,3 +58,6 @@ const t36: Polygon = geometric.polygonTranslate(polygon, 45, 100);
 const t37: Line = geometric.lineRotate(line, 1);
 const t38: Polygon = geometric.polygonScaleX(polygon, 1.2);
 const t39: Polygon = geometric.polygonScaleY(polygon, 1.2);
+const t40: boolean = geometric.pointOnLine(point, line, 1e-10);
+const t41: boolean = geometric.pointOnPolygon(point, polygon, 1e-10);
+const t42: boolean = geometric.pointWithLine(point, line, 1e-10);
