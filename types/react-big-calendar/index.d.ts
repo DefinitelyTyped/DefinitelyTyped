@@ -52,7 +52,7 @@ export type EventPropGetter<T> = (
     isSelected: boolean,
 ) => { className?: string | undefined; style?: React.CSSProperties };
 export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
-export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
+export type SlotGroupPropGetter = (group: Date[]) => React.HTMLAttributes<HTMLDivElement>;
 
 export type stringOrDate = string | Date; // this isn't documented in the official repo, a thorough review is needed as to where stringOrDate or Date applies
 
