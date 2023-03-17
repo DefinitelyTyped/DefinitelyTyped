@@ -381,7 +381,24 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface CoreLibrary {}
+  interface CoreLibrary {
+    ControlPosition: typeof google.maps.ControlPosition;
+    event: typeof google.maps.event;
+    LatLng: typeof google.maps.LatLng;
+    LatLngAltitude: typeof google.maps.LatLngAltitude;
+    LatLngBounds: typeof google.maps.LatLngBounds;
+    MapsNetworkError: typeof google.maps.MapsNetworkError;
+    MapsNetworkErrorEndpoint: typeof google.maps.MapsNetworkErrorEndpoint;
+    MapsRequestError: typeof google.maps.MapsRequestError;
+    MapsServerError: typeof google.maps.MapsServerError;
+    MVCArray: typeof google.maps.MVCArray;
+    MVCObject: typeof google.maps.MVCObject;
+    Point: typeof google.maps.Point;
+    Settings: typeof google.maps.Settings;
+    Size: typeof google.maps.Size;
+    SymbolPath: typeof google.maps.SymbolPath;
+    UnitSystem: typeof google.maps.UnitSystem;
+  }
 }
 declare namespace google.maps {
   /**
@@ -2156,7 +2173,10 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface DrawingLibrary {}
+  interface DrawingLibrary {
+    DrawingManager: typeof google.maps.drawing.DrawingManager;
+    OverlayType: typeof google.maps.drawing.OverlayType;
+  }
 }
 declare namespace google.maps {
   /**
@@ -2196,7 +2216,10 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface ElevationLibrary {}
+  interface ElevationLibrary {
+    ElevationService: typeof google.maps.ElevationService;
+    ElevationStatus: typeof google.maps.ElevationStatus;
+  }
 }
 declare namespace google.maps {
   /**
@@ -2452,14 +2475,6 @@ declare namespace google.maps {
      */
     ADMINISTRATIVE_AREA_LEVEL_2 = 'ADMINISTRATIVE_AREA_LEVEL_2',
     /**
-     * Indicates a third-order civil entity below the country level.
-     */
-    ADMINISTRATIVE_AREA_LEVEL_3 = 'ADMINISTRATIVE_AREA_LEVEL_3',
-    /**
-     * Indicates a fourth-order civil entity below the country level.
-     */
-    ADMINISTRATIVE_AREA_LEVEL_4 = 'ADMINISTRATIVE_AREA_LEVEL_4',
-    /**
      * Indicates the national political entity.
      */
     COUNTRY = 'COUNTRY',
@@ -2468,18 +2483,10 @@ declare namespace google.maps {
      */
     LOCALITY = 'LOCALITY',
     /**
-     * Indicates a named neighborhood.
-     */
-    NEIGHBORHOOD = 'NEIGHBORHOOD',
-    /**
      * Indicates a postal code as used to address postal mail within the
      * country.
      */
     POSTAL_CODE = 'POSTAL_CODE',
-    /**
-     * Indicates a first-order civil entity below a locality.
-     */
-    SUBLOCALITY_LEVEL_1 = 'SUBLOCALITY_LEVEL_1',
   }
 }
 declare namespace google.maps {
@@ -2799,7 +2806,11 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface GeocodingLibrary {}
+  interface GeocodingLibrary {
+    Geocoder: typeof google.maps.Geocoder;
+    GeocoderLocationType: typeof google.maps.GeocoderLocationType;
+    GeocoderStatus: typeof google.maps.GeocoderStatus;
+  }
 }
 declare namespace google.maps {
   interface GeometryLibrary {
@@ -3216,7 +3227,20 @@ declare namespace google.maps {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    */
-  interface JourneySharingLibrary {}
+  interface JourneySharingLibrary {
+    AutomaticViewportMode:
+        typeof google.maps.journeySharing.AutomaticViewportMode;
+    DeliveryVehicleStopState:
+        typeof google.maps.journeySharing.DeliveryVehicleStopState;
+    FleetEngineServiceType:
+        typeof google.maps.journeySharing.FleetEngineServiceType;
+    FleetEngineShipmentLocationProvider:
+        typeof google.maps.journeySharing.FleetEngineShipmentLocationProvider;
+    FleetEngineTripLocationProvider:
+        typeof google.maps.journeySharing.FleetEngineTripLocationProvider;
+    JourneySharingMapView:
+        typeof google.maps.journeySharing.JourneySharingMapView;
+  }
 }
 declare namespace google.maps {
   /**
@@ -4827,7 +4851,33 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface MapsLibrary {}
+  interface MapsLibrary {
+    BicyclingLayer: typeof google.maps.BicyclingLayer;
+    Circle: typeof google.maps.Circle;
+    Data: typeof google.maps.Data;
+    FeatureType: typeof google.maps.FeatureType;
+    GroundOverlay: typeof google.maps.GroundOverlay;
+    ImageMapType: typeof google.maps.ImageMapType;
+    InfoWindow: typeof google.maps.InfoWindow;
+    KmlLayer: typeof google.maps.KmlLayer;
+    KmlLayerStatus: typeof google.maps.KmlLayerStatus;
+    Map: typeof google.maps.Map;
+    MapTypeControlStyle: typeof google.maps.MapTypeControlStyle;
+    MapTypeId: typeof google.maps.MapTypeId;
+    MapTypeRegistry: typeof google.maps.MapTypeRegistry;
+    MaxZoomService: typeof google.maps.MaxZoomService;
+    MaxZoomStatus: typeof google.maps.MaxZoomStatus;
+    OverlayView: typeof google.maps.OverlayView;
+    Polygon: typeof google.maps.Polygon;
+    Polyline: typeof google.maps.Polyline;
+    Rectangle: typeof google.maps.Rectangle;
+    RenderingType: typeof google.maps.RenderingType;
+    StrokePosition: typeof google.maps.StrokePosition;
+    StyledMapType: typeof google.maps.StyledMapType;
+    TrafficLayer: typeof google.maps.TrafficLayer;
+    TransitLayer: typeof google.maps.TransitLayer;
+    WebGLOverlayView: typeof google.maps.WebGLOverlayView;
+  }
 }
 declare namespace google.maps {
   /**
@@ -5201,7 +5251,13 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface MarkerLibrary {}
+  interface MarkerLibrary {
+    AdvancedMarkerView: typeof google.maps.marker.AdvancedMarkerView;
+    Animation: typeof google.maps.Animation;
+    CollisionBehavior: typeof google.maps.CollisionBehavior;
+    Marker: typeof google.maps.Marker;
+    PinView: typeof google.maps.marker.PinView;
+  }
 }
 declare namespace google.maps {
   /**
@@ -5627,13 +5683,8 @@ declare namespace google.maps {
    * An interface representing a feature with a place ID which includes features
    * of type {@link google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_1}, {@link
    * google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_2}, {@link
-   * google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_3}, {@link
-   * google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_4}, {@link
-   * google.maps.FeatureType.COUNTRY}, {@link
-   * google.maps.FeatureType.LOCALITY}, {@link
-   * google.maps.FeatureType.NEIGHBORHOOD}, {@link
-   * google.maps.FeatureType.POSTAL_CODE}, and {@link
-   * google.maps.FeatureType.SUBLOCALITY_LEVEL_1}.
+   * google.maps.FeatureType.COUNTRY}, {@link google.maps.FeatureType.LOCALITY},
+   * and {@link google.maps.FeatureType.POSTAL_CODE}.
    */
   interface PlaceFeature extends google.maps.Feature {
     /**
@@ -5654,7 +5705,27 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface PlacesLibrary {}
+  interface PlacesLibrary {
+    AddressComponent: typeof google.maps.places.AddressComponent;
+    Attribution: typeof google.maps.places.Attribution;
+    Autocomplete: typeof google.maps.places.Autocomplete;
+    AutocompleteService: typeof google.maps.places.AutocompleteService;
+    AutocompleteSessionToken:
+        typeof google.maps.places.AutocompleteSessionToken;
+    BusinessStatus: typeof google.maps.places.BusinessStatus;
+    OpeningHours: typeof google.maps.places.OpeningHours;
+    OpeningHoursPeriod: typeof google.maps.places.OpeningHoursPeriod;
+    OpeningHoursPoint: typeof google.maps.places.OpeningHoursPoint;
+    Photo: typeof google.maps.places.Photo;
+    PhotoAttribution: typeof google.maps.places.PhotoAttribution;
+    Place: typeof google.maps.places.Place;
+    PlacesService: typeof google.maps.places.PlacesService;
+    PlacesServiceStatus: typeof google.maps.places.PlacesServiceStatus;
+    PlusCode: typeof google.maps.places.PlusCode;
+    RankBy: typeof google.maps.places.RankBy;
+    Review: typeof google.maps.places.Review;
+    SearchBox: typeof google.maps.places.SearchBox;
+  }
 }
 declare namespace google.maps {
   /**
@@ -6225,7 +6296,19 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface RoutesLibrary {}
+  interface RoutesLibrary {
+    DirectionsRenderer: typeof google.maps.DirectionsRenderer;
+    DirectionsService: typeof google.maps.DirectionsService;
+    DirectionsStatus: typeof google.maps.DirectionsStatus;
+    DistanceMatrixElementStatus: typeof google.maps.DistanceMatrixElementStatus;
+    DistanceMatrixService: typeof google.maps.DistanceMatrixService;
+    DistanceMatrixStatus: typeof google.maps.DistanceMatrixStatus;
+    TrafficModel: typeof google.maps.TrafficModel;
+    TransitMode: typeof google.maps.TransitMode;
+    TransitRoutePreference: typeof google.maps.TransitRoutePreference;
+    TravelMode: typeof google.maps.TravelMode;
+    VehicleType: typeof google.maps.VehicleType;
+  }
 }
 declare namespace google.maps {
   /**
@@ -6362,7 +6445,16 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface StreetViewLibrary {}
+  interface StreetViewLibrary {
+    InfoWindow: typeof google.maps.InfoWindow;
+    OverlayView: typeof google.maps.OverlayView;
+    StreetViewCoverageLayer: typeof google.maps.StreetViewCoverageLayer;
+    StreetViewPanorama: typeof google.maps.StreetViewPanorama;
+    StreetViewPreference: typeof google.maps.StreetViewPreference;
+    StreetViewService: typeof google.maps.StreetViewService;
+    StreetViewSource: typeof google.maps.StreetViewSource;
+    StreetViewStatus: typeof google.maps.StreetViewStatus;
+  }
 }
 declare namespace google.maps {
   /**
@@ -7652,7 +7744,9 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface VisualizationLibrary {}
+  interface VisualizationLibrary {
+    HeatmapLayer: typeof google.maps.visualization.HeatmapLayer;
+  }
 }
 declare namespace google.maps {
   /**

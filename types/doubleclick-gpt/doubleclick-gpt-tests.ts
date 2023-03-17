@@ -490,6 +490,9 @@ googletag.display(new HTMLElement());
 // googletag.display accepts a slot
 googletag.display(slot);
 
+// ResponseInformation is available after the SlotOnloadEvent (only if an ad returned).
+slot.getResponseInformation();
+
 // pubads.display accepts a div element.
 googletag.pubads().display("/1234567/science", [300, 250], new HTMLElement());
 

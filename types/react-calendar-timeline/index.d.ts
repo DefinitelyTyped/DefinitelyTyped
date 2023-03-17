@@ -202,7 +202,7 @@ declare module 'react-calendar-timeline' {
         defaultTimeEnd?: Date | Moment | undefined;
         visibleTimeStart?: Date | Moment | number | undefined;
         visibleTimeEnd?: Date | Moment | number | undefined;
-        selected?: number[] | undefined;
+        selected?: Id[] | undefined;
         sidebarWidth?: number | undefined;
         sidebarContent?: React.ReactNode | undefined;
         rightSidebarWidth?: number | undefined;

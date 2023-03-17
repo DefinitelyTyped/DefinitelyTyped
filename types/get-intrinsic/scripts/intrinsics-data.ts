@@ -66,6 +66,8 @@ export const BASE_INTRINSICS: { [intrinsic: string]: unknown } = {
     '%AsyncIteratorPrototype%': asyncGenPrototype ? getProto(asyncGenPrototype) : undefined,
     '%Atomics%': typeof Atomics === 'undefined' ? undefined : Atomics,
     '%BigInt%': typeof BigInt === 'undefined' ? undefined : BigInt,
+    '%BigInt64Array%': typeof BigInt64Array === 'undefined' ? undefined : BigInt64Array,
+    '%BigUint64Array%': typeof BigUint64Array === 'undefined' ? undefined : BigUint64Array,
     '%Boolean%': Boolean,
     '%BooleanPrototype%': Boolean.prototype,
     '%DataView%': typeof DataView === 'undefined' ? undefined : DataView,
