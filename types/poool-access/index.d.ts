@@ -664,8 +664,8 @@ export namespace Poool {
          *
          * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
          *
-         * - config - the configuration object
-         * - readonly - if true, the configuration will be read-only and cannot be overridden by the Dashboard
+         * @param config - the configuration object
+         * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
@@ -675,9 +675,9 @@ export namespace Poool {
          *
          * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
          *
-         * - optionName - The configuration option name
-         * - optionValue - The configuration option value
-         * - readonly - if true, the configuration will be read-only and cannot be overridden by the Dashboard
+         * @param optionName The configuration option name
+         * @param optionValue The configuration option value
+         * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
@@ -693,10 +693,10 @@ export namespace Poool {
          *
          * ℹ️ These configuration values are overridden by your Dashboard configuration.
          *
-         * - keyName - the text key name
-         * - value - the text value
-         * - readonly - if true, the configuration will be read-only and cannot be overridden by the Dashboard
-         * - locale - the locale to use
+         * @param keyName - the text key name
+         * @param value - the text value
+         * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
+         * @param [locale] - the locale to use
          *
          * More infos: https://poool.dev/docs/access/javascript/access/texts
          */
@@ -709,9 +709,9 @@ export namespace Poool {
          *
          * ℹ️ These configuration values are overridden by your Dashboard configuration.
          *
-         * - texts - the texts object
-         * - readonly - if true, the configuration will be read-only and cannot be overridden by the Dashboard
-         * - locale - the locale to use
+         * @param texts - the texts object
+         * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
+         * @param [locale] - the locale to use
          *
          * More infos: https://poool.dev/docs/access/javascript/access/texts
          */
@@ -726,9 +726,9 @@ export namespace Poool {
          *
          * ℹ️ These configuration values are overridden by your Dashboard configuration.
          *
-         * - keyName - the style key name
-         * - value - the style value
-         * - readonly - if true, the configuration will be read-only and cannot be overridden by the Dashboard
+         * @param keyName - the style key name
+         * @param value - the style value
+         * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
          *
          * More infos: https://poool.dev/docs/access/javascript/access/appearances
          */
@@ -740,8 +740,8 @@ export namespace Poool {
          *
          * ℹ️ These configuration values are overridden by your Dashboard configuration.
          *
-         * - styles - the styles object
-         * - readonly - if true, the configuration will be read-only and cannot be overridden by the Dashboard
+         * @param styles - the styles object
+         * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
          *
          * More infos: https://poool.dev/docs/access/javascript/access/appearances
          */
@@ -754,8 +754,8 @@ export namespace Poool {
          *
          * The `.variable` function allows you to define custom variables, which can be used in all paywall texts.
          *
-         * - keyName - the variable key name
-         * - value - the variable value
+         * @param keyName - the variable key name
+         * @param value - the variable value
          *
          * More infos: https://poool.dev/docs/access/javascript/access/variables
          */
@@ -765,7 +765,7 @@ export namespace Poool {
          *
          * The `.variable` function allows you to define custom variables, which can be used in all paywall texts.
          *
-         * - variables - the variables object
+         * @param variables - the variables object
          *
          * More infos: https://poool.dev/docs/access/javascript/access/variables
          */
@@ -937,8 +937,10 @@ export namespace Poool {
          *
          * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
          *
-         * - config - Audit.js configuration object.
-         * - readonly - Whether or not the configuration should be read-only.
+         * @param config - Audit.js configuration object.
+         * @param [readonly=false] - Whether or not the configuration should be read-only.
+         * @returns The audit instance.
+         *
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
@@ -948,9 +950,10 @@ export namespace Poool {
          *
          * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
          *
-         * - optionName - Audit.js configuration option name.
-         * - value - Audit.js configuration option value.
-         * - readonly - Whether or not the configuration should be read-only.
+         * @param optionName - Audit.js configuration option name.
+         * @param value - Audit.js configuration option value.
+         * @param [readonly=false] - Whether or not the configuration should be read-only.
+         * @returns The audit instance.
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
@@ -962,7 +965,8 @@ export namespace Poool {
         /**
          * Creates a new Paywall instance.
          *
-         * - config - the paywall configuration object
+         * @param config - the paywall configuration object
+         * @returns The Access factory instance.
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
@@ -979,8 +983,9 @@ export namespace Poool {
         /**
          * Allows to set a callback to be called when a specific event is triggered
          *
-         * - event - the event name
-         * - callback - the callback function
+         * @param event - the event name
+         * @param callback - the callback function
+         * @returns The Access factory instance.
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
@@ -988,8 +993,9 @@ export namespace Poool {
         /**
          * Same as {@link on} but the callback will be called only once and removed afterwards.
          *
-         * - event - the event name
-         * - callback - the callback function
+         * @param event - the event name
+         * @param callback - the callback function
+         * @returns The Access factory instance.
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
@@ -998,14 +1004,17 @@ export namespace Poool {
          * Allows to remove an event callback previously set with {@link on} or {@link once}.
          *
          *
-         * - event - the event name
-         * - callback - the callback function
+         * @param event - the event name
+         * @param callback - the callback function
+         * @returns The Access factory instance.
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
         off(event: EventsList, callback: (...props: any) => any): AccessFactory;
         /**
          * Destroys the current paywall.
+         *
+         * @returns null
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
@@ -1016,7 +1025,8 @@ export namespace Poool {
         /**
          * Initializes Audit using your app ID.
          *
-         * - key - Your poool app ID
+         * @param key - Your poool app ID
+         * @returns the Audit instance
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/methods
          */
@@ -1032,9 +1042,10 @@ export namespace Poool {
         /**
          * Sends an audit event.
          *
-         * - eventName - the event name
-         * - data - the event datas
-         * - options - the event options
+         * @param eventName - the event name
+         * @param data - the event datas
+         * @param options - the event options
+         * @returns the Audit instance
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/methods
          */
@@ -1053,8 +1064,9 @@ export namespace Poool {
         /**
          * Allows to set a callback to be called when a specific event is triggered
          *
-         * - event - the event name
-         * - callback - the callback function
+         * @param event - the event name
+         * @param callback - the callback function
+         * @returns The Audit instance.
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/methods
          */
@@ -1062,8 +1074,9 @@ export namespace Poool {
         /**
          * Same as {@link on} but the callback will be called only once and removed afterwards.
          *
-         * - event - the event name
-         * - callback - the callback function
+         * @param event - the event name
+         * @param callback - the callback function
+         * @returns The Audit instance.
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/methods
          */
@@ -1072,8 +1085,9 @@ export namespace Poool {
          * Allows to remove an event callback previously set with {@link on} or {@link once}.
          *
          *
-         * event - the event name
-         * callback - the callback function
+         * @param event - the event name
+         * @param callback - the callback function
+         * @returns The Audit instance.
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/methods
          */
@@ -1084,13 +1098,16 @@ export namespace Poool {
         /**
          * Creates a new Access instance (required to display paywalls) using your app ID.
          *
-         * - key - Your poool app ID
+         * @param key - Your poool app ID
+         * @returns The access factory instance.
          *
          *  More infos: https://poool.dev/docs/access/javascript/access/methods
          */
         init(key: string): AccessFactory;
         /**
          * If an `Access` object already exists in the global object of the current page, the `Access.js` library will be renamed to `PooolAccess` and the original `Access` object will be restored.
+         *
+         * @returns the Access instance
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
