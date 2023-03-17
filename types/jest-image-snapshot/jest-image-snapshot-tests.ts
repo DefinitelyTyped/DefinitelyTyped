@@ -73,3 +73,20 @@ it('mutates original state', () => {
     updateSnapshotState(originalState, { another: 'val' });
     expect(originalState).toEqual({ some: 'value', another: 'val' });
 });
+
+it('Should be able to override toMatchImageSnapshot', () => {
+    const img = Buffer.from('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII', 'base64');
+    
+    function toMatchImageSnapshotOverrided(this: unknown, received: Buffer) {
+        const screenshotMatchingResult = toMatchImageSnapshot.call(
+            this,
+            received,
+            {customDiffDir: './diffs'},
+          );
+        console.log(screenshotMatchingResult.message());
+        return screenshotMatchingResult;
+    }
+    expect.extend({ toMatchImageSnapshot: toMatchImageSnapshotOverrided });
+
+    expect(img).toMatchImageSnapshot();
+});
