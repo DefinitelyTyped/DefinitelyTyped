@@ -79,7 +79,7 @@ interface RelayTaskConfig {
     mode: string;
     edge: string;
     rtsp_transport?: string;
-    appendName?: boolean
+    appendName?: boolean;
 }
 
 interface FissionTaskConfig {
