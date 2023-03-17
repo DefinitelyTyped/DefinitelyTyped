@@ -6,9 +6,25 @@
 declare global {
     const Access: Poool.Access;
     const Audit: Poool.Audit;
+    /**
+     * Use PooolAccess just if you have done `Access.noConflict()` before
+     */
+    const PooolAccess: Poool.Access;
+    /**
+     * Use PooolAudit just if you have done `Audit.noConflict()` before
+     */
+    const PooolAudit: Poool.Audit;
     interface Window {
         Access: Poool.Access;
         Audit: Poool.Audit;
+        /**
+         * Use PooolAccess just if you have done `Access.noConflict()` before
+        */
+        PooolAccess: Poool.Access;
+        /**
+        * Use PooolAudit just if you have done `Audit.noConflict()` before
+        */
+        PooolAudit: Poool.Audit;
     }
 }
 
