@@ -34,7 +34,6 @@ export interface APIGatewayTokenAuthorizerEvent {
 export interface APIGatewayRequestAuthorizerEventV2 {
     version: string;
     type: 'REQUEST';
-    methodArn: string;
     routeArn: string;
     identitySource: string[];
     routeKey: string;
