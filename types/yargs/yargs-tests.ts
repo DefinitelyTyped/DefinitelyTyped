@@ -1491,7 +1491,7 @@ function Argv$ParserHelper() {
 }
 
 function Argv$commandCommandModuleArray() {
-    const CommandOne: yargs.CommandModule<{ a: string }> = {
+    const CommandOne: yargs.CommandModule = {
         builder: async yargs => {
             return yargs.option('a', { default: 'foo' });
         },
@@ -1500,7 +1500,7 @@ function Argv$commandCommandModuleArray() {
         }
     };
 
-    const CommandTwo: yargs.CommandModule<{ a: string }> = {
+    const CommandTwo: yargs.CommandModule = {
         builder: async yargs => {
             return yargs.option('a', { default: 'bar' });
         },
