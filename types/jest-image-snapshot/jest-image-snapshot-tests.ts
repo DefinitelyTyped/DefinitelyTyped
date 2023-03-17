@@ -76,7 +76,7 @@ it('mutates original state', () => {
 
 it('Should be able to override toMatchImageSnapshot', () => {
     const img = Buffer.from('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII', 'base64');
-    
+
     function toMatchImageSnapshotOverrided(this: unknown, received: Buffer) {
         const screenshotMatchingResult = toMatchImageSnapshot.call(
             this,
@@ -86,6 +86,7 @@ it('Should be able to override toMatchImageSnapshot', () => {
         console.log(screenshotMatchingResult.message());
         return screenshotMatchingResult;
     }
+
     expect.extend({ toMatchImageSnapshot: toMatchImageSnapshotOverrided });
 
     expect(img).toMatchImageSnapshot();
