@@ -27,6 +27,9 @@ new KJUR.asn1.x509.AuthorityKeyIdentifier({
 
 KEYUTIL.getKey('pemPKCS1PrivateKey');
 
+KEYUTIL.generateKeypair('RSA', 2048); // $ExpectType { prvKeyObj: RSAKey; pubKeyObj: RSAKey; }
+KEYUTIL.generateKeypair('EC', 'secp256r1'); // $ExpectType { prvKeyObj: ECDSA; pubKeyObj: ECDSA; }
+
 const key = new RSAKey();
 key.signWithMessageHash('1234', 'sha256');
 
