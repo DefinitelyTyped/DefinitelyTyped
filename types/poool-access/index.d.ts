@@ -1,6 +1,7 @@
 // Type definitions for non-npm package poool-access 5.10
 // Project: https://poool.dev/docs/access/javascript
-// Definitions by: maximedasilva <https://github.com/maximedasilva>
+// Definitions by: Maxime Da Silva <https://github.com/maximedasilva>
+//                 Ugo Stephant <https://github.com/dackmin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
