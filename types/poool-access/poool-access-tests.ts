@@ -1,22 +1,20 @@
 // ACCESS
 
 // $ExpectType Access
-window.Access
+window.Access;
 // $ExpectType Access
-Access
+Access;
 // $ExpectType Access
-window.PooolAccess
+window.PooolAccess;
 // $ExpectType Access
-PooolAccess
+PooolAccess;
 
 // $ExpectType Access
- Access.noConflict();
+Access.noConflict();
 // $ExpectType AccessFactory
 Access.init('key-string');
 
 const access = Access.init('key-string');
-
-
 
 // $ExpectType AccessFactory
 access.createPaywall({
@@ -24,13 +22,16 @@ access.createPaywall({
     content: 'content',
     mode: 'hide',
     pageType: 'premium',
-    percent: 80
+    percent: 80,
 });
 
 // $ExpectType AccessFactory
-access.config({
-    debug: false,
-}, true);
+access.config(
+    {
+        debug: false,
+    },
+    true,
+);
 
 //  $ExpectType AccessFactory
 access.config('key', 'value', true);
@@ -42,28 +43,34 @@ access.config('key', false, true);
 access.texts('key', 'value', false, 'en');
 
 // $ExpectType AccessFactory
-access.texts({
-    key: 'value'
-}, false, 'en');
-
+access.texts(
+    {
+        key: 'value',
+    },
+    false,
+    'en',
+);
 
 // $ExpectType AccessFactory
 access.styles('key', 'value', false);
 
 // $ExpectType AccessFactory
-access.styles({
-    brand_cover: 'value'
-}, false);
+access.styles(
+    {
+        brand_cover: 'value',
+    },
+    false,
+);
 
-//$ExpectType AccessFactory
+// $ExpectType AccessFactory
 access.variables('key', 'value');
 
 // $ExpectType AccessFactory
 access.variables({
-    key: 'value'
+    key: 'value',
 });
 
-//$ExpectType AccessFactory
+// $ExpectType AccessFactory
 access.on('subscribeClick', () => {});
 
 // $ExpectType AccessFactory
@@ -75,16 +82,15 @@ access.off('subscribeClick', () => {});
 // $ExpectType null
 access.destroy();
 
-
-//AUDIT
+// AUDIT
 // $ExpectType Audit
-window.Audit
+window.Audit;
 // $ExpectType Audit
-Audit
+Audit;
 // $ExpectType Audit
-window.PooolAudit
+window.PooolAudit;
 // $ExpectType Audit
-PooolAudit
+PooolAudit;
 
 // $ExpectType Audit
 Audit.noConflict();
@@ -95,12 +101,15 @@ Audit.init('key-string');
 const audit = Audit.init('key-string');
 
 // $ExpectType Audit
-audit.config({
-    debug: false,
-}, true);
+audit.config(
+    {
+        debug: false,
+    },
+    true,
+);
 
 // $ExpectType Audit
-audit.sendEvent('page-view', { type: 'premium'}, { key: 'value'});
+audit.sendEvent('page-view', { type: 'premium' }, { key: 'value' });
 
 // $ExpectType Audit
 audit.config({ debug: false }, true);

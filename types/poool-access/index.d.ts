@@ -20,67 +20,66 @@ declare global {
         Audit: Poool.Audit;
         /**
          * Use PooolAccess just if you have done `Access.noConflict()` before
-        */
+         */
         PooolAccess: Poool.Access;
         /**
-        * Use PooolAudit just if you have done `Audit.noConflict()` before
-        */
+         * Use PooolAudit just if you have done `Audit.noConflict()` before
+         */
         PooolAudit: Poool.Audit;
     }
 }
 
 export namespace Poool {
-
     interface styles {
         /**
-        * Defines the base layout of the paywall.
-        * - `portrait`: most suited to fairly wide page layouts such as featured articles or exclusive previews. Displays a block of obfuscated lines of text in the background of the paywall.
-        * - `landscape`: most suited to fairly small page layouts such as articles with a side bar on the right-hand side for example.
-        *
-        * default: `portrait`
-        *
-        * More Infos: https://poool.dev/docs/access/javascript/access/appearances
-        */
+         * Defines the base layout of the paywall.
+         * - `portrait`: most suited to fairly wide page layouts such as featured articles or exclusive previews. Displays a block of obfuscated lines of text in the background of the paywall.
+         * - `landscape`: most suited to fairly small page layouts such as articles with a side bar on the right-hand side for example.
+         *
+         * default: `portrait`
+         *
+         * More Infos: https://poool.dev/docs/access/javascript/access/appearances
+         */
         layout?: 'portrait' | 'landscape';
         /**
-        * URL to your media's logo. `.png`, `.jpg` or `.svg` format, `140px` min height, `200kb` max.
-        *
-        * default: null
-        *
-        *  More infos: https://poool.dev/docs/access/javascript/access/appearances
-        */
+         * URL to your media's logo. `.png`, `.jpg` or `.svg` format, `140px` min height, `200kb` max.
+         *
+         * default: null
+         *
+         *  More infos: https://poool.dev/docs/access/javascript/access/appearances
+         */
         brand_logo?: string;
         /**
-        * URL to your cover image. `.png` or `.jpg` format, `140px` min width, `380px` min height, `200kb` max
-        *
-        * default: null
-        *
-        *  More infos: https://poool.dev/docs/access/javascript/access/appearances
-        */
+         * URL to your cover image. `.png` or `.jpg` format, `140px` min width, `380px` min height, `200kb` max
+         *
+         * default: null
+         *
+         *  More infos: https://poool.dev/docs/access/javascript/access/appearances
+         */
         brand_cover?: string;
         /**
-        * Main buttons color
-        *
-        * default: '#1896B4'
-        *
-        *  More infos: https://poool.dev/docs/access/javascript/access/appearances
-        */
+         * Main buttons color
+         *
+         * default: '#1896B4'
+         *
+         *  More infos: https://poool.dev/docs/access/javascript/access/appearances
+         */
         button_color?: string;
         /**
-        * Main buttons hover color
-        *
-        * default: '#0E6176'
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/appearances
-        **/
+         * Main buttons hover color
+         *
+         * default: '#0E6176'
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/appearances
+         */
         button_hover_color?: string;
         /**
-        * Paywall's skin color.
-        *
-        * Default: '#4A90E2'
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/appearances
-        **/
+         * Paywall's skin color.
+         *
+         * Default: '#4A90E2'
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/appearances
+         */
         skin_color?: string;
         /**
          * Subscription color.
@@ -88,7 +87,7 @@ export namespace Poool {
          * Default: '#1896B4'
          *
          * More infos: https://poool.dev/docs/access/javascript/access/appearances
-         **/
+         */
         premium_color?: string;
         /**
          * Custom CSS added inside the paywall frame.
@@ -96,126 +95,143 @@ export namespace Poool {
          * Default: null
          *
          * More infos: https://poool.dev/docs/access/javascript/access/appearances
-         **/
+         */
         custom_css?: string;
     }
 
     interface AccessConfigOptions {
         /**
-        * When debug mode is enabled, Poool's SDK will log everything it does in the browser console.
-        *
-        * default: `false`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * When debug mode is enabled, Poool's SDK will log everything it does in the browser console.
+         *
+         * default: `false`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         debug?: boolean;
         /**
-        * This is the method used by Poool to lock the content of your article.
-        *
-        * Available modes:
-        * - `hide`: Your original content will stay where it is, but its container will be modified with css to hide a percentage of the content. Downsides : Users will be able to open the browser's console and remove the css rules.
-        * - `excerpt`: Your original content will be placed in a view holder and its container will have its content replaced by trimmed text (only X% of the text will be kept).
-        * The original content is not available from outside of Poool.js scope (even from console), and will be put back when onRelease event is fired.
-        * Downsides : `<style>` and `<script>` tags inside parent are temporarily detached from trimmed text and put at the end. If you have various `<script>` tags in your content, they won't necessarily be executed and may even throw javascript errors (such as with some ad scripts that still use
-        * obsolete javascript functions), leading to a blank page when unlocking content. This mode is also not recommended for single-page apps (Angular, React, Vue, ...). In these two cases, we suggest that you use hide mode.
-        * - `custom`: Nothing will be done to your content and/or its container, but onLock and onRelease events will be fired so you can do your own processing.
-        *
-        * default: `'hide'`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * This is the method used by Poool to lock the content of your article.
+         *
+         * Available modes:
+         * - `hide`: Your original content will stay where it is, but its container will be modified with css to hide a percentage of the content.
+         * Downsides : Users will be able to open the browser's console and remove the css rules.
+         * - `excerpt`: Your original content will be placed in a view holder and its container will have its content replaced by trimmed text(only X% of the text will be kept).
+         * The original content is not available from outside of Poool.js scope (even from console), and will be put back when onRelease event is fired.
+         * Downsides : `<style>` and `<script>` tags inside parent are temporarily detached from trimmed text and put at the end. If you have various `<script>` tags in your content,
+         *  they won't necessarily be executed and may even throw javascript errors (such as with some ad scripts that still use
+         * obsolete javascript functions), leading to a blank page when unlocking content. This mode is also not recommended for single-page apps (Angular, React, Vue, ...).
+         * In these two cases, we suggest that you use hide mode.
+         * - `custom`: Nothing will be done to your content and/or its container, but onLock and onRelease events will be fired so you can do your own processing.
+         *
+         * default: `'hide'`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         mode?: 'hide' | 'excerpt' | 'custom';
         /**
-        * Percentage of text you want to be hidden/stripped.
-        *
-        * default: `80`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * Percentage of text you want to be hidden/stripped.
+         *
+         * default: `80`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         percent?: number;
         /**
-        * CSS Selector locating the post content you want to lock.
-        *
-        * default: `[data-poool]`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * CSS Selector locating the post content you want to lock.
+         *
+         * default: `[data-poool]`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         post_container?: string;
         /**
-        * CSS Selector locating the container where Poool will put its paywall.
-        *
-        * Default: `'#poool-widget'`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * CSS Selector locating the container where Poool will put its paywall.
+         *
+         * Default: `'#poool-widget'`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         widget_container?: string;
         /**
-        * Used to set your media's display name for some widgets. This value may be overridden by Dashboard configuration.
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * Used to set your media's display name for some widgets. This value may be overridden by Dashboard configuration.
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         app_name?: string;
         /**
-        * Overrides default paywall behavior and forces a particular type of widget (the type of widget shown by default can differ according to user behavior).
-        *
-        * Default: `'auto'`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
-        force_widget?: 'auto'| 'hidden'| 'disabled'| 'none' | 'video' | 'newsletter' | 'subscription' | 'gift' | 'question' | 'unlock' | 'link' | 'pass' | 'unlock' | 'invisible';
+         * Overrides default paywall behavior and forces a particular type of widget (the type of widget shown by default can differ according to user behavior).
+         *
+         * Default: `'auto'`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
+        force_widget?:
+            | 'auto'
+            | 'hidden'
+            | 'disabled'
+            | 'none'
+            | 'video'
+            | 'newsletter'
+            | 'subscription'
+            | 'gift'
+            | 'question'
+            | 'unlock'
+            | 'link'
+            | 'pass'
+            | 'unlock'
+            | 'invisible';
         /**
-        * Your subscription page URL. The subscription widget will redirect the reader to this when they decide to subscribe.
-        * - `{return_url}` variable can be used to get the current URL.
-        * - `{user_id}` variable can be used to get the reader's Poool id.
-        *
-        * Default: `null`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * Your subscription page URL. The subscription widget will redirect the reader to this when they decide to subscribe.
+         * - `{return_url}` variable can be used to get the current URL.
+         * - `{user_id}` variable can be used to get the reader's Poool id.
+         *
+         * Default: `null`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         subscription_url?: string;
         /**
-        * Shows/hides the subscription button on every widget (except “Subscription” and “Invisible unlock”).
-        *
-        * Default: true
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * Shows/hides the subscription button on every widget (except “Subscription” and “Invisible unlock”).
+         *
+         * Default: true
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         subscription_button_enabled?: boolean;
         /**
-        *The name of the newsletter, linked to the registered email address of a user on the newsletter widget.
-        *
-        * Default: `null`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * The name of the newsletter, linked to the registered email address of a user on the newsletter widget.
+         *
+         * Default: `null`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         newsletter_name?: string;
         /**
-        * Id of the newsletter, linked to the registered email address of a user on the newsletter widget.
-        *
-        * You will then be able to get all registrations for a particular user through Poool's API.
-        *
-        * Default: `null`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * Id of the newsletter, linked to the registered email address of a user on the newsletter widget.
+         *
+         * You will then be able to get all registrations for a particular user through Poool's API.
+         *
+         * Default: `null`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         newsletter_id?: string;
         /**
-        * Your login page url. A user will be redirected here after clicking on the login button.
-        * - `{return_url}` variable can be used to get the current URL.
-        * - `{user_id}` variable can be used to get the reader's Poool id.
-        *
-        * Default: `null`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * Your login page url. A user will be redirected here after clicking on the login button.
+         * - `{return_url}` variable can be used to get the current URL.
+         * - `{user_id}` variable can be used to get the reader's Poool id.
+         *
+         * Default: `null`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         login_url?: string;
         /**
-        * Shows/hides the login button on every widget.
-        *
-        * Default: `true`
-        *
-        * More infos: https://poool.dev/docs/access/javascript/access/configuration
-        */
+         * Shows/hides the login button on every widget.
+         *
+         * Default: `true`
+         *
+         * More infos: https://poool.dev/docs/access/javascript/access/configuration
+         */
         login_button_enabled?: boolean;
         /**
          * Shows/hides signature text placed at the end of the article once it has been unlocked.
@@ -346,10 +362,13 @@ export namespace Poool {
          */
         popover_timeout?: number;
         /**
-         * When `hide` masking mode is used and after unlocking an article, Poool's paywall will try to calculate the height of the content to set it back to its default value.
+         * When `hide` masking mode is used and after unlocking an article, Poool's paywall will try to calculate the height
+         *  of the content to set it back to its default value.
          *
-         * In a few rare cases, the size of the content will change between when it's cropped and when it's unlocked (loading twitter modules, loading gifs, etc...).
-         * If `disable_content_height_calculation` is set to `true`, the paywall won't try to calculate content height and will simply strip all CSS modifications applied to the parent container of the article.
+         * In a few rare cases, the size of the content will change between when it's cropped and when it's unlocked
+         * (loading twitter modules, loading gifs, etc...).
+         * If `disable_content_height_calculation` is set to `true`, the paywall won't try to calculate content height
+         *  and will simply strip all CSS modifications applied to the parent container of the article.
          *
          * Default: `false`
          *
@@ -358,7 +377,8 @@ export namespace Poool {
         disable_content_height_calculation?: boolean;
         /**
          * By default, to avoid long loading times, our paywall will not wait for the page to load to be displayed.
-         * In some cases, you'll have to wait for the DOM to fully load before the paywall can detect the content of the article that you want to lock (especially when it is placed inside the `<head>` tag of the page).
+         * In some cases, you'll have to wait for the DOM to fully load before the paywall can detect the content of the
+         * article that you want to lock (especially when it is placed inside the `<head>` tag of the page).
          * If `wait_for_dom_load` option is `true`, the paywall will wait for the `DOMContentLoaded` event to be fired.
          *
          * Default: `false`
@@ -375,7 +395,8 @@ export namespace Poool {
          */
         dom_load_timeout?: number;
         /**
-         * Defines the default wait time for the Paywall to be fully displayed. After this time has lapsed, the `onError` event is triggered so that you can display a backup paywall.
+         * Defines the default wait time for the Paywall to be fully displayed. After this time has lapsed, the `onError`
+         * event is triggered so that you can display a backup paywall.
          *
          * Default: `10000`
          *
@@ -385,7 +406,8 @@ export namespace Poool {
         /**
          * Track unlocked articles based on original action instead of its alternative.
          *
-         * When an article is unlocked using an alternative (for example if `force_widget` is used or if the user clicks on No, thanks), by default reports will show statistics for this alternative action rather than the original one.
+         * When an article is unlocked using an alternative (for example if `force_widget` is used or if the user clicks on No, thanks),
+         * by default reports will show statistics for this alternative action rather than the original one.
          *
          * Default: `false`
          *
@@ -393,7 +415,8 @@ export namespace Poool {
          */
         track_original_action?: boolean;
         /**
-         * Defines the default wait time for all the components inside the Paywall to be full loaded. After this time has lapsed, the onError event is triggered so that you can display a backup paywall.
+         * Defines the default wait time for all the components inside the Paywall to be full loaded. After this time has lapsed,
+         * the onError event is triggered so that you can display a backup paywall.
          *
          * Default: `5000`
          *
@@ -411,7 +434,8 @@ export namespace Poool {
          */
         ati_tracking_enabled?: boolean;
         /**
-         * Defines the default wait time for the tracking event from AT Internet to be fired. After this time has lapsed, the paywall is loaded using the default method, and all tracking from Poool to AT Internet is disabled.
+         * Defines the default wait time for the tracking event from AT Internet to be fired.
+         * After this time has lapsed, the paywall is loaded using the default method, and all tracking from Poool to AT Internet is disabled.
          *
          * Default: `2000`
          *
@@ -419,7 +443,8 @@ export namespace Poool {
          */
         ati_load_timeout?: number;
         /**
-         * Enable/disable Facebook login button inside the paywall. In order to sign-in using Facebook, you have to call Facebook's login SDK when `onFacebookLoginClick` event is fired.
+         * Enable/disable Facebook login button inside the paywall. In order to sign-in using Facebook,
+         *  you have to call Facebook's login SDK when `onFacebookLoginClick` event is fired.
          *
          * Default: `false`
          *
@@ -427,7 +452,8 @@ export namespace Poool {
          */
         facebook_login_enabled?: boolean;
         /**
-         * Enable/disable Google login button inside the paywall. In order to sign-in using Google, you have to call Google's login SDK when `onGoogleLoginClick` event is fired.
+         * Enable/disable Google login button inside the paywall. In order to sign-in using Google,
+         *  you have to call Google's login SDK when `onGoogleLoginClick` event is fired.
          *
          * Default: `false`
          *
@@ -495,7 +521,8 @@ export namespace Poool {
          */
         gtag_auto_tracking_enabled?: boolean;
         /**
-         * Enable/disable the latest version of the GA, GTM and Gtag connectors. This version is more precise and allows for more detailed performance tracking in Google Analytics.
+         * Enable/disable the latest version of the GA, GTM and Gtag connectors.
+         * This version is more precise and allows for more detailed performance tracking in Google Analytics.
          *
          * ⚠️ This option cannot be used alone, it must be paired with one of the GA, GTM or Gtag automatic tracking options.
          *
@@ -505,13 +532,15 @@ export namespace Poool {
          */
         auto_tracking_spec_v2?: boolean;
         /**
-         * Allows to provide configuration options to the ATInternet.Tracker.Tag constructor. See the[ ATInternet documentation](https://developers.atinternet-solutions.com/as2-tagging-en/javascript-en/getting-started-javascript-en/tracker-initialisation-javascript-en/#Annexe) for more information.
+         * Allows to provide configuration options to the ATInternet.Tracker.Tag constructor. See the
+         * [ ATInternet documentation](https://developers.atinternet-solutions.com/as2-tagging-en/javascript-en/getting-started-javascript-en/tracker-initialisation-javascript-en/#Annexe)
+         * for more information.
          *
          * Default: `{}`
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        ati_tag_options?: Object;
+        ati_tag_options?: { [key: string]: any };
         /**
          * Used to assign your own unique custom identifier to one of your readers.
          *
@@ -539,7 +568,8 @@ export namespace Poool {
          */
         popover_auto_hide?: boolean;
         /**
-         * When a reader is redirected from the paywall (click on login/subscribe links or Link widget's main action), the return_url query params is provided to the new url. Its default value is the current url.
+         * When a reader is redirected from the paywall (click on login/subscribe links or Link widget's main action),
+         *  the return_url query params is provided to the new url. Its default value is the current url.
          *
          * You can use custom_return_url to define your own custom return url.
          *
@@ -568,7 +598,7 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
 
-        default_widget?:'invisible' | 'unlock' | 'gift' | 'subscription';
+        default_widget?: 'invisible' | 'unlock' | 'gift' | 'subscription';
         /**
          * Used to defined a fallback widget in case of error on advertising widgets (`video`, `viewpay`).
          *
@@ -607,7 +637,26 @@ export namespace Poool {
         cookies_path?: string;
     }
 
-    type EventsList = 'identityAvailable' | 'lock' | 'ready' | 'paywallSeen' | 'release' | 'register' | 'subscribeClick' | 'loginClick' | 'discoveryLinkClick' | 'alternativeClick' | 'error' | 'outdatedBrowser' | 'dataPolicyClick' | 'formSubmit' | 'facebookLoginClick' | 'googleLoginClick' | 'answer' | 'consent' | 'customButtonClick';
+    type EventsList =
+        | 'identityAvailable'
+        | 'lock'
+        | 'ready'
+        | 'paywallSeen'
+        | 'release'
+        | 'register'
+        | 'subscribeClick'
+        | 'loginClick'
+        | 'discoveryLinkClick'
+        | 'alternativeClick'
+        | 'error'
+        | 'outdatedBrowser'
+        | 'dataPolicyClick'
+        | 'formSubmit'
+        | 'facebookLoginClick'
+        | 'googleLoginClick'
+        | 'answer'
+        | 'consent'
+        | 'customButtonClick';
 
     interface AccessConfig {
         /**
@@ -632,14 +681,15 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        (optionName: string, optionValue: any,  readonly?: boolean): AccessFactory;
+        (optionName: string, optionValue: any, readonly?: boolean): AccessFactory;
     }
 
     interface AccessTexts {
         /**
          * You may need to override the default text displayed to your visitors, either to change the wording, or to add a new locale.
          *
-         * Each text key modified using the .texts function is added to the default locale (if no locale has been defined in the general configuration options, or passed in the .texts function).
+         * Each text key modified using the .texts function is added to the default locale (if no locale has been defined
+         * in the general configuration options, or passed in the .texts function).
          *
          * ℹ️ These configuration values are overridden by your Dashboard configuration.
          *
@@ -650,11 +700,12 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/texts
          */
-        (keyName: string, value: string, readonly?: boolean, locale?: String): AccessFactory;
+        (keyName: string, value: string, readonly?: boolean, locale?: string): AccessFactory;
         /**
          * You may need to override the default text displayed to your visitors, either to change the wording, or to add a new locale.
          *
-         * Each text key modified using the `.texts` function is added to the default `locale` (if no `locale` has been defined in the general configuration options, or passed in the `.texts` function).
+         * Each text key modified using the `.texts` function is added to the default `locale`
+         * (if no `locale` has been defined in the general configuration options, or passed in the `.texts` function).
          *
          * ℹ️ These configuration values are overridden by your Dashboard configuration.
          *
@@ -664,7 +715,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/texts
          */
-        (texts: { [key: string]: string }, readonly?: boolean, locale?: String): AccessFactory;
+        (texts: { [key: string]: string }, readonly?: boolean, locale?: string): AccessFactory;
     }
 
     interface AccessStyles {
@@ -680,9 +731,9 @@ export namespace Poool {
          * @param {boolean} [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
          *
          * More infos: https://poool.dev/docs/access/javascript/access/appearances
-        */
+         */
         (keyName: string, value: string, readonly?: boolean): AccessFactory;
-                /**
+        /**
          * Just as you can modify the colors and global design of Poool's paywall in the appearance tab of your Dashboard, you can also do this using code.
          *
          * This front-end customization is especially useful when Access.js isn't able to retrieve the configuration used in your Dashboard.
@@ -693,7 +744,7 @@ export namespace Poool {
          * @param {boolean} [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
          *
          * More infos: https://poool.dev/docs/access/javascript/access/appearances
-        */
+         */
         (styles: styles, readonly?: boolean): AccessFactory;
     }
 
@@ -853,13 +904,15 @@ export namespace Poool {
          */
         auto_tracking_spec_v2?: boolean;
         /**
-         * Allows to provide configuration options to the `ATInternet.Tracker.Tag` constructor. See the [ATInternet documentation](https://developers.atinternet-solutions.com/as2-tagging-en/javascript-en/getting-started-javascript-en/tracker-initialisation-javascript-en/#Annexe) for more information.
+         * Allows to provide configuration options to the `ATInternet.Tracker.Tag` constructor.
+         * See the [ATInternet documentation](https://developers.atinternet-solutions.com/as2-tagging-en/javascript-en/getting-started-javascript-en/tracker-initialisation-javascript-en/#Annexe)
+         *  for more information.
          *
          * Default: `{}`
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
-        ati_tag_options?: Object;
+        ati_tag_options?: { [key: string]: any };
         /**
          * Whether or not to send some tracking requests (mostly clicks behind a redirect) using `navigator.sendBeacon` instead of a normal XHR request.
          *
@@ -892,7 +945,7 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
         (config: AuditConfigOptions, readonly?: boolean): Audit;
-         /**
+        /**
          * While the default configuration works for most use cases, you might want to configure some of Audit.js behaviors.
          *
          * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
@@ -904,7 +957,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
-        (optionName: String, value: any, readonly?: boolean): Audit;
+        (optionName: string, value: any, readonly?: boolean): Audit;
     }
 
     interface AccessFactory {
@@ -918,11 +971,11 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
         createPaywall(config: {
-            target?: String,
-            content?: String | HTMLElement,
-            pageType?: 'premium' | 'free',
-            mode?: 'hide' | 'excerpt' | 'custom',
-            percent?: number,
+            target?: string;
+            content?: string | HTMLElement;
+            pageType?: 'premium' | 'free';
+            mode?: 'hide' | 'excerpt' | 'custom';
+            percent?: number;
         }): AccessFactory;
         texts: AccessTexts;
         styles: AccessStyles;
@@ -946,7 +999,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
-        once(event: EventsList, callback: (...props: any) => any):  AccessFactory;
+        once(event: EventsList, callback: (...props: any) => any): AccessFactory;
         /**
          * Allows to remove an event callback previously set with {@link on} or {@link once}.
          *
@@ -957,7 +1010,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
-        off(event: EventsList, callback: (...props: any) => any):  AccessFactory;
+        off(event: EventsList, callback: (...props: any) => any): AccessFactory;
         /**
          * Destroys the current paywall.
          *
@@ -999,14 +1052,14 @@ export namespace Poool {
         sendEvent(
             eventName: 'page-view',
             data?: {
-                type?: 'premium' | 'free' | 'page',
-                [key: string]: any
+                type?: 'premium' | 'free' | 'page';
+                [key: string]: any;
             },
             options?: {
-                beacons?: boolean,
-                [key: string]: any
-            }
-        ): Audit,
+                beacons?: boolean;
+                [key: string]: any;
+            },
+        ): Audit;
         config: AuditConfig;
         /**
          * Allows to set a callback to be called when a specific event is triggered
