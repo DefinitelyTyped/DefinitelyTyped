@@ -389,14 +389,19 @@ export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Nod
 
 export type ParentType<T> = T extends Node ? t.ParentMaps[T['type']] : null;
 
-type NodesWithNonNullParents = Exclude<
-    Node['type'],
-    keyof {
-        [N in keyof t.ParentMaps as t.ParentMaps[N] extends null ? N : never]: t.ParentMaps[N];
+type NullParentNode = Extract<Node, {
+    type: keyof {
+        [N in keyof t.ParentMaps as t.ParentMaps[N] extends null ? N : never]: null;
     }
->;
+}>;
 
-type FilterPathParentType<T> = T extends Node & { type: NodesWithNonNullParents } ? NodePath<T> : null;
+// null should be unconditionally (and breakingly!) unioned here, in the case of a traverse from an arbitrary node type
+// like traverse(ExpressionStatement, ...)
+type PathParentConditionalNull<T extends Node | null> =
+    Extract<T, NullParentNode | null> extends never ? never : null;
+
+type AsPathParentType<T extends Node | null> =
+    Exclude<T, NullParentNode | null> extends never ? never : NodePath<Exclude<T, NullParentNode | null>>;
 
 type NodeListType<N, K extends keyof N> = N[K] extends Array<infer P> ? (P extends Node ? P : never) : never;
 
@@ -413,7 +418,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: any;
     skipKeys: any;
-    parentPath: FilterPathParentType<ParentType<T>>;
+    parentPath: AsPathParentType<ParentType<T>> | PathParentConditionalNull<ParentType<T>>;
     container: Node | Node[] | null;
     listKey: string | null;
     key: string | number | null;
