@@ -65,6 +65,15 @@ const getAllListsBody: mailchimp.lists.ListOptions = {
     includeTotalContacts: false
 };
 
+const getListMergeFieldsBody: mailchimp.lists.ListOptions = {
+    fields: ['strings'],
+    excludeFields: ['strings'],
+    count: 0,
+    offset: 0,
+    type: 'text',
+    required: true
+};
+
 // Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.setListMember('test', 'test', setListMemberBody);
 
@@ -88,3 +97,6 @@ mailchimp.lists.updateListMemberTags('test', 'test', updateListMemberTagsBody);
 
 // Promise<ListsSuccessResponse | ErrorResponse>
 mailchimp.lists.getAllLists(getAllListsBody);
+
+// Promise<MergeFieldSuccessResponse | ErrorResponse>
+mailchimp.lists.getListMergeFields('test', getListMergeFieldsBody);
