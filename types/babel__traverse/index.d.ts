@@ -56,7 +56,7 @@ export namespace visitors {
     function explode<S = unknown>(
         visitor: Visitor<S>,
     ): {
-        [Type in Node['type']]?: VisitNodeObject<S, Extract<Node, { type: Type }>>;
+        [Type in Exclude<Node, t.DeprecatedAliases>['type']]?: VisitNodeObject<S, Extract<Node, { type: Type }>>;
     };
     function verify(visitor: Visitor): void;
     function merge<State>(visitors: Array<Visitor<State>>): Visitor<State>;
@@ -389,19 +389,22 @@ export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Nod
 
 export type ParentType<T> = T extends Node ? t.ParentMaps[T['type']] : null;
 
-type NullParentNode = Extract<Node, {
-    type: keyof {
-        [N in keyof t.ParentMaps as t.ParentMaps[N] extends null ? N : never]: null;
+type NullParentNode = Extract<
+    Node,
+    {
+        type: keyof {
+            [N in keyof t.ParentMaps as t.ParentMaps[N] extends null ? N : never]: null;
+        };
     }
-}>;
+>;
 
 // null should be unconditionally (and breakingly!) unioned here, in the case of a traverse from an arbitrary node type
 // like traverse(ExpressionStatement, ...)
-type PathParentConditionalNull<T extends Node | null> =
-    Extract<T, NullParentNode | null> extends never ? never : null;
+type PathParentConditionalNull<T extends Node | null> = Extract<T, NullParentNode | null> extends never ? never : null;
 
-type AsPathParentType<T extends Node | null> =
-    Exclude<T, NullParentNode | null> extends never ? never : NodePath<Exclude<T, NullParentNode | null>>;
+type AsPathParentType<T extends Node | null> = Exclude<T, NullParentNode | null> extends never
+    ? never
+    : NodePath<Exclude<T, NullParentNode | null>>;
 
 type NodeListType<N, K extends keyof N> = N[K] extends Array<infer P> ? (P extends Node ? P : never) : never;
 
@@ -618,18 +621,22 @@ export class NodePath<T = Node> {
      * Check whether we have the input `key`. If the `key` references an array then we check
      * if the array has any items, otherwise we just check if it's falsy.
      */
-    has(key: keyof T): boolean;
+    has(key: string): boolean;
+    // has(key: keyof T): boolean;
 
     isStatic(): boolean;
 
     /** Alias of `has`. */
-    is(key: keyof T): boolean;
+    is(key: string): boolean;
+    // is(key: keyof T): boolean;
 
     /** Opposite of `has`. */
-    isnt(key: keyof T): boolean;
+    isnt(key: string): boolean;
+    // isnt(key: keyof T): boolean;
 
     /** Check whether the path node `key` strict equals `value`. */
-    equals(key: keyof T, value: any): boolean;
+    equals(key: string, value: any): boolean;
+    // equals(key: keyof T, value: any): boolean;
 
     /**
      * Check the type against our stored internal type of the node. This is handy when a node has
