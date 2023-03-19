@@ -1,5 +1,5 @@
 import Dataset from '@rdfjs/dataset/DatasetCore';
-import { Quad, DatasetCore, Stream } from '@rdfjs/types';
+import { Quad, DatasetCore, Stream, Term } from '@rdfjs/types';
 import { PropType } from './_PropType';
 import { QuadExt } from './Quad';
 
@@ -24,7 +24,9 @@ export interface DatasetExt extends Dataset<QuadExt> {
 
     intersection(other: DatasetCore): DatasetExt;
 
-    map(cb: () => Quad): DatasetExt;
+    map(callback: (quad: QuadExt) => Quad): DatasetExt;
+
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): DatasetExt;
 
     merge(other: Iterable<Quad>): DatasetExt;
 
@@ -32,7 +34,7 @@ export interface DatasetExt extends Dataset<QuadExt> {
 
     toCanonical(): string;
 
-    toSteam(): Stream;
+    toStream(): Stream<QuadExt>;
 
     equals(other: DatasetCore): boolean;
 }
