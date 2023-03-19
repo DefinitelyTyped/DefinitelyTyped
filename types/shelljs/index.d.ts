@@ -12,7 +12,7 @@
 /// <reference types="node"/>
 
 import child = require('child_process');
-import glob = require('glob');
+import glob = require('../glob');
 
 /**
  * Changes the current working directory dir for the duration of the script.
