@@ -407,6 +407,7 @@ const dialogs = (
                 </div>
             </div>
         </Dialog>
+        <Dialog actions={[]} allowListForLockFocus={e => {}} title="" disableAutoClose focusElementOnClose={{}} size="l"  />
     </div>
 );
 
@@ -1524,6 +1525,8 @@ const popovers = (
                 <br />
                 <br />
                 <Popover
+                    disableTriggerOnClick
+                    show={false}
                     body={
                         <Menu>
                             <Menu.List>
@@ -2405,7 +2408,7 @@ const switches = (
 
 const tokens = (
     <div>
-        <Token buttonLabel="Bibendum" onClick={function w() {}}>
+        <Token buttonLabel="Bibendum" onClick={function w() {}} ref={ele => {}}>
             Bibendum
         </Token>
         <Token buttonLabel="Lorem" onClick={function w() {}}>

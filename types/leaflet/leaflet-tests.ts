@@ -166,6 +166,14 @@ const htmlElement = document.getElementById('foo');
 
 layer.addInteractiveTarget(htmlElement);
 layer.removeInteractiveTarget(htmlElement);
+// $ExpectType LayerOptions
+layer.options;
+
+let layerOptions: L.LayerOptions;
+layerOptions = {
+    attribution: 'anon',
+    pane: 'overlay',
+};
 
 const popupOptions: L.PopupOptions = {};
 
@@ -294,6 +302,26 @@ mapPixelBounds = map.getPixelWorldBounds(12);
 
 let attributionControl: L.Control.Attribution;
 attributionControl = map.attributionControl;
+
+let gridLayerOptions: L.GridLayerOptions;
+gridLayerOptions = {
+    attribution: 'anon',
+    pane: 'overlay',
+    tileSize: 256,
+    opacity: 1,
+    updateWhenIdle: true,
+    updateWhenZooming: true,
+    updateInterval: 200,
+    zIndex: 1,
+    bounds: undefined,
+    minZoom: 1,
+    maxZoom: 12,
+    maxNativeZoom: 3,
+    minNativeZoom: 10,
+    noWrap: false,
+    className: 'none',
+    keepBuffer: 2,
+};
 
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {

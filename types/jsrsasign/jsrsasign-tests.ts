@@ -27,6 +27,12 @@ new KJUR.asn1.x509.AuthorityKeyIdentifier({
 
 KEYUTIL.getKey('pemPKCS1PrivateKey');
 
+KEYUTIL.generateKeypair('RSA', 2048); // $ExpectType { prvKeyObj: RSAKey; pubKeyObj: RSAKey; }
+KEYUTIL.generateKeypair('EC', 'secp256r1'); // $ExpectType { prvKeyObj: ECDSA; pubKeyObj: ECDSA; }
+
+const key = new RSAKey();
+key.signWithMessageHash('1234', 'sha256');
+
 b64toBA('ZXhhbXBsZQ=='); // $ExpectType number[]
 b64tohex('ZXhhbXBsZQ=='); // $ExpectType string
 
@@ -70,7 +76,7 @@ R5M5azDV1CIhIeOTiPA/mq5fL1UrgVbB+IATIsUAQfuWivDyoeu96LB/QswyHAWG
 KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', undefined, { utf8: '123abc' });
 KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', undefined, '123abc');
 KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', pemPublicKey, '123abc');
-KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', { b64: 'ZXhhbXBsZQ==' },  '123abc');
+KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', { b64: 'ZXhhbXBsZQ==' }, '123abc');
 
 KJUR.jws.JWS.verifyJWT('', new RSAKey(), {});
 KJUR.jws.JWS.verifyJWT('', '', {});
