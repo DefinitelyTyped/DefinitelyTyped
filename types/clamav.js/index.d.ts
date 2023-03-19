@@ -5,7 +5,6 @@
 
 import { ReadStream } from 'fs';
 import { Stream } from 'stream';
-import * as glob from 'glob';
 
 export interface ClamScanner {
     port: 3310 | number;
