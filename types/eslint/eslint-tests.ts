@@ -714,6 +714,8 @@ eslint = new ESLint({
     }
 });
 eslint = new ESLint({ reportUnusedDisableDirectives: "error" });
+// @ts-expect-error
+eslint = new ESLint({ reportUnusedDisableDirectives: 2 });
 eslint = new ESLint({ resolvePluginsRelativeTo: "test" });
 eslint = new ESLint({ rulePaths: ["foo"] });
 
