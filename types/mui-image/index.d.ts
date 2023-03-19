@@ -26,6 +26,7 @@ interface MuiImageProps {
     showLoading?: boolean | React.ReactNode | undefined;
     src: string;
     style?: React.CSSProperties | undefined;
+    sx?: SxProps<Theme>;
     width?: React.CSSProperties['width'] | number | undefined;
     wrapperClassName?: string | undefined;
     wrapperStyle?: React.CSSProperties | undefined;
