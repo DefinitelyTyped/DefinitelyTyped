@@ -3134,7 +3134,7 @@ declare module 'crypto' {
      * cryptographic pseudorandom number generator.
      * @since v15.6.0, v14.17.0
      */
-    function randomUUID(options?: RandomUUIDOptions): string;
+    function randomUUID(options?: RandomUUIDOptions): `${string}-${string}-${string}-${string}-${string}`;
     interface X509CheckOptions {
         /**
          * @default 'always'
@@ -3646,7 +3646,7 @@ declare module 'crypto' {
              * The UUID is generated using a cryptographic pseudorandom number generator.
              * @since v16.7.0
              */
-            randomUUID(): string;
+            randomUUID(): `${string}-${string}-${string}-${string}-${string}`;
             CryptoKey: CryptoKeyConstructor;
         }
         // This constructor throws ILLEGAL_CONSTRUCTOR so it should not be newable.
