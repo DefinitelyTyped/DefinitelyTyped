@@ -2,6 +2,8 @@
 
 import '../../';
 
+export type FoldRangeFinder = (cm: CodeMirror.Editor, pos: CodeMirror.Position) => CodeMirror.FoldRange | undefined;
+
 declare module '../../' {
     interface EditorConfiguration {
         /**
@@ -25,5 +27,16 @@ declare module '../../' {
          * A CSS class or DOM element to be used as the marker for folded blocks. Defaults to "CodeMirror-foldgutter-folded".
          */
         indicatorFolded?: string | Element | undefined;
+
+        /*
+         * The range-finder function to use when determining whether something can be folded.
+         * When not given, CodeMirror.fold.auto will be used as default.
+         */
+        rangeFinder?: FoldRangeFinder | undefined;
+    }
+
+    interface FoldRange {
+        from: Position;
+        to: Position;
     }
 }
