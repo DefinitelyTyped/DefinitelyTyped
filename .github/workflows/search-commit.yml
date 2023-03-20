@@ -1,5 +1,5 @@
 name: Search commit
-run-name: ${{ github.actor }} is searching for a commit 🚀
+run-name: Searching for a commit... [${{ github.actor }}] 🚀
 on: [workflow_dispatch]
 jobs:
   Search-Commit:
@@ -13,10 +13,13 @@ jobs:
         with:
           fetch-depth: 0
       - name: "💡 The ${{ github.repository }} repository has been cloned to the runner."
-        run: true
+        run: :
       - name: Find the commits
         run: |
-          git rev-list --graph --objects --in-commit-order --filter=blob:none HEAD -- types | grep -C10 b58b7b964940dc77756
+          x=$(git rev-list --objects --in-commit-order --filter=blob:none HEAD -- types | grep -C2 b58b7b964940dc77756);
+          y=$(for i in $x; do echo $i; break; done)
+      - name: "Result: $y"
+        run: echo "$x";
       - name: "🍏 Job status: ${{ job.status }}."
-        run: true
+        run: :
       
