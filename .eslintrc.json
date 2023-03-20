@@ -20,6 +20,7 @@
       "no-const-enum": "error",
       "no-useless-files": "error",
       "prefer-declare-function": "error",
+      "redundant-undefined": "error",
       "trim-file": "error"
     }
 }
