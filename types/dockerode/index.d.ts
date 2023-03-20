@@ -108,9 +108,9 @@ declare namespace Dockerode {
         putArchive(
             file: string | Buffer | NodeJS.ReadableStream,
             options: {},
-            callback: Callback<stream.Writable>,
+            callback: Callback<stream.Readable>,
         ): void;
-        putArchive(file: string | Buffer | NodeJS.ReadableStream, options: {}): Promise<stream.Duplex>;
+        putArchive(file: string | Buffer | NodeJS.ReadableStream, options: {}): Promise<stream.Readable>;
 
         logs(options: ContainerLogsOptions & { follow?: false }, callback: Callback<Buffer>): void;
         logs(options: ContainerLogsOptions & { follow: true }, callback: Callback<stream.Readable>): void;
@@ -127,8 +127,8 @@ declare namespace Dockerode {
         stats(options?: ContainerStatsOptions & { stream?: false }): Promise<ContainerStats>;
         stats(options?: ContainerStatsOptions & { stream: true; 'one-shot'?: never }): Promise<stream.Readable>;
 
-        attach(options: {}, callback: Callback<stream.Duplex>): void;
-        attach(options: {}): Promise<stream.Duplex>;
+        attach(options: {}, callback: Callback<NodeJS.ReadWriteStream>): void;
+        attach(options: {}): Promise<NodeJS.ReadWriteStream>;
     }
 
     class Image {
@@ -324,8 +324,8 @@ declare namespace Dockerode {
         inspect(callback: Callback<ExecInspectInfo>): void;
         inspect(options?: ExecInspectOptions): Promise<ExecInspectInfo>;
 
-        start(options: ExecStartOptions, callback: Callback<stream.Duplex>): void;
-        start(options: ExecStartOptions): Promise<stream.Duplex>;
+        start(options: ExecStartOptions, callback: Callback<NodeJS.ReadWriteStream>): void;
+        start(options: ExecStartOptions): Promise<NodeJS.ReadWriteStream>;
 
         resize(options: {}, callback: Callback<any>): void;
         resize(options: {}): Promise<any>;
