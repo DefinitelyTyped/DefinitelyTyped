@@ -1793,6 +1793,7 @@ export interface NightwatchAPI
     alerts: AlertsNsCommands;
     document: DocumentNsCommands;
     window: WindowNsCommands;
+    a11y: A11yNsCommands;
 
     page: NightwatchPage & NightwatchCustomPageObjects;
 
@@ -6002,6 +6003,38 @@ export interface WindowNsCommands {
         options: WindowSizeAndPosition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<NightwatchAPI, null>;
+}
+
+export interface A11yNsCommands {
+    /**
+     * Analyzes the current page against applied axe rules.
+     *
+     * The `selector` and `options` arguments can also be specified in the Nightwatch globals and omitted from the command while writing test. See [here](https://github.com/reallymello/nightwatch-axe-verbose#global-configuration) for more information.
+     *
+     * @example
+     * describe('accessibility testing', function() {
+     *   it('accessibility rule subset', function(browser) {
+     *     browser
+     *       .url('https://www.w3.org/WAI/demos/bad/after/home.html')
+     *       .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
+     *       .a11y.runTests('body', {
+     *         runOnly: ['color-contrast', 'image-alt'],
+     *       });
+     *   });
+     * });
+     */
+    runTests(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
+    ): Awaitable<NightwatchAPI, {[key: string]: any}>;
+    runTests(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
+    ): Awaitable<NightwatchAPI, {[key: string]: any}>;
+    runTests(
+        selector: string,
+        options: {[key: string]: any},
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
+    ): Awaitable<NightwatchAPI, {[key: string]: any}>;
 }
 
 export interface AppiumCommands {
