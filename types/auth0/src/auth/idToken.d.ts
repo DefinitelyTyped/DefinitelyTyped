@@ -9,9 +9,7 @@ export interface DecodedToken {
     signature: string;
 }
 
-export function decode(
-    token: string,
-): DecodedToken;
+export function decode(token: string): DecodedToken;
 
 export interface ValidateOptions {
     audience: string | ReadonlyArray<string>;

@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.35
+// Type definitions for auth0 3.3
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Ian Howe <https://github.com/ianhowe76>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
@@ -1064,6 +1064,11 @@ export interface ImpersonateSettingOptions {
     clientId?: string | undefined;
 }
 
+export interface AuthenticationMethodByIdOptions {
+    id: string;
+    authentication_method_id: string;
+}
+
 export type ClientAppType =
     | 'native'
     | 'spa'
@@ -1216,10 +1221,12 @@ export interface Organization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors?: {
-                  primary: string;
-                  page_background: string;
-              } | undefined;
+              colors?:
+                  | {
+                        primary: string;
+                        page_background: string;
+                    }
+                  | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1235,10 +1242,12 @@ export interface CreateOrganization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors?: {
-                  primary: string;
-                  page_background: string;
-              } | undefined;
+              colors?:
+                  | {
+                        primary: string;
+                        page_background: string;
+                    }
+                  | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1581,6 +1590,29 @@ export interface SendEnrollmentTicketData {
 export interface SendEnrollmentTicketResponse {
     ticket_id: string;
     ticket_url: string;
+}
+
+export interface AuthenticationMethod {
+    id: string;
+    type: string;
+    confirmed?: boolean;
+    name?: string;
+    link_id?: string;
+    phone_number?: string;
+    email?: string;
+    key_id?: string;
+    public_key?: string;
+    created_at: string;
+    enrolled_at?: string;
+    last_auth_at?: string;
+    preferred_authentication_method?: string;
+    authentication_methods?: { id: string; type: string }[];
+}
+
+export interface GuardianFactor {
+    name: string;
+    enabled: boolean;
+    trial_expired: boolean;
 }
 
 export class OrganizationsManager {
@@ -2113,6 +2145,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
 
     deleteGrant(params: ObjectWithId & { user_id: string }): Promise<void>;
     deleteGrant(params: ObjectWithId & { user_id: string }, cb?: (err: Error) => void): void;
+
+    // Guardian Factors
+    getGuardianFactors(): Promise<GuardianFactor[]>;
+    getGuardianFactors(cb?: (err: Error, guardianFactor: GuardianFactor[]) => void): void;
 }
 
 export class DatabaseAuthenticator<A = AppMetadata, U = UserMetadata> {
@@ -2207,4 +2243,25 @@ export class UsersManager<A = AppMetadata, U = UserMetadata> {
 
     getUserOrganizations(data: ObjectWithId): Promise<Organization[]>;
     getUserOrganizations(data: ObjectWithId, cb: (err: Error, orgs: Organization[]) => void): void;
+
+    getAuthenticationMethods(data: ObjectWithId): Promise<AuthenticationMethod[]>;
+    getAuthenticationMethods(
+        data: ObjectWithId,
+        cb: (err: Error, authenticationMethods: AuthenticationMethod[]) => void,
+    ): void;
+
+    getAuthenticationMethodById(data: AuthenticationMethodByIdOptions): Promise<AuthenticationMethod>;
+    getAuthenticationMethodById(
+        data: AuthenticationMethodByIdOptions,
+        cb: (err: Error, authenticationMethod: AuthenticationMethod) => void,
+    ): void;
+
+    deleteAuthenticationMethods(data: ObjectWithId): Promise<void>;
+    deleteAuthenticationMethods(data: ObjectWithId, cb: (err: Error) => void): void;
+
+    deleteAuthenticationMethodById(data: AuthenticationMethodByIdOptions): Promise<void>;
+    deleteAuthenticationMethodById(data: AuthenticationMethodByIdOptions, cb: (err: Error) => void): void;
+
+    regenerateRecoveryCode(data: ObjectWithId): Promise<{ recovery_code: string }>;
+    regenerateRecoveryCode(data: ObjectWithId, cb: (err: Error, res: { recovery_code: string }) => void): void;
 }
