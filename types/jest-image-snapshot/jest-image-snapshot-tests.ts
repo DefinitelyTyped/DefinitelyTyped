@@ -91,3 +91,33 @@ it('Should be able to override toMatchImageSnapshot', () => {
 
     expect(img).toMatchImageSnapshot();
 });
+
+it('Should be able to override customized toMatchImageSnapshot', () => {
+    const img = Buffer.from('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII', 'base64');
+
+    const customizedToMatchImageSnapshot = configureToMatchImageSnapshot({
+        allowSizeMismatch: true,
+        noColors: true,
+        customDiffConfig: {
+            threshold: 5,
+            includeAA: false,
+        },
+        onlyDiff: false,
+        failureThreshold: 10,
+        failureThresholdType: 'percent',
+    });
+
+    function toMatchImageSnapshotOverrided(this: unknown, received: Buffer) {
+        const screenshotMatchingResult = customizedToMatchImageSnapshot.call(
+            this,
+            received,
+            {customDiffDir: './diffs'},
+          );
+        console.log(screenshotMatchingResult.message());
+        return screenshotMatchingResult;
+    }
+
+    expect.extend({ toMatchImageSnapshot: toMatchImageSnapshotOverrided });
+
+    expect(img).toMatchImageSnapshot();
+});

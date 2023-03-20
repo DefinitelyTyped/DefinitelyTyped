@@ -137,7 +137,7 @@ export function toMatchImageSnapshot(received: Buffer, options?: MatchImageSnaps
  */
 export function configureToMatchImageSnapshot(
     options: MatchImageSnapshotOptions,
-): () => { message(): string; pass: boolean };
+): (received: Buffer, options?: MatchImageSnapshotOptions) => { message(): string; pass: boolean };
 
 /**
  * Mutates original state with new state
