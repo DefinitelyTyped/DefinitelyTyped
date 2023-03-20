@@ -13,14 +13,16 @@ jobs:
         with:
           fetch-depth: 0
       - name: "💡 The ${{ github.repository }} repository has been cloned to the runner."
-        run: true
+        run: env
       - name: Find the commits
         run: |
           x=$(git rev-list --objects --in-commit-order --filter=blob:none HEAD -- types | grep -C2 b58b7b964940dc77756);
           echo "$x";
-          y=$(for i in $x; do echo $i; break; done)
+          y=$(for i in $x; do echo $i; break; done);
+          echo "The variable y is now $y";
+          set;
       - name: "Result: $y"
         run: echo "$x";
       - name: "🍏 Job status: ${{ job.status }}."
-        run: true
+        run: echo ${{ runner.os }}
       
