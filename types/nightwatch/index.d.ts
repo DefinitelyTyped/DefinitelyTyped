@@ -1792,6 +1792,7 @@ export interface NightwatchAPI
     cookies: CookiesNsCommands;
     alerts: AlertsNsCommands;
     document: DocumentNsCommands;
+    window: WindowNsCommands;
 
     page: NightwatchPage & NightwatchCustomPageObjects;
 
@@ -2587,6 +2588,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *   });
      * });
      * @see https://nightwatchjs.org/api/closeWindow.html
+     *
+     * @deprecated In favour of `.window.close()`.
      */
     closeWindow(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
@@ -2609,6 +2612,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *   }
      * }
      * @see https://nightwatchjs.org/api/fullscreenWindow.html
+     *
+     * @deprecated In favour of `.window.fullscreen()`.
      */
     fullscreenWindow(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
@@ -2632,6 +2637,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *   }
      * }
      * @see https://nightwatchjs.org/api/minimizeWindow.html
+     *
+     * @deprecated In favour of `.window.minimize()`.
      */
     minimizeWindow(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
@@ -2662,6 +2669,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *   }
      * }
      * @see https://nightwatchjs.org/api/openNewWindow.html
+     *
+     * @deprecated In favour of `.window.open()`.
      */
     openNewWindow(
         type?: WindowType,
@@ -2961,6 +2970,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *  };
      *
      * @see https://nightwatchjs.org/api/maximizeWindow.html
+     *
+     * @deprecated In favour of `.window.maximize()`.
      */
     maximizeWindow(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
@@ -3099,6 +3110,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *  };
      *
      * @see https://nightwatchjs.org/api/resizeWindow.html
+     *
+     * @deprecated In favour of `.window.resize()`.
      */
     resizeWindow(
         width: number,
@@ -3156,6 +3169,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *  };
      *
      * @see https://nightwatchjs.org/api/setWindowPosition.html
+     *
+     * @deprecated In favour of `.window.setPosition()`.
      */
     setWindowPosition(
         offsetX: number,
@@ -3201,6 +3216,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * }
      *
      * @see https://nightwatchjs.org/api/setWindowRect.html
+     *
+     * @deprecated In favour of `.window.setRect()`.
      */
     setWindowRect(
         options: WindowSizeAndPosition,
@@ -3217,6 +3234,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      *
      * @see https://nightwatchjs.org/api/setWindowSize.html
      *
+     * @deprecated In favour of `.window.setSize()`.
      */
     setWindowSize(
         width: number,
@@ -3246,6 +3264,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * @alias switchToWindow
      *
      * @see https://nightwatchjs.org/api/switchWindow.html
+     *
+     * @deprecated In favour of `.window.switch()`.
      */
     switchWindow(
         handleOrName: string,
@@ -3272,6 +3292,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      *  };
      *
      * @see https://nightwatchjs.org/api/switchToWindow.html
+     *
+     * @deprecated In favour of `.window.switchTo()`.
      */
      switchToWindow(
         handleOrName: string,
@@ -3305,7 +3327,9 @@ export interface ClientCommands extends ChromiumClientCommands {
      *   }
      * }
      *
-     *  @see https://nightwatchjs.org/api/getWindowRect.html
+     * @see https://nightwatchjs.org/api/getWindowRect.html
+     *
+     * @deprecated In favour of `.window.getRect()`.
      */
     getWindowRect(
         callback?: (
@@ -3337,6 +3361,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * }
      *
      * @see https://nightwatchjs.org/api/getWindowSize.html
+     *
+     * @deprecated In favour of `.window.getSize()`.
      */
     getWindowSize(
         callback?: (
@@ -3368,6 +3394,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * }
      *
      * @see https://nightwatchjs.org/api/getWindowPosition.html
+     *
+     * @deprecated In favour of `.window.getPosition()`.
      */
     getWindowPosition(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowPosition>) => void,
@@ -5484,7 +5512,7 @@ export interface DocumentNsCommands {
      *   }
      * };
      *
-     * @alias pageSource
+     * @alias document.pageSource
      */
     source(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
@@ -5507,11 +5535,473 @@ export interface DocumentNsCommands {
      *   }
      * };
      *
-     * @alias source
+     * @alias document.source
      */
     pageSource(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): Awaitable<NightwatchAPI, string>;
+}
+
+export interface WindowNsCommands {
+    /**
+     * Close the current window or tab. This can be useful when you're working with multiple windows/tabs open (e.g. an OAuth login).
+     *
+     * After closing a window or tab, you must switch back to a valid window handle (using `.window.switchTo()` command) in order to continue execution.
+     *
+     * @example
+     * module.exports = {
+     *  'close current window/tab': function (browser) {
+     *     browser.window.close(function (result) {
+     *       console.log('current window/tab closed successfully');
+     *     });
+     *   },
+     *
+     *   'close current window/tab with ES6 async/await': async function (browser) {
+     *     await browser.window.close();
+     *   }
+     * };
+     */
+    close(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Opens a new tab (default) or a separate new window, and changes focus to the newly opened tab/window.
+     *
+     * This command is only available for W3C Webdriver compatible browsers.
+     *
+     * @example
+     * module.exports = {
+     *  'open a new tab/window': function (browser) {
+     *     // open a new tab (default)
+     *     browser.window.open(function () {
+     *       console.log('new tab opened successfully');
+     *     });
+     *
+     *     // open a new window
+     *     browser.window.open('window', function () {
+     *       console.log('new window opened successfully');
+     *     });
+     *   },
+     *
+     *   'open a new tab/window ES6 async demo Test': async function (browser) {
+     *     // open a new tab (default)
+     *     await browser.window.open();
+     *
+     *     // open a new window
+     *     await browser.window.open('window');
+     *   }
+     * };
+     *
+     * @alias window.openNew
+     */
+    open(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+    open(
+        type: "window" | "tab",
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Opens a new tab (default) or a separate new window, and changes focus to the newly opened tab/window.
+     *
+     * This command is only available for W3C Webdriver compatible browsers.
+     *
+     * @example
+     * module.exports = {
+     *  'open a new tab/window': function (browser) {
+     *     // open a new tab (default)
+     *     browser.window.openNew(function () {
+     *       console.log('new tab opened successfully');
+     *     });
+     *
+     *     // open a new window
+     *     browser.window.openNew('window', function () {
+     *       console.log('new window opened successfully');
+     *     });
+     *   },
+     *
+     *   'open a new tab/window ES6 async demo Test': async function (browser) {
+     *     // open a new tab (default)
+     *     await browser.window.openNew();
+     *
+     *     // open a new window
+     *     await browser.window.openNew('window');
+     *   }
+     * };
+     *
+     * @alias window.open
+     */
+    openNew(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+    openNew(
+        type: "window" | "tab",
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Retrieve the current window handle.
+     *
+     * WebDriver does not make the distinction between windows and tabs. So, if your site opens a new tab or window, you can work with it using a window handle.
+     *
+     * @example
+     * module.exports = {
+     *  'get current window handle': function (browser) {
+     *     browser.window.getHandle(function (result) {
+     *       console.log('current window handle is:', result.value);
+     *     });
+     *   },
+     *
+     *   'get current window handle with ES6 async/await': async function (browser) {
+     *     const windowHandle = await browser.window.getHandle();
+     *     console.log('current window handle is:', windowHandle);
+     *   }
+     * };
+     */
+    getHandle(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<NightwatchAPI, string>;
+
+    /**
+     * Retrieve the list of all window handles available to the session.
+     *
+     * @example
+     * module.exports = {
+     *  'get all window handles': function (browser) {
+     *     browser.window.getAllHandles(function (result) {
+     *       console.log('available window handles are:', result.value);
+     *     });
+     *   },
+     *
+     *   'get all window handles with ES6 async/await': async function (browser) {
+     *     const windowHandles = await browser.window.getAllHandles();
+     *     console.log('available window handles are:', windowHandles);
+     *   }
+     * };
+     */
+    getAllHandles(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void,
+    ): Awaitable<NightwatchAPI, string[]>;
+
+    /**
+     * Change focus to another window.
+     *
+     * The window to change focus to must be specified by its server assigned window handle. To find out the window handle, use `window.getAllHandles()` command.
+     *
+     * @example
+     * module.exports = {
+     *  'switch to another window': function (browser) {
+     *     browser
+     *       .navigateTo('https://nightwatchjs.org/__e2e/window/')
+     *       .click('#openWindowBttn')
+     *       .waitUntil(function () {
+     *         // wait until window handle for the new window is available
+     *         return new Promise((resolve) => {
+     *           browser.window.getAllHandles(function (result) {
+     *             resolve(result.value.length === 2);
+     *           });
+     *         });
+     *       })
+     *       .perform(async function () {
+     *         const originalWindow = await browser.window.getHandle();
+     *         const allWindows = await browser.window.getAllHandles();
+     *
+     *         // loop through to find the new window handle
+     *         for (const windowHandle of allWindows) {
+     *           if (windowHandle !== originalWindow) {
+     *             await browser.window.switchTo(windowHandle);
+     *             break;
+     *           }
+     *         }
+     *
+     *         const currentWindow = await browser.window.getHandle();
+     *         browser.assert.notEqual(currentWindow, originalWindow);
+     *       });
+     *   },
+     *
+     *   'switch to another window with ES6 async/await': async function (browser) {
+     *     await browser.navigateTo('https://nightwatchjs.org/__e2e/window/');
+     *     await browser.click('#openWindowBttn');
+     *
+     *     // wait until window handle for the new window is available
+     *     await browser.waitUntil(async function () {
+     *       const windowHandles = await browser.window.getAllHandles();
+     *
+     *       return windowHandles.length === 2;
+     *     });
+     *
+     *     const originalWindow = await browser.window.getHandle();
+     *     const allWindows = await browser.window.getAllHandles();
+     *
+     *     // loop through available windows to find the new window handle
+     *     for (const windowHandle of allWindows) {
+     *       if (windowHandle !== originalWindow) {
+     *         await browser.window.switchTo(windowHandle);
+     *         break;
+     *       }
+     *     }
+     *
+     *     const currentWindow = await browser.window.getHandle();
+     *     await browser.assert.notEqual(currentWindow, originalWindow);
+     *   }
+     * };
+     *
+     * @alias window.switch
+     */
+    switchTo(
+        windowHandle: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+    switch(
+        windowHandle: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Increases the window to the maximum available size without going full-screen.
+     *
+     * @example
+     * module.exports = {
+     *  'maximize current window': function (browser) {
+     *     browser.window.maximize(function () {
+     *       console.log('window maximized successfully');
+     *     });
+     *   },
+     *
+     *   'maximize current window using ES6 async/await': async function (browser) {
+     *     await browser.window.maximize();
+     *   }
+     * };
+     */
+    maximize(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Hides the window in the system tray. If the window happens to be in fullscreen mode, it is restored the normal state then it will be "iconified" - minimize or hide the window from the visible screen.
+     *
+     * @example
+     * module.exports = {
+     *  'minimize current window': function (browser) {
+     *     browser.window.minimize(function () {
+     *       console.log('window minimized successfully');
+     *     });
+     *   },
+     *
+     *   'minimize current window using ES6 async/await': async function (browser) {
+     *     await browser.window.minimize();
+     *   }
+     * };
+     */
+    minimize(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Set the current window state to fullscreen, similar to pressing F11 in most browsers.
+     *
+     * @example
+     * module.exports = {
+     *  'make current window fullscreen': function (browser) {
+     *     browser.window.fullscreen(function () {
+     *       console.log('window in fullscreen mode');
+     *     });
+     *   },
+     *
+     *   'make current window fullscreen with ES6 async/await': async function (browser) {
+     *     await browser.window.fullscreen();
+     *   }
+     * };
+     */
+    fullscreen(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Get the coordinates of the top left corner of the current window.
+     *
+     * @example
+     * module.exports = {
+     *   'get current window position': function (browser) {
+     *      browser.window.getPosition(function (result) {
+     *        console.log('Position of current window:', result.value.x, result.value.y);
+     *      });
+     *   },
+     *
+     *   'get current window position using ES6 async/await': async function (browser) {
+     *      const {x, y} = await browser.window.getPosition();
+     *      console.log('Position of current window:', x, y);
+     *   }
+     * };
+     */
+    getPosition(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowPosition>) => void,
+    ): Awaitable<NightwatchAPI, WindowPosition>;
+
+    /**
+     * Get the size of the current window in pixels.
+     *
+     * @example
+     * module.exports = {
+     *   'get current window size': function (browser) {
+     *      browser.window.getSize(function (result) {
+     *        console.log('Size of current window:', result.value.width, result.value.height);
+     *      });
+     *   },
+     *
+     *   'get current window size using ES6 async/await': async function (browser) {
+     *      const {width, height} = await browser.window.getSize();
+     *      console.log('Size of current window:', width, height);
+     *   }
+     * };
+     */
+    getSize(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowSize>) => void,
+    ): Awaitable<NightwatchAPI, WindowSize>;
+
+    /**
+     * Fetches the [window rect](https://w3c.github.io/webdriver/#dfn-window-rect) - size and position of the current window.
+     *
+     * Its JSON representation is the following:
+     * - `x` - window's screenX attribute;
+     * - `y` - window's screenY attribute;
+     * - `width` - outerWidth attribute;
+     * - `height` - outerHeight attribute.
+     *
+     * All attributes are in CSS pixels.
+     *
+     * @example
+     * module.exports = {
+     *   'get current window rect': function (browser) {
+     *      browser.window.getRect(function (result) {
+     *        console.log('Size of current window:', result.value.width, result.value.height);
+     *        console.log('Position of current window:', result.value.x, result.value.y);
+     *      });
+     *   },
+     *
+     *   'get current window rect using ES6 async/await': async function (browser) {
+     *      const {width, height, x, y} = await browser.window.getRect();
+     *      console.log('Size of current window:', width, height);
+     *      console.log('Position of current window:', x, y);
+     *   }
+     * };
+     */
+    getRect(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowSizeAndPosition>) => void,
+    ): Awaitable<NightwatchAPI, WindowSizeAndPosition>;
+
+    /**
+     * Set the position of the current window - move the window to the chosen position.
+     *
+     * @example
+     * module.exports = {
+     *   'set current window position': function (browser) {
+     *      // Move the window to the top left of the primary monitor
+     *      browser.window.setPosition(0, 0, function (result) {
+     *        console.log('window moved successfully');
+     *      });
+     *   },
+     *
+     *   'set current window position using ES6 async/await': async function (browser) {
+     *      // Move the window to the top left of the primary monitor
+     *      await browser.window.setPosition(0, 0);
+     *   }
+     * };
+     */
+    setPosition(
+        x: number,
+        y: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Set the size of the current window in CSS pixels.
+     *
+     * @example
+     * module.exports = {
+     *   'set current window size': function (browser) {
+     *      browser.window.setSize(1024, 768, function (result) {
+     *        console.log('window resized successfully');
+     *      });
+     *   },
+     *
+     *   'set current window size using ES6 async/await': async function (browser) {
+     *      await browser.window.setSize(1024, 768);
+     *   }
+     * };
+     *
+     * @alias window.resize
+     */
+    setSize(
+        width: number,
+        height: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Set the size of the current window in CSS pixels.
+     *
+     * @example
+     * module.exports = {
+     *   'set current window size': function (browser) {
+     *      browser.window.setSize(1024, 768, function (result) {
+     *        console.log('window resized successfully');
+     *      });
+     *   },
+     *
+     *   'set current window size using ES6 async/await': async function (browser) {
+     *      await browser.window.setSize(1024, 768);
+     *   }
+     * };
+     *
+     * @alias window.setSize
+     */
+    resize(
+        width: number,
+        height: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Change the [window rect](https://w3c.github.io/webdriver/#dfn-window-rect) - size and position of the current window.
+     *
+     * Its JSON representation is the following:
+     * - `x` - window's screenX attribute;
+     * - `y` - window's screenY attribute;
+     * - `width` - outerWidth attribute;
+     * - `height` - outerHeight attribute.
+     *
+     * All attributes are in CSS pixels.
+     *
+     * To change the window rect, you can either specify `width` and `height` together, `x` and `y` together, or all properties together.
+     *
+     * @example
+     * module.exports = {
+     *   'set current window rect': function (browser) {
+     *      // Change the screenX and screenY attributes of the window rect.
+     *      browser.window.setRect({x: 500, y: 500});
+     *
+     *      // Change the outerWidth and outerHeight attributes of the window rect.
+     *      browser.window.setRect({width: 600, height: 300});
+     *   },
+     *
+     *   'set current window rect using ES6 async/await': async function (browser) {
+     *      // Change all attributes of the window rect at once.
+     *      await browser.window.setRect({
+     *        width: 600,
+     *        height: 300,
+     *        x: 100,
+     *        y: 100
+     *      });
+     *   }
+     * };
+     */
+    setRect(
+        options: WindowSizeAndPosition,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<NightwatchAPI, null>;
 }
 
 export interface AppiumCommands {
@@ -6080,15 +6570,6 @@ export interface WebDriverProtocolNavigation {
 
 export interface WebDriverProtocolCommandContexts {
     /**
-     * Change focus to another window or close the current window. Shouldn't normally be used directly, instead `.switchWindow()` and `.closeWindow()` should be used.
-     */
-    window(
-        method: string,
-        handleOrName?: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
-
-    /**
      * Retrieve the current window handle.
      *
      * @example
@@ -6097,6 +6578,8 @@ export interface WebDriverProtocolCommandContexts {
      *      console.log(result.value);
      *    });
      * }
+     *
+     * @deprecated In favour of `.window.getHandle()`.
      */
     windowHandle(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
 
@@ -6110,6 +6593,8 @@ export interface WebDriverProtocolCommandContexts {
      *      console.log(result.value);
      *    });
      * }
+     *
+     * @deprecated In favour of `.window.getAllHandles()`.
      */
     windowHandles(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void): Awaitable<this, string[]>;
 
@@ -6122,6 +6607,8 @@ export interface WebDriverProtocolCommandContexts {
      *      console.log(result);
      *    });
      * }
+     *
+     * @deprecated In favour of `.window.maximize()`.
      */
     windowMaximize(
         handleOrName?: string,
@@ -6147,6 +6634,8 @@ export interface WebDriverProtocolCommandContexts {
      *      console.log(result.value);
      *    });
      * }
+     *
+     * @deprecated In favour of `.window.getPosition()` and `.window.setPosition()`.
      */
     windowPosition(
         windowHandle: string,
@@ -6176,6 +6665,8 @@ export interface WebDriverProtocolCommandContexts {
      *      console.log(result.value);
      *    });
      * }
+     *
+     * @deprecated In favour of `.window.getSize()` and `.window.setSize()`.
      */
     windowSize(
         windowHandle: string,
@@ -6222,6 +6713,8 @@ export interface WebDriverProtocolCommandContexts {
      *      console.log('result value', resultValue);
      *   }
      * }
+     *
+     * @deprecated In favour of `.window.getRect()` and `.window.setRect()`.
      */
     windowRect(
         options: { width?: number; height?: number; x?: number; y?: number },
