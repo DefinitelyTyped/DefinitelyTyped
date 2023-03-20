@@ -649,7 +649,7 @@
 /types/brainhubeu__react-carousel/                        @jackall3n @sinchang @roberthebel
 /types/braintree/                                         @smrubin @acdr @sedenardi
 /types/braintree-web/                                     @jbuckner
-/types/braintree-web-drop-in/                             @saoudrizwan @iamricard @elmikosch
+/types/braintree-web-drop-in/                             @saoudrizwan @elmikosch
 /types/branca/                                            @BrettIRL
 /types/branch-sdk/                                        @jnsdls
 /types/branchy/                                           @BendingBender
@@ -1228,6 +1228,7 @@
 /types/cradle/                                            @panuhorsmalahti
 /types/crawler/                                           @pzmarzly
 /types/crc/                                               @YuJianrong @ExE-Boss
+/types/crc32-stream/                                      @nadhifikbarw
 /types/create-cert/                                       @midgleyc
 /types/create-error/                                      @tkrotoff
 /types/create-hash/                                       @BendingBender @gallowsmaker @maxbogus @jordansexton
@@ -1291,6 +1292,7 @@
 /types/csv2json/                                          @dex4er
 /types/csvrow/                                            @codeanimal @hithomasmorelli
 /types/cuint/                                             @ltetzlaff
+/types/culori/                                            @bijela-gora
 /types/currency-formatter/                                @mhegazy @davidmpaz @peterblazejewicz
 /types/current-git-branch/                                @maxbogus
 /types/custom-error-generator/                            @thmiceli
@@ -1414,7 +1416,7 @@
 /types/d3-scale-chromatic/                                @Ledragon @gustavderdrache @borisyankov @henriquefm @Methuselah96
 /types/d3-scale-chromatic/v2/                             @Ledragon @gustavderdrache @borisyankov @henriquefm @Methuselah96
 /types/d3-scale-chromatic/v1/                             @Ledragon @gustavderdrache @borisyankov @henriquefm @Methuselah96
-/types/d3-selection/                                      @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96
+/types/d3-selection/                                      @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96 @ambar-arkin
 /types/d3-selection/v2/                                   @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96
 /types/d3-selection/v1/                                   @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96
 /types/d3-selection-multi/                                @gustavderdrache @borisyankov
@@ -1652,6 +1654,7 @@
 /types/dom-speech-recognition/                            @h-joo @frigus02 @mprobst
 /types/dom-to-image/                                      @JipSterk
 /types/dom-trust-token/                                   @taymonbeal
+/types/dom-view-transitions/                              @jakearchibald @tbondwilkinson
 /types/dom-webcodecs/                                     @dogben
 /types/dom4/                                              @adidahiya @giladgray
 /types/domexception/                                      @ExE-Boss
@@ -1812,6 +1815,7 @@
 /types/email-check/                                       @luke-j
 /types/email-prompt/                                      @BendingBender
 /types/email-templates/                                   @cyrilschumacher @gurisko @blankstar85 @vesse @qqilihq @peterblazejewicz @ksewo
+/types/emailjs-mime-codec/                                @nicu-chiciuc
 /types/emartech__cls-adapter/                             @lexwebb
 /types/ember/                                             @chriskrycho @jamescdavis @wagenet @dfreeman
 /types/ember/v3/                                          @bttf @dwickern @chriskrycho @theroncross @mfeckie @alexlafroscia @mike-north @BryanCrotaz @jamescdavis @dfreeman
@@ -2115,6 +2119,7 @@
 /types/falcor-json-graph/                                 @Quramy @lukerielley
 /types/falcor-router/                                     @Quramy @cdhgee @lukerielley
 /types/famous/                                            @borisvasilenko
+/types/fancade-editor/                                    @brycked
 /types/fancy-log/                                         @pine
 /types/fancybox/                                          @borisyankov @SPWizard01
 /types/farbtastic/                                        @EnableSoftware
@@ -2127,6 +2132,7 @@
 /types/fast-levenshtein/                                  @mizunashi-mana
 /types/fast-list/                                         @BendingBender
 /types/fast-memory-cache/                                 @RobinTail
+/types/fast-password-entropy/                             @floomby
 /types/fast-ratelimit/                                    @JorgenVatle
 /types/fast-redact/                                       @asciidisco @nazmariam
 /types/fast-shuffle/                                      @dex4er
@@ -2378,6 +2384,8 @@
 /types/fuzzaldrin-plus/                                   @jeancroy @jkillian @reyronald
 /types/fuzzy-finder/                                      @BendingBender
 /types/fuzzy-search/                                      @BendingBender
+/types/fuzzysearch/                                       @remcohaszing
+/types/fuzzysearch-highlight/                             @remcohaszing
 /types/fuzzyset/                                          @lgrignon @narainsagar
 /types/fuzzyset.js/                                       @lgrignon @narainsagar
 /types/fxjs/                                              @load28
@@ -2392,354 +2400,221 @@
 /types/gapi.auth2/                                        @flawless2011
 /types/gapi.calendar/                                     @tkrotoff
 /types/gapi.client/                                       @Maxim-Mazurok
-/types/gapi.client.abusiveexperiencereport/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.abusiveexperiencereport-v1/            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.acceleratedmobilepageurl/              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.acceleratedmobilepageurl-v1/           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.accessapproval/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.accessapproval-v1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.accesscontextmanager/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.accesscontextmanager-v1/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.accesscontextmanager-v1beta/           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.adexchangebuyer2/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.adexchangebuyer2-v2beta1/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.adexperiencereport/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.adexperiencereport-v1/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.admin/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.admin-datatransfer_v1/                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.admin-directory_v1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.admin-reports_v1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.admob/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.admob-v1/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.admob-v1beta/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.adsense/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.adsense-v2/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.adsensehost/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.adsensehost-v4.1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.alertcenter/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.alertcenter-v1beta1/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.analytics/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.analytics-v3/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.analyticsadmin/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.analyticsadmin-v1alpha/                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.analyticsadmin-v1beta/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.analyticsdata/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.analyticsdata-v1beta/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.analyticshub/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.analyticshub-v1/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.analyticshub-v1beta1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.analyticsreporting/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.analyticsreporting-v4/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.androiddeviceprovisioning/             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.androiddeviceprovisioning-v1/          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.androidenterprise/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.androidenterprise-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.androidmanagement/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.androidmanagement-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.androidpublisher/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.androidpublisher-v3/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.apigateway/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.apigateway-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.apigateway-v1beta/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.apigeeregistry/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.apigeeregistry-v1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.apikeys/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.apikeys-v2/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.appengine/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.appengine-v1/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.appengine-v1alpha/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.appengine-v1beta/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.area120tables/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.area120tables-v1alpha1/                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.artifactregistry/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.artifactregistry-v1/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.artifactregistry-v1beta1/              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.artifactregistry-v1beta2/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.assuredworkloads/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.assuredworkloads-v1/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.assuredworkloads-v1beta1/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.authorizedbuyersmarketplace/           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.authorizedbuyersmarketplace-v1/        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.baremetalsolution/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.baremetalsolution-v1/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.baremetalsolution-v1alpha1/            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.baremetalsolution-v2/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.batch/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.batch-v1/                              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.beyondcorp/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.beyondcorp-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.beyondcorp-v1alpha/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.bigquery/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.bigquery-v2/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.bigqueryconnection/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.bigqueryconnection-v1beta1/            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.bigquerydatatransfer/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.bigquerydatatransfer-v1/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.bigqueryreservation/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.bigqueryreservation-v1/                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.bigqueryreservation-v1beta1/           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.bigtableadmin/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.bigtableadmin-v2/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.billingbudgets/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.billingbudgets-v1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.billingbudgets-v1beta1/                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.binaryauthorization/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.binaryauthorization-v1/                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.binaryauthorization-v1beta1/           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.blogger/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.blogger-v2/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.blogger-v3/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.books/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.books-v1/                              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.businessprofileperformance/            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.businessprofileperformance-v1/         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.calendar/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.calendar-v3/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.certificatemanager/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.certificatemanager-v1/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.chat/                                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.chat-v1/                               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.chromemanagement/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.chromemanagement-v1/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.chromepolicy/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.chromepolicy-v1/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.chromeuxreport/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.chromeuxreport-v1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.civicinfo/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.civicinfo-v2/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.classroom/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.classroom-v1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudasset/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudasset-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudasset-v1beta1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudasset-v1p1beta1/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudasset-v1p5beta1/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudasset-v1p7beta1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudbilling/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudbilling-v1/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudbilling-v1beta/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudbuild/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudbuild-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudbuild-v1alpha1/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudbuild-v1alpha2/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudbuild-v1beta1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudchannel/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudchannel-v1/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.clouddeploy/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.clouddeploy-v1/                        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.clouderrorreporting/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.clouderrorreporting-v1beta1/           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudfunctions/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudfunctions-v1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudfunctions-v2/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudfunctions-v2alpha/                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudfunctions-v2beta/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudidentity/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudidentity-v1/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudidentity-v1beta1/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudiot/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudiot-v1/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudkms/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudkms-v1/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudprofiler/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudprofiler-v2/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudresourcemanager/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudresourcemanager-v1/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudresourcemanager-v1beta1/          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudresourcemanager-v2/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudresourcemanager-v2beta1/          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudresourcemanager-v3/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudscheduler/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudscheduler-v1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudscheduler-v1beta1/                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudsearch/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudsearch-v1/                        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudshell/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudshell-v1/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudsupport/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudsupport-v2beta/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudtasks/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudtasks-v2/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudtasks-v2beta2/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudtasks-v2beta3/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.cloudtrace/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudtrace-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudtrace-v2/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.cloudtrace-v2beta1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.composer/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.composer-v1/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.composer-v1beta1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.compute/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.compute-alpha/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.compute-beta/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.compute-v1/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.connectors/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.connectors-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.connectors-v2/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.contactcenteraiplatform/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.contactcenteraiplatform-v1alpha1/      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.contactcenterinsights/                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.contactcenterinsights-v1/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.container/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.container-v1/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.container-v1beta1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.containeranalysis/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.containeranalysis-v1/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.containeranalysis-v1alpha1/            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.containeranalysis-v1beta1/             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.content/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.content-v2.1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.contentwarehouse/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.contentwarehouse-v1/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.customsearch/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.customsearch-v1/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.datacatalog/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datacatalog-v1/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datacatalog-v1beta1/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.dataflow/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dataflow-v1b3/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.dataform/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dataform-v1beta1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.datafusion/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datafusion-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datafusion-v1beta1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.datalabeling/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datalabeling-v1beta1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.datamigration/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datamigration-v1/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datamigration-v1beta1/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.datapipelines/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datapipelines-v1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.dataplex/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dataplex-v1/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.dataproc/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dataproc-v1/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.datastore/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datastore-v1/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datastore-v1beta1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datastore-v1beta3/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.datastream/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datastream-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.datastream-v1alpha1/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.deploymentmanager/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.deploymentmanager-alpha/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.deploymentmanager-v2/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.deploymentmanager-v2beta/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.dfareporting/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dfareporting-v3.5/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dfareporting-v4/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.dialogflow/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dialogflow-v2/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dialogflow-v2beta1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dialogflow-v3/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dialogflow-v3beta1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.digitalassetlinks/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.digitalassetlinks-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.discovery/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.discovery-v1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.discoveryengine/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.discoveryengine-v1alpha/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.discoveryengine-v1beta/                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.displayvideo/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.displayvideo-v1/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.displayvideo-v2/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.dlp/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dlp-v2/                                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.dns/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dns-v1/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.dns-v1beta2/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.docs/                                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.docs-v1/                               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.documentai/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.documentai-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.documentai-v1beta2/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.documentai-v1beta3/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.domains/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.domains-v1/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.domains-v1alpha2/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.domains-v1beta1/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.domainsrdap/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.domainsrdap-v1/                        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.doubleclickbidmanager/                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.doubleclickbidmanager-v1.1/            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.doubleclickbidmanager-v2/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.doubleclicksearch/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.doubleclicksearch-v2/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.drive/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.drive-v2/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.drive-v3/                              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.driveactivity/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.driveactivity-v2/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.drivelabels/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.drivelabels-v2/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.drivelabels-v2beta/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.essentialcontacts/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.essentialcontacts-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.eventarc/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.eventarc-v1/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.eventarc-v1beta1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.factchecktools/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.factchecktools-v1alpha1/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.fcm/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.fcm-v1/                                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.fcmdata/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.fcmdata-v1beta1/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.file/                                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.file-v1/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.file-v1beta1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firebase/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebase-v1beta1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firebaseappcheck/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebaseappcheck-v1/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebaseappcheck-v1beta/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firebasedatabase/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebasedatabase-v1beta/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firebasedynamiclinks/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebasedynamiclinks-v1/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firebasehosting/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebasehosting-v1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebasehosting-v1beta1/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firebaseml/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebaseml-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebaseml-v1beta2/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firebaserules/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebaserules-v1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firebasestorage/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firebasestorage-v1beta/                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.firestore/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firestore-v1/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firestore-v1beta1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.firestore-v1beta2/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.fitness/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.fitness-v1/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.forms/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.forms-v1/                              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.games/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.games-v1/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.games_configuration-v1configuration/   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.games_management-v1management/         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.gamesconfiguration/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.gameservices/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gameservices-v1/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gameservices-v1beta/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.gamesmanagement/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.genomics/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.genomics-v2alpha1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.gkebackup/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gkebackup-v1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.gkehub/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gkehub-v1/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gkehub-v1alpha/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gkehub-v1alpha2/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gkehub-v1beta/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gkehub-v1beta1/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gkehub-v2alpha/                        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.gmail/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gmail-v1/                              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.gmailpostmastertools/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gmailpostmastertools-v1/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.gmailpostmastertools-v1beta1/          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.googleads/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.googleads-v10/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.googleads-v11/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.googleads-v12/                         @Maxim-Mazurok @namoscato @declanvong
@@ -2749,313 +2624,194 @@
 /types/gapi.client.googleads-v7/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.googleads-v8/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.googleads-v9/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.groupsmigration/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.groupsmigration-v1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.groupssettings/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.groupssettings-v1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.healthcare/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.healthcare-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.healthcare-v1beta1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.homegraph/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.homegraph-v1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.iam/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.iam-v1/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.iam-v2beta/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.iamcredentials/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.iamcredentials-v1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.iap/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.iap-v1/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.iap-v1beta1/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.ideahub/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.ideahub-v1alpha/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.ideahub-v1beta/                        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.identitytoolkit/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.identitytoolkit-v1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.identitytoolkit-v2/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.identitytoolkit-v3/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.ids/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.ids-v1/                                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.indexing/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.indexing-v3/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.integrations/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.integrations-v1alpha/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.jobs/                                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.jobs-v3/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.jobs-v3p1beta1/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.jobs-v4/                               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.keep/                                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.keep-v1/                               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.kgsearch/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.kgsearch-v1/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.language/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.language-v1/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.language-v1beta1/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.language-v1beta2/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.libraryagent/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.libraryagent-v1/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.licensing/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.licensing-v1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.lifesciences/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.lifesciences-v2beta/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.localservices/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.localservices-v1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.logging/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.logging-v2/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.managedidentities/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.managedidentities-v1/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.managedidentities-v1alpha1/            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.managedidentities-v1beta1/             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.manufacturers/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.manufacturers-v1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.memcache/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.memcache-v1/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.memcache-v1beta2/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.metastore/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.metastore-v1/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.metastore-v1alpha/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.metastore-v1beta/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.ml/                                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.ml-v1/                                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.monitoring/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.monitoring-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.monitoring-v3/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.mybusinessaccountmanagement/           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.mybusinessaccountmanagement-v1/        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.mybusinessbusinesscalls/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.mybusinessbusinesscalls-v1/            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.mybusinessbusinessinformation/         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.mybusinessbusinessinformation-v1/      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.mybusinesslodging/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.mybusinesslodging-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.mybusinessnotifications/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.mybusinessnotifications-v1/            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.mybusinessplaceactions/                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.mybusinessplaceactions-v1/             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.mybusinessqanda/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.mybusinessqanda-v1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.mybusinessverifications/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.mybusinessverifications-v1/            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.networkconnectivity/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.networkconnectivity-v1/                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.networkconnectivity-v1alpha1/          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.networkmanagement/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.networkmanagement-v1/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.networkmanagement-v1beta1/             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.networksecurity/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.networksecurity-v1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.networksecurity-v1beta1/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.networkservices/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.networkservices-v1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.networkservices-v1beta1/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.notebooks/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.notebooks-v1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.oauth2/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.oauth2-v2/                             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.ondemandscanning/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.ondemandscanning-v1/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.ondemandscanning-v1beta1/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.orgpolicy/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.orgpolicy-v2/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.osconfig/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.osconfig-v1/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.osconfig-v1alpha/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.osconfig-v1beta/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.oslogin/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.oslogin-v1/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.oslogin-v1alpha/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.oslogin-v1beta/                        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.pagespeedonline/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.pagespeedonline-v5/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.paymentsresellersubscription/          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.paymentsresellersubscription-v1/       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.people/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.people-v1/                             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.playcustomapp/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.playcustomapp-v1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.playdeveloperreporting/                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.playdeveloperreporting-v1alpha1/       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.playdeveloperreporting-v1beta1/        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.playintegrity/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.playintegrity-v1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.policyanalyzer/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.policyanalyzer-v1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.policyanalyzer-v1beta1/                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.policysimulator/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.policysimulator-v1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.policysimulator-v1alpha/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.policysimulator-v1beta1/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.policytroubleshooter/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.policytroubleshooter-v1/               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.policytroubleshooter-v1beta/           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.poly/                                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.poly-v1/                               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.privateca/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.privateca-v1/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.privateca-v1beta1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.prod_tt_sasportal/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.prod_tt_sasportal-v1alpha1/            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.pubsub/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.pubsub-v1/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.pubsub-v1beta1a/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.pubsub-v1beta2/                        @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.pubsublite/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.pubsublite-v1/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.realtimebidding/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.realtimebidding-v1/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.realtimebidding-v1alpha/               @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.recaptchaenterprise/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.recaptchaenterprise-v1/                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.recommendationengine/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.recommendationengine-v1beta1/          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.recommender/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.recommender-v1/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.recommender-v1beta1/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.redis/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.redis-v1/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.redis-v1beta1/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.reseller/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.reseller-v1/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.resourcesettings/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.resourcesettings-v1/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.retail/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.retail-v2/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.retail-v2alpha/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.retail-v2beta/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.run/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.run-v1/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.run-v2/                                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.runtimeconfig/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.runtimeconfig-v1/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.runtimeconfig-v1beta1/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.safebrowsing/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.safebrowsing-v4/                       @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.sasportal/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.sasportal-v1alpha1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.script/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.script-v1/                             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.searchconsole/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.searchconsole-v1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.secretmanager/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.secretmanager-v1/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.secretmanager-v1beta1/                 @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.securitycenter/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.securitycenter-v1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.securitycenter-v1beta1/                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.securitycenter-v1beta2/                @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.serviceconsumermanagement/             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.serviceconsumermanagement-v1/          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.serviceconsumermanagement-v1beta1/     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.servicecontrol/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.servicecontrol-v1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.servicecontrol-v2/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.servicedirectory/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.servicedirectory-v1/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.servicedirectory-v1beta1/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.servicemanagement/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.servicemanagement-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.servicenetworking/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.servicenetworking-v1/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.servicenetworking-v1beta/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.serviceusage/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.serviceusage-v1/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.serviceusage-v1beta1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.sheets/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.sheets-v4/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.site_verification-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.siteverification/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.slides/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.slides-v1/                             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.smartdevicemanagement/                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.smartdevicemanagement-v1/              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.sourcerepo/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.sourcerepo-v1/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.spanner/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.spanner-v1/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.speech/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.speech-v1/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.speech-v1p1beta1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.sqladmin/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.sqladmin-v1/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.sqladmin-v1beta4/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.storage/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.storage-v1/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.storagetransfer/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.storagetransfer-v1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.streetviewpublish/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.streetviewpublish-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.sts/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.sts-v1/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.sts-v1beta/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.tagmanager/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.tagmanager-v1/                         @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.tagmanager-v2/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.tasks/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.tasks-v1/                              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.testing/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.testing-v1/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.texttospeech/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.texttospeech-v1/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.texttospeech-v1beta1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.toolresults/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.toolresults-v1beta3/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.tpu/                                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.tpu-v1/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.tpu-v1alpha1/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.tpu-v2/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.tpu-v2alpha1/                          @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.trafficdirector/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.trafficdirector-v2/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.transcoder/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.transcoder-v1/                         @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.translate/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.translate-v2/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.translate-v3/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.translate-v3beta1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.travelimpactmodel/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.travelimpactmodel-v1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.vault/                                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.vault-v1/                              @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.verifiedaccess/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.verifiedaccess-v1/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.verifiedaccess-v2/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.versionhistory/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.versionhistory-v1/                     @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.videointelligence/                     @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.videointelligence-v1/                  @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.videointelligence-v1beta2/             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.videointelligence-v1p1beta1/           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.videointelligence-v1p2beta1/           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.videointelligence-v1p3beta1/           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.vision/                                @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.vision-v1/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.vision-v1p1beta1/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.vision-v1p2beta1/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.vmmigration/                           @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.vmmigration-v1/                        @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.vmmigration-v1alpha1/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.webfonts/                              @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.webfonts-v1/                           @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.webrisk/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.webrisk-v1/                            @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.websecurityscanner/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.websecurityscanner-v1/                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.websecurityscanner-v1alpha/            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.websecurityscanner-v1beta/             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.workflowexecutions/                    @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.workflowexecutions-v1/                 @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.workflowexecutions-v1beta/             @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.workflows/                             @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.workflows-v1/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.workflows-v1beta/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.workloadmanager/                       @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.workloadmanager-v1/                    @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.workstations/                          @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.workstations-v1beta/                   @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.youtube/                               @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.youtube-v3/                            @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.youtube_analytics-v2/                  @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.youtubeanalytics/                      @Maxim-Mazurok @namoscato @declanvong
-/types/gapi.client.youtubereporting/                      @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.client.youtubereporting-v1/                   @Maxim-Mazurok @namoscato @declanvong
 /types/gapi.drive/                                        @baxtersa
 /types/gapi.pagespeedonline/                              @sgtfrankieboy
@@ -5014,7 +4770,6 @@
 /types/lwip/                                              @AyaMorisawa
 /types/lyric-parser/                                      @wkl007
 /types/lyricist/                                          @DadUndead
-/types/lz-string/                                         @M0ns1gn0r
 /types/lz4/                                               @bendingbender
 /types/lzbase62/                                          @ArthurKa
 /types/lzma-native/                                       @leshow
@@ -5216,14 +4971,15 @@
 /types/method-override/                                   @santialbo
 /types/methods/                                           @cprecioso @michelbitter
 /types/metric-suffix/                                     @davidm77
-/types/metro/                                             @afoxman @tido64
-/types/metro-babel-transformer/                           @afoxman @tido64
-/types/metro-cache/                                       @afoxman @tido64
-/types/metro-config/                                      @afoxman @tido64
-/types/metro-core/                                        @afoxman @tido64
-/types/metro-resolver/                                    @afoxman @tido64
-/types/metro-source-map/                                  @afoxman @tido64
-/types/metro-transform-worker/                            @afoxman @tido64
+/types/metro/                                             @afoxman @tido64 @huntie
+/types/metro-babel-transformer/                           @afoxman @tido64 @huntie
+/types/metro-cache/                                       @afoxman @tido64 @huntie
+/types/metro-config/                                      @afoxman @tido64 @huntie
+/types/metro-core/                                        @afoxman @tido64 @huntie
+/types/metro-file-map/                                    @huntie
+/types/metro-resolver/                                    @afoxman @tido64 @huntie
+/types/metro-source-map/                                  @afoxman @tido64 @huntie
+/types/metro-transform-worker/                            @afoxman @tido64 @huntie
 /types/metrostations/                                     @peterblazejewicz
 /types/meyda/                                             @eramdam @hughrawlinson
 /types/mfiles/                                            @avonwyss
@@ -6024,6 +5780,7 @@
 /types/passport-strategy/                                 @liorm
 /types/passport-twitch-latest/                            @claabs
 /types/passport-twitter/                                  @staticfunction
+/types/passport-twitter-token/                            @podplatnikm
 /types/passport-unique-token/                             @SomaticIT
 /types/passport-vkontakte/                                @soulthreads
 /types/passport-windowsauth/                              @forivall
@@ -6108,7 +5865,7 @@
 /types/phonetic/                                          @emmanuelnk
 /types/phonon/                                            @kserin
 /types/photonui/                                          @florentpoujol
-/types/photoshop/                                         @adobe-photoshop @baaygun @heewooa
+/types/photoshop/                                         @adobe-photoshop @baaygun @heewooa @jardicc
 /types/photoswipe/                                        @hellochar @PikachuEXE @Razdva122
 /types/php-serialize/                                     @blurfx
 /types/phplint/                                           @MysteryBlokHed
@@ -6151,7 +5908,7 @@
 /types/pkginfo/                                           @DavidTanner
 /types/pkgjs__parseargs/                                  @remcohaszing
 /types/places/                                            @ghizlanelotfi
-/types/plaid-link/                                        @afholderman @brolaugh
+/types/plaid-link/                                        @afholderman @bdhowald @brolaugh
 /types/plantuml-encoder/                                  @krisztianb
 /types/platform/                                          @JakeH @peterblazejewicz
 /types/play-sound/                                        @crutchcorn
@@ -6189,6 +5946,7 @@
 /types/polylabel/                                         @DenisCarriere
 /types/polyline/                                          @Kern0
 /types/polymer/                                           @lgrignon
+/types/poool-access/                                      @maximedasilva @dackmin
 /types/popcnt32/                                          @BendingBender
 /types/popcorn/                                           @grapswiz
 /types/popoto/                                            @alma3lol
@@ -6209,6 +5967,7 @@
 /types/postcss-inline-svg/                                @xapdkop
 /types/postcss-js/                                        @MysteryBlokHed
 /types/postcss-less/                                      @ybiquitous @djcsdy
+/types/postcss-media-query-parser/                        @remcohaszing @ybiquitous
 /types/postcss-mixins/                                    @MysteryBlokHed
 /types/postcss-modules-extract-imports/                   @huan086
 /types/postcss-modules-local-by-default/                  @huan086
@@ -6222,6 +5981,7 @@
 /types/postcss-prefix-selector/                           @robertmaier
 /types/postcss-prefixer/                                  @nsaunders
 /types/postcss-reporter/                                  @peterblazejewicz
+/types/postcss-resolve-nested-selector/                   @remcohaszing @ybiquitous
 /types/postcss-safe-parser/                               @peterblazejewicz @fvanderveen
 /types/postcss-url/                                       @lenovouser @remcohaszing
 /types/poster-image/                                      @ffflorian
@@ -6488,31 +6248,35 @@
 /types/rdf-data-model/                                    @rubensworks
 /types/rdf-dataset-ext/                                   @thewilkybarkid
 /types/rdf-dataset-indexed/                               @thewilkybarkid
-/types/rdf-ext/                                           @tpluscode
+/types/rdf-ext/                                           @tpluscode @jeswr
 /types/rdf-loader-code/                                   @tpluscode
 /types/rdf-loaders-registry/                              @tpluscode
 /types/rdf-transform-triple-to-quad/                      @tpluscode
 /types/rdf-utils-dataset/                                 @thewilkybarkid
 /types/rdf-utils-fs/                                      @tpluscode
 /types/rdf-validate-datatype/                             @tpluscode
-/types/rdf-validate-shacl/                                @tpluscode
+/types/rdf-validate-shacl/                                @tpluscode @cristianvasquez
 /types/rdfjs__data-model/                                 @jeswr @rubensworks @tpluscode
 /types/rdfjs__dataset/                                    @tpluscode @jeswr
+/types/rdfjs__environment/                                @tpluscode @jeswr
 /types/rdfjs__express-handler/                            @tpluscode
 /types/rdfjs__fetch/                                      @tpluscode
-/types/rdfjs__fetch-lite/                                 @tpluscode
+/types/rdfjs__fetch-lite/                                 @tpluscode @jeswr
 /types/rdfjs__formats-common/                             @tpluscode
-/types/rdfjs__namespace/                                  @thewilkybarkid
+/types/rdfjs__namespace/                                  @thewilkybarkid @jeswr @tpluscode
 /types/rdfjs__parser-jsonld/                              @thewilkybarkid
 /types/rdfjs__parser-n3/                                  @tpluscode
+/types/rdfjs__prefix-map/                                 @tpluscode @jeswr
+/types/rdfjs__score/                                      @tpluscode @jeswr
 /types/rdfjs__serializer-jsonld/                          @thewilkybarkid
 /types/rdfjs__serializer-jsonld-ext/                      @thewilkybarkid
 /types/rdfjs__serializer-ntriples/                        @tpluscode
 /types/rdfjs__serializer-rdfjs/                           @tpluscode
-/types/rdfjs__sink-map/                                   @tpluscode
+/types/rdfjs__sink-map/                                   @tpluscode @jeswr
 /types/rdfjs__term-map/                                   @tpluscode @jeswr
 /types/rdfjs__term-set/                                   @tpluscode @jeswr
 /types/rdfjs__to-ntriples/                                @tpluscode
+/types/rdfjs__traverser/                                  @tpluscode @jeswr @cristianvasquez
 /types/re-base/                                           @jordandrako
 /types/re-carousel/                                       @jkjustjoshing
 /types/re-template-tag/                                   @bendingbender
@@ -7007,7 +6771,6 @@
 /types/react-router-dom/                                  @huy-nguyen @p-jackson @johnnyreilly @eps1lon @danielnixon @ynotdraw @1pete
 /types/react-router-guard/                                @laptransang
 /types/react-router-hash-link/                            @zoompie @michael-vasyliv @EliRobinson
-/types/react-router-native/                               @ezintz @fhelwanger
 /types/react-router-navigation/                           @kaoDev @johnnyreilly
 /types/react-router-navigation-core/                      @kaoDev @johnnyreilly
 /types/react-router-param-link/                           @mtsg
@@ -7035,6 +6798,7 @@
 /types/react-sidebar/                                     @jeroenvervaeke
 /types/react-signature-canvas/                            @ksocha
 /types/react-simple-maps/                                 @thepocp @pronebird @komenank
+/types/react-simple-oauth2-login/                         @kostassite
 /types/react-size-reporter/                               @MattiasMartens
 /types/react-sizes/                                       @janKir @micahstubbs
 /types/react-slick/                                       @GiedriusGrabauskas @r3nya @Shannor
@@ -7530,7 +7294,7 @@
 /types/scrambo/                                           @padarom
 /types/scratch-env/                                       @Richienb
 /types/screenshot-desktop/                                @usama8800
-/types/screeps/                                           @MarkoSulamagi @NhanHo @bryanbecker @resir014 @Arcath @dmarcuse @pyrodogg @kotarou @DiamondMofeng
+/types/screeps/                                           @NhanHo @bryanbecker @resir014 @Arcath @dmarcuse @pyrodogg @kotarou @DiamondMofeng
 /types/screeps-arena/                                     @thmsndk @pyrodogg
 /types/screeps-profiler/                                  @ramblurr
 /types/script-ext-html-webpack-plugin/                    @davecardwell
@@ -7729,6 +7493,7 @@
 /types/signal-exit/                                       @BendingBender
 /types/signale/                                           @resir014 @rjoydip
 /types/signalfx/                                          @maxbogus
+/types/signalfx-collect/                                  @axiac
 /types/signalr/                                           @borisyankov @keesey @GiedriusGrabauskas @101100
 /types/signalr/v1/                                        @borisyankov @keesey
 /types/signalr-no-jquery/                                 @gjoshevski
@@ -8287,6 +8052,7 @@
 /types/through2-concurrent/                               @Alorel
 /types/through2-map/                                      @LucasHill
 /types/thumbsupply/                                       @MagiCzOOz
+/types/thunderbird-webext-browser/                        @JimDanner
 /types/thunky/                                            @BendingBender
 /types/tictactoejs/                                       @DefinitelyTyped
 /types/tiff-to-png/                                       @peterblazejewicz
@@ -8521,6 +8287,7 @@
 /types/unity-webapi/                                      @jmvrbanac
 /types/universal-analytics/                               @Bartvds @DarkerTV @lekoaf
 /types/universalify/                                      @Richienb
+/types/unix-time/                                         @BendingBender
 /types/unixify/                                           @karlhorky
 /types/unl-core/                                          @u-n-l
 /types/unordered-array-remove/                            @BendingBender
