@@ -17,6 +17,7 @@ jobs:
       - name: Find the commits
         run: |
           x=$(git rev-list --objects --in-commit-order --filter=blob:none HEAD -- types | grep -C2 b58b7b964940dc77756);
+          echo "$x";
           y=$(for i in $x; do echo $i; break; done)
       - name: "Result: $y"
         run: echo "$x";
