@@ -13,8 +13,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: "💡 The ${{ github.repository }} repository has been cloned to the runner."
+        run: ;
       - name: Find the commits
         run: |
           git rev-list --graph --objects --in-commit-order --filter=blob:none HEAD -- types | grep -C10 b58b7b964940dc77756
       - name: "🍏 Job status: ${{ job.status }}."
+        run: ;
       
