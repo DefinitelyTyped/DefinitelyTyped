@@ -25,3 +25,10 @@ parser.on('headers', headers => {
     // $ExpectType { [header: string]: string; }
     const _email = headers;
 });
+// $ExpectType MailParser
+parser.on('attachment', (attachment, node) => {
+    // $ExpectType StreamAttachment
+    const _attachment = attachment;
+    // $ExpectType MimeTreeNode
+    const _node = node;
+});

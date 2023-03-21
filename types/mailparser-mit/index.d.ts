@@ -7,6 +7,8 @@
 
 import { Stream } from 'node:stream';
 
+export type Priority = 'normal' | 'low' | 'high';
+
 export interface MailParserOptions {
     /** if set to true print all incoming lines to decodeq */
     debug?: boolean;
@@ -23,17 +25,27 @@ export interface MailParserOptions {
 export interface ContactInfo {
     address: string;
     name: string;
+    group?: string;
 }
 
 export interface Attachment {
+    /** A MD5 hash of the message content. */
     checksum: string;
+    /** Attachment contents. */
     content: Buffer;
+    /** Content disposition type for the attachment, most probably `'attachment'`. */
     contentDisposition: string;
+    /** The header value from `Content-ID`. */
     contentId: string;
+    /** MIME type of the message. */
     contentType: string;
+    /** File name of the attachment. */
     generatedFileName: string;
     length: number;
     transferEncoding: string;
+}
+export interface StreamAttachment extends Omit<Attachment, 'content'> {
+    contents: Stream;
 }
 export interface MimeTreeNode {
     attachment?: boolean;
@@ -45,7 +57,7 @@ export interface MimeTreeNode {
     meta: { [key: string]: any };
     parentNode: MimeTreeNode | null;
     parsedHeaders: { [header: string]: string };
-    priority?: string;
+    priority?: Priority;
     subject?: string;
     to?: ContactInfo[];
     useMIME?: boolean;
@@ -64,10 +76,10 @@ export interface ParsedEmail {
     alternatives?: Array<MailData['calendar'][number]['content']>;
     headers: { [header: string]: string };
     subject?: string;
-    references?: unknown;
+    references?: string[];
     messageId?: string;
     inReplyTo?: string[];
-    priority?: string;
+    priority?: Priority;
     from?: ContactInfo[];
     replyTo?: ContactInfo[];
     to?: ContactInfo[];
@@ -86,6 +98,8 @@ export class MailParser extends Stream {
     /** This is the final mail structure object that is returned to the client */
     mailData: MailData;
 
+    on(event: string, callback: (any: any) => void): this;
     on(event: 'end', listener: (email: ParsedEmail) => void): this;
     on(event: 'headers', listener: (headers: { [header: string]: string }) => void): this;
+    on(event: 'attachment', listener: (attachment: StreamAttachment, rootNode: MimeTreeNode) => void): this;
 }
