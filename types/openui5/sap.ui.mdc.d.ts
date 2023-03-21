@@ -1,4 +1,4 @@
-// For Library Version: 1.111.0
+// For Library Version: 1.112.0
 
 declare module "sap/ui/mdc/enum/FilterBarValidationStatus" {
   /**
@@ -350,6 +350,8 @@ declare namespace sap {
 
     "sap/ui/mdc/filterbar/FilterBarBase": undefined;
 
+    "sap/ui/mdc/filterbar/p13n/AdaptationFilterBar": undefined;
+
     "sap/ui/mdc/filterbar/vh/CollectiveSearchSelect": undefined;
 
     "sap/ui/mdc/filterbar/vh/FilterBar": undefined;
@@ -390,13 +392,9 @@ declare namespace sap {
 
     "sap/ui/mdc/odata/v4/ValueHelpDelegate": undefined;
 
-    "sap/ui/mdc/p13n/Engine": undefined;
-
     "sap/ui/mdc/p13n/panels/FilterPanel": undefined;
 
     "sap/ui/mdc/p13n/StateUtil": undefined;
-
-    "sap/ui/mdc/p13n/subcontroller/BaseController": undefined;
 
     "sap/ui/mdc/p13n/UIManager": undefined;
 

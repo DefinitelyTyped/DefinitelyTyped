@@ -266,7 +266,21 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.111.0
+declare module "sap/ui/thirdparty/jquery" {
+  export default jQuery;
+}
+declare module "sap/ui/thirdparty/qunit-2" {
+  export default QUnit;
+}
+
+declare namespace sap {
+  interface IUI5DefineDependencyNames {
+    "sap/ui/thirdparty/jquery": undefined;
+    "sap/ui/thirdparty/qunit-2": undefined;
+  }
+}
+
+// For Library Version: 1.112.0
 
 declare module "sap/base/assert" {
   /**
@@ -2536,7 +2550,8 @@ declare module "sap/ui/core/date/UI5Date" {
      */
     getUTCSeconds(): int;
     /**
-     * @deprecated (since 1.111.0) - as it is deprecated in JavaScript Date; use {@link #getFullYear} instead
+     * @deprecated (since 1.111) - as it is deprecated in the base class JavaScript Date; use {@link #getFullYear}
+     * instead
      *
      * Returns the year of this date instance minus 1900 according to the configured time zone, see `Date.prototype.getYear`.
      *
@@ -2800,7 +2815,8 @@ declare module "sap/ui/core/date/UI5Date" {
       iMilliseconds?: int
     ): int;
     /**
-     * @deprecated (since 1.111.0) - as it is deprecated in JavaScript Date; use {@link #setFullYear} instead
+     * @deprecated (since 1.111) - as it is deprecated in the base class JavaScript Date; use {@link #setFullYear}
+     * instead
      *
      * Sets the year for this date instance plus 1900 considering the configured time zone, see `Date.prototype.setYear`.
      *
@@ -9300,7 +9316,7 @@ declare module "sap/ui/base/Object" {
      *
      * @returns Whether the given object is an instance of the given type or of any of the given types
      */
-    static isA(
+    static isA<T extends BaseObject = BaseObject>(
       /**
        * Object which will be checked whether it is an instance of the given type
        */
@@ -9309,7 +9325,7 @@ declare module "sap/ui/base/Object" {
        * Type or types to check for
        */
       vTypeName: string | string[]
-    ): boolean;
+    ): oObject is T;
     /**
      * Destructor method for objects.
      */
@@ -9353,12 +9369,12 @@ declare module "sap/ui/base/Object" {
      *
      * @returns Whether this object is an instance of the given type or of any of the given types
      */
-    isA(
+    isA<T extends BaseObject = BaseObject>(
       /**
        * Type or types to check for
        */
       vTypeName: string | string[]
-    ): boolean;
+    ): this is T;
   }
   /**
    * The structure of the "metadata" object which is passed when inheriting from sap.ui.base.Object using
@@ -52739,7 +52755,7 @@ declare module "sap/ui/model/odata/ODataUtils" {
        * if `true`, the string values `vValue1` and `vValue2` are compared as a decimal number (only sign, integer
        * and fraction digits; no exponential format). Otherwise they are recognized by looking at their types.
        */
-      bAsDecimal?: string
+      bAsDecimal?: boolean
     ): int;
     /**
      * Formats a JavaScript value according to the given
@@ -52821,9 +52837,9 @@ declare module "sap/ui/model/odata/ODataUtils" {
              */
             client: string;
             /**
-             * setting this flag to 'true' overrides the already existing origin
+             * setting this flag to `true` overrides the already existing origin
              */
-            force: string;
+            force: boolean;
           }
         | string
     ): string;
@@ -57422,6 +57438,13 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         headers?: Record<string, string>;
         /**
+         * **Experimental** as of version 1.112.0; may change behavior or be removed in future versions. Whether
+         * to ignore all annotations from service metadata, so that they are not available as V4 annotations in
+         * this model's metamodel; see {@link #getMetaModel}. Only annotations from annotation files are loaded;
+         * see the `annotationURI` parameter.
+         */
+        ignoreAnnotationsFromMetadata?: boolean;
+        /**
          * If set to `true`, request payloads will be JSON, XML for `false`
          */
         json?: boolean;
@@ -57477,12 +57500,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         serviceUrlParams?: Record<string, string>;
         /**
-         * Whether to skip the automated loading of annotations from the metadata document. Loading annotations
-         * from metadata does not have any effects (except the lost performance by invoking the parser) if there
-         * are not annotations inside the metadata document
-         */
-        skipMetadataAnnotationParsing?: boolean;
-        /**
          * Enable/disable security token handling
          */
         tokenHandling?: boolean;
@@ -57505,6 +57522,13 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * service.
          */
         password?: string;
+        /**
+         * **Deprecated** This parameter does not prevent creation of annotations from the metadata document in
+         * this model's metamodel. Whether to skip the automated loading of annotations from the metadata document.
+         * Loading annotations from metadata does not have any effects (except the lost performance by invoking
+         * the parser) if there are no annotations inside the metadata document
+         */
+        skipMetadataAnnotationParsing?: boolean;
         /**
          * **Deprecated** for security reasons. Use strong server side authentication instead. UserID for the service.
          */
@@ -58416,7 +58440,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
-        preliminaryContext?: boolean;
+        createPreliminaryContext?: boolean;
         /**
          * Optional map of custom query parameters, names of custom parameters must not start with `$`.
          */
@@ -59821,10 +59845,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        */
       mParameters?: {
         /**
-         * Deprecated - use `groupId` instead
-         */
-        batchGroupId?: string;
-        /**
          * Defines the group that should be submitted. If not specified, all deferred groups will be submitted.
          * Requests belonging to the same group will be bundled in one batch request.
          */
@@ -59843,6 +59863,16 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * which contains additional error information
          */
         error?: Function;
+        /**
+         * **Deprecated**, use `groupId` instead
+         */
+        batchGroupId?: string;
+        /**
+         * **Deprecated** since 1.38.0; use the `defaultUpdateMethod` constructor parameter instead. If unset, the
+         * update method is determined from the `defaultUpdateMethod` constructor parameter. If `true`, `sap.ui.model.odata.UpdateMethod.Merge`
+         * is used for update operations; if set to `false`, `sap.ui.model.odata.UpdateMethod.Put` is used.
+         */
+        merge?: boolean;
       }
     ): object;
     /**
@@ -62176,8 +62206,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * set `bSkipRefresh` to `true`. To avoid errors you must skip this refresh when using {@link sap.ui.model.odata.v4.Context#requestSideEffects}
      * in the same $batch to refresh the complete collection containing the newly created entity.
      *
-     * Note: A deep create is not supported. The dependent entity has to be created using a second list binding.
-     * Note that it is not supported to bind relative to a transient context.
+     * Since 1.112.0 it is possible to create nested entities in a collection-valued navigation property together
+     * with the entity (so-called "deep create"), for example a list of items for an order. For this purpose,
+     * bind the list relative to a transient context. Calling this method then adds a transient entity to the
+     * parent's navigation property, which is sent with the payload of the parent entity. Such a nested context
+     * also has a {@link sap.ui.model.odata.v4.Context#created created} promise, which resolves when the deep
+     * create resolves. Deep create is an **experimental** API.
      *
      * Note: Creating at the end is only allowed if the final length of the binding is known (see {@link #isLengthFinal}),
      * so that there is a clear position to place this entity at. This is the case if the complete collection
@@ -62193,7 +62227,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        */
       oInitialData?: object,
       /**
-       * Whether an automatic refresh of the created entity will be skipped
+       * Whether an automatic refresh of the created entity will be skipped; ignored within a deep create (when
+       * the binding's parent context is transient)
        */
       bSkipRefresh?: boolean,
       /**
@@ -63305,8 +63340,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
     getOriginalProperty(): void;
     /**
      * @SINCE 1.37.0
-     * @deprecated (since 1.37.0) - use {@link #getObject}.
      *
+     * Use {@link #getObject}.
      * See:
      * 	sap.ui.model.Model#getProperty
      */
@@ -64245,11 +64280,10 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $$ownRequest?: boolean;
         /**
-         * Whether multiple bindings for the same resource path share the data, so that it is requested only once;
-         * only the value `true` is allowed. This parameter can be inherited from the model's parameter "sharedRequests",
-         * see {@link sap.ui.model.odata.v4.ODataModel#constructor}. Supported since 1.80.0 **Note:** These bindings
-         * are read-only, so they may be especially useful for value lists; state messages (since 1.108.0) and the
-         * following APIs are **not** allowed
+         * Whether multiple bindings for the same resource path share the data, so that it is requested only once.
+         * This parameter can be inherited from the model's parameter "sharedRequests", see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
+         * Supported since 1.80.0 **Note:** These bindings are read-only, so they may be especially useful for value
+         * lists; state messages (since 1.108.0) and the following APIs are **not** allowed
          * 	 for the list binding itself:
          * 	 {@link sap.ui.model.odata.v4.ODataListBinding#create}  {@link sap.ui.model.odata.v4.ODataListBinding#getKeepAliveContext}
          * or {@link #getKeepAliveContext} as far as it affects such a list binding  {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges}
@@ -71757,6 +71791,8 @@ declare module "sap/ui/test/Opa5" {
 
   import OpaPlugin from "sap/ui/test/OpaPlugin";
 
+  import UI5Element from "sap/ui/core/Element";
+
   import Matcher from "sap/ui/test/matchers/Matcher";
 
   import Action from "sap/ui/test/actions/Action";
@@ -72333,7 +72369,13 @@ declare module "sap/ui/test/Opa5" {
          *             ]}
          * ```
          */
-        matchers?: Function | any[] | object | Matcher;
+        matchers?:
+          | ((p1: UI5Element) => void)
+          | Record<string, object>
+          | Matcher
+          | Array<(p1: UI5Element) => void>
+          | Array<Record<string, object>>
+          | Matcher[];
         /**
          * Selects all control by their type. It is usually combined with a viewName or searchOpenDialogs. If no
          * control is matching the type, an empty array will be returned. Here are some samples:
@@ -72416,7 +72458,7 @@ declare module "sap/ui/test/Opa5" {
          * will stop. The first parameter passed into the function is the same value that gets passed to the success
          * function. Returning something other than boolean in check will not change the first parameter of success.
          */
-        check?: Function;
+        check?: (p1: UI5Element | UI5Element[]) => boolean;
         /**
          * Will get invoked after the following conditions are met:
          * 	 -  One or multiple controls were found using controlType, Id, viewName. If visible is true (it is by
@@ -72427,7 +72469,7 @@ declare module "sap/ui/test/Opa5" {
          * 			(viewName, controlType, multiple ID's, regex ID's) that matched all matchers. Matchers can alter the
          * 			array or single control to something different. Please read the documentation of waitFor's matcher parameter.
          */
-        success?: Function;
+        success?: (p1: UI5Element | UI5Element[]) => void;
         /**
          * Invoked when the timeout is reached and the check never returned true.
          */
