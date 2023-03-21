@@ -919,7 +919,7 @@ describe('elementIdDoubleClick command demo', function() {
 //
 // .elementActive
 //
-describe('elementIdDoubleClick command demo', function() {
+describe('elementActive command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
