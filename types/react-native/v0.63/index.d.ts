@@ -4233,7 +4233,7 @@ export interface SectionListRenderItemInfo<ItemT, SectionT = DefaultSectionT> ex
 
 export type SectionListRenderItem<ItemT, SectionT = DefaultSectionT> = (
     info: SectionListRenderItemInfo<ItemT, SectionT>,
-) => React.ReactElement<unknown> | null;
+) => React.ReactElement | null;
 
 export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     extends VirtualizedListWithoutRenderItemProps<ItemT> {
