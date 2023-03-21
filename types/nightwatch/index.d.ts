@@ -5781,7 +5781,8 @@ export interface WindowNsCommands {
     ): Awaitable<NightwatchAPI, null>;
 
     /**
-     * Hides the window in the system tray. If the window happens to be in fullscreen mode, it is restored the normal state then it will be "iconified" - minimize or hide the window from the visible screen.
+     * Hides the window in the system tray. If the window happens to be in fullscreen mode,
+     * it is restored the normal state then it will be "iconified" - minimize or hide the window from the visible screen.
      *
      * @example
      * module.exports = {
@@ -6009,7 +6010,8 @@ export interface A11yNsCommands {
     /**
      * Analyzes the current page against applied axe rules.
      *
-     * The `selector` and `options` arguments can also be specified in the Nightwatch globals and omitted from the command while writing test. See [here](https://github.com/reallymello/nightwatch-axe-verbose#global-configuration) for more information.
+     * The `selector` and `options` arguments can also be specified in the Nightwatch globals and omitted from the command while writing test.
+     * See [here](https://github.com/reallymello/nightwatch-axe-verbose#global-configuration) for more information.
      *
      * @example
      * describe('accessibility testing', function() {
