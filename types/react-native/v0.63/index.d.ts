@@ -8315,7 +8315,7 @@ export interface UIManagerStatic {
      * @platform ios
      */
     takeSnapshot: (
-        view?: 'window' | React.ReactElement<unknown> | number,
+        view?: 'window' | React.ReactElement | number,
         options?: {
             width?: number;
             height?: number;
