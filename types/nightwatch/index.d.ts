@@ -2218,6 +2218,13 @@ export type LocateStrategy =
     | 'tag name'
     | 'xpath';
 
+export type NightwatchLogTypes =
+    | 'client'
+    | 'driver'
+    | 'browser'
+    | 'server'
+    | 'performance';
+
 /**
  * #### [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)
  * Element instances encapsulate the definition used to handle element selectors.
@@ -2806,9 +2813,9 @@ export interface ClientCommands extends ChromiumClientCommands {
     getLogTypes(
         callback?: (
             this: NightwatchAPI,
-            result: Array<'client' | 'driver' | 'browser' | 'server' | 'performance'>,
+            result: NightwatchLogTypes[],
         ) => void,
-    ): Awaitable<this, Array<'client' | 'driver' | 'browser' | 'server' | 'performance'>>;
+    ): Awaitable<this, NightwatchLogTypes[]>;
 
     /**
      * Retrieve the URL of the current page.
@@ -5590,6 +5597,8 @@ export interface WebDriverProtocolSessions {
      *      console.log(result.value);
      *    });
      * }
+     *
+     * @see https://nightwatchjs.org/api/session.html#apimethod-container
      */
     session(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Record<string, any>>) => void,
@@ -5723,9 +5732,9 @@ export interface WebDriverProtocolSessions {
     sessionLogTypes(
         callback?: (
             this: NightwatchAPI,
-            result: NightwatchCallbackResult<Array<'client' | 'driver' | 'browser' | 'server'>>,
+            result: NightwatchCallbackResult<NightwatchLogTypes[]>,
         ) => void,
-    ): Awaitable<this, Array<'client' | 'driver' | 'browser' | 'server'>>;
+    ): Awaitable<this, NightwatchLogTypes[]>;
 
     /**
      * Command to set Chrome network emulation settings.
@@ -5779,7 +5788,7 @@ export interface WebDriverProtocolNavigation {
      * @see https://nightwatchjs.org/api/url.html
      */
     url(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
-    url(url?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
+    url(url: string | null, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void): Awaitable<this, string | null>;
 
     /**
      * Navigate backwards in the browser history, if possible.
@@ -5985,6 +5994,10 @@ export interface WebDriverProtocolCommandContexts {
         options: { width?: number; height?: number; x?: number; y?: number },
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
+    windowRect(
+        options: null,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowSizeAndPosition>) => void,
+    ): Awaitable<this, WindowSizeAndPosition>;
 
     /**
      * Change focus to another frame on the page. If the frame id is missing or null, the server should switch to the page's default content.
@@ -5999,7 +6012,10 @@ export interface WebDriverProtocolCommandContexts {
      * @see https://nightwatchjs.org/api/frame.html
      */
     frame(
-        frameId?: WebElement | string | number | null,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    frame(
+        frameId: WebElement | string | number | null,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
 
@@ -6204,6 +6220,8 @@ export interface WebDriverProtocolElements {
      * }
      *
      * @see https://nightwatchjs.org/api/elementIdEquals.html
+     *
+     * @deprecated In favour of WebElement.equals(a, b) from Selenium Webdriver.
      */
     elementIdEquals(
         id: string,
@@ -6300,6 +6318,8 @@ export interface WebDriverProtocolElementState {
      * Determine an element's size in pixels. The size will be returned as a JSON object with width and height properties.
      *
      * @see https://nightwatchjs.org/api/elementIdSize.html#apimethod-container
+     *
+     * @deprecated In favour of .getElementRect()
      */
     elementIdSize(
         id: string,
@@ -6351,6 +6371,8 @@ export interface WebDriverProtocolElementInteraction {
      * In case the element is not keyboard interactable, an <code>element not interactable error</code> is returned.
      *
      * @see https://nightwatchjs.org/api/elementIdValue.html#apimethod-container
+     *
+     * @deprecated In favour of .getValue() and .setValue()
      */
     elementIdValue(
         id: string,
@@ -6369,6 +6391,9 @@ export interface WebDriverProtocolElementInteraction {
      *
      * Rather than the `setValue`, the modifiers are not released at the end of the call. The state of the modifier keys is kept between calls,
      * so mouse interactions can be performed while modifier keys are depressed.
+     *
+     * Since v2.0, this command is deprecated. It is only available on older JSONWire-based drivers.
+     * Please use the new [User Actions API](https://nightwatchjs.org/api/useractions/#overview).
      *
      * @example
      * browser
@@ -6402,7 +6427,7 @@ export interface WebDriverProtocolElementLocation {
      *
      * @see https://nightwatchjs.org/api/elementIdLocation.html#apimethod-container
      *
-     * @deprecated
+     * @deprecated In favour of .getElementRect()
      */
     elementIdLocation(
         id: string,

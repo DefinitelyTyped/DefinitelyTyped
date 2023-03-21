@@ -5,6 +5,7 @@ import {
     NightwatchLogEntry,
     WindowPosition,
     WindowSizeAndPosition,
+    NightwatchLogTypes,
     ElementResult
 } from 'nightwatch';
 
@@ -603,13 +604,13 @@ describe('sessionLogTypes command demo', function() {
     test('demo test', function(browser) {
         browser.sessionLogTypes(function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<Array<'client' | 'driver' | 'browser' | 'server'>>(result);
+                isNightwatchCallbackResult<NightwatchLogTypes[]>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.sessionLogTypes();
-        isType<Array<'client' | 'driver' | 'browser' | 'server'>>(result);
+        isType<NightwatchLogTypes[]>(result);
     });
 });
 
@@ -627,8 +628,8 @@ describe('url command demo', function() {
     });
 
     test('async demo test', async function(browser) {
-        const result = await browser.url();
-        isType<string>(result);
+        const result = await browser.url(null);
+        isType<string | null>(result);
     });
 
     after(browser => browser.end());
@@ -797,6 +798,27 @@ describe('windowSize command demo', function() {
     test('async demo test', async function(browser) {
         const result = await browser.windowSize('current', 746, 1200);
         isType<null>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .windowRect
+//
+describe('windowRect command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.windowRect({width: 100, height: 100}, function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<null>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.windowRect(null);
+        isType<WindowSizeAndPosition>(result);
     });
 
     after(browser => browser.end());
