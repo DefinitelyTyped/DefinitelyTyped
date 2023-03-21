@@ -28,7 +28,9 @@ new KJUR.asn1.x509.AuthorityKeyIdentifier({
 KEYUTIL.getKey('pemPKCS1PrivateKey');
 
 const key = new RSAKey();
-key.signWithMessageHash('1234', 'sha256');
+const sig = key.signWithMessageHash('1234', 'sha256');
+
+key.verifyWithMessageHash('1234', sig); // $ExpectType boolean
 
 b64toBA('ZXhhbXBsZQ=='); // $ExpectType number[]
 b64tohex('ZXhhbXBsZQ=='); // $ExpectType string
