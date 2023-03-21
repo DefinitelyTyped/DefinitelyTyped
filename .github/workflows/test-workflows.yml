@@ -1,0 +1,19 @@
+name: Test workflows
+run-name: Trying to understand what happens 🚀
+on: [workflow_dispatch]
+jobs:
+  Search-Commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test job running
+        run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"; 
+          echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Tests, part 1
+        run: |
+          export x="This is set as x"
+          export y="This is now y"
+      - name: "Result: $y"
+        run: echo "$x";
+      - name: "🍏 Job status: ${{ job.status }}."
+        run: echo ${{ runner }}
+        
