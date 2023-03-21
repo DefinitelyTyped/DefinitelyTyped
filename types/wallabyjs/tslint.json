@@ -3,7 +3,6 @@
     "rules": {
         "interface-name": false,
         "member-access": false,
-        "no-declare-current-package": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,
         "no-redundant-jsdoc-2": false,

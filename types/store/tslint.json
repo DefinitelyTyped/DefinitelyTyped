@@ -4,7 +4,6 @@
         "ban-types": false,
         "comment-format": false,
         "no-boolean-literal-compare": false,
-        "no-declare-current-package": false,
         "no-mergeable-namespace": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
