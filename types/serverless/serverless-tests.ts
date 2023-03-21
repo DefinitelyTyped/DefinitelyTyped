@@ -167,6 +167,7 @@ const awsServerless: Aws.Serverless = {
         websocketsApiRouteSelectionExpression: 'testwebsocketsApiRouteSelectionExpression',
         profile: 'testprofile',
         memorySize: 1,
+        ephemeralStorageSize: 1,
         reservedConcurrency: 1,
         timeout: 1,
         logRetentionInDays: 1,
@@ -194,9 +195,9 @@ const awsServerless: Aws.Serverless = {
             testenvironmentkey: 'testenvironmentvalue'
         },
         endpointType: 'regional',
-        apiKeys: ['testApiKeys'],
+        apiKeys: [{ name: "testApiKeyName", value: "testApiKeyValue", description: "testApiKeyDescription", customerId: "testApiKeyCustomerId", enabled: true }, 'testApiKeys'],
         apiGateway: {
-            apiKeys: ['testApiKeys'],
+            apiKeys: [{ name: "testApiKeyName", value: "testApiKeyValue", description: "testApiKeyDescription", customerId: "testApiKeyCustomerId", enabled: true }, 'testApiKeys'],
             restApiId: 'testrestApiId',
             restApiRootResourceId: 'testrestApiRootResourceId',
             restApiResources: {
@@ -400,6 +401,7 @@ const awsServerless: Aws.Serverless = {
             name: 'testname',
             description: 'testdescription',
             memorySize: 1,
+            ephemeralStorageSize: 1,
             reservedConcurrency: 1,
             provisionedConcurrency: 1,
             runtime: 'testruntime',

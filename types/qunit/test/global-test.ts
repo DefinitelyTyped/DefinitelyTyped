@@ -570,6 +570,15 @@ QUnit.test( "Assert plugin", function ( assert ) {
         actual: actual,
         expected: `between ${from} and ${to} inclusive`
     });
+
+    // with stack
+    assert.pushResult({
+        result: isBetween,
+        actual: actual,
+        expected: `between ${from} and ${to} inclusive`,
+        message: 'message',
+        source: new Error().stack
+    });
 });
 
 QUnit.test( "throws", function( assert ) {
@@ -828,3 +837,9 @@ QUnit.onUncaughtException = (error: unknown) => {
     console.log(error.message);
   }
 };
+
+QUnit.config.testTimeout = null;
+QUnit.config.testTimeout = 60000;
+
+const urlParams = QUnit.urlParams;
+urlParams.foo;

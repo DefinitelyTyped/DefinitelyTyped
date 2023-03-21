@@ -33,7 +33,13 @@ setInterval('functionRef', 5);
 // @ts-expect-error
 setInterval('functionRef', 5, 'arg');
 
+const intervalId = setInterval(() => {}, 5);
+
 // clearInterval
+
+clearInterval(intervalId);
+
+clearInterval(5);
 
 // @ts-expect-error
 clearInterval();

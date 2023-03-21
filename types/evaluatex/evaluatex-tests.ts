@@ -35,3 +35,13 @@ const fn7 = evaluatex('incr(4)', {
 });
 
 fn7();
+
+import lexer = require('evaluatex/dist/lexer');
+import parser = require('evaluatex/dist/parser');
+
+const tokens: evaluatex.Token[] = lexer('1+1', { max: Math.max.bind(Math) }, { latex: false });
+
+const ast: evaluatex.AbstractSyntaxTreeNode = parser(tokens).simplify();
+
+ast.evaluate();
+ast.evaluate({});

@@ -5,13 +5,13 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
-         *   Creates a canvas element in the document, and sets
-         *   the dimensions of it in pixels. This method should
-         *   be called only once at the start of setup. Calling
+         *   Creates a canvas element in the document and sets
+         *   its dimensions in pixels. This method should be
+         *   called only once at the start of setup(). Calling
          *   createCanvas more than once in a sketch will
          *   result in very unpredictable behavior. If you want
          *   more than one drawing canvas you could use
-         *   createGraphics (hidden by default but it can be
+         *   createGraphics() (hidden by default but it can be
          *   shown). Important note: in 2D mode (i.e. when
          *   p5.Renderer is not set) the origin (0,0) is
          *   positioned at the top left of the screen. In 3D
@@ -29,6 +29,7 @@ declare module '../../index' {
          *   @param w width of the canvas
          *   @param h height of the canvas
          *   @param [renderer] either P2D or WEBGL
+         *   @return pointer to p5.Renderer holding canvas
          */
         createCanvas(w: number, h: number, renderer?: RENDERER): Renderer;
 
@@ -77,7 +78,7 @@ declare module '../../index' {
          *   - LIGHTEST - only the lightest colour succeeds: C
          *   = max(A*factor, B).
          *   - DIFFERENCE - subtract colors from underlying
-         *   image.
+         *   image. (2D)
          *   - EXCLUSION - similar to DIFFERENCE, but less
          *   extreme.
          *   - MULTIPLY - multiply the colors, result will

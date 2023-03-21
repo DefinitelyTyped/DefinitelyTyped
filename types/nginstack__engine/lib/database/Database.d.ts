@@ -18,14 +18,14 @@ declare class Database {
     authenticateUser(userId: string, password: string): number;
     login(userId: string, password: string): boolean;
     loginByAuthToken(idToken: string): void;
-    loginBySession(session: any): boolean;
+    loginBySession(session: Session): boolean;
     logout(): void;
     query(sql: string | string[], options?: any): DataSet | DataSet[];
     executeSQL(sql: string | string[]): void;
     executeDDL(statement: string): void;
     createKey(keysQty: number, useHighKeys?: boolean): number;
     incVersion(): number;
-    applyUpdates(dataSets: DataSet | any[], log?: boolean): number;
+    applyUpdates(dataSets: DataSet | any[], logChanges?: boolean): number;
     getReferences(
         key: number,
         tableName: string,
@@ -57,19 +57,21 @@ declare class Database {
     ): void;
     discardEndpointInfoCache(): void;
     discardCaches(): void;
-    sendMail(mail: any): void;
+    sendEmail(email: Email): void;
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
 }
 declare namespace Database {
-    export { fromConfig, VersionInfo, DatabaseVersionInfo };
+    export { fromConfig, Email, Session, VersionInfo, DatabaseVersionInfo };
 }
 import Connection = require('../connection/Connection.js');
 interface DatabaseVersionInfo {
     server: VersionInfo;
     client: VersionInfo;
 }
+type Session = import('../session/Session');
 import DataSet = require('../dataset/DataSet.js');
 import DBKey = require('../dbkey/DBKey.js');
+type Email = import('../email/Email');
 declare function fromConfig(key: DBKey | number): Database;
 interface VersionInfo {
     major: number;

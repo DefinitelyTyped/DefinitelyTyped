@@ -7,6 +7,7 @@ import DecoupledEditorUI from './decouplededitorui';
 export default class DecoupledEditor extends Editor implements DataApi, EditorWithUI {
     protected constructor(sourceElementOrData: HTMLElement | string, config: EditorConfig);
     ui: DecoupledEditorUI;
+    sourceElement: HTMLElement;
     setData(data: string): void;
     getData(options?: { rootName?: string | undefined; trim?: 'empty' | 'none' | undefined }): string;
     destroy(): Promise<void>;

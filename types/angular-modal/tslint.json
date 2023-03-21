@@ -5,7 +5,6 @@
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-unnecessary-class": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
@@ -13,7 +12,6 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

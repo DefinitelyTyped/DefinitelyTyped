@@ -46,6 +46,8 @@
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
     import { ReadableStream as WebReadableStream } from 'node:stream/web';
+    export function isUtf8(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
+    export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -163,13 +165,56 @@ declare module 'buffer' {
          */
         stream(): WebReadableStream;
     }
+    export interface FileOptions {
+        /**
+         * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts will be
+         * converted to the platform native line-ending as specified by `require('node:os').EOL`.
+         */
+        endings?: 'native' | 'transparent';
+        /** The File content-type. */
+        type?: string;
+        /** The last modified date of the file. `Default`: Date.now(). */
+        lastModified?: number;
+    }
+    /**
+     * A [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) provides information about files.
+     * @experimental
+     * @since v18.13.0
+     */
+    export class File extends Blob {
+        constructor(sources: Array<BinaryLike | Blob>, fileName: string, options?: FileOptions);
+        /**
+         * The name of the `File`.
+         * @since v18.13.0
+         */
+        readonly name: string;
+        /**
+         * The last modified date of the `File`.
+         * @since v18.13.0
+         */
+        readonly lastModified: number;
+    }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
 
-    import { Blob as _Blob } from 'buffer';
+    import { Blob as NodeBlob } from 'buffer';
+    // This conditional type will be the existing global Blob in a browser, or
+    // the copy below in a Node environment.
+    type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
     global {
         // Buffer class
-        type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
+        type BufferEncoding =
+            | 'ascii'
+            | 'utf8'
+            | 'utf-8'
+            | 'utf16le'
+            | 'ucs2'
+            | 'ucs-2'
+            | 'base64'
+            | 'base64url'
+            | 'latin1'
+            | 'binary'
+            | 'hex';
         type WithImplicitCoercion<T> =
             | T
             | {
@@ -243,7 +288,11 @@ declare module 'buffer' {
              * `Buffer.from(array)` and `Buffer.from(string)` may also use the internal`Buffer` pool like `Buffer.allocUnsafe()` does.
              * @since v5.10.0
              */
-            from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
+            from(
+                arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>,
+                byteOffset?: number,
+                length?: number,
+            ): Buffer;
             /**
              * Creates a new Buffer using the passed {data}
              * @param data data to create a new Buffer
@@ -261,7 +310,7 @@ declare module 'buffer' {
                     | {
                           [Symbol.toPrimitive](hint: 'string'): string;
                       },
-                encoding?: BufferEncoding
+                encoding?: BufferEncoding,
             ): Buffer;
             /**
              * Creates a new Buffer using the passed {data}
@@ -335,7 +384,10 @@ declare module 'buffer' {
              * @param [encoding='utf8'] If `string` is a string, this is its encoding.
              * @return The number of bytes contained within `string`.
              */
-            byteLength(string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer, encoding?: BufferEncoding): number;
+            byteLength(
+                string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+                encoding?: BufferEncoding,
+            ): number;
             /**
              * Returns a new `Buffer` which is the result of concatenating all the `Buffer`instances in the `list` together.
              *
@@ -706,7 +758,13 @@ declare module 'buffer' {
              * @param [sourceStart=0] The offset within `buf` at which to begin comparison.
              * @param [sourceEnd=buf.length] The offset within `buf` at which to end comparison (not inclusive).
              */
-            compare(target: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): -1 | 0 | 1;
+            compare(
+                target: Uint8Array,
+                targetStart?: number,
+                targetEnd?: number,
+                sourceStart?: number,
+                sourceEnd?: number,
+            ): -1 | 0 | 1;
             /**
              * Copies data from a region of `buf` to a region in `target`, even if the `target`memory region overlaps with `buf`.
              *
@@ -2235,6 +2293,7 @@ declare module 'buffer' {
          */
         function btoa(data: string): string;
 
+        interface Blob extends __Blob {}
         /**
          * `Blob` class is a global reference for `require('node:buffer').Blob`
          * https://nodejs.org/api/buffer.html#class-blob
@@ -2245,7 +2304,7 @@ declare module 'buffer' {
             Blob: infer T;
         }
             ? T
-            : typeof _Blob;
+            : typeof NodeBlob;
     }
 }
 declare module 'node:buffer' {

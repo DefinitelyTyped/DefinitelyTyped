@@ -1,9 +1,8 @@
-import { NightwatchAPI } from "nightwatch";
-import { NightwatchExpectResult } from "nightwatch/expect";
+import { NightwatchExpectResult } from 'nightwatch/expect';
 
-function isNightwatchAPI(v: NightwatchAPI) {}
+import { isNightwatchAPI, isNull } from "./utils";
+
 function isNightwatchExpectResult(result: NightwatchExpectResult) {}
-function isNull(v: null) {}
 function isPromise(v: PromiseLike<any>) {}
 
 // Expect test for language chains
@@ -11,6 +10,11 @@ it('expect.equal(value)/.contain(value)/.match(regex)', () => {
     browser.expect.element('#main').text.to.equal('The Night Watch');
     browser.expect.element('#main').text.to.contain('The Night Watch');
     browser.expect.element('#main').to.have.css('display').which.equals('block');
+
+    // with section
+    browser.expect.section('@main').text.to.equal('The Night Watch');
+    browser.expect.section('@main').text.to.contain('The Night Watch');
+    browser.expect.section('@main').to.have.css('display').which.equals('block');
 });
 
 it('expect.startWith(value)/.endWith(value)', () => {
@@ -143,6 +147,21 @@ describe('expect.element()', () => {
             .element('#main')
             .to.have.domProperty('classList')
             .which.matches(/search/);
+    });
+});
+
+describe('expect.section()', () => {
+    // Just check if it contains some properties of `expect.element()`.
+    it('have .present', () => {
+        browser.expect.section('@main').to.be.present;
+        browser.expect.section('@main').to.not.be.present;
+        browser.expect.section('@main').to.be.present.before(100);
+    });
+
+    it('have .visible', () => {
+        browser.expect.section('@main').to.be.visible;
+        browser.expect.section('@main').to.not.be.visible;
+        browser.expect.section('@main').to.be.visible.before(100);
     });
 });
 

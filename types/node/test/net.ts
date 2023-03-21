@@ -111,7 +111,10 @@ import { Socket } from 'node:dgram';
         },
         port: 80,
         keepAlive: true,
-        keepAliveInitialDelay: 1000
+        keepAliveInitialDelay: 1000,
+        noDelay: false,
+        autoSelectFamily: false,
+        autoSelectFamilyAttemptTimeout: 250,
     };
     _socket = _socket.connect(ipcConnectOpts);
     _socket = _socket.connect(ipcConnectOpts, (): void => {});
@@ -124,6 +127,9 @@ import { Socket } from 'node:dgram';
 
     // test the types of the address object fields
     const address: net.AddressInfo | {} = _socket.address();
+
+    const _socketLocalPort: number | undefined = _socket.localPort;
+    const _socketLocalFamily: string | undefined = _socket.localFamily;
 
     /// addListener
 

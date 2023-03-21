@@ -1,9 +1,8 @@
 import * as cp from 'node:child_process';
+import { writeFile } from 'node:fs/promises';
 import * as os from 'node:os';
 import { AllPackages, getDefinitelyTyped, parseDefinitions, clean } from '@definitelytyped/definitions-parser';
 import { loggerWithErrors } from '@definitelytyped/utils';
-import fsExtra from 'fs-extra';
-const { writeFile } = fsExtra;
 
 async function main() {
     const options = { definitelyTypedPath: '.', progress: false, parseInParallel: true };

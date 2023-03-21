@@ -112,6 +112,29 @@ expectType<mapboxgl.MapboxOptions>({
 });
 
 /**
+ * Check `touchPitch`, `touchZoomRotate`, `scrollZoom` to accept Object
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    touchPitch: { around: 'center' },
+    touchZoomRotate: { around: 'center' },
+    scrollZoom: { around: 'center' },
+});
+
+/**
+ * Check `dragPan` to accept Object
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    dragPan: {
+        linearity: 0.3,
+        easing: t => t,
+        maxSpeed: 1400,
+        deceleration: 2500,
+    },
+});
+
+/**
  * Create and style marker clusters
  */
 map.on('load', function () {
@@ -1316,10 +1339,12 @@ new mapboxgl.Map().scrollZoom.setZoomRate(1);
 
 // $ExpectType void
 new mapboxgl.Map().scrollZoom.setWheelZoomRate(1);
+new mapboxgl.Map().scrollZoom.enable({ around: 'center' });
 
 const touchPitchHandler = new mapboxgl.TouchPitchHandler(map);
 // $ExpectType void
 touchPitchHandler.enable();
+touchPitchHandler.enable({ around: 'center' });
 // $ExpectType boolean
 touchPitchHandler.isActive();
 // $ExpectType boolean
@@ -1328,6 +1353,30 @@ touchPitchHandler.isEnabled();
 touchPitchHandler.disable();
 
 new mapboxgl.Map().touchPitch = touchPitchHandler;
+
+/**
+ * `dragPan`
+ */
+// $ExpectType void
+new mapboxgl.Map().dragPan.enable({
+    linearity: 0.3,
+    easing: t => t,
+    maxSpeed: 1400,
+    deceleration: 2500,
+});
+
+/**
+ * `touchZoomRotate`
+ */
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable({
+    around: 'center',
+});
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable();
+
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable({});
 
 /*
  * Visibility

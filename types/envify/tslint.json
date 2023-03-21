@@ -5,8 +5,6 @@
         "no-declare-current-package": false,
         "no-var-keyword": false,
         "one-variable-per-declaration": false,
-        "prefer-const": false,
-        "prefer-declare-function": false,
-        "trim-file": false
+        "prefer-const": false
     }
 }

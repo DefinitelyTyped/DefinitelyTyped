@@ -1421,7 +1421,7 @@ testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
             iconOptions.image;
 
             if (iconOptions.size !== undefined) {
-                // $ExpectType number[] | Size
+                // $ExpectType number[] | Size || Size | number[]
                 iconOptions.size;
             } else {
                 // $ExpectType undefined
@@ -1429,7 +1429,7 @@ testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
             }
 
             if (iconOptions.clipOrigin !== undefined) {
-                // $ExpectType number[] | Pixel
+                // $ExpectType number[] | Pixel || Pixel | number[]
                 iconOptions.clipOrigin;
             } else {
                 // $ExpectType undefined

@@ -1,4 +1,4 @@
-import ParserN3 = require('@rdfjs/parser-n3');
+import ParserN3 from '@rdfjs/parser-n3';
 import { Stream, DataFactory, Sink, BaseQuad } from 'rdf-js';
 import { EventEmitter } from 'events';
 

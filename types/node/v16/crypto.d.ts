@@ -1159,11 +1159,13 @@ declare module 'crypto' {
         format?: KeyFormat | undefined;
         type?: 'pkcs1' | 'pkcs8' | 'sec1' | undefined;
         passphrase?: string | Buffer | undefined;
+        encoding?: string | undefined;
     }
     interface PublicKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
         type?: 'pkcs1' | 'spki' | undefined;
+        encoding?: string | undefined;
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
@@ -1274,6 +1276,7 @@ declare module 'crypto' {
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
+    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     type KeyLike = string | Buffer | KeyObject;
     /**
      * The `Sign` class is a utility for generating signatures. It can be used in one
@@ -1428,8 +1431,8 @@ declare module 'crypto' {
          * be passed instead of a public key.
          * @since v0.1.92
          */
-        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
-        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: string, signature_format?: BinaryToTextEncoding): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput, signature: NodeJS.ArrayBufferView): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput, signature: string, signature_format?: BinaryToTextEncoding): boolean;
     }
     /**
      * Creates a `DiffieHellman` key exchange object using the supplied `prime` and an
@@ -1799,7 +1802,7 @@ declare module 'crypto' {
      * Return a random integer `n` such that `min <= n < max`.  This
      * implementation avoids [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias).
      *
-     * The range (`max - min`) must be less than 248. `min` and `max` must
+     * The range (`max - min`) must be less than `2**48`. `min` and `max` must
      * be [safe integers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger).
      *
      * If the `callback` function is not provided, the random integer is
@@ -2325,7 +2328,7 @@ declare module 'crypto' {
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: BufferEncoding;
     type KeyType = 'rsa' | 'rsa-pss' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
-    type KeyFormat = 'pem' | 'der';
+    type KeyFormat = 'pem' | 'der' | 'jwk';
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
         cipher?: string | undefined;
@@ -2936,11 +2939,16 @@ declare module 'crypto' {
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v12.0.0
      */
-    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
     function verify(
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
-        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
+        signature: NodeJS.ArrayBufferView
+    ): boolean;
+    function verify(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
         signature: NodeJS.ArrayBufferView,
         callback: (error: Error | null, result: boolean) => void
     ): void;
@@ -3089,33 +3097,34 @@ declare module 'crypto' {
          */
         disableEntropyCache?: boolean | undefined;
     }
+    type UUID = `${string}-${string}-${string}-${string}-${string}`;
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
      * cryptographic pseudorandom number generator.
      * @since v15.6.0
      */
-    function randomUUID(options?: RandomUUIDOptions): string;
+    function randomUUID(options?: RandomUUIDOptions): UUID;
     interface X509CheckOptions {
         /**
          * @default 'always'
          */
-        subject: 'always' | 'never';
+        subject?: 'always' | 'default' | 'never';
         /**
          * @default true
          */
-        wildcards: boolean;
+        wildcards?: boolean;
         /**
          * @default true
          */
-        partialWildcards: boolean;
+        partialWildcards?: boolean;
         /**
          * @default false
          */
-        multiLabelWildcards: boolean;
+        multiLabelWildcards?: boolean;
         /**
          * @default false
          */
-        singleLabelSubdomains: boolean;
+        singleLabelSubdomains?: boolean;
     }
     /**
      * Encapsulates an X509 certificate and provides read-only access to
@@ -3345,7 +3354,7 @@ declare module 'crypto' {
     interface CheckPrimeOptions {
         /**
          * The number of Miller-Rabin probabilistic primality iterations to perform.
-         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most 2-64 for random input.
+         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most `2**-64` for random input.
          * Care must be used when selecting a number of checks.
          * Refer to the OpenSSL documentation for the BN_is_prime_ex function nchecks options for more details.
          *
@@ -3553,7 +3562,7 @@ declare module 'crypto' {
              * The UUID is generated using a cryptographic pseudorandom number generator.
              * @since v16.7.0
              */
-            randomUUID(): string;
+            randomUUID(): UUID;
             CryptoKey: CryptoKeyConstructor;
         }
         // This constructor throws ILLEGAL_CONSTRUCTOR so it should not be newable.

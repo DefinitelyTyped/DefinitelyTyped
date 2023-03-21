@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.8
+// Type definitions for Leaflet.js 1.9
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
@@ -56,10 +56,12 @@ export namespace LineUtil {
         useLastCode?: boolean,
         round?: boolean,
     ): [Point, Point] | false;
+    function polylineCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
 }
 
 export namespace PolyUtil {
     function clipPolygon(points: Point[], bounds: BoundsExpression, round?: boolean): Point[];
+    function polygonCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
 }
 
 export namespace DomUtil {
@@ -179,7 +181,7 @@ export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
     constructor(latlngs: LatLngBoundsLiteral);
     extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
-    pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
+    pad(bufferRatio: number): LatLngBounds; // Returns a new LatLngBounds
     getCenter(): LatLng;
     getSouthWest(): LatLng;
     getNorthEast(): LatLng;
@@ -193,7 +195,7 @@ export class LatLngBounds {
     intersects(otherBounds: LatLngBoundsExpression): boolean;
     overlaps(otherBounds: LatLngBoundsExpression): boolean;
     toBBoxString(): string;
-    equals(otherBounds: LatLngBoundsExpression): boolean;
+    equals(otherBounds: LatLngBoundsExpression, maxMargin?: number): boolean;
     isValid(): boolean;
 }
 
@@ -243,7 +245,12 @@ export type BoundsLiteral = [PointTuple, PointTuple];
 export class Bounds {
     constructor(topLeft: PointExpression, bottomRight: PointExpression);
     constructor(points?: Point[] | BoundsLiteral);
+
+    // tslint:disable:unified-signatures
     extend(point: PointExpression): this;
+    extend(otherBounds: BoundsExpression): this;
+    // tslint:enable:unified-signatures
+
     getCenter(round?: boolean): Point;
     getBottomLeft(): Point;
     getBottomRight(): Point;
@@ -254,6 +261,8 @@ export class Bounds {
     intersects(otherBounds: BoundsExpression): boolean;
     overlaps(otherBounds: BoundsExpression): boolean;
     isValid(): boolean;
+    pad(bufferRatio: number): Bounds; // Returns a new Bounds
+    equals(otherBounds: BoundsExpression): boolean;
 
     min?: Point | undefined;
     max?: Point | undefined;
@@ -1217,15 +1226,16 @@ export class Layer extends Evented {
     beforeAdd?(map: Map): this;
 
     protected _map: Map;
+
+    options: LayerOptions;
 }
 
-export interface GridLayerOptions {
+export interface GridLayerOptions extends LayerOptions {
     tileSize?: number | Point | undefined;
     opacity?: number | undefined;
     updateWhenIdle?: boolean | undefined;
     updateWhenZooming?: boolean | undefined;
     updateInterval?: number | undefined;
-    attribution?: string | undefined;
     zIndex?: number | undefined;
     bounds?: LatLngBoundsExpression | undefined;
     minZoom?: number | undefined;
@@ -1368,7 +1378,6 @@ export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number | undefined;
     alt?: string | undefined;
     interactive?: boolean | undefined;
-    attribution?: string | undefined;
     crossOrigin?: CrossOrigin | boolean | undefined;
     errorOverlayUrl?: string | undefined;
     zIndex?: number | undefined;
@@ -1743,7 +1752,7 @@ export function featureGroup(layers?: Layer[], options?: LayerOptions): FeatureG
 
 export type StyleFunction<P = any> = (feature?: geojson.Feature<geojson.GeometryObject, P>) => PathOptions;
 
-export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
+export interface GeoJSONOptions<P = any, G extends geojson.GeometryObject = geojson.GeometryObject> extends InteractiveLayerOptions {
     /**
      * A Function defining how GeoJSON points spawn Leaflet layers.
      * It is internally called when data is added, passing the GeoJSON point
@@ -1783,7 +1792,7 @@ export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
      * function (feature, layer) {}
      * ```
      */
-    onEachFeature?(feature: geojson.Feature<geojson.GeometryObject, P>, layer: Layer): void;
+    onEachFeature?(feature: geojson.Feature<G, P>, layer: Layer): void;
 
     /**
      * A Function that will be used to decide whether to show a feature or not.
@@ -1796,7 +1805,7 @@ export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
      * }
      * ```
      */
-    filter?(geoJsonFeature: geojson.Feature<geojson.GeometryObject, P>): boolean;
+    filter?(geoJsonFeature: geojson.Feature<G, P>): boolean;
 
     /**
      * A Function that will be used for converting GeoJSON coordinates to LatLngs.
@@ -1812,17 +1821,17 @@ export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
  * Represents a GeoJSON object or an array of GeoJSON objects.
  * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
  */
-export class GeoJSON<P = any> extends FeatureGroup<P> {
+export class GeoJSON<P = any, G extends geojson.GeometryObject = geojson.GeometryObject> extends FeatureGroup<P> {
     /**
      * Convert layer into GeoJSON feature
      */
-    static getFeature<P = any>(layer: Layer, newGeometry: geojson.Feature<geojson.GeometryObject, P> | geojson.GeometryObject): geojson.Feature<geojson.GeometryObject, P>;
+    static getFeature<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(layer: Layer, newGeometry: geojson.Feature<G, P> | G): geojson.Feature<G, P>;
 
     /**
      * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
      * and/or coordsToLatLng functions if provided as options.
      */
-    static geometryToLayer<P = any>(featureData: geojson.Feature<geojson.GeometryObject, P>, options?: GeoJSONOptions<P>): Layer;
+    static geometryToLayer<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(featureData: geojson.Feature<G, P>, options?: GeoJSONOptions<P, G>): Layer;
 
     /**
      * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
@@ -1856,9 +1865,9 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
     /**
      * Normalize GeoJSON geometries/features into GeoJSON features.
      */
-    static asFeature<P = any>(geojson: geojson.Feature<geojson.GeometryObject, P> | geojson.GeometryObject): geojson.Feature<geojson.GeometryObject, P>;
+    static asFeature<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(geojson: geojson.Feature<G, P> | G): geojson.Feature<G, P>;
 
-    constructor(geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions<P>)
+    constructor(geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions<P, G>)
     /**
      * Adds a GeoJSON object to the layer.
      */
@@ -1876,7 +1885,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      */
     setStyle(style: PathOptions | StyleFunction<P>): this;
 
-    options: GeoJSONOptions<P>;
+    options: GeoJSONOptions<P, G>;
 }
 
 /**
@@ -1886,8 +1895,8 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
  * map (you can alternatively add it later with addData method) and
  * an options object.
  */
-export function geoJSON<P = any>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P>): GeoJSON<P>;
-export function geoJson<P = any>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P>): GeoJSON<P>;
+export function geoJSON<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P, G>): GeoJSON<P, G>;
+export function geoJson<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P, G>): GeoJSON<P, G>;
 
 export type Zoom = boolean | 'center';
 
@@ -2054,9 +2063,11 @@ export interface DivOverlayOptions {
     className?: string | undefined;
     pane?: string | undefined;
     interactive?: boolean | undefined;
+    content?: string | HTMLElement | ((layer: Layer) => string) | ((layer: Layer) => HTMLElement);
 }
 
 export abstract class DivOverlay extends Layer {
+    constructor(latlng: LatLngExpression, options?: TooltipOptions);
     constructor(options?: DivOverlayOptions, source?: Layer);
     getLatLng(): LatLng | undefined;
     setLatLng(latlng: LatLngExpression): this;
@@ -2092,6 +2103,7 @@ export interface PopupOptions extends DivOverlayOptions {
 export type Content = string | HTMLElement;
 
 export class Popup extends DivOverlay {
+    constructor(latlng: LatLngExpression, options?: TooltipOptions);
     constructor(options?: PopupOptions, source?: Layer);
     openOn(map: Map): this;
 
@@ -2112,6 +2124,7 @@ export interface TooltipOptions extends DivOverlayOptions {
 }
 
 export class Tooltip extends DivOverlay {
+    constructor(latlng: LatLngExpression, options?: TooltipOptions);
     constructor(options?: TooltipOptions, source?: Layer);
     setOpacity(val: number): void;
 
@@ -2296,6 +2309,8 @@ export namespace DomEvent {
     function removeListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
     function removeListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+
+    function getPropagationPath(ev: Event): HTMLElement[];
 }
 
 export interface DefaultMapPanes {

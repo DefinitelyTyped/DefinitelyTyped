@@ -5,6 +5,7 @@
 //                 Eduardo AC <https://github.com/EduardoAC>
 //                 Ivan Fernandes <https://github.com/ivan94>
 //                 Daphne Smit <https://github.com/daphnesmit>
+//                 Joel Klint <https://github.com/JoelKlint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -54,12 +55,31 @@ declare namespace OAuth2Strategy {
 
     type VerifyCallback = (err?: Error | null, user?: Express.User, info?: object) => void;
 
-    type VerifyFunction =
-        ((accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void) |
-        ((accessToken: string, refreshToken: string, results: any, profile: any, verified: VerifyCallback) => void);
-    type VerifyFunctionWithRequest =
-        ((req: Request, accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void) |
-        ((req: Request, accessToken: string, refreshToken: string, results: any, profile: any, verified: VerifyCallback) => void);
+    type VerifyFunction<TProfile = any, TResults = any> =
+        | ((accessToken: string, refreshToken: string, profile: TProfile, verified: VerifyCallback) => void)
+        | ((
+              accessToken: string,
+              refreshToken: string,
+              results: TResults,
+              profile: TProfile,
+              verified: VerifyCallback,
+          ) => void);
+    type VerifyFunctionWithRequest<TProfile = any, TResults = any> =
+        | ((
+              req: Request,
+              accessToken: string,
+              refreshToken: string,
+              profile: TProfile,
+              verified: VerifyCallback,
+          ) => void)
+        | ((
+              req: Request,
+              accessToken: string,
+              refreshToken: string,
+              results: TResults,
+              profile: TProfile,
+              verified: VerifyCallback,
+          ) => void);
 
     interface _StrategyOptionsBase {
         authorizationURL: string;

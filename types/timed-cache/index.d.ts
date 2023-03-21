@@ -11,16 +11,18 @@ export interface PutOptions {
     ttl: number;
 }
 
+export type Key = string | object;
+
 export default class Cache<T> {
     constructor(options?: CacheOptions);
 
     clear(): void;
 
-    get(key: string | object): T | undefined;
+    get(key: Key): T | undefined;
 
-    put(key: string, value: T, options?: PutOptions): void;
+    put(key: Key, value: T, options?: PutOptions): void;
 
-    remove(key: string): void;
+    remove(key: Key): void;
 
     size(): number;
 }

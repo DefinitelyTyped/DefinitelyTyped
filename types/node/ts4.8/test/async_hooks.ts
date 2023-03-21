@@ -70,7 +70,11 @@ import {
 }
 
 {
-    const ctx = new AsyncLocalStorage<string>();
+    const ctx = new AsyncLocalStorage<string>({
+        onPropagate(type, store) {
+            return store === 'test';
+        }
+    });
     ctx.disable();
     const exitResult: number = ctx.exit((a: number) => {
         return 42;

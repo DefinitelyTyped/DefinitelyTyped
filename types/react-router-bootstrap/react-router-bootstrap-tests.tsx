@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import { Button } from 'react-bootstrap';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export class ReactRouterBootstrapTest extends Component {
     callback() {
@@ -15,8 +15,7 @@ export class ReactRouterBootstrapTest extends Component {
 
                 <div style={style}>
                     <LinkContainer to="/page"><Button>Link</Button></LinkContainer>
-                    <LinkContainer to="/page" exact strict><Button>Link</Button></LinkContainer>
-                    <IndexLinkContainer to="/index"><Button>Link</Button></IndexLinkContainer>
+                    <LinkContainer to="/page" className="myclass" activeClassName="active"><Button>Link</Button></LinkContainer>
                 </div>
             </div>
         );

@@ -10,11 +10,9 @@ import { Color } from 'chroma-js';
 /**
  * Extract colors from images. Supports GIF, JPG, PNG, and even SVG!
  */
-declare function colorPalette(input: Buffer, options: colorPalette.Options, callback: Color[]): void;
-declare function colorPalette(input: Buffer, type: string, callback: colorPalette.Callback): void;
-declare function colorPalette(input: Buffer, type: string): Promise<Color[]>;
-declare function colorPalette(input: string, options?: colorPalette.Options): Promise<Color[]>;
-declare function colorPalette(input: string, callback: colorPalette.Callback): void;
+declare function colorPalette(input: Buffer | string, typeOrOptions: string | colorPalette.Options, callback: colorPalette.Callback): void;
+declare function colorPalette(input: Buffer | string, typeOrOptions?: string | colorPalette.Options): Promise<Color[]>;
+declare function colorPalette(input: Buffer | string, callback: colorPalette.Callback): void;
 
 declare namespace colorPalette {
     interface Options {

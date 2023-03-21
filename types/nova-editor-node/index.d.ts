@@ -9,7 +9,7 @@
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
 
 /// <reference no-default-lib="true"/>
-/// <reference lib="es7" />
+/// <reference lib="es2020" />
 /// <reference lib="WebWorker" />
 
 /// https://docs.nova.app/api-reference/assistants-registry/
@@ -294,7 +294,7 @@ type ConfigurationValue = string | number | string[] | boolean;
 
 interface Configuration {
     onDidChange<T>(key: string, callback: (newValue: T, oldValue: T) => void): Disposable;
-    observe<T>(key: string, callback: (newValue: T, oldValue: T) => void): Disposable;
+    observe<T, K>(key: string, callback: (this: K, newValue: T, oldValue: T) => void, thisValue?: K): Disposable;
     get(key: string): ConfigurationValue | null;
     get(key: string, coerce: 'string'): string | null;
     get(key: string, coerce: 'number'): number | null;
@@ -583,7 +583,7 @@ interface NotificationCenter {
 /// https://docs.nova.app/api-reference/notification-request/
 
 declare class NotificationRequest {
-    constructor(identifier: string);
+    constructor(identifier?: string);
 
     readonly identifier: string;
     title?: string;
@@ -613,6 +613,7 @@ interface Path {
     isAbsolute(path: string): boolean;
     join(...paths: string[]): string;
     normalize(path: string): string;
+    relative(from: string, to: string): string;
     split(path: string): string[];
 }
 
@@ -1009,7 +1010,7 @@ interface Workspace {
     readonly config: Configuration;
     readonly textDocuments: ReadonlyArray<TextDocument>;
     readonly textEditors: ReadonlyArray<TextEditor>;
-    readonly activeTextEditor: TextEditor;
+    readonly activeTextEditor: TextEditor | null | undefined;
 
     onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;
     onDidChangePath(callback: (newPath: TextEditor) => void): Disposable;

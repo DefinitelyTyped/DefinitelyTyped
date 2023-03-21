@@ -31,6 +31,13 @@ import assert = require('node:assert');
     const res = callsFunc(42);
     const report = tracker.report();
 
+    const calls = tracker.getCalls(callsFunc);
+    calls[0].thisArg;
+    calls[0].arguments;
+
+    tracker.reset();
+    tracker.reset(callsFunc);
+
     try {
         tracker.verify();
     } catch (err) {

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "one-line": false,
-        "trim-file": false
+        "one-line": false
     }
 }

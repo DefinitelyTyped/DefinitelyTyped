@@ -4,7 +4,6 @@
         "no-consecutive-blank-lines": false,
         "npm-naming": false,
         "semicolon": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false
     }

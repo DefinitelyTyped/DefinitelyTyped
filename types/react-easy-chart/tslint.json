@@ -6,7 +6,6 @@
         "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,
-        "semicolon": false,
-        "trim-file": false
+        "semicolon": false
     }
 }

@@ -52,6 +52,8 @@ export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> 
     source: TSource;
     request: {
         headers: AppSyncResolverEventHeaders;
+        /** The API's custom domain if used for the request. */
+        domainName: string | null;
     };
     info: {
         selectionSetList: string[];

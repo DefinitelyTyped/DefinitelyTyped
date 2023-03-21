@@ -6,12 +6,11 @@ import { logging, ProxyConfig } from '../';
  * @enum {string}
  */
 export interface IBrowser {
-    CHROME: string;
-    EDGE: string;
-    FIREFOX: string;
-    IE: string;
-    INTERNET_EXPLORER: string;
-    SAFARI: string;
+    CHROME: 'chrome';
+    EDGE: 'MicrosoftEdge';
+    FIREFOX: 'firefox';
+    INTERNET_EXPLORER: 'internet explorer';
+    SAFARI: 'safari';
 }
 
 /**

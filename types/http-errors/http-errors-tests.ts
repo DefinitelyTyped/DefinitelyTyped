@@ -6,7 +6,7 @@ const app = express();
 
 app.use((req, res, next) => {
     if (!req) {
-        next(create('Please login to view this page.', 401));
+        next(create(401, 'Please login to view this page.'));
         return;
     }
     next();
@@ -53,7 +53,7 @@ create({id: 1});
 err.id;
 
 // create(msg, status)
-// $ExpectType HttpError<number>
+// @ts-expect-error Since 2.0, number arguments can only be the first argument
 create('LOL', 404);
 
 // create(msg)
@@ -89,8 +89,10 @@ new create.InternalServerError(); // $ExpectType HttpError<500>
 new create[404](); // $ExpectType HttpError<404>
 new create['404'](); // $ExpectType HttpError<404>
 
-// @ts-expect-error
-create['404']();
+create['404'](); // $ExpectType HttpError<404>
+create(404, 'Not Found'); // $ExpectType HttpError<404>
+create(); // $ExpectType HttpError<number>
+
 // @ts-expect-error
 new create();
 

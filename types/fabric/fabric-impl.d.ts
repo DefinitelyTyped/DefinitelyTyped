@@ -175,11 +175,13 @@ interface IEvent<E extends Event = Event> {
     target?: Object | undefined;
     subTargets?: Object[] | undefined;
     selected?: Object[] | undefined;
+    deselected?: Object[] | undefined;
+    action?: string | undefined;
     button?: number | undefined;
     isClick?: boolean | undefined;
     pointer?: Point | undefined;
     absolutePointer?: Point | undefined;
-    transform?: { corner: string; original: Object; originX: string; originY: string; width: number } | undefined;
+    transform?: Transform | undefined;
     currentTarget?: Object | undefined;
     currentSubTargets?: Object[] | undefined;
 }
@@ -323,25 +325,20 @@ interface ICollection<T> {
     complexity(): number;
 }
 
+type EventName = 'object:modified' | 'object:moving' | 'object:scaling' | 'object:rotating' | 'object:skewing' | 'object:resizing' | 'object:selected' | 'object:added' | 'object:removed'
+    | 'group:selected' | 'before:transform' | 'before:selection:cleared' | 'selection:cleared' | 'selection:created' | 'selection:updated'
+    | 'mouse:up' | 'mouse:down' | 'mouse:move' | 'mouse:up:before' | 'mouse:down:before' | 'mouse:move:before' | 'mouse:dblclick' | 'mouse:wheel' | 'mouse:over' | 'mouse:out'
+    | 'drop:before' | 'drop' | 'dragover' | 'dragenter' | 'dragleave' | 'before:render' | 'after:render' | 'before:path:created' | 'path:created' | 'canvas:cleared'
+    | 'moving' | 'scaling' | 'rotating' | 'skewing' | 'resizing' | 'mouseup' | 'mousedown' | 'mousemove' | 'mouseup:before' | 'mousedown:before' | 'mousemove:before'
+    | 'mousedblclick' | 'mousewheel' | 'mouseover' | 'mouseout' | 'drop:before' | 'drop' | 'dragover' | 'dragenter' | 'dragleave';
+
 interface IObservable<T> {
     /**
      * Observes specified event
      * @param eventName Event name (eg. 'after:render')
      * @param handler Function that receives a notification when an event of the specified type occurs
      */
-    on(
-        eventName:
-            | 'mouse:up'
-            | 'mouse:down'
-            | 'mouse:move'
-            | 'mouse:up:before'
-            | 'mouse:down:before'
-            | 'mouse:move:before'
-            | 'mouse:dblclick'
-            | 'mouse:over'
-            | 'mouse:out',
-        handler: (e: IEvent<MouseEvent>) => void,
-    ): T;
+    on(eventName: EventName, handler: (e: IEvent<MouseEvent>) => void): T;
     on(eventName: 'mouse:wheel', handler: (e: IEvent<WheelEvent>) => void): T;
     on(eventName: string, handler: (e: IEvent) => void): T;
 
@@ -729,7 +726,7 @@ export class Intersection {
     /**
      * Checks if polygon intersects rectangle
      */
-    static intersectPolygonRectangle(points: Point[], r1: number, r2: number): Intersection;
+    static intersectPolygonRectangle(points: Point[], r1: Point, r2: Point): Intersection;
 }
 
 interface IPatternOptions {
@@ -1206,7 +1203,12 @@ export interface StaticCanvas
     extends IObservable<StaticCanvas>,
         IStaticCanvasOptions,
         ICollection<StaticCanvas>,
-        ICanvasAnimation<StaticCanvas> {}
+        ICanvasAnimation<StaticCanvas> {
+    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toDatalessJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toObject(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toDatalessObject(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+}
 export class StaticCanvas {
     /**
      * Constructor
@@ -1494,14 +1496,14 @@ export class StaticCanvas {
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} json string
      */
-    toDatalessJSON(propertiesToInclude?: string[]): string;
+    toDatalessJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
 
     /**
      * Returns JSON representation of canvas
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} JSON string
      */
-    toJSON(propertiesToInclude?: string[]): string;
+    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
 
     /**
      * Returns object representation of canvas
@@ -1618,7 +1620,7 @@ export class StaticCanvas {
      * Returns JSON representation of canvas
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    static toJSON(propertiesToInclude?: string[]): string;
+    static toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
 
     /**
      * Clones canvas instance
@@ -2068,7 +2070,7 @@ export class Canvas {
      * Returns currently active object
      * @return {fabric.Object} active object
      */
-    getActiveObject(): Object;
+    getActiveObject(): Object | null;
     /**
      * Returns an array with the current selected objects
      * @return {fabric.Object} active object
@@ -2199,7 +2201,7 @@ export class Canvas {
      * Returns JSON representation of canvas
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    static toJSON(propertiesToInclude?: string[]): string;
+    static toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
     /**
      * Removes all event listeners
      */
@@ -3369,7 +3371,7 @@ export class Object {
      * Returns a JSON representation of an instance
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    toJSON(propertiesToInclude?: string[]): any;
+    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
 
     /**
      * Sets "angle" of an instance
@@ -5411,6 +5413,14 @@ interface IAllFilters {
          */
         fromObject(object: any): IBlendImageFilter;
     };
+    Blur: {
+        new (options?: { blur?: number | undefined }): IBlurFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IBlurFilter;
+    };
     Brightness: {
         new (options?: {
             /**
@@ -5478,6 +5488,14 @@ interface IAllFilters {
          * @param object Object to create an instance from
          */
         fromObject(object: any): IGrayscaleFilter;
+    };
+    HueRotation: {
+        new (options?: { rotation?: number | undefined }): IHueRotationFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IHueRotationFilter;
     };
     Invert: {
         /**
@@ -5625,7 +5643,7 @@ interface IBaseFilter {
     /**
      * Returns a JSON representation of an instance
      */
-    toJSON(): string;
+    toJSON(): { version: string, objects: Object[] };
     /**
      * Apply the operation to a Uint8Array representing the pixels of an image.
      *
@@ -5645,6 +5663,13 @@ interface IBlendColorFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IBlendImageFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IBlurFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5688,6 +5713,13 @@ interface IGradientTransparencyFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IGrayscaleFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IHueRotationFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5961,7 +5993,9 @@ interface IUtilAnimation {
      * In order to get a precise start time, `requestAnimFrame` should be called as an entry into the method
      * @param callback Callback to invoke
      */
-    requestAnimFrame(callback: Function): void;
+    requestAnimFrame(callback: Function): number;
+
+    cancelAnimFrame(id: number): void;
 }
 
 type IUtilAminEaseFunction = (t: number, b: number, c: number, d: number) => number;
@@ -6787,7 +6821,22 @@ export interface Transform {
     offsetY: number;
     originX: "left" | "right";
     originY: "top" | "bottom";
-    original: any;
+    original: {
+        angle: number;
+        fill: string;
+        flipX: boolean;
+        flipY: boolean;
+        height: number;
+        left: number;
+        originX: "left" | "right";
+        originY: "top" | "bottom";
+        scaleX: number;
+        scaleY: number;
+        skewX: number;
+        skewY: number;
+        top: number;
+        width: number;
+    };
     scaleX: number;
     scaleY: number;
     shiftKey: boolean;

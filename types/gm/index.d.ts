@@ -1,8 +1,9 @@
-// Type definitions for gm 1.18
+// Type definitions for gm 1.25
 // Project: https://github.com/aheckmann/gm
 // Definitions by: Maarten van Vliet <https://github.com/maartenvanvliet>
 //                 Vaclav Mlejnsky <https://github.com/mlejva>
 //                 Dimitry Kooijmans <https://github.com/mrcageman>
+//                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -15,7 +16,7 @@ declare function m(width: number, height: number, color?: string): m.State;
 declare namespace m {
     interface ClassOptions {
         appPath?: string | undefined;
-        imageMagick?: boolean | undefined;
+        imageMagick?: string | boolean | undefined;
         nativeAutoOrient?: boolean | undefined;
         timeout?: string | number;
     }
@@ -97,9 +98,11 @@ declare namespace m {
         adjoin(): State;
         affine(matrix: string): State;
         antialias(enable: boolean): State;
-        append(image: string, ltr?: boolean): State;
+        append(ltr?: boolean): State;
+        append(image: string | string[], ltr?: boolean): State;
         authenticate(password: string): State;
         autoOrient(): State;
+        average(): State;
         backdrop(): State;
         background(color: string): State;
         bitdepth(bits: number): State;
@@ -130,7 +133,7 @@ declare namespace m {
         cycle(amount: number): State;
         deconstruct(): State;
         define(value: string): State;
-        delay(milliseconds: number): State;
+        delay(centiseconds: number): State;
         density(width: number, height: number): State;
         despeckle(): State;
         displace(horizontal: number, vertical: number): State;
@@ -254,10 +257,12 @@ declare namespace m {
         strip(): State;
         swirl(degrees: number): State;
         textFont(font: string): State;
+        texture(filename: string): State;
         threshold(value: number, percent?: boolean): State;
         thumb(width: number, height: number, outName: string, callback: WriteCallback): State;
         thumb(width: number, height: number, outName: string, quality: number, callback: WriteCallback): State;
         thumb(width: number, height: number, outName: string, quality: number, align: 'topleft' | 'center' | string, callback: WriteCallback): State;
+        thumbnail(width: number, height: number, options?: ResizeOption): State;
         tile(filename: string): State;
         title(title: string): State;
         transform(color: string): State;
