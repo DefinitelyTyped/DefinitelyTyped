@@ -9711,7 +9711,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * A Java Script date object to be formatted as string
        */
-      date: object
+      date: Date
     ): void;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -10676,7 +10676,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * A Java Script date object to be formatted as string
        */
-      date: object
+      date: Date
     ): void;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -11721,7 +11721,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * A Java Script date object to be formatted as string
        */
-      date: object
+      date: Date
     ): void;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -37142,7 +37142,7 @@ declare module "sap/ui/webc/main/TimePicker" {
       /**
        * A Java Script date object to be formatted as string
        */
-      date: object
+      date: Date
     ): void;
     /**
      * Returns the currently selected time represented as JavaScript Date instance

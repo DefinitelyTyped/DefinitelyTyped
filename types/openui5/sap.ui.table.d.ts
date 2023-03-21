@@ -532,9 +532,9 @@ declare module "sap/ui/table/AnalyticalTable" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
-     * 	{@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
-     * 	{@link fiori:/analytical-table-alv/ Analytical Table}
+     *    https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     *    {@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
+     *    {@link fiori:/analytical-table-alv/ Analytical Table}
      */
     constructor(
       /**
