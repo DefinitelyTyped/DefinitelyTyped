@@ -1,8 +1,9 @@
-// Type definitions for @node-red/runtime 1.2
+// Type definitions for @node-red/runtime 1.3
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/runtime, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
+//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.0
 
 import { CorsOptions } from 'cors';
 import { Express, Request, Response, NextFunction } from 'express';
@@ -1221,6 +1222,7 @@ declare namespace runtime {
     }
 
     interface InternalNodesModule {} // tslint:disable-line:no-empty-interface
+    interface InternalPluginsModule {} // tslint:disable-line:no-empty-interface
     interface InternalLibraryModule {} // tslint:disable-line:no-empty-interface
     interface InternalExecModule {} // tslint:disable-line:no-empty-interface
 
@@ -1232,6 +1234,7 @@ declare namespace runtime {
         storage: StorageModule;
         events: EventEmitter;
         nodes: InternalNodesModule;
+        plugins: InternalPluginsModule;
         library: InternalLibraryModule;
         exec: InternalExecModule;
         util: Util;
