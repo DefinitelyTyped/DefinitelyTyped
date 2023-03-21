@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag 1.20230206
+// Type definitions for non-npm package Google Publisher Tag 1.20230306
 // Project: https://developers.google.com/publisher-tag/
 // Definitions by: Jonathon Imperiosi <https://github.com/jimper>
 //                 Khoi Doan <https://github.com/zombifier>
@@ -882,8 +882,7 @@ declare namespace googletag {
          *   var pageConfig = {
          *     allowOverlayExpansion: true,
          *     allowPushExpansion: true,
-         *     sandbox: true,
-         *     useUniqueDomain: true
+         *     sandbox: true
          *   };
          *
          *   var slotConfig = {allowOverlayExpansion: false};

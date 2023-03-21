@@ -27,7 +27,6 @@ lib/mime/findMimeTypeByFileExt.d.ts
 lib/mime/guessFileMimeType.d.ts
 lib/mime/parseMediaType.d.ts
 lib/module/exportAsDefaultModule.d.ts
-lib/module/Module.d.ts
 lib/multipart/parseContentDisposition.d.ts
 lib/os/NativeAppPackageManager.d.ts
 lib/schema/formatMultipleDDLStatements.d.ts

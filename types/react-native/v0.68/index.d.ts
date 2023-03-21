@@ -7204,6 +7204,17 @@ export interface AccessibilityInfoStatic {
     announceForAccessibility: (announcement: string) => void;
 
     /**
+     * Post a string to be announced by the screen reader.
+     * - `announcement`: The string announced by the screen reader.
+     * - `options`: An object that configures the reading options.
+     *   - `queue`: The announcement will be queued behind existing announcements. iOS only.
+     */
+    announceForAccessibilityWithOptions(
+        announcement: string,
+        options: {queue?: boolean | undefined},
+    ): void;
+
+    /**
      * Gets the timeout in millisecond that the user needs.
      * This value is set in "Time to take action (Accessibility timeout)" of "Accessibility" settings.
      *

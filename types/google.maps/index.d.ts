@@ -381,7 +381,24 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface CoreLibrary {}
+  interface CoreLibrary {
+    ControlPosition: typeof google.maps.ControlPosition;
+    event: typeof google.maps.event;
+    LatLng: typeof google.maps.LatLng;
+    LatLngAltitude: typeof google.maps.LatLngAltitude;
+    LatLngBounds: typeof google.maps.LatLngBounds;
+    MapsNetworkError: typeof google.maps.MapsNetworkError;
+    MapsNetworkErrorEndpoint: typeof google.maps.MapsNetworkErrorEndpoint;
+    MapsRequestError: typeof google.maps.MapsRequestError;
+    MapsServerError: typeof google.maps.MapsServerError;
+    MVCArray: typeof google.maps.MVCArray;
+    MVCObject: typeof google.maps.MVCObject;
+    Point: typeof google.maps.Point;
+    Settings: typeof google.maps.Settings;
+    Size: typeof google.maps.Size;
+    SymbolPath: typeof google.maps.SymbolPath;
+    UnitSystem: typeof google.maps.UnitSystem;
+  }
 }
 declare namespace google.maps {
   /**
@@ -2156,7 +2173,10 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface DrawingLibrary {}
+  interface DrawingLibrary {
+    DrawingManager: typeof google.maps.drawing.DrawingManager;
+    OverlayType: typeof google.maps.drawing.OverlayType;
+  }
 }
 declare namespace google.maps {
   /**
@@ -2196,7 +2216,10 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface ElevationLibrary {}
+  interface ElevationLibrary {
+    ElevationService: typeof google.maps.ElevationService;
+    ElevationStatus: typeof google.maps.ElevationStatus;
+  }
 }
 declare namespace google.maps {
   /**
@@ -2452,14 +2475,6 @@ declare namespace google.maps {
      */
     ADMINISTRATIVE_AREA_LEVEL_2 = 'ADMINISTRATIVE_AREA_LEVEL_2',
     /**
-     * Indicates a third-order civil entity below the country level.
-     */
-    ADMINISTRATIVE_AREA_LEVEL_3 = 'ADMINISTRATIVE_AREA_LEVEL_3',
-    /**
-     * Indicates a fourth-order civil entity below the country level.
-     */
-    ADMINISTRATIVE_AREA_LEVEL_4 = 'ADMINISTRATIVE_AREA_LEVEL_4',
-    /**
      * Indicates the national political entity.
      */
     COUNTRY = 'COUNTRY',
@@ -2468,18 +2483,10 @@ declare namespace google.maps {
      */
     LOCALITY = 'LOCALITY',
     /**
-     * Indicates a named neighborhood.
-     */
-    NEIGHBORHOOD = 'NEIGHBORHOOD',
-    /**
      * Indicates a postal code as used to address postal mail within the
      * country.
      */
     POSTAL_CODE = 'POSTAL_CODE',
-    /**
-     * Indicates a first-order civil entity below a locality.
-     */
-    SUBLOCALITY_LEVEL_1 = 'SUBLOCALITY_LEVEL_1',
   }
 }
 declare namespace google.maps {
@@ -2799,7 +2806,11 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface GeocodingLibrary {}
+  interface GeocodingLibrary {
+    Geocoder: typeof google.maps.Geocoder;
+    GeocoderLocationType: typeof google.maps.GeocoderLocationType;
+    GeocoderStatus: typeof google.maps.GeocoderStatus;
+  }
 }
 declare namespace google.maps {
   interface GeometryLibrary {
@@ -3216,7 +3227,20 @@ declare namespace google.maps {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    */
-  interface JourneySharingLibrary {}
+  interface JourneySharingLibrary {
+    AutomaticViewportMode:
+        typeof google.maps.journeySharing.AutomaticViewportMode;
+    DeliveryVehicleStopState:
+        typeof google.maps.journeySharing.DeliveryVehicleStopState;
+    FleetEngineServiceType:
+        typeof google.maps.journeySharing.FleetEngineServiceType;
+    FleetEngineShipmentLocationProvider:
+        typeof google.maps.journeySharing.FleetEngineShipmentLocationProvider;
+    FleetEngineTripLocationProvider:
+        typeof google.maps.journeySharing.FleetEngineTripLocationProvider;
+    JourneySharingMapView:
+        typeof google.maps.journeySharing.JourneySharingMapView;
+  }
 }
 declare namespace google.maps {
   /**
@@ -3634,8 +3658,8 @@ declare namespace google.maps {
      *     longitude wrapping.
      */
     constructor(
-        value: google.maps.LatLngAltitudeLiteral|google.maps.LatLng|
-        google.maps.LatLngLiteral,
+        value: google.maps.LatLngAltitudeLiteral|
+        google.maps.LatLngLiteral|google.maps.LatLng,
         noClampNoWrap?: boolean);
     /**
      * Returns the altitude.
@@ -3645,7 +3669,7 @@ declare namespace google.maps {
      * Comparison function.
      * @param other Another LatLngAltitude object.
      */
-    equals(other: google.maps.LatLngAltitude|null): boolean;
+    equals(other: null|google.maps.LatLngAltitude): boolean;
     /**
      * Returns the latitude.
      */
@@ -4827,7 +4851,33 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface MapsLibrary {}
+  interface MapsLibrary {
+    BicyclingLayer: typeof google.maps.BicyclingLayer;
+    Circle: typeof google.maps.Circle;
+    Data: typeof google.maps.Data;
+    FeatureType: typeof google.maps.FeatureType;
+    GroundOverlay: typeof google.maps.GroundOverlay;
+    ImageMapType: typeof google.maps.ImageMapType;
+    InfoWindow: typeof google.maps.InfoWindow;
+    KmlLayer: typeof google.maps.KmlLayer;
+    KmlLayerStatus: typeof google.maps.KmlLayerStatus;
+    Map: typeof google.maps.Map;
+    MapTypeControlStyle: typeof google.maps.MapTypeControlStyle;
+    MapTypeId: typeof google.maps.MapTypeId;
+    MapTypeRegistry: typeof google.maps.MapTypeRegistry;
+    MaxZoomService: typeof google.maps.MaxZoomService;
+    MaxZoomStatus: typeof google.maps.MaxZoomStatus;
+    OverlayView: typeof google.maps.OverlayView;
+    Polygon: typeof google.maps.Polygon;
+    Polyline: typeof google.maps.Polyline;
+    Rectangle: typeof google.maps.Rectangle;
+    RenderingType: typeof google.maps.RenderingType;
+    StrokePosition: typeof google.maps.StrokePosition;
+    StyledMapType: typeof google.maps.StyledMapType;
+    TrafficLayer: typeof google.maps.TrafficLayer;
+    TransitLayer: typeof google.maps.TransitLayer;
+    WebGLOverlayView: typeof google.maps.WebGLOverlayView;
+  }
 }
 declare namespace google.maps {
   /**
@@ -5201,7 +5251,13 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface MarkerLibrary {}
+  interface MarkerLibrary {
+    AdvancedMarkerView: typeof google.maps.marker.AdvancedMarkerView;
+    Animation: typeof google.maps.Animation;
+    CollisionBehavior: typeof google.maps.CollisionBehavior;
+    Marker: typeof google.maps.Marker;
+    PinView: typeof google.maps.marker.PinView;
+  }
 }
 declare namespace google.maps {
   /**
@@ -5627,13 +5683,8 @@ declare namespace google.maps {
    * An interface representing a feature with a place ID which includes features
    * of type {@link google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_1}, {@link
    * google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_2}, {@link
-   * google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_3}, {@link
-   * google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_4}, {@link
-   * google.maps.FeatureType.COUNTRY}, {@link
-   * google.maps.FeatureType.LOCALITY}, {@link
-   * google.maps.FeatureType.NEIGHBORHOOD}, {@link
-   * google.maps.FeatureType.POSTAL_CODE}, and {@link
-   * google.maps.FeatureType.SUBLOCALITY_LEVEL_1}.
+   * google.maps.FeatureType.COUNTRY}, {@link google.maps.FeatureType.LOCALITY},
+   * and {@link google.maps.FeatureType.POSTAL_CODE}.
    */
   interface PlaceFeature extends google.maps.Feature {
     /**
@@ -5654,7 +5705,27 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface PlacesLibrary {}
+  interface PlacesLibrary {
+    AddressComponent: typeof google.maps.places.AddressComponent;
+    Attribution: typeof google.maps.places.Attribution;
+    Autocomplete: typeof google.maps.places.Autocomplete;
+    AutocompleteService: typeof google.maps.places.AutocompleteService;
+    AutocompleteSessionToken:
+        typeof google.maps.places.AutocompleteSessionToken;
+    BusinessStatus: typeof google.maps.places.BusinessStatus;
+    OpeningHours: typeof google.maps.places.OpeningHours;
+    OpeningHoursPeriod: typeof google.maps.places.OpeningHoursPeriod;
+    OpeningHoursPoint: typeof google.maps.places.OpeningHoursPoint;
+    Photo: typeof google.maps.places.Photo;
+    PhotoAttribution: typeof google.maps.places.PhotoAttribution;
+    Place: typeof google.maps.places.Place;
+    PlacesService: typeof google.maps.places.PlacesService;
+    PlacesServiceStatus: typeof google.maps.places.PlacesServiceStatus;
+    PlusCode: typeof google.maps.places.PlusCode;
+    RankBy: typeof google.maps.places.RankBy;
+    Review: typeof google.maps.places.Review;
+    SearchBox: typeof google.maps.places.SearchBox;
+  }
 }
 declare namespace google.maps {
   /**
@@ -6225,7 +6296,19 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface RoutesLibrary {}
+  interface RoutesLibrary {
+    DirectionsRenderer: typeof google.maps.DirectionsRenderer;
+    DirectionsService: typeof google.maps.DirectionsService;
+    DirectionsStatus: typeof google.maps.DirectionsStatus;
+    DistanceMatrixElementStatus: typeof google.maps.DistanceMatrixElementStatus;
+    DistanceMatrixService: typeof google.maps.DistanceMatrixService;
+    DistanceMatrixStatus: typeof google.maps.DistanceMatrixStatus;
+    TrafficModel: typeof google.maps.TrafficModel;
+    TransitMode: typeof google.maps.TransitMode;
+    TransitRoutePreference: typeof google.maps.TransitRoutePreference;
+    TravelMode: typeof google.maps.TravelMode;
+    VehicleType: typeof google.maps.VehicleType;
+  }
 }
 declare namespace google.maps {
   /**
@@ -6362,7 +6445,16 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface StreetViewLibrary {}
+  interface StreetViewLibrary {
+    InfoWindow: typeof google.maps.InfoWindow;
+    OverlayView: typeof google.maps.OverlayView;
+    StreetViewCoverageLayer: typeof google.maps.StreetViewCoverageLayer;
+    StreetViewPanorama: typeof google.maps.StreetViewPanorama;
+    StreetViewPreference: typeof google.maps.StreetViewPreference;
+    StreetViewService: typeof google.maps.StreetViewService;
+    StreetViewSource: typeof google.maps.StreetViewSource;
+    StreetViewStatus: typeof google.maps.StreetViewStatus;
+  }
 }
 declare namespace google.maps {
   /**
@@ -7652,7 +7744,9 @@ declare namespace google.maps {
   }
 }
 declare namespace google.maps {
-  interface VisualizationLibrary {}
+  interface VisualizationLibrary {
+    HeatmapLayer: typeof google.maps.visualization.HeatmapLayer;
+  }
 }
 declare namespace google.maps {
   /**
@@ -8413,6 +8507,53 @@ declare namespace google.maps.journeySharing {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
+   * DeliveryVehicleStop type
+   */
+  interface DeliveryVehicleStop {
+    /**
+     * The list of Tasks to be performed at this stop. <ul> <li><code>id</code>:
+     * the ID of the task. <li><code>extraDurationMillis</code>: the extra time
+     * it takes to perform the task, in milliseconds. </ul>
+     */
+    tasks: {extraDurationMillis: number|null, id: string|null}[];
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * The current state of a {@link
+   * google.maps.journeySharing.DeliveryVehicleStop}.
+   *
+   * When using `v=beta`, can be accessed by calling
+   * `const {DeliveryVehicleStopState} = await
+   * google.map.importLibrary("journeySharing")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  enum DeliveryVehicleStopState {
+    /**
+     * Arrived at stop. Assumes that when the vehicle is routing to the next
+     * stop, that all previous stops have been completed.
+     */
+    ARRIVED = 'ARRIVED',
+    /**
+     * Assigned and actively routing.
+     */
+    ENROUTE = 'ENROUTE',
+    /**
+     * Created, but not actively routing.
+     */
+    NEW = 'NEW',
+    /**
+     * Unknown.
+     */
+    UNSPECIFIED = 'UNSPECIFIED',
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
    * Delivery Fleet Location Provider.
    *
    * When using `v=beta`, can be accessed by calling
@@ -8821,10 +8962,6 @@ declare namespace google.maps.journeySharing {
     constructor(options: google.maps.journeySharing
                     .FleetEngineShipmentLocationProviderOptions);
     /**
-     * Returns the currently tracked task.
-     */
-    getTask(): google.maps.journeySharing.Task|null;
-    /**
      * Explicitly refreshes the tracked location.
      */
     refresh(): void;
@@ -8923,9 +9060,9 @@ declare namespace google.maps.journeySharing {
    */
   interface FleetEngineShipmentLocationProviderUpdateEvent {
     /**
-     * The task structure returned by the update. Unmodifiable.
+     * The task tracking info structure returned by the update. Unmodifiable.
      */
-    task: google.maps.journeySharing.Task|null;
+    taskTrackingInfo: google.maps.journeySharing.TaskTrackingInfo|null;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -9832,12 +9969,9 @@ declare namespace google.maps.journeySharing {
   interface ShipmentMarkerCustomizationFunctionParams extends
       google.maps.journeySharing.MarkerCustomizationFunctionParams {
     /**
-     * The task associated with this marker. <br><br>For information about the
-     * delivery vehicle servicing this task, use {@link
-     * google.maps.journeySharing.Task.latestVehicleLocationUpdate} and {@link
-     * google.maps.journeySharing.Task.remainingVehicleJourneySegments}.
+     * Information for the task associated with this marker.
      */
-    task: google.maps.journeySharing.Task;
+    taskTrackingInfo: google.maps.journeySharing.TaskTrackingInfo;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -9925,6 +10059,76 @@ declare namespace google.maps.journeySharing {
      * The task location represented by this marker.
      */
     task: google.maps.journeySharing.Task;
+  }
+}
+declare namespace google.maps.journeySharing {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * The details for a task tracking info object returned by Fleet Engine.
+   */
+  interface TaskTrackingInfo {
+    /**
+     * The estimated arrival time to the stop location.
+     */
+    estimatedArrivalTime: Date|null;
+    /**
+     * The estimated completion time of a Task.
+     */
+    estimatedTaskCompletionTime: Date|null;
+    /**
+     * Information specific to the last location update.
+     */
+    latestVehicleLocationUpdate:
+        google.maps.journeySharing.VehicleLocationUpdate|null;
+    /**
+     * The name in the format
+     * &quot;providers/{provider_id}/taskTrackingInfo/{tracking_id}&quot;, where
+     * <code>tracking_id</code> represents the tracking ID.
+     */
+    name: string;
+    /**
+     * The location where the Task will be completed.
+     */
+    plannedLocation: google.maps.LatLng|null;
+    /**
+     * The total remaining distance in meters to the <code>VehicleStop</code> of
+     * interest.
+     */
+    remainingDrivingDistanceMeters: number|null;
+    /**
+     * Indicates the number of stops the vehicle remaining until the task stop
+     * is reached, including the task stop. For example, if the vehicle&#39;s
+     * next stop is the task stop, the value will be 1.
+     */
+    remainingStopCount: number|null;
+    /**
+     * A list of points which when connected forms a polyline of the
+     * vehicle&#39;s expected route to the location of this task.
+     */
+    routePolylinePoints: google.maps.LatLng[]|null;
+    /**
+     * The current execution state of the Task.
+     */
+    state: string|null;
+    /**
+     * The outcome of attempting to execute a Task.
+     */
+    taskOutcome: string|null;
+    /**
+     * The time when the Task&#39;s outcome was set by the provider.
+     */
+    taskOutcomeTime: Date|null;
+    /**
+     * The tracking ID of a Task.<br> <ul> <li>Must be a valid Unicode
+     * string.</li> <li>Limited to a maximum length of 64 characters.</li>
+     * <li>Normalized according to <a
+     * href="http://www.unicode.org/reports/tr15/">Unicode Normalization Form
+     * C</a>.</li> <li>May not contain any of the following ASCII characters:
+     * &#39;/&#39;, &#39;:&#39;, &#39;?&#39;, &#39;,&#39;, or
+     * &#39;#&#39;.</li> </ul>
+     */
+    trackingId: string;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -10048,24 +10252,21 @@ declare namespace google.maps.journeySharing {
     /**
      * The travel distance from the previous stop to this stop, in meters.
      */
-    distanceMeters: number|null;
+    drivingDistanceMeters: number|null;
     /**
-     * The travel time from the previous stop to this stop, in milliseconds.
+     * The travel time from the previous stop this stop, in milliseconds.
      */
-    durationMillis: number|null;
+    drivingDurationMillis: number|null;
     /**
-     * The extra travel time due to the durations of the stop&#39;s tasks, in
-     * milliseconds.
-     */
-    extraDurationMillis: number|null;
-    /**
-     * The actual stop location.
-     */
-    location: google.maps.LatLngLiteral|null;
-    /**
-     * The path from the previous stop to this stop.
+     * The path from the previous waypoint (or the vehicle&#39;s current
+     * location, if this waypoint is the first in the list of waypoints) to this
+     * waypoint.
      */
     path: google.maps.LatLngLiteral[]|null;
+    /**
+     * The stops to be served by this vehicle.
+     */
+    stop: google.maps.journeySharing.DeliveryVehicleStop[]|null;
   }
 }
 declare namespace google.maps.journeySharing {
@@ -10082,7 +10283,7 @@ declare namespace google.maps.journeySharing {
     /**
      * The location of the update.
      */
-    location: google.maps.LatLngLiteral|null;
+    location: google.maps.LatLngLiteral|null|google.maps.LatLng;
     /**
      * The speed in kilometers per hour.
      */

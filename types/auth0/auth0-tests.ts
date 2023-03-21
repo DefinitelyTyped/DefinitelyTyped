@@ -490,6 +490,16 @@ management
         // error handler
     });
 
+// Get all Connections with params (with promise)
+management
+    .getConnections({ name: 'connectionName', strategy: 'auth0', include_fields: true, fields: ['id', 'name'] })
+    .then((connections: auth0.Connection[]) => {
+        console.log(connections);
+    })
+    .catch(err => {
+        // error handler
+    });
+
 // Rules
 // Get all Rules with promise
 management

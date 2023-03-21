@@ -176,6 +176,7 @@ declare namespace yargs {
         ): Argv<T>;
         command(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, any>): Argv<T>;
         command(module: CommandModule<T, any>): Argv<T>;
+        command(modules: Array<CommandModule<T, any>>): Argv<T>;
 
         // Advanced API
         /** Apply command modules from a directory relative to the module calling this method. */

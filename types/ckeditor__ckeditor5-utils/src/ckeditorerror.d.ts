@@ -68,7 +68,7 @@ export default class CKEditorError<
  *   * name does not exist, so it was omitted when rendering the toolbar.
  *   *
  *   * @error toolbarview-item-unavailable
- *   * @param {String} name The name of the component.
+ *   * @param name The name of the component.
  *   * /
  *  logWarning( 'toolbarview-item-unavailable', { name } );
  *
@@ -86,7 +86,7 @@ export function logWarning(errorName: string, data?: Record<string, unknown>): v
  *   * name does not exist, so it was omitted when rendering the toolbar.
  *   *
  *   * @error toolbarview-item-unavailable
- *   * @param {String} name The name of the component.
+ *   * @param name The name of the component.
  *   * /
  *   logError( 'toolbarview-item-unavailable', { name } );
  *

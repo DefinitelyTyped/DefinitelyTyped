@@ -1,15 +1,14 @@
 import {
-    Result,
-    Resolution,
     AssetFileResolution,
-    FileResolution,
+    CustomResolutionContext,
     FileAndDirCandidates,
     FileCandidates,
-    FileContext,
-    FileOrDirContext,
-    HasteContext,
-    ModulePathContext,
+    FileResolution,
+    PackageInfo,
+    PackageJson,
+    Resolution,
     ResolutionContext,
+    Result,
 } from 'metro-resolver';
 
 export const result: Result<number, string[]> = {
@@ -41,45 +40,37 @@ export const fileAndDirCandidates: FileAndDirCandidates = {
     file: fileCandidates,
 };
 
-export const fileContext: FileContext = {
-    doesFileExist: (filePath: string): boolean => true,
-    isAssetFile: (filePath: string): boolean => true,
-    nodeModulesPaths: ['path'],
-    preferNativePlatform: true,
-    redirectModulePath: (modulePath: string): string | false => false,
-    resolveAsset: (dirPath: string, assetName: string, extension: string): ReadonlyArray<string> | undefined =>
-        undefined,
-    sourceExts: ['.ts'],
-};
-
-export const fileOrDirContext: FileOrDirContext = {
-    ...fileContext,
-    getPackageMainPath: (packageJsonPath: string): string => 'hello',
-};
-
-export const hasteContext: HasteContext = {
-    ...fileOrDirContext,
-    resolveHasteModule: (name: string): string | undefined => undefined,
-    resolveHastePackage: (name: string): string | undefined => undefined,
-};
-
-export const modulePathContext: ModulePathContext = {
-    ...fileOrDirContext,
-    originModulePath: 'path',
-};
-
 export const resolutionContext: ResolutionContext = {
-    ...modulePathContext,
-    ...hasteContext,
     allowHaste: true,
+    assetExts: ['jpg', 'png'],
+    customResolverOptions: {},
+    disableHierarchicalLookup: false,
     extraNodeModules: {
         react: 'react',
     },
+    getPackage: (packageJsonPath: string): PackageJson | null => null,
+    getPackageForModule: (modulePath: string): PackageInfo | null => null,
+    doesFileExist: (filePath: string): boolean => true,
+    mainFields: ['main', 'react-native', 'browser'],
+    nodeModulesPaths: ['path'],
     originModulePath: 'path',
-    resolveRequest: (
-        context: ResolutionContext,
-        realModuleName: string,
-        platform: string | null,
-        moduleName: string | null,
-    ): Resolution => resolution,
+    preferNativePlatform: true,
+    resolveAsset: (dirPath: string, assetName: string, extension: string): ReadonlyArray<string> | undefined =>
+        undefined,
+    redirectModulePath: (modulePath: string): string | false => false,
+    resolveHasteModule: (name: string): string | undefined => undefined,
+    resolveHastePackage: (name: string): string | undefined => undefined,
+    sourceExts: ['.ts'],
+    unstable_conditionNames: ['import', 'require'],
+    unstable_conditionsByPlatform: {
+        web: ['browser'],
+    },
+    unstable_enablePackageExports: false,
+    unstable_logWarning: (message: string): void => {},
+};
+
+export const customResolutionContext: CustomResolutionContext = {
+    ...resolutionContext,
+    resolveRequest: (context: ResolutionContext, platform: string | null, moduleName: string | null): Resolution =>
+        resolution,
 };

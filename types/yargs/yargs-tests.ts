@@ -1489,3 +1489,25 @@ function Argv$ParserHelper() {
     // $ExpectType Arguments
     const argv = yargsHelpers.Parser('--foo --bar=99');
 }
+
+function Argv$commandCommandModuleArray() {
+    const CommandOne: yargs.CommandModule = {
+        builder: async yargs => {
+            return yargs.option('a', { default: 'foo' });
+        },
+        handler: argv => {
+            argv.a;
+        }
+    };
+
+    const CommandTwo: yargs.CommandModule = {
+        builder: async yargs => {
+            return yargs.option('a', { default: 'bar' });
+        },
+        handler: argv => {
+            argv.a;
+        }
+    };
+
+    yargs.command([CommandOne, CommandTwo]);
+}
