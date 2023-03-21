@@ -10,9 +10,20 @@ export interface KeyChainBaseOptions {
     type?: 'generic' | 'internet';
 }
 
+export enum KeychainErrorCode {
+    UnsupportedPlatform = 'UnsupportedPlatform',
+    NoAccountProvided = 'NoAccountProvided',
+    NoServiceProvided = 'NoServiceProvided',
+    NoPasswordProvided = 'NoPasswordProvided',
+    ServiceFailure = 'ServiceFailure',
+    PasswordNotFound = 'PasswordNotFound',
+}
+
+export type KeychainErrorType = `${KeychainErrorCode}Error`;
+
 export class KeychainError extends Error {
-    code: string;
-    type: string;
+    code: KeychainErrorCode;
+    type: KeychainErrorType;
 }
 
 declare const keychain: {
