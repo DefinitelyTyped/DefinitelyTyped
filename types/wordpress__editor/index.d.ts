@@ -4,13 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 5.0
 
-import { dispatch, select } from '@wordpress/data';
+import { dispatch, select, StoreDescriptor } from '@wordpress/data';
 
 export { storeConfig, transformStyles } from '@wordpress/block-editor';
 
 declare module '@wordpress/data' {
     function dispatch(key: 'core/editor'): typeof import('./store/actions');
     function select(key: 'core/editor'): typeof import('./store/selectors');
+}
+
+export interface EditorStoreDescriptor extends StoreDescriptor {
+    name: 'core/editor';
+}
+
+declare module '@wordpress/editor' {
+    const store: EditorStoreDescriptor;
 }
 
 export * from './components';

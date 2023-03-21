@@ -3,6 +3,12 @@ import * as e from '@wordpress/editor';
 
 declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
 
+// $ExpectType EditorStoreDescriptor
+e.store;
+
+// $ExpectType "core/editor"
+e.store.name;
+
 //
 // Components
 // ============================================================================
