@@ -1,8 +1,8 @@
-// Type definitions for @wordpress/editor 13.0
+// Type definitions for @wordpress/editor 13.6
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/editor/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 5.0
 
 import { dispatch, select } from '@wordpress/data';
 
