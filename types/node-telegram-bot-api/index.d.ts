@@ -1655,7 +1655,7 @@ declare class TelegramBot extends EventEmitter {
 
     setChatDescription(chatId: TelegramBot.ChatId, description: string): Promise<boolean>;
 
-    pinChatMessage(chatId: TelegramBot.ChatId, messageId: number, options?: PinChatMessageOptions): Promise<boolean>;
+    pinChatMessage(chatId: TelegramBot.ChatId, messageId: number, options?: TelegramBot.PinChatMessageOptions): Promise<boolean>;
 
     unpinChatMessage(chatId: TelegramBot.ChatId, messageId?: number): Promise<boolean>;
 
