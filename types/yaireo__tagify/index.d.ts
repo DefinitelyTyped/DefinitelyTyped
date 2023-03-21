@@ -1206,8 +1206,7 @@ declare namespace Tagify {
      * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface InputEventData<T extends BaseTagData = TagData> extends EventData<T> {
-        inputElm: HTMLInputElement | HTMLTextAreaElement;
-        value: string;
+        textContent: string;
     }
 
     /**
