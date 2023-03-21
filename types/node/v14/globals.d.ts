@@ -91,7 +91,7 @@ interface AbortController {
      * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
      * @since v14.7.0
      */
-    abort(): void;
+    abort(reason?: any): void;
 }
 
 /**

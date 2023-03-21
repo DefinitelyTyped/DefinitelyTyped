@@ -2793,6 +2793,10 @@
             "libraryName": "lru-cache",
             "asOfVersion": "7.10.0"
         },
+        "lz-string": {
+            "libraryName": "lz-string",
+            "asOfVersion": "1.5.0"
+        },
         "make-dir": {
             "libraryName": "make-dir",
             "asOfVersion": "2.1.0"
@@ -4586,6 +4590,10 @@
         "react-rnd": {
             "libraryName": "react-rnd",
             "asOfVersion": "8.0.0"
+        },
+        "react-router-native": {
+            "libraryName": "react-router-native",
+            "asOfVersion": "6.4.0"
         },
         "react-scrollbar-size": {
             "libraryName": "react-scrollbar-size",

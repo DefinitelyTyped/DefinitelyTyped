@@ -24,4 +24,5 @@ export class Terminal {
      * status was the last one of a series of updates.
      */
     persistStatus(): void;
+    flush(): void;
 }

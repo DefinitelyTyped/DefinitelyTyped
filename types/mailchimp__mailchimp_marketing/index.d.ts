@@ -38,6 +38,8 @@ export type Status = 'subscribed' | 'unsubscribed' | 'cleaned' | 'pending' | 'tr
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS' | 'HEAD';
 
+export type MergeFieldType =  'text'| 'number'| 'address'| 'phone'| 'date'| 'url'| 'imageurl'| 'radio'| 'dropdown'| 'birthday' | 'zip';
+
 /**
  * Anything with this type must confirm to Mailchimp's only valid time format:
  * `YYYY-MM-DDTHH:MM:SSZ`
@@ -242,6 +244,16 @@ export namespace lists {
          * Return the total_contacts field in the stats response, which contains an approximate count of all contacts in any state.
          */
         includeTotalContacts?: boolean;
+
+        /**
+         * Return merge fields with the specified type.
+         */
+        type?: MergeFieldType;
+
+        /**
+         * Return merge fields that are of the specified required type.
+         */
+        required?: boolean;
     }
 
     interface ListsSuccessResponse {
@@ -359,6 +371,34 @@ export namespace lists {
         name: string;
     }
 
+    interface MergeField {
+        merge_id: number;
+        tag: string;
+        name: string;
+        type: MergeFieldType;
+        required: boolean;
+        default_value: string;
+        public: boolean;
+        display_order: number;
+        options: {
+            default_country: number;
+            phone_format: string;
+            date_format: string;
+            choices: string[];
+            size: number;
+        };
+        help_text: string;
+        list_id: string;
+        _links: Link[];
+    }
+
+    interface MergeFieldSuccessResponse {
+        merge_fields: MergeField[];
+        list_id: string;
+        total_items: number;
+        _links: Link[];
+    }
+
     /**
      * Add or update a list member.
      * @param listId The unique ID for the list.
@@ -450,4 +490,19 @@ export namespace lists {
      * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SubscriberLists}
      */
     function getAllLists(opts?: ListOptions): Promise<ListsSuccessResponse | ErrorResponse>;
+
+    /**
+     * Get the merge fields for a list.
+     * @param listId The unique ID for the list.
+     * @param opts Optional parameters
+     * @param opts.fields A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+     * @param opts.excludeFields A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+     * @param opts.count The number of records to return. Default value is 10. Maximum value is 1000 (default to 10)
+     * @param opts.offset Used for [pagination](https://mailchimp.com/developer/marketing/docs/methods-parameters/#pagination),
+     * this it the number of records from a collection to skip. Default value is 0. (default to 0)
+     * @param opts.type The type of merge filed to return.
+     * @param opts.required Whether to return required merge fields or not.
+     * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MergeFieldSuccessResponse}
+     */
+    function getListMergeFields(listId: string, opts?: ListOptions): Promise<MergeFieldSuccessResponse | ErrorResponse>;
 }

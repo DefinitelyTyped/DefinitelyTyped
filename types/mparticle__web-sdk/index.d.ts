@@ -1,10 +1,13 @@
-// Type definitions for mParticle/web-sdk SDK 2.18
+// Type definitions for mParticle/web-sdk SDK 2.20
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 import { Batch } from '@mparticle/event-models';
+
+// Placeholder for Dictionary-like Types
+export type Dictionary<V = any> = Record<string, V>;
 
 export as namespace mParticle;
 export {};
@@ -25,6 +28,7 @@ export interface MPConfiguration {
     maxCookieSize?: number | undefined;
     cookieDomain?: string | undefined;
     customFlags?: SDKEventCustomFlags | undefined;
+    sideloadedKits?: MPForwarder[];
     /**
      * @warning only change workspaceToken if you are absolutely sure you know what you are doing
      */
@@ -38,6 +42,8 @@ export interface MPConfiguration {
      */
     minWebviewBridgeVersion?: 1 | 2 | undefined;
 }
+
+export type MPForwarder = Dictionary;
 
 export interface Logger {
     error?: ((error: string) => void) | undefined;

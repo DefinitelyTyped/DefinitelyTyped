@@ -311,6 +311,7 @@ declare namespace Gamedig {
         socketTimeout?: number | undefined;
         attemptTimeout?: number | undefined;
         givenPortOnly?: boolean | undefined;
+        ipFamily?: 0 | 4 | 6 | undefined;
         debug?: boolean | undefined;
         requestRules?: boolean | undefined;
     }

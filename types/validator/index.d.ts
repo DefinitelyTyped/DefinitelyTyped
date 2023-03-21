@@ -1043,6 +1043,7 @@ declare namespace validator {
         | 'IE'
         | 'IL'
         | 'IN'
+        | 'IR'
         | 'IS'
         | 'IT'
         | 'JP'

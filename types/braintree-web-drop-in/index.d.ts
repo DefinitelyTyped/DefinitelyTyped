@@ -1,7 +1,6 @@
 // Type definitions for braintree-web-drop-in 1.34
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
-//                 Ricard Solé Casas <https://github.com/iamricard>
 //                 Mathias Mikosch <https://github.com/elmikosch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3

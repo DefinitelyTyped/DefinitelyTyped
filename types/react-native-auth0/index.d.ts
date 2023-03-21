@@ -288,7 +288,7 @@ export interface SaveCredentialsParams {
 
 export class CredentialsManager {
     constructor(domain: string, clientId: string);
-    saveCredentials(params: SaveCredentialsParams): boolean;
+    saveCredentials(params: SaveCredentialsParams): Promise<boolean>;
     getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
     requireLocalAuthentication(
         title?: string,

@@ -4,7 +4,12 @@ import { OnfleetRecipient, CreateRecipientProps } from './Recipients';
 
 declare class Task {
     autoAssign(tasks: Task.AutomaticallyAssignTaskProps): Promise<Task.AutomaticallyAssignTaskResult>;
+
     batchCreate(tasks: Task.CreateMultipleTasksProps): Promise<Task.CreateMultipleTasksResult>;
+
+    batchCreateAsync(tasks: Task.CreateMultipleTasksProps): Promise<Task.CreateAsyncMultipleTaskResult>;
+
+    getBatch(jobId: string): Promise<Task.getBatchResult>;
 
     clone(id: string): Promise<Task.OnfleetTask>;
 
@@ -104,6 +109,11 @@ declare namespace Task {
 
     interface CreateMultipleTasksResult {
         tasks: OnfleetTask[];
+    }
+
+    interface CreateAsyncMultipleTaskResult {
+        status: string;
+        jobId: string;
     }
 
     interface CreateTaskProps {
@@ -241,9 +251,27 @@ declare namespace Task {
         organization: string;
     }
 
+    interface getBatchResult {
+        status: string;
+        submitted: string;
+        tasksReceived: number;
+        tasksCreated: number;
+        errors: BatchResultErrors[];
+        failedTasks: OnfleetTask[];
+        succeededWithWarnings: OnfleetTask[];
+    }
+
     interface TeamTaskContainer {
         type: 'TEAM';
         team: string;
+    }
+
+    interface BatchResultErrors {
+        statusCode: number;
+        errorCode: number;
+        message: string;
+        cause: string;
+        taskData: OnfleetTask;
     }
 
     type TaskContainer = WorkerTaskContainer | OrganizationTaskContainer | TeamTaskContainer;
