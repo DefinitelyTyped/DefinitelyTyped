@@ -83,12 +83,10 @@ const settings: TagifySettings = {
             event.detail.tagify;
         },
         input: event => {
-            // $ExpectType HTMLInputElement | HTMLTextAreaElement
-            event.detail.inputElm;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
             // $ExpectType string
-            event.detail.value;
+            event.detail.textContent;
         },
         invalid: event => {
             // $ExpectType TagData
@@ -566,12 +564,10 @@ tagify.on('edit:updated', (event) => {
     event.detail.tagify;
 });
 tagify.on('input', (event) => {
-    // $ExpectType HTMLInputElement | HTMLTextAreaElement
-    event.detail.inputElm;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType string
-    event.detail.value;
+    event.detail.textContent;
 });
 tagify.on('click', (event) => {
     // $ExpectType TagData
@@ -741,12 +737,10 @@ tagify.off('edit:updated', (event) => {
     event.detail.tagify;
 });
 tagify.off('input', (event) => {
-    // $ExpectType HTMLInputElement | HTMLTextAreaElement
-    event.detail.inputElm;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType string
-    event.detail.value;
+    event.detail.textContent;
 });
 tagify.off('click', (event) => {
     // $ExpectType TagData
