@@ -24,7 +24,7 @@ import { ParserOptions as Xml2jsOptions } from "xml2js";
 
 declare module "koa" {
     interface Request {
-        body: any;
+        body?: any;
     }
 }
 
