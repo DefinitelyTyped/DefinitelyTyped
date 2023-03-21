@@ -1,35 +1,32 @@
-// Type definitions for keychain (node-keychain) 1.4.0
-// Project: https://www.npmjs.com/package/keychain
-// Definitions by: Lucas Santos <https://lsantos.dev>
-declare module 'keychain' {
-    export default keychain
+// Type definitions for keychain 1.4
+// Project: https://github.com/drudge/node-keychain
+// Definitions by: Lucas Santos <https://github.com/khaosdoctor>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export interface KeyChainBaseOptions {
+    account: string;
+    service: string;
+    password: string;
+    type?: 'generic' | 'internet';
 }
 
-declare namespace keychain {
-    interface KeyChainBaseOptions {
-        account: string
-        service: string
-        password: string
-        type?: 'generic' | 'internet'
-    }
-
-    class KeychainError extends Error {
-        code: string
-        type: string
-    }
-
-    function getPassword (
-        options: Pick<KeyChainBaseOptions, 'account' | 'service'>,
-        callback: (err: KeychainError, password: string) => void
-    ): void
-
-    function setPassword (
-        options: KeyChainBaseOptions,
-        callback: (err: KeychainError) => void
-    ): void
-
-    function deletePassword (
-        options: Pick<KeyChainBaseOptions, 'account' | 'service'>,
-        callback: (err: KeychainError) => void
-    ): void
+export class KeychainError extends Error {
+    code: string;
+    type: string;
 }
+
+declare const keychain: {
+    getPassword(
+        options: Pick<KeyChainBaseOptions, 'account' | 'service'>,
+        callback: (err: KeychainError, password: string) => void,
+    ): void;
+
+    setPassword(options: KeyChainBaseOptions, callback: (err: KeychainError) => void): void;
+
+    deletePassword(
+        options: Pick<KeyChainBaseOptions, 'account' | 'service'>,
+        callback: (err: KeychainError) => void,
+    ): void;
+};
+
+export default keychain;
