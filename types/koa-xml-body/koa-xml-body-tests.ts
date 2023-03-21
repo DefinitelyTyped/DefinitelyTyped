@@ -4,6 +4,7 @@ import KoaXmlBody = require('koa-xml-body');
 const app = new Koa();
 app.use(KoaXmlBody({
     key: 'body',
+    length: 1000,
     onerror: (err, ctx) => {
         ctx.throw(err.message);
     }
