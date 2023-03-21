@@ -5,8 +5,10 @@ jobs:
   Tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Test job running
-        run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"; 
+      - name: Test job running with $x
+        env:
+          x: "I am setting x on line 10"
+        run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub! $x"; 
           echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Tests, part 1 $x
         run: |
