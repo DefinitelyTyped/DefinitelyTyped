@@ -1146,7 +1146,7 @@ declare namespace Dockerode {
         Volumes?: { [volume: string]: {} } | undefined;
         WorkingDir?: string | undefined;
         NetworkDisabled?: boolean | undefined;
-        MacAddress?: boolean | undefined;
+        MacAddress?: string | undefined;
         ExposedPorts?: { [port: string]: {} } | undefined;
         StopSignal?: string | undefined;
         StopTimeout?: number | undefined;
