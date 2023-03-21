@@ -1,4 +1,4 @@
-import { Cookie, NightwatchLogEntry } from 'nightwatch';
+import { Cookie, NightwatchLogEntry, NightwatchElement } from 'nightwatch';
 
 import { isNightwatchAPI, isNightwatchCallbackResult, isType } from './utils';
 
@@ -450,8 +450,9 @@ describe('init command demo', function() {
 describe('waitUntil command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
-    test('demo test', function() {
+    test('demo test', function(browser) {
         browser.waitUntil(async function() {
+            isNightwatchAPI(this);
             return true;
         }, 5000, 5000, function(result) {
             isNightwatchAPI(this);
@@ -474,6 +475,39 @@ describe('axeInject test', function() {
     test('async demo test', async function(browser) {
         const result = await browser.axeInject();
         isType<null>(result);
+    });
+    after(browser => browser.end());
+});
+
+//
+// .injectScript
+//
+describe('injectScript command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.injectScript('', function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<NightwatchElement>(result);
+        });
+    });
+    test('async demo test', async function(browser) {
+        const result = await browser.injectScript('');
+        isType<NightwatchElement>(result);
+    });
+    after(browser => browser.end());
+});
+
+//
+// .perform
+//
+describe('perform command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.perform(async function() {
+            isNightwatchAPI(this);
+        });
     });
     after(browser => browser.end());
 });

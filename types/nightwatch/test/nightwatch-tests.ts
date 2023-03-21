@@ -9,7 +9,7 @@ import {
     NightwatchNodeAssertionsResult,
     NightwatchTests,
     PageObjectModel,
-    ELEMENT_KEY,
+    ELEMENT,
     JSON_WEB_OBJECT,
 } from 'nightwatch';
 
@@ -77,14 +77,14 @@ const testGeneral: NightwatchTests = {
 
         browser.element('css selector', 'something', function(result) {
             if (result.status === 0) {
-                isType<string>(result.value[ELEMENT_KEY]);
+                isType<string>(result.value[ELEMENT]);
             }
             isNightwatchAPI(this);
         });
 
         browser.elements('css selector', 'something', function(result) {
             if (result.status === 0) {
-                isType<string>(result.value[0][ELEMENT_KEY]);
+                isType<string>(result.value[0][ELEMENT]);
             }
             isNightwatchAPI(this);
         });
@@ -92,10 +92,10 @@ const testGeneral: NightwatchTests = {
 
     'Demo Nightwatch API commands with async/await': async () => {
         const element = await browser.element('css selector', 'something');
-        isType<string>(element[ELEMENT_KEY]);
+        isType<string>(element[ELEMENT]);
 
         const elements = await browser.elements('css selector', 'something');
-        isType<string>(elements[0][ELEMENT_KEY]);
+        isType<string>(elements[0][ELEMENT]);
     },
 
     'Can run accessibility tests': () => {
@@ -213,7 +213,7 @@ const testGeneral: NightwatchTests = {
 
         const elementPresentResult = browser.assert.elementPresent('input');
         isNightwatchAPI(elementPresentResult);
-        isNightwatchAssertionsResult<Array<{[ELEMENT_KEY]: string}>>(await elementPresentResult);
+        isNightwatchAssertionsResult<Array<{[ELEMENT]: string}>>(await elementPresentResult);
 
         const hasAttributeResult = browser.assert.hasAttribute('input[name=q]', 'placeholder');
         isNightwatchAPI(hasAttributeResult);
@@ -661,7 +661,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
                 callback(null);
                 return;
             }
-            this.api.elementIdText(elementResult.value[ELEMENT_KEY], textResult => {
+            this.api.elementIdText(elementResult.value[ELEMENT], textResult => {
                 if (textResult.status) {
                     callback(null);
                     return;

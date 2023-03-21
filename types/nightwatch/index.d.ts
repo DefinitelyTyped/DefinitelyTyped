@@ -24,9 +24,9 @@ import { Expect } from './expect';
 export * from './globals';
 export * from './expect';
 
-export const ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf';
+export const ELEMENT = 'element-6066-11e4-a52e-4f735466cecf';
 
-export interface ElementResult { [ELEMENT_KEY]: string; }
+export interface ElementResult { [ELEMENT]: string; }
 
 export interface JSON_WEB_OBJECT extends ElementResult {
     getId: () => string;
@@ -1048,7 +1048,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given attribute of an element contains the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.attributeContains('#someElement', 'href', 'google.com');
      *    };
      * ```
@@ -1061,7 +1061,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given attribute of an element has the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.attributeEquals('body', 'data-attr', 'some value');
      *    };
      * ```
@@ -1093,7 +1093,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the specified css property of a given element has the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.cssProperty('#main', 'display', 'block');
      *    };
      * ```
@@ -1156,7 +1156,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given element exists in the DOM.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.elementPresent("#main");
      *    };
      * ```
@@ -1198,7 +1198,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given element has the specified CSS class.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.cssClassPresent('#main', 'container');
      *    };
      * ```
@@ -1272,7 +1272,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given element contains the specified text.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.containsText('#main', 'The Night Watch');
      *    };
      * ```
@@ -1334,7 +1334,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the page title equals the given value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.title("Nightwatch.js");
      *    };
      * ```
@@ -1347,7 +1347,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the page title equals the given value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.title("Nightwatch.js");
      *    };
      * ```
@@ -1358,7 +1358,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the page title equals the given value.
      * @since 2.0
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.titleEquals("Nightwatch.js");
      *    };
      * ```
@@ -1371,7 +1371,7 @@ export interface NightwatchCommonAssertions {
      * @example
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.titleMatches('^Nightwatch');
      *    };
      * ```
@@ -1383,7 +1383,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the current URL contains the given value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.urlContains('google');
      *    };
      * ```
@@ -1394,7 +1394,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the current url equals the given value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.urlEquals('https://www.google.com');
      *    };
      * ```
@@ -1406,7 +1406,7 @@ export interface NightwatchCommonAssertions {
      *
      * @example
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.urlMatches('^https');
      *    };
      * ```
@@ -1418,7 +1418,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given form element's value equals the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.value("form.login input[type=text]", "username");
      *    };
      * ```
@@ -1431,7 +1431,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given form element's value contains the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.valueContains("form.login input[type=text]", "username");
      *    };
      * ```
@@ -1471,7 +1471,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given element is visible on the page.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.visible(".should_be_visible");
      *    };
      * ```
@@ -1600,24 +1600,24 @@ export interface NightwatchLogEntry {
     /**
      * The time stamp of log entry in seconds.
      */
-    opt_timestamp: number;
+    timestamp: number;
 
     /**
      * The log type, if known.
      */
-    opt_type?: string;
+    type: string;
 
     /**
      * Severity level
      */
-    level: 'ALL' | 'DEBUG' | 'FINE' | 'FINER' | 'FINEST' | 'INFO' | 'OFF' | 'SEVERE' | 'WARNING' | Level | number;
+    level: Level;
 }
 
 export interface Level {
     /**
      * the level's name.
      */
-    name: string;
+    name: 'ALL' | 'DEBUG' | 'FINE' | 'FINER' | 'FINEST' | 'INFO' | 'OFF' | 'SEVERE' | 'WARNING';
 
     /**
      * the level's numeric value.
@@ -2934,9 +2934,13 @@ export interface ClientCommands extends ChromiumClientCommands {
      */
     injectScript(
         scriptUrl: string,
-        id?: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<HTMLScriptElement>) => void,
-    ): Awaitable<this, HTMLScriptElement>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchElement>) => void,
+    ): Awaitable<this, NightwatchElement>;
+    injectScript(
+        scriptUrl: string,
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchElement>) => void,
+    ): Awaitable<this, NightwatchElement>;
 
     /**
      * Utility command to test if the log type is available.
@@ -3055,9 +3059,9 @@ export interface ClientCommands extends ChromiumClientCommands {
      */
     perform(
         callback:
-            | (() => undefined | Promise<any>)
-            | ((done: () => void) => void)
-            | ((client: NightwatchAPI, done: () => void) => void),
+            | ((this: NightwatchAPI) => undefined | Promise<any>)
+            | ((this: NightwatchAPI, done: () => void) => void)
+            | ((this: NightwatchAPI, client: NightwatchAPI, done: () => void) => void),
     ): Awaitable<this, undefined | Error>;
 
     /**
@@ -6054,8 +6058,8 @@ export interface WebDriverProtocolElements {
     element(
         using: LocateStrategy,
         value: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
-    ): Awaitable<this, { [ELEMENT_KEY]: string }>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementResult>) => void,
+    ): Awaitable<this, ElementResult>;
 
     /**
      * Search for multiple elements on the page, starting from the document root. The located elements will be returned as web element JSON objects.
@@ -6100,8 +6104,8 @@ export interface WebDriverProtocolElements {
     elements(
         using: LocateStrategy,
         value: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
-    ): Awaitable<this, Array<{ [ELEMENT_KEY]: string }>>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementResult[]>) => void,
+    ): Awaitable<this, ElementResult[]>;
 
     /**
      * Search for an element on the page, starting from the identified element. The located element will be returned as a Web Element JSON object.
@@ -6132,8 +6136,8 @@ export interface WebDriverProtocolElements {
         id: string,
         using: LocateStrategy,
         value: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string } | []>) => void,
-    ): Awaitable<this, { [ELEMENT_KEY]: string } | []>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementResult | []>) => void,
+    ): Awaitable<this, ElementResult | []>;
 
     /**
      * Search for multiple elements on the page, starting from the identified element. The located element will be returned as a web element JSON objects.
@@ -6161,8 +6165,8 @@ export interface WebDriverProtocolElements {
         id: string,
         using: LocateStrategy,
         value: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
-    ): Awaitable<this, Array<{ [ELEMENT_KEY]: string }>>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementResult[]>) => void,
+    ): Awaitable<this, ElementResult[]>;
 
     /**
      * Move to the element and performs a double-click in the middle of the given element if

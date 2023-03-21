@@ -5,7 +5,7 @@ import {
     NightwatchLogEntry,
     WindowPosition,
     WindowSizeAndPosition,
-    ELEMENT_KEY
+    ElementResult
 } from 'nightwatch';
 
 import { isNightwatchAPI, isNightwatchCallbackResult, isType } from './utils';
@@ -855,7 +855,7 @@ describe('elementIdElement command demo', function() {
             const webElement = result.value as JSON_WEB_OBJECT;
             browser.elementIdElement(webElement.getId(), 'css selector', 'body', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<{ [ELEMENT_KEY]: string } | []>(result);
+                isNightwatchCallbackResult<ElementResult | []>(result);
             });
         });
     });
@@ -863,7 +863,7 @@ describe('elementIdElement command demo', function() {
     test('async demo test', async function(browser) {
         const webElement = await browser.findElement('input[type=text]');
         const result = await browser.elementIdElement(webElement.getId(), 'css selector', 'body');
-        isType<{ [ELEMENT_KEY]: string } | []>(result);
+        isType<ElementResult | []>(result);
     });
 
     after(browser => browser.end());
@@ -897,7 +897,7 @@ describe('elementIdDoubleClick command demo', function() {
 //
 // .elementActive
 //
-describe('elementIdDoubleClick command demo', function() {
+describe('elementActive command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
@@ -910,6 +910,27 @@ describe('elementIdDoubleClick command demo', function() {
     test('async demo test', async function(browser) {
         const result = await browser.elementActive();
         isType<string>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .element
+//
+describe('element command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.element('css selector', 'body', function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<ElementResult>(result);
+        });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.element('css selector', 'body');
+        isType<ElementResult>(result);
     });
 
     after(browser => browser.end());
