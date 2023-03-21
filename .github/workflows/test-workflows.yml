@@ -15,5 +15,5 @@ jobs:
       - name: "Result: $y"
         run: echo "$x";
       - name: "🍏 Job status: ${{ job.status }}."
-        run: echo ${{ runner.toJSON() }}
+        run: echo ${{ runner.toJSON }}
         
