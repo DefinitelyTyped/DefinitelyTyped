@@ -6001,7 +6001,7 @@ export interface WindowNsCommands {
      * };
      */
     setRect(
-        options: WindowSizeAndPosition,
+        options: WindowSize | WindowPosition | WindowSizeAndPosition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<NightwatchAPI, null>;
 }
