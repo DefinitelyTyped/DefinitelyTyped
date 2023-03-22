@@ -1,6 +1,6 @@
 // Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.1
 // Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.1.0/zwjsbridge.js
-// Definitions by: Yuxiang Ren <https://github.com/shlyren>
+// Definitions by: Yuxiang Ren <https://github.com/shlyren> , Jungzl <https://github.com/jungzl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
@@ -318,6 +318,61 @@ interface ZWJSBridge {
          */
         inSandBox?: boolean;
     }): Promise<any>;
+
+    /**
+     * @typedef {Object} UploadFileResult - 文件上传返回结果
+     * @property {"success"|"fail"} status - 上传状态
+     * @property {string[]} filePath - 上传文件地址
+     * @property {string[]} fileName - 选择文件名称
+     * @property {string} msg - 成功/错误信息
+     */
+
+    /**
+     * 文件上传
+     *
+     * @param {Object} options - 文件上传参数
+     * @param {string} [options.type] - 对应 input 文件选择 accept 属性说明 在微信端会转化为 image/video/file/all
+     * @param {string} options.url - 服务端接受文件流上传地址
+     * @param {number} [options.count=1] - 上传文件数量 默认为1
+     *
+     * @returns {Promise<UploadFileResult>} - 异步返回 {@link UploadFileResult} 对象
+     *
+     * @example
+     * ZWJSBridge.uploadFile({
+     *   type: 'image/*',
+     *   url: 'https://xxx.com.cn/uploadFile',
+     *   count: 1
+     * }).then(res => {
+     *   console.log(res)
+     *  })
+     */
+    uploadFile(options: {
+        type?: string;
+        url: string;
+        count?: number;
+    }): Promise<{ status: 'success' | 'fail'; filePath: string[]; fileName: string[]; msg: string }>;
+
+    /**
+     * @typedef {Object} DownloadFileResult - 文件上传返回结果
+     * @property {boolean} success - 下载成功标识
+     */
+
+    /**
+     * 文件下载
+     *
+     * @param {Object} options - 文件下载参数
+     * @param {string} options.url - 文件下载地址
+     *
+     * @returns {Promise<DownloadFileResult>} - 异步返回 {@link DownloadFileResult} 对象
+     *
+     * @example
+     * ZWJSBridge.downloadFile({
+     *   url: 'https://xxx.com.cn/079898a47d1249f4bf509928b2afbf83.xls'
+     * }).then(res => {
+     *   console.log(res)
+     * })
+     */
+    downloadFile(options: { url: string }): Promise<{ success: boolean }>;
 
     /***********    UI界面类     ***********/
     /**
