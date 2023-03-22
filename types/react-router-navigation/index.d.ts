@@ -3,7 +3,7 @@
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 //                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.5
+// TypeScript Version: 2.8
 
 import { Component, ReactNode, ReactElement, ComponentClass } from "react";
 import { StyleProp, ViewProps, ViewStyle, TextStyle } from "react-native";

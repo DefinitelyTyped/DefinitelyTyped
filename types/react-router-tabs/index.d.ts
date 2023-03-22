@@ -2,7 +2,6 @@
 // Project: https://github.com/chacestew/react-router-tabs#readme
 // Definitions by: Joakim Unge <https://github.com/joakimunge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.5
 
 import { Route, Link, RouteProps, LinkProps, NavLinkProps } from 'react-router-dom';
 import { ReactNode, ComponentType } from 'react';
