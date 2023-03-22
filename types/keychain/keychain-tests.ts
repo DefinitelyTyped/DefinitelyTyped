@@ -1,5 +1,4 @@
-import keychain from 'keychain';
-
+import keychain = require('keychain');
 /**
  * setPassword
  */
