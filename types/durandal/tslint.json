@@ -5,7 +5,6 @@
         "ban-types": false,
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-declare-current-package": false,
         "no-redundant-jsdoc-2": false,
         "no-self-import": false,
         "no-var-keyword": false,
