@@ -22,11 +22,11 @@ declare namespace registry {
         (this: TNode, nodeDef: TNodeDef): void;
     }
     interface PluginDefinition {
-        id?: string
-        type: string
-        module?: string
-        onadd?(): void
-        _?: any
+        id?: string;
+        type: string;
+        module?: string;
+        onadd?(): void;
+        _?: any;
     }
     interface NodeSetting<T> {
         value: T;
@@ -104,14 +104,14 @@ declare namespace registry {
          * @param id - the string id of the plugin
          * @returns the plugin definition
          */
-        get(id: string): PluginDefinition
+        get(id: string): PluginDefinition;
 
         /**
          * Returns the plugin definitions for the given type
          * @param type - the string type of the plugin
          * @returns the plugin definitions
          */
-        getByType(type: string): PluginDefinition[]
+        getByType(type: string): PluginDefinition[];
     }
 
     interface NodeAPIComms {

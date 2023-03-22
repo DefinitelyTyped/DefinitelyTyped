@@ -226,8 +226,8 @@ function redTests(RED: editorClient.RED) {
             x: {},
             key: {
                 value: '',
-            }
-        }
+            },
+        },
     };
 
     RED.nodes.registerType('my-node', myNodeDef);

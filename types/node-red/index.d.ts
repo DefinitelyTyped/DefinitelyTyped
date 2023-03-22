@@ -182,7 +182,7 @@ declare namespace nodeRed {
      */
     type EditorNodePropertiesDef<
         TProps extends EditorNodeProperties,
-        TInstProps extends TProps = TProps
+        TInstProps extends TProps = TProps,
     > = editorClient.NodePropertiesDef<TProps, TInstProps>;
 
     /**
@@ -191,9 +191,8 @@ declare namespace nodeRed {
      */
     interface EditorNodeProperties extends editorClient.NodeProperties {}
 
-    type EditorNodeInstance<TProps extends EditorNodeProperties = EditorNodeProperties> = editorClient.NodeInstance<
-        TProps
-    >;
+    type EditorNodeInstance<TProps extends EditorNodeProperties = EditorNodeProperties> =
+        editorClient.NodeInstance<TProps>;
 
     type EditorNodeCredentials<T> = editorClient.NodeCredentials<T>;
 
@@ -206,7 +205,7 @@ declare namespace nodeRed {
     interface EditorNodeDef<
         TProps extends EditorNodeProperties = EditorNodeProperties,
         TCreds = undefined,
-        TInstProps extends TProps = TProps
+        TInstProps extends TProps = TProps,
     > extends editorClient.NodeDef<TProps, TCreds, TInstProps> {}
 
     /**
