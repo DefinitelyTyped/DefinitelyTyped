@@ -3,12 +3,12 @@
 // Definitions by: Lucas Santos <https://github.com/khaosdoctor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace keychain {
+declare namespace keychainTypes {
     interface KeyChainBaseOptions {
-        account: string
-        service: string
-        password: string
-        type?: 'generic' | 'internet'
+        account: string;
+        service: string;
+        password: string;
+        type?: 'generic' | 'internet';
     }
 
     enum KeychainErrorCodes {
@@ -23,21 +23,30 @@ declare namespace keychain {
     type KeychainErrorType = `${KeychainErrorCodes}Error`;
 
     class KeychainError extends Error {
-        code: KeychainErrorCodes
-        type: KeychainErrorType
+        code: KeychainErrorCodes;
+        type: KeychainErrorType;
     }
-
-    function getPassword (
-        options: Pick<KeyChainBaseOptions, 'account' | 'service'>,
-        callback: (err: KeychainError, password: string) => void,
-    ): void;
-
-    function setPassword (options: KeyChainBaseOptions, callback: (err: KeychainError) => void): void;
-
-    function deletePassword (
-        options: Pick<KeyChainBaseOptions, 'account' | 'service'>,
-        callback: (err: KeychainError) => void,
-    ): void;
 }
 
-export = keychain
+declare function getPassword(
+    options: Pick<keychainTypes.KeyChainBaseOptions, 'account' | 'service'>,
+    callback: (err: keychainTypes.KeychainError, password: string) => void,
+): void;
+
+declare function setPassword(
+    options: keychainTypes.KeyChainBaseOptions,
+    callback: (err: keychainTypes.KeychainError) => void,
+): void;
+
+declare function deletePassword(
+    options: Pick<keychainTypes.KeyChainBaseOptions, 'account' | 'service'>,
+    callback: (err: keychainTypes.KeychainError) => void,
+): void;
+
+declare const keychain: typeof keychainTypes & {
+    getPassword: typeof getPassword;
+    setPassword: typeof setPassword;
+    deletePassword: typeof deletePassword;
+};
+
+export = keychain;
