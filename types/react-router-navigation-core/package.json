@@ -3,6 +3,6 @@
     "dependencies": {
         "@types/history": "^4.7.11",
         "@types/react-native-tab-view": "^1.0.6",
-        "react-router": "^6.0.0"
+        "@types/react-router": "^5.1.0"
     }
 }

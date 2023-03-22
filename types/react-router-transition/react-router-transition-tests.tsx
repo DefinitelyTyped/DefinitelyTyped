@@ -55,8 +55,7 @@ const ReactRouterTransitionTest: React.FC = () => {
                 sensitive
                 path={"/a"}
                 component={class extends React.Component<any, any> {}}
-                render={() => <></>}
-            >
+            />
             <AnimatedRoute
                 atEnter={style1}
                 atLeave={style2}

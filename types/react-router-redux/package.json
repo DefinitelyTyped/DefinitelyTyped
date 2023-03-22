@@ -3,6 +3,6 @@
     "dependencies": {
         "@types/history": "^4.7.11",
         "redux": ">= 3.7.2",
-        "react-router": "^6.0.0"
+        "@types/react-router": "^5.1.0"
     }
 }

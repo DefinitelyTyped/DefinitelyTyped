@@ -4,7 +4,7 @@
 //                 Michael Vasyliv <https://github.com/michael-vasyliv>
 //                 Eli Robinson <https://github.com/EliRobinson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.5
+// TypeScript Version: 4.2
 
 import * as React from 'react';
 import { LinkProps, NavLinkProps } from 'react-router-dom';

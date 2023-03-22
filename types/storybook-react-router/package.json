@@ -3,6 +3,6 @@
     "dependencies": {
         "@storybook/addons": "^6.5.9",
         "@storybook/react": "^6.5.9",
-        "react-router": "^6.0.0"
+        "@types/react-router": "^5.1.0"
     }
 }
