@@ -386,7 +386,6 @@ type PathParentConditionalNull<T extends Node | null> =
 type AsPathParentType<T extends Node | null> =
     Exclude<T, NullParentNode | null> extends never ? never : NodePath<Exclude<T, NullParentNode | null>>;
 
-
 type NodeListType<N, K extends keyof N> = N[K] extends Array<infer P> ? (P extends Node ? P : never) : never;
 
 type NodesInsertionParam<T extends Node> = T | readonly T[] | [T, ...T[]];
