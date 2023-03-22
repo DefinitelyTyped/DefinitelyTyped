@@ -37,6 +37,15 @@ declare namespace OfficeRuntime {
    * @remarks
    * [Api set: SharedRuntime 1.1, Mailbox 1.10]
    *
+   * This interface is available in the 
+   * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+   * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+   * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+   * for Outlook. To learn how to specify a requirement set in your XML manifest, see
+   * {@link https://learn.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office applications and API requirements}.
+   * If you're using the unified Microsoft 365 manifest, see
+   * {@link https://learn.microsoft.com/office/dev/add-ins/develop/json-manifest-overview | Unified Microsoft 365 manifest (preview)}.
+   * 
    * **Important**: In Outlook, support is only available with
    * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
    *
@@ -50,6 +59,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the 
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook. To learn how to specify a requirement set in your XML manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office applications and API requirements}.
+     * If you're using the unified Microsoft 365 manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/json-manifest-overview | Unified Microsoft 365 manifest (preview)}.
+     * 
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
@@ -63,6 +81,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the 
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook. To learn how to specify a requirement set in your XML manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office applications and API requirements}.
+     * If you're using the unified Microsoft 365 manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/json-manifest-overview | Unified Microsoft 365 manifest (preview)}.
+     * 
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
@@ -76,6 +103,15 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
+     * 
+     * This method is available in the 
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook. To learn how to specify a requirement set in your XML manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office applications and API requirements}.
+     * If you're using the unified Microsoft 365 manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/json-manifest-overview | Unified Microsoft 365 manifest (preview)}.
      *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
@@ -90,6 +126,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the 
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook. To learn how to specify a requirement set in your XML manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office applications and API requirements}.
+     * If you're using the unified Microsoft 365 manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/json-manifest-overview | Unified Microsoft 365 manifest (preview)}.
+     * 
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
@@ -103,6 +148,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the 
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook. To learn how to specify a requirement set in your XML manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office applications and API requirements}.
+     * If you're using the unified Microsoft 365 manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/json-manifest-overview | Unified Microsoft 365 manifest (preview)}.
+     * 
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
@@ -115,6 +169,15 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
+     * 
+     * This method is available in the 
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook. To learn how to specify a requirement set in your XML manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office applications and API requirements}.
+     * If you're using the unified Microsoft 365 manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/json-manifest-overview | Unified Microsoft 365 manifest (preview)}.
      *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
@@ -129,6 +192,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the 
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook. To learn how to specify a requirement set in your XML manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office applications and API requirements}.
+     * If you're using the unified Microsoft 365 manifest, see
+     * {@link https://learn.microsoft.com/office/dev/add-ins/develop/json-manifest-overview | Unified Microsoft 365 manifest (preview)}.
+     * 
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      */
