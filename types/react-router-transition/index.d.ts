@@ -2,7 +2,7 @@
 // Project: https://github.com/maisano/react-router-transition, https://www.npmjs.com/package/react-router-transition
 // Definitions by: TheDSCPL <https://github.com/TheDSCPL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 4.5
 
 import * as React from 'react';
 import { OpaqueConfig, SpringHelperConfig, TransitionStyle } from 'react-motion';
