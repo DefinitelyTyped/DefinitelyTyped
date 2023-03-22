@@ -174,8 +174,8 @@ declare namespace registry {
         z: string;
         name?: string | undefined;
         credentials: TCreds;
-        _flow?: FlowInfo
-        _alias?: string
+        _flow?: FlowInfo;
+        _alias?: string;
         /**
          * Update the wiring configuration for this node.
          * @param wires -the new wiring configuration
@@ -377,40 +377,40 @@ declare namespace registry {
         flow: NodeContextData;
     }
 
-    type FlowType = 'subflow' | 'flow'
+    type FlowType = 'subflow' | 'flow';
 
     interface FlowInfo {
-        TYPE: FlowType
-        path: string
-        flow: Node
-        subflowDef?: SubflowDef
+        TYPE: FlowType;
+        path: string;
+        flow: Node;
+        subflowDef?: SubflowDef;
     }
 
-    type SubflowDefEnvType = 'cred' | string
+    type SubflowDefEnvType = 'cred' | string;
 
     interface SubflowDefEnv {
-        name: string
-        type: SubflowDefEnvType
-        value?: any
+        name: string;
+        type: SubflowDefEnvType;
+        value?: any;
     }
 
     interface SubflowDefInOutWire {
-        id: string
+        id: string;
     }
 
     interface SubflowDefInOut {
-        wires: SubflowDefInOutWire[]
+        wires: SubflowDefInOutWire[];
     }
 
     interface SubflowDef {
-        id: string
-        name: string
-        configs?: Node[]
-        nodes?: Node[]
-        subflows?: Node[]
-        in?: SubflowDefInOut[]
-        out?: SubflowDefInOut[]
-        env?: SubflowDefEnv[]
-        status?: any
+        id: string;
+        name: string;
+        configs?: Node[];
+        nodes?: Node[];
+        subflows?: Node[];
+        in?: SubflowDefInOut[];
+        out?: SubflowDefInOut[];
+        env?: SubflowDefEnv[];
+        status?: any;
     }
 }
