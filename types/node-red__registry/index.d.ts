@@ -1,22 +1,15 @@
 // Type definitions for @node-red/registry 1.2
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/registry, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
+//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.0
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction, Express } from 'express';
 import { Server as HttpsServer } from 'https';
 import { LocalSettings } from '@node-red/runtime';
 import * as util from '@node-red/util';
-
-/**
- * Omit Helper
- * Typescript 3.5 includes this.
- * TODO: Remove after March 2021, after
- *   the end of support for TS 3.4
- */
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 declare const registry: registry.RegistryModule;
 
@@ -181,6 +174,8 @@ declare namespace registry {
         z: string;
         name?: string | undefined;
         credentials: TCreds;
+        _flow?: FlowInfo
+        _alias?: string
         /**
          * Update the wiring configuration for this node.
          * @param wires -the new wiring configuration
@@ -376,8 +371,46 @@ declare namespace registry {
          */
         keys(storeName: string | undefined, cb: (err: Error, value: unknown[]) => void): void;
     }
+
     interface NodeContext extends NodeContextData {
         global: NodeContextData;
         flow: NodeContextData;
+    }
+
+    type FlowType = 'subflow' | 'flow'
+
+    interface FlowInfo {
+        TYPE: FlowType
+        path: string
+        flow: Node
+        subflowDef?: SubflowDef
+    }
+
+    type SubflowDefEnvType = 'cred' | string
+
+    interface SubflowDefEnv {
+        name: string
+        type: SubflowDefEnvType
+        value?: any
+    }
+
+    interface SubflowDefInOutWire {
+        id: string
+    }
+
+    interface SubflowDefInOut {
+        wires: SubflowDefInOutWire[]
+    }
+
+    interface SubflowDef {
+        id: string
+        name: string
+        configs?: Node[]
+        nodes?: Node[]
+        subflows?: Node[]
+        in?: SubflowDefInOut[]
+        out?: SubflowDefInOut[]
+        env?: SubflowDefEnv[]
+        status?: any
     }
 }
