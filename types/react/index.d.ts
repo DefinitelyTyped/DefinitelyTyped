@@ -79,12 +79,15 @@ declare namespace React {
         | ((props: P) => ReactElement<any, any> | null)
         | (new (props: P) => Component<any, any>);
 
-    interface RefObject<T> {
-        readonly current: T | null;
-    }
+    /** 
+     * @deprecated All refs are mutable. This type has always been wrong. Expect it to change to
+     * `type RefObject<T> = { current: T };` in React 19.
+     **/
+    type RefObject<T> = Readonly<MutableRefObject<T|null>>;
+
     // Bivariance hack for consistent unsoundness with RefObject
     type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
-    type Ref<T> = RefCallback<T> | RefObject<T> | null;
+    type Ref<T> = RefCallback<T> | RefObject<T> | MutableRefObject<T | null | undefined> | null;
     type LegacyRef<T> = string | Ref<T>;
     /**
      * Gets the instance type for a React element. The instance will be different for various component types:
@@ -769,7 +772,7 @@ declare namespace React {
         [propertyName: string]: any;
     }
 
-    function createRef<T>(): RefObject<T>;
+    function createRef<T>(): MutableRefObject<T|null>;
 
     // will show `ForwardRef(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
@@ -1014,13 +1017,11 @@ declare namespace React {
      * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
      * value around similar to how you’d use instance fields in classes.
      *
-     * Usage note: if you need the result of useRef to be directly mutable, include `| null` in the type
-     * of the generic argument.
      *
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
-    function useRef<T>(initialValue: T|null): RefObject<T>;
+    function useRef<T>(initialValue: T|null): MutableRefObject<T | null>;
     // convenience overload for potentially undefined initialValue / call with 0 arguments
     // has a default to stop it from defaulting to {} instead
     /**
@@ -1029,6 +1030,12 @@ declare namespace React {
      *
      * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
      * value around similar to how you’d use instance fields in classes.
+     * 
+     * Note about this overload: this definition is technically incorrect as the object is of type `{ current: undefined }`
+     * at creation, but upon unmount of a component react will assign the `current` to `null` (and always has). 
+     * However updating the type would be a breaking change. Expect this return type to be 
+     * `MutableRefObject<T | undefined | null>` in React 19.
+     * 
      *
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useref

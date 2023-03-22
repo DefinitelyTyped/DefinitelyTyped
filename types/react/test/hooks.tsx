@@ -170,6 +170,12 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const c: React.MutableRefObject<number | null> = React.useRef(null);
     const d: React.RefObject<number> = React.useRef(null);
 
+    // checks for https://twitter.com/mattpocockuk/status/1636098722982404096
+    const pocockukA = React.useRef<string>(null);
+    pocockukA.current = "Hello";
+    const pocockukB = React.useRef<HTMLDivElement>();
+    const el = <div ref={pocockukB}/>
+
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeHandle(ref, () => ({ id }), [id]);
     // was named like this in the first alpha, renamed before release
