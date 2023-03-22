@@ -2191,15 +2191,15 @@ declare namespace asana {
              * Get a task
              * @param {String} taskGid: (required) The task to operate on.
              * @param {Object} params: Parameters for the request
-             *  - optFields {[String]}:  Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more
+             *  - opt_fields {[String]}:  Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more
              *    efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for
              *    the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options.
-             *  - optPretty {Boolean}:  Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to
+             *  - opt_pretty {Boolean}:  Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to
              *    make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging.
              * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            getTask(taskGid: string, params?: any, dispatchOptions?: any): Promise<Tasks.Type>;
+            getTask(taskGid: string, params?: Params, dispatchOptions?: any): Promise<Tasks.Type>;
 
             // https://developers.asana.com/docs/update-a-task
             // https://github.com/Asana/node-asana/blob/6bf00fb3257847744bf0ebe2dc0e95c445477282/lib/resources/gen/tasks.js#L563-L578
