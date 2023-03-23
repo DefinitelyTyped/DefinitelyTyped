@@ -28,9 +28,9 @@ function registryTests() {
         const nodeConstructor: registry.NodeConstructor<MyNode, MyNodeDef, MyNodeCredentials> = function (nodeDef) {
             RED.nodes.createNode(this, nodeDef);
 
-            // $ExpectType FlowInfo
+            // $ExpectType FlowInfo | undefined
             this._flow;
-            // $ExpectType string
+            // $ExpectType string | undefined
             this._alias;
 
             // $ExpectType string
