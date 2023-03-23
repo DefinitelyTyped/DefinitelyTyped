@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.112.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1410,9 +1410,13 @@ declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddAnnotationsToOData": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewInbound": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeDataSource": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/RemoveAllInboundsExceptOne": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
 
