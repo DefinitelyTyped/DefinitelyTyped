@@ -14,7 +14,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'eventemitter3';
 import { ServerOptions } from 'https';
 import { Options } from 'request';
 import { Readable, Stream } from 'stream';
@@ -1403,7 +1403,28 @@ declare namespace TelegramBot {
     }
 }
 
-declare class TelegramBot extends EventEmitter {
+declare class TelegramBot extends EventEmitter<
+    | TelegramBot.MessageType
+    | 'message'
+    | 'callback_query'
+    | 'inline_query'
+    | 'poll_answer'
+    | 'chat_member'
+    | 'my_chat_member'
+    | 'chosen_inline_result'
+    | 'channel_post'
+    | 'edited_message'
+    | 'edited_message_text'
+    | 'edited_message_caption'
+    | 'edited_channel_post'
+    | 'edited_channel_post_text'
+    | 'edited_channel_post_caption'
+    | 'shipping_query'
+    | 'pre_checkout_query'
+    | 'polling_error'
+    | 'webhook_error'
+    | 'error'
+> {
     constructor(token: string, options?: TelegramBot.ConstructorOptions);
 
     startPolling(options?: TelegramBot.StartPollingOptions): Promise<any>;

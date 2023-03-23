@@ -2642,8 +2642,18 @@ declare namespace chrome.devtools.panels {
      * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
      * @param callback A function that is called when the resource has been successfully loaded.
      */
-    export function openResource(url: string, lineNumber: number, callback: () => void): void;
-
+    export function openResource(url: string, lineNumber: number, callback?: () => void): void;
+    /**
+     * Since Chrome 96.
+     * Requests DevTools to open a URL in a Developer Tools panel.
+     * @param url The URL of the resource to open.
+     * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
+     * @param columnNumber Specifies the column number to scroll to when the resource is loaded.
+     * @param callback A function that is called when the resource has been successfully loaded.
+     */
+    export function openResource(
+      url: string, lineNumber: number, columnNumber: number, callback?: (response: unknown) => unknown,
+    ): void;
     /**
      * @since Chrome 59.
      * The name of the color theme set in user's DevTools settings.
