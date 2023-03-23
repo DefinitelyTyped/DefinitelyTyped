@@ -11,7 +11,8 @@ declare namespace keychainTypes {
         type?: 'generic' | 'internet';
     }
 
-    type KeychainErrorCodes = 'UnsupportedPlatform'
+    type KeychainErrorCodes =
+        | 'UnsupportedPlatform'
         | 'NoAccountProvided'
         | 'NoServiceProvided'
         | 'NoPasswordProvided'
