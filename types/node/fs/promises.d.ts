@@ -83,8 +83,8 @@ declare module 'fs/promises' {
         emitClose?: boolean | undefined;
         start?: number | undefined;
     }
-    // TODO: Add `EventEmitter` close
-    interface FileHandle {
+    
+    interface FileHandle extends EventEmitter{
         /**
          * The numeric file descriptor managed by the {FileHandle} object.
          * @since v10.0.0
