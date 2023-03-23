@@ -1,4 +1,5 @@
 {
+    "type": "module",
     "private": true,
     "dependencies": {
         "@rdfjs/types": "*"
