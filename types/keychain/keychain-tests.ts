@@ -8,7 +8,7 @@ import keychain = require('keychain');
 // Errors when doesn't have the required properties
 keychain.setPassword({ account: 'some-account' }, err => {
     if (err) {
-        console.error(err);
+        err; // $ExpectType KeychainError
     }
 });
 
@@ -16,14 +16,14 @@ keychain.setPassword({ account: 'some-account' }, err => {
 // Another error when missing options
 keychain.setPassword({ account: 'some-account', password: 'some-pass' }, err => {
     if (err) {
-        console.error(err);
+        err; // $ExpectType KeychainError
     }
 });
 
 // Should pass
 keychain.setPassword({ account: 'some-account', password: 'some-pass', service: 'some-service' }, err => {
     if (err) {
-        console.error(err);
+        err; // $ExpectType KeychainError
     }
 });
 
@@ -35,7 +35,7 @@ keychain.setPassword({ account: 'some-account', password: 'some-pass', service: 
 // Errors when doesn't have the required properties
 keychain.getPassword({ account: 'some-account' }, (err, password) => {
     if (err) {
-        console.error(err);
+        err; // $ExpectType KeychainError
         return;
     }
 
@@ -45,7 +45,7 @@ keychain.getPassword({ account: 'some-account' }, (err, password) => {
 // Should pass
 keychain.getPassword({ account: 'some-account', service: 'some-service' }, (err, password) => {
     if (err) {
-        console.error(err);
+        err; // $ExpectType KeychainError
         return;
     }
 
@@ -60,7 +60,7 @@ keychain.getPassword({ account: 'some-account', service: 'some-service' }, (err,
 // Errors when doesn't have the required properties
 keychain.deletePassword({ account: 'some-account' }, err => {
     if (err) {
-        console.error(err);
+        err; // $ExpectType KeychainError
         return;
     }
 });
@@ -68,7 +68,7 @@ keychain.deletePassword({ account: 'some-account' }, err => {
 // Should pass
 keychain.getPassword({ account: 'some-account', service: 'some-service' }, err => {
     if (err) {
-        console.error(err);
+        err; // $ExpectType KeychainError
         return;
     }
 });
