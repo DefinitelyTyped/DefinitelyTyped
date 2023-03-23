@@ -11,14 +11,12 @@ declare namespace keychainTypes {
         type?: 'generic' | 'internet';
     }
 
-    enum KeychainErrorCodes {
-        UnsupportedPlatform = 'UnsupportedPlatform',
-        NoAccountProvided = 'NoAccountProvided',
-        NoServiceProvided = 'NoServiceProvided',
-        NoPasswordProvided = 'NoPasswordProvided',
-        ServiceFailure = 'ServiceFailure',
-        PasswordNotFound = 'PasswordNotFound',
-    }
+    type KeychainErrorCodes = 'UnsupportedPlatform'
+        | 'NoAccountProvided'
+        | 'NoServiceProvided'
+        | 'NoPasswordProvided'
+        | 'ServiceFailure'
+        | 'PasswordNotFound';
 
     type KeychainErrorType = `${KeychainErrorCodes}Error`;
 
