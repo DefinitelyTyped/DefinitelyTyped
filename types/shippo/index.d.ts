@@ -489,16 +489,104 @@ declare namespace Shippo {
     }
 
     interface ShipmentExtras {
-        signature_confirmation?: ShipmentExtras.SignatureConfirmation | undefined;
+        ancillary_endorsement?: ShipmentExtras.AncillaryEndorsement | undefined;
         authority_to_leave?: boolean | undefined;
-        saturday_delivery?: boolean | undefined;
+        alcohol?: ShipmentExtras.Alcohol | undefined;
+        billing?: ShipmentExtras.Billing | undefined;
         bypass_address_validation?: boolean | undefined;
-        request_retail_rates?: boolean | undefined;
+        carbon_neutral?: boolean | undefined;
+        carrier_hub_id?: string | undefined;
+        carrier_hub_travel_time?: number | undefined;
+        COD?: ShipmentExtras.COD | undefined;
+        container_type?: string | undefined;
+        critical_pull_time?: string | undefined;
         customer_branch?: string | undefined;
+        dangerous_goods_code?: ShipmentExtras.DangerousGoodsCode | undefined;
+        delivery_instructions?: string | undefined;
+        dry_ice?: ShipmentExtras.DryIce | undefined;
+        fulfillment_center?: string | undefined;
+        insurance?: ShipmentExtras.Insurance | undefined;
+        is_return?: boolean | undefined;
+        lasership_attrs?: ShipmentExtras.LasershipAttrs | undefined;
+        lasership_declared_value?: string | undefined;
+        preferred_delivery_timeframe?: ShipmentExtras.PreferredDeliveryTimeframe | undefined;
         premium?: boolean | undefined;
+        qr_code_requested?: boolean | undefined;
+        reference_1?: string | undefined;
+        reference_2?: string | undefined;
+        request_retail_rates?: boolean | undefined;
+        return_service_type?: ShipmentExtras.ReturnServiceType | undefined;
+        saturday_delivery?: boolean | undefined;
+        signature_confirmation?: ShipmentExtras.SignatureConfirmation | undefined;
     }
 
     namespace ShipmentExtras {
+        type AncillaryEndorsement = 'FORWARDING_SERVICE_REQUESTED' | 'RETURN_SERVICE_REQUESTED';
+
+        interface Alcohol {
+            contains_alcohol: boolean;
+            recipient_type: Alcohol.RecipientType;
+        }
+
+        namespace Alcohol {
+            type RecipientType = 'licensee' | 'consumer'; // as per docs
+        }
+
+        interface Billing {
+            account?: string | undefined;
+            country?: Country | undefined;
+            participation_code?: string | undefined;
+            type?: Billing.Type | undefined;
+            zip?: string | undefined;
+        }
+
+        namespace Billing {
+            type Type = 'SENDER' | 'RECIPIENT' | 'THIRD_PARTY' | 'THIRD_PARTY_CONSIGNEE';
+        }
+
+        interface COD {
+            amount?: string | undefined;
+            currency?: string | undefined;
+            payment_method?: COD.PaymentMethod | undefined;
+        }
+
+        namespace COD {
+            type PaymentMethod = 'SECURED_FUNDS' | 'CASH' | 'ANY';
+        }
+
+        type DangerousGoodsCode = '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09';
+
+        interface DryIce {
+            contains_dry_ice: boolean;
+            weight: string;
+        }
+
+        interface Insurance {
+            amount?: string | undefined;
+            content?: string | undefined;
+            currency?: string | undefined;
+            provider?: Insurance.Provider | undefined;
+        }
+
+        namespace Insurance {
+            type Provider = 'FEDEX' | 'UPS' | 'ONTRAC';
+        }
+
+        type LasershipAttrs =
+            | 'TwoPersonDelivery'
+            | 'Explosive'
+            | 'Alcohol'
+            | 'Hazmat'
+            | 'ControlledSubstance'
+            | 'Refrigerated'
+            | 'DryIce'
+            | 'Perishable'
+            | 'NoRTS';
+
+        type PreferredDeliveryTimeframe = '10001200' | '12001400' | '14001600' | '16001800' | '18002000' | '19002100';
+
+        type ReturnServiceType = 'PRINT_AND_MAIL' | 'ATTEMPT_1' | 'ATTEMPT_3' | 'ELECTRONIC_LABEL';
+
         type SignatureConfirmation = 'STANDARD' | 'ADULT' | 'CERTIFIED' | 'INDIRECT' | 'CARRIER_CONFIRMATION';
     }
 
