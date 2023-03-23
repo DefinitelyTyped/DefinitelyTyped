@@ -73,7 +73,6 @@ declare namespace SinchRtc {
     }
 
     class CallDetails implements CallListener {
-        private session;
         duration: number;
         hadVideoStream: boolean;
         hadAudioStream: boolean;
@@ -86,7 +85,6 @@ declare namespace SinchRtc {
         startedTime: Date;
         constructor(call: Call, session: unknown);
         get error(): Error | undefined;
-        private mapCallEndCause;
         get endCause(): CallEndCause;
         onCallEnded(call: Call): void;
         onCallProgressing(_: Call): void;
