@@ -141,7 +141,8 @@ export interface Hunk {
     newStart: number;
     newLines: number;
     lines: string[];
-    linedelimiters: string[];
+    // Line Delimiters is only returned by parsePatch()
+    linedelimiters?: string[];
 }
 
 export interface BestPath {
