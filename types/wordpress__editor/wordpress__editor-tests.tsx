@@ -386,7 +386,7 @@ select('core/editor').getCurrentPostAttribute('content');
 select('core/editor').getCurrentPostAttribute('author');
 // $ExpectType OmitNevers<Record<string, string>, { [x: string]: string; }> | undefined
 select('core/editor').getCurrentPostAttribute('meta');
-// $ExpectType CommentingStatus | undefined
+// $ExpectType ContextualField<CommentingStatus, "view" | "edit", "edit"> | undefined
 select('core/editor').getCurrentPostAttribute('comment_status');
 // $ExpectType number | undefined
 select('core/editor').getCurrentPostAttribute<'menu_order', Page>('menu_order');
