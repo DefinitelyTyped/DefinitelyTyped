@@ -381,13 +381,13 @@ select('core/editor').getAutosaveAttribute('author');
 select('core/editor').getCurrentPost();
 
 // $ExpectType string | undefined
-select('core/editor').getCurrentPostAttribute<'content', Post<'edit'>>('content');
+select('core/editor').getCurrentPostAttribute('content');
 // $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute<'author', Post<'edit'>>('author');
+select('core/editor').getCurrentPostAttribute('author');
 // $ExpectType OmitNevers<Record<string, string>, {[x: string]: string;}> | undefined
-select('core/editor').getCurrentPostAttribute<'meta', Post<'edit'>>('meta');
+select('core/editor').getCurrentPostAttribute('meta');
 // $ExpectType CommentingStatus | undefined
-select('core/editor').getCurrentPostAttribute<'comment_status', Post<'edit'>>('comment_status');
+select('core/editor').getCurrentPostAttribute('comment_status');
 // $ExpectType number | undefined
 select('core/editor').getCurrentPostAttribute<'menu_order', Page<'edit'>>('menu_order');
 // @ts-expect-error

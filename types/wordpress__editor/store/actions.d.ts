@@ -1,7 +1,5 @@
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance, TemplateArray } from '@wordpress/blocks';
-import { Autosave } from '@wordpress/core-data';
-import { dispatch } from '@wordpress/data';
 
 export {
     clearSelectedBlock,
@@ -49,7 +47,7 @@ export function autosave(options?: Record<string, boolean>): IterableIterator<vo
  *
  * @deprecated since 12.2.0.
  */
-export function createUndoLevel(): {type: 'DO_NOTHING'};
+export function createUndoLevel(): { type: 'DO_NOTHING' };
 
 /**
  * Signals that the user has disabled the publish sidebar.
@@ -85,7 +83,7 @@ export function redo(): void;
  *
  * @deprecated since 12.2.0.
  */
-export function refreshPost(): {type: 'DO_NOTHING'};
+export function refreshPost(): { type: 'DO_NOTHING' };
 
 /**
  * Signals that the blocks have been updated.
@@ -117,7 +115,7 @@ export function savePost(options?: Record<string, any>): IterableIterator<void>;
 export function setupEditor(
     post: Record<string, any>,
     edits?: Record<string, any>,
-    template?: TemplateArray
+    template?: TemplateArray,
 ): IterableIterator<void>;
 
 /**
