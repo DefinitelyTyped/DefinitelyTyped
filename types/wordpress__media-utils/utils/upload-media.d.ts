@@ -7,7 +7,7 @@ export type UploadMediaErrorCode =
     | 'EMPTY_FILE'
     | 'GENERAL';
 
-export interface MediaItem extends Omit<Attachment<'edit'>, 'alt_text' | 'caption' | 'source_url' | 'title'> {
+export interface MediaItem extends Omit<Attachment, 'alt_text' | 'caption' | 'source_url' | 'title'> {
     alt: string;
     caption: string;
     title: string;
