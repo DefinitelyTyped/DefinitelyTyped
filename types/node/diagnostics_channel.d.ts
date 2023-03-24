@@ -59,6 +59,45 @@ declare module 'diagnostics_channel' {
     function channel(name: string | symbol): Channel;
     type ChannelListener = (message: unknown, name: string | symbol) => void;
     /**
+     * Register a message handler to subscribe to this channel. This message handler will be run synchronously
+     * whenever a message is published to the channel. Any errors thrown in the message handler will
+     * trigger an 'uncaughtException'.
+     *
+     * ```js
+     * import diagnostics_channel from 'diagnostics_channel';
+     *
+     * diagnostics_channel.subscribe('my-channel', (message, name) => {
+     *   // Received data
+     * });
+     * ```
+     *
+     * @since v18.7.0, v16.17.0
+     * @param name The channel name
+     * @param onMessage The handler to receive channel messages
+     */
+    function subscribe(name: string | symbol, onMessage: ChannelListener): void;
+    /**
+     * Remove a message handler previously registered to this channel with diagnostics_channel.subscribe(name, onMessage).
+     *
+     * ```js
+     * import diagnostics_channel from 'diagnostics_channel';
+     *
+     * function onMessage(message, name) {
+     *  // Received data
+     * }
+     *
+     * diagnostics_channel.subscribe('my-channel', onMessage);
+     *
+     * diagnostics_channel.unsubscribe('my-channel', onMessage);
+     * ```
+     *
+     * @since v18.7.0, v16.17.0
+     * @param name The channel name
+     * @param onMessage The previous subscribed handler to remove
+     * @returns `true` if the handler was found, `false` otherwise
+     */
+    function unsubscribe(name: string | symbol, onMessage: ChannelListener): boolean;
+    /**
      * The class `Channel` represents an individual named channel within the data
      * pipeline. It is use to track subscribers and to publish messages when there
      * are subscribers present. It exists as a separate object to avoid channel
