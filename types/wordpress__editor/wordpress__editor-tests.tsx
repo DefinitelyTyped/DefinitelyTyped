@@ -1,3 +1,4 @@
+import { Page } from '@wordpress/core-data/build-types/entity-types';
 import { dispatch, select } from '@wordpress/data';
 import * as e from '@wordpress/editor';
 
@@ -376,21 +377,21 @@ select('core/editor').getActivePostLock();
 // $ExpectType number | {}
 select('core/editor').getAutosaveAttribute('author');
 
-// $ExpectType Decontextualize<BasePost<"edit"> & Partial<BasePage<"edit">>>
+// $ExpectType Updatable<Post<"edit">>
 select('core/editor').getCurrentPost();
 
 // $ExpectType string | undefined
 select('core/editor').getCurrentPostAttribute('content');
 // $ExpectType number | undefined
 select('core/editor').getCurrentPostAttribute('author');
-// $ExpectType any[] | undefined
+// $ExpectType OmitNevers<Record<string, string>, {[x: string]: string;}> | undefined
 select('core/editor').getCurrentPostAttribute('meta');
-// $ExpectType "open" | "closed" | undefined || OpenOrClosed | undefined
+// $ExpectType CommentingStatus | undefined
 select('core/editor').getCurrentPostAttribute('comment_status');
 // $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute('menu_order');
-// $ExpectType unknown
-select('core/editor').getCurrentPostAttribute('foo');
+select('core/editor').getCurrentPostAttribute<'menu_order', Page<'edit'>>('menu_order');
+// @ts-expect-error
+select('core/editor').getCurrentPostAttribute<'foo', Page<'edit'>>('foo');
 
 // $ExpectType EditorSettings
 select('core/editor').getEditorSettings();
@@ -399,7 +400,7 @@ select('core/editor').getEditorSettings();
 select('core/editor').getPostEdits().content;
 // $ExpectType number | undefined
 select('core/editor').getPostEdits().author;
-// $ExpectType unknown
+// @ts-expect-error
 select('core/editor').getPostEdits().foo;
 
 // $ExpectType boolean
