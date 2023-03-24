@@ -377,7 +377,7 @@ select('core/editor').getActivePostLock();
 // $ExpectType number | {}
 select('core/editor').getAutosaveAttribute('author');
 
-// $ExpectType Updatable<EntityRecord>
+// $ExpectType Updatable<Attachment<"edit"> | Comment<"edit"> | MenuLocation<"edit"> | NavMenu<"edit"> | NavMenuItem<"edit"> | Page<"edit"> | Plugin<"edit"> | Post<"edit"> | Settings<"edit"> | Sidebar<"edit"> | Taxonomy<"edit"> | Theme<"edit"> | User<"edit"> | Type<"edit"> | Widget<"edit"> | WidgetType<"edit"> | WpTemplate<"edit"> | WpTemplatePart<"edit">>
 select('core/editor').getCurrentPost();
 
 // $ExpectType string | undefined
