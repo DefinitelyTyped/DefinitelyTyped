@@ -582,8 +582,8 @@ Nel momento in cui questo README è stato scritto, il [`tsconfig.json` della his
 
 Se ci sono pacchetti su Definitely Typed che sono incompatibili con la vesione più nuova di una libreria, dovrai mappare gli indirizzi alla vecchia versione, continuando ricorsivamente per gli altri pacchetti che dipendono da essa.
 
-Per esempio, `react-router` dipende da `history@2`, quindi il [`tsconfig.json` di react-router](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) ha mappato gli indirizzi alla versione vecchia (`"history": [ "history/v2" ]`) fino a che non è passato alla nuova versione di `react-router`.
-A sua volta, la libreria `react-router-bootstrap` (che dipende da `react-router`) ha dovuto aggiungere lo stesso mapping nel suo `tsconfig.json`, fino a che la sua dipendenza `react-router` non è stata aggiornata all'ultima versione.
+Per esempio, `browser-sync` dipende da `micromatch@2`, quindi il [`tsconfig.json` di browser-sync](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) ha mappato gli indirizzi alla versione vecchia (`"micromatch": [ "micromatch/v2" ]`) fino a che non è passato alla nuova versione di `browser-sync`.
+A sua volta, la libreria `browser-sync-webpack-plugin` (che dipende da `browser-sync`) ha dovuto aggiungere lo stesso mapping nel suo `tsconfig.json`, fino a che la sua dipendenza `browser-sync` non è stata aggiornata all'ultima versione.
 
 Nota che `/// <reference types=".." />` non funziona con il mapping degli indirizzi, quindi le dipendenze devono usare `import`.
 
