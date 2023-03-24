@@ -1819,6 +1819,7 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
+        autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: Booleanish | "inherit" | undefined;
         contextMenu?: string | undefined;
@@ -1890,7 +1891,6 @@ declare namespace React {
         as?: string | undefined;
         async?: boolean | undefined;
         autoComplete?: string | undefined;
-        autoFocus?: boolean | undefined;
         autoPlay?: boolean | undefined;
         capture?: boolean | string | undefined;
         cellPadding?: number | string | undefined;
@@ -2044,7 +2044,6 @@ declare namespace React {
     }
 
     interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoFocus?: boolean | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         formAction?: string | undefined;
@@ -2191,7 +2190,6 @@ declare namespace React {
         accept?: string | undefined;
         alt?: string | undefined;
         autoComplete?: string | undefined;
-        autoFocus?: boolean | undefined;
         capture?: boolean | string | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
@@ -2225,7 +2223,6 @@ declare namespace React {
     }
 
     interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoFocus?: boolean | undefined;
         challenge?: string | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
@@ -2366,7 +2363,6 @@ declare namespace React {
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
         autoComplete?: string | undefined;
-        autoFocus?: boolean | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         multiple?: boolean | undefined;
@@ -2402,7 +2398,6 @@ declare namespace React {
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoComplete?: string | undefined;
-        autoFocus?: boolean | undefined;
         cols?: number | undefined;
         dirName?: string | undefined;
         disabled?: boolean | undefined;
@@ -2741,7 +2736,6 @@ declare namespace React {
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
         allowpopups?: boolean | undefined;
-        autoFocus?: boolean | undefined;
         autosize?: boolean | undefined;
         blinkfeatures?: string | undefined;
         disableblinkfeatures?: string | undefined;
