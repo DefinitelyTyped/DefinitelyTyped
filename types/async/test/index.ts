@@ -635,6 +635,7 @@ async.mapValues<number, string>(
 // $ExpectType Promise<Dictionary<string>>
 async.mapValues(
     { a: 1, b: 2, c: 3 },
+    // $ExpectType (val: number, key: string) => Promise<string>
     async (val, key) => {
         const newVal = await new Promise<string>((resolve) => {
             setTimeout(
@@ -651,6 +652,7 @@ async.mapValues(
 // $ExpectType Promise<Dictionary<string>>
 async.mapValues<number, string>(
     { a: 1, b: 2, c: 3 },
+    // $ExpectType (val: number, key: string, next: AsyncResultCallback<string, Error>) => void
     (val, key, next) => {
         setTimeout(
             () => {
