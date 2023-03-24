@@ -20,7 +20,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
    */
   ListEmptyComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 
@@ -29,7 +29,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
    */
   ListFooterComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 
@@ -43,7 +43,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
    */
   ListHeaderComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 

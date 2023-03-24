@@ -4032,12 +4032,12 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Styling for internal View for ListFooterComponent
@@ -4047,7 +4047,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Styling for internal View for ListHeaderComponent
@@ -4312,12 +4312,12 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Styling for internal View for ListFooterComponent
@@ -4327,7 +4327,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Styling for internal View for ListHeaderComponent
@@ -4337,7 +4337,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     /**
      * Rendered in between each section.
      */
-    SectionSeparatorComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    SectionSeparatorComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -4558,13 +4558,13 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Rendered at the bottom of all the items. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Styling for internal View for ListFooterComponent
@@ -4575,7 +4575,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * Rendered at the top of all the items. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<unknown> | null | undefined;
 
     /**
      * Styling for internal View for ListHeaderComponent
