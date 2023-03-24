@@ -282,6 +282,7 @@ export function mapValuesLimit<T, R, E = Error>(
 export function mapValues<T, R, E = Error>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
 export function mapValues<T, R, E = Error, C = unknown>(
     obj: Dictionary<T>,
+    // tslint:disable-next-line:void-return
     iteratee: (value: T, key: string, callback: C extends undefined ? never : AsyncResultCallback<R, E>) => C extends undefined ? Promise<R> : void
 ): Promise<Dictionary<R>>;
 export const mapValuesSeries: typeof mapValues;
