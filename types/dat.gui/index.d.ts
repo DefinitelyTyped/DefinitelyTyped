@@ -5,6 +5,10 @@
 
 export as namespace dat;
 
+type ExcludeFuntions<T> = { 
+    [K in keyof T]: T[K] extends Function ? K : never 
+}[keyof T];
+
 export interface GUIParams {
     /**
      * Handles GUI's element placement for you.
@@ -44,7 +48,7 @@ export interface GUIParams {
     width?: number | undefined;
 }
 
-export class GUI {
+export class GUI<T> {
     static CLASS_AUTO_PLACE: string;
     static CLASS_AUTO_PLACE_CONTAINER: string;
     static CLASS_MAIN: string;
@@ -61,29 +65,29 @@ export class GUI {
 
     constructor(option?: GUIParams);
 
-    __controllers: GUIController[];
-    __folders: { [folderName: string]: GUI };
+    __controllers: GUIController<T>[];
+    __folders: { [folderName: string]: GUI<T> };
     domElement: HTMLElement;
 
-    add<T extends Record<string, unknown>>(
+    add(
         target: T,
-        propName: keyof T,
+        propName: keyof  Omit<T, ExcludeFuntions<T>>,
         min?: number,
         max?: number,
         step?: number,
-    ): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, status: boolean): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: string[]): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: number[]): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: Object): GUIController;
+    ): GUIController<T>;
+    add(target: T, propName: keyof  Omit<T, ExcludeFuntions<T>>, status: boolean): GUIController<T>;
+    add(target: T, propName: keyof  Omit<T, ExcludeFuntions<T>>, items: string[]): GUIController<T>;
+    add(target: T, propName: keyof  Omit<T, ExcludeFuntions<T>>, items: number[]): GUIController<T>
+    add(target: T, propName: keyof  Omit<T, ExcludeFuntions<T>>, items: Object): GUIController<T>;
 
-    addColor(target: Object, propName: string): GUIController;
+    addColor(target: Object, propName: string): GUIController<T>;
 
-    remove(controller: GUIController): void;
+    remove(controller: GUIController<T>): void;
     destroy(): void;
 
-    addFolder(propName: string): GUI;
-    removeFolder(subFolder: GUI): void;
+    addFolder(propName: string): GUI<T>;
+    removeFolder(subFolder: GUI<T>): void;
 
     open(): void;
     close(): void;
@@ -91,18 +95,18 @@ export class GUI {
     show(): void;
 
     remember(target: Object, ...additionalTargets: Object[]): void;
-    getRoot(): GUI;
+    getRoot(): GUI<T>;
 
     getSaveObject(): Object;
     save(): void;
     saveAs(presetName: string): void;
-    revert(gui: GUI): void;
+    revert(gui: GUI<T>): void;
 
-    listen(controller: GUIController): void;
+    listen(controller: GUIController<T>): void;
     updateDisplay(): void;
 
     // gui properties in dat/gui/GUI.js
-    readonly parent: GUI;
+    readonly parent: GUI<T>;
     readonly scrollable: boolean;
     readonly autoPlace: boolean;
     preset: string;
@@ -113,33 +117,33 @@ export class GUI {
     useLocalStorage: boolean;
 }
 
-export class GUIController<T extends Record<string, unknown> = Record<string, unknown>> {
+export class GUIController<T> {
     domElement: HTMLElement;
     object: Object;
     property: string;
 
     constructor(object: T, property: keyof T);
 
-    options(option: any): GUIController;
-    name(name: string): GUIController;
+    options(option: any): GUIController<T>;
+    name(name: string): GUIController<T>;
 
-    listen(): GUIController;
-    remove(): GUIController;
+    listen(): GUIController<T>;
+    remove(): GUIController<T>;
 
-    onChange(fnc: (value?: any) => void): GUIController;
-    onFinishChange(fnc: (value?: any) => void): GUIController;
+    onChange(fnc: (value?: any) => void): GUIController<T>;
+    onFinishChange(fnc: (value?: any) => void): GUIController<T>;
 
-    setValue(value: any): GUIController;
+    setValue(value: any): GUIController<T>;
     getValue(): any;
 
-    updateDisplay(): GUIController;
+    updateDisplay(): GUIController<T>;
     isModified(): boolean;
 
     // NumberController
-    min(n: number): GUIController;
-    max(n: number): GUIController;
-    step(n: number): GUIController;
+    min(n: number): GUIController<T>;
+    max(n: number): GUIController<T>;
+    step(n: number): GUIController<T>;
 
     // FunctionController
-    fire(): GUIController;
+    fire(): GUIController<T>;
 }
