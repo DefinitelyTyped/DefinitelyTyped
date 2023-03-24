@@ -384,24 +384,24 @@ select('core/editor').getCurrentPost();
 select('core/editor').getCurrentPostAttribute('content');
 // $ExpectType number | undefined
 select('core/editor').getCurrentPostAttribute('author');
-// $ExpectType OmitNevers<Record<string, string>, {[x: string]: string;}> | undefined
+// $ExpectType OmitNevers<Record<string, string>, { [x: string]: string; }> | undefined
 select('core/editor').getCurrentPostAttribute('meta');
 // $ExpectType CommentingStatus | undefined
 select('core/editor').getCurrentPostAttribute('comment_status');
 // $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute<'menu_order', Page<'edit'>>('menu_order');
+select('core/editor').getCurrentPostAttribute<'menu_order', Page>('menu_order');
 // @ts-expect-error
-select('core/editor').getCurrentPostAttribute<'foo', Page<'edit'>>('foo');
+select('core/editor').getCurrentPostAttribute<'foo', Page>('foo');
 
 // $ExpectType EditorSettings
 select('core/editor').getEditorSettings();
 
 // $ExpectType string
-(select('core/editor').getPostEdits() as Updatable<Post<'edit'>>).content;
+(select('core/editor').getPostEdits() as Updatable<Post>).content;
 // $ExpectType number
-(select('core/editor').getPostEdits() as Updatable<Post<'edit'>>).author;
+(select('core/editor').getPostEdits() as Updatable<Post>).author;
 // @ts-expect-error
-(select('core/editor').getPostEdits() as Updatable<Post<'edit'>>).foo;
+(select('core/editor').getPostEdits() as Updatable<Post>).foo;
 
 // $ExpectType boolean
 select('core/editor').inSomeHistory(state => state.foo === true);
