@@ -12,9 +12,11 @@
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
     },
     "engines": {
+        "pnpm": ">=8.8.0",
         "node": ">=7.8.0"
     },
     "scripts": {
+        "preinstall": "npx only-allow pnpm",
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
         "test-all": "node --require source-map-support/register node_modules/@definitelytyped/dtslint-runner/ --path .",
@@ -29,6 +31,7 @@
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/eslint-plugin": "latest",
         "@definitelytyped/header-parser": "latest",
+        "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
         "@octokit/core": "^3.5.1",
         "@octokit/rest": "^16.0.0",
@@ -43,6 +46,7 @@
         "dprint": "^0.41.0",
         "eslint-plugin-jsdoc": "^44.2.7",
         "jsdom": "^17.0.0",
+        "p-queue": "^7.3.4",
         "remark-cli": "^11.0.0",
         "remark-gfm": "^3.0.0",
         "remark-validate-links": "^12.0.0",
@@ -58,6 +62,14 @@
         "hooks": {
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
+        }
+    },
+    "pnpm": {
+        "peerDependencyRules": {
+            "allowedVersions": {
+                "react-autosize-textarea>react": "*",
+                "react-autosize-textarea>react-dom": "*"
+            }
         }
     }
 }
