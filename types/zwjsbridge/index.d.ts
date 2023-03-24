@@ -364,6 +364,8 @@ interface ZWJSBridge {
     /**
      * 文件上传
      *
+     * @param options - 文件上传参数 {@link UploadFileOptions}
+     *
      * @returns 异步返回 {@link UploadFileResult} 对象
      *
      * @example
@@ -379,6 +381,8 @@ interface ZWJSBridge {
 
     /**
      * 文件下载
+     *
+     * @param options - 文件下载参数 {@link DownloadFileOptions}
      *
      * @returns 异步返回 {@link DownloadFileResult} 对象
      *
