@@ -446,7 +446,9 @@ declare module 'vm' {
      * @param code The body of the function to compile.
      * @param params An array of strings containing all parameters for the function.
      */
-    function compileFunction(code: string, params?: ReadonlyArray<string>, options?: CompileFunctionOptions): Function;
+    function compileFunction(code: string, params?: ReadonlyArray<string>, options?: CompileFunctionOptions): Function & {
+        cachedDataRejected: Script['cachedDataRejected'];
+    };
     /**
      * Measure the memory known to V8 and used by all contexts known to the
      * current V8 isolate, or the main context.

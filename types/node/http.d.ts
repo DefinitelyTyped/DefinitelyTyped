@@ -144,6 +144,7 @@ declare module 'http' {
         socketPath?: string | undefined;
         timeout?: number | undefined;
         uniqueHeaders?: Array<string | string[]> | undefined;
+        joinDuplicateHeaders?: boolean;
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
@@ -164,6 +165,12 @@ declare module 'http' {
          * @since v18.0.0
          */
         requestTimeout?: number | undefined;
+        /**
+         * It joins the field line values of multiple headers in a request with `, ` instead of discarding the duplicates.
+         * @default false
+         * @since v18.14.0
+         */
+        joinDuplicateHeaders?: boolean;
         /**
          * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
          * after it has finished writing the last response, before a socket will be destroyed.
