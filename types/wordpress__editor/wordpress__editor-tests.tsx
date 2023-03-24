@@ -1,4 +1,4 @@
-import { Page } from '@wordpress/core-data/build-types/entity-types';
+import { Page, Post, Updatable } from '@wordpress/core-data/build-types/entity-types';
 import { dispatch, select } from '@wordpress/data';
 import * as e from '@wordpress/editor';
 
@@ -377,17 +377,17 @@ select('core/editor').getActivePostLock();
 // $ExpectType number | {}
 select('core/editor').getAutosaveAttribute('author');
 
-// $ExpectType Updatable<Post<"edit">>
+// $ExpectType Updatable<EntityRecord>
 select('core/editor').getCurrentPost();
 
 // $ExpectType string | undefined
-select('core/editor').getCurrentPostAttribute('content');
+select('core/editor').getCurrentPostAttribute<'content', Post<'edit'>>('content');
 // $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute('author');
+select('core/editor').getCurrentPostAttribute<'author', Post<'edit'>>('author');
 // $ExpectType OmitNevers<Record<string, string>, {[x: string]: string;}> | undefined
-select('core/editor').getCurrentPostAttribute('meta');
+select('core/editor').getCurrentPostAttribute<'meta', Post<'edit'>>('meta');
 // $ExpectType CommentingStatus | undefined
-select('core/editor').getCurrentPostAttribute('comment_status');
+select('core/editor').getCurrentPostAttribute<'comment_status', Post<'edit'>>('comment_status');
 // $ExpectType number | undefined
 select('core/editor').getCurrentPostAttribute<'menu_order', Page<'edit'>>('menu_order');
 // @ts-expect-error
@@ -396,12 +396,12 @@ select('core/editor').getCurrentPostAttribute<'foo', Page<'edit'>>('foo');
 // $ExpectType EditorSettings
 select('core/editor').getEditorSettings();
 
-// $ExpectType string | undefined
-select('core/editor').getPostEdits().content;
-// $ExpectType number | undefined
-select('core/editor').getPostEdits().author;
+// $ExpectType string
+(select('core/editor').getPostEdits() as Updatable<Post<'edit'>>).content;
+// $ExpectType number
+(select('core/editor').getPostEdits() as Updatable<Post<'edit'>>).author;
 // @ts-expect-error
-select('core/editor').getPostEdits().foo;
+(select('core/editor').getPostEdits() as Updatable<Post<'edit'>>).foo;
 
 // $ExpectType boolean
 select('core/editor').inSomeHistory(state => state.foo === true);
