@@ -1,21 +1,21 @@
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance } from '@wordpress/blocks';
 import { Updatable, EntityRecord, Post, User } from '@wordpress/core-data';
-import { Context, ContextualField } from '@wordpress/core-data/build-types/entity-types/helpers';
+import { Context, ContextualField, RenderedText } from '@wordpress/core-data/build-types/entity-types/helpers';
 
 interface PostRevision<C extends Context = 'view'> {
     author: number;
-    content: ContextualField<string, 'edit' | 'view', C>;
+    content: RenderedText<C>;
     date: string;
     date_gmt: ContextualField<string, 'edit' | 'view', C>;
-    excerpt: string;
-    guid: ContextualField<string, 'edit' | 'view', C>;
+    excerpt: RenderedText<C>;
+    guid: C extends 'edit' | 'view' ? RenderedText<C> : never;
     id: string;
     modified: ContextualField<string, 'edit' | 'view', C>;
     modified_gmt: ContextualField<string, 'edit' | 'view', C>;
-    parent: string;
+    parent: number;
     slug: string;
-    title: string;
+    title: RenderedText<C>;
 }
 
 export {
@@ -117,7 +117,7 @@ export function getAutosaveAttribute<T extends keyof (PostRevision & { preview_l
  * edits. Returns an object containing relevant default post values if the post has not yet been
  * saved.
  */
-export function getCurrentPost<S extends EntityRecord = Post>(): Updatable<S>;
+export function getCurrentPost(): Updatable<EntityRecord>;
 
 /**
  * Returns an attribute value of the saved post.
@@ -207,7 +207,7 @@ export function getPermalinkParts(): { postName: string; prefix: string; suffix?
  *
  * @returns Object of key value pairs comprising unsaved edits.
  */
-export function getPostEdits<S extends EntityRecord = Post<'edit'>>(): Partial<Updatable<S>>;
+export function getPostEdits(): Partial<Updatable<EntityRecord>>;
 
 /**
  * Returns details about the post lock user.
