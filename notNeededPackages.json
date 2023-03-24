@@ -5984,7 +5984,7 @@
             "asOfVersion": "2.8.0"
         },
         "wordpress__core-data": {
-            "libraryName": "wordpress__core-data",
+            "libraryName": "@wordpress/core-data",
             "asOfVersion": "2.5.0"
         },
         "wordpress__dependency-extraction-webpack-plugin": {
