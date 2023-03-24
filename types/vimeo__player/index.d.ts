@@ -299,6 +299,10 @@ declare namespace Vimeo {
     class Player {
         constructor(element: HTMLIFrameElement | HTMLElement | string, options?: Player.Options);
 
+        // This property doesn’t actually exist.
+        // It’s defined for backwards compatibility with older versions of the type definitions.
+        static default: typeof Player;
+
         on<EventName extends keyof Player.EventMap>(
             event: EventName,
             callback: Player.EventCallback<Player.EventMap[EventName]>,

@@ -30,6 +30,8 @@ player = new Player('handstick', {
     transparent: true,
 });
 
+player = new Player.default('handstick');
+
 const onPlay = (data: any) => {
     // data is an object containing properties specific to that event
 };
