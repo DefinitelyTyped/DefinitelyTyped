@@ -1,4 +1,4 @@
-import { Object3D, Camera, MOUSE, Raycaster, Mesh, Vector3, Quaternion } from '../../../src/Three';
+import { Object3D, Camera, MOUSE, Raycaster, Mesh, Vector3, Quaternion, MouseButton } from '../../../src/Three';
 
 export class TransformControls extends Object3D {
     constructor(object: Camera, domElement?: HTMLElement);
@@ -22,9 +22,9 @@ export class TransformControls extends Object3D {
     showZ: boolean;
     readonly isTransformControls: true;
     mouseButtons: {
-        LEFT: MOUSE;
-        MIDDLE: MOUSE;
-        RIGHT: MOUSE;
+        LEFT: MouseButton;
+        MIDDLE: MouseButton;
+        RIGHT: MouseButton;
     };
 
     attach(object: Object3D): this;
