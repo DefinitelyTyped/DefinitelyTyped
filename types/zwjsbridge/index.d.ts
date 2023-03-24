@@ -19,6 +19,48 @@
  *  ```
  */
 
+/**
+ * 文件上传参数
+ */
+interface UploadFileOptions {
+    /** 对应 input 文件选择 accept 属性说明 在微信端会转化为 image/video/file/all */
+    type?: string;
+    /** 服务端接受文件流上传地址 */
+    url: string;
+    /** 上传文件数量 默认为1 */
+    count?: number;
+}
+
+/**
+ * 文件上传返回结果
+ */
+interface UploadFileResult {
+    /** 上传状态 */
+    status: 'success' | 'fail';
+    /** 上传文件地址 */
+    filePath: string[];
+    /** 选择文件名称 */
+    fileName: string[];
+    /** 成功/错误信息 */
+    msg: string;
+}
+
+/**
+ * 文件下载参数
+ */
+interface DownloadFileOptions {
+    /** 文件下载地址 */
+    url: string;
+}
+
+/**
+ * 文件下载返回结果
+ */
+interface DownloadFileResult {
+    /** 下载成功标识 */
+    success: boolean;
+}
+
 interface ZWJSBridge {
     /**
      * 初始化jsapi，初始化完成即onReady之后再调用jsapi。
@@ -320,22 +362,9 @@ interface ZWJSBridge {
     }): Promise<any>;
 
     /**
-     * @typedef {Object} UploadFileResult - 文件上传返回结果
-     * @property {"success"|"fail"} status - 上传状态
-     * @property {string[]} filePath - 上传文件地址
-     * @property {string[]} fileName - 选择文件名称
-     * @property {string} msg - 成功/错误信息
-     */
-
-    /**
      * 文件上传
      *
-     * @param {Object} options - 文件上传参数
-     * @param {string} [options.type] - 对应 input 文件选择 accept 属性说明 在微信端会转化为 image/video/file/all
-     * @param {string} options.url - 服务端接受文件流上传地址
-     * @param {number} [options.count=1] - 上传文件数量 默认为1
-     *
-     * @returns {Promise<UploadFileResult>} - 异步返回 {@link UploadFileResult} 对象
+     * @returns 异步返回 {@link UploadFileResult} 对象
      *
      * @example
      * ZWJSBridge.uploadFile({
@@ -346,24 +375,12 @@ interface ZWJSBridge {
      *   console.log(res)
      *  })
      */
-    uploadFile(options: {
-        type?: string;
-        url: string;
-        count?: number;
-    }): Promise<{ status: 'success' | 'fail'; filePath: string[]; fileName: string[]; msg: string }>;
-
-    /**
-     * @typedef {Object} DownloadFileResult - 文件上传返回结果
-     * @property {boolean} success - 下载成功标识
-     */
+    uploadFile(options: UploadFileOptions): Promise<UploadFileResult>;
 
     /**
      * 文件下载
      *
-     * @param {Object} options - 文件下载参数
-     * @param {string} options.url - 文件下载地址
-     *
-     * @returns {Promise<DownloadFileResult>} - 异步返回 {@link DownloadFileResult} 对象
+     * @returns 异步返回 {@link DownloadFileResult} 对象
      *
      * @example
      * ZWJSBridge.downloadFile({
@@ -372,7 +389,7 @@ interface ZWJSBridge {
      *   console.log(res)
      * })
      */
-    downloadFile(options: { url: string }): Promise<{ success: boolean }>;
+    downloadFile(options: DownloadFileOptions): Promise<DownloadFileResult>;
 
     /***********    UI界面类     ***********/
     /**
