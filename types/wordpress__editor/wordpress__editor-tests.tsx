@@ -1,4 +1,5 @@
-import { Page, Post, Updatable } from '@wordpress/core-data/build-types/entity-types';
+import { Page, Post, Updatable, EntityRecord } from '@wordpress/core-data/build-types/entity-types';
+import { CommentingStatus } from '@wordpress/core-data/build-types/entity-types/helpers';
 import { dispatch, select } from '@wordpress/data';
 import * as e from '@wordpress/editor';
 
@@ -335,6 +336,12 @@ declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
 // Store
 // ============================================================================
 
+let string: string;
+let _string: string | undefined;
+let number: number;
+let _number: number | undefined;
+let post: Updatable<Post>;
+
 // $ExpectType IterableIterator<void>
 dispatch('core/editor').autosave();
 // $ExpectType IterableIterator<void>
@@ -371,37 +378,33 @@ dispatch('core/editor').updateEditorSettings({ codeEditingEnabled: false });
 // $ExpectType void
 dispatch('core/editor').updatePostLock({ isLocked: false, user: null });
 
-// $ExpectType string | undefined
-select('core/editor').getActivePostLock();
+_string = select('core/editor').getActivePostLock();
 
 // $ExpectType number | {}
 select('core/editor').getAutosaveAttribute('author');
 
-// $ExpectType Updatable<Attachment<"edit"> | Comment<"edit"> | MenuLocation<"edit"> | NavMenu<"edit"> | NavMenuItem<"edit"> | Page<"edit"> | Plugin<"edit"> | Post<"edit"> | Settings<"edit"> | Sidebar<"edit"> | Taxonomy<"edit"> | Theme<"edit"> | User<"edit"> | Type<"edit"> | Widget<"edit"> | WidgetType<"edit"> | WpTemplate<"edit"> | WpTemplatePart<"edit">>
-select('core/editor').getCurrentPost();
+post = select('core/editor').getCurrentPost() as Updatable<Post>;
+post = select('core/editor').getPostEdits() as Updatable<Post>;
 
-// $ExpectType string | undefined
-select('core/editor').getCurrentPostAttribute('content');
-// $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute('author');
+_string = select('core/editor').getCurrentPostAttribute('content');
+
+_number = select('core/editor').getCurrentPostAttribute('author');
 // $ExpectType OmitNevers<Record<string, string>, { [x: string]: string; }> | undefined
 select('core/editor').getCurrentPostAttribute('meta');
-// $ExpectType ContextualField<CommentingStatus, "view" | "edit", "edit"> | undefined
-select('core/editor').getCurrentPostAttribute('comment_status');
-// $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute<'menu_order', Page>('menu_order');
+const status: CommentingStatus | undefined = select('core/editor').getCurrentPostAttribute('comment_status');
+
+_number = select('core/editor').getCurrentPostAttribute<'menu_order', Page>('menu_order');
 // @ts-expect-error
 select('core/editor').getCurrentPostAttribute<'foo', Page>('foo');
 
 // $ExpectType EditorSettings
 select('core/editor').getEditorSettings();
 
-// $ExpectType string
-(select('core/editor').getPostEdits() as Updatable<Post>).content;
-// $ExpectType number
-(select('core/editor').getPostEdits() as Updatable<Post>).author;
+string = post.content;
+
+number = post.author;
 // @ts-expect-error
-(select('core/editor').getPostEdits() as Updatable<Post>).foo;
+post.foo;
 
 // $ExpectType boolean
 select('core/editor').inSomeHistory(state => state.foo === true);

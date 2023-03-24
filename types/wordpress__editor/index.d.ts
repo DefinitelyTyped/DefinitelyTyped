@@ -2,7 +2,7 @@
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/editor/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
+// TypeScript Version: 3.6
 
 import { dispatch, select } from '@wordpress/data';
 
