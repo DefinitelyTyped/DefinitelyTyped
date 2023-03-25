@@ -1,4 +1,4 @@
-import { Calendar, CalendarProps, Components, Event, stringOrDate } from '../../index';
+import { CalendarProps, Components, Event, stringOrDate } from '../../index';
 import * as React from 'react';
 
 export interface withDragAndDropProps<TEvent extends object = Event, TResource extends object = object> {
