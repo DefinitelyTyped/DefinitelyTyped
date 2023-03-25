@@ -15,11 +15,11 @@ import child = require('child_process');
 import glob = require('glob');
 
 /**
- * Changes the current working directory dir for the duration of the script.
+ * Changes the current working directory `dir` for the duration of the script.
  * Changes to the home directory if no argument is supplied.
  *
  * @param dir Directory to change to.
- * @return    Object with shell exit code, stderr and stdout.
+ * @return    Object with shell exit code, `stderr` and `stdout`.
  */
 export function cd(dir?: string): ShellString;
 
