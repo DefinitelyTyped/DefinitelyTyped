@@ -27,7 +27,7 @@ const MyVisitor2: Visitor = {
         path.get('elements'); // $ExpectType NodePath<SpreadElement | Expression | null>[]
     },
     Program(path) {
-        path.parentPath; // $ExpectType NodePath<ModuleExpression> | null
+        path.parentPath; // $ExpectType NodePath<Node> | null
     },
 };
 
@@ -58,7 +58,7 @@ const v1: Visitor = {
         }
         // $ExpectType [NodePath<BinaryExpression>]
         path.replaceWith(t.binaryExpression('**', path.node.left, t.numericLiteral(2)));
-        path.parentPath.replaceWith(
+        path.parentPath!.replaceWith(
             t.expressionStatement(t.stringLiteral("Anyway the wind blows, doesn't really matter to me, to me.")),
         );
         // $ExpectType [NodePath<BinaryExpression>]
@@ -70,7 +70,7 @@ const v1: Visitor = {
             t.binaryExpression('**', path.node.left, t.numericLiteral(2)),
             t.expressionStatement(t.stringLiteral("Anyway the wind blows, doesn't really matter to me, to me.")),
         ] as const);
-        path.parentPath.remove();
+        path.parentPath!.remove();
     },
 
     Identifier(path) {
