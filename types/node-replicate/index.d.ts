@@ -53,13 +53,13 @@ export interface PredictInput {
     prompt: string;
 }
 
-export class Prediction {
+declare class Prediction {
     constructor(props?: Record<string, string>);
     hasTerminalStatus(): boolean;
     load(): Promise<PredictionResponse>;
 }
 
-export class Model {
+declare class Model {
     constructor(path: string, version?: string);
     predict(
         inputs: PredictInput,
