@@ -7,13 +7,13 @@
 // TypeScript Version: 3.7
 
 /// <reference types="node" />
-import { Compiler } from 'webpack';
+import { Compiler, WebpackPluginInstance } from 'webpack';
 
 /**
  * A secure webpack plugin that supports dotenv and other environment variables
  * and only exposes what you choose and use.
  */
-declare class DotenvWebpackPlugin {
+declare class DotenvWebpackPlugin implements WebpackPluginInstance {
     constructor(options?: DotenvWebpackPlugin.Options);
     apply(compiler: Compiler): void;
 }
