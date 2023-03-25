@@ -5413,6 +5413,14 @@ interface IAllFilters {
          */
         fromObject(object: any): IBlendImageFilter;
     };
+    Blur: {
+        new (options?: { blur?: number | undefined }): IBlurFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IBlurFilter;
+    };
     Brightness: {
         new (options?: {
             /**
@@ -5480,6 +5488,14 @@ interface IAllFilters {
          * @param object Object to create an instance from
          */
         fromObject(object: any): IGrayscaleFilter;
+    };
+    HueRotation: {
+        new (options?: { rotation?: number | undefined }): IHueRotationFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IHueRotationFilter;
     };
     Invert: {
         /**
@@ -5653,6 +5669,13 @@ interface IBlendImageFilter extends IBaseFilter {
      */
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
+interface IBlurFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
 interface IBrightnessFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
@@ -5690,6 +5713,13 @@ interface IGradientTransparencyFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IGrayscaleFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IHueRotationFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to

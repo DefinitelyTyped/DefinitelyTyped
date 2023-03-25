@@ -111,7 +111,10 @@ import { Socket } from 'node:dgram';
         },
         port: 80,
         keepAlive: true,
-        keepAliveInitialDelay: 1000
+        keepAliveInitialDelay: 1000,
+        noDelay: false,
+        autoSelectFamily: false,
+        autoSelectFamilyAttemptTimeout: 250,
     };
     _socket = _socket.connect(ipcConnectOpts);
     _socket = _socket.connect(ipcConnectOpts, (): void => {});

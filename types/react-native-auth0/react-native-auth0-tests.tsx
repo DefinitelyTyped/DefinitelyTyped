@@ -1,4 +1,13 @@
-import Auth0, { useAuth0, Auth0Provider, AuthorizeOptions, AuthorizeParams, ClearSessionParams, Credentials } from 'react-native-auth0';
+import Auth0, {
+    Auth0Provider,
+    AuthorizeOptions,
+    AuthorizeParams,
+    BaseError,
+    ClearSessionParams,
+    Credentials,
+    LocalAuthenticationStrategy,
+    useAuth0,
+} from 'react-native-auth0';
 
 const auth0 = new Auth0({
     domain: 'definitely-typed',
@@ -66,6 +75,7 @@ auth0.auth
     .refreshToken({
         refreshToken: 'refresh-token',
         scope: 'openid',
+        appId: 'Mobile',
     })
     .then(res => res);
 
@@ -262,32 +272,33 @@ auth0.credentialsManager.requireLocalAuthentication();
 
 auth0.credentialsManager.requireLocalAuthentication('a title', 'a description', 'a cancel title', 'a fallback title');
 
+auth0.credentialsManager.requireLocalAuthentication(
+    'a title',
+    'a description',
+    'a cancel title',
+    'a fallback title',
+    LocalAuthenticationStrategy.deviceOwnerWithBiometrics,
+);
+
 auth0.credentialsManager.hasValidCredentials();
 
 auth0.credentialsManager.hasValidCredentials(123);
 
 function Test() {
-    const {
-        user,
-        error,
-        authorize,
-        clearSession,
-        getCredentials,
-        clearCredentials,
-        requireLocalAuthentication,
-    }: {
-        user: any,
-        error: any,
-        authorize: (parameters: AuthorizeParams, options?: AuthorizeOptions) => Promise<void>,
-        clearSession: (parameters?: ClearSessionParams) => Promise<void>,
-        getCredentials: (scope?: string, minTtl?: number, parameters?: any) => Promise<Credentials>,
-        clearCredentials: () => Promise<void>,
-        requireLocalAuthentication: () => Promise<void>
-    } = useAuth0();
+    const { isLoading, error, authorize, clearSession, getCredentials, clearCredentials, requireLocalAuthentication } =
+        useAuth0();
+
+    // can be used without args
+    authorize();
+    clearSession();
+    getCredentials();
+    clearCredentials();
+    requireLocalAuthentication();
 
     return (
         <Auth0Provider domain={'type'} clientId={'type'}>
-            Test
+            {!!isLoading && 'Loading'}
+            {!!error && error.message}
         </Auth0Provider>
     );
 }

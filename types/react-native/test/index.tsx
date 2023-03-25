@@ -652,6 +652,11 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
   );
 
   render() {
+    const { ListEmptyComponent } = this.props;
+    const listEmptyComponent: JSX.Element | null | undefined = React.isValidElement(ListEmptyComponent)
+        ? ListEmptyComponent
+        : ListEmptyComponent && <ListEmptyComponent />;
+
     return (
       <FlatList
         ref={list => (this.list = list)}
@@ -1114,6 +1119,8 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         <TextInput contextMenuHidden={true} textAlignVertical="top" />
 
         <TextInput textAlign="center" />
+
+        <TextInput inputMode="numeric"/>
       </View>
     );
   }

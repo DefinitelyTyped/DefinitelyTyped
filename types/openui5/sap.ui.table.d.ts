@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.112.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -532,9 +532,9 @@ declare module "sap/ui/table/AnalyticalTable" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	http://scn.sap.com/docs/DOC-44986
-     * 	{@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
-     * 	{@link fiori:/analytical-table-alv/ Analytical Table}
+     *    https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     *    {@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
+     *    {@link fiori:/analytical-table-alv/ Analytical Table}
      */
     constructor(
       /**
@@ -549,7 +549,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	http://scn.sap.com/docs/DOC-44986
+     * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
      * 	{@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -1242,7 +1242,12 @@ declare module "sap/ui/table/Column" {
 
   import Menu from "sap/ui/unified/Menu";
 
-  import { HorizontalAlign, CSSSize } from "sap/ui/core/library";
+  import {
+    HorizontalAlign,
+    ID,
+    CSSSize,
+    IColumnHeaderMenu,
+  } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1584,6 +1589,13 @@ declare module "sap/ui/table/Column" {
      * @returns Value of property `hAlign`
      */
     getHAlign(): HorizontalAlign | keyof typeof HorizontalAlign;
+    /**
+     * @SINCE 1.110
+     *
+     * ID of the element which is the current target of the association {@link #getHeaderMenu headerMenu}, or
+     * `null`.
+     */
+    getHeaderMenu(): ID;
     /**
      * Gets current value of property {@link #getHeaderSpan headerSpan}.
      *
@@ -2021,6 +2033,20 @@ declare module "sap/ui/table/Column" {
        * New value for property `hAlign`
        */
       sHAlign?: HorizontalAlign | keyof typeof HorizontalAlign
+    ): this;
+    /**
+     * @SINCE 1.110
+     *
+     * Sets the associated {@link #getHeaderMenu headerMenu}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderMenu(
+      /**
+       * ID of an element which becomes the new target of this headerMenu association; alternatively, an element
+       * instance may be given
+       */
+      oHeaderMenu: ID | IColumnHeaderMenu
     ): this;
     /**
      * Sets a new value for property {@link #getHeaderSpan headerSpan}.
@@ -2518,6 +2544,13 @@ declare module "sap/ui/table/Column" {
     menu?: Menu;
 
     /**
+     * @SINCE 1.110
+     *
+     * The menu that can be opened by the header element of this column.
+     */
+    headerMenu?: IColumnHeaderMenu | string;
+
+    /**
      * @SINCE 1.33.0
      *
      * Fires before the column menu is opened.
@@ -2634,16 +2667,16 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
    * Implements a plugin to enable a special multi-selection behavior:
    * 	 - No Select All checkbox, select all can only be done via range selection
    * 	 - Dedicated Deselect All button to clear the selection
-   * 	 - The number of indices which can be selected in a range is defined by the `limit` property by the
-   * 			application. If the user tries to select more indices, the selection is automatically limited, and the
-   * 			table scrolls to the last selected index.
+   * 	 - The number of indices which can be selected in a range is defined by the `limit` property. If the
+   * 			user tries to select more indices, the selection is automatically limited, and the table scrolls to the
+   * 			last selected index.
    * 	 - The plugin makes sure that the corresponding binding contexts up to the given limit are available,
    * 			by requesting them from the binding.
    * 	 - Multiple consecutive selections are possible
    *
-   * This plugin is intended for the multi-selection mode, but also supports single selection for ease of
-   * use. When this plugin is applied to the table, the table's selection mode is automatically set to MultiToggle
-   * and cannot be changed.
+   * This plugin is intended for server-side models and multi-selection mode. Range selections, including
+   * Select All, only work properly if the count is known. Make sure the model/binding is configured to request
+   * the count from the service. For ease of use, client-side models and single selection are also supported.
    */
   export default class MultiSelectionPlugin extends SelectionPlugin {
     /**
@@ -2825,14 +2858,16 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * Gets current value of property {@link #getLimit limit}.
      *
      * Number of indices which can be selected in a range. Accepts positive integer values. If set to 0, the
-     * limit is disabled, and the Select All checkbox appears instead of the Deselect All button. **Note:**
-     * To avoid severe performance problems, the limit should only be set to 0 in the following cases:
+     * limit is disabled, and the Select All checkbox appears instead of the Deselect All button.
+     *
+     * **Note:** To avoid severe performance problems, the limit should only be set to 0 in the following cases:
      *
      * 	 - With client-side models
      * 	 - With server-side models if they are used in client mode
-     * 	 - If the entity set is small  In other cases, we recommend to set the limit to at least double
-     * 			the value of the {@link sap.ui.table.Table#getThreshold threshold} property of the related `sap.ui.table.Table`
-     * 			control.
+     * 	 - If the entity set is small
+     *
+     * In other cases, we recommend to set the limit to at least double the value of the {@link sap.ui.table.Table#getThreshold
+     * threshold} property of the related `sap.ui.table.Table` control.
      *
      * Default value is `200`.
      *
@@ -2933,14 +2968,16 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * Sets a new value for property {@link #getLimit limit}.
      *
      * Number of indices which can be selected in a range. Accepts positive integer values. If set to 0, the
-     * limit is disabled, and the Select All checkbox appears instead of the Deselect All button. **Note:**
-     * To avoid severe performance problems, the limit should only be set to 0 in the following cases:
+     * limit is disabled, and the Select All checkbox appears instead of the Deselect All button.
+     *
+     * **Note:** To avoid severe performance problems, the limit should only be set to 0 in the following cases:
      *
      * 	 - With client-side models
      * 	 - With server-side models if they are used in client mode
-     * 	 - If the entity set is small  In other cases, we recommend to set the limit to at least double
-     * 			the value of the {@link sap.ui.table.Table#getThreshold threshold} property of the related `sap.ui.table.Table`
-     * 			control.
+     * 	 - If the entity set is small
+     *
+     * In other cases, we recommend to set the limit to at least double the value of the {@link sap.ui.table.Table#getThreshold
+     * threshold} property of the related `sap.ui.table.Table` control.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3036,14 +3073,16 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     extends $SelectionPluginSettings {
     /**
      * Number of indices which can be selected in a range. Accepts positive integer values. If set to 0, the
-     * limit is disabled, and the Select All checkbox appears instead of the Deselect All button. **Note:**
-     * To avoid severe performance problems, the limit should only be set to 0 in the following cases:
+     * limit is disabled, and the Select All checkbox appears instead of the Deselect All button.
+     *
+     * **Note:** To avoid severe performance problems, the limit should only be set to 0 in the following cases:
      *
      * 	 - With client-side models
      * 	 - With server-side models if they are used in client mode
-     * 	 - If the entity set is small  In other cases, we recommend to set the limit to at least double
-     * 			the value of the {@link sap.ui.table.Table#getThreshold threshold} property of the related `sap.ui.table.Table`
-     * 			control.
+     * 	 - If the entity set is small
+     *
+     * In other cases, we recommend to set the limit to at least double the value of the {@link sap.ui.table.Table#getThreshold
+     * threshold} property of the related `sap.ui.table.Table` control.
      */
     limit?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -3586,6 +3625,8 @@ declare module "sap/ui/table/RowActionItem" {
 
   import Event from "sap/ui/base/Event";
 
+  import Row from "sap/ui/table/Row";
+
   import { URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -3732,7 +3773,16 @@ declare module "sap/ui/table/RowActionItem" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * The item which was pressed.
+         */
+        item?: RowActionItem;
+        /**
+         * The table row to which the pressed item belongs to.
+         */
+        row?: Row;
+      }
     ): this;
     /**
      * Gets current value of property {@link #getIcon icon}.
@@ -5660,7 +5710,12 @@ declare module "sap/ui/table/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * busy state
+         */
+        busy?: boolean;
+      }
     ): this;
     /**
      * @SINCE 1.21.0
@@ -5867,7 +5922,16 @@ declare module "sap/ui/table/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * The column instance on which the custom filter button was pressed.
+         */
+        column?: Column;
+        /**
+         * Filter value.
+         */
+        value?: string;
+      }
     ): this;
     /**
      * Fires event {@link #event:filter filter} to attached listeners.
@@ -5903,7 +5967,12 @@ declare module "sap/ui/table/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * First visible row
+         */
+        firstVisibleRow?: int;
+      }
     ): this;
     /**
      * Fires event {@link #event:group group} to attached listeners.
@@ -6228,7 +6297,7 @@ declare module "sap/ui/table/Table" {
      */
     getEnableCustomFilter(): boolean;
     /**
-     * @EXPERIMENTAL (since 1.28) - This feature has a limited functionality.
+     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
      *
      * Gets current value of property {@link #getEnableGrouping enableGrouping}.
      *
@@ -7062,7 +7131,7 @@ declare module "sap/ui/table/Table" {
       bEnableCustomFilter?: boolean
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.28) - This feature has a limited functionality.
+     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
      *
      * Sets a new value for property {@link #getEnableGrouping enableGrouping}.
      *
@@ -7728,7 +7797,7 @@ declare module "sap/ui/table/Table" {
     enableColumnReordering?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @EXPERIMENTAL (since 1.28) - This feature has a limited functionality.
+     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
      *
      * Enables or disables grouping. If grouping is enabled, the table is grouped by the column which is defined
      * in the `groupBy` association.

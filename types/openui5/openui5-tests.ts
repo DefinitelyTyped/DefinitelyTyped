@@ -27,6 +27,8 @@ import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
 import CalendarUtils from "sap/ui/core/date/CalendarUtils";
 import PlanningCalendar from "sap/m/PlanningCalendar";
+import WebSocket from "sap/ui/core/ws/WebSocket";
+import QUnit from "sap/ui/thirdparty/qunit-2";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -162,6 +164,7 @@ oUploadDialog.open();
 
 const messagePage: MessagePage = new MessagePage();
 messagePage.setTitleLevel(TitleLevel.H1);
+const focusable = messagePage.isFocusable();
 
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
@@ -182,3 +185,9 @@ const weekConfigurationValues = CalendarUtils.getWeekConfigurationValues();
 
 const pc = new PlanningCalendar();
 pc.getSecondaryCalendarType();
+
+const ws = new WebSocket("someUrl");
+ws.close("end");
+
+// 1.112: QUnit declared as importable module instead of just globally available
+QUnit.config.autostart = false;

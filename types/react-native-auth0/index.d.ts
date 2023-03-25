@@ -1,4 +1,4 @@
-// Type definitions for react-native-auth0 2.14
+// Type definitions for react-native-auth0 2.17
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
@@ -74,6 +74,7 @@ export interface PasswordRealmParams {
 export interface RefreshTokenParams {
     refreshToken: string;
     scope?: string;
+    [key: string]: string | undefined;
 }
 
 export interface RevokeParams {
@@ -287,16 +288,22 @@ export interface SaveCredentialsParams {
 
 export class CredentialsManager {
     constructor(domain: string, clientId: string);
-    saveCredentials(params: SaveCredentialsParams): boolean;
+    saveCredentials(params: SaveCredentialsParams): Promise<boolean>;
     getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
     requireLocalAuthentication(
         title?: string,
         description?: string,
         cancelTitle?: string,
         fallbackTitle?: string,
+        strategy?: LocalAuthenticationStrategy,
     ): Promise<void>;
     hasValidCredentials(minTtl?: number): Promise<boolean>;
     clearCredentials(): Promise<boolean>;
+}
+
+export enum LocalAuthenticationStrategy {
+    deviceOwnerWithBiometrics = 1,
+    deviceOwner = 2,
 }
 
 /**
@@ -314,8 +321,9 @@ export default class Auth0 {
 
 export class Auth0ContextInterface {
     user: any;
-    error: any;
-    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
+    error: BaseError | null;
+    isLoading: boolean;
+    authorize(parameters?: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
     clearSession(): Promise<void>;
     getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
     clearCredentials(): Promise<void>;
@@ -324,6 +332,7 @@ export class Auth0ContextInterface {
         description?: string,
         cancelTitle?: string,
         fallbackTitle?: string,
+        strategy?: LocalAuthenticationStrategy,
     ): Promise<void>;
 }
 
@@ -336,3 +345,17 @@ export class Auth0Props {
 export function useAuth0(): Auth0ContextInterface;
 
 export const Auth0Provider: React.FC<Auth0Props>;
+
+/**
+ * Errors
+ */
+
+export interface BaseError extends Error {
+    name: string;
+    message: string;
+}
+
+export interface TimeoutError extends BaseError {
+    name: 'TimeoutError';
+    message: string;
+}

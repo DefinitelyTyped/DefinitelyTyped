@@ -187,6 +187,15 @@ declare namespace mapboxgl {
         | 'bottom-left'
         | 'bottom-right';
 
+    type DragPanOptions = {
+        linearity?: number;
+        easing?: (t: number) => number;
+        deceleration?: number;
+        maxSpeed?: number;
+    };
+
+    type InteractiveOptions = { around?: 'center' };
+
     /**
      * Map
      */
@@ -574,7 +583,7 @@ declare namespace mapboxgl {
         customAttribution?: string | string[] | undefined;
 
         /** If true, enable the "drag to pan" interaction (see DragPanHandler). */
-        dragPan?: boolean | undefined;
+        dragPan?: boolean | DragPanOptions | undefined;
 
         /** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
         dragRotate?: boolean | undefined;
@@ -685,7 +694,7 @@ declare namespace mapboxgl {
         renderWorldCopies?: boolean | undefined;
 
         /** If true, enable the "scroll to zoom" interaction */
-        scrollZoom?: boolean | undefined;
+        scrollZoom?: boolean | InteractiveOptions | undefined;
 
         /** stylesheet location */
         style?: mapboxgl.Style | string | undefined;
@@ -702,10 +711,10 @@ declare namespace mapboxgl {
         transformRequest?: TransformRequestFunction | undefined;
 
         /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
-        touchZoomRotate?: boolean | undefined;
+        touchZoomRotate?: boolean | InteractiveOptions | undefined;
 
         /** If true, the "drag to pitch" interaction is enabled */
-        touchPitch?: boolean | undefined;
+        touchPitch?: boolean | InteractiveOptions | undefined;
 
         /** Initial zoom level */
         zoom?: number | undefined;
@@ -795,7 +804,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         disable(): void;
 
@@ -814,7 +823,7 @@ declare namespace mapboxgl {
 
         isActive(): boolean;
 
-        enable(): void;
+        enable(options?: DragPanOptions): void;
 
         disable(): void;
     }
@@ -898,7 +907,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         disable(): void;
 
@@ -910,7 +919,7 @@ declare namespace mapboxgl {
     export class TouchPitchHandler {
         constructor(map: mapboxgl.Map);
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         isActive(): boolean;
 

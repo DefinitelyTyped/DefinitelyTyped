@@ -1,4 +1,4 @@
-// Type definitions for Jest 29.2
+// Type definitions for Jest 29.5
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -45,6 +45,7 @@ declare var xtest: jest.It;
 
 declare const expect: jest.Expect;
 
+// Remove once https://github.com/microsoft/TypeScript/issues/53255 is fixed.
 type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
     1: [T[0]];
     2: [T[0], T[1]];
@@ -175,11 +176,12 @@ declare namespace jest {
      */
     function resetAllMocks(): typeof jest;
     /**
-     * available since Jest 21.1.0
-     * Restores all mocks back to their original value.
-     * Equivalent to calling .mockRestore on every mocked function.
-     * Beware that jest.restoreAllMocks() only works when mock was created with
-     * jest.spyOn; other mocks will require you to manually restore them.
+     * Restores all mocks and replaced properties back to their original value.
+     * Equivalent to calling `.mockRestore()` on every mocked function
+     * and `.restore()` on every replaced property.
+     *
+     * Beware that `jest.restoreAllMocks()` only works when the mock was created
+     * with `jest.spyOn()`; other mocks will require you to manually restore them.
      */
     function restoreAllMocks(): typeof jest;
     /**
@@ -251,13 +253,24 @@ declare namespace jest {
     /**
      * Creates a mock function. Optionally takes a mock implementation.
      */
-    function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): Mock<T, Y>;
+    function fn<T, Y extends any[], C = any>(implementation?: (this: C, ...args: Y) => T): Mock<T, Y, C>;
     /**
      * (renamed to `createMockFromModule` in Jest 26.0.0+)
      * Use the automatic mocking system to generate a mocked version of the given module.
      */
     // eslint-disable-next-line no-unnecessary-generics
     function genMockFromModule<T>(moduleName: string): T;
+    /**
+     * Returns `true` if test environment has been torn down.
+     *
+     * @example
+     *
+     * if (jest.isEnvironmentTornDown()) {
+     *   // The Jest environment has been torn down, so stop doing work
+     *   return;
+     * }
+     */
+    function isEnvironmentTornDown(): boolean;
     /**
      * Returns whether the given function is a mock function.
      */
@@ -267,7 +280,6 @@ declare namespace jest {
      */
     // eslint-disable-next-line no-unnecessary-generics
     function mock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
-
     /**
      * Wraps types of the `source` object and its deep members with type definitions
      * of Jest mock function. Pass `{shallow: true}` option to disable the deeply
@@ -296,50 +308,92 @@ declare namespace jest {
      */
     function resetModules(): typeof jest;
     /**
-     * Creates a sandbox registry for the modules that are loaded inside the callback function..
+     * Creates a sandbox registry for the modules that are loaded inside the callback function.
      * This is useful to isolate specific modules for every test so that local module state doesn't conflict between tests.
      */
     function isolateModules(fn: () => void): typeof jest;
+    /**
+     * Equivalent of `jest.isolateModules()` for async functions to be wrapped.
+     * The caller is expected to `await` the completion of `jest.isolateModulesAsync()`.
+     */
+    function isolateModulesAsync(fn: () => Promise<void>): Promise<void>;
     /**
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
      */
     function retryTimes(numRetries: number, options?: { logErrorsBeforeRetry?: boolean }): typeof jest;
     /**
-     * Exhausts tasks queued by setImmediate().
-     * > Note: This function is only available when using modern fake timers
-     * > implementation
+     * Replaces property on an object with another value.
+     *
+     * @remarks
+     * For mocking functions, and 'get' or 'set' accessors, use `jest.spyOn()` instead.
+     */
+    function replaceProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): ReplaceProperty<T[K]>;
+    /**
+     * Exhausts tasks queued by `setImmediate()`.
+     *
+     * @remarks
+     * This function is only available when using legacy fake timers implementation.
      */
     function runAllImmediates(): void;
     /**
-     * Exhausts the micro-task queue (usually interfaced in node via process.nextTick).
+     * Exhausts the micro-task queue (i.e., tasks in Node.js scheduled with `process.nextTick()`).
      */
     function runAllTicks(): void;
     /**
-     * Exhausts both the macro-task queue (i.e., all tasks queued by setTimeout(),
-     * setInterval(), and setImmediate()) and the micro-task queue (usually interfaced
-     * in node via process.nextTick).
+     * Exhausts both the macro-task queue (i.e., tasks queued by `setTimeout()`, `setInterval()`
+     * and `setImmediate()`) and the micro-task queue (i.e., tasks in Node.js scheduled with
+     * `process.nextTick()`).
      */
     function runAllTimers(): void;
     /**
-     * Executes only the macro-tasks that are currently pending (i.e., only the
-     * tasks that have been queued by setTimeout() or setInterval() up to this point).
-     * If any of the currently pending macro-tasks schedule new macro-tasks,
-     * those new tasks will not be executed by this call.
+     * Asynchronous equivalent of `jest.runAllTimers()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function runAllTimersAsync(): Promise<void>;
+    /**
+     * Executes only the macro-tasks that are currently pending (i.e., only the tasks that
+     * have been queued by `setTimeout()`, `setInterval()` and `setImmediate()` up to this point).
      */
     function runOnlyPendingTimers(): void;
     /**
-     * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
-     * queued via setTimeout() or setInterval(), and would be executed within this timeframe
-     * will be executed.
+     * Asynchronous equivalent of `jest.runOnlyPendingTimers()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function runOnlyPendingTimersAsync(): Promise<void>;
+    /**
+     * Advances all timers by `msToRun` milliseconds. All pending macro-tasks that have been
+     * queued by `setTimeout()`, `setInterval()` and `setImmediate()`, and would be executed
+     * within this time frame will be executed.
      */
     function advanceTimersByTime(msToRun: number): void;
     /**
-     * Advances all timers by the needed milliseconds so that only the next
-     * timeouts/intervals will run. Optionally, you can provide steps, so it
-     * will run steps amount of next timeouts/intervals.
+     * Asynchronous equivalent of `jest.advanceTimersByTime()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersByTimeAsync(msToRun: number): Promise<void>;
+    /**
+     * Advances all timers by the needed milliseconds so that only the next timeouts/intervals will run.
+     * Optionally, you can provide steps, so it will run steps amount of next timeouts/intervals.
      */
     function advanceTimersToNextTimer(step?: number): void;
+    /**
+     * Asynchronous equivalent of `jest.advanceTimersToNextTimer()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersToNextTimerAsync(steps?: number): Promise<void>;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
@@ -428,13 +482,15 @@ declare namespace jest {
     type PropertyKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? never : K }[keyof T];
     type ArgumentsOf<T> = T extends (...args: infer A) => any ? A : never;
     type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
+    type ConstructorReturnType<T> = T extends new (...args: any) => infer C ? C : any;
 
-    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>> {
+    interface MockWithArgs<T extends MockableFunction>
+        extends MockInstance<ReturnType<T>, ArgumentsOf<T>, ConstructorReturnType<T>> {
         new (...args: ConstructorArgumentsOf<T>): T;
         (...args: ArgumentsOf<T>): ReturnType<T>;
     }
     type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
-        ? MockInstance<R, ConstructorArgumentsOf<T>>
+        ? MockInstance<R, ConstructorArgumentsOf<T>, R>
         : T;
     type MockedFn<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
     type MockedFunctionDeep<T extends MockableFunction> = MockWithArgs<T> & MockedObjectDeep<T>;
@@ -503,7 +559,7 @@ declare namespace jest {
             timeout?: number,
         ) => void;
         // Not arrays.
-        <T>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => any, timeout?: number) => void;
+        <T>(cases: ReadonlyArray<T>): (name: string, fn: (arg: T, done: DoneCallback) => any, timeout?: number) => void;
         (cases: ReadonlyArray<ReadonlyArray<any>>): (
             name: string,
             fn: (...args: any[]) => any,
@@ -511,7 +567,7 @@ declare namespace jest {
         ) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
-            fn: (arg: any) => any,
+            fn: (arg: any, done: DoneCallback) => any,
             timeout?: number,
         ) => void;
     }
@@ -1169,25 +1225,30 @@ declare namespace jest {
         new (...args: any[]): any;
     }
 
-    interface Mock<T = any, Y extends any[] = any> extends Function, MockInstance<T, Y> {
+    interface Mock<T = any, Y extends any[] = any, C = any> extends Function, MockInstance<T, Y, C> {
         new (...args: Y): T;
-        (...args: Y): T;
+        (this: C, ...args: Y): T;
     }
 
-    interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
+    interface SpyInstance<T = any, Y extends any[] = any, C = any> extends MockInstance<T, Y, C> {}
 
     /**
      * Constructs the type of a spied class.
      */
     type SpiedClass<T extends abstract new (...args: any) => any> = SpyInstance<
         InstanceType<T>,
-        ConstructorParameters<T>
+        ConstructorParameters<T>,
+        T extends abstract new (...args: any) => infer C ? C : never
     >;
 
     /**
      * Constructs the type of a spied function.
      */
-    type SpiedFunction<T extends (...args: any) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+    type SpiedFunction<T extends (...args: any) => any> = SpyInstance<
+        ReturnType<T>,
+        ArgsType<T>,
+        T extends (this: infer C, ...args: any) => any ? C : never
+    >;
 
     /**
      * Constructs the type of a spied getter.
@@ -1221,7 +1282,12 @@ declare namespace jest {
      *  const mockMyFunction = myFunction as jest.MockedFunction<typeof myFunction>;
      *  expect(mockMyFunction.mock.calls[0][0]).toBe(42);
      */
-    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<ReturnType<T>, ArgsType<T>> & T;
+    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<
+        ReturnType<T>,
+        ArgsType<T>,
+        T extends (this: infer C, ...args: any[]) => any ? C : never
+    > &
+        T;
 
     /**
      * Wrap a class with mock definitions
@@ -1239,7 +1305,8 @@ declare namespace jest {
 
     type MockedClass<T extends Constructable> = MockInstance<
         InstanceType<T>,
-        T extends new (...args: infer P) => any ? P : never
+        T extends new (...args: infer P) => any ? P : never,
+        T extends new (...args: any[]) => infer C ? C : never
     > & {
         prototype: T extends { prototype: any } ? Mocked<T['prototype']> : never;
     } & T;
@@ -1256,18 +1323,18 @@ declare namespace jest {
      *  api.MyApi.prototype.myApiMethod.mockImplementation(() => "test");
      */
     type Mocked<T> = {
-        [P in keyof T]: T[P] extends (...args: any[]) => any
-            ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>>
+        [P in keyof T]: T[P] extends (this: infer C, ...args: any[]) => any
+            ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>, C>
             : T[P] extends Constructable
             ? MockedClass<T[P]>
             : T[P];
     } & T;
 
-    interface MockInstance<T, Y extends any[]> {
+    interface MockInstance<T, Y extends any[], C = any> {
         /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
         getMockName(): string;
         /** Provides access to the mock's metadata */
-        mock: MockContext<T, Y>;
+        mock: MockContext<T, Y, C>;
         /**
          * Resets all information stored in the mockFn.mock.calls and mockFn.mock.instances arrays.
          *
@@ -1463,11 +1530,15 @@ declare namespace jest {
 
     type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
-    interface MockContext<T, Y extends any[]> {
+    interface MockContext<T, Y extends any[], C = any> {
         /**
          * List of the call arguments of all calls that have been made to the mock.
          */
         calls: Y[];
+        /**
+         * List of the call contexts of all calls that have been made to the mock.
+         */
+        contexts: C[];
         /**
          * List of all the object instances that have been instantiated from the mock.
          */
@@ -1486,6 +1557,17 @@ declare namespace jest {
          * List of the results of all calls that have been made to the mock.
          */
         results: Array<MockResult<T>>;
+    }
+
+    interface ReplaceProperty<K> {
+        /**
+         * Restore property to its original value known at the time of mocking.
+         */
+        restore(): void;
+        /**
+         * Change the value of the property.
+         */
+        replaceValue(value: K): this;
     }
 }
 

@@ -1,6 +1,12 @@
 import * as blocks from '@wordpress/blocks';
 import { select, dispatch } from '@wordpress/data';
 
+// $ExpectType BlocksStoreDescriptor
+blocks.store;
+
+// $ExpectType "core/blocks"
+blocks.store.name;
+
 const BLOCK: blocks.Block<{ foo: string }> = {
     attributes: {
         foo: {
@@ -628,6 +634,13 @@ blocks.synchronizeBlocksWithTemplate(undefined, [
     ['my/foo', { foo: 'bar' }],
     ['my/foo', { foo: 'bar' }],
 ]);
+
+//
+// editor interaction
+// ----------------------------------------------------------------------------
+
+// $ExpectType ComponentType<BlockEditProps<{ foo: string; }>> | undefined
+blocks.getBlockType<{ foo: string; }>('my/foo')?.edit;
 
 //
 // utils

@@ -16,10 +16,12 @@
       "no-any-union": "error",
       "no-bad-reference": "error",
       "no-dead-reference": "error",
+      "no-declare-current-package": "error",
       "no-unnecessary-generics": "error",
       "no-const-enum": "error",
       "no-useless-files": "error",
       "prefer-declare-function": "error",
+      "redundant-undefined": "error",
       "trim-file": "error"
     }
 }

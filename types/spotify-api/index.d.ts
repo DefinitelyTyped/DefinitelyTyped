@@ -3,7 +3,6 @@
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 //                 Magnar Ovedal Myrtveit <https://github.com/Stadly>
 //                 Nils Måsén <https://github.com/piksel>
-//                 Basti Ortiz <https://github.com/Some-Dood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1831,6 +1830,7 @@ declare namespace SpotifyApi {
         id: string | null;
         is_active: boolean;
         is_restricted: boolean;
+        is_private_session: boolean;
         name: string;
         type: string;
         volume_percent: number | null;

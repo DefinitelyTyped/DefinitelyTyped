@@ -12,6 +12,7 @@
 //                 Vlad Poluch <https://github.com/vlapo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Matteo Nista <https://github.com/Mattewn99>
+//                 Roman Babiak <https://github.com/Almost-Infinity>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _isBoolean from './lib/isBoolean';
@@ -271,10 +272,17 @@ declare namespace validator {
      */
     function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
 
+    interface IsCreditCardOptions {
+        /**
+         * @default undefined
+         */
+        provider?: 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa' | '';
+    }
+
     /**
      * Check if the string is a credit card.
      */
-    function isCreditCard(str: string): boolean;
+    function isCreditCard(str: string, options?: IsCreditCardOptions): boolean;
 
     interface IsCurrencyOptions {
         /**
@@ -592,6 +600,22 @@ declare namespace validator {
      * @param [locale="any"] - IdentityCardLocale
      */
     function isIdentityCard(str: string, locale?: 'any' | IdentityCardLocale): boolean;
+
+    interface IsIMEIOptions {
+        /**
+         * This value is `false` by default. Set to `true` to allow IMEI with hyphens.
+         */
+        allow_hyphens?: boolean | undefined;
+    }
+
+    /**
+     * Check if the string is a valid IMEI.
+     * Non-hyphenated (`###############`) only is supported by default.
+     * Use the `options` param to enable hyphenated (`##-######-######-#`) support.
+     *
+     * @param [options] - Options
+     */
+    function isIMEI(str: string, options?: IsIMEIOptions): boolean;
 
     /**
      * Check if the string is in a array of allowed values.
@@ -1019,10 +1043,12 @@ declare namespace validator {
         | 'IE'
         | 'IL'
         | 'IN'
+        | 'IR'
         | 'IS'
         | 'IT'
         | 'JP'
         | 'KE'
+        | 'KR'
         | 'LI'
         | 'LT'
         | 'LU'

@@ -21,6 +21,7 @@ export function importWallet(
 export function exportWallet(wh: WalletHandle, exportConfig: WalletExportImportConfig): Promise<void>;
 export function createAndStoreMyDid(wh: WalletHandle, did: DidConfig): Promise<[Did, Verkey]>;
 export function keyForLocalDid(wh: WalletHandle, did: Did): Promise<Verkey>;
+export function listMyDidsWithMeta(wh: WalletHandle): Promise<DidWithMeta[]>;
 export function cryptoAnonCrypt(recipientVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
 export function cryptoSign(wh: WalletHandle, signerVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
 export function cryptoVerify(signerVk: Verkey, messageRaw: Buffer, signatureRaw: Buffer): Promise<boolean>;
@@ -68,6 +69,11 @@ export function buildNymRequest(
     role: NymRole | null,
 ): Promise<LedgerRequest>;
 export function buildGetNymRequest(submitterDid: Did | null, targetDid: Did): Promise<LedgerRequest>;
+export function buildGetTxnRequest(
+    submitterDid: Did | null,
+    ledgerType: 'DOMAIN' | 'POOL' | 'CONFIG',
+    seqNo: number,
+): Promise<LedgerRequest>;
 export function parseGetNymResponse(response: LedgerResponse): Promise<GetNymResponse>;
 export function buildSchemaRequest(submitterDid: Did, schema: Schema): Promise<LedgerRequest>;
 export function buildGetSchemaRequest(submitterDid: Did | null, schemaId: SchemaId): Promise<LedgerRequest>;
@@ -706,6 +712,13 @@ export interface GetNymResponse {
     did: Did;
     verkey: Verkey;
     role: NymRole;
+}
+
+export interface DidWithMeta {
+    did: Did;
+    verkey: Verkey;
+    metadata?: string | undefined;
+    tempVerkey?: Verkey | undefined;
 }
 
 export type NymRole = 'TRUSTEE' | 'STEWARD' | 'TRUST_ANCHOR' | 'ENDORSER' | 'NETWORK_MONITOR';

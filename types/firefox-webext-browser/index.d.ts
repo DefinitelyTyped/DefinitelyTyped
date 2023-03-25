@@ -1,4 +1,4 @@
-// Type definitions for non-npm package WebExtension Development in FireFox 109.0
+// Type definitions for non-npm package WebExtension Development in FireFox 111.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -155,7 +155,6 @@ declare namespace browser._manifest {
 
     /** Represents a WebExtension language pack manifest.json file */
     interface WebExtensionLangpackManifest {
-        homepage_url?: string | undefined;
         langpack_id: string;
         languages: _WebExtensionLangpackManifestLanguages;
         sources?: _WebExtensionLangpackManifestSources | undefined;
@@ -171,13 +170,13 @@ declare namespace browser._manifest {
         description?: string | undefined;
         author?: string | undefined;
         version: string;
+        homepage_url?: string | undefined;
         install_origins?: string[] | undefined;
         developer?: _WebExtensionLangpackManifestDeveloper | undefined;
     }
 
     /** Represents a WebExtension dictionary manifest.json file */
     interface WebExtensionDictionaryManifest {
-        homepage_url?: string | undefined;
         dictionaries: _WebExtensionDictionaryManifestDictionaries;
         manifest_version: number;
         /**
@@ -191,6 +190,7 @@ declare namespace browser._manifest {
         description?: string | undefined;
         author?: string | undefined;
         version: string;
+        homepage_url?: string | undefined;
         install_origins?: string[] | undefined;
         developer?: _WebExtensionDictionaryManifestDeveloper | undefined;
     }
@@ -573,6 +573,7 @@ declare namespace browser._manifest {
         | 'scripting'
         | 'webRequest'
         | 'webRequestBlocking'
+        | 'webRequestFilterResponse'
         | 'webRequestFilterResponse.serviceWorkerScript'
         | 'menus.overrideContext'
         | 'search'
@@ -2176,7 +2177,7 @@ declare namespace browser.declarativeNetRequest {
          * Regular expression to match against the network request url. Only one of 'urlFilter' or 'regexFilter' can be specified.
          */
         regexFilter?: string | undefined;
-        /** Whether 'urlFilter' or 'regexFilter' is case-sensitive. Defaults to true. */
+        /** Whether 'urlFilter' or 'regexFilter' is case-sensitive. */
         isUrlFilterCaseSensitive?: boolean | undefined;
         /**
          * The rule will only match network requests originating from the list of 'initiatorDomains'. If the list is omitted, the rule is applied to requests from all domains.
@@ -2273,6 +2274,13 @@ declare namespace browser.declarativeNetRequest {
         responseHeaders?: _RuleActionResponseHeaders[] | undefined;
     }
 
+    interface _UpdateDynamicRulesOptions {
+        /** IDs of the rules to remove. Any invalid IDs will be ignored. */
+        removeRuleIds?: number[] | undefined;
+        /** Rules to add. */
+        addRules?: Rule[] | undefined;
+    }
+
     interface _UpdateSessionRulesOptions {
         /** IDs of the rules to remove. Any invalid IDs will be ignored. */
         removeRuleIds?: number[] | undefined;
@@ -2311,7 +2319,37 @@ declare namespace browser.declarativeNetRequest {
         includeOtherExtensions?: boolean | undefined;
     }
 
+    /* declarativeNetRequest properties */
+    /** Ruleset ID for the dynamic rules added by the extension. */
+    const DYNAMIC_RULESET_ID: string;
+
+    /**
+     * The minimum number of static rules guaranteed to an extension across its enabled static rulesets. Any rules above this limit will count towards the global static rule limit.
+     */
+    const GUARANTEED_MINIMUM_STATIC_RULES: number;
+
+    /**
+     * The maximum number of static Rulesets an extension can specify as part of the rule_resources manifest key.
+     */
+    const MAX_NUMBER_OF_STATIC_RULESETS: number;
+
+    /** The maximum number of static Rulesets an extension can enable at any one time. */
+    const MAX_NUMBER_OF_ENABLED_STATIC_RULESETS: number;
+
+    /**
+     * The maximum number of dynamic and session rules an extension can add. NOTE: in the Firefox we are enforcing this limit to the session and dynamic rules count separately, instead of enforcing it to the rules count for both combined as the Chrome implementation does.
+     */
+    const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: number;
+
+    /** Ruleset ID for the session-scoped rules added by the extension. */
+    const SESSION_RULESET_ID: string;
+
     /* declarativeNetRequest functions */
+    /**
+     * Modifies the current set of dynamic rules for the extension. The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added. These rules are persisted across browser sessions and extension updates.
+     */
+    function updateDynamicRules(options: _UpdateDynamicRulesOptions): Promise<void>;
+
     /**
      * Modifies the current set of session scoped rules for the extension. The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added. These rules are not persisted across sessions and are backed in memory.
      */
@@ -2325,6 +2363,9 @@ declare namespace browser.declarativeNetRequest {
 
     /** Returns the remaining number of static rules an extension can enable */
     function getAvailableStaticRuleCount(): Promise<number>;
+
+    /** Returns the current set of dynamic rules for the extension. */
+    function getDynamicRules(): Promise<Rule[]>;
 
     /** Returns the current set of session scoped rules for the extension. */
     function getSessionRules(): Promise<Rule[]>;
@@ -3096,7 +3137,6 @@ declare namespace browser.geckoProfiler {
         | 'stackwalk'
         | 'jsallocations'
         | 'nostacksampling'
-        | 'preferencereads'
         | 'nativeallocations'
         | 'ipcmessages'
         | 'audiocallbacktracing'
@@ -4776,7 +4816,7 @@ declare namespace browser.telemetry {
 
     /* telemetry functions */
     /**
-     * Submits a custom ping to the Telemetry back-end. See `submitExternalPing` inside TelemetryController.jsm for more details.
+     * Submits a custom ping to the Telemetry back-end. See `submitExternalPing` inside TelemetryController.sys.mjs for more details.
      * @param type The type of the ping.
      * @param message The data payload for the ping.
      * @param options Options object.
@@ -6876,6 +6916,8 @@ declare namespace browser.find {
         tabId?: number | undefined;
         /** Find only ranges with case sensitive match. */
         caseSensitive?: boolean | undefined;
+        /** Find only ranges with diacritic sensitive match. */
+        matchDiacritics?: boolean | undefined;
         /** Find only ranges that match entire word. */
         entireWord?: boolean | undefined;
         /** Return rectangle data which describes visual position of search results. */
@@ -7136,7 +7178,7 @@ declare namespace browser.contextMenus {
         /** A flag indicating the state of a checkbox or radio item after it is clicked. */
         checked?: boolean | undefined;
         /** The id of the bookmark where the context menu was clicked, if it was on a bookmark. */
-        bookmarkId: string;
+        bookmarkId?: string | undefined;
         /** An array of keyboard modifiers that were held while the menu item was clicked. */
         modifiers: _OnClickDataModifiers[];
         /** An integer value of button by which menu item was clicked. */
@@ -7403,7 +7445,7 @@ declare namespace browser.menus {
         /** A flag indicating the state of a checkbox or radio item after it is clicked. */
         checked?: boolean | undefined;
         /** The id of the bookmark where the context menu was clicked, if it was on a bookmark. */
-        bookmarkId: string;
+        bookmarkId?: string | undefined;
         /** An array of keyboard modifiers that were held while the menu item was clicked. */
         modifiers: _OnClickDataModifiers[];
         /** An integer value of button by which menu item was clicked. */
@@ -7845,12 +7887,28 @@ declare namespace browser.search {
         favIconUrl?: string | undefined;
     }
 
+    /** Location where search results should be displayed. */
+    type Disposition = 'CURRENT_TAB' | 'NEW_TAB' | 'NEW_WINDOW';
+
     interface _SearchSearchProperties {
         /** Terms to search for. */
         query: string;
         /** Search engine to use. Uses the default if not specified. */
         engine?: string | undefined;
-        /** The ID of the tab for the search results. If not specified, a new tab is created. */
+        /** Location where search results should be displayed. NEW_TAB is the default. */
+        disposition?: Disposition | undefined;
+        /**
+         * The ID of the tab for the search results. If not specified, a new tab is created, unless disposition is set. tabId cannot be used with disposition.
+         */
+        tabId?: number | undefined;
+    }
+
+    interface _QueryQueryInfo {
+        /** String to query with the default search provider. */
+        text: string;
+        /** Location where search results should be displayed. CURRENT_TAB is the default. */
+        disposition?: Disposition | undefined;
+        /** Location where search results should be displayed. tabId cannot be used with disposition. */
         tabId?: number | undefined;
     }
 
@@ -7860,6 +7918,9 @@ declare namespace browser.search {
 
     /** Perform a search. */
     function search(searchProperties: _SearchSearchProperties): Promise<any>;
+
+    /** Use the browser.search API to search via the default provider. */
+    function query(queryInfo: _QueryQueryInfo): Promise<void>;
 }
 
 /**

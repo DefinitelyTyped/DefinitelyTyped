@@ -1,3 +1,5 @@
+import * as crypto from 'node:crypto';
+
 import Provider, { interactionPolicy, errors, JWKS } from 'oidc-provider';
 
 errors.AccessDenied.name;
@@ -78,6 +80,24 @@ const jwks: JWKS = {
 };
 
 new Provider('https://op.example.com', { jwks });
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return undefined; } },
+    },
+});
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return 'foo'; } },
+    },
+});
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return new crypto.X509Certificate(Buffer.alloc(0)); } },
+    },
+});
 
 const provider = new Provider('https://op.example.com', {
     acrValues: ['urn:example:bronze'],

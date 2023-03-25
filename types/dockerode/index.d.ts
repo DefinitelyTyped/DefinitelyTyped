@@ -942,6 +942,7 @@ declare namespace Dockerode {
         platform?: string | undefined;
         target?: string | undefined;
         outputs?: string | undefined;
+        nocache?: boolean | undefined;
     }
 
     interface ImageDistributionOptions {
@@ -1175,6 +1176,7 @@ declare namespace Dockerode {
         host?: string | undefined;
         port?: number | string | undefined;
         username?: string | undefined;
+        headers?: { [name: string]: string };
         ca?: string | string[] | Buffer | Buffer[] | undefined;
         cert?: string | string[] | Buffer | Buffer[] | undefined;
         key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined;

@@ -1,25 +1,27 @@
-import rdf = require('rdf-ext');
-import { Literal, Quad, NamedNode, Stream, Sink, DataFactory, DatasetCoreFactory, BlankNode, Variable } from 'rdf-js';
-import { DatasetIndexed as Dataset } from 'rdf-dataset-indexed/dataset';
-import QuadExt = require('rdf-ext/lib/Quad');
-import BlankNodeExt = require('rdf-ext/lib/BlankNode');
-import DataFactoryExt = require('rdf-ext/lib/DataFactory');
-import DatasetExt = require('rdf-ext/lib/Dataset');
-import DefaultGraphExt = require('rdf-ext/lib/DefaultGraph');
-import LiteralExt = require('rdf-ext/lib/Literal');
-import NamedNodeExt = require('rdf-ext/lib/NamedNode');
-import VariableExt = require('rdf-ext/lib/Variable');
+import rdf from 'rdf-ext';
+import { Literal, Quad, NamedNode, Stream, Sink, DatasetCore, DatasetCoreFactory, BlankNode, Variable, DefaultGraph, Term } from '@rdfjs/types';
+import QuadExt from 'rdf-ext/lib/Quad';
+import BlankNodeExt from 'rdf-ext/lib/BlankNode';
+import DefaultGraphExt from 'rdf-ext/lib/DefaultGraph';
+import LiteralExt from 'rdf-ext/lib/Literal';
+import NamedNodeExt from 'rdf-ext/lib/NamedNode';
+import VariableExt from 'rdf-ext/lib/Variable';
+import * as clownface from 'clownface';
+import { DatasetExt } from 'rdf-ext/lib/Dataset';
+import DataFactory, { DataFactoryExt } from 'rdf-ext/DataFactory';
+import Traverser from '@rdfjs/traverser/Traverser';
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
-
-const factory: DataFactory = rdf;
+import Environment, { Environment as IEnvironment } from '@rdfjs/environment/Environment';
+import ClownfaceFactory from 'rdf-ext/ClownfaceFactory';
+import DatasetFactoryExt, { DatasetFactory } from 'rdf-ext/DatasetFactory';
 
 function rdfExt_factory() {
     const baseFactory: DatasetCoreFactory = rdf;
     const factory: DatasetCoreFactory<QuadExt, Quad> = rdf;
 
-    const baseDataset: Dataset = rdf.dataset();
-    const dataset: Dataset<QuadExt> = rdf.dataset();
+    const baseDataset: DatasetExt = rdf.dataset();
+    const dataset: DatasetCore<QuadExt> = rdf.dataset();
 }
 
 function NamedNode_toCanonical(): string {
@@ -220,31 +222,28 @@ function Quad_toJSON(): boolean {
         && json.graph !== null;
 }
 
-function graph_noParams_returnsDataset(): boolean {
-    return rdf.graph().length === 0;
-}
-
-function graph_initWithTriples(): Dataset {
-    const triple1 = rdf.quad(
-        rdf.namedNode('http://example.org/subject'),
-        rdf.namedNode('http://example.org/predicate'),
-        rdf.literal('object1'));
-
-    const triple2 = rdf.quad(
-        rdf.namedNode('http://example.org/subject'),
-        rdf.namedNode('http://example.org/predicate'),
-        rdf.literal('object2'));
-
-    return rdf.graph([triple1, triple2]);
-}
-
 function dataset_empty(): boolean {
-    return rdf.dataset().length === 0;
+    return rdf.dataset().size === 0;
 }
 
 function dataset_merge(): DatasetExt {
-    const other: Dataset = <any> {};
+    const other: DatasetExt = <any> {};
     return rdf.dataset().merge(other);
+}
+
+function dataset_map(): DatasetExt {
+    const other: DatasetExt = <any> {};
+    return rdf.dataset().map((q: QuadExt): Quad => <any> {});
+}
+
+function dataset_match() {
+    let matched: DatasetExt;
+    const term: Term = <any> {};
+    matched = rdf.dataset().match(null, null, null, null);
+    matched = rdf.dataset().match(term);
+    matched = rdf.dataset().match(null, term);
+    matched = rdf.dataset().match(null, null, term);
+    matched = rdf.dataset().match(null, null, null, term);
 }
 
 function dataset_merge_array(): DatasetExt {
@@ -252,11 +251,11 @@ function dataset_merge_array(): DatasetExt {
     return rdf.dataset().merge(other);
 }
 
-function dataset_clone(): Dataset {
+function dataset_clone(): DatasetExt {
     return rdf.dataset().clone();
 }
 
-function dataset_filter(): Dataset {
+function dataset_filter(): DatasetExt {
     return rdf.dataset().filter(() => true);
 }
 
@@ -268,7 +267,7 @@ function dataset_toCanoncal(): string {
     return rdf.dataset().toCanonical();
 }
 
-function dataset_initializeWithQuads(): Dataset {
+function dataset_initializeWithQuads(): DatasetExt {
     const quad1 = rdf.quad(
         rdf.namedNode('http://example.org/subject'),
         rdf.namedNode('http://example.org/predicate'),
@@ -291,7 +290,7 @@ function Dataset_toJSON() {
             rdf.namedNode('http://example.org/predicate'),
             rdf.literal('object1'),
             rdf.namedNode('http://example.org/graph'))
-        ]);
+    ]);
 
     const json = dataset.toJSON();
 
@@ -329,7 +328,168 @@ function constructedTerms() {
     quad = new QuadExt(blankNode, namedNode, literal, namedNode);
     quad = new QuadExt(blankNode, namedNode, literal, new DefaultGraphExt());
 
-    let dataset: Dataset;
+    let dataset: DatasetExt;
     dataset = new DatasetExt();
     dataset = new DatasetExt([quad, quad, quad]);
+}
+
+function dataset_addAll() {
+    const quad: Quad = <any> {};
+    let dataset: DatasetExt = <any> {};
+    dataset = dataset.addAll([quad, quad]);
+}
+
+function dataset_deleteMatches() {
+    const term: NamedNode = <any> {};
+    const graph: NamedNode | DefaultGraph = <any> {};
+    let dataset: DatasetExt = <any> {};
+    dataset = dataset.deleteMatches(null, null, term, graph);
+}
+
+function dataset_difference() {
+    const dataset: DatasetExt = <any> {};
+    const datasetCore: DatasetCore = <any> {};
+    const diff: DatasetExt = dataset.difference(datasetCore);
+}
+
+function dataset_every() {
+    const dataset: DatasetExt = <any> {};
+    const result: boolean = dataset.every((quad: QuadExt) => {
+        return true;
+    });
+}
+
+function dataset_forEach() {
+    const dataset: DatasetExt = <any> {};
+    dataset.forEach((quad: QuadExt) => {
+        //
+    });
+}
+
+function dataset_toStream() {
+    const dataset: DatasetExt = <any> {};
+    // $ExpectType Stream<QuadExt>
+    const stream = dataset.toStream();
+}
+
+function testDataFactory() {
+    const namedNode = rdf.namedNode('foo'); // $ExpectType NamedNodeExt<"foo">
+    const literal = rdf.literal('foo'); // $ExpectType LiteralExt
+    const variable = rdf.variable('foo'); // $ExpectType VariableExt
+    let blankNode = rdf.blankNode();  // $ExpectType BlankNodeExt
+    blankNode = rdf.blankNode('b1');
+    const quad = rdf.quad(blankNode, namedNode, literal); // $ExpectType QuadExt
+
+    const originalNamedNode: NamedNode = <any> {};
+    const fromNamed: NamedNodeExt = rdf.fromTerm(originalNamedNode);
+    const originalQuad: Quad = <any> {};
+    const fromQuad: QuadExt = rdf.fromQuad(originalQuad);
+}
+
+function testDatasetFactory() {
+    const emptyDataset: DatasetExt = rdf.dataset();
+
+    const quad: Quad = <any> {};
+    const datasetWithQuads: DatasetExt = rdf.dataset([ quad, quad, quad ]);
+
+    const graph: NamedNode | DefaultGraph = <any> {};
+    const datasetWithQuadsInGraph: DatasetExt = rdf.dataset([ quad, quad, quad ], graph);
+}
+
+type DatasetFoo = DatasetCore & {
+    foo: 'bar'
+};
+
+function testClownface() {
+    const anyPointer = rdf.clownface();
+    anyPointer.dataset; // $ExpectType DatasetExt
+
+    const dataset: DatasetFoo = <any> {};
+    const anyPointerExistingDataset = rdf.clownface({ dataset });
+    anyPointerExistingDataset.dataset; // $ExpectType DatasetFoo
+
+    const namedNode = rdf.clownface({ term: rdf.namedNode('foo') });
+    namedNode.dataset; // $ExpectType DatasetExt
+
+    const namedNodes = rdf.clownface({ term: [rdf.namedNode('foo'), rdf.namedNode('bar')] });
+    namedNodes.dataset; // $ExpectType DatasetExt
+
+    const other: clownface.MultiPointer<NamedNode | BlankNode, DatasetFoo> = <any> {};
+    const fromOther = rdf.clownface(other);
+    fromOther.dataset; // $ExpectType DatasetFoo
+}
+
+async function testFetch() {
+    const formats: any = <any> {};
+    const res = await rdf.fetch('foo');
+    const stream: Stream = await res.quadStream();
+    const dataset: DatasetCore = await res.dataset();
+}
+
+function testFormats() {
+    const { parsers, serializers } = rdf.formats;
+}
+
+function testNamespace() {
+    const schema = rdf.namespace('http://schema.org/');
+    const typedNs = rdf.namespace<'foo' | 'bar'>('http://schema.org/');
+
+    const { foo, bar } = typedNs;
+    // @ts-expect-error
+    const baz = typedNs.baz;
+}
+
+function termSetMapFactoryTest() {
+    const map = rdf.termMap();
+    const set = rdf.termSet();
+}
+
+function testPrefixMap() {
+    const prefixMap = rdf.prefixMap();
+}
+
+function testTraverser() {
+    const traverser: Traverser<DatasetExt> = rdf.traverser(({ level }) => {
+        return level === 0;
+    });
+}
+
+function testScore() {
+    const {
+        combine,
+        concat,
+        count,
+        distinct,
+        exists,
+        fallback,
+        fixed,
+        language,
+        pageRank,
+        pathDepth,
+        prioritized,
+        product,
+        scale,
+        sort,
+        sortObjects,
+        sum,
+        type
+    } = rdf.score;
+}
+
+function testBundledFactories() {
+    const env = new Environment([
+        ClownfaceFactory,
+        DatasetFactoryExt,
+        DataFactory,
+    ]);
+
+    const {
+        dataset,
+        quad,
+        clownface,
+    } = env;
+}
+
+function testEnvironmentAssignable() {
+    const datasetEnv: IEnvironment<DatasetFactory> = rdf;
 }

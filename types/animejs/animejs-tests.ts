@@ -110,6 +110,9 @@ anime.set(
     }
 );
 
+anime.get('.test-div', 'height');
+anime.get('.test-div', 'height', 'rem');
+
 // test importing from lib/ files
 import animeCJS = require('animejs/lib/anime');
 import animeMin = require('animejs/lib/anime.min');

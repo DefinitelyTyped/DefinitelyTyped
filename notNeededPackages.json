@@ -1473,6 +1473,10 @@
             "libraryName": "fetch-jsonp",
             "asOfVersion": "1.1.0"
         },
+        "fhir-kit-client": {
+            "libraryName": "fhir-kit-client",
+            "asOfVersion": "1.6.7"
+        },
         "figures": {
             "libraryName": "figures",
             "asOfVersion": "3.0.0"
@@ -2789,6 +2793,10 @@
             "libraryName": "lru-cache",
             "asOfVersion": "7.10.0"
         },
+        "lz-string": {
+            "libraryName": "lz-string",
+            "asOfVersion": "1.5.0"
+        },
         "make-dir": {
             "libraryName": "make-dir",
             "asOfVersion": "2.1.0"
@@ -3017,6 +3025,10 @@
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
         },
+        "micro": {
+            "libraryName": "micro",
+            "asOfVersion": "10.0.0"
+        },
         "microgears": {
             "libraryName": "microgears",
             "asOfVersion": "4.0.5"
@@ -3032,6 +3044,10 @@
         "minipass": {
             "libraryName": "minipass",
             "asOfVersion": "3.3.5"
+        },
+        "mkdirp": {
+            "libraryName": "mkdirp",
+            "asOfVersion": "2.0.0"
         },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
@@ -3080,6 +3096,10 @@
         "moment-timezone": {
             "libraryName": "moment-timezone",
             "asOfVersion": "0.5.30"
+        },
+        "monday-sdk-js": {
+            "libraryName": "monday-sdk-js",
+            "asOfVersion": "0.2.1"
         },
         "mongodb": {
             "libraryName": "mongodb",
@@ -3277,6 +3297,10 @@
             "libraryName": "node-xlsx",
             "asOfVersion": "0.21.0"
         },
+        "nodecredstash": {
+            "libraryName": "nodecredstash",
+            "asOfVersion": "3.0.0"
+        },
         "nookies": {
             "libraryName": "nookies",
             "asOfVersion": "2.0.3"
@@ -3352,6 +3376,10 @@
         "okta__okta-vue": {
             "libraryName": "@okta/okta-vue",
             "asOfVersion": "3.1.0"
+        },
+        "ol": {
+            "libraryName": "ol",
+            "asOfVersion": "7.0.0"
         },
         "on-change": {
             "libraryName": "on-change",
@@ -3862,6 +3890,10 @@
         "postcss-nested": {
             "libraryName": "postcss-nested",
             "asOfVersion": "4.2.1"
+        },
+        "postcss-preset-env": {
+            "libraryName": "postcss-preset-env",
+            "asOfVersion": "8.0.0"
         },
         "postmark": {
             "libraryName": "postmark",
@@ -4379,6 +4411,10 @@
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
         },
+        "react-leaflet": {
+            "libraryName": "react-leaflet",
+            "asOfVersion": "3.0.0"
+        },
         "react-loader-spinner": {
             "libraryName": "react-loader-spinner",
             "asOfVersion": "4.0.0"
@@ -4554,6 +4590,10 @@
         "react-rnd": {
             "libraryName": "react-rnd",
             "asOfVersion": "8.0.0"
+        },
+        "react-router-native": {
+            "libraryName": "react-router-native",
+            "asOfVersion": "6.4.0"
         },
         "react-scrollbar-size": {
             "libraryName": "react-scrollbar-size",
@@ -4815,6 +4855,10 @@
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
         },
+        "rimraf": {
+            "libraryName": "rimraf",
+            "asOfVersion": "4.0.5"
+        },
         "riot": {
             "libraryName": "riot",
             "asOfVersion": "4.1.0"
@@ -4910,6 +4954,10 @@
         "sanitize-filename": {
             "libraryName": "sanitize-filename",
             "asOfVersion": "1.6.3"
+        },
+        "sass": {
+            "libraryName": "sass",
+            "asOfVersion": "1.45.0"
         },
         "sass-webpack-plugin": {
             "libraryName": "sass-webpack-plugin",

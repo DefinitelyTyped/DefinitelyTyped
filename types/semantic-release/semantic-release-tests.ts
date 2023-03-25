@@ -209,3 +209,6 @@ const result3: lib.Result = {
         },
     ],
 };
+
+import getGitAuthUrl from 'semantic-release/lib/get-git-auth-url';
+const result4: Promise<string> = getGitAuthUrl(context);

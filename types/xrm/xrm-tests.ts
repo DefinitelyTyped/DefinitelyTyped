@@ -427,7 +427,7 @@ async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEn
 // Demonstrate App
 Xrm.App.addGlobalNotification({
     type: 2,
-    level: 2, // error
+    level: XrmEnum.AppNotificationLevel.Error,
     message: "Test error notification",
     showCloseButton: true,
     action: {

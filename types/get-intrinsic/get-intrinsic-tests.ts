@@ -47,6 +47,12 @@ declare const boolean: boolean;
     GetIntrinsic('%BigInt%'); // $ExpectType BigIntConstructor
     GetIntrinsic('%BigInt.prototype%'); // $ExpectType BigInt
 
+    GetIntrinsic('%BigInt64Array%'); // $ExpectType BigInt64ArrayConstructor
+    GetIntrinsic('%BigInt64Array.prototype%'); // $ExpectType BigInt64Array
+
+    GetIntrinsic('%BigUint64Array%'); // $ExpectType BigUint64ArrayConstructor
+    GetIntrinsic('%BigUint64Array.prototype%'); // $ExpectType BigUint64Array
+
     GetIntrinsic('%Boolean%'); // $ExpectType BooleanConstructor
     GetIntrinsic('%Boolean.prototype%'); // $ExpectType Boolean
     GetIntrinsic('%BooleanPrototype%'); // $ExpectType Boolean

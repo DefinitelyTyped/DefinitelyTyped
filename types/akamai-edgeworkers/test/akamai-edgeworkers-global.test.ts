@@ -1,3 +1,4 @@
+import { createResponse } from 'create-response';
 export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.setHeader()
     request.setHeader("from-set-header-1", ["value-1", "trailer-1"]);
@@ -155,4 +156,7 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
 
     // getVariable
     const v = request.getVariable("var") || [];
+
+    // EW.ResponseProviderRequest.arrayBuffer()
+    const arrayBufferBody = request.arrayBuffer();
 }
