@@ -13,8 +13,8 @@ export interface PredictionResponse {
     inputs: {
         prompt: string;
     };
-    output: String[] | null;
-    output_files: String[];
+    output: string[] | null;
+    output_files: string[];
     error: string | null;
     run_logs: string | null;
     version: {
