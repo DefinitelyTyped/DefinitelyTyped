@@ -935,9 +935,12 @@ declare namespace React {
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => void | Destructor;
 
-    // These types were previously distinct, but that was not correct: all refs are technically mutable.
-    // TODO: Remove MutableRefObject completely in a future version.
-    type MutableRefObject<T> = RefObject<T>;
+    /**
+     * @deprecated Use `RefObject` instead.
+     */
+    interface MutableRefObject<T> {
+        current: T;
+    }
 
     // This will technically work if you give a Consumer<T> or Provider<T> but it's deprecated and warns
     /**
