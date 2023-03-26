@@ -63,6 +63,8 @@ interface AbortSignal extends EventTarget {
      */
     readonly aborted: boolean;
     readonly reason: any;
+    onabort: null | ((this: AbortSignal, event: Event) => any);
+
 }
 
 declare var AbortController: typeof globalThis extends {onmessage: any; AbortController: infer T}
