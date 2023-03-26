@@ -6,7 +6,7 @@ declare class Tooltip extends React.Component<TooltipProps> {}
 export default Tooltip;
 
 export interface TooltipProps extends Card.CardProps {
-    parent: string | React.JSX.Element | React.RefObject<unknown>;
+    parent: string | React.JSX.Element | React.RefObject<unknown | null>;
     active?: boolean | undefined;
     group?: string | undefined;
     tooltipTimeout?: number | undefined;

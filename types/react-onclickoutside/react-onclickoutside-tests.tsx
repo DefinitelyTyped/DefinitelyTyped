@@ -60,7 +60,7 @@ class TestComponent extends React.Component<{ disableOnClickOutside(): void; ena
 }
 
 const WrappedComponent = onClickOutside(TestComponent);
-const wrappedComponentRef: React.RefObject<InstanceType<typeof WrappedComponent>> = React.createRef();
+const wrappedComponentRef: React.RefObject<InstanceType<typeof WrappedComponent> | null> = React.createRef();
 
 render(
     <WrappedComponent

@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavigationContainerRef } from "../core";
 import type { LinkingOptions } from "./types";
 export default function useLinking(
-    ref: React.RefObject<NavigationContainerRef>,
+    ref: React.RefObject<NavigationContainerRef | null>,
     { enabled, config, getStateFromPath, getPathFromState }: LinkingOptions,
 ): {
     getInitialState: () => PromiseLike<

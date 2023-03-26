@@ -52,7 +52,7 @@ declare namespace React {
     }
     // Bivariance hack for consistent unsoundness with RefObject
     type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
-    type Ref<T> = RefCallback<T> | RefObject<T> | null;
+    type Ref<T> = RefCallback<T> | RefObject<T | null> | null;
     type LegacyRef<T> = string | Ref<T>;
     /**
      * Gets the instance type for a React element. The instance will be different for various component types:
@@ -792,7 +792,7 @@ declare namespace React {
         [propertyName: string]: any;
     }
 
-    function createRef<T>(): RefObject<T>;
+    function createRef<T>(): RefObject<T | null>;
 
     // will show `ForwardRef(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
@@ -1042,7 +1042,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://react.dev/reference/react/useRef
      */
-    function useRef<T>(initialValue: T | null): RefObject<T>;
+    function useRef<T>(initialValue: T | null): RefObject<T | null>;
     // convenience overload for potentially undefined initialValue / call with 0 arguments
     // has a default to stop it from defaulting to {} instead
     /**

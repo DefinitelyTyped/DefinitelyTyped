@@ -271,8 +271,8 @@ export interface DrawerProps extends Omit<TonicProps, "children"> {
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
     ensureFocus?: boolean;
-    finalFocusRef?: React.RefObject<HTMLElement>;
-    initialFocusRef?: React.RefObject<HTMLElement>;
+    finalFocusRef?: React.RefObject<HTMLElement | null>;
+    initialFocusRef?: React.RefObject<HTMLElement | null>;
     isClosable?: boolean;
     isOpen?: boolean;
     onClose?: () => void;
@@ -329,7 +329,7 @@ export interface InputControlProps extends TonicHTMLInputProps<HTMLInputElement>
     endAdornment?: React.ReactNode;
     inputComponent?: React.ComponentType;
     inputProps?: InputProps;
-    inputRef?: React.RefObject<HTMLElement>;
+    inputRef?: React.RefObject<HTMLElement | null>;
     size?: "sm" | "md" | "lg" | number;
     variant?: "outline" | "filled" | "unstyled";
     startAdornment?: React.ReactNode;
@@ -415,8 +415,8 @@ export interface ModalProps extends Omit<TonicProps, "children"> {
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
     ensureFocus?: boolean;
-    finalFocusRef?: React.RefObject<HTMLElement>;
-    initialFocusRef?: React.RefObject<HTMLElement>;
+    finalFocusRef?: React.RefObject<HTMLElement | null>;
+    initialFocusRef?: React.RefObject<HTMLElement | null>;
     isClosable?: boolean;
     isOpen?: boolean;
     onClose?: React.MouseEventHandler;
@@ -461,7 +461,7 @@ export interface PopoverProps extends Omit<TonicProps, "children"> {
     followCursor?: boolean;
     hideArrow?: boolean;
     id?: string;
-    initialFocusRef?: React.RefObject<HTMLElement>;
+    initialFocusRef?: React.RefObject<HTMLElement | null>;
     isOpen?: boolean;
     leaveDelay?: number;
     nextToCursor?: boolean;
@@ -508,7 +508,7 @@ export interface PortalObject {
 
 export interface PortalProps {
     appendToParentPortal?: boolean;
-    containerRef?: React.RefObject<HTMLElement>;
+    containerRef?: React.RefObject<HTMLElement | null>;
 }
 
 export interface RadioGroupProps<T extends string | number | undefined>

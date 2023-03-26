@@ -188,11 +188,11 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useRef<number | undefined>(1);
 
     // should be contextually typed
-    const a: React.RefObject<number | undefined> = React.useRef(undefined);
-    const b: React.RefObject<number | undefined> = React.useRef();
+    const a: React.RefObject<number | undefined | null> = React.useRef(undefined);
+    const b: React.RefObject<number | undefined | null> = React.useRef();
     const c: React.RefObject<number | null> = React.useRef(null);
     // @ts-expect-error No longer contextually typed: Type 'RefObject<null>' is not assignable to type 'RefObject<number>'.
-    const d: React.RefObject<number> = React.useRef(null);
+    const d: React.RefObject<number | null> = React.useRef(null);
 
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeHandle(ref, () => ({ id }), [id]);

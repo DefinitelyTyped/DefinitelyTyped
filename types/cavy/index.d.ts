@@ -5,7 +5,7 @@ export {};
 
 type TestHookGeneratorWithRefCallback = (label: string, ref?: React.RefCallback<any>) => React.RefCallback<any>;
 
-type TestHookGeneratorWithRefObject = (label: string, ref?: React.RefObject<any>) => React.RefObject<any>;
+type TestHookGeneratorWithRefObject = (label: string, ref?: React.RefObject<any | null>) => React.RefObject<any | null>;
 
 export type TestHookGenerator = TestHookGeneratorWithRefCallback & TestHookGeneratorWithRefObject;
 

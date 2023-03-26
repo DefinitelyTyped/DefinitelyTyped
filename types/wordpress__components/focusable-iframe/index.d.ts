@@ -2,7 +2,7 @@ import { ComponentType, HTMLProps, RefObject } from "react";
 
 declare namespace FocusableIframe {
     interface Props extends HTMLProps<HTMLIFrameElement> {
-        iframeRef?: RefObject<HTMLIFrameElement> | undefined;
+        iframeRef?: RefObject<HTMLIFrameElement | null> | undefined;
     }
 }
 declare const FocusableIframe: ComponentType<FocusableIframe.Props>;

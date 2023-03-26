@@ -112,7 +112,7 @@ export interface SearchBarProps<T = any> extends SearchProps<T> {
     delay?: number | undefined;
     searchText?: string | undefined;
     tableId?: string | undefined;
-    ref?: React.RefObject<React.Component<SearchProps<T>>>;
+    ref?: React.RefObject<React.Component<SearchProps<T>> | null>;
 }
 export interface ClearSearchButtonProps {
     onClear?: (() => void) | undefined;

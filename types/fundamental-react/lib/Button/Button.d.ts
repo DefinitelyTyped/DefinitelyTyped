@@ -11,7 +11,7 @@ export type ButtonProps = {
     disableStyles?: boolean | undefined;
     glyph?: string | undefined;
     option?: ButtonOptions | undefined;
-    ref?: React.RefObject<HTMLButtonElement> | undefined;
+    ref?: React.RefObject<HTMLButtonElement | null> | undefined;
     selected?: boolean | undefined;
     type?: ButtonTypes | undefined;
     typeAttr?: "submit" | "reset" | "button" | undefined;
