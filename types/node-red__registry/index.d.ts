@@ -129,10 +129,11 @@ declare namespace registry {
          * @param type - the string type name
          * @param pluginDef - the plugin definition
          */
+        // eslint-disable-next-line no-unnecessary-generics
         registerPlugin<TPluginDef extends PluginDef>(type: string, definition: PluginDefinition<TPluginDef>): void;
     }
     interface PluginDefinition<TPluginDef> {
-        settings?: NodeSettings<TPluginDef> | undefined; // eslint-disable-line no-unnecessary-generics
+        settings?: NodeSettings<TPluginDef> | undefined;
         onadd?: () => void;
     }
     interface PluginDef {
