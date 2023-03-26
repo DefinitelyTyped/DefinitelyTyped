@@ -1,10 +1,9 @@
-// Type definitions for pagedjs-cli 0.3.4
-// Project: https://www.npmjs.com/package/pagedjs-cli
+// Type definitions for pagedjs-cli 0.3
+// Project: https://pagedjs.org
 // Definitions by: Valentin Schabschneider <https://github.com/valentinschabschneider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import EventEmitter from "events";
-import { Browser, Page } from "puppeteer";
 
 interface PrinterOptions {
   debug?: boolean;
@@ -34,7 +33,7 @@ interface PDFOptions {
 
 export interface Printer extends EventEmitter {
 	(options: PrinterOptions): Printer;
-	async pdf: ((input: string | URL, options?: PDFOptions) => Uint8Array)
-	async html: ((input: string | URL, stayopen?: boolean) => string)
-	async preview: ((input: string | URL) => string)
+	pdf: ((input: string, options?: PDFOptions) => Uint8Array)
+	html: ((input: string, stayopen?: boolean) => string)
+	preview: ((input: string) => string)
 }
