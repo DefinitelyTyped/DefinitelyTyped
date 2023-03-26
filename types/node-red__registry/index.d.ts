@@ -122,6 +122,26 @@ declare namespace registry {
          */
         needsPermission(permission: string): (req: Request, res: Response, next: NextFunction) => void;
     }
+    
+    interface NodeAPIPlugins {
+        
+        /**
+         * Registers a plugin constructor
+         * @param type - the string type name
+         * @param pluginDef - the plugin definition
+         */
+        registerPlugin<TPluginDef extends PluginDef, TSets>(
+            type: string,
+            definition: PluginDefinition<TPluginDef>,
+        ): void;
+    }
+    interface PluginDefinition<TPluginDef> {
+        settings?: NodeSettings<TPluginDef> | undefined; // eslint-disable-line no-unnecessary-generics
+        onadd?:() => void;
+    }
+    interface PluginDef{      
+        "*": unknown;
+    }
 
     /**
      * Runtime API provided to nodes by Node Registry
@@ -138,6 +158,7 @@ declare namespace registry {
         comms: NodeAPIComms;
         library: NodeAPILibrary;
         auth: NodeAPIAuth;
+        plugins: NodeAPIPlugins;
         readonly httpNode: Express;
         readonly httpAdmin: Express;
         readonly server: HttpsServer;

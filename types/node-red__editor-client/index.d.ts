@@ -520,6 +520,29 @@ declare namespace editorClient {
         regex(re: RegExp): (v: any) => boolean;
         typedInput(ptypeName: string, isConfig?: boolean): (v: any) => boolean;
     }
+    
+    interface Plugins {
+        registerPlugin: PluginsRegistry['registerPluginType'];
+        
+    }
+    interface PluginsRegistry {
+        /**
+         * Registers a plugin with the editor.     *
+         * @param pt The plugin type is used throughout the editor to identify the plugin. It must
+         * match the value used by the call to RED.plugins.registerPlugin in the corresponding runtime
+         * script.
+         * @param def The plugin definition contains all of the information about the plugin
+         * needed by the editor.
+         */
+        registerPluginType(
+            pt: string,
+            def: PluginDef
+        ): void;
+    }
+    interface PluginDef{
+        onadd?: (() => void) | undefined;
+    }
+
 
     interface TextBidi {
         /**
@@ -861,10 +884,13 @@ declare namespace editorClient {
         addTab(options: {
             enableOnEdit?: boolean | undefined;
             toolbar?: HTMLElement | undefined;
+            content?: HTMLElement | undefined;
             id: string;
             name: string;
+            label?: string;
             iconClass?: string | undefined;
             visible?: boolean | undefined;
+            action?: string;
         }): void;
         removeTab(id: string): void;
         show(id: string): void;
@@ -1246,6 +1272,7 @@ declare namespace editorClient {
         settings: SettingsWithData;
         user: User;
         validators: Validators;
+        plugins: Plugins;
 
         // assigned in i18n.js (on init)
         _: I18nTFunction;
