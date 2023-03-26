@@ -42,4 +42,5 @@ export class Printer extends EventEmitter {
     async pdf: (input: string | RenderInput, options?: PDFOptions) => Promise<Uint8Array>;
     async html: (input: string | RenderInput, stayopen?: boolean) => Promise<string>;
     async preview: (input: string | RenderInput) => Promise<Page>;
+    async close: () => Promise<boolean>;
 }
