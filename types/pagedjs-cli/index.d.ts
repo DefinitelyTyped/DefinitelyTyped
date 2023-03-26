@@ -31,9 +31,13 @@ export interface PDFOptions {
     orientation?: string;
 }
 
+export interface RenderInput {
+    url?: string;
+    html?: string;
+}
+
 export class Printer extends EventEmitter {
     constructor(options: PrinterOptions);
-    pdf: (input: string, options?: PDFOptions) => Uint8Array;
-    html: (input: string, stayopen?: boolean) => string;
-    preview: (input: string) => string;
+    async pdf: (input: string | RenderInput, options?: PDFOptions) => Promise<Uint8Array>;
+    async html: (input: string | RenderInput, stayopen?: boolean) => Promise<string>;
 }
