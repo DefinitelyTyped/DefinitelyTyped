@@ -38,9 +38,7 @@ declare namespace editorClient {
      * Read more: https://nodered.org/docs/creating-nodes/properties
      */
     type NodePropertiesDef<TProps extends NodeProperties, TInstProps extends TProps = TProps> = {
-        [K in keyof TProps]: K extends NodeReservedProperties
-            ? never
-            : NodePropertyDef<TProps[K], TInstProps>;
+        [K in keyof TProps]: K extends NodeReservedProperties ? never : NodePropertyDef<TProps[K], TInstProps>;
     };
 
     /**
@@ -94,8 +92,7 @@ declare namespace editorClient {
         | 'y'
         | 'z';
 
-    type NodeInstance<TProps extends NodeProperties = NodeProperties> =
-        Omit<TProps, NodeReservedProperties> &
+    type NodeInstance<TProps extends NodeProperties = NodeProperties> = Omit<TProps, NodeReservedProperties> &
         Readonly<{
             _: I18nTFunction;
             id: string;
@@ -165,7 +162,8 @@ declare namespace editorClient {
             | 'node_label'
             | 'node_label_italic'
             | string
-            | ((this: NodeInstance<TInstProps>) => 'node_label' | 'node_label_italic' | string) | undefined;
+            | ((this: NodeInstance<TInstProps>) => 'node_label' | 'node_label_italic' | string)
+            | undefined;
         /**
          * Optional label to add on hover to the input port of a node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
@@ -175,7 +173,11 @@ declare namespace editorClient {
          * Optional labels to add on hover to the output ports of a node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
          */
-        outputLabels?: string | string[] | ((this: NodeInstance<TInstProps>, idx: number) => string | undefined) | undefined;
+        outputLabels?:
+            | string
+            | string[]
+            | ((this: NodeInstance<TInstProps>, idx: number) => string | undefined)
+            | undefined;
         /**
          * The icon to use.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#icon
@@ -190,14 +192,16 @@ declare namespace editorClient {
          * Adds a button to the edge of the node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#buttons
          */
-        button?: {
-            /** Called when the button is clicked */
-            onclick: (this: NodeInstance<TInstProps>) => void;
-            /** Function to dynamically enable and disable the button based on the node’s current configuration. */
-            enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
-            /** Function to determine whether the button should be shown at all. */
-            visible?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
-        } | undefined;
+        button?:
+            | {
+                  /** Called when the button is clicked */
+                  onclick: (this: NodeInstance<TInstProps>) => void;
+                  /** Function to dynamically enable and disable the button based on the node’s current configuration. */
+                  enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
+                  /** Function to determine whether the button should be shown at all. */
+                  visible?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
+              }
+            | undefined;
         /**
          * Called when the edit dialog is being built.
          * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
@@ -520,10 +524,9 @@ declare namespace editorClient {
         regex(re: RegExp): (v: any) => boolean;
         typedInput(ptypeName: string, isConfig?: boolean): (v: any) => boolean;
     }
-    
+
     interface Plugins {
         registerPlugin: PluginsRegistry['registerPluginType'];
-        
     }
     interface PluginsRegistry {
         /**
@@ -534,15 +537,11 @@ declare namespace editorClient {
          * @param def The plugin definition contains all of the information about the plugin
          * needed by the editor.
          */
-        registerPluginType(
-            pt: string,
-            def: PluginDef
-        ): void;
+        registerPluginType(pt: string, def: PluginDef): void;
     }
-    interface PluginDef{
+    interface PluginDef {
         onadd?: (() => void) | undefined;
     }
-
 
     interface TextBidi {
         /**
@@ -578,7 +577,13 @@ declare namespace editorClient {
          * @param isRtl - indicates if the GUI is mirrored
          * @param locale - the browser locale
          */
-        getHtml(text: string, type: string, args: { dir?: string | undefined } | null, isRtl: boolean, locale: string): string;
+        getHtml(
+            text: string,
+            type: string,
+            args: { dir?: string | undefined } | null,
+            isRtl: boolean,
+            locale: string,
+        ): string;
 
         /*
          * Handle Structured text correct display for a given HTML element.
@@ -631,7 +636,11 @@ declare namespace editorClient {
          *      label: the text to display - default: "Deploy"
          *      icon : the icon to use. Null removes the icon. default: "red/images/deploy-full-o.svg"
          */
-        init(options?: { type?: 'default' | 'simple' | undefined; label?: string | undefined; icon?: string | undefined }): void;
+        init(options?: {
+            type?: 'default' | 'simple' | undefined;
+            label?: string | undefined;
+            icon?: string | undefined;
+        }): void;
         setDeployInflight(state: boolean): void;
     }
 
@@ -798,12 +807,14 @@ declare namespace editorClient {
                 id?: string | undefined;
                 modal?: boolean | undefined;
                 width?: number | undefined;
-                buttons?: Array<{
-                    id?: string | undefined;
-                    class?: string | undefined;
-                    text: string;
-                    click: (event: JQuery.Event) => void;
-                }> | undefined;
+                buttons?:
+                    | Array<{
+                          id?: string | undefined;
+                          class?: string | undefined;
+                          text: string;
+                          click: (event: JQuery.Event) => void;
+                      }>
+                    | undefined;
             },
         ): HTMLDivElement;
         notify(msg: string | JQuery, type?: NotificationType, fixed?: boolean, timeout?: number): HTMLDivElement;
@@ -947,9 +958,7 @@ declare namespace editorClient {
         setMessageProperty(msg: object, prop: string, value: any, createMissing?: boolean): null | undefined;
         normalisePropertyExpression(str: string): Array<string | number>;
         validatePropertyExpression(str: string): boolean;
-        separateIconPath(
-            icon?: string,
-        ): {
+        separateIconPath(icon?: string): {
             module: string;
             file: string;
         };
@@ -1169,9 +1178,11 @@ declare namespace editorClient {
             style?: 'compact' | undefined;
             disposeOnClose?: boolean | undefined;
             onclose?: ((v: boolean) => void) | undefined;
-            options?: Array<{
-                onselect?: (() => void) | undefined;
-            }> | undefined;
+            options?:
+                | Array<{
+                      onselect?: (() => void) | undefined;
+                  }>
+                | undefined;
         }): {
             show(opts: {
                 target: JQuery;
@@ -1181,9 +1192,7 @@ declare namespace editorClient {
             }): void;
             hide(cancelled?: boolean): void;
         };
-        panel(
-            content: JQuery,
-        ): {
+        panel(content: JQuery): {
             container: JQuery;
             show(options: {
                 onclose: () => void;
@@ -1215,7 +1224,11 @@ declare namespace editorClient {
         resize(): void;
     }
     interface Stack {
-        create(options: { container: JQuery; fill?: boolean | undefined; singleExpanded?: boolean | undefined }): StackInstance;
+        create(options: {
+            container: JQuery;
+            fill?: boolean | undefined;
+            singleExpanded?: boolean | undefined;
+        }): StackInstance;
     }
 
     interface TabsInstance {

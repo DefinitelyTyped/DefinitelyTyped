@@ -226,8 +226,8 @@ function redTests(RED: editorClient.RED) {
             x: {},
             key: {
                 value: '',
-            }
-        }
+            },
+        },
     };
 
     RED.nodes.registerType('my-node', myNodeDef);
@@ -389,17 +389,16 @@ function widgetTypedInputTests() {
 }
 
 function nodeRedPluginTests(RED: editorClient.RED) {
-
     const myPluginDef: editorClient.PluginDef = {
-        onadd(){
+        onadd() {
             RED.sidebar.addTab({
                 id: 'my-plugin',
                 label: 'my-plugin',
                 name: 'my-plugin',
-                action: "core:show-my-tab"
-            })
+                action: 'core:show-my-tab',
+            });
             RED.actions.add('my-plugin:show-my-tab', () => RED.sidebar.show('my-plugin'));
-        }
-    }
+        },
+    };
     RED.plugins.registerPlugin('my-plugin', myPluginDef);
 }

@@ -122,25 +122,21 @@ declare namespace registry {
          */
         needsPermission(permission: string): (req: Request, res: Response, next: NextFunction) => void;
     }
-    
+
     interface NodeAPIPlugins {
-        
         /**
          * Registers a plugin constructor
          * @param type - the string type name
          * @param pluginDef - the plugin definition
          */
-        registerPlugin<TPluginDef extends PluginDef>(
-            type: string,
-            definition: PluginDefinition<TPluginDef>,
-        ): void;
+        registerPlugin<TPluginDef extends PluginDef>(type: string, definition: PluginDefinition<TPluginDef>): void;
     }
     interface PluginDefinition<TPluginDef> {
         settings?: NodeSettings<TPluginDef> | undefined; // eslint-disable-line no-unnecessary-generics
-        onadd?:() => void;
+        onadd?: () => void;
     }
-    interface PluginDef{      
-        "*": unknown;
+    interface PluginDef {
+        '*': unknown;
     }
 
     /**
