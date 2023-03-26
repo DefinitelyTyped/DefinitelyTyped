@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "remask.js-tests.ts"
+        "test/remask-tests.ts"
     ]
 }
