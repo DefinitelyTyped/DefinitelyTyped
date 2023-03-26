@@ -587,7 +587,9 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
-    type ForwardedRef<T> = ((instance: T | null) => void) | RefObject<T> | null;
+    // Making T nullable is assuming the refs will be managed by React or the component impl will write it somewhere else.
+    // But this isn't necessarily true. We haven't heard complains about it yet and hopefully `forwardRef` is removed from React before we do.
+    type ForwardedRef<T> = ((instance: T | null) => void) | RefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
         (props: P, ref: ForwardedRef<T>): ReactNode;
