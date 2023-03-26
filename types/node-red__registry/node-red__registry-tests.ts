@@ -180,4 +180,22 @@ function registryTests() {
 
         RED.nodes.registerType('my-node', nodeConstructor);
     }
+
+    interface MyPluginDef extends registry.PluginDef {
+        defKey: string;
+    }
+
+    function pluginAPITests(RED: registry.NodeAPI<ExtendedNodeRedSettings>) {
+
+        const pluginDefinition: registry.PluginDefinition<MyPluginDef> = {
+            settings: {
+                '*': { value: '', exportable: true },
+                defKey: {  value: '', exportable: true }
+            },
+            onadd: () => {
+                RED.comms.publish(`my-route-for-plugin`, true, true);
+            }
+        };
+        RED.plugins.registerPlugin('my-plugin', pluginDefinition);
+    }
 }

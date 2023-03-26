@@ -387,3 +387,19 @@ function widgetTypedInputTests() {
 
     $('#inputId').typedInput('width', 200);
 }
+
+function nodeRedPluginTests(RED: editorClient.RED) {
+
+    const myPluginDef: editorClient.PluginDef = {
+        onadd(){
+            RED.sidebar.addTab({
+                id: 'my-plugin',
+                label: 'my-plugin',
+                name: 'my-plugin',
+                action: "core:show-my-tab"
+            })
+            RED.actions.add('my-plugin:show-my-tab', () => RED.sidebar.show('my-plugin'));
+        }
+    }
+    RED.plugins.registerPlugin('my-plugin', myPluginDef);
+}

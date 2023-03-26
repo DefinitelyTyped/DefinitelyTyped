@@ -130,7 +130,7 @@ declare namespace registry {
          * @param type - the string type name
          * @param pluginDef - the plugin definition
          */
-        registerPlugin<TPluginDef extends PluginDef, TSets>(
+        registerPlugin<TPluginDef extends PluginDef>(
             type: string,
             definition: PluginDefinition<TPluginDef>,
         ): void;
