@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import type { EventEmitter } from 'events';
+import type { Page } from 'puppeteer';
 
 export interface PrinterOptions {
     debug?: boolean;
@@ -40,4 +41,5 @@ export class Printer extends EventEmitter {
     constructor(options: PrinterOptions);
     async pdf: (input: string | RenderInput, options?: PDFOptions) => Promise<Uint8Array>;
     async html: (input: string | RenderInput, stayopen?: boolean) => Promise<string>;
+    async preview: (input: string | RenderInput) => Promise<Page>;
 }
