@@ -3,9 +3,9 @@
 // Definitions by: Valentin Schabschneider <https://github.com/valentinschabschneider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import EventEmitter from 'events';
+import type { EventEmitter } from 'events';
 
-interface PrinterOptions {
+export interface PrinterOptions {
     debug?: boolean;
     headless?: boolean;
     allowLocal?: boolean;
@@ -24,14 +24,14 @@ interface PrinterOptions {
     enableWarnings?: boolean;
 }
 
-interface PDFOptions {
+export interface PDFOptions {
     outlineTags?: string[];
     width?: string | number;
     height?: string | number;
     orientation?: string;
 }
 
-declare class Printer extends EventEmitter {
+export class Printer extends EventEmitter {
     constructor(options: PrinterOptions);
     pdf: (input: string, options?: PDFOptions) => Uint8Array;
     html: (input: string, stayopen?: boolean) => string;
