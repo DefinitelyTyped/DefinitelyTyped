@@ -175,7 +175,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     const a: React.MutableRefObject<number | undefined> = React.useRef(undefined);
     const b: React.MutableRefObject<number | undefined> = React.useRef();
     const c: React.MutableRefObject<number | null> = React.useRef(null);
-    const d: React.RefObject<number | null> = React.useRef(null);
+    const d: React.RefObject<number> = React.useRef(null);
 
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeHandle(ref, () => ({ id }), [id]);

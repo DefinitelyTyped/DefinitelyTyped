@@ -163,7 +163,7 @@ function useEveryHook(ref: Ref<{ id: number }> | undefined): () => boolean {
     const a: MutableRefObject<number | undefined> = useRef(undefined);
     const b: MutableRefObject<number | undefined> = useRef();
     const c: MutableRefObject<number | null> = useRef(null);
-    const d: RefObject<number | null> = useRef(null);
+    const d: RefObject<number> = useRef(null);
 
     const id = useMemo(() => Math.random(), []);
     useImperativeHandle(ref, () => ({ id }), [id]);

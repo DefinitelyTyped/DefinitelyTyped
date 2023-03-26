@@ -193,7 +193,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     const a: React.MutableRefObject<number | undefined> = React.useRef(undefined);
     const b: React.MutableRefObject<number | undefined> = React.useRef();
     const c: React.MutableRefObject<number | null> = React.useRef(null);
-    const d: React.RefObject<number | null> = React.useRef(null);
+    const d: React.RefObject<number> = React.useRef(null);
 
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeHandle(ref, () => ({ id }), [id]);
@@ -302,14 +302,14 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useState(class {});
     // This is the correct way to store classes in state.
     // $ExpectType typeof A
-    React.useState(() => (class A {}))[0];
+    React.useState(() => class A {})[0];
 
-    const [_, setClass] = React.useState(() => (class {}));
+    const [_, setClass] = React.useState(() => class {});
     // Undesired
     // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
     // React would call the constructor causing a TypeError,
     setClass(class {});
-    setClass(() => (class {}));
+    setClass(() => class {});
 
     // useReducer convenience overload
 

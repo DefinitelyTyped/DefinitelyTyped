@@ -484,7 +484,7 @@ export class TouchableNativeFeedbackTest extends React.Component {
 
 // PressableTest
 export class PressableTest extends React.Component<{}> {
-    private readonly myRef: React.RefObject<View | null> = React.createRef();
+    private readonly myRef: React.RefObject<View> = React.createRef();
 
     onPressButton = (e: GestureResponderEvent) => {
         e.persist();
@@ -699,7 +699,7 @@ export class SectionListTest extends React.Component<
     SectionListProps<string>,
     {}
 > {
-    myList: React.RefObject<SectionList<string> | null>;
+    myList: React.RefObject<SectionList<string>>;
 
     constructor(props: SectionListProps<string>) {
         super(props);
@@ -773,7 +773,7 @@ export class SectionListTypedSectionTest extends React.Component<
     SectionListProps<string, SectionT>,
     {}
 > {
-    myList: React.RefObject<SectionList<string, SectionT> | null>;
+    myList: React.RefObject<SectionList<string, SectionT>>;
 
     constructor(props: SectionListProps<string, SectionT>) {
         super(props);
