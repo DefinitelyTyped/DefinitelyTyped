@@ -14,4 +14,4 @@ export interface TextfitProps extends React.HTMLAttributes<HTMLDivElement> {
     onReady?: (fontSize: number) => void;
 }
 
-export function Textfit(props: TextfitProps): JSX.Element;
+export function Textfit(props: TextfitProps): React.JSX.Element;

@@ -1,5 +1,7 @@
 import { ComponentType, Consumer, ReactNode } from 'react';
 
+import { JSX } from "react";
+
 declare namespace Disabled {
     interface Props {
         children: ReactNode;

@@ -8,6 +8,9 @@
 import { Component, ReactElement } from 'react';
 
 
+import { JSX } from "react";
+
+
 // your typical style object given in props. Maps to a number or a spring config
 export type Style = { [key: string]: number | OpaqueConfig };
 // the interpolating style object, with the same keys as the above Style object,

@@ -1,3 +1,4 @@
+import { JSX } from "react";
 // Type definitions for React 15.7
 // Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>

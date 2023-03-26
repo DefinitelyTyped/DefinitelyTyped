@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactVideoRecorder } from 'react-video-recorder';
 
-const ReactVideoRecorderNoOptions: JSX.Element = (
+const ReactVideoRecorderNoOptions: React.JSX.Element = (
     <ReactVideoRecorder/>
 );

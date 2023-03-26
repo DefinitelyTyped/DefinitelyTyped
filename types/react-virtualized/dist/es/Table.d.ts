@@ -3,6 +3,8 @@ import { CellMeasurerCache } from './CellMeasurer';
 import { Index, Alignment, ScrollEventData, IndexRange, OverscanIndexRange } from '../../index';
 import { Grid, GridCoreProps } from './Grid';
 
+import { JSX } from "react";
+
 export type SortParams = {
     defaultSortDirection: SortDirectionType;
     event: MouseEvent;

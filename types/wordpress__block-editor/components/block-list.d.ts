@@ -1,5 +1,7 @@
 import { ComponentType } from 'react';
 
+import { JSX } from "react";
+
 declare namespace BlockList {
     interface Props {
         className?: string | undefined;

@@ -1,3 +1,4 @@
+import { JSX } from "react";
 // Type definitions for @americanexpress/react-seo 1.4
 // Project: https://github.com/americanexpress/react-seo
 // Definitions by: Zenoo <https://github.com/Zenoo>

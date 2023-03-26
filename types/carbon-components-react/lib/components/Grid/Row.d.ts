@@ -23,7 +23,7 @@ export type RowDefaultProps = RowBaseProps &
         as?: undefined;
     };
 
-export type RowIntrinsicProps<K extends keyof JSX.IntrinsicElements> = RowBaseProps &
+export type RowIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> = RowBaseProps &
     SafeProps<JSXIntrinsicElementProps<K>> & {
         as: K;
     };
@@ -38,7 +38,7 @@ export type RowCustomComponentProps<C extends ReactComponentConstructor<never>> 
     : never;
 
 declare function Row(props: RowDefaultProps): FCReturn;
-declare function Row<T extends keyof JSX.IntrinsicElements>(props: RowIntrinsicProps<T>): FCReturn;
+declare function Row<T extends keyof React.JSX.IntrinsicElements>(props: RowIntrinsicProps<T>): FCReturn;
 declare function Row<T extends ReactComponentConstructor<never>>(props: RowCustomComponentProps<T>): FCReturn;
 
 export default Row;

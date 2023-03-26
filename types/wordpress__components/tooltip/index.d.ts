@@ -3,6 +3,8 @@ import { ComponentType, ReactNode } from 'react';
 import Popover from '../popover';
 import Shortcut from '../shortcut';
 
+import { JSX } from "react";
+
 declare namespace Tooltip {
     interface Props {
         children: JSX.Element;

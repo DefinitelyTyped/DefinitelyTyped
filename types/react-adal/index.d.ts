@@ -384,6 +384,6 @@ export function withAdalLogin(
     resource: string,
 ): (
     wrappedComponent: React.ComponentClass | React.FunctionComponent,
-    renderLoading: () => JSX.Element | null,
-    renderError: (error: any) => JSX.Element | null,
+    renderLoading: () => React.JSX.Element | null,
+    renderError: (error: any) => React.JSX.Element | null,
 ) => React.ComponentClass;

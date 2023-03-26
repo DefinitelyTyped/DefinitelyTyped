@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PDFPageProxy as _PDFPageProxy } from 'pdfjs-dist/types/src/display/api';
 
-export type RenderFunction = () => JSX.Element;
+export type RenderFunction = () => React.JSX.Element;
 
 export interface PDFPageItem {
     _transport: object;

@@ -2,6 +2,8 @@
 import { Dashicon, DropZone } from '@wordpress/components';
 import { ComponentType, MouseEventHandler } from 'react';
 
+import { JSX } from "react";
+
 declare namespace MediaPlaceholder {
     interface Props<T extends boolean> extends Pick<DropZone.Props, 'onHTMLDrop'> {
         /**

@@ -20,7 +20,7 @@ export type GridDefaultProps = GridBaseProps &
         as?: undefined;
     };
 
-export type GridIntrinsicProps<K extends keyof JSX.IntrinsicElements> = GridBaseProps &
+export type GridIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> = GridBaseProps &
     SafeProps<JSXIntrinsicElementProps<K>> & {
         as: K;
     };
@@ -35,7 +35,7 @@ export type GridCustomComponentProps<
     : never;
 
 declare function Grid(props: GridDefaultProps): FCReturn;
-declare function Grid<T extends keyof JSX.IntrinsicElements>(props: GridIntrinsicProps<T>): FCReturn;
+declare function Grid<T extends keyof React.JSX.IntrinsicElements>(props: GridIntrinsicProps<T>): FCReturn;
 declare function Grid<T extends ReactComponentConstructor<never>>(props: GridCustomComponentProps<T>): FCReturn;
 
 export default Grid;

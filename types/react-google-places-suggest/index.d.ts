@@ -7,6 +7,8 @@
 /// <reference types="google.maps" />
 import { Component, ReactNode } from "react";
 
+import { JSX } from "react";
+
 export default ReactGooglePlacesSuggest;
 
 declare class ReactGooglePlacesSuggest extends Component<

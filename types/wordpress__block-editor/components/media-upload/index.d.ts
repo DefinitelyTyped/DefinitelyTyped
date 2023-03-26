@@ -3,6 +3,8 @@ import { ComponentType } from 'react';
 
 import { default as MediaPlaceholder } from '../media-placeholder';
 
+import { JSX } from "react";
+
 declare namespace MediaUpload {
     interface Props<T extends boolean>
         extends Pick<MediaPlaceholder.Props<T>, 'addToGallery' | 'allowedTypes' | 'multiple' | 'onSelect' | 'value'> {

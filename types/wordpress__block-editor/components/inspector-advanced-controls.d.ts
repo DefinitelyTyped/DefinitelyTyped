@@ -1,6 +1,8 @@
 import { Slot } from '@wordpress/components';
 import { FC, ReactNode } from 'react';
 
+import { JSX } from "react";
+
 declare namespace InspectorAdvancedControls {
     interface Props {
         children: ReactNode;

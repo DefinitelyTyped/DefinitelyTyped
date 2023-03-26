@@ -20,6 +20,8 @@ import {
     DiscreteColorLegend,
 } from 'react-vis';
 
+import { JSX } from "react";
+
 export function Example() {
     return (
         <XYPlot width={300} height={300}>

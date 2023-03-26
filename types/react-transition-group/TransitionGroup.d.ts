@@ -1,6 +1,8 @@
 import { Component, ElementType, ReactElement } from 'react';
 import { TransitionActions, TransitionProps } from './Transition';
 
+import { JSX } from "react";
+
 export interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div'>
     extends TransitionActions {
     component?: T | null | undefined;

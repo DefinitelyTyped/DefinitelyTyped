@@ -7,6 +7,8 @@
 
 import { h, Component, Context, VNode, ComponentChild, JSX } from 'preact';
 
+import { JSX } from "react";
+
 interface IntlContext {
     intl: {
         definition: {};

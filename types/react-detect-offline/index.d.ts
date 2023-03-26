@@ -1,3 +1,4 @@
+import { JSX } from "react";
 // Type definitions for react-detect-offline 2.4
 // Project: https://github.com/cwise89/react-detect-offline#readme
 // Definitions by: Rhythm Bhiwani <https://github.com/rhythmbhiwani>

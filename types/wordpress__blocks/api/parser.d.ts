@@ -2,6 +2,8 @@ import { ReactChild } from 'react';
 
 import { Block, BlockInstance } from '../';
 
+import { JSX } from "react";
+
 /**
  * Returns the block attributes of a registered block node given its type.
  *

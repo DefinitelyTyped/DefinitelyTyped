@@ -5,6 +5,8 @@
 
 import { Component } from 'react';
 
+import { JSX } from "react";
+
 export interface ReactTypingEffectProps {
     text: string | string[];
     staticText?: string | undefined;

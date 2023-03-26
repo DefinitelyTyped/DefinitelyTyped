@@ -26,10 +26,10 @@ export interface CustomToolbarButtonProps extends Required<ToolbarButtonProps> {
 
 export interface FsLightboxProps {
     toggler: boolean;
-    sources?: Array<string | JSX.Element> | undefined;
+    sources?: Array<string | React.JSX.Element> | undefined;
 
     // captions
-    captions?: Array<string | JSX.Element> | undefined; // pro feature
+    captions?: Array<string | React.JSX.Element> | undefined; // pro feature
 
     // custom attributes
     customAttributes?: Array<{ [key: string]: string } | null> | undefined;
@@ -56,7 +56,7 @@ export interface FsLightboxProps {
 
     // thumbs
     thumbs?: Array<string | null> | undefined; // pro feature
-    thumbsIcons?: Array<JSX.Element | null> | undefined; // pro feature
+    thumbsIcons?: Array<React.JSX.Element | null> | undefined; // pro feature
 
     // animations
     initialAnimation?: string | undefined; // pro feature

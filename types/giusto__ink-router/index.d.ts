@@ -6,6 +6,8 @@
 import { History, Location } from "history";
 import { Component, ComponentType, ReactNode } from "react";
 
+import { JSX } from "react";
+
 export interface RouterProps {
     children: NonNullable<ReactNode>;
     initialEntries?: Array<(string | {

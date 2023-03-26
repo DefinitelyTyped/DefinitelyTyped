@@ -5,6 +5,8 @@
 
 import { LegacyRef } from 'react';
 
+import { JSX } from "react";
+
 export type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
 
 export type StateListener = (current: PlayerState, previous: PlayerState) => void;

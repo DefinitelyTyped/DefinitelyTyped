@@ -5,6 +5,8 @@
 
 import { CSSProperties } from 'react';
 
+import { JSX } from "react";
+
 export interface ModernDatepickerProps {
     onSelectedChange?: (dateString: string) => void;
     onMonthYearChange?: (dateString: string) => void;

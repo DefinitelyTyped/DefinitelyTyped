@@ -3,6 +3,8 @@ import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Gri
 import { IndexRange, OverscanIndexRange, Alignment } from '../../index';
 import { CellPosition } from './CellMeasurer';
 
+import { JSX } from "react";
+
 export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'rowIndex'>> & {
     index: GridCellProps['rowIndex'];
 };

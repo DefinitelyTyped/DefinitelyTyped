@@ -8,6 +8,8 @@
 import { StoreDescriptor } from '@wordpress/data';
 import { MouseEventHandler } from 'react';
 
+import { JSX } from "react";
+
 declare module '@wordpress/data' {
     function dispatch(key: 'core/notices'): typeof import('./store/actions');
     function select(key: 'core/notices'): typeof import('./store/selectors');

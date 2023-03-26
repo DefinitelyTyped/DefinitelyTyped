@@ -26,7 +26,7 @@ const {
     collectChunks(<div>Test</div>);
 
     // Should return jsx
-    const jsx: JSX.Element = collectChunks(<div>Test</div>);
+    const jsx: React.JSX.Element = collectChunks(<div>Test</div>);
 }
 
 // Some example attributes for get functions.

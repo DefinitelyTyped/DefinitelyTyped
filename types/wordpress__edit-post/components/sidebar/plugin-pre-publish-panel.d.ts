@@ -1,6 +1,8 @@
 import { Slot } from '@wordpress/components';
 import { FC, ReactNode } from 'react';
 
+import { JSX } from "react";
+
 declare namespace PluginPrePublishPanel {
     interface Props {
         children: ReactNode;

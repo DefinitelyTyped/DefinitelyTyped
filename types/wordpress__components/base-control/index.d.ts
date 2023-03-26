@@ -1,5 +1,7 @@
 import { ComponentType, ReactNode } from 'react';
 
+import { JSX } from "react";
+
 declare namespace BaseControl {
     interface ControlProps {
         /**

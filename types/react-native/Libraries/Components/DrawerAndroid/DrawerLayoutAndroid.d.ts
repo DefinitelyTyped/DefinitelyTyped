@@ -8,6 +8,8 @@ import {
 } from '../../Types/CoreEventTypes';
 import {ViewProps} from '../View/ViewPropTypes';
 
+import { JSX } from "react";
+
 export interface DrawerSlideEvent
   extends NativeSyntheticEvent<NativeTouchEvent> {}
 

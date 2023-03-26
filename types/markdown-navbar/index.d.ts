@@ -5,6 +5,8 @@
 
 import { MouseEvent } from 'react';
 
+import { JSX } from "react";
+
 declare namespace MarkdownNavbar {
     interface MarkdownNavbarProps {
         /** The className that defines the outermost container of navbar */

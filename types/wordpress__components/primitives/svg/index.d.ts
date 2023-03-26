@@ -1,5 +1,7 @@
 import { ComponentType } from 'react';
 
+import { JSX } from "react";
+
 export const Circle: ComponentType<JSX.IntrinsicElements['circle']>;
 export const G: ComponentType<JSX.IntrinsicElements['g']>;
 export const Path: ComponentType<JSX.IntrinsicElements['path']>;

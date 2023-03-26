@@ -6,6 +6,8 @@
 
 import { Component, HTMLProps } from "react";
 
+import { JSX } from "react";
+
 interface InfiniteScrollerProps {
     elementIsScrollable?: boolean | undefined;
     containerHeight?: number | string | undefined;

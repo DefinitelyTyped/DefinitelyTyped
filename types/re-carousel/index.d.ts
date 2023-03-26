@@ -5,6 +5,8 @@
 
 import { ComponentType, CSSProperties } from 'react';
 
+import { JSX } from "react";
+
 interface WidgetProps {
     index: number;
     total: number;

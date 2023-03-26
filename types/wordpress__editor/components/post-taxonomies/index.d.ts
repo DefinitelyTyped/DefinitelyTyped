@@ -1,6 +1,8 @@
 import { Taxonomy } from '@wordpress/core-data';
 import { ComponentType, ReactNode } from 'react';
 
+import { JSX } from "react";
+
 declare namespace PostTaxonomies {
     interface Props {
         children?: never | undefined;

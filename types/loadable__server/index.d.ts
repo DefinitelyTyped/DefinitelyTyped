@@ -8,6 +8,8 @@
 
 import { ComponentType, ReactElement, Component } from 'react';
 
+import { JSX } from "react";
+
 export type ChunkExtractorOptions = {
     /**
      * Webpack entrypoints to load (default to `["main"]`)

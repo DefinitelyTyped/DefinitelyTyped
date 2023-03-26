@@ -2,6 +2,8 @@ import { ComponentType, HTMLProps } from 'react';
 
 import Icon from '../icon';
 
+import { JSX } from "react";
+
 declare namespace Placeholder {
     interface Props extends HTMLProps<HTMLDivElement> {
         /**

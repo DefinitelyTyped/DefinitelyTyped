@@ -9,6 +9,8 @@ import {StyleProp} from '../StyleSheet/StyleSheet';
 import {ViewStyle} from '../StyleSheet/StyleSheetTypes';
 import {View} from '../Components/View/View';
 
+import { JSX } from "react";
+
 export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
   /**
    * Rendered in between each item, but not at the top or bottom

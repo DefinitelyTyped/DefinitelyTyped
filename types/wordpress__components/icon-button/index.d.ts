@@ -5,6 +5,8 @@ import Dashicon from '../dashicon';
 import Popover from '../popover';
 import Shortcut from '../shortcut';
 
+import { JSX } from "react";
+
 declare namespace IconButton {
     interface Props extends Button.ButtonProps {
         /**

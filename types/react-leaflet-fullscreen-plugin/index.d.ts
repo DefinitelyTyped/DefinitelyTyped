@@ -1,3 +1,4 @@
+import { JSX } from "react";
 // Type definitions for react-leaflet-fullscreen-plugin 1.0
 // Project: https://github.com/elangobharathi/react-leaflet-fullscreen-plugin
 // Definitions by: Zenoo <https://github.com/Zenoo>

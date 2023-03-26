@@ -1,3 +1,4 @@
+import { JSX } from "react";
 // Type definitions for rr-notifications 1.1
 // Project: https://thegrinder.github.io/rr-notifications
 // Definitions by: Robbie Moore <https://github.com/RobbieGM>

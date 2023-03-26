@@ -7,6 +7,8 @@
 
 import { Component } from 'react';
 
+import { JSX } from "react";
+
 // It'd be nice if this could somehow be improved! Perhaps we need variadic
 // kinds plus infer keyword? Alternatively unions may solve our issue if we had
 // the ability to restrict type widening.

@@ -1,5 +1,7 @@
 import { ComponentType } from 'react';
 
+import { JSX } from "react";
+
 declare namespace PostVisibilityCheck {
     interface RenderProps {
         canEdit: boolean;

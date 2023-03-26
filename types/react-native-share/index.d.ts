@@ -14,6 +14,8 @@ import Overlay from './Overlay.d';
 import Button from './Button.d';
 import Sheet from './Sheet.d';
 
+import { JSX } from "react";
+
 declare namespace Share {
     enum Social {
         FACEBOOK = 'facebook',

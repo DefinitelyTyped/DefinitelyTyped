@@ -9,6 +9,8 @@
 import { CSSProperties, ReactNode } from 'react';
 import { ColumnDescription, SearchProps } from 'react-bootstrap-table-next';
 
+import { JSX } from "react";
+
 /**
  * declaration for table toolkit sub module
  */

@@ -1,3 +1,4 @@
+import { JSX } from "react";
 // Internal helper types
 
 // tslint:disable-next-line: strict-export-declare-modifiers

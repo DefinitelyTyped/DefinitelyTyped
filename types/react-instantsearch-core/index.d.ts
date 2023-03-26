@@ -457,7 +457,7 @@ export interface NumericMenuExposed {
     attribute: string;
     /** List of options. With a text label, and upper and lower bounds. */
     items: Array<{
-        label: string | JSX.Element;
+        label: string | React.JSX.Element;
         start?: number | undefined;
         end?: number | undefined;
     }>;

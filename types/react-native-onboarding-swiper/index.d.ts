@@ -7,6 +7,8 @@
 import { Component, FC } from 'react';
 import { FlatListProps, StyleProp, TextStyle, ViewStyle, FlatList } from 'react-native';
 
+import { JSX } from "react";
+
 export interface SkipButtonProps {
     skipLabel: string | JSX.Element;
     isLight: boolean;

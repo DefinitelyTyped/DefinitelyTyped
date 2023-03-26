@@ -5,14 +5,14 @@ const handler = (response: GoogleLoginInfo) => {
     console.log(response.getAuthResponse().access_token);
 };
 
-const ReactGoogleLoginComponent: JSX.Element = (
+const ReactGoogleLoginComponent: React.JSX.Element = (
     <GoogleLogin
         socialId="1234567890000"
         responseHandler={handler}
     />
 );
 
-const ReactGoogleLoginComponentAllOptions: JSX.Element = (
+const ReactGoogleLoginComponentAllOptions: React.JSX.Element = (
     <GoogleLogin
         socialId="1234567890000"
         responseHandler={handler}

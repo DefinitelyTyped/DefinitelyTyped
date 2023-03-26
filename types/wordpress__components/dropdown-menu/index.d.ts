@@ -6,6 +6,8 @@ import Dropdown from '../dropdown';
 import { NavigableMenu } from '../navigable-container';
 import Popover from '../popover';
 
+import { JSX } from "react";
+
 declare namespace DropdownMenu {
     interface BaseProps {
         /**

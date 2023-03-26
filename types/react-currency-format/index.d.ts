@@ -5,6 +5,8 @@
 
 import { Component, ComponentType, HTMLAttributes, InputHTMLAttributes } from 'react';
 
+import { JSX } from "react";
+
 declare namespace CurrencyFormat {
     /**
      * Available input type attributes which the component supports.

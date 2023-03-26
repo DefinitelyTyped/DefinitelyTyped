@@ -1,6 +1,7 @@
 import { NextScrollBehaviorContext } from './scroll-behavior';
 import { ShouldUpdateScroll } from 'scroll-behavior';
 import { ReactNode } from 'react';
+import { JSX } from "react";
 export default ScrollBehaviorProvider;
 declare function ScrollBehaviorProvider({
     disableNextLinkScroll,

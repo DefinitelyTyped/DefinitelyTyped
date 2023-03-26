@@ -38,6 +38,8 @@ import {
     Store
 } from 'redux';
 
+import { JSX } from "react";
+
 import hoistNonReactStatics = require('hoist-non-react-statics');
 
 /**

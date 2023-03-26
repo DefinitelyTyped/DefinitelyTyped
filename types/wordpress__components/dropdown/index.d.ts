@@ -2,6 +2,8 @@ import { ComponentType, ReactNode } from 'react';
 
 import Popover from '../popover';
 
+import { JSX } from "react";
+
 declare namespace Dropdown {
     interface Props {
         /**

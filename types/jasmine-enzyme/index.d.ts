@@ -1,3 +1,4 @@
+import { JSX } from "react";
 // Type definitions for jasmine-enzyme 7.0
 // Project: https://github.com/formidablelabs/enzyme-matchers/packages/jasmine-enzyme
 // Definitions by: Umar Bolatov <https://github.com/bolatovumar>

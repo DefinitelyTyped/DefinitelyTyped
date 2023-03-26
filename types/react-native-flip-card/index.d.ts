@@ -13,6 +13,8 @@ import {
     ViewStyle
 } from "react-native";
 
+import { JSX } from "react";
+
 // FlipCard
 export interface FlipCardProps {
   children?: ReactNode[];

@@ -7,6 +7,8 @@
 
 import { ComponentType, FunctionComponent, ReactNode } from 'react';
 
+import { JSX } from "react";
+
 export const Waiter: FunctionComponent<{ children?: ReactNode }>;
 
 export interface WaitingContextWaitProps {

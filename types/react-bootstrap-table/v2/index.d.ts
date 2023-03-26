@@ -12,6 +12,8 @@
 import { ComponentClass, ReactElement } from 'react';
 import { EventEmitter } from 'events';
 
+import { JSX } from "react";
+
 /**
  * Interface spec for sepcifying functionality to handle remotely
  *

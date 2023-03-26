@@ -11,12 +11,12 @@ export type ContentDefaultProps = ContentBaseProps &
         tagName?: undefined;
     };
 
-export type ContentIntrinsicProps<K extends keyof JSX.IntrinsicElements> = ContentBaseProps &
+export type ContentIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> = ContentBaseProps &
     JSXIntrinsicElementProps<K> & {
         tagName: K;
     };
 
 declare function Content(props: ContentDefaultProps): FCReturn;
-declare function Content<T extends keyof JSX.IntrinsicElements>(props: ContentIntrinsicProps<T>): FCReturn;
+declare function Content<T extends keyof React.JSX.IntrinsicElements>(props: ContentIntrinsicProps<T>): FCReturn;
 
 export default Content;

@@ -8,6 +8,8 @@
 
 import * as Table from "reactabular-table";
 
+import { JSX } from "react";
+
 export interface DndMoveEvent {
     sourceLabel: string;
     targetLabel: string;

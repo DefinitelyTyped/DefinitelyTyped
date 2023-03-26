@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import { DefaultNavigatorOptions, StackRouterOptions, StackNavigationState } from '../../native';
 import type { StackNavigationConfig, StackNavigationOptions, StackNavigationEventMap } from '../types';
+import { JSX } from "react";
 // tslint:disable-next-line strict-export-declare-modifiers
 declare type Props = DefaultNavigatorOptions<StackNavigationOptions> & StackRouterOptions & StackNavigationConfig;
 declare function StackNavigator({ initialRouteName, children, screenOptions, ...rest }: Props): JSX.Element;

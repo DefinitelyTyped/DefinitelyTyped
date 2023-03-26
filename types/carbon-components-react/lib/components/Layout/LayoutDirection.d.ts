@@ -11,7 +11,7 @@ export type LayoutDirectionDefaultProps = LayoutDirectionBaseProps &
         as?: undefined;
     };
 
-export type LayoutDirectionIntrinsicProps<K extends keyof JSX.IntrinsicElements> = LayoutDirectionBaseProps &
+export type LayoutDirectionIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> = LayoutDirectionBaseProps &
     JSXIntrinsicElementProps<K> & {
         as: K;
     };
@@ -26,7 +26,7 @@ export type LayoutDirectionCustomComponentProps<
     : never;
 
 declare function LayoutDirection(props: LayoutDirectionDefaultProps): FCReturn;
-declare function LayoutDirection<T extends keyof JSX.IntrinsicElements>(
+declare function LayoutDirection<T extends keyof React.JSX.IntrinsicElements>(
     props: LayoutDirectionIntrinsicProps<T>,
 ): FCReturn;
 declare function LayoutDirection<T extends ReactComponentConstructor<never>>(

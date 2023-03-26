@@ -5,6 +5,8 @@
 
 import { StyleSheetProperties } from 'react-native';
 
+import { JSX } from "react";
+
 export interface TypingAnimationProps {
     style?: StyleSheetProperties;
     dotColor?: string;

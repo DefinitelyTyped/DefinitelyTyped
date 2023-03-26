@@ -9,6 +9,8 @@
 import { Component } from 'react';
 import { Action, Reducer } from 'redux';
 
+import { JSX } from "react";
+
 export type iconType = 'success' | 'info' | 'warning' | 'error';
 export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
 export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'confirm' | 'message';

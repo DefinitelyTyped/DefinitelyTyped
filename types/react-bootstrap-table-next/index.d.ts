@@ -10,6 +10,8 @@
 
 import { CSSProperties, ReactElement, SyntheticEvent, Component } from 'react';
 
+import { JSX } from "react";
+
 export const ROW_SELECT_SINGLE = 'radio';
 export const ROW_SELECT_MULTIPLE = 'checkbox';
 export const ROW_SELECT_DISABLED = 'ROW_SELECT_DISABLED';

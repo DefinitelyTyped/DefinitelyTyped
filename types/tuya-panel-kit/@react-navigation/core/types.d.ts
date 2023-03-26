@@ -1,5 +1,6 @@
 import type * as React from 'react';
 import type { DefaultRouterOptions, NavigationState, NavigationAction, InitialState, PartialState, Route, ParamListBase } from '../routers';
+import { JSX } from "react";
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type DefaultNavigatorOptions<ScreenOptions extends {}, ParamList extends ParamListBase = ParamListBase> = DefaultRouterOptions<Extract<keyof ParamList, string>> & {
     /**
