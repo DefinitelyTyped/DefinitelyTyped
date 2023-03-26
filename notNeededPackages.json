@@ -5983,6 +5983,10 @@
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
         },
+        "wordpress__core-data": {
+            "libraryName": "@wordpress/core-data",
+            "asOfVersion": "5.0.0"
+        },
         "wordpress__dependency-extraction-webpack-plugin": {
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
             "asOfVersion": "2.7.0"
