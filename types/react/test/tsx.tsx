@@ -753,7 +753,7 @@ function managingRefs() {
     const ElementComponent = React.forwardRef<Element>((_, ref) => {
         if (typeof ref === 'object' && ref !== null) {
             // $ExpectType Element | null
-            ref.current
+            ref.current;
         }
         return <div ref={ref} />;
     });
