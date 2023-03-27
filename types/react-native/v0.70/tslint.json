@@ -9,7 +9,6 @@
         "max-line-length": false,
         "no-empty-interface": false,
         "no-misused-new": false,
-        "no-self-import": false,
         "no-single-declare-module": false,
         "no-unnecessary-generics": false,
         "prefer-declare-function": false,
