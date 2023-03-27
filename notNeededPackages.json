@@ -1281,6 +1281,10 @@
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
         },
+        "esm-utils": {
+            "libraryName": "esm-utils",
+            "asOfVersion": "2.0.1"
+        },
         "ethereumjs-tx": {
             "libraryName": "ethereumjs-tx",
             "asOfVersion": "2.0.0"
