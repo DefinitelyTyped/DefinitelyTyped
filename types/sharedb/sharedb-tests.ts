@@ -213,6 +213,17 @@ backend.use('sendPresence', (context, callback) => {
     callback();
 });
 
+backend.use('apply', (context, callback) => {
+    context.$fixup([{insert: 'foo'}]);
+    callback();
+});
+
+backend.use('commit', (context, callback) => {
+    // @ts-expect-error :: don't allow $fixup outside of 'apply'
+    context.$fixup([{insert: 'foo'}]);
+    callback();
+});
+
 backend.on('submitRequestEnd', (error, request) => {
     console.log(request.op);
 });
