@@ -39,8 +39,8 @@ export interface RenderInput {
 
 export class Printer extends EventEmitter {
     constructor(options: PrinterOptions);
-    async pdf: (input: string | RenderInput, options?: PDFOptions) => Promise<Uint8Array>;
-    async html: (input: string | RenderInput, stayopen?: boolean) => Promise<string>;
-    async preview: (input: string | RenderInput) => Promise<Page>;
-    async close: () => Promise<boolean>;
+    pdf: (input: string | RenderInput, options?: PDFOptions) => Promise<Uint8Array>;
+    html: (input: string | RenderInput, stayopen?: boolean) => Promise<string>;
+    preview: (input: string | RenderInput) => Promise<Page>;
+    close: () => Promise<boolean>;
 }
