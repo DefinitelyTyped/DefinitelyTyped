@@ -4783,7 +4783,7 @@ declare namespace chrome.input.ime {
         altgrKey?: boolean | undefined;
         /**
          * Optional.
-         * The ID of the request.
+         * The ID of the request. Use the requestId param from the onKeyEvent event instead.
          * @deprecated since Chrome 79.
          */
         requestId?: string | undefined;
@@ -5060,7 +5060,7 @@ declare namespace chrome.input.ime {
     export interface CandidateClickedEvent
         extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> { }
 
-    export interface KeyEventEvent extends chrome.events.Event<(engineID: string, keyData: KeyboardEvent) => void> { }
+    export interface KeyEventEvent extends chrome.events.Event<(engineID: string, keyData: KeyboardEvent, requestId: string) => void> { }
 
     export interface DeactivatedEvent extends chrome.events.Event<(engineID: string) => void> { }
 
