@@ -534,11 +534,11 @@ declare module '../../index' {
 
         /**
          *   All drawing that follows erase() will subtract
-         *   from the canvas.Erased areas will reveal the web
-         *   page underneath the canvas.Erasing can be canceled
-         *   with noErase(). Drawing done with image() and
-         *   background() in between erase() and noErase() will
-         *   not erase the canvas but works as usual.
+         *   from the canvas. Erased areas will reveal the web
+         *   page underneath the canvas. Erasing can be
+         *   canceled with noErase(). Drawing done with image()
+         *   and  background() in between erase() and noErase()
+         *   will not erase the canvas but works as usual.
          *   @param [strengthFill] A number (0-255) for the
          *   strength of erasing for a shape's fill. This will
          *   default to 255 when no argument is given, which is
