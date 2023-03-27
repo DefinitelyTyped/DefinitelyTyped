@@ -648,7 +648,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
 // exports.assertion = text;
 
 declare module 'nightwatch' {
-    interface NightwatchCustomAssertions {
+    interface NightwatchCustomAssertions<ReturnType> {
         text: (selector: string, expectedText: string, msg?: string) => NightwatchAPI;
     }
 }

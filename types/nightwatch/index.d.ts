@@ -36,6 +36,8 @@ export type Definition = string | ElementProperties | Element | RelativeBy;
 
 export type Awaitable<T, V> = Omit<T, "then"> & PromiseLike<V>;
 
+export type VoidToX<T, X> = T extends void ? X : T;
+
 export interface AppiumGeolocation {
     latitude: number;
     longitude: number;
@@ -1027,13 +1029,13 @@ export interface Ensure {
     urlMatches(regex: RegExp): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 }
 
-export interface Assert extends NightwatchAssertions, NightwatchNodeAssertions {}
+export interface Assert<ReturnType = void> extends NightwatchAssertions<ReturnType>, NightwatchNodeAssertions<ReturnType> {}
 
-export interface NightwatchAssertions extends NightwatchCommonAssertions, NightwatchCustomAssertions {
+export interface NightwatchAssertions<ReturnType> extends NightwatchCommonAssertions<ReturnType>, NightwatchCustomAssertions<ReturnType> {
     /**
      * Negates any of assertions following in the chain.
      */
-    not: Omit<NightwatchAssertions, "not">;
+    not: Omit<NightwatchAssertions<ReturnType>, "not">;
 }
 
 export interface NightwatchAssertionsResult<T> {
@@ -1043,7 +1045,7 @@ export interface NightwatchAssertionsResult<T> {
     passed: true;
 }
 
-export interface NightwatchCommonAssertions {
+export interface NightwatchCommonAssertions<ReturnType> {
     /**
      * Checks if the given attribute of an element contains the expected value.
      *
@@ -1055,7 +1057,7 @@ export interface NightwatchCommonAssertions {
      */
     attributeContains(
         selector: Definition, attribute: string, expected: string, message?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given attribute of an element has the expected value.
@@ -1068,7 +1070,7 @@ export interface NightwatchCommonAssertions {
      */
     attributeEquals(
         selector: Definition, attribute: string, expected: string, message?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Check if an element's attribute value matches a regular expression.
@@ -1087,7 +1089,7 @@ export interface NightwatchCommonAssertions {
         attribute: string,
         regex: string | RegExp,
         msg?: string,
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the specified css property of a given element has the expected value.
@@ -1100,7 +1102,7 @@ export interface NightwatchCommonAssertions {
      */
     cssProperty(
         selector: Definition, cssProperty: string, expected: string | number, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string | number>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string | number>>;
 
     /**
      * Checks if the specified DOM property of a given element has the expected value.
@@ -1112,7 +1114,7 @@ export interface NightwatchCommonAssertions {
         domProperty: string,
         expected: string | number,
         msg?: string,
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<any>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<any>>;
 
     /**
      * Checks if the specified DOM property of a given element has the expected value.
@@ -1124,7 +1126,7 @@ export interface NightwatchCommonAssertions {
         domProperty: string,
         expected: string | number,
         msg?: string,
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<any>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<any>>;
 
     /**
      * Check if specified DOM property value of a given element matches a regex.
@@ -1135,7 +1137,7 @@ export interface NightwatchCommonAssertions {
         domProperty: string,
         expected: string | RegExp,
         msg?: string,
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<any>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<any>>;
 
     /**
      * Checks if the number of elements specified by a selector is equal to a given value.
@@ -1150,7 +1152,7 @@ export interface NightwatchCommonAssertions {
      */
     elementsCount(
         selector: Definition, count: number, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<JSON_WEB_OBJECT[]> & {WebdriverElementId: string}>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<JSON_WEB_OBJECT[]> & {WebdriverElementId: string}>;
 
     /**
      * Checks if the given element exists in the DOM.
@@ -1163,7 +1165,7 @@ export interface NightwatchCommonAssertions {
      */
     elementPresent(
         selector: Definition, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<Array<Omit<JSON_WEB_OBJECT, "getId">>>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<Array<Omit<JSON_WEB_OBJECT, "getId">>>>;
 
     /**
      * Checks if the given element does not exists in the DOM.
@@ -1179,7 +1181,7 @@ export interface NightwatchCommonAssertions {
      */
     elementNotPresent(
         selector: Definition, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<Array<Omit<JSON_WEB_OBJECT, "getId">>>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<Array<Omit<JSON_WEB_OBJECT, "getId">>>>;
 
     /**
      * Checks if the given element does not have the specified CSS class.
@@ -1192,7 +1194,7 @@ export interface NightwatchCommonAssertions {
      *
      * @deprecated In favour of `assert.not.hasClass()`.
      */
-    cssClassNotPresent(selector: Definition, className: string, msg?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    cssClassNotPresent(selector: Definition, className: string, msg?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given element has the specified CSS class.
@@ -1205,7 +1207,7 @@ export interface NightwatchCommonAssertions {
      *
      * @deprecated In favour of `assert.hasClass()`.
      */
-    cssClassPresent(selector: Definition, className: string, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    cssClassPresent(selector: Definition, className: string, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given element has the specified CSS class.
@@ -1224,7 +1226,7 @@ export interface NightwatchCommonAssertions {
      */
     hasClass(
         selector: Definition, className: string | string[], msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given element contains the specified DOM attribute.
@@ -1242,7 +1244,7 @@ export interface NightwatchCommonAssertions {
      */
     hasAttribute(
         selector: Definition, expectedAttribute: string, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string[]>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string[]>>;
 
     /**
      * Checks if the given element is enabled (as indicated by the 'disabled' attribute).
@@ -1254,7 +1256,7 @@ export interface NightwatchCommonAssertions {
      *    browser.assert.enabled({selector: '.should_be_enabled', suppressNotFoundErrors: true});
      *  };
      */
-    enabled(selector: Definition, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<boolean>>;
+    enabled(selector: Definition, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<boolean>>;
 
     /**
      * Checks if the given element is selected.
@@ -1266,7 +1268,7 @@ export interface NightwatchCommonAssertions {
      *    browser.assert.selected({selector: '.should_be_selected', suppressNotFoundErrors: true});
      *  };
      */
-    selected(selector: Definition, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<boolean>>;
+    selected(selector: Definition, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<boolean>>;
 
     /**
      * Checks if the given element contains the specified text.
@@ -1281,7 +1283,7 @@ export interface NightwatchCommonAssertions {
      */
     containsText(
         selector: Definition, expectedText: string, message?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given element contains the specified text.
@@ -1296,7 +1298,7 @@ export interface NightwatchCommonAssertions {
      */
     textContains(
         selector: Definition, expectedText: string, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Check if an element's inner text equals the expected text.
@@ -1312,7 +1314,7 @@ export interface NightwatchCommonAssertions {
      */
     textEquals(
         selector: Definition, expectedText: string, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Check if an elements inner text matches a regular expression.
@@ -1328,7 +1330,7 @@ export interface NightwatchCommonAssertions {
      */
     textMatches(
         selector: Definition, regex: string | RegExp, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    ): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the page title equals the given value.
@@ -1341,7 +1343,7 @@ export interface NightwatchCommonAssertions {
      *
      * @deprecated In favour of `titleEquals()`.
      */
-    title(expected: string, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    title(expected: string, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the page title equals the given value.
@@ -1352,7 +1354,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    titleContains(expected: string, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    titleContains(expected: string, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the page title equals the given value.
@@ -1363,7 +1365,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    titleEquals(expected: string, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    titleEquals(expected: string, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the current title matches a regular expression.
@@ -1377,7 +1379,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    titleMatches(regex: string | RegExp, msg?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    titleMatches(regex: string | RegExp, msg?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the current URL contains the given value.
@@ -1388,7 +1390,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    urlContains(expectedText: string, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    urlContains(expectedText: string, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the current url equals the given value.
@@ -1399,7 +1401,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    urlEquals(expected: string, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    urlEquals(expected: string, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the current url matches a regular expression.
@@ -1412,7 +1414,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    urlMatches(regex: string | RegExp, msg?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    urlMatches(regex: string | RegExp, msg?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given form element's value equals the expected value.
@@ -1425,7 +1427,7 @@ export interface NightwatchCommonAssertions {
      *
      * @deprecated In favour of `assert.valueEquals()`.
      */
-    value(selector: Definition, expectedText: string, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    value(selector: Definition, expectedText: string, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given form element's value contains the expected value.
@@ -1436,7 +1438,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    valueContains(selector: Definition, expectedText: string, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    valueContains(selector: Definition, expectedText: string, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given form element's value equals the expected value.
@@ -1451,7 +1453,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    valueEquals(selector: Definition, expected: string, msg?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
+    valueEquals(selector: Definition, expected: string, msg?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given element is not visible on the page.
@@ -1465,7 +1467,7 @@ export interface NightwatchCommonAssertions {
      *
      * @deprecated In favour of `assert.not.visible()`.
      */
-    hidden(selector: Definition, msg?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<boolean>>;
+    hidden(selector: Definition, msg?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<boolean>>;
 
     /**
      * Checks if the given element is visible on the page.
@@ -1476,7 +1478,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    visible(selector: Definition, message?: string): Awaitable<NightwatchAPI, NightwatchAssertionsResult<boolean>>;
+    visible(selector: Definition, message?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchAssertionsResult<boolean>>;
 
     NightwatchAssertionsError: NightwatchAssertionsError;
 }
@@ -1486,36 +1488,36 @@ export interface NightwatchNodeAssertionsResult {
     returned: 1;
 }
 
-export interface NightwatchNodeAssertions {
+export interface NightwatchNodeAssertions<ReturnType> {
     // The following definitions are taken from @types/assert
 
-    fail(message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
-    fail(actual: any, expected: any, message?: string | Error, operator?: string): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    fail(message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
+    fail(actual: any, expected: any, message?: string | Error, operator?: string): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    ok(value: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    ok(value: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    equal(actual: any, expected: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
-    notEqual(actual: any, expected: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    equal(actual: any, expected: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
+    notEqual(actual: any, expected: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    deepEqual(actual: any, expected: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
-    notDeepEqual(actual: any, expected: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    deepEqual(actual: any, expected: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
+    notDeepEqual(actual: any, expected: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    strictEqual(actual: any, expected: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
-    notStrictEqual(actual: any, expected: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    strictEqual(actual: any, expected: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
+    notStrictEqual(actual: any, expected: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    deepStrictEqual(actual: any, expected: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
-    notDeepStrictEqual(actual: any, expected: any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    deepStrictEqual(actual: any, expected: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
+    notDeepStrictEqual(actual: any, expected: any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    throws(block: () => any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
-    doesNotThrow(block: () => any, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    throws(block: () => any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
+    doesNotThrow(block: () => any, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    ifError(value: any): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    ifError(value: any): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    rejects(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
-    doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    rejects(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
+    doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 
-    match(value: string, regExp: RegExp, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
-    doesNotMatch(value: string, regExp: RegExp, message?: string | Error): Awaitable<NightwatchAPI, NightwatchNodeAssertionsResult | Error>;
+    match(value: string, regExp: RegExp, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
+    doesNotMatch(value: string, regExp: RegExp, message?: string | Error): Awaitable<VoidToX<ReturnType, this>, NightwatchNodeAssertionsResult | Error>;
 }
 
 export interface ElementProperties {
@@ -1754,6 +1756,19 @@ export type NightwatchPage = {
     [name: string]: NightwatchPage;
 };
 
+export interface NamespacedApi<ReturnType = void> {
+    appium: AppiumCommands<ReturnType>;
+    cookies: CookiesNsCommands<ReturnType>;
+    alerts: AlertsNsCommands<ReturnType>;
+    document: DocumentNsCommands<ReturnType>;
+    window: WindowNsCommands<ReturnType>;
+    a11y: A11yNsCommands<ReturnType>;
+
+    assert: Assert<ReturnType>;
+    verify: Assert<ReturnType>;
+    expect: Expect;
+}
+
 export interface NightwatchApiCommands {
     readonly WEBDRIVER_ELEMENT_ID: string;
     readonly browserName: string;
@@ -1780,20 +1795,11 @@ export interface NightwatchAPI
     extends SharedCommands,
         WebDriverProtocol,
         NightwatchCustomCommands,
-        NightwatchApiCommands {
+        NightwatchApiCommands,
+        NamespacedApi<NightwatchAPI> {
     baseUrl: string;
-    assert: Assert;
     actions(options?: { async?: boolean; bridge?: boolean }): Actions;
-    expect: Expect;
     ensure: Ensure;
-    verify: Assert;
-
-    appium: AppiumCommands;
-    cookies: CookiesNsCommands;
-    alerts: AlertsNsCommands;
-    document: DocumentNsCommands;
-    window: WindowNsCommands;
-    a11y: A11yNsCommands;
 
     page: NightwatchPage & NightwatchCustomPageObjects;
 
@@ -1823,7 +1829,7 @@ export interface NightwatchAPI
 export interface NightwatchCustomCommands {}
 
 // tslint:disable-next-line:no-empty-interface
-export interface NightwatchCustomAssertions {}
+export interface NightwatchCustomAssertions<ReturnType> {}
 
 // tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomPageObjects {}
@@ -2173,6 +2179,7 @@ export interface CreateClientParams {
     config?: string;
 }
 
+// add namespaced api to Nightwatch only after fixing EnhancedPageObject.
 export interface Nightwatch {
     cli(callback: any): this;
     client(settings: NightwatchOptions, reporter?: any, argv?: {}): this;
@@ -2197,9 +2204,9 @@ export interface Nightwatch {
     runner(argv?: {}, done?: () => void, settings?: {}): this;
     runTests(testSource: string | string[], settings?: any, ...args: any[]): any;
     api: NightwatchAPI;
-    assert: Assert;
+    assert: Assert<NightwatchAPI>;
     expect: Expect;
-    verify: Assert;
+    verify: Assert<NightwatchAPI>;
     updateCapabilities(...args: any): this;
     launchBrowser(): NightwatchAPI | Promise<NightwatchAPI>;
 }
@@ -5235,7 +5242,7 @@ export interface ElementCommands {
     ): Awaitable<this, string>;
 }
 
-export interface AppiumCommands {
+export interface AppiumCommands<ReturnType = void> {
     /**
      * Get the current device orientation.
      *
@@ -5256,7 +5263,7 @@ export interface AppiumCommands {
      */
     getOrientation(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
-    ): Awaitable<NightwatchAPI, 'LANDSCAPE' | 'PORTRAIT'>;
+    ): Awaitable<VoidToX<ReturnType, this>, 'LANDSCAPE' | 'PORTRAIT'>;
 
     /**
      * Set the current device orientation.
@@ -5272,7 +5279,7 @@ export interface AppiumCommands {
     setOrientation(
         orientation: 'LANDSCAPE' | 'PORTRAIT',
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
-    ): Awaitable<NightwatchAPI, 'LANDSCAPE' | 'PORTRAIT'>;
+    ): Awaitable<VoidToX<ReturnType, this>, 'LANDSCAPE' | 'PORTRAIT'>;
 
     /**
      * Get a list of the available contexts. Used when testing hybrid mobile apps using Appium.
@@ -5296,7 +5303,7 @@ export interface AppiumCommands {
      */
     getContexts(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void
-    ): Awaitable<NightwatchAPI, string[]>;
+    ): Awaitable<VoidToX<ReturnType, this>, string[]>;
 
     /**
      * Get the current context in which Appium is running. Used when testing hybrid mobile apps using Appium.
@@ -5320,7 +5327,7 @@ export interface AppiumCommands {
      */
     getContext(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void
-    ): Awaitable<NightwatchAPI, string | null>;
+    ): Awaitable<VoidToX<ReturnType, this>, string | null>;
 
     /**
      * Set the context to be automated. Used when testing hybrid mobile apps using Appium.
@@ -5353,7 +5360,7 @@ export interface AppiumCommands {
     setContext(
         context: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Start an Android activity by providing package name, activity name and other optional parameters.
@@ -5393,7 +5400,7 @@ export interface AppiumCommands {
             dontStopAppOnReset?: boolean;
         },
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Get the name of the current Android activity.
@@ -5415,7 +5422,7 @@ export interface AppiumCommands {
      */
     getCurrentActivity(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ): Awaitable<NightwatchAPI, string>;
+    ): Awaitable<VoidToX<ReturnType, this>, string>;
 
     /**
      * Get the name of the current Android package.
@@ -5437,7 +5444,7 @@ export interface AppiumCommands {
      */
     getCurrentPackage(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ): Awaitable<NightwatchAPI, string>;
+    ): Awaitable<VoidToX<ReturnType, this>, string>;
 
     /**
      * Get the current geolocation of the mobile device.
@@ -5459,7 +5466,7 @@ export interface AppiumCommands {
      */
     getGeolocation(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<AppiumGeolocation>) => void
-    ): Awaitable<NightwatchAPI, AppiumGeolocation>;
+    ): Awaitable<VoidToX<ReturnType, this>, AppiumGeolocation>;
 
     /**
      * Set the current geolocation of the mobile device.
@@ -5479,7 +5486,7 @@ export interface AppiumCommands {
     setGeolocation(
         coordinates: AppiumGeolocation,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<AppiumGeolocation>) => void
-    ): Awaitable<NightwatchAPI, AppiumGeolocation>;
+    ): Awaitable<VoidToX<ReturnType, this>, AppiumGeolocation>;
 
     /**
      * Press a particular key on an Android Device.
@@ -5501,13 +5508,13 @@ export interface AppiumCommands {
     pressKeyCode(
         keycode: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
     pressKeyCode(
         keycode: number,
         metastate?: number,
         flags?: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Press and hold a particular key on an Android Device.
@@ -5529,13 +5536,13 @@ export interface AppiumCommands {
     longPressKeyCode(
         keycode: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
     longPressKeyCode(
         keycode: number,
         metastate?: number,
         flags?: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Hide soft keyboard.
@@ -5554,7 +5561,7 @@ export interface AppiumCommands {
      */
     hideKeyboard(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void
-    ): Awaitable<NightwatchAPI, boolean>;
+    ): Awaitable<VoidToX<ReturnType, this>, boolean>;
 
     /**
      * Whether or not the soft keyboard is shown.
@@ -5576,7 +5583,7 @@ export interface AppiumCommands {
      */
     isKeyboardShown(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void
-    ): Awaitable<NightwatchAPI, boolean>;
+    ): Awaitable<VoidToX<ReturnType, this>, boolean>;
 }
 
 export interface Cookie {
@@ -5590,7 +5597,7 @@ export interface Cookie {
     sameSite?: 'Lax' | 'Strict' | 'None';
 }
 
-export interface CookiesNsCommands {
+export interface CookiesNsCommands<ReturnType = void> {
     /**
      * Retrieve a single cookie visible to the current page.
      *
@@ -5617,7 +5624,7 @@ export interface CookiesNsCommands {
     get(
         name: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie | null>) => void,
-    ): Awaitable<NightwatchAPI, Cookie | null>;
+    ): Awaitable<VoidToX<ReturnType, this>, Cookie | null>;
 
     /**
      * Retrieve all cookies visible to the current page.
@@ -5643,7 +5650,7 @@ export interface CookiesNsCommands {
      */
     getAll(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie[]>) => void,
-    ): Awaitable<NightwatchAPI, Cookie[]>;
+    ): Awaitable<VoidToX<ReturnType, this>, Cookie[]>;
 
     /**
      * Set a cookie, specified as a cookie JSON object, with properties as defined [here](https://www.w3.org/TR/webdriver/#dfn-table-for-cookie-conversion).
@@ -5676,7 +5683,7 @@ export interface CookiesNsCommands {
     set(
         cookie: Cookie,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Delete the cookie with the given name. This command is a no-op if there is no such cookie visible to the current page.
@@ -5698,7 +5705,7 @@ export interface CookiesNsCommands {
     delete(
         cookieName: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Delete all cookies visible to the current page.
@@ -5719,10 +5726,10 @@ export interface CookiesNsCommands {
      */
     deleteAll(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 }
 
-export interface AlertsNsCommands {
+export interface AlertsNsCommands<ReturnType = void> {
     /**
      * Accepts the currently displayed alert dialog. Usually, this is equivalent to clicking on the 'OK' button in the dialog.
      *
@@ -5742,7 +5749,7 @@ export interface AlertsNsCommands {
      */
     accept(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Dismisses the currently displayed alert dialog.
@@ -5766,7 +5773,7 @@ export interface AlertsNsCommands {
      */
     dismiss(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Get the text of the currently displayed JavaScript alert(), confirm(), or prompt() dialog.
@@ -5788,7 +5795,7 @@ export interface AlertsNsCommands {
      */
     getText(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-    ): Awaitable<NightwatchAPI, string>;
+    ): Awaitable<VoidToX<ReturnType, this>, string>;
 
     /**
      * Send keystrokes to a JavaScript prompt() dialog.
@@ -5810,10 +5817,10 @@ export interface AlertsNsCommands {
     setText(
         value: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 }
 
-export interface DocumentNsCommands {
+export interface DocumentNsCommands<ReturnType = void> {
     /**
      * Utility command to load an external script into the page specified by url.
      *
@@ -5833,12 +5840,12 @@ export interface DocumentNsCommands {
     injectScript(
         scriptUrl: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void,
-    ): Awaitable<NightwatchAPI, WebElement>;
+    ): Awaitable<VoidToX<ReturnType, this>, WebElement>;
     injectScript(
         scriptUrl: string,
         id: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void,
-    ): Awaitable<NightwatchAPI, WebElement>;
+    ): Awaitable<VoidToX<ReturnType, this>, WebElement>;
 
     /**
      * Get the string serialized source of the current page.
@@ -5861,7 +5868,7 @@ export interface DocumentNsCommands {
      */
     source(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-    ): Awaitable<NightwatchAPI, string>;
+    ): Awaitable<VoidToX<ReturnType, this>, string>;
 
     /**
      * Get the string serialized source of the current page.
@@ -5884,10 +5891,10 @@ export interface DocumentNsCommands {
      */
     pageSource(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-    ): Awaitable<NightwatchAPI, string>;
+    ): Awaitable<VoidToX<ReturnType, this>, string>;
 }
 
-export interface WindowNsCommands {
+export interface WindowNsCommands<ReturnType = void> {
     /**
      * Close the current window or tab. This can be useful when you're working with multiple windows/tabs open (e.g. an OAuth login).
      *
@@ -5908,7 +5915,7 @@ export interface WindowNsCommands {
      */
     close(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Opens a new tab (default) or a separate new window, and changes focus to the newly opened tab/window.
@@ -5942,11 +5949,11 @@ export interface WindowNsCommands {
      */
     open(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
     open(
         type: "window" | "tab",
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Opens a new tab (default) or a separate new window, and changes focus to the newly opened tab/window.
@@ -5980,11 +5987,11 @@ export interface WindowNsCommands {
      */
     openNew(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
     openNew(
         type: "window" | "tab",
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Retrieve the current window handle.
@@ -6007,7 +6014,7 @@ export interface WindowNsCommands {
      */
     getHandle(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-    ): Awaitable<NightwatchAPI, string>;
+    ): Awaitable<VoidToX<ReturnType, this>, string>;
 
     /**
      * Retrieve the list of all window handles available to the session.
@@ -6028,7 +6035,7 @@ export interface WindowNsCommands {
      */
     getAllHandles(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void,
-    ): Awaitable<NightwatchAPI, string[]>;
+    ): Awaitable<VoidToX<ReturnType, this>, string[]>;
 
     /**
      * Change focus to another window.
@@ -6098,11 +6105,11 @@ export interface WindowNsCommands {
     switchTo(
         windowHandle: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
     switch(
         windowHandle: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Increases the window to the maximum available size without going full-screen.
@@ -6122,7 +6129,7 @@ export interface WindowNsCommands {
      */
     maximize(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Hides the window in the system tray. If the window happens to be in fullscreen mode,
@@ -6143,7 +6150,7 @@ export interface WindowNsCommands {
      */
     minimize(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Set the current window state to fullscreen, similar to pressing F11 in most browsers.
@@ -6163,7 +6170,7 @@ export interface WindowNsCommands {
      */
     fullscreen(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Get the coordinates of the top left corner of the current window.
@@ -6184,7 +6191,7 @@ export interface WindowNsCommands {
      */
     getPosition(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowPosition>) => void,
-    ): Awaitable<NightwatchAPI, WindowPosition>;
+    ): Awaitable<VoidToX<ReturnType, this>, WindowPosition>;
 
     /**
      * Get the size of the current window in pixels.
@@ -6205,7 +6212,7 @@ export interface WindowNsCommands {
      */
     getSize(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowSize>) => void,
-    ): Awaitable<NightwatchAPI, WindowSize>;
+    ): Awaitable<VoidToX<ReturnType, this>, WindowSize>;
 
     /**
      * Fetches the [window rect](https://w3c.github.io/webdriver/#dfn-window-rect) - size and position of the current window.
@@ -6236,7 +6243,7 @@ export interface WindowNsCommands {
      */
     getRect(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowSizeAndPosition>) => void,
-    ): Awaitable<NightwatchAPI, WindowSizeAndPosition>;
+    ): Awaitable<VoidToX<ReturnType, this>, WindowSizeAndPosition>;
 
     /**
      * Set the position of the current window - move the window to the chosen position.
@@ -6260,7 +6267,7 @@ export interface WindowNsCommands {
         x: number,
         y: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Set the size of the current window in CSS pixels.
@@ -6284,7 +6291,7 @@ export interface WindowNsCommands {
         width: number,
         height: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Set the size of the current window in CSS pixels.
@@ -6308,7 +6315,7 @@ export interface WindowNsCommands {
         width: number,
         height: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 
     /**
      * Change the [window rect](https://w3c.github.io/webdriver/#dfn-window-rect) - size and position of the current window.
@@ -6347,10 +6354,10 @@ export interface WindowNsCommands {
     setRect(
         options: WindowSize | WindowPosition | WindowSizeAndPosition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<NightwatchAPI, null>;
+    ): Awaitable<VoidToX<ReturnType, this>, null>;
 }
 
-export interface A11yNsCommands {
+export interface A11yNsCommands<ReturnType = void> {
     /**
      * Analyzes the current page against applied axe rules.
      *
@@ -6371,16 +6378,16 @@ export interface A11yNsCommands {
      */
     runTests(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
-    ): Awaitable<NightwatchAPI, {[key: string]: any}>;
+    ): Awaitable<VoidToX<ReturnType, this>, {[key: string]: any}>;
     runTests(
         selector: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
-    ): Awaitable<NightwatchAPI, {[key: string]: any}>;
+    ): Awaitable<VoidToX<ReturnType, this>, {[key: string]: any}>;
     runTests(
         selector: string,
         options: {[key: string]: any},
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
-    ): Awaitable<NightwatchAPI, {[key: string]: any}>;
+    ): Awaitable<VoidToX<ReturnType, this>, {[key: string]: any}>;
 }
 
 export interface WebDriverProtocol
@@ -7630,6 +7637,22 @@ export interface PageObjectModel {
     commands?: any;
     props?: any;
 }
+
+// namespaced api
+export const browser: NightwatchAPI;
+export const app: NightwatchAPI;
+
+export const appium: AppiumCommands;
+export const cookies: CookiesNsCommands;
+export const alerts: AlertsNsCommands;
+export const document: DocumentNsCommands;
+export const window: WindowNsCommands;
+export const a11y: A11yNsCommands;
+
+export const assert: Assert;
+export const verify: Assert;
+export const expect: Expect;
+
 
 declare const _default: Nightwatch;
 export default _default;
