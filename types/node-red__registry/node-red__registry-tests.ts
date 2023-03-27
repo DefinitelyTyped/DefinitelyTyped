@@ -80,71 +80,63 @@ function registryTests() {
 
                 // send a new message with a topic
 
-                send ({
-                    payload: "payload",
-                    topic: "topic"
+                send({
+                    payload: 'payload',
+                    topic: 'topic',
                 });
 
                 this.send({
-                    payload: "payload",
-                    topic: "topic"
+                    payload: 'payload',
+                    topic: 'topic',
                 });
 
                 // send messages to a subset of the outputs
 
-                send (
-                    [
-                        {
-                            payload: "payload",
-                            topic: "topic"
-                        },
-                        null
-                    ]
-                );
+                send([
+                    {
+                        payload: 'payload',
+                        topic: 'topic',
+                    },
+                    null,
+                ]);
 
-                this.send (
-                    [
-                        {
-                            payload: "payload",
-                            topic: "topic"
-                        },
-                        null
-                    ]
-                );
+                this.send([
+                    {
+                        payload: 'payload',
+                        topic: 'topic',
+                    },
+                    null,
+                ]);
 
                 // send multiple messages to a particular output
 
-                send (
+                send([
+                    null,
                     [
-                        null,
-                        [
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            },
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            }
-                        ]
-                    ]
-                );
+                        {
+                            payload: 'payload',
+                            topic: 'topic',
+                        },
+                        {
+                            payload: 'payload',
+                            topic: 'topic',
+                        },
+                    ],
+                ]);
 
-                this.send (
+                this.send([
+                    null,
                     [
-                        null,
-                        [
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            },
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            }
-                        ]
-                    ]
-                );
+                        {
+                            payload: 'payload',
+                            topic: 'topic',
+                        },
+                        {
+                            payload: 'payload',
+                            topic: 'topic',
+                        },
+                    ],
+                ]);
 
                 done();
 
@@ -179,5 +171,22 @@ function registryTests() {
         };
 
         RED.nodes.registerType('my-node', nodeConstructor);
+    }
+
+    interface MyPluginDef extends registry.PluginDef {
+        defKey: string;
+    }
+
+    function pluginAPITests(RED: registry.NodeAPI<ExtendedNodeRedSettings>) {
+        const pluginDefinition: registry.PluginDefinition<MyPluginDef> = {
+            settings: {
+                '*': { value: '', exportable: true },
+                defKey: { value: '', exportable: true },
+            },
+            onadd: () => {
+                RED.comms.publish(`my-route-for-plugin`, true, true);
+            },
+        };
+        RED.plugins.registerPlugin('my-plugin', pluginDefinition);
     }
 }
