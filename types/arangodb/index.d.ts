@@ -1515,7 +1515,7 @@ declare module "@arangodb/foxx/queues" {
     }
 
     interface Queue {
-        push(item: QueueItem, data: any, opts?: JobOptions): void;
+        push(item: QueueItem, data: any, opts?: JobOptions): string;
         get(jobId: string): ArangoDB.Document<Job>;
         delete(jobId: string): boolean;
         pending(script?: Script): string[];
