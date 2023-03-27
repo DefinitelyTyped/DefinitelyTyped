@@ -64,6 +64,7 @@ declare namespace rosie {
         /**
          * Resets any build state, such as sequences, to their original values on a specific factory.
          *
+         * @param {string} name
          * @return {void}
          */
         reset(name: string): void;
