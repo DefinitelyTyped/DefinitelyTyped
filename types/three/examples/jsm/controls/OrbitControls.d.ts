@@ -1,4 +1,4 @@
-import { Camera, MOUSE, MouseButton, TOUCH, TouchCount, Vector3 } from '../../../src/Three';
+import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three';
 
 /**
  * Orbit controls allow the camera to orbit around a target.
@@ -193,13 +193,13 @@ export class OrbitControls {
      * This object contains references to the mouse actions used
      * by the controls.
      */
-    mouseButtons: Partial<{ LEFT: MouseButton; MIDDLE: MouseButton; RIGHT: MouseButton }>;
+    mouseButtons: Partial<{ LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE }>;
 
     /**
      * This object contains references to the touch actions used by
      * the controls.
      */
-    touches: Partial<{ ONE: TouchCount; TWO: TouchCount }>;
+    touches: Partial<{ ONE: TOUCH; TWO: TOUCH }>;
 
     /**
      * Used internally by the .saveState and .reset methods.

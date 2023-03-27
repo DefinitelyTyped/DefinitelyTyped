@@ -1,25 +1,21 @@
 export const REVISION: string;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
-export const MOUSE: {
-    LEFT: 0;
-    MIDDLE: 1;
-    RIGHT: 2;
-    ROTATE: 0;
-    DOLLY: 1;
-    PAN: 2;
-};
+export enum MOUSE {
+    LEFT = 0,
+    MIDDLE = 1,
+    RIGHT = 2,
+    ROTATE = 0,
+    DOLLY = 1,
+    PAN = 2,
+}
 
-export type MouseButton = 0 | 1 | 2;
-
-export const TOUCH: {
-    ROTATE: 0;
-    PAN: 1;
-    DOLLY_PAN: 2;
-    DOLLY_ROTATE: 3;
-};
-
-export type TouchCount = 0 | 1 | 2 | 3;
+export enum TOUCH {
+    ROTATE = 0,
+    PAN = 1,
+    DOLLY_PAN = 2,
+    DOLLY_ROTATE = 3,
+}
 
 // GL STATE CONSTANTS
 export const CullFaceNone: 0;

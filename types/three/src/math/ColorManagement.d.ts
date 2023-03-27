@@ -24,11 +24,11 @@ export namespace ColorManagement {
 
     function fromWorkingColorSpace(
         color: Color,
-        targetColorSpace: typeof SRGBColorSpace | typeof LinearSRGBColorSpace,
+        targetColorSpace: typeof SRGBColorSpace | typeof LinearSRGBColorSpace | typeof DisplayP3ColorSpace,
     ): Color;
 
     function toWorkingColorSpace(
         color: Color,
-        sourceColorSpace: typeof SRGBColorSpace | typeof LinearSRGBColorSpace,
+        sourceColorSpace: typeof SRGBColorSpace | typeof LinearSRGBColorSpace | typeof DisplayP3ColorSpace,
     ): Color;
 }
