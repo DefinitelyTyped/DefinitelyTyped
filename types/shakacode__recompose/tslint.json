@@ -9,7 +9,6 @@
         "no-duplicate-imports": false,
         "no-empty-interface": false,
         "no-padding": false,
-        "no-self-import": false,
         "one-line": false,
         "prefer-const": false,
         "semicolon": false,

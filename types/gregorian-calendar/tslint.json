@@ -5,7 +5,6 @@
         "member-access": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
-        "no-self-import": false,
         "prefer-const": false,
         "semicolon": false
     }

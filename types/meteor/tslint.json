@@ -19,7 +19,6 @@
         "no-object-literal-type-assertion": false,
         "no-padding": false,
         "no-redundant-jsdoc-2": false,
-        "no-self-import": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-qualifier": false,

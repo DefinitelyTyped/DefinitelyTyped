@@ -1,6 +1,7 @@
 {
     "rules": {
         "no-unnecessary-generics": "off",
-        "no-declare-current-package": "off"
+        "no-declare-current-package": "off",
+        "no-self-import": "off"
     }
 }
