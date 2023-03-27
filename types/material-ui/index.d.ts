@@ -1,4 +1,3 @@
-import { JSX } from "react";
 // Type definitions for material-ui 0.21
 // Project: https://github.com/callemall/material-ui, http://material-ui.com
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
@@ -16,8 +15,8 @@ import { JSX } from "react";
 //                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
+import { JSX } from "react";
 
-/// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
 
 declare module "material-ui" {

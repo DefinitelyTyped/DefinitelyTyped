@@ -1,8 +1,8 @@
-import { JSX } from "react";
 // Type definitions for react-cookiebot 1.0
 // Project: https://github.com/yeutech-lab/react-cookiebot/
 // Definitions by: David Díez <https://github.com/hartstarx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { JSX } from "react";
 
 /**
  * A simple react cookie bot component that configure

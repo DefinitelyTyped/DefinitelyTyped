@@ -1,13 +1,12 @@
-import { JSX } from "react";
 // Type definitions for jasmine-enzyme 7.0
 // Project: https://github.com/formidablelabs/enzyme-matchers/packages/jasmine-enzyme
 // Definitions by: Umar Bolatov <https://github.com/bolatovumar>
 //                 Steve Gravrock <https://github.com/sgravrock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
+import { JSX } from "react";
 
 /// <reference types="jasmine" />
-/// <reference types="react" />
 
 declare function jasmineEnzyme(): void;
 export default jasmineEnzyme;
