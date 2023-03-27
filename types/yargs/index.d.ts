@@ -879,9 +879,13 @@ declare namespace yargs {
 
     // prettier-ignore
     type InferredOptionTypePrimitive<O extends Options | PositionalOptions> =
-        O extends { default: infer D } ? InferredOptionTypeInner<O> | D :
-        IsRequiredOrHasDefault<O> extends true ? InferredOptionTypeInner<O> :
-        InferredOptionTypeInner<O> | undefined;
+        O extends { default: infer D } ?
+            IsRequiredOrHasDefault<O> extends true ?
+                InferredOptionTypeInner<O> | Exclude<D, undefined> :
+                InferredOptionTypeInner<O> | D  :
+            IsRequiredOrHasDefault<O> extends true ?
+                InferredOptionTypeInner<O> :
+                InferredOptionTypeInner<O> | undefined;
 
     // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =
