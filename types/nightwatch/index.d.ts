@@ -7618,6 +7618,5 @@ export const assert: Assert;
 export const verify: Assert;
 export const expect: Expect;
 
-
 declare const _default: Nightwatch;
 export default _default;
