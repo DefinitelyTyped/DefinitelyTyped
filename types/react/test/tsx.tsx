@@ -383,6 +383,7 @@ const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: 
 const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
 const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
 const divRef = React.createRef<HTMLDivElement>();
+const badlyAuthoredRef: React.RefObject<HTMLDivElement | null | undefined> = { current: undefined };
 
 <ForwardRef ref={divFnRef}/>;
 <ForwardRef ref={divRef}/>;
@@ -392,6 +393,8 @@ const divRef = React.createRef<HTMLDivElement>();
 <ForwardRef2 ref={divRef}/>;
 // @ts-expect-error
 <ForwardRef2 ref='string'/>;
+// @ts-expect-error
+<ForwardRef2 ref={badlyAuthoredRef} />;
 
 const htmlElementFnRef = (instance: HTMLElement | null) => {};
 const htmlElementRef = React.createRef<HTMLElement>();
