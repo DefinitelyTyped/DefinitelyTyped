@@ -21,7 +21,7 @@ import { BufferGeometry } from './../core/BufferGeometry';
  * const mesh = new THREE.Mesh(geometry, material);
  * scene.add(mesh);
  * ```
- * 	* @see {@link https://threejs.org/docs/index.html#api/en/geometries/ShapeGeometry | Official Documentation}
+ * @see {@link https://threejs.org/docs/index.html#api/en/geometries/ShapeGeometry | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/ShapeGeometry.js | Source}
  */
 export class ShapeGeometry extends BufferGeometry {
