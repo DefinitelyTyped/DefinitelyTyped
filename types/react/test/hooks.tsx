@@ -174,11 +174,8 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // |undefined convenience overload
     // with no contextual type or generic argument it should default to undefined only (not {} or unknown!)
     // $ExpectType RefObject<undefined>
-    React.useRef();
+    React.useRef(undefined);
     // $ExpectType RefObject<number | undefined>
-    React.useRef<number>();
-    // don't just accept a potential undefined if there is a generic argument
-    // @ts-expect-error
     React.useRef<number>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
     // $ExpectType RefObject<number>
@@ -189,7 +186,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
 
     // should be contextually typed
     const a: React.RefObject<number | undefined | null> = React.useRef(undefined);
-    const b: React.RefObject<number | undefined | null> = React.useRef();
+    const b: React.RefObject<number | undefined | null> = React.useRef(null);
     const c: React.RefObject<number | null> = React.useRef(null);
 
     const id = React.useMemo(() => Math.random(), []);
