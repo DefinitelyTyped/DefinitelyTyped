@@ -2313,6 +2313,7 @@ export interface Cookie {
     secure?: boolean;
     expiry?: Date | number;
     httpOnly?: boolean;
+    sameSite?: string;
 }
 
 export interface SharedCommands extends ClientCommands, ElementCommands {}
@@ -5879,9 +5880,6 @@ export interface WebDriverProtocolCommandContexts {
      * @see https://nightwatchjs.org/api/windowMaximize.html
      */
     windowMaximize(
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): Awaitable<this, null>;
-    windowMaximize(
         handleOrName?: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
@@ -6570,14 +6568,19 @@ export interface WebDriverProtocolCookies {
      * @see deleteCookies
      */
     cookie(
-        method: "GET" | "POST" | "DELETE",
+        method: "GET" | "DELETE",
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie[] | null>) => void
     ): Awaitable<this, Cookie[] | null>;
     cookie(
-        method: "GET" | "POST" | "DELETE",
+        method: "POST",
         cookie: Cookie,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Cookie[] | null>) => void
-    ): Awaitable<this, Cookie[] | null>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<this, null>;
+    cookie(
+        method: "DELETE",
+        cookieName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<this, null>;
 }
 
 export interface WebDriverProtocolUserActions {
@@ -6686,7 +6689,7 @@ export interface WebDriverProtocolUserActions {
      *
      * @see https://nightwatchjs.org/api/mouseButtonClick.html
      *
-     * @deprecated
+     * @deprecated Please use the new [User Actions API](https://nightwatchjs.org/api/useractions/) instead
      */
     mouseButtonClick(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
@@ -6705,7 +6708,7 @@ export interface WebDriverProtocolUserActions {
      *
      * @see https://nightwatchjs.org/api/mouseButtonDown.html
      *
-     * @deprecated
+     * @deprecated Please use the new [User Actions API](https://nightwatchjs.org/api/useractions/) instead
      */
     mouseButtonDown(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
@@ -6723,7 +6726,7 @@ export interface WebDriverProtocolUserActions {
      *
      * @see https://nightwatchjs.org/api/mouseButtonUp.html
      *
-     * @deprecated
+     * @deprecated Please use the new [User Actions API](https://nightwatchjs.org/api/useractions/) instead
      */
     mouseButtonUp(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
@@ -6744,7 +6747,16 @@ export interface WebDriverProtocolUserActions {
      * @see https://nightwatchjs.org/api/moveTo.html#apimethod-container
      */
     moveTo(
-        id: string | null,
+        elementId: string | null,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    moveTo(
+        xoffset: number,
+        yoffset: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    moveTo(
+        elementId: string | null,
         xoffset: number,
         yoffset: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,

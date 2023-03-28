@@ -413,7 +413,7 @@ describe('moveTo command demo', function() {
     });
 
     test('async demo test', async function(browser) {
-        const result = await browser.moveTo(null, 100, 100);
+        const result = await browser.moveTo(100, 100);
         isType<null>(result);
     });
 
@@ -558,8 +558,8 @@ describe('cookie command demo', function() {
     });
 
     test('async demo test', async function(browser) {
-        const result = await browser.cookie('GET');
-        isType<Cookie[] | null>(result);
+        const result = await browser.cookie('DELETE', 'sample');
+        isType<null>(result);
     });
 });
 
@@ -747,7 +747,7 @@ describe('windowMaximize command demo', function() {
     before(browser => browser.url('https://www.google.com/'));
 
     test('demo test', function(browser) {
-        browser.windowMaximize(function(result) {
+        browser.windowMaximize('current', function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
