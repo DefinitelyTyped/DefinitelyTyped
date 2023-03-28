@@ -67,7 +67,7 @@ declare class Model {
             onUpdate: (prediction: PredictionResponse) => void;
         },
         arg2?: {
-            pollingInteral: number;
+            pollingInterval: number;
         },
     ): Promise<PredictionResponse>;
     createPrediction(inputs: PredictInput): Promise<Prediction>;
