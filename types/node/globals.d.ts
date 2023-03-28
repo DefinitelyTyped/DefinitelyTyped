@@ -62,6 +62,7 @@ interface AbortSignal extends EventTarget {
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
     readonly aborted: boolean;
+    readonly reason: any;
 }
 
 declare var AbortController: typeof globalThis extends {onmessage: any; AbortController: infer T}
