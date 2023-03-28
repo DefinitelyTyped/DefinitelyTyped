@@ -1762,7 +1762,6 @@ export interface NamespacedApi<ReturnType = unknown> {
     alerts: AlertsNsCommands<ReturnType>;
     document: DocumentNsCommands<ReturnType>;
     window: WindowNsCommands<ReturnType>;
-    a11y: A11yNsCommands<ReturnType>;
 
     assert: Assert<ReturnType>;
     verify: Assert<ReturnType>;
@@ -6357,39 +6356,6 @@ export interface WindowNsCommands<ReturnType = unknown> {
     ): Awaitable<UnknownToX<ReturnType, this>, null>;
 }
 
-export interface A11yNsCommands<ReturnType = unknown> {
-    /**
-     * Analyzes the current page against applied axe rules.
-     *
-     * The `selector` and `options` arguments can also be specified in the Nightwatch globals and omitted from the command while writing test.
-     * See [here](https://github.com/reallymello/nightwatch-axe-verbose#global-configuration) for more information.
-     *
-     * @example
-     * describe('accessibility testing', function() {
-     *   it('accessibility rule subset', function(browser) {
-     *     browser
-     *       .url('https://www.w3.org/WAI/demos/bad/after/home.html')
-     *       .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
-     *       .a11y.runTests('body', {
-     *         runOnly: ['color-contrast', 'image-alt'],
-     *       });
-     *   });
-     * });
-     */
-    runTests(
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
-    ): Awaitable<UnknownToX<ReturnType, this>, {[key: string]: any}>;
-    runTests(
-        selector: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
-    ): Awaitable<UnknownToX<ReturnType, this>, {[key: string]: any}>;
-    runTests(
-        selector: string,
-        options: {[key: string]: any},
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{[key: string]: any}>) => void,
-    ): Awaitable<UnknownToX<ReturnType, this>, {[key: string]: any}>;
-}
-
 export interface WebDriverProtocol
     extends WebDriverProtocolSessions,
         WebDriverProtocolNavigation,
@@ -7647,7 +7613,6 @@ export const cookies: CookiesNsCommands;
 export const alerts: AlertsNsCommands;
 export const document: DocumentNsCommands;
 export const window: WindowNsCommands;
-export const a11y: A11yNsCommands;
 
 export const assert: Assert;
 export const verify: Assert;
