@@ -3,6 +3,7 @@ import Player = require('@vimeo/player');
 // based on README.md of @vimeo/player >> https://github.com/vimeo/player.js
 
 let player: Player;
+let defaultPlayer: Player.default;
 
 player = new Player('handstick', {
     id: 19231868,

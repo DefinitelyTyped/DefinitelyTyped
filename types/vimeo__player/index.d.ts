@@ -11,27 +11,27 @@
 
 declare namespace Vimeo {
     namespace Player {
-        type TrackKind = 'captions' | 'subtitles';
+        export type TrackKind = 'captions' | 'subtitles';
 
-        interface Error {
+        export interface Error {
             name: string;
             message: string;
             method: string;
         }
 
-        interface TimeEvent {
+        export interface TimeEvent {
             duration: number;
             percent: number;
             seconds: number;
         }
 
-        interface TextTrackChangeEvent {
+        export interface TextTrackChangeEvent {
             kind: TrackKind | null;
             label: string | null;
             language: string | null;
         }
 
-        interface VimeoChapter {
+        export interface VimeoChapter {
             startTime: number;
             title: string;
 
@@ -41,7 +41,7 @@ declare namespace Vimeo {
             index: number;
         }
 
-        interface Cue {
+        export interface Cue {
             /**
              * The `html` property contains the HTML that the Player renders for that cue.
              */
@@ -53,14 +53,14 @@ declare namespace Vimeo {
             text: string;
         }
 
-        interface CueChangeEvent {
+        export interface CueChangeEvent {
             cues: Cue[];
             kind: TrackKind;
             label: string;
             language: string;
         }
 
-        interface CuePointEvent {
+        export interface CuePointEvent {
             time: number;
 
             /**
@@ -70,49 +70,49 @@ declare namespace Vimeo {
             id: string;
         }
 
-        interface VolumeChangeEvent {
+        export interface VolumeChangeEvent {
             volume: number;
         }
 
-        interface PlaybackRateEvent {
+        export interface PlaybackRateEvent {
             playbackRate: number;
         }
 
-        interface LoadedEvent {
+        export interface LoadedEvent {
             id: number;
         }
 
-        interface DurationChangeEvent {
+        export interface DurationChangeEvent {
             duration: number;
         }
 
-        interface FullScreenChangeEvent {
+        export interface FullScreenChangeEvent {
             fullscreen: boolean;
         }
 
-        interface VimeoVideoQualityObject {
+        export interface VimeoVideoQualityObject {
             label: string;
             id: string;
             active: boolean;
         }
 
-        interface QualityChangeEvent {
+        export interface QualityChangeEvent {
             quality: VimeoVideoQuality;
         }
 
-        interface VimeoCameraProps {
+        export interface VimeoCameraProps {
             yaw: number;
             pitch: number;
             roll: number;
             fov: number;
         }
 
-        interface ResizeEvent {
+        export interface ResizeEvent {
             videoWidth: number;
             videoHeight: number;
         }
 
-        interface EventMap {
+        export interface EventMap {
             /**
              * Triggered when video playback is initiated.
              */
@@ -244,29 +244,29 @@ declare namespace Vimeo {
             leavepictureinpicture: never;
         }
 
-        type EventCallback<Data = any> = (data: Data) => any;
+        export type EventCallback<Data = any> = (data: Data) => any;
 
-        type VimeoTimeRange = [number, number];
-        type VimeoVideoQuality = 'auto' | '4K' | '2K' | '1080p' | '720p' | '540p' | '360p' | '240p';
+        export type VimeoTimeRange = [number, number];
+        export type VimeoVideoQuality = 'auto' | '4K' | '2K' | '1080p' | '720p' | '540p' | '360p' | '240p';
 
-        interface VimeoCuePoint {
+        export interface VimeoCuePoint {
             time: number;
             data: VimeoCuePointData;
             id: string;
         }
 
-        interface VimeoCuePointData {
+        export interface VimeoCuePointData {
             [key: string]: any;
         }
 
-        interface VimeoTextTrack {
+        export interface VimeoTextTrack {
             language: string;
             kind: TrackKind;
             label: string;
             mode?: string | undefined;
         }
 
-        interface Options {
+        export interface Options {
             id?: number | undefined;
             url?: string | undefined;
             autopause?: boolean | undefined;
@@ -294,14 +294,14 @@ declare namespace Vimeo {
             transparent?: boolean | undefined;
             width?: number | undefined;
         }
+
+        // This property doesn’t actually exist.
+        // It’s defined for backwards compatibility with older versions of the type definitions.
+        export { Player as default };
     }
 
     class Player {
         constructor(element: HTMLIFrameElement | HTMLElement | string, options?: Player.Options);
-
-        // This property doesn’t actually exist.
-        // It’s defined for backwards compatibility with older versions of the type definitions.
-        static default: typeof Player;
 
         on<EventName extends keyof Player.EventMap>(
             event: EventName,
