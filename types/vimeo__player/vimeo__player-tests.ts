@@ -32,6 +32,8 @@ player = new Player('handstick', {
 });
 
 player = new Player.default('handstick');
+defaultPlayer = new Player('handstick');
+defaultPlayer = new Player.default('handstick');
 
 const onPlay = (data: any) => {
     // data is an object containing properties specific to that event
