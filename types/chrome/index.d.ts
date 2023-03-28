@@ -5015,6 +5015,18 @@ declare namespace chrome.input.ime {
          * @since Chrome 28.
          */
         windowPosition?: string | undefined;
+        /**
+         * Optional.
+         * The index of the current chosen candidate out of total candidates.
+         * @since Chrome 84.
+         */
+        currentCandidateIndex?: number | undefined;
+        /**
+         * Optional.
+         * The total number of candidates for the candidate window.
+         * @since Chrome 84.
+         */
+        totalCandidates?: number | undefined;
     }
 
     export interface CandidateWindowParameter {
