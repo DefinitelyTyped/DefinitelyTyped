@@ -11,7 +11,7 @@ interface AbcObject {
 }
 
 interface NestedObject {
-    a: { b: { c: number } }
+    a: { b: { c: number } };
 }
 
 const abcObject: AbcObject = anything;
