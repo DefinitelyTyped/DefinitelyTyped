@@ -110,8 +110,8 @@ dt.toHTTP(); // $ExpectType string
 dt.toISO(); // $ExpectType string
 dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
 dt.toISO({ extendedZone: true, format: 'extended' }); // $ExpectType string
-dt.toISODate(); // $ExpectType string
-dt.toISODate({ format: 'basic' }); // $ExpectType string
+dt.toISODate(); // $ExpectType string | null
+dt.toISODate({ format: 'basic' }); // $ExpectType string | null
 dt.toISOTime(); // $ExpectType string
 dt.toISOTime({ format: 'basic' }); // $ExpectType string
 dt.toISOWeekDate(); // $ExpectType string

@@ -1267,8 +1267,10 @@ export class DateTime {
      * DateTime.utc(1982, 5, 25).toISODate() //=> '1982-05-25'
      * @example
      * DateTime.utc(1982, 5, 25).toISODate({ format: 'basic' }) //=> '19820525'
+     * @example
+     * DateTime.utc(2000, 15, 63).toISODate() //=> null
      */
-    toISODate(opts?: ToISODateOptions): string;
+    toISODate(opts?: ToISODateOptions): string | null;
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's week date
