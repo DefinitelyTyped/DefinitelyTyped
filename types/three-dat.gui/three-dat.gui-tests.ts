@@ -20,7 +20,7 @@ gui.open();
     // $ExpectType GUI
     gui.addFog('', new THREE.Fog(0xcccccc));
     // $ExpectType GUI
-    gui.addFog('', new THREE.FogExp2(''));
+    gui.addFog('', new THREE.FogExp2(0xcccccc));
 }
 {
     // $ExpectType GUI
