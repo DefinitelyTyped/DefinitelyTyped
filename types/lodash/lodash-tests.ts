@@ -10,9 +10,15 @@ interface AbcObject {
     c: boolean;
 }
 
+interface NestedObject {
+    a: { b: { c: number } }
+}
+
 const abcObject: AbcObject = anything;
+const nestedObject: NestedObject = anything;
 const array: AbcObject[] | null | undefined = anything;
 const list: _.List<AbcObject> | null | undefined = anything;
+const listOfNestedObjects: _.List<NestedObject> | null | undefined = anything;
 const dictionary: _.Dictionary<AbcObject> | null | undefined = anything;
 const numericDictionary: _.NumericDictionary<AbcObject> | null | undefined = anything;
 const arrayParam: AbcObject[] = [];
@@ -1331,6 +1337,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.uniqBy("abc", stringIterator); // $ExpectType string[]
     _.uniqBy(list, valueIterator); // $ExpectType AbcObject[]
     _.uniqBy(list, "a"); // $ExpectType AbcObject[]
+    _.uniqBy(listOfNestedObjects, "a.b.c"); // $ExpectType NestedObject[]
     _(list).uniqBy(valueIterator); // $ExpectType Collection<AbcObject>
     _(list).uniqBy("a"); // $ExpectType Collection<AbcObject>
     _.chain(list).uniqBy(valueIterator); // $ExpectType CollectionChain<AbcObject>
@@ -1848,6 +1855,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.find(dictionary, "a"); // $ExpectType AbcObject | undefined
     _.find(dictionary, { a: 42 }); // $ExpectType AbcObject | undefined
     _.find(dictionary, ["a", 5]); // $ExpectType AbcObject | undefined
+    _.find(nestedObject, "b"); // $ExpectType NestedObject["a"] | undefined
     _.find([anything as AbcObject, null, undefined], (value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null); // $ExpectType AbcObject | undefined
 
     _(list).find(); // $ExpectType AbcObject | undefined
@@ -2517,6 +2525,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.groupBy(list); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(list, valueIterator); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(list, "a"); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(listOfNestedObjects, "a.b.c"); // $ExpectType Dictionary<NestedObject[]>
     _.groupBy(list, { a: 42 }); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary, valueIterator); // $ExpectType Dictionary<AbcObject[]>
@@ -3158,6 +3167,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.sortBy(list, listIterator, listIterator); // $ExpectType AbcObject[]
     _.sortBy(list, [listIterator, listIterator]); // $ExpectType AbcObject[]
     _.sortBy(list, "a"); // $ExpectType AbcObject[]
+    _.sortBy(listOfNestedObjects, "a.b.c"); // $ExpectType NestedObject[]
     _.sortBy(list, { a: 42 }); // $ExpectType AbcObject[]
     _.sortBy(dictionary); // $ExpectType AbcObject[]
     _.sortBy(dictionary, dictionaryIterator); // $ExpectType AbcObject[]
