@@ -247,6 +247,11 @@ export interface MakeBucketOpt {
     ObjectLocking: boolean;
 }
 
+export interface RemoveOptions {
+    versionId?: string;
+    governanceBypass?: boolean;
+}
+
 // Exports from library
 export class Client {
     constructor(options: ClientOptions);
@@ -418,8 +423,9 @@ export class Client {
     statObject(bucketName: string, objectName: string, callback: ResultCallback<BucketItemStat>): void;
     statObject(bucketName: string, objectName: string): Promise<BucketItemStat>;
 
+    removeObject(bucketName: string, objectName: string, removeOpts: RemoveOptions, callback: NoResultCallback): void;
     removeObject(bucketName: string, objectName: string, callback: NoResultCallback): void;
-    removeObject(bucketName: string, objectName: string): Promise<void>;
+    removeObject(bucketName: string, objectName: string, removeOpts?: RemoveOptions): Promise<void>;
 
     removeObjects(bucketName: string, objectsList: string[], callback: NoResultCallback): void;
     removeObjects(bucketName: string, objectsList: string[]): Promise<void>;
