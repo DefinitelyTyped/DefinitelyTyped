@@ -38,7 +38,7 @@ declare namespace PDFKit {
         embedPatternColorSpaces(): void;
         getPatternColorSpaceId(underlyingColorspace: string): string;
         embed(): void;
-        apply(stroke: boolean, patternColor: string | [number, number, number] | [number, number, number, number]): PDFKit.PDFDocument;
+        apply(stroke: boolean, patternColor: PDFKit.Mixins.TilingPatternColorValue): PDFKit.PDFDocument;
     }
 }
 
@@ -92,7 +92,11 @@ declare namespace PDFKit.Mixins {
 
     // The color forms accepted by PDFKit:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
-    type ColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
+    type ColorValue = string | PDFGradient | [PDFTilingPattern, TilingPatternColorValue] | [number, number, number] | [number, number, number, number];
+
+    // The color forms accepted by PDFKit Tiling Pattern:
+    //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
+    type TilingPatternColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
 
     // The winding / filling rule accepted by PDFKit:
     type RuleValue = 'even-odd' | 'evenodd' | 'non-zero' | 'nonzero';
