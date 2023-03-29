@@ -171,6 +171,14 @@ function registryTests() {
         };
 
         RED.nodes.registerType('my-node', nodeConstructor);
+
+        RED.plugins.registerPlugin('my-plugin', { type: 'my-plugin-type' });
+
+        // $ExpectType PluginDefinition
+        RED.plugins.get('my-plugin');
+
+        // $ExpectType PluginDefinition[]
+        RED.plugins.getByType('my-plugin-type');
     }
 
     interface MyPluginDef extends registry.PluginDef {

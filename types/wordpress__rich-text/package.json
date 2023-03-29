@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/node": "^16.11.6"
+        "@wordpress/data": "^8.5.0"
     }
 }

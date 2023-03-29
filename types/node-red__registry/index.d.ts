@@ -1,22 +1,15 @@
-// Type definitions for @node-red/registry 1.2
+// Type definitions for @node-red/registry 1.3
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/registry, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
+//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.0
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction, Express } from 'express';
 import { Server as HttpsServer } from 'https';
 import { LocalSettings } from '@node-red/runtime';
 import * as util from '@node-red/util';
-
-/**
- * Omit Helper
- * Typescript 3.5 includes this.
- * TODO: Remove after March 2021, after
- *   the end of support for TS 3.4
- */
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 declare const registry: registry.RegistryModule;
 
@@ -27,6 +20,13 @@ declare namespace registry {
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;
+    }
+    interface PluginDefinition {
+        id?: string;
+        type: string;
+        module?: string;
+        onadd?(): void;
+        _?: any;
     }
     interface NodeSetting<T> {
         value: T;
@@ -91,6 +91,29 @@ declare namespace registry {
         deleteCredentials(id: string): void;
     }
 
+    interface NodeAPIPlugins {
+        /**
+         * Registers a plugin definition
+         * @param id - the string id of the plugin
+         * @param definition - the definition object of the plugin
+         */
+        registerPlugin(id: string, definition: PluginDefinition): void;
+
+        /**
+         * Returns the plugin definition for the given id
+         * @param id - the string id of the plugin
+         * @returns the plugin definition
+         */
+        get(id: string): PluginDefinition;
+
+        /**
+         * Returns the plugin definitions for the given type
+         * @param type - the string type of the plugin
+         * @returns the plugin definitions
+         */
+        getByType(type: string): PluginDefinition[];
+    }
+
     interface NodeAPIComms {
         publish(topic: string, data: any, retain: boolean): void;
     }
@@ -145,6 +168,7 @@ declare namespace registry {
      */
     interface NodeAPI<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData> {
         nodes: NodeAPINodes;
+        plugins: NodeAPIPlugins;
         log: NodeApiLog;
         settings: TSets;
         events: EventEmitter;
