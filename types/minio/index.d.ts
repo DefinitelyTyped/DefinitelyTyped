@@ -247,7 +247,7 @@ export interface MakeBucketOpt {
     ObjectLocking: boolean;
 }
 
-export interface RemoveOptions {
+export interface RemoveObjectOptions {
     versionId?: string;
     governanceBypass?: boolean;
 }
