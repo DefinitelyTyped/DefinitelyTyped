@@ -424,6 +424,7 @@ export class Client {
     statObject(bucketName: string, objectName: string): Promise<BucketItemStat>;
 
     removeObject(bucketName: string, objectName: string, removeOpts: RemoveOptions, callback: NoResultCallback): void;
+    removeObject(bucketName: string, objectName: string, callback: NoResultCallback): void;
     removeObject(bucketName: string, objectName: string, removeOpts?: RemoveOptions): Promise<void>;
 
     removeObjects(bucketName: string, objectsList: string[], callback: NoResultCallback): void;
