@@ -3930,6 +3930,56 @@ declare namespace jsts {
             getResultGeometry(): Geometry;
         }
     }
+
+    namespace util {
+        /**
+         * An extendable array of primitive int values.
+         */
+        export class IntArrayList {
+            /**
+             * Constructs an empty list.
+             */
+            constructor();
+            /**
+             * Constructs an empty list with the specified initial capacity
+             *
+             * @param initialCapacity {integer} the initial capacity of the list
+             */
+            constructor(initialCapacity: number);
+
+            /**
+             * Returns the number of values in this list.
+             */
+            size(): number;
+
+            /**
+             * Increases the capacity of this list instance, if necessary,
+             * to ensure that it can hold at least the number of elements specified by the capacity argument.
+             *
+             * @param capacity {integer} the desired capacity
+             */
+            ensureCapacity(capacity: number): void;
+
+            /**
+             * Adds a value to the end of this list.
+             *
+             * @param value {integer} the value to add
+             */
+            add(value: number): void;
+
+            /**
+             * Adds all values in an array to the end of this list.
+             *
+             * @param values an array of values
+             */
+            addAll(values: number[]): void;
+
+            /**
+             * Returns a int array containing a copy of the values in this list.
+             */
+            toArray(): number[];
+        }
+    }
 }
 
 declare module 'jsts' {
