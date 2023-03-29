@@ -7312,7 +7312,7 @@ export interface EnergyServicePointDetail {
   nationalMeteringId: string;
   relatedParticipants: {
     /**
-     * The name of the party/orginsation related to this service point
+     * The name of the party/organisation related to this service point
      */
     party: string;
     /**
@@ -7342,7 +7342,7 @@ export interface EnergyServicePointDetail {
    */
   servicePointStatus: "ACTIVE" | "DE_ENERGISED" | "EXTINCT" | "GREENFIELD" | "OFF_MARKET";
   /**
-   * The start date from which this service point first became valid
+   * The latest start date from which the constituent data sets of this service point became valid
    */
   validFromDate: string;
   [k: string]: unknown;
@@ -7471,8 +7471,7 @@ export interface EnergyUsageRead {
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
-
-export interface ErrorListResponse {
+export interface ResponseErrorListV2 {
   errors: {
     /**
      * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
