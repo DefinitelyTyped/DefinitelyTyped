@@ -861,14 +861,14 @@ function elementTypeTests() {
 }
 
 function managingRefs() {
-    const genericRefBad = React.useRef<Element>();
+    const genericRefBad = React.useRef<Element>(undefined);
     // $ExpectType Element | undefined
     genericRefBad.current;
     const genericRef = React.useRef<Element>(null);
     // $ExpectType Element | null
     genericRef.current;
 
-    const inputRefBad = React.useRef<HTMLInputElement>();
+    const inputRefBad = React.useRef<HTMLInputElement>(undefined);
     // $ExpectType HTMLInputElement | undefined
     inputRefBad.current;
     const inputRef = React.useRef<HTMLInputElement>(null);

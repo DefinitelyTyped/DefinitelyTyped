@@ -11,7 +11,7 @@ class ExampleOfUsingReactModal extends React.Component {
     contentRef: HTMLDivElement;
     overlayRef: HTMLDivElement;
     render() {
-        const reactModalRef = React.useRef<ReactModal>();
+        const reactModalRef = React.useRef<ReactModal>(undefined);
         // typed params of `OnAfterOpen` callback
         const onAfterOpenFn: ReactModal.OnAfterOpenCallback = ({ contentEl, overlayEl }) => {
             console.assert(contentEl === reactModalRef.current.portal.content);
@@ -90,7 +90,7 @@ class ExampleOfUsingReactModal extends React.Component {
 }
 
 const MyWrapperComponent: React.FC = () => {
-    const reactModaRef = React.useRef<ReactModal>();
+    const reactModaRef = React.useRef<ReactModal>(undefined);
     // typed params of `OnAfterOpen` are optional for backward compatible types
     const onAfterOpenOptionalObjFn = () => {};
 

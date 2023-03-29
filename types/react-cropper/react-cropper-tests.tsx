@@ -31,7 +31,7 @@ class Demo extends React.Component {
  * initializes cropper with ref using useRef hook
  */
 const DemoFunctionComponent: React.FunctionComponent<any> = () => {
-    const cropper = React.useRef<Cropper>();
+    const cropper = React.useRef<Cropper>(undefined);
 
     const crop = () => {
         console.log(cropper.current?.getData(true));

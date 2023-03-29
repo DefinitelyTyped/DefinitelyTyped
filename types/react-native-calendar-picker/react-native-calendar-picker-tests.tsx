@@ -162,7 +162,7 @@ const TestCallbacks = () => {
 };
 
 const TestRef = () => {
-    const ref = React.useRef<CalendarPicker>();
+    const ref = React.useRef<CalendarPicker>(undefined);
     ref.current!.handleOnPressNext();
     ref.current!.handleOnPressPrevious();
     ref.current!.handleOnPressDay({
