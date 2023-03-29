@@ -41,14 +41,14 @@ function shout(x: number): string {
         return n % 2 === 0;
     }
 
-    const a: R.Dictionary<number> = R.pipe(R.filter(isEven))({
+    const a: Record<string, number> = R.pipe(R.filter(isEven))({
         a: 0,
         b: 1,
     }); // => { a: 0 }
 
     const b: number[] = R.pipe(R.filter(isEven))([0, 1]); // => [0]
 
-    const c: R.Dictionary<number> = R.pipe(R.reject(isEven))({
+    const c: Record<string, number> = R.pipe(R.reject(isEven))({
         a: 0,
         b: 1,
     }); // => { b: 1 }
