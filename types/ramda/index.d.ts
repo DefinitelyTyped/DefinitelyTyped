@@ -1,4 +1,3 @@
-
 // Type definitions for ramda 0.28
 // Project: https://ramdajs.com
 // Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
