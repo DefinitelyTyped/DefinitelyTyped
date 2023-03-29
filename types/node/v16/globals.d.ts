@@ -62,7 +62,7 @@ interface AbortSignal {
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
     readonly aborted: boolean;
-    readonly signal: any;
+    readonly reason: any;
 }
 
 declare var AbortController: {
