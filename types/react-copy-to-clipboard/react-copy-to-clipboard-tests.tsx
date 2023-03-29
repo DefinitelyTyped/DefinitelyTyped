@@ -20,3 +20,21 @@ function AllProps() {
         </CopyToClipboard>
     );
 }
+
+/**
+  * ReactChild refers to a single child element within a component.
+  * It can be a React element (created using React.createElement() or JSX),
+  * a string, a number, a boolean, or null.
+  */
+function ReactChildProps() {
+    const element = React.createElement('span', {}, 'Copy to clipboard with span');
+    return (
+        <CopyToClipboard
+            text={'Hello World'}
+            onCopy={() => {}}
+            options={{ debug: true, message: 'message', format: 'text/plain' }}
+        >
+            {element}
+        </CopyToClipboard>
+    );
+}
