@@ -3208,7 +3208,7 @@ export interface EnergyAccountDetailResponse {
     self: string;
     [k: string]: unknown;
   };
-  meta: {
+  meta?: {
     [k: string]: unknown;
   };
   [k: string]: unknown;
@@ -4813,7 +4813,7 @@ export interface EnergyBalanceResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5445,7 +5445,7 @@ export interface EnergyConcessionsResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5453,7 +5453,7 @@ export interface EnergyConcessionsResponse {
 export interface EnergyDerDetailResponse {
   data: EnergyDerRecord;
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5551,11 +5551,11 @@ export interface EnergyDerRecord {
     [k: string]: unknown;
   }[];
   /**
-   * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
+   * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId
    */
   approvedCapacity: number;
-  /**
-   * The number of phases available for the installation of DER. Acceptable values are 1, 2 or 3.
+ /**
+   * The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
    */
   availablePhasesCount: number;
   /**
@@ -5563,7 +5563,7 @@ export interface EnergyDerRecord {
    */
   hasCentralProtectionControl?: boolean | null;
   /**
-   * The number of phases that DER is connected to. Acceptable values are 1, 2 or 3.
+   * The number of phases that DER is connected to. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
    */
   installedPhasesCount: number;
   /**
@@ -5828,7 +5828,7 @@ export interface EnergyInvoice {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 /**
- * Object contain charges and credits related to electricity usage
+ * Object contains account level charges and credits related to electricity usage
  */
 export interface EnergyInvoiceAccountCharges {
   /**
@@ -6056,7 +6056,7 @@ export interface EnergyPaymentScheduleResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
