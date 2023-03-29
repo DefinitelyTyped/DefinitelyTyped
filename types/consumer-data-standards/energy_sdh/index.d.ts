@@ -2008,4 +2008,3 @@ export interface ResponseErrorListV2 {
   }[];
   [k: string]: unknown;
 }
-

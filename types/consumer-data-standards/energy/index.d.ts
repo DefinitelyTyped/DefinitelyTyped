@@ -5550,13 +5550,13 @@ export interface EnergyDerRecord {
     status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
     [k: string]: unknown;
   }[];
-  /**
-   * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId
-   */
+/**
+ * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId
+ */
   approvedCapacity: number;
  /**
-   * The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
-   */
+  * The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
+  */
   availablePhasesCount: number;
   /**
    * For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter.  If absent then assumed to be false
