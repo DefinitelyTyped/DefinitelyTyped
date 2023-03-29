@@ -1189,6 +1189,8 @@ async function testActionForPromise() {
 // https://developer.chrome.com/docs/extensions/reference/alarms/
 async function testAlarmsForPromise() {
     await chrome.alarms.getAll();
+    await chrome.alarms.create('name1', { when: Date.now() });
+    await chrome.alarms.create({ when: Date.now() });
     await chrome.alarms.clearAll();
     await chrome.alarms.clear();
     await chrome.alarms.clear('name1');
