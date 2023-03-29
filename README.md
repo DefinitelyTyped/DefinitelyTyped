@@ -127,7 +127,7 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
+First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it, install [node](https://nodejs.org/), and run `pnpm install`.
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
 
@@ -157,7 +157,7 @@ For a more manageable clone that includes _only_ the type packages relevant to y
 * `cd types/<package to edit>`
 * Make changes. Remember to [edit tests](#my-package-teststs).
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
-* [Run `npm test <package to test>`](#running-tests).
+* [Run `pnpm test <package to test>`](#running-tests).
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
@@ -179,6 +179,7 @@ Your package should have this structure:
 | [`tsconfig.json`](#tsconfigjson) | This allows you to run `tsc` within the package. |
 | [`tslint.json`](#linter-tslintjson)   | Enables linting. |
 | [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarely) Needed only to disable lint rules written for eslint. |
+| [`package.json`](#packagejson) | Contains metadata for the package, inclding its name, version, and dependencies. |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -193,36 +194,20 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 When a package [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
-You can remove it by running `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+You can remove it by running `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
 * `<typingsPackageName>`: This is the name of the directory to delete.
 * `<asOfVersion>`: A stub will be published to `@types/<typingsPackageName>` with this version. Should be higher than any currently published version, and should be a version of `<libraryName>` on npm.
 * `<libraryName>`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to `<typingsPackageName>`, in which case you can omit it.
-
-Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
-You can get this list by looking at the errors from `npm run test-all`.
-To fix the errors, [add a `package.json`](#packagejson) with `"dependencies": { "<libraryName>": "x.y.z" }`.
-For example:
-
-```json
-{
-  "private": true,
-  "dependencies": {
-    "<libraryName>": "^2.6.0"
-  }
-}
-```
-
-When you add a `package.json` to dependents of `<libraryName>`, you will also need to open a PR to add `<libraryName>` [to allowedPackageJsonDependencies.txt in DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
 #### Running tests
 
-Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
+Test your changes by running `pnpm test <package to test>` where `<package to test>` is the name of your package.
 
 This script uses [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) to run the TypeScript compiler against your dts files.
 
-Once you have all your changes ready, use `npm run test-all` to see how your changes affect other modules.
+Once you have all your changes ready, use `pnpm run test-all` to see how your changes affect other modules.
 
 #### Naming
 
@@ -335,19 +320,17 @@ TL;DR: `esModuleInterop` and `allowSyntheticDefaultImports` are *not allowed* in
 
 #### `package.json`
 
-Usually you won't need this.
+This file is required.
+
 DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
-A `package.json` may be included to specify dependencies that are not other `@types` packages.
+A `package.json` may specify dependencies that are not other `@types` packages.
 [Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
 Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
 You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
 
-In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
-Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
-
-The second reason to create your own package.json is to specify ES modules.
-If the implementation package uses ESM and specifies `"type": "module"`, then you should add a package.json with the same:
+The second reason to modify package.json is to specify ES modules.
+If the implementation package uses ESM and specifies `"type": "module"`, then you should modify package.json to match:
 
 ```json
 {
@@ -365,7 +348,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 #### Common mistakes
 
 * First, follow advice from the [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: [dprint](https://dprint.dev) is set up on this repo, so you can run `npx dprint fmt -- 'path/to/package/**/*.ts'`.
+* Formatting: [dprint](https://dprint.dev) is set up on this repo, so you can run `pnpm dprint fmt -- 'path/to/package/**/*.ts'`.
   * Consider using the VS Code `.vscode/settings.template.json` (or equivalent for other editors) to format on save with the [VS Code dprint extension](https://marketplace.visualstudio.com/items?itemName=dprint.dprint)
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
@@ -509,6 +492,8 @@ You can find a detailed explanation of this feature in the [official TypeScript 
 
 Here's a short example to get you started:
 
+TODO(jakebailey): update
+
 1. You'll have to add a `package.json` file to your package definition, with the following contents:
 
    ```json
@@ -602,6 +587,8 @@ Because the root folder should always contain the type declarations for the late
 For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.
 Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version.
 At the time of writing, the [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
+
+TODO(jakebailey): update
 
 ```json
 {
