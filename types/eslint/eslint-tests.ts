@@ -897,3 +897,30 @@ ruleTester.run('simple-valid-test', rule, {
 });
 
 //#endregion
+
+//#region FlatConfig
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        parser: {
+            parse: () => AST
+        }
+    }
+});
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        parser: {
+            parseForESLint: () => ({ ast: AST })
+        }
+    }
+});
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        // @ts-expect-error
+        parser: "foo-parser"
+    }
+});
+
+//#endregion

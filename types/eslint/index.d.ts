@@ -1,4 +1,4 @@
-// Type definitions for eslint 8.21
+// Type definitions for eslint 8.37
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -952,11 +952,10 @@ export namespace Linter {
          */
         globals?: ESLint.Environment["globals"],
         /**
-         * Either an object containing a parse() method or a string indicating the
-         * name of a parser inside of a plugin (i.e., "pluginName/parserName").
-         * @default "@/espree"
+         * An object containing a parse() or parseForESLint() method.
+         * If not configured, the default ESLint parser (Espree) will be used.
          */
-        parser?: string,
+        parser?: ParserModule,
         /**
          * An object specifying additional options that are passed directly to the
          * parser() method on the parser. The available options are parser-dependent
