@@ -3982,6 +3982,124 @@ declare namespace jsts {
     }
 }
 
+declare namespace java {
+    namespace utils {
+        export class Iterator<T> {
+            /**
+             * Returns true if the iteration has more elements.
+             * @return {boolean}
+             */
+            hasNext(): boolean;
+
+            /**
+             * Returns the next element in the iteration.
+             * @return {T}
+             */
+            next(): T;
+
+            /**
+             * Removes from the underlying collection the last element returned by the
+             * iterator (optional operation).
+             */
+            remove(): void;
+        }
+        export class Comparator<T> {
+            compare(a: T, b: T): number;
+        }
+        export class Collection<T> {
+            /**
+             * Ensures that this collection contains the specified element (optional
+             * operation).
+             * @param {T} e
+             * @return {boolean}
+             */
+            add(e: T): boolean;
+            /**
+             * Appends all of the elements in the specified collection to the end of this
+             * list, in the order that they are returned by the specified collection's
+             * iterator (optional operation).
+             * @param {javascript.util.Collection} c
+             * @return {boolean}
+             */
+            addAll(c: Collection<T>): boolean;
+            /**
+             * Returns true if this collection contains no elements.
+             * @return {boolean}
+             */
+            isEmpty(): boolean;
+            /**
+             * Returns an iterator over the elements in this collection.
+             * @return {javascript.util.Iterator}
+             */
+            iterator(): Iterator<T>;
+            /**
+             * Returns an iterator over the elements in this collection.
+             * @return {number}
+             */
+            size(): number;
+            /**
+             * Returns an array containing all of the elements in this collection.
+             * @return {Array}
+             */
+            toArray(): Array<T>;
+            /**
+             * Removes a single instance of the specified element from this collection if it
+             * is present. (optional)
+             * @param {Object} e
+             * @return {boolean}
+             */
+            remove(e: T): boolean;
+        }
+        export class List<T> extends Collection<T> {
+            /**
+             * Returns the element at the specified position in this list.
+             * @param {number} index
+             * @return {T}
+             */
+            get(index: number): T;
+            /**
+             * Replaces the element at the specified position in this list with the
+             * specified element (optional operation).
+             * @param {number} index
+             * @param {Object} e
+             * @return {Object}
+             */
+            set(index: number, e: T): T;
+        }
+        export class ArrayList<T> extends List<T> {
+            constructor(c?: Collection<T>);
+
+            /**
+             * Increases the capacity of this list instance, if necessary,
+             * to ensure that it can hold at least the number of elements specified by the capacity argument.
+             *
+             * @param capacity {integer} the desired capacity
+             */
+            ensureCapacity(capacity: number): void;
+
+            /**
+             * Empties this list
+             */
+            clear(): void;
+
+            sort(comparator: Comparator<T>): void;
+        }
+        export class Set<T> extends Collection<T> {
+            /**
+             * Returns true if this set contains the specified element. More formally,
+             * returns true if and only if this set contains an element e such that (o==null ?
+             * e==null : o.equals(e)).
+             * @param {T} e
+             * @return {boolean}
+             */
+            contains(e: T): boolean;
+        }
+        export class HashSet<T> extends Set<T> {
+            constructor(c?: Collection<T>);
+        }
+    }
+}
+
 declare module 'jsts' {
     export = jsts;
 }
