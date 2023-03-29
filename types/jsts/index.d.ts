@@ -3802,6 +3802,89 @@ declare namespace jsts {
                 toString(): string;
             }
         }
+
+        namespace polygonize {
+            import ArrayList = java.utils.ArrayList;
+            import Geometry = jsts.geom.Geometry;
+            import HashSet = java.utils.HashSet;
+            import LineString = jsts.geom.LineString;
+            import Polygon = jsts.geom.Polygon;
+
+            export class Polygonizer {
+                /**
+                 * Creates a polygonizer that extracts all polygons.
+                 */
+                constructor();
+                /**
+                 * Creates a polygonizer, specifying whether a valid polygonal geometry must be created.
+                 * If the argument is true then areas may be discarded in order to ensure
+                 * that the extracted geometry is a valid polygonal geometry.
+                 *
+                 * @param {boolean} extractOnlyPolygonal true if a valid polygonal geometry should be extracted
+                 */
+                constructor(extractOnlyPolygonal: boolean);
+
+                /**
+                 * Adds a collection of geometries to the edges to be polygonized.
+                 * May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted and used.
+                 *
+                 * @param geomList {Array} a list of Geometrys with linework to be polygonized
+                 */
+                add(geomList: Array<Geometry>): void;
+
+                /**
+                 * Add a Geometry to the edges to be polygonized.
+                 * May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted and used
+                 *
+                 * @param g {Geometry} a Geometry with linework to be polygonized
+                 */
+                add(g: Geometry): void;
+
+                /**
+                 * Allows disabling the valid ring checking, to optimize situations where invalid rings are not expected.
+                 * The default is true.
+                 *
+                 * @param isCheckingRingsValid {boolean} true if generated rings should be checked for validity
+                 */
+                setCheckRingsValid(isCheckingRingsValid: boolean): void;
+
+                /**
+                 * Gets the list of polygons formed by the polygonization.
+                 */
+                getPolygons(): ArrayList<Polygon>;
+
+                /**
+                 * Gets a geometry representing the polygons formed by the polygonization.
+                 * If a valid polygonal geometry was extracted the result is a Polygonal geometry.
+                 *
+                 * @returns a geometry containing the polygons
+                 */
+                getGeometry(): Geometry;
+
+                /**
+                 * Gets the list of dangling lines found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which are dangles
+                 */
+                getDangles(): HashSet<LineString>;
+
+                /**
+                 * Gets the list of cut edges found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which are cut edges
+                 */
+                getCutEdges(): ArrayList<LineString>;
+
+                /**
+                 * Gets the list of lines forming invalid rings found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which form invalid rings
+                 */
+                getInvalidRingLines(): ArrayList<LineString>;
+            }
+        }
     }
 
     namespace precision {
