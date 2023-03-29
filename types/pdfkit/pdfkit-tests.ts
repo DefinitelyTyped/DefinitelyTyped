@@ -3,6 +3,9 @@ import PDFGradient = require('pdfkit/js/gradient');
 var PDFRadialGradiant = PDFGradient.PDFRadialGradiant;
 var PDFLinearGradient = PDFGradient.PDFLinearGradient;
 
+import PDFPattern = require('pdfkit/js/pattern');
+var PDFTilingPattern = PDFPattern.PDFTilingPattern;
+
 import mtext = require('pdfkit/js/mixins/text');
 
 import PDFDocument = require('pdfkit');
@@ -115,6 +118,14 @@ doc.circle(100, 50, 50)
 var rgrad = doc.radialGradient(300, 50, 0, 300, 50, 50);
 rgrad.stop(0, 'orange', 0).stop(1, 'orange', 1);
 doc.circle(300, 50, 50).fill(rgrad);
+
+var stripe45d = pdfkit.pattern(
+    [1, 1, 4, 4],
+    3,
+    3,
+    '1 w 0 1 m 4 5 l s 2 0 m 5 3 l s'
+);
+pdfkit.circle(280, 350, 50).fill([stripe45d, 'blue']);
 
 doc.fillColor('red')
     .translate(-100, -50)
