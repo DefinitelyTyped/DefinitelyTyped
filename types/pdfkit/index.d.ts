@@ -489,6 +489,14 @@ declare module 'pdfkit/js/gradient' {
     export = gradient;
 }
 
+declare module 'pdfkit/js/pattern' {
+    var pattern: {
+        PDFTilingPattern: PDFKit.PDFTilingPattern;
+    };
+
+    export = pattern;
+}
+
 declare namespace PDFKit {
     /**
      * Represent a single page in the PDF document
