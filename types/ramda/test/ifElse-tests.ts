@@ -5,7 +5,7 @@ import * as R from 'ramda';
         count?: number;
     }
 
-    // $ExpectType (obj: unknown) => { count: number; } | Record<"count", number>
+    // $ExpectType (a: unknown) => { count: number; } | Record<"count", number>
     const incCount = R.ifElse(
         R.has('count'),
         obj => ({ ...(obj as Required<ObjWithCount>), count: (obj as Required<ObjWithCount>).count + 1 }),

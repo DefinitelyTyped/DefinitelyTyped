@@ -26,7 +26,7 @@ import * as R from 'ramda';
         const key = 'name';
 
         if (R.has(key as 'name' | 'weight', foo)) {
-            // $ExpectType { name: unknown; } | { weight: unknown; }
+            // $ExpectType ObjectHavingSome<"name" | "weight">
             const bar = foo;
         }
 
