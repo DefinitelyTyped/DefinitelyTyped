@@ -33,7 +33,7 @@ declare namespace PDFKit {
     }
 
     interface PDFTilingPattern {
-        new(document: any): PDFTilingPattern;
+        new(document: any, bbox: PDFKit.Mixins.BoundingBox, xStep: number, yStep: number, stream: string): PDFTilingPattern;
         createPattern(): PDFKitReference;
         embedPatternColorSpaces(): void;
         getPatternColorSpaceId(underlyingColorspace: string): string;
@@ -126,6 +126,8 @@ declare namespace PDFKit.Mixins {
         | 'swsh' | 'titl' | 'tjmo' | 'tnam' | 'tnum' | 'trad' | 'twid' | 'unic' | 'valt' | 'vatu' | 'vert'
         | 'vhal' | 'vjmo' | 'vkna' | 'vkrn' | 'vpal' | 'vrt2' | 'vrtr' | 'zero';
 
+    type BoundingBox = [number, number, number, number];
+
     interface PDFColor {
         fillColor(color: ColorValue, opacity?: number): this;
         strokeColor(color: ColorValue, opacity?: number): this;
@@ -134,7 +136,7 @@ declare namespace PDFKit.Mixins {
         strokeOpacity(opacity: number): this;
         linearGradient(x1: number, y1: number, x2: number, y2: number): PDFLinearGradient;
         radialGradient(x1: number, y1: number, r1: number, x2: number, y2: number, r2: number): PDFRadialGradient;
-        pattern(bbox: [number, number, number, number], xStep: number, yStep: number, stream: string): PDFTilingPattern;
+        pattern(bbox: BoundingBox, xStep: number, yStep: number, stream: string): PDFTilingPattern;
     }
 
     type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer;
