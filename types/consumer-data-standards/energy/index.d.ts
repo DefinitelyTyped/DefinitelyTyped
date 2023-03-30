@@ -7419,7 +7419,7 @@ export interface EnergyUsageRead {
     /**
      *  Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
      */
-    readQualities?: {
+    readQualities?: | {
       /**
        * End interval for read quality flag
        */
@@ -7433,7 +7433,7 @@ export interface EnergyUsageRead {
        */
       startInterval: number;
       [k: string]: unknown;
-    } | null;
+    }[]| null;
     [k: string]: unknown;
   } | null;
   /**
