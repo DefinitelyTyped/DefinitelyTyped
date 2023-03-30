@@ -2389,6 +2389,11 @@ declare namespace webpack {
             addContextDependency(directory: string): void;
 
             /**
+             * Return all dependencies of the loader result.
+             */
+            getDependencies(): string[];
+
+            /**
              * Remove all dependencies of the loader result. Even initial dependencies and these of other loaders. Consider using pitch.
              */
             clearDependencies(): void;

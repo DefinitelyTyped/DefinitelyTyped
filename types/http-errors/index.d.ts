@@ -1,9 +1,8 @@
-// Type definitions for http-errors 1.8
+// Type definitions for http-errors 2.0
 // Project: https://github.com/jshttp/http-errors
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export = createHttpError;
 
@@ -22,16 +21,21 @@ declare namespace createHttpError {
         [key: string]: any;
     }
 
-    type UnknownError = Error | string | number | { [key: string]: any };
+    type UnknownError = Error | string | { [key: string]: any };
 
-    type HttpErrorConstructor<N extends number = number> = new (msg?: string) => HttpError<N>;
+    interface HttpErrorConstructor<N extends number = number> {
+        (msg?: string): HttpError<N>;
+        new (msg?: string): HttpError<N>;
+    }
 
-    type CreateHttpError = <N extends UnknownError>(arg: N, ...rest: UnknownError[]) => HttpError<N extends number ? N : number>;
+    interface CreateHttpError {
+        <N extends number = number>(arg: N, ...rest: UnknownError[]): HttpError<N>;
+        (...rest: UnknownError[]): HttpError;
+    }
 
     type IsHttpError = (error: unknown) => error is HttpError;
 
     type NamedConstructors = {
-        [code: string]: HttpErrorConstructor;
         HttpError: HttpErrorConstructor;
     }
     & Record<'BadRequest' | '400', HttpErrorConstructor<400>>
@@ -57,7 +61,7 @@ declare namespace createHttpError {
     & Record<'UnprocessableEntity' | '422', HttpErrorConstructor<422>>
     & Record<'Locked' | '423', HttpErrorConstructor<423>>
     & Record<'FailedDependency' | '424', HttpErrorConstructor<424>>
-    & Record<'UnorderedCollection' | '425', HttpErrorConstructor<425>>
+    & Record<'TooEarly' | '425', HttpErrorConstructor<425>>
     & Record<'UpgradeRequired' | '426', HttpErrorConstructor<426>>
     & Record<'PreconditionRequired' | '428', HttpErrorConstructor<428>>
     & Record<'TooManyRequests' | '429', HttpErrorConstructor<429>>
@@ -66,7 +70,7 @@ declare namespace createHttpError {
     & Record<'InternalServerError' | '500', HttpErrorConstructor<500>>
     & Record<'NotImplemented' | '501', HttpErrorConstructor<501>>
     & Record<'BadGateway' | '502', HttpErrorConstructor<502>>
-    & Record<'ServiceUnavailable' | '503', HttpErrorConstructor<500>>
+    & Record<'ServiceUnavailable' | '503', HttpErrorConstructor<503>>
     & Record<'GatewayTimeout' | '504', HttpErrorConstructor<504>>
     & Record<'HTTPVersionNotSupported' | '505', HttpErrorConstructor<505>>
     & Record<'VariantAlsoNegotiates' | '506', HttpErrorConstructor<506>>

@@ -1015,6 +1015,9 @@ function enforceMinRadius(selection: d3Selection.Selection<SVGCircleElement, Cir
     });
 }
 
+// @ts-expect-error
+circles.call(enforceMinRadius, '40'); // fails, minRadius of type number expected
+
 // returns 'this' selection
 circles = circles.call(enforceMinRadius, 40); // check chaining return type by re-assigning
 

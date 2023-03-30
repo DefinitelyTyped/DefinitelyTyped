@@ -19,7 +19,7 @@ export interface Options {
 
 export interface HasAttributes {
     set(name: string, value: PossibleValue): void;
-    get(name: string): PossibleValue;
+    get(name: string): PossibleValue | undefined;
 }
 
 export interface Node extends HasAttributes {
@@ -75,14 +75,14 @@ export interface Graph extends HasAttributes {
     use: RenderEngine;
 
     addNode(id: string, attrs?: any): Node;
-    getNode(id: string): Node;
+    getNode(id: string): Node | undefined;
     nodeCount(): number;
 
     addEdge(nodeOne: string | Node, nodeTwo: string | Node, attrs?: Options): Edge;
 
     // Subgraph (cluster) API
     addCluster(id: string): Graph;
-    getCluster(id: string): Graph;
+    getCluster(id: string): Graph | undefined;
     clusterCount(): number;
 
     setNodeAttribut(name: string, value: any): void;

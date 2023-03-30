@@ -3,10 +3,8 @@
     "rules": {
         "ban-types": false,
         "member-access": false,
-        "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "prefer-const": false,
         "space-before-function-paren": false,

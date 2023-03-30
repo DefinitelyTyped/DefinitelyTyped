@@ -1,6 +1,6 @@
 // Type definitions for hellosign-sdk 1.6
 // Project: https://github.com/HelloFax/hellosign-nodejs-sdk
-// Definitions by: David <https://github.com/dvprrsh>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
@@ -152,6 +152,7 @@ declare namespace HelloSign {
         details_url: string;
         cc_email_addresses: string | string[];
         signing_redirect_url: string;
+        template_ids: null | string[];
         custom_fields?:
             | Array<{
                   name: string;

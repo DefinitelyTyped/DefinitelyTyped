@@ -721,3 +721,49 @@ function elementTypeTests() {
     <RenderReactNode />;
     React.createElement(RenderReactNode);
 }
+
+function managingRefs() {
+    const genericRefBad = React.useRef<Element>();
+    // $ExpectType Element | undefined
+    genericRefBad.current;
+    const genericRef = React.useRef<Element>(null);
+    // $ExpectType Element | null
+    genericRef.current;
+
+    const inputRefBad = React.useRef<HTMLInputElement>();
+    // $ExpectType HTMLInputElement | undefined
+    inputRefBad.current;
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    // $ExpectType HTMLInputElement | null
+    inputRef.current;
+
+    // @ts-expect-error: Type 'undefined' is not assignable to type 'HTMLInputElement | null'
+    <input ref={genericRefBad} />;
+    <input ref={genericRef} />;
+    // @ts-expect-error: Type 'undefined' is not assignable to type 'HTMLInputElement | null'
+    <input ref={inputRefBad} />;
+    <input ref={inputRef} />;
+    // @ts-expect-error: Type 'undefined' is not assignable to type 'HTMLInputElement | null'
+    <div ref={inputRefBad} />;
+    // Undesired. Should not typecheck since
+    // `inputRef.current` will contain `HTMLDivElement | null` at runtime
+    // while it has `HTMLInputElement | null` at compiletime.
+    <div ref={inputRef} />;
+
+    const ElementComponent = React.forwardRef<Element>((_, ref) => {
+        if (typeof ref === 'object' && ref !== null) {
+            // $ExpectType Element | null
+            ref.current;
+        }
+        return <div ref={ref} />;
+    });
+    // @ts-expect-error Type 'undefined' is not assignable to type 'Element | null'
+    <ElementComponent ref={genericRefBad} />;
+    <ElementComponent ref={genericRef} />;
+    // @ts-expect-error Type 'undefined' is not assignable to type 'Element | null'
+    <ElementComponent ref={inputRefBad} />;
+    // Undesired, should not typecheck since
+    // `inputRef.current` will contain `Element | null` at runtime
+    // while it has `HTMLInputElement | null` at compiletime.
+    <ElementComponent ref={inputRef} />;
+}

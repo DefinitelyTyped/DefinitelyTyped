@@ -1,22 +1,15 @@
-// Type definitions for @node-red/registry 1.2
+// Type definitions for @node-red/registry 1.3
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/registry, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
+//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.0
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction, Express } from 'express';
 import { Server as HttpsServer } from 'https';
 import { LocalSettings } from '@node-red/runtime';
 import * as util from '@node-red/util';
-
-/**
- * Omit Helper
- * Typescript 3.5 includes this.
- * TODO: Remove after March 2021, after
- *   the end of support for TS 3.4
- */
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 declare const registry: registry.RegistryModule;
 
@@ -27,6 +20,13 @@ declare namespace registry {
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;
+    }
+    interface PluginDefinition {
+        id?: string;
+        type: string;
+        module?: string;
+        onadd?(): void;
+        _?: any;
     }
     interface NodeSetting<T> {
         value: T;
@@ -53,10 +53,10 @@ declare namespace registry {
          */
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
-            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // tslint:disable-line:no-unnecessary-generics
+            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line no-unnecessary-generics
             opts?: {
                 credentials?: NodeCredentials<TCreds> | undefined;
-                settings?: NodeSettings<TSets> | undefined; // tslint:disable-line:no-unnecessary-generics
+                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line no-unnecessary-generics
             },
         ): void;
 
@@ -91,6 +91,29 @@ declare namespace registry {
         deleteCredentials(id: string): void;
     }
 
+    interface NodeAPIPlugins {
+        /**
+         * Registers a plugin definition
+         * @param id - the string id of the plugin
+         * @param definition - the definition object of the plugin
+         */
+        registerPlugin(id: string, definition: PluginDefinition): void;
+
+        /**
+         * Returns the plugin definition for the given id
+         * @param id - the string id of the plugin
+         * @returns the plugin definition
+         */
+        get(id: string): PluginDefinition;
+
+        /**
+         * Returns the plugin definitions for the given type
+         * @param type - the string type of the plugin
+         * @returns the plugin definitions
+         */
+        getByType(type: string): PluginDefinition[];
+    }
+
     interface NodeAPIComms {
         publish(topic: string, data: any, retain: boolean): void;
     }
@@ -123,11 +146,29 @@ declare namespace registry {
         needsPermission(permission: string): (req: Request, res: Response, next: NextFunction) => void;
     }
 
+    interface NodeAPIPlugins {
+        /**
+         * Registers a plugin constructor
+         * @param type - the string type name
+         * @param pluginDef - the plugin definition
+         */
+        // eslint-disable-next-line no-unnecessary-generics
+        registerPlugin<TPluginDef extends PluginDef>(type: string, definition: PluginDefinition<TPluginDef>): void;
+    }
+    interface PluginDefinition<TPluginDef> {
+        settings?: NodeSettings<TPluginDef> | undefined;
+        onadd?: () => void;
+    }
+    interface PluginDef {
+        '*': unknown;
+    }
+
     /**
      * Runtime API provided to nodes by Node Registry
      */
     interface NodeAPI<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData> {
         nodes: NodeAPINodes;
+        plugins: NodeAPIPlugins;
         log: NodeApiLog;
         settings: TSets;
         events: EventEmitter;
@@ -138,6 +179,7 @@ declare namespace registry {
         comms: NodeAPIComms;
         library: NodeAPILibrary;
         auth: NodeAPIAuth;
+        plugins: NodeAPIPlugins;
         readonly httpNode: Express;
         readonly httpAdmin: Express;
         readonly server: HttpsServer;

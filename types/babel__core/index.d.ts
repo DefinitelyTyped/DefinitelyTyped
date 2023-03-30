@@ -1,4 +1,4 @@
-// Type definitions for @babel/core 7.1
+// Type definitions for @babel/core 7.20
 // Project: https://github.com/babel/babel/tree/master/packages/babel-core, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
@@ -37,6 +37,14 @@ interface InputSourceMap {
 }
 
 export interface TransformOptions {
+    /**
+     * Specify which assumptions it can make about your code, to better optimize the compilation result. **NOTE**: This replaces the various `loose` options in plugins in favor of
+     * top-level options that can apply to multiple plugins
+     *
+     * @see https://babeljs.io/docs/en/assumptions
+     */
+    assumptions?: { [name: string]: boolean } | null | undefined;
+
     /**
      * Include the AST in the returned object
      *
@@ -353,6 +361,33 @@ export interface TransformOptions {
     test?: MatchPattern | MatchPattern[] | undefined;
 
     /**
+     * Describes the environments you support/target for your project.
+     * This can either be a [browserslist-compatible](https://github.com/ai/browserslist) query (with [caveats](https://babeljs.io/docs/en/babel-preset-env#ineffective-browserslist-queries))
+     *
+     * Default: `{}`
+     */
+    targets?:
+        | string
+        | string[]
+        | {
+              esmodules?: boolean;
+              node?: Omit<string, 'current'> | 'current' | true;
+              safari?: Omit<string, 'tp'> | 'tp';
+              browsers?: string | string[];
+              android?: string;
+              chrome?: string;
+              deno?: string;
+              edge?: string;
+              electron?: string;
+              firefox?: string;
+              ie?: string;
+              ios?: string;
+              opera?: string;
+              rhino?: string;
+              samsung?: string;
+          };
+
+    /**
      * An optional callback that can be used to wrap visitor methods. **NOTE**: This is useful for things like introspection, and not really needed for implementing anything. Called as
      * `wrapPluginVisitorMethod(pluginAlias, visitorType, callback)`.
      */
@@ -362,7 +397,8 @@ export interface TransformOptions {
               visitorType: 'enter' | 'exit',
               callback: (path: NodePath, state: any) => void,
           ) => (path: NodePath, state: any) => void)
-        | null | undefined;
+        | null
+        | undefined;
 }
 
 export interface TransformCaller {
@@ -498,15 +534,18 @@ export interface BabelFileResult {
     ast?: t.File | null | undefined;
     code?: string | null | undefined;
     ignored?: boolean | undefined;
-    map?: {
-        version: number;
-        sources: string[];
-        names: string[];
-        sourceRoot?: string | undefined;
-        sourcesContent?: string[] | undefined;
-        mappings: string;
-        file: string;
-    } | null | undefined;
+    map?:
+        | {
+              version: number;
+              sources: string[];
+              names: string[];
+              sourceRoot?: string | undefined;
+              sourcesContent?: string[] | undefined;
+              mappings: string;
+              file: string;
+          }
+        | null
+        | undefined;
     metadata?: BabelFileMetadata | undefined;
 }
 
@@ -629,17 +668,20 @@ export interface ConfigItem {
      * Information about the plugin's file, if Babel knows it.
      *  *
      */
-    file?: {
-        /**
-         * The file that the user requested, e.g. `"@babel/env"`
-         */
-        request: string;
+    file?:
+        | {
+              /**
+               * The file that the user requested, e.g. `"@babel/env"`
+               */
+              request: string;
 
-        /**
-         * The full path of the resolved file, e.g. `"/tmp/node_modules/@babel/preset-env/lib/index.js"`
-         */
-        resolved: string;
-    } | null | undefined;
+              /**
+               * The full path of the resolved file, e.g. `"/tmp/node_modules/@babel/preset-env/lib/index.js"`
+               */
+              resolved: string;
+          }
+        | null
+        | undefined;
 }
 
 export type PluginOptions = object | undefined | false;

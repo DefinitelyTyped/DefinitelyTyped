@@ -23,6 +23,10 @@ Offcanvas.getOrCreateInstance(element, {
     keyboard: true,
     scroll: false,
 });
+// $ExpectType Offcanvas
+Offcanvas.getOrCreateInstance(element, {
+    backdrop: 'static'
+});
 
 // $ExpectType string
 Offcanvas.VERSION;

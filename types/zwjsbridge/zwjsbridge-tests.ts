@@ -80,6 +80,16 @@ async () => {
             credential: 'orderNo',
         });
 
+        ZWJSBridge.uploadFile({
+            type: 'image/*',
+            url: 'https://www.google.com',
+            count: 1,
+        });
+
+        ZWJSBridge.downloadFile({
+            url: 'https://www.google.com',
+        });
+
         ZWJSBridge.confirm({
             title: 'title',
             message: 'message',

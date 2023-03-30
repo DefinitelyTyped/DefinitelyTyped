@@ -1,3 +1,5 @@
+// https://threejs.org/docs/#api/en/renderers/webxr/WebXRManager
+
 /// <reference types="webxr" />
 
 import { Vector4 } from '../../math/Vector4';
@@ -38,11 +40,17 @@ export class WebXRManager extends EventDispatcher {
     getBinding(): XRWebGLBinding;
     getFrame(): XRFrame;
     getSession(): XRSession | null;
-    setSession(value: XRSession): Promise<void>;
+    setSession(value: XRSession | null): Promise<void>;
     getCamera(): WebXRArrayCamera;
     updateCamera(camera: PerspectiveCamera): void;
     setAnimationLoop(callback: XRFrameRequestCallback | null): void;
     getFoveation(): number | undefined;
-    setFoveation(foveation: number): void;
+    setFoveation(value: number): void;
+
+    /**
+     * Returns the set of planes detected by WebXR's plane detection API.
+     */
+    getPlanes(): Set<XRPlane>;
+
     dispose(): void;
 }

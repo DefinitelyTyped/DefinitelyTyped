@@ -19,6 +19,7 @@ export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap>
     nextSnapshotRequestId: number;
 
     state: string;
+    readonly canSend: boolean;
     debug: boolean;
 
     close(): void;

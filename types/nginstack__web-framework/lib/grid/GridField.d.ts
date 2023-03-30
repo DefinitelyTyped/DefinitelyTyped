@@ -20,7 +20,7 @@ declare class GridField {
     alignment: any;
     private written_;
     lookup(): void;
-    grid: any;
+    grid: DetailGrid;
     private tree;
     private defaultLookupMultipleInsertListener_;
     private checkIfCanModify_;
@@ -39,7 +39,7 @@ declare class GridField {
     private visibleAtView;
     private _checkInformedFields;
     private validateClassFieldChange_;
-    validateInput: (value: string | number | boolean | Date) => any;
+    validateInput: (value: any) => any;
     protected _checkSaveInputAsDefault(context: {
         processKey: number;
         interactionName: string;
@@ -79,7 +79,8 @@ declare class GridField {
     private _tableViewWidth;
 }
 declare namespace GridField {
-    export { LookupMultipleInsertEvent };
+    export { LookupMultipleInsertEvent, DetailGrid };
 }
+type DetailGrid = import('./DetailGrid');
 import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
 type LookupMultipleInsertEvent = import('../classdef/LookupMultipleInsertEvent');

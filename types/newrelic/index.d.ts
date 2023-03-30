@@ -1,4 +1,4 @@
-// Type definitions for newrelic 7.0
+// Type definitions for newrelic 9.4
 // Project: https://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
@@ -88,14 +88,14 @@ export function addCustomAttributes(atts: { [key: string]: string | number | boo
  *
  * Most recently set value wins.
  */
- export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
+export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
 
- /**
-  * Adds all custom attributes in an object to the the currently executing span.
-  *
-  * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
-  */
- export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
+/**
+ * Adds all custom attributes in an object to the the currently executing span.
+ *
+ * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
+ */
+export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
  * Send errors to New Relic that you've already handled yourself.
@@ -105,6 +105,26 @@ export function addCustomAttributes(atts: { [key: string]: string | number | boo
  *  Optional. Any custom attributes to be displayed in the New Relic UI.
  */
 export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }): void;
+
+/**
+ * Sends an application log message to New Relic. The agent already
+ * automatically does this for some instrumented logging libraries,
+ * but in case you are using another logging method that is not
+ * already instrumented by the agent, you can use this function
+ * instead.
+ *
+ * If application log forwarding is disabled in the agent
+ * configuration, this function does nothing.
+ *
+ * An example of using this function is
+ *
+ *    newrelic.recordLogEvent({
+ *       message: 'cannot find file',
+ *       level: 'ERROR',
+ *       error: new SystemError('missing.txt')
+ *    })
+ */
+export function recordLogEvent(logEvent: LogEvent): void;
 
 /**
  * If the URL for a transaction matches the provided pattern, name the
@@ -157,7 +177,7 @@ export function addIgnoringRule(pattern: RegExp | string): void;
  *
  * Do *not* reuse the headers between users, or even between requests.
  */
-export function getBrowserTimingHeader(): string;
+export function getBrowserTimingHeader(options?: { nonce?: string; hasToRemoveScriptWrapper?: boolean }): string;
 
 /**
  * Instrument a particular method to improve visibility into a transaction,
@@ -344,7 +364,11 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean | undefined; timeout?: number | undefined; waitForIdle?: boolean | undefined },
+    options?: {
+        collectPendingData?: boolean | undefined;
+        timeout?: number | undefined;
+        waitForIdle?: boolean | undefined;
+    },
     cb?: (error?: Error) => void,
 ): void;
 
@@ -465,6 +489,28 @@ export interface LinkingMetadata {
      * this will be the hostname specified in the connect request as host.
      */
     hostname: string;
+}
+
+export interface LogEvent {
+    /**
+     * The log message
+     */
+    message: string;
+
+    /**
+     * The log level severity. If this key is missing, it will default to "UNKNOWN"
+     */
+    level?: string | undefined;
+
+    /**
+     * ECMAScript epoch number denoting the time that this log message was produced. If this key is missing, it will default to the output of `Date.now()`
+     */
+    timestamp?: number | undefined;
+
+    /**
+     * Error associated to this log event. Ignored if missing.
+     */
+    error?: Error | undefined;
 }
 
 export interface TraceMetadata {

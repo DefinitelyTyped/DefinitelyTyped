@@ -2,6 +2,15 @@ import * as babel from '@babel/core';
 import * as t from '@babel/types';
 
 const options: babel.TransformOptions = {
+    targets: {
+        esmodules: true,
+        chrome: '100',
+        safari: '15',
+    },
+    assumptions: {
+        noDocumentAll: true,
+        noClassCalls: true,
+    },
     ast: true,
     sourceMaps: true,
     inputSourceMap: {

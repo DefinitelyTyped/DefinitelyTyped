@@ -308,6 +308,13 @@ management.getUsersByEmail('email@address.com').then(users => {
     console.log(users);
 });
 
+management.getUserLogs({ id: 'user_id' }).then(roles => console.log(roles));
+management.getUserLogs({ id: 'user_id' }, (err, data) => console.log(data));
+management.getUserLogs({ id: 'user_id', per_page: 3 }).then(roles => console.log(roles));
+management.getUserLogs({ id: 'user_id', per_page: 3 }, (err, data) => console.log(data));
+management.getUserLogs({ id: 'user_id', include_totals: true }).then(rolePage => console.log(rolePage));
+management.getUserLogs({ id: 'user_id', include_totals: true }, (err, data) => console.log(data));
+
 management.getUserRoles({ id: 'user_id' }).then(roles => console.log(roles));
 management.getUserRoles({ id: 'user_id' }, (err, data) => console.log(data));
 management.getUserRoles({ id: 'user_id', per_page: 3 }).then(roles => console.log(roles));
@@ -394,6 +401,17 @@ management.assignPermissionsToUser(
     },
 );
 
+// Without telemetry
+new auth0.ManagementClient({
+    domain: 'xxx.auth0.com',
+    telemetry: false,
+});
+
+new auth0.AuthenticationClient({
+    domain: 'xxx.auth0.com',
+    telemetry: false,
+});
+
 // Using different client settings.
 const retryableManagementClient = new auth0.ManagementClient({
     clientId: '',
@@ -465,6 +483,16 @@ management.getConnections((err: Error, connections: auth0.Connection[]) => {});
 // Get all Connections with promise and pagination
 management
     .getConnections({ per_page: 25, page: 0 })
+    .then((connections: auth0.Connection[]) => {
+        console.log(connections);
+    })
+    .catch(err => {
+        // error handler
+    });
+
+// Get all Connections with params (with promise)
+management
+    .getConnections({ name: 'connectionName', strategy: 'auth0', include_fields: true, fields: ['id', 'name'] })
     .then((connections: auth0.Connection[]) => {
         console.log(connections);
     })
@@ -1717,3 +1745,94 @@ management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials)
 
 management.deleteDeviceCredential({ id: 'id' }).then(() => {});
 management.deleteDeviceCredential({ id: 'id' }, err => {});
+
+// Fetch a user's authentication methods
+management.users
+    .getAuthenticationMethods({ id: 'my_id' })
+    .then((authenticationMethods: auth0.AuthenticationMethod[]) => {
+        console.log(authenticationMethods);
+    });
+
+// Fetch a user's authentication methods using cb style
+management.users.getAuthenticationMethods(
+    { id: 'my_id' },
+    (err: Error, getAuthenticationMethods: auth0.AuthenticationMethod[]) => {
+        if (err) {
+            throw err;
+        }
+
+        console.log(getAuthenticationMethods);
+    },
+);
+
+// Fetch a user's authentication method by id
+management.users
+    .getAuthenticationMethodById({ id: 'my_id', authentication_method_id: 'authentication_method_id' })
+    .then((authenticationMethod: auth0.AuthenticationMethod) => {
+        console.log(authenticationMethod);
+    });
+
+// Fetch a user's authentication method by id using cb style
+management.users.getAuthenticationMethodById(
+    { id: 'my_id', authentication_method_id: 'authentication_method_id' },
+    (err: Error, getAuthenticationMethod: auth0.AuthenticationMethod) => {
+        if (err) {
+            throw err;
+        }
+
+        console.log();
+    },
+);
+
+// Delete a user's authentication methods
+management.users
+    .deleteAuthenticationMethodById({ id: 'my_id', authentication_method_id: 'authentication_method_id' })
+    .then(() => {});
+
+// Delete a user's authentication methods using cb style
+management.users.deleteAuthenticationMethodById(
+    { id: 'my_id', authentication_method_id: 'authentication_method_id' },
+    (err: Error) => {
+        if (err) {
+            throw err;
+        }
+    },
+);
+
+// Delete a user's authentication method by id
+management.users.deleteAuthenticationMethods({ id: 'my_id' }).then(() => {});
+
+// Delete a user's authentication method by id using cb style
+management.users.deleteAuthenticationMethods({ id: 'my_id' }, (err: Error) => {
+    if (err) {
+        throw err;
+    }
+});
+
+// Retrieve all multi-factor authentication configurations
+management.getGuardianFactors().then((guardianFactor: auth0.GuardianFactor[]) => {
+    console.log(guardianFactor);
+});
+
+// Retrieve all multi-factor authentication configurations using cb style
+management.getGuardianFactors((err: Error, guardianFactor: auth0.GuardianFactor[]) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(guardianFactor);
+});
+
+// Regenerates recover-code
+management.users.regenerateRecoveryCode({ id: 'my_id' }).then(res => {
+    console.log(res.recovery_code);
+});
+
+// Regenerates recover-code using cb style
+management.users.regenerateRecoveryCode({ id: 'my_id' }, (err: Error, res) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(res.recovery_code);
+});

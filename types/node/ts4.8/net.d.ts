@@ -57,6 +57,14 @@ declare module 'net' {
         noDelay?: boolean | undefined;
         keepAlive?: boolean | undefined;
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamily?: boolean | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamilyAttemptTimeout?: number | undefined;
     }
     interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;
@@ -131,6 +139,17 @@ declare module 'net' {
          * @return The socket itself.
          */
         pause(): this;
+        /**
+         * Close the TCP connection by sending an RST packet and destroy the stream.
+         * If this TCP socket is in connecting status, it will send an RST packet
+         * and destroy this TCP socket once it is connected. Otherwise, it will call
+         * `socket.destroy` with an `ERR_SOCKET_CLOSED` Error. If this is not a TCP socket
+         * (for example, a pipe), calling this method will immediately throw
+         * an `ERR_INVALID_HANDLE_TYPE` Error.
+         * @since v18.3.0
+         * @return The socket itself.
+         */
+        resetAndDestroy(): this;
         /**
          * Resumes reading after a call to `socket.pause()`.
          * @return The socket itself.
@@ -267,6 +286,17 @@ declare module 'net' {
          */
         readonly localPort?: number;
         /**
+         * The string representation of the local IP family. `'IPv4'` or `'IPv6'`.
+         * @since v18.8.0
+         */
+        readonly localFamily?: string;
+        /**
+         * This is `true` if the socket is not connected yet, either because `.connect()`
+         * has not yet been called or because it is still in the process of connecting (see `socket.connecting`).
+         * @since v10.16.0
+         */
+        readonly pending: boolean;
+        /**
          * This property represents the state of the connection as a string.
          * @see {https://nodejs.org/api/net.html#socketreadystate}
          * @since v0.5.0
@@ -315,7 +345,8 @@ declare module 'net' {
          *   5. end
          *   6. error
          *   7. lookup
-         *   8. timeout
+         *   8. ready
+         *   9. timeout
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: 'close', listener: (hadError: boolean) => void): this;
@@ -421,6 +452,14 @@ declare module 'net' {
          * @since v16.5.0
          */
         keepAliveInitialDelay?: number | undefined;
+    }
+    interface DropArgument {
+        localAddress?: string;
+        localPort?: number;
+        localFamily?: string;
+        remoteAddress?: string;
+        remotePort?: number;
+        remoteFamily?: string;
     }
     /**
      * This class is used to create a TCP or `IPC` server.
@@ -558,37 +597,44 @@ declare module 'net' {
          *   2. connection
          *   3. error
          *   4. listening
+         *   5. drop
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'connection', listener: (socket: Socket) => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
         addListener(event: 'listening', listener: () => void): this;
+        addListener(event: 'drop', listener: (data?: DropArgument) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: 'close'): boolean;
         emit(event: 'connection', socket: Socket): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'listening'): boolean;
+        emit(event: 'drop', data?: DropArgument): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'close', listener: () => void): this;
         on(event: 'connection', listener: (socket: Socket) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'listening', listener: () => void): this;
+        on(event: 'drop', listener: (data?: DropArgument) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: 'close', listener: () => void): this;
         once(event: 'connection', listener: (socket: Socket) => void): this;
         once(event: 'error', listener: (err: Error) => void): this;
         once(event: 'listening', listener: () => void): this;
+        once(event: 'drop', listener: (data?: DropArgument) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'connection', listener: (socket: Socket) => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
         prependListener(event: 'listening', listener: () => void): this;
+        prependListener(event: 'drop', listener: (data?: DropArgument) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
         prependOnceListener(event: 'listening', listener: () => void): this;
+        prependOnceListener(event: 'drop', listener: (data?: DropArgument) => void): this;
     }
     type IPVersion = 'ipv4' | 'ipv6';
     /**
@@ -814,7 +860,6 @@ declare module 'net' {
     class SocketAddress {
         constructor(options: SocketAddressInitOptions);
         /**
-         * Either \`'ipv4'\` or \`'ipv6'\`.
          * @since v15.14.0, v14.18.0
          */
         readonly address: string;

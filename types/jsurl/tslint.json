@@ -7,7 +7,6 @@
         "one-line": false,
         "prefer-template": false,
         "semicolon": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

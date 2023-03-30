@@ -3,6 +3,7 @@ import * as React from 'react';
 const testCases = [
     <span />,
     <span accessKey="s" />,
+    <span autoFocus />,
     <span className="klass" />,
     <span contentEditable />,
     <span contextMenu="menuId" />,
@@ -54,4 +55,5 @@ const testCases = [
             event;
         }}
     ></dialog>,
+    <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
 ];

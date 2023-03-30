@@ -4,11 +4,8 @@
         "array-type": false,
         "ban-types": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-single-declare-module": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

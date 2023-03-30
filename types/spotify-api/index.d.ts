@@ -3,7 +3,6 @@
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 //                 Magnar Ovedal Myrtveit <https://github.com/Stadly>
 //                 Nils Måsén <https://github.com/piksel>
-//                 Basti Ortiz <https://github.com/Some-Dood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1373,7 +1372,27 @@ declare namespace SpotifyApi {
      */
     interface RecommendationsObject {
         seeds: RecommendationsSeedObject[];
-        tracks: TrackObjectSimplified[];
+        tracks: RecommendationTrackObject[];
+    }
+    
+    /**
+     * Recommendation Track Object
+     * Uses the same object structure as Full Track Object, but with `album.album_type` in caps.
+     */
+    interface RecommendationTrackObject extends Omit<TrackObjectFull, "album"> {
+        album: RecommendationAlbumObject;
+    }
+
+    /**
+     * Recommendation Album Object
+     * Uses the same object structure as Simple Album Object, but with `album_type` in caps.
+     */
+    interface RecommendationAlbumObject extends Omit<AlbumObjectSimplified, "album_type"> {
+        /**
+         * The type of the album: one of “ALBUM”, “SINGLE”, or “COMPILATION”.
+         * Note that this differs from the types returned by all other spotify APIs by being in all caps.
+         */
+        album_type: 'ALBUM' | 'SINGLE' | 'COMPILATION';
     }
 
     /**
@@ -1811,6 +1830,7 @@ declare namespace SpotifyApi {
         id: string | null;
         is_active: boolean;
         is_restricted: boolean;
+        is_private_session: boolean;
         name: string;
         type: string;
         volume_percent: number | null;

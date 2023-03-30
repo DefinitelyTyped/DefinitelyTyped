@@ -604,6 +604,21 @@ declare module 'perf_hooks' {
      * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
+
+    import { performance as _performance } from 'perf_hooks';
+    global {
+        /**
+         * `performance` is a global reference for `require('perf_hooks').performance`
+         * https://nodejs.org/api/globals.html#performance
+         * @since v16.0.0
+         */
+        var performance: typeof globalThis extends {
+            onmessage: any;
+            performance: infer T;
+        }
+            ? T
+            : typeof _performance;
+    }
 }
 declare module 'node:perf_hooks' {
     export * from 'perf_hooks';

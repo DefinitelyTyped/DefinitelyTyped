@@ -1,27 +1,14 @@
 export = DataSourceFilters;
-declare function DataSourceFilters(opt_dataSource?: any, opt_filtersValues?: any[]): void;
+declare function DataSourceFilters(opt_dataSource?: DataSource, opt_filtersValues?: any[]): void;
 declare class DataSourceFilters {
-    constructor(opt_dataSource?: any, opt_filtersValues?: any[]);
+    constructor(opt_dataSource?: DataSource, opt_filtersValues?: any[]);
     private filtersArray_;
     private filtersHash_;
     private indexByName_;
     private newDynFilter_;
     private unshare_;
     getLength(): number;
-    importFields(
-        classKey: number,
-        prefix: string,
-        opt_options?:
-            | {
-                  includeFieldNames: string;
-                  excludeFieldNames: string;
-                  children: boolean;
-                  onlyVisible: boolean;
-                  onlyIncludedFieldNames: boolean;
-                  classDef: any;
-              }
-            | Record<any, any>
-    ): void;
+    importFields(classKey: number, prefix: string, opt_options?: any): void;
     importVisibleFields(
         classKey: number,
         fieldNamesPrefix?: string,
@@ -34,9 +21,9 @@ declare class DataSourceFilters {
     filter(id: number | string, opt_type?: string, opt_classKey?: number): DataSourceFilter;
     private parseFiltersExpression_;
     getFilters(filtersSelection: string): DataSourceFilters;
-    getIQueryFilters(filtersSelection: string, conditionalOperator: string, iquery?: any): any[];
+    getIQueryFilters(filtersSelection: string, conditionalOperator: string, iquery?: IQuery): any[];
     getDerivedFiltersNames(filterName: string, selfDerived: boolean): any[];
-    toString(): string;
+    toString(): any;
     private add;
     hasFilter(name: string): boolean;
     map(
@@ -45,7 +32,9 @@ declare class DataSourceFilters {
     ): any[];
 }
 declare namespace DataSourceFilters {
-    export { ModelDef };
+    export { ModelDef, IQuery, DataSource };
 }
+type DataSource = import('./DataSource');
 type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
 import DataSourceFilter = require('./DataSourceFilter.js');
+type IQuery = import('@nginstack/iquery/lib/IQuery');

@@ -8,7 +8,6 @@
         "one-line": false,
         "prefer-template": false,
         "space-within-parens": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
         "whitespace": false

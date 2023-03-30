@@ -2,10 +2,8 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-declare-current-package": false,
         "no-single-declare-module": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

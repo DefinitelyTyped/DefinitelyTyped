@@ -11,6 +11,7 @@
 //   David Burns <https://github.com/AutomatedTester>
 //   Pirasis Leelatanon <https://github.com/1pete>
 //   Harmandeep Singh <https://github.com/SinghHrmn>
+//   Shubh Sheth <https://github.com/shubhsheth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1805,7 +1806,8 @@ export class WebDriver {
    * @param {number=} opt_timeout How long to wait for the condition to be true.
    * @param {string=} opt_message An optional message to use if the wait times
    *     out.
-   * @param {number=} opt_pollTimeout How long to wait between polling the condition.
+   * @param {number=} opt_pollTimeout Duration in milliseconds to wait between
+   *     polling the condition.
    * @return {!WebElementPromise} A promise that will be fulfilled
    *     with the first truthy value returned by the condition function, or
    *     rejected if the condition times out.
@@ -1859,6 +1861,8 @@ export class WebDriver {
    * @param {number=} opt_timeout How long to wait for the condition to be true.
    * @param {string=} opt_message An optional message to use if the wait times
    *     out.
+   * @param {number=} opt_pollTimeout Duration in milliseconds to wait between
+   *     polling the condition.
    * @return {!Promise<T>} A promise that will be fulfilled
    *     with the first truthy value returned by the condition function, or
    *     rejected if the condition times out.
@@ -1866,7 +1870,7 @@ export class WebDriver {
    */
   wait<T>(
       condition: PromiseLike<T>|Condition<T>|((driver: WebDriver) => T | PromiseLike<T>)|Function,
-      opt_timeout?: number, opt_message?: string): Promise<T>;
+      opt_timeout?: number, opt_message?: string, opt_pollTimeout?: number): Promise<T>;
 
   /**
    * Schedules a command to make the driver sleep for the given amount of time.

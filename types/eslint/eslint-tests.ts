@@ -1,4 +1,4 @@
-import { Comment, WhileStatement } from 'estree';
+import { Comment, PrivateIdentifier, PropertyDefinition, StaticBlock, WhileStatement } from 'estree';
 import { AST, SourceCode, Rule, Linter, ESLint, RuleTester, Scope } from 'eslint';
 import { ESLintRules } from 'eslint/rules';
 
@@ -70,9 +70,9 @@ loc.column; // $ExpectType number
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 
 sourceCode.getTokenByRangeStart(0); // $ExpectType Token | null
-sourceCode.getTokenByRangeStart(0, { includeComments: true }); // $ExpectType Comment | Token | null
+sourceCode.getTokenByRangeStart(0, { includeComments: true }); // $ExpectType Comment | Token | null || Token | Comment | null
 sourceCode.getTokenByRangeStart(0, { includeComments: false }); // $ExpectType Token | null
-sourceCode.getTokenByRangeStart(0, { includeComments: false as boolean }); // $ExpectType Comment | Token | null
+sourceCode.getTokenByRangeStart(0, { includeComments: false as boolean }); // $ExpectType Comment | Token | null || Token | Comment | null
 
 sourceCode.getFirstToken(AST); // $ExpectType Token | null
 sourceCode.getFirstToken(AST, 0);
@@ -80,7 +80,7 @@ sourceCode.getFirstToken(AST, { skip: 0 });
 sourceCode.getFirstToken(AST, (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier'); // $ExpectType (Token & { type: "Identifier"; }) | null
 sourceCode.getFirstToken(AST, { filter: (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier' }); // $ExpectType (Token & { type: "Identifier"; }) | null
 sourceCode.getFirstToken(AST, { skip: 0, filter: t => t.type === 'Identifier' });
-sourceCode.getFirstToken(AST, { includeComments: true }); // $ExpectType Comment | Token | null
+sourceCode.getFirstToken(AST, { includeComments: true }); // $ExpectType Comment | Token | null || Token | Comment | null
 sourceCode.getFirstToken(AST, { includeComments: true, skip: 0 });
 // prettier-ignore
 sourceCode.getFirstToken(AST, { // $ExpectType (Token & { type: "Identifier"; }) | null
@@ -188,7 +188,7 @@ sourceCode.getFirstTokenBetween(AST, AST, {
     skip: 0,
     filter: (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier',
 });
-sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true }); // $ExpectType Comment | Token | null
+sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true }); // $ExpectType Comment | Token | null || Token | Comment | null
 sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0 });
 // prettier-ignore
 sourceCode.getFirstTokenBetween(AST, AST, { // $ExpectType (Token & { type: "Identifier"; }) | null
@@ -206,7 +206,7 @@ sourceCode.getFirstTokensBetween(AST, AST, { // $ExpectType (Token & { type: "Id
     filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
 });
 sourceCode.getFirstTokensBetween(AST, AST, { count: 0, filter: t => t.type === 'Identifier' });
-sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true }); // $ExpectType (Comment | Token)[]
+sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true }); // $ExpectType (Comment | Token)[] || (Token | Comment)[]
 sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0 });
 // prettier-ignore
 sourceCode.getFirstTokensBetween(AST, AST, { // $ExpectType (Token & { type: "Identifier"; })[]
@@ -243,7 +243,7 @@ sourceCode.getTokens(AST, 0);
 sourceCode.getTokens(AST, 0, 0);
 sourceCode.getTokens(AST, (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier'); // $ExpectType (Token & { type: "Identifier"; })[]
 sourceCode.getTokens(AST, { filter: (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier' }); // $ExpectType (Token & { type: "Identifier"; })[]
-sourceCode.getTokens(AST, { includeComments: true }); // $ExpectType (Comment | Token)[]
+sourceCode.getTokens(AST, { includeComments: true }); // $ExpectType (Comment | Token)[] || (Token | Comment)[]
 // prettier-ignore
 sourceCode.getTokens(AST, { // $ExpectType (Token & { type: "Identifier"; })[]
     includeComments: true,
@@ -357,7 +357,7 @@ rule = {
     create(context) {
         return {};
     },
-    meta: { deprecated: true },
+    meta: { deprecated: true, replacedBy: ['other-rule-name'] },
 };
 rule = {
     create(context) {
@@ -477,9 +477,26 @@ rule = {
                 // @ts-expect-error
                 node.parent;
             },
-            'Program:exit'() {},
+            'Program:exit'(node) {
+                node.body;
+            },
+            'IfStatement:exit'(node) {
+                node.parent;
+            },
             'MemberExpression[object.name="req"]': (node: Rule.Node) => {
                 node.parent;
+            },
+            PrivateIdentifier(node) {
+                const expected: PrivateIdentifier & Rule.NodeParentExtension = node;
+                expected.parent;
+            },
+            PropertyDefinition(node) {
+                const expected: PropertyDefinition & Rule.NodeParentExtension = node;
+                expected.parent;
+            },
+            StaticBlock(node) {
+                const expected: StaticBlock & Rule.NodeParentExtension = node;
+                expected.parent;
             },
         };
     },
@@ -515,6 +532,7 @@ linter.verify(
 );
 linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'off' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'readonly' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'readable' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'writable' } }, 'test.js');
@@ -696,6 +714,8 @@ eslint = new ESLint({
     }
 });
 eslint = new ESLint({ reportUnusedDisableDirectives: "error" });
+// @ts-expect-error
+eslint = new ESLint({ reportUnusedDisableDirectives: 2 });
 eslint = new ESLint({ resolvePluginsRelativeTo: "test" });
 eslint = new ESLint({ rulePaths: ["foo"] });
 
@@ -788,8 +808,41 @@ let eslintConfig: Linter.Config<ESLintRules>;
 eslintConfig = {
     rules: {
         'capitalized-comments': [2, 'always', { ignorePattern: 'const|let' }],
+        'sort-keys': [2, 'asc', { allowLineSeparatedGroups: true }],
     },
+    overrides: [{
+        files: '*.json',
+        rules: {
+            'max-len': 0,
+        },
+    },
+    {
+        files: '*.ts',
+        rules: {
+            '@typescript-eslint/no-invalid-void-type': [2, {allowAsThisParameter: true}],
+        },
+    }],
 };
+
+eslintConfig.rules; // $ExpectType Partial<ESLintRules> | undefined
+eslintConfig.overrides?.[0].rules; // $ExpectType Partial<ESLintRules> | undefined
+
+interface TSLinterRules {
+    '@typescript-eslint/no-invalid-void-type'?: Linter.RuleEntry<[Partial<{
+        allowInGenericTypeArguments: boolean | string[];
+        allowAsThisParameter: boolean;
+    }>]>;
+}
+
+const eslintConfig2: Linter.Config<ESLintRules, ESLintRules & TSLinterRules> = eslintConfig;
+
+eslintConfig2.rules; // $ExpectType Partial<ESLintRules> | undefined
+eslintConfig2.overrides?.[1].rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
+
+const eslintConfig3: Linter.Config<ESLintRules & TSLinterRules> = eslintConfig2;
+
+eslintConfig3.rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
+eslintConfig3.overrides?.[1].rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
 
 //#endregion
 
@@ -841,6 +894,33 @@ ruleTester.run('my-rule', rule, {
 
 ruleTester.run('simple-valid-test', rule, {
     valid: ['foo', 'bar', { code: 'foo', options: [{ allowFoo: true }] }],
+});
+
+//#endregion
+
+//#region FlatConfig
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        parser: {
+            parse: () => AST
+        }
+    }
+});
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        parser: {
+            parseForESLint: () => ({ ast: AST })
+        }
+    }
+});
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        // @ts-expect-error
+        parser: "foo-parser"
+    }
 });
 
 //#endregion

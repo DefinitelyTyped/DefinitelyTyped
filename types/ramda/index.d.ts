@@ -17,7 +17,6 @@
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 //                 Ryan McCuaig <https://github.com/rgm>
-//                 Drew Wyatt <https://github.com/drewwyatt>
 //                 John Ottenlips <https://github.com/jottenlips>
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
@@ -74,6 +73,7 @@ import {
     IfFunctionsArgumentsDoNotOverlap,
     LargestArgumentsList,
     mergeArrWithLeft,
+    Prop,
 } from './tools';
 
 export * from './tools';
@@ -478,7 +478,7 @@ export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
  *
  * @example
  * ```typescript
- * const byAge = R.ascend(R.prop<'age', number>('age'));
+ * const byAge = R.ascend(R.prop<number>('age'));
  * const people = [
  *   { name: 'Emma', age: 70 },
  *   { name: 'Peter', age: 78 },
@@ -504,8 +504,10 @@ export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
  * R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
  * ```
  */
-export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & Omit<U, K>;
+export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => K extends keyof U ? T extends U[K] ? U : Record<K, T> & Omit<U, K> : Record<K, T> & Omit<U, K>;
+export function assoc<U, K extends keyof U>(prop: K, __: Placeholder, obj: U): <T>(val: T) => T extends U[K] ? U : Record<K, T> & Omit<U, K>;
 export function assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & Omit<U, K>;
+export function assoc<K extends keyof U, U>(prop: K, val: U[K], obj: U): U;
 export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
 export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
@@ -643,6 +645,9 @@ export function call<T extends AnyFunction>(fn: T, ...args: Parameters<T>): Retu
  */
 export function chain<A, B, T = never>(fn: (n: A) => readonly B[], list: readonly A[]): B[];
 export function chain<A, B, T = never>(fn: (n: A) => readonly B[]): (list: readonly A[]) => B[];
+
+export function chain<A, Ma extends { chain: (fn: (a: A) => Mb) => Mb }, Mb>(fn: (a: A) => Mb, monad: Ma): Mb;
+export function chain<A, Ma extends { chain: (fn: (a: A) => Mb) => Mb }, Mb>(fn: (a: A) => Mb): (monad: Ma) => Mb;
 
 export function chain<A, B, R>(aToMb: (a: A, r: R) => B, Ma: (r: R) => A): (r: R) => B;
 export function chain<A, B, R>(aToMb: (a: A, r: R) => B): (Ma: (r: R) => A) => (r: R) => B;
@@ -835,81 +840,6 @@ export function compose<TArgs extends any[], R1, R2>(
     f1: (...args: TArgs) => R1,
 ): (...args: TArgs) => R2;
 export function compose<TArgs extends any[], R1>(f1: (...args: TArgs) => R1): (...args: TArgs) => R1;
-
-/**
- * Returns the right-to-left Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
- * The typings only support arrays for now.
- * All functions must be unary.
- * R.composeK(h, g, f) is equivalent to R.compose(R.chain(h), R.chain(g), f).
- *
- * @deprecated since 0.26 in favor of composeWith(chain)
- */
-export function composeK<V0, T1>(fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
-export function composeK<V0, T1, T2>(fn1: (x: T1) => T2[], fn0: (x0: V0) => T1[]): (x0: V0) => T2[];
-export function composeK<V0, T1, T2, T3>(
-    fn2: (x: T2) => T3[],
-    fn1: (x: T1) => T2[],
-    fn0: (x: V0) => T1[],
-): (x: V0) => T3[];
-export function composeK<V0, T1, T2, T3, T4>(
-    fn3: (x: T3) => T4[],
-    fn2: (x: T2) => T3[],
-    fn1: (x: T1) => T2[],
-    fn0: (x: V0) => T1[],
-): (x: V0) => T4[];
-export function composeK<V0, T1, T2, T3, T4, T5>(
-    fn4: (x: T4) => T5[],
-    fn3: (x: T3) => T4[],
-    fn2: (x: T2) => T3[],
-    fn1: (x: T1) => T2[],
-    fn0: (x: V0) => T1[],
-): (x: V0) => T5[];
-export function composeK<V0, T1, T2, T3, T4, T5, T6>(
-    fn5: (x: T5) => T6[],
-    fn4: (x: T4) => T5[],
-    fn3: (x: T3) => T4[],
-    fn2: (x: T2) => T3[],
-    fn1: (x: T1) => T2[],
-    fn0: (x: V0) => T1[],
-): (x: V0) => T6[];
-
-/**
- * Performs right-to-left composition of one or more Promise-returning functions.
- * All functions must be unary.
- *
- * @deprecated since 0.26 in favor of composeWith(then)
- */
-export function composeP<V0, T1>(fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
-export function composeP<V0, T1, T2>(
-    fn1: (x: T1) => Promise<T2>,
-    fn0: (x0: V0) => Promise<T1>,
-): (x0: V0) => Promise<T2>;
-export function composeP<V0, T1, T2, T3>(
-    fn2: (x: T2) => Promise<T3>,
-    fn1: (x: T1) => Promise<T2>,
-    fn0: (x: V0) => Promise<T1>,
-): (x: V0) => Promise<T3>;
-export function composeP<V0, T1, T2, T3, T4>(
-    fn3: (x: T3) => Promise<T4>,
-    fn2: (x: T2) => Promise<T3>,
-    fn1: (x: T1) => Promise<T2>,
-    fn0: (x: V0) => Promise<T1>,
-): (x: V0) => Promise<T4>;
-export function composeP<V0, T1, T2, T3, T4, T5>(
-    fn4: (x: T4) => Promise<T5>,
-    fn3: (x: T3) => Promise<T4>,
-    fn2: (x: T2) => Promise<T3>,
-    fn1: (x: T1) => Promise<T2>,
-    fn0: (x: V0) => Promise<T1>,
-): (x: V0) => Promise<T5>;
-export function composeP<V0, T1, T2, T3, T4, T5, T6>(
-    fn5: (x: T5) => Promise<T6>,
-    fn4: (x: T4) => Promise<T5>,
-    fn3: (x: T3) => Promise<T4>,
-    fn2: (x: T2) => Promise<T3>,
-    fn1: (x: T1) => Promise<T2>,
-    fn0: (x: V0) => Promise<T1>,
-): (x: V0) => Promise<T6>;
 
 /**
  * Performs right-to-left function composition using transforming function.
@@ -1174,21 +1104,6 @@ export function constructN<A extends any[], T, N extends number>(
     n: N,
     constructor: { new (...args: A): T } | ((...args: A) => T),
 ): _.F.Curry<(...args: mergeArrWithLeft<Tuple<any, N>, A>) => T>;
-
-/**
- * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
- * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
- *
- * @deprecated since 0.26 in favor of includes
- */
-export function contains(__: Placeholder, list: string): (a: string) => boolean;
-export function contains<T>(__: Placeholder, list: readonly T[]): (a: T) => boolean;
-export function contains(__: Placeholder): (list: string, a: string) => boolean;
-export function contains<T>(__: Placeholder): (list: readonly T[], a: T) => boolean;
-export function contains(a: string, list: string): boolean;
-export function contains<T>(a: T, list: readonly T[]): boolean;
-export function contains(a: string): (list: string) => boolean;
-export function contains<T>(a: T): (list: readonly T[]) => boolean;
 
 // NOTE: Example doesn't work with this typing
 /**
@@ -3104,18 +3019,6 @@ export function median(list: readonly number[]): number;
 export function memoizeWith<T extends AnyFunction>(keyFn: (...v: Parameters<T>) => string, fn: T): T;
 
 /**
- * Create a new object with the own properties of a
- * merged with the own properties of object b.
- * This function will *not* mutate passed-in objects.
- *
- * @deprecated since 0.26 in favor of mergeRight
- */
-export function merge<O2 extends object>(__: Placeholder, b: O2): <O1 extends object>(a: O1) => Merge<O2, O1, 'flat'>;
-export function merge(__: Placeholder): <O1 extends object, O2 extends object>(b: O2, a: O1) => Merge<O2, O1, 'flat'>;
-export function merge<O1 extends object, O2 extends object>(a: O1, b: O2): Merge<O2, O1, 'flat'>;
-export function merge<O1 extends object>(a: O1): <O2 extends object>(b: O2) => Merge<O2, O1, 'flat'>;
-
-/**
  * Creates one new object with the own properties from a list of objects.
  * If a key exists in more than one object,
  * the value from the last object it exists in will be used.
@@ -3847,6 +3750,38 @@ export function partition(fn: (a: string) => boolean): (list: readonly string[])
  * R.path(['a', 'b', -2], {a: {b: [1, 2, 3]}}); //=> 2
  * ```
  */
+export function path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
+export function path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
 export function path<T>(path: Path, obj: any): T | undefined;
 export function path<T>(path: Path): (obj: any) => T | undefined;
 
@@ -3926,13 +3861,33 @@ export function pathSatisfies<T, U>(pred: (val: T) => boolean): _.F.Curry<(a: Pa
  * R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
  * ```
  */
+export function pick<T extends readonly [any, ...any], K extends string | number | symbol>(
+    names: readonly K[],
+    array: T,
+): {
+    [P in K as P extends string | number
+        ? _.N.Greater<`${T['length']}`, `${P}`> extends 1
+            ? P
+            : never
+        : never]: P extends keyof T ? T[P] : T[number];
+};
 export function pick<T, K extends string | number | symbol>(
     names: readonly K[],
     obj: T,
-): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+): { [P in keyof T as P extends K ? P : never]: T[P] };
 export function pick<K extends string | number | symbol>(
     names: readonly K[],
-): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+): <T extends readonly [any, ...any] | object>(
+    obj: T,
+) => T extends readonly [any, ...any]
+    ? {
+          [P in K as P extends string | number
+              ? _.N.Greater<`${T['length']}`, `${P}`> extends 1
+                  ? P
+                  : never
+              : never]: P extends keyof T ? T[P] : T[number];
+      }
+    : { [P in keyof T as P extends K ? P : never]: T[P] };
 
 /**
  * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -3943,6 +3898,7 @@ export function pick<K extends string | number | symbol>(
  * R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
  * ```
  */
+export function pickAll<T, K extends keyof T>(names: readonly K[], obj: T): Pick<T, K>;
 export function pickAll<T, U>(names: readonly string[], obj: T): U;
 export function pickAll(names: readonly string[]): <T, U>(obj: T) => U;
 
@@ -4032,162 +3988,6 @@ export function pipe<TArgs extends any[], R1, R2>(
     f2: (a: R1) => R2,
 ): (...args: TArgs) => R2;
 export function pipe<TArgs extends any[], R1>(f1: (...args: TArgs) => R1): (...args: TArgs) => R1;
-
-/**
- * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
- * The typings currently support arrays only as return values.
- * All functions need to be unary.
- * R.pipeK(f, g, h) is equivalent to R.pipe(f, R.chain(g), R.chain(h)).
- *
- * @deprecated since 0.26 in favor of pipeWith(chain)
- */
-export function pipeK<V0, T1>(fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
-export function pipeK<V0, T1, T2>(fn0: (x0: V0) => T1[], fn1: (x: T1) => T2[]): (x0: V0) => T2[];
-export function pipeK<V0, T1, T2, T3>(
-    fn0: (x: V0) => T1[],
-    fn1: (x: T1) => T2[],
-    fn2: (x: T2) => T3[],
-): (x: V0) => T3[];
-export function pipeK<V0, T1, T2, T3, T4>(
-    fn0: (x: V0) => T1[],
-    fn1: (x: T1) => T2[],
-    fn2: (x: T2) => T3[],
-    fn3: (x: T3) => T4[],
-): (x: V0) => T4[];
-export function pipeK<V0, T1, T2, T3, T4, T5>(
-    fn0: (x: V0) => T1[],
-    fn1: (x: T1) => T2[],
-    fn2: (x: T2) => T3[],
-    fn3: (x: T3) => T4[],
-    fn4: (x: T4) => T5[],
-): (x: V0) => T5[];
-export function pipeK<V0, T1, T2, T3, T4, T5, T6>(
-    fn0: (x: V0) => T1[],
-    fn1: (x: T1) => T2[],
-    fn2: (x: T2) => T3[],
-    fn3: (x: T3) => T4[],
-    fn4: (x: T4) => T5[],
-    fn5: (x: T5) => T6[],
-): (x: V0) => T6[];
-export function pipeK<V0, T1, T2, T3, T4, T5, T6, T7>(
-    fn0: (x: V0) => T1[],
-    fn1: (x: T1) => T2[],
-    fn2: (x: T2) => T3[],
-    fn3: (x: T3) => T4[],
-    fn4: (x: T4) => T5[],
-    fn5: (x: T5) => T6[],
-    fn: (x: T6) => T7[],
-): (x: V0) => T7[];
-export function pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
-    fn0: (x: V0) => T1[],
-    fn1: (x: T1) => T2[],
-    fn2: (x: T2) => T3[],
-    fn3: (x: T3) => T4[],
-    fn4: (x: T4) => T5[],
-    fn5: (x: T5) => T6[],
-    fn6: (x: T6) => T7[],
-    fn: (x: T7) => T8[],
-): (x: V0) => T8[];
-export function pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-    fn0: (x0: V0) => T1[],
-    fn1: (x: T1) => T2[],
-    fn2: (x: T2) => T3[],
-    fn3: (x: T3) => T4[],
-    fn4: (x: T4) => T5[],
-    fn5: (x: T5) => T6[],
-    fn6: (x: T6) => T7[],
-    fn7: (x: T7) => T8[],
-    fn8: (x: T8) => T9[],
-): (x0: V0) => T9[];
-export function pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-    fn0: (x0: V0) => T1[],
-    fn1: (x: T1) => T2[],
-    fn2: (x: T2) => T3[],
-    fn3: (x: T3) => T4[],
-    fn4: (x: T4) => T5[],
-    fn5: (x: T5) => T6[],
-    fn6: (x: T6) => T7[],
-    fn7: (x: T7) => T8[],
-    fn8: (x: T8) => T9[],
-    fn9: (x: T9) => T10[],
-): (x0: V0) => T10[];
-
-/**
- * Performs left-to-right composition of one or more Promise-returning functions.
- * All functions need to be unary.
- *
- * @deprecated since 0.26 in favor of pipeWith(then)
- */
-export function pipeP<V0, T1>(fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
-export function pipeP<V0, T1, T2>(fn0: (x0: V0) => Promise<T1>, fn1: (x: T1) => Promise<T2>): (x0: V0) => Promise<T2>;
-export function pipeP<V0, T1, T2, T3>(
-    fn0: (x: V0) => Promise<T1>,
-    fn1: (x: T1) => Promise<T2>,
-    fn2: (x: T2) => Promise<T3>,
-): (x: V0) => Promise<T3>;
-export function pipeP<V0, T1, T2, T3, T4>(
-    fn0: (x: V0) => Promise<T1>,
-    fn1: (x: T1) => Promise<T2>,
-    fn2: (x: T2) => Promise<T3>,
-    fn3: (x: T3) => Promise<T4>,
-): (x: V0) => Promise<T4>;
-export function pipeP<V0, T1, T2, T3, T4, T5>(
-    fn0: (x: V0) => Promise<T1>,
-    fn1: (x: T1) => Promise<T2>,
-    fn2: (x: T2) => Promise<T3>,
-    fn3: (x: T3) => Promise<T4>,
-    fn4: (x: T4) => Promise<T5>,
-): (x: V0) => Promise<T5>;
-export function pipeP<V0, T1, T2, T3, T4, T5, T6>(
-    fn0: (x: V0) => Promise<T1>,
-    fn1: (x: T1) => Promise<T2>,
-    fn2: (x: T2) => Promise<T3>,
-    fn3: (x: T3) => Promise<T4>,
-    fn4: (x: T4) => Promise<T5>,
-    fn5: (x: T5) => Promise<T6>,
-): (x: V0) => Promise<T6>;
-export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7>(
-    fn0: (x: V0) => Promise<T1>,
-    fn1: (x: T1) => Promise<T2>,
-    fn2: (x: T2) => Promise<T3>,
-    fn3: (x: T3) => Promise<T4>,
-    fn4: (x: T4) => Promise<T5>,
-    fn5: (x: T5) => Promise<T6>,
-    fn: (x: T6) => Promise<T7>,
-): (x: V0) => Promise<T7>;
-export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
-    fn0: (x: V0) => Promise<T1>,
-    fn1: (x: T1) => Promise<T2>,
-    fn2: (x: T2) => Promise<T3>,
-    fn3: (x: T3) => Promise<T4>,
-    fn4: (x: T4) => Promise<T5>,
-    fn5: (x: T5) => Promise<T6>,
-    fn6: (x: T6) => Promise<T7>,
-    fn: (x: T7) => Promise<T8>,
-): (x: V0) => Promise<T8>;
-export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-    fn0: (x0: V0) => Promise<T1>,
-    fn1: (x: T1) => Promise<T2>,
-    fn2: (x: T2) => Promise<T3>,
-    fn3: (x: T3) => Promise<T4>,
-    fn4: (x: T4) => Promise<T5>,
-    fn5: (x: T5) => Promise<T6>,
-    fn6: (x: T6) => Promise<T7>,
-    fn7: (x: T7) => Promise<T8>,
-    fn8: (x: T8) => Promise<T9>,
-): (x0: V0) => Promise<T9>;
-export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-    fn0: (x0: V0) => Promise<T1>,
-    fn1: (x: T1) => Promise<T2>,
-    fn2: (x: T2) => Promise<T3>,
-    fn3: (x: T3) => Promise<T4>,
-    fn4: (x: T4) => Promise<T5>,
-    fn5: (x: T5) => Promise<T6>,
-    fn6: (x: T6) => Promise<T7>,
-    fn7: (x: T7) => Promise<T8>,
-    fn8: (x: T8) => Promise<T9>,
-    fn9: (x: T9) => Promise<T10>,
-): (x0: V0) => Promise<T10>;
 
 /**
  * Performs left-to-right function composition using transforming function.
@@ -4312,13 +4112,18 @@ export function promap<A, B>(
  * ```typescript
  * R.prop('x', {x: 100}); //=> 100
  * R.prop(0, [100]); //=> 100
- * R.compose(R.inc, R.prop<'x', number>('x'))({ x: 3 }) //=> 4
+ * R.compose(R.inc, R.prop<number>('x'))({ x: 3 }) //=> 4
  * ```
  */
-export function prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
-export function prop<P extends keyof T, T>(p: P, obj: T): T[P];
-export function prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
-export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
+export function prop<_, T>(__: Placeholder, value: T): {
+    <P extends keyof Exclude<T, undefined>>(p: P): Prop<T, P>;
+    <P extends keyof never>(p: P): Prop<T, P>;
+};
+export function prop<V>(__: Placeholder, value: unknown): (p: keyof never) => V;
+export function prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
+export function prop<V>(p: keyof never, value: unknown): V;
+export function prop<_, P extends keyof never>(p: P): <T>(value: T) => Prop<T, P>;
+export function prop<V>(p: keyof never): (value: unknown) => V;
 
 // NOTE: `hair` property was added to `alois` to make example work.
 // A union of two types is a valid usecase but doesn't work with current types
@@ -5094,7 +4899,7 @@ export function symmetricDifference<T>(list: readonly T[]): <T>(list: readonly T
  *
  * @example
  * ```typescript
- * const eqA = R.eqBy(R.prop<'a', number>('a'));
+ * const eqA = R.eqBy(R.prop<number>('a'));
  * const l1 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
  * const l2 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
  * R.symmetricDifferenceWith(eqA, l1, l2); //=> [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
@@ -5236,6 +5041,8 @@ export function takeWhile<T>(fn: (x: T) => boolean): (list: readonly T[]) => T[]
  * // logs 'x is 100'
  * ```
  */
+export function tap<T, R extends T = T>(fn: (a: T) => asserts a is R, value: T): R;
+export function tap<T, R extends T = T>(fn: (a: T) => asserts a is R): (value: T) => R;
 export function tap<T>(fn: (a: T) => void, value: T): T;
 export function tap<T>(fn: (a: T) => void): (value: T) => T;
 
@@ -6011,8 +5818,8 @@ export function whereEq<T>(spec: T): <U>(obj: U) => boolean;
  * R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
  * ```
  */
-export function without<T>(list1: readonly T[], list2: readonly T[]): T[];
-export function without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
+export function without<T>(list1: readonly unknown[], list2: readonly T[]): T[];
+export function without<T>(list1: readonly T[] | readonly unknown[]): (list2: readonly T[]) => T[];
 
 /**
  * Exclusive disjunction logical operation.

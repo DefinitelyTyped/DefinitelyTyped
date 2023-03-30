@@ -1541,7 +1541,7 @@ declare global {
             /**
              * Get or set the `label` of a `MenuItem`
              */
-            lable: string;
+            label: string;
 
             /**
              * Get or set the `icon` of a `MenuItem`

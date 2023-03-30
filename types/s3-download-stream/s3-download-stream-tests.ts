@@ -1,5 +1,5 @@
 import * as S3Stream from "s3-download-stream";
-import * as AWS from "aws-sdk";
+import * as AWS from "aws-sdk2-types";
 import * as fs from "fs";
 
 // Documentation for "params":

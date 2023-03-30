@@ -51,6 +51,10 @@ const storeWithFullConfig = createStore(frontendBridgeWithWall, {
     checkBridgeProtocolCompatibility: true,
     supportsNativeInspection: false,
     supportsProfiling: true,
+    isProfiling: false,
+    supportsReloadAndProfile: true,
+    supportsTimeline: true,
+    supportsTraceUpdates: true,
 });
 
 // $ExpectType Store
@@ -204,5 +208,6 @@ const props: DevtoolsProps = {
     profilerPortalContainer: document.createElement('div'),
     fetchFileWithCaching: fetchFileWithCachingFunc,
     hookNamesModuleLoaderFunction: () =>
-        Promise.resolve({ parseHookNames, parseSourceAndMetadata, purgeCachedMetadata: () => {} }),
+        Promise.resolve({ parseHookNames, parseSourceAndMetadata, purgeCachedMetadata: () => { } }),
+    viewUrlSourceFunction: () => {},
 };

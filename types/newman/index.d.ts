@@ -9,6 +9,9 @@ import { EventEmitter } from "events";
 import {
     Collection,
     CollectionDefinition,
+    Item,
+    Request,
+    Response,
     VariableScope,
     VariableScopeDefinition
 } from "postman-collection";
@@ -168,9 +171,9 @@ export interface NewmanRunOptions {
 
 export interface NewmanRunSummary {
     error?: any;
-    collection: any;
-    environment: any;
-    globals: any;
+    collection: Collection;
+    environment: VariableScope;
+    globals: VariableScope;
     run: NewmanRun;
 }
 export interface NewmanRun {
@@ -196,13 +199,18 @@ export interface NewmanRunStat {
 export interface NewmanRunExecution {
     item: NewmanRunExecutionItem;
     assertions: NewmanRunExecutionAssertion[];
+    response: Response;
+    request: Request;
+    cursor: Cursor;
 }
-export interface NewmanRunExecutionItem {
+
+export interface NewmanRunExecutionItem extends Item {
     name: string;
 }
 export interface NewmanRunExecutionAssertion {
     assertion: string;
     error: NewmanRunExecutionAssertionError;
+    skipped: boolean;
 }
 export interface NewmanRunExecutionAssertionError {
     name: string;
@@ -226,3 +234,50 @@ export function run(
 export function run(
     callback: (err: Error | null, summary: NewmanRunSummary) => void
 ): EventEmitter;
+
+/** The event fired when a console function is called within the scripts. */
+export interface ConsoleEvent {
+    cursor: Cursor;
+    level: string;
+    messages: unknown[];
+}
+
+/**
+ * The cursor holds the details of the current state of the run.
+ *
+ * See: https://github.com/postmanlabs/newman/wiki/The-Cursor-Object
+ */
+export interface Cursor {
+    /** Indicates if this cursor position is at the beginning of the run. */
+    bof: boolean;
+
+    /** Indicates if this cursor position is going to change to the next cycle. */
+    cr: boolean;
+
+    /** Total number of iterations that will be repeated on the length. */
+    cycles: number;
+
+    /** The run is empty and there is nothing to execute. */
+    empty: boolean;
+
+    /** Indicates if this cursor position is at the end of the run. */
+    eof: boolean;
+
+    /** A unique identifier added during the Item execution. */
+    httpRequestId?: string;
+
+    /** The current cycle in the total iteration count. */
+    iteration: number;
+
+    /** Total number of items in the collection run. */
+    length: number;
+
+    /** Current index of the item being processed from within the total number of items. */
+    position: number;
+
+    /** A common item identifier in an execution cycle. */
+    ref: string;
+
+    /** A unique identifier added during the Script execution. */
+    scriptId?: string;
+}

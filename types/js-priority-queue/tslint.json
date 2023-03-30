@@ -3,13 +3,11 @@
     "rules": {
         "interface-over-type-literal": false,
         "member-access": false,
-        "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "one-line": false,
         "prefer-const": false,
-        "semicolon": false,
-        "trim-file": false
+        "semicolon": false
     }
 }

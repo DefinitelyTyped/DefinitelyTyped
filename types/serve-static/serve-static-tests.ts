@@ -6,6 +6,7 @@ var app = express();
 app.use(serveStatic('/1'));
 app.use(serveStatic('/2', { }));
 app.use(serveStatic('/3', {
+    acceptRanges: true,
     dotfiles: 'ignore',
     etag: true,
     extensions: ['html'],

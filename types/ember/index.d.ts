@@ -2,6 +2,7 @@
 // Project: https://emberjs.com/, https://github.com/emberjs/ember
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
@@ -43,7 +44,6 @@ import _RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
 import EmberCoreObject from '@ember/object/core';
 import * as EmberApplicationNs from '@ember/application';
 import * as EmberApplicationInstanceNs from '@ember/application/instance';
-import * as EmberApplicationDeprecateNs from '@ember/application/deprecations';
 import * as EmberTestNs from '@ember/test';
 // tslint:disable-next-line:no-duplicate-imports
 import * as EmberControllerNs from '@ember/controller';
@@ -104,8 +104,7 @@ export namespace Ember {
     class HashLocation extends EmberRoutingHashLocation {}
     class NoneLocation extends EmberRoutingNoneLocation {}
     class HistoryLocation extends EmberRoutingHistoryLocation {}
-    const deprecateFunc: typeof EmberApplicationDeprecateNs.deprecateFunc;
-    const deprecate: typeof EmberApplicationDeprecateNs.deprecate;
+    const deprecate: typeof EmberDebugNs.deprecate;
     const getOwner: typeof EmberApplicationNs.getOwner;
     const setOwner: typeof EmberApplicationNs.setOwner;
     class EventDispatcher extends EmberEventDispatcher {}
@@ -204,11 +203,8 @@ export namespace Ember {
          * callback in the last chained then.
          */
         function promise<T>(
-            resolver: (
-                resolve: (value?: T | PromiseLike<T>) => void,
-                reject: (reason?: unknown) => void
-            ) => void,
-            label?: string
+            resolver: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: unknown) => void) => void,
+            label?: string,
         ): Promise<T>;
         /**
          * Replacement for `Ember.RSVP.resolve`
@@ -236,10 +232,7 @@ export namespace Ember {
         class QUnitAdapter extends EmberTestAdapter {}
         class Promise<T> extends Rsvp.Promise<T> {
             constructor(
-                executor: (
-                    resolve: (value?: T | PromiseLike<T>) => void,
-                    reject: (reason?: unknown) => void
-                ) => void
+                executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: unknown) => void) => void,
             );
         }
     }
@@ -252,9 +245,7 @@ export namespace Ember {
          * Can only be used when defining another controller.
          */
         function controller(): ComputedProperty<Controller>;
-        function controller<K extends keyof ControllerRegistry>(
-            name: K
-        ): ComputedProperty<ControllerRegistry[K]>;
+        function controller<K extends keyof ControllerRegistry>(name: K): ComputedProperty<ControllerRegistry[K]>;
         const service: typeof EmberServiceNs.inject;
     }
     namespace ENV {

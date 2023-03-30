@@ -10,7 +10,6 @@
         "no-irregular-whitespace": false,
         "npm-naming": false,
         "object-literal-key-quotes": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

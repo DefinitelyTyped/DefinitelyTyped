@@ -441,7 +441,7 @@ authentication.dbConnection.signup(
 );
 authentication.dbConnection.changePassword({ connection: "bla", email: "blabla" }, () => {});
 
-authentication.passwordless.start({ connection: "bla", send: "blabla" }, () => {});
+authentication.passwordless.start({ connection: "bla", send: "link" }, () => {});
 authentication.passwordless.verify(
     { connection: "bla", verificationCode: "asdfasd", email: "me@example.com" },
     () => {},

@@ -1967,3 +1967,22 @@ var keyboardHandler = new mapboxgl.KeyboardHandler(map);
 keyboardHandler.enableRotation();
 // $ExpectType void
 keyboardHandler.disableRotation();
+
+/**
+ * Test projections
+ */
+
+// projection config: name only
+expectType<mapboxgl.Projection>({ name: 'mercator' });
+
+// projection config: with center and parallels
+expectType<mapboxgl.Projection>({ name: 'lambertConformalConic', center: [0, 0], parallels: [30, 60] });
+
+// set projection with string
+map.setProjection('mercator');
+
+// set projection with config
+map.setProjection({ name: 'globe' });
+
+// get projections
+expectType<mapboxgl.Projection>(map.getProjection());

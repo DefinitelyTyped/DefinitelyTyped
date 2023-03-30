@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+import { Transform } from "readable-stream";
+
 export interface GetTextComment {
     translator: string;
     reference: string;
@@ -30,7 +32,7 @@ export interface GetTextTranslations {
 export interface PoParser {
     parse: (buffer: Buffer | string, defaultCharset?: string) => GetTextTranslations;
     compile: (table: GetTextTranslations, options?: any) => Buffer;
-    createParseStream: (buffer: any, defaultCharset?: string) => any;
+    createParseStream: (buffer: any, defaultCharset?: string) => Transform;
 }
 
 export interface MoParser {
@@ -38,5 +40,5 @@ export interface MoParser {
     compile: (table: GetTextTranslations, options?: any) => Buffer;
 }
 
-export const po: MoParser;
+export const po: PoParser;
 export const mo: MoParser;

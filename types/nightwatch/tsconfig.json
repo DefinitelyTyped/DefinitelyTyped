@@ -23,12 +23,14 @@
         "test/nightwatch-tests.ts",
         "test/react.tsx",
         "test/testActions.ts",
+        "test/testAppiumCommands.ts",
         "test/testChromiumClientCommands.ts",
         "test/testClientCommands.ts",
         "test/testComponent.ts",
         "test/testDescribe.ts",
         "test/testElementCommands.ts",
         "test/testExpect.ts",
-        "test/testProgrammaticApi.ts"
+        "test/testProgrammaticApi.ts",
+        "test/utils.ts"
     ]
 }

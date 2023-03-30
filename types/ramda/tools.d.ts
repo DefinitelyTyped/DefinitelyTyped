@@ -576,4 +576,23 @@ export type ToTupleOfFunction<R, Tuple extends any[]> = Tuple extends []
     ? [(arg: R) => X, ...ToTupleOfFunction<R, Xs>]
     : never;
 
+/**
+ * Getter of property from any value. Supports objects, arrays, tuples and maybe values
+ *
+ * @param T Value type
+ * @param P Maybe key type
+ *
+ * @example
+ * ```typescript
+ * type K = Prop<{ x: number } | undefined, 'x'>
+ * type L = Prop<[1, ...string[]] | undefined, 0>
+ * type M = Prop<[1, ...string[]] | undefined, 1>
+ * ```
+ *
+ * <created by @anion155>
+ */
+export type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
+    ? T extends undefined ? undefined : T[Extract<P, keyof T>]
+    : undefined;
+
 export {};

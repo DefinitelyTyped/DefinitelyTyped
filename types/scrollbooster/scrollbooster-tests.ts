@@ -24,6 +24,8 @@ const sb = new ScrollBooster({
                 ${-state.position.y}px
     )`;
         }
+        const dragOffsetX = state.dragOffset.x;
+        const dragOffsetY = state.dragOffset.y;
     },
     shouldScroll: (_, event) => {
         // disable scroll if clicked on button

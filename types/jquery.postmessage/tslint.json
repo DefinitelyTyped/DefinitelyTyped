@@ -6,7 +6,6 @@
         "npm-naming": false,
         "object-literal-key-quotes": false,
         "semicolon": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

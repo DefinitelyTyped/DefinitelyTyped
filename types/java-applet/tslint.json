@@ -7,7 +7,6 @@
         "no-var-keyword": false,
         "npm-naming": false,
         "prefer-const": false,
-        "trim-file": false,
         "whitespace": false,
         "no-empty-interface": false
     }

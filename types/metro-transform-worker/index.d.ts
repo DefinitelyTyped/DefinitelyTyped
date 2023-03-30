@@ -1,12 +1,15 @@
-// Type definitions for metro-transform-worker 0.66
+// Type definitions for metro-transform-worker 0.76
 // Project: https://github.com/facebook/metro
 // Definitions by: Adam Foxman <https://github.com/afoxman>
 //                 Tommy Nguyen <https://github.com/tido64>
+//                 Alex Hunt <https://github.com/huntie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { AllowOptionalDependencies, DynamicRequiresBehavior, TransformResultDependency } from 'metro';
-import { CustomTransformOptions, TransformProfile } from 'metro-babel-transformer';
-import { BasicSourceMap, FBSourceFunctionMap, MetroSourceMapSegmentTuple } from 'metro-source-map';
+import type { DynamicRequiresBehavior } from 'metro';
+import type { TransformResultDependency } from 'metro/src/DeltaBundler';
+import type { AllowOptionalDependencies } from 'metro/src/DeltaBundler/types';
+import type { CustomTransformOptions, TransformProfile } from 'metro-babel-transformer';
+import type { BasicSourceMap, FBSourceFunctionMap, MetroSourceMapSegmentTuple } from 'metro-source-map';
 
 export type MinifierConfig = Readonly<Record<string, unknown>>;
 
@@ -23,6 +26,8 @@ export interface MinifierResult {
     map?: BasicSourceMap;
 }
 
+export type Minifier = (options: MinifierOptions) => MinifierResult | Promise<MinifierResult>;
+
 export type Type = 'script' | 'module' | 'asset';
 
 export type JsTransformerConfig = Readonly<{
@@ -33,7 +38,6 @@ export type JsTransformerConfig = Readonly<{
     dynamicDepsInPackages: DynamicRequiresBehavior;
     enableBabelRCLookup: boolean;
     enableBabelRuntime: boolean;
-    experimentalImportBundleSupport: boolean;
     globalPrefix: string;
     hermesParser: boolean;
     minifierConfig: MinifierConfig;
@@ -46,6 +50,8 @@ export type JsTransformerConfig = Readonly<{
     unstable_disableModuleWrapping: boolean;
     unstable_disableNormalizePseudoGlobals: boolean;
     unstable_compactOutput: boolean;
+    /** Enable `require.context` statements which can be used to import multiple files in a directory. */
+    unstable_allowRequireContext: boolean;
 }>;
 
 export { CustomTransformOptions } from 'metro-babel-transformer';
@@ -66,6 +72,8 @@ export type JsTransformOptions = Readonly<{
     unstable_transformProfile: TransformProfile;
 }>;
 
+export type BytecodeFileType = 'bytecode/module' | 'bytecode/module/asset' | 'bytecode/script';
+
 export type JSFileType = 'js/script' | 'js/module' | 'js/module/asset';
 
 export type JsOutput = Readonly<{
@@ -73,7 +81,7 @@ export type JsOutput = Readonly<{
         code: string;
         lineCount: number;
         map: MetroSourceMapSegmentTuple[];
-        functionMap?: FBSourceFunctionMap;
+        functionMap: FBSourceFunctionMap | null;
     }>;
     type: JSFileType;
 }>;

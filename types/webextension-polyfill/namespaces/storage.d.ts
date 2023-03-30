@@ -186,15 +186,15 @@ export namespace Storage {
     /**
      * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
      */
-    interface StorageAreaOnChangedChangesType extends StorageChange {
-        [s: string]: unknown;
+    interface StorageAreaOnChangedChangesType {
+        [s: string]: StorageChange;
     }
 
     /**
      * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
      */
-    interface StorageAreaSyncOnChangedChangesType extends StorageChange {
-        [s: string]: unknown;
+    interface StorageAreaSyncOnChangedChangesType {
+        [s: string]: StorageChange;
     }
 
     interface Static {

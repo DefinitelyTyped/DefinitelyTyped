@@ -1,5 +1,10 @@
 {
     "rules": {
-        "dt-header": "off"
+        "dt-header": "off",
+        "trim-file": "off",
+        "no-any-union": "off",
+        "no-unnecessary-generics": "off",
+        "no-declare-current-package": "off",
+        "no-self-import": "off"
     }
 }

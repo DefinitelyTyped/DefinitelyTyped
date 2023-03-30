@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/block-editor 7.0
+// Type definitions for @wordpress/block-editor 11.5
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
@@ -9,6 +9,7 @@ import { BlockIconNormalized } from '@wordpress/blocks';
 import { dispatch, select } from '@wordpress/data';
 
 export * from './components';
+export * from './hooks';
 export * from './utils';
 export { storeConfig } from './store';
 export { SETTINGS_DEFAULTS } from './store/defaults';
