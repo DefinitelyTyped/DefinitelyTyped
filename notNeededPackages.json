@@ -1729,10 +1729,6 @@
             "libraryName": "global-dirs",
             "asOfVersion": "1.0.0"
         },
-        "glob": {
-            "libraryName": "glob",
-            "asOfVersion": "9.0.0"
-        },
         "globby": {
             "libraryName": "globby",
             "asOfVersion": "9.1.0"
