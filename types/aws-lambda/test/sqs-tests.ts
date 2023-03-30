@@ -38,6 +38,7 @@ const event: SQSEvent = {
                 SentTimestamp: '1529104986221',
                 SenderId: '594035263019',
                 ApproximateFirstReceiveTimestamp: '1529104986230',
+                DeadLetterQueueSourceArn: 'arn:aws:sqs:123456789012:source-queue',
             },
             messageAttributes: {
                 testAttr: {
@@ -74,7 +75,8 @@ const fifoEvent: SQSEvent = {
                 MessageGroupId: "1",
                 SenderId: "AIDAIO23YVJENQZJOL4VO",
                 MessageDeduplicationId: "1",
-                ApproximateFirstReceiveTimestamp: "1573251510774"
+                ApproximateFirstReceiveTimestamp: "1573251510774",
+                DeadLetterQueueSourceArn: "arn:aws:sqs:123456789012:source-queue",
             },
             messageAttributes: {},
             md5OfBody: "e4e68fb7bd0e697a0ae8f1bb342846b3",

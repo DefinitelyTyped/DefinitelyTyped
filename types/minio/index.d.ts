@@ -12,37 +12,39 @@
 // Import from dependencies
 import { Readable as ReadableStream } from 'stream';
 import { EventEmitter } from 'events';
-import { AgentOptions } from 'https';
+import { RequestOptions } from 'https';
 
 // Exports only from typings
-export type Region = 'us-east-1' |
-    'us-west-1' |
-    'us-west-2' |
-    'eu-west-1' |
-    'eu-central-1' |
-    'ap-southeast-1' |
-    'ap-northeast-1' |
-    'ap-southeast-2' |
-    'sa-east-1' |
-    'cn-north-1' |
-    string;
-export type NotificationEvent = 's3:ObjectCreated:*' |
-    's3:ObjectCreated:Put' |
-    's3:ObjectCreated:Post' |
-    's3:ObjectCreated:Copy' |
-    's3:ObjectCreated:CompleteMultipartUpload' |
-    's3:ObjectRemoved:*' |
-    's3:ObjectRemoved:Delete' |
-    's3:ObjectRemoved:DeleteMarkerCreated' |
-    's3:ReducedRedundancyLostObject' |
-    's3:TestEvent' |
-    's3:ObjectRestore:Post' |
-    's3:ObjectRestore:Completed' |
-    's3:Replication:OperationFailedReplication' |
-    's3:Replication:OperationMissedThreshold' |
-    's3:Replication:OperationReplicatedAfterThreshold' |
-    's3:Replication:OperationNotTracked' |
-    string;
+export type Region =
+    | 'us-east-1'
+    | 'us-west-1'
+    | 'us-west-2'
+    | 'eu-west-1'
+    | 'eu-central-1'
+    | 'ap-southeast-1'
+    | 'ap-northeast-1'
+    | 'ap-southeast-2'
+    | 'sa-east-1'
+    | 'cn-north-1'
+    | string;
+export type NotificationEvent =
+    | 's3:ObjectCreated:*'
+    | 's3:ObjectCreated:Put'
+    | 's3:ObjectCreated:Post'
+    | 's3:ObjectCreated:Copy'
+    | 's3:ObjectCreated:CompleteMultipartUpload'
+    | 's3:ObjectRemoved:*'
+    | 's3:ObjectRemoved:Delete'
+    | 's3:ObjectRemoved:DeleteMarkerCreated'
+    | 's3:ReducedRedundancyLostObject'
+    | 's3:TestEvent'
+    | 's3:ObjectRestore:Post'
+    | 's3:ObjectRestore:Completed'
+    | 's3:Replication:OperationFailedReplication'
+    | 's3:Replication:OperationMissedThreshold'
+    | 's3:Replication:OperationReplicatedAfterThreshold'
+    | 's3:Replication:OperationNotTracked'
+    | string;
 export type Mode = 'COMPLIANCE' | 'GOVERNANCE';
 export type LockUnit = 'Days' | 'Years';
 export type LegalHoldStatus = 'ON' | 'OFF';
@@ -90,7 +92,7 @@ export interface BucketItem {
 }
 
 export interface BucketItemWithMetadata extends BucketItem {
-    metadata: ItemBucketMetadata;
+    metadata: ItemBucketMetadata | ItemBucketMetadataList;
 }
 
 export interface BucketItemStat {
@@ -109,7 +111,7 @@ export interface IncompleteUploadedBucketItem {
 export interface BucketStream<T> extends ReadableStream {
     on(event: 'data', listener: (item: T) => void): this;
     on(event: 'end' | 'pause' | 'readable' | 'resume' | 'close', listener: () => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -118,6 +120,15 @@ export interface PostPolicyResult {
     formData: {
         [key: string]: any;
     };
+}
+
+export interface MetadataItem {
+    Key: string;
+    Value: string;
+}
+
+export interface ItemBucketMetadataList {
+    Items: MetadataItem[];
 }
 
 export interface ItemBucketMetadata {
@@ -213,7 +224,7 @@ export interface SelectOptions {
     inputSerialization: InputSerialization;
     outputSerialization: OutputSerialization;
     requestProgress?: { Enabled: boolean };
-    scanRange?: { Start: number, End: number };
+    scanRange?: { Start: number; End: number };
 }
 
 export interface SourceObjectStats {
@@ -232,13 +243,24 @@ export class TargetConfig {
     addFilterPrefix(prefix: any): void;
 }
 
+export interface MakeBucketOpt {
+    ObjectLocking: boolean;
+}
+
+export interface RemoveOptions {
+    versionId?: string;
+    governanceBypass?: boolean;
+}
+
 // Exports from library
 export class Client {
     constructor(options: ClientOptions);
 
     // Bucket operations
+    makeBucket(bucketName: string, region: Region, makeOpts: MakeBucketOpt, callback: NoResultCallback): void;
     makeBucket(bucketName: string, region: Region, callback: NoResultCallback): void;
-    makeBucket(bucketName: string, region: Region): Promise<void>;
+    makeBucket(bucketName: string, callback: NoResultCallback): void;
+    makeBucket(bucketName: string, region?: Region, makeOpts?: MakeBucketOpt): Promise<void>;
 
     listBuckets(callback: ResultCallback<BucketItemFromList[]>): void;
     listBuckets(): Promise<BucketItemFromList[]>;
@@ -251,9 +273,18 @@ export class Client {
 
     listObjects(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<BucketItem>;
 
-    listObjectsV2(bucketName: string, prefix?: string, recursive?: boolean, startAfter?: string): BucketStream<BucketItem>;
+    listObjectsV2(
+        bucketName: string,
+        prefix?: string,
+        recursive?: boolean,
+        startAfter?: string,
+    ): BucketStream<BucketItem>;
 
-    listIncompleteUploads(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<IncompleteUploadedBucketItem>;
+    listIncompleteUploads(
+        bucketName: string,
+        prefix?: string,
+        recursive?: boolean,
+    ): BucketStream<IncompleteUploadedBucketItem>;
 
     getBucketVersioning(bucketName: string, callback: ResultCallback<VersioningConfig>): void;
     getBucketVersioning(bucketName: string): Promise<VersioningConfig>;
@@ -308,30 +339,93 @@ export class Client {
     getObject(bucketName: string, objectName: string, callback: ResultCallback<ReadableStream>): void;
     getObject(bucketName: string, objectName: string): Promise<ReadableStream>;
 
-    getPartialObject(bucketName: string, objectName: string, offset: number, callback: ResultCallback<ReadableStream>): void;
-    getPartialObject(bucketName: string, objectName: string, offset: number, length: number, callback: ResultCallback<ReadableStream>): void;
+    getPartialObject(
+        bucketName: string,
+        objectName: string,
+        offset: number,
+        callback: ResultCallback<ReadableStream>,
+    ): void;
+    getPartialObject(
+        bucketName: string,
+        objectName: string,
+        offset: number,
+        length: number,
+        callback: ResultCallback<ReadableStream>,
+    ): void;
     getPartialObject(bucketName: string, objectName: string, offset: number, length?: number): Promise<ReadableStream>;
 
     fGetObject(bucketName: string, objectName: string, filePath: string, callback: NoResultCallback): void;
     fGetObject(bucketName: string, objectName: string, filePath: string): Promise<void>;
 
-    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size: number, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size?: number, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: ReadableStream | Buffer | string,
+        callback: ResultCallback<UploadedObjectInfo>,
+    ): void;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: ReadableStream | Buffer | string,
+        size: number,
+        callback: ResultCallback<UploadedObjectInfo>,
+    ): void;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: ReadableStream | Buffer | string,
+        size: number,
+        metaData: ItemBucketMetadata,
+        callback: ResultCallback<UploadedObjectInfo>,
+    ): void;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: ReadableStream | Buffer | string,
+        size?: number,
+        metaData?: ItemBucketMetadata,
+    ): Promise<UploadedObjectInfo>;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: ReadableStream | Buffer | string,
+        metaData?: ItemBucketMetadata,
+    ): Promise<UploadedObjectInfo>;
 
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    fPutObject(
+        bucketName: string,
+        objectName: string,
+        filePath: string,
+        metaData: ItemBucketMetadata,
+        callback: ResultCallback<UploadedObjectInfo>,
+    ): void;
+    fPutObject(
+        bucketName: string,
+        objectName: string,
+        filePath: string,
+        metaData?: ItemBucketMetadata,
+    ): Promise<UploadedObjectInfo>;
 
-    copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions, callback: ResultCallback<BucketItemCopy>): void;
-    copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions): Promise<BucketItemCopy>;
+    copyObject(
+        bucketName: string,
+        objectName: string,
+        sourceObject: string,
+        conditions: CopyConditions,
+        callback: ResultCallback<BucketItemCopy>,
+    ): void;
+    copyObject(
+        bucketName: string,
+        objectName: string,
+        sourceObject: string,
+        conditions: CopyConditions,
+    ): Promise<BucketItemCopy>;
 
     statObject(bucketName: string, objectName: string, callback: ResultCallback<BucketItemStat>): void;
     statObject(bucketName: string, objectName: string): Promise<BucketItemStat>;
 
+    removeObject(bucketName: string, objectName: string, removeOpts: RemoveOptions, callback: NoResultCallback): void;
     removeObject(bucketName: string, objectName: string, callback: NoResultCallback): void;
-    removeObject(bucketName: string, objectName: string): Promise<void>;
+    removeObject(bucketName: string, objectName: string, removeOpts?: RemoveOptions): Promise<void>;
 
     removeObjects(bucketName: string, objectsList: string[], callback: NoResultCallback): void;
     removeObjects(bucketName: string, objectsList: string[]): Promise<void>;
@@ -340,10 +434,20 @@ export class Client {
     removeIncompleteUpload(bucketName: string, objectName: string): Promise<void>;
 
     putObjectRetention(bucketName: string, objectName: string, callback: NoResultCallback): void;
-    putObjectRetention(bucketName: string, objectName: string, retentionOptions: Retention, callback: NoResultCallback): void;
+    putObjectRetention(
+        bucketName: string,
+        objectName: string,
+        retentionOptions: Retention,
+        callback: NoResultCallback,
+    ): void;
     putObjectRetention(bucketName: string, objectName: string, retentionOptions?: Retention): Promise<void>;
 
-    getObjectRetention(bucketName: string, objectName: string, options: VersionIdentificator, callback: ResultCallback<Retention>): void;
+    getObjectRetention(
+        bucketName: string,
+        objectName: string,
+        options: VersionIdentificator,
+        callback: ResultCallback<Retention>,
+    ): void;
     getObjectRetention(bucketName: string, objectName: string, options: VersionIdentificator): Promise<Retention>;
 
     // It seems, putObjectTagging is deprecated in favor or setObjectTagging - there is no such a method in the library source code
@@ -354,50 +458,155 @@ export class Client {
     /**
      * @deprecated Use setObjectTagging instead.
      */
-    putObjectTagging(bucketName: string, objectName: string, tags: TagList, putOptions: VersionIdentificator, callback: NoResultCallback): void;
+    putObjectTagging(
+        bucketName: string,
+        objectName: string,
+        tags: TagList,
+        putOptions: VersionIdentificator,
+        callback: NoResultCallback,
+    ): void;
     /**
      * @deprecated Use setObjectTagging instead.
      */
-    putObjectTagging(bucketName: string, objectName: string, tags: TagList, putOptions?: VersionIdentificator): Promise<void>;
+    putObjectTagging(
+        bucketName: string,
+        objectName: string,
+        tags: TagList,
+        putOptions?: VersionIdentificator,
+    ): Promise<void>;
 
     setObjectTagging(bucketName: string, objectName: string, tags: TagList, callback: NoResultCallback): void;
-    setObjectTagging(bucketName: string, objectName: string, tags: TagList, putOptions: VersionIdentificator, callback: NoResultCallback): void;
-    setObjectTagging(bucketName: string, objectName: string, tags: TagList, putOptions?: VersionIdentificator): Promise<void>;
+    setObjectTagging(
+        bucketName: string,
+        objectName: string,
+        tags: TagList,
+        putOptions: VersionIdentificator,
+        callback: NoResultCallback,
+    ): void;
+    setObjectTagging(
+        bucketName: string,
+        objectName: string,
+        tags: TagList,
+        putOptions?: VersionIdentificator,
+    ): Promise<void>;
 
     removeObjectTagging(bucketName: string, objectName: string, callback: NoResultCallback): void;
-    removeObjectTagging(bucketName: string, objectName: string, removeOptions: VersionIdentificator, callback: NoResultCallback): void;
+    removeObjectTagging(
+        bucketName: string,
+        objectName: string,
+        removeOptions: VersionIdentificator,
+        callback: NoResultCallback,
+    ): void;
     removeObjectTagging(bucketName: string, objectName: string, removeOptions?: VersionIdentificator): Promise<void>;
 
     getObjectTagging(bucketName: string, objectName: string, callback: ResultCallback<Tag[]>): void;
-    getObjectTagging(bucketName: string, objectName: string, getOptions: VersionIdentificator, callback: ResultCallback<Tag[]>): void;
+    getObjectTagging(
+        bucketName: string,
+        objectName: string,
+        getOptions: VersionIdentificator,
+        callback: ResultCallback<Tag[]>,
+    ): void;
     getObjectTagging(bucketName: string, objectName: string, getOptions?: VersionIdentificator): Promise<Tag[]>;
 
     getObjectLegalHold(bucketName: string, objectName: string, callback: ResultCallback<LegalHoldOptions>): void;
-    getObjectLegalHold(bucketName: string, objectName: string, getOptions: VersionIdentificator, callback: ResultCallback<LegalHoldOptions>): void;
-    getObjectLegalHold(bucketName: string, objectName: string, getOptions?: VersionIdentificator): Promise<LegalHoldOptions>;
+    getObjectLegalHold(
+        bucketName: string,
+        objectName: string,
+        getOptions: VersionIdentificator,
+        callback: ResultCallback<LegalHoldOptions>,
+    ): void;
+    getObjectLegalHold(
+        bucketName: string,
+        objectName: string,
+        getOptions?: VersionIdentificator,
+    ): Promise<LegalHoldOptions>;
 
     setObjectLegalHold(bucketName: string, objectName: string, callback: NoResultCallback): void;
-    setObjectLegalHold(bucketName: string, objectName: string, setOptions: LegalHoldOptions, callback: NoResultCallback): void;
+    setObjectLegalHold(
+        bucketName: string,
+        objectName: string,
+        setOptions: LegalHoldOptions,
+        callback: NoResultCallback,
+    ): void;
     setObjectLegalHold(bucketName: string, objectName: string, setOptions?: LegalHoldOptions): Promise<void>;
 
-    composeObject(destObjConfig: CopyDestinationOptions, sourceObjList: CopySourceOptions[], callback: ResultCallback<SourceObjectStats>): void;
-    composeObject(destObjConfig: CopyDestinationOptions, sourceObjList: CopySourceOptions[]): Promise<SourceObjectStats>;
+    composeObject(
+        destObjConfig: CopyDestinationOptions,
+        sourceObjList: CopySourceOptions[],
+        callback: ResultCallback<SourceObjectStats>,
+    ): void;
+    composeObject(
+        destObjConfig: CopyDestinationOptions,
+        sourceObjList: CopySourceOptions[],
+    ): Promise<SourceObjectStats>;
 
-    selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions, callback: NoResultCallback): void;
+    selectObjectContent(
+        bucketName: string,
+        objectName: string,
+        selectOpts: SelectOptions,
+        callback: NoResultCallback,
+    ): void;
     selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions): Promise<void>;
 
     // Presigned operations
     presignedUrl(httpMethod: string, bucketName: string, objectName: string, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, reqParams: { [key: string]: any; }, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, reqParams: { [key: string]: any; }, requestDate: Date, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry?: number, reqParams?: { [key: string]: any; }, requestDate?: Date): Promise<string>;
+    presignedUrl(
+        httpMethod: string,
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        callback: ResultCallback<string>,
+    ): void;
+    presignedUrl(
+        httpMethod: string,
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        reqParams: { [key: string]: any },
+        callback: ResultCallback<string>,
+    ): void;
+    presignedUrl(
+        httpMethod: string,
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        reqParams: { [key: string]: any },
+        requestDate: Date,
+        callback: ResultCallback<string>,
+    ): void;
+    presignedUrl(
+        httpMethod: string,
+        bucketName: string,
+        objectName: string,
+        expiry?: number,
+        reqParams?: { [key: string]: any },
+        requestDate?: Date,
+    ): Promise<string>;
 
     presignedGetObject(bucketName: string, objectName: string, callback: ResultCallback<string>): void;
     presignedGetObject(bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
-    presignedGetObject(bucketName: string, objectName: string, expiry: number, respHeaders: { [key: string]: any; }, callback: ResultCallback<string>): void;
-    presignedGetObject(bucketName: string, objectName: string, expiry: number, respHeaders: { [key: string]: any; }, requestDate: Date, callback: ResultCallback<string>): void;
-    presignedGetObject(bucketName: string, objectName: string, expiry?: number, respHeaders?: { [key: string]: any; }, requestDate?: Date): Promise<string>;
+    presignedGetObject(
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        respHeaders: { [key: string]: any },
+        callback: ResultCallback<string>,
+    ): void;
+    presignedGetObject(
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        respHeaders: { [key: string]: any },
+        requestDate: Date,
+        callback: ResultCallback<string>,
+    ): void;
+    presignedGetObject(
+        bucketName: string,
+        objectName: string,
+        expiry?: number,
+        respHeaders?: { [key: string]: any },
+        requestDate?: Date,
+    ): Promise<string>;
 
     presignedPutObject(bucketName: string, objectName: string, callback: ResultCallback<string>): void;
     presignedPutObject(bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
@@ -410,7 +619,11 @@ export class Client {
     getBucketNotification(bucketName: string, callback: ResultCallback<NotificationConfig>): void;
     getBucketNotification(bucketName: string): Promise<NotificationConfig>;
 
-    setBucketNotification(bucketName: string, bucketNotificationConfig: NotificationConfig, callback: NoResultCallback): void;
+    setBucketNotification(
+        bucketName: string,
+        bucketNotificationConfig: NotificationConfig,
+        callback: NoResultCallback,
+    ): void;
     setBucketNotification(bucketName: string, bucketNotificationConfig: NotificationConfig): Promise<void>;
 
     removeAllBucketNotification(bucketName: string, callback: NoResultCallback): void;
@@ -422,18 +635,28 @@ export class Client {
     setBucketPolicy(bucketName: string, bucketPolicy: string, callback: NoResultCallback): void;
     setBucketPolicy(bucketName: string, bucketPolicy: string): Promise<void>;
 
-    listenBucketNotification(bucketName: string, prefix: string, suffix: string, events: NotificationEvent[]): NotificationPoller;
+    listenBucketNotification(
+        bucketName: string,
+        prefix: string,
+        suffix: string,
+        events: NotificationEvent[],
+    ): NotificationPoller;
 
     // Custom Settings
     setS3TransferAccelerate(endpoint: string): void;
 
     // Other
     newPostPolicy(): PostPolicy;
-    setRequestOptions(options: AgentOptions): void;
+    setRequestOptions(options: RequestOptions): void;
 
     // Minio extensions that aren't necessary present for Amazon S3 compatible storage servers
     extensions: {
-        listObjectsV2WithMetadata(bucketName: string, prefix?: string, recursive?: boolean, startAfter?: string): BucketStream<BucketItemWithMetadata>;
+        listObjectsV2WithMetadata(
+            bucketName: string,
+            prefix?: string,
+            recursive?: boolean,
+            startAfter?: string,
+        ): BucketStream<BucketItemWithMetadata>;
     };
 }
 
@@ -457,7 +680,10 @@ export class PostPolicy {
     setKeyStartsWith(prefix: string): void;
     setBucket(bucketName: string): void;
     setContentType(type: string): void;
+    setContentTypeStartsWith(prefix: string): void;
     setContentLengthRange(min: number, max: number): void;
+    setContentDisposition(disposition: string): void;
+    setUserMetaData(metadata: Record<string, string>): void;
 }
 
 export class NotificationPoller extends EventEmitter {
@@ -485,21 +711,21 @@ export class CloudFunctionConfig extends TargetConfig {
 
 export class CopySourceOptions {
     constructor(options: {
-        Bucket: string,
-        Object: string,
-        VersionID?: string,
-        MatchETag?: string,
-        NoMatchETag?: string,
-        MatchModifiedSince?: string,
-        MatchUnmodifiedSince?: string,
-        MatchRange?: boolean,
-        Start?: number,
-        End?: number,
+        Bucket: string;
+        Object: string;
+        VersionID?: string;
+        MatchETag?: string;
+        NoMatchETag?: string;
+        MatchModifiedSince?: string;
+        MatchUnmodifiedSince?: string;
+        MatchRange?: boolean;
+        Start?: number;
+        End?: number;
         Encryption?: {
             type: string;
             SSEAlgorithm?: string;
             KMSMasterKeyID?: string;
-        },
+        };
     });
 
     getHeaders(): Record<string, string>;
@@ -508,25 +734,31 @@ export class CopySourceOptions {
 
 export class CopyDestinationOptions {
     constructor(options: {
-        Bucket: string,
-        Object: string,
+        Bucket: string;
+        Object: string;
         Encryption?: {
             type: string;
             SSEAlgorithm?: string;
             KMSMasterKeyID?: string;
-        },
-        UserMetadata?: Record<string, unknown>,
-        UserTags?: Record<string, unknown> | string,
-        LegalHold?: LegalHoldStatus,
-        RetainUntilDate?: string,
-        Mode?: Mode,
+        };
+        UserMetadata?: Record<string, unknown>;
+        UserTags?: Record<string, unknown> | string;
+        LegalHold?: LegalHoldStatus;
+        RetainUntilDate?: string;
+        Mode?: Mode;
     });
 
     getHeaders(): Record<string, string>;
     validate(): boolean;
 }
 
-export function buildARN(partition: string, service: string, region: string, accountId: string, resource: string): string;
+export function buildARN(
+    partition: string,
+    service: string,
+    region: string,
+    accountId: string,
+    resource: string,
+): string;
 
 export const ObjectCreatedAll: NotificationEvent; // s3:ObjectCreated:*'
 export const ObjectCreatedPut: NotificationEvent; // s3:ObjectCreated:Put

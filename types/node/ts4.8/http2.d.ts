@@ -1053,7 +1053,6 @@ declare module 'http2' {
          */
         unknownProtocolTimeout?: number | undefined;
         selectPadding?(frameLen: number, maxFrameLen: number): number;
-        createConnection?(authority: url.URL, option: SessionOptions): stream.Duplex;
     }
     export interface ClientSessionOptions extends SessionOptions {
         maxReservedRemoteStreams?: number | undefined;
@@ -1670,6 +1669,34 @@ declare module 'http2' {
          * @since v8.4.0
          */
         writeContinue(): void;
+        /**
+         * Sends a status `103 Early Hints` to the client with a Link header,
+         * indicating that the user agent can preload/preconnect the linked resources.
+         * The `hints` is an object containing the values of headers to be sent with
+         * early hints message.
+         *
+         * Example:
+         *
+         * ```js
+         * const earlyHintsLink = '</styles.css>; rel=preload; as=style';
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLink,
+         * });
+         *
+         * const earlyHintsLinks = [
+         *   '</styles.css>; rel=preload; as=style',
+         *   '</scripts.js>; rel=preload; as=script',
+         * ];
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLinks,
+         *   'x-trace-id': 'id for diagnostics'
+         * });
+         * ```
+         *
+         * @since v18.11.0
+         * @param hints An object containing the values of headers
+         */
+        writeEarlyHints(hints: Record<string, string | string[]>): void;
         /**
          * Sends a response header to the request. The status code is a 3-digit HTTP
          * status code, like `404`. The last argument, `headers`, are the response headers.

@@ -29,6 +29,7 @@ const items = itemsjs(myitems, {
     aggregations: {
         anAggregation: {
             title: 'A Number',
+            hide_zero_doc_count: true,
             conjunction: false,
         },
     },

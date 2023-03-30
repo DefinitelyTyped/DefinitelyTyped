@@ -10,7 +10,6 @@
         "npm-naming": false,
         "only-arrow-functions": false,
         "semicolon": false,
-        "space-before-function-paren": false,
-        "trim-file": false
+        "space-before-function-paren": false
     }
 }

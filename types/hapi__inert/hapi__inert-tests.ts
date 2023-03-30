@@ -1,5 +1,4 @@
 import { Server, Lifecycle } from '@hapi/hapi';
-
 import * as path from 'path';
 import * as inert from '@hapi/inert';
 
@@ -14,16 +13,6 @@ const server = new Server({
 
 const provision = async () => {
     await server.register(inert);
-
-    await server.register({
-        plugin: inert,
-        options: { etagsCacheMaxSize: 400 },
-    });
-
-    await server.register({
-        plugin: inert,
-        once: true,
-    });
 
     server.route({
         method: 'GET',

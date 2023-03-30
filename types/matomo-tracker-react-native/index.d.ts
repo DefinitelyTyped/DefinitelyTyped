@@ -8,8 +8,23 @@ import * as React from 'react';
 
 export interface AppStart {
   userInfo?: {
-    uid?: string
-  };
+    uid?: string,
+    cid?: string,
+    urlref?: string,
+    lang?: string,
+    ua?: string,
+    _idvc?: string,
+    new_visit?: number,
+    _viewts?: number,
+    _idts?: number
+    res?: number,
+    h?: number,
+    m?: number,
+    s?: number,
+    cookie?: number,
+    uadata?: object,
+    dimension?: number
+};
 }
 
 export interface Action {

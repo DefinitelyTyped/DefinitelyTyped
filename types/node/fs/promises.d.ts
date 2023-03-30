@@ -14,6 +14,7 @@ declare module 'fs/promises' {
     import { ReadableStream } from 'node:stream/web';
     import {
         BigIntStats,
+        BigIntStatsFs,
         BufferEncodingOption,
         constants as fsConstants,
         CopyOptions,
@@ -30,13 +31,16 @@ declare module 'fs/promises' {
         RmDirOptions,
         RmOptions,
         StatOptions,
+        StatFsOptions,
         Stats,
+        StatsFs,
         TimeLike,
         WatchEventType,
         WatchOptions,
         WriteStream,
         WriteVResult,
     } from 'node:fs';
+    import { Interface as ReadlineInterface } from 'node:readline';
 
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
@@ -284,6 +288,23 @@ declare module 'fs/promises' {
                 | BufferEncoding
                 | null
         ): Promise<string | Buffer>;
+        /**
+         * Convenience method to create a `readline` interface and stream over the file. For example:
+         *
+         * ```js
+         * import { open } from 'node:fs/promises';
+         *
+         * const file = await open('./some/file/to/read');
+         *
+         * for await (const line of file.readLines()) {
+         *   console.log(line);
+         * }
+         * ```
+         *
+         * @since v18.11.0
+         * @param options See `filehandle.createReadStream()` for the options.
+         */
+        readLines(options?: CreateReadStreamOptions): ReadlineInterface;
         /**
          * @since v10.0.0
          * @return Fulfills with an {fs.Stats} for the file.
@@ -727,6 +748,24 @@ declare module 'fs/promises' {
         }
     ): Promise<BigIntStats>;
     function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
+    /**
+     * @since v18.15.0
+     * @return Fulfills with an {fs.StatFs} for the file system.
+     */
+    function statfs(
+        path: PathLike,
+        opts?: StatFsOptions & {
+            bigint?: false | undefined;
+        }
+    ): Promise<StatsFs>;
+    function statfs(
+        path: PathLike,
+        opts: StatFsOptions & {
+            bigint: true;
+        }
+    ): Promise<BigIntStatsFs>;
+    function statfs(path: PathLike, opts?: StatFsOptions): Promise<StatsFs | BigIntStatsFs>;
+
     /**
      * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail.
      * @since v10.0.0

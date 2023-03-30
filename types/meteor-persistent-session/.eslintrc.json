@@ -1,5 +1,7 @@
 {
     "rules": {
-        "dt-header": "off"
+        "dt-header": "off",
+        "trim-file": "off",
+        "no-any-union": "off"
     }
 }

@@ -1,4 +1,4 @@
-// For Library Version: 1.106.0
+// For Library Version: 1.110.0
 
 declare module "sap/uxap/library" {
   /**
@@ -2956,28 +2956,6 @@ declare module "sap/uxap/ObjectPageHeader" {
        * The breadcrumbs to set
        */
       oBreadcrumbs: Breadcrumbs
-    ): this;
-    /**
-     * @deprecated (since 1.40.1)
-     *
-     * Sets a new value for property {@link #getHeaderDesign headerDesign}.
-     *
-     * Determines the design of the header - Light or Dark. **Note: **This property is deprecated. It will continue
-     * to work in the Blue Crystal theme, but it will not be taken into account for the Belize themes.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Light`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setHeaderDesign(
-      /**
-       * New value for property `headerDesign`
-       */
-      sHeaderDesign?:
-        | ObjectPageHeaderDesign
-        | keyof typeof ObjectPageHeaderDesign
     ): this;
     /**
      * Sets a new value for property {@link #getIsActionAreaAlwaysVisible isActionAreaAlwaysVisible}.
@@ -6594,6 +6572,16 @@ declare module "sap/uxap/ObjectPageSection" {
      */
     getTitleUppercase(): boolean;
     /**
+     * Gets current value of property {@link #getWrapTitle wrapTitle}.
+     *
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `wrapTitle`
+     */
+    getWrapTitle(): boolean;
+    /**
      * Checks for the provided `sap.uxap.ObjectPageSubSection` in the aggregation {@link #getSubSections subSections}.
      * and returns its index if found or -1 otherwise.
      *
@@ -6700,6 +6688,23 @@ declare module "sap/uxap/ObjectPageSection" {
        */
       bTitleUppercase?: boolean
     ): this;
+    /**
+     * Sets a new value for property {@link #getWrapTitle wrapTitle}.
+     *
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWrapTitle(
+      /**
+       * New value for property `wrapTitle`
+       */
+      bWrapTitle?: boolean
+    ): this;
   }
 
   export interface $ObjectPageSectionSettings
@@ -6713,6 +6718,11 @@ declare module "sap/uxap/ObjectPageSection" {
      * Determines whether the Section title is displayed in upper case.
      */
     titleUppercase?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     */
+    wrapTitle?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The list of Subsections.
@@ -6930,14 +6940,6 @@ declare module "sap/uxap/ObjectPageSectionBase" {
       sImportance?: Importance | keyof typeof Importance
     ): this;
     /**
-     * Returns the DOM Element that should get the focus.
-     *
-     * To be overwritten by the specific control method.
-     *
-     * @returns this for chaining
-     */
-    setInvisibleTextLabelValue(): this;
-    /**
      * Sets a new value for property {@link #getTitle title}.
      *
      * Defines the title of the respective section/subsection.
@@ -6998,6 +7000,13 @@ declare module "sap/uxap/ObjectPageSectionBase" {
        */
       bVisible?: boolean
     ): this;
+    /**
+     * Performs the update of the invisible text label. This method is called for example when the section title
+     * is changed.
+     *
+     * @returns this for chaining
+     */
+    updateInvisibleTextLabelValue(): this;
   }
 
   export interface $ObjectPageSectionBaseSettings extends $ControlSettings {

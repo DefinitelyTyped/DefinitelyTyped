@@ -5,8 +5,8 @@ on:
     paths:
       - .github/workflows/support-window.yml
       - package.json
-      - scripts/support-window.ts
-      - scripts/tsconfig.json
+      - scripts/support-window.js
+      - scripts/jsconfig.json
   # Manually, when TypeScript is released
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
@@ -25,7 +25,6 @@ jobs:
         #with:
         #  cache: npm
       - run: npm install
-      - run: tsc --build scripts
       - name: Fetch TypeScript versions and release dates from npm
         run: |
           npm view --json typescript time |

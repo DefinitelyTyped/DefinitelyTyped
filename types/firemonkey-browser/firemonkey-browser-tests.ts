@@ -2,6 +2,27 @@
 
 const title: string = unsafeWindow.document.title;
 
+// exportFunction
+
+const foo = "I'm defined in a content script!";
+function runTest() {
+    console.log(foo);
+}
+
+window.runTest = exportFunction(runTest, window);
+
+// cloneInto
+
+const bar = {
+    foo: "I'm defined in a content script!",
+    runTest() {
+        console.log(foo);
+    },
+};
+
+// @ts-expect-error
+window.bar = cloneInto(bar, window, { cloneFunctions: true });
+
 //#region Async APIs
 
 async () => {

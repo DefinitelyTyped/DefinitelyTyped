@@ -1,4 +1,4 @@
-// Type definitions for prompts 2.0
+// Type definitions for prompts 2.4
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
 //                 Daniel Perez Alvarez <https://github.com/unindented>
@@ -6,6 +6,7 @@
 //                 theweirdone <https://github.com/theweirdone>
 //                 whoaa512 <https://github.com/whoaa512>
 //                 John Reilly <https://github.com/johnnyreilly>
+//                 Christopher Hiller <https://github.com/boneskull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -14,6 +15,7 @@
 export = prompts;
 
 import { Readable, Writable } from 'stream';
+import { Kleur } from 'kleur';
 
 declare function prompts<T extends string = string>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
@@ -77,12 +79,13 @@ declare namespace prompts {
     interface PromptObject<T extends string = string> {
         type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
-        message?: ValueOrFunc<string> | undefined;
+        message: ValueOrFunc<string>;
         initial?: InitialReturnValue | PrevCaller<T, InitialReturnValue | Promise<InitialReturnValue>> | undefined;
         style?: string | PrevCaller<T, string | Falsy> | undefined;
         format?: PrevCaller<T, void> | undefined;
         validate?: PrevCaller<T, boolean | string | Promise<boolean | string>> | undefined;
         onState?: PrevCaller<T, void> | undefined;
+        onRender?: ((kleur: Kleur) => void) | undefined;
         min?: number | PrevCaller<T, number | Falsy> | undefined;
         max?: number | PrevCaller<T, number | Falsy> | undefined;
         float?: boolean | PrevCaller<T, boolean | Falsy> | undefined;

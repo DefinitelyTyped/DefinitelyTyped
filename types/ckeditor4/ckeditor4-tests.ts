@@ -459,6 +459,8 @@ function test_dialog() {
     dialog = dialog.foreach(() => console.log('hey'));
 
     const button: CKEDITOR.ui.dialog.button = dialog.getButton('button1');
+    const textInput = new CKEDITOR.ui.dialog.textInput(dialog, {}, []);
+    textInput.setLabel('label');
     const uiEl: CKEDITOR.ui.dialog.uiElement = dialog.getContentElement('page1', 'element1');
     element = dialog.getElement();
     const str: string = dialog.getName();

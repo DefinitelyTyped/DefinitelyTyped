@@ -313,7 +313,15 @@ $("#mySelect2").select2({
 // Dropdown placement
 
 $("#mySelect2").select2({
+    dropdownParent: document.getElementById("myModal")!
+});
+
+$("#mySelect2").select2({
     dropdownParent: $("#myModal")
+});
+
+$("#mySelect2").select2({
+    dropdownParent: "#myModal"
 });
 
 // =====================================================

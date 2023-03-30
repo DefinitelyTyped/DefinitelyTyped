@@ -4,47 +4,47 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Analyticsreporting {
+  namespace AnalyticsReporting {
     namespace Collection {
       interface ReportsCollection {
         // Returns the Analytics data.
-        batchGet(resource: Schema.GetReportsRequest): Analyticsreporting.Schema.GetReportsResponse;
+        batchGet(resource: Schema.GetReportsRequest): AnalyticsReporting.Schema.GetReportsResponse;
       }
       interface UserActivityCollection {
         // Returns User Activity data.
-        search(resource: Schema.SearchUserActivityRequest): Analyticsreporting.Schema.SearchUserActivityResponse;
+        search(resource: Schema.SearchUserActivityRequest): AnalyticsReporting.Schema.SearchUserActivityResponse;
       }
     }
     namespace Schema {
       interface Activity {
         activityTime?: string | undefined;
         activityType?: string | undefined;
-        appview?: Analyticsreporting.Schema.ScreenviewData | undefined;
+        appview?: AnalyticsReporting.Schema.ScreenviewData | undefined;
         campaign?: string | undefined;
         channelGrouping?: string | undefined;
-        customDimension?: Analyticsreporting.Schema.CustomDimension[] | undefined;
-        ecommerce?: Analyticsreporting.Schema.EcommerceData | undefined;
-        event?: Analyticsreporting.Schema.EventData | undefined;
-        goals?: Analyticsreporting.Schema.GoalSetData | undefined;
+        customDimension?: AnalyticsReporting.Schema.CustomDimension[] | undefined;
+        ecommerce?: AnalyticsReporting.Schema.EcommerceData | undefined;
+        event?: AnalyticsReporting.Schema.EventData | undefined;
+        goals?: AnalyticsReporting.Schema.GoalSetData | undefined;
         hostname?: string | undefined;
         keyword?: string | undefined;
         landingPagePath?: string | undefined;
         medium?: string | undefined;
-        pageview?: Analyticsreporting.Schema.PageviewData | undefined;
+        pageview?: AnalyticsReporting.Schema.PageviewData | undefined;
         source?: string | undefined;
       }
       interface Cohort {
-        dateRange?: Analyticsreporting.Schema.DateRange | undefined;
+        dateRange?: AnalyticsReporting.Schema.DateRange | undefined;
         name?: string | undefined;
         type?: string | undefined;
       }
       interface CohortGroup {
-        cohorts?: Analyticsreporting.Schema.Cohort[] | undefined;
+        cohorts?: AnalyticsReporting.Schema.Cohort[] | undefined;
         lifetimeValue?: boolean | undefined;
       }
       interface ColumnHeader {
         dimensions?: string[] | undefined;
-        metricHeader?: Analyticsreporting.Schema.MetricHeader | undefined;
+        metricHeader?: AnalyticsReporting.Schema.MetricHeader | undefined;
       }
       interface CustomDimension {
         index?: number | undefined;
@@ -55,7 +55,7 @@ declare namespace GoogleAppsScript {
         startDate?: string | undefined;
       }
       interface DateRangeValues {
-        pivotValueRegions?: Analyticsreporting.Schema.PivotValueRegion[] | undefined;
+        pivotValueRegions?: AnalyticsReporting.Schema.PivotValueRegion[] | undefined;
         values?: string[] | undefined;
       }
       interface Dimension {
@@ -70,19 +70,19 @@ declare namespace GoogleAppsScript {
         operator?: string | undefined;
       }
       interface DimensionFilterClause {
-        filters?: Analyticsreporting.Schema.DimensionFilter[] | undefined;
+        filters?: AnalyticsReporting.Schema.DimensionFilter[] | undefined;
         operator?: string | undefined;
       }
       interface DynamicSegment {
         name?: string | undefined;
-        sessionSegment?: Analyticsreporting.Schema.SegmentDefinition | undefined;
-        userSegment?: Analyticsreporting.Schema.SegmentDefinition | undefined;
+        sessionSegment?: AnalyticsReporting.Schema.SegmentDefinition | undefined;
+        userSegment?: AnalyticsReporting.Schema.SegmentDefinition | undefined;
       }
       interface EcommerceData {
         actionType?: string | undefined;
         ecommerceType?: string | undefined;
-        products?: Analyticsreporting.Schema.ProductData[] | undefined;
-        transaction?: Analyticsreporting.Schema.TransactionData | undefined;
+        products?: AnalyticsReporting.Schema.ProductData[] | undefined;
+        transaction?: AnalyticsReporting.Schema.TransactionData | undefined;
       }
       interface EventData {
         eventAction?: string | undefined;
@@ -92,13 +92,13 @@ declare namespace GoogleAppsScript {
         eventValue?: string | undefined;
       }
       interface GetReportsRequest {
-        reportRequests?: Analyticsreporting.Schema.ReportRequest[] | undefined;
+        reportRequests?: AnalyticsReporting.Schema.ReportRequest[] | undefined;
         useResourceQuotas?: boolean | undefined;
       }
       interface GetReportsResponse {
         queryCost?: number | undefined;
-        reports?: Analyticsreporting.Schema.Report[] | undefined;
-        resourceQuotasRemaining?: Analyticsreporting.Schema.ResourceQuotasRemaining | undefined;
+        reports?: AnalyticsReporting.Schema.Report[] | undefined;
+        resourceQuotasRemaining?: AnalyticsReporting.Schema.ResourceQuotasRemaining | undefined;
       }
       interface GoalData {
         goalCompletionLocation?: string | undefined;
@@ -111,7 +111,7 @@ declare namespace GoogleAppsScript {
         goalValue?: number | undefined;
       }
       interface GoalSetData {
-        goals?: Analyticsreporting.Schema.GoalData[] | undefined;
+        goals?: AnalyticsReporting.Schema.GoalData[] | undefined;
       }
       interface Metric {
         alias?: string | undefined;
@@ -125,19 +125,19 @@ declare namespace GoogleAppsScript {
         operator?: string | undefined;
       }
       interface MetricFilterClause {
-        filters?: Analyticsreporting.Schema.MetricFilter[] | undefined;
+        filters?: AnalyticsReporting.Schema.MetricFilter[] | undefined;
         operator?: string | undefined;
       }
       interface MetricHeader {
-        metricHeaderEntries?: Analyticsreporting.Schema.MetricHeaderEntry[] | undefined;
-        pivotHeaders?: Analyticsreporting.Schema.PivotHeader[] | undefined;
+        metricHeaderEntries?: AnalyticsReporting.Schema.MetricHeaderEntry[] | undefined;
+        pivotHeaders?: AnalyticsReporting.Schema.PivotHeader[] | undefined;
       }
       interface MetricHeaderEntry {
         name?: string | undefined;
         type?: string | undefined;
       }
       interface OrFiltersForSegment {
-        segmentFilterClauses?: Analyticsreporting.Schema.SegmentFilterClause[] | undefined;
+        segmentFilterClauses?: AnalyticsReporting.Schema.SegmentFilterClause[] | undefined;
       }
       interface OrderBy {
         fieldName?: string | undefined;
@@ -149,20 +149,20 @@ declare namespace GoogleAppsScript {
         pageTitle?: string | undefined;
       }
       interface Pivot {
-        dimensionFilterClauses?: Analyticsreporting.Schema.DimensionFilterClause[] | undefined;
-        dimensions?: Analyticsreporting.Schema.Dimension[] | undefined;
+        dimensionFilterClauses?: AnalyticsReporting.Schema.DimensionFilterClause[] | undefined;
+        dimensions?: AnalyticsReporting.Schema.Dimension[] | undefined;
         maxGroupCount?: number | undefined;
-        metrics?: Analyticsreporting.Schema.Metric[] | undefined;
+        metrics?: AnalyticsReporting.Schema.Metric[] | undefined;
         startGroup?: number | undefined;
       }
       interface PivotHeader {
-        pivotHeaderEntries?: Analyticsreporting.Schema.PivotHeaderEntry[] | undefined;
+        pivotHeaderEntries?: AnalyticsReporting.Schema.PivotHeaderEntry[] | undefined;
         totalPivotGroupsCount?: number | undefined;
       }
       interface PivotHeaderEntry {
         dimensionNames?: string[] | undefined;
         dimensionValues?: string[] | undefined;
-        metric?: Analyticsreporting.Schema.MetricHeaderEntry | undefined;
+        metric?: AnalyticsReporting.Schema.MetricHeaderEntry | undefined;
       }
       interface PivotValueRegion {
         values?: string[] | undefined;
@@ -174,43 +174,43 @@ declare namespace GoogleAppsScript {
         productSku?: string | undefined;
       }
       interface Report {
-        columnHeader?: Analyticsreporting.Schema.ColumnHeader | undefined;
-        data?: Analyticsreporting.Schema.ReportData | undefined;
+        columnHeader?: AnalyticsReporting.Schema.ColumnHeader | undefined;
+        data?: AnalyticsReporting.Schema.ReportData | undefined;
         nextPageToken?: string | undefined;
       }
       interface ReportData {
         dataLastRefreshed?: string | undefined;
         isDataGolden?: boolean | undefined;
-        maximums?: Analyticsreporting.Schema.DateRangeValues[] | undefined;
-        minimums?: Analyticsreporting.Schema.DateRangeValues[] | undefined;
+        maximums?: AnalyticsReporting.Schema.DateRangeValues[] | undefined;
+        minimums?: AnalyticsReporting.Schema.DateRangeValues[] | undefined;
         rowCount?: number | undefined;
-        rows?: Analyticsreporting.Schema.ReportRow[] | undefined;
+        rows?: AnalyticsReporting.Schema.ReportRow[] | undefined;
         samplesReadCounts?: string[] | undefined;
         samplingSpaceSizes?: string[] | undefined;
-        totals?: Analyticsreporting.Schema.DateRangeValues[] | undefined;
+        totals?: AnalyticsReporting.Schema.DateRangeValues[] | undefined;
       }
       interface ReportRequest {
-        cohortGroup?: Analyticsreporting.Schema.CohortGroup | undefined;
-        dateRanges?: Analyticsreporting.Schema.DateRange[] | undefined;
-        dimensionFilterClauses?: Analyticsreporting.Schema.DimensionFilterClause[] | undefined;
-        dimensions?: Analyticsreporting.Schema.Dimension[] | undefined;
+        cohortGroup?: AnalyticsReporting.Schema.CohortGroup | undefined;
+        dateRanges?: AnalyticsReporting.Schema.DateRange[] | undefined;
+        dimensionFilterClauses?: AnalyticsReporting.Schema.DimensionFilterClause[] | undefined;
+        dimensions?: AnalyticsReporting.Schema.Dimension[] | undefined;
         filtersExpression?: string | undefined;
         hideTotals?: boolean | undefined;
         hideValueRanges?: boolean | undefined;
         includeEmptyRows?: boolean | undefined;
-        metricFilterClauses?: Analyticsreporting.Schema.MetricFilterClause[] | undefined;
-        metrics?: Analyticsreporting.Schema.Metric[] | undefined;
-        orderBys?: Analyticsreporting.Schema.OrderBy[] | undefined;
+        metricFilterClauses?: AnalyticsReporting.Schema.MetricFilterClause[] | undefined;
+        metrics?: AnalyticsReporting.Schema.Metric[] | undefined;
+        orderBys?: AnalyticsReporting.Schema.OrderBy[] | undefined;
         pageSize?: number | undefined;
         pageToken?: string | undefined;
-        pivots?: Analyticsreporting.Schema.Pivot[] | undefined;
+        pivots?: AnalyticsReporting.Schema.Pivot[] | undefined;
         samplingLevel?: string | undefined;
-        segments?: Analyticsreporting.Schema.Segment[] | undefined;
+        segments?: AnalyticsReporting.Schema.Segment[] | undefined;
         viewId?: string | undefined;
       }
       interface ReportRow {
         dimensions?: string[] | undefined;
-        metrics?: Analyticsreporting.Schema.DateRangeValues[] | undefined;
+        metrics?: AnalyticsReporting.Schema.DateRangeValues[] | undefined;
       }
       interface ResourceQuotasRemaining {
         dailyQuotaTokensRemaining?: number | undefined;
@@ -224,24 +224,24 @@ declare namespace GoogleAppsScript {
       }
       interface SearchUserActivityRequest {
         activityTypes?: string[] | undefined;
-        dateRange?: Analyticsreporting.Schema.DateRange | undefined;
+        dateRange?: AnalyticsReporting.Schema.DateRange | undefined;
         pageSize?: number | undefined;
         pageToken?: string | undefined;
-        user?: Analyticsreporting.Schema.User | undefined;
+        user?: AnalyticsReporting.Schema.User | undefined;
         viewId?: string | undefined;
       }
       interface SearchUserActivityResponse {
         nextPageToken?: string | undefined;
         sampleRate?: number | undefined;
-        sessions?: Analyticsreporting.Schema.UserActivitySession[] | undefined;
+        sessions?: AnalyticsReporting.Schema.UserActivitySession[] | undefined;
         totalRows?: number | undefined;
       }
       interface Segment {
-        dynamicSegment?: Analyticsreporting.Schema.DynamicSegment | undefined;
+        dynamicSegment?: AnalyticsReporting.Schema.DynamicSegment | undefined;
         segmentId?: string | undefined;
       }
       interface SegmentDefinition {
-        segmentFilters?: Analyticsreporting.Schema.SegmentFilter[] | undefined;
+        segmentFilters?: AnalyticsReporting.Schema.SegmentFilter[] | undefined;
       }
       interface SegmentDimensionFilter {
         caseSensitive?: boolean | undefined;
@@ -253,12 +253,12 @@ declare namespace GoogleAppsScript {
       }
       interface SegmentFilter {
         not?: boolean | undefined;
-        sequenceSegment?: Analyticsreporting.Schema.SequenceSegment | undefined;
-        simpleSegment?: Analyticsreporting.Schema.SimpleSegment | undefined;
+        sequenceSegment?: AnalyticsReporting.Schema.SequenceSegment | undefined;
+        simpleSegment?: AnalyticsReporting.Schema.SimpleSegment | undefined;
       }
       interface SegmentFilterClause {
-        dimensionFilter?: Analyticsreporting.Schema.SegmentDimensionFilter | undefined;
-        metricFilter?: Analyticsreporting.Schema.SegmentMetricFilter | undefined;
+        dimensionFilter?: AnalyticsReporting.Schema.SegmentDimensionFilter | undefined;
+        metricFilter?: AnalyticsReporting.Schema.SegmentMetricFilter | undefined;
         not?: boolean | undefined;
       }
       interface SegmentMetricFilter {
@@ -270,14 +270,14 @@ declare namespace GoogleAppsScript {
       }
       interface SegmentSequenceStep {
         matchType?: string | undefined;
-        orFiltersForSegment?: Analyticsreporting.Schema.OrFiltersForSegment[] | undefined;
+        orFiltersForSegment?: AnalyticsReporting.Schema.OrFiltersForSegment[] | undefined;
       }
       interface SequenceSegment {
         firstStepShouldMatchFirstHit?: boolean | undefined;
-        segmentSequenceSteps?: Analyticsreporting.Schema.SegmentSequenceStep[] | undefined;
+        segmentSequenceSteps?: AnalyticsReporting.Schema.SegmentSequenceStep[] | undefined;
       }
       interface SimpleSegment {
-        orFiltersForSegment?: Analyticsreporting.Schema.OrFiltersForSegment[] | undefined;
+        orFiltersForSegment?: AnalyticsReporting.Schema.OrFiltersForSegment[] | undefined;
       }
       interface TransactionData {
         transactionId?: string | undefined;
@@ -290,7 +290,7 @@ declare namespace GoogleAppsScript {
         userId?: string | undefined;
       }
       interface UserActivitySession {
-        activities?: Analyticsreporting.Schema.Activity[] | undefined;
+        activities?: AnalyticsReporting.Schema.Activity[] | undefined;
         dataSource?: string | undefined;
         deviceCategory?: string | undefined;
         platform?: string | undefined;
@@ -299,62 +299,62 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  interface Analyticsreporting {
-    Reports?: Analyticsreporting.Collection.ReportsCollection | undefined;
-    UserActivity?: Analyticsreporting.Collection.UserActivityCollection | undefined;
+  interface AnalyticsReporting {
+    Reports?: AnalyticsReporting.Collection.ReportsCollection | undefined;
+    UserActivity?: AnalyticsReporting.Collection.UserActivityCollection | undefined;
     // Create a new instance of Cohort
-    newCohort(): Analyticsreporting.Schema.Cohort;
+    newCohort(): AnalyticsReporting.Schema.Cohort;
     // Create a new instance of CohortGroup
-    newCohortGroup(): Analyticsreporting.Schema.CohortGroup;
+    newCohortGroup(): AnalyticsReporting.Schema.CohortGroup;
     // Create a new instance of DateRange
-    newDateRange(): Analyticsreporting.Schema.DateRange;
+    newDateRange(): AnalyticsReporting.Schema.DateRange;
     // Create a new instance of Dimension
-    newDimension(): Analyticsreporting.Schema.Dimension;
+    newDimension(): AnalyticsReporting.Schema.Dimension;
     // Create a new instance of DimensionFilter
-    newDimensionFilter(): Analyticsreporting.Schema.DimensionFilter;
+    newDimensionFilter(): AnalyticsReporting.Schema.DimensionFilter;
     // Create a new instance of DimensionFilterClause
-    newDimensionFilterClause(): Analyticsreporting.Schema.DimensionFilterClause;
+    newDimensionFilterClause(): AnalyticsReporting.Schema.DimensionFilterClause;
     // Create a new instance of DynamicSegment
-    newDynamicSegment(): Analyticsreporting.Schema.DynamicSegment;
+    newDynamicSegment(): AnalyticsReporting.Schema.DynamicSegment;
     // Create a new instance of GetReportsRequest
-    newGetReportsRequest(): Analyticsreporting.Schema.GetReportsRequest;
+    newGetReportsRequest(): AnalyticsReporting.Schema.GetReportsRequest;
     // Create a new instance of Metric
-    newMetric(): Analyticsreporting.Schema.Metric;
+    newMetric(): AnalyticsReporting.Schema.Metric;
     // Create a new instance of MetricFilter
-    newMetricFilter(): Analyticsreporting.Schema.MetricFilter;
+    newMetricFilter(): AnalyticsReporting.Schema.MetricFilter;
     // Create a new instance of MetricFilterClause
-    newMetricFilterClause(): Analyticsreporting.Schema.MetricFilterClause;
+    newMetricFilterClause(): AnalyticsReporting.Schema.MetricFilterClause;
     // Create a new instance of OrFiltersForSegment
-    newOrFiltersForSegment(): Analyticsreporting.Schema.OrFiltersForSegment;
+    newOrFiltersForSegment(): AnalyticsReporting.Schema.OrFiltersForSegment;
     // Create a new instance of OrderBy
-    newOrderBy(): Analyticsreporting.Schema.OrderBy;
+    newOrderBy(): AnalyticsReporting.Schema.OrderBy;
     // Create a new instance of Pivot
-    newPivot(): Analyticsreporting.Schema.Pivot;
+    newPivot(): AnalyticsReporting.Schema.Pivot;
     // Create a new instance of ReportRequest
-    newReportRequest(): Analyticsreporting.Schema.ReportRequest;
+    newReportRequest(): AnalyticsReporting.Schema.ReportRequest;
     // Create a new instance of SearchUserActivityRequest
-    newSearchUserActivityRequest(): Analyticsreporting.Schema.SearchUserActivityRequest;
+    newSearchUserActivityRequest(): AnalyticsReporting.Schema.SearchUserActivityRequest;
     // Create a new instance of Segment
-    newSegment(): Analyticsreporting.Schema.Segment;
+    newSegment(): AnalyticsReporting.Schema.Segment;
     // Create a new instance of SegmentDefinition
-    newSegmentDefinition(): Analyticsreporting.Schema.SegmentDefinition;
+    newSegmentDefinition(): AnalyticsReporting.Schema.SegmentDefinition;
     // Create a new instance of SegmentDimensionFilter
-    newSegmentDimensionFilter(): Analyticsreporting.Schema.SegmentDimensionFilter;
+    newSegmentDimensionFilter(): AnalyticsReporting.Schema.SegmentDimensionFilter;
     // Create a new instance of SegmentFilter
-    newSegmentFilter(): Analyticsreporting.Schema.SegmentFilter;
+    newSegmentFilter(): AnalyticsReporting.Schema.SegmentFilter;
     // Create a new instance of SegmentFilterClause
-    newSegmentFilterClause(): Analyticsreporting.Schema.SegmentFilterClause;
+    newSegmentFilterClause(): AnalyticsReporting.Schema.SegmentFilterClause;
     // Create a new instance of SegmentMetricFilter
-    newSegmentMetricFilter(): Analyticsreporting.Schema.SegmentMetricFilter;
+    newSegmentMetricFilter(): AnalyticsReporting.Schema.SegmentMetricFilter;
     // Create a new instance of SegmentSequenceStep
-    newSegmentSequenceStep(): Analyticsreporting.Schema.SegmentSequenceStep;
+    newSegmentSequenceStep(): AnalyticsReporting.Schema.SegmentSequenceStep;
     // Create a new instance of SequenceSegment
-    newSequenceSegment(): Analyticsreporting.Schema.SequenceSegment;
+    newSequenceSegment(): AnalyticsReporting.Schema.SequenceSegment;
     // Create a new instance of SimpleSegment
-    newSimpleSegment(): Analyticsreporting.Schema.SimpleSegment;
+    newSimpleSegment(): AnalyticsReporting.Schema.SimpleSegment;
     // Create a new instance of User
-    newUser(): Analyticsreporting.Schema.User;
+    newUser(): AnalyticsReporting.Schema.User;
   }
 }
 
-declare var Analyticsreporting: GoogleAppsScript.Analyticsreporting;
+declare var AnalyticsReporting: GoogleAppsScript.AnalyticsReporting;

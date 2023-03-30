@@ -30,15 +30,19 @@ interface Event {
    */
   readonly timeStamp: number;
   /**
+   * Unauthorized and redirect error status codes (for example 401, 403, 301, 307)
+   */
+  readonly status?: number | undefined;
+  /**
    * Returns the type of event, e.g.
    * "click", "hashchange", or
    * "submit".
    */
   readonly type: string;
-  readonly AT_TARGET: number;
-  readonly BUBBLING_PHASE: number;
-  readonly CAPTURING_PHASE: number;
-  readonly NONE: number;
+  readonly AT_TARGET: 2;
+  readonly BUBBLING_PHASE: 3;
+  readonly CAPTURING_PHASE: 1;
+  readonly NONE: 0;
   composedPath(): any[];
   initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
   preventDefault(): void;

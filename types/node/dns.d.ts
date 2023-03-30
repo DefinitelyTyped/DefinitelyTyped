@@ -174,7 +174,7 @@ declare module 'dns' {
         type: 'AAAA';
     }
     export interface CaaRecord {
-        critial: number;
+        critical: number;
         issue?: string | undefined;
         issuewild?: string | undefined;
         iodef?: string | undefined;

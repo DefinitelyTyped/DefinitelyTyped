@@ -15,9 +15,6 @@ export namespace uri {
     const getBewit: typeof client.getBewit;
 }
 
-/** override the `now` function, e.g., to use sntp */
-export function setTimeFunction(fn: () => number): void;
-
 export { server, client, crypto, utils };
 
 export as namespace hawk;

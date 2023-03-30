@@ -1,4 +1,4 @@
-// Type definitions for non-npm package telegram-web-app 6.2
+// Type definitions for non-npm package telegram-web-app 6.4
 // Project: https://telegram.org/js/telegram-web-app.js
 // Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>, MKRhere <https://github.com/MKRhere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,6 +28,10 @@ interface WebApp {
      * The version of the Bot API available in the user's Telegram app.
      */
     version: string;
+    /**
+     * The name of the platform of the user's Telegram app.
+     */
+    platform: string;
     /**
      * The color scheme currently used in the Telegram app. Either “light” or
      * “dark”. Also available as the CSS variable var(--tg-color-scheme).
@@ -135,16 +139,26 @@ interface WebApp {
      * events.
      */
     onEvent(
-        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked' | 'popupClosed',
+        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
         eventHandler: () => void,
     ): void;
+    onEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id: string | null }) => void): void;
     onEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
+    onEvent(eventType: 'invoiceClosed', eventHandler: (eventData: { url: string, status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void): void;
+    onEvent(eventType: 'qrTextReceived', eventHandler: (eventData: { data: string }) => void): void;
+    onEvent(eventType: 'clipboardTextReceived', eventHandler: (eventData: { data: string | null }) => void): void;
+
     /** A method that deletes a previously set event handler. */
     offEvent(
-        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked' | 'popupClosed',
+        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
         eventHandler: () => void,
     ): void;
+    offEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id: string | null }) => void): void;
     offEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
+    offEvent(eventType: 'invoiceClosed', eventHandler: (eventData: { url: string, status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void): void;
+    offEvent(eventType: 'qrTextReceived', eventHandler: (eventData: { data: string }) => void): void;
+    offEvent(eventType: 'clipboardTextReceived', eventHandler: (eventData: { data: string | null }) => void): void;
+
     /**
      * A method used to send data to the bot. When this method is called, a
      * service message is sent to the bot containing the data data of the length
@@ -155,12 +169,15 @@ interface WebApp {
      */
     sendData(data: string): void;
     /**
-     * A method that opens a link in an external browser. The Web App will not
-     * be closed. Note that this method can be called only in response to the
-     * user interaction with the Web App interface (e.g. click inside the Web
-     * App or on the main button)
+     * A method that opens a link in an external browser.
+     * The Web App will not be closed.
+     * If the optional options parameter is passed with the field
+     * @param try_instant_view the link will be opened in Instant View mode if possible.
+     *
+     * Note that this method can be called only in response to user interaction with
+     * the Web App interface (e.g. a click inside the Web App or on the main button)
      */
-    openLink(url: string): void;
+    openLink(url: string, options?: { try_instant_view?: boolean }): void;
     /**
      * A method that opens a telegram link inside Telegram app. The Web App will
      * be closed.
@@ -172,7 +189,7 @@ interface WebApp {
      *  optional callback parameter was passed, the callback function will be
      *  called and the invoice status will be passed as the first argument.
      */
-    openInvoice(url: string, callback: () => void): void;
+    openInvoice(url: string, callback: (url: string, status: 'paid' | 'cancelled' | 'failed' | 'pending') => void): void;
     /**
      * A method that shows a native popup described by the params argument of the type PopupParams.
      * The Web App will receive the event popupClosed when the popup is closed. If an optional
@@ -192,6 +209,27 @@ interface WebApp {
      * pressed the 'OK' button.
      */
     showConfirm(message: string, callback?: (ok?: boolean) => void): void;
+    /**
+     * A method that shows a native popup for scanning a QR code described by the params argument of the type ScanQrPopupParams.
+     * The Web App will receive the event qrTextReceived every time the scanner catches a code with text data.
+     * If an optional callback parameter was passed, the callback function will be called and the text from the QR
+     * code will be passed as the first argument. Returning true inside this callback function causes the popup to be closed.
+     */
+    showScanQrPopup(params: ScanQrPopupParams, callback?: (data: string) => void): void;
+    /**
+     * A method that closes the native popup for scanning a QR code opened with the
+     * showScanQrPopup method. Run it if you received valid data in the event qrTextReceived.
+     */
+    closeScanQrPopup(): void;
+    /**
+     * A method that requests text from the clipboard. The Web App will receive the event clipboardTextReceived.
+     * If an optional callback parameter was passed, the callback function will be
+     * called and the text from the clipboard will be passed as the first argument.
+     *
+     * Note: this method can be called only for Web Apps launched from the attachment menu and only
+     * in response to a user interaction with the Web App interface (e.g. a click inside the Web App or on the main button).
+     */
+    readTextFromClipboard(callback?: (data: string | null) => void): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -549,4 +587,14 @@ interface WebAppChat {
      * returned for Web Apps launched from the attachment menu.
      */
     photo_url?: string;
+}
+
+/**
+ * This object describes the native popup for scanning QR codes.
+ */
+interface ScanQrPopupParams {
+    /**
+     * The text to be displayed under the 'Scan QR' heading, 0-64 characters.
+     */
+    text?: string;
 }

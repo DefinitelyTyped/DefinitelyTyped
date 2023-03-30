@@ -52,7 +52,7 @@ export interface RedirectOptions {
     ignoreRoot?: boolean | undefined;
 }
 
-export class Provider {
+declare class Provider {
     app: Express;
 
     Database: Database;
@@ -60,7 +60,7 @@ export class Provider {
     DeepLinking: DeepLinkingService;
     NamesAndRoles: NamesAndRolesService;
 
-    constructor(encryptionKey: string, database: DatabaseOptions, options?: ProviderOptions);
+    setup(encryptionKey: string, database: DatabaseOptions, options?: ProviderOptions): Provider;
 
     deploy(options?: DeploymentOptions): Promise<true | undefined>;
 
@@ -92,3 +92,6 @@ export class Provider {
 
     redirect(response: Response, path: string, options?: RedirectOptions): void;
 }
+
+declare const defaultProvider: Provider;
+export default defaultProvider;

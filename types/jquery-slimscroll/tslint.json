@@ -7,7 +7,6 @@
         "one-line": false,
         "only-arrow-functions": false,
         "semicolon": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
         "whitespace": false

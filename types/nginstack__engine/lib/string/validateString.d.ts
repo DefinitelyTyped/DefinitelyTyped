@@ -6,9 +6,11 @@ declare function validateString(
     min?: number | Date,
     caseType?: string,
     classKey?: number,
-    dateFormat?: any,
+    dateFormat?: DateFormat,
     ...args: any[]
 ): any;
 declare namespace validateString {
-    function registerType(type: string | string[], handler: any): void;
+    export { registerType, DateFormat };
 }
+type DateFormat = import('../date/DateFormat').DateFormatType;
+declare function registerType(type: string | string[], handler: any): void;

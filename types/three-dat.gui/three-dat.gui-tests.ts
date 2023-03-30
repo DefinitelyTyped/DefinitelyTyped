@@ -18,7 +18,7 @@ gui.open();
 }
 {
     // $ExpectType GUI
-    gui.addFog('', new THREE.Fog(''));
+    gui.addFog('', new THREE.Fog(0xcccccc));
     // $ExpectType GUI
     gui.addFog('', new THREE.FogExp2(''));
 }

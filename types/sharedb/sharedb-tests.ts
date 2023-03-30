@@ -90,6 +90,9 @@ for (const action of submitRelatedActions) {
 
         if (agent.custom.user) {
             console.log(agent.custom.user.id);
+            console.log(agent.src);
+            console.log(agent.clientId);
+            console.log(agent.connectTime);
         }
         console.log(
             request.action,
@@ -150,6 +153,7 @@ backend.use('query', (context, callback) => {
         context.projection,
         context.fields,
         context.channel,
+        context.channels,
         context.query,
         context.options,
         context.snapshotProjection,
@@ -209,6 +213,17 @@ backend.use('sendPresence', (context, callback) => {
     callback();
 });
 
+backend.use('apply', (context, callback) => {
+    context.$fixup([{insert: 'foo'}]);
+    callback();
+});
+
+backend.use('commit', (context, callback) => {
+    // @ts-expect-error :: don't allow $fixup outside of 'apply'
+    context.$fixup([{insert: 'foo'}]);
+    callback();
+});
+
 backend.on('submitRequestEnd', (error, request) => {
     console.log(request.op);
 });
@@ -231,7 +246,7 @@ connection.on('connected', (reason) => {
 });
 
 connection.on('pong', () => {});
-connection.ping();
+if (connection.canSend) connection.ping();
 
 const doc = connection.get('examples', 'counter');
 
@@ -425,10 +440,8 @@ backend.getOpsBulk(agent, 'collection', 'id', {abc: 0}, {abc: 5}, {opsOptions: {
 
 class SocketLike {
     readyState = 1;
-
     close(reason?: number): void {}
     send(data: any): void {}
-
     onmessage: (event: any) => void;
     onclose: (event: any) => void;
     onerror: (event: any) => void;

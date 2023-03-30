@@ -7,7 +7,7 @@ export class Cherrypick {
     /**
      * Cherrypick a commit and, changing the index and working directory
      */
-    static cherrypick(repo: Repository, commit: Commit, options?: CherrypickOptions): Promise<number>;
+    static cherrypick(repo: Repository, commit: Commit, options?: CherrypickOptions): Promise<void>;
     /**
      * Cherrypicks the given commit against "our" commit, producing an index that reflects the result of the cherrypick. The index is not backed by a repo.
      */

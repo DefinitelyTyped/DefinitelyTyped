@@ -1,5 +1,4 @@
-import * as lib from 'semantic-release';
-import semanticRelease = require('semantic-release');
+import semanticRelease, * as lib from 'semantic-release';
 
 function analyzeCommits(pluginConfig: any, context: lib.Context) {
     const commits = context.commits;
@@ -210,3 +209,6 @@ const result3: lib.Result = {
         },
     ],
 };
+
+import getGitAuthUrl from 'semantic-release/lib/get-git-auth-url';
+const result4: Promise<string> = getGitAuthUrl(context);

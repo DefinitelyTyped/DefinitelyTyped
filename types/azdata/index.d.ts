@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.39
+// Type definitions for Azure Data Studio 1.42
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.39 Extension API
+ * Type Definition for Azure Data Studio 1.42 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -74,7 +74,7 @@ declare module 'azdata' {
         export function getProvidersByType<T extends DataProvider>(providerType: DataProviderType): T[];
 
         /**
-         * An [event](#Event) which fires when the specific flavor of a language used in DMP
+         * An {@link vscode.Event} which fires when the specific flavor of a language used in DMP
          * connections has changed. And example is for a SQL connection, the flavor changes
          * to MSSQL
          */
@@ -433,40 +433,42 @@ declare module 'azdata' {
         ownerUri: string;
 
         /**
-         * connection id returned from service host.
+         * Connection id returned from service host, if the connection was successful.
          */
-        connectionId: string;
+        connectionId?: string | undefined;
 
         /**
-         * any diagnostic messages return from the service host.
+         * Additional optional detailed error messages from the engine or service host, if an error occurred.
          */
-        messages: string;
+        messages?: string | undefined;
 
         /**
-         * Error message returned from the engine, if any.
+         * Error message returned from the engine or service host, if an error occurred.
          */
-        errorMessage: string;
+        errorMessage?: string | undefined;
 
         /**
-         * Error number returned from the engine, if any.
+         * Error number returned from the engine or server host, if an error occurred.
          */
-        errorNumber: number;
+        errorNumber?: number | undefined;
         /**
-         * Information about the connected server.
+         * Information about the connected server, if the connection was successful.
          */
-        serverInfo: ServerInfo;
+        serverInfo?: ServerInfo | undefined;
         /**
-         * information about the actual connection established
+         * Information about the actual connection established, if the connection was successful.
          */
-        connectionSummary: ConnectionSummary;
+        connectionSummary?: ConnectionSummary | undefined;
         /**
-         * Indicates whether the server version is supported by ADS. The default value is true. If the value is false, ADS will show a warning message.
+         * Whether the server version is supported by the provider. Default is to assume true. If the value is false, Azure Data Studio
+         * will show a warning message.
          */
-        isSupportedVersion?: boolean;
+        isSupportedVersion?: boolean | undefined;
         /**
-         * The messages that will be appended to the Azure Data Studio's warning message about unsupported versions.
+         * Additional optional message with details about why the version isn't supported. This will be appended to the warning message Azure Data Studio
+         * displays about unsupported versions.
          */
-        unsupportedVersionMessage?: string;
+        unsupportedVersionMessage?: string | undefined;
     }
 
     /**
@@ -2353,6 +2355,11 @@ declare module 'azdata' {
              * What type of token this is (such as Bearer)
              */
             tokenType?: string | undefined;
+
+            /**
+             * Access token expiry timestamp
+             */
+            expiresOn?: number | undefined;
         }
 
         /**
@@ -2365,7 +2372,7 @@ declare module 'azdata' {
         export function getAccountSecurityToken(account: Account, tenantId: string, resource: AzureResource): Thenable<AccountSecurityToken | undefined>;
 
         /**
-         * An [event](#Event) which fires when the accounts have changed.
+         * An {@link vscode.Event} which fires when the accounts have changed.
          */
         export const onDidChangeAccounts: vscode.Event<DidChangeAccountsParams>;
     }
@@ -2385,7 +2392,7 @@ declare module 'azdata' {
         accountType: string;
 
         /**
-         * A display name that identifies the account, such as "User Name".
+         * A display name that identifies the account, such as "User Name". Will include the e-mail address if available.
          */
         displayName: string;
 
@@ -2393,6 +2400,14 @@ declare module 'azdata' {
          * Unique user id that identifies the account.
          */
         userId: string;
+        /**
+         * The e-mail address associated with this account
+         */
+        email?: string;
+        /**
+         * A display name that identifies the account, such as "User Name".
+         */
+        name?: string;
     }
 
     /**
@@ -2413,6 +2428,11 @@ declare module 'azdata' {
          * Identifier for the account, unique to the provider
          */
         accountId: string;
+
+        /**
+         * A version string for an account
+         */
+        accountVersion?: string;
     }
 
     /**
@@ -2438,6 +2458,11 @@ declare module 'azdata' {
          * Indicates if the account needs refreshing
          */
         isStale: boolean;
+
+        /**
+         * Specifies if an account should be deleted
+         */
+        delete?: boolean;
     }
 
     export enum AzureResource {
@@ -2488,7 +2513,11 @@ declare module 'azdata' {
         /**
          * Power BI
          */
-        PowerBi = 11
+        PowerBi = 11,
+        /**
+         * Represents custom resource URIs as received from server endpoint.
+         */
+        Custom = 12
     }
 
     export interface DidChangeAccountsParams {
@@ -2552,9 +2581,17 @@ declare module 'azdata' {
          * @param account The account to generate a security token for
          * @param resource The resource to get the token for
          * @return Promise to return a security token object
-         * @deprecated use getAccountSecurityToken
+         * @deprecated use {@link AccountProvider.getAccountSecurityToken}
          */
         getSecurityToken(account: Account, resource: AzureResource): Thenable<{} | undefined>;
+
+        /**
+         * Generates a security token for the provided account and tenant
+         * @param account The account to generate a security token for
+         * @param resource The resource to get the token for
+         * @return Promise to return a security token object
+         */
+        getAccountSecurityToken(account: Account, tenant: string, resource: AzureResource): Thenable<accounts.AccountSecurityToken | undefined>;
 
         /**
          * Prompts the user to enter account information.
@@ -2623,24 +2660,78 @@ declare module 'azdata' {
      * Represents a provider of resource
      */
     export interface ResourceProvider {
+        /**
+         * Creates a firewall rule for the given account
+         * @param account Account with which firewall rule request will be made.
+         * @param firewallruleInfo Firewall rule creation information
+         */
         createFirewallRule(account: Account, firewallruleInfo: FirewallRuleInfo): Thenable<CreateFirewallRuleResponse>;
+
+        /**
+         * Handles the response from the firewall rule creation request
+         * @param errorCode Error code from the firewall rule creation request
+         * @param errorMessage Error message from the firewall rule creation request
+         * @param connectionTypeId Connection type id of the firewall rule creation request
+         */
         handleFirewallRule(errorCode: number, errorMessage: string, connectionTypeId: string): Thenable<HandleFirewallRuleResponse>;
     }
 
+    /**
+     * Firewall rule creation information
+     */
     export interface FirewallRuleInfo {
+        /**
+         * Start of the IP address range
+         */
         startIpAddress?: string | undefined;
+        /**
+         * End of the IP address range
+         */
         endIpAddress?: string | undefined;
+        /**
+         * Fully qualified name of the server to create a new firewall rule on
+         */
         serverName: string;
+        /**
+         * Firewall rule name to set
+         */
+        firewallRuleName: string;
+        /**
+         * Per-tenant token mappings. Ideally would be set independently of this call,
+         * but for now this allows us to get the tokens necessary to find a server and open a firewall rule
+         */
         securityTokenMappings: {};
     }
 
+    /**
+     * Firewall rule creation response
+     */
     export interface CreateFirewallRuleResponse {
+        /**
+         * Whether or not request can be handled.
+         */
         result: boolean;
+        /**
+         * Contains error message, if request could not be handled.
+         */
         errorMessage: string;
     }
 
+    /**
+     * Response to the check for Firewall rule support given an error message
+     */
     export interface HandleFirewallRuleResponse {
+        /**
+         * Whether or not request can be handled.
+         */
         result: boolean;
+        /**
+         * Contains error message, if request could not be handled.
+         */
+        errorMessage: string;
+        /**
+         * If handled, the default IP address to send back; so users can tell what their blocked IP is.
+         */
         ipAddress: string;
     }
 
@@ -2739,12 +2830,12 @@ declare module 'azdata' {
      */
     export namespace workspace {
         /**
-         * An event that is emitted when a [dashboard](#DashboardDocument) is opened.
+         * An event that is emitted when a {@link DashboardDocument} is opened.
          */
         export const onDidOpenDashboard: vscode.Event<DashboardDocument>;
 
         /**
-         * An event that is emitted when a [dashboard](#DashboardDocument) is focused.
+         * An event that is emitted when a {@link DashboardDocument} is focused.
          */
         export const onDidChangeToDashboard: vscode.Event<DashboardDocument>;
 
@@ -2769,7 +2860,7 @@ declare module 'azdata' {
             openEditor(position?: vscode.ViewColumn): Thenable<void>;
 
             /**
-             * Registers a save handler for this editor. This will be called if [supportsSave](#ModelViewEditorOptions.supportsSave)
+             * Registers a save handler for this editor. This will be called if {@link ModelViewEditorOptions.supportsSave}
              * is set to true and the editor is marked as dirty
              */
             registerSaveHandler(handler: () => Thenable<boolean>): void;
@@ -2787,8 +2878,20 @@ declare module 'azdata' {
     }
 
     export class TreeItem extends vscode.TreeItem {
+        /**
+         * The connection profile that will be used to create the session with the provider for retrieving children.
+         * No child nodes will be created if not specified.
+         */
         payload?: IConnectionProfile | undefined;
+        /**
+         * Indicates that the children for this node should be retrieved from the specified provider if set, this will retrieve
+         * all child nodes from the {@link ObjectExplorerProvider}, in addition to any nodes provided by {@link ObjectExplorerNodeProvider}
+         * with the same provider ID.
+         */
         childProvider?: string | undefined;
+        /**
+         * The type of node this is, used as a context key value for the node if set.
+         */
         type?: ExtensionNodeType | undefined;
     }
 
@@ -3212,12 +3315,12 @@ declare module 'azdata' {
          */
         flexWrap?: FlexWrapType | undefined;
         /**
-         * Container Height
+         * Container Height. Accepted values are px, %, auto and calc expressions.
          */
         height?: number | string | undefined;
 
         /**
-         * Container Width
+         * Container Width. Accepted values are px, %, auto and calc expressions.
          */
         width?: number | string | undefined;
 
@@ -5213,7 +5316,7 @@ declare module 'azdata' {
          *
          * @param options Options to control how the document will be created.
          * @param providerId Optional provider ID this editor will be associated with. Defaults to MSSQL.
-         * @return A promise that resolves to a [document](#QueryDocument).
+         * @return A promise that resolves to a {@link QueryDocument}.
          */
         export function openQueryDocument(options?: { content?: string; }, providerId?: string): Thenable<QueryDocument>;
     }
@@ -5448,20 +5551,20 @@ declare module 'azdata' {
         export let visibleNotebookEditors: NotebookEditor[];
 
         /**
-         * An event that is emitted when a [notebook document](#NotebookDocument) is opened.
+         * An event that is emitted when a {@link NotebookDocument} is opened.
          *
-         * To add an event listener when a visible text document is opened, use the [TextEditor](#TextEditor) events in the
-         * [window](#window) namespace. Note that:
+         * To add an event listener when a visible text document is opened, use the {@link TextEditor} events in the
+         * {@link window} namespace. Note that:
          *
-         * - The event is emitted before the [document](#NotebookDocument) is updated in the
-         * [active notebook editor](#nb.activeNotebookEditor)
-         * - When a [notebook document](#NotebookDocument) is already open (e.g.: open in another visible notebook editor) this event is not emitted
+         * - The event is emitted before the {@link NotebookDocument} is updated in the
+         * {@link nb.activeNotebookEditor}
+         * - When a {@link NotebookDocument} is already open (e.g.: open in another visible notebook editor) this event is not emitted
          *
          */
         export const onDidOpenNotebookDocument: vscode.Event<NotebookDocument>;
 
         /**
-         * An event that is emitted when a [notebook's](#NotebookDocument) cell contents are changed.
+         * An event that is emitted when a {@link NotebookDocument} cell contents are changed.
          */
         export const onDidChangeNotebookCell: vscode.Event<NotebookCellChangeEvent>;
 
@@ -5471,10 +5574,10 @@ declare module 'azdata' {
         export const onDidChangeActiveNotebookEditor: vscode.Event<NotebookEditor>;
 
         /**
-         * Show the given document in a notebook editor. A [column](#ViewColumn) can be provided
-         * to control where the editor is being shown. Might change the [active editor](#nb.activeNotebookEditor).
+         * Show the given document in a notebook editor. A {@link vscode.ViewColumn} can be provided
+         * to control where the editor is being shown. Might change the {@link nb.activeNotebookEditor}.
          *
-         * The document is denoted by an [uri](#Uri). Depending on the [scheme](#Uri.scheme) the
+         * The document is denoted by an {@link Uri}. Depending on the {@link Uri.scheme} the
          * following rules apply:
          * `file`-scheme: Open a file on disk, will be rejected if the file does not exist or cannot be loaded.
          * `untitled`-scheme: A new file that should be saved on disk, e.g. `untitled:c:\frodo\new.js`. The language
@@ -5482,11 +5585,11 @@ declare module 'azdata' {
          * For all other schemes the registered notebook providers are consulted.
          *
          * @param document A document to be shown.
-         * @param column A view column in which the [editor](#NotebookEditor) should be shown. The default is the [active](#ViewColumn.Active), other values
-         * are adjusted to be `Min(column, columnCount + 1)`, the [active](#ViewColumn.Active)-column is not adjusted. Use [`ViewColumn.Beside`](#ViewColumn.Beside)
+         * @param column A view column in which the {@link NotebookEditor} should be shown. The default is the {@link vscode.ViewColumn}, other values
+         * are adjusted to be `Min(column, columnCount + 1)`, the {@link vscode.ViewColumn.Active}-column is not adjusted. Use {@link vscode.ViewColumn.Beside}
          * to open the editor to the side of the currently active one.
          * @param preserveFocus When `true` the editor will not take focus.
-         * @return A promise that resolves to a [notebook editor](#NotebookEditor).
+         * @return A promise that resolves to a {@link NotebookEditor}.
          */
         export function showNotebookDocument(uri: vscode.Uri, showOptions?: NotebookShowOptions): Thenable<NotebookEditor>;
 
@@ -5502,14 +5605,14 @@ declare module 'azdata' {
 
             /**
              * The file system path of the associated resource. Shorthand
-             * notation for [TextDocument.uri.fsPath](#TextDocument.uri). Independent of the uri scheme.
+             * notation for {@link vscode.TextDocument.uri}. Independent of the uri scheme.
              */
             readonly fileName: string;
 
             /**
              * Is this document representing an untitled file which has never been saved yet. *Note* that
-             * this does not mean the document will be saved to disk, use [`uri.scheme`](#Uri.scheme)
-             * to figure out where a document will be [saved](#FileSystemProvider), e.g. `file`, `ftp` etc.
+             * this does not mean the document will be saved to disk, use {@link vscode.Uri.scheme}
+             * to figure out where a document will be {@link vscode.FileSystemProvider}, e.g. `file`, `ftp` etc.
              */
             readonly isUntitled: boolean;
 
@@ -5559,18 +5662,18 @@ declare module 'azdata' {
 
         /**
          * A cell range represents an ordered pair of two positions in a list of cells.
-         * It is guaranteed that [start](#CellRange.start).isBeforeOrEqual([end](#CellRange.end))
+         * It is guaranteed that {@link CellRange.start}.isBeforeOrEqual({@link CellRange.end})
          *
          * CellRange objects are __immutable__.
          */
         export class CellRange {
             /**
-             * The start index. It is before or equal to [end](#CellRange.end).
+             * The start index. It is before or equal to {@link CellRange.end}.
              */
             readonly start: number;
 
             /**
-             * The end index. It is after or equal to [start](#CellRange.start).
+             * The end index. It is after or equal to {@link CellRange.start}.
              */
             readonly end: number;
 
@@ -5599,11 +5702,11 @@ declare module 'azdata' {
             /**
              * Perform an edit on the document associated with this notebook editor.
              *
-             * The given callback-function is invoked with an [edit-builder](#NotebookEditorEdit) which must
+             * The given callback-function is invoked with an {@link NotebookEditorEdit} which must
              * be used to make edits. Note that the edit-builder is only valid while the
              * callback executes.
              *
-             * @param callback A function which can create edits using an [edit-builder](#NotebookEditorEdit).
+             * @param callback A function which can create edits using an {@link NotebookEditorEdit}.
              * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
              * @return A promise that resolves with a value indicating if the edits could be applied.
              */
@@ -5647,21 +5750,21 @@ declare module 'azdata' {
 
         export interface NotebookShowOptions {
             /**
-             * An optional view column in which the [editor](#NotebookEditor) should be shown.
-             * The default is the [active](#ViewColumn.Active), other values are adjusted to
-             * be `Min(column, columnCount + 1)`, the [active](#ViewColumn.Active)-column is
-             * not adjusted. Use [`ViewColumn.Beside`](#ViewColumn.Beside) to open the
+             * An optional view column in which the {@link NotebookEditor} should be shown.
+             * The default is the {@link vscode.ViewColumn.Active}, other values are adjusted to
+             * be `Min(column, columnCount + 1)`, the {@link vscode.ViewColumn.Active}-column is
+             * not adjusted. Use {@link vscode.ViewColumn.Beside} to open the
              * editor to the side of the currently active one.
              */
             viewColumn?: vscode.ViewColumn | undefined;
 
             /**
-             * An optional flag that when `true` will stop the [editor](#NotebookEditor) from taking focus.
+             * An optional flag that when `true` will stop the {@link NotebookEditor} from taking focus.
              */
             preserveFocus?: boolean | undefined;
 
             /**
-             * An optional flag that controls if an [editor](#NotebookEditor)-tab will be replaced
+             * An optional flag that controls if an {@link NotebookEditor}-tab will be replaced
              * with the next editor or if it will be kept.
              */
             preview?: boolean | undefined;
@@ -5693,19 +5796,19 @@ declare module 'azdata' {
         }
 
         /**
-         * Represents an event describing the change in a [notebook document's cells](#NotebookDocument.cells).
+         * Represents an event describing the change in a {@link NotebookDocument.cells}.
          */
         export interface NotebookCellChangeEvent {
             /**
-             * The [notebook document](#NotebookDocument) for which the selections have changed.
+             * The {@link NotebookDocument} for which the selections have changed.
              */
             notebook: NotebookDocument;
             /**
-             * The new value for the [notebook document's cells](#NotebookDocument.cells).
+             * The new value for the {@link NotebookDocument.cells}.
              */
             cells: NotebookCell[];
             /**
-             * The [change kind](#NotebookChangeKind) which has triggered this
+             * The {@link NotebookChangeKind} which has triggered this
              * event. Can be `undefined`.
              */
             kind?: NotebookChangeKind | undefined;
@@ -5721,7 +5824,7 @@ declare module 'azdata' {
         /**
          * A complex edit that will be applied in one transaction on a NotebookEditor.
          * This holds a description of the edits and if the edits are valid (i.e. no overlapping regions, document was not changed in the meantime, etc.)
-         * they can be applied on a [document](#NotebookDocument) associated with a [Notebook editor](#NotebookEditor).
+         * they can be applied on a {@link NotebookDocument} associated with a {@link NotebookEditor}.
          *
          */
         export interface NotebookEditorEdit {

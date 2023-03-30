@@ -1,4 +1,4 @@
-// Type definitions for babel-plugin-macros 2.8
+// Type definitions for babel-plugin-macros 3.1
 // Project: https://github.com/kentcdodds/babel-plugin-macros
 // Definitions by: Billy Kwok <https://github.com/billykwok>
 //                 Jake Runzer <https://github.com/coffee-cup>
@@ -24,6 +24,8 @@ declare namespace babelPluginMacros {
         state: Babel.PluginPass;
         babel: typeof Babel;
         config?: { [key: string]: any } | undefined;
+        source: string;
+        isBabelMacrosCall: boolean;
     }
 
     type MacroHandler = (params: MacroParams) => void;

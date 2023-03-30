@@ -34,5 +34,6 @@ declare namespace Popover {
         style?: React.CSSProperties | undefined;
         target?: React.ReactElement | undefined;
         appendTarget?: Element | undefined;
+        children?: React.ReactNode;
     }
 }

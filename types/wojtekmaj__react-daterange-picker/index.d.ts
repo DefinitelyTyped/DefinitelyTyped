@@ -23,9 +23,11 @@ export interface DateRangePickerProps<TValue extends string | Date = string | Da
     isOpen?: boolean | undefined;
     locale?: string | undefined;
     maxDate?: Date | undefined;
-    maxDetails?: "century" | "decade" | "year" | "month" | undefined;
+    maxDetail?: "century" | "decade" | "year" | "month" | undefined;
     minDate?: Date | undefined;
+    minDetail?: "century" | "decade" | "year" | "month" | undefined;
     monthAriaLabel?: string | undefined;
+    monthPlaceholder?: string | undefined;
     name?: string | undefined;
     nativeInputAriaLabel?: string | undefined;
     onCalendarClose?: () => void | undefined;
@@ -35,7 +37,6 @@ export interface DateRangePickerProps<TValue extends string | Date = string | Da
     openCalendarOnFocus?: boolean | undefined;
     rangeDivider?: ReactNode | undefined;
     required?: boolean | undefined;
-    returnValue?: "start" | "end" | "range" | undefined;
     showLeadingZeros?: boolean | undefined;
     value: TValue | TValue[];
     yearAriaLabel?: string | undefined;

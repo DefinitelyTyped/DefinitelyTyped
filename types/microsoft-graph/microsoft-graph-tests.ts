@@ -213,3 +213,9 @@ const album: MicrosoftGraph.Album = {
 const bookingsAvailabilityStatus: MicrosoftGraph.BookingsAvailabilityStatus = "available";
 
 const appliedConditionalAccessPolicyResult: MicrosoftGraph.BookingsAvailabilityStatus = "available";
+
+const bookingStaffRole: MicrosoftGraph.BookingStaffRole = "unknownFutureValue";
+
+const bookingAppointmentStatus: MicrosoftGraph.BookingAppointment = {
+    id: "test",
+};

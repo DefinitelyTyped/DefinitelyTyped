@@ -55,6 +55,7 @@ const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event,
     anyObj = (event.identity as AppSyncIdentityLambda).resolverContext;
 
     strOrUndefined = event.request.headers.host;
+    strOrNull = event.request.domainName;
 
     str = event.info.fieldName;
     str = event.info.parentTypeName;
@@ -103,6 +104,7 @@ const batchHandler: AppSyncBatchResolverHandler<TestArguments, TestEntity> = asy
         anyObj = (event.identity as AppSyncIdentityLambda).resolverContext;
 
         strOrUndefined = event.request.headers.host;
+        strOrNull = event.request.domainName;
 
         str = event.info.fieldName;
         str = event.info.parentTypeName;

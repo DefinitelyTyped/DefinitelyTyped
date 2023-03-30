@@ -1,26 +1,24 @@
-// Type definitions for parse 2.18
+// Type definitions for parse 3.0
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
-//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
-//                  Cedric Kemp <https://github.com/jaeggerr>
-//                  Flavio Negrão <https://github.com/flavionegrao>
-//                  Wes Grimes <https://github.com/wesleygrimes>
-//                  Otherwise SAS <https://github.com/owsas>
-//                  Andrew Goldis <https://github.com/agoldis>
-//                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
-//                  Diamond Lewis <https://github.com/dplewis>
-//                  Jong Eun Lee <https://github.com/yomybaby>
-//                  Colin Ulin <https://github.com/pocketcolin>
-//                  Robert Helms <https://github.com/rdhelms>
-//                  Julien Quere <https://github.com/jlnquere>
-//                  Thibault MOCELLIN <https://github.com/tybi>
-//                  Jeff Gu Kang <https://github.com/jeffgukang>
-//                  Bui Tan Loc <https://github.com/buitanloc>
-//                  Jerome De Leon <https://github.com/JeromeDeLeon>
-//                  Kent Robin Haugen <https://github.com/kentrh>
-//                  Asen Lekov <https://github.com/L3K0V>
-//                  Switt Kongdachalert <https://github.com/swittk>
-//                  Dan Syrstad <https://github.com/dsyrstad>
+//                 David Poetzsch-Heffter <https://github.com/dpoetzsch>
+//                 Cedric Kemp <https://github.com/jaeggerr>
+//                 Flavio Negrão <https://github.com/flavionegrao>
+//                 Wes Grimes <https://github.com/wesleygrimes>
+//                 Otherwise SAS <https://github.com/owsas>
+//                 Andrew Goldis <https://github.com/agoldis>
+//                 Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
+//                 Diamond Lewis <https://github.com/dplewis>
+//                 Jong Eun Lee <https://github.com/yomybaby>
+//                 Colin Ulin <https://github.com/pocketcolin>
+//                 Robert Helms <https://github.com/rdhelms>
+//                 Julien Quere <https://github.com/jlnquere>
+//                 Thibault MOCELLIN <https://github.com/tybi>
+//                 Jeff Gu Kang <https://github.com/jeffgukang>
+//                 Bui Tan Loc <https://github.com/buitanloc>
+//                 Jerome De Leon <https://github.com/JeromeDeLeon>
+//                 Kent Robin Haugen <https://github.com/kentrh>
+//                 Switt Kongdachalert <https://github.com/swittk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -31,60 +29,189 @@
 import { EventEmitter } from 'events';
 
 declare enum ErrorCode {
+    /** Error code indicating some error other than those enumerated here */
     OTHER_CAUSE = -1,
+    /** Error code indicating that something has gone wrong with the server. */
     INTERNAL_SERVER_ERROR = 1,
+    /** Error code indicating the connection to the Parse servers failed. */
     CONNECTION_FAILED = 100,
+    /** Error code indicating the specified object doesn't exist. */
     OBJECT_NOT_FOUND = 101,
+    /**
+     * Error code indicating you tried to query with a datatype that doesn't
+     * support it, like exact matching an array or object.
+     */
     INVALID_QUERY = 102,
+    /*
+     * Error code indicating a missing or invalid classname. Classnames are
+     * case-sensitive. They must start with a letter, and a-zA-Z0-9_ are the
+     * only valid characters.
+     */
     INVALID_CLASS_NAME = 103,
+    /** Error code indicating an unspecified object id. */
     MISSING_OBJECT_ID = 104,
+    /**
+     * Error code indicating an invalid key name. Keys are case-sensitive. They
+     * must start with a letter, and a-zA-Z0-9_ are the only valid characters.
+     */
     INVALID_KEY_NAME = 105,
+    /**
+     * Error code indicating a malformed pointer. You should not see this unless
+     * you have been mucking about changing internal Parse code.
+     */
     INVALID_POINTER = 106,
+    /*
+     * Error code indicating that badly formed JSON was received upstream. This
+     * either indicates you have done something unusual with modifying how
+     * things encode to JSON, or the network is failing badly.
+     */
     INVALID_JSON = 107,
+    /**
+     * Error code indicating that the feature you tried to access is only
+     * available internally for testing purposes.
+     */
     COMMAND_UNAVAILABLE = 108,
+    /** You must call Parse.initialize before using the Parse library. */
     NOT_INITIALIZED = 109,
+    /** Error code indicating that a field was set to an inconsistent type. */
     INCORRECT_TYPE = 111,
+    /**
+     * Error code indicating an invalid channel name. A channel name is either
+     * an empty string (the broadcast channel) or contains only a-zA-Z0-9_
+     * characters and starts with a letter.
+     */
     INVALID_CHANNEL_NAME = 112,
+    /** Error code indicating that push is misconfigured. */
     PUSH_MISCONFIGURED = 115,
+    /** Error code indicating that the object is too large. */
     OBJECT_TOO_LARGE = 116,
+    /** Error code indicating that the operation isn't allowed for clients. */
     OPERATION_FORBIDDEN = 119,
+    /** Error code indicating the result was not found in the cache. */
     CACHE_MISS = 120,
+    /** Error code indicating that an invalid key was used in a nested JSONObject. */
     INVALID_NESTED_KEY = 121,
+    /**
+     * Error code indicating that an invalid filename was used for ParseFile.
+     * A valid file name contains only a-zA-Z0-9_. characters and is between 1
+     * and 128 characters.
+     */
     INVALID_FILE_NAME = 122,
+    /** Error code indicating an invalid ACL was provided. */
     INVALID_ACL = 123,
+    /**
+     * Error code indicating that the request timed out on the server. Typically
+     * this indicates that the request is too expensive to run.
+     */
     TIMEOUT = 124,
+    /** Error code indicating that the email address was invalid. */
     INVALID_EMAIL_ADDRESS = 125,
+    /** Error code indicating a missing content type. */
     MISSING_CONTENT_TYPE = 126,
+    /** Error code indicating a missing content length. */
     MISSING_CONTENT_LENGTH = 127,
+    /** Error code indicating an invalid content length. */
     INVALID_CONTENT_LENGTH = 128,
+    /** Error code indicating a file that was too large. */
     FILE_TOO_LARGE = 129,
+    /** Error code indicating an error saving a file. */
     FILE_SAVE_ERROR = 130,
+    /**
+     * Error code indicating that a unique field was given a value that is
+     * already taken.
+     */
     DUPLICATE_VALUE = 137,
+    /** Error code indicating that a role's name is invalid. */
     INVALID_ROLE_NAME = 139,
+    /**
+     * Error code indicating that an application quota was exceeded.
+     * Upgrade to resolve.
+     */
     EXCEEDED_QUOTA = 140,
+    /** Error code indicating that a Cloud Code script failed. */
     SCRIPT_FAILED = 141,
+    /** Error code indicating that a Cloud Code validation failed. */
     VALIDATION_ERROR = 142,
+    /** Error code indicating that invalid image data was provided. */
     INVALID_IMAGE_DATA = 150,
+    /** Error code indicating an unsaved file. */
     UNSAVED_FILE_ERROR = 151,
+    /** Error code indicating an invalid push time. */
     INVALID_PUSH_TIME_ERROR = 152,
+    /** Error code indicating an error deleting a file. */
     FILE_DELETE_ERROR = 153,
+    /** Error code indicating that the application has exceeded its request limit. */
     REQUEST_LIMIT_EXCEEDED = 155,
+    /**
+     * Error code indicating that the request was a duplicate and has been discarded due to
+     * idempotency rules.
+     */
+    DUPLICATE_REQUEST = 159,
+    /** Error code indicating an invalid event name. */
     INVALID_EVENT_NAME = 160,
+    /** Error code indicating an error deleting an unnamed file. */
+    FILE_DELETE_UNNAMED_ERROR = 161,
+    /** Error code indicating that the username is missing or empty. */
     USERNAME_MISSING = 200,
+    /** Error code indicating that the password is missing or empty. */
     PASSWORD_MISSING = 201,
+    /** Error code indicating that the username has already been taken. */
     USERNAME_TAKEN = 202,
+    /** Error code indicating that the email has already been taken. */
     EMAIL_TAKEN = 203,
+    /** Error code indicating that the email is missing, but must be specified. */
     EMAIL_MISSING = 204,
+    /** Error code indicating that a user with the specified email was not found. */
     EMAIL_NOT_FOUND = 205,
+    /**
+     * Error code indicating that a user object without a valid session could
+     * not be altered.
+     */
     SESSION_MISSING = 206,
+    /** Error code indicating that a user can only be created through signup. */
     MUST_CREATE_USER_THROUGH_SIGNUP = 207,
+    /**
+     * Error code indicating that an an account being linked is already linked
+     * to another user.
+     */
     ACCOUNT_ALREADY_LINKED = 208,
+    /** Error code indicating that the current session token is invalid. */
     INVALID_SESSION_TOKEN = 209,
+    /** Error code indicating an error enabling or verifying MFA */
+    MFA_ERROR = 210,
+    /** Error code indicating that a valid MFA token must be provided */
+    MFA_TOKEN_REQUIRED = 211,
+    /**
+     * Error code indicating that a user cannot be linked to an account because
+     * that account's id could not be found.
+     */
     LINKED_ID_MISSING = 250,
+    /**
+     * Error code indicating that a user with a linked (e.g. Facebook) account
+     * has an invalid session.
+     */
     INVALID_LINKED_SESSION = 251,
+    /**
+     * Error code indicating that a service being linked (e.g. Facebook or
+     * Twitter) is unsupported.
+     */
     UNSUPPORTED_SERVICE = 252,
+    /** Error code indicating an invalid operation occured on schema */
+    INVALID_SCHEMA_OPERATION = 255,
+    /**
+     * Error code indicating that there were multiple errors. Aggregate errors
+     * have an "errors" property, which is an array of error objects with more
+     * detail about each error that occurred.
+     */
     AGGREGATE_ERROR = 600,
+    /** Error code indicating the client was unable to read an input file. */
     FILE_READ_ERROR = 601,
+    /*
+     * Error code indicating a real error code is unavailable because
+     * we had to use an XDomainRequest object to allow CORS requests in
+     * Internet Explorer, which strips the body from HTTP responses that have
+     * a non-2XX status code.
+     */
     X_DOMAIN_REQUEST = 602,
 }
 
@@ -129,6 +256,12 @@ declare global {
             sessionToken?: string | undefined;
             installationId?: string | undefined;
             progress?: Function | undefined;
+            /**
+             * logIn will default to POST instead of GET method since
+             * version 3.0.0 for security reasons.
+             * If you need to use GET set this to `false`.
+             */
+            usePost?: boolean;
         }
 
         interface RequestOptions {
@@ -166,6 +299,14 @@ declare global {
             useMasterKey?: boolean | undefined;
         }
 
+        /**
+         * https://github.com/parse-community/Parse-SDK-JS/pull/1294/files
+         * feat: Add option to return raw json from queries
+         */
+        interface RawJSONOptions {
+            /** (3.0.0+) json: Return raw json without converting to Parse.Object */
+            json?: boolean;
+        }
         interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
 
         interface SilentOption {
@@ -311,7 +452,7 @@ declare global {
             name(): string;
             save(options?: FullOptions): Promise<File>;
             cancel(): void;
-            destroy(): Promise<File>;
+            destroy(options?: FullOptions): Promise<File>;
             toJSON(): { __type: string; name: string; url: string };
             equals(other: File): boolean;
             setMetadata(metadata: Record<string, any>): void;
@@ -415,19 +556,21 @@ declare global {
             attributes: T;
             className: string;
 
-            add<K extends { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T]>(
+            add<K extends { [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never }[keyof T]>(
                 attr: K,
-                item: T[K][number],
+                item: NonNullable<T[K]>[number],
             ): this | false;
-            addAll<K extends { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T]>(
+            addAll<K extends { [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never }[keyof T]>(
                 attr: K,
-                items: T[K],
+                items: NonNullable<T[K]>,
             ): this | false;
             addAllUnique: this['addAll'];
             addUnique: this['add'];
             clear(options: any): any;
             clone(): this;
             destroy(options?: Object.DestroyOptions): Promise<this>;
+            /** EventuallyQueue API; added in version 3.0.0 */
+            destroyEventually(options?: Object.DestroyOptions): Promise<this>;
             dirty(attr?: Extract<keyof T, string>): boolean;
             dirtyKeys(): string[];
             equals<T extends Object>(other: T): boolean;
@@ -471,6 +614,8 @@ declare global {
                 value: T[K] extends undefined ? never : T[K],
                 options?: Object.SaveOptions,
             ): Promise<this>;
+            /** EventuallyQueue API; added in version 3.0.0 */
+            saveEventually(options?: Object.SaveOptions): Promise<this>;
             set<K extends Extract<keyof T, string>>(attrs: Pick<T, K> | T, options?: Object.SetOptions): this | false;
             set<K extends Extract<keyof T, string>>(
                 key: K,
@@ -816,9 +961,9 @@ declare global {
         namespace Query {
             interface EachOptions extends SuccessFailureOptions, ScopeOptions {}
             interface CountOptions extends SuccessFailureOptions, ScopeOptions {}
-            interface FindOptions extends SuccessFailureOptions, ScopeOptions {}
-            interface FirstOptions extends SuccessFailureOptions, ScopeOptions {}
-            interface GetOptions extends SuccessFailureOptions, ScopeOptions {}
+            interface FindOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
+            interface FirstOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
+            interface GetOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
 
             // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
             interface AggregationOptions {
@@ -863,6 +1008,15 @@ declare global {
                     | undefined;
                 // Facet documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/facet/
                 facet?: Record<string, Array<Record<string, any>>> | undefined;
+                // Unwind documentation: https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/
+                unwind?:
+                    | {
+                          path: string;
+                          includeArrayIndex?: string;
+                          preserveNullAndEmptyArrays?: boolean;
+                      }
+                    | string
+                    | undefined;
             }
 
             // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
@@ -965,6 +1119,24 @@ declare global {
         }
 
         /**
+         * The LiveQuery namespace is basically an EventEmitter
+         * (source : https://github.com/parse-community/Parse-SDK-JS/blob/8115e959533d1676fe5e5551bc81888b21fc12ef/src/ParseLiveQuery.js)
+         * https://docs.parseplatform.org/js/guide/#websocket-status
+         */
+         namespace LiveQuery {
+            function on(
+                event: 'open' | 'close',
+                /** When we establish ('open') or lose the WebSocket connection to the LiveQuery server, you’ll get this event */
+                listener: () => void,
+            ): void;
+            function on(
+                event: 'error',
+                /** When some network error or LiveQuery server error happens, you’ll get this event. */
+                listener: (error: any) => void,
+            ): void;
+        }
+
+        /**
          * Represents a Role on the Parse server. Roles represent groupings of
          * Users for the purposes of granting permissions (e.g. specifying an ACL
          * for an Object). Roles are specified by their sets of child users and
@@ -1022,6 +1194,8 @@ declare global {
             logIn(options?: FullOptions): Promise<this>;
             authenticated(): boolean;
             isCurrent(): boolean;
+            /** Since version 3.0.0, Returns true if `current` would return this user */
+            isCurrentAsync(): Promise<boolean>;
 
             getEmail(): string | undefined;
             setEmail(email: string, options?: SuccessFailureOptions): boolean;
@@ -1591,6 +1765,73 @@ declare global {
                 success?: ((response: any) => void) | undefined;
                 error?: ((response: any) => void) | undefined;
             }
+        }
+
+        namespace EventuallyQueue {
+            interface QueueObject {
+                queueId: string;
+                action: string;
+                object: Object;
+                serverOptions: Object.SaveOptions | RequestOptions;
+                id: string;
+                className: string;
+                hash: string;
+                createdAt: Date;
+            }
+            type Queue = QueueObject[];
+            /**
+             * Add object to queue with save operation.
+             *
+             * @param object Parse.Object to be saved eventually
+             * @param serverOptions See {@link https://parseplatform.org/Parse-SDK-JS/api/master/Parse.Object.html#save Parse.Object.save} options.
+             * @returns A promise that is fulfilled if object is added to queue.
+             * @see Parse.Object#saveEventually
+             */
+            function save(object: Object, serverOptions?: Object.SaveOptions): Promise<void>;
+            /**
+             * Add object to queue with save operation.
+             *
+             * @param object Parse.Object to be destroyed eventually
+             * @param serverOptions See {@link https://parseplatform.org/Parse-SDK-JS/api/master/Parse.Object.html#destroy Parse.Object.destroy} options
+             * @returns A promise that is fulfilled if object is added to queue.
+             * @see Parse.Object#destroyEventually
+             */
+            function destroy(object: Object, serverOptions?: RequestOptions): Promise<void>;
+            // function store(data: any): Promise<void>;
+            // function load(): Promise<void>;
+            /**
+             * Sets the in-memory queue from local storage and returns.
+             */
+            function getQueue(): Promise<any[]>;
+            /**
+             * Removes all objects from queue.
+             * @returns A promise that is fulfilled when queue is cleared.
+             */
+            function clear(): Promise<void>;
+            /**
+             * Return the number of objects in the queue.
+             */
+            function length(): Promise<number>;
+            /**
+             * Sends the queue to the server.
+             * @returns Returns true if queue was sent successfully.
+             */
+            function sendQueue(): Promise<boolean>;
+            /**
+             * Start polling server for network connection.
+             * Will send queue if connection is established.
+             *
+             * @param [ms] Milliseconds to ping the server. Default 2000ms
+             */
+            function poll(ms?: number): void;
+            /**
+             * Turns off polling.
+             */
+            function stopPoll(): void;
+            /**
+             * Return true if pinging the server.
+             */
+            function isPolling(): boolean;
         }
 
         class Error {

@@ -37,6 +37,12 @@ declare namespace OfficeRuntime {
    * @remarks
    * [Api set: SharedRuntime 1.1, Mailbox 1.10]
    *
+   * This interface is available in the
+   * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+   * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+   * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+   * for Outlook.
+   *
    * **Important**: In Outlook, support is only available with
    * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
    *
@@ -50,6 +56,12 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
@@ -62,6 +74,12 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
+     *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
      *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
@@ -77,6 +95,12 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
@@ -89,6 +113,12 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
+     *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
      *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
@@ -103,6 +133,12 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
@@ -116,6 +152,12 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
@@ -128,6 +170,12 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
+     *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
      *
      * **Important**: In Outlook, support is only available with
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
@@ -297,7 +345,7 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      *
-     * **Hosts**: Excel, Outlook, PowerPoint, Word
+     * **Applications**: Excel, Outlook, PowerPoint, Word
      *
      * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
      * @returns Promise to the access token.
@@ -313,7 +361,7 @@ declare namespace OfficeRuntime {
    */
   interface ApiInformation {
     /**
-     * Check if the specified requirement set is supported by the host Office application.
+     * Check if the specified requirement set is supported by the Office application.
      * @param name - Set name; e.g., "MatrixBindings".
      * @param minVersion - The minimum required version; e.g., "1.4".
      */

@@ -55,6 +55,18 @@ prompt.get(
                 return name !== 'John' || surname !== 'Smith';
             },
         },
+        {
+            properties: {
+                name: {
+                    pattern: /^[a-zA-Z\s\-]+$/,
+                    message: 'Name must be only letters, spaces, or dashes',
+                    required: true,
+                },
+                password: {
+                    hidden: true,
+                },
+            },
+        },
     ],
     (err, results) => {
         console.log(results);
@@ -66,3 +78,5 @@ prompt.get(
 prompt.get(schema);
 
 prompt.colors = false;
+
+prompt.stop();

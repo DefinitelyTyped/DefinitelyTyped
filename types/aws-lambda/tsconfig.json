@@ -29,6 +29,7 @@
         "test/cloudwatch-tests.ts",
         "test/codepipeline-tests.ts",
         "test/codebuild-tests.ts",
+        "test/codecommit-tests.ts",
         "test/connect-contact-flow-tests.ts",
         "test/cognito-tests.ts",
         "test/dynamodb-tests.ts",
@@ -43,6 +44,7 @@
         "test/sqs-tests.ts",
         "test/msk-tests.ts",
         "test/secretsmanager-tests.ts",
-        "test/s3-event-notification-tests.ts"
+        "test/s3-event-notification-tests.ts",
+        "test/amplify-resolver-tests.ts"
     ]
 }

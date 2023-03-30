@@ -23,7 +23,7 @@ Popover.Default.placement;
 Popover.Default.selector;
 Popover.Default.template;
 Popover.Default.title;
-Popover.Default.fallbackPlacement;
+Popover.Default.fallbackPlacements;
 Popover.Default.boundary;
 Popover.Default.customClass;
 Popover.Default.sanitize;
@@ -41,7 +41,7 @@ Popover.DefaultType.placement; // $ExpectType string
 Popover.DefaultType.selector; // $ExpectType string
 Popover.DefaultType.template; // $ExpectType string
 Popover.DefaultType.title; // $ExpectType string
-Popover.DefaultType.fallbackPlacement; // $ExpectType string
+Popover.DefaultType.fallbackPlacements; // $ExpectType string
 Popover.DefaultType.boundary; // $ExpectType string
 Popover.DefaultType.customClass; // $ExpectType string
 Popover.DefaultType.sanitize; // $ExpectType string

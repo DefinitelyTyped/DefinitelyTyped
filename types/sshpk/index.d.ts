@@ -709,7 +709,7 @@ declare namespace SshPK {
         toPublic(): Key;
         derive(newType: 'ed25519' | 'curve25519'): PrivateKey;
         createVerify(algo?: AlgorithmHashType): Verify;
-        createSign(hashAlgo: AlgorithmType): Signer;
+        createSign(hashAlgo: AlgorithmHashType): Signer;
         createDiffieHellman(): DiffieHellman;
         createDH(): DiffieHellman;
 

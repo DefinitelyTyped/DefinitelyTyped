@@ -6,7 +6,6 @@
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "trim-file": false,
         "no-empty-interface": false
     }
 }

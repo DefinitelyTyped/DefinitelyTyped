@@ -1,6 +1,12 @@
 import * as blocks from '@wordpress/blocks';
 import { select, dispatch } from '@wordpress/data';
 
+// $ExpectType BlocksStoreDescriptor
+blocks.store;
+
+// $ExpectType "core/blocks"
+blocks.store.name;
+
 const BLOCK: blocks.Block<{ foo: string }> = {
     attributes: {
         foo: {
@@ -56,7 +62,7 @@ const BLOCK_INSTANCE: blocks.BlockInstance<{ foo: string }> = {
         </div>
     );
     const Enhanced = blocks.withBlockContentContext(OriginalComponent);
-    <Enhanced foo="bar" />;
+    <Enhanced foo="bar" BlockContent="cont" />;
 })();
 
 //
@@ -391,6 +397,7 @@ blocks.registerBlockType({
     title: 'Notice',
     category: 'text',
     parent: ['core/group'],
+    ancestor: ['core/group'],
     icon: 'star-half',
     description: 'Shows warning, error or success notices…',
     keywords: ['alert', 'message'],
@@ -465,6 +472,7 @@ blocks.registerBlockType(
         title: 'Notice',
         category: 'text',
         parent: ['core/group'],
+        ancestor: ['core/group'],
         icon: 'star-half',
         description: 'Shows warning, error or success notices…',
         keywords: ['alert', 'message'],
@@ -626,6 +634,13 @@ blocks.synchronizeBlocksWithTemplate(undefined, [
     ['my/foo', { foo: 'bar' }],
     ['my/foo', { foo: 'bar' }],
 ]);
+
+//
+// editor interaction
+// ----------------------------------------------------------------------------
+
+// $ExpectType ComponentType<BlockEditProps<{ foo: string; }>> | undefined
+blocks.getBlockType<{ foo: string; }>('my/foo')?.edit;
 
 //
 // utils

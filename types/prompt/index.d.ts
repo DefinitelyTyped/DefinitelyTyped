@@ -20,6 +20,7 @@ declare namespace prompt {
         before?: BeforeFunction | undefined;
         name?: string | undefined;
         raw?: [string, string] | undefined;
+        hidden?: boolean;
     };
 
     interface Properties {
@@ -73,6 +74,7 @@ declare class prompt extends EventEmitter {
     ): void;
     static history(name?: string | number): prompt.History | null;
     static start(options?: prompt.StartOptions): void;
+    static stop(): void;
 }
 
 export = prompt;

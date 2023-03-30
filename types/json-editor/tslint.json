@@ -6,7 +6,6 @@
         "interface-over-type-literal": false,
         "member-access": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-duplicate-variable": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
@@ -15,7 +14,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "semicolon": false,
-        "space-before-function-paren": false,
-        "trim-file": false
+        "space-before-function-paren": false
     }
 }

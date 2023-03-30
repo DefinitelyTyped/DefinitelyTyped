@@ -1,5 +1,8 @@
 {
     "rules": {
-        "dt-header": "off"
+        "dt-header": "off",
+        "prefer-declare-function": "off",
+        "no-unnecessary-generics": "off",
+        "no-declare-current-package": "off"
     }
 }

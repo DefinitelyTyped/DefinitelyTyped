@@ -16,6 +16,10 @@ const config: webpack.Configuration = {
             analyzerMode: 'server',
             analyzerHost: '127.0.0.1',
             analyzerPort: 8888,
+            analyzerUrl: (options) => {
+                const {listenHost, boundAddress} = options;
+                return `http://${listenHost}:${boundAddress.port}`;
+            },
             reportFilename: 'report.html',
             reportTitle: 'title',
             defaultSizes: 'parsed',

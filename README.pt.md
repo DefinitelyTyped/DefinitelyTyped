@@ -2,6 +2,9 @@
 
 > O repositório para definições de tipo do TypeScript de *alta qualidade*.
 
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [English](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+
 Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as informações neste README sejam mais atualizadas.
 
 *Link para o [manual do Admin](./docs/admin.md)*

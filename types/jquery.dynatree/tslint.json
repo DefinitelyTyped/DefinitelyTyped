@@ -8,7 +8,6 @@
         "one-line": false,
         "semicolon": false,
         "space-within-parens": false,
-        "trim-file": false,
         "unified-signatures": false,
         "whitespace": false
     }

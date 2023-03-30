@@ -123,6 +123,9 @@ import { EventLoopUtilization } from 'node:perf_hooks';
     bc.unref();
     bc.onmessage = (msg: unknown) => { };
     bc.onmessageerror = (msg: unknown) => { };
+
+    // Test global alias
+    const bc2 = new BroadcastChannel('test');
 }
 
 {
@@ -130,4 +133,10 @@ import { EventLoopUtilization } from 'node:perf_hooks';
     workerThreads.setEnvironmentData(123, { a: 1 });
     workerThreads.getEnvironmentData('test'); // $ExpectType Serializable
     workerThreads.getEnvironmentData(1); // $ExpectType Serializable
+}
+
+{
+    // Test module constructor, then global alias
+    const mp1 = new workerThreads.MessagePort();
+    const mp2 = new MessagePort();
 }

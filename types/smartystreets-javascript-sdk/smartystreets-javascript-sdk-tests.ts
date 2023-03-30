@@ -36,6 +36,7 @@ lookup.state = 'TX';
 lookup.zipCode = '77004';
 lookup.addressee = 'addressee';
 batch.add(lookup);
+batch.length(); // $ExpectType number
 client
     .send(batch)
     .then((

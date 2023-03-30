@@ -41,7 +41,7 @@ declare class DiffEngine {
 
     constructor(config?: DiffEngine.Options);
 
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     diff<LHS, RHS = LHS>(lhs: LHS, rhs: RHS): DiffEngine["sentenceDiffs"];
 }
 

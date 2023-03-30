@@ -18,6 +18,8 @@ util.inspect(["This is nice"], {
         return b.localeCompare(a);
     },
     getters: false,
+    showHidden: true,
+    numericSeparator: true,
 });
 util.inspect(["This is nice"], {
     colors: true,
@@ -29,6 +31,8 @@ util.inspect(["This is nice"], {
     compact: false,
     sorted: true,
     getters: 'set',
+    showHidden: false,
+    numericSeparator: false,
 });
 util.inspect(["This is nice"], {
     compact: 42,
@@ -41,6 +45,10 @@ util.inspect.replDefaults = {
 
 util.inspect({
     [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
+});
+
+util.inspect({
+    [util.inspect.custom]: <util.CustomInspectFunction> (() => ({ bar: 'baz' })),
 });
 
 (options?: util.InspectOptions) => util.inspect({ }, options);
@@ -153,6 +161,10 @@ const td = new util.TextDecoder();
 new util.TextDecoder("utf-8");
 new util.TextDecoder("utf-8", { fatal: true });
 new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
+
+// Test global alias
+const td2 = new TextDecoder();
+
 const ignoreBom: boolean = td.ignoreBOM;
 const fatal: boolean = td.fatal;
 const encoding: string = td.encoding;
@@ -176,6 +188,9 @@ const decode: string = td.decode(new Int8Array(1));
 const te = new util.TextEncoder();
 const teEncoding: string = te.encoding;
 const teEncodeRes: Uint8Array = te.encode("TextEncoder");
+
+// Test global alias
+const te2 = new TextEncoder();
 
 const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
 
@@ -211,6 +226,8 @@ access('file/that/does/not/exist', (err) => {
             bar: { type: 'boolean', multiple: true },
         },
     } as const;
+
+    util.parseArgs();
 
     // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
     util.parseArgs(config);
@@ -277,4 +294,28 @@ access('file/that/does/not/exist', (err) => {
 
     // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
     const result = util.parseArgs(config);
+}
+
+{
+    const controller: AbortController = util.transferableAbortController();
+    const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
+}
+
+{
+    let myMIME = new util.MIMEType('text/plain');
+    myMIME = new util.MIMEType({ toString: () => 'text/plain' });
+    myMIME.type = 'application';
+    myMIME.subtype = 'javascript';
+    // $ExpectType string
+    myMIME.essence;
+}
+
+{
+    const params = new util.MIMEParams();
+    params.set('foo', 'def');
+    // $ExpectType string | null
+    params.get('foo');
+    for (const [name, value] of params) {
+        console.log(name, value);
+    }
 }

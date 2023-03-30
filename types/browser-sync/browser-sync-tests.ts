@@ -287,6 +287,19 @@ browserSync({
     proxy: "https://yourlocal.dev"
 });
 
+browserSync({
+    cwd: './',
+    callbacks: {
+        ready: function(err: Error, bs: browserSync.BrowserSyncInstance) {
+            console.log(err, bs);
+        }
+    },
+    listen: '0.0.0.0',
+    script: {
+        domain: 'localhost'
+    }
+});
+
 /**
  * Not testing a bunch because they are either only string or boolean types.
  * ....Also just got lazy and tired of writing the simple ones.

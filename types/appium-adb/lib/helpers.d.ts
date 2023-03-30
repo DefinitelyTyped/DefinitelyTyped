@@ -1,7 +1,6 @@
 import { StartAppOptions } from './tools/apk-utils';
 import systemCallMethods from './tools/system-calls';
 
-export const rootDir: string;
 export const APKS_EXTENSION: '.apks';
 export const APK_EXTENSION: '.apk';
 export const APK_INSTALL_TIMEOUT: 60000;
@@ -319,3 +318,35 @@ export function dirExists(location?: string): Promise<boolean>;
  * @returns The escaped argument
  */
 export function escapeShellArg(arg: string): string;
+
+/**
+ * Parses the name of launchable package activity
+ * from dumpsys output.
+ *
+ * @param dumpsys the actual dumpsys output
+ * @returns Either the fully qualified
+ * activity name as a single list item or an empty list if nothing could be parsed.
+ * In Android 6 and older there is no reliable way to determine
+ * the category name for the given activity, so this API just
+ * returns all activity names belonging to 'android.intent.action.MAIN'
+ * with the expectation that the app manifest could be parsed next
+ * in order to determine category names for these.
+ */
+export function parseLaunchableActivityNames(dumpsys: string): string[];
+
+/**
+ * Check if the given string is a valid component name
+ *
+ * @param classString The string to verify
+ * @return The result of Regexp.exec operation
+ * or _null_ if no matches are found
+ */
+export function matchComponentName(classString: string): RegExpExecArray | null;
+
+/**
+ * Calculates the path to the current module's root folder
+ *
+ * @returns The full path to module root
+ * @throws {Error} If the current module root folder cannot be determined
+ */
+export function getModuleRoot(): string;

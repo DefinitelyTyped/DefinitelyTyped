@@ -2,6 +2,17 @@ import * as forge from 'node-forge';
 
 let keypair = forge.pki.rsa.generateKeyPair({ bits: 512 });
 forge.pki.rsa.setPublicKey(keypair.privateKey.n, keypair.privateKey.e);
+forge.pki.setRsaPublicKey(keypair.privateKey.n, keypair.privateKey.e);
+forge.pki.setRsaPrivateKey(
+    keypair.privateKey.n,
+    keypair.privateKey.e,
+    keypair.privateKey.d,
+    keypair.privateKey.p,
+    keypair.privateKey.q,
+    keypair.privateKey.dP,
+    keypair.privateKey.dQ,
+    keypair.privateKey.qInv,
+);
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
 let publicKeyRSAPem: forge.pki.PEM = forge.pki.publicKeyToRSAPublicKeyPem(keypair.publicKey);

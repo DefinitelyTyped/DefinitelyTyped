@@ -5,7 +5,6 @@
         "jsdoc-format": false,
         "no-boolean-literal-compare": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-internal-module": false,
         "no-padding": false,
         "no-single-declare-module": false,
@@ -15,7 +14,6 @@
         "prefer-const": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "triple-equals": false
     }
 }

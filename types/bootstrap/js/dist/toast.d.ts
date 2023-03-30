@@ -36,6 +36,11 @@ declare class Toast extends BaseComponent {
      * You have to manually call this method if you made autohide to false.
      */
     hide(): void;
+
+    /**
+     * Returns a boolean according to toast’s visibility state.
+     */
+    isShown(): boolean;
 }
 
 declare namespace Toast {

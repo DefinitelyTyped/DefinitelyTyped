@@ -15,14 +15,14 @@ class MapController {
     });
 
     this.map = new Map({
-      basemap: { title: "topo" }
+      basemap: { title: "topo-vector" }
     });
 
     let view = new MapView({
       center: point,
       container: this.mapDiv,
       map: this.map,
-      zoom: 13
+      zoom: 7
     });
   }
 }

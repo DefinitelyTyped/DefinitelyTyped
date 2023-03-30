@@ -8,8 +8,8 @@ declare namespace zingchart {
   let LICENSE: string[];
   let LICENSEKEY: string[];
   let ASYNC: boolean;
-  let FONTFAMILY: string[];
-  let FONTSIZE: string[];
+  let FONTFAMILY: string;
+  let FONTSIZE: number;
   let MODULESDIR: string[];
   let ZCOUTPUT: boolean;
   let SYNTAX: string;
@@ -29,25 +29,6 @@ declare namespace zingchart {
     SORTTOKENS?: boolean;
     RESOURCES?: boolean;
   };
-
-  interface data {
-    globals?: globals;
-    graphset?: graphset[];
-    gui?: gui;
-    history?: history;
-    refresh?: refresh;
-  }
-
-  interface theme {
-    palette?: {
-      area?: string[][];
-      gauge?: string[][];
-      line?: string[][];
-      pie?: string[][];
-      vbar?: string[][];
-    };
-    graph?: graphset;
-  }
 
   interface backgroundMarker {
     /**
@@ -204,7 +185,6 @@ declare namespace zingchart {
      */
     y?: any;
   }
-
   interface backgroundState {
     /**
      * Sets the rotation angle of the object/shape. -45 | 115 | ...
@@ -929,6 +909,123 @@ declare namespace zingchart {
     plotLabel?: plotLabel;
     'scale-label'?: scaleLabel;
     scaleLabel?: scaleLabel;
+  }
+  interface data {
+    globals?: globals;
+    graphset?: graphset[];
+    gui?: gui;
+    history?: history;
+    refresh?: refresh;
+  }
+  interface gridStyles {
+    align?: string;
+    alpha?: number;
+    backgroundColor?: string;
+    'background-color'?: string;
+    backgroundColor1?: string;
+    'background-color-1'?: string;
+    backgroundColor2?: string;
+    'background-color-2'?: string;
+    bold?: boolean;
+    borderAlpha?: number;
+    'border-alpha'?: number;
+    borderBottom?: number;
+    'border-bottom'?: number;
+    borderColor?: string;
+    'border-color'?: string;
+    borderLeft?: number;
+    'border-left'?: number;
+    borderRadius?: number;
+    'border-radius'?: number;
+    borderRadiusBottomLeft?: number;
+    'border-radius-bottom-left'?: number;
+    borderRadiusBottomRight?: number;
+    'border-radius-bottom-right'?: number;
+    borderRadiusTopLeft?: number;
+    'border-radius-top-left'?: number;
+    borderRadiusTopRight?: number;
+    'border-radius-top-right'?: number;
+    borderRight?: number;
+    'border-right'?: number;
+    borderTop?: number;
+    'border-top'?: number;
+    borderWidth?: number;
+    'border-width'?: number;
+    class?: string;
+    clipText?: boolean;
+    'clip-text'?: boolean;
+    color?: string;
+    cursor?: string;
+    dataN?: any;
+    'data-n'?: any;
+    fillAngle?: number;
+    'fill-angle'?: number;
+    fillOffsetX?: number;
+    'fill-offset-x'?: number;
+    fillOffsetY?: number;
+    'fill-offset-y'?: number;
+    fillType?: string;
+    'fill-type'?: string;
+    fontColor?: string;
+    'font-color'?: string;
+    fontFamily?: string;
+    'font-family'?: string;
+    fontSize?: number;
+    'font-size'?: number;
+    fontStyle?: string;
+    'font-style'?: string;
+    fontWeight?: string|number;
+    'font-weight'?: string|number;
+    gradientColors?: string;
+    'gradient-colors'?: string;
+    gradientStops?: string;
+    'gradient-stops'?: string;
+    id?: string;
+    italic?: boolean;
+    lineGapSize?: number;
+    'line-gap-size'?: number;
+    lineHeight?: number;
+    'line-height'?: number;
+    lineSegmentSize?: number;
+    'line-segment-size'?: number;
+    lineStyle?: string;
+    'line-style'?: string;
+    maxChars?: number;
+    'max-chars'?: number;
+    mediaRules?: Array<{}>;
+    'media-rules'?: Array<{}>;
+    offsetX?: number;
+    'offset-x'?: number;
+    offsetY?: number;
+    'offset-y'?: number;
+    overlap?: boolean;
+    padding?: number;
+    paddingBottom?: number;
+    'padding-bottom'?: number;
+    paddingLeft?: number;
+    'padding-left'?: number;
+    paddingRight?: number;
+    'padding-right'?: number;
+    paddingTop?: number;
+    'padding-top'?: number;
+    rectShortcut?: boolean;
+    'rect-shortcut'?: boolean;
+    rtl?: boolean;
+    text?: string;
+    textAlign?: string;
+    'text-align'?: string;
+    textAlpha?: number;
+    'text-alpha'?: number;
+    textDecoration?: string;
+    'text-decoration'?: string;
+    underline?: boolean;
+    verticalAlign?: string;
+    'vertical-align'?: string;
+    visible?: boolean;
+    wrapText?: boolean;
+    'wrap-text'?: boolean;
+    zIndex?: number;
+    'z-index'?: number;
   }
   interface guideLabel {
     /**
@@ -1711,7 +1808,6 @@ declare namespace zingchart {
      */
     width?: any;
   }
-
   interface label {
     /**
      * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -4706,16 +4802,6 @@ declare namespace zingchart {
     'wrap-text'?: boolean;
     wrapText?: boolean;
   }
-  interface plotRules extends plot {
-    /**
-     * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
-     * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
-     * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
-     * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
-     * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
-     */
-    rule?: string;
-  }
   interface plot {
     /**
      * Sets the transparency level of backgrounds, borders, and lines. Values must range between 0.0 and 1.0, with 0.0 being completely t
@@ -5662,6 +5748,16 @@ declare namespace zingchart {
     'value-box'?: valueBox;
     valueBox?: valueBox;
   }
+  interface plotRules extends plot {
+    /**
+     * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+     * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+     * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+     * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+     * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+     */
+    rule?: string;
+  }
   interface plotLabel {
     /**
      * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -6051,6 +6147,928 @@ declare namespace zingchart {
      * Sets the visibility of the object. true | false
      */
     visible?: boolean;
+  }
+  interface series {
+    /**
+     * Sets the transparency level of backgrounds, borders, and lines. Values must range between 0.0 and 1.0, with 0.0 being completely t
+     * ransparent and 1.0 being completely opaque. Note that values require the leading zero before the decimal point. 0.3 | 0.9 | ...
+     */
+    alpha?: number;
+    /**
+     * Modifies how data points appear on a chart. Refer to the applicable chart types page for more information. Options by Chart Type:
+     * "segmented" | "spline" | "stepped" | "jumped" | "cone" | "histogram" | ...
+     */
+    aspect?: string;
+    /**
+     * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
+     * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
+     * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use "gradient-c
+     * olors" and "gradient-stops". "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+     */
+    'background-color'?: string;
+    backgroundColor?: string;
+    /**
+     * Sets the first color of a 2 color background gradient of the object. To be used with "background-color-2". "none" | "transparent"
+     * | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+     */
+    'background-color-1'?: string;
+    backgroundColor1?: string;
+    /**
+     * Sets the second color of a 2 color background gradient of the object. To be used with "background-color-1". "none" | "transparent"
+     *  | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+     */
+    'background-color-2'?: string;
+    backgroundColor2?: string;
+    /**
+     * Sets the direction/s on which the background image is being "stretched". "x" | "y" | "xy"
+     */
+    'background-fit'?: string;
+    backgroundFit?: string;
+    /**
+     * Sets a background image for the object. Value can be a local file or a web image's location. "image.png" | ...
+     */
+    'background-image'?: string;
+    backgroundImage?: string;
+    /**
+     * Sets the position of the background when the "background-repeat" value is "no-repeat". "0 0" | "50 100" | "80% 60%" | ...
+     */
+    'background-position'?: string;
+    backgroundPosition?: string;
+    /**
+     * Sets the repeating mode for the background image. "no-repeat" | "repeat" | "repeat-x" | "repeat-y"
+     */
+    'background-repeat'?: string;
+    backgroundRepeat?: string;
+    /**
+     * Nested Pie Charts Only: This attribute is used to set the space between band in nested pie charts ("type":"nestedpie"). 5 | 10 | .
+     * ..
+     */
+    'band-space'?: number;
+    bandSpace?: number;
+    /**
+     * Bar Charts and Bullet Charts Only: Sets the amount of space between each bar in a single plot index. "10" | "10%" | "10px"
+     */
+    'bar-space'?: number;
+    barSpace?: number;
+    /**
+     * Bar Charts and Bullet Charts Only: Sets the width of each bar. "10" | "10%" | "10px"
+     */
+    'bar-width'?: any;
+    barWidth?: any;
+    /**
+     * Bar Charts and Bullet Charts Only: Defines how much the bars in each plot index should overlap. "10" | "10%" | "10px"
+     */
+    'bars-overlap'?: number;
+    barsOverlap?: number;
+    /**
+     * Bar Charts and Bullet Charts Only: Defines the spacing to the left of the bars at each index position. "10" | "10%" | "10px"
+     */
+    'bars-space-left'?: number;
+    barsSpaceLeft?: number;
+    /**
+     * Bar Charts and Bullet Charts Only: Defines the spacing to the right of the bars at each index position. "10" | "10%" | "10px"
+     */
+    'bars-space-right'?: number;
+    barsSpaceRight?: number;
+    /**
+     * Sets the border color of the object, applicable on closed shapes. See also "line-color" for closed shapes. "none" | "transparent"
+     * | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+     */
+    'border-color'?: string;
+    borderColor?: string;
+    /**
+     * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+     * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+     * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
+     * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+     */
+    'border-radius'?: any;
+    borderRadius?: any;
+    /**
+     * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
+     * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+     */
+    'border-radius-bottom-left'?: any;
+    borderRadiusBottomLeft?: any;
+    /**
+     * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
+     * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+     */
+    'border-radius-bottom-right'?: any;
+    borderRadiusBottomRight?: any;
+    /**
+     * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
+     * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+     */
+    'border-radius-top-left'?: any;
+    borderRadiusTopLeft?: any;
+    /**
+     * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
+     * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+     */
+    'border-radius-top-right'?: any;
+    borderRadiusTopRight?: any;
+    /**
+     * Sets the border width of the object, applicable on closed shapes. See also "line-width" for closed shapes. 4 | "6px" | ...
+     */
+    'border-width'?: any;
+    borderWidth?: any;
+    /**
+     * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
+     */
+    callout?: boolean;
+    /**
+     * Sets the height of the object's callout arrow. A larger value will create a taller callout arrow. 4 | "6px" | ...
+     */
+    'callout-height'?: any;
+    calloutHeight?: any;
+    /**
+     * Sets the point of the tip of the callout arrow to a specified coordinate on the chart, with the starting point of [0,0] being the
+     * top left corner of the chart. [200, 50] | ...
+     */
+    'callout-hook'?: any;
+    calloutHook?: any;
+    /**
+     * Sets the offset along the callout direction of the arrow's base. Positive and negative values can be used to offset the callout ar
+     * row up, down, left, or right depending on the "callout-position". 4 | "6px" | ...
+     */
+    'callout-offset'?: any;
+    calloutOffset?: any;
+    /**
+     * Sets the position for the object's callout arrow. The position is "bottom" by default. "top" | "right" | "bottom" | "left"
+     */
+    'callout-position'?: string;
+    calloutPosition?: string;
+    /**
+     * Sets the width of the object's callout arrow. A larger value will create a wider callout arrow. 4 | "6px" | ...
+     */
+    'callout-width'?: any;
+    calloutWidth?: any;
+    /**
+     * Area Charts Only: Sets whether the contour lines on area plots will be on top of all areas or will be hidden by the next area plot
+     *  on top of it. You will notice when the attribute is set to true the lines are all set above the shaded regions. true | false | 1
+     * | 0
+     */
+    'contour-on-top'?: boolean;
+    contourOnTop?: boolean;
+    /**
+     * By defalut null values within series arrays will create a blank space within a plot. Setting connect-nulls to true will connect va
+     * lues through a null data point. true | false | 1 | 0
+     */
+    'connect-nulls'?: boolean;
+    connectNulls?: boolean;
+    /**
+     * Sets the style of the cursor when hovering over a node. "hand" | "normal"
+     */
+    cursor?: string;
+    /**
+     * This attribute allows you to create custom tokens and associate static or dynamic data to them. This attribute can be used almost
+     * anywhere in a chart. "Some Text" | ...
+     */
+    'data-...'?: string;
+    /**
+     * This attribute allows you to click and drag a bar's height in a bar chart. true | false | 1 | 0
+     */
+    'data-dragging'?: boolean;
+    dataDragging?: boolean;
+    /**
+     * Using the decimals attribute will allow you to set the number of decimal places associated to each value. 5 | 10 | ...
+     */
+    decimals?: number;
+    /**
+     * The "decimals-separator": attribute allows you to set what type of punctuation the will be used in the decimal place. "." | "," |
+     * ...
+     */
+    'decimals-separator'?: string;
+    decimalsSeparator?: string;
+    /**
+     * This attribute sets description text for the plot which can be addressed in various areas with the %plot-description token. "Some
+     * Text" | ...
+     */
+    description?: string;
+    /**
+     * By default ZingChart uses sampling when rendering charts. This helps improve rendering speeds and typically does not effect the ap
+     * pearance of the chart. However, using the attribute "exact": true within the "plot": { } object forces ZingChart to render all nod
+     * es. true | false | 1 | 0
+     */
+    exact?: boolean;
+    /**
+     * This attribute sets the values to scientific notation true | false | 1 | 0
+     */
+    exponent?: boolean;
+    /**
+     * This attribute set the number of decimals to be used when using exponents for scientific notation 5 | 10 | ...
+     */
+    'exponent-decimals'?: number;
+    exponentDecimals?: number;
+    /**
+     * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
+     */
+    'fill-angle'?: number;
+    fillAngle?: number;
+    /**
+     * Sets an X offset to apply to the fill. 4 | "6px" | ...
+     */
+    'fill-offset-x'?: any;
+    fillOffsetX?: any;
+    /**
+     * Sets an Y offset to apply to the fill. 4 | "6px" | ...
+     */
+    'fill-offset-y'?: any;
+    fillOffsetY?: any;
+    /**
+     * Sets the background gradient fill type to either linear or radial. "linear" | "radial"
+     */
+    'fill-type'?: string;
+    fillType?: string;
+    /**
+     * Bullet Charts Only: Accepts numerical values. Determines where goals are set for all plots. The "goals": [ ] values can also be se
+     * t individually within each value set. [45, 70, 60]
+     */
+    goals?: any;
+    /**
+     * Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with "gradient-stops". "#f00 #0f
+     * 0 #00f" | ...
+     */
+    'gradient-colors'?: string;
+    gradientColors?: string;
+    /**
+     * Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with "gradient-colors". "0.1
+     * 0.5 0.9" | ...
+     */
+    'gradient-stops'?: string;
+    gradientStops?: string;
+    /**
+     * When true, automatically selects all nodes with the same scale index as the selected node. The selection-mode attribute must also
+     * be set. true | false | 1 | 0
+     */
+    'group-selections'?: boolean;
+    groupSelections?: boolean;
+    /**
+     * Sets the ID of the object. "myid" | "f1" | ...
+     */
+    id?: string;
+    /**
+     * Venn Diagrams Only: This attribute allow you to set the values for the area to be shared between each node. [30]
+     */
+    join?: any;
+    /**
+     * The "legend-text": attribute is typically used within "series": [ ] value sets. Using this attribute allows you to associate both
+     * a "text":" " and "legend-text":" " to each value set "Some Text" | ...
+     */
+    'legend-text'?: string;
+    legendText?: string;
+    /**
+     * Sets the line color of the object, applicable on non-closed shapes. See also "border-color" for closed shapes. "none" | "transpare
+     * nt" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+     */
+    'line-color'?: string;
+    lineColor?: string;
+    /**
+     * Can be used to create custom dashed or dotted lines when used with "line-segment-size". This will control the size of the gaps bet
+     * ween each line segment. 4 | "6px" | ...
+     */
+    'line-gap-size'?: any;
+    lineGapSize?: any;
+    /**
+     * Can be used to create custom dashed or dotted lines when used with "line-gap-size". This will control the size of the visible segm
+     * ent of line. 4 | "6px" | ...
+     */
+    'line-segment-size'?: any;
+    lineSegmentSize?: any;
+    /**
+     * Sets the style applied to lines and borders of the object. "solid" | "dotted" | "dashed"
+     */
+    'line-style'?: string;
+    lineStyle?: string;
+    /**
+     * Sets the line width of the object, applicable on non-closed shapes. See also "border-width" for closed shapes. 4 | "6px" | ...
+     */
+    'line-width'?: any;
+    lineWidth?: any;
+    /**
+     * Applies to charts such as line and area which have markers. When there are too many markers for the chart ZingChart does not displ
+     * ay all markers. Example 1000 nodes on a 300px wide chart. Setting max-nodes will override the default setting and force nodes to b
+     * e displayed. 5 | 10 | ...
+     */
+    'max-nodes'?: number;
+    maxNodes?: number;
+    /**
+     * Heat Maps Only: Sets a maximum ratio applied to the value of the node when calculating its aspect. 0 | 0.4 | ...
+     */
+    'max-ratio'?: number;
+    maxRatio?: number;
+    /**
+     * Bubble Charts and Bubble Pie Charts Only: Defines the maximum size of the bubble if the value representing size is not sharing the
+     *  same ratio with the value scale. 5 | 10 | ...
+     */
+    'max-size'?: number;
+    maxSize?: number;
+    /**
+     * Sets the maximum numbers of nodes for which a tracking area will be created. This is best used to optimize charts with large sets
+     * of data. 5 | 10 | ...
+     */
+    'max-trackers'?: number;
+    maxTrackers?: number;
+    /**
+     * Sets whether or not a node is wrapped equally before and after its position. true | false | 1 | 0
+     */
+    'mid-point'?: boolean;
+    midPoint?: boolean;
+    /**
+     * Heat Maps Only: Sets a minimum ratio applied to the value of the node when calculating its aspect. 0 | 0.4 | ...
+     */
+    'min-ratio'?: number;
+    minRatio?: number;
+    /**
+     * Bubble Charts and Bubble Pie Charts Only: Defines the minimum size of the bubble if the value representing size is not sharing the
+     *  same ratio with the value scale. 5 | 10 | ...
+     */
+    'min-size'?: number;
+    minSize?: number;
+    /**
+     * Sets whether monotone interpolation is used for charts using the "spline" aspect. true | false | 1 | 0
+     */
+    monotone?: boolean;
+    /**
+     * Setting "multiplier": true will take large numbers such as thousands, millions, etc and replace the full number with an abbreviate
+     * d notation with a short unit such as K, M, B, etc true | false | 1 | 0
+     */
+    multiplier?: boolean;
+    /**
+     * This attribute will determine how negative values are handled. When using "format":"$%v" setting "negation":"currency" will move t
+     * he - symbol to the outside of the $ sign. When using "negation" within the "plot": { } object you will see changes in things such
+     * as tooltips or anywhere else series data is used to populate values. You need to set "negation" in things such as "scale-y": { } s
+     * eparately. "standard" | "currency"
+     */
+    negation?: string;
+    /**
+     * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
+     */
+    'offset-x'?: any;
+    offsetX?: any;
+    /**
+     * Sets a Y offset to apply when positioning the object/shape. 4 | "6px" | ...
+     */
+    'offset-y'?: any;
+    offsetY?: any;
+    /**
+     * Bar, Line and Area Charts only Include object in any series to override style displayed in the preview window. {...}
+     */
+    'preview-state'?: any;
+    previewState?: any;
+    /**
+     * Pie Charts Only: Provides the ability to rotate the chart. 5 | 10 | ...
+     */
+    'ref-angle'?: number;
+    refAngle?: number;
+    /**
+     * Heat Maps Only: Sets the value (default 'plot-max') which is used as a reference for calculating node aspect. "plot-max" | "plot-t
+     * otal" | "chart-max" | "chart-total"
+     */
+    reference?: string;
+    /**
+     * By default ZingChart uses sampling when rendering large datasets. If you are trying to render 10000 data points on a chart which i
+     * s only 500px wide there is not enough space for each data point. ZingChart will automatically determine which data points to show.
+     *  The "sampling-step": attribute allows you to set the step for sampling. For example if you have 10000 data points and set "sampli
+     * ng-step":10 it will show point 1,10,20,... Also note the "exact": true attribute if you want to force all data points. 5 | 10 | ..
+     * .
+     */
+    'sampling-step'?: number;
+    samplingStep?: number;
+    /**
+     * Specifies the scales used by the series item. scale-x,scale-y | scale-x,scale-y-2 | ...
+     */
+    scales?: string;
+    /**
+     * Bubble Charts and Bubble Pie Charts Only: Sets the method used to relate the bubble numerical value to it's aspect. "radius" | "sq
+     * rt" | "area"
+     */
+    scaling?: string;
+    /**
+     * When scrolling is enabled for a chart, ZingChart automatically samples the data in order to maintain performance during the re-ren
+     * dering of the chart that occurs during scrolling. By default, ZingChart will automatically sample every other item (scroll-step-mu
+     * ltiplier:2). Setting scroll-step-multiplier to 1 will force the library to sample every data point, essentially disabling sampling
+     * . 5 | 10 | ...
+     */
+    'scroll-step-multiplier'?: number;
+    scrollStepMultiplier?: number;
+    /**
+     * Line Charts and Area Charts Only: Allows you to specify whether tooltips are activated by the markers and lines (default) or the m
+     * arkers only. true (default) | false
+     */
+    'segment-trackers'?: boolean;
+    segmentTrackers?: boolean;
+    /**
+     * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
+     */
+    shadow?: boolean;
+    /**
+     * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
+     * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+     */
+    'shadow-alpha'?: number;
+    shadowAlpha?: number;
+    /**
+     * Sets the angle of the shadow underneath the object. -45 | 115 | ...
+     */
+    'shadow-angle'?: number;
+    shadowAngle?: number;
+    /**
+     * Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation. 4 | "6px" | ...
+     */
+    'shadow-blur'?: any;
+    shadowBlur?: any;
+    /**
+     * Sets the color of the shadow of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ..
+     * .
+     */
+    'shadow-color'?: string;
+    shadowColor?: string;
+    /**
+     * Sets the distance between the shadow and the object. 4 | "6px" | ...
+     */
+    'shadow-distance'?: any;
+    shadowDistance?: any;
+    /**
+     * Setting "short": true will abbreviate long numbers such as 100000 to 1K or 1000000 to 1M. When set within the "plot": {} object th
+     * is change will be noticed anywhere values are pulled from series data. This can also be used in places such as "scale-y, scale-x,
+     * etc" true | false | 1 | 0
+     */
+    short?: boolean;
+    /**
+     * By default when setting "short": true ZingChart will round to the nearest short unit (ie 100000 to 100K and 1000000 to 1M). You ca
+     * n set the short-unit and ZingChart will round all numbers to that unit. Note when setting this within the "plot": { } object the c
+     * hanges will only effect values which are pulled from the series values. Things such as scale are set separately. "k" | "K" | "m" |
+     *  "M" | "b" | "B"
+     */
+    'short-unit'?: string;
+    shortUnit?: string;
+    /**
+     * On bar charts, when the value of a bar is 0, setting `show-zero`: true will add 1 pixel to the height of the bar so that it is onl
+     * y just visible. true | false | 1 | 0
+     */
+    'show-zero'?: boolean;
+    showZero?: boolean;
+    /**
+     * Bubble Charts and Bubble Pie Charts Only: Sets a multiplier (default 1) used to increase/decrease the bubble size 5 | 10 | ...
+     */
+    'size-factor'?: number;
+    sizeFactor?: number;
+    /**
+     * Nested Pie Charts Only: Sets the initial offset of the pie layers when making a nestedpie 5 | 10 | ...
+     */
+    'slice-start'?: number;
+    sliceStart?: number;
+    /**
+     * Using the "stack": attribute allows you to assign which plot index you want to each value set associated with when using a stacked
+     *  chart. 5 | 10 | ...
+     */
+    stack?: number;
+    /**
+     * Setting "stacked": true will take each of the "series": [ ] value sets and stack them on top of one another true | false | 1 | 0
+     */
+    stacked?: boolean;
+    /**
+     * Applicable on aspect=stepped, sets the location of the stepping relative to two consecutive nodes. "before" | "middle" | "after"
+     */
+    'step-start'?: string;
+    stepStart?: string;
+    /**
+     * Sets the url's target for the link associated with the object. Use with "url". "_blank" | ...
+     */
+    target?: string;
+    /**
+     * Sets the thickness of pie3d charts. 5 | 10 | ...
+     */
+    thickness?: number;
+    /**
+     * When you set the "thousands-separator": attribute the punctuation which is used will be placed to separate digits which go into 1,
+     * 000's 10,000's etc. When placed in the "plot": { } object this will only effect values which are pulled directly from the series d
+     * ata. Objects such as "scale-y": { }, "scale-x": { }, etc..., will need to be set separately. "." | "," | ...
+     */
+    'thousands-separator'?: string;
+    thousandsSeparator?: string;
+    /**
+     * Using the "tooltip-text":" " attribute allows you to set text for tooltips. This can also be done using a variety of other tokens
+     * "Some Text" | ...
+     */
+    'tooltip-text'?: string;
+    tooltipText?: string;
+    /**
+     * Sets the type of the object/shape.
+     * Accepted Values: ['arc', 'arrow', 'circle', 'cross', 'diamond', 'ellipse','gear3', 'gear4', 'gear5', 'gear6', 'gear7', 'gear8', 'gear9', 'hamburger', 'line', 'parallelogram', 'pie','plus',
+     * 'poly', 'rect', 'rpoly3', 'rpoly4', 'rpoly5', 'rpoly6', 'rpoly7', 'rpoly8', 'rpoly9', 'square', 'star3', 'star4', 'star5', 'star6', 'star7', 'star8', 'star9', 'trapezoid', 'triangle']
+     * Default Value: 'poly'
+     */
+    type?: string;
+    /**
+     * Sets the URL for the link associated with the object. "http://www.domain.com/link.php" | "link.asp" | ...
+     */
+    url?: string;
+    /**
+     * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+     */
+    visible?: boolean;
+    /**
+     * Sets the z-axis end point on 3d charts. 10 | "10px" | ...
+     */
+    'z-end'?: number;
+    zEnd?: number;
+    /**
+     * Sets the z-index of the series object
+     */
+    'z-index'?: number;
+    zIndex?: number;
+    /**
+     * Sets the z-axis start point on 3d charts. 10 | "10px" | ...
+     */
+    'z-start'?: number;
+    zStart?: number;
+    animation?: {
+      /**
+       * Sets the delay in milliseconds between each step of the animation. 5 | 10 | ...
+       */
+      delay?: number;
+      /**
+       * Sets the type of animation effect. ANIMATION_FADE_IN | ANIMATION_EXPAND_VERTICAL | 1 | 2 | ...
+       */
+      effect?: number;
+      /**
+       * Sets the method used for each animation effect. ANIMATION_LINEAR | ANIMATION_BACK_EASE_OUT | 0 | 1 | ...
+       */
+      method?: number;
+      /**
+       * Determines whether or not animation occurs when a change is made to the chart via an API event (e.g., adding node, adding plot, re
+       * moving node). true (default) | false | 1 | 0
+       */
+      'on-change'?: boolean;
+      onChange?: boolean;
+      /**
+       * Determines whether or not animation occurs when users toggle legend items on and off. Note that in the "legend" object, the "toggl
+       * e-action" attribute must be set to "remove". true (default) | false | 1 | 0
+       */
+      'on-legend-toggle'?: boolean;
+      onLegendToggle?: boolean;
+      /**
+       * Determines animation groups. ANIMATION_NO_SEQUENCE | ANIMATION_BY_PLOT | 0 | 1 | ...
+       */
+      sequence?: number;
+      /**
+       * Sets the length of the animation in milliseconds. ANIMATION_SLOW | ANIMATION_FAST | 1000 | 4000 | ...
+       */
+      speed?: number;
+    };
+    'background-marker'?: backgroundMarker;
+    backgroundMarker?: backgroundMarker;
+    'background-state'?: backgroundState;
+    backgroundState?: backgroundState;
+    error?: {
+      /**
+       * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+       * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+       */
+      alpha?: number;
+      /**
+       * Sets the line color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+       */
+      'line-color'?: string;
+      lineColor?: string;
+      /**
+       * Can be used to create custom dashed or dotted lines when used with line-segment-size. This will control the size of the gaps betwe
+       * en each line segment. 4 | "6px" | ...
+       */
+      'line-gap-size'?: any;
+      lineGapSize?: any;
+      /**
+       * Can be used to create custom dashed or dotted lines when used with line-gap-size. This will control the size of the visible segmen
+       * t of line. 4 | "6px" | ...
+       */
+      'line-segment-size'?: any;
+      lineSegmentSize?: any;
+      /**
+       * Sets the style applied to lines and borders of the object. "solid" | "dotted" | "dashed"
+       */
+      'line-style'?: string;
+      lineStyle?: string;
+      /**
+       * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
+       */
+      'line-width'?: any;
+      lineWidth?: any;
+      /**
+       * Sets the size of the object/shape. 4 | "6px" | ...
+       */
+      size?: any;
+    };
+    errors?: Array<{}>;
+    goal?: {
+      /**
+       * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+       * letely opaque. Note that values require the leading zero before the decimal. 0.3 | 0.9 | ...
+       */
+      alpha?: number;
+      /**
+       * Sets the background color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+       */
+      'background-color'?: any;
+      backgroundColor?: any;
+      /**
+       * Sets the border color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+       */
+      'border-color'?: any;
+      borderColor?: any;
+      /**
+       * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+       */
+      'border-radius'?: any;
+      borderRadius?: any;
+      /**
+       * Sets the border width of the object. 4 | "6px" | ...
+       */
+      'border-width'?: any
+      borderWidth?: any
+      /**
+       * Sets the height of the object. 10 | "20px"
+       */
+      height?: number;
+      /**
+       * Sets the line style of the object. "solid" | "dotted" | "dashed" | "dashdot"
+       */
+      'line-style'?: string;
+      lineStyle?: string;
+    };
+    'guide-label'?: guideLabel;
+    guideLabel?: guideLabel;
+    'highlight-marker'?: highlightMarker;
+    highlightMarker?: highlightMarker;
+    'highlight-state'?: highlightState;
+    highlightState?: highlightState;
+    'hover-marker'?: hoverMarker;
+    hoverMarker?: hoverMarker;
+    'hover-state'?: hoverState;
+    hoverState?: hoverState;
+    'legend-item'?: legendItem;
+    legendItem?: legendItem;
+    'legend-marker'?: legendMarker;
+    legendMarker?: legendMarker;
+    marker?: {
+      /**
+       * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+       * letely opaque. Please note that values also require the leading 0 before the decimal. See the square points between the lines. 0.3
+       *  | 0.9 | ...
+       */
+      alpha?: number;
+      /**
+       * Sets the rotation angle of the object/shape. See the square points between the lines. -45 | 115 | ...
+       */
+      angle?: number;
+      /**
+       * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
+       * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
+       * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use gradient-co
+       * lors and gradient-stops. See the square points between the lines. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "
+       * rgb(100, 15, 15)" | ...
+       */
+      'background-color'?: string;
+      backgroundColor?: string;
+      /**
+       * Sets the first color of a 2 color background gradient of the object. To be used with background-color-2. See the square points bet
+       * ween the lines. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+       */
+      'background-color-1'?: string;
+      backgroundColor1?: string;
+      /**
+       * Sets the second color of a 2 color background gradient of the object. To be used with background-color-1. See the square points be
+       * tween the lines. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+       */
+      'background-color-2'?: string;
+      backgroundColor2?: string;
+      /**
+       * Sets the direction/s on which the background image is being "stretched". Used with background-image. See the square points between
+       *  the lines. "x" | "y" | "xy"
+       */
+      'background-fit'?: string;
+      backgroundFit?: string;
+      /**
+       * Sets a background image for the object. Value can be a local file or a web image's location. See the square points between the lin
+       * es. "image.png" | ...
+       */
+      'background-image'?: string;
+      backgroundImage?: string;
+      /**
+       * Sets the position of the background when the background-repeat value is no-repeat. See the square points between the lines. "0 0"
+       * | "50 100" | "80% 60%" | ...
+       */
+      'background-position'?: string;
+      backgroundPosition?: string;
+      /**
+       * Sets the repeating mode for the background image. See the square points between the lines. "no-repeat" | "repeat" | "repeat-x" | "
+       * repeat-y"
+       */
+      'background-repeat'?: string;
+      backgroundRepeat?: string;
+      /**
+       * Sets the border color of the object, applicable on closed shapes. See the square points between the lines. "none" | "transparent"
+       * | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+       */
+      'border-color'?: string;
+      borderColor?: string;
+      /**
+       * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+       * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+       * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction.
+       * 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+       */
+      'border-radius'?: any;
+      borderRadius?: any;
+      /**
+       * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
+       */
+      'border-width'?: any
+      borderWidth?: any
+      /**
+       * Sets the angle of the axis along which the linear gradient is drawn. See the square points between the lines. -45 | 115 | ...
+       */
+      'fill-angle'?: number;
+      fillAngle?: number;
+      /**
+       * Sets an X offset to apply to the fill. See the square points between the lines. 4 | "6px" | ...
+       */
+      'fill-offset-x'?: any;
+      fillOffsetX?: any;
+      /**
+       * Sets an Y offset to apply to the fill. See the square points between the lines. 4 | "6px" | ...
+       */
+      'fill-offset-y'?: any;
+      fillOffsetY?: any;
+      /**
+       * Sets the background gradient fill type to either linear or radial. See the square points between the lines. "linear" | "radial"
+       */
+      'fill-type'?: string;
+      fillType?: string;
+      /**
+       * Sets the text's font size of the marker. 4 | "6px" | ...
+       */
+      'font-size'?: any;
+      fontSize?: any;
+      /**
+       * Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops. "#f00 #0f0
+       * #00f" | ...
+       */
+      'gradient-colors'?: string;
+      gradientColors?: string;
+      /**
+       * Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors. "0.1 0.
+       * 5 0.9" | ...
+       */
+      'gradient-stops'?: string;
+      gradientStops?: string;
+      /**
+       * Sets the map id of the map on which the object/shape is being added. "mapid" | ...
+       */
+      map?: string;
+      /**
+       * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
+       */
+      'offset-x'?: any;
+      offsetX?: any;
+      /**
+       * Sets a Y offset to apply when positioning the object/shape. 4 | "6px" | ...
+       */
+      'offset-y'?: any;
+      offsetY?: any;
+      /**
+       * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
+       */
+      shadow?: boolean;
+      /**
+       * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
+       * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+       */
+      'shadow-alpha'?: number;
+      shadowAlpha?: number;
+      /**
+       * Sets the angle of the shadow underneath the object. -45 | 115 | ...
+       */
+      'shadow-angle'?: number;
+      shadowAngle?: number;
+      /**
+       * Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation. 4 | "6px" | ...
+       */
+      'shadow-blur'?: any;
+      shadowBlur?: any;
+      /**
+       * Sets the color of the shadow of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ..
+       * .
+       */
+      'shadow-color'?: string;
+      shadowColor?: string;
+      /**
+       * Sets the distance between the shadow and the object. 4 | "6px" | ...
+       */
+      'shadow-distance'?: any;
+      shadowDistance?: any;
+      /**
+       * Sets the size of the object/shape. 4 | "6px" | ...
+       */
+      size?: any;
+      /**
+       * Sets the character used to separate thousands. "," | "." | " " | ...
+       */
+      'thousands-separator'?: string;
+      thousandsSeparator?: string;
+      /**
+       * The type of the marker object to render. square | circle | diamond | triangle | star5 | star6 | star7 | star8 | rpoly5 | gear5 | g
+       * ear6 | gear7 | gear8
+       */
+      type?: string;
+      /**
+       * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+       */
+      visible?: boolean;
+      /**
+       * Sets the X position of the object. 10 | "20px" | 0.3 | "30%" | ...
+       */
+      x?: any;
+      /**
+       * Sets the Y position of the object. 10 | "20px" | 0.3 | "30%" | ...
+       */
+      y?: any;
+      /**
+       * Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values. 5 | 10 | ...
+       */
+      'z-index'?: number;
+      zIndex?: number;
+    };
+    preview?: {
+      /**
+       * Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 be
+       * ing completely opaque. Note that values require the leading 0 before the decimal point. 0.3 | 0.4 | 0.9 | ...
+       */
+      alpha?: number;
+      /**
+       * Area Chart only: Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely trans
+       * parent and 1.0 being completely opaque. Note that values require the leading 0 before the decimal point. 0.3 | 0.4 | 0.9 | ...
+       */
+      'alpha-area'?: number;
+      alphaArea?: number;
+      /**
+       * Sets the background color of the object. Colors can be entered by name (e.g., "purple", "blue"), hexadecimal notation (e.g., "#666
+       * 699", #33ccff"), or RGB notation (e.g., "rgb(255,0,0)", "rgb(0,0,255)"). "none" | "transparent" | "purple" | "#33ccff" | "rgb(100,
+       *  15, 15)" | ...
+       */
+      'background-color'?: string;
+      backgroundColor?: string;
+      /**
+       * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
+       */
+      'line-color'?: string;
+      lineColor?: string;
+      /**
+       * Sets the line style of the object. "solid" | "dotted" | "dashed" | "dashdot"
+       */
+      'line-style'?: string;
+      lineStyle?: string;
+      /**
+       * Sets the line width of the object. 2 | 4 | "6px" | ...
+       */
+      'line-width'?: any;
+      lineWidth?: any;
+      /**
+       * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+       */
+      visible?: boolean;
+      /**
+       * To set the stock preview chart type: area chart or line chart. "area" (default) | "line"
+       */
+      type?: string;
+    };
+    rules?: Array<{
+      /**
+       * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+       * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+       * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+       * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+       * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+       */
+      rule?: string;
+    }>;
+    'selected-marker'?: selectedMarker;
+    selectedMarker?: selectedMarker;
+    'selected-state'?: selectedState;
+    selectedState?: selectedState;
+    text?: string;
+    tooltip?: tooltip;
+    'trend-down'?: trendDown;
+    trendDown?: trendDown;
+    'trend-equal'?: trendEqual;
+    trendEqual?: trendEqual;
+    'trend-up'?: trendUp;
+    trendUp?: trendUp;
+    'value-box'?: valueBox;
+    valueBox?: valueBox;
+    values?: any;
   }
   interface scaleK {
     /**
@@ -6583,6 +7601,7 @@ declare namespace zingchart {
      */
     'minor-ticks'?: number;
     minorTicks?: number;
+    aperture?: number;
     /**
      * Gauge Charts Only: To set the minimum, maximum, and step scale values. '0:10' | '0:25:5' | ...
      */
@@ -10718,7 +11737,7 @@ declare namespace zingchart {
       uniform?: boolean;
     };
   }
-  interface scrollXSCrollY {
+  interface scrollXScrollY {
     /**
      * Sets an x offset that will be applied to the scroll-x object. 4 | '6px' | ...
      */
@@ -11092,15 +12111,15 @@ declare namespace zingchart {
     'shadow-distance'?: any;
     shadowDistance?: any;
   }
-  interface tooltipRules extends tooltip {
-    /**
-     * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
-     * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
-     * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
-     * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
-     * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
-     */
-    rule?: string;
+  interface theme {
+    palette?: {
+      area?: string[][];
+      gauge?: string[][];
+      line?: string[][];
+      pie?: string[][];
+      vbar?: string[][];
+    };
+    graph?: graphset;
   }
   interface tooltip {
     /**
@@ -11519,6 +12538,16 @@ declare namespace zingchart {
     'z-index'?: number;
     zIndex?: number;
   }
+  interface tooltipRules extends tooltip {
+    /**
+     * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+     * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+     * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+     * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+     * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+     */
+    rule?: string;
+  }
   interface trendDown {
     /**
      * Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 be
@@ -11620,16 +12649,6 @@ declare namespace zingchart {
      */
     'line-width'?: any;
     lineWidth?: any;
-  }
-  interface valueBoxRules extends valueBox {
-    /**
-     * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
-     * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
-     * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
-     * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
-     * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
-     */
-    rule?: string;
   }
   interface valueBox {
     /**
@@ -11948,6 +12967,16 @@ declare namespace zingchart {
     };
     rules?: valueBoxRules[];
   }
+  interface valueBoxRules extends valueBox {
+    /**
+     * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+     * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+     * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+     * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+     * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+     */
+    rule?: string;
+  }
 
   interface globals {
     /**
@@ -12004,6 +13033,14 @@ declare namespace zingchart {
      * Sets the line width of the object, applicable to non-closed shapes. 4 | "6px" | ...
      */
     'line-width'?: number;
+  }
+  interface gui {
+    /**
+     * To create custom context menu items
+     */
+    behaviors?: behavior[];
+    'context-menu'?: contextMenuGui;
+    contextMenu?: contextMenuGui;
   }
   interface graphset {
     /**
@@ -14551,6 +15588,21 @@ declare namespace zingchart {
        */
       'color-type'?: string;
       colorType?: string;
+      'header-row'?: boolean;
+      headerRow?: boolean;
+      'header-col'?: boolean;
+      headerCol?: boolean;
+      rowLabels?: string[];
+      'row-labels'?: string[];
+      colLabels?: string[];
+      'col-labels'?: string[];
+      'col-widths'?: string[];
+      colWidths?: string[];
+      'data-class'?: string[];
+      dataClass?: string[];
+      flat?: boolean;
+      'force-height'?: boolean;
+      forceHeight?: boolean;
       /**
        * To set the maximum font size. 20 | "30px" | ...
        */
@@ -14816,6 +15868,22 @@ declare namespace zingchart {
       [key: `node[level-${string}`]: node;
       [key: `node[parent-${string}`]: node;
       style?: {
+        // The following attributes can be used to style grid charts:
+        '.td'?: gridStyles;
+        '.td_even'?: gridStyles;
+        '.td_odd'?: gridStyles;
+        '.td_first'?: gridStyles;
+        '.td_last'?: gridStyles;
+        '.th'?: gridStyles;
+        '.th_even'?: gridStyles;
+        '.th_odd'?: gridStyles;
+        '.th_first'?: gridStyles;
+        '.th_last'?: gridStyles;
+        '.tr'?: gridStyles;
+        '.tr_even'?: gridStyles;
+        '.tr_odd'?: gridStyles;
+        '.tr_first'?: gridStyles;
+        '.tr_last'?: gridStyles;
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
          * mpletely opaque. Note that the leading zero is required before the decimal. 0.3 | 0.4 | 0.9 | ...
@@ -15750,8 +16818,8 @@ declare namespace zingchart {
       'size-factor'?: number;
       sizeFactor?: number;
     };
-    'scroll-x-scroll-y'?: scrollXSCrollY;
-    scrollXScrollY?: scrollXSCrollY;
+    'scroll-x-scroll-y'?: scrollXScrollY;
+    scrollXScrollY?: scrollXScrollY;
     selectionTool?: {
       mask?: {
         /**
@@ -16423,6 +17491,7 @@ declare namespace zingchart {
       'z-index'?: number;
       zIndex?: number;
     };
+    stacked?: boolean;
     subtitle?: {
       /**
        * Sets the transparency of the object. Requires that background-color be set. 0.3 | 0.9 | ...
@@ -17329,7 +18398,6 @@ declare namespace zingchart {
      */
     zoomSnap?: boolean;
   }
-
   interface behavior {
     /**
      * To enable or disable individual context menu item behaviors. "all" | "none"
@@ -17348,14 +18416,6 @@ declare namespace zingchart {
      */
     'custom-function'?: string;
     customFunction?: string;
-  }
-  interface gui {
-    /**
-     * To create custom context menu items
-     */
-    behaviors?: behavior[];
-    'context-menu'?: contextMenuGui;
-    contextMenu?: contextMenuGui;
   }
   interface history {
     /**
@@ -18123,928 +19183,6 @@ declare namespace zingchart {
       'wrap-text'?: boolean;
       wrapText?: boolean;
     };
-  }
-  interface series {
-    /**
-     * Sets the transparency level of backgrounds, borders, and lines. Values must range between 0.0 and 1.0, with 0.0 being completely t
-     * ransparent and 1.0 being completely opaque. Note that values require the leading zero before the decimal point. 0.3 | 0.9 | ...
-     */
-    alpha?: number;
-    /**
-     * Modifies how data points appear on a chart. Refer to the applicable chart types page for more information. Options by Chart Type:
-     * "segmented" | "spline" | "stepped" | "jumped" | "cone" | "histogram" | ...
-     */
-    aspect?: string;
-    /**
-     * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
-     * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
-     * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use "gradient-c
-     * olors" and "gradient-stops". "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-     */
-    'background-color'?: string;
-    backgroundColor?: string;
-    /**
-     * Sets the first color of a 2 color background gradient of the object. To be used with "background-color-2". "none" | "transparent"
-     * | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-     */
-    'background-color-1'?: string;
-    backgroundColor1?: string;
-    /**
-     * Sets the second color of a 2 color background gradient of the object. To be used with "background-color-1". "none" | "transparent"
-     *  | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-     */
-    'background-color-2'?: string;
-    backgroundColor2?: string;
-    /**
-     * Sets the direction/s on which the background image is being "stretched". "x" | "y" | "xy"
-     */
-    'background-fit'?: string;
-    backgroundFit?: string;
-    /**
-     * Sets a background image for the object. Value can be a local file or a web image's location. "image.png" | ...
-     */
-    'background-image'?: string;
-    backgroundImage?: string;
-    /**
-     * Sets the position of the background when the "background-repeat" value is "no-repeat". "0 0" | "50 100" | "80% 60%" | ...
-     */
-    'background-position'?: string;
-    backgroundPosition?: string;
-    /**
-     * Sets the repeating mode for the background image. "no-repeat" | "repeat" | "repeat-x" | "repeat-y"
-     */
-    'background-repeat'?: string;
-    backgroundRepeat?: string;
-    /**
-     * Nested Pie Charts Only: This attribute is used to set the space between band in nested pie charts ("type":"nestedpie"). 5 | 10 | .
-     * ..
-     */
-    'band-space'?: number;
-    bandSpace?: number;
-    /**
-     * Bar Charts and Bullet Charts Only: Sets the amount of space between each bar in a single plot index. "10" | "10%" | "10px"
-     */
-    'bar-space'?: number;
-    barSpace?: number;
-    /**
-     * Bar Charts and Bullet Charts Only: Sets the width of each bar. "10" | "10%" | "10px"
-     */
-    'bar-width'?: any;
-    barWidth?: any;
-    /**
-     * Bar Charts and Bullet Charts Only: Defines how much the bars in each plot index should overlap. "10" | "10%" | "10px"
-     */
-    'bars-overlap'?: number;
-    barsOverlap?: number;
-    /**
-     * Bar Charts and Bullet Charts Only: Defines the spacing to the left of the bars at each index position. "10" | "10%" | "10px"
-     */
-    'bars-space-left'?: number;
-    barsSpaceLeft?: number;
-    /**
-     * Bar Charts and Bullet Charts Only: Defines the spacing to the right of the bars at each index position. "10" | "10%" | "10px"
-     */
-    'bars-space-right'?: number;
-    barsSpaceRight?: number;
-    /**
-     * Sets the border color of the object, applicable on closed shapes. See also "line-color" for closed shapes. "none" | "transparent"
-     * | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-     */
-    'border-color'?: string;
-    borderColor?: string;
-    /**
-     * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
-     * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
-     * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
-     * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
-     */
-    'border-radius'?: any;
-    borderRadius?: any;
-    /**
-     * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
-     * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
-     */
-    'border-radius-bottom-left'?: any;
-    borderRadiusBottomLeft?: any;
-    /**
-     * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
-     * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
-     */
-    'border-radius-bottom-right'?: any;
-    borderRadiusBottomRight?: any;
-    /**
-     * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
-     * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
-     */
-    'border-radius-top-left'?: any;
-    borderRadiusTopLeft?: any;
-    /**
-     * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
-     * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
-     */
-    'border-radius-top-right'?: any;
-    borderRadiusTopRight?: any;
-    /**
-     * Sets the border width of the object, applicable on closed shapes. See also "line-width" for closed shapes. 4 | "6px" | ...
-     */
-    'border-width'?: any;
-    borderWidth?: any;
-    /**
-     * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
-     */
-    callout?: boolean;
-    /**
-     * Sets the height of the object's callout arrow. A larger value will create a taller callout arrow. 4 | "6px" | ...
-     */
-    'callout-height'?: any;
-    calloutHeight?: any;
-    /**
-     * Sets the point of the tip of the callout arrow to a specified coordinate on the chart, with the starting point of [0,0] being the
-     * top left corner of the chart. [200, 50] | ...
-     */
-    'callout-hook'?: any;
-    calloutHook?: any;
-    /**
-     * Sets the offset along the callout direction of the arrow's base. Positive and negative values can be used to offset the callout ar
-     * row up, down, left, or right depending on the "callout-position". 4 | "6px" | ...
-     */
-    'callout-offset'?: any;
-    calloutOffset?: any;
-    /**
-     * Sets the position for the object's callout arrow. The position is "bottom" by default. "top" | "right" | "bottom" | "left"
-     */
-    'callout-position'?: string;
-    calloutPosition?: string;
-    /**
-     * Sets the width of the object's callout arrow. A larger value will create a wider callout arrow. 4 | "6px" | ...
-     */
-    'callout-width'?: any;
-    calloutWidth?: any;
-    /**
-     * Area Charts Only: Sets whether the contour lines on area plots will be on top of all areas or will be hidden by the next area plot
-     *  on top of it. You will notice when the attribute is set to true the lines are all set above the shaded regions. true | false | 1
-     * | 0
-     */
-    'contour-on-top'?: boolean;
-    contourOnTop?: boolean;
-    /**
-     * By defalut null values within series arrays will create a blank space within a plot. Setting connect-nulls to true will connect va
-     * lues through a null data point. true | false | 1 | 0
-     */
-    'connect-nulls'?: boolean;
-    connectNulls?: boolean;
-    /**
-     * Sets the style of the cursor when hovering over a node. "hand" | "normal"
-     */
-    cursor?: string;
-    /**
-     * This attribute allows you to create custom tokens and associate static or dynamic data to them. This attribute can be used almost
-     * anywhere in a chart. "Some Text" | ...
-     */
-    'data-...'?: string;
-    /**
-     * This attribute allows you to click and drag a bar's height in a bar chart. true | false | 1 | 0
-     */
-    'data-dragging'?: boolean;
-    dataDragging?: boolean;
-    /**
-     * Using the decimals attribute will allow you to set the number of decimal places associated to each value. 5 | 10 | ...
-     */
-    decimals?: number;
-    /**
-     * The "decimals-separator": attribute allows you to set what type of punctuation the will be used in the decimal place. "." | "," |
-     * ...
-     */
-    'decimals-separator'?: string;
-    decimalsSeparator?: string;
-    /**
-     * This attribute sets description text for the plot which can be addressed in various areas with the %plot-description token. "Some
-     * Text" | ...
-     */
-    description?: string;
-    /**
-     * By default ZingChart uses sampling when rendering charts. This helps improve rendering speeds and typically does not effect the ap
-     * pearance of the chart. However, using the attribute "exact": true within the "plot": { } object forces ZingChart to render all nod
-     * es. true | false | 1 | 0
-     */
-    exact?: boolean;
-    /**
-     * This attribute sets the values to scientific notation true | false | 1 | 0
-     */
-    exponent?: boolean;
-    /**
-     * This attribute set the number of decimals to be used when using exponents for scientific notation 5 | 10 | ...
-     */
-    'exponent-decimals'?: number;
-    exponentDecimals?: number;
-    /**
-     * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
-     */
-    'fill-angle'?: number;
-    fillAngle?: number;
-    /**
-     * Sets an X offset to apply to the fill. 4 | "6px" | ...
-     */
-    'fill-offset-x'?: any;
-    fillOffsetX?: any;
-    /**
-     * Sets an Y offset to apply to the fill. 4 | "6px" | ...
-     */
-    'fill-offset-y'?: any;
-    fillOffsetY?: any;
-    /**
-     * Sets the background gradient fill type to either linear or radial. "linear" | "radial"
-     */
-    'fill-type'?: string;
-    fillType?: string;
-    /**
-     * Bullet Charts Only: Accepts numerical values. Determines where goals are set for all plots. The "goals": [ ] values can also be se
-     * t individually within each value set. [45, 70, 60]
-     */
-    goals?: any;
-    /**
-     * Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with "gradient-stops". "#f00 #0f
-     * 0 #00f" | ...
-     */
-    'gradient-colors'?: string;
-    gradientColors?: string;
-    /**
-     * Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with "gradient-colors". "0.1
-     * 0.5 0.9" | ...
-     */
-    'gradient-stops'?: string;
-    gradientStops?: string;
-    /**
-     * When true, automatically selects all nodes with the same scale index as the selected node. The selection-mode attribute must also
-     * be set. true | false | 1 | 0
-     */
-    'group-selections'?: boolean;
-    groupSelections?: boolean;
-    /**
-     * Sets the ID of the object. "myid" | "f1" | ...
-     */
-    id?: string;
-    /**
-     * Venn Diagrams Only: This attribute allow you to set the values for the area to be shared between each node. [30]
-     */
-    join?: any;
-    /**
-     * The "legend-text": attribute is typically used within "series": [ ] value sets. Using this attribute allows you to associate both
-     * a "text":" " and "legend-text":" " to each value set "Some Text" | ...
-     */
-    'legend-text'?: string;
-    legendText?: string;
-    /**
-     * Sets the line color of the object, applicable on non-closed shapes. See also "border-color" for closed shapes. "none" | "transpare
-     * nt" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-     */
-    'line-color'?: string;
-    lineColor?: string;
-    /**
-     * Can be used to create custom dashed or dotted lines when used with "line-segment-size". This will control the size of the gaps bet
-     * ween each line segment. 4 | "6px" | ...
-     */
-    'line-gap-size'?: any;
-    lineGapSize?: any;
-    /**
-     * Can be used to create custom dashed or dotted lines when used with "line-gap-size". This will control the size of the visible segm
-     * ent of line. 4 | "6px" | ...
-     */
-    'line-segment-size'?: any;
-    lineSegmentSize?: any;
-    /**
-     * Sets the style applied to lines and borders of the object. "solid" | "dotted" | "dashed"
-     */
-    'line-style'?: string;
-    lineStyle?: string;
-    /**
-     * Sets the line width of the object, applicable on non-closed shapes. See also "border-width" for closed shapes. 4 | "6px" | ...
-     */
-    'line-width'?: any;
-    lineWidth?: any;
-    /**
-     * Applies to charts such as line and area which have markers. When there are too many markers for the chart ZingChart does not displ
-     * ay all markers. Example 1000 nodes on a 300px wide chart. Setting max-nodes will override the default setting and force nodes to b
-     * e displayed. 5 | 10 | ...
-     */
-    'max-nodes'?: number;
-    maxNodes?: number;
-    /**
-     * Heat Maps Only: Sets a maximum ratio applied to the value of the node when calculating its aspect. 0 | 0.4 | ...
-     */
-    'max-ratio'?: number;
-    maxRatio?: number;
-    /**
-     * Bubble Charts and Bubble Pie Charts Only: Defines the maximum size of the bubble if the value representing size is not sharing the
-     *  same ratio with the value scale. 5 | 10 | ...
-     */
-    'max-size'?: number;
-    maxSize?: number;
-    /**
-     * Sets the maximum numbers of nodes for which a tracking area will be created. This is best used to optimize charts with large sets
-     * of data. 5 | 10 | ...
-     */
-    'max-trackers'?: number;
-    maxTrackers?: number;
-    /**
-     * Sets whether or not a node is wrapped equally before and after its position. true | false | 1 | 0
-     */
-    'mid-point'?: boolean;
-    midPoint?: boolean;
-    /**
-     * Heat Maps Only: Sets a minimum ratio applied to the value of the node when calculating its aspect. 0 | 0.4 | ...
-     */
-    'min-ratio'?: number;
-    minRatio?: number;
-    /**
-     * Bubble Charts and Bubble Pie Charts Only: Defines the minimum size of the bubble if the value representing size is not sharing the
-     *  same ratio with the value scale. 5 | 10 | ...
-     */
-    'min-size'?: number;
-    minSize?: number;
-    /**
-     * Sets whether monotone interpolation is used for charts using the "spline" aspect. true | false | 1 | 0
-     */
-    monotone?: boolean;
-    /**
-     * Setting "multiplier": true will take large numbers such as thousands, millions, etc and replace the full number with an abbreviate
-     * d notation with a short unit such as K, M, B, etc true | false | 1 | 0
-     */
-    multiplier?: boolean;
-    /**
-     * This attribute will determine how negative values are handled. When using "format":"$%v" setting "negation":"currency" will move t
-     * he - symbol to the outside of the $ sign. When using "negation" within the "plot": { } object you will see changes in things such
-     * as tooltips or anywhere else series data is used to populate values. You need to set "negation" in things such as "scale-y": { } s
-     * eparately. "standard" | "currency"
-     */
-    negation?: string;
-    /**
-     * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
-     */
-    'offset-x'?: any;
-    offsetX?: any;
-    /**
-     * Sets a Y offset to apply when positioning the object/shape. 4 | "6px" | ...
-     */
-    'offset-y'?: any;
-    offsetY?: any;
-    /**
-     * Bar, Line and Area Charts only Include object in any series to override style displayed in the preview window. {...}
-     */
-    'preview-state'?: any;
-    previewState?: any;
-    /**
-     * Pie Charts Only: Provides the ability to rotate the chart. 5 | 10 | ...
-     */
-    'ref-angle'?: number;
-    refAngle?: number;
-    /**
-     * Heat Maps Only: Sets the value (default 'plot-max') which is used as a reference for calculating node aspect. "plot-max" | "plot-t
-     * otal" | "chart-max" | "chart-total"
-     */
-    reference?: string;
-    /**
-     * By default ZingChart uses sampling when rendering large datasets. If you are trying to render 10000 data points on a chart which i
-     * s only 500px wide there is not enough space for each data point. ZingChart will automatically determine which data points to show.
-     *  The "sampling-step": attribute allows you to set the step for sampling. For example if you have 10000 data points and set "sampli
-     * ng-step":10 it will show point 1,10,20,... Also note the "exact": true attribute if you want to force all data points. 5 | 10 | ..
-     * .
-     */
-    'sampling-step'?: number;
-    samplingStep?: number;
-    /**
-     * Specifies the scales used by the series item. scale-x,scale-y | scale-x,scale-y-2 | ...
-     */
-    scales?: string;
-    /**
-     * Bubble Charts and Bubble Pie Charts Only: Sets the method used to relate the bubble numerical value to it's aspect. "radius" | "sq
-     * rt" | "area"
-     */
-    scaling?: string;
-    /**
-     * When scrolling is enabled for a chart, ZingChart automatically samples the data in order to maintain performance during the re-ren
-     * dering of the chart that occurs during scrolling. By default, ZingChart will automatically sample every other item (scroll-step-mu
-     * ltiplier:2). Setting scroll-step-multiplier to 1 will force the library to sample every data point, essentially disabling sampling
-     * . 5 | 10 | ...
-     */
-    'scroll-step-multiplier'?: number;
-    scrollStepMultiplier?: number;
-    /**
-     * Line Charts and Area Charts Only: Allows you to specify whether tooltips are activated by the markers and lines (default) or the m
-     * arkers only. true (default) | false
-     */
-    'segment-trackers'?: boolean;
-    segmentTrackers?: boolean;
-    /**
-     * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
-     */
-    shadow?: boolean;
-    /**
-     * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
-     * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
-     */
-    'shadow-alpha'?: number;
-    shadowAlpha?: number;
-    /**
-     * Sets the angle of the shadow underneath the object. -45 | 115 | ...
-     */
-    'shadow-angle'?: number;
-    shadowAngle?: number;
-    /**
-     * Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation. 4 | "6px" | ...
-     */
-    'shadow-blur'?: any;
-    shadowBlur?: any;
-    /**
-     * Sets the color of the shadow of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ..
-     * .
-     */
-    'shadow-color'?: string;
-    shadowColor?: string;
-    /**
-     * Sets the distance between the shadow and the object. 4 | "6px" | ...
-     */
-    'shadow-distance'?: any;
-    shadowDistance?: any;
-    /**
-     * Setting "short": true will abbreviate long numbers such as 100000 to 1K or 1000000 to 1M. When set within the "plot": {} object th
-     * is change will be noticed anywhere values are pulled from series data. This can also be used in places such as "scale-y, scale-x,
-     * etc" true | false | 1 | 0
-     */
-    short?: boolean;
-    /**
-     * By default when setting "short": true ZingChart will round to the nearest short unit (ie 100000 to 100K and 1000000 to 1M). You ca
-     * n set the short-unit and ZingChart will round all numbers to that unit. Note when setting this within the "plot": { } object the c
-     * hanges will only effect values which are pulled from the series values. Things such as scale are set separately. "k" | "K" | "m" |
-     *  "M" | "b" | "B"
-     */
-    'short-unit'?: string;
-    shortUnit?: string;
-    /**
-     * On bar charts, when the value of a bar is 0, setting `show-zero`: true will add 1 pixel to the height of the bar so that it is onl
-     * y just visible. true | false | 1 | 0
-     */
-    'show-zero'?: boolean;
-    showZero?: boolean;
-    /**
-     * Bubble Charts and Bubble Pie Charts Only: Sets a multiplier (default 1) used to increase/decrease the bubble size 5 | 10 | ...
-     */
-    'size-factor'?: number;
-    sizeFactor?: number;
-    /**
-     * Nested Pie Charts Only: Sets the initial offset of the pie layers when making a nestedpie 5 | 10 | ...
-     */
-    'slice-start'?: number;
-    sliceStart?: number;
-    /**
-     * Using the "stack": attribute allows you to assign which plot index you want to each value set associated with when using a stacked
-     *  chart. 5 | 10 | ...
-     */
-    stack?: number;
-    /**
-     * Setting "stacked": true will take each of the "series": [ ] value sets and stack them on top of one another true | false | 1 | 0
-     */
-    stacked?: boolean;
-    /**
-     * Applicable on aspect=stepped, sets the location of the stepping relative to two consecutive nodes. "before" | "middle" | "after"
-     */
-    'step-start'?: string;
-    stepStart?: string;
-    /**
-     * Sets the url's target for the link associated with the object. Use with "url". "_blank" | ...
-     */
-    target?: string;
-    /**
-     * Sets the thickness of pie3d charts. 5 | 10 | ...
-     */
-    thickness?: number;
-    /**
-     * When you set the "thousands-separator": attribute the punctuation which is used will be placed to separate digits which go into 1,
-     * 000's 10,000's etc. When placed in the "plot": { } object this will only effect values which are pulled directly from the series d
-     * ata. Objects such as "scale-y": { }, "scale-x": { }, etc..., will need to be set separately. "." | "," | ...
-     */
-    'thousands-separator'?: string;
-    thousandsSeparator?: string;
-    /**
-     * Using the "tooltip-text":" " attribute allows you to set text for tooltips. This can also be done using a variety of other tokens
-     * "Some Text" | ...
-     */
-    'tooltip-text'?: string;
-    tooltipText?: string;
-    /**
-     * Sets the type of the object/shape.
-     * Accepted Values: ['arc', 'arrow', 'circle', 'cross', 'diamond', 'ellipse','gear3', 'gear4', 'gear5', 'gear6', 'gear7', 'gear8', 'gear9', 'hamburger', 'line', 'parallelogram', 'pie','plus',
-     * 'poly', 'rect', 'rpoly3', 'rpoly4', 'rpoly5', 'rpoly6', 'rpoly7', 'rpoly8', 'rpoly9', 'square', 'star3', 'star4', 'star5', 'star6', 'star7', 'star8', 'star9', 'trapezoid', 'triangle']
-     * Default Value: 'poly'
-     */
-    type?: string;
-    /**
-     * Sets the URL for the link associated with the object. "http://www.domain.com/link.php" | "link.asp" | ...
-     */
-    url?: string;
-    /**
-     * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
-     */
-    visible?: boolean;
-    /**
-     * Sets the z-axis end point on 3d charts. 10 | "10px" | ...
-     */
-    'z-end'?: number;
-    zEnd?: number;
-    /**
-     * Sets the z-index of the series object
-     */
-    'z-index'?: number;
-    zIndex?: number;
-    /**
-     * Sets the z-axis start point on 3d charts. 10 | "10px" | ...
-     */
-    'z-start'?: number;
-    zStart?: number;
-    animation?: {
-      /**
-       * Sets the delay in milliseconds between each step of the animation. 5 | 10 | ...
-       */
-      delay?: number;
-      /**
-       * Sets the type of animation effect. ANIMATION_FADE_IN | ANIMATION_EXPAND_VERTICAL | 1 | 2 | ...
-       */
-      effect?: number;
-      /**
-       * Sets the method used for each animation effect. ANIMATION_LINEAR | ANIMATION_BACK_EASE_OUT | 0 | 1 | ...
-       */
-      method?: number;
-      /**
-       * Determines whether or not animation occurs when a change is made to the chart via an API event (e.g., adding node, adding plot, re
-       * moving node). true (default) | false | 1 | 0
-       */
-      'on-change'?: boolean;
-      onChange?: boolean;
-      /**
-       * Determines whether or not animation occurs when users toggle legend items on and off. Note that in the "legend" object, the "toggl
-       * e-action" attribute must be set to "remove". true (default) | false | 1 | 0
-       */
-      'on-legend-toggle'?: boolean;
-      onLegendToggle?: boolean;
-      /**
-       * Determines animation groups. ANIMATION_NO_SEQUENCE | ANIMATION_BY_PLOT | 0 | 1 | ...
-       */
-      sequence?: number;
-      /**
-       * Sets the length of the animation in milliseconds. ANIMATION_SLOW | ANIMATION_FAST | 1000 | 4000 | ...
-       */
-      speed?: number;
-    };
-    'background-marker'?: backgroundMarker;
-    backgroundMarker?: backgroundMarker;
-    'background-state'?: backgroundState;
-    backgroundState?: backgroundState;
-    error?: {
-      /**
-       * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
-       * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
-       */
-      alpha?: number;
-      /**
-       * Sets the line color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-       */
-      'line-color'?: string;
-      lineColor?: string;
-      /**
-       * Can be used to create custom dashed or dotted lines when used with line-segment-size. This will control the size of the gaps betwe
-       * en each line segment. 4 | "6px" | ...
-       */
-      'line-gap-size'?: any;
-      lineGapSize?: any;
-      /**
-       * Can be used to create custom dashed or dotted lines when used with line-gap-size. This will control the size of the visible segmen
-       * t of line. 4 | "6px" | ...
-       */
-      'line-segment-size'?: any;
-      lineSegmentSize?: any;
-      /**
-       * Sets the style applied to lines and borders of the object. "solid" | "dotted" | "dashed"
-       */
-      'line-style'?: string;
-      lineStyle?: string;
-      /**
-       * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
-       */
-      'line-width'?: any;
-      lineWidth?: any;
-      /**
-       * Sets the size of the object/shape. 4 | "6px" | ...
-       */
-      size?: any;
-    };
-    errors?: Array<{}>;
-    goal?: {
-      /**
-       * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
-       * letely opaque. Note that values require the leading zero before the decimal. 0.3 | 0.9 | ...
-       */
-      alpha?: number;
-      /**
-       * Sets the background color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-       */
-      'background-color'?: any;
-      backgroundColor?: any;
-      /**
-       * Sets the border color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-       */
-      'border-color'?: any;
-      borderColor?: any;
-      /**
-       * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
-       */
-      'border-radius'?: any;
-      borderRadius?: any;
-      /**
-       * Sets the border width of the object. 4 | "6px" | ...
-       */
-      'border-width'?: any
-      borderWidth?: any
-      /**
-       * Sets the height of the object. 10 | "20px"
-       */
-      height?: number;
-      /**
-       * Sets the line style of the object. "solid" | "dotted" | "dashed" | "dashdot"
-       */
-      'line-style'?: string;
-      lineStyle?: string;
-    };
-    'guide-label'?: guideLabel;
-    guideLabel?: guideLabel;
-    'highlight-marker'?: highlightMarker;
-    highlightMarker?: highlightMarker;
-    'highlight-state'?: highlightState;
-    highlightState?: highlightState;
-    'hover-marker'?: hoverMarker;
-    hoverMarker?: hoverMarker;
-    'hover-state'?: hoverState;
-    hoverState?: hoverState;
-    'legend-item'?: legendItem;
-    legendItem?: legendItem;
-    'legend-marker'?: legendMarker;
-    legendMarker?: legendMarker;
-    marker?: {
-      /**
-       * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
-       * letely opaque. Please note that values also require the leading 0 before the decimal. See the square points between the lines. 0.3
-       *  | 0.9 | ...
-       */
-      alpha?: number;
-      /**
-       * Sets the rotation angle of the object/shape. See the square points between the lines. -45 | 115 | ...
-       */
-      angle?: number;
-      /**
-       * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
-       * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
-       * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use gradient-co
-       * lors and gradient-stops. See the square points between the lines. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "
-       * rgb(100, 15, 15)" | ...
-       */
-      'background-color'?: string;
-      backgroundColor?: string;
-      /**
-       * Sets the first color of a 2 color background gradient of the object. To be used with background-color-2. See the square points bet
-       * ween the lines. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-       */
-      'background-color-1'?: string;
-      backgroundColor1?: string;
-      /**
-       * Sets the second color of a 2 color background gradient of the object. To be used with background-color-1. See the square points be
-       * tween the lines. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-       */
-      'background-color-2'?: string;
-      backgroundColor2?: string;
-      /**
-       * Sets the direction/s on which the background image is being "stretched". Used with background-image. See the square points between
-       *  the lines. "x" | "y" | "xy"
-       */
-      'background-fit'?: string;
-      backgroundFit?: string;
-      /**
-       * Sets a background image for the object. Value can be a local file or a web image's location. See the square points between the lin
-       * es. "image.png" | ...
-       */
-      'background-image'?: string;
-      backgroundImage?: string;
-      /**
-       * Sets the position of the background when the background-repeat value is no-repeat. See the square points between the lines. "0 0"
-       * | "50 100" | "80% 60%" | ...
-       */
-      'background-position'?: string;
-      backgroundPosition?: string;
-      /**
-       * Sets the repeating mode for the background image. See the square points between the lines. "no-repeat" | "repeat" | "repeat-x" | "
-       * repeat-y"
-       */
-      'background-repeat'?: string;
-      backgroundRepeat?: string;
-      /**
-       * Sets the border color of the object, applicable on closed shapes. See the square points between the lines. "none" | "transparent"
-       * | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
-       */
-      'border-color'?: string;
-      borderColor?: string;
-      /**
-       * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
-       * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
-       * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction.
-       * 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
-       */
-      'border-radius'?: any;
-      borderRadius?: any;
-      /**
-       * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
-       */
-      'border-width'?: any
-      borderWidth?: any
-      /**
-       * Sets the angle of the axis along which the linear gradient is drawn. See the square points between the lines. -45 | 115 | ...
-       */
-      'fill-angle'?: number;
-      fillAngle?: number;
-      /**
-       * Sets an X offset to apply to the fill. See the square points between the lines. 4 | "6px" | ...
-       */
-      'fill-offset-x'?: any;
-      fillOffsetX?: any;
-      /**
-       * Sets an Y offset to apply to the fill. See the square points between the lines. 4 | "6px" | ...
-       */
-      'fill-offset-y'?: any;
-      fillOffsetY?: any;
-      /**
-       * Sets the background gradient fill type to either linear or radial. See the square points between the lines. "linear" | "radial"
-       */
-      'fill-type'?: string;
-      fillType?: string;
-      /**
-       * Sets the text's font size of the marker. 4 | "6px" | ...
-       */
-      'font-size'?: any;
-      fontSize?: any;
-      /**
-       * Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops. "#f00 #0f0
-       * #00f" | ...
-       */
-      'gradient-colors'?: string;
-      gradientColors?: string;
-      /**
-       * Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors. "0.1 0.
-       * 5 0.9" | ...
-       */
-      'gradient-stops'?: string;
-      gradientStops?: string;
-      /**
-       * Sets the map id of the map on which the object/shape is being added. "mapid" | ...
-       */
-      map?: string;
-      /**
-       * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
-       */
-      'offset-x'?: any;
-      offsetX?: any;
-      /**
-       * Sets a Y offset to apply when positioning the object/shape. 4 | "6px" | ...
-       */
-      'offset-y'?: any;
-      offsetY?: any;
-      /**
-       * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
-       */
-      shadow?: boolean;
-      /**
-       * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
-       * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
-       */
-      'shadow-alpha'?: number;
-      shadowAlpha?: number;
-      /**
-       * Sets the angle of the shadow underneath the object. -45 | 115 | ...
-       */
-      'shadow-angle'?: number;
-      shadowAngle?: number;
-      /**
-       * Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation. 4 | "6px" | ...
-       */
-      'shadow-blur'?: any;
-      shadowBlur?: any;
-      /**
-       * Sets the color of the shadow of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ..
-       * .
-       */
-      'shadow-color'?: string;
-      shadowColor?: string;
-      /**
-       * Sets the distance between the shadow and the object. 4 | "6px" | ...
-       */
-      'shadow-distance'?: any;
-      shadowDistance?: any;
-      /**
-       * Sets the size of the object/shape. 4 | "6px" | ...
-       */
-      size?: any;
-      /**
-       * Sets the character used to separate thousands. "," | "." | " " | ...
-       */
-      'thousands-separator'?: string;
-      thousandsSeparator?: string;
-      /**
-       * The type of the marker object to render. square | circle | diamond | triangle | star5 | star6 | star7 | star8 | rpoly5 | gear5 | g
-       * ear6 | gear7 | gear8
-       */
-      type?: string;
-      /**
-       * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
-       */
-      visible?: boolean;
-      /**
-       * Sets the X position of the object. 10 | "20px" | 0.3 | "30%" | ...
-       */
-      x?: any;
-      /**
-       * Sets the Y position of the object. 10 | "20px" | 0.3 | "30%" | ...
-       */
-      y?: any;
-      /**
-       * Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values. 5 | 10 | ...
-       */
-      'z-index'?: number;
-      zIndex?: number;
-    };
-    preview?: {
-      /**
-       * Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 be
-       * ing completely opaque. Note that values require the leading 0 before the decimal point. 0.3 | 0.4 | 0.9 | ...
-       */
-      alpha?: number;
-      /**
-       * Area Chart only: Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely trans
-       * parent and 1.0 being completely opaque. Note that values require the leading 0 before the decimal point. 0.3 | 0.4 | 0.9 | ...
-       */
-      'alpha-area'?: number;
-      alphaArea?: number;
-      /**
-       * Sets the background color of the object. Colors can be entered by name (e.g., "purple", "blue"), hexadecimal notation (e.g., "#666
-       * 699", #33ccff"), or RGB notation (e.g., "rgb(255,0,0)", "rgb(0,0,255)"). "none" | "transparent" | "purple" | "#33ccff" | "rgb(100,
-       *  15, 15)" | ...
-       */
-      'background-color'?: string;
-      backgroundColor?: string;
-      /**
-       * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
-       */
-      'line-color'?: string;
-      lineColor?: string;
-      /**
-       * Sets the line style of the object. "solid" | "dotted" | "dashed" | "dashdot"
-       */
-      'line-style'?: string;
-      lineStyle?: string;
-      /**
-       * Sets the line width of the object. 2 | 4 | "6px" | ...
-       */
-      'line-width'?: any;
-      lineWidth?: any;
-      /**
-       * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
-       */
-      visible?: boolean;
-      /**
-       * To set the stock preview chart type: area chart or line chart. "area" (default) | "line"
-       */
-      type?: string;
-    };
-    rules?: Array<{
-      /**
-       * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
-       * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
-       * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
-       * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
-       * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
-       */
-      rule?: string;
-    }>;
-    'selected-marker'?: selectedMarker;
-    selectedMarker?: selectedMarker;
-    'selected-state'?: selectedState;
-    selectedState?: selectedState;
-    text?: string;
-    tooltip?: tooltip;
-    'trend-down'?: trendDown;
-    trendDown?: trendDown;
-    'trend-equal'?: trendEqual;
-    trendEqual?: trendEqual;
-    'trend-up'?: trendUp;
-    trendUp?: trendUp;
-    'value-box'?: valueBox;
-    valueBox?: valueBox;
-    values?: any;
   }
 }
 

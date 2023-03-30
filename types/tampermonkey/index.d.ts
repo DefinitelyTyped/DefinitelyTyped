@@ -2,6 +2,8 @@
 // Project: https://tampermonkey.net
 // Definitions by: Steven Wang <https://github.com/silverwzw>
 //                 Nikolay Borzov <https://github.com/nikolay-borzov>
+//                 taozhiyu <https://github.com/taozhiyu>
+//                 double-beep <https://github.com/double-beep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This definition is based on the API reference of Tampermonkey
@@ -9,12 +11,7 @@
 // TypeScript Version: 3.3
 
 declare namespace Tampermonkey {
-    type ValueChangeListener = (
-        name: string,
-        oldValue: any,
-        newValue: any,
-        remote: boolean
-    ) => void;
+    type ValueChangeListener = (name: string, oldValue: any, newValue: any, remote: boolean) => void;
 
     // Response
 
@@ -23,7 +20,7 @@ declare namespace Tampermonkey {
         Opened = 1,
         HeadersReceived = 2,
         Loading = 3,
-        Done = 4
+        Done = 4,
     }
 
     interface ResponseBase {
@@ -54,9 +51,7 @@ declare namespace Tampermonkey {
         readonly context: TContext;
     }
 
-    interface ProgressResponse<TContext>
-        extends Response<TContext>,
-            ProgressResponseBase {}
+    interface ProgressResponse<TContext> extends Response<TContext>, ProgressResponseBase {}
 
     // Request
 
@@ -64,10 +59,7 @@ declare namespace Tampermonkey {
         readonly [header: string]: string;
     }
 
-    type RequestEventListener<TResponse> = (
-        this: TResponse,
-        response: TResponse
-    ) => void;
+    type RequestEventListener<TResponse> = (this: TResponse, response: TResponse) => void;
 
     interface Request<TContext = object> {
         method?: 'GET' | 'HEAD' | 'POST' | undefined;
@@ -144,12 +136,7 @@ declare namespace Tampermonkey {
          * - `not_succeeded` - the download wasn't started or failed, the
          * details attribute may provide more information
          */
-        error:
-            | 'not_enabled'
-            | 'not_whitelisted'
-            | 'not_permitted'
-            | 'not_supported'
-            | 'not_succeeded';
+        error: 'not_enabled' | 'not_whitelisted' | 'not_permitted' | 'not_supported' | 'not_succeeded';
         /** Detail about that error */
         details?: string | undefined;
     }
@@ -273,11 +260,16 @@ declare namespace Tampermonkey {
         comment: string | null;
         compat_foreach: boolean;
         compat_metadata: boolean;
+        compat_powerful_this: boolean | null;
         compat_prototypes: boolean;
         compat_wrappedjsobject: boolean;
         compatopts_for_requires: boolean;
         noframes: boolean | null;
         run_at: string;
+        sandbox: string | null;
+        tab_types: string | null;
+        unwrap: boolean | null;
+
         override: ScriptMetadataOverrides;
     }
 
@@ -287,9 +279,26 @@ declare namespace Tampermonkey {
      */
     interface ScriptResource {
         name: string;
-        url: string;
-        content: string;
-        meta: string;
+        url?: string;
+        content?: string;
+        meta?: string;
+        error?: string;
+    }
+
+    interface WebRequestRule {
+        selector: {
+            include?: string | string[],
+            match?: string | string[],
+            exclude?: string | string[]
+        } | string;
+        action: string | {
+            cancel?: boolean,
+            redirect?: {
+                url: string;
+                from?: string;
+                to?: string;
+            } | string;
+        };
     }
 
     /**
@@ -300,18 +309,17 @@ declare namespace Tampermonkey {
         antifeatures: Record<string, Record<string, string>>;
         author: string | null;
 
-        /**
-         * Idk what this is, nothing I did changed this from any empty array
-         * and it's not documented anywhere
-         */
-        blockers: any[];
+        blockers: string[];
 
         copyright: string | null;
+        deleted?: number | undefined;
         description: string | null;
-        description_i18n: Record<string, string>;
+        description_i18n: Record<string, string> | null;
         downloadURL: string | null;
+        enabled?: boolean;
         evilness: number;
         excludes: string[];
+        fileURL?: string | null;
         grant: string[];
         header: string;
         homepage: string | null;
@@ -321,7 +329,7 @@ declare namespace Tampermonkey {
         lastModified: number;
         matches: string[];
         name: string;
-        name_i18n: Record<string, string>;
+        name_i18n: Record<string, string> | null;
         namespace: string | null;
         options: ScriptSettings;
 
@@ -334,21 +342,23 @@ declare namespace Tampermonkey {
         'run-at': string;
 
         supportURL: string | null;
-        sync: {
-            imported: boolean;
+        sync?: {
+            imported?: number | undefined;
         };
+        system?: boolean | undefined;
         unwrap: boolean;
         updateURL: string | null;
         uuid: string;
         version: string;
-        webRequest: string[];
+        webRequest: WebRequestRule[] | null;
     }
 
     interface ScriptInfo {
         downloadMode: 'native' | 'browser' | 'disabled';
-        isFirstPartyIsolation: boolean | undefined;
+        isFirstPartyIsolation?: boolean;
         isIncognito: boolean;
         script: ScriptMetadata;
+        sandboxMode: 'js' | 'raw' | 'dom';
 
         /**
          * In tampermonkey it's "Tampermonkey"
@@ -357,13 +367,13 @@ declare namespace Tampermonkey {
          */
         scriptHandler: string;
 
-        scriptMetaStr: string;
+        scriptMetaStr: string | null;
         scriptSource: string;
-        scriptUpdateURL: string | undefined;
+        scriptUpdateURL: string | null;
         scriptWillUpdate: boolean;
 
         /** This refers to tampermonkey's version */
-        version: string;
+        version?: string;
     }
 
     type ContentType = string | { type?: string | undefined; mimetype?: string | undefined };
@@ -373,7 +383,54 @@ declare namespace Tampermonkey {
  * The unsafeWindow object provides full access to the pages javascript
  * functions and variables
  */
-declare var unsafeWindow: Window;
+declare var unsafeWindow: Window &
+    Omit<
+        typeof globalThis,
+        | 'GM_addStyle'
+        | 'GM_addValueChangeListener'
+        | 'GM_deleteValue'
+        | 'GM_download'
+        | 'GM_download'
+        | 'GM_getResourceText'
+        | 'GM_getResourceURL'
+        | 'GM_getTab'
+        | 'GM_getTabs'
+        | 'GM_getValue'
+        | 'GM_info'
+        | 'GM_listValues'
+        | 'GM_log'
+        | 'GM_notification'
+        | 'GM_notification'
+        | 'GM_openInTab'
+        | 'GM_registerMenuCommand'
+        | 'GM_removeValueChangeListener'
+        | 'GM_saveTab'
+        | 'GM_setClipboard'
+        | 'GM_setValue'
+        | 'GM_unregisterMenuCommand'
+        | 'GM_xmlhttpRequest'
+        | 'GM'
+    >;
+
+/**
+ *
+ * Patched onurlchange attribute based on document {@link https://www.tampermonkey.net/documentation.php#meta:grant}
+ * @url https://www.tampermonkey.net/documentation.php#meta:grant
+ */
+interface Window {
+    /**
+     * check before use addEventListener
+     *
+     * According to the documentation and code, the value can currently only be of type null
+     * @url https://www.tampermonkey.net/documentation.php#meta:grant
+     * @example
+     * if (window.onurlchange === null) {
+     *   window.addEventListener('urlchange', (info) => console.log(info));
+     * }
+     */
+    onurlchange: null;
+    addEventListener(type: "urlchange", listener: (urlObject: { url: string }) => void): void;
+}
 
 // Styles
 
@@ -395,19 +452,13 @@ declare function GM_setValue(name: string, value: any): void;
  * different browser tabs to communicate with each other.
  * @param name Name of the observed variable
  */
-declare function GM_addValueChangeListener(
-    name: string,
-    listener: Tampermonkey.ValueChangeListener
-): number;
+declare function GM_addValueChangeListener(name: string, listener: Tampermonkey.ValueChangeListener): number;
 
 /** Removes a change listener by its ID */
 declare function GM_removeValueChangeListener(listenerId: number): void;
 
 /** Gets the value of 'name' from storage */
-declare function GM_getValue<TValue>(
-    name: string,
-    defaultValue?: TValue
-): TValue;
+declare function GM_getValue<TValue>(name: string, defaultValue?: TValue): TValue;
 
 /** Deletes 'name' from storage */
 declare function GM_deleteValue(name: string): void;
@@ -432,11 +483,7 @@ declare function GM_getResourceURL(name: string): string;
  * Register a menu to be displayed at the Tampermonkey menu at pages where this
  * script runs and returns a menu command ID.
  */
-declare function GM_registerMenuCommand(
-    name: string,
-    onClick: () => void,
-    accessKey?: string
-): number;
+declare function GM_registerMenuCommand(name: string, onClick: () => void, accessKey?: string): number;
 
 /**
  *  Unregister a menu command that was previously registered by
@@ -448,17 +495,12 @@ declare function GM_unregisterMenuCommand(menuCommandId: number): void;
 
 /** Makes an xmlHttpRequest */
 declare function GM_xmlhttpRequest<TContext = any>(
-    details: Tampermonkey.Request<TContext> // tslint:disable-line:no-unnecessary-generics
+    details: Tampermonkey.Request<TContext>, // eslint-disable-line no-unnecessary-generics
 ): Tampermonkey.AbortHandle<void>;
 
 /** Downloads a given URL to the local disk */
-declare function GM_download(
-    details: Tampermonkey.DownloadRequest
-): Tampermonkey.AbortHandle<boolean>;
-declare function GM_download(
-    url: string,
-    name: string
-): Tampermonkey.AbortHandle<boolean>;
+declare function GM_download(details: Tampermonkey.DownloadRequest): Tampermonkey.AbortHandle<boolean>;
+declare function GM_download(url: string, name: string): Tampermonkey.AbortHandle<boolean>;
 
 // Tabs
 
@@ -469,13 +511,11 @@ declare function GM_saveTab(obj: object): void;
 declare function GM_getTab(callback: (obj: any) => void): void;
 
 /** Gets all tab objects as a hash to communicate with other script instances */
-declare function GM_getTabs(
-    callback: (tabsMap: { [tabId: number]: any }) => void
-): void;
+declare function GM_getTabs(callback: (tabsMap: { [tabId: number]: any }) => void): void;
 
 // Utils
 
-declare const GM_info: Tampermonkey.ScriptInfo;
+declare var GM_info: Tampermonkey.ScriptInfo;
 
 /** Log a message to the console */
 declare function GM_log(...message: any[]): void;
@@ -496,10 +536,7 @@ declare function GM_log(...message: any[]): void;
  * @returns Object with the function `close`, the listener `onclose` and a flag
  * called `closed`.
  */
-declare function GM_openInTab(
-    url: string,
-    options?: Tampermonkey.OpenTabOptions | boolean
-): Tampermonkey.OpenTabObject;
+declare function GM_openInTab(url: string, options?: Tampermonkey.OpenTabOptions | boolean): Tampermonkey.OpenTabObject;
 
 /**
  * Shows a HTML5 Desktop notification and/or highlight the current tab.
@@ -507,7 +544,7 @@ declare function GM_openInTab(
  */
 declare function GM_notification(
     details: Tampermonkey.NotificationDetails,
-    ondone?: Tampermonkey.NotificationOnDone
+    ondone?: Tampermonkey.NotificationOnDone,
 ): void;
 
 /**
@@ -520,7 +557,7 @@ declare function GM_notification(
     text: string,
     title?: string,
     image?: string,
-    onclick?: Tampermonkey.NotificationOnClick
+    onclick?: Tampermonkey.NotificationOnClick,
 ): void;
 
 /**
@@ -529,17 +566,14 @@ declare function GM_notification(
  * `{ type: 'text', mimetype: 'text/plain'}` or just a string expressing the
  * type ("text" or "html").
  */
-declare function GM_setClipboard(
-    data: string,
-    info?: Tampermonkey.ContentType,
-): void;
+declare function GM_setClipboard(data: string, info?: Tampermonkey.ContentType): void;
 
 // GM.*
 
 /**
  * `GM` has all the `GM_*` apis in promisified form
  */
-declare const GM: Readonly<{
+declare var GM: Readonly<{
     // Styles
 
     /**
@@ -608,7 +642,7 @@ declare const GM: Readonly<{
      */
     xmlHttpRequest<TContext = any>(
         // onload and the like still work
-        details: Tampermonkey.Request<TContext>, // tslint:disable-line:no-unnecessary-generics
+        details: Tampermonkey.Request<TContext>, // eslint-disable-line no-unnecessary-generics
     ): Promise<Tampermonkey.Response<TContext>>;
 
     // GM_download has two signatures, GM.download has one
@@ -681,8 +715,5 @@ declare const GM: Readonly<{
      * `{ type: 'text', mimetype: 'text/plain'}` or just a string expressing the
      * type ("text" or "html").
      */
-    setClipboard(
-        data: string,
-        info?: Tampermonkey.ContentType,
-    ): Promise<void>;
+    setClipboard(data: string, info?: Tampermonkey.ContentType): Promise<void>;
 }>;

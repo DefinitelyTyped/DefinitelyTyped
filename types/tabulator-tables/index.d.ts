@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 5.32
+// Type definitions for tabulator-tables 5.4
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -268,6 +268,35 @@ export interface OptionsPagination {
      */
     paginationAddRow?: 'table' | 'page' | undefined;
 
+    /**
+     * You can choose to display a pagination counter in the bottom left of the footer that shows a summary of the current number of rows shown out of the total.
+     * If you want to have a fully customized counter, then you can pass a function to the paginationCounter option
+     *
+     * The formatter function accepts 5 arguments:
+     *
+     * pageSize - Number of rows shown per page
+     * currentRow - First visible row position
+     * currentPage - Current page
+     * totalRows - Total rows in table
+     * totalPages - Total pages in table
+     * The function must return the contents of the counter, either the text value of the counter, valid HTML or a DOM node
+     */
+    paginationCounter?:
+        | 'rows'
+        | 'pages'
+        | ((
+              pageSize: number,
+              currentRow: number,
+              currentPage: number,
+              totalRows: number,
+              totalPages: number,
+          ) => string | HTMLElement);
+
+    /**
+     * By default the counter will be displayed in the left of the table footer. If you would like it displayed in another element pass a DOM node or a CSS selector for that element.
+     */
+    paginationCounterElement?: string | HTMLElement | undefined;
+
     /** The number of pagination page buttons shown in the footer using the paginationButtonCount option. By default this has a value of 5. */
     paginationButtonCount?: number | undefined;
 
@@ -389,6 +418,7 @@ export interface OptionsSorting {
 
     /** reverse the order that multiple sorters are applied to the table. */
     sortOrderReverse?: boolean | undefined;
+    headerSortClickElement?: 'header' | 'icon';
 }
 
 export interface Sorter {
@@ -484,8 +514,9 @@ export interface OptionsData {
     /** The ajaxError callback is triggered there is an error response to an ajax request. */
     ajaxError?: ((xhr: any, textStatus: any, errorThrown: any) => void) | undefined;
     dataLoader?: boolean;
-    dataLoaderLoading?: string;
+    dataLoaderLoading?: string | HTMLElement;
     dataLoaderError?: string;
+    dataLoaderErrorTimeout?: number;
     sortMode?: SortMode;
     filterMode?: SortMode;
 }
@@ -863,6 +894,7 @@ export interface OptionsGeneral {
     minHeight?: string | number | undefined;
     renderVertical?: RenderMode;
     renderHorizontal?: RenderMode;
+    rowHeight?: number;
 
     /** Manually set the size of the virtual DOM buffer. */
     renderVerticalBuffer?: boolean | number | undefined;
@@ -957,9 +989,13 @@ export type RenderMode = 'virtual' | 'basic' | Renderer;
 export interface OptionsMenu {
     rowContextMenu?: RowContextMenuSignature | undefined;
     rowClickMenu?: RowContextMenuSignature | undefined;
+    rowDblClickMenu?: RowContextMenuSignature | undefined;
     groupClickMenu?: GroupContextMenuSignature | undefined;
+    groupDblClickMenu?: GroupContextMenuSignature | undefined;
     groupContextMenu?: Array<MenuObject<GroupComponent>> | undefined;
     popupContainer?: boolean | string | HTMLElement;
+    rowDblClickPopup?: string;
+    groupDblClickPopup?: string;
 }
 
 export type RowContextMenuSignature =
@@ -1002,6 +1038,7 @@ export interface DownloadXLXS {
     /** The sheet name must be a valid Excel sheet name, and cannot include any of the following characters \, /, *, [, ], :, */
     sheetName?: string | undefined;
     documentProcessing?: ((input: any) => any) | undefined;
+    compress?: boolean;
 }
 
 export interface DownloadPDF {
@@ -1334,6 +1371,8 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
 
     /** Callback for when user double clicks on the header for this column. */
     headerDblClick?: ColumnEventCallback | undefined;
+    headerMouseDown?: ColumnEventCallback | undefined;
+    headerMouseUp?: ColumnEventCallback | undefined;
 
     /** Callback for when user right clicks on the header for this column. */
     headerContext?: ColumnEventCallback | undefined;
@@ -1421,12 +1460,19 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     /** You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
     headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
 
+    /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This funtion is passed the column component as its first argument. */
+    headerMenuIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string);
+
     /** You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
     headerContextMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
+    headerDblClickPopup?: string;
+    dblClickPopup?: string;
 
     /** You can add a right click context menu to any columns cells by passing an array of menu items to the contextMenu option in that columns definition. */
     contextMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
     clickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
+    headerDblClickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
+    dblClickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
 
     /** Popups work in a similar way to menus, but instead of only displaying lists of menu items they allow you to fill them with any custom content you like, text, input elements, forms, anything you fancy. */
     cellPopup?:
@@ -1463,6 +1509,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     /** When printing you may want to apply a different column header title from the one usually used in the table. You can now do this using the titlePrint column definition option, which takes the same inputs as the standard title property. */
     titlePrint?: string | undefined;
     maxWidth?: number | false | undefined;
+    headerWordWrap?: boolean;
 }
 
 export interface CellCallbacks {
@@ -1509,6 +1556,9 @@ export interface CellCallbacks {
 
     /** callback for when an edit on a cell in this column is aborted by the user. */
     cellEditCancelled?: CellEditEventCallback | undefined;
+
+    cellMouseDown?: CellEventCallback | undefined;
+    cellMouseUp?: CellEventCallback | undefined;
 }
 
 export interface ColumnDefinitionSorterParams {
@@ -1562,7 +1612,7 @@ export type ColumnCalc =
     | 'count'
     | ((values: any[], data: any[], calcParams: {}) => any);
 
-export type ColumnCalcParams = (values: any, data: any) => any;
+export type ColumnCalcParams = { precision: number } | ((values: any, data: any) => any);
 
 export type Formatter =
     | 'plaintext'
@@ -1610,7 +1660,6 @@ export type Editor =
     | 'tickCross'
     | 'star'
     | 'list'
-    | 'list'
     | 'date'
     | 'time'
     | 'datetime'
@@ -1634,6 +1683,7 @@ export type EditorParams =
     | ((cell: CellComponent) => {});
 
 export type ScrollToRowPosition = 'top' | 'center' | 'bottom' | 'nearest';
+export type PopupPosition = ColumnDefinitionAlign | 'top' | 'bottom';
 
 export type ScrollToColumnPosition = 'left' | 'center' | 'middle' | 'right';
 
@@ -2038,6 +2088,7 @@ export interface GroupComponent {
 
     /** The toggle function toggles the visibility of the group, switching between hidden and visible. */
     toggle: () => void;
+    popup: (contents: string, position: PopupPosition) => void;
 }
 
 export interface ColumnComponent {
@@ -2116,6 +2167,7 @@ export interface ColumnComponent {
      * This will return a value of true if every cell passes validation, if any cells fail, then it will return an array of Cell Components representing each cell in that column that has failed validation.
      */
     validate: () => true | CellComponent[];
+    popup: (contents: string, position: PopupPosition) => void;
 }
 
 export interface CellComponent {
@@ -2196,18 +2248,20 @@ export interface CellComponent {
 
     /** You can validate a cell by calling the validate method on any Cell Component. Returns true if the cell passes validation, or an array of failed validators if it fails validation. */
     validate: () => boolean | Validator[];
+    popup: (contents: string, position: PopupPosition) => void;
 }
 
 export interface EventCallBackMethods {
     validationFailed: (cell: CellComponent, value: any, validators: Validator[]) => void;
-    scrollHorizontal: (left: number) => void;
-    scrollVertical: (top: number) => void;
+    scrollHorizontal: (left: number, leftDir: boolean) => void;
+    scrollVertical: (top: number, topDir: boolean) => void;
     rowAdded: (row: RowComponent) => void;
     rowDeleted: (row: RowComponent) => void;
     rowMoving: (row: RowComponent) => void;
     rowMoved: (row: RowComponent) => void;
+    rowMoveCancelled: (row: RowComponent) => void;
     rowUpdated: (row: RowComponent) => void;
-    rowSelectionChanged: () => void;
+    rowSelectionChanged: (selectedData: any[], selectedRows: RowComponent[]) => void;
     rowSelected: (row: RowComponent) => void;
     rowDeselected: (row: RowComponent) => void;
     rowResized: (row: RowComponent) => void;
@@ -2220,6 +2274,8 @@ export interface EventCallBackMethods {
     rowMouseEnter: (event: UIEvent, row: RowComponent) => void;
     rowMouseLeave: (event: UIEvent, row: RowComponent) => void;
     rowMouseOver: (event: UIEvent, row: RowComponent) => void;
+    rowMouseDown: (event: UIEvent, row: RowComponent) => void;
+    rowMouseUp: (event: UIEvent, row: RowComponent) => void;
     rowMouseOut: (event: UIEvent, row: RowComponent) => void;
     rowMouseMove: (event: UIEvent, row: RowComponent) => void;
     htmlImporting: () => void;
@@ -2232,24 +2288,33 @@ export interface EventCallBackMethods {
     dataTreeRowExpanded: (row: RowComponent, level: number) => void;
     dataTreeRowCollapsed: (row: RowComponent, level: number) => void;
     pageLoaded: (pageNo: number) => void;
+    pageSizeChanged: (pageSize: number) => void;
     headerClick: (event: UIEvent, column: ColumnComponent) => void;
     headerDblClick: (event: UIEvent, column: ColumnComponent) => void;
     headerContext: (event: UIEvent, column: ColumnComponent) => void;
     headerTap: (event: UIEvent, column: ColumnComponent) => void;
     headerDblTap: (event: UIEvent, column: ColumnComponent) => void;
     headerTapHold: (event: UIEvent, column: ColumnComponent) => void;
+    headerMouseUp: (event: UIEvent, column: ColumnComponent) => void;
+    headerMouseDown: (event: UIEvent, column: ColumnComponent) => void;
     groupClick: (event: UIEvent, group: GroupComponent) => void;
     groupDblClick: (event: UIEvent, group: GroupComponent) => void;
     groupContext: (event: UIEvent, group: GroupComponent) => void;
     groupTap: (event: UIEvent, group: GroupComponent) => void;
     groupDblTap: (event: UIEvent, group: GroupComponent) => void;
     groupTapHold: (event: UIEvent, group: GroupComponent) => void;
+    groupMouseDown: (event: UIEvent, group: GroupComponent) => void;
+    groupMouseUp: (event: UIEvent, group: GroupComponent) => void;
+
     tableBuilding: () => void;
     tableBuilt: () => void;
     tableDestroyed: () => void;
+    dataChanged: (data: any[]) => void;
     dataLoading: (data: any[]) => void;
     dataLoaded: (data: any[]) => void;
-    dataChanged: (data: any[]) => void;
+    dataLoadError: (error: Error) => void;
+    dataProcessing: (data: any[]) => void;
+    dataProcessed: (data: any[]) => void;
     dataFiltering: (filters: Filter[]) => void;
     dataFiltered: (filters: Filter[], rows: RowComponent[]) => void;
     dataSorting: (sorters: SorterFromTable[]) => void;
@@ -2281,6 +2346,8 @@ export interface EventCallBackMethods {
     cellClick: (event: UIEvent, cell: CellComponent) => void;
     cellDblClick: (event: UIEvent, cell: CellComponent) => void;
     cellContext: (event: UIEvent, cell: CellComponent) => void;
+    cellMouseDown: (event: UIEvent, cell: CellComponent) => void;
+    cellMouseUp: (event: UIEvent, cell: CellComponent) => void;
     cellTap: (event: UIEvent, cell: CellComponent) => void;
     cellDblTap: (event: UIEvent, cell: CellComponent) => void;
     cellTapHold: (event: UIEvent, cell: CellComponent) => void;
@@ -2289,9 +2356,12 @@ export interface EventCallBackMethods {
     cellMouseOver: (event: UIEvent, cell: CellComponent) => void;
     cellMouseOut: (event: UIEvent, cell: CellComponent) => void;
     cellMouseMove: (event: UIEvent, cell: CellComponent) => void;
-    dataLoadError: (error: Error) => void;
-    dataProcessing: () => void;
-    dataProcessed: () => void;
+    popupOpen: (cell: CellComponent) => void;
+    popupClosed: (cell: CellComponent) => void;
+    menuClosed: (cell: CellComponent) => void;
+    menuOpened: (cell: CellComponent) => void;
+    TooltipClosed: (cell: CellComponent) => void;
+    TooltipOpened: (cell: CellComponent) => void;
 }
 
 declare class Tabulator {
@@ -2381,6 +2451,12 @@ declare class Tabulator {
     /** Clear the edited flag on all cells in the table or some of them. */
     clearCellEdited: (clear?: CellComponent | CellComponent[]) => void;
 
+    /** Display alert message on the table */
+    alert: (message: string) => void;
+
+    /** clear the alert message from the table */
+    clearAlert: () => void;
+
     /** Destructor. */
     destroy: () => void;
 
@@ -2429,7 +2505,7 @@ declare class Tabulator {
     updateData: (data: Array<{}>) => Promise<void>;
 
     /** The addData method returns a promise, this can be used to run any other commands that have to be run after the data has been loaded into the table. By running them in the promise you ensure they are only run after the table has loaded the data. */
-    addData: (data?: Array<{}>, addToTop?: boolean, positionTarget?: RowLookup) => Promise<RowComponent>;
+    addData: (data?: Array<{}>, addToTop?: boolean, positionTarget?: RowLookup) => Promise<RowComponent[]>;
 
     /** If the data you are passing to the table contains a mix of existing rows to be updated and new rows to be added then you can call the updateOrAddData function. This will check each row object provided and update the existing row if available, or else create a new row with the data. */
     updateOrAddData: (data: Array<{}>) => Promise<RowComponent[]>;
@@ -2525,7 +2601,7 @@ declare class Tabulator {
     getColumnLayout: () => ColumnLayout[];
 
     /** If you have previously used the getColumnLayout function to retrieve a tables layout, you can use the setColumnLayout function to apply it to a table. */
-    setColumnLayout: (layout: ColumnLayout) => void;
+    setColumnLayout: (layout: ColumnLayout[]) => void;
 
     /** You can show a hidden column at any point using the showColumn function. */
     showColumn: (column?: ColumnLookup) => void;

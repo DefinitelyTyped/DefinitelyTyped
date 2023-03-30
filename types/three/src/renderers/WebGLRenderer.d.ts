@@ -17,7 +17,7 @@ import { Material } from './../materials/Material';
 import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { BufferGeometry } from './../core/BufferGeometry';
-import { Texture } from '../textures/Texture';
+import { OffscreenCanvas, Texture } from '../textures/Texture';
 import { Data3DTexture } from '../textures/Data3DTexture';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
@@ -30,10 +30,6 @@ export interface Renderer {
     render(scene: Object3D, camera: Camera): void;
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
-
-/** This is only available in worker JS contexts, not the DOM. */
-// tslint:disable-next-line:no-empty-interface
-export interface OffscreenCanvas extends EventTarget {}
 
 export interface WebGLRendererParameters {
     /**
@@ -182,9 +178,9 @@ export class WebGLRenderer implements Renderer {
     outputEncoding: TextureEncoding;
 
     /**
-     * @default false
+     * @default true
      */
-    physicallyCorrectLights: boolean;
+    useLegacyLights: boolean;
 
     /**
      * @default THREE.NoToneMapping

@@ -1,13 +1,17 @@
-import { Object3D, SkinnedMesh } from '../../../src/Three';
+import { Object3D, SkinnedMesh, Vector3 } from '../../../src/Three';
 
 // tslint:disable-next-line:interface-name
 export interface IKS {
     effector: number;
     iteration: number;
-    links: {
+    links: Array<{
         enabled: boolean;
         index: number;
-    };
+        limitation?: Vector3;
+        rotationMin?: Vector3;
+        rotationMax?: Vector3;
+    }>;
+    minAngle: number;
     maxAngle: number;
     target: number;
 }
@@ -21,5 +25,6 @@ export class CCDIKSolver {
 }
 
 export class CCDIKHelper extends Object3D {
-    constructor(mesh: SkinnedMesh, iks: IKS[]);
+    constructor(mesh: SkinnedMesh, iks?: IKS[], sphereSize?: number);
+    dispose(): void;
 }

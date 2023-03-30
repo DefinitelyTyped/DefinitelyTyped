@@ -2,9 +2,9 @@ export = SHA512;
 declare function SHA512(): void;
 declare class SHA512 {
     toString(): string;
-    digest(digestType?: string | DigestType): string;
+    digest(resultType?: string | DigestType): string | Uint8Array | ArrayBuffer;
     hexDigest(): string;
-    update(data: string): SHA512;
+    update(data: string | Uint8Array | ArrayBuffer): SHA512;
 }
 declare namespace SHA512 {
     export { digest, hexDigest, DigestType };
@@ -14,5 +14,8 @@ interface DigestType {
     ARRAY_BUFFER: string;
     UINT8_ARRAY: string;
 }
-declare function digest(data: string, digestType?: string | DigestType): string;
-declare function hexDigest(data: string): string;
+declare function digest(
+    data: string | Uint8Array | ArrayBuffer,
+    resultType?: string | DigestType
+): string | Uint8Array | ArrayBuffer;
+declare function hexDigest(data: string | Uint8Array | ArrayBuffer): string;

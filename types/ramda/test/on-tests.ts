@@ -14,7 +14,7 @@ import * as R from 'ramda';
     // tslint:enable:max-line-length
 
     // $ExpectType { (a: string, b: string): (list: readonly unknown[]) => boolean; (a: string): (b: string) => (list: readonly unknown[]) => boolean; }
-    const containsInsensitive = R.on(R.contains, R.toLower);
+    const containsInsensitive = R.on(R.includes, R.toLower);
     // $ExpectType (list: readonly unknown[]) => boolean
     containsInsensitive('o', 'FOO'); // => true
 
