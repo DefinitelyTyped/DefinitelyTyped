@@ -174,10 +174,10 @@ function registryTests() {
 
         RED.plugins.registerPlugin('my-plugin', { type: 'my-plugin-type' });
 
-        // $ExpectType PluginDefinition
+        // $ExpectType PluginDefinition<PluginDef>
         RED.plugins.get('my-plugin');
 
-        // $ExpectType PluginDefinition[]
+        // $ExpectType PluginDefinition<PluginDef>[]
         RED.plugins.getByType('my-plugin-type');
     }
 
@@ -187,6 +187,7 @@ function registryTests() {
 
     function pluginAPITests(RED: registry.NodeAPI<ExtendedNodeRedSettings>) {
         const pluginDefinition: registry.PluginDefinition<MyPluginDef> = {
+            type: "my-plugin",
             settings: {
                 '*': { value: '', exportable: true },
                 defKey: { value: '', exportable: true },
