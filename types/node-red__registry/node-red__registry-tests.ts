@@ -187,6 +187,7 @@ function registryTests() {
 
     function pluginAPITests(RED: registry.NodeAPI<ExtendedNodeRedSettings>) {
         const pluginDefinition: registry.PluginDefinition<MyPluginDef> = {
+            type: "my-plugin",
             settings: {
                 '*': { value: '', exportable: true },
                 defKey: { value: '', exportable: true },
