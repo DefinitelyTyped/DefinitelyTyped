@@ -1,4 +1,4 @@
-// Type definitions for mailparser 3.4
+// Type definitions for mailparser 3.6
 // Project: https://github.com/nodemailer/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 Andrey Volynkin <https://github.com/Avol-V>
@@ -31,7 +31,7 @@ export interface StructuredHeader {
     /**
      * Additional arguments.
      */
-    params: {[key: string]: string};
+    params: { [key: string]: string };
 }
 
 /**
@@ -134,7 +134,7 @@ export interface AttachmentCommon {
     /**
      * `contentId` without `<` and `>`.
      */
-    cid?: string | undefined;   // e.g. '5.1321281380971@localhost'
+    cid?: string | undefined; // e.g. '5.1321281380971@localhost'
     /**
      * If true then this attachment should not be offered for download
      * (at least not in the main attachments list).
@@ -224,22 +224,22 @@ export interface ParsedMail {
      */
     date?: Date | undefined;
     /**
-     * An address object or array of address objects for the `To:` header.
+     * An address object for the `To:` header.
      */
-    to?: AddressObject | AddressObject[] | undefined;
+    to?: AddressObject | undefined;
     /**
      * An address object for the `From:` header.
      */
     from?: AddressObject | undefined;
     /**
-     * An address object or array of address objects for the `Cc:` header.
+     * An address object for the `Cc:` header.
      */
-    cc?: AddressObject | AddressObject[] | undefined;
+    cc?: AddressObject | undefined;
     /**
-     * An address object or array of address objects for the `Bcc:` header.
+     * An address object for the `Bcc:` header.
      * (usually not present)
      */
-    bcc?: AddressObject | AddressObject[] | undefined;
+    bcc?: AddressObject | undefined;
     /**
      * An address object for the `Reply-To:` header.
      */
@@ -338,7 +338,11 @@ export function simpleParser(source: Source, callback: (err: any, mail: ParsedMa
  * @param options Transform options passed to MailParser's constructor
  * @param callback Function to get a structured email object.
  */
-export function simpleParser(source: Source, options: SimpleParserOptions, callback: (err: any, mail: ParsedMail) => void): void;
+export function simpleParser(
+    source: Source,
+    options: SimpleParserOptions,
+    callback: (err: any, mail: ParsedMail) => void,
+): void;
 
 /**
  * Parse email message to structure object.
