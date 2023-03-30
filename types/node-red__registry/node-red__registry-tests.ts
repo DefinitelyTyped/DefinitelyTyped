@@ -174,10 +174,10 @@ function registryTests() {
 
         RED.plugins.registerPlugin('my-plugin', { type: 'my-plugin-type' });
 
-        // $ExpectType PluginDefinition
+        // $ExpectType PluginDefinition<PluginDef>
         RED.plugins.get('my-plugin');
 
-        // $ExpectType PluginDefinition[]
+        // $ExpectType PluginDefinition<PluginDef>[]
         RED.plugins.getByType('my-plugin-type');
     }
 

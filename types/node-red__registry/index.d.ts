@@ -139,7 +139,7 @@ declare namespace registry {
          * @returns the plugin definitions
          */
         // eslint-disable-next-line no-unnecessary-generics
-        getByType<TPluginDef extends PluginDef = PluginDef>(type: string): PluginDefinition<TPluginDef>[];
+        getByType<TPluginDef extends PluginDef = PluginDef>(type: string): Array<PluginDefinition<TPluginDef>>;
     }
     interface PluginDefinition<TPluginDef> {
         id?: string;
