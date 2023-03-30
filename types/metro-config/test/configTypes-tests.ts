@@ -36,11 +36,24 @@ export const getTransformOptionsOpts: GetTransformOptionsOpts = {
 };
 
 export const getTransformOptions: GetTransformOptions = (
-    entryPoints: ReadonlyArray<string>,
-    options: GetTransformOptionsOpts,
-    getDependenciesOf: (filePath: string) => Promise<string[]>,
-): Promise<ExtraTransformOptions> => {
+    entryPoints,
+    options,
+    getDependenciesOf,
+) => {
     return Promise.resolve(extraTransformOptions);
+};
+
+export const getTransformOptionsPartial: GetTransformOptions = (
+    entryPoints,
+    options,
+    getDependenciesOf,
+) => {
+    return Promise.resolve({
+        transform: {
+            experimentalImportSupport: true,
+            inlineRequires: false,
+        },
+    });
 };
 
 export const middleware: Middleware = (
@@ -123,14 +136,8 @@ export const transformerConfig: TransformerConfigT = {
     unstable_disableModuleWrapping: true,
     unstable_disableNormalizePseudoGlobals: true,
     unstable_compactOutput: true,
-    getTransformOptions: async (
-        entryPoints: ReadonlyArray<string>,
-        options: GetTransformOptionsOpts,
-        getDependenciesOf: (filePath: string) => Promise<string[]>,
-    ): Promise<ExtraTransformOptions> => {
+    getTransformOptions: async (entryPoints, options, getDependenciesOf) => {
         return {
-            preloadedModules: {},
-            ramGroups: [],
             transform: {
                 experimentalImportSupport: false,
                 inlineRequires: false,

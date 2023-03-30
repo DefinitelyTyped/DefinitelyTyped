@@ -154,7 +154,7 @@ function onload() {
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
-    renderer.physicallyCorrectLights = true;
+    renderer.useLegacyLights = false;
     document.body.appendChild(renderer.domElement);
 
     window.addEventListener('resize', onWindowResize);

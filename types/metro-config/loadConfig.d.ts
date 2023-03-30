@@ -10,4 +10,4 @@ export function loadConfig(argv?: YargArguments, defaultConfigOverrides?: InputC
 
 export function resolveConfig(filePath?: string, cwd?: string): Promise<ConfigT>;
 
-export function mergeConfig(defaultConfig: InputConfigT, ...configs: InputConfigT[]): Promise<ConfigT>;
+export function mergeConfig(defaultConfig: InputConfigT, ...configs: InputConfigT[]): ConfigT;

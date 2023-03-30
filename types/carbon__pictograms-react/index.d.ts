@@ -1,10 +1,10 @@
-// Type definitions for @carbon/pictograms-react 11.39
+// Type definitions for @carbon/pictograms-react 11.40
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/pictograms-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-/** 962 pictograms in total */
+/** 966 pictograms in total */
 
 export interface CarbonPictogramProps
   extends Omit<
@@ -129,6 +129,8 @@ export const CalendarEvent: CarbonPictogramType;
 export const Camera: CarbonPictogramType;
 export const CanadaMapleLeaf: CarbonPictogramType;
 export const Capitol: CarbonPictogramType;
+export const CarbonForIbmDotcom: CarbonPictogramType;
+export const CarbonForIbmProduct: CarbonPictogramType;
 export const Care: CarbonPictogramType;
 export const CargoCrane: CarbonPictogramType;
 export const CargoShip: CarbonPictogramType;
@@ -283,6 +285,7 @@ export const DecisionVelocity: CarbonPictogramType;
 export const DeepLearning: CarbonPictogramType;
 export const Delete: CarbonPictogramType;
 export const DeliverInsights: CarbonPictogramType;
+export const Delivered: CarbonPictogramType;
 export const DeliveryTruck: CarbonPictogramType;
 export const DeployingContainers: CarbonPictogramType;
 export const Deployment: CarbonPictogramType;
@@ -609,6 +612,7 @@ export const MovementOfGoods_01: CarbonPictogramType;
 export const MovementOfGoods_02: CarbonPictogramType;
 export const MovementOfGoods_03: CarbonPictogramType;
 export const MovementOfItems: CarbonPictogramType;
+export const MovingDolly: CarbonPictogramType;
 export const Mqa: CarbonPictogramType;
 export const Mri: CarbonPictogramType;
 export const MriPatient: CarbonPictogramType;

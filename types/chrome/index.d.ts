@@ -372,8 +372,25 @@ declare namespace chrome.alarms {
      * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
      * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
      * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
+     * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function create(alarmInfo: AlarmCreateInfo): void;
+    export function create(alarmInfo: AlarmCreateInfo): Promise<void>;
+    /**
+     * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+     * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+     * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+     * @param name Optional name to identify this alarm. Defaults to the empty string.
+     * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
+     * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function create(name: string, alarmInfo: AlarmCreateInfo): Promise<void>;
+    /**
+     * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+     * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+     * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+     * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
+     */
+    export function create(alarmInfo: AlarmCreateInfo, callback: () => void): void;
     /**
      * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
      * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
@@ -381,7 +398,7 @@ declare namespace chrome.alarms {
      * @param name Optional name to identify this alarm. Defaults to the empty string.
      * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
      */
-    export function create(name: string, alarmInfo: AlarmCreateInfo): void;
+    export function create(name: string, alarmInfo: AlarmCreateInfo, callback: () => void): void;
     /**
      * Gets an array of all the alarms.
      */
@@ -2642,8 +2659,18 @@ declare namespace chrome.devtools.panels {
      * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
      * @param callback A function that is called when the resource has been successfully loaded.
      */
-    export function openResource(url: string, lineNumber: number, callback: () => void): void;
-
+    export function openResource(url: string, lineNumber: number, callback?: () => void): void;
+    /**
+     * Since Chrome 96.
+     * Requests DevTools to open a URL in a Developer Tools panel.
+     * @param url The URL of the resource to open.
+     * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
+     * @param columnNumber Specifies the column number to scroll to when the resource is loaded.
+     * @param callback A function that is called when the resource has been successfully loaded.
+     */
+    export function openResource(
+      url: string, lineNumber: number, columnNumber: number, callback?: (response: unknown) => unknown,
+    ): void;
     /**
      * @since Chrome 59.
      * The name of the color theme set in user's DevTools settings.
@@ -4773,7 +4800,7 @@ declare namespace chrome.input.ime {
         altgrKey?: boolean | undefined;
         /**
          * Optional.
-         * The ID of the request.
+         * The ID of the request. Use the requestId param from the onKeyEvent event instead.
          * @deprecated since Chrome 79.
          */
         requestId?: string | undefined;
@@ -5050,7 +5077,7 @@ declare namespace chrome.input.ime {
     export interface CandidateClickedEvent
         extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> { }
 
-    export interface KeyEventEvent extends chrome.events.Event<(engineID: string, keyData: KeyboardEvent) => void> { }
+    export interface KeyEventEvent extends chrome.events.Event<(engineID: string, keyData: KeyboardEvent, requestId: string) => void> { }
 
     export interface DeactivatedEvent extends chrome.events.Event<(engineID: string) => void> { }
 

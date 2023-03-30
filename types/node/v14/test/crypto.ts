@@ -391,10 +391,10 @@ import { promisify } from 'node:util';
 }
 
 {
-    crypto.randomUUID({});
-    crypto.randomUUID({ disableEntropyCache: true });
-    crypto.randomUUID({ disableEntropyCache: false });
-    crypto.randomUUID();
+    crypto.randomUUID({}); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID({ disableEntropyCache: true }); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID({ disableEntropyCache: false }); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
 }
 
 {

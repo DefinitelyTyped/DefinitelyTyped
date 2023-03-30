@@ -7,7 +7,7 @@
 //                 Do Nam <https://github.com/namdien177>
 //                 Lyubin Pavel <https://github.com/pafik13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
+// TypeScript Version: 4.2
 
 export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
@@ -75,7 +75,7 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
         /**
          * JSON response parsing mode. Defaults to strict
          */
-        json?: true | "strict" | "force" | undefined;
+        json?: boolean | "strict" | "force" | undefined;
      } | undefined;
     options?: {
         /** Scope separator character. Some providers may require a different separator. Defaults to empty space */

@@ -104,6 +104,7 @@ interface AbortSignal {
      * @since v14.7.0
      */
     readonly aborted: boolean;
+    readonly reason: any;
 }
 
 declare var AbortController: {

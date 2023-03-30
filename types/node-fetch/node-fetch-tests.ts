@@ -54,6 +54,7 @@ function test_fetchUrlWithRequestObject() {
             "Content-Type": "application/json"
         },
         signal: {
+            reason: undefined,
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
@@ -106,6 +107,7 @@ function test_fetchUrlObjectWithRequestObject() {
             "Content-Type": "application/json"
         },
         signal: {
+            reason: undefined,
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
@@ -226,6 +228,7 @@ function test_AbortSignal() {
     };
 
     requestOptions.signal = {
+        reason: undefined,
         aborted: false,
         addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
             capture?: boolean | undefined,
@@ -243,6 +246,7 @@ function test_AbortSignal() {
     abortSignal = requestOptions.signal;
 
     requestOptions.signal = {
+        reason: undefined,
         aborted: false,
         addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
             capture?: boolean | undefined,
@@ -260,6 +264,7 @@ function test_AbortSignal() {
     abortSignal = requestOptions.signal;
 
     requestOptions.signal = {
+        reason: undefined,
         aborted: true,
         addEventListener: (type: "abort", listener: ((event: string) => string), options?: boolean | {
             capture?: boolean | undefined,
