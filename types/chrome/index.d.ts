@@ -4839,6 +4839,11 @@ declare namespace chrome.input.ime {
         capsLock?: boolean | undefined;
     }
 
+    /**
+      * The auto-capitalize type of the text field.
+      * @since Chrome 69.
+      */
+    export type AutoCapitalizeType = 'characters' | 'words' | 'sentences';
     /** Describes an input Context */
     export interface InputContext {
         /** This is used to specify targets of text field operations. This ID becomes invalid as soon as onBlur is called. */
@@ -4860,6 +4865,16 @@ declare namespace chrome.input.ime {
          * @since Chrome 40.
          */
         spellCheck: boolean;
+        /**
+         * The auto-capitalize type of the text field.
+         * @since Chrome 69.
+         */
+        autoCaptialize: AutoCapitalizeType;
+        /**
+         * Whether text entered into the text field should be used to improve typing suggestions for the user.
+         * @since Chrome 68.
+         */
+        shouldDoLearning: boolean;
     }
 
     /**
