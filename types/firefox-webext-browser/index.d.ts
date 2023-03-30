@@ -8647,7 +8647,7 @@ declare namespace browser.tabs {
     /**
      * Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).
      */
-    function getCurrent(): Promise<Tab>;
+    function getCurrent(): Promise<Tab | undefined>;
 
     /**
      * Connects to the content script(s) in the specified tab. The `runtime.onConnect` event is fired in each content script running in the specified tab for the current extension. For more details, see Content Script Messaging.
