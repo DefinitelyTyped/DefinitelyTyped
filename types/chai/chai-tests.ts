@@ -1528,10 +1528,11 @@ suite('assert', () => {
         }
 
         {
-            const value = 5 as number;
-            assert.instanceOf(5, Foo);
+            // tslint:disable-next-line:no-construct
+            const value = new Number(5);
+            assert.instanceOf(5, Number);
 
-            // $ExpectType never
+            // $ExpectType Number
             value;
         }
 
@@ -1540,6 +1541,14 @@ suite('assert', () => {
             assert.instanceOf(value, CrashyObject);
 
             // $ExpectType CrashyObject
+            value;
+        }
+
+        {
+            const value = 5 as number;
+            assert.instanceOf(5, Foo);
+
+            // $ExpectType never
             value;
         }
     });

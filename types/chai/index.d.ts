@@ -827,7 +827,7 @@ declare namespace Chai {
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        instanceOf<T, C extends new(...args: any) => any>(value: T, constructor: C, message?: string): asserts value is InstanceType<C>;
+        instanceOf<T, C extends new(...args: any[]) => any>(value: T, constructor: C, message?: string): asserts value is (T extends boolean | number | string ? never : InstanceType<C>);
 
         /**
          * Asserts that value is not an instance of constructor.
