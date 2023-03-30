@@ -119,13 +119,13 @@ var rgrad = doc.radialGradient(300, 50, 0, 300, 50, 50);
 rgrad.stop(0, 'orange', 0).stop(1, 'orange', 1);
 doc.circle(300, 50, 50).fill(rgrad);
 
-var stripe45d = pdfkit.pattern(
+var stripe45d = doc.pattern(
     [1, 1, 4, 4],
     3,
     3,
     '1 w 0 1 m 4 5 l s 2 0 m 5 3 l s'
 );
-pdfkit.circle(280, 350, 50).fill([stripe45d, 'blue']);
+doc.circle(280, 350, 50).fill([stripe45d, 'blue']);
 
 doc.fillColor('red')
     .translate(-100, -50)
@@ -185,13 +185,13 @@ doc.image('images/test.jpeg', 320, 280, {
     scale: 0.25,
 }).text('Scale', 320, 265);
 
-doc.list([1,2,3], {listType: 'bullet', bulletRadius: 2});
+doc.list([1, 2, 3], { listType: 'bullet', bulletRadius: 2 });
 
-doc.list([1,2,3], {listType: 'bullet', bulletIndent: 2});
+doc.list([1, 2, 3], { listType: 'bullet', bulletIndent: 2 });
 
-doc.list([4,5,6], {listType: 'numbered', textIndent: 2 });
+doc.list([4, 5, 6], { listType: 'numbered', textIndent: 2 });
 
-doc.list([7,8,9], {listType: 'lettered'});
+doc.list([7, 8, 9], { listType: 'lettered' });
 
 doc.image(
     {
@@ -208,13 +208,13 @@ doc.text('Baseline - string literal', { baseline: 'alphabetic' });
 
 doc.text('Baseline - numeric', { baseline: 10 });
 
-doc.text('Text with features', { features: [ "kern" ] });
+doc.text('Text with features', { features: ["kern"] });
 
 doc.goTo(0, 0, 0, 0, 'lorem');
 
-doc.text('Text with destination', {destination: "test-anchor"});
+doc.text('Text with destination', { destination: "test-anchor" });
 
-doc.text('Text with goTo', {goTo: 'test-anchor'});
+doc.text('Text with goTo', { goTo: 'test-anchor' });
 
 doc.text('Text with null link', { link: null });
 
@@ -258,12 +258,12 @@ doc.formCheckbox('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
 
 // Subclassing
 class SubPDFDocument extends PDFDocument {
-    constructor(options:PDFKit.PDFDocumentOptions) {
+    constructor(options: PDFKit.PDFDocumentOptions) {
         super(options);
     }
 
     // override
-    text(text: string | number, x?:number | PDFKit.Mixins.TextOptions, y?:number, options?:PDFKit.Mixins.TextOptions):this {
+    text(text: string | number, x?: number | PDFKit.Mixins.TextOptions, y?: number, options?: PDFKit.Mixins.TextOptions): this {
         if (typeof text === "string") {
             return super.text(text, options);
         }
@@ -273,7 +273,7 @@ class SubPDFDocument extends PDFDocument {
     }
 
     // new method
-    segment(xa:number, ya:number, xb:number, yb:number):this {
+    segment(xa: number, ya: number, xb: number, yb: number): this {
         this.moveTo(xa, ya);
         this.lineTo(xb, yb);
         return this;
@@ -286,7 +286,7 @@ subDoc.moveTo(subDoc.page.width / 2, subDoc.page.height / 2).text(10);
 subDoc.lineWidth(3).segment(10, subDoc.page.width - 10, subDoc.page.height - 10, 10).stroke("#00FFFF");
 
 // Markings
-doc.markContent('Figure', { alt: 'some alternative value'});
+doc.markContent('Figure', { alt: 'some alternative value' });
 doc.endMarkedContent();
 const structureContent = doc.markStructureContent('P');
 doc.text('Test');
