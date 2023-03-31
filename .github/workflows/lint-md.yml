@@ -11,5 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm install
-      - run: npx remark --frail . .github
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: |
+            - args: [--filter, .]
+      - run: pnpm exec remark --frail . .github
