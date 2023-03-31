@@ -1109,7 +1109,7 @@ export interface MediaOptionsAdaptiveStreaming {
      * - true: changeable
      * - false: unchangeable
      */
-    apativeResolution?: boolean | undefined;
+    adaptiveResolution?: boolean | undefined;
     /**
      * Flag whether content supports seamless play. The default value is false.
      * - true: support seamless play
