@@ -4542,9 +4542,9 @@ declare namespace browser.scripting {
     }
 
     /**
-     * The JavaScript world for a script to execute within. We currently only support the `'ISOLATED'` world.
+     * The JavaScript world for a script to execute within.
      */
-    type ExecutionWorld = 'ISOLATED';
+    type ExecutionWorld = 'ISOLATED' | 'MAIN';
 
     interface RegisteredContentScript {
         /**
@@ -4573,6 +4573,10 @@ declare namespace browser.scripting {
          * The list of CSS files to be injected into matching pages. These are injected in the order they appear in this array.
          */
         css?: _manifest.ExtensionURL[] | undefined;
+        /**
+         * The JavaScript "world" to run the script in. Defaults to ISOLATED.
+         */
+        world?: ExecutionWorld | undefined;
     }
 
     /** The style origin for the injection. Defaults to `'AUTHOR'`. */
