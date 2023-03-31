@@ -218,7 +218,7 @@ export interface ParsedMail {
      *
      * Not set if no reference values present.
      */
-    references?: string[] | string | undefined;
+    references?: string[] | undefined;
     /**
      * A Date object for the `Date:` header.
      */
