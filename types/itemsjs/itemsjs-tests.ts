@@ -31,6 +31,7 @@ const items = itemsjs(myitems, {
             title: 'A Number',
             hide_zero_doc_count: true,
             conjunction: false,
+            chosen_filters_on_top: false,
         },
     },
 });
@@ -76,7 +77,7 @@ items.aggregation({ name: 'bar' });
 
 items.aggregation({ name: 'anAggregation' });
 
-itemsjs<typeof myitems[number]>([]).reindex(myitems);
+itemsjs<(typeof myitems)[number]>([]).reindex(myitems);
 
 const myItemsIds = myitems.map((v, i) => ({ id: i, ...v }));
 

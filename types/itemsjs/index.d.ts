@@ -125,6 +125,8 @@ declare namespace itemsjs {
         show_facet_stats?: boolean | undefined;
         /** @default false */
         hide_zero_doc_count?: boolean | undefined;
+        /** @default true */
+        chosen_filters_on_top?: boolean | undefined;
     }
 
     /** Configuration for itemsjs */

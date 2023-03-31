@@ -21,13 +21,6 @@ declare namespace registry {
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;
     }
-    interface PluginDefinition {
-        id?: string;
-        type: string;
-        module?: string;
-        onadd?(): void;
-        _?: any;
-    }
     interface NodeSetting<T> {
         value: T;
         exportable?: boolean | undefined;
@@ -91,29 +84,6 @@ declare namespace registry {
         deleteCredentials(id: string): void;
     }
 
-    interface NodeAPIPlugins {
-        /**
-         * Registers a plugin definition
-         * @param id - the string id of the plugin
-         * @param definition - the definition object of the plugin
-         */
-        registerPlugin(id: string, definition: PluginDefinition): void;
-
-        /**
-         * Returns the plugin definition for the given id
-         * @param id - the string id of the plugin
-         * @returns the plugin definition
-         */
-        get(id: string): PluginDefinition;
-
-        /**
-         * Returns the plugin definitions for the given type
-         * @param type - the string type of the plugin
-         * @returns the plugin definitions
-         */
-        getByType(type: string): PluginDefinition[];
-    }
-
     interface NodeAPIComms {
         publish(topic: string, data: any, retain: boolean): void;
     }
@@ -149,13 +119,34 @@ declare namespace registry {
     interface NodeAPIPlugins {
         /**
          * Registers a plugin constructor
-         * @param type - the string type name
-         * @param pluginDef - the plugin definition
+         * @param id - the string id of the plugin
+         * @param definition - the definition object of the plugin
          */
         // eslint-disable-next-line no-unnecessary-generics
-        registerPlugin<TPluginDef extends PluginDef>(type: string, definition: PluginDefinition<TPluginDef>): void;
+        registerPlugin<TPluginDef extends PluginDef = PluginDef>(id: string, definition: PluginDefinition<TPluginDef>): void;
+
+        /**
+         * Returns the plugin definition for the given id
+         * @param id - the string id of the plugin
+         * @returns the plugin definition
+         */
+        // eslint-disable-next-line no-unnecessary-generics
+        get<TPluginDef extends PluginDef = PluginDef>(id: string): PluginDefinition<TPluginDef>;
+
+        /**
+         * Returns the plugin definitions for the given type
+         * @param type - the string type of the plugin
+         * @returns the plugin definitions
+         */
+        // eslint-disable-next-line no-unnecessary-generics
+        getByType<TPluginDef extends PluginDef = PluginDef>(type: string): Array<PluginDefinition<TPluginDef>>;
     }
     interface PluginDefinition<TPluginDef> {
+        id?: string;
+        type: string;
+        module?: string;
+        onadd?(): void;
+        _?: any;
         settings?: NodeSettings<TPluginDef> | undefined;
         onadd?: () => void;
     }
@@ -168,7 +159,6 @@ declare namespace registry {
      */
     interface NodeAPI<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData> {
         nodes: NodeAPINodes;
-        plugins: NodeAPIPlugins;
         log: NodeApiLog;
         settings: TSets;
         events: EventEmitter;
