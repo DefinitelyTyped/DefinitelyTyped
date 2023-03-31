@@ -1,5 +1,9 @@
 name: CI
-on: pull_request
+# TODO(jakebailey): removeme
+on:
+  push:
+    branches:
+      - pnpm-workspaces-working
 
 permissions:
   contents: read

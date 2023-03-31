@@ -1,8 +1,9 @@
 name: Check Markdown links
+# TODO(jakebailey): removeme
 on:
-  pull_request:
-    paths:
-      - '**.md'
+  push:
+    branches:
+      - pnpm-workspaces-working
 permissions:
   contents: read
 
