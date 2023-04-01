@@ -209,7 +209,7 @@ declare namespace RecordRTC {
         stopRecording(): Promise<string>;
         pauseRecording(): Promise<void>;
         resumeRecording(): Promise<void>;
-        getDataURL(): Promise<string>;
+        getDataURL(cb: (dataURL: string) => void): Promise<void>;
         getBlob(): Promise<Blob>;
         getInternalRecorder(): Promise<Recorder>;
         reset(): Promise<void>;
@@ -342,7 +342,7 @@ declare class RecordRTC {
     toURL(): string;
 
     /** returns Data-URL */
-    getDataURL(): string;
+    getDataURL(cb: (dataURL: string) => void): void;
 
     /** returns internal recorder */
     getInternalRecorder(): RecordRTC.Recorder;
