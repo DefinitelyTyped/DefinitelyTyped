@@ -1,5 +1,3 @@
-declare namespace badwords {
-    const badwords: string[];
-}
+declare const badwords: string[];
 
-export default badwords.badwords;
+export = badwords;
