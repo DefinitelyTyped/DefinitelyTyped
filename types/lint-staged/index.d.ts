@@ -3,7 +3,6 @@
 // Definitions by: Andrey Okonetchnikov <https://github.com/okonet>
 //                 Saiichi Hashimoto <https://github.com/saiichihashimoto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
 
 // This exists so lit-staged.config.js can do this:
 // /**
