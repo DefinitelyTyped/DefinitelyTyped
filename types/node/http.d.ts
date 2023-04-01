@@ -504,7 +504,8 @@ declare module 'http' {
          *
          * If there were no previous value for the header, this is equivalent of calling `outgoingMessage.setHeader(name, value)`.
          *
-         * Depending of the value of `options.uniqueHeaders` when the client request or the server were created, this will end up in the header being sent multiple times or a single time with values joined using `; `.
+         * Depending of the value of `options.uniqueHeaders` when the client request or the server were created,
+         * this will end up in the header being sent multiple times or a single time with values joined using `; `.
          * @since v18.3.0, v16.17.0
          * @param name Header name
          * @param value Header value
