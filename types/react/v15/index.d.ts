@@ -2613,11 +2613,14 @@ declare namespace React {
 
         // RDFa Attributes
         about?: string | undefined;
+        content?: string | undefined;
         datatype?: string | undefined;
         inlist?: any;
         prefix?: string | undefined;
         property?: string | undefined;
+        rel?: string | undefined;
         resource?: string | undefined;
+        rev?: string | undefined;
         typeof?: string | undefined;
         vocab?: string | undefined;
 
