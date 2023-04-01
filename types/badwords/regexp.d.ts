@@ -1,5 +1,3 @@
-declare namespace badwords {
-    const badwords: RegExp;
-}
+declare const badwords: RegExp;
 
-export default badwords.badwords;
+export = badwords;
