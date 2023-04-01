@@ -1,4 +1,4 @@
-import { type Config } from 'lint-staged';
+import type { Config } from 'lint-staged';
 
 let config: Config;
 
