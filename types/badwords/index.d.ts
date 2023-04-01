@@ -4,8 +4,6 @@
 //                 Saiichi Hashimoto <https://github.com/saiichihashimoto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace badwords {
-    const badwords: string[];
-}
+import badwords = require('./array');
 
-export = badwords.badwords;
+export = badwords;
