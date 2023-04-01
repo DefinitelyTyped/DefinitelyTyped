@@ -134,7 +134,7 @@ declare namespace React {
     interface RefAttributes<T> extends Attributes {
         /**
          * Allows getting a ref to the component instance.
-         * React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref) once that particular component unmounts.
+         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
          * @see https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom
          */
         ref?: Ref<T> | undefined;
@@ -142,7 +142,7 @@ declare namespace React {
     interface ClassAttributes<T> extends Attributes {
         /**
          * Allows getting a ref to the component instance.
-         * React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref) once that particular component unmounts.
+         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
          * @see https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom
          */
         ref?: LegacyRef<T> | undefined;
