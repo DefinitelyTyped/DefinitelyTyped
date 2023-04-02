@@ -199,10 +199,14 @@ boards.on('ready', ({ UNO }) => {
 const boards2 = new five.Boards(['UNO', 'UNO_MINI'] as const);
 
 boards2.on('ready', ({ UNO, UNO_MINI }) => {
-    const led = new five.Led({ board: UNO, pin: 13 });
-    const led2 = new five.Led({ board: UNO_MINI, pin: 13 });
+    const led = new five.Led({ board: UNO, pin: 1 });
+    const led2 = new five.Led({ board: UNO_MINI, pin: 2 });
+    const pin = new five.Pin({ board: UNO, pin: 3 });
+    const pin2 = new five.Pin({ board: UNO_MINI, pin: 4 });
     led.blink(500);
     led2.blink(500);
+    pin.high();
+    pin2.low();
 });
 
 new five.Barometer({ controller: 'BMP280' });
