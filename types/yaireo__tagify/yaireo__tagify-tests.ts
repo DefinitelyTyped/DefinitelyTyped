@@ -1,5 +1,5 @@
 import Tagify = require('@yaireo/tagify');
-import { BaseTagData, TagData, TagifyConstructorSettings, TagifyRuntimeSettings, TagifySettings } from '@yaireo/tagify';
+import { BaseTagData, TagData, InputEventDataNormal, InputEventDataMix, TagifyRuntimeSettings, TagifySettings } from '@yaireo/tagify';
 
 export function tagTemplate(this: Tagify, tagData: TagData, { settings }: Tagify): string {
     return `
@@ -85,8 +85,27 @@ const settings: TagifySettings = {
         input: event => {
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
-            // $ExpectType string
+            // @ts-expect-error
             event.detail.textContent;
+            // @ts-expect-error
+            event.detail.inputElm;
+            // @ts-expect-error
+            event.detail.value;
+            // $ExpectType HTMLInputElement | HTMLTextAreaElement
+            (event.detail as InputEventDataNormal).inputElm;
+            // $ExpectType string
+            (event.detail as InputEventDataNormal).value;
+            // $ExpectType string
+            (event.detail as InputEventDataMix).textContent;
+            if ("textContent" in event.detail) {
+                // $ExpectType string
+                event.detail.textContent;
+            } else {
+                // $ExpectType HTMLInputElement | HTMLTextAreaElement
+                event.detail.inputElm;
+                // $ExpectType string
+                event.detail.value;
+            }
         },
         invalid: event => {
             // $ExpectType TagData
@@ -370,7 +389,7 @@ interface MyTagData extends BaseTagData {
     name: string;
 }
 
-const typedSettings: TagifyConstructorSettings<MyTagData> = {
+const typedSettings: TagifySettings<MyTagData> = {
     templates: {
         tag: (tagData) => `${tagData.name} ${tagData.title.substring(0)}`,
         dropdownItem: item => `${item.active}`,
@@ -566,8 +585,27 @@ tagify.on('edit:updated', (event) => {
 tagify.on('input', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType string
+    // @ts-expect-error
     event.detail.textContent;
+    // @ts-expect-error
+    event.detail.inputElm;
+    // @ts-expect-error
+    event.detail.value;
+    // $ExpectType HTMLInputElement | HTMLTextAreaElement
+    (event.detail as InputEventDataNormal).inputElm;
+    // $ExpectType string
+    (event.detail as InputEventDataNormal).value;
+    // $ExpectType string
+    (event.detail as InputEventDataMix).textContent;
+    if ("textContent" in event.detail) {
+        // $ExpectType string
+        event.detail.textContent;
+    } else {
+        // $ExpectType HTMLInputElement | HTMLTextAreaElement
+        event.detail.inputElm;
+        // $ExpectType string
+        event.detail.value;
+    }
 });
 tagify.on('click', (event) => {
     // $ExpectType TagData
@@ -739,8 +777,27 @@ tagify.off('edit:updated', (event) => {
 tagify.off('input', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType string
+    // @ts-expect-error
     event.detail.textContent;
+    // @ts-expect-error
+    event.detail.inputElm;
+    // @ts-expect-error
+    event.detail.value;
+    // $ExpectType HTMLInputElement | HTMLTextAreaElement
+    (event.detail as InputEventDataNormal).inputElm;
+    // $ExpectType string
+    (event.detail as InputEventDataNormal).value;
+    // $ExpectType string
+    (event.detail as InputEventDataMix).textContent;
+    if ("textContent" in event.detail) {
+        // $ExpectType string
+        event.detail.textContent;
+    } else {
+        // $ExpectType HTMLInputElement | HTMLTextAreaElement
+        event.detail.inputElm;
+        // $ExpectType string
+        event.detail.value;
+    }
 });
 tagify.off('click', (event) => {
     // $ExpectType TagData

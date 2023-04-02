@@ -1202,12 +1202,30 @@ declare namespace Tagify {
     }
 
     /**
-     * Input event, when a tag is being typed / edited.
+     * Input event, when the tagify `mode` setting is set to anything other than
+     * `mix`. Occurs when a tag is being typed / edited.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface InputEventData<T extends BaseTagData = TagData> extends EventData<T> {
+    interface InputEventDataNormal<T extends BaseTagData = TagData> extends EventData<T> {
+        inputElm: HTMLInputElement | HTMLTextAreaElement;
+        value: string;
+    }
+
+    /**
+     * Input event, when the tagify `mode` setting is set to `mix`. Occurs when
+     * a tag is being typed / edited.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface InputEventDataMix<T extends BaseTagData = TagData> extends EventData<T> {
         textContent: string;
     }
+
+    /**
+     * Input event, when a tag is being typed / edited. The properties of the
+     * event data depend on the `mode` setting of tagify.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    type InputEventData<T extends BaseTagData = TagData> = InputEventDataNormal<T> | InputEventDataMix<T>;
 
     /**
      * When tagify input has focus and a key was pressed.
