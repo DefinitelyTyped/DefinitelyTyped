@@ -115,3 +115,12 @@ manager.on('pollData', pollData => {
  * Offer #1601569319 sent, but requires confirmation
  * Offer confirmed
  */
+
+manager.getOffers(TradeOfferManager.EOfferFilter.ActiveOnly, (err, sent, received) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(`Got ${sent.length} sent and ${received.length} received offers`);
+});

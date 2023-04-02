@@ -96,8 +96,8 @@ declare class TradeOfferManager extends EventEmitter {
     /**
      * Get a list of trade offers either sent to you or by you
      */
-    getOffers(filter: EOfferFilter, callback: OffersContainingCallback): void;
-    getOffers(filter: EOfferFilter, historicalCutoff: Date, callback: OffersContainingCallback): void;
+    getOffers(filter: number, callback: OffersContainingCallback): void;
+    getOffers(filter: number, historicalCutoff: Date, callback: OffersContainingCallback): void;
 
     on<T extends keyof TradeOfferManagerEvents>(eventType: T, callback: TradeOfferManagerEvents[T]): this;
 
@@ -111,17 +111,17 @@ declare class TradeOfferManager extends EventEmitter {
 
 interface TradeOfferManagerEvents {
     newOffer: (offer: TradeOffer) => void;
-    sentOfferChanged: (offer: TradeOffer, oldState: keyof ETradeOfferState) => void;
+    sentOfferChanged: (offer: TradeOffer, oldState: number) => void;
     sentOfferCanceled: (offer: TradeOffer, reason: 'cancelTime' | 'cancelOfferCount') => void;
     sentPendingOfferCanceled: (offer: TradeOffer) => void;
     unknownOfferSent: (offer: TradeOffer) => void;
-    receivedOfferChanged: (offer: TradeOffer, oldState: keyof ETradeOfferState) => void;
+    receivedOfferChanged: (offer: TradeOffer, oldState: number) => void;
     realTimeTradeConfirmationRequired: (offer: TradeOffer) => void;
     realTimeTradeCompleted: (offer: TradeOffer) => void;
     pollFailure: (err: Error) => void;
     pollSuccess: () => void;
     pollData: (data: any) => void;
-    offerList: (filter: EOfferFilter, sent: TradeOffer[], received: TradeOffer[]) => void;
+    offerList: (filter: number, sent: TradeOffer[], received: TradeOffer[]) => void;
 }
 
 interface TradeOfferManagerOptions {
@@ -152,14 +152,14 @@ declare class TradeOffer {
     readonly manager: TradeOfferManager;
     readonly id?: string;
     readonly partner: SteamID;
-    readonly state: keyof ETradeOfferState;
+    readonly state: number;
     readonly message: string;
     readonly itemsToGive: CEconItem[];
     readonly itemsToReceive: CEconItem[];
     readonly isOurOffer: boolean;
     readonly tradeID?: string;
     readonly fromRealTimeTrade: boolean;
-    readonly confirmationMethod: EConfirmationMethod;
+    readonly confirmationMethod: number;
     readonly rawJson: string;
     readonly created: Date;
     readonly updated: Date;
@@ -338,7 +338,7 @@ declare class TradeOffer {
 
 type ExchangeDetailsCallback = (
     err: Error | null,
-    status: ETradeStatus,
+    status: number,
     tradeInitTime: Date,
     receivedItems: MEconItemExchange[],
     sentItems: MEconItemExchange[],
@@ -366,7 +366,7 @@ interface MEconItemAmount extends MEconItem {
     amount: number;
 }
 
-interface ETradeOfferState {
+interface ETradeOfferState extends Record<string | number, string | number> {
     Invalid: number;
     Active: number;
     Accepted: number;
@@ -397,7 +397,7 @@ interface EOfferFilter {
     All: number;
 }
 
-interface EResult {
+interface EResult extends Record<string | number, string | number> {
     Invalid: number;
     OK: number;
     Fail: number;
@@ -633,7 +633,7 @@ interface EResult {
     '112': string;
 }
 
-interface EConfirmationMethod {
+interface EConfirmationMethod extends Record<string | number, string | number> {
     None: number;
     Email: number;
     MobileApp: number;
@@ -642,7 +642,7 @@ interface EConfirmationMethod {
     '2': string;
 }
 
-interface ETradeStatus {
+interface ETradeStatus extends Record<string | number, string | number> {
     Init: number;
     PreCommitted: number;
     Committed: number;
