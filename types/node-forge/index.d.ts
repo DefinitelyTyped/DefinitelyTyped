@@ -370,6 +370,9 @@ declare module 'node-forge' {
 
             type ToNativeBufferParameters =
                 | {
+                      md: md.MessageDigest;
+                  }
+                | {
                       message: NativeBuffer | util.ByteBuffer;
                   }
                 | {
