@@ -4,10 +4,8 @@
 //                 YEK-PLUS <https://github.com/yek-plus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, FC } from 'react';
+import { Component, FC, JSX } from 'react';
 import { FlatListProps, StyleProp, TextStyle, ViewStyle, FlatList } from 'react-native';
-
-import { JSX } from "react";
 
 export interface SkipButtonProps {
     skipLabel: string | JSX.Element;

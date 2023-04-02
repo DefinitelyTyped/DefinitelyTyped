@@ -6,9 +6,7 @@
 // TypeScript Version: 3.6
 
 import { StoreDescriptor } from '@wordpress/data';
-import { MouseEventHandler } from 'react';
-
-import { JSX } from "react";
+import { JSX, MouseEventHandler } from 'react';
 
 declare module '@wordpress/data' {
     function dispatch(key: 'core/notices'): typeof import('./store/actions');

@@ -3,9 +3,7 @@
 // Definitions by: Josh Kramer <https://github.com/jkjustjoshing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ComponentType, CSSProperties } from 'react';
-
-import { JSX } from "react";
+import { ComponentType, CSSProperties, JSX } from 'react';
 
 interface WidgetProps {
     index: number;

@@ -1,8 +1,6 @@
-import { ComponentType, SVGProps, ReactComponentElement, ReactDOM } from 'react';
+import { ComponentType, JSX, SVGProps, ReactComponentElement, ReactDOM } from 'react';
 
 import Dashicon from '../dashicon';
-
-import { JSX } from "react";
 
 declare namespace Icon {
     type IconType<P> = Dashicon.Icon | ComponentType<P> | JSX.Element;

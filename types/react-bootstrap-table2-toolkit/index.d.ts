@@ -6,10 +6,8 @@
 
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, JSX, ReactNode } from 'react';
 import { ColumnDescription, SearchProps } from 'react-bootstrap-table-next';
-
-import { JSX } from "react";
 
 /**
  * declaration for table toolkit sub module

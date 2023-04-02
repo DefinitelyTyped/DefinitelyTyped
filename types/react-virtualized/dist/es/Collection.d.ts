@@ -9,8 +9,6 @@ import {
     SizeAndPositionInfo,
 } from '../../index';
 
-import { JSX } from "react";
-
 export type CollectionCellSizeAndPosition = {
     height: number;
     width: number;

@@ -5,9 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentType, FunctionComponent, ReactNode } from 'react';
-
-import { JSX } from "react";
+import { ComponentType, FunctionComponent, JSX, ReactNode } from 'react';
 
 export const Waiter: FunctionComponent<{ children?: ReactNode }>;
 

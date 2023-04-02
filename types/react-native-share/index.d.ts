@@ -8,13 +8,11 @@
 //                 Evan Cloutier <https://github.com/evancloutier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-import { ReactNode, Component } from 'react';
+import { JSX, ReactNode, Component } from 'react';
 import { ViewProps, StyleProp } from 'react-native';
 import Overlay from './Overlay.d';
 import Button from './Button.d';
 import Sheet from './Sheet.d';
-
-import { JSX } from "react";
 
 declare namespace Share {
     enum Social {

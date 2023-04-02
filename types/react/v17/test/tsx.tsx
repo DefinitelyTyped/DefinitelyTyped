@@ -1,4 +1,3 @@
-import { JSX } from "react";
 import PropTypes = require("prop-types");
 import React = require("react");
 

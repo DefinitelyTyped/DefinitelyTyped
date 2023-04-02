@@ -1,8 +1,6 @@
-import { ChangeEventHandler, ComponentType } from 'react';
+import { ChangeEventHandler, ComponentType, JSX } from 'react';
 
 import IconButton from '../icon-button';
-
-import { JSX } from "react";
 
 declare namespace FormFileUpload {
     interface BaseProps {

@@ -61,7 +61,6 @@
 declare module '*.mdx' {
     // eslint-disable-next-line no-self-import
     import { MDXProps } from 'mdx/types';
-    import { JSX } from "react";
 
  /**
   * An function component which renders the MDX content using JSX.

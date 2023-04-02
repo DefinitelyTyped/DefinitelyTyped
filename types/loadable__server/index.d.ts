@@ -6,9 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentType, ReactElement, Component } from 'react';
-
-import { JSX } from "react";
+import { ComponentType, JSX, ReactElement, Component } from 'react';
 
 export type ChunkExtractorOptions = {
     /**

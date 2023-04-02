@@ -4,10 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
+import { Component, JSX } from 'react';
 import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
-
-import { JSX } from "react";
 
 export type ViewStyle = StyleProp<ViewStyleRaw>;
 export type TextStyle = StyleProp<TextStyleRaw>;

@@ -3,9 +3,7 @@
 // Definitions by: Ankan002 <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { CSSProperties } from 'react';
-
-import { JSX } from "react";
+import { CSSProperties, JSX } from 'react';
 
 export interface ModernDatepickerProps {
     onSelectedChange?: (dateString: string) => void;

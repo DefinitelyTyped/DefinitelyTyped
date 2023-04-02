@@ -1,8 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, JSX, ReactNode } from 'react';
 
 import Popover from '../popover';
-
-import { JSX } from "react";
 
 declare namespace Dropdown {
     interface Props {

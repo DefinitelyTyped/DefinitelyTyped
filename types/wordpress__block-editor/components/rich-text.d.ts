@@ -1,10 +1,8 @@
 /* eslint-disable no-unnecessary-generics */
 import { BlockInstance } from '@wordpress/blocks';
 import { Autocomplete, ToolbarButton } from '@wordpress/components';
-import { ComponentType, HTMLProps, ReactNode } from 'react';
+import { ComponentType, HTMLProps, JSX, ReactNode } from 'react';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
-
-import { JSX } from "react";
 
 declare namespace RichText {
     interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, 'onChange'> {

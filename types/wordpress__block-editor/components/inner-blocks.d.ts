@@ -1,10 +1,9 @@
 import { TemplateArray } from '@wordpress/blocks';
-import { ComponentType, Ref } from 'react';
+import { ComponentType, JSX, Ref } from 'react';
 
 import { EditorTemplateLock } from '../';
 
 import { Merged, Reserved } from './use-block-props';
-import { JSX } from "react";
 
 declare namespace InnerBlocks {
     interface Props {

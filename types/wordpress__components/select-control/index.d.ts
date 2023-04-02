@@ -1,8 +1,6 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps, JSX } from 'react';
 
 import BaseControl from '../base-control';
-
-import { JSX } from "react";
 
 declare namespace SelectControl {
     interface Option {

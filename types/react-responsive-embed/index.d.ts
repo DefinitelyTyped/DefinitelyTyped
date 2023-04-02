@@ -3,9 +3,7 @@
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ComponentType } from 'react';
-
-import { JSX } from "react";
+import { ComponentType, JSX } from 'react';
 
 type Props = { ratio?: string; } & JSX.IntrinsicElements['iframe'];
 declare const ResponsiveEmbed: ComponentType<Props>;

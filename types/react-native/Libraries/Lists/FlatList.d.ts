@@ -9,8 +9,6 @@ import {StyleProp} from '../StyleSheet/StyleSheet';
 import {ViewStyle} from '../StyleSheet/StyleSheetTypes';
 import {View} from '../Components/View/View';
 
-import { JSX } from "react";
-
 export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
   /**
    * Rendered in between each item, but not at the top or bottom
@@ -267,7 +265,7 @@ export class FlatList<ItemT = any> extends React.Component<
   /**
    * Provides a handle to the underlying scroll responder.
    */
-  getScrollResponder: () => JSX.Element | null | undefined;
+  getScrollResponder: () => React.JSX.Element | null | undefined;
 
   /**
    * Provides a reference to the underlying host component

@@ -1,8 +1,6 @@
-import { ComponentType } from 'react';
+import { ComponentType, JSX } from 'react';
 
 import BaseControl from '../base-control';
-
-import { JSX } from "react";
 
 declare namespace RadioControl {
     interface Props<T> extends BaseControl.ControlProps {

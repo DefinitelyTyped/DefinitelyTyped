@@ -15,8 +15,8 @@
 //                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
-import { JSX } from "react";
 
+/// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
 
 declare module "material-ui" {
@@ -1696,7 +1696,7 @@ declare namespace __MaterialUI {
             bodyStyle?: React.CSSProperties | undefined;
             children?: React.ReactNode;
             className?: string | undefined;
-            message: string | JSX.Element;
+            message: string | React.JSX.Element;
             onActionClick?: React.MouseEventHandler<{}> | undefined;
             /** @deprecated Use the open property to control the component instead */
             onDismiss?(): void; // DEPRECATED

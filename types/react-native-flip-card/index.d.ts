@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode, ComponentClass } from "react";
+import { Component, JSX, ReactNode, ComponentClass } from "react";
 import {
     ViewProps,
     TextProps,
@@ -12,8 +12,6 @@ import {
     TextInputProps,
     ViewStyle
 } from "react-native";
-
-import { JSX } from "react";
 
 // FlipCard
 export interface FlipCardProps {

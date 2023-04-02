@@ -4,11 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-/// <reference types="react" />
-
-import * as Table from "reactabular-table";
-
 import { JSX } from "react";
+import * as Table from "reactabular-table";
 
 export interface DndMoveEvent {
     sourceLabel: string;

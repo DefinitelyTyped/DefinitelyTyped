@@ -3,9 +3,7 @@
 // Definitions by: Guilherme Samuel <https://github.com/guilhermefront>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactNode } from 'react';
-
-import { JSX } from "react";
+import { JSX, ReactNode } from 'react';
 
 /**
  * The object that lightbox uses for the elements array

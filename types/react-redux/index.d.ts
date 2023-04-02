@@ -26,6 +26,7 @@ import {
     Component,
     ComponentClass,
     Context,
+    JSX,
     JSXElementConstructor,
     NamedExoticComponent,
     ReactNode
@@ -37,8 +38,6 @@ import {
     Dispatch,
     Store
 } from 'redux';
-
-import { JSX } from "react";
 
 import hoistNonReactStatics = require('hoist-non-react-statics');
 

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, JSX, useState } from 'react';
 
 import {
     XYPlot,
@@ -19,8 +19,6 @@ import {
     AreaSeries,
     DiscreteColorLegend,
 } from 'react-vis';
-
-import { JSX } from "react";
 
 export function Example() {
     return (

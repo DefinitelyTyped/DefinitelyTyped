@@ -556,10 +556,10 @@ const childrenToArray: Array<Exclude<React.ReactNode, boolean | null | undefined
 
 declare const numberChildren: number[];
 declare const nodeChildren: React.ReactNode;
-declare const elementChildren: JSX.Element[];
-declare const mixedChildren: Array<JSX.Element | string>;
-declare const singlePluralChildren: JSX.Element | JSX.Element[];
-declare const renderPropsChildren: () => JSX.Element;
+declare const elementChildren: React.JSX.Element[];
+declare const mixedChildren: Array<React.JSX.Element | string>;
+declare const singlePluralChildren: React.JSX.Element | React.JSX.Element[];
+declare const renderPropsChildren: () => React.JSX.Element;
 
 // $ExpectType null
 const mappedChildrenArray0 = React.Children.map(null, num => num);
@@ -728,7 +728,7 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
 
 // ReactNode tests
 {
-    // Mix of empty return and some return results in `(undefined | JSX.Element)[]`
+    // Mix of empty return and some return results in `(undefined | React.JSX.Element)[]`
     const mixedEmptyReturn: React.ReactNode = ['a', 'b', null].map(label => {
         if (!label) {
             return;
@@ -740,7 +740,7 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     const emptyReturn: React.ReactNode = ['a', 'b'].map(label => {
         return;
     });
-    // Mix of no return and some return results in `(undefined | JSX.Element)[]`
+    // Mix of no return and some return results in `(undefined | React.JSX.Element)[]`
     const mixedNoReturn: React.ReactNode = ['a', 'b', null].map(label => {
         if (label) {
             return label;

@@ -1,7 +1,5 @@
 import { Toolbar, Slot } from '@wordpress/components';
-import { FC, ReactNode } from 'react';
-
-import { JSX } from "react";
+import { FC, JSX, ReactNode } from 'react';
 
 declare namespace BlockControls {
     interface Props extends Pick<Toolbar.Props, 'controls'> {

@@ -4,10 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, HTMLProps } from "react";
-
-import { JSX } from "react";
-
+import { Component, HTMLProps, JSX } from "react";
 interface InfiniteScrollerProps {
     elementIsScrollable?: boolean | undefined;
     containerHeight?: number | string | undefined;

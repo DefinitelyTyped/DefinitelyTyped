@@ -1,8 +1,6 @@
 import { PureComponent, Validator, Requireable } from 'react';
 import * as PropTypes from 'prop-types';
 
-import { JSX } from "react";
-
 export type Size = {
     height: number;
     width: number;

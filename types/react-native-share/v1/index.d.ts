@@ -6,7 +6,7 @@
 //                 Jesse Katsumata <https://github.com/Naturalclar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-import { ReactNode, Component } from 'react';
+import { ReactNode, Component, JSX } from 'react';
 import { ViewProps, StyleProp } from 'react-native';
 declare namespace Share {
     function open(options: Options | MultipleOptions): Promise<OpenReturn>;
@@ -16,8 +16,6 @@ declare namespace Share {
 import Overlay from './Overlay.d';
 import Button from './Button.d';
 import Sheet from './Sheet.d';
-
-import { JSX } from "react";
 
 export default Share;
 

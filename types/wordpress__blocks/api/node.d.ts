@@ -1,8 +1,6 @@
-import { ReactChild, ReactElement } from 'react';
+import { ReactChild, JSX, ReactElement } from 'react';
 
 import children from './children';
-
-import { JSX } from "react";
 
 /**
  * Object of utility functions used in managing block attribute values of

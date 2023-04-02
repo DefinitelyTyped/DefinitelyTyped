@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { History, Location } from "history";
-import { Component, ComponentType, ReactNode } from "react";
-
-import { JSX } from "react";
+import { Component, ComponentType, JSX, ReactNode } from "react";
 
 export interface RouterProps {
     children: NonNullable<ReactNode>;

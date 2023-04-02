@@ -1,6 +1,4 @@
-import { ComponentType } from 'react';
-
-import { JSX } from "react";
+import { ComponentType, JSX } from 'react';
 
 declare namespace BlockList {
     interface Props {

@@ -8,9 +8,7 @@
 
 declare module 'react-user-tour' {
     // Import React
-    import { HTMLAttributes, ComponentClass } from 'react';
-
-    import { JSX } from "react";
+    import { HTMLAttributes, JSX, ComponentClass } from 'react';
 
     interface TourStep {
         /**
