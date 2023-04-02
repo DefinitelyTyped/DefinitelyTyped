@@ -1,4 +1,6 @@
-* 4.16.2: There was an error in the types for the event data of the `input`
+## 4.17.0
+
+* There was an error in the types for the event data of the `input`
   event. The properties of the even data depend on the `mode` setting of the
   tagify instance. In particular, when the mode is set to `mix`, the properties
   did not match the declared typings. This behavior is an unfortunate design
@@ -11,3 +13,5 @@
   likely also break existing code. To fix your code, either cast to
   `InputEventDataNormal` or`InputEventDataMix`; or check for the presence of the
   properties, e.g. `"textContent" in event.detail`.
+* Rename `Tagify.prototype.tagData` to `Tagify.prototype.getSetTagData`,
+  following the change in the original library.

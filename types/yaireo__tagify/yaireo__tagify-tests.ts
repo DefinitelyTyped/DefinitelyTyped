@@ -973,10 +973,10 @@ tagify.getMixedTagsAsString();
 const tagElement = tagify.getTagElmByValue('foo');
 if (tagElement !== undefined) {
     // $ExpectType TagData | undefined
-    tagify.tagData(tagElement);
-    tagify.tagData(tagElement, { value: 'bar' });
-    tagify.tagData(tagElement, { value: 'bar' }, false);
-    tagify.tagData(tagElement, { value: 'bar' }, true);
+    tagify.getSetTagData(tagElement);
+    tagify.getSetTagData(tagElement, { value: 'bar' });
+    tagify.getSetTagData(tagElement, { value: 'bar' }, false);
+    tagify.getSetTagData(tagElement, { value: 'bar' }, true);
     // $ExpectType Tagify<TagData>
     tagify.editTag();
     // $ExpectType Tagify<TagData>
@@ -993,15 +993,15 @@ tagify.loading(true);
 const typedTagElement = typedTagify.getTagElmByValue('foo');
 if (typedTagElement !== undefined) {
     // $ExpectType MyTagData | undefined
-    typedTagify.tagData(typedTagElement);
+    typedTagify.getSetTagData(typedTagElement);
     // $ExpectType MyTagData | { active: true; }
-    typedTagify.tagData(typedTagElement, { active: true });
+    typedTagify.getSetTagData(typedTagElement, { active: true });
     // $ExpectType MyTagData | { active: true; }
-    typedTagify.tagData(typedTagElement, { active: true }, false);
+    typedTagify.getSetTagData(typedTagElement, { active: true }, false);
     // $ExpectType MyTagData | { active: true; }
-    typedTagify.tagData(typedTagElement, { active: true }, undefined);
+    typedTagify.getSetTagData(typedTagElement, { active: true }, undefined);
     // $ExpectType MyTagData
-    typedTagify.tagData(typedTagElement, { active: true, name: '', title: '', value: '' }, true);
+    typedTagify.getSetTagData(typedTagElement, { active: true, name: '', title: '', value: '' }, true);
     // @ts-expect-error
     typedTagify.tagData(typedTagElement, { active: true }, true);
     // @ts-expect-error

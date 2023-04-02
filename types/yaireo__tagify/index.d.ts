@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.16
+// Type definitions for @yaireo/tagify 4.17
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -1668,7 +1668,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * @return The data for the tag. `undefined` when no tag data was found or
      * the element is not an existing tag.
      */
-    tagData(tagElm: HTMLElement): T | undefined;
+    getSetTagData(tagElm: HTMLElement): T | undefined;
 
     /**
      * Sets the data of the given tag element to the given value.
@@ -1681,7 +1681,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * @return The new tag data for the tag, or the given data when the element
      * is not an existing tag.
      */
-    tagData<P extends Partial<T>>(tagElm: HTMLElement, data: P, override?: false): P | T;
+    getSetTagData<P extends Partial<T>>(tagElm: HTMLElement, data: P, override?: false): P | T;
 
     /**
      * Sets the data of the given tag element to the given value.
@@ -1694,7 +1694,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * @return The new tag data for the tag, or the given data when the element
      * is not an existing tag.
      */
-    tagData(tagElm: HTMLElement, data: T, override: true): T;
+    getSetTagData(tagElm: HTMLElement, data: T, override: true): T;
 
     /**
      * Switches a tag into edit mode so that it can be edited by the user.
