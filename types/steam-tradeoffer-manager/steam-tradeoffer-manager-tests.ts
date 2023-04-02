@@ -124,3 +124,5 @@ manager.getOffers(TradeOfferManager.EOfferFilter.ActiveOnly, (err, sent, receive
 
     console.log(`Got ${sent.length} sent and ${received.length} received offers`);
 });
+
+console.log(new TradeOfferManager.SteamID('[U:1:46143802]').getBigIntID());

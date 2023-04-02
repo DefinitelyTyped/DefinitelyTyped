@@ -107,6 +107,7 @@ declare class TradeOfferManager extends EventEmitter {
     static readonly EResult: EResult;
     static readonly EConfirmationMethod: EConfirmationMethod;
     static readonly ETradeStatus: ETradeStatus;
+    static readonly SteamID: typeof SteamID;
 }
 
 interface TradeOfferManagerEvents {
