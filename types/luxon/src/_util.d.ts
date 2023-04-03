@@ -1,2 +1,4 @@
-export type CanBeInvalid = false;
-export type IfInvalid<T> = never;
+import { TSSettings } from './settings';
+
+export type CanBeInvalid = TSSettings extends { throwOnInvalid: true } ? false : true;
+export type IfInvalid<T> = CanBeInvalid extends true ? T : never;
