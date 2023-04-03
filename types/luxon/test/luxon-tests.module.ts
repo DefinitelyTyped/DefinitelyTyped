@@ -310,6 +310,7 @@ Settings.resetCaches();
 Settings.defaultZone = ianaZone;
 Settings.defaultZone = 'America/Los_Angeles';
 Settings.defaultZone = Settings.defaultZone;
+Settings.defaultZone; // $ExpectType Zone
 
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/

@@ -13,6 +13,8 @@
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Minimum TypeScript Version: 4.3
+
 export * from './src/luxon';
 
 export as namespace luxon;
