@@ -140,7 +140,7 @@ dt.valueOf(); // $ExpectType number
 dt.toObject(); // $ExpectType Record<"day" | "hour" | "minute" | "month" | "second" | "year" | "millisecond", number>
 // @ts-expect-error
 dt.toObject().locale;
-dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput<true>
+dt.toObject({ includeConfig: true }); // $ExpectType _ToObjectOutput<true>
 dt.toObject({ includeConfig: true }).locale; // $ExpectType string | undefined
 dt.toUnixInteger(); // $ExpectType number
 
