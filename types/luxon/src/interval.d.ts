@@ -95,12 +95,12 @@ export class Interval {
     /**
      * Returns an error code if this Interval is invalid, or null if the Interval is valid
      */
-    get invalidReason(): string;
+    get invalidReason(): string | null;
 
     /**
      * Returns an explanation of why this Interval became invalid, or null if the Interval is valid
      */
-    get invalidExplanation(): string;
+    get invalidExplanation(): string | null;
 
     /**
      * Returns the length of the Interval in the specified unit.
