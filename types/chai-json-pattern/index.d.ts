@@ -7,13 +7,13 @@
 // <reference types="chai" />
 
 declare global {
-  namespace Chai {
-    interface Assertion {
-      matchPattern(expected: any): void;
+    namespace Chai {
+        interface Assertion {
+            matchPattern(expected: any): void;
+        }
     }
-  }
 }
 
 declare const chaiJsonPattern: Chai.ChaiPlugin;
-declare namespace chaiJsonPattern { }
+declare namespace chaiJsonPattern {}
 export = chaiJsonPattern;
