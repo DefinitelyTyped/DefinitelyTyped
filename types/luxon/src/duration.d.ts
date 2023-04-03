@@ -476,12 +476,12 @@ export class Duration {
     /**
      * Returns an error code if this Duration became invalid, or null if the Duration is valid
      */
-    get invalidReason(): string;
+    get invalidReason(): string | null;
 
     /**
      * Returns an explanation of why this Duration became invalid, or null if the Duration is valid
      */
-    get invalidExplanation(): string;
+    get invalidExplanation(): string | null;
 
     /**
      * Equality check

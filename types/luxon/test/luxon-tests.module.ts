@@ -137,8 +137,11 @@ dt.toSQLTime(); // $ExpectType string
 dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 dt.toSQLTime({ includeOffsetSpace: false, includeZone: true }); // $ExpectType string
 dt.valueOf(); // $ExpectType number
-dt.toObject(); // $ExpectType ToObjectOutput
-dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput
+dt.toObject(); // $ExpectType Record<"day" | "hour" | "minute" | "month" | "second" | "year" | "millisecond", number>
+// @ts-expect-error
+dt.toObject().locale;
+dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput<true>
+dt.toObject({ includeConfig: true }).locale; // $ExpectType string | undefined
 dt.toUnixInteger(); // $ExpectType number
 
 // $ExpectType string | null
@@ -256,6 +259,9 @@ i.contains(DateTime.local(2019)); // $ExpectType boolean
 i.set({ end: DateTime.local(2020) }); // $ExpectType Interval
 i.mapEndpoints(d => d); // $ExpectType Interval
 i.intersection(i); // $ExpectType Interval | null
+
+i.invalidReason; // $ExpectType string | null
+i.invalidExplanation; // $ExpectType string | null
 
 i.toISO(); // $ExpectType string
 i.toISODate(); // $ExpectType string
@@ -452,6 +458,9 @@ dur.reconfigure({ conversionAccuracy: 'longterm' }); // $ExpectType Duration
 
 start.until(end); // $ExpectType Interval
 i.toDuration(['years', 'months', 'days']); // $ExpectType Duration
+
+dur.invalidReason; // $ExpectType string | null
+dur.invalidExplanation; // $ExpectType string | null
 
 /* Sample Zone Implementation */
 class SampleZone extends Zone {
