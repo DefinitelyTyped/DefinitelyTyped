@@ -9,7 +9,8 @@ export interface IntervalObject {
 export type DateInput = DateTime | DateObjectUnits | Date;
 
 /**
- * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}. Conceptually, it's a container for those two endpoints, accompanied by methods for
+ * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}.
+ * Conceptually, it is a container for those two endpoints, accompanied by methods for
  * creating, parsing, interrogating, comparing, transforming, and formatting them.
  *
  * Here is a brief overview of the most commonly used methods and getters in Interval:
@@ -29,7 +30,7 @@ export class Interval {
      * Create an invalid Interval.
      *
      * @param reason - simple string of why this Interval is invalid. Should not contain parameters or anything else data-dependent
-     * @param explanation - longer explanation, may include parameters and other useful debugging information. Defaults to null.
+     * @param explanation - longer explanation, may include parameters and other useful debugging information.
      */
     static invalid(reason: string, explanation?: string): Interval;
 
@@ -183,75 +184,55 @@ export class Interval {
 
     /**
      * Return whether this Interval overlaps with the specified Interval
-     *
-     * @param other
      */
     overlaps(other: Interval): boolean;
 
     /**
      * Return whether this Interval's end is adjacent to the specified Interval's start.
-     *
-     * @param other
      */
     abutsStart(other: Interval): boolean;
 
     /**
      * Return whether this Interval's start is adjacent to the specified Interval's end.
-     *
-     * @param other
      */
     abutsEnd(other: Interval): boolean;
 
     /**
      * Return whether this Interval engulfs the start and end of the specified Interval.
-     *
-     * @param other
      */
     engulfs(other: Interval): boolean;
 
     /**
      * Return whether this Interval has the same start and end as the specified Interval.
-     *
-     * @param other
      */
     equals(other: Interval): boolean;
 
     /**
      * Return an Interval representing the intersection of this Interval and the specified Interval.
      * Specifically, the resulting Interval has the maximum start time and the minimum end time of the two Intervals.
-     * Returns null if the intersection is empty, meaning, the intervals don't intersect.
-     *
-     * @param other
+     * Returns null if the intersection is empty, meaning the intervals do not intersect.
      */
     intersection(other: Interval): Interval | null;
 
     /**
      * Return an Interval representing the union of this Interval and the specified Interval.
      * Specifically, the resulting Interval has the minimum start time and the maximum end time of the two Intervals.
-     *
-     * @param other
      */
     union(other: Interval): Interval;
 
     /**
      * Merge an array of Intervals into a equivalent minimal set of Intervals.
      * Combines overlapping and adjacent Intervals.
-     *
-     * @param intervals
      */
     static merge(intervals: Interval[]): Interval[];
 
     /**
      * Return an array of Intervals representing the spans of time that only appear in one of the specified Intervals.
-     *
-     *  @param intervals
      */
     static xor(intervals: Interval[]): Interval[];
 
     /**
-     * Return an Interval representing the span of time in this Interval that doesn't overlap with any of the specified Intervals.
-     *
-     * @param intervals
+     * Return Intervals representing the spans of time in this Interval that not overlap with any of the specified Intervals.
      */
     difference(...intervals: Interval[]): Interval[];
 
@@ -299,14 +280,14 @@ export class Interval {
     toISO(opts?: ToISOTimeOptions): string;
 
     /**
-     * Returns an ISO 8601-compliant string representation of date of this Interval.
+     * Returns an ISO 8601-compliant string representation of the dates in this Interval.
      * The time components are ignored.
      * @see https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
      */
     toISODate(): string;
 
     /**
-     * Returns an ISO 8601-compliant string representation of time of this Interval.
+     * Returns an ISO 8601-compliant string representation of the times in this Interval.
      * The date components are ignored.
      * @see https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
      *
@@ -350,8 +331,6 @@ export class Interval {
 
     /**
      * Run mapFn on the interval start and end, returning a new Interval from the resulting DateTimes
-     *
-     * @param mapFn
      *
      * @example
      * Interval.fromDateTimes(dt1, dt2).mapEndpoints(endpoint => endpoint.toUTC())

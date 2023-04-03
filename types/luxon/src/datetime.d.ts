@@ -220,7 +220,7 @@ export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, 'unit
     round?: boolean | undefined;
     /**
      * Padding in milliseconds. This allows you to round up the result if it fits inside the threshold.
-     * Don't use in combination with {round: false} because the decimal output will include the padding.
+     * Do not use this in combination with `{round: false}` because the decimal output will include the padding.
      * @default 0
      */
     padding?: number | undefined;
@@ -347,15 +347,18 @@ export interface DateObjectUnits {
 export type ConversionAccuracy = 'casual' | 'longterm';
 
 /**
- * @deprecated You should use Intl.DateTimeFormatOptions' fields and values instead.
+ * @deprecated You should use `Intl.DateTimeFormatOptions` fields and values instead.
  */
 export type DateTimeFormatPresetValue = 'numeric' | 'short' | 'long';
 /**
- * @deprecated Use Intl.DateTimeFormatOptions instead.
+ * @deprecated Use `Intl.DateTimeFormatOptions` instead.
  */
 export type DateTimeFormatPreset = Intl.DateTimeFormatOptions;
 
 export interface DiffOptions {
+    /**
+     * @default 'casual'
+     */
     conversionAccuracy?: ConversionAccuracy | undefined;
 }
 
@@ -374,17 +377,17 @@ export interface ExplainedFormat {
  * A DateTime is an immutable data structure representing a specific date and time and accompanying methods.
  * It contains class and instance methods for creating, parsing, interrogating, transforming, and formatting them.
  *
- * A DateTime comprises of:
+ * A DateTime consists of the following parts:
  * * A timestamp. Each DateTime instance refers to a specific millisecond of the Unix epoch.
- * * A time zone. Each instance is considered in the context of a specific zone (by default the local system's zone).
- * * Configuration properties that effect how output strings are formatted, such as `locale`, `numberingSystem`, and `outputCalendar`.
+ * * A time zone. Each instance is considered in the context of a specific zone (by default, the local system's zone).
+ * * Configuration properties that affect how output strings are formatted, such as `locale`, `numberingSystem`, and `outputCalendar`.
  *
  * Here is a brief overview of the most commonly used functionality it provides:
  *
  * * **Creation**: To create a DateTime from its components, use one of its factory class methods: {@link DateTime.local}, {@link DateTime.utc}, and (most flexibly) {@link DateTime.fromObject}.
  * To create one from a standard string format, use {@link DateTime.fromISO}, {@link DateTime.fromHTTP}, and {@link DateTime.fromRFC2822}.
  * To create one from a custom string format, use {@link DateTime.fromFormat}. To create one from a native JS date, use {@link DateTime.fromJSDate}.
- * * **Gregorian calendar and time**: To examine the Gregorian properties of a DateTime individually (i.e as opposed to collectively through {@link DateTime#toObject}), use the {@link DateTime#year},
+ * * **Gregorian calendar and time**: To examine the Gregorian properties of a DateTime individually (i.e. as opposed to collectively through {@link DateTime#toObject}), use the {@link DateTime#year},
  * {@link DateTime#month}, {@link DateTime#day}, {@link DateTime#hour}, {@link DateTime#minute}, {@link DateTime#second}, {@link DateTime#millisecond} accessors.
  * * **Week calendar**: For ISO week calendar attributes, see the {@link DateTime#weekYear}, {@link DateTime#weekNumber}, and {@link DateTime#weekday} accessors.
  * * **Configuration** See the {@link DateTime#locale} and {@link DateTime#numberingSystem} accessors.
@@ -417,6 +420,7 @@ export class DateTime {
      * @param minute - The minute of the hour, meaning a number between 0 and 59
      * @param second - The second of the minute, meaning a number between 0 and 59
      * @param millisecond - The millisecond of the second, meaning a number between 0 and 999
+     * @param opts
      *
      * @example
      * DateTime.local()                                  //~> now
@@ -799,17 +803,17 @@ export class DateTime {
     get invalidExplanation(): string | null;
 
     /**
-     * Get the locale of a DateTime, such 'en-GB'. The locale is used when formatting the DateTime
+     * Get the locale of a DateTime, such as 'en-GB'. The locale is used when formatting the DateTime
      */
     get locale(): string;
 
     /**
-     * Get the numbering system of a DateTime, such 'beng'. The numbering system is used when formatting the DateTime
+     * Get the numbering system of a DateTime, such as 'beng'. The numbering system is used when formatting the DateTime
      */
     get numberingSystem(): string;
 
     /**
-     * Get the output calendar of a DateTime, such 'islamic'. The output calendar is used when formatting the DateTime
+     * Get the output calendar of a DateTime, such as 'islamic'. The output calendar is used when formatting the DateTime
      */
     get outputCalendar(): string;
 
@@ -1061,7 +1065,7 @@ export class DateTime {
      * as with {@link DateTime.plus}. You may wish to use {@link DateTime.toLocal} and {@link DateTime.toUTC} which provide simple convenience wrappers for commonly used zones.
      *
      * @param zone - a zone identifier. As a string, that can be any IANA zone supported by the host environment, or a fixed-offset name of the form 'UTC+3', or the strings 'local' or 'utc'.
-     * You may also supply an instance of a {@link DateTime.Zone} class. Defaults to 'local'.
+     * You may also supply an instance of a {@link Zone} class. Defaults to 'local'.
      * @param opts - options
      * @param opts.keepLocalTime - If true, adjust the underlying time so that the local time stays the same, but in the target zone. You should rarely need this. Defaults to false.
      */
@@ -1132,7 +1136,7 @@ export class DateTime {
     minus(duration: DurationLike): DateTime;
 
     /**
-     * "Set" this DateTime to the beginning of a unit of time.
+     * "Set" this DateTime to the beginning of the given unit.
      *
      * @param unit - The unit to go to the beginning of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
      *
@@ -1224,8 +1228,6 @@ export class DateTime {
      * Defaults to the system's locale if no locale has been specified
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat/formatToParts
      *
-     * @param opts - Intl.DateTimeFormat constructor options, same as `toLocaleString`.
-     *
      * @example
      * DateTime.now().toLocaleParts(); //=> [
      *                                 //=>   { type: 'day', value: '25' },
@@ -1239,12 +1241,6 @@ export class DateTime {
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime
-     *
-     * @param opts - options
-     * @param opts.suppressMilliseconds - exclude milliseconds from the format if they're 0. Defaults to false.
-     * @param opts.suppressSeconds - exclude seconds from the format if they're 0. Defaults to false.
-     * @param opts.includeOffset - include the offset, such as 'Z' or '-04:00'. Defaults to true.
-     * @param opts.format - choose between the basic and extended format. Defaults to 'extended'.
      *
      * @example
      * DateTime.utc(1982, 5, 25).toISO() //=> '1982-05-25T00:00:00.000Z'
@@ -1332,10 +1328,6 @@ export class DateTime {
     /**
      * Returns a string representation of this DateTime appropriate for use in SQL Time
      *
-     * @param opts - options
-     * @param opts.includeZone - include the zone, such as 'America/New_York'. Overrides includeOffset. Defaults to false.
-     * @param opts.includeOffset - include the offset, such as 'Z' or '-04:00'. Defaults to true.
-     *
      * @example
      * DateTime.utc().toSQL() //=> '05:15:16.345'
      * @example
@@ -1348,11 +1340,7 @@ export class DateTime {
     toSQLTime(opts?: ToSQLOptions): string;
 
     /**
-     * Returns a string representation of this DateTime appropriate for use in SQL DateTime
-     *
-     * @param opts - options
-     * @param opts.includeZone - include the zone, such as 'America/New_York'. Overrides includeOffset. Defaults to false.
-     * @param opts.includeOffset - include the offset, such as 'Z' or '-04:00'. Defaults to true.
+     * Returns a string representation of this DateTime for use in SQL DateTime
      *
      * @example
      * DateTime.utc(2014, 7, 13).toSQL() //=> '2014-07-13 00:00:00.000 Z'
@@ -1396,7 +1384,7 @@ export class DateTime {
     toJSON(): string;
 
     /**
-     * Returns a BSON serializable equivalent to this DateTime.
+     * Returns a BSON-serializable equivalent to this DateTime.
      */
     toBSON(): Date;
 
@@ -1428,12 +1416,14 @@ export class DateTime {
      * Return the difference between two DateTimes as a Duration.
      *
      * @param otherDateTime - the DateTime to compare this one to
-     * @param unit- the unit or array of units (such as 'hours' or 'days') to include in the duration. Defaults to ['milliseconds'].
+     * @param unit - the unit or array of units to include in the duration.
+     * Defaults to ['milliseconds'].
      * @param opts - options that affect the creation of the Duration
-     * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
+     * @param opts.conversionAccuracy - the conversion system to use.
+     * Defaults to 'casual'.
      *
      * @example
-     * var i1 = DateTime.fromISO('1982-05-25T09:45'),
+     * let i1 = DateTime.fromISO('1982-05-25T09:45'),
      *     i2 = DateTime.fromISO('1983-10-14T10:30');
      * i2.diff(i1).toObject() //=> { milliseconds: 43807500000 }
      * i2.diff(i1, 'hours').toObject() //=> { hours: 12168.75 }
@@ -1446,7 +1436,7 @@ export class DateTime {
      * Return the difference between this DateTime and right now.
      * See {@link DateTime.diff}
      *
-     * @param unit - the unit or units units (such as 'hours' or 'days') to include in the duration. Defaults to ['milliseconds'].
+     * @param unit - the unit(s) to include in the duration. Defaults to ['milliseconds'].
      * @param opts - options that affect the creation of the Duration
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      */
@@ -1472,7 +1462,7 @@ export class DateTime {
     hasSame(otherDateTime: DateTime, unit: DateTimeUnit): boolean;
 
     /**
-     * Equality check
+     * An equality check.
      * Two DateTimes are equal if and only if they represent the same millisecond, have the same zone and location, and are both valid.
      * To compare just the millisecond values, use `+dt1 === +dt2`.
      *
@@ -1481,19 +1471,9 @@ export class DateTime {
     equals(other: DateTime): boolean;
 
     /**
-     * Returns a string representation of a this time relative to now, such as "in two days". Can only internationalize if your
-     * platform supports Intl.RelativeTimeFormat. Rounds down by default.
-     *
-     * @param options - options that affect the output
-     * @param options.base - the DateTime to use as the basis to which this time is compared. Defaults to now.
-     * @param options.style - the style of units, must be "long", "short", or "narrow". Defaults to long.
-     * @param options.unit - use a specific unit or array of units; if omitted, or an array, the method will pick the best unit.
-     * Use an array or one of "years", "quarters", "months", "weeks", "days", "hours", "minutes", or "seconds"
-     * @param options.round - whether to round the numbers in the output. Defaults to true.
-     * @param options.padding - padding in milliseconds. This allows you to round up the result if it fits inside the threshold. Don't use in combination with {round: false}
-     * because the decimal output will include the padding. Defaults to 0.
-     * @param options.locale - override the locale of this DateTime
-     * @param options.numberingSystem - override the numberingSystem of this DateTime. The Intl system may choose not to honor this
+     * Returns a string representation of this time relative to now, such as "in two days".
+     * Can only internationalize if your platform supports Intl.RelativeTimeFormat.
+     * Rounds down by default.
      *
      * @example
      * DateTime.now().plus({ days: 1 }).toRelative() //=> "in 1 day"
@@ -1512,13 +1492,7 @@ export class DateTime {
 
     /**
      * Returns a string representation of this date relative to today, such as "yesterday" or "next month".
-     * Only internationalizes on platforms that supports Intl.RelativeTimeFormat.
-     *
-     * @param options - options that affect the output
-     * @param options.base - the DateTime to use as the basis to which this time is compared. Defaults to now.
-     * @param options.locale - override the locale of this DateTime
-     * @param options.unit - use a specific unit; if omitted, the method will pick the unit. Use one of "years", "quarters", "months", "weeks", or "days"
-     * @param options.numberingSystem - override the numberingSystem of this DateTime. The Intl system may choose not to honor this
+     * Only internationalizes on platforms that support Intl.RelativeTimeFormat.
      *
      * @example
      * DateTime.now().plus({ days: 1 }).toRelativeCalendar() //=> "tomorrow"
