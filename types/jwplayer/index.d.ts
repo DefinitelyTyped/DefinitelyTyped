@@ -500,6 +500,7 @@ declare namespace jwplayer {
         setVolume(volume: number): JWPlayer;
         skipAd(): void;
         stop(): JWPlayer;
+        stopCasting(): JWPlayer;
     }
 }
 
