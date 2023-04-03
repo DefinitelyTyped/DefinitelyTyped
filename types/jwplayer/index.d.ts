@@ -111,16 +111,19 @@ declare namespace jwplayer {
     }
 
     interface BufferParam {
-        newstate: string;
-        oldstate: string;
+        newstate: 'buffering';
+        oldstate: 'playing' | 'idle';
         reason: 'loading' | 'complete' | 'stalled' | 'error';
+        type: 'buffer';
     }
 
     interface BufferChangeParam {
         duration: number;
         bufferPercent: number;
         position: number;
-        metadata: any;
+        currentTime: number;
+        seekRange: SeekRange;
+        type: 'bufferChange';
     }
 
     interface AdTimeParam {
@@ -235,11 +238,13 @@ declare namespace jwplayer {
         };
         offset: number;
         position: number;
-        seekRange: {
-            end: number;
-            start: number;
-        };
+        seekRange: SeekRange;
         type: 'seek';
+    }
+
+    interface SeekRange {
+        end: number;
+        start: number;
     }
 
     interface TimeParam {
