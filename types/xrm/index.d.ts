@@ -2715,7 +2715,7 @@ declare namespace Xrm {
              * A collection of all the controls on the form that interface with this attribute.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            controls: Collection.ItemCollection<Controls.Control>;
+            controls: Collection.ItemCollection<Controls.StandardControl>;
 
             /**
              * Gets the value.
