@@ -201,15 +201,9 @@ export type PossibleDaysInMonth = 28 | 29 | 30 | 31;
 export type PossibleDaysInYear = 365 | 366;
 export type PossibleWeeksInYear = 52 | 53;
 
-export interface ToObjectOutput extends DateTimeJSOptions {
-    year: number;
-    month: number;
-    day: number;
-    hour: number;
-    minute: number;
-    second: number;
-    millisecond: number;
-}
+export type ToObjectOutput<IncludeConfig extends boolean | undefined = true> =
+    & Record<Exclude<DateTimeUnit, 'quarter' | 'week'>, number>
+    & (IncludeConfig extends true ? LocaleOptions : unknown);
 
 export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, 'unit'> {
     /**
@@ -1397,13 +1391,13 @@ export class DateTime {
      * @example
      * DateTime.now().toObject() //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268 }
      */
-    toObject(opts?: {
+    toObject<IncludeConfig extends boolean | undefined>(opts?: {
         /**
          * Include configuration attributes in the output
          * @defaultValue false
          */
-        includeConfig?: boolean | undefined;
-    }): ToObjectOutput;
+        includeConfig?: IncludeConfig;
+    }): ToObjectOutput<IncludeConfig>;
 
     /**
      * Returns a JavaScript Date equivalent to this DateTime.

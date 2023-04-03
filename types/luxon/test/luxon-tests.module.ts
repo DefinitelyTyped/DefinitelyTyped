@@ -137,8 +137,11 @@ dt.toSQLTime(); // $ExpectType string
 dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 dt.toSQLTime({ includeOffsetSpace: false, includeZone: true }); // $ExpectType string
 dt.valueOf(); // $ExpectType number
-dt.toObject(); // $ExpectType ToObjectOutput
-dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput
+dt.toObject(); // $ExpectType Record<"day" | "hour" | "minute" | "month" | "second" | "year" | "millisecond", number>
+// @ts-expect-error
+dt.toObject().locale;
+dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput<true>
+dt.toObject({ includeConfig: true }).locale; // $ExpectType string | undefined
 dt.toUnixInteger(); // $ExpectType number
 
 // $ExpectType string | null
