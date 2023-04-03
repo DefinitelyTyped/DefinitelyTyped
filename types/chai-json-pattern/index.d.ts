@@ -14,6 +14,15 @@ declare global {
     }
 }
 
-declare const chaiJsonPattern: Chai.ChaiPlugin;
-declare namespace chaiJsonPattern {}
+declare namespace ChaiJsonPattern {
+    interface Plugin {
+        [key: string]: (target: any) => void;
+    }
+
+    interface ChaiJsonPattern extends Chai.ChaiPlugin {
+        extend(plugin: Plugin): void;
+    }
+}
+
+declare const chaiJsonPattern: ChaiJsonPattern.ChaiJsonPattern;
 export = chaiJsonPattern;
