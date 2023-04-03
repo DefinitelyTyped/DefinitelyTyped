@@ -628,8 +628,8 @@ describe('url command demo', function() {
     });
 
     test('async demo test', async function(browser) {
-        const result = await browser.url(null);
-        isType<string | null>(result);
+        const result = await browser.url();
+        isType<string>(result);
     });
 
     after(browser => browser.end());
@@ -932,6 +932,65 @@ describe('elementActive command demo', function() {
     test('async demo test', async function(browser) {
         const result = await browser.elementActive();
         isType<string>(result);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .execute
+//
+describe('execute command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', async function(browser) {
+        const result1 = await browser.execute(function() {});
+        isType<null>(result1);
+
+        const result2 = await browser.execute(function() {return 'nightwatch'; });
+        isType<string>(result2);
+
+        // @ts-expect-error
+        await browser.execute(function(arg1: string) {return 'nightwatch'; });
+
+        await browser.execute(function(arg1: string) {return 'nightwatch'; }, ['js']);
+
+        // @ts-expect-error
+        await browser.execute(function(arg1: string) {return 'nightwatch'; }, [123]);
+
+        // @ts-expect-error
+        await browser.execute(function(arg1: string) {return 'nightwatch'; }, ['js', 123]);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .executeScript
+//
+describe('executeScript command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', async function(browser) {
+        const result1 = await browser.executeScript(function() {});
+        isType<null>(result1);
+
+        const result2 = await browser.executeScript(function() {return 'nightwatch'; });
+        isType<string>(result2);
+
+        const result3 = await browser.executeScript(function(arg1) {return arg1; }, ['nightwatch']);
+        isType<string>(result2);
+
+        // @ts-expect-error
+        await browser.executeScript(function(arg1: string) {return 'nightwatch'; });
+
+        await browser.executeScript(function(arg1: string) {return 'nightwatch'; }, ['js']);
+
+        // @ts-expect-error
+        await browser.executeScript(function(arg1: string) {return 'nightwatch'; }, [123]);
+
+        // @ts-expect-error
+        await browser.executeScript(function(arg1: string) {return 'nightwatch'; }, ['js', 123]);
     });
 
     after(browser => browser.end());

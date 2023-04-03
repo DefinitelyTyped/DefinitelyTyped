@@ -2084,6 +2084,10 @@ interface PendingTestFunction {
     (title: string, fn: NormalFunc | AsyncFunc): this;
 }
 
+// tslint:disable-next-line
+type VoidToNull<T> = T extends void? null : T;
+type ExecuteScriptFunction<ArgType extends any[], ReturnType> = (this: {[key: string]: any}, ...args: ArgType) => ReturnType;
+
 type NormalFunc = (this: DescribeInstance, browser: NightwatchBrowser) => void;
 type AsyncFunc = (this: DescribeInstance, browser: NightwatchBrowser) => PromiseLike<any>;
 interface TestFunction {
@@ -5785,7 +5789,7 @@ export interface WebDriverProtocolNavigation {
      * @see https://nightwatchjs.org/api/url.html
      */
     url(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
-    url(url: string | null, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void): Awaitable<this, string | null>;
+    url(url: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Navigate backwards in the browser history, if possible.
@@ -6397,7 +6401,7 @@ export interface WebDriverProtocolElementInteraction {
      *
      * @see https://nightwatchjs.org/api/keys.html#apimethod-container
      *
-     * @deprecated
+     * @deprecated Please use the [User Actions API](https://nightwatchjs.org/api/useractions/#overview) API instead
      */
     keys(
         keysToSend: string | string[],
@@ -6472,17 +6476,53 @@ export interface WebDriverProtocolDocumentHandling {
      *      // result.value === true
      *    });
      * }
+     *
+     * @see https://nightwatchjs.org/api/execute.html#apimethod-container
      */
-    execute<T = null>(
-        body: ((this: undefined, ...data: any[]) => T) | string,
-        args?: any[],
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
-    ): Awaitable<this, T>;
-    executeScript<T = null>(
-        body: ((this: undefined, ...data: any[]) => T) | string,
-        args?: any[],
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
-    ): Awaitable<this, T>;
+    execute<ReturnType = null>(
+        body: ExecuteScriptFunction<[], ReturnType> | string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<VoidToNull<ReturnType>>) => void,
+    ): Awaitable<this, VoidToNull<ReturnType>>;
+    execute<ArgType extends any[], ReturnType = null>(
+        body: ExecuteScriptFunction<ArgType, ReturnType> | string,
+        args: ArgType,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<VoidToNull<ReturnType>>) => void,
+    ): Awaitable<this, VoidToNull<ReturnType>>;
+
+    /**
+     * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. The executed script is assumed to be synchronous.
+     * The script argument defines the script to execute in the form of a function body. The value returned by that function will be returned to the client.
+     *
+     * The function will be invoked with the provided args array and the values may be accessed via the arguments object in the order specified.
+     *
+     * Under the hood, if the `body` param is a function it is converted to a string with `<function>.toString()`. Any references to your current scope are ignored.
+     *
+     * To ensure cross-browser compatibility, the specified function should not be in ES6 format (i.e. `() => {}`).
+     * If the execution of the function fails, the first argument of the callback contains error information.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser.executeScript(function(imageData) {
+     *      // resize operation
+     *      return true;
+     *    }, [imageData], function(result) {
+     *      // result.value === true
+     *    });
+     * }
+     *
+     * @see https://nightwatchjs.org/api/execute.html#apimethod-container
+     *
+     * @alias execute
+     */
+    executeScript<ReturnType = null>(
+        body: ExecuteScriptFunction<[], ReturnType> | string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<VoidToNull<ReturnType>>) => void,
+    ): Awaitable<this, VoidToNull<ReturnType>>;
+    executeScript<ArgType extends any[], ReturnType = null>(
+        body: ExecuteScriptFunction<ArgType, ReturnType> | string,
+        args: ArgType,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<VoidToNull<ReturnType>>) => void,
+    ): Awaitable<this, VoidToNull<ReturnType>>;
 
     /**
      *
@@ -6515,6 +6555,8 @@ export interface WebDriverProtocolDocumentHandling {
      *      // result.value === true
      *    });
      * }
+     *
+     * @see https://nightwatchjs.org/api/executeAsyncScript.html
      */
     executeAsyncScript<T>(
         script: string | ((this: undefined, ...data: any[]) => T) | string,
@@ -6548,6 +6590,10 @@ export interface WebDriverProtocolDocumentHandling {
      *      // result.value === true
      *    });
      * }
+     *
+     * @see https://nightwatchjs.org/api/executeAsyncScript.html
+     *
+     * @alias executeAsyncScript
      */
     executeAsync<T>(
         script: ((this: undefined, ...data: any[]) => any) | string,
