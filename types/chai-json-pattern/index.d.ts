@@ -25,4 +25,4 @@ declare namespace ChaiJsonPattern {
 }
 
 declare const chaiJsonPattern: ChaiJsonPattern.ChaiJsonPattern;
-export = chaiJsonPattern;
+export default chaiJsonPattern;

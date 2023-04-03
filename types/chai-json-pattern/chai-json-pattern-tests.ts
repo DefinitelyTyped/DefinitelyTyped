@@ -1,5 +1,5 @@
 import { expect, use } from 'chai';
-import chaiJsonPattern = require('chai-json-pattern');
+import chaiJsonPattern from 'chai-json-pattern';
 
 use(chaiJsonPattern);
 
