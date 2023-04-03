@@ -133,7 +133,8 @@ declare namespace jwplayer {
     }
 
     interface AudioTracksParam {
-        levels: any[];
+        currentTrack: number;
+        tracks: AudioTrack[];
     }
 
     interface CaptionsChangedParam {
@@ -259,6 +260,13 @@ declare namespace jwplayer {
         y: 0;
         width: number;
         height: number;
+    }
+
+    interface AudioTrack {
+        autoselect?: boolean;
+        defaulttrack?: boolean;
+        language: string;
+        name: string;
     }
 
     interface CaptionOptions {
@@ -410,7 +418,7 @@ declare namespace jwplayer {
         addCues(cues: SliderCue[]): JWPlayer;
         addPlugin(name: string, pluginInstance: any): void;
         getAdBlock(): boolean;
-        getAudioTracks(): any[];
+        getAudioTracks(): AudioTrack[];
         getBuffer(): number;
         getCaptionsList(): any[];
         getContainer(): HTMLElement;
@@ -478,7 +486,7 @@ declare namespace jwplayer {
         ): void;
         setup(options: any): JWPlayer;
         setVolume(volume: number): JWPlayer;
-        skipAd(): JWPlayer;
+        skipAd(): void;
         stop(): JWPlayer;
     }
 }
