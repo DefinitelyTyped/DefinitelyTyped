@@ -141,11 +141,18 @@ declare namespace jwplayer {
     }
 
     interface CaptionsChangedParam {
-        currentTrack: number;
+        tracks: Caption[];
+        track: number;
+        type: 'captionsChanged';
     }
 
     interface CaptionsListParam {
-        tracks: any[];
+        tracks: Caption[];
+    }
+
+    interface Caption {
+        id: number | string;
+        label: string;
     }
 
     interface AudioTrackChangedParam {
@@ -275,15 +282,15 @@ declare namespace jwplayer {
     }
 
     interface CaptionOptions {
-        color: string;
-        fontSize: number;
-        fontFamily: string;
-        fontOpacity: number;
-        backgroundColor: string;
-        backgroundOpacity: number;
-        edgeStyle: string;
-        windowColor: string;
-        windowOpacity: number;
+        color?: string;
+        fontSize?: number;
+        fontFamily?: string;
+        fontOpacity?: number;
+        backgroundColor?: string;
+        backgroundOpacity?: number;
+        edgeStyle?: 'none' | 'depressed' | 'dropshadow' | 'raised' | 'uniform';
+        windowColor?: string;
+        windowOpacity?: number;
     }
 
     interface Level {
@@ -425,7 +432,7 @@ declare namespace jwplayer {
         getAdBlock(): boolean;
         getAudioTracks(): AudioTrack[];
         getBuffer(): number;
-        getCaptionsList(): any[];
+        getCaptionsList(): Caption[];
         getContainer(): HTMLElement;
         getControls(): boolean;
         getCues(): SliderCue[];
@@ -476,7 +483,7 @@ declare namespace jwplayer {
         removePlaylistItemCallback(): void;
         resize(width: number | string, height: number): JWPlayer;
         seek(position: number): JWPlayer;
-        setCaptions(options: CaptionOptions): JWPlayer;
+        setCaptions(styles: CaptionOptions): JWPlayer;
         setControls(controls: boolean): void;
         setCues(cues: SliderCue[]): JWPlayer;
         setCurrentAudioTrack(index: number): void;
