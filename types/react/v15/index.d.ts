@@ -2673,7 +2673,6 @@ declare namespace React {
         classID?: string | undefined;
         cols?: number | undefined;
         colSpan?: number | undefined;
-        content?: string | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
@@ -2729,7 +2728,6 @@ declare namespace React {
         poster?: string | undefined;
         preload?: string | undefined;
         readOnly?: boolean | undefined;
-        rel?: string | undefined;
         required?: boolean | undefined;
         reversed?: boolean | undefined;
         rows?: number | undefined;
@@ -2765,7 +2763,6 @@ declare namespace React {
         href?: string | undefined;
         hrefLang?: string | undefined;
         media?: string | undefined;
-        rel?: string | undefined;
         target?: string | undefined;
     }
 
@@ -2778,7 +2775,6 @@ declare namespace React {
         href?: string | undefined;
         hrefLang?: string | undefined;
         media?: string | undefined;
-        rel?: string | undefined;
         shape?: string | undefined;
         target?: string | undefined;
     }
@@ -2853,7 +2849,6 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
-        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2954,7 +2949,6 @@ declare namespace React {
         integrity?: string | undefined;
         imageSrcSet?: string | undefined;
         media?: string | undefined;
-        rel?: string | undefined;
         sizes?: string | undefined;
         type?: string | undefined;
     }
@@ -2981,7 +2975,6 @@ declare namespace React {
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
-        content?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
         media?: string | undefined;
