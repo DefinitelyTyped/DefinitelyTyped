@@ -23,9 +23,9 @@ export class Settings {
     /**
      * The default time zone object currently used to create DateTimes. Does not affect existing instances.
      * The default value is the system's time zone (the one set on the machine that runs this code).
-     * Getting this property always returns a Zone object.
      */
-    static defaultZone: Zone | string;
+    static get defaultZone(): Zone;
+    static set defaultZone(zone: Zone | string);
 
     /**
      * The default locale to create DateTimes with. Does not affect existing instances.
