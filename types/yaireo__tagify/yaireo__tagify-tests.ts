@@ -90,6 +90,8 @@ const settings: TagifySettings = {
             // @ts-expect-error
             event.detail.inputElm;
             // @ts-expect-error
+            event.detail.isValid;
+            // @ts-expect-error
             event.detail.value;
             // $ExpectType HTMLInputElement | HTMLTextAreaElement
             (event.detail as InputEventDataNormal).inputElm;
@@ -103,6 +105,8 @@ const settings: TagifySettings = {
             } else {
                 // $ExpectType HTMLInputElement | HTMLTextAreaElement
                 event.detail.inputElm;
+                // $ExpectType string | boolean
+                event.detail.isValid;
                 // $ExpectType string
                 event.detail.value;
             }
@@ -590,6 +594,8 @@ tagify.on('input', (event) => {
     // @ts-expect-error
     event.detail.inputElm;
     // @ts-expect-error
+    event.detail.isValid;
+    // @ts-expect-error
     event.detail.value;
     // $ExpectType HTMLInputElement | HTMLTextAreaElement
     (event.detail as InputEventDataNormal).inputElm;
@@ -603,6 +609,8 @@ tagify.on('input', (event) => {
     } else {
         // $ExpectType HTMLInputElement | HTMLTextAreaElement
         event.detail.inputElm;
+        // $ExpectType string | boolean
+        event.detail.isValid;
         // $ExpectType string
         event.detail.value;
     }
@@ -782,6 +790,8 @@ tagify.off('input', (event) => {
     // @ts-expect-error
     event.detail.inputElm;
     // @ts-expect-error
+    event.detail.isValid;
+    // @ts-expect-error
     event.detail.value;
     // $ExpectType HTMLInputElement | HTMLTextAreaElement
     (event.detail as InputEventDataNormal).inputElm;
@@ -795,6 +805,8 @@ tagify.off('input', (event) => {
     } else {
         // $ExpectType HTMLInputElement | HTMLTextAreaElement
         event.detail.inputElm;
+        // $ExpectType string | boolean
+        event.detail.isValid;
         // $ExpectType string
         event.detail.value;
     }

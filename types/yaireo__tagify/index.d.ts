@@ -46,7 +46,7 @@ declare namespace Tagify {
      * Settings for the autocomplete feature that can be configured via the
      * `autocomplete` option of the settings that are passed to tagify.
      */
-    interface AutoCompleteSettings extends Partial<AutoCompleteRuntimeSettings> {}
+    interface AutoCompleteSettings extends Partial<AutoCompleteRuntimeSettings> { }
 
     /**
      * Settings for the dropdown feature at runtime.
@@ -169,7 +169,7 @@ declare namespace Tagify {
      * `dropdown` option of the settings that are passed to tagify.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface DropDownSettings<T extends BaseTagData = TagData> extends Partial<DropDownRuntimeSettings<T>> {}
+    interface DropDownSettings<T extends BaseTagData = TagData> extends Partial<DropDownRuntimeSettings<T>> { }
 
     /**
      * Options for the mix mode feature at runtime.
@@ -186,7 +186,7 @@ declare namespace Tagify {
      * Options for the mix mode feature that can be activated via the `mode`
      * option of the settings that are passed to tagify.
      */
-    interface MixModeSettings extends Partial<MixModeRuntimeSettings> {}
+    interface MixModeSettings extends Partial<MixModeRuntimeSettings> { }
 
     /**
      * Options related to accessibility at runtime.
@@ -202,7 +202,7 @@ declare namespace Tagify {
     /**
      * Options related to accessibility.
      */
-    interface A11ySettings extends Partial<A11yRuntimeSettings> {}
+    interface A11ySettings extends Partial<A11yRuntimeSettings> { }
 
     /**
      * Options for the edit tags feature at runtime.
@@ -227,7 +227,7 @@ declare namespace Tagify {
      * Options for the edit tags feature that can be activated via the
      * `editTags` option of the settings that are passed to tagify.
      */
-    interface EditTagsSettings extends Partial<EditTagsRuntimeSettings> {}
+    interface EditTagsSettings extends Partial<EditTagsRuntimeSettings> { }
 
     /**
      * Messages for reasons if tag validation fails.
@@ -417,7 +417,7 @@ declare namespace Tagify {
      * Optional class names that can be used to add additional class names to
      * the corresponding DOM elements.
      */
-    interface ClassNameSettings extends Partial<ClassNameRuntimeSettings> {}
+    interface ClassNameSettings extends Partial<ClassNameRuntimeSettings> { }
 
     /**
      * Render functions for the template feature at runtime.
@@ -527,7 +527,7 @@ declare namespace Tagify {
      * `templates` option of the settings that are passed to tagify.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface Templates<T extends BaseTagData = TagData> extends Partial<TemplatesRuntime<T>> {}
+    interface Templates<T extends BaseTagData = TagData> extends Partial<TemplatesRuntime<T>> { }
 
     /**
      * Data passed with suggestionClick hook {@link Hooks.suggestionClick}.
@@ -612,7 +612,7 @@ declare namespace Tagify {
          * @return Promise with optional string value. If the promise resolves with a string value,
          * this value gets added to Tagify. Without any value, the original paste value gets added.
          */
-        beforePaste: ((event: ClipboardEvent, data: BeforePasteData<T>) => Promise<string|undefined>);
+        beforePaste: ((event: ClipboardEvent, data: BeforePasteData<T>) => Promise<string | undefined>);
     }
 
     /**
@@ -624,7 +624,7 @@ declare namespace Tagify {
      * See also the `hooks` option of the settings that are passed to tagify.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface Hooks<T extends BaseTagData = TagData> extends Partial<HooksRuntime<T>> {}
+    interface Hooks<T extends BaseTagData = TagData> extends Partial<HooksRuntime<T>> { }
 
     /**
      * Settings that are available after the tagify instance was created.
@@ -973,7 +973,7 @@ declare namespace Tagify {
      * @deprecated Just use {@link TagifySettings}.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface TagifyConstructorSettings<T extends BaseTagData = TagData> extends TagifySettings<T> {}
+    interface TagifyConstructorSettings<T extends BaseTagData = TagData> extends TagifySettings<T> { }
 
     /**
      * Generic tag format that requires only a value and allows other
@@ -1207,7 +1207,23 @@ declare namespace Tagify {
      * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface InputEventDataNormal<T extends BaseTagData = TagData> extends EventData<T> {
+        /**
+         * The input or textarea element with the tagify widget.
+         */
         inputElm: HTMLInputElement | HTMLTextAreaElement;
+        /**
+         * "true" if validation has passed, a string with the validation error
+         * when validation has failed. The validation error is either one of the
+         * built-in error codes or the value as returned by the custom
+         * {@link TagifySettings.validate} function. The built-in error codes
+         * are currently as follows:
+         * - "not allowed"
+         * - "already exists"
+         * - "pattern mismatch"
+         * - "number of tags exceeded"
+         * - "empty"
+         */
+        isValid: boolean | string;
         value: string;
     }
 
