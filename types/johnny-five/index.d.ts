@@ -1,4 +1,4 @@
-// Type definitions for johnny-five 2.1.0
+// Type definitions for johnny-five 2.1
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Simon Colmer <https://github.com/workshop2>
@@ -772,6 +772,7 @@ export interface PinOption {
     id?: number | string | undefined;
     pin: number | string;
     type?: string | undefined;
+    board?: Board | undefined;
 }
 
 export interface PinState {
