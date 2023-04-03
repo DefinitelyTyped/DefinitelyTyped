@@ -10546,8 +10546,16 @@ declare namespace chrome.webNavigation {
     export interface GetFrameResultDetails {
         /** The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that an URL is associated with a given frameId does not imply that the corresponding frame still exists. */
         url: string;
+        /** A UUID of the document loaded. */
+        documentId: string;
+        /** The lifecycle the document is in. */
+        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
         /** True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired. */
         errorOccurred: boolean;
+        /** The type of frame the navigation occurred in. */
+        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
+        parentDocumentId?: string | undefined;
         /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
         parentFrameId: number;
     }
@@ -10583,6 +10591,14 @@ declare namespace chrome.webNavigation {
     export interface WebNavigationFramedCallbackDetails extends WebNavigationUrlCallbackDetails {
         /** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process. */
         frameId: number;
+        /** The type of frame the navigation occurred in. */
+        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        /** A UUID of the document loaded. (This is not set for onBeforeNavigate callbacks.) */
+        documentId?: string | undefined;
+        /** The lifecycle the document is in. */
+        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
+        parentDocumentId?: string | undefined;
         /**
          * The ID of the process runs the renderer for this tab.
          * @since Chrome 22.
