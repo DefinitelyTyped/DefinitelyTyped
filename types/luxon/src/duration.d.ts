@@ -43,12 +43,12 @@ export interface ToISOTimeDurationOptions {
      */
     includePrefix?: boolean | undefined;
     /**
-     * Exclude milliseconds from the format if they're 0
+     * Exclude milliseconds from the format if they are 0
      * @default false
      */
     suppressMilliseconds?: boolean | undefined;
     /**
-     * Exclude seconds from the format if they're 0
+     * Exclude seconds from the format if they are 0
      * @default false
      */
     suppressSeconds?: boolean | undefined;
@@ -77,7 +77,7 @@ export type DurationLike = Duration | DurationLikeObject | number;
 
 /**
  * A Duration object represents a period of time, like "2 months" or "1 day, 1 hour".
- * Conceptually, it's just a map of units to their quantities, accompanied by some additional configuration and methods for creating, parsing, interrogating, transforming, and formatting them.
+ * Conceptually, it is just a map of units to their quantities, accompanied by some additional configuration and methods for creating, parsing, interrogating, transforming, and formatting them.
  * They can be used on their own or in conjunction with other Luxon types; for example, you can use {@link DateTime.plus} to add a Duration object to a DateTime, producing another DateTime.
  *
  * Here is a brief overview of commonly used methods and getters in Duration:
@@ -193,12 +193,12 @@ export class Duration {
     private constructor(config: unknown);
 
     /**
-     * Get  the locale of a Duration, such 'en-GB'
+     * Get the locale of a Duration, such as 'en-GB'
      */
     get locale(): string;
 
     /**
-     * Get the numbering system of a Duration, such 'beng'. The numbering system is used when formatting the Duration
+     * Get the numbering system of a Duration, such as 'beng'. The numbering system is used when formatting the Duration
      */
     get numberingSystem(): string;
 
@@ -213,7 +213,7 @@ export class Duration {
      * * `y` for years
      * Notes:
      * * Add padding by repeating the token, e.g. "yy" pads the years to two digits, "hhhh" pads the hours out to four digits
-     * * The duration will be converted to the set of units in the format string using {@link Duration.shiftTo} and the Durations's conversion accuracy setting.
+     * * The duration will be converted to the set of units in the format string using {@link Duration.shiftTo} and the Duration's conversion accuracy setting.
      *
      * @param fmt - the format string
      * @param opts - options
@@ -231,7 +231,7 @@ export class Duration {
     /**
      * Returns a string representation of a Duration with all units included
      * To modify its behavior use the `listStyle` and any Intl.NumberFormat option, though `unitDisplay` is especially relevant. See {@link Intl.NumberFormat}.
-     * @param opts - On option object to override the formatting. Accepts the same keys as the options parameter of the native `Int.NumberFormat` constructor, as well as `listStyle`.
+     *
      * @example
      * ```js
      * var dur = Duration.fromObject({ days: 1, hours: 5, minutes: 6 })
@@ -272,7 +272,7 @@ export class Duration {
      * @see https://en.wikipedia.org/wiki/ISO_8601#Times
      *
      * @param opts - options
-     * @param opts.suppressMilliseconds - exclude milliseconds from the format if they're 0. Defaults to false.
+     * @param opts.suppressMilliseconds - exclude milliseconds from the format if they are 0. Defaults to false.
      * @param opts.suppressSeconds - exclude seconds from the format if they're 0. Defaults to false.
      * @param opts.includePrefix - include the `T` prefix. Defaults to false.
      * @param opts.format - choose between the basic and extended format. Defaults to 'extended'.
@@ -301,12 +301,12 @@ export class Duration {
     toString(): string;
 
     /**
-     * Returns an milliseconds value of this Duration.
+     * Returns a millisecond value of this Duration.
      */
     toMillis(): number;
 
     /**
-     * Returns an milliseconds value of this Duration. Alias of {@link toMillis}
+     * Returns a millisecond value of this Duration. Alias of {@link toMillis}
      */
     valueOf(): number;
 
@@ -468,8 +468,8 @@ export class Duration {
     get milliseconds(): number;
 
     /**
-     * Returns whether the Duration is invalid. Invalid durations are returned by diff operations
-     * on invalid DateTimes or Intervals.
+     * Returns whether the Duration is invalid.
+     * Diff operations on invalid DateTimes or Intervals return invalid Durations.
      */
     get isValid(): boolean;
 
@@ -486,8 +486,6 @@ export class Duration {
     /**
      * Equality check
      * Two Durations are equal iff they have the same units and the same values for each unit.
-     *
-     * @param other
      */
     equals(other: Duration): boolean;
 }
