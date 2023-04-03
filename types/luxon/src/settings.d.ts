@@ -28,44 +28,24 @@ export class Settings {
     static defaultZone: Zone | string;
 
     /**
-     * Get the default locale to create DateTimes with. Does not affect existing instances.
+     * The default locale to create DateTimes with. Does not affect existing instances.
      */
-    static get defaultLocale(): string;
+    static defaultLocale: string;
 
     /**
-     * Set the default locale to create DateTimes with. Does not affect existing instances.
+     * The default numbering system to create DateTimes with. Does not affect existing instances.
      */
-    static set defaultLocale(locale: string);
+    static defaultNumberingSystem: string;
 
     /**
-     * Get the default numbering system to create DateTimes with. Does not affect existing instances.
+     * The default output calendar to create DateTimes with. Does not affect existing instances.
      */
-    static get defaultNumberingSystem(): string;
+    static defaultOutputCalendar: string;
 
     /**
-     * Set the default numbering system to create DateTimes with. Does not affect existing instances.
+     * Whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
      */
-    static set defaultNumberingSystem(numberingSystem: string);
-
-    /**
-     * Get the default output calendar to create DateTimes with. Does not affect existing instances.
-     */
-    static get defaultOutputCalendar(): string;
-
-    /**
-     * Set the default output calendar to create DateTimes with. Does not affect existing instances.
-     */
-    static set defaultOutputCalendar(outputCalendar: string);
-
-    /**
-     * Get whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
-     */
-    static get throwOnInvalid(): boolean;
-
-    /**
-     * Set whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
-     */
-    static set throwOnInvalid(t: boolean);
+    static throwOnInvalid: boolean;
 
     /**
      * Reset Luxon's global caches. Should only be necessary in testing scenarios.
