@@ -1,5 +1,6 @@
 import { DateObjectUnits, DateTime, DateTimeOptions, DiffOptions, LocaleOptions, ToISOTimeOptions } from './datetime';
 import { Duration, DurationLike, DurationUnit } from './duration';
+import { IfInvalid } from './_util';
 
 export interface IntervalObject {
     start?: DateTime | undefined;
@@ -80,12 +81,12 @@ export class Interval {
     /**
      * Returns the start of the Interval
      */
-    get start(): DateTime;
+    get start(): DateTime | IfInvalid<null>;
 
     /**
      * Returns the end of the Interval
      */
-    get end(): DateTime;
+    get end(): DateTime | IfInvalid<null>;
 
     /**
      * Returns whether this Interval's end is at least its start, meaning that the Interval isn't 'backwards'.
@@ -107,7 +108,7 @@ export class Interval {
      *
      * @param unit - the unit (such as 'hours' or 'days') to return the length in.
      */
-    length(unit?: DurationUnit): number;
+    length(unit?: DurationUnit): number | IfInvalid<typeof NaN>;
 
     /**
      * Returns the count of minutes, hours, days, months, or years included in the Interval, even in part.
@@ -116,14 +117,14 @@ export class Interval {
      *
      * @param unit - the unit of time to count. Defaults to 'milliseconds'.
      */
-    count(unit?: DurationUnit): number;
+    count(unit?: DurationUnit): number | IfInvalid<typeof NaN>;
 
     /**
      * Returns whether this Interval's start and end are both in the same unit of time
      *
      * @param unit - the unit of time to check sameness on
      */
-    hasSame(unit: DurationUnit): boolean;
+    hasSame(unit: DurationUnit): boolean | IfInvalid<false>;
 
     /**
      * Return whether this Interval has the same start and end DateTimes.
@@ -135,21 +136,21 @@ export class Interval {
      *
      * @param dateTime
      */
-    isAfter(dateTime: DateTime): boolean;
+    isAfter(dateTime: DateTime): boolean | IfInvalid<false>;
 
     /**
      * Return whether this Interval's end is before the specified DateTime.
      *
      * @param dateTime
      */
-    isBefore(dateTime: DateTime): boolean;
+    isBefore(dateTime: DateTime): boolean | IfInvalid<false>;
 
     /**
      * Return whether this Interval contains the specified DateTime.
      *
      * @param dateTime
      */
-    contains(dateTime: DateTime): boolean;
+    contains(dateTime: DateTime): boolean | IfInvalid<false>;
 
     /**
      * "Sets" the start and/or end dates. Returns a newly-constructed Interval.
@@ -165,7 +166,7 @@ export class Interval {
      *
      * @param dateTimes - the unit of time to count.
      */
-    splitAt(...dateTimes: DateTime[]): Interval[];
+    splitAt(...dateTimes: DateTime[]): Interval[] | IfInvalid<[]>;
 
     /**
      * Split this Interval into smaller Intervals, each of the specified length.
@@ -173,14 +174,14 @@ export class Interval {
      *
      * @param duration - The length of each resulting interval.
      */
-    splitBy(duration: DurationLike): Interval[];
+    splitBy(duration: DurationLike): Interval[] | IfInvalid<[]>;
 
     /**
      * Split this Interval into the specified number of smaller intervals.
      *
      * @param numberOfParts - The number of Intervals to divide the Interval into.
      */
-    divideEqually(numberOfParts: number): Interval[];
+    divideEqually(numberOfParts: number): Interval[] | IfInvalid<[]>;
 
     /**
      * Return whether this Interval overlaps with the specified Interval
@@ -190,22 +191,22 @@ export class Interval {
     /**
      * Return whether this Interval's end is adjacent to the specified Interval's start.
      */
-    abutsStart(other: Interval): boolean;
+    abutsStart(other: Interval): boolean | IfInvalid<false>;
 
     /**
      * Return whether this Interval's start is adjacent to the specified Interval's end.
      */
-    abutsEnd(other: Interval): boolean;
+    abutsEnd(other: Interval): boolean | IfInvalid<false>;
 
     /**
      * Return whether this Interval engulfs the start and end of the specified Interval.
      */
-    engulfs(other: Interval): boolean;
+    engulfs(other: Interval): boolean | IfInvalid<false>;
 
     /**
      * Return whether this Interval has the same start and end as the specified Interval.
      */
-    equals(other: Interval): boolean;
+    equals(other: Interval): boolean | IfInvalid<false>;
 
     /**
      * Return an Interval representing the intersection of this Interval and the specified Interval.
@@ -221,7 +222,7 @@ export class Interval {
     union(other: Interval): Interval;
 
     /**
-     * Merge an array of Intervals into a equivalent minimal set of Intervals.
+     * Merge an array of Intervals into an equivalent minimal set of Intervals.
      * Combines overlapping and adjacent Intervals.
      */
     static merge(intervals: Interval[]): Interval[];
@@ -239,7 +240,7 @@ export class Interval {
     /**
      * Returns a string representation of this Interval appropriate for debugging.
      */
-    toString(): string;
+    toString(): string | IfInvalid<'Invalid Interval'>;
 
     /**
      * Returns a localized string representing this Interval. Accepts the same options as the
@@ -269,7 +270,7 @@ export class Interval {
      *   minute: "2-digit",
      * }); //=> Mon, Nov 07, 6:00 – 8:00 p
      */
-    toLocaleString(formatOpts?: Intl.DateTimeFormatOptions, opts?: LocaleOptions): string;
+    toLocaleString(formatOpts?: Intl.DateTimeFormatOptions, opts?: LocaleOptions): string | IfInvalid<'Invalid Interval'>;
 
     /**
      * Returns an ISO 8601-compliant string representation of this Interval.
@@ -277,14 +278,14 @@ export class Interval {
      *
      * @param opts - The same options as {@link DateTime#toISO}
      */
-    toISO(opts?: ToISOTimeOptions): string;
+    toISO(opts?: ToISOTimeOptions): string | IfInvalid<'Invalid Interval'>;
 
     /**
      * Returns an ISO 8601-compliant string representation of the dates in this Interval.
      * The time components are ignored.
      * @see https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
      */
-    toISODate(): string;
+    toISODate(): string | IfInvalid<'Invalid Interval'>;
 
     /**
      * Returns an ISO 8601-compliant string representation of the times in this Interval.
@@ -293,7 +294,7 @@ export class Interval {
      *
      * @param opts - The same options as {@link DateTime.toISO}
      */
-    toISOTime(opts?: ToISOTimeOptions): string;
+    toISOTime(opts?: ToISOTimeOptions): string | IfInvalid<'Invalid Interval'>;
 
     /**
      * Returns a string representation of this Interval formatted according to the specified format string.
@@ -307,7 +308,7 @@ export class Interval {
         opts?: {
             separator?: string | undefined;
         },
-    ): string;
+    ): string | IfInvalid<'Invalid Interval'>;
 
     /**
      * Return a Duration representing the time spanned by this interval.
