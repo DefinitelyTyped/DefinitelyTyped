@@ -42,11 +42,12 @@ You may need to add a `types` reference if you're not using modules:
 See more in the [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
 For an npm package "foo", typings for it will be at "@types/foo".
-If you can't find your package, look for it on [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
-If you still can't find it, check if it [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own typings.
-This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
-or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
+If your package has typings specified using the ``types`` or ``typings`` key in its ``package.json``, the npm registry will display that the package has available bindings like so:
+
+![image](https://user-images.githubusercontent.com/30049719/228748963-56fabfd1-9101-42c2-9891-b586b775b01e.png)
+
+If you still can't find the typings, just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
 ### Support Window
 
