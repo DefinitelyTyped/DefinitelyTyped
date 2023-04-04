@@ -1,6 +1,7 @@
 // Type definitions for max-api 2.0
 // Project: https://docs.cycling74.com/nodeformax/api/index.html
 // Definitions by: Geof Holbrook <https://github.com/geofholbrook>
+//                 Florian Demmer <https://github.com/fde31>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
