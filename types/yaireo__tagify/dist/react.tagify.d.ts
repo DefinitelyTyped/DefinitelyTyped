@@ -400,8 +400,7 @@ declare namespace Tags {
      * {@link BaseTagData},specify the allowed properties and use that as the
      * type parameter.
      */
-    interface TagifyMixedTagsReactProps<T extends BaseTagData = TagData> extends TagifyBaseReactProps<T> {
-    }
+    interface TagifyMixedTagsReactProps<T extends BaseTagData = TagData> extends TagifyBaseReactProps<T> {}
 
     /**
      * React wrapper component that renders a tagify editor in mixed-mode. This
