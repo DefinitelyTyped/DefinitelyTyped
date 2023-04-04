@@ -55,7 +55,7 @@ export interface RegionsPluginParams extends PluginParams {
 export class Region extends Observer {
     constructor(params: RegionParams, regionsUtil: WaveSurfer['util'], ws: WaveSurfer);
 
-    bindRagEvents(): void;
+    bindDragEvents(): void;
     bindEvents(): void;
     bindInOut(): void;
     formatTime(start: number, end: number): string;
