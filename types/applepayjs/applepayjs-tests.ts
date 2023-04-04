@@ -40,6 +40,277 @@ describe("ApplePaySession", () => {
 
         const session = new ApplePaySession(version, paymentRequest);
     });
+    it("can create a new instance with a recurring payment", () => {
+        const version = 14;
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+            "countryCode": "US",
+            "currencyCode": "USD",
+            "merchantCapabilities": [
+                "supports3DS",
+                "supportsDebit",
+                "supportsCredit"
+            ],
+            "supportedNetworks": [
+                "visa",
+                "masterCard",
+                "amex",
+                "discover"
+            ],
+            "lineItems": [
+                {
+                    "label": "7 Day Trial",
+                    "amount": "0.00",
+                    "paymentTiming": "recurring",
+                    "recurringPaymentEndDate": "2023-04-11T18:02:42.722Z"
+                },
+                {
+                    "label": "Recurring",
+                    "amount": "4.99",
+                    "paymentTiming": "recurring",
+                    "recurringPaymentStartDate": "2023-04-11T18:02:42.722Z"
+                }
+            ],
+            "recurringPaymentRequest": {
+                "paymentDescription": "A description of the recurring payment to display to the user in the payment sheet.",
+                "regularBilling": {
+                    "label": "Recurring",
+                    "amount": "4.99",
+                    "paymentTiming": "recurring",
+                    "recurringPaymentStartDate": "2023-04-11T18:02:42.722Z"
+                },
+                "trialBilling": {
+                    "label": "7 Day Trial",
+                    "amount": "0.00",
+                    "paymentTiming": "recurring",
+                    "recurringPaymentEndDate": "2023-04-11T18:02:42.722Z"
+                },
+                "billingAgreement": "A localized billing agreement displayed to the user in the payment sheet prior to the payment authorization.",
+                "managementURL": "https://applepaydemo.apple.com",
+                "tokenNotificationURL": "https://applepaydemo.apple.com"
+            },
+            "total": {
+                "label": "Recurring Demo (Card is not charged)",
+                "amount": "4.99"
+            }
+        }
+
+        const session = new ApplePaySession(version, paymentRequest);
+    });
+
+    it("can create a new instance with a multi merchant payment request", () => {
+        const version = 14;
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+            "countryCode": "US",
+            "currencyCode": "USD",
+            "merchantCapabilities": [
+                "supports3DS",
+                "supportsDebit",
+                "supportsCredit"
+            ],
+            "supportedNetworks": [
+                "visa",
+                "masterCard",
+                "amex",
+                "discover"
+            ],
+            "lineItems": [
+                {
+                    "label": "Hotel: Ocean View Suite",
+                    "amount": "2.00"
+                },
+                {
+                    "label": "Flight: LAX-SFO",
+                    "amount": "3.00"
+                },
+                {
+                    "label": "Tax",
+                    "amount": "1.00"
+                }
+            ],
+            "multiTokenContexts": [
+                {
+                    "merchantIdentifier": "merchant.com.apdemo",
+                    "externalIdentifier": "hotel-apple-blossom",
+                    "merchantName": "Apple Pay Demo - Hotel",
+                    "amount": "2.50"
+                },
+                {
+                    "merchantIdentifier": "merchant.com.apdemo",
+                    "externalIdentifier": "airline-apple-air",
+                    "merchantName": "Apple Pay Demo - Airline",
+                    "merchantDomain": "https://applepay.airline.example.com",
+                    "amount": "3.50"
+                }
+            ],
+            "total": {
+                "label": "Multi-Merchant Demo (Card is not charged)",
+                "amount": "6.00"
+            }
+        }
+        const session = new ApplePaySession(version, paymentRequest);
+    })
+    it("can create a new instance with an automatic reload payment request", () => { 
+        const version = 14;
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+            "countryCode": "US",
+            "currencyCode": "USD",
+            "merchantCapabilities": [
+                "supports3DS",
+                "supportsDebit",
+                "supportsCredit"
+            ],
+            "supportedNetworks": [
+                "visa",
+                "masterCard",
+                "amex",
+                "discover"
+            ],
+            "lineItems": [
+                {
+                    "label": "Automatic Reload",
+                    "amount": "15.00",
+                    "paymentTiming": "automaticReload",
+                    "automaticReloadPaymentThresholdAmount": "5.00"
+                }
+            ],
+            "automaticReloadPaymentRequest": {
+                "paymentDescription": "A description of the automatic reload that you provide and that appears in the payment sheet.",
+                "automaticReloadBilling": {
+                    "label": "Automatic Reload",
+                    "amount": "15.00",
+                    "paymentTiming": "automaticReload",
+                    "automaticReloadPaymentThresholdAmount": "5.00"
+                },
+                "billingAgreement": "A localized billing agreement that the app displays to the user in the payment sheet.",
+                "managementURL": "https://applepaydemo.apple.com",
+                "tokenNotificationURL": "https://applepaydemo.apple.com"
+            },
+            "total": {
+                "label": "Automatic Reload Demo (Card is not charged)",
+                "amount": "15.00"
+            }
+        }
+        const session = new ApplePaySession(version, paymentRequest);
+    })
+    it("can create a new instance with a deferred payment request", () => {
+        const version = 14;
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+            "countryCode": "US",
+            "currencyCode": "USD",
+            "merchantCapabilities": [
+                "supports3DS",
+                "supportsDebit",
+                "supportsCredit"
+            ],
+            "supportedNetworks": [
+                "visa",
+                "masterCard",
+                "amex",
+                "discover"
+            ],
+            "lineItems": [
+                {
+                    "label": "Pay for Later",
+                    "amount": "1.99",
+                    "paymentTiming": "deferred",
+                    "deferredPaymentDate": "2023-04-11T18:02:42.722Z"
+                }
+            ],
+            "total": {
+                "label": "Deferred Demo (Card is not charged)",
+                "amount": "1.99"
+            }
+        }
+        const session = new ApplePaySession(version, paymentRequest);
+    })
+    it("can create a new instance with a deferred payment request with a deferred billing agreement", () => {
+        const version = 14;
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+            "countryCode": "US",
+            "currencyCode": "USD",
+            "merchantCapabilities": [
+                "supports3DS",
+                "supportsDebit",
+                "supportsCredit"
+            ],
+            "shippingMethods": [
+                {
+                    "label": "Free Standard Shipping",
+                    "amount": "0.00",
+                    "detail": "Arrives in 5-7 days",
+                    "identifier": "standardShipping",
+                    "dateComponentsRange": {
+                        "startDateComponents": {
+                            "years": 2023,
+                            "months": 4,
+                            "days": 9,
+                            "hours": 0
+                        },
+                        "endDateComponents": {
+                            "years": 2023,
+                            "months": 4,
+                            "days": 11,
+                            "hours": 0
+                        }
+                    }
+                },
+                {
+                    "label": "Express Shipping",
+                    "amount": "1.00",
+                    "detail": "Arrives in 2-3 days",
+                    "identifier": "expressShipping",
+                    "dateComponentsRange": {
+                        "startDateComponents": {
+                            "years": 2023,
+                            "months": 4,
+                            "days": 6,
+                            "hours": 0
+                        },
+                        "endDateComponents": {
+                            "years": 2023,
+                            "months": 4,
+                            "days": 7,
+                            "hours": 0
+                        }
+                    }
+                }
+            ],
+            "shippingType": "shipping",
+            "supportedNetworks": [
+                "visa",
+                "masterCard",
+                "amex",
+                "discover"
+            ],
+            "requiredBillingContactFields": [
+                "postalAddress",
+                "name",
+                "phoneticName"
+            ],
+            "requiredShippingContactFields": [
+                "postalAddress",
+                "name",
+                "phone",
+                "email"
+            ],
+            "lineItems": [
+                {
+                    "label": "Sales Tax",
+                    "amount": "0.00"
+                },
+                {
+                    "label": "Shipping",
+                    "amount": "0.00"
+                }
+            ],
+            "total": {
+                "label": "Demo (Card is not charged)",
+                "amount": "1.99",
+                "type": "final"
+            }
+        }
+        const session = new ApplePaySession(version, paymentRequest);
+    })
     it("can call static methods", () => {
         const merchantIdentifier = "MyMerchantId";
 
