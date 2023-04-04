@@ -167,7 +167,14 @@ const waveSurferWithRegionsPlugin = WaveSurfer.create({
 waveSurferWithRegionsPlugin.regions.maxRegions;
 const regionOptions: RegionParams = { start: 7, end: 13, data: { label: 'Hello, World!', fontSize: 99 } };
 const region: Region = waveSurferWithRegionsPlugin.addRegion(regionOptions);
-region.update({ start: 13, end: 23, data: { label: 'Bye, World!', fontSize: 24 } });
+waveSurferWithRegionsPlugin.on('region-updated', (region, eventParams) => {
+    eventParams.action;
+    eventParams.direction;
+    eventParams.oldText;
+    eventParams.text;
+});
+region.bindDragEvents();
+region.update({ start: 13, end: 23, data: { text: "Hello", label: 'Bye, World!', fontSize: 24 } });
 waveSurferWithRegionsPlugin.regions.destroy();
 
 // - plugin: spectrogram
