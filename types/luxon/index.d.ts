@@ -1,4 +1,4 @@
-// Type definitions for luxon 3.2
+// Type definitions for luxon 3.3
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Hyeonseok Yang <https://github.com/FourwingsY>
 //                 Jonathan Siebern <https://github.com/jsiebern>
