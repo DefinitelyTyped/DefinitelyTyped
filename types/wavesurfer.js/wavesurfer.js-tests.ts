@@ -167,6 +167,8 @@ const waveSurferWithRegionsPlugin = WaveSurfer.create({
 waveSurferWithRegionsPlugin.regions.maxRegions;
 const regionOptions: RegionParams = { start: 7, end: 13, data: { label: 'Hello, World!', fontSize: 99 } };
 const region: Region = waveSurferWithRegionsPlugin.addRegion(regionOptions);
+waveSurferWithRegionsPlugin.util.getId();
+waveSurferWithRegionsPlugin.util.getId('foo_');
 waveSurferWithRegionsPlugin.on('region-updated', (region, eventParams) => {
     eventParams.action;
     eventParams.direction;
