@@ -19,7 +19,5 @@
     "files": [
         "index.d.ts",
         "mem-cache-tests.ts"
-    ],
-    "baseUrl": "types",
-    "typeRoots": ["types"]
+    ]
 }
