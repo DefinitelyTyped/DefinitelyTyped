@@ -59,6 +59,7 @@ export interface Settings extends Metadata, CodeInjection, SocialMedia {
     description?: string | undefined;
     logo?: string | undefined;
     icon?: string | undefined;
+    accent_color?: Nullable<string> | undefined;
     cover_image?: string | undefined;
     facebook?: string | undefined;
     twitter?: string | undefined;
