@@ -122,8 +122,10 @@ export interface RegionParams {
 }
 
 export interface RegionUpdatedEventParams {
-    direction: 'right' | 'left' | null;
-    action: 'drag' | 'resize';
+    action: 'drag' | 'resize' | 'contentEdited';
+    direction?: 'right' | 'left' | null;
+    oldText?: string;
+    text?: string;
 }
 
 export interface HandleStyle {
