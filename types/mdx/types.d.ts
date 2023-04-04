@@ -1,7 +1,7 @@
 // Internal helper types
 
 // tslint:disable-next-line: strict-export-declare-modifiers
-type FunctionComponent<Props> = (props: Props) => JSX.Element | null;
+type FunctionComponent<Props> = (props: Props) => Promise<JSX.Element> | JSX.Element | null;
 // tslint:disable-next-line: strict-export-declare-modifiers
 type ClassComponent<Props> = new (props: Props) => JSX.ElementClass;
 // tslint:disable-next-line: strict-export-declare-modifiers
