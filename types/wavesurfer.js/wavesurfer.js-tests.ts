@@ -7,7 +7,7 @@ import MarkersPlugin from 'wavesurfer.js/src/plugin/markers';
 import MediaSessionPlugin from 'wavesurfer.js/src/plugin/mediasession';
 import MicrophonePlugin from 'wavesurfer.js/src/plugin/microphone';
 import MinimapPlugin from 'wavesurfer.js/src/plugin/minimap';
-import RegionsPlugin, { Region, RegionParams } from 'wavesurfer.js/src/plugin/regions';
+import RegionsPlugin, { Region, RegionParams, RegionUpdatedEventParams } from 'wavesurfer.js/src/plugin/regions';
 import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram';
 import TimelinePlugin from 'wavesurfer.js/src/plugin/timeline';
 import { PluginDefinition, PluginParams } from 'wavesurfer.js/types/plugin';
@@ -169,7 +169,7 @@ const regionOptions: RegionParams = { start: 7, end: 13, data: { label: 'Hello, 
 const region: Region = waveSurferWithRegionsPlugin.addRegion(regionOptions);
 waveSurferWithRegionsPlugin.util.getId();
 waveSurferWithRegionsPlugin.util.getId('foo_');
-waveSurferWithRegionsPlugin.on('region-updated', (region, eventParams) => {
+waveSurferWithRegionsPlugin.on('region-updated', (region: Region, eventParams: RegionUpdatedEventParams) => {
     eventParams.action;
     eventParams.direction;
     eventParams.oldText;
