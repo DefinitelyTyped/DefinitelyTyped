@@ -164,6 +164,7 @@ export interface ReactDatePickerProps<
     selectsEnd?: boolean | undefined;
     selectsStart?: boolean | undefined;
     selectsRange?: WithRange;
+    selectsDisabledDaysInRange?: boolean | undefined;
     shouldCloseOnSelect?: boolean | undefined;
     showDisabledMonthNavigation?: boolean | undefined;
     showFullMonthYearPicker?: boolean | undefined;
