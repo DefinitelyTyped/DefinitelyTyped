@@ -1,9 +1,9 @@
-import { dispatch, select } from '@wordpress/data';
+import { useDispatch, useSelect, dispatch, select } from '@wordpress/data';
 import * as e from '@wordpress/editor';
 
 declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
 
-// $ExpectType EditorStoreDescriptor
+// $ExpectType EditorStore
 e.store;
 
 // $ExpectType "core/editor"
@@ -340,67 +340,73 @@ e.store.name;
 // Store
 // ============================================================================
 
+// Raw dispatch and select don't have type inference at the moment. :(
+// $ExpectType Object
+dispatch(e.store);
+// $ExpectType Object
+select(e.store);
+
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').autosave();
+useDispatch(e.store).autosave();
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').autosave({ foo: true, bar: false });
+useDispatch(e.store).autosave({ foo: true, bar: false });
 
 // $ExpectType void
-dispatch('core/editor').editPost({ content: 'foo' });
+useDispatch(e.store).editPost({ content: 'foo' });
 
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').resetEditorBlocks([BLOCK_INSTANCE]);
+useDispatch(e.store).resetEditorBlocks([BLOCK_INSTANCE]);
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').resetEditorBlocks([BLOCK_INSTANCE], { foo: 'bar' });
+useDispatch(e.store).resetEditorBlocks([BLOCK_INSTANCE], { foo: 'bar' });
 
 // $ExpectType void
-dispatch('core/editor').resetPost({ content: 'foo' });
+useDispatch(e.store).resetPost({ content: 'foo' });
 
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').savePost();
+useDispatch(e.store).savePost();
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').savePost({ content: 'foo' });
+useDispatch(e.store).savePost({ content: 'foo' });
 
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').setupEditor({ content: 'foo' });
+useDispatch(e.store).setupEditor({ content: 'foo' });
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').setupEditor({ content: 'foo' }, { content: 'bar' });
+useDispatch(e.store).setupEditor({ content: 'foo' }, { content: 'bar' });
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').setupEditor({ content: 'foo' }, { content: 'bar' }, [
+useDispatch(e.store).setupEditor({ content: 'foo' }, { content: 'bar' }, [
     ['core/paragraph', {}, [['core/paragraph']]],
 ]);
 
 // $ExpectType void
-dispatch('core/editor').updateEditorSettings({ codeEditingEnabled: false });
+useDispatch(e.store).updateEditorSettings({ codeEditingEnabled: false });
 
 // $ExpectType void
-dispatch('core/editor').updatePostLock({ isLocked: false, user: null });
+useDispatch(e.store).updatePostLock({ isLocked: false, user: null });
 
-// $ExpectType string | undefined
-select('core/editor').getActivePostLock();
+useSelect(select => {
+    // $ExpectType string | undefined
+    select(e.store).getActivePostLock();
 
-// $ExpectType {}
-select('core/editor').getAutosaveAttribute('author');
+    // $ExpectType {}
+    select(e.store).getAutosaveAttribute('author');
+    // $ExpectType Page | Post
+    select(e.store).getCurrentPost();
+    // $ExpectType (RenderedText<"edit"> & { is_protected: boolean; block_version: string; }) | (RenderedText<"edit"> & { is_protected: boolean; block_version: string; }) | undefined
+    select(e.store).getCurrentPostAttribute('content');
+    // $ExpectType number | undefined
+    select(e.store).getCurrentPostAttribute('author');
+    // $ExpectType OmitNevers<Record<string, string>, { [x: string]: string; }> | undefined
+    select(e.store).getCurrentPostAttribute('meta');
 
-// $ExpectType Page | Post
-select('core/editor').getCurrentPost();
+    // $ExpectType EditorSettings
+    select(e.store).getEditorSettings();
 
-// $ExpectType (RenderedText<"edit"> & { is_protected: boolean; block_version: string; }) | (RenderedText<"edit"> & { is_protected: boolean; block_version: string; }) | undefined
-select('core/editor').getCurrentPostAttribute('content');
-// $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute('author');
-// $ExpectType OmitNevers<Record<string, string>, { [x: string]: string; }> | undefined
-select('core/editor').getCurrentPostAttribute('meta');
+    // $ExpectType any
+    select(e.store).getPostEdits().content;
+    // $ExpectType any
+    select(e.store).getPostEdits().author;
+    // $ExpectType any
+    select(e.store).getPostEdits().foo;
 
-// $ExpectType EditorSettings
-select('core/editor').getEditorSettings();
-
-// $ExpectType any
-select('core/editor').getPostEdits().content;
-// $ExpectType any
-select('core/editor').getPostEdits().author;
-// $ExpectType any
-select('core/editor').getPostEdits().foo;
-
-// $ExpectType boolean
-select('core/editor').inSomeHistory(state => state.foo === true);
+    // $ExpectType boolean
+    select(e.store).inSomeHistory(state => state.foo === true);
+}, []);

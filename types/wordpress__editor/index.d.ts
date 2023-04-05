@@ -3,23 +3,10 @@
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 5.0
-
-import { dispatch, select, StoreDescriptor } from '@wordpress/data';
-
 export { storeConfig, transformStyles } from '@wordpress/block-editor';
+import { EditorStore } from './store';
 
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/editor'): typeof import('./store/actions');
-    function select(key: 'core/editor'): typeof import('./store/selectors');
-}
-
-export interface EditorStoreDescriptor extends StoreDescriptor {
-    name: 'core/editor';
-}
-
-declare module '@wordpress/editor' {
-    const store: EditorStoreDescriptor;
-}
+export const store: EditorStore;
 
 export * from './components';
 export * from './utils';

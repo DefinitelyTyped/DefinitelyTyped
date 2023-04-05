@@ -1,5 +1,6 @@
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance } from '@wordpress/blocks';
+import { SelectorWithCustomCurrySignature } from '@wordpress/data/src/types';
 import { EntityRecord, Page, Post, User } from '@wordpress/core-data';
 
 export {
@@ -56,6 +57,8 @@ export {
     isValidTemplate,
 } from '@wordpress/block-editor/store/selectors';
 
+type StateType = Record<string, unknown>;
+
 /**
  * Returns whether or not the user has the unfiltered_html capability.
  *
@@ -92,7 +95,7 @@ export function getActivePostLock(): string | undefined;
  *
  * @param attributeName - Autosave attribute name.
  */
-export function getAutosaveAttribute(attributeName: string): EntityRecord<any>[keyof EntityRecord<any>] | {};
+export function getAutosaveAttribute(state: StateType, attributeName: string): EntityRecord<any>[keyof EntityRecord<any>] | {};
 
 /**
  * Returns the post currently being edited in its last known saved state, not including unsaved
@@ -107,6 +110,7 @@ export function getCurrentPost(): Page | Post;
  * @param attributeName - Post attribute name.
  */
 export function getCurrentPostAttribute<T extends keyof (Page | Post)>(
+    state: StateType,
     attributeName: T
 ): (Page | Post)[T] | undefined;
 
@@ -137,9 +141,14 @@ export function getCurrentPostType(): string;
  *
  * @param attributeName - Post attribute name.
  */
-export function getEditedPostAttribute<T extends keyof (Page | Post)>(
-    attributeName: T
-): (Page | Post)[T] | undefined;
+export interface getEditedPostAttribute extends SelectorWithCustomCurrySignature {
+    <T extends keyof (Page | Post)>(
+        state: StateType,
+        attributeName: T
+      ): (Page | Post)[T] | undefined;
+
+    CurriedSignature: <T extends keyof (Page | Post)>(attributeName: T) => (Page | Post)[T] | undefined;
+}
 
 /**
  * Returns the content of the post being edited, preferring raw string edit before falling back to
@@ -204,7 +213,7 @@ export function getPostLockUser(): User | undefined | null;
  *
  * @returns Global application state prior to transaction.
  */
-export function getStateBeforeOptimisticTransaction(transactionId: object): any;
+export function getStateBeforeOptimisticTransaction(state: StateType, transactionId: object): any;
 
 /**
  * Returns a suggested post format for the current post, inferred only if there is a single block
@@ -234,7 +243,7 @@ export function hasEditorUndo(): boolean;
  *
  * @param predicate - Function given state, returning `true` if match.
  */
-export function inSomeHistory(predicate: (state: Record<string, any>) => boolean): boolean;
+export function inSomeHistory(state: StateType, predicate: (state: StateType) => boolean): boolean;
 
 /**
  * Returns `true` if the post is autosaving, or `false` otherwise.
