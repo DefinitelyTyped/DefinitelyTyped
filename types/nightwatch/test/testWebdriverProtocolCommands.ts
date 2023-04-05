@@ -9,7 +9,7 @@ import {
     ElementResult
 } from 'nightwatch';
 
-import { isNightwatchAPI, isNightwatchCallbackResult, isType } from './utils';
+import { isNightwatchAPI, isNightwatchCallbackResult, isType, UnknownToTrue } from './utils';
 
 //
 // .elementIdAttribute
@@ -960,6 +960,12 @@ describe('execute command demo', function() {
 
         // @ts-expect-error
         await browser.execute(function(arg1: string) {return 'nightwatch'; }, ['js', 123]);
+
+        const result3 = await browser.execute('something');
+        const result3Type: UnknownToTrue<typeof result3> = true;
+
+        const result4 = await browser.execute('something', ['something', 5]);
+        const result4Type: UnknownToTrue<typeof result4> = true;
     });
 
     after(browser => browser.end());
@@ -979,7 +985,7 @@ describe('executeScript command demo', function() {
         isType<string>(result2);
 
         const result3 = await browser.executeScript(function(arg1) {return arg1; }, ['nightwatch']);
-        isType<string>(result2);
+        isType<string>(result3);
 
         // @ts-expect-error
         await browser.executeScript(function(arg1: string) {return 'nightwatch'; });
@@ -991,6 +997,94 @@ describe('executeScript command demo', function() {
 
         // @ts-expect-error
         await browser.executeScript(function(arg1: string) {return 'nightwatch'; }, ['js', 123]);
+
+        const result4 = await browser.execute('something');
+        const result4Type: UnknownToTrue<typeof result4> = true;
+
+        const result5 = await browser.execute('something', ['something', 5]);
+        const result5Type: UnknownToTrue<typeof result5> = true;
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .executeAsyncScript
+//
+describe('executeAsyncScript command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', async function(browser) {
+        const result = await browser.executeAsyncScript(
+            function(arg1: string, arg2: number, done: (arg: string) => void) {return 'nightwatch'; },
+            ['js', 1]
+        );
+        isType<string>(result);
+
+        const result1 = await browser.executeAsyncScript(function(done: () => void) {return 'nightwatch'; });
+        const result1Type: UnknownToTrue<typeof result1> = true;
+
+        const result2 = await browser.executeAsyncScript(function() {});
+        const result2Type: UnknownToTrue<typeof result2> = true;
+
+        const result3 = await browser.executeAsyncScript(function(arg1: number, done) {return 'nightwatch'; }, [2]);
+        const result3Type: UnknownToTrue<typeof result3> = true;
+
+        // @ts-expect-error
+        await browser.executeAsyncScript(function(arg1: string) {return 'nightwatch'; });
+
+        // @ts-expect-error
+        await browser.executeAsyncScript(function(arg1: string, done: (result: string) => void) {return 'nightwatch'; }, [123]);
+
+        // @ts-expect-error
+        await browser.executeAsyncScript(function(arg1: string, done) {return 'nightwatch'; }, ['js', 123]);
+
+        const result4 = await browser.executeAsyncScript('something');
+        const result4Type: UnknownToTrue<typeof result4> = true;
+
+        const result5 = await browser.executeAsyncScript('something', ['something', 5]);
+        const result5Type: UnknownToTrue<typeof result5> = true;
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .executeAsync
+//
+describe('executeAsync command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', async function(browser) {
+        const result = await browser.executeAsync(
+            function(arg1: string, arg2: number, done: (arg: string) => void) {return 'nightwatch'; },
+            ['js', 1]
+        );
+        isType<string>(result);
+
+        const result1 = await browser.executeAsync(function(done: () => void) {return 'nightwatch'; });
+        const result1Type: UnknownToTrue<typeof result1> = true;
+
+        const result2 = await browser.executeAsync(function() {});
+        const result2Type: UnknownToTrue<typeof result2> = true;
+
+        const result3 = await browser.executeAsync(function(arg1: number, done) {return 'nightwatch'; }, [2]);
+        const result3Type: UnknownToTrue<typeof result3> = true;
+
+        // @ts-expect-error
+        await browser.executeAsync(function(arg1: string) {return 'nightwatch'; });
+
+        // @ts-expect-error
+        await browser.executeAsync(function(arg1: string, done: (result: string) => void) {return 'nightwatch'; }, [123]);
+
+        // @ts-expect-error
+        await browser.executeAsync(function(arg1: string, done) {return 'nightwatch'; }, ['js', 123]);
+
+        const result4 = await browser.executeAsync('something');
+        const result4Type: UnknownToTrue<typeof result4> = true;
+
+        const result5 = await browser.executeAsync('something', ['something', 5]);
+        const result5Type: UnknownToTrue<typeof result5> = true;
     });
 
     after(browser => browser.end());
