@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/history": "^2.0.51"
+        "@types/react-router-dom": "^5.3.0"
     }
 }

@@ -606,8 +606,8 @@ At the time of writing, the [history v2 `tsconfig.json`](https://github.com/%44e
 If there are other packages in Definitely Typed that are incompatible with the new version, you will need to add path mappings to the old version.
 You will also need to do this recursively for packages depending on the old version.
 
-For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`.
-Transitively, `react-router-bootstrap` (which depends on `react-router`) also needed to add the same path mapping (`"history": [ "history/v2" ]`) in its `tsconfig.json` until its `react-router` dependency was updated to the latest version.
+For example, `browser-sync` depends on `micromatch@2`, so [browser-sync `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) has a path mapping to `"micromatch": [ "micromatch/v2" ]`.
+Transitively, `browser-sync-webpack-plugin` (which depends on `browser-sync`) also needed to add the same path mapping (`"micromatch": [ "micromatch/v2" ]`) in its `tsconfig.json` until its `browser-sync` dependency was updated to the latest version.
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
 
