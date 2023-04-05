@@ -801,11 +801,34 @@ declare namespace ApplePayJS {
      * You can optionally display a billing agreement and set up merchant token life-cycle notifications for the request.
      */
     interface ApplePayRecurringPaymentRequest {
+        /**
+         * A description of the recurring payment that Apple Pay displays to the user in the payment sheet.
+         */
         paymentDescription: string;
-        regularBilling: ApplePayLineItem;
-        trialBilling?: ApplePayLineItem;
+
+        /**
+         * A localized billing agreement that the payment sheet displays to the user before the user authorizes the payment.
+         */
         billingAgreement?: string;
+
+        /**
+         * A localized billing agreement that the payment sheet displays to the user before the user authorizes the payment.
+         */
+        regularBilling: ApplePayLineItem;
+
+        /**
+         * The trial billing cycle for the recurring payment.
+         */
+        trialBilling?: ApplePayLineItem;
+
+        /**
+         * A URL to a web page where the user can update or delete the payment method for the recurring payment.
+         */
         managementURL: string;
+
+        /**
+         * A URL you provide for receiving life-cycle notifications from the Apple Pay servers about the Apple Pay merchant token for the recurring payment.
+         */
         tokenNotificationURL?: string;
     }
 
@@ -818,10 +841,29 @@ declare namespace ApplePayJS {
      * Otherwise, Apple Pay issues a device token for the payment request.
      */
     interface ApplePayAutomaticReloadPaymentRequest {
+        /**
+         * A description of the automatic reload payment that Apple Pay displays in the payment sheet.
+         */
         paymentDescription: string;
+
+        /**
+         * A line item that contains the reload amount and balance threshold for the automatic reload payment.
+         */
         automaticReloadBilling: ApplePayLineItem;
+
+        /**
+         * A localized billing agreement that the payment sheet displays to the user before the user authorizes the payment.
+         */
         billingAgreement?: string;
+
+        /**
+         * A URL to a web page where the user can update or delete the payment method for the automatic reload payment.
+         */
         managementURL: string;
+
+        /**
+         * A URL you provide to receive life-cycle notifications from the Apple Pay servers about the Apple Pay merchant token for the recurring payment.
+         */
         tokenNotificationURL?: string;
     }
 
@@ -832,10 +874,29 @@ declare namespace ApplePayJS {
      * You can optionally associate each payment token with the merchant’s top-level domain.
      */
     interface ApplePayPaymentTokenContext {
+        /**
+         * The Apply Pay merchant identifier.
+         */
         merchantIdentifier: string;
+
+        /**
+         * An external identifier for the merchant.
+         */
         externalIdentifier: string;
+
+        /**
+         * The merchant’s display name that the Apple Pay server associates with the payment token.
+         */
         merchantName: string;
+
+        /**
+         * The merchant’s top-level domain that the Apple Pay server associates with the payment token.
+         */
         merchantDomain?: string;
+
+        /**
+         * The amount to authorize for the payment token context.
+         */
         amount: string;
     }
 
@@ -928,7 +989,13 @@ declare namespace ApplePayJS {
      * A dictionary that specifies the start and end dates for a range of time.
      */
     interface ApplePayDateComponentsRange {
+        /**
+         * The start date and time of the range.
+         */
         startDateComponents: ApplePayDateComponents;
+        /**
+         * The end date and time of the range.
+         */
         endDateComponents: ApplePayDateComponents;
     }
 
@@ -939,9 +1006,24 @@ declare namespace ApplePayJS {
      * Apple Pay on the Web uses the Gregorian calendar when processing dates.
      */
     interface ApplePayDateComponents {
+        /**
+         * A number that represents a day.
+         */
         days: number;
+
+        /**
+         * A number between 1 and 12 that represents a month.
+         */
         months: number;
+
+        /**
+         * A number that represents a year.
+         */
         years: number;
+
+        /**
+         * A number that represents an hour.
+         */
         hours: number;
     }
 
