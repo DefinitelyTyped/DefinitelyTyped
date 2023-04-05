@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "sinch-rtc-tests.ts"
+        "sinch-rtc-browser-tests.ts"
     ]
 }
