@@ -52,7 +52,7 @@ export function apiFetch(options: APIFetchOptions): unknown;
  * @returns An object for registering the default controls with the store.
  */
 export const controls: {
-	API_FETCH: ({request}: {request: APIFetchOptions}) => Promise<unknown>,
+    API_FETCH: ({request}: {request: APIFetchOptions}) => Promise<unknown>,
 };
 
 /**
