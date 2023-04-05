@@ -52,8 +52,8 @@ export function apiFetch(options: APIFetchOptions): unknown;
  * @returns An object for registering the default controls with the store.
  */
 export const controls: {
-	API_FETCH: <T extends APIFetchOptions, U>( { request }: {request:T } ) => Promise<U>,
-}
+	API_FETCH: ({request}: {request: APIFetchOptions}) => Promise<unknown>,
+};
 
 /**
  * Deprecated in favor of the @wordpress/data dispatch method.
