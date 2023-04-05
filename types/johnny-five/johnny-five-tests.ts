@@ -6,6 +6,13 @@ board.on('connect', () => {});
 
 board
     .on('ready', () => {
+        board.pinMode(13, five.Pin.OUTPUT);
+        board.pinMode(13, 0);
+        board.pinMode(13, 0);
+        const pin = new five.Pin(13);
+        pin.mode = five.PinMode.OUTPUT;
+        pin.mode = five.Pin.OUTPUT;
+        pin.mode = 4;
         const animation = new five.Animation(new five.Servo(9));
 
         // Create an animation segment object
@@ -214,3 +221,20 @@ new five.Barometer({ controller: 'BMP180', mode: 1 });
 
 five.Stepper.TYPE.DRIVER;
 five.Fn.bitValue(1);
+
+// Relay
+const r0 = new five.Relay(1);
+const r1 = new five.Relay({ pin: 1, board });
+const r2 = new five.Relay({ pin: 1, type: 'NO' });
+const r3 = new five.Relay({ pin: 10, type: 'NC' });
+
+// Relays
+const relays0 = new five.Relays([1, 2, 3]);
+const relays2 = new five.Relays([{ pin: 1, type: 'NC' }, { pin: 2, type: 'NO' }, { pin: 3 }]);
+const relays3 = new five.Relays([r0, r1, r2]);
+relays0[0].open();
+relays0[1].open();
+relays0[2].open();
+
+relays2.close();
+relays3.toggle();

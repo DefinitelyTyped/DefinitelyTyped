@@ -161,7 +161,7 @@ export class Board {
     on(event: 'close' | 'connect' | 'exit' | 'ready', cb: () => void): this;
     on(event: 'error', cb: (error: Error) => void): this;
     on(event: 'info' | 'message' | 'warn' | 'fail', cb: (event: BoardLogEvent) => void): this;
-    pinMode(pin: number | string, mode: number): void;
+    pinMode(pin: number | string, mode: PinMode): void;
     analogWrite(pin: number | string, value: number): void;
     analogRead(pin: number | string, cb: (item: number) => void): void;
     digitalWrite(pin: number | string, value: number): void;
@@ -783,6 +783,24 @@ export interface PinState {
     analogChannel: number;
 }
 
+/**
+ * You can use this enum to set the pin mode or you can use static properties from {@link Pin}.
+ *
+ * @example
+ * ```ts
+ * const pin = new Pin(13);
+ * pin.mode = PinMode.OUTPUT;
+ * pin.mode = Pin.OUTPUT;
+ * ```
+ */
+export enum PinMode {
+    INPUT = 0,
+    OUTPUT = 1,
+    ANALOG = 2,
+    PWM = 3,
+    SERVO = 4,
+}
+
 export class Pin {
     static readonly INPUT = 0;
     static readonly OUTPUT = 1;
@@ -796,7 +814,7 @@ export class Pin {
     pin: number | string;
     type: 'digital' | 'analog';
     value: number;
-    mode: number;
+    mode: PinMode;
 
     static write(pin: number, value: number): void;
     static read(pin: number, cb: (error: Error, data: number) => void): void;
@@ -847,21 +865,70 @@ export class Proximity {
 }
 
 export interface RelayOption {
-    board?: Board | undefined;
     pin: number | string;
-    type?: string | undefined;
+    board?: Board;
+    /**
+     * @default 'NO'
+     */
+    type?: 'NO' | 'NC';
 }
 
+/**
+ * http://johnny-five.io/api/relay/
+ */
 export class Relay {
-    constructor(option: number | RelayOption);
+    constructor(option: Relay['pin'] | RelayOption);
 
     id: string;
     pin: number | string;
     readonly isOn: boolean;
     readonly type: string;
 
+    /**
+     * Open the circuit.
+     */
     open(): void;
+    /**
+     * Close the circuit.
+     */
     close(): void;
+    /**
+     * Toggle the circuit open/close.
+     */
+    toggle(): void;
+}
+
+export class Relays {
+    /**
+     * An array of pins
+     */
+    constructor(options: Array<Relay['pin']>);
+
+    /**
+     * Using relays with different types. Some NC, some NO, etc…
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: RelayOption[]);
+
+    /**
+     * Using an array of existing relays to join them into a single interface.
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: Relay[]);
+
+    [index: number]: Relay;
+
+    /**
+     * Open the circuit.
+     */
+    open(): void;
+    /**
+     * Close the circuit.
+     */
+    close(): void;
+    /**
+     * Toggle the circuit open/close.
+     */
     toggle(): void;
 }
 
