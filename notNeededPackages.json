@@ -4591,14 +4591,6 @@
             "libraryName": "react-rnd",
             "asOfVersion": "8.0.0"
         },
-        "react-router": {
-            "libraryName": "react-router",
-            "asOfVersion": "6.4.0"
-        },
-        "react-router-dom": {
-            "libraryName": "react-router-dom",
-            "asOfVersion": "6.0.0"
-        },
         "react-router-native": {
             "libraryName": "react-router-native",
             "asOfVersion": "6.4.0"
