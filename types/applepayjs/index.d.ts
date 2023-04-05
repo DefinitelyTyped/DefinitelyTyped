@@ -812,7 +812,7 @@ declare namespace ApplePayJS {
         billingAgreement?: string;
 
         /**
-         * A localized billing agreement that the payment sheet displays to the user before the user authorizes the payment.
+         * The regular billing cycle for the recurring payment, including start and end dates, an interval, and an interval count.
          */
         regularBilling: ApplePayLineItem;
 
