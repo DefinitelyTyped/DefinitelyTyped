@@ -1,6 +1,6 @@
 // Type definitions for non-npm package sinch-rtc-browser 2.31
 // Project: https://developers.sinch.com/docs/in-app-calling/js-cloud/
-// Definitions by: Johan Aschan <https://github.com/sinch-johana>
+// Definitions by: Sinch Johana <https://github.com/sinch-johana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const Sinch: SinchRtc.Sinch;
