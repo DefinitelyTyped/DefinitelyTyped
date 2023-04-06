@@ -5999,6 +5999,10 @@
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
         },
+        "wordpress__compose": {
+            "libraryName": "@wordpress/compose",
+            "asOfVersion": "6.1.0"
+        },
         "wordpress__core-data": {
             "libraryName": "@wordpress/core-data",
             "asOfVersion": "5.0.0"
