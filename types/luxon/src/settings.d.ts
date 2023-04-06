@@ -44,6 +44,15 @@ export class Settings {
 
     /**
      * Whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
+     *
+     * If setting this to true, be sure to opt-out of Luxon's invalid return types.
+     * @example
+     * Settings.throwOnInvalid = true;
+     * declare module 'luxon' {
+     *   interface TSSettings {
+     *     throwOnInvalid: true;
+     *   }
+     * }
      */
     static throwOnInvalid: boolean;
 
@@ -52,3 +61,11 @@ export class Settings {
      */
     static resetCaches(): void;
 }
+
+/**
+ * TS only settings. Consumers can declaration merge this interface to change TS options.
+ *
+ * @see Settings.throwOnInvalid
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface TSSettings {}

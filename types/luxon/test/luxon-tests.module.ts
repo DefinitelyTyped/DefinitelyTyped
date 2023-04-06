@@ -13,6 +13,12 @@ import {
     ZoneOffsetOptions,
 } from 'luxon';
 
+declare module 'luxon' {
+    interface TSSettings {
+        throwOnInvalid: true;
+    }
+}
+
 /* VERSION */
 VERSION; // $ExpectType string
 
@@ -126,8 +132,8 @@ dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string
 dt.toLocaleString(DateTime.DATE_MED, {}); // $ExpectType string
 dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
-dt.toRelative(); // $ExpectType string | null
-dt.toRelativeCalendar(); // $ExpectType string | null
+dt.toRelative(); // $ExpectType string
+dt.toRelativeCalendar(); // $ExpectType string
 dt.toRFC2822(); // $ExpectType string
 dt.toSeconds(); // $ExpectType number
 dt.toSQL(); // $ExpectType string
@@ -140,11 +146,11 @@ dt.valueOf(); // $ExpectType number
 dt.toObject(); // $ExpectType Record<"day" | "hour" | "minute" | "month" | "second" | "year" | "millisecond", number>
 // @ts-expect-error
 dt.toObject().locale;
-dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput<true>
+dt.toObject({ includeConfig: true }); // $ExpectType _ToObjectOutput<true>
 dt.toObject({ includeConfig: true }).locale; // $ExpectType string | undefined
 dt.toUnixInteger(); // $ExpectType number
 
-// $ExpectType string | null
+// $ExpectType string
 dt.toRelative({
     base: DateTime.local(),
     locale: 'fr',
@@ -155,7 +161,7 @@ dt.toRelative({
     numberingSystem: 'bali',
 });
 
-// $ExpectType string | null
+// $ExpectType string
 dt.toRelative({
     base: DateTime.local(),
     locale: 'fr',
@@ -166,7 +172,7 @@ dt.toRelative({
     numberingSystem: 'bali',
 });
 
-// $ExpectType string | null
+// $ExpectType string
 dt.toRelativeCalendar({
     base: DateTime.local(),
     locale: 'fr',
