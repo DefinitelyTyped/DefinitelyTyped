@@ -1,9 +1,3 @@
-// Type definitions for non-npm package File System Access API 2020.09
-// Project: https://github.com/WICG/file-system-access
-// Definitions by: Ingvar Stepanyan <https://github.com/RReverser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.6
-
 export {};
 
 declare global {
@@ -79,12 +73,12 @@ interface FileSystemRemoveOptions {
     recursive?: boolean | undefined;
 }
 
-// type WriteParams =
-//     | { type: 'write'; position?: number | undefined; data: BufferSource | Blob | string }
-//     | { type: 'seek'; position: number }
-//     | { type: 'truncate'; size: number };
+type WriteParams =
+    | { type: 'write'; position?: number | undefined; data: BufferSource | Blob | string }
+    | { type: 'seek'; position: number }
+    | { type: 'truncate'; size: number };
 
-// type FileSystemWriteChunkType = BufferSource | Blob | string | WriteParams;
+type FileSystemWriteChunkType = BufferSource | Blob | string | WriteParams;
 
 // TODO: remove this once https://github.com/microsoft/TSJS-lib-generator/issues/881 is fixed.
 // Native File System API especially needs this method.
@@ -92,11 +86,11 @@ interface WritableStream {
     close(): Promise<void>;
 }
 
-// class FileSystemWritableFileStream extends WritableStream {
-//     write(data: FileSystemWriteChunkType): Promise<void>;
-//     seek(position: number): Promise<void>;
-//     truncate(size: number): Promise<void>;
-// }
+class FileSystemWritableFileStream extends WritableStream {
+    write(data: FileSystemWriteChunkType): Promise<void>;
+    seek(position: number): Promise<void>;
+    truncate(size: number): Promise<void>;
+}
 
 interface FileSystemFileHandle extends FileSystemHandle {
     readonly kind: 'file';
