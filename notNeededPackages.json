@@ -5955,6 +5955,10 @@
             "libraryName": "wix-style-react",
             "asOfVersion": "7.47.1"
         },
+        "wojtekmaj__react-datetimerange-picker": {
+            "libraryName": "@wojtekmaj/react-datetimerange-picker",
+            "asOfVersion": "5.0.1"
+        },
         "wolfy87-eventemitter": {
             "libraryName": "wolfy87-eventemitter",
             "asOfVersion": "5.2.0"
