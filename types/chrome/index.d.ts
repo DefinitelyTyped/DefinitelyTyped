@@ -273,6 +273,19 @@ declare namespace chrome.action {
     export function getUserSettings(): Promise<UserSettings>;
 
     /**
+     * Since Chrome 110.
+     * Indicates whether the extension action is enabled for a tab (or globally if no tabId is provided). Actions enabled using only declarativeContent always return false.
+     */
+    export function isEnabled(tabId: number | undefined, callback: (isEnabled: boolean) => void): void;
+
+    /**
+     * Since Chrome 110.
+     * Indicates whether the extension action is enabled for a tab (or globally if no tabId is provided). Actions enabled using only declarativeContent always return false.
+     * @return True if the extension action is enabled.
+     */
+    export function isEnabled(tabId?: number): Promise<boolean>;
+
+    /**
      * Since Chrome 99+.
      * Opens the extension's popup.
      * @param options Specifies options for opening the popup.
