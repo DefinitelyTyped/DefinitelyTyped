@@ -5993,7 +5993,7 @@
         },
         "wordpress__compose": {
             "libraryName": "@wordpress/compose",
-            "asOfVersion": "4.2.0"
+            "asOfVersion": "6.1.0"
         },
         "wordpress__core-data": {
             "libraryName": "@wordpress/core-data",
