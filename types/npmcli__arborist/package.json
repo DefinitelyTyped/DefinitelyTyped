@@ -1,7 +1,6 @@
 {
   "dependencies": {
-    "@npm/types": "*",
-    "definitely-typed": "file:../.."
+    "@npm/types": "*"
   },
   "private": true
 }

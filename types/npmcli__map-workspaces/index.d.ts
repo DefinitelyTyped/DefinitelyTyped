@@ -6,7 +6,7 @@
 
 import { PackageJson } from '@npmcli/package-json';
 import { PackageLock } from '@npmcli/arborist';
-import { GlobOptions as GlobOptions } from 'glob';
+import { IOptions as GlobOptions } from 'glob';
 
 export = mapWorkspaces;
 
