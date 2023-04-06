@@ -457,7 +457,7 @@ declare namespace jsrsasign {
          * ASN1HEX.getString("xxxx1303616161xxxxxx", 4) &rarr "aaa"
          * ASN1HEX.getString("xxxx0c03616161xxxxxx", 4) &rarr "aaa"
          */
-        function getString(h: string, idx: number, errorReturn: ErrorReturn): string | ErrorReturn;
+        function getString(h: string, idx: number, errorReturn?: ErrorReturn): string | ErrorReturn;
 
         /**
          * get hexadecimal string of ASN.1 TLV at<br/>

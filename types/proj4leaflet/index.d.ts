@@ -42,11 +42,11 @@ declare module 'leaflet' {
 
     class GeoJSON extends L.GeoJSON {}
 
-    const geoJson: (geojson?: Proj4GeoJSONFeature, options?: GeoJSONOptions) => GeoJSON;
+    function geoJson(geojson?: Proj4GeoJSONFeature, options?: GeoJSONOptions): GeoJSON;
 
     class ImageOverlay extends L.ImageOverlay {}
 
-    const imageOverlay: (imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions) => ImageOverlay;
+    function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
 
     interface ProjCRSOptions {
       bounds?: Bounds | undefined;

@@ -9,7 +9,7 @@ declare namespace Overlay {
         container?: any; // TODO: Add more specific type
         containerPadding?: number | undefined; // TODO: Add more specific type
         onHide?: Function | undefined;
-        placement?: string | undefined;
+        placement?: 'top' | 'right' | 'bottom' | 'left' | undefined;
         rootClose?: boolean | undefined;
         show?: boolean | undefined;
         target?: Function | React.ReactInstance | undefined;

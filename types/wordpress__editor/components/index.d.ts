@@ -46,6 +46,8 @@ export { default as PostStickyCheck } from './post-sticky/check';
 export { default as PostSwitchToDraftButton } from './post-switch-to-draft-button';
 export { default as PostTaxonomies } from './post-taxonomies';
 export { default as PostTaxonomiesCheck } from './post-taxonomies/check';
+export { default as PostTaxonomiesFlatTermSelector } from './post-taxonomies/flat-term-selector';
+export { default as PostTaxonomiesHierarchicalTermSelector } from './post-taxonomies/hierarchical-term-selector';
 export { default as PostTextEditor } from './post-text-editor';
 export { default as PostTitle } from './post-title';
 export { default as PostTrash } from './post-trash';

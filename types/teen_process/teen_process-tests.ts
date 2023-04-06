@@ -1,8 +1,16 @@
-import { exec, ExecError, SubProcess, SubProcessOptions } from 'teen_process';
+import { exec, ExecError, SubProcess, SubProcessOptions, TeenProcessExecOptions } from 'teen_process';
 
 exec('bigfix');
 exec('echo', ['my name is bob', 'lol']);
 exec('echo', ['arg'], { cwd: process.cwd(), env: { FOO: 'bar' }, timeout: 500, ignoreOutput: true });
+
+const options: TeenProcessExecOptions = {
+    killSignal: 0,
+    encoding: 'utf-8',
+    stdio: 'pipe',
+    logger: { debug: console.log.bind(console) },
+};
+exec('echo', [], options);
 
 const stringResult: Promise<{
     stdout: string;
@@ -37,9 +45,9 @@ const props: {
 } = new SubProcess('ls');
 
 try {
-    exec('exit', ['1'], {shell: true});
+    exec('exit', ['1'], { shell: true });
 } catch (err) {
-    const {stdout, stderr, code} = err as ExecError;
+    const { stdout, stderr, code } = err as ExecError;
 }
 const subproc = new SubProcess('ls', [], { cwd: process.cwd() });
 subproc.on('lines-stdout', (newLines: string[]) => {});

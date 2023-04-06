@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.111.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -1598,7 +1598,7 @@ declare module "sap/ui/layout/BlockLayoutRow" {
        * The accentCell to be removed or its index or ID
        */
       vAccentCell: int | ID | BlockLayoutCell
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.42
      *
@@ -4535,24 +4535,24 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Adds a control to the main content area. Only the main content part in the aggregation is re-rendered.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     addMainContent(
       /**
        * Object to be added in the aggregation
        */
-      oControl: object
+      oControl: Control
     ): this;
     /**
      * Adds a control to the side content area. Only the side content part in the aggregation is re-rendered.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     addSideContent(
       /**
        * Object to be added in the aggregation
        */
-      oControl: object
+      oControl: Control
     ): this;
     /**
      * @SINCE 1.32
@@ -4701,7 +4701,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The control instance that requested the scroll helper
        */
-      oControl: object
+      oControl: Control
     ): ScrollEnablement;
     /**
      * Gets current value of property {@link #getShowMainContent showMainContent}.
@@ -4899,7 +4899,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Sets or unsets the page in equalSplit mode.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     setEqualSplit(
       /**
@@ -4910,7 +4910,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Sets the showMainContent property.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     setShowMainContent(
       /**
@@ -4925,7 +4925,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Sets the showSideContent property.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     setShowSideContent(
       /**
@@ -4980,7 +4980,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Sets the sideContentVisibility property.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     setSideContentVisibility(
       /**
@@ -4997,7 +4997,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      * area is visible. This helper method is used to implement a button/switch for changing between the main
      * and side content areas. Only works if the current breakpoint is "S".
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     toggle(): this;
   }
@@ -6373,7 +6373,7 @@ declare module "sap/ui/layout/form/Form" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a formContainer from the aggregation {@link #getFormContainers formContainers}.
      *
@@ -6823,7 +6823,7 @@ declare module "sap/ui/layout/form/FormContainer" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a formElement from the aggregation {@link #getFormElements formElements}.
      *
@@ -9556,7 +9556,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -10735,7 +10735,7 @@ declare module "sap/ui/layout/Grid" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -12070,6 +12070,8 @@ declare module "sap/ui/layout/GridData" {
 declare module "sap/ui/layout/HorizontalLayout" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { AccessibilityInfo } from "sap/ui/core/library";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -12166,7 +12168,7 @@ declare module "sap/ui/layout/HorizontalLayout" {
      *
      * @returns Current accessibility state of the control
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getAllowWrapping allowWrapping}.
      *
@@ -12736,7 +12738,7 @@ declare module "sap/ui/layout/ResponsiveFlowLayout" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes content. This function needs to be overridden to prevent any rendering while some content is
      * still being added.
@@ -13933,7 +13935,7 @@ declare module "sap/ui/layout/SplitterLayoutData" {
 
   /**
    * @SINCE 1.22.0
-   * @EXPERIMENTAL (since 1.22.0)
+   * @EXPERIMENTAL (since 1.22.0) - API is not yet finished and might change completely
    *
    * Holds layout data for the splitter contents. Allowed size values are numeric values ending in "px" and
    * "%" and the special case "auto". (The CSS value "auto" is used internally to recalculate the size of
@@ -14113,9 +14115,9 @@ declare module "sap/ui/layout/SplitterLayoutData" {
 declare module "sap/ui/layout/VerticalLayout" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+  import { AccessibilityInfo, CSSSize } from "sap/ui/core/library";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
@@ -14211,7 +14213,7 @@ declare module "sap/ui/layout/VerticalLayout" {
      *
      * @returns An object with the accessibilty infos for this control
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *

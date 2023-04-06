@@ -55,7 +55,7 @@ dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
         },
         googlePay: {
             merchantId: '',
-            googlePayVersion: '',
+            googlePayVersion: 1,
             transactionInfo: {
                 currencyCode: 'USD',
                 totalPriceStatus: 'FINAL',
@@ -90,8 +90,26 @@ dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
         const myPaymentOption: 'card' | 'paypal' | 'paypalCredit' = paymentOption;
     }
     function onChangeActiveView({ previousViewId, newViewId }: dropin.ChangeActiveViewPayload) {
-        const myPreviousView: 'card' | 'paypal' | 'paypalCredit' | 'venmo' | 'googlePay' | 'applePay' | 'methods' | 'options' | 'delete-confirmation' = previousViewId;
-        const myNewView: 'card' | 'paypal' | 'paypalCredit' | 'venmo' | 'googlePay' | 'applePay' | 'methods' | 'options' | 'delete-confirmation' = newViewId;
+        const myPreviousView:
+            | 'card'
+            | 'paypal'
+            | 'paypalCredit'
+            | 'venmo'
+            | 'googlePay'
+            | 'applePay'
+            | 'methods'
+            | 'options'
+            | 'delete-confirmation' = previousViewId;
+        const myNewView:
+            | 'card'
+            | 'paypal'
+            | 'paypalCredit'
+            | 'venmo'
+            | 'googlePay'
+            | 'applePay'
+            | 'methods'
+            | 'options'
+            | 'delete-confirmation' = newViewId;
     }
 
     myDropin.on('noPaymentMethodRequestable', onNoPaymentMethodRequestable);
@@ -128,6 +146,12 @@ dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
         }
     });
     await myDropin.teardown();
+
+    myDropin.updateConfiguration('paypal', 'amount', '10.00');
+    myDropin.updateConfiguration('paypalCredit', 'amount', '10.00');
+    myDropin.updateConfiguration('applePay', 'paymentRequest', { total: { amount: '10.00' } });
+    myDropin.updateConfiguration('googlePay', 'transactionInfo', { totalPrice: '10.00' });
+    myDropin.updateConfiguration('threeDSecure', 'amount', '10.00');
 })();
 
 function customFunction(options: dropin.Options) {

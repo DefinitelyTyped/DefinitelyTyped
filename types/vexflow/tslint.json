@@ -7,7 +7,6 @@
         "comment-format": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "no-declare-current-package": false,
         "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,

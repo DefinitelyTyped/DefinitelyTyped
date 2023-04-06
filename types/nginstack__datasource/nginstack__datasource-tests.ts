@@ -5,9 +5,9 @@ import * as DataSourceColumnDef from '@nginstack/datasource/lib/DataSourceColumn
 import DataSourceFilterDef = require('@nginstack/datasource/lib/DataSourceFilterDef');
 
 const datasource = new DataSource(1); // $ExpectType DataSource
-const filters = new DataSourceFilters(2); // $ExpectType DataSourceFilters
+const filters = new DataSourceFilters(datasource); // $ExpectType DataSourceFilters
 const filterDefs = [new DataSourceFilterDef()]; // $ExpectType DataSourceFilterDef[]
-const columns = new DataSourceColumns(3); // $ExpectType DataSourceColumns
+const columns = new DataSourceColumns(datasource); // $ExpectType DataSourceColumns
 const columnDefs = [new DataSourceColumnDef()]; // $ExpectType DataSourceColumnDef[]
 
 datasource.public; // $ExpectType boolean
@@ -28,4 +28,4 @@ datasource.getResult(filterDefs, columnDefs); // $ExpectType DataSourceResult
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(62, 63); // $ExpectType boolean
+testMajorVersions(69, 70); // $ExpectType boolean

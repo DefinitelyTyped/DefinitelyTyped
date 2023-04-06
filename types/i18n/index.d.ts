@@ -177,6 +177,15 @@ declare namespace i18n {
              */
             disable?: boolean | undefined;
         } | undefined;
+
+        /**
+         * Parser can be any object that responds to .parse & .stringify
+         */
+        parser?: ParserOptions | undefined;
+    }
+    interface ParserOptions {
+        parse: (src: string, options?: any) => any;
+        stringify: (value: any, options?: any) => string;
     }
     interface TranslateOptions {
         phrase: string;
@@ -191,9 +200,15 @@ declare namespace i18n {
     interface Replacements {
         [key: string]: string;
     }
-
-    interface LocaleCatalog {
+    /**
+     * This interface represents a plural translation.
+     * e.g. { one: "you have 1 friend", other: "you have many friends" }
+     */
+    interface Plurals {
         [key: string]: string;
+    }
+    interface LocaleCatalog {
+        [key: string]: string | Plurals;
     }
     interface GlobalCatalog {
         [key: string]: LocaleCatalog;

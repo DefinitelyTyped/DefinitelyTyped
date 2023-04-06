@@ -128,7 +128,7 @@ declare namespace OpenSeadragon {
 
     function getElementSize(element: Element | string): Point;
 
-    function getElementStyle(element: Element | string): any; // CSSStyle?
+    function getElementStyle(element: Element | string): CSSStyleDeclaration;
 
     function getViewer(element: Element): Viewer;
 
@@ -205,7 +205,7 @@ declare namespace OpenSeadragon {
 
     function setPageScroll(point: Point): void;
 
-    function setString(property: string, value: any): void;
+    function setString(property: string, value: string): void;
 
     function stopEvent(event?: OSDEvent<any>): void;
 
@@ -350,7 +350,7 @@ declare namespace OpenSeadragon {
         timeout?: number | undefined;
         useCanvas?: boolean | undefined;
         minPixelRatio?: number | undefined;
-        mouseNavEnabled?: number | undefined;
+        mouseNavEnabled?: boolean | undefined;
         showNavigationControl?: boolean | undefined;
         navigationControlAnchor?: ControlAnchor | undefined;
         showZoomControl?: boolean | undefined;
@@ -675,7 +675,7 @@ declare namespace OpenSeadragon {
         preProcessEventHandler: PreprocessEventHandler;
         releaseHandler: EventHandler<MouseTrackerEvent>;
         scrollHandler: EventHandler<MouseTrackerEvent>;
-        setTracking(track: boolean): any;
+        setTracking(track: boolean): MouseTracker;
         stopHandler: EventHandler<MouseTrackerEvent>;
     }
 
@@ -1211,7 +1211,7 @@ declare namespace OpenSeadragon {
         fitBoundsWithConstraints(bounds: Rect, immediately?: boolean): Viewport;
         fitHorizontally(immediately?: boolean): Viewport;
         fitVertically(immediately?: boolean): Viewport;
-        getAspectRatio(): any; // TODO: determine return type
+        getAspectRatio(): number;
         getBounds(current?: boolean): Rect;
         getBoundsNoRotate(current?: boolean): Rect;
         getBoundsNoRotateWithMargins(current?: boolean): Rect;
@@ -1679,7 +1679,7 @@ declare namespace OpenSeadragon {
     }
 
     interface TileLoadedEvent extends TileEvent {
-        image: any;
+        image: HTMLImageElement;
         tileRequest: XMLHttpRequest;
         getCompletionCallback: () => () => void;
     }
@@ -1723,7 +1723,7 @@ declare namespace OpenSeadragon {
     interface WorldEvent extends OSDEvent<World> {}
 
     interface AddItemWorldEvent extends WorldEvent {
-        item: TiledImage | undefined;
+        item: TiledImage;
     }
 
     interface ItemIndexChangeWorldEvent extends WorldEvent {

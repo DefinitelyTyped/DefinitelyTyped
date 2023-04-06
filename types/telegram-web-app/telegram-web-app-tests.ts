@@ -16,7 +16,10 @@ app.onEvent('viewportChanged', e => {
 app.showPopup(
     {
         message: 'Hello',
-        buttons: [{ type: 'default', text: 'Button text' }],
+        buttons: [{ type: 'default', text: 'Button text', id: 'btn_id' }],
     },
     btn_id => console.log(btn_id),
 );
+app.onEvent('popupClosed', e => {
+    console.log(e.button_id);
+});

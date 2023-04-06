@@ -12,4 +12,5 @@ export class SelectionHelper {
     onSelectStart(event: Event): void;
     onSelectMove(event: Event): void;
     onSelectOver(event: Event): void;
+    dispose(): void;
 }

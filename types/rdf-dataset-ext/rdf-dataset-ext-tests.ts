@@ -51,6 +51,9 @@ const dataset2deleteMatch10: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset
 const dataset2deleteMatch11: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, term, term, term);
 const dataset2deleteMatch12: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, term, term, term, term);
 
+const delete1MatchNulls: DatasetCore = grouped.deleteMatch(dataset1, null, null, null, null);
+const delete2MatchNulls: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, null, null, null, null);
+
 // equals
 
 const equals1: boolean = equals(dataset1, dataset1);

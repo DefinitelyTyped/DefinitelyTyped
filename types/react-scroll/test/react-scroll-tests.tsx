@@ -62,7 +62,7 @@ const linkTest3 = (
     </Link>
 );
 
-const buttonTest = (
+const buttonTest1 = (
     <Button
         activeClass="active"
         className="btn"
@@ -109,6 +109,7 @@ const linkTest5 = (
             console.log(element);
         }}
         ignoreCancelEvents={false}
+        horizontal={true}
     >
         Your name
     </Link>
@@ -122,6 +123,69 @@ const linkTest6 = (
         hashSpy={true}
     >
         Test 7 (hash history)
+    </Link>
+);
+
+const linkTest7 = (
+    <Link
+        activeStyle={{ color: '#000000' }}
+        to="test7"
+        spy={true}
+        smooth={true}
+        offset={50}
+        duration={500}
+        onSetActive={to => {
+            console.log(to);
+        }}
+    >
+        Test 7
+    </Link>
+);
+
+const linkTest8 = (
+    <Link activeStyle={{ color: '#000000' }} to="test7" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
+        Test 8 (delay)
+    </Link>
+);
+
+const buttonTest2 = (
+    <Button
+        activeStyle={{ color: '#000000' }}
+        className="btn"
+        type="submit"
+        value="Test 2"
+        to="test7"
+        spy={true}
+        smooth={true}
+        offset={50}
+        duration={500}
+    >
+        Test 2
+    </Button>
+);
+
+const linkTest9 = (
+    <Link
+        activeStyle={{ color: '#000000' }}
+        to="target"
+        spy={true}
+        smooth={true}
+        offset={50}
+        duration={500}
+        delay={1000}
+        isDynamic={true}
+        onSetActive={(to, element) => {
+            console.log(to);
+            console.log(element);
+        }}
+        onSetInactive={(to, element) => {
+            console.log(to);
+            console.log(element);
+        }}
+        ignoreCancelEvents={false}
+        horizontal={true}
+    >
+        Your name
     </Link>
 );
 

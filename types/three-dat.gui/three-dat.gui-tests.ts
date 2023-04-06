@@ -1,5 +1,5 @@
 import THREE from 'three';
-import init from 'three-dat.gui'; // Import initialization method
+import init = require('three-dat.gui'); // Import initialization method
 import Dat from 'dat.gui';
 
 init(Dat); // Init three-dat.gui with Dat
@@ -18,9 +18,9 @@ gui.open();
 }
 {
     // $ExpectType GUI
-    gui.addFog('', new THREE.Fog(''));
+    gui.addFog('', new THREE.Fog(0xcccccc));
     // $ExpectType GUI
-    gui.addFog('', new THREE.FogExp2(''));
+    gui.addFog('', new THREE.FogExp2(0xcccccc));
 }
 {
     // $ExpectType GUI

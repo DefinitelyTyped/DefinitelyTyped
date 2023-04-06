@@ -5,16 +5,17 @@ import {
     NightwatchAPI,
     NightwatchAssertion,
     NightwatchAssertionsResult,
+    NightwatchEnsureResult,
+    NightwatchNodeAssertionsResult,
     NightwatchTests,
     PageObjectModel,
     ELEMENT_KEY,
     JSON_WEB_OBJECT,
-    NightwatchNodeAssertionsResult,
 } from 'nightwatch';
 
-function isNightwatchAPI(v: NightwatchAPI) {}
+import { isNightwatchAPI, isType } from './utils';
+
 function isNightwatchAssertionsResult<T>(result: NightwatchAssertionsResult<T>): T { return result.value; }
-function isType<T>(v: T): T { return v; }
 
 //
 // ./tests/general.ts
@@ -60,9 +61,11 @@ const testGeneral: NightwatchTests = {
     },
 
     'Demo Nightwatch API commands': () => {
-        browser.isChrome();
-        browser.isAndroid();
-        browser.isMobile();
+        isType<boolean>(browser.isChrome());
+        isType<boolean>(browser.isAndroid());
+        isType<boolean>(browser.isMobile());
+        isType<boolean>(browser.isAppiumClient());
+
         const element_id = browser.WEBDRIVER_ELEMENT_ID;
         console.log(element_id);
         const browserName = browser.browserName;
@@ -71,6 +74,48 @@ const testGeneral: NightwatchTests = {
         browser.WEBDRIVER_ELEMENT_ID = 'some-element-id';
         // @ts-expect-errors
         browser.browserName = 'firefox';
+
+        browser.element('css selector', 'something', function(result) {
+            if (result.status === 0) {
+                isType<string>(result.value[ELEMENT_KEY]);
+            }
+            isNightwatchAPI(this);
+        });
+
+        browser.elements('css selector', 'something', function(result) {
+            if (result.status === 0) {
+                isType<string>(result.value[0][ELEMENT_KEY]);
+            }
+            isNightwatchAPI(this);
+        });
+    },
+
+    'Demo Nightwatch API commands with async/await': async () => {
+        const element = await browser.element('css selector', 'something');
+        isType<string>(element[ELEMENT_KEY]);
+
+        const elements = await browser.elements('css selector', 'something');
+        isType<string>(elements[0][ELEMENT_KEY]);
+    },
+
+    'Can run accessibility tests': () => {
+        browser
+            .url('https://www.google.com')
+            .axeInject()
+            .axeRun(
+                'body',
+                {
+                    rules: {
+                        'color-contrast': {
+                            enabled: false,
+                        },
+                        region: {
+                            enabled: false,
+                        },
+                    },
+                },
+                results => {},
+            );
     },
 
     'step one: navigate to google': () => {
@@ -88,6 +133,7 @@ const testGeneral: NightwatchTests = {
     'test user defined globals': () => {
         browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
     },
+
     'Demo test for built-in API commands for working with the Chrome Devtools Protocol': () => {
         // setGeolocation
         browser
@@ -141,7 +187,7 @@ const testGeneral: NightwatchTests = {
             .captureBrowserConsoleLogs(event => {
                 console.log(event.type, event.timestamp, event.args[0].value);
             })
-            .navigateTo('https://www.google.com')
+            .navigateTo(browser.baseUrl)
             .executeScript(() => {
                 console.error('here');
             }, []);
@@ -189,6 +235,94 @@ const testGeneral: NightwatchTests = {
         const result = browser.assert.strictEqual('nightwatch', 'nightwatch');
         isNightwatchAPI(result);
         isType<NightwatchNodeAssertionsResult | Error>(await result);
+    }
+};
+
+//
+// ./tests/duckDuckGo.ts
+//
+describe('duckduckgo example', function() {
+    it('Search Nightwatch.js and check results', function(browser) {
+      browser
+        .navigateTo('https://duckduckgo.com')
+        .waitForElementVisible('input[name=q]')
+        .sendKeys('input[name=q]', ['Nightwatch.js'])
+        .click('*[type="submit"]')
+        .assert.visible('.results--main')
+        .assert.textContains('.results--main', 'Nightwatch.js');
+    });
+});
+
+//
+// .tests/native/wikipedia.ts
+//
+const wikipediaAppTest: NightwatchTests = {
+    before: (client: NightwatchAPI) => {
+      client.click('xpath', '//XCUIElementTypeButton[@name="Skip"]');
+    },
+
+    'Search for BrowserStack': async (client: NightwatchAPI) => {
+      client
+        .useXpath()
+        .click('//XCUIElementTypeSearchField[@name="Search Wikipedia"]')
+        .getOrientation(function(result) {
+            if (result.status === 0) {
+                isType<'LANDSCAPE' | 'PORTRAIT'>(result.value);
+            }
+            isNightwatchAPI(this);
+        })
+        .setOrientation('LANDSCAPE', function(result) {
+            if (result.status === 0) {
+                isType<'LANDSCAPE' | 'PORTRAIT'>(result.value);
+            }
+            isNightwatchAPI(this);
+        })
+        .appium.pressKeyCode(13, 44)
+        .sendKeys('//XCUIElementTypeSearchField[@name="Search Wikipedia"]', 'browserstack')
+        .click('//XCUIElementTypeStaticText[@name="BrowserStack"]')
+        .waitUntil(async function() {
+            // wait for webview context to be available
+            const contexts = await client.contexts(function(result) {
+                if (result.status === 0) {
+                    isType<string[]>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
+
+          return contexts.length > 1;
+        }, 50000)
+        .perform(async function() {
+            // switch to webview context
+            const contexts = await client.contexts();
+            const setContextResult = await client.setContext(contexts[1], function(result) {
+                if (result.status === 0) {
+                    isType<null>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
+
+            const currContext = await client.currentContext(function(result) {
+                if (result.status === 0) {
+                    isType<string | null>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
+
+            isType<string[]>(contexts);
+            isType<null>(setContextResult);
+            isType<string | null>(currContext);
+
+            // switch orientation back to portrait
+            const currOrientation = await client.getOrientation();
+            const setOrientationResult = await client.setOrientation('PORTRAIT');
+
+            isType<'LANDSCAPE' | 'PORTRAIT'>(currOrientation);
+            isType<'LANDSCAPE' | 'PORTRAIT'>(setOrientationResult);
+        })
+        .useCss()
+        .assert.textEquals('.pcs-edit-section-title', 'BrowserStack');  // command run in webview context
+
+      client.end();
     }
 };
 
@@ -392,7 +526,35 @@ const testSpecificCommands: NightwatchTests = {
         );
 
         browser.executeAsync(
-            (arg1, arg2, done) => {
+            (arg1: number, arg2: string, done: (result: true) => void) => {
+                setTimeout(() => {
+                    done(true);
+                }, 500);
+            },
+            [1, '2'],
+            result => {
+                browser.assert.equal(result.value, true);
+            },
+        );
+
+        browser.end();
+    },
+
+    executeAsyncScript: () => {
+        browser.executeAsyncScript(
+            done => {
+                setTimeout(() => {
+                    done(true);
+                }, 500);
+            },
+            [],
+            result => {
+                browser.assert.equal(result.value, true);
+            },
+        );
+
+        browser.executeAsyncScript(
+            (arg1: number, arg2: number, done: (result: boolean) => void) => {
                 setTimeout(() => {
                     done(true);
                 }, 500);
@@ -550,6 +712,20 @@ it('Ensure demo test', () => {
         .url('https://nightwatchjs.org')
         .ensure.titleMatches(/Nightwatch.js/)
         .ensure.elementIsVisible('#index-container');
+});
+
+it('Ensure async/await demo test', async () => {
+    const result = await browser
+        .url('https://nightwatchjs.org')
+        .ensure.urlContains('nightwatch')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+
+        function isNightwatchEnsureResult(v: NightwatchEnsureResult) {}
+        function isNull(v: null) {}
+
+        isNightwatchEnsureResult(result);
+        isNull(result.value);
 });
 
 // chai expect test

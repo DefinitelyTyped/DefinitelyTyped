@@ -1,5 +1,8 @@
 {
     "rules": {
-        "dt-header": "off"
+        "dt-header": "off",
+        "trim-file": "off",
+        "prefer-declare-function": "off",
+        "no-declare-current-package": "off"
     }
 }

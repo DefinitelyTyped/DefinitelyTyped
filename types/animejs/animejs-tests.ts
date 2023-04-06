@@ -109,3 +109,15 @@ anime.set(
         height: "1000px"
     }
 );
+
+anime.get('.test-div', 'height');
+anime.get('.test-div', 'height', 'rem');
+
+// test importing from lib/ files
+import animeCJS = require('animejs/lib/anime');
+import animeMin = require('animejs/lib/anime.min');
+import animeES6 from 'animejs/lib/anime.es';
+
+animeCJS({});
+animeES6({});
+animeMin({});

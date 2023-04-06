@@ -8,6 +8,7 @@ import DatePicker, {
     ReactDatePickerCustomHeaderProps,
 } from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
+import { format } from 'date-fns';
 import { Modifier } from 'react-popper';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
@@ -24,6 +25,8 @@ const topLogger: Modifier<'topLogger'> = {
         }
     },
 };
+
+const DATE_FNS_FORMAT = 'EEEEE';
 
 <DatePicker
     adjustDateOnChange
@@ -65,7 +68,7 @@ const topLogger: Modifier<'topLogger'> = {
     filterTime={date => true}
     fixedHeight
     forceShowMonthNavigation
-    formatWeekDay={formattedDate => formattedDate[0]}
+    formatWeekDay={(day, locale) => format(day, DATE_FNS_FORMAT, { locale })}
     formatWeekNumber={date => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
@@ -196,6 +199,7 @@ const topLogger: Modifier<'topLogger'> = {
     portalHost={document.body.shadowRoot!}
     wrapperClassName=""
     weekAriaLabelPrefix=""
+    monthAriaLabelPrefix=""
     excludeScrollbar={false}
     enableTabLoop={false}
     yearDropdownItemNumber={1}

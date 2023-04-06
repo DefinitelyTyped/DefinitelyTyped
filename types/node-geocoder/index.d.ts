@@ -1,21 +1,32 @@
-// Type definitions for node-geocoder 3.24
+// Type definitions for node-geocoder 4.2
 // Project: https://github.com/nchaulet/node-geocoder#readme
 // Definitions by: Krzysztof Rosinski <https://github.com/rosek86>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+import { RequestInfo, RequestInit, Response } from 'node-fetch';
+
 declare namespace node_geocoder {
     type Providers =
-        'freegeoip' | 'datasciencetoolkit' |
-        'locationiq' | 'mapquest' | 'mapbox' |
-        'openmapquest' | 'tomtom' | 'nominatimmapquest' |
-        'opencage' | 'geocodio' |
-        'yandex' | 'teleport' | 'pickpoint';
+        | 'freegeoip'
+        | 'datasciencetoolkit'
+        | 'locationiq'
+        | 'mapquest'
+        | 'mapbox'
+        | 'openmapquest'
+        | 'tomtom'
+        | 'nominatimmapquest'
+        | 'opencage'
+        | 'geocodio'
+        | 'yandex'
+        | 'teleport'
+        | 'pickpoint'
+        | 'virtualearth';
 
     interface BaseOptions {
         provider: string;
-        httpAdapter?: 'https' | 'http' | 'request' | undefined;
+        fetch?: (url: RequestInfo, init?: RequestInit) => Promise<Response> | undefined;
         timeout?: number | undefined;
         formatterPattern?: string | undefined;
         formatter?: any;
@@ -77,7 +88,16 @@ declare namespace node_geocoder {
         host?: string | undefined;
     }
 
-    type Options = BaseOptions & (GenericOptions | HereOptions | OpenStreetMapOptions | OpenDataFranceOptions | AgolOptions | SmartyStreetsOptions | GoogleOptions);
+    type Options = BaseOptions &
+        (
+            | GenericOptions
+            | HereOptions
+            | OpenStreetMapOptions
+            | OpenDataFranceOptions
+            | AgolOptions
+            | SmartyStreetsOptions
+            | GoogleOptions
+        );
 
     interface Location {
         lat: number;
@@ -88,16 +108,20 @@ declare namespace node_geocoder {
         formattedAddress?: string | undefined;
         latitude?: number | undefined;
         longitude?: number | undefined;
-        extra?: {
-            googlePlaceId?: string | undefined;
-            confidence?: number | undefined;
-        } | undefined;
-        administrativeLevels?: {
-            level1long?: string | undefined;
-            level1short?: string | undefined;
-            level2long?: string | undefined;
-            level2short?: string | undefined;
-        } | undefined;
+        extra?:
+            | {
+                  googlePlaceId?: string | undefined;
+                  confidence?: number | undefined;
+              }
+            | undefined;
+        administrativeLevels?:
+            | {
+                  level1long?: string | undefined;
+                  level1short?: string | undefined;
+                  level2long?: string | undefined;
+                  level2short?: string | undefined;
+              }
+            | undefined;
         city?: string | undefined;
         streetName?: string | undefined;
         streetNumber?: string | undefined;

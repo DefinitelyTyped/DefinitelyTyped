@@ -29,7 +29,7 @@ suite.checkEquals(any, any, any); // $ExpectType void
 suite.checkNotEquals(any, any, any); // $ExpectType void
 suite.checkEqualNumbers(any, any, any, any); // $ExpectType void
 suite.checkNotEqualNumbers(any, any, any, any); // $ExpectType void
-suite.removeTime(any); // $ExpectType Date
+suite.removeTime(new Date()); // $ExpectType Date
 suite.checkEqualDates(any, any, any); // $ExpectType void
 suite.checkNotEqualDates(any, any, any); // $ExpectType void
 suite.checkEqualDateTimes(any, any, any); // $ExpectType void
@@ -52,4 +52,4 @@ suite.assertNotNan(arrAny); // $ExpectType void
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(62, 63); // $ExpectType boolean
+testMajorVersions(69, 70); // $ExpectType boolean

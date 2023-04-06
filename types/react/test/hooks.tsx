@@ -241,6 +241,47 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // make sure setState accepts a function
     setToggle(r => !r);
 
+    // Undesired
+    // Should not type-check since `number` will be `number` at runtime but `() => number` in the type-checker
+    const [number, setNumber] = React.useState<() => number>(() => 0);
+    // Should be `number`
+    // $EpectType () => number
+    number;
+
+    const [numFunc, setNumFunc] =  React.useState<() => number>(() => () => 0);
+    // $ExpectType () => number
+    numFunc;
+    // Undesired
+    // Should not typecheck since that would update the state to `number` when the type-checker would still consider the state to be `() => number`
+    setNumFunc(() => 42);
+    // this is the correct way to set a function in state
+    setNumFunc(() => () => 42);
+
+    // when using a function without a generic, infer the return type
+    // $ExpectType number
+    React.useState(() => 0)[0];
+    // When storing a function it must be wrapped
+    // $ExpectType () => number
+    React.useState<() => number>(() => () => 0)[0];
+    // When storing a function, even without a generic, it must be wrapped
+    // $ExpectType () => number
+    React.useState(() => () => 0)[0];
+
+    // Undesired
+    // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
+    // React would call the constructor causing a TypeError.
+    React.useState(class {});
+    // This is the correct way to store classes in state.
+    // $ExpectType typeof A
+    React.useState(() => class A {})[0];
+
+    const [_, setClass] = React.useState(() => class {});
+    // Undesired
+    // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
+    // React would call the constructor causing a TypeError,
+    setClass(class {});
+    setClass(() => class {});
+
     // useReducer convenience overload
 
     return React.useCallback(() => didLayout.current, []);
@@ -262,7 +303,7 @@ const everyHookRef = React.createRef<{ id: number }>();
     ref;
  }}/>;
 
-function useExperimentalHooks() {
+function useConcurrentHooks() {
     const [toggle, setToggle] = React.useState(false);
 
     const [done, startTransition] = React.useTransition();

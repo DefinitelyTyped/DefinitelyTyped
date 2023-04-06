@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
     promptModule.prompts['']; // $ExpectType PromptConstructor
     promptModule.registerPrompt('', InputPrompt); // $ExpectType PromptModule
     promptModule.restoreDefaultPrompts();
+    inquirer.createPromptModule({ skipTTYChecks: false });
 }
 {
     inquirer.prompt([
@@ -231,8 +232,7 @@ fetchAsyncQuestionProperty(
         },
     });
     // @ts-expect-error
-    promptResult.ui.process.subscribe({
-        next: (value: {name_: string, answer: number}) => {
+    promptResult.ui.process.subscribe({ next: (value: {name_: string, answer: number}) => {
             // DO NOTHING
         },
     });
@@ -259,8 +259,7 @@ fetchAsyncQuestionProperty(
         },
     });
     // @ts-expect-error
-    promptResult.ui.process.subscribe({
-        next: (value: {name: string, answer: number}) => {
+    promptResult.ui.process.subscribe({ next: (value: {name: string, answer: number}) => {
             // DO NOTHING
         },
     });

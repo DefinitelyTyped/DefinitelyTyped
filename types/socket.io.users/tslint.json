@@ -10,7 +10,6 @@
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-declare-function": false,
         "prefer-template": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false

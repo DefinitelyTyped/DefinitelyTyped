@@ -119,7 +119,6 @@ const Person = Waterline.Collection.extend({
 });
 const attributes: Waterline.Attribute = {
     type: 'string',
-    autoIncrement: true,
     required: true,
 };
 

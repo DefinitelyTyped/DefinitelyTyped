@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "export-just-namespace": false,
         "no-duplicate-variable": false,
         "no-mergeable-namespace": false,
         "no-reference-import": false,

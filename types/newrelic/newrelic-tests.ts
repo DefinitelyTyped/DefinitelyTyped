@@ -31,6 +31,10 @@ newrelic.noticeError(Error('Oh no!'), { foo: 'bar' }); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: 42 }); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: true }); // $ExpectType void
 
+newrelic.recordLogEvent({ message: '' }); // $ExpectType void
+newrelic.recordLogEvent({ message: '', timestamp: 1 }); // $ExpectType void
+newrelic.recordLogEvent({ message: '', error: new SyntaxError() }); // $ExpectType void
+
 newrelic.addNamingRule('/user/customers/all/.*', '/user/customers/all'); // $ExpectType void
 newrelic.addNamingRule(/\/user\/customers\/.*/, '/user/customers/:customer'); // $ExpectType void
 
@@ -38,6 +42,9 @@ newrelic.addIgnoringRule('^/items/[0-9]+$'); // $ExpectType void
 newrelic.addIgnoringRule(/^[0-9]+$/); // $ExpectType void
 
 newrelic.getBrowserTimingHeader(); // $ExpectType string
+newrelic.getBrowserTimingHeader({ nonce: 'foo' }); // $ExpectType string
+newrelic.getBrowserTimingHeader({ hasToRemoveScriptWrapper: true }); // $ExpectType string
+newrelic.getBrowserTimingHeader({ hasToRemoveScriptWrapper: true, nonce: 'foo' }); // $ExpectType string
 
 newrelic.startSegment('foo', false, () => 'bar'); // $ExpectType string
 newrelic.startSegment('foo', false, () => 'bar', () => 'baz'); // $ExpectType string

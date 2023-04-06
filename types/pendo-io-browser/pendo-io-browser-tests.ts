@@ -35,6 +35,26 @@ pendo.initialize({
     }
 });
 
+pendo.initialize({
+    visitor: {
+        id: "PUT_VISITOR_ID_HERE",
+        name: "Neo",
+        email: "neo@thematrix.io",
+        role: "godlike"
+    },
+    account: {
+        id: "PUT_ACCOUNT_ID_HERE",
+        name: "CorpSchmorp"
+    },
+    cookieDomain: ".example.com"
+});
+
+pendo.setGuidesDisabled(true);
+pendo.stopGuides();
+
+pendo.setGuidesDisabled(false);
+pendo.startGuides();
+
 pendo.identify(
     "PUT_VISITOR_ID_HERE",
     "PUT_ACCOUNT_ID_HERE"
@@ -45,11 +65,13 @@ pendo.identify({
         id: "PUT_VISITOR_ID_HERE",
         name: "Neo",
         email: "neo@thematrix.io",
-        role: "godlike"
+        role: "godlike",
+        nullField: null,
     },
     account: {
         id: "PUT_ACCOUNT_ID_HERE",
-        name: "CorpSchmorp"
+        name: "CorpSchmorp",
+        nullField: null,
     }
 });
 
@@ -86,6 +108,13 @@ pendo.initialize({
             // Do something when pendo is initialized
         }
     }
+});
+
+pendo.initialize({
+    apiKey: 'YOUR_API_KEY',
+    visitor: { id: "" },
+    account: { id: "" },
+    sanitizeUrl: (url) => url.replace('sensitiveData', '')
 });
 
 pendo.track("User Registered", {

@@ -1,4 +1,7 @@
 import DOMPurify = require('dompurify');
+import jsdom = require('jsdom');
+
+const { JSDOM } = jsdom;
 
 DOMPurify.addHook('beforeSanitizeElements', (el, data, config) => undefined);
 
@@ -25,6 +28,7 @@ DOMPurify.sanitize(dirty, { FORBID_ATTR: ['style'] }); // $ExpectType string
 DOMPurify.sanitize(dirty, { FORBID_TAGS: ['style'] }); // $ExpectType string
 DOMPurify.sanitize(dirty, { KEEP_CONTENT: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { NAMESPACE: 'http://www.w3.org/2000/svg' }); // $ExpectType string
+DOMPurify.sanitize(dirty, { ALLOWED_NAMESPACES: ['http://www.w3.org/2000/svg'] }); // $ExpectType string
 DOMPurify.sanitize(dirty, { PARSER_MEDIA_TYPE: 'text/html' }); // $ExpectType string
 DOMPurify.sanitize(dirty, { RETURN_DOM: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { SANITIZE_DOM: false }); // $ExpectType string
@@ -66,6 +70,10 @@ const customWindow: Window = window;
 const customDOMPurifyWithCustomWindow = createDOMPurify(customWindow);
 customDOMPurifyWithCustomWindow.sanitize(dirty);
 
+const jsdomWindow = new JSDOM('<!DOCTYPE html>').window;
+const customDOMPurifyWithJsdomWindow = createDOMPurify(jsdomWindow);
+customDOMPurifyWithJsdomWindow.sanitize(dirty);
+
 // test the 'DOMPurifyI' type is publicly accessible.
 function registerDomPurifyInstance(domPurify: DOMPurify.DOMPurifyI) {}
 
@@ -91,4 +99,8 @@ DOMPurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPuri
         event.allowedAttributes[event.attrName] = true;
         event.forceKeepAttr = true;
     }
+});
+
+DOMPurify.sanitize('<a href="#" class="foo <br/>">abc</a>', {
+    ALLOW_SELF_CLOSE_IN_ATTR: false,
 });

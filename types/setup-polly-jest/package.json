@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "@pollyjs/adapter": "^6.0.4",
+        "@pollyjs/core": "^6.0.5",
+        "@pollyjs/persister": "^6.0.5"
+    }
+}

@@ -1,4 +1,4 @@
-// Type definitions for sanitize-html 2.6
+// Type definitions for sanitize-html 2.9
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>
@@ -48,6 +48,7 @@ declare namespace sanitize {
     attribs: { [index: string]: string };
     text: string;
     tagPosition: number;
+    mediaChildren: string[];
   }
 
   // tslint:disable-next-line:interface-name
@@ -70,6 +71,8 @@ declare namespace sanitize {
     exclusiveFilter?: ((frame: IFrame) => boolean) | undefined;
     nestingLimit?: number | undefined;
     nonTextTags?: string[] | undefined;
+    /** @default true */
+    parseStyleAttributes?: boolean | undefined;
     selfClosing?: string[] | undefined;
     transformTags?: { [tagName: string]: string | Transformer } | undefined;
     parser?: ParserOptions | undefined;

@@ -375,12 +375,12 @@ export interface Options {
     filename?: string | undefined;
 
     /**
-     * The path to the project root. When this is set, absolute paths for includes
-     * (/filename.ejs) will be relative to the project root.
+     * The path to templates root(s). When this is set, absolute paths for includes
+     * (/filename.ejs) will be relative to the templates root(s).
      *
      * @default undefined
      */
-    root?: string | undefined;
+    root?: string[] | string | undefined;
 
     /**
      * The opening delimiter for all statements. This allows you to clearly delinate

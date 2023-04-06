@@ -17,3 +17,5 @@ export function save(
     options: OutputOptions,
     log: (...args: string[]) => void,
 ): Promise<unknown>;
+
+export const formatName: string;

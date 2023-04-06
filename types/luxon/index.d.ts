@@ -1,7 +1,6 @@
-// Type definitions for luxon 3.0
+// Type definitions for luxon 3.3
 // Project: https://github.com/moment/luxon#readme
-// Definitions by: Colby DeHart <https://github.com/colbydehart>
-//                 Hyeonseok Yang <https://github.com/FourwingsY>
+// Definitions by: Hyeonseok Yang <https://github.com/FourwingsY>
 //                 Jonathan Siebern <https://github.com/jsiebern>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Pietro Vismara <https://github.com/pietrovismara>
@@ -13,6 +12,8 @@
 //                 Hugo Silva <https://github.com/hugofpsilva>
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Minimum TypeScript Version: 4.3
 
 export * from './src/luxon';
 

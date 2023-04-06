@@ -82,6 +82,12 @@ const updateDisplayData: azdata.nb.IUpdateDisplayData = {
     }
 };
 
+const accountSecurityToken: azdata.accounts.AccountSecurityToken = {
+    token: 'mytoken',
+    tokenType: 'Bearer',
+    expiresOn: 3290134
+};
+
 const connectionResult: azdata.ConnectionResult = {
     connected: true
 };
@@ -91,3 +97,30 @@ const disposable: vscode.Disposable = azdata.queryeditor.registerQueryEventListe
         return;
     }
 });
+
+const firewallRuleInfo: azdata.FirewallRuleInfo = {
+    serverName: 'mytestserver',
+    firewallRuleName: 'My Firewall Rule',
+    securityTokenMappings: {}
+};
+
+const accountKey: azdata.AccountKey = {
+    providerId: 'provider-id',
+    accountId: 'account-id'
+};
+
+const accountDisplayInfo: azdata.AccountDisplayInfo = {
+    contextualDisplayName: 'contextual-display-name',
+    accountType: 'account-type',
+    displayName: 'display-name',
+    userId: 'user-id'
+};
+
+const account: azdata.Account = {
+    key: accountKey,
+    displayInfo: accountDisplayInfo,
+    properties: undefined,
+    isStale: false
+};
+
+azdata.accounts.getAccountSecurityToken(account, 'tenant-id', azdata.AzureResource.Custom);

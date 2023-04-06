@@ -173,7 +173,7 @@ function init() {
     boxMesh3.castShadow = true;
     scene.add(boxMesh3);
 
-    renderer.physicallyCorrectLights = true;
+    renderer.useLegacyLights = false;
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.shadowMap.enabled = true;
     renderer.toneMapping = THREE.ReinhardToneMapping;

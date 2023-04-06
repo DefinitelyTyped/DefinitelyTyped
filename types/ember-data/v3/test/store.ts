@@ -155,15 +155,22 @@ const tom = store
     });
 
 // GET /users?isAdmin=true
-const admins = store.query('user', { isAdmin: true });
-assertType<DS.AdapterPopulatedRecordArray<User> & DS.PromiseArray<User, Ember.ArrayProxy<User>>>(admins);
+const adminsQuery = store.query('user', { isAdmin: true });
+assertType<DS.PromiseArray<User, DS.AdapterPopulatedRecordArray<User>>>(adminsQuery);
 
-admins.then(function () {
-    console.log(admins.get('length')); // 42
-});
-admins.update().then(function () {
-    admins.get('isUpdating'); // false
-    console.log(admins.get('length')); // 123
+adminsQuery.then(function (admins) {
+    console.log(admins.get("length")); // 42
+
+    // somewhere later in the app code, when new admins have been created
+    // in the meantime
+    //
+    // GET /users?isAdmin=true
+    admins.update().then(function() {
+        admins.get('isUpdating'); // false
+        console.log(admins.get("length")); // 123
+    });
+
+    admins.get('isUpdating'); // true
 });
 
 store.push({

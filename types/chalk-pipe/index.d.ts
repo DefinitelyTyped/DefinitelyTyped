@@ -1,6 +1,6 @@
 // Type definitions for chalk-pipe 2.0
 // Project: https://github.com/LitoMore/chalk-pipe
-// Definitions by: Jed Mao <https://github.com/jedmao>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 

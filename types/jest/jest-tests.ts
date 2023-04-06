@@ -332,10 +332,8 @@ const customMatcherFactories: jasmine.CustomMatcherFactories = {};
 jest.autoMockOff()
     .autoMockOn()
     .clearAllMocks()
-    .clearAllTimers()
     .resetAllMocks()
     .restoreAllMocks()
-    .clearAllTimers()
     .deepUnmock('moduleName')
     .disableAutomock()
     .doMock('moduleName')
@@ -357,11 +355,6 @@ jest.autoMockOff()
     .resetModules()
     .isolateModules(() => {})
     .retryTimes(3, { logErrorsBeforeRetry: true })
-    .runAllImmediates()
-    .runAllTicks()
-    .runAllTimers()
-    .runOnlyPendingTimers()
-    .advanceTimersByTime(9001)
     .setMock('moduleName', {})
     .setMock<{}>('moduleName', {})
     .setMock<{ a: 'b' }>('moduleName', { a: 'b' })
@@ -370,13 +363,58 @@ jest.autoMockOff()
     .useFakeTimers()
     .useRealTimers();
 
+// $ExpectType void
+jest.advanceTimersByTime(9001);
+
+// $ExpectType Promise<void>
+jest.advanceTimersByTimeAsync(9001);
+
+// $ExpectType void
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
+
+// $ExpectType Promise<void>
+jest.advanceTimersToNextTimerAsync();
+jest.advanceTimersToNextTimerAsync(2);
+
+// $ExpectType void
+jest.clearAllTimers();
+
+// $ExpectType boolean
+jest.isEnvironmentTornDown();
+
+// $ExpectType Promise<void>
+jest.isolateModulesAsync(async () => {});
+// @ts-expect-error: does not allow sync callbacks
+jest.isolateModulesAsync(() => {});
+
+// $ExpectType void
+jest.runAllImmediates();
+
+// $ExpectType void
+jest.runAllTicks();
+
+// $ExpectType void
+jest.runAllTimers();
+
+// $ExpectType Promise<void>
+jest.runAllTimersAsync();
+
+// $ExpectType void
+jest.runOnlyPendingTimers();
+
+// $ExpectType Promise<void>
+jest.runOnlyPendingTimersAsync();
 
 // https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers();
 jest.useFakeTimers({ legacyFakeTimers: false });
 jest.useFakeTimers({ timerLimit: 50 });
+
+jest.useFakeTimers({ legacyFakeTimers: true });
+// @ts-expect-error
+jest.useFakeTimers({ legacyFakeTimers: true, timerLimit: 50 });
+
 // @ts-expect-error
 jest.useFakeTimers('legacy');
 // @ts-expect-error
@@ -395,6 +433,71 @@ jest.setSystemTime('foo');
 const realSystemTime1: number = jest.getRealSystemTime();
 // @ts-expect-error
 const realSystemTime2: number = jest.getRealSystemTime('foo');
+
+// https://jestjs.io/docs/en/jest-object#jestgetseed
+const seed1: number = jest.getSeed();
+// @ts-expect-error
+const seed2: number = jest.getSeed('foo');
+
+/* Replace property */
+// https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value
+
+const replaceObjectA = {
+    method: () => {},
+    property: 1,
+};
+
+// $ExpectType ReplaceProperty<number>
+jest.replaceProperty(replaceObjectA, 'property', 2);
+
+// $ExpectType ReplaceProperty<() => void>
+jest.replaceProperty(replaceObjectA, 'method', () => {});
+
+let replaced: jest.ReplaceProperty<number>;
+replaced = jest.replaceProperty(replaceObjectA, 'property', 2);
+
+// $ExpectType void
+jest.replaceProperty(replaceObjectA, 'property', 2).replaceValue(3).restore();
+
+// @ts-expect-error: property does not exist
+jest.replaceProperty(replaceObjectA, 'invalid', 1);
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceObjectA, 'property', 'some text');
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceObjectA, 'property', 1).replaceValue('some text');
+
+interface ReplaceComplexObject {
+    numberOrUndefined: number | undefined;
+    optionalString?: string;
+    multipleTypes: number | string | { foo: number } | null;
+}
+declare const replaceComplexObject: ReplaceComplexObject;
+
+// $ExpectType ReplaceProperty<number | undefined>
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', undefined);
+
+// $ExpectType ReplaceProperty<number | undefined>
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 1);
+
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 'some string');
+
+// $ExpectType ReplaceProperty<string | undefined>
+jest.replaceProperty(replaceComplexObject, 'optionalString', 'foo');
+
+// $ExpectType ReplaceProperty<string | undefined>
+jest.replaceProperty(replaceComplexObject, 'optionalString', undefined);
+
+// $ExpectType ReplaceProperty<string | number | { foo: number; } | null>
+jest.replaceProperty(replaceComplexObject, 'multipleTypes', 1)
+    .replaceValue('foo')
+    .replaceValue({ foo: 1 })
+    .replaceValue(null);
+
+// $ExpectType number
+jest.now();
+// @ts-expect-error
+jest.now('1995-12-17T03:24:00');
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
@@ -430,37 +533,42 @@ const spreadRequireMock = { ...jest.requireMock('./thisAlwaysReturnsTheMock') };
 
 /* Mocks and spies */
 
-// $ExpectType Mock<any, any>
+// $ExpectType Mock<any, any, any>
 const mock1: jest.Mock<number> = jest.fn();
-// $ExpectType Mock<undefined, []>
+// $ExpectType Mock<undefined, [], any>
 const mock2 = jest.fn(() => undefined);
-// $ExpectType Mock<string, []>
+// $ExpectType Mock<string, [], any>
 const mock3 = jest.fn(() => 'abc');
-// $ExpectType Mock<"abc", []>
+// $ExpectType Mock<"abc", [], any>
 const mock4 = jest.fn((): 'abc' => 'abc');
-// $ExpectType Mock<string, string[]>
+// $ExpectType Mock<string, string[], any>
 const mock5 = jest.fn((...args: string[]) => args.join(''));
-// $ExpectType Mock<{}, [{}]> || Mock<{}, [arg: {}]>
+// $ExpectType Mock<{}, [{}], any> || Mock<{}, [arg: {}], any>
 const mock6 = jest.fn((arg: {}) => arg);
-// $ExpectType Mock<number, [number]> || Mock<number, [arg: number]>
+// $ExpectType Mock<number, [number], any> || Mock<number, [arg: number], any>
 const mock7 = jest.fn((arg: number) => arg);
-// $ExpectType Mock<number, [number]> || Mock<number, [arg: number]>
+// $ExpectType Mock<number, [number], any> || Mock<number, [arg: number], any>
 const mock8: jest.Mock = jest.fn((arg: number) => arg);
-// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean]>
+// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean], any> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean], any>
 const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) =>
     Promise.resolve(_makeItStop),
 );
-// $ExpectType Mock<never, []>
+// $ExpectType Mock<never, [], any>
 const mock10 = jest.fn(() => {
     throw new Error();
 });
-// $ExpectType Mock<unknown, [unknown]> || Mock<unknown, [arg: unknown]>
+// $ExpectType Mock<unknown, [unknown], any> || Mock<unknown, [arg: unknown], any>
 const mock11 = jest.fn((arg: unknown) => arg);
 interface TestApi {
     test(x: number): string;
 }
-// $ExpectType Mock<string, [number]> || Mock<string, [x: number]>
+// $ExpectType Mock<string, [number], any> || Mock<string, [x: number], any>
 const mock12 = jest.fn<ReturnType<TestApi['test']>, jest.ArgsType<TestApi['test']>>();
+interface TestMockContext { mock: boolean; test?: number; }
+// $ExpectType Mock<0, [string], TestMockContext> || Mock<0, [check: string], TestMockContext>
+const mock13 = jest.fn(function(this: TestMockContext, check: string) { return 0 as const; });
+// $ExpectType TestMockContext[]
+mock13.mock.contexts;
 
 // $ExpectType number
 mock1('test');
@@ -561,6 +669,18 @@ const spy3Mock = spy3
     .mockReturnValue('value')
     .mockReturnValueOnce('value');
 
+// $ExpectType void
+spy3.withImplementation(
+    () => 'mocked value',
+    () => {},
+);
+
+// $ExpectType Promise<void>
+spy3.withImplementation(
+    () => 'mocked value',
+    async () => {},
+);
+
 const spiedPromiseTarget = {
     resolvesString() {
         return Promise.resolve('string');
@@ -573,7 +693,7 @@ jest.spyOn(spiedPromiseTarget, 'resolvesString')
     .mockRejectedValueOnce('value');
 
 let spy4: jest.SpyInstance;
-// $ExpectType SpyInstance<string, []>
+// $ExpectType SpyInstance<string, [], any>
 spy4 = jest.spyOn(spiedTarget, 'returnsString');
 // compiles because spy4 is declared as jest.SpyInstance<any, any>
 spy4.mockImplementation(() => 1);
@@ -581,17 +701,17 @@ spy4.mockRestore();
 
 let spy5: jest.SpiedFunction<typeof spiedTarget.setValue>;
 
-// $ExpectType SpyInstance<void, [string]> || SpyInstance<void, [value: string]>
+// $ExpectType SpyInstance<void, [string], any> || SpyInstance<void, [value: string], any>
 spy5 = jest.spyOn(spiedTarget, 'setValue');
 // @ts-expect-error
 spy5 = jest.spyOn(spiedTarget, 'returnsString');
 
-// $ExpectType SpyInstance<number, []>
+// $ExpectType SpyInstance<number, [], any>
 const spy6 = jest.spyOn(spiedTarget2, 'value', 'get');
 // @ts-expect-error
 spy6.mockReturnValue('5');
 
-// $ExpectType SpyInstance<void, [number]>
+// $ExpectType SpyInstance<void, [number], any>
 jest.spyOn(spiedTarget2, 'value', 'set');
 
 const spyInterfaceImpl: SpyInterface = {};
@@ -599,16 +719,16 @@ const spyInterfaceImpl: SpyInterface = {};
 jest.spyOn(spyInterfaceImpl, 'method', 'get');
 // @ts-expect-error
 jest.spyOn(spyInterfaceImpl, 'prop');
-// $ExpectType SpyInstance<number, []>
+// $ExpectType SpyInstance<number, [], any>
 jest.spyOn(spyInterfaceImpl, 'prop', 'get');
-// $ExpectType SpyInstance<void, [boolean]> || SpyInstance<void, [arg1: boolean]>
+// $ExpectType SpyInstance<void, [boolean], any> || SpyInstance<void, [arg1: boolean], any>
 jest.spyOn(spyInterfaceImpl, 'method');
 
 class SpyableClass {
     constructor(a: number, b: string) {}
     foo() {}
 }
-// $ExpectType SpyInstance<SpyableClass, [number, string]> || SpyInstance<SpyableClass, [a: number, b: string]>
+// $ExpectType SpyInstance<SpyableClass, [number, string], any> || SpyInstance<SpyableClass, [a: number, b: string], any>
 jest.spyOn({ SpyableClass }, 'SpyableClass');
 
 interface SpyableWithIndexSignature {
@@ -624,19 +744,42 @@ const spyWithIndexSignatureImpl: SpyableWithIndexSignature = {
     methodTwo: (s, b) => ({ b, n: Number(s) }),
     prop: { some: 'thing' },
 };
-// $ExpectType SpyInstance<void, []>
+// $ExpectType SpyInstance<void, [], any>
 jest.spyOn(spyWithIndexSignatureImpl, 'methodOne');
-// $ExpectType SpyInstance<{ b: boolean; n: number; }, [s: string, b: boolean]>
+// $ExpectType SpyInstance<{ b: boolean; n: number; }, [s: string, b: boolean], any>
 jest.spyOn(spyWithIndexSignatureImpl, 'methodTwo');
 // @ts-expect-error
 jest.spyOn(spyWithIndexSignatureImpl, 'nonExistentMethod');
 // @ts-expect-error
 jest.spyOn(spyWithIndexSignatureImpl, 'prop');
-// $ExpectType SpyInstance<{ some: string; }, []>
+// $ExpectType SpyInstance<{ some: string; }, [], any>
 jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
 
-// $ExpectType MockedObject<{}>
+let typedSpy: jest.Spied<typeof spiedTarget.returnsVoid>;
+typedSpy = jest.spyOn(spiedTarget, 'returnsVoid');
+
+let typedSpy1: jest.SpiedClass<typeof globalThis.Date>;
+typedSpy1 = jest.spyOn(globalThis, 'Date');
+
+let typedSpy2: jest.SpiedFunction<typeof spiedTarget.setValue>;
+typedSpy2 = jest.spyOn(spiedTarget, 'setValue');
+
+let typedSpy3: jest.SpiedGetter<typeof spiedTarget2.value>;
+typedSpy3 = jest.spyOn(spiedTarget2, 'value', 'get');
+
+let typedSpy4: jest.SpiedSetter<typeof spiedTarget2.value>;
+typedSpy4 = jest.spyOn(spiedTarget2, 'value', 'set');
+
+// Test for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63129
+// $ExpectType SpyInstance<void, [key: string, value: string], any>
+jest.spyOn(Storage.prototype, 'setItem');
+
+// $ExpectType MockedObjectDeep<{}>
 jest.mocked({});
+// $ExpectType MockedObjectDeep<{}>
+jest.mocked({}, { shallow: false });
+// $ExpectType MockedObject<{}>
+jest.mocked({}, { shallow: true });
 // @ts-expect-error
 jest.mocked();
 
@@ -670,24 +813,28 @@ mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
 // $ExpectType ((x: Type1) => Promise<Type1>) | undefined
 mocked.test1.getMockImplementation();
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
-// $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1]> & ((x: Type1) => Promise<Type1>)
+// $ExpectType MockInstance<Promise<Type1>, [Type1], unknown> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1], unknown> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue({ a: 1 });
 mocked.test1.mockResolvedValueOnce({ a: 1 });
-// $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1]> & ((x: Type1) => Promise<Type1>)
+// $ExpectType MockInstance<Promise<Type1>, [Type1], unknown> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1], unknown> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test1.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
 
-// $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>)
+// tslint:disable-next-line:max-line-length
+// $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue({ a: 1 });
 mocked.test2.mockResolvedValueOnce({ a: 1 });
-// $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>)
+// tslint:disable-next-line:max-line-length
+// $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test2.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
 
-// $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>)
+// tslint:disable-next-line:max-line-length
+// $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue({ b: 1 });
 mocked.test3.mockResolvedValueOnce({ b: 1 });
-// $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>)
+// tslint:disable-next-line:max-line-length
+// $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue(Promise.resolve({ b: 1 }));
 mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
 mocked.test3.mockRejectedValue(new Error());
@@ -706,16 +853,16 @@ mocked.test4.mockRejectedValue(new Error());
 // @ts-expect-error
 mocked.test4.mockRejectedValueOnce(new Error());
 
-// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+// $ExpectType MockInstance<Promise<void>, [Type1], unknown> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1], unknown> & ((x: Type1) => Promise<void>)
 mocked.test5.mockResolvedValue(undefined);
 mocked.test5.mockResolvedValueOnce(undefined);
-// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+// $ExpectType MockInstance<Promise<void>, [Type1], unknown> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1], unknown> & ((x: Type1) => Promise<void>)
 mocked.test5.mockResolvedValue(Promise.resolve(undefined));
 mocked.test5.mockResolvedValueOnce(Promise.resolve(undefined));
-// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+// $ExpectType MockInstance<Promise<void>, [Type1], unknown> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1], unknown> & ((x: Type1) => Promise<void>)
 mocked.test5.mockResolvedValue();
 mocked.test5.mockResolvedValueOnce();
-// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+// $ExpectType MockInstance<Promise<void>, [Type1], unknown> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1], unknown> & ((x: Type1) => Promise<void>)
 mocked.test5.mockResolvedValue(Promise.resolve());
 mocked.test5.mockResolvedValueOnce(Promise.resolve());
 
@@ -741,21 +888,30 @@ const module = {
 const mockedModule = module as jest.Mocked<typeof module>;
 mockedModule.testFunction.mock.calls[0][0]; // $ExpectType number
 mockedModule.testFunction.mock.calls[0][1]; // $ExpectType string
-mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
-mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
+mockedModule.testFunction.mock.contexts[0]; // $ExpectType unknown
+if (mockedModule.testFunction.mock.lastCall) {
+    mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
+    mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
+}
 const testFunction_0_ret = mockedModule.testFunction.mock.results[0];
 if (testFunction_0_ret.type === 'return') {
     testFunction_0_ret.value; // $ExpectType boolean
 }
 
 mockedModule.TestClass.mock.calls[0][0]; // $ExpectType string
-mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
+mockedModule.TestClass.mock.contexts[0]; // $ExpectType TestClass
+if (mockedModule.TestClass.mock.lastCall) {
+    mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
+}
 mockedModule.TestClass.mock.instances[0]; // $ExpectType TestClass
 
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
-mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
-mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+mockedModule.TestClass.prototype.testClassMethod.mock.contexts[0]; // $ExpectType unknown
+if (mockedModule.TestClass.prototype.testClassMethod.mock.lastCall) {
+    mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+    mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+}
 const TestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (TestClass_testClassMethod_0_ret.type === 'return') {
     TestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -764,8 +920,11 @@ if (TestClass_testClassMethod_0_ret.type === 'return') {
 const mockedTestFunction = module.testFunction as jest.MockedFunction<typeof module.testFunction>;
 mockedTestFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestFunction.mock.calls[0][1]; // $ExpectType string
-mockedTestFunction.mock.lastCall[0]; // $ExpectType number
-mockedTestFunction.mock.lastCall[1]; // $ExpectType string
+mockedTestFunction.mock.contexts[0]; // $ExpectType unknown
+if (mockedTestFunction.mock.lastCall) {
+    mockedTestFunction.mock.lastCall[0]; // $ExpectType number
+    mockedTestFunction.mock.lastCall[1]; // $ExpectType string
+}
 const mockedTestFunction_0_ret = mockedTestFunction.mock.results[0];
 if (mockedTestFunction_0_ret.type === 'return') {
     mockedTestFunction_0_ret.value; // $ExpectType boolean
@@ -774,8 +933,11 @@ if (mockedTestFunction_0_ret.type === 'return') {
 const mockedTestLambdaFunction = module.testLambdaFunction as jest.MockedFunction<typeof module.testLambdaFunction>;
 mockedTestLambdaFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestLambdaFunction.mock.calls[0][1]; // $ExpectType string
-mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
-mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
+mockedTestLambdaFunction.mock.contexts[0]; // $ExpectType unknown
+if (mockedTestLambdaFunction.mock.lastCall) {
+    mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
+    mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
+}
 const mockedTestLambdaFunction_0_ret = mockedTestLambdaFunction.mock.results[0];
 if (mockedTestLambdaFunction_0_ret.type === 'return') {
     mockedTestLambdaFunction_0_ret.value; // $ExpectType boolean
@@ -784,8 +946,11 @@ if (mockedTestLambdaFunction_0_ret.type === 'return') {
 const MockedTestClass = module.TestClass as jest.MockedClass<typeof module.TestClass>;
 MockedTestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 MockedTestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
-MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
-MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+MockedTestClass.prototype.testClassMethod.mock.contexts[0]; // $ExpectType unknown
+if (MockedTestClass.prototype.testClassMethod.mock.lastCall) {
+    MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+    MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+}
 const MockedTestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (MockedTestClass_testClassMethod_0_ret.type === 'return') {
     MockedTestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -1012,12 +1177,14 @@ describe('', () => {
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
+        expect(jest.fn()).lastReturnedWith();
 
-        expect(jest.fn()).nthCalledWith(0, 'jest');
-        expect(jest.fn()).nthCalledWith(1, {});
+        expect(jest.fn()).nthCalledWith(1, 'jest');
+        expect(jest.fn()).nthCalledWith(2, {});
 
-        expect(jest.fn()).nthReturnedWith(0, 'jest');
-        expect(jest.fn()).nthReturnedWith(1, {});
+        expect(jest.fn()).nthReturnedWith(1, 'jest');
+        expect(jest.fn()).nthReturnedWith(2, {});
+        expect(jest.fn()).nthReturnedWith(3);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -1102,12 +1269,14 @@ describe('', () => {
 
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
+        expect(jest.fn()).toHaveLastReturnedWith();
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
 
-        expect(jest.fn()).toHaveNthReturnedWith(0, 'jest');
-        expect(jest.fn()).toHaveNthReturnedWith(1, {});
+        expect(jest.fn()).toHaveNthReturnedWith(1, 'jest');
+        expect(jest.fn()).toHaveNthReturnedWith(2, {});
+        expect(jest.fn()).toHaveNthReturnedWith(3);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
@@ -1123,6 +1292,7 @@ describe('', () => {
 
         expect(jest.fn()).toHaveReturnedWith('jest');
         expect(jest.fn()).toHaveReturnedWith({});
+        expect(jest.fn()).toHaveReturnedWith();
 
         expect('').toMatch('');
         expect('').toMatch(/foo/);
@@ -1165,12 +1335,24 @@ describe('', () => {
             three: 3,
             four: { four: 3 },
             date: new Date(),
+            dateTwo: Date,
+            list: [1, 2, 3],
+            listOfStrings: ['one', 'two', 'three'],
+            symbolOne: Symbol('one'),
+            functionOne: () => {},
+            bigIntegerOne: BigInt('9007199254740991'),
         }).toMatchInlineSnapshot({
             one: expect.any(Number),
             // leave out two
             three: 3,
             four: { four: expect.any(Number) },
             date: expect.any(Date),
+            dateTwo: expect.any(Date),
+            list: expect.any(Array),
+            listOfStrings: expect.any(Array),
+            symbolOne: expect.any(Symbol),
+            functionOne: expect.any(Function),
+            bigIntegerOne: expect.any(BigInt),
         });
 
         expect(jest.fn()).toReturn();
@@ -1180,6 +1362,7 @@ describe('', () => {
 
         expect(jest.fn()).toReturnWith('jest');
         expect(jest.fn()).toReturnWith({});
+        expect(jest.fn()).toReturnWith();
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
@@ -1560,6 +1743,17 @@ describe.each([
     });
 });
 
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34617
+
+it.each<number>([1, 2, 3])('dummy: %d', (num, done) => {
+    done();
+});
+
+const casesReadonlyArray = [[1, 2, 3] as ReadonlyArray<number>] as ReadonlyArray<ReadonlyArray<number>>;
+it.each(casesReadonlyArray)('%d', (a, b, c) => {
+    expect(a + b).toBe(c);
+});
+
 interface Case {
     a: number;
     b: number;
@@ -1571,9 +1765,10 @@ describe.each`
     ${1} | ${1} | ${2}
     ${1} | ${2} | ${3}
     ${2} | ${1} | ${3}
-`('$a + $b', ({ a, b, expected }: Case) => {
+`('$a + $b', ({ a, b, expected }: Case, done) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
+        done();
     });
 });
 
@@ -1639,11 +1834,27 @@ test.each([
     5000,
 );
 
+test.each([
+    [
+        { prop1: true, prop2: true },
+        { prop1: true, prop2: true },
+    ],
+    [{ prop1: true }, { prop1: true, prop2: false }],
+])('%j -> %j', (input, output) => {
+    console.log(input, output);
+});
+
 declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
 test.each(constCases)('%s + %s', (...args) => {
     // following assertion is skipped because of flaky testing
     // _$ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
     args;
+});
+test.each(constCases)('%s + %s', (a, b, c) => {
+    a; // $ExpectType "a" | "d"
+    // following assertion is skipped because of flaky testing
+    b; // _$ExpectType "b" | 2
+    c; // $ExpectType "ab" | "d2"
 });
 
 declare const constCasesWithMoreThanTen: [
@@ -1685,6 +1896,15 @@ test.each([
 ])('', (a, b) => {
     a; // $ExpectType number
     b; // $ExpectType string
+});
+
+test.each([
+    [1, '1'],
+    [2, '2'],
+] as const)('', (a, b) => {
+    // following assertion is skipped because of flaky testing
+    a; // _$ExpectType 1 | 2
+    b; // $ExpectType "1" | "2"
 });
 
 test.only.each([

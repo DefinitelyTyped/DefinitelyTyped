@@ -30,6 +30,8 @@ export const limits: {
     maxMatchLength: number;
 };
 
+export function setTimeFunction(fn: () => number): void;
+
 export function now(localtimeOffsetMsec: number): number;
 
 export function nowSecs(localtimeOffsetMsec: number): number;

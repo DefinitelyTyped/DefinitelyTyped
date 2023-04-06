@@ -104,7 +104,7 @@ export type SWStats = Partial<{
    * - password - password
    * Must return true if user authenticated, false if not.
    */
-  onAuthenticate: (req: IncomingMessage, username: string, password: string) => boolean;
+  onAuthenticate: (req: IncomingMessage, username: string, password: string) => boolean | Promise<boolean>;
   /**
    * If authentication is enabled, max age of the session, in seconds.
    *

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false,
         "no-trailing-whitespace": false,
         "semicolon": false,
         "typedef-whitespace": false,

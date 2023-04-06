@@ -1,5 +1,7 @@
 {
     "rules": {
-        "dt-header": "off"
+        "dt-header": "off",
+        "no-declare-current-package": "off",
+        "no-single-element-tuple-type": "off"
     }
 }

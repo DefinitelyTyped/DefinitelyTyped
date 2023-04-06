@@ -3,10 +3,8 @@
     "rules": {
         "array-type": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,
-        "semicolon": false,
-        "trim-file": false
+        "semicolon": false
     }
 }

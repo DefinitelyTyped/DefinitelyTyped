@@ -1,4 +1,26 @@
-import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull, TooltipModule } from 'tabulator-tables';
+import {
+    Tabulator,
+    Renderer,
+    Module,
+    DataTreeModule,
+    TabulatorFull,
+    TooltipModule,
+    CalculationComponent,
+    CellComponent,
+    ColumnComponent,
+    ColumnDefinition,
+    ColumnDefinitionSorterParams,
+    GroupComponent,
+    MenuObject,
+    MenuSeparator,
+    RowComponent,
+    SorterFromTable,
+    Validator,
+    SortDirection,
+    JSONRecord,
+    Options,
+    ListEditorParams,
+} from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -78,6 +100,19 @@ table
         // handle error updating data
     });
 
+table
+    .addData([
+        { id: 5, name: 'jane' },
+        { id: 7, name: 'hayley' },
+    ])
+    .then(rows => {
+        // rows - array of the row components for the rows updated or added
+        // run code after data has been updated
+    })
+    .catch(error => {
+        // handle error updating data
+    });
+
 table.updateData([
     { id: 1, name: 'bob', gender: 'male' },
     { id: 2, name: 'Jenny', gender: 'female' },
@@ -91,21 +126,21 @@ table
         // handle error updating data
     });
 
-let row1: Tabulator.RowComponent;
-let row2: Tabulator.RowComponent;
+let row1: RowComponent;
+let row2: RowComponent;
 
 // column definitions
-let colDef: Tabulator.ColumnDefinition = { title: 'title', field: '' };
+let colDef: ColumnDefinition = { title: 'title', field: '' };
 colDef.sorter = customSorter;
 
 // prettier-ignore
-function customSorter(a: any, b: any, aRow: Tabulator.RowComponent,
-    bRow: Tabulator.RowComponent, column: Tabulator.ColumnComponent,
-    dir: Tabulator.SortDirection, sorterParams: Tabulator.ColumnDefinitionSorterParams): number {
+function customSorter(a: any, b: any, aRow: RowComponent,
+    bRow: RowComponent, column: ColumnComponent,
+    dir: SortDirection, sorterParams: ColumnDefinitionSorterParams): number {
     return 1;
 }
 
-colDef.sorterParams = (col: Tabulator.ColumnComponent, dir: Tabulator.SortDirection) => {
+colDef.sorterParams = (col: ColumnComponent, dir: SortDirection) => {
     return {};
 };
 colDef.sorterParams = { format: 'DD/MM/YY' };
@@ -130,7 +165,7 @@ colDef.formatterParams = {
     huge: true,
 };
 // Custom Formatter
-colDef.formatter = (cell: Tabulator.CellComponent, formatterParams: {}, onRendered) => {
+colDef.formatter = (cell: CellComponent, formatterParams: {}, onRendered) => {
     onRendered = () => {};
     return '';
 };
@@ -228,7 +263,7 @@ colDef.editorParams = {
     ],
 };
 
-let selectParamValues: Tabulator.JSONRecord;
+let selectParamValues: JSONRecord;
 selectParamValues = {
     steve: 'Steve Boberson',
     bob: 'Bob Jimmerson',
@@ -238,28 +273,36 @@ colDef.editorParams = {
     values: selectParamValues,
 };
 
-colDef.editorParams = cell => {
-    return {};
+let listEditor: ListEditorParams = {
+    values: ['red', 'green', 'blue'],
+    valuesURL: 'http://myvalues.com',
+    valuesLookup: 'active',
+    valuesLookupField: 'color',
+    clearable: true,
+    itemFormatter: (label, value, item, element) => {
+        return '<strong>';
+    },
+    verticalNavigation: 'hybrid',
+    sort: 'asc',
+    defaultValue: 'Steve Johnson',
+    emptyValue: null,
+    maxWidth: true,
+    placeholderLoading: 'Loading List...',
+    placeholderEmpty: 'No Results Found',
+    multiselect: true,
+    autocomplete: true,
+    filterFunc: (term, label, value, item) => {
+        return label === term;
+    },
+    filterRemote: true,
+    filterDelay: 100,
+    allowEmpty: true,
+    listOnEmpty: true,
+    mask: 'AAA-999',
+    freetext: true,
 };
 
-let autoComplete: Tabulator.AutoCompleteParams = {
-    showListOnEmpty: true, // show all values when the list is empty,
-    freetext: true, // allow the user to set the value of the cell to a free text entry
-    allowEmpty: true, // allow empty string values
-    searchFunc: (term, values) => {
-        // search for exact matches
-        const matches: string[] = [];
-        return matches;
-    },
-    listItemFormatter: (value, title) => {
-        // prefix all titles with the work "Mr"
-        return 'Mr ' + title;
-    },
-    values: true, // create list of values from all values contained in this column,
-    sortValuesList: 'asc', // sort the values by ascending order,
-};
-
-colDef.editorParams = autoComplete;
+colDef.editorParams = listEditor;
 
 colDef.editorParams = {
     values: [
@@ -313,7 +356,7 @@ colDef.validator = {
 colDef.validator = 'float';
 colDef.validator = { type: 'float', parameters: {} };
 
-let validators: Tabulator.Validator[] = [
+let validators: Validator[] = [
     { type: 'integer', parameters: {} },
     {
         type: (cell, value, parameters) => {
@@ -332,26 +375,46 @@ colDef.bottomCalc = (values, data, calcParams) => {
     return {};
 };
 
+colDef.bottomCalcParams = (values, data) => {
+    return {};
+};
+
+colDef.bottomCalcParams = { precision: 2 };
+
 colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
     return '';
 };
 
-colDef.tooltip = (event: MouseEvent, cell: Tabulator.CellComponent, onRendered: (callback: () => void) => void) => {
+colDef.topCalc = (values, data, calcParams) => {
+    return {};
+};
+
+colDef.topCalcParams = (values, data) => {
+    return {};
+};
+
+colDef.topCalcParams = { precision: 2 };
+
+colDef.topCalcFormatter = (cell, formatterParams, onRendered) => {
+    return '';
+};
+
+colDef.tooltip = (event: MouseEvent, cell: CellComponent, onRendered: (callback: () => void) => void) => {
     onRendered(() => {
-      console.log('rendering occured');
+        console.log('rendering occured');
     });
     return cell.getValue();
-  };
+};
 
 // Cell Component
 
-let cell = <Tabulator.CellComponent>{};
+let cell = <CellComponent>{};
 
 let data = cell.getData();
 table = cell.getTable();
 
 // Row Component
-let row = <Tabulator.RowComponent>{};
+let row = <RowComponent>{};
 row.delete()
     .then(() => {
         // run code after row has been deleted
@@ -361,7 +424,7 @@ row.delete()
     });
 
 // Options
-let options = <Tabulator.Options>{};
+let options = <Options>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
@@ -503,7 +566,7 @@ table.download('csv', 'data.csv', { delimiter: '.' });
 // 4.4 updates
 table.moveColumn('name', 'age', true);
 
-let column = {} as Tabulator.ColumnComponent;
+let column = {} as ColumnComponent;
 column.move('age', true);
 
 colDef.editorParams = {
@@ -525,7 +588,7 @@ colDef.editorParams = {
 
 colDef.clipboard = false;
 
-let group = {} as Tabulator.GroupComponent;
+let group = {} as GroupComponent;
 let field = group.getField();
 
 options.tabEndNewRow = true;
@@ -546,7 +609,7 @@ colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     return editor;
 };
 
-let groupColDef: Tabulator.ColumnDefinition = {
+let groupColDef: ColumnDefinition = {
     title: 'Full name',
     field: '',
     columns: [
@@ -602,7 +665,7 @@ table.restoreRedraw();
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);
 
-table.addColumn({} as Tabulator.ColumnDefinition).then(() => {});
+table.addColumn({} as ColumnDefinition).then(() => {});
 
 table.deleteColumn('name').then(() => {});
 
@@ -632,7 +695,7 @@ table = new Tabulator('#example-table', {
 });
 
 // 4.6 updates
-const rowContextMenu: Array<Tabulator.MenuObject<Tabulator.RowComponent> | Tabulator.MenuSeparator> = [
+const rowContextMenu: Array<MenuObject<RowComponent> | MenuSeparator> = [
     {
         label: 'Remove row',
         action: (e, row) => {
@@ -651,7 +714,7 @@ const rowContextMenu: Array<Tabulator.MenuObject<Tabulator.RowComponent> | Tabul
     },
 ];
 
-const headerMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+const headerMenu: Array<MenuObject<ColumnComponent> | MenuSeparator> = [
     {
         label: 'Remove Column',
         action: (e, column) => {
@@ -670,7 +733,7 @@ const headerMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabula
     },
 ];
 
-const headerContextMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+const headerContextMenu: Array<MenuObject<ColumnComponent> | MenuSeparator> = [
     {
         label: 'Hide Column',
         action: (e, column) => {
@@ -679,7 +742,7 @@ const headerContextMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> |
     },
 ];
 
-const contextMenu: Array<Tabulator.MenuObject<Tabulator.CellComponent> | Tabulator.MenuSeparator> = [
+const contextMenu: Array<MenuObject<CellComponent> | MenuSeparator> = [
     {
         label: 'Restore previous value',
         action: (e, cell) => {
@@ -720,22 +783,6 @@ table = new Tabulator('#example-table', {
             contextMenu,
             vertAlign: 'bottom',
             hozAlign: 'right',
-            editorParams: {
-                mask: 'A!!-9BBB$',
-                maskLetterChar: 'B',
-                maskNumberChar: '!',
-                maskWildcardChar: '$',
-                maskAutoFill: true,
-                searchFunc: (term, values) => {
-                    return new Promise((resolve, reject) => {
-                        fetch('http://test.com?search=' + term).then(response => {
-                            resolve(response.json());
-                        });
-                    });
-                },
-                searchingPlaceholder: 'Filtering...',
-                emptyPlaceholder: 'no matching results',
-            },
             accessorHtmlOutput: (value, data, type, params, column) => {
                 if (column) {
                     const filterVal = column.getHeaderFilterValue();
@@ -821,46 +868,12 @@ table.addColumn({
 });
 row.isFrozen();
 
-let autoComplete2: Tabulator.AutoCompleteParams = {
-    values: [
-        {
-            label: 'Steve Boberson',
-            value: 'steve',
-        },
-        {
-            label: 'Bob Jimmerson',
-            value: 'bob',
-        },
-        {
-            label: 'Jenny Jillerson',
-            value: 'jenny',
-        },
-        {
-            label: 'Jill Betterson',
-            value: 'jill',
-        },
-    ],
-};
-
-let select: Tabulator.SelectParams = {
-    multiselect: true,
-    values: [
-        {
-            label: 'Steve Boberson',
-            value: 'steve',
-            elementAttributes: {
-                class: 'primary-name',
-            },
-        },
-    ],
-};
-
 // 4.8
 
 table = new Tabulator('#example-table', {
     textDirection: 'rtl',
     autoColumnsDefinitions: () => {
-        const columnDefinitions: Tabulator.ColumnDefinition[] = [];
+        const columnDefinitions: ColumnDefinition[] = [];
         return columnDefinitions;
     },
 });
@@ -873,7 +886,7 @@ table = new Tabulator('#example-table', {
     },
 });
 
-let colDefs: Tabulator.ColumnDefinition[] = [];
+let colDefs: ColumnDefinition[] = [];
 colDefs.push({
     field: 'name',
     title: 'input',
@@ -887,14 +900,12 @@ colDefs.push({
     },
 });
 
-const groupContextMenu: Array<Tabulator.MenuObject<Tabulator.GroupComponent> | Tabulator.MenuSeparator> = [
-    { separator: true },
-];
+const groupContextMenu: Array<MenuObject<GroupComponent> | MenuSeparator> = [{ separator: true }];
 
 table = new Tabulator('#example-table', {
     autoColumnsDefinitions: colDefs,
 
-    rowContextMenu: (component, e: MouseEvent) => {
+    rowContextMenu: (e: MouseEvent, component) => {
         component.delete();
         return false;
     },
@@ -920,7 +931,7 @@ row.getCells();
 row.getCell(column);
 row.isTreeExpanded();
 
-let calcComponent = {} as Tabulator.CalculationComponent;
+let calcComponent = {} as CalculationComponent;
 calcComponent.getData();
 calcComponent.getElement();
 calcComponent.getTable();
@@ -928,7 +939,7 @@ calcComponent.getCells();
 calcComponent.getCell(column);
 
 // 4.9
-const rowContextMenu2: Array<Tabulator.MenuObject<Tabulator.ColumnComponent>> = [
+const rowContextMenu2: Array<MenuObject<ColumnComponent>> = [
     {
         label: 'Hide Column',
         action: (e, column) => {
@@ -988,6 +999,7 @@ table = new Tabulator('#test', {
     renderVerticalBuffer: 300,
     dataLoaderError: 'Error Loading Data',
     dataLoaderLoading: 'Data Loading',
+    dataLoaderErrorTimeout: 50,
     dataLoader: false,
     sortMode: 'remote',
     pagination: true,
@@ -1023,10 +1035,15 @@ table.on('dataLoadError', () => {});
 table.on('dataProcessing', () => {});
 table.on('dataProcessed', () => {});
 table.on('rowMoving', () => {});
+table.on('rowMoveCancelled', row => {});
+table.on('rowSelectionChanged', (selectedData, selectedRows) => {});
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
 table.off('rowMoving', () => {});
 table.on('cellClick', () => {});
+table.on('scrollHorizontal', (left, leftDir) => {});
+table.on('scrollVertical', (top, topDir) => {});
+table.on('pageSizeChanged', pageSize => {});
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];
 
@@ -1044,7 +1061,7 @@ class CustomModule extends Module {
 CustomModule.moduleName = 'custom';
 Tabulator.registerModule([CustomModule, DataTreeModule]);
 
-const sortHandler = {} as (sorters: Tabulator.SorterFromTable[]) => void;
+const sortHandler = {} as (sorters: SorterFromTable[]) => void;
 table = new Tabulator('#test', {
     dataSorting: sortHandler,
     dataSorted: sortHandler,
@@ -1054,14 +1071,216 @@ table.on('dataSorted', ([sorter]) => sorter.field);
 
 Tabulator.registerModule([TooltipModule]);
 
+table.import('json', '.json');
+
 // 5.2
 table = new Tabulator('#test', {
+    popupContainer: true,
     // test editor of type 'list' supported.
     columns: [
         {
-            field: "test_editor",
-            title: "Test Editor",
-            editor: "list"
-        }
-    ]
+            field: 'test_editor',
+            title: 'Test Editor',
+            editor: 'list',
+        },
+    ],
+});
+
+// 5.3
+options = {
+    debugInvalidComponentFunc: false,
+    debugDeprecation: false,
+};
+
+table = new Tabulator('#test', {
+    columns: [
+        {
+            field: 'test_editor',
+            title: 'Date Editor',
+            editor: 'date',
+            editorParams: {
+                min: '01/01/2020', // the minimum allowed value for the date picker
+                max: '02/12/2022', // the maximum allowed value for the date picker
+                format: 'dd/MM/yyyy', // the format of the date value stored in the cell
+                elementAttributes: {
+                    title: 'slide bar to choose option', // custom tooltip
+                },
+            },
+        },
+        {
+            field: 'test_editor',
+            title: 'Time Editor',
+            editor: 'time',
+            editorParams: {
+                format: 'dd/MM/yyyy',
+            },
+        },
+        {
+            title: 'id',
+            field: 'id',
+            download: _column => {
+                // column - column component for current column
+
+                return true; // make column visible in download
+            },
+        },
+        {
+            title: 'id',
+            field: 'id',
+            clipboard: _column => {
+                // column - column component for current column
+
+                return true; // make column visible in clipboard data
+            },
+        },
+        {
+            title: 'id',
+            field: 'id',
+            print: _column => {
+                // column - column component for current column
+
+                return true; // make column visible in clipboard data
+            },
+        },
+        {
+            title: 'id',
+            field: 'id',
+            htmlOutput: _column => {
+                // column - column component for current column
+
+                return true; // make column visible in clipboard data
+            },
+        },
+    ],
+    downloadEncoder: (fileContents, mimeType) => {
+        // fileContents - the unencoded contents of the file
+        // mimeType - the suggested mime type for the output
+
+        // custom action to send blob to server could be included here
+
+        return new Blob([fileContents], { type: mimeType }); // must return a blob to proceed with the download, return false to abort download
+    },
+});
+
+// 5.3 Testing ColumnDefinition.headerMenuIcon
+const headerMenuForIconTest: Array<MenuObject<ColumnComponent> | MenuSeparator> = [
+    {
+        label: 'Hide Column',
+        action(e, column) {
+            column.hide();
+        },
+    },
+];
+let headerMenuIconElement = document.createElement('span');
+headerMenuIconElement.innerText = 'Filter';
+
+table = new Tabulator('#testHeaderMenuIcon', {
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline',
+            headerMenuIcon: "<i class='fas fa-filter'></i>",
+            headerMenu: headerMenuForIconTest,
+        },
+        {
+            field: 'test_element',
+            title: 'Test DOM Element',
+            headerMenuIcon: headerMenuIconElement,
+            headerMenu: headerMenuForIconTest,
+        },
+        {
+            field: 'test_function',
+            title: 'Test function',
+            headerMenuIcon(component) {
+                return "<i class='fas fa-filter'></i>";
+            },
+            headerMenu: headerMenuForIconTest,
+        },
+    ],
+});
+
+// 5.4
+
+table = new Tabulator('#test', {
+    headerSortClickElement: 'icon',
+    groupDblClickPopup: 'Im a Popup',
+    rowDblClickPopup: 'Im a Popup',
+    rowDblClickMenu: [
+        {
+            label: 'Delete Row',
+            action: (e, row) => {
+                row.delete();
+            },
+        },
+    ],
+    columns: [
+        {
+            field: 'test_editor',
+            title: 'Time Editor',
+            editor: 'time',
+            dblClickPopup: 'Im a Popup',
+            headerDblClickPopup: 'Im a Popup',
+            headerWordWrap: true,
+            headerMouseUp: (e, column) => {},
+        },
+    ],
+});
+
+table.on('cellMouseDown', (e, cell) => {});
+
+// Testing popup event and menu event
+table.on('popupClosed', component => {});
+table.on('popupOpen', component => {});
+table.on('menuOpened', component => {});
+table.on('menuClosed', component => {});
+table.on('TooltipOpened', component => {});
+table.on('TooltipClosed', component => {});
+
+column.popup('test', 'bottom');
+
+// 5.4 Testing paginationCounter
+table = new Tabulator('#testPagination', {
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline',
+        },
+    ],
+    pagination: true,
+    paginationCounter: 'rows',
+});
+table = new Tabulator('#testPagination', {
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline',
+        },
+    ],
+    pagination: true,
+    paginationCounter: 'pages',
+});
+table = new Tabulator('#testPagination', {
+    data: [],
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline',
+        },
+    ],
+    pagination: true,
+    paginationCounter: (pageSize, currentRow, currentPage, totalRows, totalPages) => {
+        return `${pageSize}, ${currentRow}, ${currentPage}, ${totalRows}, ${totalPages}`;
+    },
+});
+
+// Testing data loader element
+table = new Tabulator('#testDataLoader', {
+    data: [],
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline',
+        },
+    ],
+    dataLoaderLoading: document.createElement('div') as HTMLElement,
 });

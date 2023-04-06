@@ -1,6 +1,8 @@
 import { Euler } from './Euler';
 import { Vector3 } from './Vector3';
 import { Matrix4 } from './Matrix4';
+import { BufferAttribute } from '../core/BufferAttribute';
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute';
 
 /**
  * Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
@@ -136,6 +138,13 @@ export class Quaternion {
      */
     toArray(array: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
+    /**
+     * Sets x, y, z, w properties of this quaternion from the attribute.
+     * @param attribute the source attribute.
+     * @param index index in the attribute.
+     */
+    fromBufferAttribute(attribute: BufferAttribute | InterleavedBufferAttribute, index: number): Quaternion;
+
     _onChange(callback: () => void): Quaternion;
     _onChangeCallback: () => void;
 
@@ -147,7 +156,7 @@ export class Quaternion {
         src1: number[],
         stcOffset1: number,
         t: number,
-    ): Quaternion;
+    ): void;
 
     static multiplyQuaternionsFlat(
         dst: number[],

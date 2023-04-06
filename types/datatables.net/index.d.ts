@@ -1288,7 +1288,7 @@ declare namespace DataTables {
         /**
          * Vertical scrolling. Since: 1.10 Exp: "200px"
          */
-        scrollY?: string | undefined;
+        scrollY?: number | string | undefined;
 
         /**
          * Feature control search (filtering) abilities Since: 1.10

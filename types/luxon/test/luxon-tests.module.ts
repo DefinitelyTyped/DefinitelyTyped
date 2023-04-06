@@ -13,6 +13,12 @@ import {
     ZoneOffsetOptions,
 } from 'luxon';
 
+declare module 'luxon' {
+    interface TSSettings {
+        throwOnInvalid: true;
+    }
+}
+
 /* VERSION */
 VERSION; // $ExpectType string
 
@@ -126,8 +132,8 @@ dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string
 dt.toLocaleString(DateTime.DATE_MED, {}); // $ExpectType string
 dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
-dt.toRelative(); // $ExpectType string | null
-dt.toRelativeCalendar(); // $ExpectType string | null
+dt.toRelative(); // $ExpectType string
+dt.toRelativeCalendar(); // $ExpectType string
 dt.toRFC2822(); // $ExpectType string
 dt.toSeconds(); // $ExpectType number
 dt.toSQL(); // $ExpectType string
@@ -137,11 +143,14 @@ dt.toSQLTime(); // $ExpectType string
 dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 dt.toSQLTime({ includeOffsetSpace: false, includeZone: true }); // $ExpectType string
 dt.valueOf(); // $ExpectType number
-dt.toObject(); // $ExpectType ToObjectOutput
-dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput
+dt.toObject(); // $ExpectType Record<"day" | "hour" | "minute" | "month" | "second" | "year" | "millisecond", number>
+// @ts-expect-error
+dt.toObject().locale;
+dt.toObject({ includeConfig: true }); // $ExpectType _ToObjectOutput<true>
+dt.toObject({ includeConfig: true }).locale; // $ExpectType string | undefined
 dt.toUnixInteger(); // $ExpectType number
 
-// $ExpectType string | null
+// $ExpectType string
 dt.toRelative({
     base: DateTime.local(),
     locale: 'fr',
@@ -152,7 +161,7 @@ dt.toRelative({
     numberingSystem: 'bali',
 });
 
-// $ExpectType string | null
+// $ExpectType string
 dt.toRelative({
     base: DateTime.local(),
     locale: 'fr',
@@ -163,7 +172,7 @@ dt.toRelative({
     numberingSystem: 'bali',
 });
 
-// $ExpectType string | null
+// $ExpectType string
 dt.toRelativeCalendar({
     base: DateTime.local(),
     locale: 'fr',
@@ -234,6 +243,8 @@ dur.toObject();
 dur.toISO(); // $ExpectType string
 dur.toISOTime(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
+dur.rescale(); // $ExpectType Duration
+dur.shiftToAll(); // $ExpectType Duration
 dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === 'hours' ? x * 2 : x)); // $ExpectType Duration
 
@@ -255,10 +266,14 @@ i.set({ end: DateTime.local(2020) }); // $ExpectType Interval
 i.mapEndpoints(d => d); // $ExpectType Interval
 i.intersection(i); // $ExpectType Interval | null
 
+i.invalidReason; // $ExpectType string | null
+i.invalidExplanation; // $ExpectType string | null
+
 i.toISO(); // $ExpectType string
 i.toISODate(); // $ExpectType string
 i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
+i.toLocaleString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration
 // @ts-expect-error
@@ -301,6 +316,7 @@ Settings.resetCaches();
 Settings.defaultZone = ianaZone;
 Settings.defaultZone = 'America/Los_Angeles';
 Settings.defaultZone = Settings.defaultZone;
+Settings.defaultZone; // $ExpectType Zone
 
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/
@@ -449,6 +465,9 @@ dur.reconfigure({ conversionAccuracy: 'longterm' }); // $ExpectType Duration
 
 start.until(end); // $ExpectType Interval
 i.toDuration(['years', 'months', 'days']); // $ExpectType Duration
+
+dur.invalidReason; // $ExpectType string | null
+dur.invalidExplanation; // $ExpectType string | null
 
 /* Sample Zone Implementation */
 class SampleZone extends Zone {

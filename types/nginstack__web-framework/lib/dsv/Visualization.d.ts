@@ -26,7 +26,7 @@ declare class Visualization {
         properties: string[]
     ): void;
     canExport: boolean;
-    protected dataSource_: any;
+    protected dataSource_: DataSource;
     mustIncludeCssFiles: boolean;
     protected ds_: DataSet;
     filters: VisualizationFilters;
@@ -47,11 +47,12 @@ declare class Visualization {
     protected initFilters_(): never;
 }
 declare namespace Visualization {
-    export { Event, DataSet, VisualizationFilters, DataExporter };
+    export { Event, DataSet, DataSource, VisualizationFilters, DataExporter };
 }
 type Event = import('@nginstack/engine/lib/event/Event');
 import ReportHeader = require('../simple-layout/Header.js');
 import ReportFooter = require('../simple-layout/Footer.js');
+type DataSource = import('@nginstack/datasource/lib/DataSource');
 type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
 type VisualizationFilters = import('./VisualizationFilters');
 type DataExporter = import('../export/DataExporter');

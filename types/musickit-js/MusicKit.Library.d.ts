@@ -76,6 +76,14 @@ declare namespace MusicKit {
          */
         playlists(ids: string[] | null, parameters?: QueryParameters): Promise<Playlists[]>;
         /**
+         * Fetch the resources recently added to the library.
+         *
+         * @param parameters A query parameters object that is serialized and passed
+         * directly to the Apple Music API.
+         * https://developer.apple.com/documentation/applemusicapi/get_recently_added_resources
+         */
+        recentlyAdded(parameters?: QueryParameters): Promise<Resource[]>;
+        /**
          * Search the library using a query.
          *
          * @param term The term to search.

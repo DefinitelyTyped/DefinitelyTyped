@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
@@ -11,7 +10,6 @@
         "prefer-const": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

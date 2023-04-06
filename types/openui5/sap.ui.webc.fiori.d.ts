@@ -1,9 +1,9 @@
-// For Library Version: 1.105.0
+// For Library Version: 1.110.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Bar.
    */
@@ -27,7 +27,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * undefined
    */
@@ -100,7 +100,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-page` as header and footer.
    */
@@ -110,7 +110,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.97.0
-   * @EXPERIMENTAL (since 1.97.0)
+   * @EXPERIMENTAL (since 1.97.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-view-settings-dialog` as filter items
    */
@@ -120,7 +120,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.97.0
-   * @EXPERIMENTAL (since 1.97.0)
+   * @EXPERIMENTAL (since 1.97.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-filter-item` as values
    */
@@ -130,7 +130,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.106.0
-   * @EXPERIMENTAL (since 1.106.0)
+   * @EXPERIMENTAL (since 1.106.0) - This API is experimental and might change significantly.
    *
    * Different types of IllustrationMessageSize.
    */
@@ -165,7 +165,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Different illustration types of Illustrated Message.
    */
@@ -525,7 +525,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Interface for components that can be slotted inside `ui5-media-gallery` as items.
    */
@@ -535,7 +535,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted as an action inside `ui5-li-notification` and `ui5-li-notification-group`
    */
@@ -545,7 +545,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a notification list
    */
@@ -555,7 +555,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-product-switch` as items
    */
@@ -565,7 +565,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-shellbar` as items
    */
@@ -575,7 +575,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-side-navigation` as items
    */
@@ -585,7 +585,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-side-navigation-item` as sub-items
    */
@@ -595,7 +595,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.97.0
-   * @EXPERIMENTAL (since 1.97.0)
+   * @EXPERIMENTAL (since 1.97.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-view-settings-dialog` as sort items
    */
@@ -605,7 +605,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-timeline` as items
    */
@@ -615,7 +615,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-upload-collection` as items
    */
@@ -625,7 +625,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-wizard` as wizard steps
    */
@@ -635,7 +635,7 @@ declare module "sap/ui/webc/fiori/library" {
 
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Defines the layout of the content displayed in the `ui5-media-gallery-item`.
    */
@@ -655,7 +655,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Defines the layout type of the thumbnails list of the `ui5-media-gallery` component.
    */
@@ -675,7 +675,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Defines the horizontal alignment of the thumbnails menu of the `ui5-media-gallery` component.
    */
@@ -691,7 +691,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Types for the vertical alignment of the thumbnails menu of the `ui5-media-gallery` component.
    */
@@ -707,7 +707,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * undefined
    */
@@ -727,7 +727,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * SideContent FallDown options.
    */
@@ -751,7 +751,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Side Content position options.
    */
@@ -769,7 +769,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Side Content visibility options.
    */
@@ -797,7 +797,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Timeline.
    */
@@ -813,7 +813,7 @@ declare module "sap/ui/webc/fiori/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * undefined
    */
@@ -858,7 +858,7 @@ declare module "sap/ui/webc/fiori/Bar" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The Bar is a container which is primarily used to hold titles, buttons and input elements and
    * its design and functionality is the basis for page headers and footers. The component consists of three
@@ -875,8 +875,8 @@ declare module "sap/ui/webc/fiori/Bar" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.fiori.Bar` exposes the following CSS Shadow Parts:
    * 	 - bar - Used to style the wrapper of the content of the component
    *
@@ -1280,7 +1280,7 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -1293,7 +1293,7 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
    *
    *  Internally, the component uses the zxing-js/library third party OSS.
    *
-   * For a list of supported barcode formats, see the zxing-js/library
+   * For a list of supported barcode formats, see the {@link https://github.com/zxing-js/library zxing-js/library}
    * documentation.
    */
   export default class BarcodeScannerDialog extends WebComponent {
@@ -1569,7 +1569,7 @@ declare module "sap/ui/webc/fiori/DynamicSideContent" {
 
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -2272,7 +2272,7 @@ declare module "sap/ui/webc/fiori/FilterItem" {
 
   /**
    * @SINCE 1.97.0
-   * @EXPERIMENTAL (since 1.97.0)
+   * @EXPERIMENTAL (since 1.97.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -2471,7 +2471,7 @@ declare module "sap/ui/webc/fiori/FilterItemOption" {
 
   /**
    * @SINCE 1.97.0
-   * @EXPERIMENTAL (since 1.97.0)
+   * @EXPERIMENTAL (since 1.97.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -2630,7 +2630,7 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -3252,7 +3252,7 @@ declare module "sap/ui/webc/fiori/IllustratedMessage" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview: An IllustratedMessage is a recommended combination of a solution-oriented message, an engaging
    * illustration, and conversational tone to better communicate an empty or a success state than just show
@@ -3649,7 +3649,7 @@ declare module "sap/ui/webc/fiori/MediaGallery" {
 
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -4330,7 +4330,7 @@ declare module "sap/ui/webc/fiori/MediaGalleryItem" {
 
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.fiori.MediaGalleryItem` web component represents the items displayed in the
    * `sap.ui.webc.fiori.MediaGallery` web component.
@@ -4602,7 +4602,7 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.fiori.NotificationAction` represents an abstract action, used in the `sap.ui.webc.fiori.NotificationListItem`
    * and the `sap.ui.webc.fiori.NotificationListGroupItem` items.
@@ -4707,7 +4707,7 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -4774,7 +4774,7 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -4835,7 +4835,7 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -4870,7 +4870,7 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.fiori.NotificationListGroupItem` is a special type of list item, that unlike
    * others can group items within self, usually `sap.ui.webc.fiori.NotificationListItem` items.
@@ -4887,8 +4887,8 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.fiori.NotificationListGroupItem` exposes the following CSS Shadow Parts:
    * 	 - title-text - Used to style the titleText of the notification list group item
    */
@@ -5596,7 +5596,7 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.fiori.NotificationListItem` is a type of list item, meant to display notifications.
    *
@@ -5616,8 +5616,8 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.fiori.NotificationListItem` exposes the following CSS Shadow Parts:
    * 	 - title-text - Used to style the titleText of the notification list item
    */
@@ -6286,7 +6286,7 @@ declare module "sap/ui/webc/fiori/Page" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -6738,7 +6738,7 @@ declare module "sap/ui/webc/fiori/ProductSwitch" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -6918,7 +6918,7 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.fiori.ProductSwitchItem` web component represents the items displayed in the
    * `sap.ui.webc.fiori.ProductSwitch` web component.
@@ -7087,7 +7087,7 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
      * ui5-product-switch-item icon="palette"```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -7152,7 +7152,7 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
      * ui5-product-switch-item icon="palette"```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7253,7 +7253,7 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
      * ui5-product-switch-item icon="palette"```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -7318,7 +7318,7 @@ declare module "sap/ui/webc/fiori/ShellBar" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -7339,8 +7339,8 @@ declare module "sap/ui/webc/fiori/ShellBar" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.fiori.ShellBar` exposes the following CSS Shadow Parts:
    * 	 - root - Used to style the outermost wrapper of the `sap.ui.webc.fiori.ShellBar`
    *
@@ -8517,7 +8517,7 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class ShellBarItem
     extends WebComponent
@@ -8791,7 +8791,7 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -9277,7 +9277,7 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -9383,7 +9383,7 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -9502,7 +9502,7 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -9584,7 +9584,7 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -9631,7 +9631,7 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -9710,7 +9710,7 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -9745,7 +9745,7 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -9803,7 +9803,7 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -9833,7 +9833,7 @@ declare module "sap/ui/webc/fiori/SortItem" {
 
   /**
    * @SINCE 1.97.0
-   * @EXPERIMENTAL (since 1.97.0)
+   * @EXPERIMENTAL (since 1.97.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -9989,7 +9989,7 @@ declare module "sap/ui/webc/fiori/Timeline" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -10304,7 +10304,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -10482,7 +10482,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
      *
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -10585,7 +10585,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
      *
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -10676,7 +10676,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
      *
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -10739,7 +10739,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: This component allows you to represent files before uploading them to a server, with the help
    * of `sap.ui.webc.fiori.UploadCollectionItem`. It also allows you to show already uploaded files.
@@ -11529,7 +11529,7 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: A component to be used within the `sap.ui.webc.fiori.UploadCollection`.
    */
@@ -11958,11 +11958,11 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
     /**
      * Gets current value of property {@link #getFile file}.
      *
-     * Holds an instance of `File` associated with this item.
+     * Holds an instance of File associated with this item.
      *
      * @returns Value of property `file`
      */
-    getFile(): object;
+    getFile(): File;
     /**
      * Gets current value of property {@link #getFileName fileName}.
      *
@@ -12101,9 +12101,9 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       bDisableDeleteButton?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getFile file}.
+     * Sets a new value for property {@link #setFile file}.
      *
-     * Holds an instance of `File` associated with this item.
+     * Holds an instance of File associated with this item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -12113,7 +12113,7 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       /**
        * New value for property `file`
        */
-      oFile?: object
+      oFile?: File
     ): this;
     /**
      * Sets a new value for property {@link #getFileName fileName}.
@@ -12344,7 +12344,7 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.fiori.ViewSettingsDialog` component helps the user to sort data within a list
    * or a table. It consists of several lists like `Sort order` which is built-in and `Sort By` and `Filter
@@ -12928,7 +12928,7 @@ declare module "sap/ui/webc/fiori/Wizard" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -13287,7 +13287,7 @@ declare module "sap/ui/webc/fiori/WizardStep" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -13426,7 +13426,8 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * The SAP-icons font provides numerous options. See all the available icons in the Icon Explorer.
+     * The SAP-icons font provides numerous options. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -13576,7 +13577,8 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * The SAP-icons font provides numerous options. See all the available icons in the Icon Explorer.
+     * The SAP-icons font provides numerous options. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -13683,7 +13685,8 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * The SAP-icons font provides numerous options. See all the available icons in the Icon Explorer.
+     * The SAP-icons font provides numerous options. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 

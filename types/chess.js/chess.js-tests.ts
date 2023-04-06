@@ -64,6 +64,15 @@ chess.moves({ legal: false });
 // $ExpectType string[]
 chess.moves({ legal: true });
 
+// $ExpectType string[]
+chess.moves({ piece: 'n' });
+
+// $ExpectType string[]
+chess.moves({ square: 'b1', piece: 'n' });
+
+// $ExpectType Move[]
+chess.moves({ square: 'b1', piece: 'n', verbose: true });
+
 // $ExpectType Move[]
 chess.moves({ square: 'e2', verbose: true });
 

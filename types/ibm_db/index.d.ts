@@ -210,24 +210,26 @@ export function openSync(connStr: string | ConnStr, options?: Options): Database
 export function close(db: Database): void;
 
 export class Pool implements PoolOptions {
-  idleTimeout?: number | undefined;
-  autoCleanIdle?: boolean | undefined;
-  maxPoolSize?: number | undefined;
-  connectTimeout?: number | undefined;
-  systemNaming?: any;
+    idleTimeout?: number | undefined;
+    autoCleanIdle?: boolean | undefined;
+    maxPoolSize?: number | undefined;
+    connectTimeout?: number | undefined;
+    systemNaming?: any;
 
-  options: PoolOptions;
-  index: number;
-  availablePool: object;
-  usedPool: object;
-  poolsize: number;
-  odbc: ODBC;
-  openSync(connStr: string): Database;
-  constructor(options?: PoolOptions)
+    options: PoolOptions;
+    index: number;
+    availablePool: object;
+    usedPool: object;
+    poolsize: number;
+    odbc: ODBC;
+    constructor(options?: PoolOptions);
+    open(connStr: string): Promise<Database>;
     open(connStr: string, cb: (err: Error, db: Database) => void): void;
+    openSync(connStr: string): Database;
     init(count: number, connStr: string): boolean;
     setMaxPoolSize(count: number): boolean;
     setConnectTimeout(timeout: number): boolean;
     cleanup(connStr: string): boolean;
+    close(): Promise<boolean>;
     close(cb: (foo: any, bar: any) => any): void;
 } // Class Pool

@@ -91,7 +91,7 @@ interface AbortController {
      * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
      * @since v14.7.0
      */
-    abort(): void;
+    abort(reason?: any): void;
 }
 
 /**
@@ -104,6 +104,7 @@ interface AbortSignal {
      * @since v14.7.0
      */
     readonly aborted: boolean;
+    readonly reason: any;
 }
 
 declare var AbortController: {
@@ -114,7 +115,8 @@ declare var AbortController: {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
-    // TODO: Add abort() static
+    abort(reason?: any): AbortSignal;
+    timeout(milliseconds: number): AbortSignal;
 };
 //#endregion borrowed
 

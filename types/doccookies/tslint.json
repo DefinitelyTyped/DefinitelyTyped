@@ -9,7 +9,6 @@
         "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
         "npm-naming": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

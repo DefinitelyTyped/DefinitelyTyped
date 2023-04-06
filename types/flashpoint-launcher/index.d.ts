@@ -16,8 +16,7 @@
 
 // This gets changed manually during development in the project, rule would require changes when updating DT's definitions since resolution is different.
 // tslint:disable:no-single-declare-module
-// tslint:disable:no-declare-current-package
-
+// eslint-disable-next-line no-declare-current-package
 declare module 'flashpoint-launcher' {
     /** Version of the Flashpoint Launcher */
     const version: string;
@@ -78,11 +77,11 @@ declare module 'flashpoint-launcher' {
      * Log functions to properly pass messages to the Logs Page.
      */
     namespace log {
-        const trace: (message: string) => void;
-        const debug: (message: string) => void;
-        const info: (message: string) => void;
-        const warn: (message: string) => void;
-        const error: (message: string) => void;
+        function trace(message: string): void;
+        function debug(message: string): void;
+        function info(message: string): void;
+        function warn(message: string): void;
+        function error(message: string): void;
         const onLog: Event<ILogEntry>;
     }
 

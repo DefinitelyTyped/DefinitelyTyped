@@ -12,7 +12,6 @@
         "no-outside-dependencies": false,
         "no-padding": false,
         "no-unnecessary-class": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "no-void-expression": false,
@@ -26,7 +25,6 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "triple-equals": false,
         "unified-signatures": false,
         "whitespace": false

@@ -492,7 +492,7 @@ declare namespace Autodesk {
           findParentGeom2Dor3D(): BubbleNode;
           findPropertyDbPath(): string;
           findViewableParent(): BubbleNode;
-          getDefaultGeometry(): any;
+          getDefaultGeometry(searchMasterview?: boolean, loadLargestView?: boolean): any;
           getDocument(): Document;
           getInputFileType(): string;
           getLodNode(): boolean;

@@ -6,7 +6,6 @@
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-padding": false,
-        "no-self-import": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,

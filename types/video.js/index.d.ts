@@ -10,6 +10,7 @@
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -138,7 +139,7 @@ declare namespace videojs {
      * @return    A player instance or `undefined` if there is no player instance
      *          matching the argument.
      */
-    function getPlayer(id: string): Player;
+    function getPlayer(id: string | Element): Player | undefined;
 
     /**
      * Get an object with the currently created players, keyed by player ID
@@ -1980,11 +1981,6 @@ declare namespace videojs {
          *        The Name of the component to get.
          *
          * @return The `Component` that got registered under the given name.
-         *
-         * @deprecated In `videojs` 6 this will not return `Component`s that were not
-         *             registered using {@link Component.registerComponent}. Currently we
-         *             check the global `videojs` object for a `Component` name and
-         *             return that if it exists.
          */
         getComponent(name: 'Button' | 'button'): typeof Button;
         getComponent(name: 'ClickableComponent' | 'clickablecomponent'): typeof ClickableComponent;
@@ -2516,9 +2512,6 @@ declare namespace videojs {
          *
          * @return - True if the element had the class
          *         - False otherwise.
-         *
-         * @throws {Error}
-         *         Throws an error if `classToCheck` has white space.
          */
         hasClass(element: Element, classToCheck: string): boolean;
 
@@ -3905,6 +3898,10 @@ declare namespace videojs {
      * @param [label]
      *        A text label for the modal, primarily for accessibility.
      *
+     * @param [pauseOnOpen=true]
+     *        If `true`, playback will will be paused if playing when
+     *        the modal opens, and resumed when it closes.
+     *
      * @param [temporary=true]
      *        If `true`, the modal can only be opened once; it will be
      *        disposed as soon as it's closed.
@@ -3919,6 +3916,7 @@ declare namespace videojs {
         description?: string | undefined;
         fillAlways?: boolean | undefined;
         label?: string | undefined;
+        pauseOnOpen?: boolean | undefined;
         temporary?: boolean | undefined;
         uncloseable?: boolean | undefined;
     }
@@ -4088,9 +4086,6 @@ declare namespace videojs {
      * @fires   Player#pluginsetup
      * @fires   Player#pluginsetup:$name
      * @listens Player#dispose
-     * @throws  {Error}
-     *          If attempting to instantiate the base {@link Plugin} class
-     *          directly instead of via a sub-class.
      */
     interface Plugin extends EventedMixin {
         player: Player;
@@ -6167,6 +6162,12 @@ declare namespace videojs {
         url: string;
         rawRequest: XMLHttpRequest;
     }
+
+    const Vhs: {
+        xhr: {
+            beforeRequest: (options: XhrOptions) => void;
+        };
+    };
 }
 
 /**
@@ -6559,7 +6560,7 @@ export interface VideoJsPlayer extends videojs.Component {
      */
     defaultPlaybackRate(rate: number): videojs.Player;
 
-    defaultPlaybackRate(): boolean;
+    defaultPlaybackRate(): number;
 
     /**
      * A getter/setter for the `Player`'s width & height.

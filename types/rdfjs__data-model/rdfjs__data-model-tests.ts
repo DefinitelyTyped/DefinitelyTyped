@@ -1,6 +1,7 @@
 import factory from "@rdfjs/data-model";
 import Factory from "@rdfjs/data-model/Factory";
 import * as RDF from "@rdfjs/types";
+import Environment from '@rdfjs/environment/Environment.js';
 
 const exports: [
     'blankNode',
@@ -13,9 +14,11 @@ const exports: [
     'variable'
 ] = Factory.exports;
 
-const fromCtor = new Factory();
+const fromCtor = new Factory(); // $ExpectType DataFactory
 const asFactory: RDF.DataFactory = fromCtor;
 fromCtor.init();
+
+const env = new Environment([Factory]); // $ExpectType Environment<DataFactory>
 
 const myQuad = factory.quad(
   factory.namedNode('http://example.org/subject'),
@@ -55,10 +58,17 @@ const myBaseQuadBad = factory.quad(
   factory.namedNode('http://example.org/object'),
 );
 
+// $ExpectType BaseQuad
 const fromQuadValue = factory.fromQuad(myQuad);
+// $ExpectType BaseQuad
 const fromBaseQuadValue = factory.fromQuad(myBaseQuad);
 
 // @ts-expect-error
 factory.fromQuad(factory.variable('?o'));
 
+// $ExpectType Variable
 const fromTermValue = factory.fromTerm(factory.variable('?o'));
+
+const baseQuad: RDF.BaseQuad = <any> {};
+// $ExpectType BaseQuad
+const fromTermBaseQuad = factory.fromTerm(baseQuad);

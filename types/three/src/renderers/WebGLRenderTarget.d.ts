@@ -2,13 +2,19 @@ import { Vector4 } from './../math/Vector4';
 import { Texture } from './../textures/Texture';
 import { DepthTexture } from './../textures/DepthTexture';
 import { EventDispatcher } from './../core/EventDispatcher';
-import { Wrapping, TextureFilter, TextureDataType, TextureEncoding } from '../constants';
+import {
+    Wrapping,
+    TextureDataType,
+    TextureEncoding,
+    MinificationTextureFilter,
+    MagnificationTextureFilter,
+} from '../constants';
 
 export interface WebGLRenderTargetOptions {
     wrapS?: Wrapping | undefined;
     wrapT?: Wrapping | undefined;
-    magFilter?: TextureFilter | undefined;
-    minFilter?: TextureFilter | undefined;
+    magFilter?: MagnificationTextureFilter | undefined;
+    minFilter?: MinificationTextureFilter | undefined;
     format?: number | undefined; // RGBAFormat;
     type?: TextureDataType | undefined; // UnsignedByteType;
     anisotropy?: number | undefined; // 1;
@@ -26,7 +32,7 @@ export interface WebGLRenderTargetOptions {
 }
 
 export class WebGLRenderTarget extends EventDispatcher {
-    constructor(width: number, height: number, options?: WebGLRenderTargetOptions);
+    constructor(width?: number, height?: number, options?: WebGLRenderTargetOptions);
 
     width: number;
     height: number;

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
+// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.1
 // Project: https://developer.akamai.com/akamai-edgeworkers-overview
 // Definitions by: Evan Hughes <https://github.com/evan-hughes>
 //                 Will Bain <https://github.com/wabain>
@@ -170,6 +170,12 @@ declare namespace EW {
          * of parsing the body as JSON.
          */
         json(): Promise<any>;
+
+        /**
+         * A promise that reads the body to completion and resolves to an ArrayBuffer containing the
+         * binary format of the request body.
+         */
+        arrayBuffer(): Promise<ArrayBuffer>;
     }
 
     interface Request {
@@ -225,6 +231,162 @@ declare namespace EW {
         readonly cpCode: number;
     }
 
+    interface HasBody {
+        /**
+         * The body associated with the incoming request.
+         */
+        readonly body: ReadableStreamEW;
+    }
+
+    interface ReadableStreamDefaultControllerEW<R = any> {
+        readonly desiredSize: number | null;
+        close(): void;
+        enqueue(chunk: R): void;
+        error(error?: any): void;
+    }
+
+    interface ReadableStreamDefaultControllerCallbackEW<R> {
+        (controller: ReadableStreamDefaultControllerEW<R>): void | PromiseLike<void>;
+    }
+
+    interface ReadableStreamErrorCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
+
+    /**
+     * https://streams.spec.whatwg.org/#underlying-source-api
+     */
+    interface UnderlyingSource<R = any> {
+        start?: ReadableStreamDefaultControllerCallbackEW<R>;
+        pull?: ReadableStreamDefaultControllerCallbackEW<R>;
+        cancel?: ReadableStreamErrorCallback;
+        type?: undefined;
+    }
+    interface ReadableStreamBYOBRequest {
+        readonly view: ArrayBufferView;
+        respond(bytesWritten: number): void;
+        respondWithNewView(view: ArrayBufferView): void;
+    }
+
+    interface ReadableByteStreamController {
+        readonly byobRequest: ReadableStreamBYOBRequest | undefined;
+        readonly desiredSize: number | null;
+        close(): void;
+        enqueue(chunk: ArrayBufferView): void;
+        error(error?: any): void;
+    }
+
+    interface ReadableByteStreamControllerCallback {
+        (controller: ReadableByteStreamController): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingByteSource {
+        autoAllocateChunkSize?: number;
+        cancel?: ReadableStreamErrorCallback;
+        pull?: ReadableByteStreamControllerCallback;
+        start?: ReadableByteStreamControllerCallback;
+        type: "bytes";
+    }
+    interface WritableStreamDefaultController {
+        error(error?: any): void;
+    }
+
+    interface WritableStreamDefaultControllerStartCallback {
+        (controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamDefaultControllerWriteCallback<W> {
+        (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamDefaultControllerCloseCallback {
+        (): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamErrorCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingSink<W = any> {
+        start?: WritableStreamDefaultControllerStartCallback;
+        write?: WritableStreamDefaultControllerWriteCallback<W>;
+        close?: WritableStreamDefaultControllerCloseCallback;
+        abort?: WritableStreamErrorCallback;
+        type?: undefined;
+    }
+    interface ReadableStreamReadResult<T> {
+        readonly done: boolean;
+        readonly value: T;
+    }
+
+    interface PipeOptions {
+        preventAbort?: boolean;
+        preventCancel?: boolean;
+        preventClose?: boolean;
+        signal?: { aborted: boolean };
+    }
+
+    interface QueuingStrategySizeCallback<T = any> {
+        (chunk: T): number;
+    }
+
+    interface QueuingStrategy<T = any> {
+        highWaterMark?: number;
+        size?: QueuingStrategySizeCallback<T>;
+    }
+
+    interface WritableStreamDefaultWriter<W = any> {
+        readonly closed: Promise<void>;
+        readonly desiredSize: number | null;
+        readonly ready: Promise<void>;
+        abort(reason?: any): Promise<void>;
+        close(): Promise<void>;
+        releaseLock(): void;
+        write(chunk: W): Promise<void>;
+    }
+
+    interface WritableStreamEW<W = any> {
+        readonly locked: boolean;
+        abort(reason?: any): Promise<void>;
+        close(): Promise<void>;
+        getWriter(): WritableStreamDefaultWriter<W>;
+    }
+
+    const WritableStreamEW: {
+        prototype: WritableStreamEW;
+        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStreamEW<W>;
+    };
+
+    interface ReadableStreamEW<R = any> {
+        readonly locked: boolean;
+        cancel(reason?: any): Promise<void>;
+        getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
+        getReader(): ReadableStreamDefaultReader<R>;
+        pipeThrough<T>({ writable, readable }: { writable: WritableStreamEW<R>, readable: ReadableStreamEW<T> }, options?: PipeOptions): ReadableStreamEW<T>;
+        pipeTo(dest: WritableStreamEW<R>, options?: PipeOptions): Promise<void>;
+        tee(): [ReadableStreamEW<R>, ReadableStreamEW<R>];
+    }
+
+    const ReadableStreamEW: {
+        prototype: ReadableStreamEW;
+        new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStreamEW<Uint8Array>;
+        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
+    };
+
+    interface ReadableStreamBYOBReader {
+        readonly closed: Promise<void>;
+        cancel(reason?: any): Promise<void>;
+        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+        releaseLock(): void;
+    }
+
+    interface ReadableStreamDefaultReader<R = any> {
+        readonly closed: Promise<void>;
+        cancel(reason?: any): Promise<void>;
+        read(): Promise<ReadableStreamReadResult<R>>;
+        releaseLock(): void;
+    }
+
     // Legacy interfaces for backwards compatability
     interface MutableRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request {
     }
@@ -238,7 +400,7 @@ declare namespace EW {
     }
 
     // onOriginRequest
-    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, MutatesVariables {
+    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
     }
 
     // onOriginResponse
@@ -254,7 +416,7 @@ declare namespace EW {
     }
 
     // responseProvider
-    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody {
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody, ReadsVariables, HasBody {
     }
 
     interface Destination {
@@ -283,6 +445,16 @@ declare namespace EW {
      *   undefined is returned for that property
      */
     interface UserLocation {
+        /**
+         * The latitude value is a numerical string that specifies the latitude that the IP address maps to.
+         */
+        readonly latitude: string | undefined;
+
+        /**
+         * The longitude value is a numerical string that specifies the longitude that the IP address maps to.
+         */
+        readonly longitude: string | undefined;
+
         /**
          * The continent value is a two-letter code for the continent that
          * the IP address maps to.
@@ -332,6 +504,44 @@ declare namespace EW {
          * See the EdgeScape Users Guide for more details.
          */
         readonly zipCode: string | undefined;
+
+        /**
+         * The dma value is the mapping of major American metropolises to containing and neighbouring states.
+         */
+        readonly dma: string | undefined;
+
+        /**
+         * The timezone value is the timezone that the IP address maps to.
+         */
+        readonly timezone: string | undefined;
+
+        /**
+         * The networkType value specifies the network that the IP address maps to.
+         */
+        readonly networkType: string | undefined;
+
+        /**
+         * The bandwidth value estimates the expected bandwidth for the given IP address.
+         */
+        readonly bandwidth: string | undefined;
+
+        /**
+         * The areaCodes value includes the area codes that the IP address maps to
+         * (multiple values possible).
+         */
+        readonly areaCodes: string[] | undefined;
+
+        /**
+         * The fips value is a 5 digit numerical code to help map counties to states
+         * (multiple values possible).
+         *
+         * FIPS codes are numbers which uniquely identify geographic areas. State-level FIPS
+         * codes have two digits, county-level FIPS codes have five digits of which the
+         * first two are the FIPS code of the state to which the county belongs.
+         *
+         * For the list of FIPS codes mapped to location, go to https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt
+         */
+        readonly fips: string[] | undefined;
     }
 
     /**
@@ -437,6 +647,8 @@ declare namespace EW {
          */
         readonly isMobile: boolean | undefined;
     }
+
+    export { ReadableStreamEW, WritableStreamEW, ReadableStreamDefaultControllerEW, QueuingStrategy, UnderlyingSource, UnderlyingByteSource, UnderlyingSink, ReadsHeaders, ReadAllHeader, ResponseProviderRequest, IngressClientRequest, IngressOriginRequest, EgressOriginRequest, EgressOriginResponse, EgressClientRequest, EgressClientResponse };
 }
 
 /**
@@ -588,6 +800,11 @@ declare module "http-request" {
     import { ReadableStream } from "streams";
 
     /**
+     * A request body, either in the form of a static string or a readable stream.
+     */
+    type RequestBody = string | ReadableStream;
+
+    /**
      * Performs a subrequest, fetching the requested resource asynchronously.
      *
      * @param url A String containing the URL to fetch. Can be an absolute
@@ -603,7 +820,7 @@ declare module "http-request" {
     function httpRequest(url: string, options?: {
         method?: string | undefined,
         headers?: { [others: string]: string | string[] } | undefined,
-        body?: string | undefined,
+        body?: RequestBody | undefined,
         timeout?: number | undefined
     }): Promise<HttpResponse>;
 
@@ -643,156 +860,24 @@ declare module "http-request" {
  * [WHATWG Streams Standard]: https://streams.spec.whatwg.org
  */
 declare module "streams" {
-    interface ReadableStreamBYOBRequest {
-        readonly view: ArrayBufferView;
-        respond(bytesWritten: number): void;
-        respondWithNewView(view: ArrayBufferView): void;
-    }
-
-    interface ReadableByteStreamController {
-        readonly byobRequest: ReadableStreamBYOBRequest | undefined;
-        readonly desiredSize: number | null;
-        close(): void;
-        enqueue(chunk: ArrayBufferView): void;
-        error(error?: any): void;
-    }
-
-    interface ReadableByteStreamControllerCallback {
-        (controller: ReadableByteStreamController): void | PromiseLike<void>;
-    }
-
-    interface UnderlyingByteSource {
-        autoAllocateChunkSize?: number | undefined;
-        cancel?: ReadableStreamErrorCallback | undefined;
-        pull?: ReadableByteStreamControllerCallback | undefined;
-        start?: ReadableByteStreamControllerCallback | undefined;
-        type: "bytes";
-    }
-
-    interface ReadableStreamDefaultController<R = any> {
-        readonly desiredSize: number | null;
-        close(): void;
-        enqueue(chunk: R): void;
-        error(error?: any): void;
-    }
-
-    interface ReadableStreamDefaultControllerCallback<R> {
-        (controller: ReadableStreamDefaultController<R>): void | PromiseLike<void>;
-    }
-
-    interface ReadableStreamErrorCallback {
-        (reason: any): void | PromiseLike<void>;
-    }
-
-    /**
-     * https://streams.spec.whatwg.org/#underlying-source-api
-     */
-    interface UnderlyingSource<R = any> {
-        start?: ReadableStreamDefaultControllerCallback<R> | undefined;
-        pull?: ReadableStreamDefaultControllerCallback<R> | undefined;
-        cancel?: ReadableStreamErrorCallback | undefined;
-        type?: undefined;
-    }
-
-    interface WritableStreamDefaultController {
-        error(error?: any): void;
-    }
-
-    interface WritableStreamDefaultControllerStartCallback {
-        (controller: WritableStreamDefaultController): void | PromiseLike<void>;
-    }
-
-    interface WritableStreamDefaultControllerWriteCallback<W> {
-        (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
-    }
-
-    interface WritableStreamDefaultControllerCloseCallback {
-        (): void | PromiseLike<void>;
-    }
-
-    interface WritableStreamErrorCallback {
-        (reason: any): void | PromiseLike<void>;
-    }
-
-    interface UnderlyingSink<W = any> {
-        start?: WritableStreamDefaultControllerStartCallback | undefined;
-        write?: WritableStreamDefaultControllerWriteCallback<W> | undefined;
-        close?: WritableStreamDefaultControllerCloseCallback | undefined;
-        abort?: WritableStreamErrorCallback | undefined;
-        type?: undefined;
-    }
-
-    interface ReadableStreamReadResult<T> {
-        readonly done: boolean;
-        readonly value: T;
-    }
-
-    interface PipeOptions {
-        preventAbort?: boolean | undefined;
-        preventCancel?: boolean | undefined;
-        preventClose?: boolean | undefined;
-        signal?: { aborted: boolean } | undefined;
-    }
-
-    interface QueuingStrategySizeCallback<T = any> {
-        (chunk: T): number;
-    }
-
-    interface QueuingStrategy<T = any> {
-        highWaterMark?: number | undefined;
-        size?: QueuingStrategySizeCallback<T> | undefined;
-    }
-
-    interface WritableStreamDefaultWriter<W = any> {
-        readonly closed: Promise<void>;
-        readonly desiredSize: number | null;
-        readonly ready: Promise<void>;
-        abort(reason?: any): Promise<void>;
-        close(): Promise<void>;
-        releaseLock(): void;
-        write(chunk: W): Promise<void>;
-    }
-
-    interface WritableStream<W = any> {
-        readonly locked: boolean;
-        abort(reason?: any): Promise<void>;
-        close(): Promise<void>;
-        getWriter(): WritableStreamDefaultWriter<W>;
-    }
-
-    const WritableStream: {
-        prototype: WritableStream;
-        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
-    };
-
-    interface ReadableStream<R = any> {
-        readonly locked: boolean;
-        cancel(reason?: any): Promise<void>;
-        getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
-        getReader(): ReadableStreamDefaultReader<R>;
-        pipeThrough<T>({ writable, readable }: { writable: WritableStream<R>, readable: ReadableStream<T> }, options?: PipeOptions): ReadableStream<T>;
-        pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>;
-        tee(): [ReadableStream<R>, ReadableStream<R>];
+    interface ReadableStream<R = any> extends EW.ReadableStreamEW {
     }
 
     const ReadableStream: {
         prototype: ReadableStream;
-        new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number | undefined, size?: undefined }): ReadableStream<Uint8Array>;
-        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
+        new(underlyingSource: EW.UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
+        new <R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
     };
 
-    interface ReadableStreamBYOBReader {
-        readonly closed: Promise<void>;
-        cancel(reason?: any): Promise<void>;
-        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
-        releaseLock(): void;
+    interface WritableStream<R = any> extends EW.WritableStreamEW {
     }
 
-    interface ReadableStreamDefaultReader<R = any> {
-        readonly closed: Promise<void>;
-        cancel(reason?: any): Promise<void>;
-        read(): Promise<ReadableStreamReadResult<R>>;
-        releaseLock(): void;
+    const WritableStream: {
+        prototype: WritableStream;
+        new <W = any>(underlyingSink?: EW.UnderlyingSink<W>, strategy?: EW.QueuingStrategy<W>): WritableStream<W>;
+    };
+
+    interface ReadableStreamDefaultController<R = any> extends EW.ReadableStreamDefaultControllerEW {
     }
 
     interface TransformStream<I = any, O = any> {
@@ -802,7 +887,7 @@ declare module "streams" {
 
     const TransformStream: {
         prototype: TransformStream;
-        new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
+        new <I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: EW.QueuingStrategy<I>, readableStrategy?: EW.QueuingStrategy<O>): TransformStream<I, O>;
     };
 
     interface Transformer<I = any, O = any> {
@@ -837,7 +922,7 @@ declare module "streams" {
         size(chunk: any): 1;
     }
 
-    interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
+    interface ByteLengthQueuingStrategy extends EW.QueuingStrategy<ArrayBufferView> {
         highWaterMark: number;
         size(chunk: ArrayBufferView): number;
     }
@@ -1000,16 +1085,19 @@ declare module "url-search-params" {
         /**
          * Iterate through the name/value pairs.
          */
+        // Minimum TypeScript Version: 4.6
         entries(): IterableIterator<[string, string]>;
 
         /**
          * Iterate through the names.
          */
+        // Minimum TypeScript Version: 4.6
         keys(): IterableIterator<string>;
 
         /**
          * Iterate through the values.
          */
+        // Minimum TypeScript Version: 4.6
         values(): IterableIterator<string>;
 
         /**
@@ -1022,4 +1110,252 @@ declare module "url-search-params" {
          */
         toString(): string;
     }
+}
+
+declare module "encoding" {
+    /**
+     * The atob() function takes a string of base64 encoded data and returns a decoded ASCII binary string.
+     * @param encodedData Input data that needs to be decoded
+     */
+    export function atob(encodedData: string): string;
+
+    /**
+     * btoa() function takes a string, performs a base64 encoding on it and returns an ASCII string.
+     * @param stringToEncode Encoded data that needs to be encoded
+     */
+    export function btoa(stringToEncode: string): string;
+
+    type DecodedValue = string | Uint8Array;
+
+    interface Base64 {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base64: Base64;
+
+    interface Base64url {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base64url: Base64url;
+
+    interface Base16 {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base16: Base16;
+
+    /**
+     * Takes a stream of code points as input and emits a stream of UTF-8 bytes
+     */
+    class TextEncoder {
+        /**
+         * Constructor for a new TextEncoder object
+         */
+        constructor();
+
+        /**
+         * Converts input string into a stream of UTF-8 bytes
+         * @param text is a String to encode
+         */
+        encode(text: string): Uint8Array;
+
+        /**
+         * Containing the name of the encoding algorithm used by the specific encoder
+         */
+        readonly encoding: string;
+    }
+    interface TextDecoderOptions {
+        fatal?: boolean | undefined;
+        ignoreBOM?: boolean | undefined;
+    }
+    type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+
+    interface StreamObject {
+        /**
+         * A boolean flag indicating that additional data will follow in subsequent calls to decode().
+         * Set to true if processing the data in chunks, and false for the final chunk or if the data is not chunked.
+         * It defaults to false.
+         */
+        stream: boolean;
+    }
+
+    /**
+     * Represents a decoder for a specific text encoding,
+     * such as UTF-8, ISO-8859-2, KOI8-R, GBK, etc.
+     * A decoder takes a stream of bytes as input and emits a stream of code points.
+     */
+    class TextDecoder {
+        /**
+         * Constructs a new TextDecoder object
+         * @param utfLabel [Optional] a string representing the encoding to be used. Defaults to "utf-8".
+         * @param options [Optional] TextDecoderOption dictionary
+         */
+        constructor(utfLabel?: string, options?: TextDecoderOptions);
+
+        /**
+         * Returns a string containing the text decoded with the method of the specific TextDecoder object
+         * @param buffer [Optional] an ArrayBuffer, a TypedArray or a DataView object containing the text to decode.
+         * @param options [Optional] An object with the stream property
+         */
+        decode(buffer?: ArrayBuffer| TypedArray | DataView, options?: StreamObject): string;
+
+        /**
+         * The fatal  flag passed into the constructor
+         */
+        readonly fatal: boolean;
+        /**
+         * The ignoreBOM  flag passed into the constructor
+         */
+        readonly ignoreBOM: boolean;
+        /**
+         * A string containing the name of the decoder, that is a string describing the method the TextDecoder will use
+         */
+        readonly encoding: string;
+    }
+
+    export { base64, base64url, base16, TextEncoder, TextDecoder };
+}
+
+/**
+ * The crypto module is available to use in your EdgeWorkers code bundles to expose support for a Javascript crypto API based on the Web Crypto API.
+ * See: https://techdocs.akamai.com/edgeworkers/docs/crypto
+ */
+declare module "crypto" {
+    interface Crypto {
+        readonly subtle: SubtleCrypto;
+        /**
+         * A function that allows you to get cryptographically strong random values
+         * @param array: An integer-based TypedArray
+         *
+         * @returns The same array passed as typedArray but with its contents replaced with the newly generated random numbers
+         */
+        getRandomValues(array: Exclude<TypedArray, Float32Array | Float64Array>): TypedArray;
+    }
+
+    type BufferSource = ArrayBufferView | ArrayBuffer;
+
+    type TypedArray =
+        | Int8Array
+        | Uint8Array
+        | Uint8ClampedArray
+        | Int16Array
+        | Uint16Array
+        | Int32Array
+        | Uint32Array
+        | Float32Array
+        | Float64Array;
+
+    type Usages = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
+
+    type Format = "raw" | "pkcs8" | "spki" | "jwk";
+
+    interface CryptoKey {
+        readonly type: string;
+        readonly extractable: boolean;
+        readonly algorithm: object;
+        readonly usages: Usages[];
+    }
+
+    /**
+     * The subtleCrypto interface provides several cryptographic functions.
+     * SubtleCrypto features are obtained through the subtle property of the Crypto object you get from the Crypto property.
+     * See: https://techdocs.akamai.com/edgeworkers/docs/crypto
+     */
+    interface SubtleCrypto {
+        /**
+         * Imports the key
+         * @param format string describing the data format of the key to import
+         * @param keyData An ArrayBuffer, a TypedArray, a DataView, or a JSONWebKey object containing the key
+         * @param algorithm A string or object defining the type of key to import
+         * @param extractable A boolean value indicating whether it will be possible to export the key
+         * @param keyUsages An array indicating the operations that can be done with the key
+         *
+         * @returns A promise that fulfills with the imported key as a CryptoKey object.
+         */
+        importKey(
+            format: Format,
+            keyData: BufferSource | TypedArray | object,
+            algorithm: string | object,
+            extractable: boolean,
+            keyUsages: Usages[],
+        ): Promise<CryptoKey>;
+
+        /**
+         * Encrypts data
+         * @param algorithm An object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key to be used for encryption
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be encrypted
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the ciphertext
+         */
+        encrypt(
+            algorithm: object,
+            key: CryptoKey,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+
+        /**
+         * Decrypts the encrypted data
+         * @param algorithm An object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key to be used for decryption
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be decrypted
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the plaintext
+         */
+        decrypt(
+            algorithm: object,
+            key: CryptoKey,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+
+        /**
+         * Verify a digital signature
+         * @param algorithm A string or object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key that will be used to verify the signature
+         * @param signature ArrayBuffer containing the signature to verify
+         * @param data ArrayBuffer containing the data whose signature is to be verified
+         *
+         * @returns A promise that fulfills with a boolean value: true if the signature is valid, false otherwise
+         */
+        verify(
+            algorithm: string | object,
+            key: CryptoKey,
+            signature: ArrayBuffer,
+            data: ArrayBuffer,
+        ): Promise<boolean>;
+
+        /**
+         * Generate a digest of the given data
+         * @param algorithm A string or an object that includes the name property, the string names the hash functions to use
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be digested
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the digest
+         */
+        digest(
+            algorithm: string | object,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+    }
+
+    /**
+     * Converts a PEM-encoded key string into an ArrayBuffer.
+     * @param pemEncodedKey
+     *
+     * @returns ArrayBuffer
+     */
+    export function pem2ab(pemEncodedKey: string): ArrayBuffer;
+
+    const crypto: Crypto;
+
+    export { crypto };
 }

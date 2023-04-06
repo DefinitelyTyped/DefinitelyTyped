@@ -44,7 +44,7 @@ const state: ATEM.State = {
         numberOfDVEs: 0,
         numberOfSuperSources: 0,
     },
-    tallys: [1, 3, 0, 2, 0, 1],
+    tallys: [1, 0, 2, 0, 1],
     channels: {
         0: { name: 'Black', label: 'BLK' },
         1: { name: 'SDI 1', label: 'SDI1' },

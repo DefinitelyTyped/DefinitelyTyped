@@ -2211,6 +2211,21 @@ declare namespace asana {
              * @return {Promise} The requested resource
              */
             updateTask(taskGid: string, data?: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+
+            // https://developers.asana.com/docs/get-tasks-from-a-section
+            // https://github.com/Asana/node-asana/blob/master/lib/resources/gen/tasks.js#L314-L333
+            /**
+             * Get tasks from a section
+             * @param {String} sectionGid: (required) The globally unique identifier for the section.
+             * @param {Object} [params]: Parameters for the request
+             * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
+             * @return {Promise} The requested resource
+             */
+            getTasksForSection(
+                sectionGid: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.Type>>;
         }
 
         interface SectionsStatic {

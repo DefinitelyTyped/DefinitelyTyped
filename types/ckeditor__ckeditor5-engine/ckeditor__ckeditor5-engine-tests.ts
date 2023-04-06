@@ -1514,7 +1514,7 @@ new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition));
 new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).startRange;
 // $ExpectType "none" | "capturing" | "atTarget" | "bubbling"
 new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).eventPhase;
-// $ExpectType Document | Node | null
+// $ExpectType Document | Node | null || Node | Document | null
 new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).currentTarget;
 
 viewDocument.isFocused = true;

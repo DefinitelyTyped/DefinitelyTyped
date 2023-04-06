@@ -66,8 +66,7 @@ export * from './extras/core/Path';
 export * from './extras/core/ShapePath';
 export * from './extras/core/CurvePath';
 export * from './extras/core/Curve';
-export * from './extras/DataUtils';
-export * from './extras/Earcut';
+export * as DataUtils from './extras/DataUtils';
 export * from './extras/ImageUtils';
 export * from './extras/ShapeUtils';
 export * from './extras/PMREMGenerator';
@@ -158,6 +157,7 @@ export * from './math/Vector2';
 export * from './math/Quaternion';
 export * from './math/Color';
 export * from './math/SphericalHarmonics3';
+export { ColorManagement } from './math/ColorManagement';
 import * as MathUtils from './math/MathUtils';
 export { MathUtils };
 /**
@@ -178,7 +178,6 @@ export * from './objects/Group';
 /**
  * Renderers
  */
-export * from './renderers/WebGLMultisampleRenderTarget';
 export * from './renderers/WebGLCubeRenderTarget';
 export * from './renderers/WebGLMultipleRenderTargets';
 export * from './renderers/WebGLRenderTarget';
@@ -223,9 +222,8 @@ export * from './scenes/Scene';
  * Textures
  */
 export * from './textures/VideoTexture';
+export * from './textures/CompressedArrayTexture';
 export * from './textures/DataTexture';
-export * from './textures/DataTexture2DArray';
-export * from './textures/DataTexture3D';
 export * from './textures/CompressedTexture';
 export * from './textures/CubeTexture';
 export * from './textures/Data3DTexture';

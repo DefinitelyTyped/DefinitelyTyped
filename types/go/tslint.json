@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "comment-format": false,
-        "export-just-namespace": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,

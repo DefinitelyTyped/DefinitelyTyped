@@ -2,6 +2,17 @@ import * as forge from 'node-forge';
 
 let keypair = forge.pki.rsa.generateKeyPair({ bits: 512 });
 forge.pki.rsa.setPublicKey(keypair.privateKey.n, keypair.privateKey.e);
+forge.pki.setRsaPublicKey(keypair.privateKey.n, keypair.privateKey.e);
+forge.pki.setRsaPrivateKey(
+    keypair.privateKey.n,
+    keypair.privateKey.e,
+    keypair.privateKey.d,
+    keypair.privateKey.p,
+    keypair.privateKey.q,
+    keypair.privateKey.dP,
+    keypair.privateKey.dQ,
+    keypair.privateKey.qInv,
+);
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
 let publicKeyRSAPem: forge.pki.PEM = forge.pki.publicKeyToRSAPublicKeyPem(keypair.publicKey);
@@ -26,7 +37,7 @@ forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr)
 {
     // generate an RSA key pair asynchronously (uses web workers if available)
     // use workers: -1 to run a fast core estimator to optimize # of workers
-    forge.pki.rsa.generateKeyPair({bits: 2048, workers: -1}, function(err, keypair) {
+    forge.pki.rsa.generateKeyPair({ bits: 2048, workers: -1 }, (err, keypair) => {
         // keypair.privateKey, keypair.publicKey
     });
 
@@ -40,7 +51,7 @@ forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr)
     var iv = forge.random.getBytesSync(12);
     var someBytes = 'hello world!';
     var cipher = forge.cipher.createCipher('AES-GCM', result.key);
-    cipher.start({iv: iv});
+    cipher.start({ iv: iv });
     cipher.update(forge.util.createBuffer(someBytes));
     cipher.finish();
     var encrypted = cipher.output.getBytes();
@@ -55,12 +66,12 @@ forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr)
 
     // decrypt some bytes
     var decipher = forge.cipher.createDecipher('AES-GCM', my_key);
-    decipher.start({iv: iv, tag: tag as any as forge.util.ByteStringBuffer});
+    decipher.start({ iv: iv, tag: tag as any as forge.util.ByteStringBuffer });
     decipher.update(forge.util.createBuffer(encrypted));
     var pass = decipher.finish();
 
     // pass is false if there was a failure (eg: authentication tag didn't match)
-    if(pass) {
+    if (pass) {
         if (decipher.output.getBytes() !== someBytes) throw Error('forge.util.binary.raw.encode / decode fail');
     } else {
         throw Error('forge.util.binary.raw.encode / decode fail');
@@ -103,16 +114,16 @@ forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr)
                 forge.asn1.Class.UNIVERSAL,
                 forge.asn1.Type.OID,
                 false,
-                forge.asn1.oidToDer(forge.pki.oids['rsaEncryption']).getBytes()
+                forge.asn1.oidToDer(forge.pki.oids['rsaEncryption']).getBytes(),
             ),
-            forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.NULL, false, '')
+            forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.NULL, false, ''),
         ]),
         forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.BITSTRING, false, [
             forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
                 forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, []),
-                forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, [])
-            ])
-        ])
+                forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, []),
+            ]),
+        ]),
     ]);
     let derBuffer = forge.asn1.toDer(subjectPublicKeyInfo);
     let object = forge.asn1.fromDer(derBuffer);
@@ -158,6 +169,31 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    // test type exports
+    type Algo = forge.md.Algorithm;
+    type Algomd5 = forge.md.md5.Algorithm;
+    type Algosha1 = forge.md.sha1.Algorithm;
+    type Algosha256 = forge.md.sha256.Algorithm;
+    type Algosha512 = forge.md.sha512.Algorithm;
+    type Alogsha512Sha384 = forge.md.sha512.Algorithm.Sha384;
+    type Alogsha512Sha512 = forge.md.sha512.Algorithm.Sha512;
+    type Alogsha512Sha512224 = forge.md.sha512.Algorithm.Sha512224;
+    type Alogsha512Sha512256 = forge.md.sha512.Algorithm.Sha512256;
+    type AlgoSelsha512 = forge.md.sha512.AlgorithmSelection;
+    type AlogSelsha512Sha384 = forge.md.sha512.AlgorithmSelection.Sha384;
+    type AlogSelsha512Sha512 = forge.md.sha512.AlgorithmSelection.Sha512;
+    type AlogSelsha512Sha512224 = forge.md.sha512.AlgorithmSelection.Sha512224;
+    type AlogSelsha512Sha512256 = forge.md.sha512.AlgorithmSelection.Sha512256;
+    type MD = forge.md.MessageDigest;
+    type MDmd5 = forge.md.md5.MessageDigest;
+    type MDsha1 = forge.md.sha1.MessageDigest;
+    type MDsha256 = forge.md.sha256.MessageDigest;
+    type MDsha512 = forge.md.sha512.MessageDigest;
+    type MDsha521Sha512224 = forge.md.sha512.Sha512224MessageDigest;
+    type MDsha521Sha512256 = forge.md.sha512.Sha512256MessageDigest;
+    type MDsha521Sha384 = forge.md.sha512.Sha384MessageDigest;
+    type MDsha521Sha512 = forge.md.sha512.Sha512MessageDigest;
+
     let src: string;
     let encode: Uint8Array;
     let decode: string;
@@ -177,6 +213,35 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let hex: string;
 
     md = forge.md.sha256.create();
+    forge.md5; // $ExpectType { create(): MessageDigest; }
+    forge.sha1; // $ExpectType { create(): MessageDigest; }
+    forge.sha256; // $ExpectType { create(): MessageDigest; }
+    forge.sha384; // $ExpectType { create(): Sha384MessageDigest; }
+    forge.sha512;
+    forge.sha512.sha224; // $ExpectType { create(): Sha512224MessageDigest; }
+    forge.sha512.sha256; // $ExpectType { create(): Sha512256MessageDigest; }
+    forge.sha512.sha384; // $ExpectType { create(): Sha384MessageDigest; }
+    forge.md.md5; // $ExpectType { create(): MessageDigest; }
+    forge.md.sha1; // $ExpectType { create(): MessageDigest; }
+    forge.md.sha256; // $ExpectType { create(): MessageDigest; }
+    forge.md.sha384; // $ExpectType { create(): Sha384MessageDigest; }
+    forge.md.sha512.create;
+    forge.md.sha512.sha224; // $ExpectType { create(): Sha512224MessageDigest; }
+    forge.md.sha512.sha256; // $ExpectType { create(): Sha512256MessageDigest; }
+    forge.md.sha512.sha384; // $ExpectType { create(): Sha384MessageDigest; }
+    forge.md['sha512/224']; // $ExpectType { create(): Sha512224MessageDigest; }
+    forge.md['sha512/256']; // $ExpectType { create(): Sha512256MessageDigest; }
+    forge.md.algorithms.md5; // $ExpectType { create(): MessageDigest; }
+    forge.md.algorithms.sha1; // $ExpectType { create(): MessageDigest; }
+    forge.md.algorithms.sha256; // $ExpectType { create(): MessageDigest; }
+    forge.md.algorithms.sha384; // $ExpectType { create(): Sha384MessageDigest; }
+    forge.md.algorithms.sha512.create;
+    forge.md.algorithms.sha512.sha224; // $ExpectType { create(): Sha512224MessageDigest; }
+    forge.md.algorithms.sha512.sha256; // $ExpectType { create(): Sha512256MessageDigest; }
+    forge.md.algorithms.sha512.sha384; // $ExpectType { create(): Sha384MessageDigest; }
+    forge.md.algorithms['sha512/224']; // $ExpectType { create(): Sha512224MessageDigest; }
+    forge.md.algorithms['sha512/256']; // $ExpectType { create(): Sha512256MessageDigest; }
+
     md = md.update('Test');
     hex = md.digest().toHex();
 
@@ -187,6 +252,83 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     hex = md.digest().toHex();
 
     if (hex.length !== 40) throw Error('forge.md.MessageDigest.update / digest fail');
+
+    const md5digest = forge.md5.create(); // $ExpectType MessageDigest
+    md5digest.algorithm; // $ExpectType "md5"
+    md5digest.blockLength; // $ExpectType 64
+    md5digest.digestLength; // $ExpectType 16
+    md5digest.fullMessageLength; // $ExpectType number[]
+    md5digest.messageLength; // $ExpectType number
+    md5digest.messageLengthSize; // $ExpectType 8
+    md5digest.update('foo'); // $ExpectType MessageDigest
+    md5digest.update('foo', 'utf8'); // $ExpectType MessageDigest
+    md5digest.digest(); // $ExpectType ByteStringBuffer
+    const sha1digest = forge.sha1.create(); // $ExpectType MessageDigest
+    sha1digest.algorithm; // $ExpectType "sha1"
+    sha1digest.blockLength; // $ExpectType 64
+    sha1digest.digestLength; // $ExpectType 20
+    sha1digest.fullMessageLength; // $ExpectType number[]
+    sha1digest.messageLength; // $ExpectType number
+    sha1digest.messageLengthSize; // $ExpectType 8
+    sha1digest.update('foo'); // $ExpectType MessageDigest
+    sha1digest.update('foo', 'utf8'); // $ExpectType MessageDigest
+    sha1digest.digest(); // $ExpectType ByteStringBuffer
+    const sha256digest = forge.sha256.create(); // $ExpectType MessageDigest
+    sha256digest.algorithm; // $ExpectType "sha256"
+    sha256digest.blockLength; // $ExpectType 64
+    sha256digest.digestLength; // $ExpectType 32
+    sha256digest.fullMessageLength; // $ExpectType number[]
+    sha256digest.messageLength; // $ExpectType number
+    sha256digest.messageLengthSize; // $ExpectType 8
+    sha256digest.update('foo'); // $ExpectType MessageDigest
+    sha256digest.update('foo', 'utf8'); // $ExpectType MessageDigest
+    sha256digest.digest(); // $ExpectType ByteStringBuffer
+    const sha384digest = forge.sha384.create(); // $ExpectType Sha384MessageDigest
+    sha384digest.algorithm; // $ExpectType "sha384"
+    sha384digest.blockLength; // $ExpectType 128
+    sha384digest.digestLength; // $ExpectType 48
+    sha384digest.fullMessageLength; // $ExpectType number[]
+    sha384digest.messageLength; // $ExpectType number
+    sha384digest.messageLengthSize; // $ExpectType 16
+    sha384digest.update('foo'); // $ExpectType Sha384MessageDigest
+    sha384digest.update('foo', 'utf8'); // $ExpectType Sha384MessageDigest
+    sha384digest.digest(); // $ExpectType ByteStringBuffer
+    const sha512digest = forge.sha512.create(); // $ExpectType Sha512MessageDigest
+    forge.sha512.create('SHA-384'); // $ExpectType Sha384MessageDigest
+    forge.sha512.create('SHA-512'); // $ExpectType Sha512MessageDigest
+    forge.sha512.create('SHA-512/224'); // $ExpectType Sha512224MessageDigest
+    forge.sha512.create('SHA-512/256'); // $ExpectType Sha512256MessageDigest
+    // @ts-expect-error
+    forge.sha512.create('foo');
+    sha512digest.algorithm; // $ExpectType "sha512"
+    sha512digest.blockLength; // $ExpectType 128
+    sha512digest.digestLength; // $ExpectType 64
+    sha512digest.fullMessageLength; // $ExpectType number[]
+    sha512digest.messageLength; // $ExpectType number
+    sha512digest.messageLengthSize; // $ExpectType 16
+    sha512digest.update('foo'); // $ExpectType Sha512MessageDigest
+    sha512digest.update('foo', 'utf8'); // $ExpectType Sha512MessageDigest
+    sha512digest.digest(); // $ExpectType ByteStringBuffer
+    const sha512224digest = forge.sha512.sha224.create(); // $ExpectType Sha512224MessageDigest
+    sha512224digest.algorithm; // $ExpectType "sha512/224"
+    sha512224digest.blockLength; // $ExpectType 128
+    sha512224digest.digestLength; // $ExpectType 28
+    sha512224digest.fullMessageLength; // $ExpectType number[]
+    sha512224digest.messageLength; // $ExpectType number
+    sha512224digest.messageLengthSize; // $ExpectType 16
+    sha512224digest.update('foo'); // $ExpectType Sha512224MessageDigest
+    sha512224digest.update('foo', 'utf8'); // $ExpectType Sha512224MessageDigest
+    sha512224digest.digest(); // $ExpectType ByteStringBuffer
+    const sha512256digest = forge.sha512.sha256.create(); // $ExpectType Sha512256MessageDigest
+    sha512256digest.algorithm; // $ExpectType "sha512/256"
+    sha512256digest.blockLength; // $ExpectType 128
+    sha512256digest.digestLength; // $ExpectType 32
+    sha512256digest.fullMessageLength; // $ExpectType number[]
+    sha512256digest.messageLength; // $ExpectType number
+    sha512256digest.messageLengthSize; // $ExpectType 16
+    sha512256digest.update('foo'); // $ExpectType Sha512256MessageDigest
+    sha512256digest.update('foo', 'utf8'); // $ExpectType Sha512256MessageDigest
+    sha512256digest.digest(); // $ExpectType ByteStringBuffer
 }
 
 {
@@ -201,7 +343,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-    let key = forge.random.getBytesSync(24)
+    let key = forge.random.getBytesSync(24);
     let payload = { asd: 'asd' };
     let cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(key, 'raw'));
     cipher.start();
@@ -241,28 +383,28 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     const attrs = [
         {
             name: 'commonName',
-            value: 'x22x22'
+            value: 'x22x22',
         },
         {
             name: 'countryName',
-            value: 'GitHub'
+            value: 'GitHub',
         },
         {
             shortName: 'ST',
-            value: 'GitHub'
+            value: 'GitHub',
         },
         {
             name: 'localityName',
-            value: 'GitHub'
+            value: 'GitHub',
         },
         {
             name: 'organizationName',
-            value: 'x22x22'
+            value: 'x22x22',
         },
         {
             shortName: 'OU',
-            value: 'https://github.com/x22x22'
-        }
+            value: 'https://github.com/x22x22',
+        },
     ];
     cert.setSubject(attrs);
     cert.setIssuer(attrs);
@@ -270,39 +412,38 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         {
             name: 'basicConstraints',
             critical: true,
-            cA: true
+            cA: true,
         },
         {
             name: 'keyUsage',
             critical: true,
-            keyCertSign: true
+            keyCertSign: true,
         },
         {
-            name: 'subjectKeyIdentifier'
-        }
+            name: 'subjectKeyIdentifier',
+        },
     ]);
 
-    const attr: forge.pki.Attribute | undefined = csr.getAttribute({ name: "challengePassword" });
-
+    const attr: forge.pki.Attribute | undefined = csr.getAttribute({ name: 'challengePassword' });
 
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
 
-    cert.issuer.attributes.map(attr => attr.name)
+    cert.issuer.attributes.map(attr => attr.name);
 }
 
 {
     let md: forge.md.MessageDigest;
     let hex: string;
-    let signature: forge.Bytes
+    let signature: forge.Bytes;
 
     md = forge.md.sha256.create();
     md = md.update('Test');
     hex = md.digest().toHex();
 
-    signature = keypair.privateKey.sign(md)
+    signature = keypair.privateKey.sign(md);
     if (!keypair.publicKey.verify(md.digest().bytes(), signature)) {
-        throw Error("rsa signature verification fail");
+        throw Error('rsa signature verification fail');
     }
 }
 
@@ -328,7 +469,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         verify: (verified, depth, chain) => {
             return true;
         },
-        validityCheckDate: new Date()
+        validityCheckDate: new Date(),
     });
 
     certificate.issued(certificate);
@@ -339,26 +480,22 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let md: forge.md.MessageDigest;
     md = forge.md.sha256.create();
 
-    const key1: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32);
-    const key2: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32, md);
+    const key1: string = forge.pkcs5.pbkdf2('password', 'salt', 1000, 32);
+    const key2: string = forge.pkcs5.pbkdf2('password', 'salt', 1000, 32, md);
 
     let key3: string;
-    forge.pkcs5.pbkdf2("password", "salt", 1000, 32, function(err: Error | null, dk: null | string) {
-        if (err === null)
-            key3 = dk;
-        else
-            throw Error("pbkdf2 key derivation fail");
+    forge.pkcs5.pbkdf2('password', 'salt', 1000, 32, (err: Error | null, dk: null | string) => {
+        if (err === null) key3 = dk;
+        else throw Error('pbkdf2 key derivation fail');
     });
 
     let key4: string;
-    forge.pkcs5.pbkdf2("password", "salt", 1000, 32, md, function(err: Error | null, dk: null | string) {
-        if (err === null)
-            key4 = dk;
-        else
-            throw Error("pbkdf2 key derivation fail");
+    forge.pkcs5.pbkdf2('password', 'salt', 1000, 32, md, (err: Error | null, dk: null | string) => {
+        if (err === null) key4 = dk;
+        else throw Error('pbkdf2 key derivation fail');
     });
 
-    const key5: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32, 'sha256');
+    const key5: string = forge.pkcs5.pbkdf2('password', 'salt', 1000, 32, 'sha256');
 }
 
 {
@@ -373,55 +510,59 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         // supported cipher suites in order of preference
         cipherSuites: [
             forge.tls.CipherSuites.TLS_RSA_WITH_AES_128_CBC_SHA,
-            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA],
+            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA,
+        ],
         virtualHost: 'server',
-        verify: function(c, verified, depth, certs) {
+        verify: (c, verified, depth, certs) => {
             console.log(
-                'TLS Client verifying certificate w/CN: \"' +
+                'TLS Client verifying certificate w/CN: "' +
                     certs[0].subject.getField('CN').value +
-                    '\", verified: ' + verified + '...');
+                    '", verified: ' +
+                    verified +
+                    '...',
+            );
             return verified;
         },
-        connected: function(c) {
+        connected: c => {
             console.log('Client connected...');
 
             // send message to server
-            setTimeout(function() {
+            setTimeout(() => {
                 c.prepareHeartbeatRequest('heartbeat');
                 c.prepare('Hello Server');
             }, 1);
         },
-        getCertificate: function(c, hint) {
+        getCertificate: (c, hint) => {
             console.log('Client getting certificate ...');
             return forge.pki.certificateToPem(cert);
         },
-        getPrivateKey: function(c, cert) {
+        getPrivateKey: (c, cert) => {
             return privateKeyPem;
         },
-        tlsDataReady: function(c) {
+        tlsDataReady: c => {
             // send TLS data to server
             server.process(c.tlsData.getBytes());
         },
-        dataReady: function(c) {
+        dataReady: c => {
             var response = c.data.getBytes();
-            console.log('Client received \"' + response + '\"');
-            success = (response === 'Hello Client');
+            console.log('Client received "' + response + '"');
+            success = response === 'Hello Client';
             c.close();
         },
-        heartbeatReceived: function(c, payload) {
+        heartbeatReceived: (c, payload) => {
             console.log('Client received heartbeat: ' + payload.getBytes());
         },
-        closed: function(c) {
+        closed: c => {
             console.log('Client disconnected.');
-            if(success) {
+            if (success) {
                 console.log('PASS');
             } else {
                 console.log('FAIL');
             }
         },
-        error: function(c, error) {
+        error: (c, error) => {
             console.log('Client error: ' + error.message);
-        }
+        },
     });
 
     // create TLS server
@@ -432,46 +573,50 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         // supported cipher suites in order of preference
         cipherSuites: [
             forge.tls.CipherSuites.TLS_RSA_WITH_AES_128_CBC_SHA,
-            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA],
-        connected: function(c) {
+            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA,
+        ],
+        connected: c => {
             console.log('Server connected');
             c.prepareHeartbeatRequest('heartbeat');
         },
         verifyClient: true,
-        verify: function(c, verified, depth, certs) {
+        verify: (c, verified, depth, certs) => {
             console.log(
-                'Server verifying certificate w/CN: \"' +
+                'Server verifying certificate w/CN: "' +
                     certs[0].subject.getField('CN').value +
-                    '\", verified: ' + verified + '...');
+                    '", verified: ' +
+                    verified +
+                    '...',
+            );
             return verified;
         },
-        getCertificate: function(c, hint) {
-            console.log('Server getting certificate for \"' + (hint as string[])[0] + '\"...');
+        getCertificate: (c, hint) => {
+            console.log('Server getting certificate for "' + (hint as string[])[0] + '"...');
             return forge.pki.certificateToPem(cert);
         },
-        getPrivateKey: function(c, cert) {
+        getPrivateKey: (c, cert) => {
             return privateKeyPem;
         },
-        tlsDataReady: function(c) {
+        tlsDataReady: c => {
             // send TLS data to client
             client.process(c.tlsData.getBytes());
         },
-        dataReady: function(c) {
-            console.log('Server received \"' + c.data.getBytes() + '\"');
+        dataReady: c => {
+            console.log('Server received "' + c.data.getBytes() + '"');
 
             // send response
             c.prepare('Hello Client');
             c.close();
         },
-        heartbeatReceived: function(c, payload) {
+        heartbeatReceived: (c, payload) => {
             console.log('Server received heartbeat: ' + payload.getBytes());
         },
-        closed: function(c) {
+        closed: c => {
             console.log('Server disconnected.');
         },
-        error: function(c, error) {
+        error: (c, error) => {
             console.log('Server error: ' + error.message);
-        }
+        },
     });
 
     console.log('created TLS client and server, doing handshake...');
@@ -483,14 +628,22 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     const toSign = Buffer.from('test', 'utf8');
     forge.pki.ed25519.sign({
         message: toSign,
-        privateKey
+        privateKey,
     });
 
     const toSign2 = 'foo';
     forge.pki.ed25519.sign({
         message: toSign2,
         encoding: 'utf8',
-        privateKey
+        privateKey,
+    });
+
+    const md = forge.md.sha256.create();
+    md.update('abc', 'utf8');
+
+    forge.pki.ed25519.sign({
+        md,
+        privateKey,
     });
 }
 
@@ -498,7 +651,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     // combined private/public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.3
     const ecBytes = Buffer.from(
         'MHICAQEwBQYDK2VwBCIEINTuctv5E1hK1bbY8fdp+K06/nwoy/HU++CXqI9EdVhCoB8wHQYKKoZIhvcNAQkJFDEPDA1DdXJkbGUgQ2hhaXJzgSEAGb9ECWmEzf6FQbrBZ9w7lshQhqowtrbLDFw4rXAxZuE=',
-        'base64'
+        'base64',
     ).toString('binary');
     const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
     forge.pki.ed25519.privateKeyFromAsn1(ecAsn1);
@@ -509,7 +662,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     // public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.1
     const ecBytes = Buffer.from(
         '   MC4CAQAwBQYDK2VwBCIEINTuctv5E1hK1bbY8fdp+K06/nwoy/HU++CXqI9EdVhC',
-        'base64'
+        'base64',
     ).toString('binary');
     const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
     forge.pki.ed25519.privateKeyFromAsn1(ecAsn1);
@@ -517,10 +670,9 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
 {
     // public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.1
-    const ecBytes = Buffer.from(
-        'MCowBQYDK2VwAyEAGb9ECWmEzf6FQbrBZ9w7lshQhqowtrbLDFw4rXAxZuE=',
-        'base64'
-    ).toString('binary');
+    const ecBytes = Buffer.from('MCowBQYDK2VwAyEAGb9ECWmEzf6FQbrBZ9w7lshQhqowtrbLDFw4rXAxZuE=', 'base64').toString(
+        'binary',
+    );
     const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
     forge.pki.ed25519.publicKeyFromAsn1(ecAsn1);
 }
@@ -534,13 +686,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let hex: forge.Hex = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
         type: 'SubjectPublicKeyInfo',
         md: forge.md.sha256.create(),
-        encoding: 'hex'
+        encoding: 'hex',
     });
 
     let bytes: forge.Bytes = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
         type: 'SubjectPublicKeyInfo',
         md: forge.md.sha256.create(),
-        encoding: 'binary'
+        encoding: 'binary',
     });
 }
 
@@ -554,6 +706,43 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    // create and read PKCS#7 SignedData
+    let p7 = forge.pkcs7.createSignedData();
+    p7.content = 'Hello World';
+    p7.addCertificate(cert);
+    p7.addSigner({
+        key: keypair.privateKey,
+        certificate: cert,
+        digestAlgorithm: forge.pki.oids.sha256,
+        authenticatedAttributes: [
+            {
+                type: forge.pki.oids.contentType,
+                value: forge.pki.oids.data,
+            },
+            {
+                type: forge.pki.oids.messageDigest,
+                // autopopulated at signing time
+            },
+            {
+                type: forge.pki.oids.signingTime,
+                // autopopulated at signing time
+            },
+        ],
+    });
+    p7.sign({ detached: false });
+
+    // to / from PEM
+    let pemData = forge.pkcs7.messageToPem(p7);
+    let fromPem = forge.pkcs7.messageFromPem(pemData);
+    console.log(fromPem.content);
+
+    // to / from ASN.1
+    let asnData = p7.toAsn1();
+    let fromAsn = forge.pkcs7.messageFromAsn1(asnData);
+    console.log(fromAsn.content);
+}
+
+{
     let key = null;
     let cert = forge.pki.createCertificate();
     let password = null;
@@ -561,11 +750,11 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-    let plainText = 'content'
+    let plainText = 'content';
     let cipher = publicKeyRsa.encrypt(plainText);
     let result = privateKeyRsa.decrypt(cipher);
     if (result !== plainText) {
-        throw new Error('decrypt result not match')
+        throw new Error('decrypt result not match');
     }
 }
 {
@@ -577,37 +766,37 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-  const hmac = forge.hmac.create();
-  hmac.start('md5', 'Jefe');
-  hmac.update('what do ya want for nothing?');
-  const ret = hmac.digest().toHex();
+    const hmac = forge.hmac.create();
+    hmac.start('md5', 'Jefe');
+    hmac.update('what do ya want for nothing?');
+    const ret = hmac.digest().toHex();
 }
 
 {
-  const hmac = forge.hmac.create();
-  hmac.start('sha1', 'Jefe');
-  hmac.update('what do ya want for nothing?');
-  const ret = hmac.digest().toHex();
+    const hmac = forge.hmac.create();
+    hmac.start('sha1', 'Jefe');
+    hmac.update('what do ya want for nothing?');
+    const ret = hmac.digest().toHex();
 }
 
 {
-  const hmac = forge.hmac.create();
-  hmac.start('sha256', 'Jefe');
-  hmac.update('what do ya want for nothing?');
-  const ret = hmac.digest().toHex();
+    const hmac = forge.hmac.create();
+    hmac.start('sha256', 'Jefe');
+    hmac.update('what do ya want for nothing?');
+    const ret = hmac.digest().toHex();
 }
 
 {
-  const hmac = forge.hmac.create();
-  hmac.start('sha512', 'Jefe');
-  hmac.update('what do ya want for nothing?');
-  const ret = hmac.digest().toHex();
+    const hmac = forge.hmac.create();
+    hmac.start('sha512', 'Jefe');
+    hmac.update('what do ya want for nothing?');
+    const ret = hmac.digest().toHex();
 }
 
 {
     // constructor tests
-    const bn = new forge.jsbn.BigInteger("AABB", 16);
-    const bn2 = new forge.jsbn.BigInteger("75643564363473453456342378564387956906736546456235345");
+    const bn = new forge.jsbn.BigInteger('AABB', 16);
+    const bn2 = new forge.jsbn.BigInteger('75643564363473453456342378564387956906736546456235345');
 }
 
 {
@@ -619,7 +808,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let isDivmod: forge.jsbn.BigInteger[];
     let isByteArray: number[];
 
-    const bn = new forge.jsbn.BigInteger("75643564363473453456342378564387956906736546456235345");
+    const bn = new forge.jsbn.BigInteger('75643564363473453456342378564387956906736546456235345');
 
     isString = bn.toString();
     isString = bn.toString(16);
@@ -665,7 +854,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-    forge.pki.rsa.generateKeyPair({ bits: 2048,}, (err, keypair) => {
+    forge.pki.rsa.generateKeyPair({ bits: 2048 }, (err, keypair) => {
         if (err) {
             throw err;
         }

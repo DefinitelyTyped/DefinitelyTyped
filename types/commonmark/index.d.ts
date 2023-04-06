@@ -178,7 +178,7 @@ export interface NodeWalker {
     /**
      * Returns an object with properties entering and node. Returns null when we have finished walking the tree.
      */
-    next(): NodeWalkingStep;
+    next(): NodeWalkingStep | null;
     /**
      * Resets the iterator to resume at the specified node and setting for entering. (Normally this isn't needed unless you do destructive updates to the Node tree.)
      */

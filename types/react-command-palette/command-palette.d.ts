@@ -31,7 +31,7 @@ export interface Props {
      *
      * @default 7
      */
-    maxDisplayed?: (props: { maxDisplayed: number }, propName: string, componentName: string) => Error | null;
+    maxDisplayed?: number;
 
     /**
      * placeholder a string that contains a short text description which is displayed

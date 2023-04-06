@@ -1,8 +1,9 @@
-// Type definitions for @node-red/editor-client 1.1
+// Type definitions for @node-red/editor-client 1.3
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/editor-client, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
+//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.0
 
 /// <reference lib="dom" />
 /// <reference types="ace" />
@@ -38,9 +39,7 @@ declare namespace editorClient {
      * Read more: https://nodered.org/docs/creating-nodes/properties
      */
     type NodePropertiesDef<TProps extends NodeProperties, TInstProps extends TProps = TProps> = {
-        [K in keyof TProps]: K extends NodeReservedProperties
-            ? never
-            : NodePropertyDef<TProps[K], TInstProps>;
+        [K in keyof TProps]: K extends NodeReservedProperties ? never : NodePropertyDef<TProps[K], TInstProps>;
     };
 
     /**
@@ -49,6 +48,7 @@ declare namespace editorClient {
      */
     interface NodeProperties {
         name?: string | undefined;
+        inputs?: 0 | 1 | undefined;
     }
 
     /** Reserved name for properties that MUST NOT BE USED. */
@@ -59,7 +59,6 @@ declare namespace editorClient {
         | 'id'
         | 'info'
         | 'inputLabels'
-        | 'inputs'
         | 'outputLabels'
         | 'ports'
         | 'selected'
@@ -94,8 +93,7 @@ declare namespace editorClient {
         | 'y'
         | 'z';
 
-    type NodeInstance<TProps extends NodeProperties = NodeProperties> =
-        Omit<TProps, NodeReservedProperties> &
+    type NodeInstance<TProps extends NodeProperties = NodeProperties> = Omit<TProps, NodeReservedProperties> &
         Readonly<{
             _: I18nTFunction;
             id: string;
@@ -165,7 +163,8 @@ declare namespace editorClient {
             | 'node_label'
             | 'node_label_italic'
             | string
-            | ((this: NodeInstance<TInstProps>) => 'node_label' | 'node_label_italic' | string) | undefined;
+            | ((this: NodeInstance<TInstProps>) => 'node_label' | 'node_label_italic' | string)
+            | undefined;
         /**
          * Optional label to add on hover to the input port of a node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
@@ -175,7 +174,11 @@ declare namespace editorClient {
          * Optional labels to add on hover to the output ports of a node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
          */
-        outputLabels?: string | string[] | ((this: NodeInstance<TInstProps>, idx: number) => string | undefined) | undefined;
+        outputLabels?:
+            | string
+            | string[]
+            | ((this: NodeInstance<TInstProps>, idx: number) => string | undefined)
+            | undefined;
         /**
          * The icon to use.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#icon
@@ -190,14 +193,16 @@ declare namespace editorClient {
          * Adds a button to the edge of the node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#buttons
          */
-        button?: {
-            /** Called when the button is clicked */
-            onclick: (this: NodeInstance<TInstProps>) => void;
-            /** Function to dynamically enable and disable the button based on the node’s current configuration. */
-            enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
-            /** Function to determine whether the button should be shown at all. */
-            visible?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
-        } | undefined;
+        button?:
+            | {
+                  /** Called when the button is clicked */
+                  onclick: (this: NodeInstance<TInstProps>) => void;
+                  /** Function to dynamically enable and disable the button based on the node’s current configuration. */
+                  enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
+                  /** Function to determine whether the button should be shown at all. */
+                  visible?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
+              }
+            | undefined;
         /**
          * Called when the edit dialog is being built.
          * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
@@ -383,7 +388,7 @@ declare namespace editorClient {
          */
         registerNodeType<TProps extends NodeProperties, TCreds = undefined, TInstProps extends TProps = TProps>(
             nt: string,
-            def: NodeDef<TProps, TCreds, TInstProps>, // tslint:disable-line:no-unnecessary-generics
+            def: NodeDef<TProps, TCreds, TInstProps>, // eslint-disable-line no-unnecessary-generics
         ): void;
         removeNodeType(nt: string): void;
         getNodeType(nt: string): NodeDef<NodeProperties>;
@@ -521,6 +526,24 @@ declare namespace editorClient {
         typedInput(ptypeName: string, isConfig?: boolean): (v: any) => boolean;
     }
 
+    interface Plugins {
+        registerPlugin: PluginsRegistry['registerPluginType'];
+    }
+    interface PluginsRegistry {
+        /**
+         * Registers a plugin with the editor.     *
+         * @param pt The plugin type is used throughout the editor to identify the plugin. It must
+         * match the value used by the call to RED.plugins.registerPlugin in the corresponding runtime
+         * script.
+         * @param def The plugin definition contains all of the information about the plugin
+         * needed by the editor.
+         */
+        registerPluginType(pt: string, def: PluginDef): void;
+    }
+    interface PluginDef {
+        onadd?: (() => void) | undefined;
+    }
+
     interface TextBidi {
         /**
          * Sets the text direction preference
@@ -555,7 +578,13 @@ declare namespace editorClient {
          * @param isRtl - indicates if the GUI is mirrored
          * @param locale - the browser locale
          */
-        getHtml(text: string, type: string, args: { dir?: string | undefined } | null, isRtl: boolean, locale: string): string;
+        getHtml(
+            text: string,
+            type: string,
+            args: { dir?: string | undefined } | null,
+            isRtl: boolean,
+            locale: string,
+        ): string;
 
         /*
          * Handle Structured text correct display for a given HTML element.
@@ -608,7 +637,11 @@ declare namespace editorClient {
          *      label: the text to display - default: "Deploy"
          *      icon : the icon to use. Null removes the icon. default: "red/images/deploy-full-o.svg"
          */
-        init(options?: { type?: 'default' | 'simple' | undefined; label?: string | undefined; icon?: string | undefined }): void;
+        init(options?: {
+            type?: 'default' | 'simple' | undefined;
+            label?: string | undefined;
+            icon?: string | undefined;
+        }): void;
         setDeployInflight(state: boolean): void;
     }
 
@@ -775,12 +808,14 @@ declare namespace editorClient {
                 id?: string | undefined;
                 modal?: boolean | undefined;
                 width?: number | undefined;
-                buttons?: Array<{
-                    id?: string | undefined;
-                    class?: string | undefined;
-                    text: string;
-                    click: (event: JQuery.Event) => void;
-                }> | undefined;
+                buttons?:
+                    | Array<{
+                          id?: string | undefined;
+                          class?: string | undefined;
+                          text: string;
+                          click: (event: JQuery.Event) => void;
+                      }>
+                    | undefined;
             },
         ): HTMLDivElement;
         notify(msg: string | JQuery, type?: NotificationType, fixed?: boolean, timeout?: number): HTMLDivElement;
@@ -861,10 +896,13 @@ declare namespace editorClient {
         addTab(options: {
             enableOnEdit?: boolean | undefined;
             toolbar?: HTMLElement | undefined;
+            content?: HTMLElement | undefined;
             id: string;
             name: string;
+            label?: string;
             iconClass?: string | undefined;
             visible?: boolean | undefined;
+            action?: string;
         }): void;
         removeTab(id: string): void;
         show(id: string): void;
@@ -921,9 +959,7 @@ declare namespace editorClient {
         setMessageProperty(msg: object, prop: string, value: any, createMissing?: boolean): null | undefined;
         normalisePropertyExpression(str: string): Array<string | number>;
         validatePropertyExpression(str: string): boolean;
-        separateIconPath(
-            icon?: string,
-        ): {
+        separateIconPath(icon?: string): {
             module: string;
             file: string;
         };
@@ -1143,9 +1179,11 @@ declare namespace editorClient {
             style?: 'compact' | undefined;
             disposeOnClose?: boolean | undefined;
             onclose?: ((v: boolean) => void) | undefined;
-            options?: Array<{
-                onselect?: (() => void) | undefined;
-            }> | undefined;
+            options?:
+                | Array<{
+                      onselect?: (() => void) | undefined;
+                  }>
+                | undefined;
         }): {
             show(opts: {
                 target: JQuery;
@@ -1155,9 +1193,7 @@ declare namespace editorClient {
             }): void;
             hide(cancelled?: boolean): void;
         };
-        panel(
-            content: JQuery,
-        ): {
+        panel(content: JQuery): {
             container: JQuery;
             show(options: {
                 onclose: () => void;
@@ -1189,7 +1225,11 @@ declare namespace editorClient {
         resize(): void;
     }
     interface Stack {
-        create(options: { container: JQuery; fill?: boolean | undefined; singleExpanded?: boolean | undefined }): StackInstance;
+        create(options: {
+            container: JQuery;
+            fill?: boolean | undefined;
+            singleExpanded?: boolean | undefined;
+        }): StackInstance;
     }
 
     interface TabsInstance {
@@ -1246,6 +1286,7 @@ declare namespace editorClient {
         settings: SettingsWithData;
         user: User;
         validators: Validators;
+        plugins: Plugins;
 
         // assigned in i18n.js (on init)
         _: I18nTFunction;
@@ -1444,7 +1485,7 @@ declare namespace editorClient {
          *
          * More info: https://nodered.org/docs/api/ui/editableList/
          */
-        <T>(opts: WidgetEditableListOptions<T>): this; // tslint:disable-line:no-unnecessary-generics
+        <T>(opts: WidgetEditableListOptions<T>): this; // eslint-disable-line no-unnecessary-generics
         /**
          * Adds an item to the end of the list.         *
          * @param value - An object that will be associated with the item in the list.

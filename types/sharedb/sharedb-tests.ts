@@ -90,6 +90,9 @@ for (const action of submitRelatedActions) {
 
         if (agent.custom.user) {
             console.log(agent.custom.user.id);
+            console.log(agent.src);
+            console.log(agent.clientId);
+            console.log(agent.connectTime);
         }
         console.log(
             request.action,
@@ -150,6 +153,7 @@ backend.use('query', (context, callback) => {
         context.projection,
         context.fields,
         context.channel,
+        context.channels,
         context.query,
         context.options,
         context.snapshotProjection,
@@ -209,6 +213,17 @@ backend.use('sendPresence', (context, callback) => {
     callback();
 });
 
+backend.use('apply', (context, callback) => {
+    context.$fixup([{insert: 'foo'}]);
+    callback();
+});
+
+backend.use('commit', (context, callback) => {
+    // @ts-expect-error :: don't allow $fixup outside of 'apply'
+    context.$fixup([{insert: 'foo'}]);
+    callback();
+});
+
 backend.on('submitRequestEnd', (error, request) => {
     console.log(request.op);
 });
@@ -222,6 +237,16 @@ const reboundConnection = backend.connect(backend.connect(), netRequest);
 const connectionHasPending: boolean = connection.hasPending();
 connection.whenNothingPending(() => console.log('whenNothingPending resolved'));
 connection.send({ a: 'nonExistentAction', some: 'data' });
+
+connection.on('doc', (doc) => {
+    console.log(doc.data);
+});
+connection.on('connected', (reason) => {
+    if (reason === 'foo') console.log(reason);
+});
+
+connection.on('pong', () => {});
+if (connection.canSend) connection.ping();
 
 const doc = connection.get('examples', 'counter');
 
@@ -415,10 +440,8 @@ backend.getOpsBulk(agent, 'collection', 'id', {abc: 0}, {abc: 5}, {opsOptions: {
 
 class SocketLike {
     readyState = 1;
-
     close(reason?: number): void {}
     send(data: any): void {}
-
     onmessage: (event: any) => void;
     onclose: (event: any) => void;
     onerror: (event: any) => void;

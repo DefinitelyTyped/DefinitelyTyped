@@ -3,8 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "export-just-namespace": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-var-keyword": false,
@@ -17,7 +15,6 @@
         "space-before-function-paren": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

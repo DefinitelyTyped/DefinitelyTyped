@@ -1,8 +1,8 @@
-import { ExtendDescribeThis, NightwatchAPI } from "nightwatch";
+import { ExtendDescribeThis } from 'nightwatch';
 
-function isNull(v: null) {}
+import { isNightwatchAPI, isNull } from './utils';
+
 function isString(v: string) {}
-function isNightwatchAPI(v: NightwatchAPI) {}
 function isMetrics(v: {[metricName: string]: number}) {}
 
 //
@@ -363,6 +363,7 @@ describe('catch browser exceptions', function() {
 
     const searchBoxElement = await browser.findElement('input[name=q]');
     await browser.executeScript(function(_searchBoxElement) {
+      // @ts-expect-error
       _searchBoxElement.setAttribute('onclick', 'throw new Error("Hello world!")');
     }, [searchBoxElement]);
 

@@ -1,6 +1,107 @@
-// For Library Version: 1.105.0
+// For Library Version: 1.112.0
 
 declare module "sap/ui/fl/library" {}
+
+declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
+  import ManagedObject from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.67
+   * @EXPERIMENTAL (since 1.67)
+   *
+   * Provides an API for applications to work with control variants. See also {@link sap.ui.fl.variants.VariantManagement}.
+   */
+  interface ControlVariantApplyAPI {
+    /**
+     * Activates the passed variant applicable to the passed control/component.
+     *
+     * @returns Resolves after the variant is activated or rejects if an error occurs
+     */
+    activateVariant(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Component or control (instance or ID) on which the `variantModel` is set
+         */
+        element: ManagedObject | string;
+        /**
+         * Reference to the variant that needs to be activated
+         */
+        variantReference: string;
+      }
+    ): Promise<any>;
+    /**
+     * Saves a function that will be called after a variant has been applied with the new variant as parameter.
+     * Even if the same variant is selected again the callback is called. The function also performs a sanity
+     * check after the control has been rendered. If the passed variant control ID does not match the responsible
+     * variant management control, the callback will not be saved. Optionally this function is also called after
+     * the initial variant is applied without a sanity check.
+     */
+    attachVariantApplied(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Selector of the control
+         */
+        selector: /* was: sap.ui.fl.Selector */ any;
+        /**
+         * ID of the variant management control
+         */
+        vmControlId: string;
+        /**
+         * Callback that will be called after a variant has been applied
+         */
+        callback: Function;
+        /**
+         * The callback will also be called after the initial variant is applied
+         */
+        callAfterInitialVariant?: boolean;
+      }
+    ): void;
+    /**
+     * Clears URL technical parameter `sap-ui-fl-control-variant-id` for control variants. Use this method in
+     * case you normally want the variant parameter in the URL, but have a few special navigation patterns where
+     * you want to clear it. If you don't want that parameter in general, set the `updateVariantInURL` parameter
+     * on your variant management control to `false`. SAP Fiori elements use this method. If a variant management
+     * control is given as a parameter, only parameters specific to that control are cleared.
+     */
+    clearVariantParameterInURL(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Variant management control for which the URL technical parameter has to be cleared
+         */
+        control: ManagedObject;
+      }
+    ): void;
+    /**
+     * Removes the saved callback for the given control and variant management control.
+     */
+    detachVariantApplied(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Selector of the control
+         */
+        selector: /* was: sap.ui.fl.Selector */ any;
+        /**
+         * ID of the variant management control
+         */
+        vmControlId: string;
+      }
+    ): void;
+  }
+  const ControlVariantApplyAPI: ControlVariantApplyAPI;
+  export default ControlVariantApplyAPI;
+}
 
 declare module "sap/ui/fl/transport/TransportDialog" {
   import { default as Dialog, $DialogSettings } from "sap/m/Dialog";
@@ -90,9 +191,9 @@ declare module "sap/ui/fl/transport/TransportDialog" {
 declare module "sap/ui/fl/variants/VariantManagement" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { IOverflowToolbarContent } from "sap/m/library";
+  import { IShrinkable, ID, TitleLevel, CSSSize } from "sap/ui/core/library";
 
-  import { ID, TitleLevel } from "sap/ui/core/library";
+  import { IOverflowToolbarContent } from "sap/m/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -109,8 +210,13 @@ declare module "sap/ui/fl/variants/VariantManagement" {
    */
   export default class VariantManagement
     extends Control
-    implements IOverflowToolbarContent {
+    implements
+      IShrinkable,
+      IOverflowToolbarContent,
+      /* was: sap.m.IToolbarInteractiveControl */ Object {
+    __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
+    __implements__sap_m_IToolbarInteractiveControl: boolean;
     /**
      * Constructor for a new `VariantManagement`.
      *
@@ -185,7 +291,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
        * The control to add; if empty, nothing is inserted
        */
       vFor: ID | Control
-    ): Object;
+    ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.fl.variants.VariantManagement`.
      *
@@ -622,7 +728,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * @returns Key of the currently selected variant. In case the model is not yet set `null` will be returned.
      */
-    getCurrentVariantKey(): string;
+    getCurrentVariantKey(): string | null;
     /**
      * Gets current value of property {@link #getDisplayTextForExecuteOnSelectionForStandardVariant displayTextForExecuteOnSelectionForStandardVariant}.
      *
@@ -695,6 +801,18 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getManualVariantKey(): boolean;
     /**
+     * @SINCE 1.109
+     *
+     * Gets current value of property {@link #getMaxWidth maxWidth}.
+     *
+     * Sets the maximum width of the control.
+     *
+     * Default value is `"100%"`.
+     *
+     * @returns Value of property `maxWidth`
+     */
+    getMaxWidth(): CSSSize;
+    /**
      * Gets current value of property {@link #getModelName modelName}.
      *
      * The name of the model containing the data.
@@ -716,7 +834,11 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * @returns Configuration information for the `sap.m.IOverflowToolbarContent` interface.
      */
-    getOverflowToolbarConfig(): object;
+    getOverflowToolbarConfig(): {
+      canOverflow: boolean;
+
+      invalidationEvents: string[];
+    };
     /**
      * Gets current value of property {@link #getResetOnContextChange resetOnContextChange}.
      *
@@ -739,6 +861,18 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * @returns Value of property `showSetAsDefault`
      */
     getShowSetAsDefault(): boolean;
+    /**
+     * @SINCE 1.109
+     *
+     * Gets current value of property {@link #getTitleStyle titleStyle}.
+     *
+     * Defines the style of the title. For more information, see {@link sap.m.Title#setTitleStyle}.
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Value of property `titleStyle`
+     */
+    getTitleStyle(): TitleLevel | keyof typeof TitleLevel;
     /**
      * Gets current value of property {@link #getUpdateVariantInURL updateVariantInURL}.
      *
@@ -773,7 +907,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
        * The for to be removed or its index or ID
        */
       vFor: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets the new selected variant.
      */
@@ -892,6 +1026,25 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bManualVariantKey?: boolean
     ): this;
     /**
+     * @SINCE 1.109
+     *
+     * Sets a new value for property {@link #getMaxWidth maxWidth}.
+     *
+     * Sets the maximum width of the control.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"100%"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxWidth(
+      /**
+       * New value for property `maxWidth`
+       */
+      sMaxWidth?: CSSSize
+    ): this;
+    /**
      * Sets a new value for property {@link #getModelName modelName}.
      *
      * The name of the model containing the data.
@@ -943,6 +1096,25 @@ declare module "sap/ui/fl/variants/VariantManagement" {
        * New value for property `showSetAsDefault`
        */
       bShowSetAsDefault?: boolean
+    ): this;
+    /**
+     * @SINCE 1.109
+     *
+     * Sets a new value for property {@link #getTitleStyle titleStyle}.
+     *
+     * Defines the style of the title. For more information, see {@link sap.m.Title#setTitleStyle}.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTitleStyle(
+      /**
+       * New value for property `titleStyle`
+       */
+      sTitleStyle?: TitleLevel | keyof typeof TitleLevel
     ): this;
     /**
      * Sets a new value for property {@link #getUpdateVariantInURL updateVariantInURL}.
@@ -1033,6 +1205,23 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       | (TitleLevel | keyof typeof TitleLevel)
       | PropertyBindingInfo
       | `{${string}}`;
+
+    /**
+     * @SINCE 1.109
+     *
+     * Defines the style of the title. For more information, see {@link sap.m.Title#setTitleStyle}.
+     */
+    titleStyle?:
+      | (TitleLevel | keyof typeof TitleLevel)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.109
+     *
+     * Sets the maximum width of the control.
+     */
+    maxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Contains the ids of the controls for which the variant management is responsible.
@@ -1221,9 +1410,13 @@ declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddAnnotationsToOData": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewInbound": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeDataSource": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/RemoveAllInboundsExceptOne": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
 
@@ -1265,8 +1458,6 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexObjects/CompVariant": undefined;
 
-    "sap/ui/fl/apply/_internal/flexObjects/CompVariantRevertData": undefined;
-
     "sap/ui/fl/apply/_internal/flexObjects/ControllerExtensionChange": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/FlexObject": undefined;
@@ -1275,7 +1466,7 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexObjects/FlVariant": undefined;
 
-    "sap/ui/fl/apply/_internal/flexObjects/RevertData": undefined;
+    "sap/ui/fl/apply/_internal/flexObjects/UIChange": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/UpdatableChange": undefined;
 
@@ -1291,7 +1482,11 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexState/controlVariants/VariantManagementState": undefined;
 
+    "sap/ui/fl/apply/_internal/flexState/DataSelector": undefined;
+
     "sap/ui/fl/apply/_internal/flexState/FlexState": undefined;
+
+    "sap/ui/fl/apply/_internal/flexState/InitialPrepareFunctions": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/Loader": undefined;
 
@@ -1300,6 +1495,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
 
     "sap/ui/fl/apply/_internal/preprocessors/EventHistory": undefined;
+
+    "sap/ui/fl/apply/api/ControlVariantApplyAPI": undefined;
 
     "sap/ui/fl/apply/api/DelegateMediatorAPI": undefined;
 
@@ -1310,8 +1507,6 @@ declare namespace sap {
     "sap/ui/fl/apply/api/UI2PersonalizationApplyAPI": undefined;
 
     "sap/ui/fl/Cache": undefined;
-
-    "sap/ui/fl/Change": undefined;
 
     "sap/ui/fl/changeHandler/Base": undefined;
 
@@ -1342,8 +1537,6 @@ declare namespace sap {
     "sap/ui/fl/initial/_internal/connectors/Utils": undefined;
 
     "sap/ui/fl/initial/_internal/Storage": undefined;
-
-    "sap/ui/fl/initial/_internal/storageResultDisassemble": undefined;
 
     "sap/ui/fl/initial/_internal/StorageUtils": undefined;
 
@@ -1424,6 +1617,8 @@ declare namespace sap {
     "sap/ui/fl/write/api/ChangesWriteAPI": undefined;
 
     "sap/ui/fl/write/api/connectors/ObjectStorageConnector": undefined;
+
+    "sap/ui/fl/write/api/ContextBasedAdaptationsAPI": undefined;
 
     "sap/ui/fl/write/api/ContextSharingAPI": undefined;
 

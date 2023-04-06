@@ -7,7 +7,6 @@
         "no-reference-import": false,
         "npm-naming": false,
         "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false
+        "strict-export-declare-modifiers": false
     }
 }

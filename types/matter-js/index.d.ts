@@ -2328,9 +2328,9 @@ declare namespace Matter {
          * The `Constraint` object that is used to move the body during interaction.
          *
          * @property constraint
-         * @type constraint
+         * @type {IConstraintDefinition}
          */
-        constraint?: Constraint | undefined;
+        constraint?: IConstraintDefinition | undefined;
 
         /**
          * An `Object` that specifies the collision filter properties.

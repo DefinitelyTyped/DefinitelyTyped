@@ -1,7 +1,8 @@
-// Type definitions for @nginstack/web-framework 63.0
+// Type definitions for @nginstack/web-framework 70.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
+//                 Ricardo Cavalcante <https://github.com/oficial>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 /// <reference path="keys/Classes.d.ts" />
@@ -24,8 +25,8 @@
 /// <reference path="lib/classdef/classHasGlobalActions.d.ts" />
 /// <reference path="lib/classdef/DuplicateMode.d.ts" />
 /// <reference path="lib/classdef/DuplicateMode.d.ts" />
+/// <reference path="lib/classdef/EnterKeyAction.d.ts" />
 /// <reference path="lib/classdef/FieldCalculateEvent.d.ts" />
-/// <reference path="lib/classdef/FieldGroupSet.d.ts" />
 /// <reference path="lib/classdef/getGlobalActions.d.ts" />
 /// <reference path="lib/classdef/GetTreeIconEvent.d.ts" />
 /// <reference path="lib/classdef/GlobalAction.d.ts" />
@@ -85,6 +86,7 @@
 /// <reference path="lib/field-aggregator/MaxFieldAggregator.d.ts" />
 /// <reference path="lib/field-aggregator/MinFieldAggregator.d.ts" />
 /// <reference path="lib/field-aggregator/SumFieldAggregator.d.ts" />
+/// <reference path="lib/file-loader/DownloadFile.d.ts" />
 /// <reference path="lib/file-loader/DownloadOptions.d.ts" />
 /// <reference path="lib/file-loader/FileLoader.d.ts" />
 /// <reference path="lib/file-loader/LoadedFile.d.ts" />
@@ -97,10 +99,12 @@
 /// <reference path="lib/grid/GridExportEvent.d.ts" />
 /// <reference path="lib/grid/GridField.d.ts" />
 /// <reference path="lib/grid/GridViewMode.d.ts" />
+/// <reference path="lib/grid/TableViewBuffer.d.ts" />
 /// <reference path="lib/grid/ToolbarVisibility.d.ts" />
 /// <reference path="lib/grid/TreeExpandEvent.d.ts" />
 /// <reference path="lib/html/formatImageTag.d.ts" />
 /// <reference path="lib/http/FakeResponse.d.ts" />
+/// <reference path="lib/ifp/ControlChannel.d.ts" />
 /// <reference path="lib/label/Label.d.ts" />
 /// <reference path="lib/label/LabelAlignment.d.ts" />
 /// <reference path="lib/messaging/Component.d.ts" />
@@ -110,8 +114,11 @@
 /// <reference path="lib/messaging/MessageBuffer.d.ts" />
 /// <reference path="lib/personalization/Environment.d.ts" />
 /// <reference path="lib/personalization/Login.d.ts" />
+/// <reference path="lib/personalization/MenuBar.d.ts" />
 /// <reference path="lib/personalization/Theme.d.ts" />
 /// <reference path="lib/personalization/UserAgent.d.ts" />
+/// <reference path="lib/process/Interaction.d.ts" />
+/// <reference path="lib/process/LayoutManager.d.ts" />
 /// <reference path="lib/process/Process.d.ts" />
 /// <reference path="lib/process/ProcessCreateEvent.d.ts" />
 /// <reference path="lib/process/ProcessEvent.d.ts" />

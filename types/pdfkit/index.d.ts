@@ -14,22 +14,31 @@
 
 declare namespace PDFKit {
     interface PDFGradient {
-        new (document: any): PDFGradient;
+        new(document: any): PDFGradient;
         stop(pos: number, color?: string | PDFKit.PDFGradient, opacity?: number): PDFGradient;
         embed(): void;
         apply(): void;
     }
 
     interface PDFLinearGradient extends PDFGradient {
-        new (document: any, x1: number, y1: number, x2: number, y2: number): PDFLinearGradient;
+        new(document: any, x1: number, y1: number, x2: number, y2: number): PDFLinearGradient;
         shader(fn: () => any): any;
         opacityGradient(): PDFLinearGradient;
     }
 
     interface PDFRadialGradient extends PDFGradient {
-        new (document: any, x1: number, y1: number, x2: number, y2: number): PDFRadialGradient;
+        new(document: any, x1: number, y1: number, x2: number, y2: number): PDFRadialGradient;
         shader(fn: () => any): any;
         opacityGradient(): PDFRadialGradient;
+    }
+
+    interface PDFTilingPattern {
+        new(document: any, bbox: PDFKit.Mixins.BoundingBox, xStep: number, yStep: number, stream: string): PDFTilingPattern;
+        createPattern(): PDFKitReference;
+        embedPatternColorSpaces(): void;
+        getPatternColorSpaceId(underlyingColorspace: string): string;
+        embed(): void;
+        apply(stroke: boolean, patternColor: PDFKit.Mixins.TilingPatternColorValue): PDFKit.PDFDocument;
     }
 }
 
@@ -83,7 +92,11 @@ declare namespace PDFKit.Mixins {
 
     // The color forms accepted by PDFKit:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
-    type ColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
+    type ColorValue = string | PDFGradient | [PDFTilingPattern, TilingPatternColorValue] | [number, number, number] | [number, number, number, number];
+
+    // The color forms accepted by PDFKit Tiling Pattern:
+    //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
+    type TilingPatternColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
 
     // The winding / filling rule accepted by PDFKit:
     type RuleValue = 'even-odd' | 'evenodd' | 'non-zero' | 'nonzero';
@@ -113,6 +126,8 @@ declare namespace PDFKit.Mixins {
         | 'swsh' | 'titl' | 'tjmo' | 'tnam' | 'tnum' | 'trad' | 'twid' | 'unic' | 'valt' | 'vatu' | 'vert'
         | 'vhal' | 'vjmo' | 'vkna' | 'vkrn' | 'vpal' | 'vrt2' | 'vrtr' | 'zero';
 
+    type BoundingBox = [number, number, number, number];
+
     interface PDFColor {
         fillColor(color: ColorValue, opacity?: number): this;
         strokeColor(color: ColorValue, opacity?: number): this;
@@ -121,14 +136,14 @@ declare namespace PDFKit.Mixins {
         strokeOpacity(opacity: number): this;
         linearGradient(x1: number, y1: number, x2: number, y2: number): PDFLinearGradient;
         radialGradient(x1: number, y1: number, r1: number, x2: number, y2: number, r2: number): PDFRadialGradient;
+        pattern(bbox: BoundingBox, xStep: number, yStep: number, stream: string): PDFTilingPattern;
     }
 
     type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer;
 
     interface PDFFont {
-        font(buffer: Buffer): this;
-        font(src: string, size?: number): this;
-        font(src: string, family?: string, size?: number): this;
+        font(src: PDFFontSource, size?: number): this;
+        font(src: PDFFontSource, family: string, size?: number): this;
         fontSize(size: number): this;
         currentLineHeight(includeGap?: boolean): number;
         registerFont(name: string, src?: PDFFontSource, family?: string): this;
@@ -185,7 +200,7 @@ declare namespace PDFKit.Mixins {
         /** Whether to stroke the text */
         stroke?: boolean | undefined;
         /** A URL to link this text to (shortcut to create an annotation) */
-        link?: string | undefined;
+        link?: string | null | undefined;
         /** Whether to underline the text */
         underline?: boolean | undefined;
         /** Whether to strike out the text */
@@ -330,7 +345,7 @@ declare namespace PDFKit {
      * PDFKit data
      */
     interface PDFData {
-        new (data: any[]): PDFData;
+        new(data: any[]): PDFData;
         readByte(): any;
         writeByte(byte: any): void;
         byteAt(index: number): any;
@@ -407,15 +422,15 @@ declare namespace PDFKit {
 
     interface PDFDocument
         extends NodeJS.ReadableStream,
-            Mixins.PDFAnnotation,
-            Mixins.PDFColor,
-            Mixins.PDFImage,
-            Mixins.PDFText,
-            Mixins.PDFVector,
-            Mixins.PDFFont,
-            Mixins.PDFAcroForm,
-            Mixins.PDFMarking,
-            Mixins.PDFAttachment {
+        Mixins.PDFAnnotation,
+        Mixins.PDFColor,
+        Mixins.PDFImage,
+        Mixins.PDFText,
+        Mixins.PDFVector,
+        Mixins.PDFFont,
+        Mixins.PDFAcroForm,
+        Mixins.PDFMarking,
+        Mixins.PDFAttachment {
         /**
          * PDF Version
          */
@@ -440,7 +455,7 @@ declare namespace PDFKit {
         x: number;
         y: number;
 
-        new (options?: PDFDocumentOptions): PDFDocument;
+        new(options?: PDFDocumentOptions): PDFDocument;
 
         addPage(options?: PDFDocumentOptions): PDFDocument;
         bufferedPageRange(): { start: number; count: number };
@@ -474,6 +489,14 @@ declare module 'pdfkit/js/gradient' {
     };
 
     export = gradient;
+}
+
+declare module 'pdfkit/js/pattern' {
+    var pattern: {
+        PDFTilingPattern: PDFKit.PDFTilingPattern;
+    };
+
+    export = pattern;
 }
 
 declare namespace PDFKit {

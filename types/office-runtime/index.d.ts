@@ -37,8 +37,14 @@ declare namespace OfficeRuntime {
    * @remarks
    * [Api set: SharedRuntime 1.1, Mailbox 1.10]
    *
+   * This interface is available in the
+   * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+   * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+   * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+   * for Outlook.
+   *
    * **Important**: In Outlook, support is only available with
-   * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+   * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
    *
    * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
    */
@@ -50,8 +56,14 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
-     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
      * @param key Key of item to be retrieved. Must be a string.
      */
@@ -63,8 +75,14 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
-     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
      * @param key Key of item to be set. Must be a string.
      * @param value Must be a string.
@@ -77,8 +95,14 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
-     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
      * @param key Key of item to be removed. Must be a string.
      */
@@ -90,8 +114,14 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
-     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -103,8 +133,14 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
-     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
      * @param keyValues Key-value pairs to be set. Must be strings.
      */
@@ -116,8 +152,14 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
-     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -129,8 +171,14 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
      * **Important**: In Outlook, support is only available with
-     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      */
     getKeys(): Promise<string[]>;
   }
@@ -265,8 +313,14 @@ declare namespace OfficeRuntime {
       asyncContext?: any;
       /**
        * Causes Office to return a descriptive error when the add-in wants to access Microsoft Graph and the user/admin has not granted consent to Graph scopes. Default value is `false`.
-       * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development.
+       * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin.
        * Setting this option to `true` will cause Office to inform your add-in beforehand (by returning a descriptive error) if Graph access will fail.
+       *
+       * @remarks
+       *
+       * **Note**: If you're developing an Outlook add-in that uses single sign-on (SSO), comment out the `forMSGraphAccess` option before sideloading the add-in for testing.
+       * Otherwise, you'll receive {@link https://learn.microsoft.com/office/dev/add-ins/develop/troubleshoot-sso-in-office-add-ins#13012 | error 13012}. For additional guidance, see
+       * {@link https://learn.microsoft.com/office/dev/add-ins/develop/authorize-to-microsoft-graph#details-on-sso-with-an-outlook-add-in | Details on SSO with an Outlook add-in}.
        */
       forMSGraphAccess?: boolean;
   }
@@ -275,7 +329,7 @@ declare namespace OfficeRuntime {
    *
    * @remarks
    *
-   * The methods in this interface are equivalent to those in the {@link https://docs.microsoft.com/javascript/api/office/office.auth | Office.auth interface}.
+   * The methods in this interface are equivalent to those in the {@link https://learn.microsoft.com/javascript/api/office/office.auth | Office.auth interface}.
    * If new authentication types are added in the future, they will only be added to the `Office.auth` interface.
    * For simplicity, the code examples throughout the documentation use `Office.auth`.
    */
@@ -283,7 +337,7 @@ declare namespace OfficeRuntime {
     /**
      * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
      * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
-     * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
+     * {@link https://learn.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
      * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational
      * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
      *
@@ -291,7 +345,7 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      *
-     * **Hosts**: Excel, Outlook, PowerPoint, Word
+     * **Applications**: Excel, Outlook, PowerPoint, Word
      *
      * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
      * @returns Promise to the access token.
@@ -307,7 +361,7 @@ declare namespace OfficeRuntime {
    */
   interface ApiInformation {
     /**
-     * Check if the specified requirement set is supported by the host Office application.
+     * Check if the specified requirement set is supported by the Office application.
      * @param name - Set name; e.g., "MatrixBindings".
      * @param minVersion - The minimum required version; e.g., "1.4".
      */

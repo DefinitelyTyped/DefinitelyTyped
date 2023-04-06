@@ -1,7 +1,6 @@
 // Type definitions for non-npm package cookieclicker 2.048
 // Project: https://orteil.dashnet.org/cookieclicker/
 // Definitions by: Lubomir <https://github.com/TheGLander>
-//                 Bob <https://github.com/MasterOfBob777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
@@ -2608,8 +2607,8 @@ declare namespace Game {
         /**
          * The power of a cookie upgrade, present as `0` on Non-cookie upgrades
          */
-        // The TSLint disable is for the generic, which is a hack required for a multitude of real use-cases
-        // tslint:disable-next-line
+        // The ESLint disable is for the generic, which is a hack required for a multitude of real use-cases
+        // eslint-disable-next-line no-unnecessary-generics
         power: number | (<T extends this = this>(me: T) => number);
         /**
          * The price of the upgrade, this is visual only, so the lump spending must be manually implemented

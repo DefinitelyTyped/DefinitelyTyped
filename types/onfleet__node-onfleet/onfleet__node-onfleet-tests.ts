@@ -39,7 +39,8 @@ async function testTasks(onfleet: Onfleet) {
     task.estimatedCompletionTime;
     task.eta;
     task.trackingViewed;
-
+    task.completionDetails.notes;
+    task.completionDetails.success;
     const result = await onfleet.tasks.get({ from: 1455072025000 });
     for (const resultTask of result.tasks) {
         resultTask.pickupTask;
@@ -54,6 +55,42 @@ async function testTasks(onfleet: Onfleet) {
     const dummyTask = await onfleet.tasks.create({
         recipients: ['fake_recipient_id'],
         destination: 'fake_destination_id',
+    });
+
+    // test tasks.batchCreate
+    const dummyTasks = await onfleet.tasks.batchCreate({
+        tasks: [
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+        ],
+    });
+
+    // test batchCreate async
+    const dummyTasksAsync = await onfleet.tasks.batchCreateAsync({
+        tasks: [
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+        ],
+    });
+
+    // test getBatch async
+    await onfleet.tasks.getBatch(dummyTasksAsync.jobId);
+
+    // test tasks.autoAssign
+    await onfleet.tasks.autoAssign({
+        tasks: dummyTasks.tasks.map(task => task.id),
     });
 
     const taskCreated = await onfleet.tasks.create({
@@ -115,7 +152,9 @@ async function testTasks(onfleet: Onfleet) {
     await onfleet.tasks.deleteOne(clonedDummyTask.id);
 
     // test tasks.forceComplete
-    await onfleet.tasks.forceComplete(dummyTask.id);
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: false } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true, notes: 'test note' } });
 
     // test tasks.matchMetadata
     await onfleet.tasks.matchMetadata([

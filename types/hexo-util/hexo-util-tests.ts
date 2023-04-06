@@ -151,6 +151,7 @@ string = htmlTag('img', {
     height: 300
 });
 string = htmlTag('a', { href: 'http://zespia.tw' }, 'My blog');
+string = htmlTag('ul', {}, '<li>Hello!</il>', false);
 
 {
     const pattern = new Pattern('posts/:id');

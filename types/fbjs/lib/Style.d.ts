@@ -16,5 +16,5 @@ declare namespace Style {
     function getScrollParent(node: Node): HTMLElement | DOMWindow;
 }
 
-// tslint:disable-next-line export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = Style;
