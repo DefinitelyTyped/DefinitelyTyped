@@ -68,21 +68,20 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        /* tslint:disable:no-unnecessary-generics */
-        // The `<[Foo, Bar, Baz]>(...)` syntax seems more ergonomic than `(...) as Statement<[Foo, Bar, Baz]>`, though just as unsafe
         prepare<BindParameters extends unknown[] | {} = unknown[]>(
             source: string,
         ): BindParameters extends unknown[] ? Statement<BindParameters> : Statement<[BindParameters]>;
-        /* tslint:enable:no-unnecessary-generics */
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): unknown;
         function(name: string, cb: (...params: unknown[]) => unknown): this;
         function(name: string, options: Database.RegistrationOptions, cb: (...params: unknown[]) => unknown): this;
-        /* tslint:disable:no-unnecessary-generics */
-        // This generic *is* used more than once, inside the `options` object.
-        aggregate<T>(name: string, options: Database.AggregateOptions<T>): this;
-        /* tslint:enable:no-unnecessary-generics */
+        aggregate<T>(name: string, options: Database.RegistrationOptions & {
+            start?: T | (() => T);
+            step: (total: T, next: ElementOf<T>) => T | void;
+            inverse?: ((total: T, dropped: T) => T) | undefined;
+            result?: ((total: T) => unknown) | undefined;
+        }): this;
         loadExtension(path: string): this;
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
@@ -137,12 +136,7 @@ declare namespace Database {
         directOnly?: boolean | undefined;
     }
 
-    interface AggregateOptions<T> extends RegistrationOptions {
-        start?: T | (() => T);
-        step: (total: T, next: ElementOf<T>) => T | void;
-        inverse?: ((total: T, dropped: T) => T) | undefined;
-        result?: ((total: T) => unknown) | undefined;
-    }
+    type AggregateOptions = Parameters<BetterSqlite3.Database["aggregate"]>[1];
 
     interface BackupMetadata {
         totalPages: number;
