@@ -4283,6 +4283,10 @@
             "libraryName": "react-circular-progressbar",
             "asOfVersion": "1.1.0"
         },
+        "react-clock": {
+            "libraryName": "react-clock",
+            "asOfVersion": "4.1.0"
+        },
         "react-collapsible": {
             "libraryName": "react-collapsible",
             "asOfVersion": "2.3.0"
