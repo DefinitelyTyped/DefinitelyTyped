@@ -141,7 +141,7 @@ interface RTCRtpCodecCapability {
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpheaderextensioncapability
 interface RTCRtpHeaderExtensionCapability {
-    uri: string;
+    uri?: string | undefined;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcapabilities
