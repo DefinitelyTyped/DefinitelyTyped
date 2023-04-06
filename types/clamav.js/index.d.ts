@@ -3,6 +3,8 @@
 // Definitions by: NthMetal <https://github.com/NthMetal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import { ReadStream } from 'fs';
 import { Stream } from 'stream';
 
