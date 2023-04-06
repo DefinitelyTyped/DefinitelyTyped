@@ -1,5 +1,5 @@
 // Type definitions for React 18.0
-// Project: http://facebook.github.io/react/
+// Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
