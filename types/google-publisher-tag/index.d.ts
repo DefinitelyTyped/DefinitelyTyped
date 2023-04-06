@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag 1.20230320
+// Type definitions for non-npm package Google Publisher Tag 1.20230403
 // Project: https://developers.google.com/publisher-tag/
 // Definitions by: Jonathon Imperiosi <https://github.com/jimper>
 //                 Khoi Doan <https://github.com/zombifier>
@@ -2295,8 +2295,8 @@ declare namespace googletag {
              * @example
              *
              * const componentAuctionConfig = {
-             *   seller: 'https://testSeller.com', // should be https and the same as
-             *                                     // decisionLogicUrl's origin
+             *   // Seller URL should be https and the same as decisionLogicUrl's origin
+             *   seller: 'https://testSeller.com',
              *   decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
              *   interestGroupBuyers: [
              *     'https://example-buyer.com',
