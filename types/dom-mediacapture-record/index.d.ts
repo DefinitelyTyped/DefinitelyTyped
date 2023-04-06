@@ -32,14 +32,14 @@ declare var BlobEvent: {
     new (type: string, eventInitDict: BlobEventInit): BlobEvent;
 };
 
-// type BitrateMode = 'variable' | 'constant';
+type BitrateMode = VideoEncoderBitrateMode;
 
 interface MediaRecorderOptions {
     mimeType?: string | undefined;
     audioBitsPerSecond?: number | undefined;
     videoBitsPerSecond?: number | undefined;
     bitsPerSecond?: number | undefined;
-    audioBitrateMode?: VideoEncoderBitrateMode | undefined;
+    audioBitrateMode?: BitrateMode | undefined;
 }
 
 interface MediaRecorderEventMap {
@@ -57,7 +57,7 @@ interface MediaRecorder extends EventTarget {
     readonly state: 'inactive' | 'recording' | 'paused';
     readonly videoBitsPerSecond: number;
     readonly audioBitsPerSecond: number;
-    readonly audioBitrateMode: VideoEncoderBitrateMode;
+    readonly audioBitrateMode: BitrateMode;
 
     ondataavailable: ((this: MediaRecorder, event: BlobEvent) => any) | null;
     onerror: ((this: MediaRecorder, event: Event) => any) | null;
