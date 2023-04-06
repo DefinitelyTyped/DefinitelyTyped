@@ -4299,6 +4299,10 @@
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
         },
+        "react-datetime-picker": {
+            "libraryName": "react-datetime-picker",
+            "asOfVersion": "5.0.0"
+        },
         "react-daum-postcode": {
             "libraryName": "react-daum-postcode",
             "asOfVersion": "1.6.1"
