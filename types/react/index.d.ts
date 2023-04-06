@@ -2224,6 +2224,10 @@ declare namespace React {
         dateTime?: string | undefined;
     }
 
+    interface SVGLineElementAttributes<T> extends SVGProps<T> {}
+
+    interface SVGTextElementAttributes<T> extends SVGProps<T> {}
+
     type HTMLInputTypeAttribute =
         | 'button'
         | 'checkbox'
@@ -3280,7 +3284,7 @@ declare namespace React {
             foreignObject: SVGProps<SVGForeignObjectElement>;
             g: SVGProps<SVGGElement>;
             image: SVGProps<SVGImageElement>;
-            line: SVGProps<SVGLineElement>;
+            line: SVGLineElementAttributes<SVGLineElement>;
             linearGradient: SVGProps<SVGLinearGradientElement>;
             marker: SVGProps<SVGMarkerElement>;
             mask: SVGProps<SVGMaskElement>;
@@ -3295,7 +3299,7 @@ declare namespace React {
             stop: SVGProps<SVGStopElement>;
             switch: SVGProps<SVGSwitchElement>;
             symbol: SVGProps<SVGSymbolElement>;
-            text: SVGProps<SVGTextElement>;
+            text: SVGTextElementAttributes<SVGTextElement>;
             textPath: SVGProps<SVGTextPathElement>;
             tspan: SVGProps<SVGTSpanElement>;
             use: SVGProps<SVGUseElement>;
