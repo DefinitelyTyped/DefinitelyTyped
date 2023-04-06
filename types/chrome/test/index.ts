@@ -1014,6 +1014,7 @@ function testBrowserAcionGetBadgeBackgroundColor() {
     chrome.browserAction.getBadgeBackgroundColor(undefined);
 }
 
+
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeText
 function testBrowserAcionGetBadgeText() {
     chrome.browserAction.getBadgeText({}, console.log);
@@ -1175,12 +1176,14 @@ async function testActionForPromise() {
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});
     await chrome.action.getBadgeText({});
+    await chrome.action.getBadgeTextColor({});
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
     await chrome.action.getUserSettings();
     await chrome.action.openPopup({ windowId: 1 });
     await chrome.action.setBadgeBackgroundColor({ color: 'white' });
     await chrome.action.setBadgeText({ text: 'text1' });
+    await chrome.action.setBadgeTextColor({ color: 'white' });
     await chrome.action.setIcon({ path: { '16': 'path/to/icon.png' } });
     await chrome.action.setPopup({ popup: 'popup1' });
     await chrome.action.setTitle({ title: 'title1' });
