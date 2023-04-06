@@ -275,9 +275,9 @@ export interface FbtProps extends FbtOptions {
     desc: string;
 }
 
-declare global {
+declare module 'react' {
     namespace JSX {
-        type PropsWithChildren<P> = P & { children?: React.ReactNode | undefined };
+        type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
         type PropsWithStringChild<P> = P & { children?: string | string[] | undefined };
 
         interface IntrinsicElements {
@@ -296,5 +296,18 @@ declare global {
             'fbs:pronoun': FbtPronounProps;
             'fbs:same-param': FbtSameParamProps;
         }
+    }
+}
+
+declare global {
+    /**
+     * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
+     */
+    namespace JSX {
+        type PropsWithChildren<P> = React.JSX.PropsWithChildren<P>;
+        type PropsWithStringChild<P> = React.JSX.PropsWithStringChild<P>;
+
+        // tslint:disable-next-line:no-empty-interface
+        interface IntrinsicElements extends React.JSX.IntrinsicElements {}
     }
 }

@@ -457,7 +457,7 @@ const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div';
 const CustomElement: React.ReactType = 'my-undeclared-element';
 
 // custom elements now need to be declared as intrinsic elements
-declare global {
+declare module 'react' {
     namespace JSX {
         interface IntrinsicElements {
             'my-declared-element': {};
