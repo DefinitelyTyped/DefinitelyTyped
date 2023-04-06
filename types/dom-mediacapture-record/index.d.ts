@@ -39,7 +39,7 @@ interface MediaRecorderOptions {
     audioBitsPerSecond?: number | undefined;
     videoBitsPerSecond?: number | undefined;
     bitsPerSecond?: number | undefined;
-    audioBitrateMode?: BitrateMode | undefined;
+    audioBitrateMode?: VideoEncoderBitrateMode | undefined;
 }
 
 interface MediaRecorderEventMap {
@@ -57,7 +57,7 @@ interface MediaRecorder extends EventTarget {
     readonly state: 'inactive' | 'recording' | 'paused';
     readonly videoBitsPerSecond: number;
     readonly audioBitsPerSecond: number;
-    readonly audioBitrateMode: BitrateMode;
+    readonly audioBitrateMode: VideoEncoderBitrateMode;
 
     ondataavailable: ((this: MediaRecorder, event: BlobEvent) => any) | null;
     onerror: ((this: MediaRecorder, event: Event) => any) | null;
