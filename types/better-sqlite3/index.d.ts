@@ -68,9 +68,12 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
+        /* tslint:disable:no-unnecessary-generics */
+        // The `<[Foo, Bar, Baz]>(...)` syntax seems more ergonomic than `(...) as Statement<[Foo, Bar, Baz]>`, though just as unsafe
         prepare<BindParameters extends unknown[] | {} = unknown[]>(
             source: string,
         ): BindParameters extends unknown[] ? Statement<BindParameters> : Statement<[BindParameters]>;
+        /* tslint:enable:no-unnecessary-generics */
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): unknown;
