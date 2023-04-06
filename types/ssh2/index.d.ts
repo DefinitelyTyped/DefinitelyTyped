@@ -1757,12 +1757,12 @@ export interface SFTPWrapper extends EventEmitter {
      * Sends an attrs response for the request identified by id.
      */
     attrs(reqId: number, attrs: Attributes): void;
-    
+
     /**
      * Closes the channel.
      */
     end(): void;
-    
+
     /**
      * Closes the channel.
      */
