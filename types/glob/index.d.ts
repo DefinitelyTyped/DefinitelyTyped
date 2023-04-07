@@ -26,7 +26,7 @@ declare namespace G {
     let Glob: IGlobStatic;
     let GlobSync: IGlobSyncStatic;
 
-    interface IOptions extends minimatch.IOptions {
+    interface IOptions extends minimatch.MinimatchOptions {
         cwd?: string | undefined;
         root?: string | undefined;
         dot?: boolean | undefined;
@@ -72,7 +72,7 @@ declare namespace G {
     }
 
     interface IGlobBase {
-        minimatch: minimatch.IMinimatch;
+        minimatch: minimatch.Minimatch;
         options: IOptions;
         aborted: boolean;
         cache: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
