@@ -114,7 +114,7 @@ declare namespace Splitting {
     }
 }
 
-// tslint:disable-next-line:no-declare-current-package
+// eslint-disable-next-line no-declare-current-package
 declare module 'splitting/dist/splitting.css';
-// tslint:disable-next-line:no-declare-current-package
+// eslint-disable-next-line no-declare-current-package
 declare module 'splitting/dist/splitting-cells.css';

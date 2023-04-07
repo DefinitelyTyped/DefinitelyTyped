@@ -584,8 +584,8 @@ npm 软件包应该会在几分钟内更新。如果已经超过了一小时，�
 如果 Definitely Typed 上的其他软件包与新版本不兼容，你需要将路径映射到旧版本。
 对于依赖于旧版本的软件包，你还需要递归地执行此操作。
 
-例如，`react-router` 依赖 `history@2` 软件包，所以 [react-router 的 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) 包含路径映射 `"history": [ "history/v2" ]`。
-所以，`react-router-bootstrap`（依赖 `react-router` 软件包）在它的依赖 `react-router` 更新到最新版本之前，也需要在它的 `tsconfig.json` 里添加相同的路径映射（`"history": [ "history/v2" ]`）。
+例如，`browser-sync` 依赖 `micromatch@2` 软件包，所以 [browser-sync 的 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) 包含路径映射 `"micromatch": [ "micromatch/v2" ]`。
+所以，`browser-sync-webpack-plugin`（依赖 `browser-sync` 软件包）在它的依赖 `browser-sync` 更新到最新版本之前，也需要在它的 `tsconfig.json` 里添加相同的路径映射（`"micromatch": [ "micromatch/v2" ]`）。
 
 此外，`/// <reference types=".." />` 不适用于路径映射，因此依赖需要使用 `import`。
 

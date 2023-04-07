@@ -50,23 +50,23 @@ type TimelineGroupCustom = TimelineGroup<{ data: string }>;
 type TimelineItemCustom = TimelineItem<{ data: string }, Moment>;
 
 const groups2: TimelineGroupCustom[] = [
-    { id: 1, title: 'group 1', data: '1' },
-    { id: 2, title: 'group 2', data: '1' },
+    { id: '1', title: 'group 1', data: '1' },
+    { id: 'two', title: 'group 2', data: '1' },
 ];
 
 const items2: TimelineItemCustom[] = [
-    { id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour'), data: '1' },
+    { id: '1', group: '1', title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour'), data: '1' },
     {
-        id: 2,
-        group: 2,
+        id: '2',
+        group: 'two',
         title: 'item 2',
         start_time: moment().add(-0.5, 'hour'),
         end_time: moment().add(0.5, 'hour'),
         data: '1',
     },
     {
-        id: 3,
-        group: 1,
+        id: '3',
+        group: '1',
         title: 'item 3',
         start_time: moment().add(2, 'hour'),
         end_time: moment().add(3, 'hour'),
@@ -84,6 +84,7 @@ class ExampleOfUsingReactCalendarTimelineWithCustomGroupAndItemExtension extends
                     items={items2}
                     defaultTimeStart={moment().add(-12, 'hour')}
                     defaultTimeEnd={moment().add(12, 'hour')}
+                    selected={[1, 'two']}
                 />
             </div>
         );

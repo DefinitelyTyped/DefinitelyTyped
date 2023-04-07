@@ -178,9 +178,9 @@ export class WebGLRenderer implements Renderer {
     outputEncoding: TextureEncoding;
 
     /**
-     * @default false
+     * @default true
      */
-    physicallyCorrectLights: boolean;
+    useLegacyLights: boolean;
 
     /**
      * @default THREE.NoToneMapping

@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.112.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -14585,10 +14585,9 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons
-     * SAP Icons}, {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP TNT
-     * Icons} and {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols
-     * SAP Business Suite Icons} collections.
+     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html SAP Icons},
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP Fiori Tools} and
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html SAP Business Suite} collections.
      *
      *
      * Example:
@@ -14740,10 +14739,9 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons
-     * SAP Icons}, {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP TNT
-     * Icons} and {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols
-     * SAP Business Suite Icons} collections.
+     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html SAP Icons},
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP Fiori Tools} and
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html SAP Business Suite} collections.
      *
      *
      * Example:
@@ -14851,10 +14849,9 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons
-     * SAP Icons}, {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP TNT
-     * Icons} and {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols
-     * SAP Business Suite Icons} collections.
+     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html SAP Icons},
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP Fiori Tools} and
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html SAP Business Suite} collections.
      *
      *
      * Example:

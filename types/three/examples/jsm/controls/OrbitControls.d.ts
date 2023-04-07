@@ -231,6 +231,11 @@ export class OrbitControls {
     listenToKeyEvents(domElement: HTMLElement | Window): void;
 
     /**
+     * Removes the key event listener previously defined with {@link listenToKeyEvents}.
+     */
+    stopListenToKeyEvents(): void;
+
+    /**
      * Save the current state of the controls. This can later be
      * recovered with .reset.
      */

@@ -14,6 +14,7 @@ declare module 'fs/promises' {
     import { ReadableStream } from 'node:stream/web';
     import {
         BigIntStats,
+        BigIntStatsFs,
         BufferEncodingOption,
         constants as fsConstants,
         CopyOptions,
@@ -30,7 +31,9 @@ declare module 'fs/promises' {
         RmDirOptions,
         RmOptions,
         StatOptions,
+        StatFsOptions,
         Stats,
+        StatsFs,
         TimeLike,
         WatchEventType,
         WatchOptions,
@@ -745,6 +748,24 @@ declare module 'fs/promises' {
         }
     ): Promise<BigIntStats>;
     function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
+    /**
+     * @since v18.15.0
+     * @return Fulfills with an {fs.StatFs} for the file system.
+     */
+    function statfs(
+        path: PathLike,
+        opts?: StatFsOptions & {
+            bigint?: false | undefined;
+        }
+    ): Promise<StatsFs>;
+    function statfs(
+        path: PathLike,
+        opts: StatFsOptions & {
+            bigint: true;
+        }
+    ): Promise<BigIntStatsFs>;
+    function statfs(path: PathLike, opts?: StatFsOptions): Promise<StatsFs | BigIntStatsFs>;
+
     /**
      * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail.
      * @since v10.0.0

@@ -104,5 +104,5 @@ declare module '.' {
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
 
     // tslint:disable-next-line ban-types
-    export function experimental_useEvent<T extends Function>(event: T): T;
+    export function experimental_useEffectEvent<T extends Function>(event: T): T;
 }

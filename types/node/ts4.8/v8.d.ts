@@ -390,6 +390,57 @@ declare module 'v8' {
      * @since v15.1.0, v14.18.0, v12.22.0
      */
     function stopCoverage(): void;
+
+    /**
+     * This API collects GC data in current thread.
+     */
+    class GCProfiler {
+        /**
+         * Start collecting GC data.
+         */
+        start(): void;
+        /**
+         * Stop collecting GC data and return a object.
+         */
+        stop(): GCProfilerResult;
+    }
+    interface GCProfilerResult {
+        version: number;
+        startTime: number;
+        endTime: number;
+        statistics: Array<{
+            gcType: string;
+            cost: number;
+            beforeGC: {
+                heapStatistics: HeapStatistics;
+                heapSpaceStatistics: HeapSpaceStatistics[];
+            };
+            afterGC: {
+                heapStatistics: HeapStatistics;
+                heapSpaceStatistics: HeapSpaceStatistics[];
+            };
+        }>;
+    }
+    interface HeapStatistics {
+        totalHeapSize: number;
+        totalHeapSizeExecutable: number;
+        totalPhysicalSize: number;
+        totalAvailableSize: number;
+        totalGlobalHandlesSize: number;
+        usedGlobalHandlesSize: number;
+        usedHeapSize: number;
+        heapSizeLimit: number;
+        mallocedMemory: number;
+        externalMemory: number;
+        peakMallocedMemory: number;
+    }
+    interface HeapSpaceStatistics {
+        spaceName: string;
+        spaceSize: number;
+        spaceUsedSize: number;
+        spaceAvailableSize: number;
+        physicalSpaceSize: number;
+    }
 }
 declare module 'node:v8' {
     export * from 'v8';

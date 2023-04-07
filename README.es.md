@@ -361,8 +361,8 @@ Por ejemplo [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/De
 
 Si hay otros paquetes en Definitely Typed que son incompatibles con la nueva versión, necesitarás mapear las rutas a la versión anterior. También deberá hacer esto para los paquetes que dependen de paquetes que dependen de una version anterior.
 
-Por ejemplo, `react-router` depende de `history@2`, así que [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) tiene una ruta mapeada a "history": `[ "history/v2" ]`;
-transitivo así mismo, `react-router-bootstrap` (que depende de `react-router`) también añade una ruta mapeada en su [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
+Por ejemplo, `browser-sync` depende de `micromatch@2`, así que [browser-sync `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) tiene una ruta mapeada a "micromatch": `[ "micromatch/v2" ]`;
+transitivo así mismo, `browser-sync-webpack-plugin` (que depende de `browser-sync`) también añade una ruta mapeada en su [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync-webpack-plugin/tsconfig.json).
 
 Además, `/// <reference types=".." />` no trabajará con rutas mapeadas, así que las dependencias deberán utilizar `import`.
 

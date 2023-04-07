@@ -1,7 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { DeltaResult, Graph, Module, ReportableEvent, Server, TransformResult } from 'metro';
+import { DeltaResult, Module, ReadOnlyGraph, ReportableEvent, SerializerOptions, Server, TransformResult } from 'metro';
 import {
-    PostProcessBundleSourcemap,
     ExtraTransformOptions,
     GetTransformOptionsOpts,
     GetTransformOptions,
@@ -16,22 +15,8 @@ import {
     IntermediateConfigT,
     ConfigT,
     YargArguments,
+    WatcherConfigT,
 } from 'metro-config';
-import { MixedSourceMap } from 'metro-source-map';
-
-export const postProcessBundleSourceMap: PostProcessBundleSourcemap = (args: {
-    code: Buffer | string;
-    map: MixedSourceMap;
-    outFileName: string;
-}): {
-    code: Buffer | string;
-    map: MixedSourceMap | string;
-} => {
-    return {
-        code: 'code',
-        map: 'map',
-    };
-};
 
 export const extraTransformOptions: ExtraTransformOptions = {
     preloadedModules: {
@@ -51,11 +36,24 @@ export const getTransformOptionsOpts: GetTransformOptionsOpts = {
 };
 
 export const getTransformOptions: GetTransformOptions = (
-    entryPoints: ReadonlyArray<string>,
-    options: GetTransformOptionsOpts,
-    getDependenciesOf: (filePath: string) => Promise<string[]>,
-): Promise<ExtraTransformOptions> => {
+    entryPoints,
+    options,
+    getDependenciesOf,
+) => {
     return Promise.resolve(extraTransformOptions);
+};
+
+export const getTransformOptionsPartial: GetTransformOptions = (
+    entryPoints,
+    options,
+    getDependenciesOf,
+) => {
+    return Promise.resolve({
+        transform: {
+            experimentalImportSupport: true,
+            inlineRequires: false,
+        },
+    });
 };
 
 export const middleware: Middleware = (
@@ -70,12 +68,21 @@ export const resolverConfig: ResolverConfigT = {
     assetExts: ['.png'],
     assetResolutions: [],
     blockList: [],
+    disableHierarchicalLookup: false,
     extraNodeModules: {},
+    emptyModulePath: 'metro-runtime/src/modules/empty-module',
     nodeModulesPaths: [],
     platforms: ['ios'],
     resolverMainFields: ['main'],
     sourceExts: ['.js', '.jsx'],
+    unstable_enableSymlinks: false,
+    unstable_conditionNames: ['import', 'require'],
+    unstable_conditionsByPlatform: {
+        web: ['browser'],
+    },
+    unstable_enablePackageExports: false,
     useWatchman: true,
+    requireCycleIgnorePatterns: [],
 };
 
 export const serializerConfig: SerializerConfigT = {
@@ -84,29 +91,27 @@ export const serializerConfig: SerializerConfigT = {
         (path: string): number => {
             return 123;
         },
-    experimentalSerializerHook: (graph: Graph, delta: DeltaResult): unknown => {
+    customSerializer: async (
+        entryPoint: string,
+        preModules: ReadonlyArray<Module>,
+        graph: ReadOnlyGraph,
+        options: SerializerOptions,
+    ): Promise<string> => {
+        return '';
+    },
+    experimentalSerializerHook: (graph: ReadOnlyGraph, delta: DeltaResult): unknown => {
         return graph;
     },
     getModulesRunBeforeMainModule: (entryFilePath: string): string[] => {
         return ['a'];
     },
-    getPolyfills: (options: { platform?: string }): ReadonlyArray<string> => {
+    getPolyfills: (options: { platform: string | null }): ReadonlyArray<string> => {
         return ['polyfill'];
     },
     getRunModuleStatement: (moduleId: number | string): string => {
         return 'run statement';
     },
     polyfillModuleNames: ['modulename'],
-    postProcessBundleSourcemap: (args: {
-        code: Buffer | string;
-        map: MixedSourceMap;
-        outFileName: string;
-    }): {
-        code: Buffer | string;
-        map: MixedSourceMap | string;
-    } => {
-        return { code: 'code', map: 'map' };
-    },
     processModuleFilter: (modules: Module): boolean => {
         return true;
     },
@@ -120,7 +125,6 @@ export const transformerConfig: TransformerConfigT = {
     dynamicDepsInPackages: 'throwAtRuntime',
     enableBabelRCLookup: true,
     enableBabelRuntime: true,
-    experimentalImportBundleSupport: true,
     globalPrefix: 'global',
     hermesParser: true,
     minifierConfig: {},
@@ -132,15 +136,17 @@ export const transformerConfig: TransformerConfigT = {
     unstable_disableModuleWrapping: true,
     unstable_disableNormalizePseudoGlobals: true,
     unstable_compactOutput: true,
-    getTransformOptions: (
-        entryPoints: ReadonlyArray<string>,
-        options: GetTransformOptionsOpts,
-        getDependenciesOf: (filePath: string) => Promise<string[]>,
-    ): Promise<ExtraTransformOptions> => {
-        return Promise.resolve({});
+    getTransformOptions: async (entryPoints, options, getDependenciesOf) => {
+        return {
+            transform: {
+                experimentalImportSupport: false,
+                inlineRequires: false,
+            },
+        };
     },
     transformVariants: {},
     workerPath: 'worker',
+    unstable_allowRequireContext: false,
 };
 
 export const metalConfig: MetalConfigT = {
@@ -159,12 +165,14 @@ export const serverConfig: ServerConfigT = {
     enhanceMiddleware: (middleware: Middleware, server: Server): Middleware => {
         return middleware;
     },
-    useGlobalHotkey: true,
+    experimentalImportBundleSupport: false,
     port: 1234,
     rewriteRequestUrl: (url: string): string => {
         return 'hello world';
     },
     runInspectorProxy: false,
+    unstable_serverRoot: null,
+    useGlobalHotkey: false,
     verifyConnections: true,
 };
 
@@ -176,6 +184,19 @@ export const symbolicatorConfig: SymbolicatorConfigT = {
         readonly methodName?: string;
     }): { readonly collapse?: boolean } | undefined | Promise<{ readonly collapse?: boolean }> | Promise<undefined> => {
         return undefined;
+    },
+};
+
+export const watcherConfig: WatcherConfigT = {
+    additionalExts: ['cjs', 'mjs'],
+    watchman: {
+        deferStates: [],
+    },
+    healthCheck: {
+        enabled: false,
+        interval: 1000,
+        timeout: 1000,
+        filePrefix: '',
     },
 };
 
@@ -203,6 +224,7 @@ export const intermediateConfig: IntermediateConfigT = {
     serializer: serializerConfig,
     symbolicator: symbolicatorConfig,
     transformer: transformerConfig,
+    watcher: watcherConfig,
 };
 
 export const config: ConfigT = {

@@ -1090,6 +1090,12 @@ declare module 'process' {
                 mainModule?: Module | undefined;
                 memoryUsage: MemoryUsageFn;
                 /**
+                 * Gets the amount of memory available to the process (in bytes) based on
+                 * limits imposed by the OS. If there is no such constraint, or the constraint
+                 * is unknown, `undefined` is returned.
+                 */
+                constrainedMemory(): number | undefined;
+                /**
                  * The `process.cpuUsage()` method returns the user and system CPU time usage of
                  * the current process, in an object with properties `user` and `system`, whose
                  * values are microsecond values (millionth of a second). These values measure time

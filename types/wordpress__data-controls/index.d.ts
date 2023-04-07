@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/data-controls 2.28
+// Type definitions for @wordpress/data-controls 2.30
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data-controls/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -52,13 +52,12 @@ export function apiFetch(options: APIFetchOptions): unknown;
  * @returns An object for registering the default controls with the store.
  */
 export const controls: {
-    API_FETCH: (action: any) => Promise<any>;
-    DISPATCH: (action: any) => void;
-    SELECT: (action: any) => any;
+    API_FETCH: ({request}: {request: APIFetchOptions}) => Promise<unknown>,
 };
 
 /**
  * Deprecated in favor of the @wordpress/data dispatch method.
+ * @deprecated
  *
  * Dispatches a control action for triggering a registry dispatch.
  *

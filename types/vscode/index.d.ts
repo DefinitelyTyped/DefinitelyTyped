@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.76
+// Type definitions for Visual Studio Code 1.77
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.76 Extension API
+ * Type Definition for Visual Studio Code 1.77 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -10492,16 +10492,18 @@ declare module 'vscode' {
 		 * Retrieves the data transfer item for a given mime type.
 		 *
 		 * @param mimeType The mime type to get the data transfer item for, such as `text/plain` or `image/png`.
+		 * Mimes type look ups are case-insensitive.
 		 *
 		 * Special mime types:
-		 * - `text/uri-list` — A string with `toString()`ed Uris separated by `\r\n`. To specify a cursor position in the file,
+		 * - `text/uri-list` — A string with `toString()`ed Uris separated by `\r\n`. To specify a cursor position in the file,
 		 * set the Uri's fragment to `L3,5`, where 3 is the line number and 5 is the column number.
 		 */
 		get(mimeType: string): DataTransferItem | undefined;
 
 		/**
 		 * Sets a mime type to data transfer item mapping.
-		 * @param mimeType The mime type to set the data for.
+		 *
+		 * @param mimeType The mime type to set the data for. Mimes types stored in lower case, with case-insensitive looks up.
 		 * @param value The data transfer item for the given mime type.
 		 */
 		set(mimeType: string, value: DataTransferItem): void;
@@ -12272,7 +12274,7 @@ declare module 'vscode' {
 		 * If you want to monitor file events across all opened workspace folders:
 		 *
 		 * ```ts
-		 * vscode.workspace.createFileSystemWatcher('**​/*.js'));
+		 * vscode.workspace.createFileSystemWatcher('**​/*.js');
 		 * ```
 		 *
 		 * *Note:* the array of workspace folders can be empty if no workspace is opened (empty window).
@@ -15956,6 +15958,13 @@ declare module 'vscode' {
 		isDefault: boolean;
 
 		/**
+		 * Whether this profile supports continuous running of requests. If so,
+		 * then {@link TestRunRequest.continuous} may be set to `true`. Defaults
+		 * to false.
+		 */
+		supportsContinuousRun: boolean;
+
+		/**
 		 * Associated tag for the profile. If this is set, only {@link TestItem}
 		 * instances with the same tag will be eligible to execute in this profile.
 		 */
@@ -15974,6 +15983,11 @@ declare module 'vscode' {
 		 * {@link TestController.createTestRun} at least once, and all test runs
 		 * associated with the request should be created before the function returns
 		 * or the returned promise is resolved.
+		 *
+		 * If {@link supportsContinuousRun} is set, then {@link TestRunRequest.continuous}
+		 * may be `true`. In this case, the profile should observe changes to
+		 * source code and create new test runs by calling {@link TestController.createTestRun},
+		 * until the cancellation is requested on the `token`.
 		 *
 		 * @param request Request information for the test run.
 		 * @param cancellationToken Token that signals the used asked to abort the
@@ -16029,10 +16043,11 @@ declare module 'vscode' {
 		 * @param runHandler Function called to start a test run.
 		 * @param isDefault Whether this is the default action for its kind.
 		 * @param tag Profile test tag.
+		 * @param supportsContinuousRun Whether the profile supports continuous running.
 		 * @returns An instance of a {@link TestRunProfile}, which is automatically
 		 * associated with this controller.
 		 */
-		createRunProfile(label: string, kind: TestRunProfileKind, runHandler: (request: TestRunRequest, token: CancellationToken) => Thenable<void> | void, isDefault?: boolean, tag?: TestTag): TestRunProfile;
+		createRunProfile(label: string, kind: TestRunProfileKind, runHandler: (request: TestRunRequest, token: CancellationToken) => Thenable<void> | void, isDefault?: boolean, tag?: TestTag, supportsContinuousRun?: boolean): TestRunProfile;
 
 		/**
 		 * A function provided by the extension that the editor may call to request
@@ -16148,11 +16163,18 @@ declare module 'vscode' {
 		readonly profile: TestRunProfile | undefined;
 
 		/**
+		 * Whether the profile should run continuously as source code changes. Only
+		 * relevant for profiles that set {@link TestRunProfile.supportsContinuousRun}.
+		 */
+		readonly continuous?: boolean;
+
+		/**
 		 * @param include Array of specific tests to run, or undefined to run all tests
 		 * @param exclude An array of tests to exclude from the run.
 		 * @param profile The run profile used for this request.
+		 * @param continuous Whether to run tests continuously as source changes.
 		 */
-		constructor(include?: readonly TestItem[], exclude?: readonly TestItem[], profile?: TestRunProfile);
+		constructor(include?: readonly TestItem[], exclude?: readonly TestItem[], profile?: TestRunProfile, continuous?: boolean);
 	}
 
 	/**
@@ -16226,7 +16248,8 @@ declare module 'vscode' {
 		/**
 		 * Appends raw output from the test runner. On the user's request, the
 		 * output will be displayed in a terminal. ANSI escape sequences,
-		 * such as colors and text styles, are supported.
+		 * such as colors and text styles, are supported. New lines must be given
+		 * as CRLF (`\r\n`) rather than LF (`\n`).
 		 *
 		 * @param output Output text to append.
 		 * @param location Indicate that the output was logged at the given

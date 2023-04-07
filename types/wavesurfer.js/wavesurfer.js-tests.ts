@@ -158,6 +158,8 @@ const waveSurferWithRegionsPlugin = WaveSurfer.create({
     plugins: [
         RegionsPlugin.create({
             maxRegions: 1,
+            formatTimeCallback: (start: number, end: number) =>
+                `${start.toFixed(2)}:${end.toFixed(2)}`,
         }),
     ],
 });

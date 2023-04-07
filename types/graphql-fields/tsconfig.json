@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "esnext.asynciterable"
+            "es2018"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
