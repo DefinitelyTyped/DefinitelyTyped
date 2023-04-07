@@ -15,9 +15,7 @@ export interface EditPostStoreDescriptor extends StoreDescriptor {
     name: 'core/edit-post';
 }
 
-declare module '@wordpress/edit-post' {
-    const store: EditPostStoreDescriptor;
-}
+export const store: EditPostStoreDescriptor;
 
 export type MetaboxLocation = 'advanced' | 'normal' | 'side';
 
