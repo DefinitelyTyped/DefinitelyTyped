@@ -103,6 +103,7 @@ export namespace DS {
         inverse?: RelationshipsFor<M> | null | undefined;
         polymorphic?: boolean | undefined;
         as?: string;
+        [key: string]: unknown;
     }
 
     interface Sync {

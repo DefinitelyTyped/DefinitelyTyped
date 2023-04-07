@@ -213,7 +213,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     event?: React.ComponentType<EventProps<TEvent>> | undefined;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>> | undefined;
     eventContainerWrapper?: React.ComponentType | undefined;
-    dateCellWrapper?: React.ComponentType | undefined;
+    dateCellWrapper?: React.ComponentType<DateCellWrapperProps> | undefined;
     dayColumnWrapper?: React.ComponentType | undefined;
     timeSlotWrapper?: React.ComponentType | undefined;
     timeGutterHeader?: React.ComponentType | undefined;
@@ -544,15 +544,15 @@ export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
 export function dateFnsLocalizer(config: object): DateLocalizer;
 export function luxonLocalizer(
-  luxonDateTime: object,
-  options?: {
-    /**
-     * Luxon uses 1 based values for month and weekday
-     * So we default to Sunday (7)
-     * @default 7
-     */
-    firstDayOfWeek: number;
-  },
+    luxonDateTime: object,
+    options?: {
+        /**
+         * Luxon uses 1 based values for month and weekday
+         * So we default to Sunday (7)
+         * @default 7
+         */
+        firstDayOfWeek: number;
+    },
 ): DateLocalizer;
 export function dayjsLocalizer(dayjs: object): DateLocalizer;
 

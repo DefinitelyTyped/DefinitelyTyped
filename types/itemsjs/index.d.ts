@@ -6,19 +6,19 @@
 export as namespace itemsjs;
 
 declare namespace itemsjs {
-    interface Bucket<I extends {}> {
-        key: keyof I & string;
+    interface Bucket<K> {
+        key: K;
         doc_count: number;
         selected: boolean;
     }
 
-    type Buckets<I extends {}> = Array<Bucket<I>>;
+    type Buckets<K> = Array<Bucket<K>>;
 
-    interface SearchAggregation<I extends {}, A extends string> {
+    interface SearchAggregation<I extends {}, A extends keyof I & string> {
         name: A;
         title: string;
         position: number;
-        buckets: Buckets<I>;
+        buckets: Buckets<I[A]>;
     }
 
     interface Pagination {
@@ -27,7 +27,7 @@ declare namespace itemsjs {
         total: number;
     }
 
-    interface SearchOptions<I extends {}, S extends string, A extends string> {
+    interface SearchOptions<I extends {}, S extends string, A extends keyof I & string> {
         query?: string | undefined;
         /** @default 1 */
         page?: number | undefined;
@@ -66,7 +66,7 @@ declare namespace itemsjs {
         per_page?: number | undefined;
     }
 
-    interface ItemsJs<I extends {}, S extends string, A extends string> {
+    interface ItemsJs<I extends {}, S extends string, A extends keyof I & string> {
         /** Search items */
         search(options?: SearchOptions<I, S, A>): {
             data: {
@@ -85,7 +85,7 @@ declare namespace itemsjs {
 
         /** Get data for aggregation */
         aggregation(options: AggregationOptions<A>): {
-            data: { buckets: Buckets<I> };
+            data: { buckets: Buckets<I[A]> };
             pagination: Pagination;
         };
 
@@ -125,10 +125,12 @@ declare namespace itemsjs {
         show_facet_stats?: boolean | undefined;
         /** @default false */
         hide_zero_doc_count?: boolean | undefined;
+        /** @default true */
+        chosen_filters_on_top?: boolean | undefined;
     }
 
     /** Configuration for itemsjs */
-    interface Configuration<I extends {}, S extends string, A extends string> {
+    interface Configuration<I extends {}, S extends string, A extends keyof I & string> {
         sortings?: Record<S, Sorting<I>> | undefined;
         aggregations?: Record<A, Aggregation> | undefined;
         /** @default [] */
@@ -144,9 +146,10 @@ declare namespace itemsjs {
  * @param configuration itemsjs
  * @template I The type of items being indexed
  */
-declare function itemsjs<I extends {} = Record<any, unknown>, S extends string = string, A extends string = string>(
-    items: I[],
-    configuration?: itemsjs.Configuration<I, S, A>,
-): itemsjs.ItemsJs<I, S, A>;
+declare function itemsjs<
+    I extends {} = Record<any, unknown>,
+    S extends string = string,
+    A extends keyof I & string = keyof I & string,
+>(items: I[], configuration?: itemsjs.Configuration<I, S, A>): itemsjs.ItemsJs<I, S, A>;
 
 export = itemsjs;

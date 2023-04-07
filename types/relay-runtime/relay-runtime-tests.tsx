@@ -26,6 +26,7 @@ import {
     requestSubscription,
     fetchQuery,
     ConnectionInterface,
+    ReaderInlineDataFragment,
 } from 'relay-runtime';
 
 import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
@@ -475,8 +476,12 @@ function readData(dataRef: Module_data$key) {
     );
 }
 
-function readNullableData(dataRef: Module_data$key | null) {
-    // $ExpectType Module_data | null
+interface Module_InlineDataFragment {
+    readonly kind: 'InlineDataFragment';
+    readonly name: string;
+}
+function readNullableData(dataRef: Module_data$key) {
+    // $ExpectType Module_data
     readInlineData(
         graphql`
             fragment Module_data on Data @inline {
@@ -485,6 +490,15 @@ function readNullableData(dataRef: Module_data$key | null) {
         `,
         dataRef,
     );
+}
+
+const readerInlineDataFragment: ReaderInlineDataFragment = {
+    kind: 'InlineDataFragment',
+    name: 'myFragment_data',
+};
+function readInlineDataFragment(dataRef: Module_data$key) {
+    // $ExpectType Module_data
+    readInlineData(readerInlineDataFragment, dataRef);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -682,27 +696,26 @@ requestSubscription(environment, {
     cacheConfig: { force: true, poll: 1234 },
     subscription: node,
     variables: { variable: true },
-    onCompleted: () => { return; },
-    onError: (_error) => { return; },
-    onNext: (_response) => { return; },
-    updater: (_store, _data) => { return; },
+    onCompleted: () => {
+        return;
+    },
+    onError: _error => {
+        return;
+    },
+    onNext: _response => {
+        return;
+    },
+    updater: (_store, _data) => {
+        return;
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConnectionInterface
 // ~~~~~~~~~~~~~~~~~~~~~
 
-const {
-    CURSOR,
-    EDGES,
-    END_CURSOR,
-    HAS_NEXT_PAGE,
-    HAS_PREV_PAGE,
-    NODE,
-    PAGE_INFO,
-    PAGE_INFO_TYPE,
-    START_CURSOR
-} = ConnectionInterface.get();
+const { CURSOR, EDGES, END_CURSOR, HAS_NEXT_PAGE, HAS_PREV_PAGE, NODE, PAGE_INFO, PAGE_INFO_TYPE, START_CURSOR } =
+    ConnectionInterface.get();
 
 ConnectionInterface.inject({
     CURSOR: 'cursor',

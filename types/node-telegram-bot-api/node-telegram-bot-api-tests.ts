@@ -169,6 +169,7 @@ MyTelegramBot.deleteChatPhoto(1234);
 MyTelegramBot.setChatTitle(1234, 'Chat Title');
 MyTelegramBot.setChatDescription(1234, 'Chat Description');
 MyTelegramBot.pinChatMessage(1234, 12);
+MyTelegramBot.pinChatMessage(1234, 12, { disable_notification: false });
 MyTelegramBot.unpinChatMessage(1234, 12);
 MyTelegramBot.unpinAllChatMessages(1234);
 MyTelegramBot.answerCallbackQuery('432832');
@@ -241,7 +242,6 @@ MyTelegramBot.sendInvoice(
     'Invoice Description',
     'Invoice Payload',
     'Providertoken',
-    'Startparameter',
     'Currency',
     [
         {
@@ -249,7 +249,7 @@ MyTelegramBot.sendInvoice(
             amount: 1200,
         },
     ],
-    { is_flexible: true },
+    { is_flexible: true, start_parameter: 'start_parameter' },
 );
 MyTelegramBot.answerShippingQuery('shippingQueryId', true, {
     shipping_options: [

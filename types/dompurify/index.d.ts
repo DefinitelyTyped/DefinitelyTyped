@@ -7,7 +7,10 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Nicholas Ellul <https://github.com/NicholasEllul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.5
 /// <reference types="trusted-types"/>
+
+import { DOMWindow } from 'jsdom';
 
 export as namespace DOMPurify;
 export = DOMPurify;
@@ -15,7 +18,7 @@ export = DOMPurify;
 declare const DOMPurify: createDOMPurifyI;
 
 interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
-    (window?: Window): DOMPurify.DOMPurifyI;
+    (window?: Window | DOMWindow): DOMPurify.DOMPurifyI;
 }
 
 declare namespace DOMPurify {

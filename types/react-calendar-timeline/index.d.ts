@@ -1,7 +1,6 @@
 // Type definitions for react-calendar-timeline v0.28.0
 // Project: https://github.com/namespace-ee/react-calendar-timeline
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
-//                 Alex Maclean <https://github.com/acemac>
 //                 Andrii Los <https://github.com/rip21>
 //                 Jon Caruana <https://github.com/joncar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

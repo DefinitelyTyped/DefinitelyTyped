@@ -385,8 +385,8 @@ npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 
 수정 중인 패키지에 의존하는 Definitely Typed 의 다른 패키지들이 새 버전과 호환되지 않을 경우, 그 패키지들에도 옛날 버전으로의 경로 대응 규칙(Path mapping rule)을 추가해주어야 합니다. 수정 중인 패키지에 의존하는 패키지에 의존하는 패키지들에도 똑같은 작업을 해 주셔야 합니다.
 
-예를 들어, `react-router` 패키지는 `history@2` 패키지에 의존하고 있기 때문에, [react-router 패키지의 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) 파일이 `"history": [ "history/v2" ]` 와 같은 경로 대응 규칙(Path mapping rule)을 가지고 있는 걸 볼 수 있습니다.
-이어서 (`react-router` 패키지에 의존하는 패키지인) `react-router-bootstrap` 또한 [`tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json) 파일 안에 경로 대응 규칙(Path mapping rule)을 가지고 있는 것을 보실 수 있습니다.
+예를 들어, `browser-sync` 패키지는 `history@2` 패키지에 의존하고 있기 때문에, [browser-sync 패키지의 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) 파일이 `"micromatch": [ "micromatch/v2" ]` 와 같은 경로 대응 규칙(Path mapping rule)을 가지고 있는 걸 볼 수 있습니다.
+이어서 (`browser-sync` 패키지에 의존하는 패키지인) `browser-sync-webpack-plugin` 또한 [`tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync-webpack-plugin/tsconfig.json) 파일 안에 경로 대응 규칙(Path mapping rule)을 가지고 있는 것을 보실 수 있습니다.
 
 `/// <reference types=".." />` 에서는 경로 대응 규칙(Path mapping rule)이 동작하지 않기 때문에, Definitely Typed 패키지로에 의존할 때에는 임포트(import) 를 사용해야 합니다.
 

@@ -79,7 +79,7 @@ declare namespace prompts {
     interface PromptObject<T extends string = string> {
         type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
-        message: ValueOrFunc<string>;
+        message?: ValueOrFunc<string> | undefined;
         initial?: InitialReturnValue | PrevCaller<T, InitialReturnValue | Promise<InitialReturnValue>> | undefined;
         style?: string | PrevCaller<T, string | Falsy> | undefined;
         format?: PrevCaller<T, void> | undefined;

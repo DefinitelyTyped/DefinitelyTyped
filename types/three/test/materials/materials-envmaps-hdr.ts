@@ -76,7 +76,7 @@ function init() {
     scene.background = new THREE.Color(0x000000);
 
     renderer = new THREE.WebGLRenderer();
-    renderer.physicallyCorrectLights = true;
+    renderer.useLegacyLights = false;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
     //

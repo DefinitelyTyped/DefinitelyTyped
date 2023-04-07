@@ -1,10 +1,10 @@
-// Type definitions for staticmaps 1.11
+// Type definitions for staticmaps 1.12
 // Project: https://github.com/StephanGeorg/staticmaps#readme
 // Definitions by: Olivier Kamers <https://github.com/olivierkamers>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { JpegOptions, OutputOptions, PngOptions, WebpOptions } from 'sharp';
+import { FitEnum, JpegOptions, OutputOptions, PngOptions, WebpOptions } from 'sharp';
 
 declare class StaticMaps {
     constructor(options: StaticMaps.StaticMapsOptions);
@@ -20,8 +20,6 @@ declare class StaticMaps {
 }
 
 declare class StaticMapsImage {
-    constructor();
-
     image: Buffer;
     save: (fileName?: string, outputOptions?: OutputOptions | PngOptions | JpegOptions | WebpOptions) => Promise<void>;
     buffer: (mime?: string, outputOptions?: OutputOptions | PngOptions | JpegOptions | WebpOptions) => Promise<Buffer>;
@@ -87,11 +85,16 @@ declare namespace StaticMaps {
         reverseY?: boolean | undefined;
     }
 
+    type ResizeMode = keyof FitEnum;
+
     interface AddMarkerOptions {
         coord: [number, number];
         img: string;
         height: number;
         width: number;
+        drawHeight?: number | undefined;
+        drawWidth?: number | undefined;
+        resizeMode?: ResizeMode | undefined;
         offsetX?: number | undefined;
         offsetY?: number | undefined;
     }

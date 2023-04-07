@@ -518,8 +518,8 @@ declare module 'crypto' {
          */
         disableEntropyCache?: boolean | undefined;
     }
-
-    function randomUUID(options?: RandomUUIDOptions): string;
+    type UUID = `${string}-${string}-${string}-${string}-${string}`;
+    function randomUUID(options?: RandomUUIDOptions): UUID;
 
     interface ScryptOptions {
         cost?: number | undefined;

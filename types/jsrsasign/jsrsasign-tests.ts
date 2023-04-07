@@ -31,7 +31,9 @@ KEYUTIL.generateKeypair('RSA', 2048); // $ExpectType { prvKeyObj: RSAKey; pubKey
 KEYUTIL.generateKeypair('EC', 'secp256r1'); // $ExpectType { prvKeyObj: ECDSA; pubKeyObj: ECDSA; }
 
 const key = new RSAKey();
-key.signWithMessageHash('1234', 'sha256');
+const sig = key.signWithMessageHash('1234', 'sha256');
+
+key.verifyWithMessageHash('1234', sig); // $ExpectType boolean
 
 b64toBA('ZXhhbXBsZQ=='); // $ExpectType number[]
 b64tohex('ZXhhbXBsZQ=='); // $ExpectType string

@@ -133,9 +133,9 @@ declare namespace jsrsasign {
          * @param sHashHex hexadecimal hash value of message to be verified.
          * @param hSig hexadecimal string of siganture.
          *                 non-hexadecimal charactors including new lines will be ignored.
-         * @return returns 1 if valid, otherwise 0
+         * @return returns true if valid, otherwise false
          */
-        verifyWithMessageHash(sHashHex: string, hSig: string): 0 | 1;
+        verifyWithMessageHash(sHashHex: string, hSig: string): boolean;
 
         /**
          * verifies a sigature for a hash value of message string with RSA public key by PKCS#1 PSS sign.
