@@ -18,6 +18,4 @@ export interface ViewportStoreDescriptor extends StoreDescriptor {
     name: 'core/viewport';
 }
 
-declare module '@wordpress/viewport' {
-    const store: ViewportStoreDescriptor;
-}
+export const store: ViewportStoreDescriptor;
