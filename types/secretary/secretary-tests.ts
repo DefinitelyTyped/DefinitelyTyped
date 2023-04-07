@@ -1,10 +1,10 @@
-import * as sec from "secretary";
+import * as sec from 'secretary';
 
 sec.configure({
     minFlag: 1,
     maxFlag: 5,
     minRunningFlag: 3,
-    maxRunningFlag: 4
+    maxRunningFlag: 4,
 });
 
 sec.flag(1).log('Beginning DEBUG output...');
