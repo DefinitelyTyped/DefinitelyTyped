@@ -98,6 +98,7 @@ lz4.encodeBlock(Buffer.from(''), Buffer.from(''), 1); // $ExpectType number
 lz4.encodeBlock(Buffer.from(''), Buffer.from(''), 1, 1); // $ExpectType number
 
 lz4.encodeBlockHC(Buffer.from(''), Buffer.from('')); // $ExpectType number
+lz4.encodeBlockHC(Buffer.from(''), Buffer.from(''), 12); // $ExpectType number
 
 let data =
     'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
