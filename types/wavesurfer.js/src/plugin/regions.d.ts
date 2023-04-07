@@ -47,7 +47,7 @@ export interface RegionsPluginParams extends PluginParams {
     /** Maximum number of regions that may be created by the user at one time. */
     maxRegions?: number | undefined;
     /** Allows custom formating for region tooltip. */
-    formatTimeCallback?: (() => string) | undefined;
+    formatTimeCallback?: ((start: number, end: number) => string) | undefined;
     /** from container edges' Optional width for edgeScroll to start (default: 5% of viewport width). */
     edgeScrollWidth?: number | undefined;
 }

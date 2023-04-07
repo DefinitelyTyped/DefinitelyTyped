@@ -73,7 +73,7 @@ declare module 'leaflet' {
         const tile: TileFactoryFunction<SVG.Tile>;
     }
 
-    type VectorGridOptions<T extends Canvas.Tile | SVG.Tile = Canvas.Tile | SVG.Tile> = geojsonvt.Options & {
+    interface VectorGridOptions<T extends Canvas.Tile | SVG.Tile = Canvas.Tile | SVG.Tile> extends geojsonvt.Options, GridLayerOptions {
         /** A factory method which will be used to instantiate the per-tile renderers. */
         rendererFactory?: TileFactoryFunction<T>;
         /** A data structure holding initial symbolizer definitions for the vector features. */
@@ -93,7 +93,7 @@ declare module 'leaflet' {
          * The default is to include all features. Similar to GeoJSON filter option.
          */
         filter?: (properties: geojsonvt.Feature, zoom: number) => boolean;
-    };
+    }
     type GetVectorGridRendererHelper<T extends HTMLCanvasElement | SVGViewElement> = T extends
         | HTMLCanvasElement
         | SVGViewElement

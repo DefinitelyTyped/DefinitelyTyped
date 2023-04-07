@@ -3,6 +3,12 @@ import * as e from '@wordpress/editor';
 
 declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
 
+// $ExpectType EditorStoreDescriptor
+e.store;
+
+// $ExpectType "core/editor"
+e.store.name;
+
 //
 // Components
 // ============================================================================
@@ -373,33 +379,27 @@ dispatch('core/editor').updatePostLock({ isLocked: false, user: null });
 // $ExpectType string | undefined
 select('core/editor').getActivePostLock();
 
-// $ExpectType number | {}
+// $ExpectType {}
 select('core/editor').getAutosaveAttribute('author');
 
-// $ExpectType Decontextualize<BasePost<"edit"> & Partial<BasePage<"edit">>>
+// $ExpectType Page | Post
 select('core/editor').getCurrentPost();
 
-// $ExpectType string | undefined
+// $ExpectType (RenderedText<"edit"> & { is_protected: boolean; block_version: string; }) | (RenderedText<"edit"> & { is_protected: boolean; block_version: string; }) | undefined
 select('core/editor').getCurrentPostAttribute('content');
 // $ExpectType number | undefined
 select('core/editor').getCurrentPostAttribute('author');
-// $ExpectType any[] | undefined
+// $ExpectType OmitNevers<Record<string, string>, { [x: string]: string; }> | undefined
 select('core/editor').getCurrentPostAttribute('meta');
-// $ExpectType "open" | "closed" | undefined || OpenOrClosed | undefined
-select('core/editor').getCurrentPostAttribute('comment_status');
-// $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute('menu_order');
-// $ExpectType unknown
-select('core/editor').getCurrentPostAttribute('foo');
 
 // $ExpectType EditorSettings
 select('core/editor').getEditorSettings();
 
-// $ExpectType string | undefined
+// $ExpectType any
 select('core/editor').getPostEdits().content;
-// $ExpectType number | undefined
+// $ExpectType any
 select('core/editor').getPostEdits().author;
-// $ExpectType unknown
+// $ExpectType any
 select('core/editor').getPostEdits().foo;
 
 // $ExpectType boolean

@@ -18,7 +18,7 @@ declare module '../../index' {
          *   The available attributes are:
          *
          *   alpha - indicates if the canvas contains an alpha
-         *   buffer default is false
+         *   buffer default is true
          *
          *   depth - indicates whether the drawing buffer has a
          *   depth buffer of at least 16 bits - default is true
@@ -31,7 +31,7 @@ declare module '../../index' {
          *
          *   premultipliedAlpha - indicates that the page
          *   compositor will assume the drawing buffer contains
-         *   colors with pre-multiplied alpha default is false
+         *   colors with pre-multiplied alpha default is true
          *
          *   preserveDrawingBuffer - if true the buffers will
          *   not be cleared and and will preserve their values
@@ -61,7 +61,7 @@ declare module '../../index' {
          *   The available attributes are:
          *
          *   alpha - indicates if the canvas contains an alpha
-         *   buffer default is false
+         *   buffer default is true
          *
          *   depth - indicates whether the drawing buffer has a
          *   depth buffer of at least 16 bits - default is true
@@ -74,7 +74,7 @@ declare module '../../index' {
          *
          *   premultipliedAlpha - indicates that the page
          *   compositor will assume the drawing buffer contains
-         *   colors with pre-multiplied alpha default is false
+         *   colors with pre-multiplied alpha default is true
          *
          *   preserveDrawingBuffer - if true the buffers will
          *   not be cleared and and will preserve their values

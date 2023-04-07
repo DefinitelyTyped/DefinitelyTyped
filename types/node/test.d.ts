@@ -7,16 +7,16 @@ declare module 'node:test' {
      * Programmatically start the test runner.
      * @since v18.9.0
      * @param options Configuration options for running tests.
-     * @returns A {@link TapStream} that emits events about the test execution.
+     * @returns A {@link TestsStream} that emits events about the test execution.
      */
-    function run(options?: RunOptions): TapStream;
+    function run(options?: RunOptions): TestsStream;
 
     /**
      * The `test()` function is the value imported from the test module. Each invocation of this
-     * function results in the creation of a test point in the TAP output.
+     * function results in reporting the test to the {@link TestsStream}.
      *
      * The {@link TestContext} object passed to the fn argument can be used to perform actions
-     * related to the current test. Examples include skipping the test, adding additional TAP
+     * related to the current test. Examples include skipping the test, adding additional
      * diagnostic information, or creating subtests.
      *
      * `test()` returns a {@link Promise} that resolves once the test completes. The return value
@@ -158,53 +158,87 @@ declare module 'node:test' {
     }
 
     /**
-     * A successful call of the `run()` method will return a new `TapStream` object,
-     * streaming a [TAP](https://testanything.org/) output.
-     * `TapStream` will emit events in the order of the tests' definitions.
+     * A successful call of the `run()` method will return a new `TestsStream` object,
+     * streaming a series of events representing the execution of the tests.
+     * `TestsStream` will emit events in the order of the tests' definitions.
      * @since v18.9.0
      */
-    interface TapStream extends NodeJS.ReadableStream {
-        addListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+    interface TestsStream extends NodeJS.ReadableStream {
+        addListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         addListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         addListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        addListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        addListener(event: 'test:start', listener: (data: TestStart) => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
-        emit(event: 'test:diagnostic', message: string): boolean;
+        emit(event: 'test:diagnostic', data: DiagnosticData): boolean;
         emit(event: 'test:fail', data: TestFail): boolean;
         emit(event: 'test:pass', data: TestPass): boolean;
+        emit(event: 'test:plan', data: TestPlan): boolean;
+        emit(event: 'test:start', data: TestStart): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: 'test:diagnostic', listener: (message: string) => void): this;
+        on(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         on(event: 'test:fail', listener: (data: TestFail) => void): this;
         on(event: 'test:pass', listener: (data: TestPass) => void): this;
+        on(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        on(event: 'test:start', listener: (data: TestStart) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'test:diagnostic', listener: (message: string) => void): this;
+        once(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         once(event: 'test:fail', listener: (data: TestFail) => void): this;
         once(event: 'test:pass', listener: (data: TestPass) => void): this;
+        once(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        once(event: 'test:start', listener: (data: TestStart) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+        prependListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         prependListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         prependListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        prependListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        prependListener(event: 'test:start', listener: (data: TestStart) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+        prependOnceListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         prependOnceListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         prependOnceListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        prependOnceListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        prependOnceListener(event: 'test:start', listener: (data: TestStart) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+    }
+
+    interface DiagnosticData {
+        /**
+         * The diagnostic message.
+         */
+        message: string;
+
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
     }
 
     interface TestFail {
         /**
-         * The test duration.
+         * Additional execution metadata.
          */
-        duration: number;
+        details: {
+            /**
+             * The duration of the test in milliseconds.
+             */
+            duration: number;
 
-        /**
-         * The failure casing test to fail.
-         */
-        error: Error;
+            /**
+             * The error thrown by the test.
+             */
+            error: Error;
+        };
 
         /**
          * The test name.
          */
         name: string;
+
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
 
         /**
          * The ordinal number of the test.
@@ -214,24 +248,34 @@ declare module 'node:test' {
         /**
          * Present if `context.todo` is called.
          */
-        todo?: string;
+        todo?: string | boolean;
 
         /**
          * Present if `context.skip` is called.
          */
-        skip?: string;
+        skip?: string | boolean;
     }
 
     interface TestPass {
         /**
-         * The test duration.
+         * Additional execution metadata.
          */
-        duration: number;
+        details: {
+            /**
+             * The duration of the test in milliseconds.
+             */
+            duration: number;
+        };
 
         /**
          * The test name.
          */
         name: string;
+
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
 
         /**
          * The ordinal number of the test.
@@ -241,12 +285,36 @@ declare module 'node:test' {
         /**
          * Present if `context.todo` is called.
          */
-        todo?: string;
+        todo?: string | boolean;
 
         /**
          * Present if `context.skip` is called.
          */
-        skip?: string;
+        skip?: string | boolean;
+    }
+
+    interface TestPlan {
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
+
+        /**
+         * The number of subtests that have ran.
+         */
+        count: number;
+    }
+
+    interface TestStart {
+        /**
+         * The test name.
+         */
+        name: string;
+
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
     }
 
     /**
@@ -283,9 +351,9 @@ declare module 'node:test' {
         afterEach: typeof afterEach;
 
         /**
-         * This function is used to write TAP diagnostics to the output. Any diagnostic information is
+         * This function is used to write diagnostics to the output. Any diagnostic information is
          * included at the end of the test's results. This function does not return a value.
-         * @param message Message to be displayed as a TAP diagnostic.
+         * @param message Message to be reported.
          * @since v18.0.0
          */
         diagnostic(message: string): void;
@@ -313,18 +381,18 @@ declare module 'node:test' {
 
         /**
          * This function causes the test's output to indicate the test as skipped. If `message` is
-         * provided, it is included in the TAP output. Calling `skip()` does not terminate execution of
+         * provided, it is included in the output. Calling `skip()` does not terminate execution of
          * the test function. This function does not return a value.
-         * @param message Optional skip message to be displayed in TAP output.
+         * @param message Optional skip message.
          * @since v18.0.0
          */
         skip(message?: string): void;
 
         /**
          * This function adds a `TODO` directive to the test's output. If `message` is provided, it is
-         * included in the TAP output. Calling `todo()` does not terminate execution of the test
+         * included in the output. Calling `todo()` does not terminate execution of the test
          * function. This function does not return a value.
-         * @param message Optional `TODO` message to be displayed in TAP output.
+         * @param message Optional `TODO` message.
          * @since v18.0.0
          */
         todo(message?: string): void;

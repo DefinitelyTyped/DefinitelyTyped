@@ -13,3 +13,5 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 
 const abortController = new global.AbortController();
 abortController.signal; // $ExpectType AbortSignal
+abortController.abort(); // $ExpectType void
+abortController.signal.reason; // $ExpectType any

@@ -113,6 +113,7 @@ const signatureRequestResponse: HelloSign.SignatureRequestResponse = {
         details_url: 'details_url',
         cc_email_addresses: ['cc_email_addresses'],
         signing_redirect_url: 'signing_redirect_url',
+        template_ids: ['template-id'],
         custom_fields: [
             {
                 name: 'name',

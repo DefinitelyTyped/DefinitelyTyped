@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/blocks 12.0
+// Type definitions for @wordpress/blocks 12.5
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
@@ -12,6 +12,7 @@
 import { Dashicon } from '@wordpress/components';
 import { ShortcodeMatch } from '@wordpress/shortcode';
 import { ComponentType, ReactElement } from 'react';
+import { StoreDescriptor } from '@wordpress/data';
 
 export * from './api';
 export { withBlockContentContext } from './block-content-provider';
@@ -19,6 +20,14 @@ export { withBlockContentContext } from './block-content-provider';
 declare module '@wordpress/data' {
     function dispatch(key: 'core/blocks'): typeof import('./store/actions');
     function select(key: 'core/blocks'): typeof import('./store/selectors');
+}
+
+export interface BlocksStoreDescriptor extends StoreDescriptor {
+    name: 'core/blocks';
+}
+
+declare module '@wordpress/blocks' {
+    const store: BlocksStoreDescriptor;
 }
 
 export type AxialDirection = 'horizontal' | 'vertical';

@@ -1085,16 +1085,19 @@ declare module "url-search-params" {
         /**
          * Iterate through the name/value pairs.
          */
+        // Minimum TypeScript Version: 4.6
         entries(): IterableIterator<[string, string]>;
 
         /**
          * Iterate through the names.
          */
+        // Minimum TypeScript Version: 4.6
         keys(): IterableIterator<string>;
 
         /**
          * Iterate through the values.
          */
+        // Minimum TypeScript Version: 4.6
         values(): IterableIterator<string>;
 
         /**

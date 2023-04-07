@@ -21,11 +21,7 @@ export class TransformControls extends Object3D {
     showY: boolean;
     showZ: boolean;
     readonly isTransformControls: true;
-    mouseButtons: {
-        LEFT: MOUSE;
-        MIDDLE: MOUSE;
-        RIGHT: MOUSE;
-    };
+    mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
 
     attach(object: Object3D): this;
     detach(): this;

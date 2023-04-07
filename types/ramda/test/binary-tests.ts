@@ -26,7 +26,7 @@ import * as R from 'ramda';
         return [a, b, c];
     }
 
-    R.binary(takesOneArg); // $ExpectType (head: number, head: undefined) => number[]
-    R.binary(takesTwoArgs); // $ExpectType (head: number, head: number) => number[]
-    R.binary(takesThreeArgs); // $ExpectType (head: number, head: number) => number[]
+    R.binary(takesOneArg); // $ExpectType (head: number, head: undefined) => number[] || (head: number, head_1: undefined) => number[]
+    R.binary(takesTwoArgs); // $ExpectType (head: number, head: number) => number[] || (head: number, head_1: number) => number[]
+    R.binary(takesThreeArgs); // $ExpectType (head: number, head: number) => number[] || (head: number, head_1: number) => number[]
 };

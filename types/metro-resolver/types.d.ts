@@ -2,16 +2,18 @@ export type Result<TResolution, TCandidates> =
     | { readonly type: 'resolved'; readonly resolution: TResolution }
     | { readonly type: 'failed'; readonly candidates: TCandidates };
 
-export type Resolution =
-    | FileResolution
-    | {
-          readonly type: 'empty';
-      };
+export type Resolution = FileResolution | Readonly<{ type: 'empty' }>;
 
+export type SourceFileResolution = Readonly<{
+    type: 'sourceFile';
+    filePath: string;
+}>;
 export type AssetFileResolution = ReadonlyArray<string>;
-export type FileResolution =
-    | { readonly type: 'sourceFile'; readonly filePath: string }
-    | { readonly type: 'assetFiles'; readonly filePaths: AssetFileResolution };
+export type AssetResolution = Readonly<{
+    type: 'assetFiles';
+    filePaths: AssetFileResolution;
+}>;
+export type FileResolution = AssetResolution | SourceFileResolution;
 
 export interface FileAndDirCandidates {
     readonly dir: FileCandidates;
@@ -35,10 +37,26 @@ export type FileCandidates =
           readonly candidateExts: ReadonlyArray<string>;
       };
 
+export type ExportMap = Readonly<{
+    [subpathOrCondition: string]: ExportMap | string | null;
+}>;
+
+export interface PackageJson {
+    readonly name?: string;
+    readonly main?: string;
+    readonly exports?: string | ExportMap;
+}
+
+export interface PackageInfo {
+    readonly packageJson: PackageJson;
+    readonly rootPath: string;
+}
+
 /**
  * Check existence of a single file.
  */
 export type DoesFileExist = (filePath: string) => boolean;
+export type GetRealPath = (path: string) => string | null;
 export type IsAssetFile = (fileName: string) => boolean;
 
 /**
@@ -49,61 +67,76 @@ export type IsAssetFile = (fileName: string) => boolean;
  */
 export type ResolveAsset = (dirPath: string, assetName: string, extension: string) => ReadonlyArray<string> | undefined;
 
-export interface FileContext {
+export interface ResolutionContext {
+    readonly assetExts: ReadonlyArray<string>;
+    readonly allowHaste: boolean;
+    readonly customResolverOptions: CustomResolverOptions;
+    readonly disableHierarchicalLookup: boolean;
     readonly doesFileExist: DoesFileExist;
-    readonly isAssetFile: IsAssetFile;
+    readonly extraNodeModules?: { [key: string]: string };
+
+    /**
+     * Get the parsed contents of the specified `package.json` file.
+     */
+    readonly getPackage: (packageJsonPath: string) => PackageJson | null;
+
+    /**
+     * Get the package information and parsed `package.json` file for for a given
+     * module path, if it is contained within an npm package.
+     */
+    readonly getPackageForModule: (modulePath: string) => PackageInfo | null;
+
+    /**
+     * The ordered list of fields to read in `package.json` to resolve a main
+     * entry point based on the "browser" field spec.
+     */
+    readonly mainFields: ReadonlyArray<string>;
+
+    /**
+     * Full path of the module that is requiring or importing the module to be
+     * resolved.
+     */
+    readonly originModulePath: string;
+
     readonly nodeModulesPaths: ReadonlyArray<string>;
     readonly preferNativePlatform: boolean;
-    readonly redirectModulePath: (modulePath: string) => string | false;
     readonly resolveAsset: ResolveAsset;
-    readonly sourceExts: ReadonlyArray<string>;
-}
+    readonly redirectModulePath: (modulePath: string) => string | false;
 
-export interface FileOrDirContext extends FileContext {
-    /**
-     * This should return the path of the "main" module of the specified
-     * `package.json` file, after post-processing: for example, applying the
-     * 'browser' field if necessary.
-     *
-     * FIXME: move the post-processing here. Right now it is
-     * located in `node-haste/Package.js`, and fully duplicated in
-     * `ModuleGraph/node-haste/Package.js` (!)
-     */
-    readonly getPackageMainPath: (packageJsonPath: string) => string;
-}
-
-export interface HasteContext extends FileOrDirContext {
     /**
      * Given a name, this should return the full path to the file that provides
      * a Haste module of that name. Ex. for `Foo` it may return `/smth/Foo.js`.
      */
     readonly resolveHasteModule: (name: string) => string | undefined;
+
     /**
      * Given a name, this should return the full path to the package manifest that
      * provides a Haste package of that name. Ex. for `Foo` it may return
      * `/smth/Foo/package.json`.
      */
     readonly resolveHastePackage: (name: string) => string | undefined;
+
+    readonly resolveRequest?: CustomResolver;
+    readonly sourceExts: ReadonlyArray<string>;
+    unstable_conditionNames: ReadonlyArray<string>;
+    unstable_conditionsByPlatform: Readonly<{
+        [platform: string]: ReadonlyArray<string>;
+    }>;
+    unstable_enablePackageExports: boolean;
+    unstable_getRealPath?: GetRealPath | null;
+    unstable_logWarning: (message: string) => void;
 }
 
-export interface ModulePathContext extends FileOrDirContext {
-    /**
-     * Full path of the module that is requiring or importing the module to be
-     * resolved.
-     */
-    readonly originModulePath: string;
-}
-
-export interface ResolutionContext extends ModulePathContext, HasteContext {
-    allowHaste: boolean;
-    extraNodeModules?: { [key: string]: string };
-    originModulePath: string;
-    resolveRequest?: CustomResolver;
+export interface CustomResolutionContext extends ResolutionContext {
+    readonly resolveRequest: CustomResolver;
 }
 
 export type CustomResolver = (
-    context: ResolutionContext,
-    realModuleName: string,
+    context: CustomResolutionContext,
+    moduleName: string,
     platform: string | null,
-    moduleName: string | null,
 ) => Resolution;
+
+export type CustomResolverOptions = Readonly<{
+    [option: string]: unknown;
+}>;
