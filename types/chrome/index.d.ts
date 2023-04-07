@@ -7489,6 +7489,7 @@ declare namespace chrome.scripting {
     interface RegisteredContentScript {
         id: string;
         allFrames?: boolean;
+        matchOriginAsFallback?: boolean;
         css?: string[];
         excludeMatches?: string[];
         js?: string[];
