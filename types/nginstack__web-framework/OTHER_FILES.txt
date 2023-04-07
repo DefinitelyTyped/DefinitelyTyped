@@ -1,4 +1,5 @@
 keys/Configs.d.ts
+keys/InactiveSessionHandlings.d.ts
 keys/Pages.d.ts
 lib/anchor/ParamsFactory.d.ts
 lib/autofill/AutofillStore.d.ts

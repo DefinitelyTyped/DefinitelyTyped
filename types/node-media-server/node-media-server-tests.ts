@@ -24,7 +24,13 @@ const config = {
           hlsKeep: true, // to prevent file delete after end the stream
           dash: true,
           dashFlags: '[f=dash:window_size=3:extra_window_size=5]'
-        }
+        },
+        {
+          app: 'live',
+          mode: 'push',
+          appendName: false,
+          edge: 'rtmp://sendtc3.douyu.com/live/test?testName=test',
+        },
       ]
     }
   };

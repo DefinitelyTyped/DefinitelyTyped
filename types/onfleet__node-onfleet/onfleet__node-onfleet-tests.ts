@@ -71,6 +71,23 @@ async function testTasks(onfleet: Onfleet) {
         ],
     });
 
+    // test batchCreate async
+    const dummyTasksAsync = await onfleet.tasks.batchCreateAsync({
+        tasks: [
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+        ],
+    });
+
+    // test getBatch async
+    await onfleet.tasks.getBatch(dummyTasksAsync.jobId);
+
     // test tasks.autoAssign
     await onfleet.tasks.autoAssign({
         tasks: dummyTasks.tasks.map(task => task.id),

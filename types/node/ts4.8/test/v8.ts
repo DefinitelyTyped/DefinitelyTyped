@@ -14,3 +14,11 @@ const fileName = v8.writeHeapSnapshot('file');
 
 v8.takeCoverage();
 v8.stopCoverage();
+
+{
+    const profiler = new v8.GCProfiler();
+    profiler.start();
+    setTimeout(() => {
+        console.log(profiler.stop());
+    }, 1000);
+}

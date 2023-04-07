@@ -1,4 +1,4 @@
-// For Library Version: 1.111.0
+// For Library Version: 1.112.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -164,6 +164,28 @@ declare module "sap/ui/integration/library" {
      */
     parameters: object;
   };
+
+  /**
+   * @SINCE 1.112
+   * @EXPERIMENTAL (since 1.112)
+   *
+   * Preview modes for `{@link sap.ui.integration.widgets.Card}`. Helpful in scenarios when the end user is
+   * choosing or configuring a card.
+   */
+  export enum CardPreviewMode {
+    /**
+     * Card displays abstract preview. No data requests are made.
+     */
+    Abstract = "Abstract",
+    /**
+     * Card displays mocked data, loaded using a data request as configured in the manifest.
+     */
+    MockData = "MockData",
+    /**
+     * Card displays real data.
+     */
+    Off = "Off",
+  }
 }
 
 declare module "sap/ui/integration/ActionDefinition" {
@@ -1151,6 +1173,10 @@ declare module "sap/ui/integration/Extension" {
      *
      * Fired when an action is triggered in the card.
      *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachAction(
@@ -1178,6 +1204,10 @@ declare module "sap/ui/integration/Extension" {
      * otherwise it will be bound to this `sap.ui.integration.Extension` itself.
      *
      * Fired when an action is triggered in the card.
+     *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1326,6 +1356,10 @@ declare module "sap/ui/integration/Extension" {
      * be done before its official public release. Use at your own discretion.
      *
      * Fired when an action is triggered in the card.
+     *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
      */
     action?: (oEvent: Event) => void;
   }
@@ -1426,6 +1460,10 @@ declare module "sap/ui/integration/Host" {
      *
      * Fired when an action is triggered.
      *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachAction(
@@ -1453,6 +1491,10 @@ declare module "sap/ui/integration/Host" {
      * otherwise it will be bound to this `sap.ui.integration.Host` itself.
      *
      * Fired when an action is triggered.
+     *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1791,8 +1833,8 @@ declare module "sap/ui/integration/Host" {
          * ```javascript
          *
          *  {
-         *  	"/sap.card/configuration/filters/shipper/value": "key3",
-         *  	"/sap.card/configuration/filters/item/value": "key2"
+         *     "/sap.card/configuration/filters/shipper/value": "key3",
+         *     "/sap.card/configuration/filters/item/value": "key2"
          *  }
          * ```
          */
@@ -2004,6 +2046,10 @@ declare module "sap/ui/integration/Host" {
      * be done before its official public release. Use at your own discretion.
      *
      * Fired when an action is triggered.
+     *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
      */
     action?: (oEvent: Event) => void;
 
@@ -2045,6 +2091,7 @@ declare module "sap/ui/integration/widgets/Card" {
     CardActionType,
     CardDataMode,
     CardDesign,
+    CardPreviewMode,
     CardArea,
   } from "sap/ui/integration/library";
 
@@ -2192,6 +2239,10 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Fired when an action is triggered on the card.
      *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachAction(
@@ -2219,6 +2270,10 @@ declare module "sap/ui/integration/widgets/Card" {
      * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
      *
      * Fired when an action is triggered on the card.
+     *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2793,6 +2848,24 @@ declare module "sap/ui/integration/widgets/Card" {
       sPath: string
     ): any;
     /**
+     * @SINCE 1.112
+     * @EXPERIMENTAL (since 1.112)
+     *
+     * Gets current value of property {@link #getPreviewMode previewMode}.
+     *
+     * Preview mode of the `Card`. Helpful in scenarios when the end user is choosing or configuring a card.
+     *
+     * 	 - When set to "MockData", the card data is loaded, using a data request, as configured in the "data/mockData"
+     * 			in the manifest. If such configuration is missing, then the real data is loaded.
+     * 	 - When set to "Abstract", the card shows abstract placeholder without loading data.
+     * 	 - When set to "Off", the card displays real data.
+     *
+     * Default value is `Off`.
+     *
+     * @returns Value of property `previewMode`
+     */
+    getPreviewMode(): CardPreviewMode | keyof typeof CardPreviewMode;
+    /**
      * Gets current value of property {@link #getReferenceId referenceId}.
      *
      * Optional property which can be used by the host to reference the card. It will be forwarded to any children
@@ -3128,6 +3201,31 @@ declare module "sap/ui/integration/widgets/Card" {
        * New value for property `manifestChanges`
        */
       sManifestChanges: object[]
+    ): this;
+    /**
+     * @SINCE 1.112
+     * @EXPERIMENTAL (since 1.112)
+     *
+     * Sets a new value for property {@link #getPreviewMode previewMode}.
+     *
+     * Preview mode of the `Card`. Helpful in scenarios when the end user is choosing or configuring a card.
+     *
+     * 	 - When set to "MockData", the card data is loaded, using a data request, as configured in the "data/mockData"
+     * 			in the manifest. If such configuration is missing, then the real data is loaded.
+     * 	 - When set to "Abstract", the card shows abstract placeholder without loading data.
+     * 	 - When set to "Off", the card displays real data.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Off`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPreviewMode(
+      /**
+       * New value for property `previewMode`
+       */
+      sPreviewMode?: CardPreviewMode | keyof typeof CardPreviewMode
     ): this;
     /**
      * Sets a new value for property {@link #getReferenceId referenceId}.
@@ -3624,6 +3722,22 @@ declare module "sap/ui/integration/widgets/Card" {
       | `{${string}}`;
 
     /**
+     * @SINCE 1.112
+     * @EXPERIMENTAL (since 1.112)
+     *
+     * Preview mode of the `Card`. Helpful in scenarios when the end user is choosing or configuring a card.
+     *
+     * 	 - When set to "MockData", the card data is loaded, using a data request, as configured in the "data/mockData"
+     * 			in the manifest. If such configuration is missing, then the real data is loaded.
+     * 	 - When set to "Abstract", the card shows abstract placeholder without loading data.
+     * 	 - When set to "Off", the card displays real data.
+     */
+    previewMode?:
+      | (CardPreviewMode | keyof typeof CardPreviewMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
@@ -3647,6 +3761,10 @@ declare module "sap/ui/integration/widgets/Card" {
      * be done before its official public release. Use at your own discretion.
      *
      * Fired when an action is triggered on the card.
+     *
+     * When an action is triggered in the card it can be handled on several places by "action" event handlers.
+     * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
+     * one to handle the action by calling `oEvent.preventDefault()`.
      */
     action?: (oEvent: Event) => void;
 
@@ -3815,6 +3933,8 @@ declare namespace sap {
     "sap/ui/integration/designtime/editor/CardPreview": undefined;
 
     "sap/ui/integration/editor/Editor": undefined;
+
+    "sap/ui/integration/editor/EditorResourceBundles": undefined;
 
     "sap/ui/integration/editor/Extension": undefined;
 

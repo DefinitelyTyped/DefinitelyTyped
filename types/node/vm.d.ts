@@ -56,11 +56,17 @@ declare module 'vm' {
         columnOffset?: number | undefined;
     }
     interface ScriptOptions extends BaseOptions {
-        displayErrors?: boolean | undefined;
-        timeout?: number | undefined;
-        cachedData?: Buffer | undefined;
+        /**
+         * V8's code cache data for the supplied source.
+         */
+        cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
+        /**
+         * Called during evaluation of this module when `import()` is called.
+         * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         */
+        importModuleDynamically?: ((specifier: string, script: Script, importAssertions: Object) => Module) | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
         /**
@@ -80,10 +86,31 @@ declare module 'vm' {
          * Default: `false`.
          */
         breakOnSigint?: boolean | undefined;
+    }
+    interface RunningScriptInNewContextOptions extends RunningScriptOptions {
+        /**
+         * Human-readable name of the newly created context.
+         */
+        contextName?: CreateContextOptions['name'];
+        /**
+         * Origin corresponding to the newly created context for display purposes. The origin should be formatted like a URL,
+         * but with only the scheme, host, and port (if necessary), like the value of the `url.origin` property of a `URL` object.
+         * Most notably, this string should omit the trailing slash, as that denotes a path.
+         */
+        contextOrigin?: CreateContextOptions['origin'];
+        contextCodeGeneration?: CreateContextOptions['codeGeneration'];
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
-        microtaskMode?: 'afterEvaluate' | undefined;
+        microtaskMode?: CreateContextOptions['microtaskMode'];
+    }
+    interface RunningCodeOptions extends RunningScriptOptions {
+        cachedData?: ScriptOptions['cachedData'];
+        importModuleDynamically?: ScriptOptions['importModuleDynamically'];
+    }
+    interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
+        cachedData?: ScriptOptions['cachedData'];
+        importModuleDynamically?: ScriptOptions['importModuleDynamically'];
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**
@@ -144,7 +171,10 @@ declare module 'vm' {
          * @default 'summary'
          */
         mode?: MeasureMemoryMode | undefined;
-        context?: Context | undefined;
+        /**
+         * @default 'default'
+         */
+        execution?: 'default' | 'eager' | undefined;
     }
     interface MemoryMeasurement {
         total: {
@@ -158,7 +188,7 @@ declare module 'vm' {
      * @since v0.3.1
      */
     class Script {
-        constructor(code: string, options?: ScriptOptions);
+        constructor(code: string, options?: ScriptOptions | string);
         /**
          * Runs the compiled code contained by the `vm.Script` object within the given`contextifiedObject` and returns the result. Running code does not have access
          * to local scope.
@@ -220,7 +250,7 @@ declare module 'vm' {
          * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
          * @return the result of the very last statement executed in the script.
          */
-        runInNewContext(contextObject?: Context, options?: RunningScriptOptions): any;
+        runInNewContext(contextObject?: Context, options?: RunningScriptInNewContextOptions): any;
         /**
          * Runs the compiled code contained by the `vm.Script` within the context of the
          * current `global` object. Running code does not have access to local scope, but _does_ have access to the current `global` object.
@@ -273,6 +303,10 @@ declare module 'vm' {
         cachedDataProduced?: boolean | undefined;
         cachedDataRejected?: boolean | undefined;
         cachedData?: Buffer | undefined;
+        /**
+         * When the script is compiled from a source that contains a source map magic comment, this property will be set to the URL of the source map.
+         */
+        sourceMapURL?: string | undefined;
     }
     /**
      * If given a `contextObject`, the `vm.createContext()` method will `prepare
@@ -345,7 +379,7 @@ declare module 'vm' {
      * @param contextifiedObject The `contextified` object that will be used as the `global` when the `code` is compiled and run.
      * @return the result of the very last statement executed in the script.
      */
-    function runInContext(code: string, contextifiedObject: Context, options?: RunningScriptOptions | string): any;
+    function runInContext(code: string, contextifiedObject: Context, options?: RunningCodeOptions | string): any;
     /**
      * The `vm.runInNewContext()` first contextifies the given `contextObject` (or
      * creates a new `contextObject` if passed as `undefined`), compiles the `code`,
@@ -374,7 +408,7 @@ declare module 'vm' {
      * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
      * @return the result of the very last statement executed in the script.
      */
-    function runInNewContext(code: string, contextObject?: Context, options?: RunningScriptOptions | string): any;
+    function runInNewContext(code: string, contextObject?: Context, options?: RunningCodeInNewContextOptions | string): any;
     /**
      * `vm.runInThisContext()` compiles `code`, runs it within the context of the
      * current `global` and returns the result. Running code does not have access to
@@ -437,7 +471,7 @@ declare module 'vm' {
      * @param code The JavaScript code to compile and run.
      * @return the result of the very last statement executed in the script.
      */
-    function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
+    function runInThisContext(code: string, options?: RunningCodeOptions | string): any;
     /**
      * Compiles the given code into the provided context (if no context is
      * supplied, the current context is used), and returns it wrapped inside a
@@ -446,7 +480,11 @@ declare module 'vm' {
      * @param code The body of the function to compile.
      * @param params An array of strings containing all parameters for the function.
      */
-    function compileFunction(code: string, params?: ReadonlyArray<string>, options?: CompileFunctionOptions): Function;
+    function compileFunction(code: string, params?: ReadonlyArray<string>, options?: CompileFunctionOptions): Function & {
+        cachedData?: Script['cachedData'] | undefined;
+        cachedDataProduced?: Script['cachedDataProduced'] | undefined;
+        cachedDataRejected?: Script['cachedDataRejected'] | undefined;
+    };
     /**
      * Measure the memory known to V8 and used by all contexts known to the
      * current V8 isolate, or the main context.
@@ -503,6 +541,103 @@ declare module 'vm' {
      * @experimental
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
+
+    interface ModuleEvaluateOptions {
+        timeout?: RunningScriptOptions['timeout'] | undefined;
+        breakOnSigint?: RunningScriptOptions['breakOnSigint'] | undefined;
+    }
+    type ModuleLinker = (specifier: string, referencingModule: Module, extra: { assert: Object }) => Module | Promise<Module>;
+    type ModuleStatus = 'unlinked' | 'linking' | 'linked' | 'evaluating' | 'evaluated' | 'errored';
+    class Module {
+        /**
+         * The specifiers of all dependencies of this module.
+         */
+        dependencySpecifiers: readonly string[];
+        /**
+         * If the `module.status` is `'errored'`, this property contains the exception thrown by the module during evaluation.
+         * If the status is anything else, accessing this property will result in a thrown exception.
+         */
+        error: any;
+        /**
+         * The identifier of the current module, as set in the constructor.
+         */
+        identifier: string;
+        context: Context;
+        /**
+         * The namespace object of the module. This is only available after linking (`module.link()`) has completed.
+         */
+        namespace: Object;
+        /**
+         * The current status of the module.
+         */
+        status: ModuleStatus;
+        /**
+         * Evaluate the module.
+         *
+         * This must be called after the module has been linked; otherwise it will reject
+         * It could be called also when the module has already been evaluated, in which case it will either do nothing
+         * if the initial evaluation ended in success (`module.status` is `'evaluated'`) or it will re-throw the exception
+         * that the initial evaluation resulted in (`module.status` is `'errored'`).
+         *
+         * This method cannot be called while the module is being evaluated (`module.status` is `'evaluating'`).
+         */
+        evaluate(options?: ModuleEvaluateOptions): Promise<void>;
+        /**
+         * Link module dependencies. This method must be called before evaluation, and can only be called once per module.
+         */
+        link(linker: ModuleLinker): Promise<void>;
+    }
+
+    interface SourceTextModuleOptions {
+        /**
+         * String used in stack traces.
+         * @default 'vm:module(i)' where i is a context-specific ascending index.
+         */
+        identifier?: string | undefined;
+        cachedData?: ScriptOptions['cachedData'] | undefined;
+        context?: Context | undefined;
+        lineOffset?: BaseOptions['lineOffset'] | undefined;
+        columnOffset?: BaseOptions['columnOffset'] | undefined;
+        /**
+         * Called during evaluation of this module to initialize the `import.meta`.
+         */
+        initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
+        importModuleDynamically?: ScriptOptions['importModuleDynamically'] | undefined;
+    }
+    class SourceTextModule extends Module {
+        /**
+         * Creates a new `SourceTextModule` instance.
+         * @param code JavaScript Module code to parse
+         */
+        constructor(code: string, options?: SourceTextModuleOptions);
+    }
+
+    interface SyntheticModuleOptions {
+        /**
+         * String used in stack traces.
+         * @default 'vm:module(i)' where i is a context-specific ascending index.
+         */
+        identifier?: string | undefined;
+        /**
+         * The contextified object as returned by the `vm.createContext()` method, to compile and evaluate this module in.
+         */
+        context?: Context | undefined;
+    }
+    class SyntheticModule extends Module {
+        /**
+         * Creates a new `SyntheticModule` instance.
+         * @param exportNames Array of names that will be exported from the module.
+         * @param evaluateCallback Called when the module is evaluated.
+         */
+        constructor(exportNames: string[], evaluateCallback: (this: SyntheticModule) => void, options?: SyntheticModuleOptions);
+        /**
+         * This method is used after the module is linked to set the values of exports.
+         * If it is called before the module is linked, an `ERR_VM_MODULE_STATUS` error will be thrown.
+         * @param name
+         * @param value
+         */
+        setExport(name: string, value: any): void;
+    }
 }
 declare module 'node:vm' {
     export * from 'vm';

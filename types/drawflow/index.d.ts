@@ -113,6 +113,17 @@ export default class Drawflow {
      */
     drawflow: DrawflowExport;
 
+    /**
+     * Nodes should use uuid instead of id
+     * @default false
+     */
+    useuuid: boolean;
+
+    /**
+     * The drawflow "canvas" element
+     */
+    precanvas: HTMLElement;
+
     start(): void;
 
     load(): any;

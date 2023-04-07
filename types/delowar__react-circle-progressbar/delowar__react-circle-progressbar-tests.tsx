@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Progress from 'delowar__react-circle-progressbar';
+import Progress from '@delowar/react-circle-progressbar';
 
 // Basic Usage
 const basic = () => <Progress percent={40} />;

@@ -12,11 +12,13 @@
 
 /// <reference types="node" />
 
-type VariableArgFunction = (...params: any[]) => any;
-type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
+// FIXME: Is this `any` really necessary?
+type VariableArgFunction = (...params: any[]) => unknown;
+type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => unknown ? A : never;
+type ElementOf<T> = T extends Array<infer E> ? E : T;
 
 declare namespace BetterSqlite3 {
-    interface Statement<BindParameters extends any[]> {
+    interface Statement<BindParameters extends unknown[]> {
         database: Database;
         source: string;
         reader: boolean;
@@ -24,9 +26,9 @@ declare namespace BetterSqlite3 {
         busy: boolean;
 
         run(...params: BindParameters): Database.RunResult;
-        get(...params: BindParameters): any;
-        all(...params: BindParameters): any[];
-        iterate(...params: BindParameters): IterableIterator<any>;
+        get(...params: BindParameters): unknown;
+        all(...params: BindParameters): unknown[];
+        iterate(...params: BindParameters): IterableIterator<unknown>;
         pluck(toggleState?: boolean): this;
         expand(toggleState?: boolean): this;
         raw(toggleState?: boolean): this;
@@ -66,15 +68,20 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        prepare<BindParameters extends any[] | {} = any[]>(
+        prepare<BindParameters extends unknown[] | {} = unknown[]>(
             source: string,
-        ): BindParameters extends any[] ? Statement<BindParameters> : Statement<[BindParameters]>;
+        ): BindParameters extends unknown[] ? Statement<BindParameters> : Statement<[BindParameters]>;
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
-        pragma(source: string, options?: Database.PragmaOptions): any;
-        function(name: string, cb: (...params: any[]) => any): this;
-        function(name: string, options: Database.RegistrationOptions, cb: (...params: any[]) => any): this;
-        aggregate(name: string, options: Database.AggregateOptions): this;
+        pragma(source: string, options?: Database.PragmaOptions): unknown;
+        function(name: string, cb: (...params: unknown[]) => unknown): this;
+        function(name: string, options: Database.RegistrationOptions, cb: (...params: unknown[]) => unknown): this;
+        aggregate<T>(name: string, options: Database.RegistrationOptions & {
+            start?: T | (() => T);
+            step: (total: T, next: ElementOf<T>) => T | void;
+            inverse?: ((total: T, dropped: T) => T) | undefined;
+            result?: ((total: T) => unknown) | undefined;
+        }): this;
         loadExtension(path: string): this;
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
@@ -110,7 +117,7 @@ declare namespace Database {
         readonly?: boolean | undefined;
         fileMustExist?: boolean | undefined;
         timeout?: number | undefined;
-        verbose?: ((message?: any, ...additionalArgs: any[]) => void) | undefined;
+        verbose?: ((message?: unknown, ...additionalArgs: unknown[]) => void) | undefined;
         nativeBinding?: string | undefined;
     }
 
@@ -129,12 +136,7 @@ declare namespace Database {
         directOnly?: boolean | undefined;
     }
 
-    interface AggregateOptions extends RegistrationOptions {
-        start?: any;
-        step: (total: any, next: any) => any;
-        inverse?: ((total: any, dropped: any) => any) | undefined;
-        result?: ((total: any) => any) | undefined;
-    }
+    type AggregateOptions = Parameters<BetterSqlite3.Database["aggregate"]>[1];
 
     interface BackupMetadata {
         totalPages: number;
@@ -145,7 +147,7 @@ declare namespace Database {
     }
 
     type SqliteError = typeof SqliteError;
-    type Statement<BindParameters extends any[] | {} = any[]> = BindParameters extends any[]
+    type Statement<BindParameters extends unknown[] | {} = unknown[]> = BindParameters extends unknown[]
         ? BetterSqlite3.Statement<BindParameters>
         : BetterSqlite3.Statement<[BindParameters]>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;

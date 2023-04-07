@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 69.0
+// Type definitions for @nginstack/engine 70.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -267,6 +267,7 @@
 /// <reference path="lib/java/JavaRequest.d.ts" />
 /// <reference path="lib/java/JavaServer.d.ts" />
 /// <reference path="lib/jaz/listJazPackages.d.ts" />
+/// <reference path="lib/jose/Algorithm.d.ts" />
 /// <reference path="lib/jose/JWS.d.ts" />
 /// <reference path="lib/license/LicenseManager.d.ts" />
 /// <reference path="lib/log/Logger.d.ts" />

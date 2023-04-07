@@ -128,7 +128,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT>
    */
   ListEmptyComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 
@@ -138,7 +138,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT>
    */
   ListFooterComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 
@@ -153,7 +153,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT>
    */
   ListHeaderComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 

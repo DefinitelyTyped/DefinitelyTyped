@@ -1318,6 +1318,19 @@ import { promisify } from 'node:util';
     };
     crypto.createPublicKey({ key: jwk, format: 'jwk' });
     crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+    crypto.verify(
+        'ES256',
+        Buffer.from('asd'),
+        { key: jwk, format: 'jwk' },
+        Buffer.from('sig')
+    );
+    crypto.verify(
+        'ES256',
+        Buffer.from('asd'),
+        { key: jwk, format: 'jwk' },
+        Buffer.from('sig'),
+        (error: Error | null, result: boolean): void => {}
+    );
 }
 
 {

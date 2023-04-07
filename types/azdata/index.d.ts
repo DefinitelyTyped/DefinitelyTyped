@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.41
+// Type definitions for Azure Data Studio 1.42
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.41 Extension API
+ * Type Definition for Azure Data Studio 1.42 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -2513,7 +2513,11 @@ declare module 'azdata' {
         /**
          * Power BI
          */
-        PowerBi = 11
+        PowerBi = 11,
+        /**
+         * Represents custom resource URIs as received from server endpoint.
+         */
+        Custom = 12
     }
 
     export interface DidChangeAccountsParams {

@@ -2,6 +2,9 @@
 // Project: https://github.com/JamesBrill/react-speech-recognition#readme
 // Definitions by: OleksandrYehorov <https://github.com/OleksandrYehorov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.4
+
+/// <reference types="dom-speech-recognition" />
 
 interface Command {
     command: string | string[] | RegExp;
@@ -18,7 +21,7 @@ export interface ListeningOptions {
 }
 
 interface SpeechRecognition {
-    getRecognition(): SpeechRecognition | null;
+    getRecognition(): globalThis.SpeechRecognition | null;
     startListening(options?: ListeningOptions): Promise<void>;
     stopListening(): void;
     abortListening(): void;
