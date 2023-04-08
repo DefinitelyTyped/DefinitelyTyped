@@ -18,6 +18,7 @@ declare namespace RSMQWorker {
         send(message: string, cb: CallbackT<string>): Client;
         del(id: string, cb?: CallbackT<void>): Client;
         changeInterval(interval: number | number[]): Client;
+        quit(): void;
     }
 
     export interface Options {
