@@ -275,9 +275,9 @@ export interface FbtProps extends FbtOptions {
     desc: string;
 }
 
-declare module 'react' {
+declare global {
     namespace JSX {
-        type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
+        type PropsWithChildren<P> = P & { children?: React.ReactNode | undefined };
         type PropsWithStringChild<P> = P & { children?: string | string[] | undefined };
 
         interface IntrinsicElements {

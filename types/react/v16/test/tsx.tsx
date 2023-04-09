@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import PropTypes = require("prop-types");
 import React = require("react");
 
@@ -444,7 +445,7 @@ const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div';
 const CustomElement: React.ReactType = 'my-undeclared-element';
 
 // custom elements now need to be declared as intrinsic elements
-declare global {
+declare module 'react' {
     namespace JSX {
         interface IntrinsicElements {
             'my-declared-element': {};
@@ -486,17 +487,17 @@ function CustomSelect(props: {
     >;
   }): JSX.Element {
     return (
-      <div>
-        <ul>{props.children}</ul>
-        <select>
-          {React.Children.map(props.children, child => (
-            // key should be mappable from children.
-            <option key={child.key} value={child.props.value}>
-              {child.props.children}
-            </option>
-          ))}
-        </select>
-      </div>
+        (<div>
+            <ul>{props.children}</ul>
+            <select>
+              {React.Children.map(props.children, child => (
+                // key should be mappable from children.
+                (<option key={child.key} value={child.props.value}>
+                    {child.props.children}
+                </option>)
+              ))}
+            </select>
+        </div>)
     );
 }
 function CustomSelectOption(props: {

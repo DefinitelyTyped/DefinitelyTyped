@@ -3627,9 +3627,23 @@ declare namespace React {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
+
+    namespace JSX {
+        interface Element extends GlobalJSXElement {}
+        interface ElementClass extends GlobalJSXElementClass {}
+        interface ElementAttributesProperty extends GlobalJSXElementAttributesProperty {}
+        interface ElementChildrenAttribute extends GlobalJSXElementChildrenAttribute {}
+
+        interface IntrinsicAttributes extends GlobalJSXIntrinsicAttributes {}
+        interface IntrinsicClassAttributes<T> extends GlobalJSXIntrinsicClassAttributes<T> {}
+        interface IntrinsicElements extends GlobalJSXIntrinsicElements {}
+    }
 }
 
 declare global {
+    /**
+     * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
+     */
     namespace JSX {
         interface Element extends React.ReactElement { }
         interface ElementClass extends React.Component<any> {
@@ -3820,3 +3834,16 @@ declare global {
         }
     }
 }
+
+// React.JSX needs to point to global.JSX to keep global module augmentations intact.
+// But we can't access global.JSX so we need to create these aliases instead.
+// Once the global JSX namespace will be removed we replace React.JSX with the contents of global.JSX
+interface GlobalJSXElement extends JSX.Element {}
+interface GlobalJSXElementClass extends JSX.ElementClass {}
+interface GlobalJSXElementAttributesProperty extends JSX.ElementAttributesProperty {}
+interface GlobalJSXElementChildrenAttribute extends JSX.ElementChildrenAttribute {}
+
+interface GlobalJSXIntrinsicAttributes extends JSX.IntrinsicAttributes {}
+interface GlobalJSXIntrinsicClassAttributes<T> extends JSX.IntrinsicClassAttributes<T> {}
+
+interface GlobalJSXIntrinsicElements extends JSX.IntrinsicElements {}
