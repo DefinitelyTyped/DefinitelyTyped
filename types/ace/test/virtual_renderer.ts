@@ -17,9 +17,11 @@ const aceVirtualRendererTests = {
         renderer.setPadding(0);
         renderer.setScrollMargin(0,0,0,0)
         renderer.setSession(new AceAjax.EditSession("1234"));
-
+        const { column, row } = renderer.pixelToScreenCoordinates(0, 0);
+        
         var r = renderer.scroller.getBoundingClientRect();
-        function testPixelToText(x, y, row, column) {
+
+        function testPixelToText(x: number, y: number, row: number, column: number) {
             assert.position(renderer.screenToTextCoordinates(x + r.left, y + r.top), row, column);
         }
 

@@ -2749,7 +2749,6 @@ declare namespace AceAjax {
      * The class that is responsible for drawing everything you see on the screen!
     **/
     export interface VirtualRenderer extends OptionProvider {
-
         scroller: any;
 
         characterWidth: number;
@@ -2758,36 +2757,36 @@ declare namespace AceAjax {
 
         $cursorLayer: Layer.Cursor;
 
-        setScrollMargin(top:number, bottom:number, left: number, right: number): void;
+        setScrollMargin(top: number, bottom: number, left: number, right: number): void;
 
         screenToTextCoordinates(left: number, top: number): void;
 
         /**
          * Associates the renderer with an [[EditSession `EditSession`]].
-        **/
+         **/
         setSession(session: IEditSession): void;
 
         /**
          * Triggers a partial update of the text, from the range given by the two parameters.
          * @param firstRow The first row to update
          * @param lastRow The last row to update
-        **/
+         **/
         updateLines(firstRow: number, lastRow: number): void;
 
         /**
          * Triggers a full update of the text, for all the rows.
-        **/
+         **/
         updateText(): void;
 
         /**
          * Triggers a full update of all the layers, for all the rows.
          * @param force If `true`, forces the changes through
-        **/
+         **/
         updateFull(force: boolean): void;
 
         /**
          * Updates the font size.
-        **/
+         **/
         updateFontSize(): void;
 
         /**
@@ -2796,196 +2795,196 @@ declare namespace AceAjax {
          * @param gutterWidth The width of the gutter in pixels
          * @param width The width of the editor in pixels
          * @param height The hiehgt of the editor, in pixels
-        **/
+         **/
         onResize(force: boolean, gutterWidth: number, width: number, height: number): void;
 
         /**
          * Adjusts the wrap limit, which is the number of characters that can fit within the width of the edit area on screen.
-        **/
+         **/
         adjustWrapLimit(): void;
 
         /**
          * Identifies whether you want to have an animated scroll or not.
          * @param shouldAnimate Set to `true` to show animated scrolls
-        **/
+         **/
         setAnimatedScroll(shouldAnimate: boolean): void;
 
         /**
          * Returns whether an animated scroll happens or not.
-        **/
+         **/
         getAnimatedScroll(): boolean;
 
         /**
          * Identifies whether you want to show invisible characters or not.
          * @param showInvisibles Set to `true` to show invisibles
-        **/
+         **/
         setShowInvisibles(showInvisibles: boolean): void;
 
         /**
          * Returns whether invisible characters are being shown or not.
-        **/
+         **/
         getShowInvisibles(): boolean;
 
         /**
          * Identifies whether you want to show the print margin or not.
          * @param showPrintMargin Set to `true` to show the print margin
-        **/
+         **/
         setShowPrintMargin(showPrintMargin: boolean): void;
 
         /**
          * Returns whether the print margin is being shown or not.
-        **/
+         **/
         getShowPrintMargin(): boolean;
 
         /**
          * Identifies whether you want to show the print margin column or not.
          * @param showPrintMargin Set to `true` to show the print margin column
-        **/
+         **/
         setPrintMarginColumn(showPrintMargin: boolean): void;
 
         /**
          * Returns whether the print margin column is being shown or not.
-        **/
+         **/
         getPrintMarginColumn(): boolean;
 
         /**
          * Returns `true` if the gutter is being shown.
-        **/
+         **/
         getShowGutter(): boolean;
 
         /**
          * Identifies whether you want to show the gutter or not.
          * @param show Set to `true` to show the gutter
-        **/
+         **/
         setShowGutter(show: boolean): void;
 
         /**
          * Returns the root element containing this renderer.
-        **/
+         **/
         getContainerElement(): HTMLElement;
 
         /**
          * Returns the element that the mouse events are attached to
-        **/
+         **/
         getMouseEventTarget(): HTMLElement;
 
         /**
          * Returns the element to which the hidden text area is added.
-        **/
+         **/
         getTextAreaContainer(): HTMLElement;
 
         /**
          * [Returns the index of the first visible row.]{: #VirtualRenderer.getFirstVisibleRow}
-        **/
+         **/
         getFirstVisibleRow(): number;
 
         /**
          * Returns the index of the first fully visible row. "Fully" here means that the characters in the row are not truncated; that the top and the bottom of the row are on the screen.
-        **/
+         **/
         getFirstFullyVisibleRow(): number;
 
         /**
          * Returns the index of the last fully visible row. "Fully" here means that the characters in the row are not truncated; that the top and the bottom of the row are on the screen.
-        **/
+         **/
         getLastFullyVisibleRow(): number;
 
         /**
          * [Returns the index of the last visible row.]{: #VirtualRenderer.getLastVisibleRow}
-        **/
+         **/
         getLastVisibleRow(): number;
 
         /**
          * Sets the padding for all the layers.
          * @param padding A new padding value (in pixels)
-        **/
+         **/
         setPadding(padding: number): void;
 
         /**
          * Returns whether the horizontal scrollbar is set to be always visible.
-        **/
+         **/
         getHScrollBarAlwaysVisible(): boolean;
 
         /**
          * Identifies whether you want to show the horizontal scrollbar or not.
          * @param alwaysVisible Set to `true` to make the horizontal scroll bar visible
-        **/
+         **/
         setHScrollBarAlwaysVisible(alwaysVisible: boolean): void;
 
         /**
          * Schedules an update to all the front markers in the document.
-        **/
+         **/
         updateFrontMarkers(): void;
 
         /**
          * Schedules an update to all the back markers in the document.
-        **/
+         **/
         updateBackMarkers(): void;
 
         /**
          * Deprecated; (moved to [[EditSession]])
-        **/
+         **/
         addGutterDecoration(): void;
 
         /**
          * Deprecated; (moved to [[EditSession]])
-        **/
+         **/
         removeGutterDecoration(): void;
 
         /**
          * Redraw breakpoints.
-        **/
+         **/
         updateBreakpoints(): void;
 
         /**
          * Sets annotations for the gutter.
          * @param annotations An array containing annotations
-        **/
+         **/
         setAnnotations(annotations: any[]): void;
 
         /**
          * Updates the cursor icon.
-        **/
+         **/
         updateCursor(): void;
 
         /**
          * Hides the cursor icon.
-        **/
+         **/
         hideCursor(): void;
 
         /**
          * Shows the cursor icon.
-        **/
+         **/
         showCursor(): void;
 
         /**
          * Scrolls the cursor into the first visibile area of the editor
-        **/
+         **/
         scrollCursorIntoView(): void;
 
         /**
          * {:EditSession.getScrollTop}
-        **/
+         **/
         getScrollTop(): number;
 
         /**
          * {:EditSession.getScrollLeft}
-        **/
+         **/
         getScrollLeft(): number;
 
         /**
          * Returns the first visible row, regardless of whether it's fully visible or not.
-        **/
+         **/
         getScrollTopRow(): number;
 
         /**
          * Returns the last visible row, regardless of whether it's fully visible or not.
-        **/
+         **/
         getScrollBottomRow(): number;
 
         /**
          * Gracefully scrolls from the top of the editor to the row indicated.
          * @param row A row id
-        **/
+         **/
         scrollToRow(row: number): void;
 
         /**
@@ -2994,97 +2993,108 @@ declare namespace AceAjax {
          * @param center If `true`, centers the editor the to indicated line
          * @param animate If `true` animates scrolling
          * @param callback Function to be called after the animation has finished
-        **/
+         **/
         scrollToLine(line: number, center: boolean, animate: boolean, callback: Function): void;
 
         /**
          * Scrolls the editor to the y pixel indicated.
          * @param scrollTop The position to scroll to
-        **/
+         **/
         scrollToY(scrollTop: number): number;
 
         /**
          * Scrolls the editor across the x-axis to the pixel indicated.
          * @param scrollLeft The position to scroll to
-        **/
+         **/
         scrollToX(scrollLeft: number): number;
 
         /**
          * Scrolls the editor across both x- and y-axes.
          * @param deltaX The x value to scroll by
          * @param deltaY The y value to scroll by
-        **/
+         **/
         scrollBy(deltaX: number, deltaY: number): void;
 
         /**
          * Returns `true` if you can still scroll by either parameter; in other words, you haven't reached the end of the file or line.
          * @param deltaX The x value to scroll by
          * @param deltaY The y value to scroll by
-        **/
+         **/
         isScrollableBy(deltaX: number, deltaY: number): boolean;
 
         /**
          * Returns an object containing the `pageX` and `pageY` coordinates of the document position.
          * @param row The document row position
          * @param column The document column position
-        **/
-        textToScreenCoordinates(row: number, column: number): any;
+         * @returns screen coordinates
+         **/
+        textToScreenCoordinates(row: number, column: number): { pageX: number; pageY: number };
+
+        /**
+         * Returns an object containing the `pageX` and `pageY` coordinates of the document position
+         *
+         * {@link https://ace.c9.io/api/classes/Ace.VirtualRenderer.html#pixelToScreenCoordinates}
+         *
+         * @param x The client screen `x` coordinate
+         * @param y The client screen `y` coordinate
+         * @returns The document position
+         **/
+        pixelToScreenCoordinates(x: number, y: number): { column: number; row: number; offsetX: number; side: 1 | -1 };
 
         /**
          * Focuses the current container.
-        **/
+         **/
         visualizeFocus(): void;
 
         /**
          * Blurs the current container.
-        **/
+         **/
         visualizeBlur(): void;
 
         /**
          * undefined
          * @param position
-        **/
+         **/
         showComposition(position: number): void;
 
         /**
          * Sets the inner text of the current composition to `text`.
          * @param text A string of text to use
-        **/
+         **/
         setCompositionText(text: string): void;
 
         /**
          * Hides the current composition.
-        **/
+         **/
         hideComposition(): void;
 
         /**
          * [Sets a new theme for the editor. `theme` should exist, and be a directory path, like `ace/theme/textmate`.]{: #VirtualRenderer.setTheme}
          * @param theme The path to a theme
-        **/
+         **/
         setTheme(theme: string): void;
 
         /**
          * [Returns the path of the current theme.]{: #VirtualRenderer.getTheme}
-        **/
+         **/
         getTheme(): string;
 
         /**
          * [Adds a new class, `style`, to the editor.]{: #VirtualRenderer.setStyle}
          * @param style A class name
-        **/
+         **/
         setStyle(style: string): void;
 
         /**
          * [Removes the class `style` from the editor.]{: #VirtualRenderer.unsetStyle}
          * @param style A class name
-        **/
+         **/
         unsetStyle(style: string): void;
 
         /**
          * Destroys the text and cursor layers for this renderer.
-        **/
+         **/
         destroy(): void;
-
     }
     var VirtualRenderer: {
         /**
