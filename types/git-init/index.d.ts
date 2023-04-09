@@ -2,14 +2,13 @@
 // Project: https://github.com/yoshuawuyts/git-init#readme
 // Definitions by: Santi <https://github.com/santi100a>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { type ExecException, exec } from "node:child_process";
 
-declare type Callback = (error: ExecException | null, stdout: string, stderr: string) => void;
+export type Callback = (error: ExecException | null, stdout: string, stderr: string) => void;
 
 /**
  * Initializes a git repo in the current working directory asynchronously.
- * 
+ *
  * @param cb An {@link exec} compatible callback.
  */
 export default function init(cb: Callback): void;
