@@ -3351,24 +3351,3 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
         : C extends { defaultProps: infer D; }
             ? Defaultize<P, D>
             : P;
-
-declare global {
-    /**
-     * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
-     */
-    namespace JSX {
-        interface Element extends React.JSX.Element {}
-        interface ElementClass extends React.JSX.ElementClass {}
-        interface ElementAttributesProperty extends React.JSX.ElementAttributesProperty {}
-        interface ElementChildrenAttribute extends React.JSX.ElementChildrenAttribute {}
-
-        // We can't recurse forever because `type` can't be self-referential;
-        // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
-        type LibraryManagedAttributes<C, P> = React.JSX.LibraryManagedAttributes<C, P>;
-
-        interface IntrinsicAttributes extends React.JSX.IntrinsicAttributes {}
-        interface IntrinsicClassAttributes<T> extends React.JSX.IntrinsicClassAttributes<T> {}
-
-        interface IntrinsicElements extends React.JSX.IntrinsicElements {}
-    }
-}

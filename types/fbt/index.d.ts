@@ -298,16 +298,3 @@ declare module 'react' {
         }
     }
 }
-
-declare global {
-    /**
-     * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
-     */
-    namespace JSX {
-        type PropsWithChildren<P> = React.JSX.PropsWithChildren<P>;
-        type PropsWithStringChild<P> = React.JSX.PropsWithStringChild<P>;
-
-        // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicElements extends React.JSX.IntrinsicElements {}
-    }
-}
