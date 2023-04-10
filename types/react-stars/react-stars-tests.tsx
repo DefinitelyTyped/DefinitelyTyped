@@ -3,7 +3,7 @@ import * as React from "react";
 
 const starsChange = (newVal: number) => {};
 
-const Stars: React.JSX.Element = (
+const Stars: JSX.Element = (
   <ReactStars
     count={5}
     value={4.5}

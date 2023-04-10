@@ -3019,7 +3019,7 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
      * The navigation view that will be rendered to the side of the
      * screen and can be pulled in.
      */
-    renderNavigationView: () => React.JSX.Element;
+    renderNavigationView: () => JSX.Element;
 
     /**
      * Make the drawer take the entire screen and draw the background of
@@ -3266,7 +3266,7 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
      * implement this method so that they can be composed while providing access
      * to the underlying scroll responder's methods.
      */
-    getScrollResponder(): React.JSX.Element;
+    getScrollResponder(): JSX.Element;
 }
 
 /**
@@ -4110,7 +4110,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a handle to the underlying scroll responder.
      */
-    getScrollResponder: () => React.JSX.Element | null | undefined;
+    getScrollResponder: () => JSX.Element | null | undefined;
 
     /**
      * Provides a reference to the underlying host component

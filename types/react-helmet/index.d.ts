@@ -15,13 +15,13 @@ interface OtherElementAttributes {
     [key: string]: string | number | boolean | null | undefined;
 }
 
-type HtmlProps = React.JSX.IntrinsicElements["html"] & OtherElementAttributes;
+type HtmlProps = JSX.IntrinsicElements["html"] & OtherElementAttributes;
 
-type BodyProps = React.JSX.IntrinsicElements["body"] & OtherElementAttributes;
+type BodyProps = JSX.IntrinsicElements["body"] & OtherElementAttributes;
 
-type LinkProps = React.JSX.IntrinsicElements["link"];
+type LinkProps = JSX.IntrinsicElements["link"];
 
-type MetaProps = React.JSX.IntrinsicElements["meta"];
+type MetaProps = JSX.IntrinsicElements["meta"];
 
 export interface HelmetTags {
     baseTag: any[];

@@ -1,7 +1,7 @@
 import * as Sticky from 'react-stickynode';
 import * as React from 'react';
 
-const StickyAllOptions: React.JSX.Element = (
+const StickyAllOptions: JSX.Element = (
     <Sticky
         enabled={true}
         top={10}
@@ -20,19 +20,19 @@ const StickyAllOptions: React.JSX.Element = (
     </Sticky>
 );
 
-const StickyOptionalStringOptions: React.JSX.Element = (
+const StickyOptionalStringOptions: JSX.Element = (
     <Sticky top="#elem" bottomBoundary="#bottom" innerZ="1234">
         <div />
     </Sticky>
 );
 
-const StickyNoOptions: React.JSX.Element = (
+const StickyNoOptions: JSX.Element = (
     <Sticky>
         <div />
     </Sticky>
 );
 
-const StickyChildrenFunction: React.JSX.Element = (
+const StickyChildrenFunction: JSX.Element = (
     <Sticky>
         {status => {
             if (status.status === Sticky.STATUS_FIXED) {

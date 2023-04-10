@@ -2,7 +2,7 @@ import * as React from 'react';
 import LoadingOverlay, { LoadingOverlayProps } from 'react-loading-overlay';
 
 export class LoadingOverlayTest extends React.PureComponent {
-    render(): React.JSX.Element {
+    render(): JSX.Element {
         const props: LoadingOverlayProps = {
             active: true,
             spinner: true,

@@ -1,5 +1,5 @@
 import { Dashicon, Slot } from '@wordpress/components';
-import { FC, JSX, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 declare namespace PluginDocumentSettingPanel {
     interface Props {

@@ -9,7 +9,7 @@
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
-import { ComponentClass, JSX, ReactElement } from 'react';
+import { ComponentClass, ReactElement } from 'react';
 import { EventEmitter } from 'events';
 
 /**

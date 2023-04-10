@@ -30,7 +30,6 @@ import {
     ComponentClass,
     ComponentType,
     FunctionComponent,
-    JSX,
     ReactNode
 } from 'react';
 

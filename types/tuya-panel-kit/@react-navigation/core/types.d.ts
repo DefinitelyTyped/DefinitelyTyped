@@ -264,7 +264,7 @@ export declare type Descriptor<ParamList extends ParamListBase, RouteName extend
     /**
      * Render the component associated with this route.
      */
-    render(): React.JSX.Element;
+    render(): JSX.Element;
     /**
      * Options for the route.
      */

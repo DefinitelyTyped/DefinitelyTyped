@@ -349,7 +349,7 @@ connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICou
 
 
 class App extends Component<any, any> {
-    render(): React.JSX.Element {
+    render(): JSX.Element {
         // ...
         return null;
     }

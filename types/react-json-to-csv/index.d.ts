@@ -13,6 +13,6 @@ export interface CsvDownloadProps extends React.HTMLAttributes<HTMLButtonElement
     headers?: string[] | undefined;
 }
 
-declare function CsvDownload(props: CsvDownloadProps): React.JSX.Element;
+declare function CsvDownload(props: CsvDownloadProps): JSX.Element;
 
 export default CsvDownload;

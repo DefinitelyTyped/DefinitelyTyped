@@ -265,7 +265,7 @@ export class FlatList<ItemT = any> extends React.Component<
   /**
    * Provides a handle to the underlying scroll responder.
    */
-  getScrollResponder: () => React.JSX.Element | null | undefined;
+  getScrollResponder: () => JSX.Element | null | undefined;
 
   /**
    * Provides a reference to the underlying host component

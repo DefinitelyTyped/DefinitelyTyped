@@ -135,6 +135,6 @@ export default class StackView extends React.Component<Props, State> {
     private handleGestureStart;
     private handleGestureEnd;
     private handleGestureCancel;
-    render(): React.JSX.Element;
+    render(): JSX.Element;
 }
 export {};

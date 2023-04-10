@@ -47,7 +47,7 @@ export interface DraggableCallbackArgument extends DraggableStyle {
     dy: number;
 }
 
-export type DraggableCallback = (argument: DraggableCallbackArgument) => React.JSX.Element;
+export type DraggableCallback = (argument: DraggableCallbackArgument) => JSX.Element;
 
 export interface DraggableProps {
     /**

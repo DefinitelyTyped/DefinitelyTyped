@@ -175,8 +175,7 @@ const Box = () => <box style={{ fg: "blue" }} />;
 const BlessedBox = () => <blessed-box style={{ fg: "blue" }} />;
 const FF: React.FC<ReactBlessed.BlessedIntrinsicElements["box"]> = props => <box {...props} />;
 
-// Undesired. Should error but we can only augment intrinsic elements.
-// Should not typecheck once `@types/react` moves DOM intrinsics to `react-dom`.
+// @ts-expect-error
 const Div = () => <div />;
 
 /**

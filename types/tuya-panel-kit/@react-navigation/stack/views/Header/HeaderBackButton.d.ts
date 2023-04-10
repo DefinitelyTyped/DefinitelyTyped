@@ -1,4 +1,4 @@
-import { JSX } from "react";
+/// <reference types="react" />
 import type { StackHeaderLeftButtonProps } from '../../types';
 // tslint:disable-next-line strict-export-declare-modifiers
 declare type Props = StackHeaderLeftButtonProps;

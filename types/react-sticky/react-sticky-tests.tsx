@@ -1,7 +1,7 @@
 import { Sticky, StickyContainer } from "react-sticky";
 import * as React from "react";
 
-const StickyAllOptions: React.JSX.Element = (
+const StickyAllOptions: JSX.Element = (
     <StickyContainer className="sticky-container">
         <Sticky
             relative
@@ -20,7 +20,7 @@ const StickyAllOptions: React.JSX.Element = (
     </StickyContainer>
 );
 
-const StickyNoOptions: React.JSX.Element = (
+const StickyNoOptions: JSX.Element = (
     <StickyContainer>
         <Sticky>{({ style }) => <div style={style} />}</Sticky>
     </StickyContainer>

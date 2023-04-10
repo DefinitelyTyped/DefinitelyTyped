@@ -65,7 +65,7 @@ class BasicExample extends React.Component {
                 );
             });
             return [...accum, ...header, ...states];
-        }, [] as React.JSX.Element[]);
+        }, [] as JSX.Element[]);
 
         return menuItems;
     }

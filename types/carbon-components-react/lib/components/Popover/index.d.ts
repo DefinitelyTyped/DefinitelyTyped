@@ -45,7 +45,7 @@ export type PopoverDefaultProps = PopoverBaseProps &
         as?: undefined;
     };
 
-export type PopoverIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> = PopoverBaseProps &
+export type PopoverIntrinsicProps<K extends keyof JSX.IntrinsicElements> = PopoverBaseProps &
     SafePopoverProps<JSXIntrinsicElementProps<K>> & {
         as: K;
     };
@@ -60,7 +60,7 @@ export type PopoverCustomComponentProps<
     : never;
 
 declare function Popover(props: ForwardRefProps<HTMLSpanElement, PopoverDefaultProps>): FCReturn;
-declare function Popover<T extends keyof React.JSX.IntrinsicElements, R = HTMLElement>(
+declare function Popover<T extends keyof JSX.IntrinsicElements, R = HTMLElement>(
     props: ForwardRefProps<R, PopoverIntrinsicProps<T>>,
 ): FCReturn;
 declare function Popover<T extends ReactComponentConstructor<never>, R = unknown>(

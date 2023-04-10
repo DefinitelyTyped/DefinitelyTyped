@@ -1,5 +1,5 @@
 /* eslint-disable no-unnecessary-generics */
-import { ComponentType, JSX } from 'react';
+import { ComponentType } from 'react';
 
 import { default as MediaPlaceholder } from '../media-placeholder';
 

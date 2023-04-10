@@ -25,7 +25,7 @@ export class DraggableTest extends React.PureComponent {
         return <Draggable style={style} children={this.callback} />;
     }
 
-    private readonly callback = (argument: DraggableCallbackArgument): React.JSX.Element => {
+    private readonly callback = (argument: DraggableCallbackArgument): JSX.Element => {
         return <div />;
     }
 }

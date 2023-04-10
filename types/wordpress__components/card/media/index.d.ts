@@ -1,4 +1,3 @@
-import { JSX } from "react";
 declare namespace CardMedia {
     type Props<T extends keyof JSX.IntrinsicElements> = {
         /**

@@ -1,7 +1,5 @@
 import { Dashicon } from '@wordpress/components';
 
-import { JSX } from "react";
-
 export interface Category {
     slug: string;
     title: string;

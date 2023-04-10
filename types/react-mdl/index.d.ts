@@ -21,7 +21,7 @@ declare namespace __ReactMDL {
         ripple?: boolean | undefined;
     }
     interface CustomRenderedComponent {
-        component?: string | React.JSX.Element | Function | undefined;
+        component?: string | JSX.Element | Function | undefined;
     }
 
 
@@ -475,8 +475,8 @@ declare namespace __ReactMDL {
         info?: string | undefined;
     }
     interface ListItemContentProps extends MDLHTMLAttributes, React.DOMAttributes<ListItemContent> {
-        avatar?: string | React.JSX.Element | undefined;
-        icon?: string | React.JSX.Element | undefined;
+        avatar?: string | JSX.Element | undefined;
+        icon?: string | JSX.Element | undefined;
         subtitle?: React.ReactNode | undefined;
         useBodyClass?: boolean | undefined;
     }

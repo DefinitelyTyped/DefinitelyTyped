@@ -1,4 +1,4 @@
-import { JSX, PureComponent } from 'react';
+import { PureComponent } from 'react';
 import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Grid';
 import { IndexRange, OverscanIndexRange, Alignment } from '../../index';
 import { CellPosition } from './CellMeasurer';

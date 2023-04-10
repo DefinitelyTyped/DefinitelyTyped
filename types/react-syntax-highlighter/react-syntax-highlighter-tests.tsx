@@ -20,7 +20,7 @@ const codeString = `class CPP {
 }
 `;
 
-function hljsHighlighter(): React.JSX.Element {
+function hljsHighlighter(): JSX.Element {
     SyntaxHighlighter.supportedLanguages; // $ExpectType string[]
 
     return (
@@ -30,7 +30,7 @@ function hljsHighlighter(): React.JSX.Element {
     );
 }
 
-function hljsLightHighlighter(): React.JSX.Element {
+function hljsLightHighlighter(): JSX.Element {
     LightHighlighter.registerLanguage("javascript", javascript);
 
     return (
@@ -40,7 +40,7 @@ function hljsLightHighlighter(): React.JSX.Element {
     );
 }
 
-function prismHighlighter(): React.JSX.Element {
+function prismHighlighter(): JSX.Element {
     PrismSyntaxHighlighter.supportedLanguages; // $ExpectType string[]
     return (
         <PrismSyntaxHighlighter language="javascript" style={oneDark}>
@@ -49,7 +49,7 @@ function prismHighlighter(): React.JSX.Element {
     );
 }
 
-function primsLightHighlighter(): React.JSX.Element {
+function primsLightHighlighter(): JSX.Element {
     PrismLightHighlighter.registerLanguage("jsx", jsx);
 
     return (

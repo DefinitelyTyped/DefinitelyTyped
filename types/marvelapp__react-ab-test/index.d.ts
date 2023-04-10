@@ -2,7 +2,7 @@
 // Project: https://github.com/marvelapp/react-ab-test#readme
 // Definitions by: mtayllan <https://github.com/mtayllan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { JSX } from "react";
+/// <reference types="react" />
 
 export type ListenerCallback = (experimentName: string, variantName: string) => void;
 export interface Subscription {

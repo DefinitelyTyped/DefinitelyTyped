@@ -1,4 +1,4 @@
-import { Component, JSX, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import { Animated, ViewProps } from 'react-native';
 
 export interface SheetProps {

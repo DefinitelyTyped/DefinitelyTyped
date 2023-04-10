@@ -3,7 +3,7 @@
 // Definitions by: Guilherme Samuel <https://github.com/guilhermefront>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, ComponentType, HTMLAttributes, InputHTMLAttributes, JSX } from 'react';
+import { Component, ComponentType, HTMLAttributes, InputHTMLAttributes } from 'react';
 
 declare namespace CurrencyFormat {
     /**

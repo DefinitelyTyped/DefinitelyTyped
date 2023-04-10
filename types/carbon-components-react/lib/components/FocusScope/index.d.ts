@@ -25,7 +25,7 @@ export type FocusScopeDefaultProps = FocusScopeBaseProps &
         as?: undefined;
     };
 
-export type FocusScopeIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> = FocusScopeBaseProps &
+export type FocusScopeIntrinsicProps<K extends keyof JSX.IntrinsicElements> = FocusScopeBaseProps &
     SafeProps<JSXIntrinsicElementProps<K>> & {
         as: K;
     };
@@ -40,7 +40,7 @@ export type FocusScopeCustomComponentProps<
     : never;
 
 declare function FocusScope(props: ForwardRefProps<HTMLDivElement, FocusScopeDefaultProps>): FCReturn;
-declare function FocusScope<T extends keyof React.JSX.IntrinsicElements, R extends HTMLElement = HTMLElement>(
+declare function FocusScope<T extends keyof JSX.IntrinsicElements, R extends HTMLElement = HTMLElement>(
     props: ForwardRefProps<R, FocusScopeIntrinsicProps<T>>,
 ): FCReturn;
 declare function FocusScope<T extends ReactComponentConstructor<never>, R = unknown>(

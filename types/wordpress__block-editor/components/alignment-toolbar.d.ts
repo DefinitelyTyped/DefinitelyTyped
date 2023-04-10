@@ -1,5 +1,5 @@
 import { Dashicon } from '@wordpress/components';
-import { ComponentType, JSX } from 'react';
+import { ComponentType } from 'react';
 
 declare namespace AlignmentToolbar {
     interface Props {

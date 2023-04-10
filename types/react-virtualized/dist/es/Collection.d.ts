@@ -1,4 +1,4 @@
-import { JSX, PureComponent, Validator, Requireable } from 'react';
+import { PureComponent, Validator, Requireable } from 'react';
 import {
     Alignment,
     Index,

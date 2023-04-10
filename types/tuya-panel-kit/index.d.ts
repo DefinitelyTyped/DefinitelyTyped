@@ -11310,16 +11310,16 @@ export interface NavigationOptions {
     /**
      * 自定义渲染头部栏
      */
-    renderTopBar?: (() => React.JSX.Element) | undefined;
+    renderTopBar?: (() => JSX.Element) | undefined;
     /**
      * 自定义渲染状态栏
      */
-    renderStatusBar?: (() => React.JSX.Element) | undefined;
+    renderStatusBar?: (() => JSX.Element) | undefined;
 }
 
 export class NavigatorLayout<P = {}, S = {}> extends React.Component<P, { modalVisible: boolean } & S> {
     hookRoute(route: DeprecatedNavigatorRoute): NavigationOptions;
-    renderScene(route: DeprecatedNavigatorRoute, navigator: DeprecatedNavigator): React.JSX.Element | undefined;
+    renderScene(route: DeprecatedNavigatorRoute, navigator: DeprecatedNavigator): JSX.Element | undefined;
 }
 
 export interface NavigationRoute {

@@ -2,11 +2,11 @@ import ReactSignatureCanvas from 'react-signature-canvas';
 import SignaturePad = require('signature_pad');
 import * as React from 'react';
 
-const ReactSignatureCanvasNoOptions: React.JSX.Element = <ReactSignatureCanvas />;
+const ReactSignatureCanvasNoOptions: JSX.Element = <ReactSignatureCanvas />;
 
-const ReactSignatureCanvasDotSizeFunctionOptions: React.JSX.Element = <ReactSignatureCanvas dotSize={() => 4} />;
+const ReactSignatureCanvasDotSizeFunctionOptions: JSX.Element = <ReactSignatureCanvas dotSize={() => 4} />;
 
-const ReactSignatureCanvasAllOptions: React.JSX.Element = (
+const ReactSignatureCanvasAllOptions: JSX.Element = (
     <ReactSignatureCanvas
         dotSize={2}
         minWidth={2}

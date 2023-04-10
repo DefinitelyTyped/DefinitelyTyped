@@ -5,14 +5,14 @@ const handler = (response: FacebookLoginInfo) => {
     console.log(response.accessToken);
 };
 
-const ReactFacebookLoginComponent: React.JSX.Element = (
+const ReactFacebookLoginComponent: JSX.Element = (
     <FacebookLogin
         socialId="1234567890000"
         responseHandler={handler}
     />
 );
 
-const ReactFacebookLoginComponentAllOptions: React.JSX.Element = (
+const ReactFacebookLoginComponentAllOptions: JSX.Element = (
     <FacebookLogin
         socialId="1234567890000"
         responseHandler={handler}

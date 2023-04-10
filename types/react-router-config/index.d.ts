@@ -43,4 +43,4 @@ export function renderRoutes(
     routes: RouteConfig[] | undefined,
     extraProps?: any,
     switchProps?: SwitchProps,
-): React.JSX.Element;
+): JSX.Element;

@@ -178,5 +178,5 @@ declare namespace Carousel {
  * The carousel component.
  * @see {@link https://github.com/yifaneye/react-gallery-carousel#props}
  */
-declare function Carousel(props: Carousel.CarouselProps): React.JSX.Element;
+declare function Carousel(props: Carousel.CarouselProps): JSX.Element;
 export = Carousel;

@@ -25,8 +25,6 @@ import {
     SVGAttributes as ReactSVGAttributes,
 } from 'react';
 
-import { JSX } from "react";
-
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
 export class ElementClass extends Component<any, any> {}

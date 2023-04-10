@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="google.maps" />
-import { Component, JSX, ReactNode } from "react";
+import { Component, ReactNode } from "react";
 
 export default ReactGooglePlacesSuggest;
 

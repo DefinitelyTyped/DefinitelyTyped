@@ -3,7 +3,7 @@
 // Definitions by: Debananda <https://github.com/Debananda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, JSX } from 'react';
+import { Component } from 'react';
 
 export interface ReactTypingEffectProps {
     text: string | string[];

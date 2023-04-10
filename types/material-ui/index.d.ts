@@ -1696,7 +1696,7 @@ declare namespace __MaterialUI {
             bodyStyle?: React.CSSProperties | undefined;
             children?: React.ReactNode;
             className?: string | undefined;
-            message: string | React.JSX.Element;
+            message: string | JSX.Element;
             onActionClick?: React.MouseEventHandler<{}> | undefined;
             /** @deprecated Use the open property to control the component instead */
             onDismiss?(): void; // DEPRECATED

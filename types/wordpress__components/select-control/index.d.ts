@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, JSX } from 'react';
+import { ComponentType, HTMLProps } from 'react';
 
 import BaseControl from '../base-control';
 

@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ComponentType, JSX } from 'react';
+import { ChangeEventHandler, ComponentType } from 'react';
 
 import IconButton from '../icon-button';
 

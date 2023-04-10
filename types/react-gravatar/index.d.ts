@@ -18,14 +18,14 @@ declare class Gravatar extends React.Component<Gravatar.Props> {
 
     static readonly defaultProps: Gravatar.Props;
 
-    render(): React.JSX.Element | null;
+    render(): JSX.Element | null;
 }
 
 declare namespace Gravatar {
     type DefaultImage = "404" | "mm" | "mp" | "identicon" | "monsterid" | "wavatar" | "retro" | "blank";
     type Rating = "g" | "pg" | "r" | "x";
 
-    interface Props extends Partial<React.JSX.IntrinsicElements['img']> {
+    interface Props extends Partial<JSX.IntrinsicElements['img']> {
         /**
          * The email address used to look up the Gravatar image.
          * If you wish to avoid sending an email address to the client, you can compute the md5 hash on the server and

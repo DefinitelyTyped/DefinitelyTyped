@@ -13,8 +13,8 @@ export {};
 /* RENDERER *****************************************************************/
 
 export type Callback = () => void | null | undefined;
-export type renderer = (c: React.JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback) => React.Component | null;
-export function render(c: React.JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback): React.Component | null;
+export type renderer = (c: JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback) => React.Component | null;
+export function render(c: JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback): React.Component | null;
 
 export function createBlessedRenderer(bls: any): renderer;
 
@@ -206,6 +206,8 @@ export type DetailedBlessedProps<E extends Element> = BlessedAttributes<E> & Rea
 export interface BlessedIntrinsicElements {
     element: DetailedBlessedProps<Element>;
     box: DetailedBlessedProps<BoxElement>;
+    text: DetailedBlessedProps<TextElement>;
+    line: DetailedBlessedProps<LineElement>;
     scrollablebox: DetailedBlessedProps<ScrollableBoxElement>;
     scrollabletext: DetailedBlessedProps<ScrollableTextElement>;
     bigtext: DetailedBlessedProps<BigTextElement>;
@@ -213,10 +215,14 @@ export interface BlessedIntrinsicElements {
     filemanager: DetailedBlessedProps<FileManagerElement>;
     listtable: DetailedBlessedProps<ListTableElement>;
     listbar: DetailedBlessedProps<ListbarElement>;
+    input: DetailedBlessedProps<InputElement>;
+    textarea: DetailedBlessedProps<TextareaElement>;
     textbox: DetailedBlessedProps<TextboxElement>;
+    button: DetailedBlessedProps<ButtonElement>;
     checkbox: DetailedBlessedProps<CheckboxElement>;
     radioset: DetailedBlessedProps<RadioSetElement>;
     radiobutton: DetailedBlessedProps<RadioButtonElement>;
+    table: DetailedBlessedProps<TableElement>;
     prompt: DetailedBlessedProps<PromptElement>;
     question: DetailedBlessedProps<QuestionElement>;
     message: DetailedBlessedProps<MessageElement>;
@@ -240,50 +246,8 @@ export type BlessedIntrinsicElementsPrefixed = {
 // elements will collide with ones set in react defs.
 
 // augment react JSX when old JSX transform is used
-declare global {
+declare module "react" {
     namespace JSX {
-        interface ButtonHTMLAttributes<T>
-            extends React.HTMLAttributes<T>,
-                Omit<
-                    DetailedBlessedProps<ButtonElement>,
-                    'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
-
-        interface TableHTMLAttributes<T>
-            extends React.HTMLAttributes<T>,
-                Omit<
-                    DetailedBlessedProps<TableElement>,
-                    'border' | 'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
-
-        interface TextareaHTMLAttributes<T>
-            extends React.HTMLAttributes<T>,
-                Omit<
-                    DetailedBlessedProps<TextElement>,
-                    'draggable' | 'fill' | 'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
-
-        interface InputHTMLAttributes<T>
-            extends React.HTMLAttributes<T>,
-                Omit<
-                    DetailedBlessedProps<InputElement>,
-                    'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
-
-        interface SVGLineElementAttributes<T>
-            extends React.SVGProps<T>,
-                Omit<
-                    DetailedBlessedProps<LineElement>,
-                    'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'orientation' | 'ref' | 'style'
-                > {}
-
-        interface SVGTextElementAttributes<T>
-            extends React.SVGProps<T>,
-                Omit<
-                    DetailedBlessedProps<TextElement>,
-                    'fill' | 'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
-
         // set IntrinsicElements to 'react-blessed' elements both with and without
         // 'blessed-' prefix
         interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
@@ -293,11 +257,16 @@ declare global {
 // augment react/jsx-runtime JSX when new JSX transform is used
 declare module "react/jsx-runtime" {
     namespace JSX {
+        // copy React JSX, otherwise class refs won't type as expected
+        type IntrinsicAttributes = React.Attributes;
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
         interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
     }
 }
 declare module "react/jsx-dev-runtime" {
     namespace JSX {
+        type IntrinsicAttributes = React.Attributes;
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
         interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
     }
 }

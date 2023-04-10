@@ -48,7 +48,7 @@ type ElementProps<C> = C extends React.ComponentClass<any>
     : C extends React.FC<any>
     ? SFCProps<C>
     : any;
-type ElementConfig<C> = React.JSX.LibraryManagedAttributes<C, ElementProps<C>>;
+type ElementConfig<C> = JSX.LibraryManagedAttributes<C, ElementProps<C>>;
 
 declare function withStyles<T = Theme>(
     styleFn?: ((theme: T) => Styles) | null,

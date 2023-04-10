@@ -1,7 +1,7 @@
 import ReactTimeago, { Unit, Suffix } from "react-timeago";
 import * as React from "react";
 
-const ReactTimeagoRequiredOptions: React.JSX.Element = (
+const ReactTimeagoRequiredOptions: JSX.Element = (
     <ReactTimeago date={new Date()} />
 );
 
@@ -16,7 +16,7 @@ const customFormatter = (
         : "a really long time ago";
 };
 
-const ReactTimeagoAllOptions: React.JSX.Element = (
+const ReactTimeagoAllOptions: JSX.Element = (
     <ReactTimeago
         date={new Date()}
         live
@@ -28,12 +28,12 @@ const ReactTimeagoAllOptions: React.JSX.Element = (
     />
 );
 
-const ReactTimeagoDefaultComponentProps: React.JSX.Element = (
+const ReactTimeagoDefaultComponentProps: JSX.Element = (
     // Note that the default component is <time/>, which has a style prop.
-    (<ReactTimeago
+    <ReactTimeago
         date={new Date()}
         style={{marginTop: 42}}
-    />)
+    />
 );
 
 // inspired by react-native
@@ -44,7 +44,7 @@ class Text extends React.Component<{
     allowFontScaling?: boolean | undefined;
 }> {}
 
-const ReactTimeagoCustomComponent: React.JSX.Element = (
+const ReactTimeagoCustomComponent: JSX.Element = (
     <ReactTimeago<typeof Text>
         date={new Date()}
         component={Text}

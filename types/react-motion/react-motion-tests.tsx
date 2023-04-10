@@ -48,7 +48,7 @@ class TransitionTest extends React.Component {
         });
     }
 
-    renderItems(interpolatedItems: TransitionStyle[]): React.JSX.Element {
+    renderItems(interpolatedItems: TransitionStyle[]): JSX.Element {
         return (
             <div>
                 {interpolatedItems.map(config => {
@@ -82,7 +82,7 @@ class StaggeredTest extends React.Component {
         })
     }
 
-    renderItems(interpolatedItems: PlainStyle[]): React.JSX.Element {
+    renderItems(interpolatedItems: PlainStyle[]): JSX.Element {
         return (
             <div>
                 {interpolatedItems.map((style, index) => {

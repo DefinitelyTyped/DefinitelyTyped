@@ -9,13 +9,13 @@ const sampleEvent = {
     endTime: '2016-09-16T21:45:00-04:00'
 };
 
-const AddToCalendarRequiredOptions: React.JSX.Element = (
+const AddToCalendarRequiredOptions: JSX.Element = (
     <AddToCalendar
         event={sampleEvent}
     />
 );
 
-const AddToCalendarAllOptions: React.JSX.Element = (
+const AddToCalendarAllOptions: JSX.Element = (
     <AddToCalendar
         event={sampleEvent}
         buttonClassClosed="test"

@@ -1,4 +1,4 @@
-import { ComponentType, JSX, ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 
 import Popover from '../popover';
 

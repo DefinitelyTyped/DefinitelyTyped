@@ -2,7 +2,6 @@
 // Project: https://github.com/americanexpress/react-seo
 // Definitions by: Zenoo <https://github.com/Zenoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { JSX } from "react";
 
 export interface Media {
     src: string;

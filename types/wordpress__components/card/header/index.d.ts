@@ -1,7 +1,5 @@
 import Card from '..';
 
-import { JSX } from "react";
-
 declare namespace CardHeader {
     type Props<T extends keyof JSX.IntrinsicElements> = {
         /**

@@ -23,7 +23,7 @@ export declare class ResponsiveNavigation extends Component<ResponsiveNavigation
      * Called when the menu icon is clicked.
      */
     toggle(): void;
-    render(): React.JSX.Element;
+    render(): JSX.Element;
     static propTypes: {
         breakpoint: PropTypes.Validator<any>;
         alignX: PropTypes.Requireable<any>;

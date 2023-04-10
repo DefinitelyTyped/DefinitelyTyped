@@ -35,8 +35,8 @@ export interface Props {
     className?: string | undefined;
     crossButtonClassName?: string | undefined;
     crossClassName?: string | undefined;
-    customBurgerIcon?: React.JSX.Element | false | undefined;
-    customCrossIcon?: React.JSX.Element | false | undefined;
+    customBurgerIcon?: JSX.Element | false | undefined;
+    customCrossIcon?: JSX.Element | false | undefined;
     customOnKeyDown?(event: React.KeyboardEvent): void;
     disableAutoFocus?: boolean | undefined;
     disableCloseOnEsc?: boolean | undefined;

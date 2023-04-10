@@ -1,4 +1,4 @@
-import { JSX, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Value } from '@wordpress/rich-text';
 
 declare namespace Autocomplete {

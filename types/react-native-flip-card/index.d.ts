@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, JSX, ReactNode, ComponentClass } from "react";
+import { Component, ReactNode, ComponentClass } from "react";
 import {
     ViewProps,
     TextProps,

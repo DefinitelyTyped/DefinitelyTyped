@@ -8,7 +8,7 @@
 
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
-import { CSSProperties, JSX, ReactElement, SyntheticEvent, Component } from 'react';
+import { CSSProperties, ReactElement, SyntheticEvent, Component } from 'react';
 
 export const ROW_SELECT_SINGLE = 'radio';
 export const ROW_SELECT_MULTIPLE = 'checkbox';

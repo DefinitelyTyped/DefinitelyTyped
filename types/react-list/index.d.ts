@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, JSX } from 'react';
+import {
+    Component
+} from "react";
 
 type ItemRenderer = (index: number, key: number | string) => JSX.Element;
 type ItemsRenderer = (items: JSX.Element[], ref: string) => JSX.Element;

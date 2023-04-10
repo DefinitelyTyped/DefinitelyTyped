@@ -2,7 +2,6 @@
 // Project: https://github.com/elangobharathi/react-leaflet-fullscreen-plugin
 // Definitions by: Zenoo <https://github.com/Zenoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { JSX } from "react";
 
 export interface FullscreenProps {
     position?: "topleft" | "topright" | "bottomleft" | "bottomright" | undefined;

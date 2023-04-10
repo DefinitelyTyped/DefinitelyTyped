@@ -4,8 +4,9 @@
 //                 Steve Gravrock <https://github.com/sgravrock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
+
 /// <reference types="jasmine" />
-import { JSX } from "react";
+/// <reference types="react" />
 
 declare function jasmineEnzyme(): void;
 export default jasmineEnzyme;

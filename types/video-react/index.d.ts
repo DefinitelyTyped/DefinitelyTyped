@@ -3,7 +3,7 @@
 // Definitions by: Fabio Nettis <https://github.com/fabio-nettis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { JSX, LegacyRef } from 'react';
+import { LegacyRef } from 'react';
 
 export type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
 

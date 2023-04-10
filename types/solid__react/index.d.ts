@@ -40,8 +40,8 @@ export interface ListProps {
     // See https://github.com/Microsoft/dtslint/issues/228
     // eslint-disable-next-line no-unnecessary-generics
     filter?: (<T extends LDflexValue>(item: LDflexValue, index: number, array: LDflexValue[]) => item is T) | undefined;
-    container?: ((items: React.JSX.Element) => React.JSX.Element) | undefined;
-    children?: ((listItem: LDflexValue, index: number) => React.JSX.Element) | undefined;
+    container?: ((items: JSX.Element) => JSX.Element) | undefined;
+    children?: ((listItem: LDflexValue, index: number) => JSX.Element) | undefined;
 }
 export class List extends React.Component<ListProps> {}
 

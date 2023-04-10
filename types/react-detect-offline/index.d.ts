@@ -2,7 +2,8 @@
 // Project: https://github.com/cwise89/react-detect-offline#readme
 // Definitions by: Rhythm Bhiwani <https://github.com/rhythmbhiwani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { JSX } from "react";
+
+/// <reference types="react" />
 
 export interface PollingConfig {
     url: string;

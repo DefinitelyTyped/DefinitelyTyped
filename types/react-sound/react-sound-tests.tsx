@@ -1,7 +1,7 @@
 import ReactSound from "react-sound";
 import * as React from "react";
 
-const ReactSoundRequiredOptions: React.JSX.Element = (
+const ReactSoundRequiredOptions: JSX.Element = (
     <ReactSound
         url="http://test.com"
         playStatus='STOPPED'
@@ -10,7 +10,7 @@ const ReactSoundRequiredOptions: React.JSX.Element = (
 
 const callbackFn = () => ({});
 
-const ReactSoundAllOptions: React.JSX.Element = (
+const ReactSoundAllOptions: JSX.Element = (
     <ReactSound
         url="http://test.com/audio.mp3"
         playStatus='PAUSED'

@@ -5,7 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, JSX, ReactElement } from 'react';
+import { Component, ReactElement } from 'react';
+
 
 // your typical style object given in props. Maps to a number or a spring config
 export type Style = { [key: string]: number | OpaqueConfig };

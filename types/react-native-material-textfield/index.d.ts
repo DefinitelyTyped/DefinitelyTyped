@@ -58,8 +58,8 @@ export interface TextFieldProps extends TextInputProps {
     onPress?(event: Event): void;
     onChangeText?(text: string): void;
 
-    renderLeftAccessory?(): React.JSX.Element;
-    renderRightAccessory?(): React.JSX.Element;
+    renderLeftAccessory?(): JSX.Element;
+    renderRightAccessory?(): JSX.Element;
 
     lineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
     disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
