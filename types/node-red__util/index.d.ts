@@ -160,7 +160,7 @@ declare namespace util {
          * @param msg - the message object to clone
          * @returns the cloned message
          */
-        cloneMessage<T extends registry.NodeMessage>(msg: T): T;
+        cloneMessage<TNodeMessage extends registry.NodeMessage>(msg: TNodeMessage): TNodeMessage;
         /**
          * Compares two objects, handling various JavaScript types.
          *
@@ -189,9 +189,9 @@ declare namespace util {
          * @param toString - whether to convert the returned array to a string
          * @returns the normalised expression
          */
-        normalisePropertyExpression(
+        normalisePropertyExpression<TNodeMessage extends registry.NodeMessage>(
             str: string,
-            msg?: { [key: string]: any },
+            msg?: TNodeMessage,
             toString?: boolean,
         ): Array<string | number> | string;
         /**
@@ -204,7 +204,7 @@ declare namespace util {
          * @param expr - the property expression
          * @returns the message property, or undefined if it does not exist
          */
-        getMessageProperty(msg: object, expr: string): any;
+        getMessageProperty<TNodeMessage extends registry.NodeMessage>(msg: TNodeMessage, expr: string): any;
         /**
          * Gets a property of an object.
          *
@@ -212,7 +212,7 @@ declare namespace util {
          * @param expr - the property expression
          * @returns the object property, or undefined if it does not exist
          */
-        getObjectProperty(msg: object, expr: string): any;
+        getObjectProperty<TNodeMessage extends registry.NodeMessage>(msg: TNodeMessage, expr: string): any;
         /**
          * Sets a property of a message object.
          *
@@ -224,7 +224,12 @@ declare namespace util {
          * @param  value         - the value to set
          * @param  createMissing - whether to create missing parent properties
          */
-        setMessageProperty(msg: object, prop: string, value: any, createMissing?: boolean): boolean;
+        setMessageProperty<TNodeMessage extends registry.NodeMessage>(
+            msg: TNodeMessage,
+            prop: string,
+            value: any,
+            createMissing?: boolean,
+        ): boolean;
         /**
          * Sets a property of an object.
          *
@@ -233,7 +238,12 @@ declare namespace util {
          * @param  value         - the value to set
          * @param  createMissing - whether to create missing parent properties
          */
-        setObjectProperty(msg: object, prop: string, value: any, createMissing?: boolean): boolean;
+        setObjectProperty<TNodeMessage extends registry.NodeMessage>(
+            msg: TNodeMessage,
+            prop: string,
+            value: any,
+            createMissing?: boolean,
+        ): boolean;
         /**
          * Get value of environment variable.
          * @param node - accessing node
@@ -272,12 +282,17 @@ declare namespace util {
          * @param   callback - (optional) called when the property is evaluated
          * @returns The evaluted property, if no `callback` is provided
          */
-        evaluateNodeProperty(value: string, type: string, node: registry.Node, msg: object): any;
-        evaluateNodeProperty(
+        evaluateNodeProperty<TNodeMessage extends registry.NodeMessage>(
             value: string,
             type: string,
             node: registry.Node,
-            msg: object,
+            msg: TNodeMessage,
+        ): any;
+        evaluateNodeProperty<TNodeMessage extends registry.NodeMessage>(
+            value: string,
+            type: string,
+            node: registry.Node,
+            msg: TNodeMessage,
             callback: (err: Error | null, result: any) => void,
         ): void;
         /**
@@ -299,10 +314,13 @@ declare namespace util {
          * @param   callback - (optional) called when the expression is evaluated
          * @returns If no callback was provided, the result of the expression
          */
-        evaluateJSONataExpression(expr: JsonataExpression, msg: object): any;
-        evaluateJSONataExpression(
+        evaluateJSONataExpression<TNodeMessage extends registry.NodeMessage>(
             expr: JsonataExpression,
-            msg: object,
+            msg: TNodeMessage,
+        ): any;
+        evaluateJSONataExpression<TNodeMessage extends registry.NodeMessage>(
+            expr: JsonataExpression,
+            msg: TNodeMessage,
             callback: (err: Error | null, resp: any) => void,
         ): void;
         /**

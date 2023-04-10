@@ -11,6 +11,7 @@
 
 import { LocalSettings as RuntimeLocalSettings } from '@node-red/runtime';
 import { I18nTFunction } from '@node-red/util';
+import * as registry from '@node-red/registry';
 
 declare const editorClient: editorClient.EditorClientModule;
 
@@ -957,7 +958,10 @@ declare namespace editorClient {
         createObjectElement(obj: any, options?: object): JQuery;
         getMessageProperty(msg: object, expr: string | string[]): any;
         setMessageProperty(msg: object, prop: string, value: any, createMissing?: boolean): null | undefined;
-        normalisePropertyExpression(str: string, msg?: { [key: string]: any }): Array<string | number>;
+        normalisePropertyExpression<TNodeMessage extends registry.NodeMessage>(
+            str: string,
+            msg?: TNodeMessage,
+        ): Array<string | number>;
         validatePropertyExpression(str: string): boolean;
         separateIconPath(icon?: string): {
             module: string;
