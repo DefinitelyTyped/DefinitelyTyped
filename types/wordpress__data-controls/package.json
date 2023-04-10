@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@wordpress/api-fetch": "^5.2.5"
+        "@wordpress/api-fetch": "^5.2.5",
+        "@wordpress/data": "^9.0.0"
     }
 }

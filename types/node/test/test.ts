@@ -1,17 +1,17 @@
 import { describe, it, run, test, before, beforeEach, after, afterEach } from 'node:test';
 
 // run without options
-// $ExpectType TapStream
+// $ExpectType TestsStream
 run();
 
 // run with partial options and boolean concurrency
-// $ExpectType TapStream
+// $ExpectType TestsStream
 run({
     concurrency: false,
 });
 
 // run with all options and number concurrency
-// $ExpectType TapStream
+// $ExpectType TestsStream
 run({
     concurrency: 1,
     files: ['test-file-name.js'],
@@ -20,7 +20,7 @@ run({
     inspectPort: () => 8081,
 });
 
-// TapStream should be a NodeJS.ReadableStream
+// TestsStream should be a NodeJS.ReadableStream
 run().pipe(process.stdout);
 
 test('foo', t => {

@@ -501,7 +501,8 @@ new ssh2.Client().connect({
         }
         sign(publicKey: string, data: Buffer, options: ssh2.SigningRequestOptions | ssh2.SignCallback, callback?: ssh2.SignCallback): void {
             const cb = typeof options === 'function' ? options : callback;
-            cb && cb(undefined, Buffer.concat([Buffer.from(publicKey), data]));
+            const hash = typeof options !== 'function' && options?.hash ? options.hash : 'sha1';
+            cb && cb(undefined, Buffer.concat([Buffer.from(hash), Buffer.from(publicKey), data]));
         }
     })()
 });

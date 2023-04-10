@@ -1194,10 +1194,10 @@ import { promisify } from 'node:util';
 }
 
 {
-    crypto.randomUUID({});
-    crypto.randomUUID({ disableEntropyCache: true });
-    crypto.randomUUID({ disableEntropyCache: false });
-    crypto.randomUUID();
+    crypto.randomUUID({}); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID({ disableEntropyCache: true }); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID({ disableEntropyCache: false }); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
 }
 
 {
@@ -1320,6 +1320,19 @@ import { promisify } from 'node:util';
     };
     crypto.createPublicKey({ key: jwk, format: 'jwk' });
     crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+    crypto.verify(
+        'ES256',
+        Buffer.from('asd'),
+        { key: jwk, format: 'jwk' },
+        Buffer.from('sig')
+    );
+    crypto.verify(
+        'ES256',
+        Buffer.from('asd'),
+        { key: jwk, format: 'jwk' },
+        Buffer.from('sig'),
+        (error: Error | null, result: boolean): void => {}
+    );
 }
 
 {
@@ -1373,7 +1386,7 @@ import { promisify } from 'node:util';
     const a: crypto.webcrypto.Crypto = crypto.webcrypto;
     const b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
 
-    crypto.webcrypto.randomUUID(); // $ExpectType string
+    crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
     crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
     // @ts-expect-error

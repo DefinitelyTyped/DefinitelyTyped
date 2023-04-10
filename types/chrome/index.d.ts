@@ -372,8 +372,25 @@ declare namespace chrome.alarms {
      * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
      * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
      * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
+     * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function create(alarmInfo: AlarmCreateInfo): void;
+    export function create(alarmInfo: AlarmCreateInfo): Promise<void>;
+    /**
+     * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+     * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+     * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+     * @param name Optional name to identify this alarm. Defaults to the empty string.
+     * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
+     * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function create(name: string, alarmInfo: AlarmCreateInfo): Promise<void>;
+    /**
+     * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+     * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+     * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+     * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
+     */
+    export function create(alarmInfo: AlarmCreateInfo, callback: () => void): void;
     /**
      * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
      * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
@@ -381,7 +398,7 @@ declare namespace chrome.alarms {
      * @param name Optional name to identify this alarm. Defaults to the empty string.
      * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
      */
-    export function create(name: string, alarmInfo: AlarmCreateInfo): void;
+    export function create(name: string, alarmInfo: AlarmCreateInfo, callback: () => void): void;
     /**
      * Gets an array of all the alarms.
      */
@@ -774,12 +791,12 @@ declare namespace chrome.browserAction {
         /** The string the browser action should display when moused over. */
         title: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number | undefined;
+        tabId?: number | null;
     }
 
     export interface TabDetails {
         /** Optional. Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned.  */
-        tabId?: number | undefined;
+        tabId?: number | null;
     }
 
     export interface TabIconDetails {
@@ -793,7 +810,7 @@ declare namespace chrome.browserAction {
 
     export interface PopupDetails {
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number | undefined;
+        tabId?: number | null;
         /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
@@ -806,15 +823,15 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function enable(tabId?: number): Promise<void>;
+    export function enable(tabId?: number | null): Promise<void>;
     /**
      * Since Chrome 22.
      * Enables the browser action for a tab. By default, browser actions are enabled.
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @param callback Supported since Chrome 67
      */
-    export function enable(callback: () => void): void;
-    export function enable(tabId: number, callback: () => void): void;
+    export function enable(callback?: () => void): void;
+    export function enable(tabId: number | null | undefined, callback?: () => void): void;
     /**
      * Sets the background color for the badge.
      * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -824,7 +841,7 @@ declare namespace chrome.browserAction {
      * Sets the background color for the badge.
      * @param callback Supported since Chrome 67
      */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback: () => void): void;
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
     /**
      * Sets the badge text for the browser action. The badge is displayed on top of the icon.
      * @return The `setBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -866,14 +883,14 @@ declare namespace chrome.browserAction {
      * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
      * @param callback Supported since Chrome 67
      */
-    export function setPopup(details: PopupDetails, callback: () => void): void;
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function disable(tabId?: number): Promise<void>;
+    export function disable(tabId?: number | null): Promise<void>;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
@@ -881,7 +898,7 @@ declare namespace chrome.browserAction {
      * @param callback Supported since Chrome 67
      */
     export function disable(callback: () => void): void;
-    export function disable(tabId: number, callback: () => void): void;
+    export function disable(tabId?: number | null, callback?: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the title of the browser action.
@@ -918,7 +935,7 @@ declare namespace chrome.browserAction {
     /**
      * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
      */
-    export function setIcon(details: TabIconDetails, callback: Function): void;
+    export function setIcon(details: TabIconDetails, callback?: Function): void;
 
     /** Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup. */
     export var onClicked: BrowserClickedEvent;
@@ -1720,7 +1737,7 @@ declare namespace chrome.contextMenus {
     /**
      * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
      * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
-     * @returns The ID of the newly created item.
+     * @return The ID of the newly created item.
      */
     export function create(createProperties: CreateProperties, callback?: () => void): number | string;
     /**
@@ -2117,7 +2134,7 @@ declare namespace chrome.declarativeContent {
         /**
          * Optional.
          * Since Chrome 45. Warning: this is the current Beta channel. More information available on the API documentation pages.
-         * Matches if the bookmarked state of the page is equal to the specified value. Requres the bookmarks permission.
+         * Matches if the bookmarked state of the page is equal to the specified value. Requires the bookmarks permission.
          */
         isBookmarked?: boolean | undefined;
     }
@@ -2642,8 +2659,18 @@ declare namespace chrome.devtools.panels {
      * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
      * @param callback A function that is called when the resource has been successfully loaded.
      */
-    export function openResource(url: string, lineNumber: number, callback: () => void): void;
-
+    export function openResource(url: string, lineNumber: number, callback?: () => void): void;
+    /**
+     * Since Chrome 96.
+     * Requests DevTools to open a URL in a Developer Tools panel.
+     * @param url The URL of the resource to open.
+     * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
+     * @param columnNumber Specifies the column number to scroll to when the resource is loaded.
+     * @param callback A function that is called when the resource has been successfully loaded.
+     */
+    export function openResource(
+      url: string, lineNumber: number, columnNumber: number, callback?: (response: unknown) => unknown,
+    ): void;
     /**
      * @since Chrome 59.
      * The name of the color theme set in user's DevTools settings.
@@ -2890,6 +2917,11 @@ declare namespace chrome.downloads {
         conflictAction?: string | undefined;
     }
 
+    export interface UiOptions {
+        /** Enable or disable the download UI. */
+        enabled: boolean;
+    }
+
     export interface DownloadChangedEvent extends chrome.events.Event<(downloadDelta: DownloadDelta) => void> { }
 
     export interface DownloadCreatedEvent extends chrome.events.Event<(downloadItem: DownloadItem) => void> { }
@@ -3026,6 +3058,19 @@ declare namespace chrome.downloads {
     export function drag(downloadId: number): void;
     /** Enable or disable the gray shelf at the bottom of every window associated with the current browser profile. The shelf will be disabled as long as at least one extension has disabled it. Enabling the shelf while at least one other extension has disabled it will return an error through runtime.lastError. Requires the "downloads.shelf" permission in addition to the "downloads" permission. */
     export function setShelfEnabled(enabled: boolean): void;
+    /**
+     * Change the download UI of every window associated with the current browser profile. As long as at least one extension has set UiOptions.enabled to false, the download UI will be hidden. Setting UiOptions.enabled to true while at least one other extension has disabled it will return an error through runtime.lastError. Requires the "downloads.ui" permission in addition to the "downloads" permission.
+     * @param options Encapsulate a change to the download UI.
+     * @since Chrome 105
+     */
+    export function setUiOptions(options: UiOptions): Promise<void>;
+    /**
+     * Change the download UI of every window associated with the current browser profile. As long as at least one extension has set UiOptions.enabled to false, the download UI will be hidden. Setting UiOptions.enabled to true while at least one other extension has disabled it will return an error through runtime.lastError. Requires the "downloads.ui" permission in addition to the "downloads" permission.
+     * @param options Encapsulate a change to the download UI.
+     * @param callback Called when the setUiOptions request is completed.
+     * @since Chrome 105
+     */
+    export function setUiOptions(options: UiOptions, callback: () => void): void;
 
     /** When any of a DownloadItem's properties except bytesReceived and estimatedEndTime changes, this event fires with the downloadId and an object containing the properties that changed. */
     export var onChanged: DownloadChangedEvent;
@@ -3187,7 +3232,7 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @since Chrome 82.
      * @description
      * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
-     * If the current user is not affiliated or no hostname has been set by the the enterprise policy, returns an empty string.
+     * If the current user is not affiliated or no hostname has been set by the enterprise policy, returns an empty string.
      * @param callback Called with the hostname of the device.
      */
     export function getDeviceHostname(callback: (hostname: string) => void): void;
@@ -3562,17 +3607,17 @@ declare namespace chrome.fileSystemProvider {
     }
 
     export interface EntryMetadata {
-        /** True if it is a directory. */
-        isDirectory: boolean;
-        /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. */
-        name: string;
-        /** File size in bytes. */
-        size: number;
-        /** The last modified time of this entry. */
-        modificationTime: Date;
-        /** Optional. Mime type for the entry.  */
+        /** True if it is a directory. Must be provided if requested in `options`. */
+        isDirectory?: boolean;
+        /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. Must be provided if requested in `options`. */
+        name?: string;
+        /** File size in bytes. Must be provided if requested in `options`. */
+        size?: number;
+        /** The last modified time of this entry. Must be provided if requested in `options`. */
+        modificationTime?: Date;
+        /** Optional. Mime type for the entry. Always optional, but should provided if requested in `options`. */
         mimeType?: string | undefined;
-        /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
+        /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event. */
         thumbnail?: string | undefined;
     }
 
@@ -3612,8 +3657,8 @@ declare namespace chrome.fileSystemProvider {
         fileSystemId: string;
         /** The unique identifier of this request. */
         requestId: number;
-        /** The path of the entry to return the list of actions for. */
-        entryPath: string;
+        /** List of paths of entries for the list of actions. */
+        entryPaths: string[];
     }
 
     /** @since Since Chrome 45. Warning: this is the current Beta channel. */
@@ -3630,14 +3675,14 @@ declare namespace chrome.fileSystemProvider {
         fileSystemId: string;
         /** The unique identifier of this request. */
         requestId: number;
-        /** The path of the entry to be used for the action. */
-        entryPath: string;
+        /** The set of paths of the entries to be used for the action. */
+        entryPaths: string[];
         /** The identifier of the action to be executed. */
         actionId: string;
     }
 
     export interface MountOptions {
-        /** The string indentifier of the file system. Must be unique per each extension. */
+        /** The string identifier of the file system. Must be unique per each extension. */
         fileSystemId: string;
         /** A human-readable name for the file system. */
         displayName: string;
@@ -3699,11 +3744,33 @@ declare namespace chrome.fileSystemProvider {
     export interface MetadataRequestedEventOptions extends EntryPathRequestedEventOptions {
         /** Set to true if the thumbnail is requested. */
         thumbnail: boolean;
+        /** Set to true if is_directory value is requested. */
+        isDirectory: boolean;
+        /** Set to true if name value is requested. */
+        name: boolean;
+        /** Set to true if size value is requested. */
+        size: boolean;
+        /** Set to true if modificationTime value is requested. */
+        modificationTime: boolean;
+        /** Set to true if mimeType value is requested. */
+        mimeType: boolean;
     }
 
     export interface DirectoryPathRequestedEventOptions extends RequestedEventOptions {
         /** The path of the directory which is to be operated on. */
         directoryPath: string;
+        /** Set to true if is_directory value is requested. */
+        isDirectory: boolean;
+        /** Set to true if name value is requested. */
+        name: boolean;
+        /** Set to true if size value is requested. */
+        size: boolean;
+        /** Set to true if modificationTime value is requested. */
+        modificationTime: boolean;
+        /** Set to true if mimeType value is requested. */
+        mimeType: boolean;
+        /** Set to true if the thumbnail is requested. */
+        thumbnail: boolean;
     }
 
     export interface FilePathRequestedEventOptions extends RequestedEventOptions {
@@ -3878,6 +3945,24 @@ declare namespace chrome.fileSystemProvider {
     export interface OptionlessRequestedEvent
         extends chrome.events.Event<(successCallback: Function, errorCallback: (error: string) => void) => void> { }
 
+    export interface GetActionsRequested
+        extends chrome.events.Event<
+            (
+                options: GetActionsRequestedOptions,
+                successCallback: (actions: Action[]) => void,
+                errorCallback: (error: string) => void,
+            ) => void
+        > {}
+
+    export interface ExecuteActionRequested
+        extends chrome.events.Event<
+            (
+                options: ExecuteActionRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (error: string) => void,
+            ) => void
+        > {}
+
     /**
      * Mounts a file system with the given fileSystemId and displayName. displayName will be shown in the left panel of Files.app. displayName can contain any characters including '/', but cannot be an empty string. displayName must be descriptive but doesn't have to be unique. The fileSystemId must not be an empty string.
      * Depending on the type of the file system being mounted, the source option must be set appropriately.
@@ -3961,6 +4046,23 @@ declare namespace chrome.fileSystemProvider {
      * @since Since Chrome 45. Warning: this is the current Beta channel.
      */
     export var onRemoveWatcherRequested: EntryPathRecursiveRequestedEvent;
+
+    /**
+     * Raised when a list of actions for a set of files or directories at
+     * `entryPaths` is requested. All of the returned actions must
+     * be applicable to each entry. If there are no such actions, an empty array
+     * should be returned. The actions must be returned with the
+     * `successCallback` call. In case of an error,
+     * `errorCallback` must be called.
+     */
+    export var onGetActionsRequested: GetActionsRequested;
+
+    /**
+     * Raised when executing an action for a set of files or directories is
+     * requested. After the action is completed, `successCallback`
+     * must be called. On error, `errorCallback` must be called.
+     */
+    export var onExecuteActionRequested: ExecuteActionRequested;
 }
 
 ////////////////////
@@ -4698,7 +4800,7 @@ declare namespace chrome.input.ime {
         altgrKey?: boolean | undefined;
         /**
          * Optional.
-         * The ID of the request.
+         * The ID of the request. Use the requestId param from the onKeyEvent event instead.
          * @deprecated since Chrome 79.
          */
         requestId?: string | undefined;
@@ -4975,7 +5077,7 @@ declare namespace chrome.input.ime {
     export interface CandidateClickedEvent
         extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> { }
 
-    export interface KeyEventEvent extends chrome.events.Event<(engineID: string, keyData: KeyboardEvent) => void> { }
+    export interface KeyEventEvent extends chrome.events.Event<(engineID: string, keyData: KeyboardEvent, requestId: string) => void> { }
 
     export interface DeactivatedEvent extends chrome.events.Event<(engineID: string) => void> { }
 
@@ -5101,7 +5203,7 @@ declare namespace chrome.input.ime {
     export var onKeyEvent: KeyEventEvent;
     /** This event is sent when an IME is deactivated. It signals that the IME will no longer be receiving onKeyPress events. */
     export var onDeactivated: DeactivatedEvent;
-    /** This event is sent when the properties of the current InputContext change, such as the the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
+    /** This event is sent when the properties of the current InputContext change, such as the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
     export var onInputContextUpdate: InputContextUpdateEvent;
     /** This event is sent when an IME is activated. It signals that the IME will be receiving onKeyPress events. */
     export var onActivate: ActivateEvent;
@@ -6321,7 +6423,7 @@ declare namespace chrome.proxy {
         proxyForFtp?: ProxyServer | undefined;
         /** Optional. The proxy server to be used for HTTP requests. */
         proxyForHttp?: ProxyServer | undefined;
-        /** Optional. The proxy server to be used for everthing else or if any of the specific proxyFor... is not specified. */
+        /** Optional. The proxy server to be used for everything else or if any of the specific proxyFor... is not specified. */
         fallbackProxy?: ProxyServer | undefined;
         /** Optional. The proxy server to be used for all per-URL requests (that is http, https, and ftp). */
         singleProxy?: ProxyServer | undefined;
@@ -6501,7 +6603,7 @@ declare namespace chrome.serial {
      * @description Update the option settings on an open serial port connection.
      * @param connectionId The id of the opened connection.
      * @param options Port configuration options.
-     * @param callback Called when the configuation has completed.
+     * @param callback Called when the configuration has completed.
      */
     export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean) => void): void;
 
@@ -6837,6 +6939,8 @@ declare namespace chrome.runtime {
         | 'desktopCapture'
         | 'documentScan'
         | 'downloads'
+        | 'downloads.shelf'
+        | 'downloads.ui'
         | 'enterprise.deviceAttributes'
         | 'enterprise.hardwarePlatform'
         | 'enterprise.networkingAttributes'
@@ -6856,6 +6960,7 @@ declare namespace chrome.runtime {
         | 'management'
         | 'nativeMessaging'
         | 'notifications'
+        | 'offscreen'
         | 'pageCapture'
         | 'platformKeys'
         | 'power'
@@ -7137,7 +7242,7 @@ declare namespace chrome.runtime {
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
     /**
      * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file.
-     * @returns The manifest details.
+     * @return The manifest details.
      */
     export function getManifest(): Manifest;
     /**
@@ -8209,7 +8314,7 @@ declare namespace chrome.system.display {
          * This is has no effect if not provided.
          * @see(See `enableUnifiedDesktop` for details).
          * @since Chrome 59
-         * */
+         */
         isUnified?: boolean | undefined;
 
         /**
@@ -8366,7 +8471,7 @@ declare namespace chrome.system.display {
         /**
          * The ratio between the display's current and default zoom.
          * For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
-         * */
+         */
         displayZoomFactor: number;
     }
 
@@ -9685,7 +9790,7 @@ declare namespace chrome.tabs {
      * Gets the current zoom settings of a specified tab.
      * @since Chrome 42.
      * @param callback Called with the tab's current zoom settings.
-     * Paramater zoomSettings: The tab's current zoom settings.
+     * Parameter zoomSettings: The tab's current zoom settings.
      */
     export function getZoomSettings(callback: (zoomSettings: ZoomSettings) => void): void;
     /**
@@ -9699,7 +9804,7 @@ declare namespace chrome.tabs {
      * @since Chrome 42.
      * @param tabId Optional. The ID of the tab to get the current zoom settings from; defaults to the active tab of the current window.
      * @param callback Called with the tab's current zoom settings.
-     * Paramater zoomSettings: The tab's current zoom settings.
+     * Parameter zoomSettings: The tab's current zoom settings.
      */
     export function getZoomSettings(tabId: number, callback: (zoomSettings: ZoomSettings) => void): void;
     /**
@@ -9725,26 +9830,26 @@ declare namespace chrome.tabs {
     export function discard(callback: (tab: Tab) => void): void;
     export function discard(tabId: number, callback: (tab: Tab) => void): void;
     /**
-     * Go foward to the next page, if one is available.
+     * Go forward to the next page, if one is available.
      * @since Chrome 72.
      * @return The `goForward` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
     export function goForward(): Promise<void>;
     /**
-     * Go foward to the next page, if one is available.
+     * Go forward to the next page, if one is available.
      * @since Chrome 72.
      * @param callback Optional. Called after the operation is completed.
      */
     export function goForward(callback: () => void): void;
     /**
-     * Go foward to the next page, if one is available.
+     * Go forward to the next page, if one is available.
      * @since Chrome 72.
      * @param tabId Optional. The ID of the tab to navigate forward; defaults to the selected tab of the current window.
      * @return The `goForward` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
     export function goForward(tabId: number): Promise<void>;
     /**
-     * Go foward to the next page, if one is available.
+     * Go forward to the next page, if one is available.
      * @since Chrome 72.
      * @param tabId Optional. The ID of the tab to navigate forward; defaults to the selected tab of the current window.
      * @param callback Optional. Called after the operation is completed.
@@ -10441,8 +10546,16 @@ declare namespace chrome.webNavigation {
     export interface GetFrameResultDetails {
         /** The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that an URL is associated with a given frameId does not imply that the corresponding frame still exists. */
         url: string;
+        /** A UUID of the document loaded. */
+        documentId: string;
+        /** The lifecycle the document is in. */
+        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
         /** True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired. */
         errorOccurred: boolean;
+        /** The type of frame the navigation occurred in. */
+        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
+        parentDocumentId?: string | undefined;
         /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
         parentFrameId: number;
     }
@@ -10478,6 +10591,14 @@ declare namespace chrome.webNavigation {
     export interface WebNavigationFramedCallbackDetails extends WebNavigationUrlCallbackDetails {
         /** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process. */
         frameId: number;
+        /** The type of frame the navigation occurred in. */
+        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        /** A UUID of the document loaded. (This is not set for onBeforeNavigate callbacks.) */
+        documentId?: string | undefined;
+        /** The lifecycle the document is in. */
+        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
+        parentDocumentId?: string | undefined;
         /**
          * The ID of the process runs the renderer for this tab.
          * @since Chrome 22.
@@ -11513,7 +11634,7 @@ declare namespace chrome.declarativeNetRequest {
         type: RuleActionType;
     }
 
-    export type RuleCondition = {
+    export interface RuleCondition {
         /**
          * Specifies whether the network request is first-party or third-party to the domain from which it originated.
          * If omitted, all requests are accepted.
@@ -11679,26 +11800,15 @@ declare namespace chrome.declarativeNetRequest {
          * For example, when the request url is http://abc.рф?q=ф, the urlFilter will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
          */
         urlFilter?: string | undefined;
-    } & (
-            | {
-                /**
-                 * List of resource types which the rule won't match.
-                 * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
-                 * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
-                 * If neither of them is specified, all resource types except "main_frame" are blocked.
-                 */
-                excludedResourceTypes?: ResourceType[] | undefined;
-            }
-            | {
-                /**
-                 * List of resource types which the rule can match.
-                 * An empty list is not allowed.
-                 *
-                 * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
-                 */
-                resourceTypes?: ResourceType[] | undefined;
-            }
-        );
+
+        /**
+         * List of resource types which the rule can match.
+         * An empty list is not allowed.
+         *
+         * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+         */
+        resourceTypes?: ResourceType[] | undefined;
+    }
 
     export interface MatchedRule {
         /** A matching rule's ID. */
@@ -11803,11 +11913,11 @@ declare namespace chrome.declarativeNetRequest {
          */
         isCaseSensitive?: boolean | undefined;
 
-        /** The regular expresson to check. */
+        /** The regular expression to check. */
         regex: string;
 
         /** Whether the regex specified requires capturing.
-         * Capturing is only required for redirect rules which specify a regexSubstition action.
+         * Capturing is only required for redirect rules which specify a regexSubstitution action.
          * The default is false.
          */
         requireCapturing?: boolean | undefined;
@@ -11914,7 +12024,7 @@ declare namespace chrome.declarativeNetRequest {
     /**
      * Returns the number of static rules an extension can enable before the global static rule limit is reached.
      * @return The `getAvailableStaticRuleCount` method provides its result via callback or returned as a `Promise` (MV3 only).
-     * */
+     */
     export function getAvailableStaticRuleCount(): Promise<number>;
 
     /** Returns the current set of dynamic rules for the extension.

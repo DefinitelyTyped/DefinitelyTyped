@@ -288,7 +288,7 @@ export interface SaveCredentialsParams {
 
 export class CredentialsManager {
     constructor(domain: string, clientId: string);
-    saveCredentials(params: SaveCredentialsParams): boolean;
+    saveCredentials(params: SaveCredentialsParams): Promise<boolean>;
     getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
     requireLocalAuthentication(
         title?: string,
@@ -323,7 +323,7 @@ export class Auth0ContextInterface {
     user: any;
     error: BaseError | null;
     isLoading: boolean;
-    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
+    authorize(parameters?: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
     clearSession(): Promise<void>;
     getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
     clearCredentials(): Promise<void>;

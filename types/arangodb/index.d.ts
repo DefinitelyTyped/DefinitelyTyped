@@ -1294,17 +1294,20 @@ declare namespace Foxx {
         queryParam(name: string, schema: Schema, description?: string): this;
         queryParam(name: string, description: string): this;
         body(
+            // eslint-disable-next-line no-single-element-tuple-type
             schema: Schema | Model | [Model],
             mimes?: string[],
             description?: string
         ): this;
         body(
+            // eslint-disable-next-line no-single-element-tuple-type
             schemaOrMimes: Schema | Model | [Model] | string[],
             description?: string
         ): this;
         body(description: string): this;
         response(
             status: number | ArangoDB.HttpStatus,
+            // eslint-disable-next-line no-single-element-tuple-type
             schema: Schema | Model | [Model],
             mimes?: string[],
             description?: string
@@ -1515,7 +1518,7 @@ declare module "@arangodb/foxx/queues" {
     }
 
     interface Queue {
-        push(item: QueueItem, data: any, opts?: JobOptions): void;
+        push(item: QueueItem, data: any, opts?: JobOptions): string;
         get(jobId: string): ArangoDB.Document<Job>;
         delete(jobId: string): boolean;
         pending(script?: Script): string[];

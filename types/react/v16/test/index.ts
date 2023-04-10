@@ -9,6 +9,7 @@ import shallowCompare = require("react-addons-shallow-compare");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
+import 'trusted-types';
 
 // NOTE: forward declarations for tests
 declare function setInterval(...args: any[]): any;
@@ -524,6 +525,18 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
 DOM.div(htmlAttr);
 DOM.span(htmlAttr);
 DOM.input(htmlAttr);
+
+declare const window: Window;
+const trustedTypes = window.trustedTypes!;
+const trustedHtml = trustedTypes.emptyHTML;
+
+const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
+    dangerouslySetInnerHTML: {
+        __html: trustedHtml
+    }
+};
+DOM.div(trustedTypesHTMLAttr);
+DOM.span(trustedTypesHTMLAttr);
 
 DOM.svg({
     viewBox: "0 0 48 48",

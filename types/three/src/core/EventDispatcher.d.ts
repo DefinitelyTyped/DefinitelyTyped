@@ -13,12 +13,28 @@ export type EventListener<E, T, U> = (event: E & { type: T } & { target: U }) =>
 
 /**
  * JavaScript events for custom objects
- *
- * @source src/core/EventDispatcher.js
+ * @example
+ * ```typescript
+ * // Adding events to a custom object
+ * class Car extends EventDispatcher {
+ *   start() {
+ *     this.dispatchEvent( { type: 'start', message: 'vroom vroom!' } );
+ *   }
+ * };
+ * // Using events with the custom object
+ * const car = new Car();
+ * car.addEventListener( 'start', ( event ) => {
+ *   alert( event.message );
+ * } );
+ * car.start();
+ * ```
+ * @see {@link https://github.com/mrdoob/eventdispatcher.js | mrdoob EventDispatcher on GitHub}
+ * @see {@link https://threejs.org/docs/index.html#api/en/core/EventDispatcher | Official Documentation}
+ * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/EventDispatcher.js | Source}
  */
 export class EventDispatcher<E extends BaseEvent = Event> {
     /**
-     * Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+     * Creates {@link THREE.EventDispatcher | EventDispatcher} object.
      */
     constructor();
 
@@ -45,7 +61,7 @@ export class EventDispatcher<E extends BaseEvent = Event> {
 
     /**
      * Fire an event type.
-     * @param type The type of event that gets fired.
+     * @param event The event that gets fired.
      */
     dispatchEvent(event: E): void;
 }

@@ -272,7 +272,7 @@ iterateMentionsMarkup(
     },
 );
 
-// $ExpectType ("foo" | "bar")[]
+// $ExpectType ("foo" | "bar")[] || ("bar" | "foo")[]
 keys({ foo: 'value', bar: 'value' });
 
 // $ExpectType RegExp

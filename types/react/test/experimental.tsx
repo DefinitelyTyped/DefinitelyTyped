@@ -2,6 +2,12 @@
 
 import React = require('react');
 
+// NOTE: forward declarations for tests
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
+}
+
 function suspenseTest() {
     function DisplayData() {
         return null;
@@ -36,3 +42,32 @@ function suspenseTest() {
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.SuspenseList>;
+
+function useEvent() {
+    // Implicit any
+    // @ts-expect-error
+    const anyEvent = React.experimental_useEffectEvent(value => {
+        // $ExpectType any
+        return value;
+    });
+    // $ExpectType any
+    anyEvent({});
+    // $ExpectType (value: string) => number
+    const typedEvent = React.experimental_useEffectEvent((value: string) => {
+        return Number(value);
+    });
+    // $ExpectType number
+    typedEvent('1');
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // @ts-expect-error
+    typedEvent({});
+
+    function useContextuallyTypedEvent(fn: (event: Event) => string) {}
+    useContextuallyTypedEvent(
+        React.experimental_useEffectEvent(event => {
+            // $ExpectType Event
+            event;
+            return String(event);
+        }),
+    );
+}

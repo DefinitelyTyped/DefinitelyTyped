@@ -383,6 +383,11 @@ const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: 
 const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
 const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
 const divRef = React.createRef<HTMLDivElement>();
+/**
+ * This should be fine to give React to manage i.e. pass it to `<div ref />`.
+ * However, TypeScript has no notion of write-only properties: https://github.com/microsoft/TypeScript/issues/21759
+ */
+const badlyAuthoredRef: React.RefObject<HTMLDivElement | null | undefined> = { current: undefined };
 
 <ForwardRef ref={divFnRef}/>;
 <ForwardRef ref={divRef}/>;
@@ -392,6 +397,8 @@ const divRef = React.createRef<HTMLDivElement>();
 <ForwardRef2 ref={divRef}/>;
 // @ts-expect-error
 <ForwardRef2 ref='string'/>;
+// @ts-expect-error Undesired behavior
+<ForwardRef2 ref={badlyAuthoredRef} />;
 
 const htmlElementFnRef = (instance: HTMLElement | null) => {};
 const htmlElementRef = React.createRef<HTMLElement>();
@@ -720,4 +727,50 @@ function elementTypeTests() {
     React.createElement(ReturnReactNode);
     <RenderReactNode />;
     React.createElement(RenderReactNode);
+}
+
+function managingRefs() {
+    const genericRefBad = React.useRef<Element>();
+    // $ExpectType Element | undefined
+    genericRefBad.current;
+    const genericRef = React.useRef<Element>(null);
+    // $ExpectType Element | null
+    genericRef.current;
+
+    const inputRefBad = React.useRef<HTMLInputElement>();
+    // $ExpectType HTMLInputElement | undefined
+    inputRefBad.current;
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    // $ExpectType HTMLInputElement | null
+    inputRef.current;
+
+    // @ts-expect-error: Type 'undefined' is not assignable to type 'HTMLInputElement | null'
+    <input ref={genericRefBad} />;
+    <input ref={genericRef} />;
+    // @ts-expect-error: Type 'undefined' is not assignable to type 'HTMLInputElement | null'
+    <input ref={inputRefBad} />;
+    <input ref={inputRef} />;
+    // @ts-expect-error: Type 'undefined' is not assignable to type 'HTMLInputElement | null'
+    <div ref={inputRefBad} />;
+    // Undesired. Should not typecheck since
+    // `inputRef.current` will contain `HTMLDivElement | null` at runtime
+    // while it has `HTMLInputElement | null` at compiletime.
+    <div ref={inputRef} />;
+
+    const ElementComponent = React.forwardRef<Element>((_, ref) => {
+        if (typeof ref === 'object' && ref !== null) {
+            // $ExpectType Element | null
+            ref.current;
+        }
+        return <div ref={ref} />;
+    });
+    // @ts-expect-error Type 'undefined' is not assignable to type 'Element | null'
+    <ElementComponent ref={genericRefBad} />;
+    <ElementComponent ref={genericRef} />;
+    // @ts-expect-error Type 'undefined' is not assignable to type 'Element | null'
+    <ElementComponent ref={inputRefBad} />;
+    // Undesired, should not typecheck since
+    // `inputRef.current` will contain `Element | null` at runtime
+    // while it has `HTMLInputElement | null` at compiletime.
+    <ElementComponent ref={inputRef} />;
 }

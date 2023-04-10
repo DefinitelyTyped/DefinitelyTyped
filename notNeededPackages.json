@@ -1281,6 +1281,10 @@
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
         },
+        "esm-utils": {
+            "libraryName": "esm-utils",
+            "asOfVersion": "2.0.1"
+        },
         "ethereumjs-tx": {
             "libraryName": "ethereumjs-tx",
             "asOfVersion": "2.0.0"
@@ -1472,6 +1476,10 @@
         "fetch-jsonp": {
             "libraryName": "fetch-jsonp",
             "asOfVersion": "1.1.0"
+        },
+        "fhir-kit-client": {
+            "libraryName": "fhir-kit-client",
+            "asOfVersion": "1.6.7"
         },
         "figures": {
             "libraryName": "figures",
@@ -1976,6 +1984,10 @@
         "http-status-codes": {
             "libraryName": "http-status-codes",
             "asOfVersion": "1.2.0"
+        },
+        "human-object-diff": {
+            "libraryName": "human-object-diff",
+            "asOfVersion": "3.0.0"
         },
         "humanize-string": {
             "libraryName": "humanize-string",
@@ -2788,6 +2800,10 @@
         "lru-cache": {
             "libraryName": "lru-cache",
             "asOfVersion": "7.10.0"
+        },
+        "lz-string": {
+            "libraryName": "lz-string",
+            "asOfVersion": "1.5.0"
         },
         "make-dir": {
             "libraryName": "make-dir",
@@ -4283,6 +4299,10 @@
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
         },
+        "react-datetime-picker": {
+            "libraryName": "react-datetime-picker",
+            "asOfVersion": "5.0.0"
+        },
         "react-daum-postcode": {
             "libraryName": "react-daum-postcode",
             "asOfVersion": "1.6.1"
@@ -4583,6 +4603,10 @@
             "libraryName": "react-rnd",
             "asOfVersion": "8.0.0"
         },
+        "react-router-native": {
+            "libraryName": "react-router-native",
+            "asOfVersion": "6.4.0"
+        },
         "react-scrollbar-size": {
             "libraryName": "react-scrollbar-size",
             "asOfVersion": "3.0.0"
@@ -4634,6 +4658,10 @@
         "react-textarea-autosize": {
             "libraryName": "react-textarea-autosize",
             "asOfVersion": "8.0.0"
+        },
+        "react-time-picker": {
+            "libraryName": "react-time-picker",
+            "asOfVersion": "6.0.0"
         },
         "react-toast-notifications": {
             "libraryName": "react-toast-notifications",
@@ -4942,6 +4970,10 @@
         "sanitize-filename": {
             "libraryName": "sanitize-filename",
             "asOfVersion": "1.6.3"
+        },
+        "sass": {
+            "libraryName": "sass",
+            "asOfVersion": "1.45.0"
         },
         "sass-webpack-plugin": {
             "libraryName": "sass-webpack-plugin",
@@ -5966,6 +5998,18 @@
         "wordpress__blob": {
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
+        },
+        "wordpress__compose": {
+            "libraryName": "@wordpress/compose",
+            "asOfVersion": "6.1.0"
+        },
+        "wordpress__core-data": {
+            "libraryName": "@wordpress/core-data",
+            "asOfVersion": "5.0.0"
+        },
+        "wordpress__data": {
+            "libraryName": "@wordpress/data",
+            "asOfVersion": "7.0.0"
         },
         "wordpress__dependency-extraction-webpack-plugin": {
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",

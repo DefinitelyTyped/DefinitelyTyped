@@ -62,7 +62,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
    */
   ListEmptyComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 
@@ -71,7 +71,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
    */
   ListFooterComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 
@@ -85,7 +85,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
    */
   ListHeaderComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 
@@ -99,7 +99,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
    */
   SectionSeparatorComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 
