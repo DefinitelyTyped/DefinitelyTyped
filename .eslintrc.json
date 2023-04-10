@@ -1,0 +1,31 @@
+{
+    "root": true,
+    "extends": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "warnOnUnsupportedTypeScriptVersion": false,
+        "project": ["./tsconfig.json"]
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+      "dt-header": "error",
+      "export-just-namespace": "error",
+      "no-any-union": "error",
+      "no-bad-reference": "error",
+      "no-const-enum": "error",
+      "no-dead-reference": "error",
+      "no-declare-current-package": "error",
+      "no-import-default-of-export-equals": "error",
+      "no-outside-dependencies": "error",
+      "no-self-import": "error",
+      "no-single-element-tuple-type": "error",
+      "no-unnecessary-generics": "error",
+      "no-useless-files": "error",
+      "prefer-declare-function": "error",
+      "redundant-undefined": "error",
+      "trim-file": "error"
+    }
+}
