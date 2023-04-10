@@ -1382,6 +1382,9 @@ declare namespace React {
     interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     }
 
+    interface SVGLineElementAttributes<T> extends SVGProps<T> {}
+    interface SVGTextElementAttributes<T> extends SVGProps<T> {}
+
     interface DOMAttributes<T> {
         children?: ReactNode | undefined;
         dangerouslySetInnerHTML?: {
@@ -3346,7 +3349,7 @@ declare global {
             foreignObject: React.SVGProps<SVGForeignObjectElement>;
             g: React.SVGProps<SVGGElement>;
             image: React.SVGProps<SVGImageElement>;
-            line: React.SVGProps<SVGLineElement>;
+            line: React.SVGLineElementAttributes<SVGLineElement>;
             linearGradient: React.SVGProps<SVGLinearGradientElement>;
             marker: React.SVGProps<SVGMarkerElement>;
             mask: React.SVGProps<SVGMaskElement>;
@@ -3361,7 +3364,7 @@ declare global {
             stop: React.SVGProps<SVGStopElement>;
             switch: React.SVGProps<SVGSwitchElement>;
             symbol: React.SVGProps<SVGSymbolElement>;
-            text: React.SVGProps<SVGTextElement>;
+            text: React.SVGTextElementAttributes<SVGTextElement>;
             textPath: React.SVGProps<SVGTextPathElement>;
             tspan: React.SVGProps<SVGTSpanElement>;
             use: React.SVGProps<SVGUseElement>;
