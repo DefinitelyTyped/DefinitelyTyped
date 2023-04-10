@@ -176,10 +176,20 @@ declare namespace util {
          *
          * For example, `a["b"].c` returns `['a','b','c']`
          *
+         * If `msg` is provided, any internal cross-references will be evaluated against that
+         * object. Otherwise, it will return a nested set of properties
+         *
+         * For example, without msg set, 'a[msg.foo]' returns `['a', [ 'msg', 'foo'] ]`
+         * But if msg is set to '{"foo": "bar"}', 'a[msg.foo]' returns `['a', 'bar' ]`
+         *
+         * If `toString` is set to true, the returned array will be converted to a string
+         *
          * @param str - the property expression
+         * @param msg - the message object to use for cross-references
+         * @param toString - whether to convert the returned array to a string
          * @returns the normalised expression
          */
-        normalisePropertyExpression(str: string): Array<string | number>;
+        normalisePropertyExpression(str: string, msg? : {[key: string]: any}, toString?: boolean): Array<string | number> | string;
         /**
          * Gets a property of a message object.
          *

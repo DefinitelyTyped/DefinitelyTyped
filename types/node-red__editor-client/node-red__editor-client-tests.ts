@@ -402,3 +402,11 @@ function nodeRedPluginTests(RED: editorClient.RED) {
     };
     RED.plugins.registerPlugin('my-plugin', myPluginDef);
 }
+
+function nodeRedUtilsTests(RED: editorClient.RED) {
+    // $ExpectType (string | number)[]
+    RED.utils.normalisePropertyExpression('a["b"].c');
+
+    // $ExpectType (string | number)[]
+    RED.utils.normalisePropertyExpression('a["b"].c', {"foo": "bar"});
+}
