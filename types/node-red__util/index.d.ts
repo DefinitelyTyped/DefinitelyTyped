@@ -189,7 +189,11 @@ declare namespace util {
          * @param toString - whether to convert the returned array to a string
          * @returns the normalised expression
          */
-        normalisePropertyExpression(str: string, msg? : {[key: string]: any}, toString?: boolean): Array<string | number> | string;
+        normalisePropertyExpression(
+            str: string,
+            msg?: { [key: string]: any },
+            toString?: boolean,
+        ): Array<string | number> | string;
         /**
          * Gets a property of a message object.
          *

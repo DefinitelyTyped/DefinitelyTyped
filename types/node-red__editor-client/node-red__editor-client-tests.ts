@@ -408,5 +408,5 @@ function nodeRedUtilsTests(RED: editorClient.RED) {
     RED.utils.normalisePropertyExpression('a["b"].c');
 
     // $ExpectType (string | number)[]
-    RED.utils.normalisePropertyExpression('a["b"].c', {"foo": "bar"});
+    RED.utils.normalisePropertyExpression('a["b"].c', { foo: 'bar' });
 }

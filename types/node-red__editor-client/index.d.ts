@@ -957,7 +957,7 @@ declare namespace editorClient {
         createObjectElement(obj: any, options?: object): JQuery;
         getMessageProperty(msg: object, expr: string | string[]): any;
         setMessageProperty(msg: object, prop: string, value: any, createMissing?: boolean): null | undefined;
-        normalisePropertyExpression(str: string, msg? : {[key: string]: any}): Array<string | number>;
+        normalisePropertyExpression(str: string, msg?: { [key: string]: any }): Array<string | number>;
         validatePropertyExpression(str: string): boolean;
         separateIconPath(icon?: string): {
             module: string;
