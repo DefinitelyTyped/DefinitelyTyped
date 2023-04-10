@@ -75,16 +75,16 @@ function utilTests(someNode: Node) {
     // $ExpectType boolean
     util.compareObjects({}, {});
 
-    // $ExpectType (string | number)[]
+    // $ExpectType string | (string | number)[]
     util.normalisePropertyExpression('a["b"].c');
 
-    // $ExpectType (string | number)[]
+    // $ExpectType string | (string | number)[]
     util.normalisePropertyExpression('a["b"].c', { foo: 'bar' });
 
-    // $ExpectType string
+    // $ExpectType string | (string | number)[]
     util.normalisePropertyExpression('a["b"].c', { foo: 'bar' }, true);
 
-    // $ExpectType (string | number)[]
+    // $ExpectType string | (string | number)[]
     util.normalisePropertyExpression('a["b"].c', { foo: 'bar' }, false);
 
     // $ExpectType any
