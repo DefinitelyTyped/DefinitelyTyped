@@ -3,7 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
-//                 Lucas Motta <https://github.com/lucasmotta>
 //                 Tom Xu <https://github.com/hengkx>
 //                 Leo Toneff <https://github.com/bragle>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
