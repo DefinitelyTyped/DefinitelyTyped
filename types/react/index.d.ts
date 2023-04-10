@@ -1385,7 +1385,9 @@ declare namespace React {
     interface DOMAttributes<T> {
         children?: ReactNode | undefined;
         dangerouslySetInnerHTML?: {
-            __html: string;
+            // Should be InnerHTML['innerHTML'].
+            // But unfortunately we're mixing renderer-specific type declarations.
+            __html: string | TrustedHTML;
         } | undefined;
 
         // Clipboard Events
