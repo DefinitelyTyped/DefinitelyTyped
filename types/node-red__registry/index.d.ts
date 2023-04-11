@@ -3,7 +3,7 @@
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 //                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// Minimum TypeScript Version: 4.7
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction, Express } from 'express';
@@ -123,7 +123,10 @@ declare namespace registry {
          * @param definition - the definition object of the plugin
          */
         // eslint-disable-next-line no-unnecessary-generics
-        registerPlugin<TPluginDef extends PluginDef = PluginDef>(id: string, definition: PluginDefinition<TPluginDef>): void;
+        registerPlugin<TPluginDef extends PluginDef = PluginDef>(
+            id: string,
+            definition: PluginDefinition<TPluginDef>,
+        ): void;
 
         /**
          * Returns the plugin definition for the given id

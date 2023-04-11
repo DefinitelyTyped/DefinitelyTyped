@@ -1,6 +1,7 @@
 // tslint:disable:space-before-function-paren
 
-import * as editorClient from './';
+import editorClient = require('@node-red/editor-client');
+import { NodeMessage } from '@node-red/registry';
 
 function redTests(RED: editorClient.RED) {
     interface MyNodeProperties extends editorClient.NodeProperties {
@@ -404,9 +405,16 @@ function nodeRedPluginTests(RED: editorClient.RED) {
 }
 
 function nodeRedUtilsTests(RED: editorClient.RED) {
+    interface SomeNodeMsg extends NodeMessage {
+        key: string;
+    }
+    const msg: SomeNodeMsg = {
+        key: 'value',
+    };
+
     // $ExpectType (string | number)[]
     RED.utils.normalisePropertyExpression('a["b"].c');
 
     // $ExpectType (string | number)[]
-    RED.utils.normalisePropertyExpression('a[msg.foo]', { foo: 'bar', payload: {} });
+    RED.utils.normalisePropertyExpression('a[msg.foo]', msg);
 }

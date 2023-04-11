@@ -1,4 +1,4 @@
-import * as utilModule from './';
+import utilModule = require('@node-red/util');
 import { EventEmitter } from 'events';
 import { NodeMessage, Node } from '@node-red/registry';
 
@@ -75,17 +75,17 @@ function utilTests(someNode: Node) {
     // $ExpectType boolean
     util.compareObjects({}, {});
 
-    // $ExpectType string | (string | number)[]
+    // $ExpectType (string | number)[]
     util.normalisePropertyExpression('a["b"].c');
 
-    // $ExpectType string | (string | number)[]
-    util.normalisePropertyExpression('a[msg.foo]', { foo: 'bar', payload: {} });
+    // $ExpectType (string | number)[]
+    util.normalisePropertyExpression('a[msg.foo]', msg);
 
-    // $ExpectType string | (string | number)[]
-    util.normalisePropertyExpression('a[msg.foo]', { foo: 'bar', payload: {} }, true);
+    // $ExpectType string
+    util.normalisePropertyExpression('a[msg.foo]', msg, true);
 
-    // $ExpectType string | (string | number)[]
-    util.normalisePropertyExpression('a[msg.foo]', { foo: 'bar', payload: {} }, false);
+    // $ExpectType (string | number)[]
+    util.normalisePropertyExpression('a[msg.foo]', msg, false);
 
     // $ExpectType any
     util.getMessageProperty({}, 'key');
