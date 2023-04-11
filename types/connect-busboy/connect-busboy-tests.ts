@@ -1,6 +1,6 @@
-import connectBusboy = require('connect-busboy');
-
+import connectBusboy from 'connect-busboy';
 import * as express from 'express';
+import internal from 'stream';
 
 const options: connectBusboy.ConnectBusboyOptions = { headers: { 'content-type': 'foo' }, immediate: true };
 const options2: connectBusboy.ConnectBusboyOptions = { immediate: true };
@@ -10,5 +10,5 @@ const app = express();
 
 app.use(connectBusboy());
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-    req.busboy.on('file', () => {});
+    req.busboy.on('file', (name: string, stream: internal.Readable, info: connectBusboy.FileInfo) => {});
 });
