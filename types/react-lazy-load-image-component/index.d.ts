@@ -45,7 +45,7 @@ export interface CommonProps {
     scrollPosition?: ScrollPosition | undefined;
 }
 
-export interface LazyLoadImageProps extends CommonProps, Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onload'>  {
+export interface LazyLoadImageProps extends CommonProps, Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onLoad'>  {
     /** Name of the effect to use. Requires importing CSS, see README.md. */
     effect?: Effect | undefined;
     /** Image src to display while the image is not visible or loaded. */
