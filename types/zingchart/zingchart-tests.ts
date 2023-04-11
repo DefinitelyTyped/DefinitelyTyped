@@ -72,6 +72,8 @@ const chartConfig: zc.graphset[] = [
         ],
     }, {
         type: 'line',
+        x: '20%',
+        y: '20%',
         timeZone: 1,
         zoomSnap: true,
         labels: [
