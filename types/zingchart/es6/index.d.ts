@@ -3040,14 +3040,6 @@ declare namespace zingchart {
      */
     cursor?: string;
     /**
-     * @description Prefix attribute or array using "data-" to define a custom token.
-     */
-    [key: `data${string}`]: any;
-    /**
-     * @description Prefix attribute or array using "data-" to define a custom token.
-     */
-    [key: `data-${string}`]: any;
-    /**
      * @description Set true to enable optimization for large data set when connecting two points.
      */
     fastVectorPath?: any;
@@ -3898,14 +3890,6 @@ declare namespace zingchart {
      * @description Sets the cursor shape when hovering over the object.
      */
     cursor?: string;
-    /**
-     * @description Prefix attribute or array using "data-" to define a custom token.
-     */
-    [key: `data${string}`]: any;
-    /**
-     * @description Prefix attribute or array using "data-" to define a custom token.
-     */
-    [key: `data-${string}`]: any;
     /**
      * @description Sets the angle of the axis along which the linear gradient is drawn.
      */
@@ -15765,13 +15749,6 @@ declare namespace zingchart {
       };
       link?: link;
       'link[sibling]'?: link;
-      [key: `link[cls-${string}`]: link;
-      [key: `link[container-${string}`]: link;
-      [key: `link[group-${string}`]: link;
-      [key: `link[level-${string}`]: link;
-      [key: `link[parent-${string}`]: link;
-      [key: `link[source-${string}`]: link;
-      [key: `link[target-${string}`]: link;
       links?: link;
       'max-iterations'?: any;
       /**
@@ -15862,11 +15839,6 @@ declare namespace zingchart {
       'node[collapsed]'?: node;
       'node[leaf]'?: node;
       'node[parent]'?: node;
-      [key: `node[cls-${string}`]: node;
-      [key: `node[container-${string}`]: node;
-      [key: `node[group-${string}`]: node;
-      [key: `node[level-${string}`]: node;
-      [key: `node[parent-${string}`]: node;
       style?: {
         // The following attributes can be used to style grid charts:
         '.td'?: gridStyles;
