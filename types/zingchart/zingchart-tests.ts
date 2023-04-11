@@ -125,7 +125,7 @@ const chartConfig: zc.graphset[] = [
             link: {
                 aspect: 'arc',
             },
-            maxSize: 15,
+            maxSize: '15px',
             minSize: 5,
             node: {
                 type: 'circle',
