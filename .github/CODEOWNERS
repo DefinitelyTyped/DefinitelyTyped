@@ -1176,7 +1176,7 @@
 /types/cookie-signature/                                  @Rokt33r
 /types/cookie_js/                                         @slawiko
 /types/cookiebot-sdk/                                     @LiamMartens
-/types/cookieclicker/                                     @TheGLander @MasterOfBob777
+/types/cookieclicker/                                     @TheGLander
 /types/cookieconsent/                                     @klittlepage
 /types/cookiejar/                                         @paroxp @demurgos
 /types/cookies/                                           @WangZishi @jkeylu @BendingBender
@@ -3386,7 +3386,6 @@
 /types/human-format/                                      @DefinitelyTyped
 /types/human-interval/                                    @paulmelnikow
 /types/human-number/                                      @peterblazejewicz
-/types/human-object-diff/                                 @peterblazejewicz
 /types/human-to-cron/                                     @Lemmmy
 /types/humane-js/                                         @jmvrbanac @stof
 /types/humanize-duration/                                 @peterblazejewicz @EvanHahn
@@ -4886,7 +4885,7 @@
 /types/matomo-tracker-react-native/                       @zecergin
 /types/matrix-js-sdk/                                     @huan @andrevmatos @Tbaut
 /types/matter-js/                                         @piranha771 @hasparus @dwhinham @slikts @stevensnoeijen
-/types/max-api/                                           @geofholbrook
+/types/max-api/                                           @geofholbrook @fde31
 /types/mcping-js/                                         @Inrixia
 /types/mcrypt/                                            @pluma
 /types/mcustomscrollbar/                                  @flurg
@@ -4999,7 +4998,7 @@
 /types/microseconds/                                      @iRoachie
 /types/microservice-utilities/                            @runebaas
 /types/microsoft-ajax/                                    @pjmagee
-/types/microsoft-graph/                                   @microsoftgraph @MIchaelMainer @peombwa @zengin @ddyett @nikithauc
+/types/microsoft-graph/                                   @microsoftgraph @MIchaelMainer @koros @zengin @ddyett @gavinbarron
 /types/microsoft-live-connect/                            @jvilk
 /types/microsoft-sdk-soap/                                @markusmauch
 /types/microsoft__typescript-etw/                         @mrcrane @amcasey @minestarks
@@ -5039,7 +5038,7 @@
 /types/mixpanel/                                          @hjellek @Manduro @noamgolani
 /types/mixpanel-browser/                                  @karlos1337 @RicardoRodrigues @randak @dwilt @justinhelmer
 /types/mixto/                                             @vvakame
-/types/mjml/                                              @aahoughton @marpstar @emrah88 @IanEdington
+/types/mjml/                                              @aahoughton @marpstar @IanEdington
 /types/mjml-core/                                         @IanEdington @ryanburr
 /types/mjml-react/                                        @henrinormak @IanEdington
 /types/mkcert/                                            @asachin96
@@ -6391,7 +6390,6 @@
 /types/react-date-range/v0/                               @Junbong
 /types/react-datepicker/                                  @radziksh @smrq @royxue @KoalaHuman @justingrant @jakeboone02 @Ky6uk @aviklai @seckie @kerry-g @ShiftrTechSAS @1pete @y
 /types/react-dates/                                       @ArturAmpilogov @NathanNZ @cgriebel @jsonunger
-/types/react-datetime-picker/                             @princefishthrower
 /types/react-detect-offline/                              @rhythmbhiwani
 /types/react-dev-utils/                                   @ark120202
 /types/react-devtools/                                    @prma85
@@ -6771,12 +6769,8 @@
 /types/react-responsive-embed/                            @Methuselah96
 /types/react-responsive-masonry/                          @themashcodee
 /types/react-responsive-spritesheet/                      @triangularcube
-/types/react-router/                                      @sergey-buturlakin @mrk21 @vasek17 @ngbrown @awendland @KostyaEsmukov @johnnyreilly @LKay @DovydasNavickas @huy-nguyen @grmiade @DaIgeb @egorshulga @rraina @t49tran @8enSmith @wezleytsai @eps1lon @HipsterBrown @pawfa
-/types/react-router/v3/                                   @sergey-buturlakin @mrk21 @vasek17 @ngbrown @awendland @KostyaEsmukov @johnnyreilly @LKay @DovydasNavickas @ssorallen @gillchristian @nulladdict
-/types/react-router/v2/                                   @sergey-buturlakin @mrk21 @vasek17 @ngbrown @awendland @KostyaEsmukov
 /types/react-router-bootstrap/                            @vlesierse @LKay @olmobrutall @maxerenberg
 /types/react-router-config/                               @johnnyreilly @mathieutu
-/types/react-router-dom/                                  @huy-nguyen @p-jackson @johnnyreilly @eps1lon @danielnixon @ynotdraw @1pete
 /types/react-router-hash-link/                            @zoompie @michael-vasyliv @EliRobinson
 /types/react-router-navigation/                           @kaoDev @johnnyreilly
 /types/react-router-navigation-core/                      @kaoDev @johnnyreilly
@@ -6861,7 +6855,6 @@
 /types/react-text-mask/                                   @guilhermehubner @cavarzan @needpower
 /types/react-text-truncate/                               @adriantoine
 /types/react-textfit/                                     @yongtheskill
-/types/react-time-picker/                                 @everas7
 /types/react-timeago/                                     @koss-lebedev @mcmar
 /types/react-timeout/                                     @kerwynrg
 /types/react-toastr/                                      @shssoichiro @DanRegazzi
@@ -7040,6 +7033,7 @@
 /types/relay-runtime/                                     @alloy @maraisr @morrys @levibuzolic
 /types/relay-test-utils/                                  @renanmav @Stephen2 @maraisr @levibuzolic
 /types/rellax/                                            @shermendev @minvs1
+/types/reload/                                            @Gipphe
 /types/remark-abbr/                                       @LukeCarrier
 /types/remark-hint/                                       @Cattttttttt
 /types/remark-prism/                                      @bunhojun @stephencweiss
@@ -7745,6 +7739,7 @@
 /types/steam-client/                                      @Slessi
 /types/steam-login/                                       @Nicell
 /types/steam-totp/                                        @phenomax @dsyncerek
+/types/steam-tradeoffer-manager/                          @kldzj
 /types/steam-user/                                        @joshuajeschek
 /types/steamapi/                                          @joshuajeschek @claabs
 /types/steamcommunity/                                    @SenTisso
@@ -8719,10 +8714,8 @@
 /types/wordpress__block-serialization-spec-parser/        @dsifford
 /types/wordpress__blocks/                                 @dsifford @sirreal @dmsnell @tomasztunik @sunyatasattva @bastolen
 /types/wordpress__components/                             @dsifford @sirreal @p-jackson @sarayourfriend @michaelhthomas @manzoorwanijk @bastolen
-/types/wordpress__compose/                                @dsifford
 /types/wordpress__custom-templated-path-webpack-plugin/   @dsifford
 /types/wordpress__customize-browser/                      @marekdedic
-/types/wordpress__data/                                   @dsifford @sirreal
 /types/wordpress__data-controls/                          @dsifford
 /types/wordpress__date/                                   @dsifford
 /types/wordpress__deprecated/                             @dsifford
