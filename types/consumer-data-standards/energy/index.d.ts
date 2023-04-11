@@ -3208,7 +3208,7 @@ export interface EnergyAccountDetailResponse {
     self: string;
     [k: string]: unknown;
   };
-  meta: {
+  meta?: {
     [k: string]: unknown;
   };
   [k: string]: unknown;
@@ -4813,7 +4813,7 @@ export interface EnergyBalanceResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5445,7 +5445,7 @@ export interface EnergyConcessionsResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5453,7 +5453,7 @@ export interface EnergyConcessionsResponse {
 export interface EnergyDerDetailResponse {
   data: EnergyDerRecord;
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5550,20 +5550,20 @@ export interface EnergyDerRecord {
     status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
     [k: string]: unknown;
   }[];
-  /**
-   * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
-   */
+/**
+ * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId
+ */
   approvedCapacity: number;
-  /**
-   * The number of phases available for the installation of DER. Acceptable values are 1, 2 or 3.
-   */
+ /**
+  * The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
+  */
   availablePhasesCount: number;
   /**
    * For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter.  If absent then assumed to be false
    */
   hasCentralProtectionControl?: boolean | null;
   /**
-   * The number of phases that DER is connected to. Acceptable values are 1, 2 or 3.
+   * The number of phases that DER is connected to. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
    */
   installedPhasesCount: number;
   /**
@@ -5828,7 +5828,7 @@ export interface EnergyInvoice {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 /**
- * Object contain charges and credits related to electricity usage
+ * Object contains account level charges and credits related to electricity usage
  */
 export interface EnergyInvoiceAccountCharges {
   /**
@@ -6056,7 +6056,7 @@ export interface EnergyPaymentScheduleResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -7312,7 +7312,7 @@ export interface EnergyServicePointDetail {
   nationalMeteringId: string;
   relatedParticipants: {
     /**
-     * The name of the party/orginsation related to this service point
+     * The name of the party/organisation related to this service point
      */
     party: string;
     /**
@@ -7342,7 +7342,7 @@ export interface EnergyServicePointDetail {
    */
   servicePointStatus: "ACTIVE" | "DE_ENERGISED" | "EXTINCT" | "GREENFIELD" | "OFF_MARKET";
   /**
-   * The start date from which this service point first became valid
+   * The latest start date from which the constituent data sets of this service point became valid
    */
   validFromDate: string;
   [k: string]: unknown;
@@ -7419,7 +7419,7 @@ export interface EnergyUsageRead {
     /**
      *  Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
      */
-    readQualities?: {
+    readQualities?: | {
       /**
        * End interval for read quality flag
        */
@@ -7433,7 +7433,7 @@ export interface EnergyUsageRead {
        */
       startInterval: number;
       [k: string]: unknown;
-    } | null;
+    }[]| null;
     [k: string]: unknown;
   } | null;
   /**
@@ -7471,8 +7471,7 @@ export interface EnergyUsageRead {
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
-
-export interface ErrorListResponse {
+export interface ResponseErrorListV2 {
   errors: {
     /**
      * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
