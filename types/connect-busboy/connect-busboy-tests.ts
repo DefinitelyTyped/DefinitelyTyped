@@ -1,4 +1,4 @@
-import connectBusboy from 'connect-busboy';
+import connectBusboy = require('connect-busboy');
 import * as express from 'express';
 import internal from 'stream';
 
