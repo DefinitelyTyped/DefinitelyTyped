@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "minipass": "^4.0.0"
+        "minipass": "^5.0.0"
     }
 }
