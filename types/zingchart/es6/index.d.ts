@@ -18340,9 +18340,12 @@ declare namespace zingchart {
       type?: string;
     };
     /**
-     * Position your chart using x/y attributes
+     * Sets the x position of the chart
      */
     x?: string | number;
+    /**
+     * Sets the y position of the chart
+     */
     y?: string | number;
     zoom?: {
       /**
