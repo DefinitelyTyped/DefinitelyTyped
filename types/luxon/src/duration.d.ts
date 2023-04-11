@@ -1,4 +1,4 @@
-import { IfInvalid } from "./_util";
+import { DefaultValidity, IfValid } from "./_util";
 import { ConversionAccuracy } from "./datetime";
 import { NumberingSystem } from "./misc";
 
@@ -93,7 +93,7 @@ export type DurationLike = Duration | DurationLikeObject | number;
  *
  * There's are more methods documented below. In addition, for more information on subtler topics like internationalization and validity, see the external documentation.
  */
-export class Duration {
+export class Duration<IsValid extends boolean = DefaultValidity> {
     /**
      * Create Duration from a number of milliseconds.
      *
@@ -103,7 +103,7 @@ export class Duration {
      * @param opts.numberingSystem - the numbering system to use
      * @param opts.conversionAccuracy - the conversion system to use
      */
-    static fromMillis(count: number, opts?: DurationOptions): Duration;
+    static fromMillis(count: number, opts?: DurationOptions): Duration<true>;
 
     /**
      * Create a Duration from a JavaScript object with keys like 'years' and 'hours'.
@@ -124,7 +124,7 @@ export class Duration {
      * @param opts.numberingSystem - the numbering system to use
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      */
-    static fromObject(obj: DurationLikeObject, opts?: DurationOptions): Duration;
+    static fromObject(obj: DurationLikeObject, opts?: DurationOptions): Duration<true>;
 
     /**
      * Create a Duration from DurationLike.
@@ -132,7 +132,7 @@ export class Duration {
      * @param durationLike
      * Either a Luxon Duration, a number of milliseconds, or the object argument to Duration.fromObject()
      */
-    static fromDurationLike(durationLike: DurationLike): Duration;
+    static fromDurationLike(durationLike: DurationLike): Duration<true>;
 
     /**
      * Create a Duration from an ISO 8601 duration string.
@@ -182,7 +182,7 @@ export class Duration {
      * @param reason - simple string of why this datetime is invalid. Should not contain parameters or anything else data-dependent
      * @param explanation - longer explanation, may include parameters and other useful debugging information. Defaults to null.
      */
-    static invalid(reason: string, explanation?: string): Duration;
+    static invalid(reason: string, explanation?: string): Duration<false>;
 
     /**
      * Check if an object is a Duration. Works across context boundaries
@@ -196,12 +196,12 @@ export class Duration {
     /**
      * Get the locale of a Duration, such as 'en-GB'
      */
-    get locale(): string | IfInvalid<null>;
+    get locale(): IfValid<string, null, IsValid>;
 
     /**
      * Get the numbering system of a Duration, such as 'beng'. The numbering system is used when formatting the Duration
      */
-    get numberingSystem(): string | IfInvalid<null>;
+    get numberingSystem(): IfValid<string, null, IsValid>;
 
     /**
      * Returns a string representation of this Duration formatted according to the specified format string. You may use these tokens:
@@ -227,7 +227,7 @@ export class Duration {
      * @example
      * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("M S") //=> "12 518402000"
      */
-    toFormat(fmt: string, opts?: { floor?: boolean | undefined }): string | IfInvalid<"Invalid Duration">;
+    toFormat(fmt: string, opts?: { floor?: boolean | undefined }): IfValid<string, "Invalid Duration", IsValid>;
 
     /**
      * Returns a string representation of a Duration with all units included
@@ -266,7 +266,7 @@ export class Duration {
      * @example
      * Duration.fromObject({ milliseconds: 6 }).toISO() //=> 'PT0.006S'
      */
-    toISO(): string | IfInvalid<null>;
+    toISO(): IfValid<string, null, IsValid>;
 
     /**
      * Returns an ISO 8601-compliant string representation of this Duration, formatted as a time of day.
@@ -289,41 +289,41 @@ export class Duration {
      * @example
      * Duration.fromObject({ hours: 11 }).toISOTime({ format: 'basic' }) //=> '110000.000'
      */
-    toISOTime(opts?: ToISOTimeDurationOptions): string | IfInvalid<null>;
+    toISOTime(opts?: ToISOTimeDurationOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns an ISO 8601 representation of this Duration appropriate for use in JSON.
      */
-    toJSON(): string | IfInvalid<null>;
+    toJSON(): IfValid<string, null, IsValid>;
 
     /**
      * Returns an ISO 8601 representation of this Duration appropriate for use in debugging.
      */
-    toString(): string | IfInvalid<null>;
+    toString(): IfValid<string, null, IsValid>;
 
     /**
      * Returns a millisecond value of this Duration.
      */
-    toMillis(): number | IfInvalid<typeof NaN>;
+    toMillis(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Returns a millisecond value of this Duration. Alias of {@link toMillis}
      */
-    valueOf(): number | IfInvalid<typeof NaN>;
+    valueOf(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Make this Duration longer by the specified amount. Return a newly-constructed Duration.
      *
      * @param duration - The amount to add. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
      */
-    plus(duration: DurationLike): Duration;
+    plus(duration: DurationLike): this;
 
     /**
      * Make this Duration shorter by the specified amount. Return a newly-constructed Duration.
      *
      * @param duration - The amount to subtract. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
      */
-    minus(duration: DurationLike): Duration;
+    minus(duration: DurationLike): this;
 
     /**
      * Scale this Duration by the specified amount. Return a newly-constructed Duration.
@@ -333,7 +333,7 @@ export class Duration {
      * @example
      * Duration.fromObject({ hours: 1, minutes: 30 }).mapUnit((x, u) => u === "hour" ? x * 2 : x) //=> { hours: 2, minutes: 30 }
      */
-    mapUnits(fn: (x: number, u?: DurationUnit) => number): Duration;
+    mapUnits(fn: (x: number, u?: DurationUnit) => number): this;
 
     /**
      * Get the value of unit.
@@ -347,7 +347,7 @@ export class Duration {
      * @example
      * Duration.fromObject({years: 2, days: 3}).get('days') //=> 3
      */
-    get(unit: DurationUnit): number | IfInvalid<typeof NaN>;
+    get(unit: DurationUnit): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * "Set" the values of specified units. Return a newly-constructed Duration.
@@ -359,7 +359,7 @@ export class Duration {
      * @example
      * dur.set({ hours: 8, minutes: 30 })
      */
-    set(values: DurationLikeObject): Duration;
+    set(values: DurationLikeObject): this;
 
     /**
      * "Set" the locale and/or numberingSystem.  Returns a newly-constructed Duration.
@@ -367,7 +367,7 @@ export class Duration {
      * @example
      * dur.reconfigure({ locale: 'en-GB' })
      */
-    reconfigure(opts?: DurationOptions): Duration;
+    reconfigure(opts?: DurationOptions): this;
 
     /**
      * Return the length of the duration in the specified unit.
@@ -381,7 +381,7 @@ export class Duration {
      * @example
      * Duration.fromObject({hours: 60}).as('days') //=> 2.5
      */
-    as(unit: DurationUnit): number | IfInvalid<typeof NaN>;
+    as(unit: DurationUnit): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Reduce this Duration to its canonical representation in its current units.
@@ -391,7 +391,7 @@ export class Duration {
      * @example
      * Duration.fromObject({ hours: 12, minutes: -45 }).normalize().toObject() //=> { hours: 11, minutes: 15 }
      */
-    normalize(): Duration;
+    normalize(): this;
 
     /**
      * Rescale units to its largest representation.
@@ -399,7 +399,7 @@ export class Duration {
      * @example
      * Duration.fromObject({ milliseconds: 90000 }).rescale().toObject() //=> { minutes: 1, seconds: 30 }
      */
-    rescale(): Duration;
+    rescale(): this;
 
     /**
      * Convert this Duration into its representation in a different set of units.
@@ -407,13 +407,13 @@ export class Duration {
      * @example
      * Duration.fromObject({ hours: 1, seconds: 30 }).shiftTo('minutes', 'milliseconds').toObject() //=> { minutes: 60, milliseconds: 30000 }
      */
-    shiftTo(...units: DurationUnit[]): Duration;
+    shiftTo(...units: DurationUnit[]): this;
 
     /**
      * Shift this Duration to all available units.
      * Same as shiftTo("years", "months", "weeks", "days", "hours", "minutes", "seconds", "milliseconds")
      */
-    shiftToAll(): Duration;
+    shiftToAll(): this;
 
     /**
      * Return the negative of this Duration.
@@ -421,72 +421,72 @@ export class Duration {
      * @example
      * Duration.fromObject({ hours: 1, seconds: 30 }).negate().toObject() //=> { hours: -1, seconds: -30 }
      */
-    negate(): Duration;
+    negate(): this;
 
     /**
      * Get the years.
      */
-    get years(): number | IfInvalid<typeof NaN>;
+    get years(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the quarters.
      */
-    get quarters(): number | IfInvalid<typeof NaN>;
+    get quarters(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the months.
      */
-    get months(): number | IfInvalid<typeof NaN>;
+    get months(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the weeks
      */
-    get weeks(): number | IfInvalid<typeof NaN>;
+    get weeks(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the days.
      */
-    get days(): number | IfInvalid<typeof NaN>;
+    get days(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the hours.
      */
-    get hours(): number | IfInvalid<typeof NaN>;
+    get hours(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the minutes.
      */
-    get minutes(): number | IfInvalid<typeof NaN>;
+    get minutes(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the seconds.
      */
-    get seconds(): number | IfInvalid<typeof NaN>;
+    get seconds(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the milliseconds.
      */
-    get milliseconds(): number | IfInvalid<typeof NaN>;
+    get milliseconds(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Returns whether the Duration is invalid.
      * Diff operations on invalid DateTimes or Intervals return invalid Durations.
      */
-    get isValid(): boolean;
+    get isValid(): IfValid<true, false, IsValid>;
 
     /**
      * Returns an error code if this Duration became invalid, or null if the Duration is valid
      */
-    get invalidReason(): string | null;
+    get invalidReason(): IfValid<string, null, IsValid>;
 
     /**
      * Returns an explanation of why this Duration became invalid, or null if the Duration is valid
      */
-    get invalidExplanation(): string | null;
+    get invalidExplanation(): IfValid<string | null, null, IsValid>;
 
     /**
      * Equality check
      * Two Durations are equal iff they have the same units and the same values for each unit.
      */
-    equals(other: Duration): boolean | IfInvalid<false>;
+    equals(other: Duration): IfValid<boolean, false, IsValid>;
 }
