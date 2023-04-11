@@ -16837,16 +16837,16 @@ declare namespace zingchart {
     'scale-y-8'?: scaleY;
     'scale-y-9'?: scaleY;
     'scale-y-10'?: scaleY;
-    'scaleY1'?: scaleY;
-    'scaleY2'?: scaleY;
-    'scaleY3'?: scaleY;
-    'scaleY4'?: scaleY;
-    'scaleY5'?: scaleY;
-    'scaleY6'?: scaleY;
-    'scaleY7'?: scaleY;
-    'scaleY8'?: scaleY;
-    'scaleY9'?: scaleY;
-    'scaleY10'?: scaleY;
+     scaleY1?: scaleY;
+     scaleY2?: scaleY;
+     scaleY3?: scaleY;
+     scaleY4?: scaleY;
+     scaleY5?: scaleY;
+     scaleY6?: scaleY;
+     scaleY7?: scaleY;
+     scaleY8?: scaleY;
+     scaleY9?: scaleY;
+     scaleY10?: scaleY;
     scale?: {
       /**
        * To modify the size of the chart. Provide a value in relation to 1.0 or 100%. 0.3 | 0.9 | "30%" | "90%" | ...
