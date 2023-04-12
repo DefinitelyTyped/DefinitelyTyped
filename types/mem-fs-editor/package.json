@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/minimatch": "^5.1.2"
+        "globby": "^11.1.0"
     }
 }
