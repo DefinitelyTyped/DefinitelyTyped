@@ -583,39 +583,6 @@ const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => 
 const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
 
 //
-// Example from http://facebook.github.io/react/
-// --------------------------------------------------------------------------
-
-interface TimerState {
-    secondsElapsed: number;
-}
-class Timer extends React.Component<{}, TimerState> {
-    state = {
-        secondsElapsed: 0
-    };
-    private _interval: number;
-    tick() {
-        this.setState((prevState, props) => ({
-            secondsElapsed: prevState.secondsElapsed + 1
-        }));
-    }
-    componentDidMount() {
-        this._interval = setInterval(() => this.tick(), 1000);
-    }
-    componentWillUnmount() {
-        clearInterval(this._interval);
-    }
-    render() {
-        return DOM.div(
-            null,
-            "Seconds Elapsed: ",
-            this.state.secondsElapsed
-        );
-    }
-}
-ReactDOM.render(React.createElement(Timer), container);
-
-//
 // createFragment addon
 // --------------------------------------------------------------------------
 createFragment({

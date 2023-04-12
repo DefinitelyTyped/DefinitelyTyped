@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Tasks API v1 0.0
+// Type definitions for non-npm package Google Tasks API v1 0.0
 // Project: https://developers.google.com/tasks/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
