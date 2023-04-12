@@ -1,5 +1,5 @@
 // Type definitions for React 16.14
-// Project: http://facebook.github.io/react/
+// Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
@@ -224,7 +224,6 @@ declare namespace React {
 
     //
     // React Nodes
-    // http://facebook.github.io/react/docs/glossary.html
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
