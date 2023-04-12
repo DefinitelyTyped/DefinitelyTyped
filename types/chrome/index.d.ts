@@ -7661,6 +7661,19 @@ declare namespace chrome.scripting {
      */
     export function getRegisteredContentScripts(callback: (scripts: RegisteredContentScript[]) => void): void;
     export function getRegisteredContentScripts(filter: ContentScriptFilter, callback: (scripts: RegisteredContentScript[]) => void): void;
+
+    /**
+     * Updates one or more content scripts.
+     * @param scripts
+     */
+    export function updateContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
+
+    /**
+     * Updates one or more content scripts.
+     * @param scripts
+     * @param callback
+     */
+    export function updateContentScripts(scripts: RegisteredContentScript[], callback: () => void): void;
 }
 
 ////////////////////
