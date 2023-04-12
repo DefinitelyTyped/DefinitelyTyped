@@ -1978,3 +1978,30 @@ function testFileSystemProvider() {
         ) => {},
     );
 }
+
+// https://developer.chrome.com/docs/extensions/reference/sessions/
+function testSessions() {
+    const myMax = { maxResults: 1 };
+    chrome.sessions.getDevices(devices => { })
+    chrome.sessions.getDevices({}, devices => { });
+    chrome.sessions.getDevices(myMax, devices => { });
+    chrome.sessions.getRecentlyClosed(sessions => {});
+    chrome.sessions.getRecentlyClosed({}, sessions => { });
+    chrome.sessions.getRecentlyClosed(myMax, sessions => { });
+    chrome.sessions.restore(restoredSession => { });
+    chrome.sessions.restore('myString', restoredSession => { });
+    chrome.sessions.onChanged.addListener(() => { });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/sessions/
+async function testSessionsForPromise() {
+    const myMax = { maxResults: 1 };
+    await chrome.sessions.getDevices();
+    await chrome.sessions.getDevices({});
+    await chrome.sessions.getDevices(myMax);
+    await chrome.sessions.getRecentlyClosed();
+    await chrome.sessions.getRecentlyClosed({});
+    await chrome.sessions.getRecentlyClosed(myMax);
+    await chrome.sessions.restore();
+    await chrome.sessions.restore('myString');
+}
