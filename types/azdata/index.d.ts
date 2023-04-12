@@ -122,7 +122,6 @@ declare module 'azdata' {
      * Namespace for connection management
      */
     export namespace connection {
-
         /**
          * Well-known Authentication types commonly supported by connection providers.
          */
@@ -3640,6 +3639,11 @@ declare module 'azdata' {
          */
         title?: string | undefined;
     }
+
+    /**
+     * Supported values for aria-live accessibility attribute
+     */
+    export type AriaLiveValue = 'polite' | 'assertive' | 'off';
 
     export interface InputBoxProperties extends ComponentProperties {
         value?: string | undefined;
