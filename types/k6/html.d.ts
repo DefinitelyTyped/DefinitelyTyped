@@ -393,10 +393,10 @@ export interface Handler {
 export interface Mapper {
     /**
      * @param index - Current index.
-     * @param element - Current element.
-     * @returns Value element maps to.
+     * @param selection - Current selection.
+     * @returns Value selection maps to.
      */
-    (index: number, element: Element): unknown;
+    (index: number, selection: Selection): unknown;
 }
 
 // === Attribute ===
