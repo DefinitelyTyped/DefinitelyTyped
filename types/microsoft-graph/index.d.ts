@@ -17503,7 +17503,7 @@ export interface BookingCustomerInformation extends BookingCustomerInformationBa
     customQuestionAnswers?: NullableOption<BookingQuestionAnswer[]>;
     // The SMTP address of the bookingCustomer who is booking the appointment
     emailAddress?: NullableOption<string>;
-    // Represents location information for the bookingCustomer who is booking the appointment.
+    // Represents location information for the bookingCustomer who is booking the appointment.
     location?: NullableOption<Location>;
     // The customer's name.
     name?: NullableOption<string>;
