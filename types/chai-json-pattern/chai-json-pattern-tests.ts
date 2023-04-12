@@ -1,5 +1,5 @@
 import { expect, use } from 'chai';
-import chaiJsonPattern from 'chai-json-pattern';
+import chaiJsonPattern, { extend } from 'chai-json-pattern';
 
 use(chaiJsonPattern);
 
@@ -17,4 +17,4 @@ const extension = {
         // return boolean
     },
 };
-chaiJsonPattern.extend(extension);
+extend(extension);
