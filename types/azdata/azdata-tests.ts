@@ -139,4 +139,4 @@ const connectionProfile: azdata.connection.ConnectionProfile = {
     groupId: 'MyGroupId',
     saveProfile: false,
     options: {}
-}
+};
