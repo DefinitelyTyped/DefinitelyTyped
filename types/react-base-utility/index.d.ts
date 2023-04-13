@@ -38,6 +38,8 @@ export as namespace reactbaseutils;
 //   function foo(): void;
 // }
 
+declare module 'react-icons';
+
 import Button from './js/dest/Button';
 import Container from './js/dest/Container';
 import Flex from './js/dest/Flex';
@@ -52,10 +54,4 @@ import useWindowResizeInterface from './js/interfaces/useWindowResize.interface'
 
 export { Button, Container, Flex, useTranslatedStyles, useWindowResize };
 
-export {
-  ButtonInterface,
-  ContainerInterface,
-  FlexInterface,
-  useTranslatedStylesInterface,
-  useWindowResizeInterface,
-};
+export { ButtonInterface, ContainerInterface, FlexInterface, useTranslatedStylesInterface, useWindowResizeInterface };

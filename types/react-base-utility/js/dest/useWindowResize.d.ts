@@ -1,6 +1,6 @@
 export interface WindowSizeInterface {
-  width: number;
-  height: number;
+    width: number;
+    height: number;
 }
 
 declare const useWindowResize: () => WindowSizeInterface;

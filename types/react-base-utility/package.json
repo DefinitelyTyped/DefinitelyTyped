@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@popperjs/core": "^4.8.0"
+    }
+}
