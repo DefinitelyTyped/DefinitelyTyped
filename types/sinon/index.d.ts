@@ -19,17 +19,17 @@ interface Event {} // tslint:disable-line no-empty-interface
 interface Document {} // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
-    type MatchProvidedArguments<T> = {
-        [K in keyof T]?: SinonMatcher | (T[K] extends object ? MatchProvidedArguments<T[K]> : T[K]);
+    type MatchPartialArguments<T> = {
+        [K in keyof T]?: SinonMatcher | (T[K] extends object ? MatchPartialArguments<T[K]> : T[K]);
     };
-    // Alias for backward compatibility, remove on next major release
-    type DeepPartialOrMatcher<T> = MatchProvidedArguments<T>;
+    // TODO: Alias for backward compatibility, remove on next major release
+    type DeepPartialOrMatcher<T> = MatchPartialArguments<T>;
 
-    type MatchExactlyArguments<T> = {
-        [K in keyof T]: SinonMatcher | (T[K] extends object ? MatchExactlyArguments<T[K]> : T[K]);
+    type MatchExactArguments<T> = {
+        [K in keyof T]: SinonMatcher | (T[K] extends object ? MatchExactArguments<T[K]> : T[K]);
     };
-    // Alias for backward compatibility, remove on next major release
-    type MatchArguments<T> = MatchExactlyArguments<T>;
+    // TODO: Alias for backward compatibility, remove on next major release
+    type MatchArguments<T> = MatchExactArguments<T>;
 
     interface SinonSpyCallApi<TArgs extends readonly any[] = any[], TReturnValue = any> {
         // Properties
@@ -51,11 +51,11 @@ declare namespace Sinon {
          * so a call that received the provided arguments (in the same spots) and possibly others as well will return true.
          * @param args
          */
-        calledWith(...args: MatchProvidedArguments<TArgs>): boolean;
+        calledWith(...args: MatchPartialArguments<TArgs>): boolean;
         /**
          * Returns true if spy was called at least once with the provided arguments and no others.
          */
-        calledWithExactly(...args: MatchExactlyArguments<TArgs>): boolean;
+        calledWithExactly(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if spy/stub was called the new operator.
          * Beware that this is inferred based on the value of the this object and the spy function’s prototype,
@@ -66,25 +66,25 @@ declare namespace Sinon {
          * Returns true if spy was called at exactly once with the provided arguments.
          * @param args
          */
-        calledOnceWith(...args: MatchExactlyArguments<TArgs>): boolean;
-        calledOnceWithExactly(...args: MatchExactlyArguments<TArgs>): boolean;
+        calledOnceWith(...args: MatchPartialArguments<TArgs>): boolean;
+        calledOnceWithExactly(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if spy was called with matching arguments (and possibly others).
          * This behaves the same as spy.calledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        calledWithMatch(...args: MatchProvidedArguments<TArgs>): boolean;
+        calledWithMatch(...args: MatchPartialArguments<TArgs>): boolean;
         /**
          * Returns true if call did not receive provided arguments.
          * @param args
          */
-        notCalledWith(...args: MatchExactlyArguments<TArgs>): boolean;
+        notCalledWith(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if call did not receive matching arguments.
          * This behaves the same as spyCall.notCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        notCalledWithMatch(...args: MatchProvidedArguments<TArgs>): boolean;
+        notCalledWithMatch(...args: MatchPartialArguments<TArgs>): boolean;
         /**
          * Returns true if spy returned the provided value at least once.
          * Uses deep comparison for objects and arrays. Use spy.returned(sinon.match.same(obj)) for strict comparison (see matchers).
@@ -273,7 +273,7 @@ declare namespace Sinon {
          * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
          * @param args Expected args
          */
-        withArgs(...args: MatchProvidedArguments<TArgs>): SinonSpy<TArgs, TReturnValue>;
+        withArgs(...args: MatchPartialArguments<TArgs>): SinonSpy<TArgs, TReturnValue>;
         /**
          * Returns true if the spy was always called with @param obj as this.
          * @param obj
@@ -282,12 +282,12 @@ declare namespace Sinon {
         /**
          * Returns true if spy was always called with the provided arguments (and possibly others).
          */
-        alwaysCalledWith(...args: MatchExactlyArguments<TArgs>): boolean;
+        alwaysCalledWith(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if spy was always called with the exact provided arguments.
          * @param args
          */
-        alwaysCalledWithExactly(...args: MatchExactlyArguments<TArgs>): boolean;
+        alwaysCalledWithExactly(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if spy was always called with matching arguments (and possibly others).
          * This behaves the same as spy.alwaysCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
@@ -298,7 +298,7 @@ declare namespace Sinon {
          * Returns true if the spy/stub was never called with the provided arguments.
          * @param args
          */
-        neverCalledWith(...args: MatchExactlyArguments<TArgs>): boolean;
+        neverCalledWith(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if the spy/stub was never called with matching arguments.
          * This behaves the same as spy.neverCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
@@ -659,7 +659,7 @@ declare namespace Sinon {
          * It is also useful to create a stub that can act differently in response to different arguments.
          * @param args
          */
-        withArgs(...args: MatchProvidedArguments<TArgs>): SinonStub<TArgs, TReturnValue>;
+        withArgs(...args: MatchPartialArguments<TArgs>): SinonStub<TArgs, TReturnValue>;
     }
 
     interface SinonStubStatic {
@@ -1119,20 +1119,20 @@ declare namespace Sinon {
          */
         calledWith<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: MatchProvidedArguments<TArgs>
+            ...args: MatchPartialArguments<TArgs>
         ): void;
         /**
          * Passes if spy was always called with the provided arguments.
          * @param spy
          * @param args
          */
-        alwaysCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchProvidedArguments<TArgs>): void;
+        alwaysCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchPartialArguments<TArgs>): void;
         /**
          * Passes if spy was never called with the provided arguments.
          * @param spy
          * @param args
          */
-        neverCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchProvidedArguments<TArgs>): void;
+        neverCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchPartialArguments<TArgs>): void;
         /**
          * Passes if spy was called with the provided arguments and no others.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithExactly(spy.getCall(1), arg1, arg2, ...);.
@@ -1141,7 +1141,7 @@ declare namespace Sinon {
          */
         calledWithExactly<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: MatchExactlyArguments<TArgs>
+            ...args: MatchExactArguments<TArgs>
         ): void;
         /**
          * Passes if spy was called at exactly once with the provided arguments and no others.
@@ -1150,12 +1150,12 @@ declare namespace Sinon {
          */
         calledOnceWithExactly<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: MatchExactlyArguments<TArgs>
+            ...args: MatchExactArguments<TArgs>
         ): void;
         /**
          * Passes if spy was always called with the provided arguments and no others.
          */
-        alwaysCalledWithExactly<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchExactlyArguments<TArgs>): void;
+        alwaysCalledWithExactly<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchExactArguments<TArgs>): void;
         /**
          * Passes if spy was called with matching arguments.
          * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
@@ -1163,7 +1163,7 @@ declare namespace Sinon {
          */
         calledWithMatch<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: MatchProvidedArguments<TArgs>
+            ...args: MatchPartialArguments<TArgs>
         ): void;
         /**
          * Passes if spy was called once with matching arguments.
@@ -1178,14 +1178,14 @@ declare namespace Sinon {
          * Passes if spy was always called with matching arguments.
          * This behaves the same way as sinon.assert.alwaysCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          */
-        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchProvidedArguments<TArgs>): void;
+        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchPartialArguments<TArgs>): void;
         /**
          * Passes if spy was never called with matching arguments.
          * This behaves the same way as sinon.assert.neverCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * @param spy
          * @param args
          */
-        neverCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchProvidedArguments<TArgs>): void;
+        neverCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchPartialArguments<TArgs>): void;
         /**
          * Passes if spy was called with the new operator.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithNew(spy.secondCall, arg1, arg2, ...);.
