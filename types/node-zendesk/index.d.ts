@@ -90,6 +90,7 @@ export namespace Attachments {
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
+                binary?: boolean;
             },
             cb: ZendeskCallback<unknown, UploadResponseModel>,
         ): void;
@@ -98,6 +99,7 @@ export namespace Attachments {
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
+                binary?: boolean;
             },
         ): Promise<UploadResponseModel>;
     }
