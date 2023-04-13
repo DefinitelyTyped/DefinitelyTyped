@@ -1,4 +1,4 @@
-/// <reference types="./addon.pdf" />
+/// <reference path="addon.pdf.d.ts" />
 function dwtOnReady() {
     const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');    // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
     if (DWObject) {
