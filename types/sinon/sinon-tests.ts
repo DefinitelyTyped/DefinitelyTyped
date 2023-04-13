@@ -664,6 +664,9 @@ function testSpy() {
     fnSpy.args; // $ExpectType [string, number][] || [arg: string, arg2: number][]
     fnSpy.returnValues; // $ExpectType boolean[]
     fnSpy.withArgs('a').returned(true);
+    fnSpy.calledOnceWith('a');
+    // @ts-expect-error
+    fnSpy.calledOnceWithExactly('a');
 
     spy(1, 2);
     spy(true);
