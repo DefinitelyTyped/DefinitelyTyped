@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag 1.20230403
+// Type definitions for non-npm package Google Publisher Tag 1.20230410
 // Project: https://developers.google.com/publisher-tag/
 // Definitions by: Jonathon Imperiosi <https://github.com/jimper>
 //                 Khoi Doan <https://github.com/zombifier>
