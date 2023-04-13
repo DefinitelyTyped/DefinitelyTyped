@@ -3,5 +3,5 @@ export interface WindowSizeInterface {
     height: number;
 }
 
-declare const useWindowResize: () => WindowSizeInterface;
+declare function useWindowResize(): WindowSizeInterface;
 export default useWindowResize;

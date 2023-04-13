@@ -1,2 +1,4 @@
-declare const useTranslatedStyles: (stylesCreator: any, props?: {}) => void;
+import useTranslatedStylesInterface from '../interfaces/useTranslatedStyles.interface';
+
+declare function useTranslatedStyles(stylesCreator: any, props?: {}): typeof useTranslatedStylesInterface;
 export default useTranslatedStyles;

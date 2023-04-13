@@ -1,5 +1,13 @@
 import { HtmlHTMLAttributes } from 'react';
-import { IconType } from 'react-icons';
+import React = require('react');
+
+export interface IconBaseProps extends React.SVGAttributes<SVGElement> {
+    children?: React.ReactNode;
+    size?: string | number;
+    color?: string;
+    title?: string;
+}
+export type IconType = (props: IconBaseProps) => JSX.Element;
 interface ButtonInterface extends HtmlHTMLAttributes<HTMLButtonElement> {
     title: string;
     extras?: {

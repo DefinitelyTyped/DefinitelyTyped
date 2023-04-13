@@ -38,8 +38,6 @@ export as namespace reactbaseutils;
 //   function foo(): void;
 // }
 
-declare module 'react-icons';
-
 import Button from './js/dest/Button';
 import Container from './js/dest/Container';
 import Flex from './js/dest/Flex';
