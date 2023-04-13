@@ -6001,7 +6001,7 @@
         },
         "wordpress__data-controls": {
             "libraryName": "@wordpress/data-controls",
-            "asOfVersion": "3.0"
+            "asOfVersion": "3.0.0"
         },
         "wordpress__dependency-extraction-webpack-plugin": {
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
