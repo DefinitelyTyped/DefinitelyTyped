@@ -11,6 +11,9 @@
             "../../"
         ],
         "types": [],
+        "paths": {
+            "ramda": ["ramda/v0.28"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
