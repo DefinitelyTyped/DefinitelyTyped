@@ -1,6 +1,6 @@
 // Type definitions for react-base-utility 1.0
 // Project: https://github.com/AmeyKhoje/react-base-utility#readme
-// Definitions by: Amey Khoje <https://github.com/me>
+// Definitions by: Amey Khoje <https://github.com/AmeyKhoje>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
