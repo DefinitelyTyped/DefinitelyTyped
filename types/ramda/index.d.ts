@@ -1,4 +1,4 @@
-// Type definitions for ramda 0.28
+// Type definitions for ramda 0.29
 // Project: https://ramdajs.com
 // Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
 //                 Erwin Poeze <https://github.com/donnut>
