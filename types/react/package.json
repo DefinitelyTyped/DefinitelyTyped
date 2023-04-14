@@ -3,6 +3,7 @@
   "dependencies": {
     "csstype": "^3.0.2"
   },
+  "types": "index",
   "exports": {
     ".": {
       "types": {
