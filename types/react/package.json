@@ -29,5 +29,12 @@
         "default": "./jsx-dev-runtime.d.ts"
       }
     }
+  },
+  "typesVersions": {
+    "<=5.0": {
+      "*": [
+        "ts5.0/*"
+      ]
+    }
   }
 }
