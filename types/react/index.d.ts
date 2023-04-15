@@ -3188,7 +3188,18 @@ declare global {
      * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
      */
     namespace JSX {
-        type ElementType = React.ElementType;
+        // We don't just alias React.ElementType because React.ElementType
+        // historically does more than we need it to.
+        // E.g. it also contains .propTypes and so TS also verifies the declared
+        // props type does match the declared .propTypes.
+        // But if libraries declared their .propTypes but not props type,
+        // or they mismatch, you won't be able to use the class component
+        // as a JSX.ElementType.
+        // We could fix this everywhere but we're ultimately not interested in
+        // .propTypes assignability so we might as well drop it entirely here to
+        //  reduce the work of the type-checker.
+        // TODO: Check impact of making React.ElementType<P = any> = React.JSXElementConstructor<P>
+        type ElementType = string | React.JSXElementConstructor<any>;
         interface Element extends React.ReactElement<any, any> { }
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
