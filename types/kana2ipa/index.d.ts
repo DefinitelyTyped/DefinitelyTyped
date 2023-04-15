@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'kana2ipa' {
-	export function hiragana2katakana(text: string): string;
-	export function kana2ipa(inText: string): string;
+    export function hiragana2katakana(text: string): string;
+    export function kana2ipa(inText: string): string;
 }
