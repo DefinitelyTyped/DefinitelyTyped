@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import type { EventEmitter } from 'events';
-import type Steam = require('steam');
-import type SteamID = require('steamid');
-import type SteamUser = require('steam-user');
-import type SteamCommunity = require('steamcommunity');
-import type CEconItem = require('steamcommunity/classes/CEconItem');
-import type FileManager = require('file-manager');
+import Steam = require('steam');
+import SteamID = require('steamid');
+import SteamUser = require('steam-user');
+import SteamCommunity = require('steamcommunity');
+import CEconItem = require('steamcommunity/classes/CEconItem');
+import FileManager = require('file-manager');
 
 export = TradeOfferManager;
 
