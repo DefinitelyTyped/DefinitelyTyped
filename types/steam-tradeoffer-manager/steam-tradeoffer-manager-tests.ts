@@ -30,9 +30,6 @@ const logOnOptions = {
 if (FS.existsSync('polldata.json')) {
     manager.pollData = JSON.parse(FS.readFileSync('polldata.json').toString('utf8'));
 }
-
-const lookAtThisType: TradeOfferManager.MEconItem | null = null;
-
 client.logOn(logOnOptions);
 
 client.on('loggedOn', () => {
@@ -128,3 +125,30 @@ manager.getOffers(TradeOfferManager.EOfferFilter.ActiveOnly, (err, sent, receive
 });
 
 console.log(new TradeOfferManager.SteamID('[U:1:46143802]').getBigIntID());
+
+manager.getInventoryContents(440, 2, true, (err, inv, currencies) => {
+    if (err) {
+        throw err;
+    }
+    const offer = manager.createOffer('[U:1:46143802]');
+    inv.forEach(offer.addMyItem);
+    offer.send(err => {
+        if (err) {
+            throw err;
+        }
+        setTimeout(() => {
+            offer.cancel(err => {
+                if (err) {
+                    throw err;
+                }
+                console.log('Offer cancelled after 30 seconds');
+            });
+        }, 1000 * 30);
+    });
+});
+
+manager.on('realTimeTradeConfirmationRequired', offer => {
+    if (offer.state === TradeOfferManager.ETradeOfferState.Active) {
+        console.log(`Offer #${offer.id} requires confirmation`);
+    }
+});
