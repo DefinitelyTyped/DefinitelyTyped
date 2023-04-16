@@ -117,12 +117,12 @@ export class ImapFlow extends EventEmitter {
     status(
         path: string,
         query: {
-            messages: boolean;
-            recent: boolean;
-            uidNext: boolean;
-            uidValidity: boolean;
-            unseen: boolean;
-            highestModseq: boolean;
+            messages?: boolean;
+            recent?: boolean;
+            uidNext?: boolean;
+            uidValidity?: boolean;
+            unseen?: boolean;
+            highestModseq?: boolean;
         },
     ): Promise<StatusObject>;
 
