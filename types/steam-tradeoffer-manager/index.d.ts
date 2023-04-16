@@ -37,6 +37,7 @@ declare class TradeOfferManager extends EventEmitter {
      * You'll get an Access Denied error if your account is limited.
      */
     setCookies(cookies: string[], familyViewPin?: string, callback?: (err: Error | null) => void): void;
+    setCookies(cookies: string[], callback?: (err: Error | null) => void): void;
 
     /**
      * Stops polling, removes the Steam client reference, and clears cookies. Suitable for use if you want to log out of your bot's account but not terminate the process.
@@ -81,7 +82,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers sent by you matching the filter, and an array of
      * TradeOffer objects for offers received by you matching the filter.
      */
-    getOffers(filter: TradeOfferManager.EOfferFilter, callback: (err: EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
+    getOffers(filter: number, callback: (err: EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
 
     /**
      * Retrieves a list of trade offers matching specific criteria. As of v1.1.0, on failure, the err object may contain an eresult property.
@@ -92,7 +93,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers sent by you matching the filter, and an array of TradeOffer
      * objects for offers received by you matching the filter.
      */
-    getOffers(filter: TradeOfferManager.EOfferFilter, historicalCutoff: Date | null, callback: (err: EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
+    getOffers(filter: number, historicalCutoff: Date | null, callback: (err: EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
 
     /**
      * Gets the contents of your own inventory. This method uses the newer /inventory/SteamID endpoint, which is less rate-limited than the older, deprecated /profiles/SteamID/inventory/json
