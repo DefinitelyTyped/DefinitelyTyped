@@ -1,6 +1,6 @@
 // Type definitions for steam-tradeoffer-manager 2.10
 // Project: https://github.com/DoctorMcKay/node-steam-tradeoffer-manager
-// Definitions by: kldzj <https://github.com/kldzj>
+// Definitions by: kldzj <https://github.com/kldzj>, Kyle Smith <https://github.com/kjsmita6>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import type { EventEmitter } from 'events';
