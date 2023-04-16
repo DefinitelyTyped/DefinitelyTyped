@@ -185,7 +185,7 @@ declare namespace process {
         from_: EnumValue;
         to: EnumValue;
     }
-    
+
     const direction: Direction;
 
     const graphSONVersion: {
@@ -198,14 +198,14 @@ declare namespace process {
         v1_0: EnumValue;
         v3_0: EnumValue;
     };
-    
+
     interface Merge {
       onCreate: EnumValue;
       onMatch: EnumValue;
       outV: EnumValue;
       inV: EnumValue;
     }
-    
+
     const merge: Merge;
 
     interface Operator {
