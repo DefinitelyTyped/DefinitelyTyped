@@ -178,11 +178,15 @@ declare namespace process {
         values: EnumValue;
     };
 
-    const direction: {
+    interface Direction {
         both: EnumValue;
         in: EnumValue;
         out: EnumValue;
-    };
+        from_: EnumValue;
+        to: EnumValue;
+    }
+    
+    const direction: Direction;
 
     const graphSONVersion: {
         v1_0: EnumValue;
@@ -194,6 +198,15 @@ declare namespace process {
         v1_0: EnumValue;
         v3_0: EnumValue;
     };
+    
+    interface Merge {
+      onCreate: EnumValue;
+      onMatch: EnumValue;
+      outV: EnumValue;
+      inV: EnumValue;
+    }
+    
+    const merge: Merge;
 
     interface Operator {
         addAll: EnumValue;
@@ -213,9 +226,7 @@ declare namespace process {
 
     const order: {
         asc: EnumValue;
-        decr: EnumValue;
         desc: EnumValue;
-        incr: EnumValue;
         shuffle: EnumValue;
     };
 
@@ -487,7 +498,8 @@ declare namespace process {
         constructor(traversalSource: AnonymousTraversalSource | GraphTraversalSource);
         getTraversalSource(): Translator;
         of(traversalSource: AnonymousTraversalSource | GraphTraversalSource | string): void;
-        translate(bytecode: Bytecode): string;
+        translate(bytecode: Bytecode, child?: boolean): string;
+        convert(anyObject: any): string;
     }
 
     function traversal<S extends GraphTraversalSource = GraphTraversalSource>(
