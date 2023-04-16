@@ -31,6 +31,8 @@ if (FS.existsSync('polldata.json')) {
     manager.pollData = JSON.parse(FS.readFileSync('polldata.json').toString('utf8'));
 }
 
+const lookAtThisType: TradeOfferManager.MEconItem | null = null;
+
 client.logOn(logOnOptions);
 
 client.on('loggedOn', () => {
