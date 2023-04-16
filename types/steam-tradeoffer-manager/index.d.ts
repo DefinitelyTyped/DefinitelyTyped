@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import type { EventEmitter } from 'events';
-import type Steam = require('steam');
-import type SteamID = require('steamid');
-import type SteamUser = require('steam-user');
-import type SteamCommunity = require('steamcommunity');
-import type CEconItem = require('steamcommunity/classes/CEconItem');
-import type FileManager = require('file-manager');
+import Steam = require('steam');
+import SteamID = require('steamid');
+import SteamUser = require('steam-user');
+import SteamCommunity = require('steamcommunity');
+import CEconItem = require('steamcommunity/classes/CEconItem');
+import FileManager = require('file-manager');
 
 export = TradeOfferManager;
 
@@ -102,11 +102,11 @@ declare class TradeOfferManager extends EventEmitter {
     on<T extends keyof TradeOfferManagerEvents>(eventType: T, callback: TradeOfferManagerEvents[T]): this;
 
     // Static constants
-    static readonly ETradeOfferState: ETradeOfferState;
-    static readonly EOfferFilter: EOfferFilter;
-    static readonly EResult: EResult;
-    static readonly EConfirmationMethod: EConfirmationMethod;
-    static readonly ETradeStatus: ETradeStatus;
+    static readonly ETradeOfferState: TradeOfferManager.ETradeOfferState;
+    static readonly EOfferFilter: TradeOfferManager.EOfferFilter;
+    static readonly EResult: TradeOfferManager.EResult;
+    static readonly EConfirmationMethod: TradeOfferManager.EConfirmationMethod;
+    static readonly ETradeStatus: TradeOfferManager.ETradeStatus;
     static readonly SteamID: typeof SteamID;
 }
 
@@ -202,51 +202,51 @@ declare class TradeOffer {
      *
      * As trade offers are created locally, this method does not involve any networking and returns immediately with no callback.
      */
-    addItem(item: CEconItem | MEconItemAmount): boolean;
+    addItem(item: CEconItem | TradeOfferManager.MEconItemAmount): boolean;
 
     /**
      * Convenience method which simply calls addMyItem for each item in the array. Returns the number of items that were successfully added.
      */
-    addMyItems(items: Array<CEconItem | MEconItemAmount>): void;
+    addMyItems(items: Array<CEconItem | TradeOfferManager.MEconItemAmount>): void;
 
     /**
      * Removes an item from your side of the trade offer. Returns true if the item was found and removed successfully, or false if the item wasn't found in the offer.
      *
      * As trade offers are created locally, this method does not involve any networking and returns immediately with no callback.
      */
-    removeMyItem(item: CEconItem | MEconItemAmount): void;
+    removeMyItem(item: CEconItem | TradeOfferManager.MEconItemAmount): void;
 
     /**
      * Convenience method which simply calls removeMyItem for each item in the array. Returns the number of items that were successfully removed.
      */
-    removeMyItems(items: Array<CEconItem | MEconItemAmount>): void;
+    removeMyItems(items: Array<CEconItem | TradeOfferManager.MEconItemAmount>): void;
 
     /**
      * Same as addMyItem, but for the partner's side of the trade.
      */
-    addTheirItem(item: CEconItem | MEconItemAmount): boolean;
+    addTheirItem(item: CEconItem | TradeOfferManager.MEconItemAmount): boolean;
 
     /**
      * Convenience method which simply calls addTheirItem for each item in the array. Returns the number of items that were successfully added.
      */
-    addTheirItems(items: Array<CEconItem | MEconItemAmount>): void;
+    addTheirItems(items: Array<CEconItem | TradeOfferManager.MEconItemAmount>): void;
 
     /**
      * Removes an item from the other side of the trade offer. Returns true if the item was found and removed successfully, or false if the item wasn't found in the offer.
      *
      * As trade offers are created locally, this method does not involve any networking and returns immediately with no callback.
      */
-    removeTheirItem(item: CEconItem | MEconItemAmount): void;
+    removeTheirItem(item: CEconItem | TradeOfferManager.MEconItemAmount): void;
 
     /**
      * Convenience method which simply calls removeTheirItem for each item in the array. Returns the number of items that were successfully removed.
      */
-    removeTheirItems(items: Array<CEconItem | MEconItemAmount>): void;
+    removeTheirItems(items: Array<CEconItem | TradeOfferManager.MEconItemAmount>): void;
 
     /**
      * Returns true if the given item is in this offer, or false if not.
      */
-    containsItem(item: CEconItem | MEconItemAmount): boolean;
+    containsItem(item: CEconItem | TradeOfferManager.MEconItemAmount): boolean;
 
     /**
      * Sets this unsent offer's message. Messages are limited by Steam to 128 characters.
@@ -341,331 +341,356 @@ type ExchangeDetailsCallback = (
     err: Error | null,
     status: number,
     tradeInitTime: Date,
-    receivedItems: MEconItemExchange[],
-    sentItems: MEconItemExchange[],
+    receivedItems: TradeOfferManager.MEconItemExchange[],
+    sentItems: TradeOfferManager.MEconItemExchange[],
 ) => void;
 
-interface MEconItemExchange extends CEconItem {
-    appid: number;
-    contextid: number;
-    assetid: number;
-    amount: number;
-    classid: number;
-    new_assetid?: number;
-    new_contextid?: number;
-    rollback_new_assetid?: number;
-    rollback_new_contextid?: number;
-}
+declare namespace TradeOfferManager {
+    interface MEconItemExchange extends CEconItem {
+        appid: number;
+        contextid: number;
+        assetid: number;
+        amount: number;
+        classid: number;
+        new_assetid?: number;
+        new_contextid?: number;
+        rollback_new_assetid?: number;
+        rollback_new_contextid?: number;
+    }
 
-interface MEconItem {
-    assetid: string;
-    appid: string;
-    contextid: string;
-}
+    interface MEconItem {
+        assetid: string;
+        appid: string;
+        contextid: string;
+    }
 
-interface MEconItemAmount extends MEconItem {
-    amount: number;
-}
+    interface MEconItemAmount extends MEconItem {
+        amount: number;
+    }
 
-interface ETradeOfferState extends Record<string | number, string | number> {
-    Invalid: number;
-    Active: number;
-    Accepted: number;
-    Countered: number;
-    Expired: number;
-    Canceled: number;
-    Declined: number;
-    InvalidItems: number;
-    CreatedNeedsConfirmation: number;
-    CanceledBySecondFactor: number;
-    InEscrow: number;
-    '1': string;
-    '2': string;
-    '3': string;
-    '4': string;
-    '5': string;
-    '6': string;
-    '7': string;
-    '8': string;
-    '9': string;
-    '10': string;
-    '11': string;
-}
+    interface ETradeOfferState extends Record<string | number, string | number> {
+        /** 1 - Invalid. */
+        Invalid: number;
+        /** 2 - This trade offer has been sent, neither party has acted on it yet. */
+        Active: number;
+        /** 3 - The trade offer was accepted by the recipient and items were exchanged. */
+        Accepted: number;
+        /** 4 - The recipient made a counter offer. */
+        Countered: number;
+        /** 5 - The trade offer was not accepted before the expiration date. */
+        Expired: number;
+        /** 6 - The sender cancelled the offer. */
+        Canceled: number;
+        /** 7 - The recipient declined the offer. */
+        Declined: number;
+        /** 8 - Some of the items in the offer are no longer available (indicated by the missing flag in the output). */
+        InvalidItems: number;
+        /** 9 - The offer hasn't been sent yet and is awaiting email/mobile confirmation. The offer is only visible to the sender. */
+        CreatedNeedsConfirmation: number;
+        /** 10 - Either party canceled the offer via email/mobile. The offer is visible to both parties, even if the sender canceled it before it was sent. */
+        CanceledBySecondFactor: number;
+        /** 11 - The trade has been placed on hold. The items involved in the trade have all been removed from both parties' inventories and will be automatically delivered in the future. */
+        InEscrow: number;
+        '1': string;
+        '2': string;
+        '3': string;
+        '4': string;
+        '5': string;
+        '6': string;
+        '7': string;
+        '8': string;
+        '9': string;
+        '10': string;
+        '11': string;
+    }
 
-interface EOfferFilter {
-    ActiveOnly: number;
-    HistoricalOnly: number;
-    All: number;
-}
+    interface EOfferFilter {
+        ActiveOnly: number;
+        HistoricalOnly: number;
+        All: number;
+    }
 
-interface EResult extends Record<string | number, string | number> {
-    Invalid: number;
-    OK: number;
-    Fail: number;
-    NoConnection: number;
-    InvalidPassword: number;
-    LoggedInElsewhere: number;
-    InvalidProtocolVer: number;
-    InvalidParam: number;
-    FileNotFound: number;
-    Busy: number;
-    InvalidState: number;
-    InvalidName: number;
-    InvalidEmail: number;
-    DuplicateName: number;
-    AccessDenied: number;
-    Timeout: number;
-    Banned: number;
-    AccountNotFound: number;
-    InvalidSteamID: number;
-    ServiceUnavailable: number;
-    NotLoggedOn: number;
-    Pending: number;
-    EncryptionFailure: number;
-    InsufficientPrivilege: number;
-    LimitExceeded: number;
-    Revoked: number;
-    Expired: number;
-    AlreadyRedeemed: number;
-    DuplicateRequest: number;
-    AlreadyOwned: number;
-    IPNotFound: number;
-    PersistFailed: number;
-    LockingFailed: number;
-    LogonSessionReplaced: number;
-    ConnectFailed: number;
-    HandshakeFailed: number;
-    IOFailure: number;
-    RemoteDisconnect: number;
-    ShoppingCartNotFound: number;
-    Blocked: number;
-    Ignored: number;
-    NoMatch: number;
-    AccountDisabled: number;
-    ServiceReadOnly: number;
-    AccountNotFeatured: number;
-    AdministratorOK: number;
-    ContentVersion: number;
-    TryAnotherCM: number;
-    PasswordRequiredToKickSession: number;
-    AlreadyLoggedInElsewhere: number;
-    Suspended: number;
-    Cancelled: number;
-    DataCorruption: number;
-    DiskFull: number;
-    RemoteCallFailed: number;
-    PasswordNotSet: number;
-    PasswordUnset: number;
-    ExternalAccountUnlinked: number;
-    PSNTicketInvalid: number;
-    ExternalAccountAlreadyLinked: number;
-    RemoteFileConflict: number;
-    IllegalPassword: number;
-    SameAsPreviousValue: number;
-    AccountLogonDenied: number;
-    CannotUseOldPassword: number;
-    InvalidLoginAuthCode: number;
-    AccountLogonDeniedNoMailSent: number;
-    AccountLogonDeniedNoMail: number;
-    HardwareNotCapableOfIPT: number;
-    IPTInitError: number;
-    ParentalControlRestricted: number;
-    FacebookQueryError: number;
-    ExpiredLoginAuthCode: number;
-    IPLoginRestrictionFailed: number;
-    AccountLocked: number;
-    AccountLockedDown: number;
-    AccountLogonDeniedVerifiedEmailRequired: number;
-    NoMatchingURL: number;
-    BadResponse: number;
-    RequirePasswordReEntry: number;
-    ValueOutOfRange: number;
-    UnexpectedError: number;
-    Disabled: number;
-    InvalidCEGSubmission: number;
-    RestrictedDevice: number;
-    RegionLocked: number;
-    RateLimitExceeded: number;
-    AccountLogonDeniedNeedTwoFactorCode: number;
-    AccountLoginDeniedNeedTwoFactor: number;
-    ItemOrEntryHasBeenDeleted: number;
-    ItemDeleted: number;
-    AccountLoginDeniedThrottle: number;
-    TwoFactorCodeMismatch: number;
-    TwoFactorActivationCodeMismatch: number;
-    AccountAssociatedToMultiplePlayers: number;
-    AccountAssociatedToMultiplePartners: number;
-    NotModified: number;
-    NoMobileDeviceAvailable: number;
-    NoMobileDevice: number;
-    TimeIsOutOfSync: number;
-    TimeNotSynced: number;
-    SMSCodeFailed: number;
-    TooManyAccountsAccessThisResource: number;
-    AccountLimitExceeded: number;
-    AccountActivityLimitExceeded: number;
-    PhoneActivityLimitExceeded: number;
-    RefundToWallet: number;
-    EmailSendFailure: number;
-    NotSettled: number;
-    NeedCaptcha: number;
-    GSLTDenied: number;
-    GSOwnerDenied: number;
-    InvalidItemType: number;
-    IPBanned: number;
-    GSLTExpired: number;
-    InsufficientFunds: number;
-    TooManyPending: number;
-    NoSiteLicensesFound: number;
-    WGNetworkSendExceeded: number;
-    AccountNotFriends: number;
-    LimitedUserAccount: number;
-    '0': string;
-    '1': string;
-    '2': string;
-    '3': string;
-    '5': string;
-    '6': string;
-    '7': string;
-    '8': string;
-    '9': string;
-    '10': string;
-    '11': string;
-    '12': string;
-    '13': string;
-    '14': string;
-    '15': string;
-    '16': string;
-    '17': string;
-    '18': string;
-    '19': string;
-    '20': string;
-    '21': string;
-    '22': string;
-    '23': string;
-    '24': string;
-    '25': string;
-    '26': string;
-    '27': string;
-    '28': string;
-    '29': string;
-    '30': string;
-    '31': string;
-    '32': string;
-    '33': string;
-    '34': string;
-    '35': string;
-    '36': string;
-    '37': string;
-    '38': string;
-    '39': string;
-    '40': string;
-    '41': string;
-    '42': string;
-    '43': string;
-    '44': string;
-    '45': string;
-    '46': string;
-    '47': string;
-    '48': string;
-    '49': string;
-    '50': string;
-    '51': string;
-    '52': string;
-    '53': string;
-    '54': string;
-    '55': string;
-    '56': string;
-    '57': string;
-    '58': string;
-    '59': string;
-    '60': string;
-    '61': string;
-    '62': string;
-    '63': string;
-    '64': string;
-    '65': string;
-    '66': string;
-    '67': string;
-    '68': string;
-    '69': string;
-    '70': string;
-    '71': string;
-    '72': string;
-    '73': string;
-    '74': string;
-    '75': string;
-    '76': string;
-    '77': string;
-    '78': string;
-    '79': string;
-    '80': string;
-    '81': string;
-    '82': string;
-    '83': string;
-    '84': string;
-    '85': string;
-    '86': string;
-    '87': string;
-    '88': string;
-    '89': string;
-    '90': string;
-    '91': string;
-    '92': string;
-    '93': string;
-    '94': string;
-    '95': string;
-    '96': string;
-    '97': string;
-    '98': string;
-    '99': string;
-    '100': string;
-    '101': string;
-    '102': string;
-    '103': string;
-    '104': string;
-    '105': string;
-    '106': string;
-    '107': string;
-    '108': string;
-    '109': string;
-    '110': string;
-    '111': string;
-    '112': string;
-}
+    interface EResult extends Record<string | number, string | number> {
+        Invalid: number;
+        OK: number;
+        Fail: number;
+        NoConnection: number;
+        InvalidPassword: number;
+        LoggedInElsewhere: number;
+        InvalidProtocolVer: number;
+        InvalidParam: number;
+        FileNotFound: number;
+        Busy: number;
+        InvalidState: number;
+        InvalidName: number;
+        InvalidEmail: number;
+        DuplicateName: number;
+        AccessDenied: number;
+        Timeout: number;
+        Banned: number;
+        AccountNotFound: number;
+        InvalidSteamID: number;
+        ServiceUnavailable: number;
+        NotLoggedOn: number;
+        Pending: number;
+        EncryptionFailure: number;
+        InsufficientPrivilege: number;
+        LimitExceeded: number;
+        Revoked: number;
+        Expired: number;
+        AlreadyRedeemed: number;
+        DuplicateRequest: number;
+        AlreadyOwned: number;
+        IPNotFound: number;
+        PersistFailed: number;
+        LockingFailed: number;
+        LogonSessionReplaced: number;
+        ConnectFailed: number;
+        HandshakeFailed: number;
+        IOFailure: number;
+        RemoteDisconnect: number;
+        ShoppingCartNotFound: number;
+        Blocked: number;
+        Ignored: number;
+        NoMatch: number;
+        AccountDisabled: number;
+        ServiceReadOnly: number;
+        AccountNotFeatured: number;
+        AdministratorOK: number;
+        ContentVersion: number;
+        TryAnotherCM: number;
+        PasswordRequiredToKickSession: number;
+        AlreadyLoggedInElsewhere: number;
+        Suspended: number;
+        Cancelled: number;
+        DataCorruption: number;
+        DiskFull: number;
+        RemoteCallFailed: number;
+        PasswordNotSet: number;
+        PasswordUnset: number;
+        ExternalAccountUnlinked: number;
+        PSNTicketInvalid: number;
+        ExternalAccountAlreadyLinked: number;
+        RemoteFileConflict: number;
+        IllegalPassword: number;
+        SameAsPreviousValue: number;
+        AccountLogonDenied: number;
+        CannotUseOldPassword: number;
+        InvalidLoginAuthCode: number;
+        AccountLogonDeniedNoMailSent: number;
+        AccountLogonDeniedNoMail: number;
+        HardwareNotCapableOfIPT: number;
+        IPTInitError: number;
+        ParentalControlRestricted: number;
+        FacebookQueryError: number;
+        ExpiredLoginAuthCode: number;
+        IPLoginRestrictionFailed: number;
+        AccountLocked: number;
+        AccountLockedDown: number;
+        AccountLogonDeniedVerifiedEmailRequired: number;
+        NoMatchingURL: number;
+        BadResponse: number;
+        RequirePasswordReEntry: number;
+        ValueOutOfRange: number;
+        UnexpectedError: number;
+        Disabled: number;
+        InvalidCEGSubmission: number;
+        RestrictedDevice: number;
+        RegionLocked: number;
+        RateLimitExceeded: number;
+        AccountLogonDeniedNeedTwoFactorCode: number;
+        AccountLoginDeniedNeedTwoFactor: number;
+        ItemOrEntryHasBeenDeleted: number;
+        ItemDeleted: number;
+        AccountLoginDeniedThrottle: number;
+        TwoFactorCodeMismatch: number;
+        TwoFactorActivationCodeMismatch: number;
+        AccountAssociatedToMultiplePlayers: number;
+        AccountAssociatedToMultiplePartners: number;
+        NotModified: number;
+        NoMobileDeviceAvailable: number;
+        NoMobileDevice: number;
+        TimeIsOutOfSync: number;
+        TimeNotSynced: number;
+        SMSCodeFailed: number;
+        TooManyAccountsAccessThisResource: number;
+        AccountLimitExceeded: number;
+        AccountActivityLimitExceeded: number;
+        PhoneActivityLimitExceeded: number;
+        RefundToWallet: number;
+        EmailSendFailure: number;
+        NotSettled: number;
+        NeedCaptcha: number;
+        GSLTDenied: number;
+        GSOwnerDenied: number;
+        InvalidItemType: number;
+        IPBanned: number;
+        GSLTExpired: number;
+        InsufficientFunds: number;
+        TooManyPending: number;
+        NoSiteLicensesFound: number;
+        WGNetworkSendExceeded: number;
+        AccountNotFriends: number;
+        LimitedUserAccount: number;
+        '0': string;
+        '1': string;
+        '2': string;
+        '3': string;
+        '5': string;
+        '6': string;
+        '7': string;
+        '8': string;
+        '9': string;
+        '10': string;
+        '11': string;
+        '12': string;
+        '13': string;
+        '14': string;
+        '15': string;
+        '16': string;
+        '17': string;
+        '18': string;
+        '19': string;
+        '20': string;
+        '21': string;
+        '22': string;
+        '23': string;
+        '24': string;
+        '25': string;
+        '26': string;
+        '27': string;
+        '28': string;
+        '29': string;
+        '30': string;
+        '31': string;
+        '32': string;
+        '33': string;
+        '34': string;
+        '35': string;
+        '36': string;
+        '37': string;
+        '38': string;
+        '39': string;
+        '40': string;
+        '41': string;
+        '42': string;
+        '43': string;
+        '44': string;
+        '45': string;
+        '46': string;
+        '47': string;
+        '48': string;
+        '49': string;
+        '50': string;
+        '51': string;
+        '52': string;
+        '53': string;
+        '54': string;
+        '55': string;
+        '56': string;
+        '57': string;
+        '58': string;
+        '59': string;
+        '60': string;
+        '61': string;
+        '62': string;
+        '63': string;
+        '64': string;
+        '65': string;
+        '66': string;
+        '67': string;
+        '68': string;
+        '69': string;
+        '70': string;
+        '71': string;
+        '72': string;
+        '73': string;
+        '74': string;
+        '75': string;
+        '76': string;
+        '77': string;
+        '78': string;
+        '79': string;
+        '80': string;
+        '81': string;
+        '82': string;
+        '83': string;
+        '84': string;
+        '85': string;
+        '86': string;
+        '87': string;
+        '88': string;
+        '89': string;
+        '90': string;
+        '91': string;
+        '92': string;
+        '93': string;
+        '94': string;
+        '95': string;
+        '96': string;
+        '97': string;
+        '98': string;
+        '99': string;
+        '100': string;
+        '101': string;
+        '102': string;
+        '103': string;
+        '104': string;
+        '105': string;
+        '106': string;
+        '107': string;
+        '108': string;
+        '109': string;
+        '110': string;
+        '111': string;
+        '112': string;
+    }
 
-interface EConfirmationMethod extends Record<string | number, string | number> {
-    None: number;
-    Email: number;
-    MobileApp: number;
-    '0': string;
-    '1': string;
-    '2': string;
-}
+    interface EConfirmationMethod extends Record<string | number, string | number> {
+        None: number;
+        Email: number;
+        MobileApp: number;
+        '0': string;
+        '1': string;
+        '2': string;
+    }
 
-interface ETradeStatus extends Record<string | number, string | number> {
-    Init: number;
-    PreCommitted: number;
-    Committed: number;
-    Complete: number;
-    Failed: number;
-    PartialSupportRollback: number;
-    FullSupportRollback: number;
-    SupportRollback_Selective: number;
-    RollbackFailed: number;
-    RollbackAbandoned: number;
-    InEscrow: number;
-    EscrowRollback: number;
-    '0': string;
-    '1': string;
-    '2': string;
-    '3': string;
-    '4': string;
-    '5': string;
-    '6': string;
-    '7': string;
-    '8': string;
-    '9': string;
-    '10': string;
-    '11': string;
+    interface ETradeStatus extends Record<string | number, string | number> {
+        /** 0 - Trade has just been accepted/confirmed, but no work has been done yet. */
+        Init: number;
+        /** 1 - Steam is about to start committing the trade. */
+        PreCommitted: number;
+        /** 2 - The items have been exchanged. */
+        Committed: number;
+        /** 3 - All work is finished. */
+        Complete: number;
+        /** 4 - Something went wrong after Init, but before Committed, and the trade has been rolled back. */
+        Failed: number;
+        /** 5 - A support person rolled back the trade for one side. */
+        PartialSupportRollback: number;
+        /** 6 - A support person rolled back the trade for both sides. */
+        FullSupportRollback: number;
+        /** 7 - A support person rolled back the trade for some set of items. */
+        SupportRollback_Selective: number;
+        /** 8 - We tried to roll back the trade when it failed, but haven't managed to do that for all items yet. */
+        RollbackFailed: number;
+        /** 9 - We tried to roll back the trade, but some failure didn't go away and we gave up. */
+        RollbackAbandoned: number;
+        /** 10 - Trade is in escrow. */
+        InEscrow: number;
+        /** 11 - A trade in escrow was rolled back  */
+        EscrowRollback: number;
+        '0': string;
+        '1': string;
+        '2': string;
+        '3': string;
+        '4': string;
+        '5': string;
+        '6': string;
+        '7': string;
+        '8': string;
+        '9': string;
+        '10': string;
+        '11': string;
+    }
 }
