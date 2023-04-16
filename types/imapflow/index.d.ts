@@ -301,7 +301,7 @@ export interface StatusObject {
     uid?: number;
     uidValidity?: bigint;
     unseen?: number;
-    highestModSeq?: bigint;
+    highestModseq?: bigint;
 }
 
 export interface IdInfoObject {
