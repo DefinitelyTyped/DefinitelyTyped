@@ -43,7 +43,9 @@ function serverContextTest() {
     // plain objects work
     React.createServerContext('PlainObjectContext', { foo: 1 });
     // readonly arrays work
-    React.createServerContext('ReadonlyArrayContext', [1, 2, 3] as const);
+    React.createServerContext('ReadonlyArrayContext', ['foo', 'bar'] as const);
+    // nested readonly arrays work
+    React.createServerContext('ReadonlyArrayContext', ['foo', ['bar']] as const);
     // @ts-expect-error Incompatible with JSON stringify+parse
     React.createServerContext('DateContext', new Date());
     // @ts-expect-error Incompatible with JSON stringify+parse
