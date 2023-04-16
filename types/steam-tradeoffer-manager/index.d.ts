@@ -345,7 +345,7 @@ type ExchangeDetailsCallback = (
     sentItems: MEconItemExchange[],
 ) => void;
 
-interface MEconItemExchange extends CEconItem {
+export interface MEconItemExchange extends CEconItem {
     appid: number;
     contextid: number;
     assetid: number;
@@ -357,27 +357,38 @@ interface MEconItemExchange extends CEconItem {
     rollback_new_contextid?: number;
 }
 
-interface MEconItem {
+export interface MEconItem {
     assetid: string;
     appid: string;
     contextid: string;
 }
 
-interface MEconItemAmount extends MEconItem {
+export interface MEconItemAmount extends MEconItem {
     amount: number;
 }
 
-interface ETradeOfferState extends Record<string | number, string | number> {
+export interface ETradeOfferState extends Record<string | number, string | number> {
+    /** 1 - Invalid. */
     Invalid: number;
+    /** 2 - This trade offer has been sent, neither party has acted on it yet. */
     Active: number;
+    /** 3 - The trade offer was accepted by the recipient and items were exchanged. */
     Accepted: number;
+    /** 4 - The recipient made a counter offer. */
     Countered: number;
+    /** 5 - The trade offer was not accepted before the expiration date. */
     Expired: number;
+    /** 6 - The sender cancelled the offer. */
     Canceled: number;
+    /** 7 - The recipient declined the offer. */
     Declined: number;
+    /** 8 - Some of the items in the offer are no longer available (indicated by the missing flag in the output). */
     InvalidItems: number;
+    /** 9 - The offer hasn't been sent yet and is awaiting email/mobile confirmation. The offer is only visible to the sender. */
     CreatedNeedsConfirmation: number;
+    /** 10 - Either party canceled the offer via email/mobile. The offer is visible to both parties, even if the sender canceled it before it was sent. */
     CanceledBySecondFactor: number;
+    /** 11 - The trade has been placed on hold. The items involved in the trade have all been removed from both parties' inventories and will be automatically delivered in the future. */
     InEscrow: number;
     '1': string;
     '2': string;
@@ -392,13 +403,13 @@ interface ETradeOfferState extends Record<string | number, string | number> {
     '11': string;
 }
 
-interface EOfferFilter {
+export interface EOfferFilter {
     ActiveOnly: number;
     HistoricalOnly: number;
     All: number;
 }
 
-interface EResult extends Record<string | number, string | number> {
+export interface EResult extends Record<string | number, string | number> {
     Invalid: number;
     OK: number;
     Fail: number;
@@ -634,7 +645,7 @@ interface EResult extends Record<string | number, string | number> {
     '112': string;
 }
 
-interface EConfirmationMethod extends Record<string | number, string | number> {
+export interface EConfirmationMethod extends Record<string | number, string | number> {
     None: number;
     Email: number;
     MobileApp: number;
@@ -643,18 +654,30 @@ interface EConfirmationMethod extends Record<string | number, string | number> {
     '2': string;
 }
 
-interface ETradeStatus extends Record<string | number, string | number> {
+export interface ETradeStatus extends Record<string | number, string | number> {
+    /** 0 - Trade has just been accepted/confirmed, but no work has been done yet. */
     Init: number;
+    /** 1 - Steam is about to start committing the trade. */
     PreCommitted: number;
+    /** 2 - The items have been exchanged. */
     Committed: number;
+    /** 3 - All work is finished. */
     Complete: number;
+    /** 4 - Something went wrong after Init, but before Committed, and the trade has been rolled back. */
     Failed: number;
+    /** 5 - A support person rolled back the trade for one side. */
     PartialSupportRollback: number;
+    /** 6 - A support person rolled back the trade for both sides. */
     FullSupportRollback: number;
+    /** 7 - A support person rolled back the trade for some set of items. */
     SupportRollback_Selective: number;
+    /** 8 - We tried to roll back the trade when it failed, but haven't managed to do that for all items yet. */
     RollbackFailed: number;
+    /** 9 - We tried to roll back the trade, but some failure didn't go away and we gave up. */
     RollbackAbandoned: number;
+    /** 10 - Trade is in escrow. */
     InEscrow: number;
+    /** 11 - A trade in escrow was rolled back  */
     EscrowRollback: number;
     '0': string;
     '1': string;
