@@ -222,7 +222,7 @@ export interface FetchQueryObject {
     internalDate?: boolean;
     size?: boolean;
     source?: boolean | object;
-    threadId?: string;
+    threadId?: boolean;
     labels?: boolean;
     headers?: boolean | string[];
     bodyParts?: string[];
