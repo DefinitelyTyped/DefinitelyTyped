@@ -323,7 +323,7 @@ declare namespace styledComponents {
         StyleSheetManager: typeof StyleSheetManager;
     }
 
-    declare const styled: StyledInterface;
+    const styled: StyledInterface;
 
     export const css: ThemedCssFunction<DefaultTheme>;
 
@@ -437,7 +437,7 @@ declare namespace styledComponents {
      */
     // ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
     export type CSSProp<T = AnyIfEmpty<DefaultTheme>> = string | CSSObject | FlattenInterpolation<ThemeProps<T>>;
-    export = styled;
+    export { styled as default };
 }
 
 export = StyledComponents;
