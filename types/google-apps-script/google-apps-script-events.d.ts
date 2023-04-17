@@ -55,6 +55,7 @@ declare namespace GoogleAppsScript {
       | 'OTHER';
     interface SheetsOnChange extends AppsScriptEvent {
       changeType: SheetsOnChangeChangeType;
+      source: Spreadsheet.Spreadsheet;
     }
 
     interface SheetsOnEdit extends AppsScriptEvent {

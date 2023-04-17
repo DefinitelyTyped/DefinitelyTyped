@@ -245,6 +245,11 @@ function onChange(e: GoogleAppsScript.Events.SheetsOnChange) {
     if (e.changeType === 'FORMAT') {
         console.log('Formatting change detected');
     }
+    const sheetName = e.source?.getSheetName();
+    console.log(sheetName);
+    if (sheetName !== undefined) {
+        console.log('Success to get e.source field');
+    }
 }
 
 const createFileAndGetDescription = () => {
