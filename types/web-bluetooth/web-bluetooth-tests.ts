@@ -25,6 +25,14 @@ navigator.bluetooth.addEventListener("advertisementreceived", event => {
     event; // $ExpectType BluetoothAdvertisingEvent
 });
 
+window.BluetoothUUID.getService(0x180D); // $ExpectType string
+
+window.BluetoothUUID.getCharacteristic(0x2A37); // $ExpectType string
+
+window.BluetoothUUID.getDescriptor(0x2902); // $ExpectType string
+
+window.BluetoothUUID.canonicalUUID("0x180D"); // $ExpectType string
+
 // Example 1 (from the spec):
 let chosenHeartRateService: BluetoothRemoteGATTService = null;
 

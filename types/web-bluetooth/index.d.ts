@@ -169,6 +169,17 @@ interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, Character
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
+interface BluetoothUUID {
+    getService(name: string | number): string;
+    getCharacteristic(name: string | number): string;
+    getDescriptor(name: string | number): string;
+    canonicalUUID(alias: string | number): string;
+}
+
 interface Navigator {
     bluetooth: Bluetooth;
+}
+
+interface Window {
+    BluetoothUUID: BluetoothUUID;
 }
