@@ -1,5 +1,5 @@
 // Type definitions for passport-openidconnect 0.1
-// Project: https://github.com/jaredhanson/passport-strategy
+// Project: https://github.com/jaredhanson/passport-openidconnect#readme
 // Definitions by: Lior Mualem <https://github.com/liorm>
 //                 Seng-Siong Lim <https://github.com/seng-siong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,6 +58,9 @@ declare class OpenIDConnectStrategy extends PassportStrategy {
 }
 
 declare namespace OpenIDConnectStrategy {
+    type Strategy = OpenIDConnectStrategy;
+    const Strategy: typeof OpenIDConnectStrategy;
+
     interface SessionStoreContext {
         issued?: string | undefined;
         maxAge?: number | undefined;
