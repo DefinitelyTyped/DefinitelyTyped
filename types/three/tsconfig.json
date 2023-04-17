@@ -94,6 +94,7 @@
         "test/textures/textures-source.ts",
         "test/utils/utils-webgl-portal.ts",
         "test/utils/utils-webgl-marchingcubes.ts",
+        "test/utils.ts",
         "test/webxr/webxr-ar-lighting.ts",
         "test/webxr/webxr-vr-handinput-cubes.ts"
     ]
