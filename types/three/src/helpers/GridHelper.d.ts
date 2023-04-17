@@ -1,4 +1,4 @@
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 import { LineSegments } from './../objects/LineSegments';
 
 export class GridHelper extends LineSegments {
