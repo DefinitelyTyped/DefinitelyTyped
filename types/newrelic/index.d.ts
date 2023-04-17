@@ -357,7 +357,9 @@ export const instrumentWebframework: Instrument;
 export const instrumentMessages: Instrument;
 
 /**
- * This method gives you a way to associate a unique identifier with a transaction event, transaction trace and errors within transaction. A new property, `enduser.id`, will be added to the error and reported to errors inbox.
+ * This method gives you a way to associate a unique identifier with a transaction event,
+ * transaction trace and errors within transaction. A new property, `enduser.id`, will be
+ * added to the error and reported to errors inbox.
  */
 export function setUserID(userID: string): void;
 
