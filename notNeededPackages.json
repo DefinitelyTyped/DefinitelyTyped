@@ -6011,6 +6011,10 @@
             "libraryName": "@wordpress/data",
             "asOfVersion": "7.0.0"
         },
+        "wordpress__data-controls": {
+            "libraryName": "@wordpress/data-controls",
+            "asOfVersion": "3.0.0"
+        },
         "wordpress__dependency-extraction-webpack-plugin": {
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
             "asOfVersion": "2.7.0"

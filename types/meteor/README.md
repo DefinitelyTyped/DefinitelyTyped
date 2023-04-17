@@ -1,5 +1,8 @@
 # Meteor Type Definitions
 
+## IMPORTANT: Meteor Built-in types 
+Starting [v2.8.1](https://docs.meteor.com/changelog.html#v28120221114) Meteor now offers its own types thanks to [zodern:types](https://github.com/zodern/meteor-types), see [migration steps](https://docs.meteor.com/changelog.html#migrationsteps-5) for more information.
+
 ## Description
 
 These are the definitions for version 2.6 of Meteor.  These definitions were long ago (Meteor 1.x days) generated from the same [Meteor data.js file](https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs](http://docs.meteor.com/) but are now updated manually.
