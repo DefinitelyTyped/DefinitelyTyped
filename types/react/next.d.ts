@@ -55,7 +55,7 @@ declare module '.' {
 
     export function use<T>(usable: Usable<T>): T;
 
-    interface ServerContextJSONArray extends ReadonlyArray<ServerContextJSONArray> {}
+    interface ServerContextJSONArray extends ReadonlyArray<ServerContextJSONValue> {}
     export type ServerContextJSONValue =
         | string
         | boolean
