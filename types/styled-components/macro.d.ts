@@ -1,5 +1,5 @@
-import * as styledComponents from '.';
-export = styledComponents;
+export { default } from '.';
+export * from '.';
 
 /**
  * Recommended: also `import {} from 'styled-components/cssprop'`,
