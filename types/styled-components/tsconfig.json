@@ -8,7 +8,6 @@
             "es6"
         ],
         "module": "commonjs",
-        "esModuleInterop": true,
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
