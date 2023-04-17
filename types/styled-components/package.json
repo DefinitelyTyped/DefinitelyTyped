@@ -1,5 +1,9 @@
 {
     "private": true,
+    "exports": {
+        "import": "./index.d.mts",
+        "require": "./index.d.ts"
+    },
     "dependencies": {
         "csstype": "^3.0.2"
     }
