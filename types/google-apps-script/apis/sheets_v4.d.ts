@@ -1,4 +1,3 @@
-
 declare namespace GoogleAppsScript {
   namespace Sheets {
     namespace Collection {
