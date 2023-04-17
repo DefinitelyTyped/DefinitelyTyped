@@ -314,7 +314,7 @@ declare module '../../index' {
          *   @return A new p5.Vector object
          */
         static random3D(): Vector;
-  
+
         /**
          *   Returns a string representation of a vector v by
          *   calling String(v) or v.toString(). This method is
