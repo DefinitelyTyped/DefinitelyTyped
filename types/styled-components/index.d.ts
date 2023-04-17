@@ -440,4 +440,4 @@ declare namespace styledComponents {
     export { styled as default };
 }
 
-export = StyledComponents;
+export = styledComponents;
