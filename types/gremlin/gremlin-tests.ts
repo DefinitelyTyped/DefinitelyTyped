@@ -76,11 +76,13 @@ function constructorTests() {
     driverRemoteConnection.close();
     driverRemoteConnection.removeListener('log', eventHandler);
 
+    client.addListener('log', eventHandler);
     client.open();
     client.isOpen;
     client.submit(new Bytecode());
     client.stream(new Bytecode());
     client.close();
+    client.removeListener('log', eventHandler);
 
     resultSet.toArray();
     resultSet.first();

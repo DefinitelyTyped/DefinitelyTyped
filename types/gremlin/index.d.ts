@@ -41,7 +41,7 @@ declare namespace driver {
     class DriverRemoteConnection extends RemoteConnection {
         constructor(url: string, options?: any);
         open(): Promise<void>;
-        isOpen: Promise<boolean>;
+        isOpen: boolean;
         submit(bytecode: Bytecode): Promise<any>;
         createSession(): this;
         isSessionBound: boolean;
@@ -62,10 +62,12 @@ declare namespace driver {
     class Client {
         constructor(url: string, options?: any);
         open(): Promise<void>;
-        isOpen: Promise<boolean>;
+        isOpen: boolean;
         submit(message: Bytecode | string, bindings?: any, requestOptions?: RequestOptions): Promise<any>;
         stream(message: Bytecode | string, bindings?: any, requestOptions?: RequestOptions): any;
         close(): Promise<void>;
+        addListener(event: string, handler: (...args: any[]) => void): void;
+        removeListener(event: string, handler: (...args: any[]) => void): void;
     }
 
     class ResultSet {
