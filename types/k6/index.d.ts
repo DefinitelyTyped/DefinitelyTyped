@@ -41,6 +41,7 @@ import './html';
 import './http';
 import './metrics';
 import './options';
+import './experimental/browser';
 import './experimental/redis';
 import './experimental/timers';
 import './experimental/tracing';
