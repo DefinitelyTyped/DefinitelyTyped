@@ -2,7 +2,7 @@ import { Object3D } from './../core/Object3D';
 import { DirectionalLightShadow } from './DirectionalLightShadow';
 import { Light } from './Light';
 import { Vector3 } from '../math/Vector3';
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 
 /**
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js|src/lights/DirectionalLight.js}

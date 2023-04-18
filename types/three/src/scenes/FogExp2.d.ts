@@ -1,5 +1,4 @@
-import { ColorRepresentation } from '../utils';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { FogBase } from './Fog';
 
 /**
