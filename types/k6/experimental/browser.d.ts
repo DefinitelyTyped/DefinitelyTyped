@@ -228,6 +228,31 @@ export class Page {
      */
     trial?: boolean;
   }): void;
+
+  /**
+   * **NOTE** Use locator-based locator.dispatchEvent([options]) instead.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param type DOM event type: `"click"` etc.
+   * @param eventInit Optional event-specific initialization properties.
+   * @param options
+   */
+  dispatchEvent(selector: string, type: string, eventInit?: EvaluationArgument, options?: {
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
+     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods. Defaults to `30000`.
+     */
+    timeout?: number;
+  }): void;
 }
 
 /**
@@ -235,3 +260,16 @@ export class Page {
  * separate pages, cache, and cookies.
  */
 export class BrowserContext {}
+
+/**
+ * Represents event-specific properties. Refer to the events documentation for
+ * the lists of initial properties:
+ * - [DragEvent](https://developer.mozilla.org/en-US/docs/Web/API/DragEvent/DragEvent)
+ * - [FocusEvent](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/FocusEvent)
+ * - [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/KeyboardEvent)
+ * - [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent)
+ * - [PointerEvent](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/PointerEvent)
+ * - [TouchEvent](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/TouchEvent)
+ * - [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
+ */
+export type EvaluationArgument = object;

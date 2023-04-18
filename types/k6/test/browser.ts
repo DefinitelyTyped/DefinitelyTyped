@@ -91,3 +91,18 @@ page.dblclick(selector, { strict: true });
 page.dblclick(selector, { timeout: 10000 });
 // $ExpectType void
 page.dblclick(selector, { trial: true });
+
+// @ts-expect-error
+page.dispatchEvent();
+// @ts-expect-error
+page.dispatchEvent(selector);
+// $ExpectType void
+page.dispatchEvent(selector, 'click');
+// $ExpectType void
+page.dispatchEvent(selector, 'click', undefined, { strict: true });
+// $ExpectType void
+page.dispatchEvent(selector, 'click', undefined, { timeout: 10000 });
+// $ExpectType void
+page.dispatchEvent(selector, 'click', { type: 'look' });
+// @ts-expect-error
+page.dispatchEvent(selector, 'click', 'string');
