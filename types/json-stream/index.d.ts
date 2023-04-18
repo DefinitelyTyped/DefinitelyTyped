@@ -5,10 +5,10 @@
 
 /// <reference types="node" />
 
-import { Readable } from 'stream';
+import { Transform } from 'stream';
 
 export = JSONStream;
 
-declare class JSONStream extends Readable {
+declare class JSONStream extends Transform {
     constructor();
 }
