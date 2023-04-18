@@ -6,12 +6,12 @@ const css = 'body { direction:ltr; }';
 rtlcss.process(css);
 rtlcss.process(css, {}, [], {
     pre: (root, postcss) => {
-        root; // $ExpectType Root
-        postcss; // $ExpectType Postcss
+        root; // $ExpectType Root_
+        postcss; // $ExpectType typeof postcss
     },
     post: (root, postcss) => {
-        root; // $ExpectType Root
-        postcss; // $ExpectType Postcss
+        root; // $ExpectType Root_
+        postcss; // $ExpectType typeof postcss
     },
 });
 
@@ -43,8 +43,8 @@ const config = {
     plugins: [],
 };
 
-// $ExpectType Processor
+// $ExpectType Processor_
 rtlcss.configure(config);
 
-// $ExpectType Processor | Plugin
+// $ExpectType Processor_ | Plugin
 rtlcss(options);
