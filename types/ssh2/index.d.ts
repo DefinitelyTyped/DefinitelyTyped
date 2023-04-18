@@ -3,7 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
-//                 Lucas Motta <https://github.com/lucasmotta>
 //                 Tom Xu <https://github.com/hengkx>
 //                 Leo Toneff <https://github.com/bragle>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
@@ -1757,6 +1756,16 @@ export interface SFTPWrapper extends EventEmitter {
      * Sends an attrs response for the request identified by id.
      */
     attrs(reqId: number, attrs: Attributes): void;
+
+    /**
+     * Closes the channel.
+     */
+    end(): void;
+
+    /**
+     * Closes the channel.
+     */
+    destroy(): void;
 }
 
 export interface PublicKeyEntry {

@@ -3,7 +3,7 @@
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 //                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// Minimum TypeScript Version: 4.7
 
 /// <reference lib="dom" />
 /// <reference types="ace" />
@@ -11,6 +11,7 @@
 
 import { LocalSettings as RuntimeLocalSettings } from '@node-red/runtime';
 import { I18nTFunction } from '@node-red/util';
+import * as registry from '@node-red/registry';
 
 declare const editorClient: editorClient.EditorClientModule;
 
@@ -957,7 +958,7 @@ declare namespace editorClient {
         createObjectElement(obj: any, options?: object): JQuery;
         getMessageProperty(msg: object, expr: string | string[]): any;
         setMessageProperty(msg: object, prop: string, value: any, createMissing?: boolean): null | undefined;
-        normalisePropertyExpression(str: string): Array<string | number>;
+        normalisePropertyExpression(str: string, msg?: registry.NodeMessage): Array<string | number>;
         validatePropertyExpression(str: string): boolean;
         separateIconPath(icon?: string): {
             module: string;

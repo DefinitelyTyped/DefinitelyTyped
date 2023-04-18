@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@types/minimatch": "*"
+        "@types/minimatch": "*",
+        "@types/glob": "~7.2.0"
     }
 }
