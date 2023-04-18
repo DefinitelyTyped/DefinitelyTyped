@@ -54,7 +54,7 @@ export class Page {
 
     /**
      * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `browserContext` or
+     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
      * `page` methods. Defaults to `30000`.
      */
     timeout?: number;
@@ -130,7 +130,7 @@ export class Page {
 
     /**
      * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `browserContext` or
+     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
      * `page` methods. Defaults to `30000`.
      */
     timeout?: number;
@@ -152,6 +152,11 @@ export class Page {
    * Gets the HTML contents of the page.
    */
   content(): string;
+
+  /**
+   * Gets the `BrowserContext` that the page belongs to.
+   */
+  context(): BrowserContext;
 
   /**
    * **NOTE** Use locator-based `locator.dblclick([options])` instead.
@@ -211,7 +216,7 @@ export class Page {
 
     /**
      * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `browserContext` or
+     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
      * `page` methods. Defaults to `30000`.
      */
     timeout?: number;
@@ -224,3 +229,9 @@ export class Page {
     trial?: boolean;
   }): void;
 }
+
+/**
+ * `BrowserContexts` provide a way to operate multiple independent sessions, with
+ * separate pages, cache, and cookies.
+ */
+export class BrowserContext {}

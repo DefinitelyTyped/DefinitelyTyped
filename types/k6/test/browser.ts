@@ -62,6 +62,9 @@ page.close();
 // $ExpectType string
 page.content();
 
+// $ExpectType BrowserContext
+page.context();
+
 // @ts-expect-error
 page.dblclick();
 // $ExpectType void
