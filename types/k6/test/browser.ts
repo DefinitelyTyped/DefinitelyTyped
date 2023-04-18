@@ -58,3 +58,6 @@ page.click(selector, { trial: true });
 
 // $ExpectType void
 page.close();
+
+// $ExpectType string
+page.content();

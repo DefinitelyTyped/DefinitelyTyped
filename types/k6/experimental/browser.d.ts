@@ -147,4 +147,9 @@ export class Page {
    * This will close the tab that this page is associated with.
    */
   close(): void;
+
+  /**
+   * Gets the HTML contents of the page.
+   */
+  content(): string;
 }
