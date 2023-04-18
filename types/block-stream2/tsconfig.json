@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "bloack-stream2-tests.ts"
+        "block-stream2-tests.ts"
     ]
 }
