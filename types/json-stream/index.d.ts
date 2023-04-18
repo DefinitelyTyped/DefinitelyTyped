@@ -7,8 +7,15 @@
 
 import { Transform } from 'stream';
 
-export = JSONStream;
-
 declare class JSONStream extends Transform {
     constructor();
 }
+
+interface Export {
+    (): JSONStream;
+    JSONStream: typeof JSONStream;
+}
+
+declare const exports: Export;
+
+export = exports;
