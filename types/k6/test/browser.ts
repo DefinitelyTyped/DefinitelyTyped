@@ -61,3 +61,30 @@ page.close();
 
 // $ExpectType string
 page.content();
+
+// @ts-expect-error
+page.dblclick();
+// $ExpectType void
+page.dblclick(selector);
+// $ExpectType void
+page.dblclick(selector, { button: 'left' });
+// $ExpectType void
+page.dblclick(selector, { button: 'middle' });
+// $ExpectType void
+page.dblclick(selector, { button: 'right' });
+// $ExpectType void
+page.dblclick(selector, { delay: 1000 });
+// $ExpectType void
+page.dblclick(selector, { force: true });
+// $ExpectType void
+page.dblclick(selector, { modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+// $ExpectType void
+page.dblclick(selector, { noWaitAfter: true });
+// $ExpectType void
+page.dblclick(selector, { position: { x: 0, y: 0 } });
+// $ExpectType void
+page.dblclick(selector, { strict: true });
+// $ExpectType void
+page.dblclick(selector, { timeout: 10000 });
+// $ExpectType void
+page.dblclick(selector, { trial: true });
