@@ -15,6 +15,13 @@ export interface Argument {
 
 export type ArgumentType = boolean | number | string | Argument;
 
+export interface RequestInfo { 
+  address: string; 
+  family: string; 
+  port: number; 
+  size: number 
+};
+
 /**
  * A message that can be sent over OSC
  */
@@ -79,7 +86,7 @@ export type ServerBundleListener = (bundle: Bundle) => void;
 
 export type ServerErrorListner = (error: Error) => void;
 
-export type ServerMessageListener = (message: [string, ...ArgumentType[]]) => void;
+export type ServerMessageListener = (message: [string, ...ArgumentType[]], rinfo: RequestInfo) => void;
 
 /**
  * A server to handle OSC messages
