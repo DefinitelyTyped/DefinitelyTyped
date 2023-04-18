@@ -43,7 +43,7 @@ const config = {
     plugins: [],
 };
 
-// $ExpectType Processor_
+// $ExpectType Processor
 rtlcss.configure(config);
 
 // $ExpectType Processor_ | Plugin

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { AcceptedPlugin, ProcessOptions, Root, LazyResult } from 'postcss';
-import NoWorkResult from 'postcss/lib/no-work-result';
+import NoWorkResult = require('postcss/lib/no-work-result');
 
 /** CSS-in-JS object */
 export type CssInJs = Record<string, any>;
