@@ -253,6 +253,32 @@ export class Page {
      */
     timeout?: number;
   }): void;
+
+  /**
+   * This method changes the `CSS media type` through the `media` argument,
+   * and/or the `'prefers-colors-scheme'` media feature, using the `colorScheme`
+   * argument.
+   * @param options
+   */
+  emulateMedia(options?: {
+    /**
+     * Emulates `'prefers-colors-scheme'` media feature, supported values are
+     * `'light'`, `'dark'`, and `'no-preference'`.
+     */
+    colorScheme?: "light"|"dark"|"no-preference";
+
+    /**
+     * Changes the CSS media type of the page. The only allowed values are
+     * `'screen'`, and `'print'`.
+     */
+    media?: "screen"|"print";
+
+    /**
+     * Emulates `'prefers-reduced-motion'` media feature, supported values are
+     * `'reduce'`, `'no-preference'`.
+     */
+    reducedMotion?: "reduce"|"no-preference";
+  }): void;
 }
 
 /**

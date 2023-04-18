@@ -106,3 +106,20 @@ page.dispatchEvent(selector, 'click', undefined, { timeout: 10000 });
 page.dispatchEvent(selector, 'click', { type: 'look' });
 // @ts-expect-error
 page.dispatchEvent(selector, 'click', 'string');
+
+// $ExpectType void
+page.emulateMedia();
+// $ExpectType void
+page.emulateMedia({ colorScheme: 'light' });
+// $ExpectType void
+page.emulateMedia({ colorScheme: 'dark' });
+// $ExpectType void
+page.emulateMedia({ colorScheme: 'no-preference' });
+// $ExpectType void
+page.emulateMedia({ media: 'screen' });
+// $ExpectType void
+page.emulateMedia({ media: 'print' });
+// $ExpectType void
+page.emulateMedia({ reducedMotion: 'no-preference' });
+// $ExpectType void
+page.emulateMedia({ reducedMotion: 'reduce' });
