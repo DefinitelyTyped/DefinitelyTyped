@@ -17,6 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "bloack-stream2.test.ts"
     ]
 }
