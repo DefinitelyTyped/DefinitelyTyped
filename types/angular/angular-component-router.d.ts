@@ -1,8 +1,3 @@
-// Type definitions for Angular JS 1.5 component router
-// Project: http://angularjs.org
-// Definitions by: David Reher <https://github.com/davidreher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace angular {
     /**
      * `Instruction` is a tree of {@link ComponentInstruction}s with all the information needed
