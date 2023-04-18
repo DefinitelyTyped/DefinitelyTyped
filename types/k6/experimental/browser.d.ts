@@ -142,4 +142,9 @@ export class Page {
      */
     trial?: boolean;
   }): Promise<void>;
+
+  /**
+   * This will close the tab that this page is associated with.
+   */
+  close(): void;
 }

@@ -55,3 +55,6 @@ page.click(selector, { strict: true });
 page.click(selector, { timeout: 10000 });
 // $ExpectType Promise<void>
 page.click(selector, { trial: true });
+
+// $ExpectType void
+page.close();
