@@ -15,7 +15,7 @@ export class Page {
   bringToFront(): void;
 
   /**
-   * **NOTE** Use locator-based [locator.check([options])](https://k6.io/docs/javascript-api/k6-browser/api/locator/check/) instead.
+   * **NOTE** Use locator-based `locator.check([options])` instead.
    *
    * This method is used to select an input checkbox.
    * @param selector A selector to search for an element. If there are multiple
@@ -54,8 +54,8 @@ export class Page {
 
     /**
      * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on [browserContext](https://k6.io/docs/javascript-api/k6-browser/api/browsercontext/)
-     * or [page](https://k6.io/docs/javascript-api/k6-browser/api/page/) methods. Defaults to `30000`.
+     * is overridden by the `setDefaultTimeout` option on `browserContext` or
+     * `page` methods. Defaults to `30000`.
      */
     timeout?: number;
 
@@ -68,7 +68,7 @@ export class Page {
   }): void;
 
   /**
-   * **NOTE** Use locator-based [locator.click([options])](https://k6.io/docs/javascript-api/k6-browser/api/locator/click/) instead.
+   * **NOTE** Use locator-based `locator.click([options])` instead.
    *
    * This method clicks an element matching `selector`.
    * @param selector A selector to search for an element. If there are multiple
@@ -130,8 +130,8 @@ export class Page {
 
     /**
      * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on [browserContext](https://k6.io/docs/javascript-api/k6-browser/api/browsercontext/)
-     * or [page](https://k6.io/docs/javascript-api/k6-browser/api/page/) methods. Defaults to `30000`.
+     * is overridden by the `setDefaultTimeout` option on `browserContext` or
+     * `page` methods. Defaults to `30000`.
      */
     timeout?: number;
 
@@ -154,7 +154,7 @@ export class Page {
   content(): string;
 
   /**
-   * **NOTE** Use locator-based [locator.dblclick([options])](https://k6.io/docs/javascript-api/k6-browser/api/locator/dblclick/) instead.
+   * **NOTE** Use locator-based `locator.dblclick([options])` instead.
    *
    * Mouse double clicks an element matching provided selector.
    * @param selector A selector to search for an element. If there are multiple
@@ -211,8 +211,8 @@ export class Page {
 
     /**
      * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on [browserContext](https://k6.io/docs/javascript-api/k6-browser/api/browsercontext/)
-     * or [page](https://k6.io/docs/javascript-api/k6-browser/api/page/) methods. Defaults to `30000`.
+     * is overridden by the `setDefaultTimeout` option on `browserContext` or
+     * `page` methods. Defaults to `30000`.
      */
     timeout?: number;
 
