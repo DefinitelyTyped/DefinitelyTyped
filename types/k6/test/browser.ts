@@ -26,3 +26,32 @@ page.check(selector, { strict: true });
 page.check(selector, { timeout: 10000 });
 // $ExpectType void
 page.check(selector, { trial: true });
+
+// @ts-expect-error
+page.click();
+// $ExpectType Promise<void>
+page.click(selector);
+// $ExpectType Promise<void>
+page.click(selector, { button: 'left' });
+// $ExpectType Promise<void>
+page.click(selector, { button: 'middle' });
+// $ExpectType Promise<void>
+page.click(selector, { button: 'right' });
+// $ExpectType Promise<void>
+page.click(selector, { clickCount: 3 });
+// $ExpectType Promise<void>
+page.click(selector, { delay: 1000 });
+// $ExpectType Promise<void>
+page.click(selector, { force: true });
+// $ExpectType Promise<void>
+page.click(selector, { modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+// $ExpectType Promise<void>
+page.click(selector, { noWaitAfter: true });
+// $ExpectType Promise<void>
+page.click(selector, { position: { x: 0, y: 0 } });
+// $ExpectType Promise<void>
+page.click(selector, { strict: true });
+// $ExpectType Promise<void>
+page.click(selector, { timeout: 10000 });
+// $ExpectType Promise<void>
+page.click(selector, { trial: true });
