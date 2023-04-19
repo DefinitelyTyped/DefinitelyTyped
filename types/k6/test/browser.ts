@@ -140,3 +140,18 @@ page.emulateVisionDeficiency("protanopia");
 page.emulateVisionDeficiency("tritanopia");
 // @ExpectType void
 page.emulateVisionDeficiency("achromatopsia");
+
+// @ts-expect-error
+page.evaluate();
+// @ts-expect-error
+page.evaluate(1);
+// @ExpectType void
+page.evaluate("");
+// @ExpectType void
+page.evaluate(() => {});
+// @ExpectType string
+page.evaluate(() => { ""; });
+// @ExpectType string
+page.evaluate((a: string) => { a; }, "");
+// @ExpectType string[]
+page.evaluate((a: string[]) => a, [""]);

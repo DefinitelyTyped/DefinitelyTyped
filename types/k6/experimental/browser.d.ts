@@ -295,6 +295,16 @@ export class Page {
   emulateVisionDeficiency(
     type: "none"|"blurredVision"|"deuteranopia"|"protanopia"|"tritanopia"|"achromatopsia"
   ): void;
+
+  /**
+   * Returns the value of the `pageFunction` invocation.
+   *
+   * A string can also be passed in instead of a function.
+   *
+   * @param pageFunction Function to be evaluated in the page context.
+   * @param arg Optional argument to pass to `pageFunction`.
+   */
+   evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
 }
 
 /**
@@ -315,3 +325,14 @@ export class BrowserContext {}
  * - [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
  */
 export type EvaluationArgument = object;
+
+export type PageFunction<Arg, R> = string | ((arg: Unboxed<Arg>) => R);
+
+export type Unboxed<Arg> =
+  Arg extends [infer A0] ? [Unboxed<A0>] :
+  Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unboxed<A1>] :
+  Arg extends [infer A0, infer A1, infer A2] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>] :
+  Arg extends [infer A0, infer A1, infer A2, infer A3] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>, Unboxed<A3>] :
+  Arg extends Array<infer T> ? Array<Unboxed<T>> :
+  Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> } :
+  Arg;
