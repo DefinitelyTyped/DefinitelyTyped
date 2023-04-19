@@ -387,6 +387,32 @@ export class Page {
    * Frames returns an array of frames on the page.
    */
   frames(): Frame[];
+
+  /**
+   * **NOTE** Use locator-based locator.getAttribute(name[, options]) instead.
+   *
+   * Returns the element attribute value for the given attribute name.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param name Attribute name to get the value for.
+   * @param options
+   */
+  getAttribute(selector: string, name: string, options?: {
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
+     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods. Defaults to `30000`.
+     */
+    timeout?: number;
+  }): null|string;
 }
 
 /**

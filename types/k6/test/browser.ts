@@ -197,3 +197,14 @@ page.focus(selector, { timeout: 10000 });
 
 // $ExpectType Frame[]
 page.frames();
+
+// @ts-expect-error
+page.getAttribute();
+// @ts-expect-error
+page.getAttribute(selector);
+// $ExpectType string | null
+page.getAttribute(selector, "text");
+// $ExpectType string | null
+page.getAttribute(selector, "text", { strict: true });
+// $ExpectType string | null
+page.getAttribute(selector, "text", { timeout: 10000 });
