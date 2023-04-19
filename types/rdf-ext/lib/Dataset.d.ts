@@ -38,8 +38,7 @@ export interface DatasetExt extends Dataset<QuadExt> {
 
     equals(other: DatasetCore): boolean;
 
-    reduce(callbackfn: (previousValue: QuadExt, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => QuadExt): QuadExt;
-    reduce(callbackfn: (previousValue: QuadExt, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => QuadExt, initialValue: QuadExt): QuadExt;
+    reduce(callbackfn: (previousValue: QuadExt, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => QuadExt, initialValue?: QuadExt): QuadExt;
     reduce<U>(callbackfn: (previousValue: U, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => U, initialValue: U): U;
 }
 
