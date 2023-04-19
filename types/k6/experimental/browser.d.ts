@@ -279,6 +279,22 @@ export class Page {
      */
     reducedMotion?: "reduce"|"no-preference";
   }): void;
+
+  /**
+   * This emulates your website with the specified vision deficiency type.
+   * The supported types are:
+   * - none: default.
+   * - blurredVision: where vision is less precise.
+   * - protanopia: the inability to perceive any red light.
+   * - deuteranopia: the inability to perceive any green light.
+   * - tritanopia: the inability to perceive any blue light.
+   * - achromatopsia: the inability to perceive any color except for shades of
+   * grey (extremely rare).
+   * @param type
+   */
+  emulateVisionDeficiency(
+    type: "none"|"blurredVision"|"deuteranopia"|"protanopia"|"tritanopia"|"achromatopsia"
+  ): void;
 }
 
 /**

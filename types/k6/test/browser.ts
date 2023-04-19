@@ -123,3 +123,20 @@ page.emulateMedia({ media: 'print' });
 page.emulateMedia({ reducedMotion: 'no-preference' });
 // $ExpectType void
 page.emulateMedia({ reducedMotion: 'reduce' });
+
+// @ts-expect-error
+page.emulateVisionDeficiency();
+// @ts-expect-error
+page.emulateVisionDeficiency("");
+// @ExpectType void
+page.emulateVisionDeficiency("none");
+// @ExpectType void
+page.emulateVisionDeficiency("blurredVision");
+// @ExpectType void
+page.emulateVisionDeficiency("deuteranopia");
+// @ExpectType void
+page.emulateVisionDeficiency("protanopia");
+// @ExpectType void
+page.emulateVisionDeficiency("tritanopia");
+// @ExpectType void
+page.emulateVisionDeficiency("achromatopsia");
