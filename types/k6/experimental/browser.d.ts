@@ -304,7 +304,19 @@ export class Page {
    * @param pageFunction Function to be evaluated in the page context.
    * @param arg Optional argument to pass to `pageFunction`.
    */
-   evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
+  evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
+
+  /**
+   * Returns the value of the `pageFunction` invocation as a [JSHandle].
+   *
+   * The only difference between page.evaluate(pageFunction[, arg]) and
+   * page.evaluateHandle(pageFunction[, arg]) is that
+   * page.evaluateHandle(pageFunction[, arg])returns [JSHandle].
+   *
+   * @param pageFunction Function to be evaluated in the page context.
+   * @param arg Optional argument to pass to `pageFunction`.
+   */
+  evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 }
 
 /**
@@ -312,6 +324,11 @@ export class Page {
  * separate pages, cache, and cookies.
  */
 export class BrowserContext {}
+
+/**
+ * JSHandle represents an in-page JavaScript object.
+ */
+export class JSHandle<T = any> {}
 
 /**
  * Represents event-specific properties. Refer to the events documentation for

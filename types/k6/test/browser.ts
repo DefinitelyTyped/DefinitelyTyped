@@ -155,3 +155,18 @@ page.evaluate(() => { ""; });
 page.evaluate((a: string) => { a; }, "");
 // @ExpectType string[]
 page.evaluate((a: string[]) => a, [""]);
+
+// @ts-expect-error
+page.evaluateHandle();
+// @ts-expect-error
+page.evaluateHandle(1);
+// @ExpectType JSHandle
+page.evaluateHandle("");
+// @ExpectType JSHandle
+page.evaluateHandle(() => {});
+// @ExpectType JSHandle
+page.evaluateHandle(() => { ""; });
+// @ExpectType JSHandle
+page.evaluateHandle((a: string) => { a; }, "");
+// @ExpectType JSHandle
+page.evaluateHandle((a: string[]) => a, [""]);
