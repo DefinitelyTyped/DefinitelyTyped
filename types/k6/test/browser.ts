@@ -220,3 +220,22 @@ page.goto(url, { referer: "http://example.com" });
 page.goto(url, { timeout: 10000 });
 // $ExpectType Promise<Response | null>
 page.goto(url, { waitUntil: "networkidle" });
+
+// @ts-expect-error
+page.hover();
+// $ExpectType void
+page.hover(selector);
+// $ExpectType void
+page.hover(selector, { force: true });
+// $ExpectType void
+page.hover(selector, { modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+// $ExpectType void
+page.hover(selector, { noWaitAfter: true });
+// $ExpectType void
+page.hover(selector, { position: { x: 0, y: 0 } });
+// $ExpectType void
+page.hover(selector, { strict: true });
+// $ExpectType void
+page.hover(selector, { timeout: 10000 });
+// $ExpectType void
+page.hover(selector, { trial: true });

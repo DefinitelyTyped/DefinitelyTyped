@@ -454,6 +454,67 @@ export class Page {
      */
     waitUntil?: "load"|"domcontentloaded"|"networkidle";
   }): Promise<null|Response>;
+
+  /**
+   * **NOTE** Use locator-based locator.hover([options]) instead.
+   *
+   * This method hovers over an element matching `selector`.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param options
+   */
+  hover(selector: string, options?: {
+    /**
+     * Setting this to `true` will bypass the actionability checks (`visible`,
+     * `stable`, `enabled`). Defaults to `false`.
+     */
+    force?: boolean;
+
+    /**
+     * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
+     * action. If not specified, currently pressed modifiers are used,
+     * otherwise defaults to `null`.
+     */
+    modifiers?: Array<"Alt"|"Control"|"Meta"|"Shift">;
+
+    /**
+     * If set to `true` and a navigation occurs from performing this action, it
+     * will not wait for it to complete. Defaults to `false`.
+     */
+    noWaitAfter?: boolean;
+
+    /**
+     * A point to use relative to the top left corner of the element. If not
+     * supplied, a visible point of the element is used.
+     */
+    position?: {
+      x: number;
+
+      y: number;
+    };
+
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
+    timeout?: number;
+
+    /**
+     * Setting this to `true` will perform the actionability checks without
+     * performing the action. Useful to wait until the element is ready for the
+     * action without performing it. Defaults to `false`.
+     */
+    trial?: boolean;
+  }): void;
 }
 
 /**
