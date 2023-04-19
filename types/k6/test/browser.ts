@@ -170,3 +170,18 @@ page.evaluateHandle(() => { ""; });
 page.evaluateHandle((a: string) => { a; }, "");
 // @ExpectType JSHandle
 page.evaluateHandle((a: string[]) => a, [""]);
+
+// @ts-expect-error
+page.fill();
+// @ts-expect-error
+page.fill(selector);
+// $ExpectType void
+page.fill(selector, "text");
+// $ExpectType void
+page.fill(selector, "text", { force: true });
+// $ExpectType void
+page.fill(selector, "text", { noWaitAfter: true });
+// $ExpectType void
+page.fill(selector, "text", { strict: true });
+// $ExpectType void
+page.fill(selector, "text", { timeout: 10000 });

@@ -317,6 +317,46 @@ export class Page {
    * @param arg Optional argument to pass to `pageFunction`.
    */
   evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
+
+  /**
+   * **NOTE** Use locator-based `locator.fill(value[, options])` instead.
+   *
+   * Fill an `input`, `textarea` or `[contenteditable]` element with the
+   * provided value.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param value Value to fill for the `<input>`, `<textarea>` or
+   * `[contenteditable]` element.
+   * @param options
+   */
+  fill(selector: string, value: string, options?: {
+    /**
+     * Setting this to `true` will bypass the actionability checks (`visible`,
+     * `stable`, `enabled`). Defaults to `false`.
+     */
+    force?: boolean;
+
+    /**
+     * If set to `true` and a navigation occurs from performing this action, it
+     * will not wait for it to complete. Defaults to `false`.
+     */
+    noWaitAfter?: boolean;
+
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
+     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods. Defaults to `30000`.
+     */
+    timeout?: number;
+  }): void;
 }
 
 /**
