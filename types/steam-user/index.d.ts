@@ -10,9 +10,9 @@
 
 /// <reference types="node" />
 
-import type SteamID = require('steamid');
-import type ByteBuffer = require('bytebuffer');
-import type FileManager = require('file-manager');
+import SteamID = require('steamid');
+import ByteBuffer = require('bytebuffer');
+import FileManager = require('file-manager');
 import EventEmitter = require('events');
 import SteamChatRoomClient = require('./components/chatroom');
 
