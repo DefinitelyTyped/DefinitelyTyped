@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/plugins 3.0
+// Type definitions for @wordpress/plugins 5.8
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/plugins/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
