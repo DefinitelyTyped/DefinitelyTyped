@@ -150,3 +150,31 @@ function Optimistic() {
         addToOptimisticCartTyped2(String(item));
     };
 }
+
+// ReactNode tests
+{
+    // @ts-expect-error
+    const plainObject: React.ReactNode = { dave: true };
+    const promise: React.ReactNode = Promise.resolve('React');
+    // @ts-expect-error plain objects are not allowed
+    <div>{{ dave: true }}</div>;
+    <div>{Promise.resolve('React')}</div>;
+}
+
+function elementTypeTests() {
+    const ReturnPromise = () => Promise.resolve('React');
+    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
+    const FCPromise: React.FC = ReturnPromise;
+    class RenderPromise extends React.Component {
+        render() {
+          return Promise.resolve('React');
+        }
+    }
+
+    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
+    <ReturnPromise />;
+    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
+    React.createElement(ReturnPromise);
+    <RenderPromise />;
+    React.createElement(RenderPromise);
+}
