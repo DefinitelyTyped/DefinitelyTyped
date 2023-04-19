@@ -59,7 +59,7 @@ declare namespace SemanticUI {
 		/**
          * Changes dropdown to use new values. values structure: [ {value, text, name} ].
          */
-        (behavior: 'change values', values: any[]): JQuery;
+        (behavior: 'change values', values: { value?: any, text?: string, name?: string }[]): JQuery;
         /**
          * Sets value as selected
          */
