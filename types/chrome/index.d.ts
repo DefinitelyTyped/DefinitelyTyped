@@ -1051,6 +1051,8 @@ declare namespace chrome.browsingData {
         downloads?: boolean | undefined;
         /** Optional. The browser's cache. Note: when removing data, this clears the entire cache: it is not limited to the range you specify.  */
         cache?: boolean | undefined;
+        /** Optional. The browser's cacheStorage.  */
+        cacheStorage?: boolean | undefined;
         /** Optional. Websites' appcaches.  */
         appcache?: boolean | undefined;
         /** Optional. Websites' file systems.  */
