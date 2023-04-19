@@ -239,9 +239,22 @@ declare namespace React {
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     type ReactFragment = Iterable<ReactNode>;
 
-    const DO_NOT_USE_OR_YOU_WILL_BE_FIRED_VALID_REACT_NODE_EXPERIMENTAL_BRAND: unique symbol;
-    interface ValidReactNodeIfReactExperimental<T> { [DO_NOT_USE_OR_YOU_WILL_BE_FIRED_VALID_REACT_NODE_EXPERIMENTAL_BRAND]: never; }
-    type ReactNode = ReactElement | string | number | ReactFragment | ReactPortal | boolean | null | undefined | ValidReactNodeIfReactExperimental<ReactNode>;
+    /**
+     * For internal usage only.
+     * Different release channels declare additional types of ReactNode this particular release channel accepts.
+     * App or library types should never augment this interface.
+     */
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {}
+    type ReactNode =
+        | ReactElement
+        | string
+        | number
+        | ReactFragment
+        | ReactPortal
+        | boolean
+        | null
+        | undefined
+        | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES];
 
     //
     // Top Level API

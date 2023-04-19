@@ -144,18 +144,16 @@ type ExtractPropsMatch = ExtractedProps extends ExtractedPropsWithoutAnnotation 
 type ExtractPropsMatch2 = ExtractedPropsWithoutAnnotation extends ExtractedProps ? true : false;
 // $ExpectType true
 type ExtractPropsMatch3 = ExtractedProps extends Props ? true : false;
-// FIXME: Broke once PromiseLike support was added to experimental.
-// ExpectType true
-// type ExtractPropsMatch4 = Props extends ExtractedPropsWithoutAnnotation ? true : false;
+// $ExpectType true
+type ExtractPropsMatch4 = Props extends ExtractedPropsWithoutAnnotation ? true : false;
 // $ExpectType true
 type ExtractFromOuterPropsMatch = ExtractedPropsFromOuterProps extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
 // $ExpectType true
 type ExtractFromOuterPropsMatch2 = ExtractedPropsFromOuterPropsWithoutAnnotation extends ExtractedPropsFromOuterProps ? true : false;
 // $ExpectType true
 type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? true : false;
-// FIXME: Broke once PromiseLike support was added to experimental.
-// ExpectType true
-// type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
+// $ExpectType true
+type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
 
 // $ExpectType false
 type ExtractPropsMismatch = ExtractedPartialProps extends Props ? true : false;
@@ -192,8 +190,7 @@ const componentDefaultProps = {
 type DefaultizedProps = Defaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>;
 type UndefaultizedProps = Undefaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>;
 
-// FIXME: Broke once PromiseLike support was added to experimental.
-// ExpectType true
+// $ExpectType true
 type DefaultizedPropsTest = {
     fi?: ((...args: any[]) => any) | undefined;
     foo?: string | null | undefined;
@@ -201,8 +198,7 @@ type DefaultizedPropsTest = {
     baz?: boolean | null | undefined;
     bat?: ReactNode | undefined;
 } extends DefaultizedProps ? true : false;
-// FIXME: Broke once PromiseLike support was added to experimental.
-// ExpectType true
+// $ExpectType true
 type UndefaultizedPropsTest = {
     fi: (...args: any[]) => any;
     foo?: string | null | undefined;

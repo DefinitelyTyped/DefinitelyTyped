@@ -757,7 +757,7 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
-    const promise: React.ReactNode = Promise.resolve();
+    const promise: React.ReactNode = Promise.resolve('React');
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });

@@ -33,25 +33,20 @@
 // all tasks done as part of the render phase (the concurrent part of the React update cycle).
 //
 // Suspense-related handling can be found in ReactFiberThrow.js.
-/// <reference types="./next"/>
 
-import React = require('./');
+import React = require('./next');
 
 export {};
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-declare global {
-    interface PromiseLike<T> {
-        [React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_VALID_REACT_NODE_EXPERIMENTAL_BRAND]: never;
-    }
-    interface Promise<T> {
-        [React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_VALID_REACT_NODE_EXPERIMENTAL_BRAND]: never;
-    }
-}
-
 declare module '.' {
+    interface PromisedReactNode extends PromiseLike<ReactNode> {}
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
+        promises: PromisedReactNode
+    }
+
     export interface SuspenseProps {
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
