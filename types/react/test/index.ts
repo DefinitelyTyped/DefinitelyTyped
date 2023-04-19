@@ -751,9 +751,15 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
 
     // @ts-expect-error
+    const render: React.ReactNode = () => React.createElement('div');
+    // Will not be rejected in a real project but rejected in DT tests since experimental.d.ts is part of compilation.
+    // This is a step backwards from v17 types unfortunately.
+    // @ts-expect-error
+    const emptyObject: React.ReactNode = { };
+    // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
     // @ts-expect-error experimental release channel only
-    const plainObject: React.ReactNode = Promise.resolve();
+    const promise: React.ReactNode = Promise.resolve();
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });

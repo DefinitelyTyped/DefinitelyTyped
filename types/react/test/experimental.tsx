@@ -154,6 +154,10 @@ function Optimistic() {
 // ReactNode tests
 {
     // @ts-expect-error
+    const render: React.ReactNode = () => React.createElement('div');
+    // @ts-expect-error
+    const emptyObject: React.ReactNode = { };
+    // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
     const promise: React.ReactNode = Promise.resolve('React');
     // @ts-expect-error plain objects are not allowed
