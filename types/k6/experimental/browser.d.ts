@@ -382,6 +382,11 @@ export class Page {
       */
     timeout?: number;
   }): void;
+
+  /**
+   * Frames returns an array of frames on the page.
+   */
+  frames(): Frame[];
 }
 
 /**
@@ -394,6 +399,11 @@ export class BrowserContext {}
  * JSHandle represents an in-page JavaScript object.
  */
 export class JSHandle<T = any> {}
+
+/**
+ * Frame represents the frame within a page. A page is made up of hierarchy of frames.
+ */
+export class Frame {}
 
 /**
  * Represents event-specific properties. Refer to the events documentation for

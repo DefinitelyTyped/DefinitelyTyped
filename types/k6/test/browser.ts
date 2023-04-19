@@ -194,3 +194,6 @@ page.focus(selector);
 page.focus(selector, { strict: true });
 // $ExpectType void
 page.focus(selector, { timeout: 10000 });
+
+// $ExpectType Frame[]
+page.frames();
