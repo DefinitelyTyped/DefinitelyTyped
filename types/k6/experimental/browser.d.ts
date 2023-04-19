@@ -53,9 +53,9 @@ export class Page {
     strict?: boolean;
 
     /**
-     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
-     * `page` methods. Defaults to `30000`.
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
      */
     timeout?: number;
 
@@ -129,9 +129,9 @@ export class Page {
     strict?: boolean;
 
     /**
-     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
-     * `page` methods. Defaults to `30000`.
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
      */
     timeout?: number;
 
@@ -215,9 +215,9 @@ export class Page {
     strict?: boolean;
 
     /**
-     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
-     * `page` methods. Defaults to `30000`.
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
      */
     timeout?: number;
 
@@ -247,9 +247,9 @@ export class Page {
     strict?: boolean;
 
     /**
-     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
-     * `page` methods. Defaults to `30000`.
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
      */
     timeout?: number;
   }): void;
@@ -351,9 +351,9 @@ export class Page {
     strict?: boolean;
 
     /**
-     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
-     * `page` methods. Defaults to `30000`.
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
      */
     timeout?: number;
   }): void;
@@ -375,11 +375,11 @@ export class Page {
      */
     strict?: boolean;
 
-     /**
-      * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-      * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
-      * `page` methods. Defaults to `30000`.
-      */
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
     timeout?: number;
   }): void;
 
@@ -407,9 +407,9 @@ export class Page {
     strict?: boolean;
 
     /**
-     * Maximum time in milliseconds. Pass `0` to disable the timeout. Default
-     * is overridden by the `setDefaultTimeout` option on `BrowserContext` or
-     * `page` methods. Defaults to `30000`.
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
      */
     timeout?: number;
   }): null|string;
