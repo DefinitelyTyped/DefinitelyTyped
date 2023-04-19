@@ -185,3 +185,12 @@ page.fill(selector, "text", { noWaitAfter: true });
 page.fill(selector, "text", { strict: true });
 // $ExpectType void
 page.fill(selector, "text", { timeout: 10000 });
+
+// @ts-expect-error
+page.focus();
+// $ExpectType void
+page.focus(selector);
+// $ExpectType void
+page.focus(selector, { strict: true });
+// $ExpectType void
+page.focus(selector, { timeout: 10000 });
