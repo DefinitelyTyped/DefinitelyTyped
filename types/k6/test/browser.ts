@@ -1,5 +1,6 @@
 import browser from 'k6/experimental/browser';
 
+const url = 'http://example.com';
 const selector = 'a[href="http://example.com"]';
 
 //
@@ -208,3 +209,14 @@ page.getAttribute(selector, "text");
 page.getAttribute(selector, "text", { strict: true });
 // $ExpectType string | null
 page.getAttribute(selector, "text", { timeout: 10000 });
+
+// @ts-expect-error
+page.goto();
+// $ExpectType Promise<Response | null>
+page.goto(url);
+// $ExpectType Promise<Response | null>
+page.goto(url, { referer: "http://example.com" });
+// $ExpectType Promise<Response | null>
+page.goto(url, { timeout: 10000 });
+// $ExpectType Promise<Response | null>
+page.goto(url, { waitUntil: "networkidle" });
