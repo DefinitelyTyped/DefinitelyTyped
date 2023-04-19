@@ -6003,6 +6003,10 @@
             "libraryName": "@wordpress/compose",
             "asOfVersion": "6.1.0"
         },
+        "wordpress__components": {
+            "libraryName": "@wordpress/components",
+            "asOfVersion": "23.8.0"
+        },
         "wordpress__core-data": {
             "libraryName": "@wordpress/core-data",
             "asOfVersion": "5.0.0"
