@@ -42,6 +42,8 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module '.' {
+    interface PromiseLikeIfReactExperimental<T> extends PromiseLike<T> { }
+
     export interface SuspenseProps {
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
