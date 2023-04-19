@@ -1,6 +1,7 @@
 import { Risk } from './3d-secure';
 import { Adyen } from './adyen';
 import { BankRedirect } from './bank-redirect';
+import { AlternativePaymentMethods } from './alternative-payment-methods';
 import { ApplePay } from './apple-pay';
 import { BankAccount } from './bank-account';
 import { Configure } from './configure';
@@ -50,6 +51,11 @@ export interface Recurly extends Emitter<RecurlyEvent> {
   configure: Configure;
 
   /**
+   * Triggered once Recurly has fully been initialized after configuring.the instance.
+   */
+  ready: (cb?: VoidFunction) => void;
+
+  /**
    * Elements allow sensitive customer payment information to be securely accepted via iframes.
    * They are controlled in groups by an Elements instance.
    *
@@ -64,6 +70,13 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#google-pay|GooglePay}
    */
    GooglePay: GooglePay;
+
+   /**
+    * Pay with Alternative Payment Methods.
+    *
+    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html}
+    */
+   AlternativePaymentMethods: AlternativePaymentMethods;
 
   /**
    * Use Recurly to process PayPal transactions using PayPal Business or Braintree.
