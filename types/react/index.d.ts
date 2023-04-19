@@ -58,7 +58,6 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 // Destructors are only allowed to return void.
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
-declare const PREVENT_EMPTY_INTERFACE_FROM_BEING_ANY_NON_NULLISH: unique symbol;
 
 // eslint-disable-next-line export-just-namespace
 export = React;
@@ -239,8 +238,10 @@ declare namespace React {
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     type ReactFragment = Iterable<ReactNode>;
-    interface PromiseLikeIfReactExperimental<T> { [PREVENT_EMPTY_INTERFACE_FROM_BEING_ANY_NON_NULLISH]?: never; }
-    type ReactNode = ReactElement | string | number | ReactFragment | ReactPortal | boolean | null | undefined | PromiseLikeIfReactExperimental<ReactNode>;
+
+    const DO_NOT_USE_OR_YOU_WILL_BE_FIRED_VALID_REACT_NODE_EXPERIMENTAL_BRAND: unique symbol;
+    interface ValidReactNodeIfReactExperimental<T> { [DO_NOT_USE_OR_YOU_WILL_BE_FIRED_VALID_REACT_NODE_EXPERIMENTAL_BRAND]: never; }
+    type ReactNode = ReactElement | string | number | ReactFragment | ReactPortal | boolean | null | undefined | ValidReactNodeIfReactExperimental<ReactNode>;
 
     //
     // Top Level API
