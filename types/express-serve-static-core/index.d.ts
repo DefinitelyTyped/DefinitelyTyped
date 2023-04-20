@@ -12,6 +12,8 @@
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
 
+import { SendOptions } from 'send';
+
 declare global {
     namespace Express {
         // These open interfaces may be extended in an application-specific manner via declaration merging.
@@ -669,99 +671,14 @@ export interface MediaType {
 
 export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
-export interface SendFileOptions {
-    /**
-     * Sets the max-age property of the `Cache-Control` header in milliseconds or a string in ms format
-     * @see https://www.npmjs.com/package/ms
-     * @default 0
-     */
-    maxAge?: number | string;
-    /** Root directory for relative filenames. */
-    root?: string;
-    /**
-     * Whether to set the `Last-Modified` header to the last modified date of the file on the OS.
-     * @default true
-     */
-    lastModified?: boolean;
+export interface SendFileOptions extends SendOptions {
     /** Object containing HTTP headers to serve with the file. */
     headers?: Record<string, unknown>;
-    /**
-     * Option for serving dotfiles.
-     * @default "ignore"
-     */
-    dotfiles?: "allow" | "deny" | "ignore";
-    /**
-     * Whether to accept ranged requests.
-     * @default true
-     */
-    acceptRanges?: boolean;
-    /**
-     * Whether to set the `Cache-Control` response header.
-     * @default true
-     */
-    cacheControl?: boolean;
-    /**
-     * Whether to set the immutable directive in the `Cache-Control` response header.
-     * If enabled, the `maxAge` option should also be specified to enable caching.
-     * The `immutable` directive will prevent supported clients from making conditional requests during the life of the `maxAge` option to check if the file has changed.
-     * @default false
-     */
-    immutable?: boolean;
-    /**
-     * Whether to enable etag generation.
-     * @default true
-     */
-    etag?: boolean
-    /**
-     * Byte offset at which the stream starts. The start is inclusive, meaning start: 2 will include the 3rd byte in the stream.
-     * @default 0
-     */
-    start?: number,
-    /**
-     * Byte offset at which the stream ends. The end is inclusive in the stream, meaning end: 3 will include the 4th byte in the stream.
-     * @default "the length of the file minus 1"
-     */ 
-    end?: number,
 }
 
-export interface DownloadOptions {
-    /**
-     * Sets the max-age property of the `Cache-Control` header in milliseconds or a string in ms format
-     * @see https://www.npmjs.com/package/ms
-     * @default 0
-     */
-    maxAge?: number | string;
-    /** Root directory for relative filenames. */
-    root?: string;
-    /**
-     * Whether to set the `Last-Modified` header to the last modified date of the file on the OS.
-     * @default true
-     */
-    lastModified?: boolean;
+export interface DownloadOptions extends SendOptions {
     /** Object containing HTTP headers to serve with the file. The header `Content-Disposition` will be overridden by the filename argument. */
     headers?: Record<string, unknown>;
-    /**
-     * Option for serving dotfiles.
-     * @default "ignore"
-     */
-    dotfiles?: "allow" | "deny" | "ignore";
-    /**
-     * Whether to accept ranged requests.
-     * @default true
-     */
-    acceptRanges?: boolean;
-    /**
-     * Whether to set the `Cache-Control` response header.
-     * @default true
-     */
-    cacheControl?: boolean;
-    /**
-     * Whether to set the immutable directive in the `Cache-Control` response header.
-     * If enabled, the `maxAge` option should also be specified to enable caching.
-     * The `immutable` directive will prevent supported clients from making conditional requests during the life of the `maxAge` option to check if the file has changed.
-     * @default false
-     */
-    immutable?: boolean;
 }
 
 export interface Response<
