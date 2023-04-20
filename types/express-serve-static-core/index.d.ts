@@ -669,6 +669,82 @@ export interface MediaType {
 
 export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
+export interface SendFileOptions {
+    /**
+     * Sets the max-age property of the `Cache-Control` header in milliseconds or a string in ms format
+     * @see https://www.npmjs.com/package/ms
+     * @default 0
+     * */
+    maxAge: number | string,
+    /** Root directory for relative filenames. */
+    root: string,
+    /**
+     * Whether to set the `Last-Modified` header to the last modified date of the file on the OS.
+     * @default true
+     * */
+    lastModified: boolean,
+    /** Object containing HTTP headers to serve with the file. */
+    headers: Record<string, unknown>,
+    /**
+     * Option for serving dotfiles.
+     * @default "ignore"
+     */
+    dotfiles: "allow" | "deny" | "ignore",
+    /**
+     * Whether to accept ranged requests.
+     * @default true
+     * */
+    acceptRanges: boolean,
+    /**
+     * Whether to set the `Cache-Control` response header.
+     * @default true
+     * */
+    cacheControl: boolean,
+    /**
+     * Whether to set the immutable directive in the `Cache-Control` response header. If enabled, the `maxAge` option should also be specified to enable caching. The `immutable` directive will prevent supported clients from making conditional requests during the life of the `maxAge` option to check if the file has changed.
+     * @default false
+     * */
+    immutable: boolean
+}
+
+export interface DownloadOptions {
+    /**
+     * Sets the max-age property of the `Cache-Control` header in milliseconds or a string in ms format
+     * @see https://www.npmjs.com/package/ms
+     * @default 0
+     * */
+    maxAge: number | string,
+    /** Root directory for relative filenames. */
+    root: string,
+    /**
+     * Whether to set the `Last-Modified` header to the last modified date of the file on the OS.
+     * @default true
+     * */
+    lastModified: boolean,
+    /** Object containing HTTP headers to serve with the file. The header `Content-Disposition` will be overriden by the filename argument. */
+    headers: Record<string, unknown>,
+    /**
+     * Option for serving dotfiles.
+     * @default "ignore"
+     */
+    dotfiles: "allow" | "deny" | "ignore",
+    /**
+     * Whether to accept ranged requests.
+     * @default true
+     * */
+    acceptRanges: boolean,
+    /**
+     * Whether to set the `Cache-Control` response header.
+     * @default true
+     * */
+    cacheControl: boolean,
+    /**
+     * Whether to set the immutable directive in the `Cache-Control` response header. If enabled, the `maxAge` option should also be specified to enable caching. The `immutable` directive will prevent supported clients from making conditional requests during the life of the `maxAge` option to check if the file has changed.
+     * @default false
+     * */
+    immutable: boolean
+}
+
 export interface Response<
     ResBody = any,
     LocalsObj extends Record<string, any> = Record<string, any>,
@@ -782,7 +858,7 @@ export interface Response<
      * @api public
      */
     sendFile(path: string, fn?: Errback): void;
-    sendFile(path: string, options: any, fn?: Errback): void;
+    sendFile(path: string, options: SendFileOptions, fn?: Errback): void;
 
     /**
      * @deprecated Use sendFile instead.
@@ -791,7 +867,7 @@ export interface Response<
     /**
      * @deprecated Use sendFile instead.
      */
-    sendfile(path: string, options: any): void;
+    sendfile(path: string, options: SendFileOptions): void;
     /**
      * @deprecated Use sendFile instead.
      */
@@ -799,7 +875,7 @@ export interface Response<
     /**
      * @deprecated Use sendFile instead.
      */
-    sendfile(path: string, options: any, fn: Errback): void;
+    sendfile(path: string, options: SendFileOptions, fn: Errback): void;
 
     /**
      * Transfer the file at the given `path` as an attachment.
@@ -816,7 +892,7 @@ export interface Response<
      */
     download(path: string, fn?: Errback): void;
     download(path: string, filename: string, fn?: Errback): void;
-    download(path: string, filename: string, options: any, fn?: Errback): void;
+    download(path: string, filename: string, options: DownloadOptions, fn?: Errback): void;
 
     /**
      * Set _Content-Type_ response header with `type` through `mime.lookup()`
