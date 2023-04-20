@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.113.0
 
 declare module "sap/uxap/library" {
   /**
@@ -251,6 +251,8 @@ declare module "sap/uxap/AnchorBar" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
      */
@@ -598,6 +600,8 @@ declare module "sap/uxap/BlockBase" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Creates a view.
      *
      * @returns A promise on the created view.
@@ -639,6 +643,7 @@ declare module "sap/uxap/BlockBase" {
     ): this;
     /**
      * @SINCE 1.72
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:viewInit viewInit} to attached listeners.
      *
@@ -2539,6 +2544,8 @@ declare module "sap/uxap/ObjectPageHeader" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:markChangesPress markChangesPress} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2555,6 +2562,8 @@ declare module "sap/uxap/ObjectPageHeader" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:markLockedPress markLockedPress} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2571,6 +2580,8 @@ declare module "sap/uxap/ObjectPageHeader" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:titleSelectorPress titleSelectorPress} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -4820,6 +4831,8 @@ declare module "sap/uxap/ObjectPageLayout" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:editHeaderButtonPress editHeaderButtonPress} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -4832,6 +4845,7 @@ declare module "sap/uxap/ObjectPageLayout" {
     ): this;
     /**
      * @SINCE 1.93
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:headerContentPinnedStateChange headerContentPinnedStateChange} to attached
      * listeners.
@@ -4851,6 +4865,7 @@ declare module "sap/uxap/ObjectPageLayout" {
     ): this;
     /**
      * @SINCE 1.40
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:navigate navigate} to attached listeners.
      *
@@ -4873,6 +4888,7 @@ declare module "sap/uxap/ObjectPageLayout" {
     ): this;
     /**
      * @SINCE 1.73
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:sectionChange sectionChange} to attached listeners.
      *
@@ -4895,6 +4911,7 @@ declare module "sap/uxap/ObjectPageLayout" {
     ): this;
     /**
      * @SINCE 1.77
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:subSectionVisibilityChange subSectionVisibilityChange} to attached listeners.
      *
@@ -4912,6 +4929,8 @@ declare module "sap/uxap/ObjectPageLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggleAnchorBar toggleAnchorBar} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5358,6 +5377,8 @@ declare module "sap/uxap/ObjectPageLayout" {
       iIndex: int
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * This triggers rerendering of itself and its children.
      */
     invalidate(
@@ -6862,6 +6883,8 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      */
     getImportance(): Importance | keyof typeof Importance;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the control name text.
      *
      * To be overwritten by the specific control method.
@@ -7001,6 +7024,8 @@ declare module "sap/uxap/ObjectPageSectionBase" {
       bVisible?: boolean
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Performs the update of the invisible text label. This method is called for example when the section title
      * is changed.
      *
