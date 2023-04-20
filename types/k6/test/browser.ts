@@ -257,3 +257,12 @@ page.innerText(selector);
 page.innerText(selector, { strict: true });
 // $ExpectType string
 page.innerText(selector, { timeout: 10000 });
+
+// @ts-expect-error
+page.inputValue();
+// $ExpectType string
+page.inputValue(selector);
+// $ExpectType string
+page.inputValue(selector, { strict: true });
+// $ExpectType string
+page.inputValue(selector, { timeout: 10000 });
