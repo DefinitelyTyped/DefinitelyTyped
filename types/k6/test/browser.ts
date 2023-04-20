@@ -355,3 +355,10 @@ page.press(selector, "a", { noWaitAfter: true });
 page.press(selector, "a", { strict: true });
 // $ExpectType void
 page.press(selector, "a", { timeout: 10000 });
+
+// $ExpectType Response | null
+page.reload();
+// $ExpectType Response | null
+page.reload({ timeout: 10000 });
+// $ExpectType Response | null
+page.reload({ waitUntil: "domcontentloaded" });
