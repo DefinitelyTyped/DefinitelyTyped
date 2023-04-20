@@ -746,6 +746,12 @@ export class Page {
      */
     timeout?: number;
   }): boolean;
+
+  /**
+   * Returns the keyboard instance to interact with a virtual keyboard on the
+   * page.
+   */
+  keyboard: Keyboard;
 }
 
 /**
@@ -768,6 +774,11 @@ export class Frame {}
  * Response class represents responses which are received by page.
  */
 export class Response {}
+
+/**
+ * Keyboard provides an api for managing a virtual keyboard.
+ */
+export class Keyboard {}
 
 /**
  * Represents event-specific properties. Refer to the events documentation for

@@ -323,3 +323,6 @@ page.isVisible(selector);
 page.isVisible(selector, { strict: true });
 // $ExpectType boolean
 page.isVisible(selector, { timeout: 10000 });
+
+// $ExpectType Keyboard
+page.keyboard;
