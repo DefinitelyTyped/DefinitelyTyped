@@ -248,3 +248,12 @@ page.innerHTML(selector);
 page.innerHTML(selector, { strict: true });
 // $ExpectType string
 page.innerHTML(selector, { timeout: 10000 });
+
+// @ts-expect-error
+page.innerText();
+// $ExpectType string
+page.innerText(selector);
+// $ExpectType string
+page.innerText(selector, { strict: true });
+// $ExpectType string
+page.innerText(selector, { timeout: 10000 });
