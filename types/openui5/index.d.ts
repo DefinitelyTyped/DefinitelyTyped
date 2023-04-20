@@ -5,7 +5,7 @@
 //                 Frank Weigel <https://github.com/codeworrior>
 //                 Andreas Kunz <https://github.com/akudev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.7.2
+// TypeScript Version: 4.7
 
 /**
  * Copyright (c) 2023 SAP SE or an SAP affiliate company and OpenUI5 contributors.
