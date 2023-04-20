@@ -331,3 +331,6 @@ page.keyboard;
 page.locator();
 // $ExpectType Locator
 page.locator(selector);
+
+// $ExpectType Frame
+page.mainFrame();

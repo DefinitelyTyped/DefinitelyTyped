@@ -761,6 +761,12 @@ export class Page {
    * @param selector A selector to use when resolving DOM element.
    */
   locator(selector: string): Locator;
+
+  /**
+   * The page's main frame. Page is made up of frames in a hierarchical. At the
+   * top is mainFrame. A page is guaranteed to have a mainFrame.
+   */
+  mainFrame(): Frame;
 }
 
 /**
