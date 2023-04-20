@@ -326,3 +326,8 @@ page.isVisible(selector, { timeout: 10000 });
 
 // $ExpectType Keyboard
 page.keyboard;
+
+// @ts-expect-error
+page.locator();
+// $ExpectType Locator
+page.locator(selector);

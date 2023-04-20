@@ -752,6 +752,15 @@ export class Page {
    * page.
    */
   keyboard: Keyboard;
+
+  /**
+   * The method returns an element locator. Locators resolve to the element
+   * when the action takes place, which means locators can span over navigations
+   * where the underlying dom changes.
+   *
+   * @param selector A selector to use when resolving DOM element.
+   */
+  locator(selector: string): Locator;
 }
 
 /**
@@ -779,6 +788,18 @@ export class Response {}
  * Keyboard provides an api for managing a virtual keyboard.
  */
 export class Keyboard {}
+
+/**
+ * The Locator API makes it easier to work with dynamically changing elements.
+ * Some of the benefits of using it over existing ways to locate an element
+ * (e.g. Page.$()) include:
+ *
+ * - Helps with writing robust tests by finding an element even if the
+ * underlying frame navigates.
+ * - Makes it easier to work with dynamic web pages and SPAs built with Svelte,
+ * React, Vue, etc.
+ */
+export class Locator {}
 
 /**
  * Represents event-specific properties. Refer to the events documentation for
