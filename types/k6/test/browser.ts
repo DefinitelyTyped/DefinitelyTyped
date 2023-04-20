@@ -266,3 +266,12 @@ page.inputValue(selector);
 page.inputValue(selector, { strict: true });
 // $ExpectType string
 page.inputValue(selector, { timeout: 10000 });
+
+// @ts-expect-error
+page.isChecked();
+// $ExpectType boolean
+page.isChecked(selector);
+// $ExpectType boolean
+page.isChecked(selector, { strict: true });
+// $ExpectType boolean
+page.isChecked(selector, { timeout: 10000 });
