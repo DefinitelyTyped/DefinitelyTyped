@@ -707,6 +707,21 @@ export interface SendFileOptions {
      * @default false
      */
     immutable?: boolean;
+    /**
+     * Whether to enable etag generation.
+     * @default true
+     */
+    etag?: boolean
+    /**
+     * Byte offset at which the stream starts. The start is inclusive, meaning start: 2 will include the 3rd byte in the stream.
+     * @default 0
+     */
+    start?: number,
+    /**
+     * Byte offset at which the stream ends. The end is inclusive in the stream, meaning end: 3 will include the 4th byte in the stream.
+     * @default "the length of the file minus 1"
+     */ 
+    end?: number,
 }
 
 export interface DownloadOptions {
