@@ -200,6 +200,10 @@ export default class Component extends ReactComponent<EmailEditorProps> {
     registerCallback(type: 'image', callback: FileUploadCallback): void;
     registerCallback(type: 'displayCondition', callback: DisplayConditionCallback): void;
     addEventListener(type: string, callback: EventCallback): void;
+    editor: {
+        loadBlank(type: object): void;
+        loadDesign(design: Design): void;
+    };
     loadBlank(type: object): void;
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;
