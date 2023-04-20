@@ -239,3 +239,12 @@ page.hover(selector, { strict: true });
 page.hover(selector, { timeout: 10000 });
 // $ExpectType void
 page.hover(selector, { trial: true });
+
+// @ts-expect-error
+page.innerHTML();
+// $ExpectType string
+page.innerHTML(selector);
+// $ExpectType string
+page.innerHTML(selector, { strict: true });
+// $ExpectType string
+page.innerHTML(selector, { timeout: 10000 });
