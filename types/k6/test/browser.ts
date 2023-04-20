@@ -296,3 +296,12 @@ page.isEditable(selector);
 page.isEditable(selector, { strict: true });
 // $ExpectType boolean
 page.isEditable(selector, { timeout: 10000 });
+
+// @ts-expect-error
+page.isEnabled();
+// $ExpectType boolean
+page.isEnabled(selector);
+// $ExpectType boolean
+page.isEnabled(selector, { strict: true });
+// $ExpectType boolean
+page.isEnabled(selector, { timeout: 10000 });

@@ -671,6 +671,31 @@ export class Page {
      */
     timeout?: number;
   }): boolean;
+
+  /**
+   * **NOTE** Use locator-based locator.isEnabled([options]) instead.
+   *
+   * Returns whether the element is enabled.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param options
+   */
+  isEnabled(selector: string, options?: {
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
+    timeout?: number;
+  }): boolean;
 }
 
 /**
