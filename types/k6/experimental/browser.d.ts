@@ -772,6 +772,12 @@ export class Page {
    * Returns the mouse instance to interact with a virtual mouse on the page.
    */
   mouse: Mouse;
+
+  /**
+   * Returns the page that opened the current page. The first page that is
+   * navigated to will have a null opener.
+   */
+  opener(): Page | null;
 }
 
 /**

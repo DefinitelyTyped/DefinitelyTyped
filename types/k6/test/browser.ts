@@ -337,3 +337,6 @@ page.mainFrame();
 
 // $ExpectType Mouse
 page.mouse;
+
+// $ExpectType Page | null
+page.opener();
