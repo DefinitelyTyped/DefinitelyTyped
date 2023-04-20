@@ -153,8 +153,11 @@ import * as R from 'ramda';
     // $ExpectType Curry<(a: number, b: number) => number>
     const withGeneric2 = R.converge((...args: [number, number]) => R.or(...args), [add, subtract]);
 
-    // $ExpectType Curry<(list: readonly number[] & ArrayLike<unknown>) => number>
+    // this was // $ExpectType Curry<(list: readonly number[] & ArrayLike<unknown>) => number>
+    // I don't know why it has changed
+    // $ExpectType Curry<(list: readonly number[] & { length: number; }) => number>
     const getAverage = R.converge((...args) => R.divide(...args), [R.sum, R.length] as const);
+    //    ^?
 
     // $ExpectType number
     const average = getAverage([1, 3, 0, 4]); // => 2

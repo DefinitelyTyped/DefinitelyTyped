@@ -459,6 +459,12 @@ replaced = jest.replaceProperty(replaceObjectA, 'property', 2);
 // $ExpectType void
 jest.replaceProperty(replaceObjectA, 'property', 2).replaceValue(3).restore();
 
+// @ts-expect-error: nullish target object
+jest.replaceProperty(null, 'invalid', 1);
+// @ts-expect-error: primitive cannot have properties replaced
+jest.replaceProperty(true, 'valueOf', () => 'false');
+// @ts-expect-error: primitive cannot have properties replaced
+jest.replaceProperty(123, 'toFixed', () => '123');
 // @ts-expect-error: property does not exist
 jest.replaceProperty(replaceObjectA, 'invalid', 1);
 // @ts-expect-error: wrong type of the value

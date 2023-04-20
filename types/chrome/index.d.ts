@@ -98,7 +98,10 @@ declare namespace chrome.accessibilityFeatures {
  * Manifest:  "action": {...}
  */
 declare namespace chrome.action {
-    export interface BadgeBackgroundColorDetails {
+    /** @deprecated Use BadgeColorDetails instead. */
+    export interface BadgeBackgroundColorDetails extends BadgeColorDetails {}
+
+    export interface BadgeColorDetails {
         /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
         color: string | ColorArray;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
@@ -218,6 +221,19 @@ declare namespace chrome.action {
     export function getBadgeText(details: TabDetails): Promise<string>;
 
     /**
+     * Since Chrome 110.
+     * Gets the text color of the action.
+     */
+    export function getBadgeTextColor(details: TabDetails, callback: (result: ColorArray) => void): void;
+
+    /**
+     * Since Chrome 110.
+     * Gets the text color of the action.
+     * @return The `getBadgeTextColor` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getBadgeTextColor(details: TabDetails): Promise<ColorArray>;
+
+    /**
      * Since Chrome 88.
      * Gets the html document set as the popup for this action.
      */
@@ -257,6 +273,19 @@ declare namespace chrome.action {
     export function getUserSettings(): Promise<UserSettings>;
 
     /**
+     * Since Chrome 110.
+     * Indicates whether the extension action is enabled for a tab (or globally if no tabId is provided). Actions enabled using only declarativeContent always return false.
+     */
+    export function isEnabled(tabId: number | undefined, callback: (isEnabled: boolean) => void): void;
+
+    /**
+     * Since Chrome 110.
+     * Indicates whether the extension action is enabled for a tab (or globally if no tabId is provided). Actions enabled using only declarativeContent always return false.
+     * @return True if the extension action is enabled.
+     */
+    export function isEnabled(tabId?: number): Promise<boolean>;
+
+    /**
      * Since Chrome 99+.
      * Opens the extension's popup.
      * @param options Specifies options for opening the popup.
@@ -278,13 +307,13 @@ declare namespace chrome.action {
      * Sets the background color for the badge.
      * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Promise<void>;
+    export function setBadgeBackgroundColor(details: BadgeColorDetails): Promise<void>;
 
     /**
      * Since Chrome 88.
      * Sets the background color for the badge.
      */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback: () => void): void;
+    export function setBadgeBackgroundColor(details: BadgeColorDetails, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -298,6 +327,19 @@ declare namespace chrome.action {
      * Sets the badge text for the action. The badge is displayed on top of the icon.
      */
     export function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
+
+    /**
+     * Since Chrome 110.
+     * Sets the text color for the badge.
+     * @return The `setBadgeTextColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setBadgeTextColor(details: BadgeColorDetails): Promise<void>;
+
+    /**
+     * Since Chrome 100.
+     * Sets the text color for the badge.
+     */
+    export function setBadgeTextColor(details: BadgeColorDetails, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -1009,6 +1051,8 @@ declare namespace chrome.browsingData {
         downloads?: boolean | undefined;
         /** Optional. The browser's cache. Note: when removing data, this clears the entire cache: it is not limited to the range you specify.  */
         cache?: boolean | undefined;
+        /** Optional. The browser's cacheStorage.  */
+        cacheStorage?: boolean | undefined;
         /** Optional. Websites' appcaches.  */
         appcache?: boolean | undefined;
         /** Optional. Websites' file systems.  */
@@ -4839,6 +4883,11 @@ declare namespace chrome.input.ime {
         capsLock?: boolean | undefined;
     }
 
+    /**
+      * The auto-capitalize type of the text field.
+      * @since Chrome 69.
+      */
+    export type AutoCapitalizeType = 'characters' | 'words' | 'sentences';
     /** Describes an input Context */
     export interface InputContext {
         /** This is used to specify targets of text field operations. This ID becomes invalid as soon as onBlur is called. */
@@ -4860,6 +4909,16 @@ declare namespace chrome.input.ime {
          * @since Chrome 40.
          */
         spellCheck: boolean;
+        /**
+         * The auto-capitalize type of the text field.
+         * @since Chrome 69.
+         */
+        autoCaptialize: AutoCapitalizeType;
+        /**
+         * Whether text entered into the text field should be used to improve typing suggestions for the user.
+         * @since Chrome 68.
+         */
+        shouldDoLearning: boolean;
     }
 
     /**
@@ -5015,6 +5074,18 @@ declare namespace chrome.input.ime {
          * @since Chrome 28.
          */
         windowPosition?: string | undefined;
+        /**
+         * Optional.
+         * The index of the current chosen candidate out of total candidates.
+         * @since Chrome 84.
+         */
+        currentCandidateIndex?: number | undefined;
+        /**
+         * Optional.
+         * The total number of candidates for the candidate window.
+         * @since Chrome 84.
+         */
+        totalCandidates?: number | undefined;
     }
 
     export interface CandidateWindowParameter {
@@ -7516,6 +7587,7 @@ declare namespace chrome.scripting {
     interface RegisteredContentScript {
         id: string;
         allFrames?: boolean;
+        matchOriginAsFallback?: boolean;
         css?: string[];
         excludeMatches?: string[];
         js?: string[];
@@ -7633,6 +7705,19 @@ declare namespace chrome.scripting {
      */
     export function getRegisteredContentScripts(callback: (scripts: RegisteredContentScript[]) => void): void;
     export function getRegisteredContentScripts(filter: ContentScriptFilter, callback: (scripts: RegisteredContentScript[]) => void): void;
+
+    /**
+     * Updates one or more content scripts.
+     * @param scripts
+     */
+    export function updateContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
+
+    /**
+     * Updates one or more content scripts.
+     * @param scripts
+     * @param callback
+     */
+    export function updateContentScripts(scripts: RegisteredContentScript[], callback: () => void): void;
 }
 
 ////////////////////
@@ -7706,6 +7791,11 @@ declare namespace chrome.sessions {
     export var MAX_SESSION_RESULTS: number;
 
     /**
+    * Gets the list of recently closed tabs and/or windows.
+    * @return The `getRecentlyClosed` method provides its result via callback or returned as a `Promise` (MV3 only).
+    */
+   export function getRecentlyClosed(filter?: Filter): Promise<Session[]>;
+    /**
      * Gets the list of recently closed tabs and/or windows.
      * @param callback
      * Parameter sessions: The list of closed entries in reverse order that they were closed (the most recently closed tab or window will be at index 0). The entries may contain either tabs or windows.
@@ -7719,6 +7809,11 @@ declare namespace chrome.sessions {
     export function getRecentlyClosed(callback: (sessions: Session[]) => void): void;
     /**
      * Retrieves all devices with synced sessions.
+     * @return The `getDevices` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getDevices(filter?: Filter): Promise<Device[]>;
+    /**
+     * Retrieves all devices with synced sessions.
      * @param callback
      * Parameter devices: The list of sessions.Device objects for each synced session, sorted in order from device with most recently modified session to device with least recently modified session. tabs.Tab objects are sorted by recency in the windows.Window of the sessions.Session objects.
      */
@@ -7730,13 +7825,26 @@ declare namespace chrome.sessions {
      */
     export function getDevices(callback: (devices: Device[]) => void): void;
     /**
+     * Reopens a windows.Window or tabs.Tab.
+     * @param sessionId Optional.
+     * The windows.Window.sessionId, or tabs.Tab.sessionId to restore. If this parameter is not specified, the most recently closed session is restored.
+     * @return The `restore` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function restore(sessionId?: string): Promise<Session>;
+    /**
      * Reopens a windows.Window or tabs.Tab, with an optional callback to run when the entry has been restored.
      * @param sessionId Optional.
      * The windows.Window.sessionId, or tabs.Tab.sessionId to restore. If this parameter is not specified, the most recently closed session is restored.
      * @param callback Optional.
      * Parameter restoredSession: A sessions.Session containing the restored windows.Window or tabs.Tab object.
      */
-    export function restore(sessionId?: string, callback?: (restoredSession: Session) => void): void;
+    export function restore(sessionId: string, callback: (restoredSession: Session) => void): void;
+    /**
+     * Reopens a windows.Window or tabs.Tab, with an optional callback to run when the entry has been restored.
+     * @param callback Optional.
+     * Parameter restoredSession: A sessions.Session containing the restored windows.Window or tabs.Tab object.
+     */
+    export function restore(callback: (restoredSession: Session) => void): void;
 
     /** Fired when recently closed tabs and/or windows are changed. This event does not monitor synced sessions changes. */
     export var onChanged: SessionChangedEvent;

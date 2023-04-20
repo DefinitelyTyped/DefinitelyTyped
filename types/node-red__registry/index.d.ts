@@ -3,7 +3,7 @@
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 //                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// Minimum TypeScript Version: 4.7
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction, Express } from 'express';
@@ -44,11 +44,12 @@ declare namespace registry {
          * @param constructor - the constructor function for this node type
          * @param opts - optional additional options for the node
          */
+        // eslint-disable-next-line no-unnecessary-generics
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
             constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line no-unnecessary-generics
             opts?: {
-                credentials?: NodeCredentials<TCreds> | undefined;
+                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line no-unnecessary-generics
                 settings?: NodeSettings<TSets> | undefined; // eslint-disable-line no-unnecessary-generics
             },
         ): void;
@@ -123,7 +124,10 @@ declare namespace registry {
          * @param definition - the definition object of the plugin
          */
         // eslint-disable-next-line no-unnecessary-generics
-        registerPlugin<TPluginDef extends PluginDef = PluginDef>(id: string, definition: PluginDefinition<TPluginDef>): void;
+        registerPlugin<TPluginDef extends PluginDef = PluginDef>(
+            id: string,
+            definition: PluginDefinition<TPluginDef>, // eslint-disable-line no-unnecessary-generics
+        ): void;
 
         /**
          * Returns the plugin definition for the given id

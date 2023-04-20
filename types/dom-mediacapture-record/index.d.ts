@@ -32,7 +32,7 @@ declare var BlobEvent: {
     new (type: string, eventInitDict: BlobEventInit): BlobEvent;
 };
 
-// type BitrateMode = 'variable' | 'constant';
+type BitrateMode = VideoEncoderBitrateMode;
 
 interface MediaRecorderOptions {
     mimeType?: string | undefined;

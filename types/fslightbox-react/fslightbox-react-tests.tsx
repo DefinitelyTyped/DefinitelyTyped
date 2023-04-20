@@ -41,6 +41,7 @@ class Test extends React.Component {
             disableThumbs={false}
             openOnMount={false}
             disableLocalStorage={true}
+            disableSlideSwiping={true}
             exitFullscreenOnClose={false}
             slideDistance={0.5}
             slideshowTime={10000}

@@ -1,5 +1,5 @@
 // Type definitions for React 15.7
-// Project: http://facebook.github.io/react/
+// Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
@@ -3631,7 +3631,6 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement { }
         interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
@@ -3639,7 +3638,6 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
-        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 

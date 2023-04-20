@@ -147,13 +147,8 @@ gensync(function* () {
 });
 
 // gensync throws when both async and errback are provided.
-gensync({
-    name: 'readFile',
-    sync: readFileSync,
-    // @ts-expect-error
-    async: readFileAsync,
-    errback: readFileCallback,
-});
+// @ts-expect-error
+gensync({ name: 'readFile', sync: readFileSync, async: readFileAsync, errback: readFileCallback });
 
 function* someOtherGenerator() {
     yield 'this is not a gensync generator';

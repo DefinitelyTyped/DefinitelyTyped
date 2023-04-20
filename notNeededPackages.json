@@ -4283,6 +4283,10 @@
             "libraryName": "react-circular-progressbar",
             "asOfVersion": "1.1.0"
         },
+        "react-clock": {
+            "libraryName": "react-clock",
+            "asOfVersion": "4.1.0"
+        },
         "react-collapsible": {
             "libraryName": "react-collapsible",
             "asOfVersion": "2.3.0"
@@ -4298,6 +4302,10 @@
         "react-countup": {
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
+        },
+        "react-datetime-picker": {
+            "libraryName": "react-datetime-picker",
+            "asOfVersion": "5.0.0"
         },
         "react-daum-postcode": {
             "libraryName": "react-daum-postcode",
@@ -4654,6 +4662,10 @@
         "react-textarea-autosize": {
             "libraryName": "react-textarea-autosize",
             "asOfVersion": "8.0.0"
+        },
+        "react-time-picker": {
+            "libraryName": "react-time-picker",
+            "asOfVersion": "6.0.0"
         },
         "react-toast-notifications": {
             "libraryName": "react-toast-notifications",
@@ -5955,6 +5967,10 @@
             "libraryName": "wix-style-react",
             "asOfVersion": "7.47.1"
         },
+        "wojtekmaj__react-daterange-picker": {
+            "libraryName": "@wojtekmaj/react-daterange-picker",
+            "asOfVersion": "5.0.1"
+        },
         "wojtekmaj__react-datetimerange-picker": {
             "libraryName": "@wojtekmaj/react-datetimerange-picker",
             "asOfVersion": "5.0.1"
@@ -5995,6 +6011,10 @@
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
         },
+        "wordpress__compose": {
+            "libraryName": "@wordpress/compose",
+            "asOfVersion": "6.1.0"
+        },
         "wordpress__core-data": {
             "libraryName": "@wordpress/core-data",
             "asOfVersion": "5.0.0"
@@ -6002,6 +6022,10 @@
         "wordpress__data": {
             "libraryName": "@wordpress/data",
             "asOfVersion": "7.0.0"
+        },
+        "wordpress__data-controls": {
+            "libraryName": "@wordpress/data-controls",
+            "asOfVersion": "3.0.0"
         },
         "wordpress__dependency-extraction-webpack-plugin": {
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",

@@ -1,4 +1,4 @@
-// For Library Version: 1.111.0
+// For Library Version: 1.113.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -670,6 +670,8 @@ declare module "sap/f/AvatarGroup" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1411,6 +1413,8 @@ declare module "sap/f/CardBase" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the DOM Element that should get the focus.
      *
      * @returns Returns the DOM Element that should get the focus
@@ -1790,6 +1794,8 @@ declare module "sap/f/cards/Header" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
      */
@@ -1808,6 +1814,8 @@ declare module "sap/f/cards/Header" {
       }
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2397,6 +2405,8 @@ declare module "sap/f/cards/NumericHeader" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
      */
@@ -2415,6 +2425,8 @@ declare module "sap/f/cards/NumericHeader" {
       }
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3591,6 +3603,7 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * @SINCE 1.93
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:pinnedStateChange pinnedStateChange} to attached listeners.
      *
@@ -5180,6 +5193,7 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * @SINCE 1.54
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
      *
@@ -6911,6 +6925,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6964,6 +6980,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:afterEndColumnNavigate afterEndColumnNavigate} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7017,6 +7035,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:afterMidColumnNavigate afterMidColumnNavigate} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7070,6 +7090,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:beginColumnNavigate beginColumnNavigate} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -7127,6 +7149,7 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): boolean;
     /**
      * @SINCE 1.76
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
      *
@@ -7152,6 +7175,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:endColumnNavigate endColumnNavigate} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -7208,6 +7233,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:midColumnNavigate midColumnNavigate} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -7264,6 +7291,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9429,6 +9458,8 @@ declare module "sap/f/GridContainer" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9457,6 +9488,8 @@ declare module "sap/f/GridContainer" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:columnsChange columnsChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9473,6 +9506,8 @@ declare module "sap/f/GridContainer" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -10792,6 +10827,8 @@ declare module "sap/f/GridList" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -10854,12 +10891,16 @@ declare module "sap/f/GridList" {
      */
     getCustomLayout(): GridLayoutBase;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Implements IGridConfigurable interface.
      *
      * @returns An array with the DOM elements
      */
     getGridDomRefs(): HTMLElement[];
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Implements IGridConfigurable interface.
      *
      * @returns The grid layout
@@ -11461,6 +11502,8 @@ declare module "sap/f/ProductSwitch" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12730,6 +12773,8 @@ declare module "sap/f/SearchManager" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12746,6 +12791,8 @@ declare module "sap/f/SearchManager" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:search search} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12766,6 +12813,8 @@ declare module "sap/f/SearchManager" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -15568,8 +15617,6 @@ declare module "sap/f/semantic/SemanticPage" {
      * If all the areas have assigned values greater than 1, the numbers are scaled so that at least one of
      * them is equal to 1. For example, value of `2:4:8` is equal to `1:2:4`.
      *
-     *  When this property is set the `titlePrimaryArea` property has no effect.
-     *
      * Default value is `"1:1.6:1.6"`.
      *
      * @returns Value of property `titleAreaShrinkRatio`
@@ -16526,8 +16573,6 @@ declare module "sap/f/semantic/SemanticPage" {
      * If all the areas have assigned values greater than 1, the numbers are scaled so that at least one of
      * them is equal to 1. For example, value of `2:4:8` is equal to `1:2:4`.
      *
-     *  When this property is set the `titlePrimaryArea` property has no effect.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"1:1.6:1.6"`.
@@ -16587,39 +16632,6 @@ declare module "sap/f/semantic/SemanticPage" {
        * The titleMainAction to set
        */
       oTitleMainAction: TitleMainAction
-    ): this;
-    /**
-     * @SINCE 1.52
-     * @deprecated (since 1.58) - Please use the `titleAreaShrinkRatio` property instead. The value of `titleAreaShrinkRatio`
-     * must be set in `Heading:Content:Actions` format where Heading, Content and Actions are numbers greater
-     * than or equal to 0. The greater value a section has the faster it shrinks when the screen size is being
-     * reduced.
-     *
-     * `titlePrimaryArea=Begin` can be achieved by setting a low number for the Heading area to `titleAreaShrinkRatio`,
-     * for example `1:1.6:1.6`.
-     *
-     * `titlePrimaryArea=Middle` can be achieved by setting a low number for the Content area to `titleAreaShrinkRatio`,
-     * for example `1.6:1:1.6`.
-     *
-     * Sets a new value for property {@link #getTitlePrimaryArea titlePrimaryArea}.
-     *
-     * Determines which of the title areas (Begin, Middle) is primary.
-     *
-     * **Note:** The primary area is shrinking at a lower rate, remaining visible as long as it can.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Begin`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setTitlePrimaryArea(
-      /**
-       * New value for property `titlePrimaryArea`
-       */
-      sTitlePrimaryArea?:
-        | DynamicPageTitleArea
-        | keyof typeof DynamicPageTitleArea
     ): this;
     /**
      * @SINCE 1.58
@@ -16750,8 +16762,6 @@ declare module "sap/f/semantic/SemanticPage" {
      *
      * If all the areas have assigned values greater than 1, the numbers are scaled so that at least one of
      * them is equal to 1. For example, value of `2:4:8` is equal to `1:2:4`.
-     *
-     *  When this property is set the `titlePrimaryArea` property has no effect.
      */
     titleAreaShrinkRatio?:
       | DynamicPageTitleShrinkRatio
@@ -17718,6 +17728,7 @@ declare module "sap/f/ShellBar" {
     static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets classes according to the context of the page. Possible contexts are header, footer, and subheader.
      *
@@ -17726,6 +17737,7 @@ declare module "sap/f/ShellBar" {
     _applyContextClassFor(): IBar;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets the HTML tag according to the context of the page. Possible contexts are header, footer, and subheader.
      *
@@ -17745,6 +17757,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets classes and HTML tag according to the context of the page. Possible contexts are header, footer,
      * and subheader
@@ -18297,6 +18310,8 @@ declare module "sap/f/ShellBar" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:avatarPressed avatarPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18313,6 +18328,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:copilotPressed copilotPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18329,6 +18346,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:homeIconPressed homeIconPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18345,6 +18364,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:menuButtonPressed menuButtonPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18361,6 +18382,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:navButtonPressed navButtonPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18377,6 +18400,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:notificationsPressed notificationsPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18393,6 +18418,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:productSwitcherPressed productSwitcherPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18409,6 +18436,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:searchButtonPressed searchButtonPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18434,6 +18463,7 @@ declare module "sap/f/ShellBar" {
     getAdditionalContent(): IShellBar[];
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Gets the available Bar contexts.
      *
@@ -18464,6 +18494,7 @@ declare module "sap/f/ShellBar" {
     getHomeIconTooltip(): string;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Gets the HTML tag of the root DOM Reference.
      *
@@ -18616,6 +18647,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Returns if the bar is sensitive to the container context. Implementation of the IBar interface
      *
@@ -18679,6 +18711,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets the HTML tag of the root DOM Reference.
      *
@@ -19263,6 +19296,8 @@ declare module "sap/f/SidePanel" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggle toggle} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the

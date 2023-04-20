@@ -137,7 +137,7 @@ interface VideoEncoderConfig {
     alpha?: AlphaOption | undefined;
     avc?: AvcEncoderConfig | undefined;
     bitrate?: number | undefined;
-    bitrateMode?: BitrateMode | undefined;
+    bitrateMode?: VideoEncoderBitrateMode | undefined;
     codec: string;
     displayHeight?: number | undefined;
     displayWidth?: number | undefined;
