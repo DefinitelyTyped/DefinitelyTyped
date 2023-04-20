@@ -362,3 +362,20 @@ page.reload();
 page.reload({ timeout: 10000 });
 // $ExpectType Response | null
 page.reload({ waitUntil: "domcontentloaded" });
+
+// $ExpectType ArrayBuffer
+page.screenshot();
+// $ExpectType ArrayBuffer
+page.screenshot({ clip: { x: 0, y: 0, width: 800, height: 600 } });
+// $ExpectType ArrayBuffer
+page.screenshot({ fullPage: true });
+// $ExpectType ArrayBuffer
+page.screenshot({ omitBackground: true });
+// $ExpectType ArrayBuffer
+page.screenshot({ path: "image.jpeg" });
+// $ExpectType ArrayBuffer
+page.screenshot({ quality: 50 });
+// $ExpectType ArrayBuffer
+page.screenshot({ type: "jpeg" });
+// $ExpectType ArrayBuffer
+page.screenshot({ type: "png" });
