@@ -616,6 +616,11 @@ export class Page {
      */
     timeout?: number;
   }): boolean;
+
+  /**
+   * Indicates that the page has been closed.
+   */
+  isClosed(): boolean;
 }
 
 /**

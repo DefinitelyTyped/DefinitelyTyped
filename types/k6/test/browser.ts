@@ -275,3 +275,6 @@ page.isChecked(selector);
 page.isChecked(selector, { strict: true });
 // $ExpectType boolean
 page.isChecked(selector, { timeout: 10000 });
+
+// $ExpectType boolean
+page.isClosed();
