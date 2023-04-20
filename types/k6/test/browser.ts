@@ -314,3 +314,12 @@ page.isHidden(selector);
 page.isHidden(selector, { strict: true });
 // $ExpectType boolean
 page.isHidden(selector, { timeout: 10000 });
+
+// @ts-expect-error
+page.isVisible();
+// $ExpectType boolean
+page.isVisible(selector);
+// $ExpectType boolean
+page.isVisible(selector, { strict: true });
+// $ExpectType boolean
+page.isVisible(selector, { timeout: 10000 });
