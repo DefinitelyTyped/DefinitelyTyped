@@ -675,36 +675,36 @@ export interface SendFileOptions {
      * @see https://www.npmjs.com/package/ms
      * @default 0
      * */
-    maxAge: number | string,
+    maxAge?: number | string,
     /** Root directory for relative filenames. */
-    root: string,
+    root?: string,
     /**
      * Whether to set the `Last-Modified` header to the last modified date of the file on the OS.
      * @default true
      * */
-    lastModified: boolean,
+    lastModified?: boolean,
     /** Object containing HTTP headers to serve with the file. */
-    headers: Record<string, unknown>,
+    headers?: Record<string, unknown>,
     /**
      * Option for serving dotfiles.
      * @default "ignore"
      */
-    dotfiles: "allow" | "deny" | "ignore",
+    dotfiles?: "allow" | "deny" | "ignore",
     /**
      * Whether to accept ranged requests.
      * @default true
      * */
-    acceptRanges: boolean,
+    acceptRanges?: boolean,
     /**
      * Whether to set the `Cache-Control` response header.
      * @default true
      * */
-    cacheControl: boolean,
+    cacheControl?: boolean,
     /**
      * Whether to set the immutable directive in the `Cache-Control` response header. If enabled, the `maxAge` option should also be specified to enable caching. The `immutable` directive will prevent supported clients from making conditional requests during the life of the `maxAge` option to check if the file has changed.
      * @default false
      * */
-    immutable: boolean
+    immutable?: boolean
 }
 
 export interface DownloadOptions {
@@ -713,36 +713,36 @@ export interface DownloadOptions {
      * @see https://www.npmjs.com/package/ms
      * @default 0
      * */
-    maxAge: number | string,
+    maxAge?: number | string,
     /** Root directory for relative filenames. */
-    root: string,
+    root?: string,
     /**
      * Whether to set the `Last-Modified` header to the last modified date of the file on the OS.
      * @default true
      * */
-    lastModified: boolean,
+    lastModified?: boolean,
     /** Object containing HTTP headers to serve with the file. The header `Content-Disposition` will be overriden by the filename argument. */
-    headers: Record<string, unknown>,
+    headers?: Record<string, unknown>,
     /**
      * Option for serving dotfiles.
      * @default "ignore"
      */
-    dotfiles: "allow" | "deny" | "ignore",
+    dotfiles?: "allow" | "deny" | "ignore",
     /**
      * Whether to accept ranged requests.
      * @default true
      * */
-    acceptRanges: boolean,
+    acceptRanges?: boolean,
     /**
      * Whether to set the `Cache-Control` response header.
      * @default true
      * */
-    cacheControl: boolean,
+    cacheControl?: boolean,
     /**
      * Whether to set the immutable directive in the `Cache-Control` response header. If enabled, the `maxAge` option should also be specified to enable caching. The `immutable` directive will prevent supported clients from making conditional requests during the life of the `maxAge` option to check if the file has changed.
      * @default false
      * */
-    immutable: boolean
+    immutable?: boolean
 }
 
 export interface Response<
