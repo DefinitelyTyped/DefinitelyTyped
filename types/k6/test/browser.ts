@@ -278,3 +278,12 @@ page.isChecked(selector, { timeout: 10000 });
 
 // $ExpectType boolean
 page.isClosed();
+
+// @ts-expect-error
+page.isDisabled();
+// $ExpectType boolean
+page.isDisabled(selector);
+// $ExpectType boolean
+page.isDisabled(selector, { strict: true });
+// $ExpectType boolean
+page.isDisabled(selector, { timeout: 10000 });
