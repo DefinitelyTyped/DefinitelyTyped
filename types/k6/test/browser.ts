@@ -334,3 +334,6 @@ page.locator(selector);
 
 // $ExpectType Frame
 page.mainFrame();
+
+// $ExpectType Mouse
+page.mouse;

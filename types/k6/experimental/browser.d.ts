@@ -767,6 +767,11 @@ export class Page {
    * top is mainFrame. A page is guaranteed to have a mainFrame.
    */
   mainFrame(): Frame;
+
+  /**
+   * Returns the mouse instance to interact with a virtual mouse on the page.
+   */
+  mouse: Mouse;
 }
 
 /**
@@ -794,6 +799,11 @@ export class Response {}
  * Keyboard provides an api for managing a virtual keyboard.
  */
 export class Keyboard {}
+
+/**
+ * Mouse provides an api for managing a virtual mouse.
+ */
+export class Mouse {}
 
 /**
  * The Locator API makes it easier to work with dynamically changing elements.
