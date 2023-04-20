@@ -305,3 +305,12 @@ page.isEnabled(selector);
 page.isEnabled(selector, { strict: true });
 // $ExpectType boolean
 page.isEnabled(selector, { timeout: 10000 });
+
+// @ts-expect-error
+page.isHidden();
+// $ExpectType boolean
+page.isHidden(selector);
+// $ExpectType boolean
+page.isHidden(selector, { strict: true });
+// $ExpectType boolean
+page.isHidden(selector, { timeout: 10000 });
