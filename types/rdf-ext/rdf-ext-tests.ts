@@ -264,6 +264,11 @@ function test_reduce() {
     const reducedToOther = dataset.reduce((previousValue: string, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => {
         return previousValue;
     }, '');
+
+    // $ExpectType number
+    const reducedToExplicit = dataset.reduce<number>((previousValue: number, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => {
+        return previousValue;
+    }, 0);
 }
 
 function dataset_merge_array(): DatasetExt {
