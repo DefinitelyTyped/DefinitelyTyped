@@ -340,3 +340,18 @@ page.mouse;
 
 // $ExpectType Page | null
 page.opener();
+
+// @ts-expect-error
+page.press();
+// @ts-expect-error
+page.press(selector);
+// $ExpectType void
+page.press(selector, "a");
+// $ExpectType void
+page.press(selector, "a", { delay: 1000 });
+// $ExpectType void
+page.press(selector, "a", { noWaitAfter: true });
+// $ExpectType void
+page.press(selector, "a", { strict: true });
+// $ExpectType void
+page.press(selector, "a", { timeout: 10000 });

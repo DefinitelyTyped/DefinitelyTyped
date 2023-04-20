@@ -778,6 +778,60 @@ export class Page {
    * navigated to will have a null opener.
    */
   opener(): Page | null;
+
+  /**
+   * **NOTE** Use locator-based locator.press(key[, options]) instead.
+   *
+   * Focuses the element, and then uses keyboard.down(key) and
+   * keyboard.up(key).
+   *
+   * A superset of the `key` values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values).
+   *
+   * Following modification shortcuts are also supported: `Shift`, `Control`,
+   * `Alt`, `Meta`, `ShiftLeft`.
+   *
+   * Holding down `Shift` will type the text that corresponds to the `key` in
+   * the upper case.
+   *
+   * If `key` is a single character, it is case-sensitive, so the values `a`
+   * and `A` will generate different respective texts.
+   *
+   * Shortcuts such as `key: "Control+o"` or `key: "Control+Shift+T"` are
+   * supported as well. When specified with the modifier, modifier is pressed
+   * and being held while the subsequent key is being pressed.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param key Name of the key to press or a character to generate, such as
+   * `ArrowLeft` or `a`.
+   * @param options
+   */
+  press(selector: string, key: string, options?: {
+    /**
+     * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+     */
+    delay?: number;
+
+    /**
+     * If set to `true` and a navigation occurs from performing this action, it
+     * will not wait for it to complete. Defaults to `false`.
+     */
+    noWaitAfter?: boolean;
+
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
+    timeout?: number;
+  }): void;
 }
 
 /**
