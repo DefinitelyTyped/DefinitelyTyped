@@ -418,3 +418,8 @@ page.setContent("<html></html>", { timeout: 10000 });
 page.setContent("<html></html>", { timeout: 10000 });
 // $ExpectType void
 page.setContent("<html></html>", { waitUntil: "domcontentloaded" });
+
+// @ts-expect-error
+page.setDefaultNavigationTimeout();
+// $ExpectType void
+page.setDefaultNavigationTimeout(1000);

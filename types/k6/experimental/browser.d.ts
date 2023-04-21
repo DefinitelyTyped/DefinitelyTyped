@@ -999,6 +999,17 @@ export class Page {
      */
     waitUntil?: "load"|"domcontentloaded"|"networkidle";
   }): void;
+
+  /**
+   * This setting will change the navigation timeout for the following methods:
+   * - page.goto(url[, options])
+   * - page.reload([options])
+   * - page.setContent(html[, options])
+   * - page.waitForNavigation([options])
+   *
+   * @param timeout in milliseconds
+   */
+  setDefaultNavigationTimeout(timeout: number): void;
 }
 
 /**
