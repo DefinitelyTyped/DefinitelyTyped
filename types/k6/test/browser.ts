@@ -562,3 +562,8 @@ page.waitForSelector(selector, { state: "hidden" });
 page.waitForSelector(selector, { strict: true });
 // $ExpectType ElementHandle
 page.waitForSelector(selector, { timeout: 10000 });
+
+// @ts-expect-error
+page.waitForTimeout();
+// $ExpectType void
+page.waitForTimeout(10000);

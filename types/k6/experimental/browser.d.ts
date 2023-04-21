@@ -1371,6 +1371,17 @@ export class Page {
      */
     timeout?: number;
   }): ElementHandle;
+
+  /**
+   * **NOTE** Never wait for timeout in production, use this only for debugging.
+   * Tests that wait for time are inherently flaky. Use `Locator` actions and
+   * web assertions that wait automatically.
+   *
+   * Waits for the given `timeout` in milliseconds.
+   *
+   * @param timeout A timeout to wait for
+   */
+  waitForTimeout(timeout: number): void;
 }
 
 /**
