@@ -457,3 +457,12 @@ page.tap(selector, { strict: true });
 page.tap(selector, { timeout: 10000 });
 // $ExpectType void
 page.tap(selector, { trial: true });
+
+// @ts-expect-error
+page.textContent();
+// $ExpectType string
+page.textContent(selector);
+// $ExpectType string
+page.textContent(selector, { strict: true });
+// $ExpectType string
+page.textContent(selector, { timeout: 10000 });
