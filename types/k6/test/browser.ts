@@ -570,3 +570,8 @@ page.waitForTimeout(10000);
 
 // $ExpectType Worker[]
 page.workers();
+
+// @ts-expect-error
+page.$();
+// $ExpectType ElementHandle
+page.$(selector);

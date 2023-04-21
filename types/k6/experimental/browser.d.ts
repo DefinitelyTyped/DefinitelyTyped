@@ -1387,6 +1387,16 @@ export class Page {
    * This method returns all of the dedicated WebWorkers associated with the page.
    */
   workers(): Worker[];
+
+  /**
+   * **NOTE** Use locator-based page.locator(selector[, options]) instead.
+   *
+   * The method finds an element matching the specified selector within the page.
+   * If no elements match the selector, the return value resolves to `null`.
+   * To wait for an element on the page, use locator.waitFor([options]).
+   * @param selector A selector to query for.
+   */
+  $(selector: string): ElementHandle;
 }
 
 /**
