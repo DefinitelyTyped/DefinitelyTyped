@@ -2,6 +2,7 @@ import browser from 'k6/experimental/browser';
 
 const url = 'http://example.com';
 const selector = 'a[href="http://example.com"]';
+const elementHandle: browser.ElementHandle = new browser.ElementHandle();
 
 //
 // Create a page
@@ -379,3 +380,32 @@ page.screenshot({ quality: 50 });
 page.screenshot({ type: "jpeg" });
 // $ExpectType ArrayBuffer
 page.screenshot({ type: "png" });
+
+// @ts-expect-error
+page.selectOption();
+// @ts-expect-error
+page.selectOption(selector);
+// $ExpectType string[]
+page.selectOption(selector, "option");
+// $ExpectType string[]
+page.selectOption(selector, elementHandle);
+// $ExpectType string[]
+page.selectOption(selector, { value: "" });
+// $ExpectType string[]
+page.selectOption(selector, { label: "" });
+// $ExpectType string[]
+page.selectOption(selector, { index: "" });
+// $ExpectType string[]
+page.selectOption(selector, ["option", "option2"]);
+// $ExpectType string[]
+page.selectOption(selector, [elementHandle, elementHandle]);
+// $ExpectType string[]
+page.selectOption(selector, [{ value: "" }, { label: "" }]);
+// $ExpectType string[]
+page.selectOption(selector, "option", { force: true });
+// $ExpectType string[]
+page.selectOption(selector, "option", { noWaitAfter: true });
+// $ExpectType string[]
+page.selectOption(selector, "option", { strict: true });
+// $ExpectType string[]
+page.selectOption(selector, "option", { timeout: 10000 });

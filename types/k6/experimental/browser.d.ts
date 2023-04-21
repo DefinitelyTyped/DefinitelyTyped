@@ -925,6 +925,48 @@ export class Page {
      */
     type?: "png"|"jpeg";
    }): ArrayBuffer;
+
+  /**
+   * **NOTE** Use locator-based locator.selectOption(values[, options]) instead.
+   *
+   * This select one or more options which match the values from a <select>
+   * element.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param values Options to select. If the select has multiple attribute, all
+   * matching options are selected, otherwise only the first option matching
+   * one of the passed options is selected. Object can be made up of keys with
+   * value, label or index.
+   * @param options
+   */
+  selectOption(selector: string, values: string|ElementHandle|SelectOptionsObject|string[]|ElementHandle[]|SelectOptionsObject[], options?: {
+    /**
+     * Setting this to `true` will bypass the actionability checks (visible,
+     * stable, enabled). Defaults to `false`.
+     */
+    force?: boolean;
+
+    /**
+     * If set to `true` and a navigation occurs from performing this action, it
+     * will not wait for it to complete. Defaults to `false`.
+     */
+    noWaitAfter?: boolean;
+
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
+    timeout?: number;
+  }): string[];
 }
 
 /**
@@ -971,6 +1013,11 @@ export class Mouse {}
 export class Locator {}
 
 /**
+ * ElementHandle represents an in-page DOM element.
+ */
+export class ElementHandle {}
+
+/**
  * Represents event-specific properties. Refer to the events documentation for
  * the lists of initial properties:
  * - [DragEvent](https://developer.mozilla.org/en-US/docs/Web/API/DragEvent/DragEvent)
@@ -993,3 +1040,20 @@ export type Unboxed<Arg> =
   Arg extends Array<infer T> ? Array<Unboxed<T>> :
   Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> } :
   Arg;
+
+  export interface SelectOptionsObject {
+    /**
+     * Matches by `option.value`.
+     */
+    value?: string;
+
+    /**
+     * Matches by `option.label`.
+     */
+    label?: string;
+
+    /**
+     * Matches by the index.
+     */
+    index?: number;
+  }
