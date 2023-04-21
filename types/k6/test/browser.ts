@@ -466,3 +466,6 @@ page.textContent(selector);
 page.textContent(selector, { strict: true });
 // $ExpectType string
 page.textContent(selector, { timeout: 10000 });
+
+// $ExpectType string
+page.title();

@@ -1130,6 +1130,11 @@ export class Page {
      */
     timeout?: number;
   }): string;
+
+  /**
+   * Returns the page's title.
+   */
+  title(): string;
 }
 
 /**
