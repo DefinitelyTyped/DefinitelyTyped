@@ -1135,6 +1135,12 @@ export class Page {
    * Returns the page's title.
    */
   title(): string;
+
+  /**
+   * Returns the touchscreen instance to interact with a virtual touchscreen on
+   * the page.
+   */
+  touchscreen: Touchscreen;
 }
 
 /**
@@ -1184,6 +1190,12 @@ export class Locator {}
  * ElementHandle represents an in-page DOM element.
  */
 export class ElementHandle {}
+
+/**
+ * Touchscreen provides an api for interacting with a virtual touchscreen. It
+ * in main-frame CSS pixels relative to the top-left corner of the viewport.
+ */
+ export class Touchscreen {}
 
 /**
  * Represents event-specific properties. Refer to the events documentation for

@@ -469,3 +469,6 @@ page.textContent(selector, { timeout: 10000 });
 
 // $ExpectType string
 page.title();
+
+// $ExpectType Touchscreen
+page.touchscreen;
