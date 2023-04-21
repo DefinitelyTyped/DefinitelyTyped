@@ -472,3 +472,18 @@ page.title();
 
 // $ExpectType Touchscreen
 page.touchscreen;
+
+// @ts-expect-error
+page.type();
+// @ts-expect-error
+page.type(selector);
+// $ExpectType void
+page.type(selector, "a");
+// $ExpectType void
+page.type(selector, "a", { delay: 1000 });
+// $ExpectType void
+page.type(selector, "a", { noWaitAfter: true });
+// $ExpectType void
+page.type(selector, "a", { strict: true });
+// $ExpectType void
+page.type(selector, "a", { timeout: 10000 });

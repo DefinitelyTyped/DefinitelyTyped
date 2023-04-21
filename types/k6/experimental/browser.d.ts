@@ -1141,6 +1141,43 @@ export class Page {
    * the page.
    */
   touchscreen: Touchscreen;
+
+  /**
+   * **NOTE** Use locator-based locator.type(text[, options]) instead.
+   *
+   * Type the `text` in the first element found that matches the selector.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param text The text to type into the element.
+   * @param options
+   */
+  type(selector: string, text: string, options?: {
+    /**
+     * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+     */
+    delay?: number;
+
+    /**
+     * If set to `true` and a navigation occurs from performing this action, it
+     * will not wait for it to complete. Defaults to `false`.
+     */
+    noWaitAfter?: boolean;
+
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
+    timeout?: number;
+  }): void;
 }
 
 /**
