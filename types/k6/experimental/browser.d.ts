@@ -1276,6 +1276,33 @@ export class Page {
      */
     timeout?: number;
   }, arg?: Arg): Promise<JSHandle<R>>;
+
+  /**
+   * This waits for the given load state to be reached. It will immediately
+   * unblock if that lifecycle event has already been received.
+   *
+   * @param state Optional load state to wait for, defaults to `load`:
+   * - `'domcontentloaded'` - consider operation to be finished when the
+   * `DOMContentLoaded` event is fired.
+   * - `'load'` - consider operation to be finished when the `load` event is
+   * fired.
+   * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
+   * when there are no network connections for at least `500` ms. Don't use
+   * this method for testing especially with chatty websites where the event
+   * may never fire, rely on web assertions to assess readiness instead.
+   * @param options
+   */
+  waitForLoadState(state?: "load"|"domcontentloaded"|"networkidle", options?: {
+    /**
+     * Maximum operation time in milliseconds. Defaults to `0` - no timeout. The
+     * default value can be changed via `navigationTimeout` option in the config,
+     * or by using the browserContext.setDefaultNavigationTimeout(timeout),
+     * browserContext.setDefaultTimeout(timeout),
+     * page.setDefaultNavigationTimeout(timeout) or
+     * page.setDefaultTimeout(timeout) methods.
+     */
+    timeout?: number;
+  }): void;
 }
 
 /**

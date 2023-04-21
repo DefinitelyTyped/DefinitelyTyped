@@ -523,3 +523,14 @@ page.waitForFunction(() => true, { polling: 100 });
 page.waitForFunction(() => true, { timeout: 10000 });
 // $ExpectType Promise<JSHandle<boolean>>
 page.waitForFunction((a: number) => a === 1, {}, 1);
+
+// $ExpectType void
+page.waitForLoadState();
+// $ExpectType void
+page.waitForLoadState("load");
+// $ExpectType void
+page.waitForLoadState("domcontentloaded");
+// $ExpectType void
+page.waitForLoadState("networkidle");
+// $ExpectType void
+page.waitForLoadState("load", { timeout: 10000 });
