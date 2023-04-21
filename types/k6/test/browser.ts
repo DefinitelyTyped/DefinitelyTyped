@@ -438,3 +438,22 @@ page.setExtraHTTPHeaders({ Accept: "text/html" });
 page.setViewportSize();
 // $ExpectType void
 page.setViewportSize({ width: 800, height: 600 });
+
+// @ts-expect-error
+page.tap();
+// $ExpectType void
+page.tap(selector);
+// $ExpectType void
+page.tap(selector, { force: true });
+// $ExpectType void
+page.tap(selector, { modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+// $ExpectType void
+page.tap(selector, { noWaitAfter: true });
+// $ExpectType void
+page.tap(selector, { position: { x: 0, y: 0 } });
+// $ExpectType void
+page.tap(selector, { strict: true });
+// $ExpectType void
+page.tap(selector, { timeout: 10000 });
+// $ExpectType void
+page.tap(selector, { trial: true });
