@@ -487,3 +487,20 @@ page.type(selector, "a", { noWaitAfter: true });
 page.type(selector, "a", { strict: true });
 // $ExpectType void
 page.type(selector, "a", { timeout: 10000 });
+
+// @ts-expect-error
+page.uncheck();
+// $ExpectType void
+page.uncheck(selector);
+// $ExpectType void
+page.uncheck(selector, { force: true });
+// $ExpectType void
+page.uncheck(selector, { noWaitAfter: true });
+// $ExpectType void
+page.uncheck(selector, { position: { x: 0, y: 0 } });
+// $ExpectType void
+page.uncheck(selector, { strict: true });
+// $ExpectType void
+page.uncheck(selector, { timeout: 10000 });
+// $ExpectType void
+page.uncheck(selector, { trial: true });

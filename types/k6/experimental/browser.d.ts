@@ -1178,6 +1178,60 @@ export class Page {
      */
     timeout?: number;
   }): void;
+
+  /**
+   * **NOTE** Use locator-based `locator.uncheck([options])` instead.
+   *
+   * This method is used to unselect an input checkbox.
+   *
+   * @param selector A selector to search for an element. If there are multiple
+   * elements satisfying the selector, the first will be used.
+   * @param options
+   */
+  uncheck(selector: string, options?: {
+    /**
+     * Setting this to `true` will bypass the actionability checks (visible,
+     * stable, enabled). Defaults to `false`.
+     */
+    force?: boolean;
+
+    /**
+     * If set to `true` and a navigation occurs from performing this action, it
+     * will not wait for it to complete. Defaults to `false`.
+     */
+    noWaitAfter?: boolean;
+
+    /**
+     * A point to use relative to the top left corner of the element. If not
+     * supplied, a visible point of the element is used.
+     */
+    position?: {
+      x: number;
+
+      y: number;
+    };
+
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
+    timeout?: number;
+
+    /**
+     * Setting this to `true` will perform the actionability checks without
+     * performing the action. Useful to wait until the element is ready for the
+     * action without performing it. Defaults to `false`.
+     */
+    trial?: boolean;
+  }): void;
 }
 
 /**
