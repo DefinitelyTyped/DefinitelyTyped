@@ -428,3 +428,8 @@ page.setDefaultNavigationTimeout(1000);
 page.setDefaultTimeout();
 // $ExpectType void
 page.setDefaultTimeout(1000);
+
+// @ts-expect-error
+page.setExtraHTTPHeaders();
+// $ExpectType void
+page.setExtraHTTPHeaders({ Accept: "text/html" });

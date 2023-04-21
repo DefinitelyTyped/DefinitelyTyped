@@ -1018,6 +1018,15 @@ export class Page {
    * @param timeout in milliseconds
    */
   setDefaultTimeout(timeout: number): void;
+
+  /**
+   * This sets extra HTTP headers which will be sent with subsequent
+   * HTTP requests.
+   *
+   * @param headers An object containing the additional HTTP headers.
+   * All header values must be strings.
+   */
+  setExtraHTTPHeaders(headers: { [key: string]: string; }): void;
 }
 
 /**
