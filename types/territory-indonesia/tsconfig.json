@@ -1,9 +1,6 @@
 {
     "compilerOptions": {
-        "paths": {
-            "@wojtekmaj/*": ["wojtekmaj__*"]
-        },
-        "module": "commonjs",
+        "module": "CommonJS",
         "lib": [
             "es6"
         ],
@@ -17,11 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "wojtekmaj__react-daterange-picker-tests.tsx"
+        "territory-indonesia-tests.ts"
     ]
 }

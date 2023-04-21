@@ -1179,7 +1179,8 @@ declare module 'stream' {
             : (err: NodeJS.ErrnoException | null) => void;
         type PipelinePromise<S extends PipelineDestination<any, any>> = S extends PipelineDestinationPromiseFunction<any, infer P> ? Promise<P> : Promise<void>;
         interface PipelineOptions {
-            signal: AbortSignal;
+            signal?: AbortSignal | undefined;
+            end?: boolean | undefined;
         }
         /**
          * A module method to pipe between streams and generators forwarding errors and
