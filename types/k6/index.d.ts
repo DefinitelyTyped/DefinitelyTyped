@@ -8,6 +8,7 @@
 //                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
+//                 Ankur Agarwal <https://github.com/ankur22>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
