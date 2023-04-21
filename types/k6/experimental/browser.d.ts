@@ -1382,6 +1382,11 @@ export class Page {
    * @param timeout A timeout to wait for
    */
   waitForTimeout(timeout: number): void;
+
+  /**
+   * This method returns all of the dedicated WebWorkers associated with the page.
+   */
+  workers(): Worker[];
 }
 
 /**
@@ -1436,7 +1441,12 @@ export class ElementHandle {}
  * Touchscreen provides an api for interacting with a virtual touchscreen. It
  * in main-frame CSS pixels relative to the top-left corner of the viewport.
  */
- export class Touchscreen {}
+export class Touchscreen {}
+
+/**
+ * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+ */
+export class Worker {}
 
 /**
  * Represents event-specific properties. Refer to the events documentation for

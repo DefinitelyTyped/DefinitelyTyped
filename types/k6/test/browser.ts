@@ -567,3 +567,6 @@ page.waitForSelector(selector, { timeout: 10000 });
 page.waitForTimeout();
 // $ExpectType void
 page.waitForTimeout(10000);
+
+// $ExpectType Worker[]
+page.workers();
