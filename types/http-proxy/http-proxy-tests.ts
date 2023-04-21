@@ -258,3 +258,5 @@ instance.listen(0).on('proxyReq', (proxyReq, req, res, options) => { req.params 
 proxyServerInstance.listen(0).on('proxyReq', (proxyReq, req, res, options) => { req.params && res.status(200).send("OK"); });
 serverInstance.listen(0).on('proxyReq', (proxyReq, req, res, options) => { req.params && res.status(200).send("OK"); });
 proxyInstance.listen(0).on('proxyReq', (proxyReq, req, res, options) => { req.params && res.status(200).send("OK"); });
+// Passing a hostname to listen
+instance.listen(0, '0.0.0.0');
