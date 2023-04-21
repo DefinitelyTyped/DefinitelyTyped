@@ -1010,6 +1010,14 @@ export class Page {
    * @param timeout in milliseconds
    */
   setDefaultNavigationTimeout(timeout: number): void;
+
+  /**
+   * This setting will change the timeout for all the methods accepting a
+   * `timeout` option.
+   *
+   * @param timeout in milliseconds
+   */
+  setDefaultTimeout(timeout: number): void;
 }
 
 /**
