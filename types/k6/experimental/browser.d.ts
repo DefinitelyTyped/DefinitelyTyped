@@ -1252,6 +1252,30 @@ export class Page {
      */
     height: number;
   };
+
+  /**
+   * Returns when the `pageFunction` returns a truthy value.
+   *
+   * @param pageFunction Function to be evaluated in the page context.
+   * @param arg Optional argument to pass to `pageFunction`.
+   * @param options
+   */
+  waitForFunction<R, Arg>(pageFunction: PageFunction<Arg, R>, options?: {
+    /**
+     * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
+     * `requestAnimationFrame` callback. If `polling` is a number, then it is
+     * treated as an interval in milliseconds at which the function would be
+     * executed. Defaults to `raf`.
+     */
+    polling?: number|"raf";
+
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
+    timeout?: number;
+  }, arg?: Arg): Promise<JSHandle<R>>;
 }
 
 /**

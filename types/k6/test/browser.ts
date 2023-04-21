@@ -510,3 +510,16 @@ page.url();
 
 // $ExpectType { width: number; height: number; }
 page.viewportSize();
+
+// @ts-expect-error
+page.waitForFunction();
+// $ExpectType Promise<JSHandle<boolean>>
+page.waitForFunction(() => true);
+// $ExpectType Promise<JSHandle<boolean>>
+page.waitForFunction(() => true, { polling: "raf" });
+// $ExpectType Promise<JSHandle<boolean>>
+page.waitForFunction(() => true, { polling: 100 });
+// $ExpectType Promise<JSHandle<boolean>>
+page.waitForFunction(() => true, { timeout: 10000 });
+// $ExpectType Promise<JSHandle<boolean>>
+page.waitForFunction((a: number) => a === 1, {}, 1);
