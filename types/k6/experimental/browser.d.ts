@@ -1237,6 +1237,21 @@ export class Page {
    * Returns the page's URL.
    */
   url(): string;
+
+  /**
+   * Returns the page's size (width and height).
+   */
+  viewportSize(): {
+    /**
+     * page width in pixels.
+     */
+    width: number;
+
+    /**
+     * page height in pixels.
+     */
+    height: number;
+  };
 }
 
 /**

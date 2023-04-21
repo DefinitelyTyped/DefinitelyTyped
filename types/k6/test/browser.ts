@@ -507,3 +507,6 @@ page.uncheck(selector, { trial: true });
 
 // $ExpectType string
 page.url();
+
+// $ExpectType { width: number; height: number; }
+page.viewportSize();
