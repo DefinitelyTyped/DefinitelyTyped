@@ -6,67 +6,12 @@
 /// <reference types="node" />
 
 declare namespace create {
-    interface JenkinsAPI {
-        info(callback: (err: Error, data: any) => void): void;
-        build: {
-            get(name: string, n: number, callback: (err: Error, data: any) => void): void;
-            log(name: string, callback: (err: Error, data: any) => void): void;
-            log(name: string, n: number,  callback: (err: Error, data: any) => void): void;
-            log(name: string, n: number, start: number, callback: (err: Error, data: any) => void): void;
-            log(name: string, n: number, start: number, type: 'text' | 'html', callback: (err: Error, data: any) => void): void;
-            log(name: string, n: number, start: number, type: 'text' | 'html', meta: boolean, callback: (err: Error, data: any) => void): void;
-            logStream(name: string, n: number, options?: { type?: 'text' | 'html' | undefined, delay?: number | undefined }): NodeJS.ReadableStream;
-            stop(name: string, n: number, callback: (err: Error) => void): void;
-            term(name: string, n: number, callback: (err: Error) => void): void;
-        };
-        job: {
-            build(name: string | JobBuildOptions, callback: (err: Error, data: any) => void): void;
-            build(name: string, parameters: any, callback: (err: Error, data: any) => void): void;
-            build(name: string, parameters: any, token: string, callback: (err: Error, data: any) => void): void;
-            config(name: string, callback: (err: Error, data: any) => void): void;
-            config(name: string, xml: string, callback: (err: Error, data: any) => void): void;
-            copy(name: string, from: string, callback: (err: Error) => void): void;
-            create(name: string, xml: string, callback: (err: Error) => void): void;
-            destroy(name: string, callback: (err: Error) => void): void;
-            disable(name: string, callback: (err: Error) => void): void;
-            enable(name: string, callback: (err: Error) => void): void;
-            exists(name: string, callback: (err: Error, exists: boolean) => void): void;
-            get(name: string, callback: (err: Error, data: any) => void): void;
-            list(callback: (err: Error, data: any) => void): void;
-        };
-        node: {
-            config(name: string, callback: (err: Error, data: any) => void): void;
-            create(name: string, callback: (err: Error) => void): void;
-            destroy(name: string, callback: (err: Error) => void): void;
-            disconnect(name: string, callback: (err: Error) => void): void;
-            disconnect(name: string, message: string, callback: (err: Error) => void): void;
-            disable(name: string, callback: (err: Error) => void): void;
-            disable(name: string, message: string, callback: (err: Error) => void): void;
-            enable(name: string, callback: (err: Error) => void): void;
-            exists(name: string, callback: (err: Error, data: boolean) => void): void;
-            get(name: string, callback: (err: Error, data: any) => void): void;
-            list(callback: (err: Error, data: any) => void): void;
-            list(full: boolean, callback: (err: Error, data: any) => void): void;
-        };
-        queue: {
-            list(callback: (err: Error, data: any) => void): void;
-            item(n: number, callback: (err: Error, data: any) => void): void;
-            cancel(n: number, callback: (err: Error) => void): void;
-        };
-        view: {
-            config(name: string, callback: (err: Error, data: any) => void): void;
-            config(name: string, xml: string, callback: (err: Error, data: any) => void): void;
-            create(name: string, type: 'list' | 'my', callback: (err: Error) => void): void;
-            destroy(name: string, callback: (err: Error) => void): void;
-            exists(name: string, callback: (err: Error, exists: boolean) => void): void;
-            get(name: string, callback: (err: Error, data: any) => void): void;
-            list(callback: (err: Error, data: any) => void): void;
-            add(name: string, job: string, callback: (err: Error) => void): void;
-            remove(name: string, job: string, callback: (err: Error) => void): void;
-        };
-    }
-
-    interface JenkinsPromisifiedAPI {
+    class Jenkins {
+        constructor(opts?: {
+            baseUrl?: string | undefined;
+            crumbIssuer?: boolean | undefined;
+            headers?: any;
+        })
         info(): Promise<any>;
         build: {
             get(name: string, n: number): Promise<any>;
@@ -130,16 +75,4 @@ declare namespace create {
     }
 }
 
-declare function create(opts?: {
-        baseUrl?: string | undefined;
-        crumbIssuer?: boolean | undefined;
-        headers?: any;
-        promisify?: false | undefined;
-    }): create.JenkinsAPI;
-declare function create(opts: {
-        baseUrl?: string | undefined;
-        crumbIssuer?: boolean | undefined;
-        headers?: any;
-        promisify: true;
-    }): create.JenkinsPromisifiedAPI;
 export = create;
