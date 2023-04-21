@@ -1303,6 +1303,38 @@ export class Page {
      */
     timeout?: number;
   }): void;
+
+  /**
+   * Waits for the given navigation lifecycle event to occur and returns the main
+   * resource response.
+   *
+   * @param options
+   */
+  waitForNavigation(options?: {
+    /**
+     * Maximum operation time in milliseconds. Defaults to `0` - no timeout. The
+     * default value can be changed via `navigationTimeout` option in the config,
+     * or by using the browserContext.setDefaultNavigationTimeout(timeout),
+     * browserContext.setDefaultTimeout(timeout),
+     * page.setDefaultNavigationTimeout(timeout) or
+     * page.setDefaultTimeout(timeout) methods.
+     */
+    timeout?: number;
+
+    /**
+     * When to consider operation succeeded, defaults to `load`. Events can be
+     * either:
+     * - `'domcontentloaded'` - consider operation to be finished when the
+     * `DOMContentLoaded` event is fired.
+     * - `'load'` - consider operation to be finished when the `load` event is
+     * fired.
+     * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
+     * when there are no network connections for at least `500` ms. Don't use
+     * this method for testing especially with chatty websites where the event
+     * may never fire, rely on web assertions to assess readiness instead.
+     */
+    waitUntil?: "load"|"domcontentloaded"|"networkidle";
+  }): Promise<null|Response>;
 }
 
 /**

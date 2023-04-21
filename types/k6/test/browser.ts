@@ -534,3 +534,14 @@ page.waitForLoadState("domcontentloaded");
 page.waitForLoadState("networkidle");
 // $ExpectType void
 page.waitForLoadState("load", { timeout: 10000 });
+
+// $ExpectType Promise<Response | null>
+page.waitForNavigation();
+// $ExpectType Promise<Response | null>
+page.waitForNavigation({ timeout: 10000 });
+// $ExpectType Promise<Response | null>
+page.waitForNavigation({ waitUntil: "load" });
+// $ExpectType Promise<Response | null>
+page.waitForNavigation({ waitUntil: "domcontentloaded" });
+// $ExpectType Promise<Response | null>
+page.waitForNavigation({ waitUntil: "networkidle" });
