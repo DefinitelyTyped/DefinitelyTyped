@@ -105,4 +105,8 @@ declare module '.' {
 
     // tslint:disable-next-line ban-types
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
+        functions: (formData: FormData) => void;
+    }
 }
