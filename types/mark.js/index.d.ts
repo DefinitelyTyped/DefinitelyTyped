@@ -152,7 +152,7 @@ declare class Mark {
     unmark(options?: Mark.MarkOptions): void;
 }
 
-export = Mark;
+export default Mark;
 
 /* augment JQuery */
 declare global {
