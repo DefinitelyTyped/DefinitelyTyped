@@ -545,3 +545,20 @@ page.waitForNavigation({ waitUntil: "load" });
 page.waitForNavigation({ waitUntil: "domcontentloaded" });
 // $ExpectType Promise<Response | null>
 page.waitForNavigation({ waitUntil: "networkidle" });
+
+// @ts-expect-error
+page.waitForSelector();
+// $ExpectType ElementHandle
+page.waitForSelector(selector);
+// $ExpectType ElementHandle
+page.waitForSelector(selector, { state: "attached" });
+// $ExpectType ElementHandle
+page.waitForSelector(selector, { state: "detached" });
+// $ExpectType ElementHandle
+page.waitForSelector(selector, { state: "visible" });
+// $ExpectType ElementHandle
+page.waitForSelector(selector, { state: "hidden" });
+// $ExpectType ElementHandle
+page.waitForSelector(selector, { strict: true });
+// $ExpectType ElementHandle
+page.waitForSelector(selector, { timeout: 10000 });

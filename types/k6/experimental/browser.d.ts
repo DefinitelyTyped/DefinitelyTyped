@@ -1335,6 +1335,42 @@ export class Page {
      */
     waitUntil?: "load"|"domcontentloaded"|"networkidle";
   }): Promise<null|Response>;
+
+  /**
+   * **NOTE** Use web assertions that assert visibility or a locator-based
+   * locator.waitFor([options]) instead.
+   *
+   * Returns when element specified by selector satisfies `state` option.
+   *
+   * @param selector A selector to query for.
+   * @param options
+   */
+  waitForSelector(selector: string, options?: {
+    /**
+     * Defaults to `'visible'`. Can be either:
+     * - `'attached'` - wait for element to be present in DOM.
+     * - `'detached'` - wait for element to not be present in DOM.
+     * - `'visible'` - wait for element to have non-empty bounding box and no
+     * `visibility:hidden`.
+     * - `'hidden'` - wait for element to be either detached from DOM, or have
+     * an empty bounding box or `visibility:hidden`.
+     */
+    state?: "attached"|"detached"|"visible"|"hidden";
+
+    /**
+     * When `true`, the call requires selector to resolve to a single element.
+     * If given selector resolves to more than one element, the call throws
+     * an exception. Defaults to `false`.
+     */
+    strict?: boolean;
+
+    /**
+     * Maximum time in milliseconds. Defaults to `0` - no timeout. Default is
+     * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+     * `page` methods.
+     */
+    timeout?: number;
+  }): ElementHandle;
 }
 
 /**
