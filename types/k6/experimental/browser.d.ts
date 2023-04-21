@@ -1027,6 +1027,23 @@ export class Page {
    * All header values must be strings.
    */
   setExtraHTTPHeaders(headers: { [key: string]: string; }): void;
+
+  /**
+   * This will update the page's width and height.
+   *
+   * @param viewportSize
+   */
+  setViewportSize(viewportSize: {
+    /**
+     * page width in pixels.
+     */
+    width: number;
+
+    /**
+     * page height in pixels.
+     */
+    height: number;
+  }): void;
 }
 
 /**

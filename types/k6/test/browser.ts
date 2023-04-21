@@ -433,3 +433,8 @@ page.setDefaultTimeout(1000);
 page.setExtraHTTPHeaders();
 // $ExpectType void
 page.setExtraHTTPHeaders({ Accept: "text/html" });
+
+// @ts-expect-error
+page.setViewportSize();
+// $ExpectType void
+page.setViewportSize({ width: 800, height: 600 });
