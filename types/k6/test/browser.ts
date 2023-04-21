@@ -409,3 +409,12 @@ page.selectOption(selector, "option", { noWaitAfter: true });
 page.selectOption(selector, "option", { strict: true });
 // $ExpectType string[]
 page.selectOption(selector, "option", { timeout: 10000 });
+
+// @ts-expect-error
+page.setContent();
+// $ExpectType void
+page.setContent("<html></html>", { timeout: 10000 });
+// $ExpectType void
+page.setContent("<html></html>", { timeout: 10000 });
+// $ExpectType void
+page.setContent("<html></html>", { waitUntil: "domcontentloaded" });
