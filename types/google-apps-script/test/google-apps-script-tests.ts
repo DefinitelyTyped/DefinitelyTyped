@@ -751,3 +751,7 @@ const sheetFontColorObjects = () => {
     ];
     sheet.getRange("A1:B2").setFontColorObjects(multipleBuilders);
 };
+
+const utilitiesParseDate = () => {
+  Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
+};
