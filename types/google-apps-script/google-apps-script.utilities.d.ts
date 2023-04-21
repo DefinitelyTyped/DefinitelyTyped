@@ -66,6 +66,7 @@ declare namespace GoogleAppsScript {
       newBlob(data: string, contentType: string, name: string): Base.Blob;
       parseCsv(csv: string): string[][];
       parseCsv(csv: string, delimiter: Char): string[][];
+      parseDate(date: string, timeZone: string, format: string): Date;
       sleep(milliseconds: Integer): void;
       ungzip(blob: Base.BlobSource): Base.Blob;
       unzip(blob: Base.BlobSource): Base.Blob[];
