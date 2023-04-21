@@ -575,3 +575,8 @@ page.workers();
 page.$();
 // $ExpectType ElementHandle
 page.$(selector);
+
+// @ts-expect-error
+page.$$();
+// $ExpectType ElementHandle[]
+page.$$(selector);

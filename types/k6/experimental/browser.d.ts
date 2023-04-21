@@ -1397,6 +1397,15 @@ export class Page {
    * @param selector A selector to query for.
    */
   $(selector: string): ElementHandle;
+
+  /**
+   * **NOTE** Use locator-based page.locator(selector[, options]) instead.
+   *
+   * The method finds all elements matching the specified selector within the
+   * page. If no elements match the selector, the return value resolves to `[]`.
+   * @param selector A selector to query for.
+   */
+  $$(selector: string): ElementHandle[];
 }
 
 /**
