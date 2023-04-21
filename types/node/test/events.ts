@@ -30,6 +30,9 @@ declare const any: any;
 
     result = emitter.getMaxListeners();
     result = emitter.listenerCount(event);
+
+    const handler: Function = () => {};
+    result = emitter.listenerCount(event, handler);
 }
 
 {

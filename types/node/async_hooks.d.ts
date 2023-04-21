@@ -319,16 +319,6 @@ declare module 'async_hooks' {
          */
         triggerAsyncId(): number;
     }
-    interface AsyncLocalStorageOptions<T> {
-        /**
-         * Optional callback invoked before a store is propagated to a new async resource.
-         * Returning `true` allows propagation, returning `false` avoids it. Default is to propagate always.
-         * @param type The type of async event.
-         * @param store The current store.
-         * @since v18.13.0
-         */
-        onPropagate?: ((type: string, store: T) => boolean) | undefined;
-    }
     /**
      * This class creates stores that stay coherent through asynchronous operations.
      *
@@ -378,8 +368,23 @@ declare module 'async_hooks' {
      * @since v13.10.0, v12.17.0
      */
     class AsyncLocalStorage<T> {
-        constructor(options?: AsyncLocalStorageOptions<T>);
-
+        /**
+         * Binds the given function to the current execution context.
+         * @since v18.16.0
+         * @param fn The function to bind to the current execution context.
+         * @returns A new function that calls `fn` within the captured execution context.
+         */
+        static bind<Func extends (...args: any[]) => any>(fn: Func): Func & {
+            asyncResource: AsyncResource;
+        };
+        /**
+         * Captures the current execution context and returns a function that accepts a function as an argument.
+         * Whenever the returned function is called, it calls the function passed to it within the captured context.
+         * @since v18.16.0
+         */
+        static snapshot(): (<R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R) & {
+            asyncResource: AsyncResource;
+        };
         /**
          * Disables the instance of `AsyncLocalStorage`. All subsequent calls
          * to `asyncLocalStorage.getStore()` will return `undefined` until`asyncLocalStorage.run()` or `asyncLocalStorage.enterWith()` is called again.
