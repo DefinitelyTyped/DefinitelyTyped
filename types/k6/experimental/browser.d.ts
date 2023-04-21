@@ -1232,6 +1232,11 @@ export class Page {
      */
     trial?: boolean;
   }): void;
+
+  /**
+   * Returns the page's URL.
+   */
+  url(): string;
 }
 
 /**

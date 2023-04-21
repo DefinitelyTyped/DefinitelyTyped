@@ -504,3 +504,6 @@ page.uncheck(selector, { strict: true });
 page.uncheck(selector, { timeout: 10000 });
 // $ExpectType void
 page.uncheck(selector, { trial: true });
+
+// $ExpectType string
+page.url();
