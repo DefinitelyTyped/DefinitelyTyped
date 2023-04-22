@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -615,6 +615,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -626,6 +628,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:initialized initialized} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -637,6 +641,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:manage manage} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -666,6 +672,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:save save} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -708,6 +716,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -829,6 +839,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getModified(): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Required by the {@link sap.m.IOverflowToolbarContent} interface. Registers invalidations event which
      * is fired when width of the control is changed.
      *
@@ -1410,9 +1422,13 @@ declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddAnnotationsToOData": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewInbound": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeDataSource": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/RemoveAllInboundsExceptOne": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
 

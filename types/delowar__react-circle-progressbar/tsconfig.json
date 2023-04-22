@@ -13,6 +13,9 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "@delowar/*": ["delowar__*"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
@@ -20,8 +23,5 @@
     "files": [
         "index.d.ts",
         "delowar__react-circle-progressbar-tests.tsx"
-    ],
-    "paths": {
-        "@delowar/*": ["delowar__*"]
-    }
+    ]
 }

@@ -1,4 +1,5 @@
 import * as Colors from './Colors';
+import { ColorModel } from '../Constants';
 /**
  * Represents a color, and allows for mapping into all available Photoshop color models.
  *
@@ -22,40 +23,56 @@ import * as Colors from './Colors';
  *
  * ```javascript
  * const c = new SolidColor();
- * console.log(c.model); // By default, this will be ColorModel.RGB
+ * console.log(c.base.typename); // By default, this will be "RGBColor"
  *
  * c.cmyk.cyan = 50; // Photoshop will convert the color to CMYK using Edit > Color Settings data
- * console.log(c.model); // Now, the model will be ColorModel.CMYK
+ * console.log(c.base.typename); // Now, the typename will be "CMYKColor"
  *
- * c.rgb.green = 128; // Model will change back to ColorModel.RGB
+ * c.rgb.green = 128; // Typename will change back to "RGBColor"
+ *
  * ```
+ *
+ * ***Fixes in Photoshop 24.2:***
+ * - *Adds range validation for all color modes and its components so it should not be possible to enter invalid value.*
+ *
+ * @minVersion 23.0
  */
 export declare class SolidColor {
     /**
      * The color's representation in RGB color space.
+     *
+     * @minVersion 23.0
      */
     get rgb(): Colors.RGBColor;
     set rgb(c: Colors.RGBColor);
     /**
      * The color's representation in CMYK color space.
+     * @minVersion 23.0
      */
     get cmyk(): Colors.CMYKColor;
     set cmyk(c: Colors.CMYKColor);
     /**
      * The color's representation in HSB color space.
+     * @minVersion 23.0
      */
     get hsb(): Colors.HSBColor;
     set hsb(c: Colors.HSBColor);
     /**
      * The color's representation in LAB color space.
+     * @minVersion 23.0
      */
     get lab(): Colors.LabColor;
     set lab(c: Colors.LabColor);
     /**
      * The color's representation in grayscale.
+     * @minVersion 23.0
      */
     get gray(): Colors.GrayColor;
     set gray(c: Colors.GrayColor);
+    /**
+     * The color's nearest match within the 216 web-safe colors.
+     * @minVersion 23.0
+     */
     get nearestWebColor(): Colors.RGBColor;
     /**
      * True if the SolidColor object is visually equivalent to the specified color.
@@ -67,6 +84,25 @@ export declare class SolidColor {
      *
      * Due to differences in coverage by various color spaces and clamping,
      * a color that is converted from RGB to CMYK and back may not be visually equal.
+     * @minVersion 23.0
      */
     isEqual(color: SolidColor): boolean;
+    /**
+     * All colors begin as white color.
+     *
+     * @param model Color model to start with.
+     *
+     * You can access this constructor such as:
+     * ```
+     * const SolidColor = require("photoshop").app.SolidColor;
+     * const color = new SolidColor();
+     * ```
+     * @minVersion 23.0
+     */
+    constructor(model?: ColorModel);
+    /**
+     * The class name of the referenced object: *"SolidColor"*.
+     * @minVersion 24.2
+     */
+    get typename(): "SolidColor";
 }

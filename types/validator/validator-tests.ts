@@ -73,6 +73,7 @@ import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSemVerFunc from 'validator/lib/isSemVer';
 import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
+import isTimeFunc from 'validator/lib/isTime';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
 import isTaxIDFunc from 'validator/lib/isTaxID';
@@ -300,6 +301,9 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
 
+    let _isTime = validator.isTime;
+    _isTime = isTimeFunc;
+
     let _isURL = validator.isURL;
     _isURL = isURLFunc;
 
@@ -429,6 +433,7 @@ import isPostalCodeFuncEs from 'validator/es/lib/isPostalCode';
 import isSemVerFuncEs from 'validator/es/lib/isSemVer';
 import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
+import isTimeFuncEs from 'validator/es/lib/isTime';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
 import isTaxIDFuncEs from 'validator/es/lib/isTaxID';
@@ -862,6 +867,10 @@ const any: any = null;
     result = validator.isSemVer('sample');
 
     result = validator.isSurrogatePair('sample');
+
+    const isTimeOptions: validator.IsTimeOptions = {};
+    result = validator.isTime('sample');
+    result = validator.isTime('sample', isTimeOptions);
 
     const isURLOptions: validator.IsURLOptions = {
         require_host: true,

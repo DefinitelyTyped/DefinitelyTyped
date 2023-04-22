@@ -1,10 +1,9 @@
 import { ConstNode, Node, NodeBuilder, NodeTypeOption, SwizzleOption } from '../Nodes';
 // lot of private typescript magic here
 export {};
-export type Swizzable<T extends Node = Node> = T &
-    {
-        [key in SwizzleOption | number]: Swizzable;
-    };
+export type Swizzable<T extends Node = Node> = T & {
+    [key in SwizzleOption | number]: Swizzable;
+};
 
 /** anything that can be passed to {@link nodeObject} and returns a proxy */
 export type NodeRepresentation<T extends Node = Node> = number | boolean | Node | Swizzable<T>;

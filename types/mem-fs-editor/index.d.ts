@@ -8,7 +8,7 @@
 /// <reference types="node" />
 
 import { Options as TemplateOptions, Data as TemplateData } from 'ejs';
-import { IOptions as GlobOptions } from 'glob';
+import { GlobbyOptions as GlobOptions } from 'globby';
 import { JSONSchema7Type } from "json-schema";
 import { Store } from 'mem-fs';
 import { Transform } from 'stream';

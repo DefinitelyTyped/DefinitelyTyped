@@ -5,6 +5,7 @@ import sessionsMiddleware = require("@arangodb/foxx/sessions");
 import jwtStorage = require("@arangodb/foxx/sessions/storages/jwt");
 import cookieTransport = require("@arangodb/foxx/sessions/transports/cookie");
 import createAuth = require("@arangodb/foxx/auth");
+import { create } from '@arangodb/foxx/queues';
 
 console.warnStack(new Error(), "something went wrong");
 
@@ -174,5 +175,10 @@ view.properties({
         segmentThreshold: 234
     }
 });
+
+// $ExpectType Queue
+const myQueue = create("myQueue");
+// $ExpectType string
+const myString = myQueue.push({mount: '/mount', name: 'myItem'}, {});
 
 console.log(Buffer.concat([Buffer.allocUnsafe(4), genRandomBytes(4)], 8));

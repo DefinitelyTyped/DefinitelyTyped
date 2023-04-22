@@ -1168,6 +1168,15 @@ function Argv$inferRequiredOptionTypes() {
 
     // $ExpectType string
     yargs.option("x", { default: "default" as string | undefined, required: true }).parseSync().x;
+
+    // $ExpectType string
+    yargs.option("x", {type: "string", default: "default" as string | undefined, demandOption: true }).parseSync().x;
+
+    // $ExpectType number
+    yargs.option("x", {type: "number", default: 0 as number | undefined, demandOption: true }).parseSync().x;
+
+    // $ExpectType boolean
+    yargs.option("x", {type: "boolean", default: false as boolean | undefined, demandOption: true }).parseSync().x;
 }
 
 function Argv$inferMultipleOptionTypes() {
@@ -1488,4 +1497,26 @@ function Argv$hideBinHelper() {
 function Argv$ParserHelper() {
     // $ExpectType Arguments
     const argv = yargsHelpers.Parser('--foo --bar=99');
+}
+
+function Argv$commandCommandModuleArray() {
+    const CommandOne: yargs.CommandModule = {
+        builder: async yargs => {
+            return yargs.option('a', { default: 'foo' });
+        },
+        handler: argv => {
+            argv.a;
+        }
+    };
+
+    const CommandTwo: yargs.CommandModule = {
+        builder: async yargs => {
+            return yargs.option('a', { default: 'bar' });
+        },
+        handler: argv => {
+            argv.a;
+        }
+    };
+
+    yargs.command([CommandOne, CommandTwo]);
 }

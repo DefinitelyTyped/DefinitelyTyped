@@ -2,6 +2,12 @@ import { createRef } from 'react';
 import { dispatch, select } from '@wordpress/data';
 import * as RT from '@wordpress/rich-text';
 
+// $ExpectType RichTextStoreDescriptor
+RT.store;
+
+// $ExpectType "core/rich-text"
+RT.store.name;
+
 const VALUE: RT.Value = {
     formats: [],
     replacements: [],

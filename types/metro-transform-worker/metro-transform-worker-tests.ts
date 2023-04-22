@@ -43,7 +43,6 @@ export const jsTransformerConfig: JsTransformerConfig = {
     dynamicDepsInPackages: 'reject',
     enableBabelRCLookup: true,
     enableBabelRuntime: false,
-    experimentalImportBundleSupport: false,
     globalPrefix: 'prefix',
     hermesParser: true,
     minifierConfig,
@@ -51,6 +50,7 @@ export const jsTransformerConfig: JsTransformerConfig = {
     optimizationSizeLimit: 4455,
     publicPath: 'path',
     allowOptionalDependencies: false,
+    unstable_allowRequireContext: false,
     unstable_collectDependenciesPath: 'path',
     unstable_dependencyMapReservedName: 'name',
     unstable_disableModuleWrapping: false,
@@ -98,6 +98,7 @@ export const transformResponse: TransformResponse = {
         {
             name: 'name',
             data: {
+                key: 'key',
                 asyncType: null,
                 locs: [],
             },

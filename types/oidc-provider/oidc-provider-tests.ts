@@ -22,6 +22,12 @@ new Provider('https://op.example.com', {
 });
 
 new Provider('https://op.example.com', {
+    pkce: {
+        required: () => false,
+    },
+});
+
+new Provider('https://op.example.com', {
     adapter: class Adapter {
         name: string;
         constructor(name: string) {

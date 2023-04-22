@@ -2,7 +2,7 @@
 
 > La repo per le definizioni di tipi Typescript di *alta qualità*.
 
-*Puoi leggere questo README anche in [Spagnolo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coreano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Cinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Portoghese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) e [Giapponese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*Puoi leggere questo README anche in [Spagnolo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coreano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Cinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Portoghese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) e [Giapponese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link per il [manuale dell'amministratore](./docs/admin.md)*
 
@@ -336,7 +336,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 
 * Inanzitutto segui i consigli nel [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `npm run prettier -- --write path/to/package/**/*.ts`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
-  
+
   ```tsx
     // prettier-ignore
     // @ts-expect-error
@@ -582,8 +582,8 @@ Nel momento in cui questo README è stato scritto, il [`tsconfig.json` della his
 
 Se ci sono pacchetti su Definitely Typed che sono incompatibili con la vesione più nuova di una libreria, dovrai mappare gli indirizzi alla vecchia versione, continuando ricorsivamente per gli altri pacchetti che dipendono da essa.
 
-Per esempio, `react-router` dipende da `history@2`, quindi il [`tsconfig.json` di react-router](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) ha mappato gli indirizzi alla versione vecchia (`"history": [ "history/v2" ]`) fino a che non è passato alla nuova versione di `react-router`.
-A sua volta, la libreria `react-router-bootstrap` (che dipende da `react-router`) ha dovuto aggiungere lo stesso mapping nel suo `tsconfig.json`, fino a che la sua dipendenza `react-router` non è stata aggiornata all'ultima versione.
+Per esempio, `browser-sync` dipende da `micromatch@2`, quindi il [`tsconfig.json` di browser-sync](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) ha mappato gli indirizzi alla versione vecchia (`"micromatch": [ "micromatch/v2" ]`) fino a che non è passato alla nuova versione di `browser-sync`.
+A sua volta, la libreria `browser-sync-webpack-plugin` (che dipende da `browser-sync`) ha dovuto aggiungere lo stesso mapping nel suo `tsconfig.json`, fino a che la sua dipendenza `browser-sync` non è stata aggiornata all'ultima versione.
 
 Nota che `/// <reference types=".." />` non funziona con il mapping degli indirizzi, quindi le dipendenze devono usare `import`.
 

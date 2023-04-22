@@ -10,6 +10,7 @@
         "interface-name": false,
         "max-line-length": false,
         "no-single-declare-module": false,
-        "interface-over-type-literal": false
+        "interface-over-type-literal": false,
+        "no-mergeable-namespace": false
     }
 }
