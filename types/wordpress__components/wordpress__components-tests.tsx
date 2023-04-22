@@ -288,7 +288,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // dropdown-menu
 //
 <C.DropdownMenu icon="move" label="Select a direction">
-    {({ onClose }) => (
+    {({ onClose }: { onClose: () => void; }) => (
         <div>
             <button onClick={onClose}>Click me</button>
         </div>
