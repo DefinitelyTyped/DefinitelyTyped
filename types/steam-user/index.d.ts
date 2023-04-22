@@ -10,9 +10,9 @@
 
 /// <reference types="node" />
 
-import type SteamID = require('steamid');
-import type ByteBuffer = require('bytebuffer');
-import type FileManager = require('file-manager');
+import SteamID = require('steamid');
+import ByteBuffer = require('bytebuffer');
+import FileManager = require('file-manager');
 import EventEmitter = require('events');
 import SteamChatRoomClient = require('./components/chatroom');
 
@@ -193,7 +193,7 @@ declare class SteamUser extends EventEmitter {
      */
     setSentry(sentry: Buffer | null): void;
 
-    logOn(details?: LogOnDetailsAnon | LogOnDetailsNamePass | LogOnDetailsNameKey | LogOnDetailsNameToken): void;
+    logOn(details?: LogOnDetailsAnon | LogOnDetailsNamePass | LogOnDetailsNameKey | LogOnDetailsNameToken | LogOnDetailsRefresh): void;
 
     /**
      * Log off of Steam gracefully.
@@ -1344,6 +1344,14 @@ interface LogOnDetailsNameToken {
     webLogonToken: string;
     steamID: SteamID | string;
     autoRelogin?: boolean;
+}
+
+interface LogOnDetailsRefresh {
+    refreshToken: string;
+    steamID?: SteamID | string;
+    logonID?: number | string;
+    machineName?: string;
+    clientOS?: SteamUser.EOSType;
 }
 
 interface SteamGuardDetails {

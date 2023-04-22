@@ -159,7 +159,7 @@ export namespace DS {
     const VERSION: string;
 
     interface AttrOptions<T> {
-        defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T) | undefined;
+        defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T) | null | undefined;
         allowNull?: boolean | undefined; // TODO: restrict to boolean transform (TS 2.8)
         [key: string]: unknown;
     }

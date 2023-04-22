@@ -55,7 +55,7 @@ export interface RegionsPluginParams extends PluginParams {
 export class Region extends Observer {
     constructor(params: RegionParams, regionsUtil: WaveSurfer['util'], ws: WaveSurfer);
 
-    bindRagEvents(): void;
+    bindDragEvents(): void;
     bindEvents(): void;
     bindInOut(): void;
     formatTime(start: number, end: number): string;
@@ -122,8 +122,10 @@ export interface RegionParams {
 }
 
 export interface RegionUpdatedEventParams {
-    direction: 'right' | 'left' | null;
-    action: 'drag' | 'resize';
+    action: 'drag' | 'resize' | 'contentEdited';
+    direction?: 'right' | 'left' | null;
+    oldText?: string;
+    text?: string;
 }
 
 export interface HandleStyle {

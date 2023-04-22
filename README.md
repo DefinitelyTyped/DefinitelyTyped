@@ -411,6 +411,10 @@ To Add yourself as a Definition Owner:
 
 Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
 
+## The history of Definitely Typed
+
+Definitely Typed is one of the most active repositories on GitHub. You might have wondered how the project came to be. A history of Definitely Typed exists, that was put together by @johnnyreilly. It tells the story of the early days of Definitely Typed, from a repository created by @borisyankov, to the point where it became a pivotal part of the TypeScript ecosystem. [You can read the story of Definitely Typed here](https://johnnyreilly.com/definitely-typed-the-movie).  
+
 ## FAQ
 
 #### What exactly is the relationship between this repository and the `@types` packages on npm?

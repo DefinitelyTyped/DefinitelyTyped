@@ -9,7 +9,7 @@ import { WebGLRenderLists } from './webgl/WebGLRenderLists';
 import { WebGLState } from './webgl/WebGLState';
 import { Vector2 } from './../math/Vector2';
 import { Vector4 } from './../math/Vector4';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { WebGLRenderTarget } from './WebGLRenderTarget';
 import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
 import { Object3D } from './../core/Object3D';
@@ -22,7 +22,6 @@ import { Data3DTexture } from '../textures/Data3DTexture';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
 import { DataArrayTexture } from '../textures/DataArrayTexture';
-import { ColorRepresentation } from '../utils';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;

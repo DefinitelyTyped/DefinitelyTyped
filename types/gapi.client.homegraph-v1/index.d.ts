@@ -1,5 +1,5 @@
 // Type definitions for non-npm package HomeGraph API v1 0.0
-// Project: https://developers.google.com/actions/smarthome/create-app#request-sync
+// Project: https://developers.home.google.com/cloud-to-cloud/get-started
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

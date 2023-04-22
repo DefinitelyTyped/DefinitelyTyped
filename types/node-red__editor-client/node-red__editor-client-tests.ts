@@ -1,6 +1,8 @@
 // tslint:disable:space-before-function-paren
 
 import editorClient = require('@node-red/editor-client');
+import { NodeMessage } from '@node-red/registry';
+import { TrayResizeOptions } from '@node-red/editor-client/index';
 
 function redTests(RED: editorClient.RED) {
     interface MyNodeProperties extends editorClient.NodeProperties {
@@ -401,4 +403,139 @@ function nodeRedPluginTests(RED: editorClient.RED) {
         },
     };
     RED.plugins.registerPlugin('my-plugin', myPluginDef);
+}
+
+function nodeRedUtilsTests(RED: editorClient.RED) {
+    interface SomeNodeMsg extends NodeMessage {
+        key: string;
+    }
+    const msg: SomeNodeMsg = {
+        key: 'value',
+    };
+
+    // $ExpectType (string | number)[]
+    RED.utils.normalisePropertyExpression('a["b"].c');
+
+    // $ExpectType (string | number)[]
+    RED.utils.normalisePropertyExpression('a[msg.foo]', msg);
+}
+
+function nodeRedEditorTests(RED: editorClient.RED) {
+    // $ExpectType void
+    RED.editor.editSubflow({});
+    // $ExpectType void
+    RED.editor.editSubflow({}, {});
+
+    // $ExpectType void
+    RED.editor.editGroup({});
+    // $ExpectType void
+    RED.editor.editGroup({}, {});
+
+    // $ExpectType void
+    RED.editor.editJavaScript({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'any',
+        width: 0,
+        stateId: 'string',
+        mode: 'string',
+        focus: true,
+        cancel: () => {},
+        complete: (value: any, cursor?: any) => {},
+        extraLibs: [],
+    });
+
+    // $ExpectType void
+    RED.editor.editExpression({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'string',
+        stateId: 'string',
+        focus: true,
+        complete: (value: any) => {},
+    });
+
+    // $ExpectType void
+    RED.editor.editJSON({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'string',
+        stateId: 'string',
+        focus: true,
+        complete: (value: any) => {},
+        requireValid: true,
+        readOnly: true,
+        toolbarButtons: [],
+    });
+
+    // $ExpectType void
+    RED.editor.editMarkdown({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'string',
+        width: 'Infinite',
+        stateId: 'string',
+        focus: true,
+        complete: (value: any) => {},
+        header: $('<div/>'),
+    });
+
+    // $ExpectType void
+    RED.editor.editText({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        mode: 'string',
+        value: 'string',
+        stateId: 'string',
+        width: 0,
+        focus: true,
+        complete: (value: string, cursor?: any) => {},
+    });
+
+    // $ExpectType void
+    RED.editor.editBuffer({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'any',
+        stateId: 'string',
+        focus: true,
+        complete: (value: any) => {},
+    });
+}
+
+function nodeRedTrayTests(RED: editorClient.RED) {
+    // $ExpectType void
+    RED.tray.show();
+
+    // $ExpectType void
+    RED.tray.show({
+        buttons: [
+            {
+                class: 'string',
+                click: (event: any) => {},
+                id: 'string',
+                text: 'string',
+            },
+        ],
+
+        close: () => {},
+        open: (tray: any, done?: () => void) => {},
+        resize: (options: TrayResizeOptions) => {},
+        show: () => {},
+
+        title: 'string',
+
+        maximized: true,
+        width: 0,
+
+        overlay: true,
+
+        focusElement: $('<div/>'),
+    });
 }

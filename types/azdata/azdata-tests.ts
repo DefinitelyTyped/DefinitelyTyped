@@ -124,3 +124,19 @@ const account: azdata.Account = {
 };
 
 azdata.accounts.getAccountSecurityToken(account, 'tenant-id', azdata.AzureResource.Custom);
+
+const connectionProfile: azdata.connection.ConnectionProfile = {
+    providerId: 'MyProvider',
+    connectionId: 'MyConnectionId',
+    connectionName: 'MyConnectionName',
+    serverName: 'MyServerName',
+    databaseName: 'MyDatabaseName',
+    userName: 'MyUsername',
+    password: 'MyPassword',
+    authenticationType: azdata.connection.AuthenticationType.SqlLogin,
+    savePassword: false,
+    groupFullName: 'MyGroupFullName',
+    groupId: 'MyGroupId',
+    saveProfile: false,
+    options: {}
+};

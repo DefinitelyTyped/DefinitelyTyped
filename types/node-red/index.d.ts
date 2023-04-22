@@ -6,7 +6,7 @@
 //                 Alex Kaul <https://github.com/alexk111>
 //                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// Minimum TypeScript Version: 4.7
 
 // tslint:disable:no-empty-interface
 

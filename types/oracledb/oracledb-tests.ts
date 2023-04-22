@@ -1,10 +1,7 @@
 import * as oracledb from 'oracledb';
 
 import defaultOracledb from 'oracledb';
-// import dotenv from 'dotenv';
 import assert from 'assert';
-
-// dotenv.config();
 
 /*
 

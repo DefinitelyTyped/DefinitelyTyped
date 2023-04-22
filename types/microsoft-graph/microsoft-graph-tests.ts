@@ -219,3 +219,9 @@ const bookingStaffRole: MicrosoftGraph.BookingStaffRole = "unknownFutureValue";
 const bookingAppointmentStatus: MicrosoftGraph.BookingAppointment = {
     id: "test",
 };
+
+const authenticationMethodsPolicyMigrationState: MicrosoftGraph.AuthenticationMethodsPolicyMigrationState = "unknownFutureValue";
+
+const conditionalAccessGuestOrExternalUserTypes: MicrosoftGraph.ConditionalAccessGuestOrExternalUserTypes = "unknownFutureValue";
+
+const appManagementConfiguration: MicrosoftGraph.AppManagementConfiguration = {};

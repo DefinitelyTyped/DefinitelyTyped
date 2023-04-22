@@ -1,4 +1,4 @@
-// For Library Version: 1.112.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -337,6 +337,8 @@ declare module "sap/ui/integration/ActionDefinition" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1242,8 +1244,33 @@ declare module "sap/ui/integration/Extension" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.113) - The API might change.
+     *
+     * Starts the process of fetching a resource from the network, returning a promise that is fulfilled once
+     * the response is available. Use this method to override the default behavior when fetching network resources.
+     * Mimics the browser native Fetch API.
+     *
+     * @returns A `Promise` that resolves to a `Response` object.
+     */
+    fetch(
+      /**
+       * This defines the resource that you wish to fetch.
+       */
+      sResource: string,
+      /**
+       * An object containing any custom settings that you want to apply to the request.
+       */
+      mOptions: object,
+      /**
+       * The map of request settings defined in the card manifest. Use this only for reading, they can not be
+       * modified.
+       */
+      mRequestSettings: object
+    ): Promise<Response>;
+    /**
      * @EXPERIMENTAL (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:action action} to attached listeners.
      *
@@ -1775,6 +1802,7 @@ declare module "sap/ui/integration/Host" {
     /**
      * @EXPERIMENTAL (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:action action} to attached listeners.
      *
@@ -1812,6 +1840,7 @@ declare module "sap/ui/integration/Host" {
     ): boolean;
     /**
      * @EXPERIMENTAL (since 1.96)
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:cardConfigurationChange cardConfigurationChange} to attached listeners.
      *
@@ -1843,6 +1872,7 @@ declare module "sap/ui/integration/Host" {
     ): this;
     /**
      * @EXPERIMENTAL (since 1.107)
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:cardStateChanged cardStateChanged} to attached listeners.
      *
@@ -1861,6 +1891,7 @@ declare module "sap/ui/integration/Host" {
     ): this;
     /**
      * @EXPERIMENTAL (since 1.91)
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
      *
@@ -2603,6 +2634,7 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * @EXPERIMENTAL (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:action action} to attached listeners.
      *
@@ -2636,6 +2668,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): boolean;
     /**
      * @EXPERIMENTAL (since 1.96)
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:configurationChange configurationChange} to attached listeners.
      *
@@ -2653,8 +2686,8 @@ declare module "sap/ui/integration/widgets/Card" {
          * ```javascript
          *
          *  {
-         *  	"/sap.card/configuration/filters/shipper/value": "key3",
-         *  	"/sap.card/configuration/filters/item/value": "key2",
+         *     "/sap.card/configuration/filters/shipper/value": "key3",
+         *     "/sap.card/configuration/filters/item/value": "key2",
          *  }
          * ```
          */
@@ -2662,6 +2695,8 @@ declare module "sap/ui/integration/widgets/Card" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:manifestApplied manifestApplied} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2674,6 +2709,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @EXPERIMENTAL (since 1.72)
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:manifestReady manifestReady} to attached listeners.
      *
@@ -2687,6 +2723,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @EXPERIMENTAL (since 1.107)
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:stateChanged stateChanged} to attached listeners.
      *
@@ -2762,6 +2799,8 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getDesign(): CardDesign | keyof typeof CardDesign;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the DOM Element that should get the focus.
      *
      * @returns Returns the DOM Element that should get the focus
@@ -3031,18 +3070,16 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         mode?: string;
         /**
-         * The HTTP method. Possible values are "GET", "POST".
+         * The HTTP method. Possible values are "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", and "HEAD".
          */
         method?: string;
         /**
-         * The request parameters. If the method is "POST" the parameters will be put as key/value pairs into the
-         * body of the request.
+         * The request parameters. If the HTTP method is "POST", "PUT", "PATCH", or "DELETE" the parameters will
+         * be put as key/value pairs into the body of the request.
          */
         parameters?: object;
         /**
-         * The expected Content-Type of the response. Possible values are "xml", "json", "text", "script", "html",
-         * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
-         * to an object is up to the developer.
+         * Deprecated. Use the correct Accept headers and correct Content-Type header in the response.
          */
         dataType?: string;
         /**
@@ -3517,18 +3554,16 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         mode?: string;
         /**
-         * The HTTP method. Possible values are "GET", "POST".
+         * The HTTP method. Possible values are "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", and "HEAD".
          */
         method?: string;
         /**
-         * The request parameters. If the method is "POST" the parameters will be put as key/value pairs into the
-         * body of the request.
+         * The request parameters. If the HTTP method is "POST", "PUT", "PATCH", or "DELETE" the parameters will
+         * be put as key/value pairs into the body of the request.
          */
         parameters?: object;
         /**
-         * The expected Content-Type of the response. Possible values are "xml", "json", "text", "script", "html",
-         * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
-         * to an object is up to the developer.
+         * Deprecated. Use the correct Accept headers and correct Content-Type header in the response.
          */
         dataType?: string;
         /**
@@ -3933,8 +3968,6 @@ declare namespace sap {
     "sap/ui/integration/designtime/editor/CardPreview": undefined;
 
     "sap/ui/integration/editor/Editor": undefined;
-
-    "sap/ui/integration/editor/EditorResourceBundles": undefined;
 
     "sap/ui/integration/editor/Extension": undefined;
 
