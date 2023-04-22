@@ -251,8 +251,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const [numFunc, setNumFunc] =  React.useState<() => number>(() => () => 0);
     // $ExpectType () => number
     numFunc;
-    // Undesired
-    // Should not typecheck since that would update the state to `number` when the type-checker would still consider the state to be `() => number`
+    // @ts-expect-error
     setNumFunc(() => 42);
     // this is the correct way to set a function in state
     setNumFunc(() => () => 42);
@@ -413,19 +412,5 @@ function useUsers(): string[] {
         objectStore.subscribe,
         () => objectStore.getState().users,
         () => objectStore.getServerState().users,
-    );
-}
-
-function SetInvalidFunctionalState() {
-    const [state, setState] = React.useState(() => () => "foo");
-
-    return (
-        <button onClick={() => {
-            // Type 'string' is not assignable to type '() => string'.
-            // @ts-expect-error
-            setState(() => "bar");
-        }}>
-            {state()}
-        </button>
     );
 }
