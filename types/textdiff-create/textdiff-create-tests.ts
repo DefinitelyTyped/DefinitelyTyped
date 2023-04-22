@@ -8,17 +8,17 @@ const result = textDiffCreate('one', 'two');
 const firstChange = result[0];
 
 switch (firstChange[0]) {
-    case textDiffCreate.ChangeType.DELETE: {
+    case -1: {
         // $ExpectType number
         firstChange[1];
         break;
     }
-    case textDiffCreate.ChangeType.EQUAL: {
+    case 0: {
         // $ExpectType number
         firstChange[1];
         break;
     }
-    case textDiffCreate.ChangeType.INSERT: {
+    case 1: {
         // $ExpectType string
         firstChange[1];
         break;

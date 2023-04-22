@@ -4,13 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace TextDiffCreate {
-    enum ChangeType {
-        DELETE = -1,
-        INSERT = 1,
-        EQUAL = 0,
-    }
-
-    type Change = [ChangeType.INSERT, string] | [ChangeType.EQUAL, number] | [ChangeType.DELETE, number];
+    type Change = [1, string] | [0, number] | [-1, number];
 }
 declare function TextDiffCreate(v1: string, v2: string): TextDiffCreate.Change[];
 export = TextDiffCreate;
