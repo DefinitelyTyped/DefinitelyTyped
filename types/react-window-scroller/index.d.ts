@@ -6,15 +6,15 @@
 import { Ref, ComponentType } from "react";
 import { FixedSizeList, FixedSizeListProps } from "react-window";
 
-interface ChildComponentProps {
+export interface ScrollerChildProps {
     ref: Ref<FixedSizeList>;
     outerRef: FixedSizeListProps['outerRef'];
     style: FixedSizeListProps['style'];
     onScroll: FixedSizeListProps['onScroll'];
 }
 
-interface Props {
-    children: ComponentType<ChildComponentProps>;
+export interface ScrollerProps {
+    children: ComponentType<ScrollerChildProps>;
 }
 
-export const ReactWindowScroller: ComponentType<Props>;
+export const ReactWindowScroller: ComponentType<ScrollerProps>;
