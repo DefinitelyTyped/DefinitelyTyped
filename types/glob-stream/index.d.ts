@@ -2,6 +2,7 @@
 // Project: https://github.com/wearefractal/glob-stream
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 mrmlnc <https://github.com/mrmlnc>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
