@@ -871,6 +871,7 @@ declare namespace React {
     // Since action _can_ be undefined, dispatch may be called without any parameters.
     type DispatchWithoutAction = () => void;
     // Limit the reducer to accept only 0 or 1 action arguments
+    // eslint-disable-next-line no-single-element-tuple-type
     type AnyActionArg = [] | [any];
     // Get the dispatch type from the reducer arguments (captures optional action argument correctly)
     type ActionDispatch<ActionArg extends AnyActionArg> = (...args: ActionArg) => void;
