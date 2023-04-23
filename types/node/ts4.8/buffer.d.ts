@@ -200,8 +200,7 @@ declare module 'buffer' {
     import { Blob as NodeBlob } from 'buffer';
     // This conditional type will be the existing global Blob in a browser, or
     // the copy below in a Node environment.
-    type __Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : NodeBlob;
-
+    type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
     global {
         // Buffer class
         type BufferEncoding =
@@ -428,6 +427,14 @@ declare module 'buffer' {
              * @param totalLength Total length of the `Buffer` instances in `list` when concatenated.
              */
             concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
+            /**
+             * Copies the underlying memory of `view` into a new `Buffer`.
+             * @since v18.16.0
+             * @param view The `TypedArray` to copy.
+             * @param offset The starting offset within `view`.
+             * @param length The number of elements from `view` to copy.
+             */
+            copyBytesFrom(view: NodeJS.TypedArray, offset?: number, length?: number): Buffer;
             /**
              * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of`Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
              *

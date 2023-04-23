@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 18.15
+// Type definitions for non-npm package Node.js 18.16
 // Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>

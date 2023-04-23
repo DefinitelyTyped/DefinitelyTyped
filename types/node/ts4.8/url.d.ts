@@ -834,6 +834,11 @@ declare module 'url' {
          */
         set(name: string, value: string): void;
         /**
+         * The total number of parameter entries.
+         * @since v18.16.0
+         */
+        readonly size: number;
+        /**
          * Sort all existing name-value pairs in-place by their names. Sorting is done
          * with a [stable sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability), so relative order between name-value pairs
          * with the same name is preserved.
