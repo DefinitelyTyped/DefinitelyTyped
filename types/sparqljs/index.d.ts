@@ -106,6 +106,7 @@ export interface DescribeQuery extends BaseQuery {
 
 export interface Update {
     type: 'update';
+    base?: string | undefined;
     prefixes: { [prefix: string]: string; };
     updates: UpdateOperation[];
 }
