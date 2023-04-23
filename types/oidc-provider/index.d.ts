@@ -1111,7 +1111,7 @@ export interface Configuration {
     revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
 
     pkce?: {
-        methods: PKCEMethods[];
+        methods?: PKCEMethods[] | undefined;
         required?: ((ctx: KoaContextWithOIDC, client: Client) => boolean) | undefined;
     } | undefined;
 

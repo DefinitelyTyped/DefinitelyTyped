@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -190,6 +190,8 @@ declare module "sap/ui/suite/TaskCircle" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -569,6 +571,8 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining

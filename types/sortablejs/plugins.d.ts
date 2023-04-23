@@ -71,6 +71,11 @@ export interface MultiDragOptions {
     multiDragKey?: null | undefined;
 
     /**
+     * If you don't want to deselect items on outside click
+     */
+    avoidImplicitDeselect?: boolean | undefined;
+
+    /**
      * Called when an item is selected
      */
     onSelect?: ((event: SortableEvent) => void) | undefined;

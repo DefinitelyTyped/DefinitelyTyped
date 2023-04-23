@@ -58,10 +58,8 @@ declare module '../../index' {
          *   number of frames you want your animation to be, if
          *   you are very sure of this number.
          *
-         *   It is not recommended to write this function
-         *   inside setup, since it won't work properly. The
-         *   recommended use can be seen in the example, where
-         *   we use it inside an event function, like
+         *   This may be called in setup, or, like in the
+         *   example below, inside an event function, like
          *   keyPressed or mousePressed.
          *   @param filename File name of your gif
          *   @param duration Duration in seconds that you wish

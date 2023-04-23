@@ -1,16 +1,42 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.113.0
+
+declare module "sap/ui/mdc/enum/FilterBarValidationStatus" {
+  /**
+   * @SINCE 1.110
+   *
+   * Enumeration of the possible validation types.
+   */
+  enum FilterBarValidationStatus {
+    /**
+     * Filter field in error state.
+     */
+    FieldInErrorState = "undefined",
+    /**
+     * No errors detected.
+     */
+    NoError = "undefined",
+    /**
+     * Required filter filed without a value.
+     */
+    RequiredHasNoValue = "undefined",
+  }
+  export default FilterBarValidationStatus;
+}
 
 declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
    * @SINCE 1.84.0
+   * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The FilterContainer is a IFilterContainer implementation for `AlignedFlowLayout`
    */
   export default class FilterContainer
     /* was: sap.ui.mdc.filterbar.IFilterContainer */ extends Object {
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Constructor for a new filterBar/vh/FilterContainer.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
@@ -25,6 +51,8 @@ declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
     );
 
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Creates a new subclass of class sap.ui.mdc.filterbar.vh.FilterContainer with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -48,6 +76,8 @@ declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns a metadata object for class sap.ui.mdc.filterbar.vh.FilterContainer.
      *
      * @returns Metadata object describing this class
@@ -275,7 +305,7 @@ declare namespace sap {
 
     "sap/ui/mdc/enum/FieldDisplay": undefined;
 
-    "sap/ui/mdc/enum/OutParameterMode": undefined;
+    "sap/ui/mdc/enum/FilterBarValidationStatus": undefined;
 
     "sap/ui/mdc/enum/PersistenceMode": undefined;
 
@@ -283,19 +313,15 @@ declare namespace sap {
 
     "sap/ui/mdc/enum/PropagationReason": undefined;
 
+    "sap/ui/mdc/enum/ReasonMode": undefined;
+
     "sap/ui/mdc/enum/SelectType": undefined;
 
     "sap/ui/mdc/Field": undefined;
 
-    "sap/ui/mdc/field/BoolFieldHelp": undefined;
-
-    "sap/ui/mdc/field/ConditionFieldHelp": undefined;
-
     "sap/ui/mdc/field/ConditionsType": undefined;
 
     "sap/ui/mdc/field/ConditionType": undefined;
-
-    "sap/ui/mdc/field/CustomFieldHelp": undefined;
 
     "sap/ui/mdc/field/CustomFieldInfo": undefined;
 
@@ -307,31 +333,11 @@ declare namespace sap {
 
     "sap/ui/mdc/field/FieldBaseDelegate": undefined;
 
-    "sap/ui/mdc/field/FieldHelpBase": undefined;
-
-    "sap/ui/mdc/field/FieldHelpBaseDelegate": undefined;
-
     "sap/ui/mdc/field/FieldInfoBase": undefined;
 
     "sap/ui/mdc/field/FieldInput": undefined;
 
     "sap/ui/mdc/field/FieldMultiInput": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelp": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpContentWrapperBase": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpDelegate": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpMdcTableWrapper": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpMTableWrapper": undefined;
-
-    "sap/ui/mdc/field/FieldValueHelpUITableWrapper": undefined;
-
-    "sap/ui/mdc/field/InParameter": undefined;
-
-    "sap/ui/mdc/field/ListFieldHelp": undefined;
 
     "sap/ui/mdc/field/ListFieldHelpItem": undefined;
 
@@ -339,13 +345,9 @@ declare namespace sap {
 
     "sap/ui/mdc/field/MultiValueFieldItem": undefined;
 
-    "sap/ui/mdc/field/OutParameter": undefined;
-
     "sap/ui/mdc/field/TokenDisplay": undefined;
 
     "sap/ui/mdc/field/TokenizerDisplay": undefined;
-
-    "sap/ui/mdc/field/ValueHelpPanel": undefined;
 
     "sap/ui/mdc/FilterBar": undefined;
 
@@ -354,6 +356,8 @@ declare namespace sap {
     "sap/ui/mdc/filterbar/aligned/FilterItemLayout": undefined;
 
     "sap/ui/mdc/filterbar/FilterBarBase": undefined;
+
+    "sap/ui/mdc/filterbar/p13n/AdaptationFilterBar": undefined;
 
     "sap/ui/mdc/filterbar/vh/CollectiveSearchSelect": undefined;
 
@@ -385,21 +389,19 @@ declare namespace sap {
 
     "sap/ui/mdc/MultiValueField": undefined;
 
-    "sap/ui/mdc/odata/v4/FieldBaseDelegate": undefined;
+    "sap/ui/mdc/odata/TypeUtil": undefined;
 
-    "sap/ui/mdc/odata/v4/FieldValueHelpDelegate": undefined;
+    "sap/ui/mdc/odata/v4/FieldBaseDelegate": undefined;
 
     "sap/ui/mdc/odata/v4/TableDelegate": undefined;
 
-    "sap/ui/mdc/odata/v4/ValueHelpDelegate": undefined;
+    "sap/ui/mdc/odata/v4/TypeUtil": undefined;
 
-    "sap/ui/mdc/p13n/Engine": undefined;
+    "sap/ui/mdc/odata/v4/ValueHelpDelegate": undefined;
 
     "sap/ui/mdc/p13n/panels/FilterPanel": undefined;
 
     "sap/ui/mdc/p13n/StateUtil": undefined;
-
-    "sap/ui/mdc/p13n/subcontroller/BaseController": undefined;
 
     "sap/ui/mdc/p13n/UIManager": undefined;
 
@@ -434,6 +436,8 @@ declare namespace sap {
     "sap/ui/mdc/util/DateUtil": undefined;
 
     "sap/ui/mdc/util/FilterUtil": undefined;
+
+    "sap/ui/mdc/util/InfoBar": undefined;
 
     "sap/ui/mdc/util/PromiseCache": undefined;
 

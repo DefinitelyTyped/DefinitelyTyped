@@ -1,7 +1,6 @@
 // Type definitions for discord-rpc 4.0
 // Project: https://github.com/discordjs/RPC#readme
-// Definitions by: Jason Bothell <https://github.com/jasonhaxstuff>
-//                 Jack Baron <https://github.com/lolPants>
+// Definitions by: Jack Baron <https://github.com/lolPants>
 //                 Dylan Hackworth <https://github.com/dylhack>
 //                 Sankarsan Kampa <https://github.com/k3rn31p4nic>
 //                 Brian Dashore <https://github.com/bdashore3>

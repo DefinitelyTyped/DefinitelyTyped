@@ -12,6 +12,8 @@
 //                 Vlad Poluch <https://github.com/vlapo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Matteo Nista <https://github.com/Mattewn99>
+//                 Roman Babiak <https://github.com/Almost-Infinity>
+//                 Daniel Freire <https://github.com/dcfreire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _isBoolean from './lib/isBoolean';
@@ -271,10 +273,17 @@ declare namespace validator {
      */
     function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
 
+    interface IsCreditCardOptions {
+        /**
+         * @default undefined
+         */
+        provider?: 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa' | '';
+    }
+
     /**
      * Check if the string is a credit card.
      */
-    function isCreditCard(str: string): boolean;
+    function isCreditCard(str: string, options?: IsCreditCardOptions): boolean;
 
     interface IsCurrencyOptions {
         /**
@@ -1035,6 +1044,7 @@ declare namespace validator {
         | 'IE'
         | 'IL'
         | 'IN'
+        | 'IR'
         | 'IS'
         | 'IT'
         | 'JP'
@@ -1108,6 +1118,25 @@ declare namespace validator {
      * Check if the string contains any surrogate pairs chars.
      */
     function isSurrogatePair(str: string): boolean;
+
+    interface IsTimeOptions {
+        /**
+         * 'hour24' will validate hours in 24 format and 'hour12' will validate hours in 12 format.
+         * @default 'hour24'
+         */
+        hourFormat?: 'hour12' | 'hour24';
+        /**
+         * 'default' will validate HH:MM format, 'withSeconds' will validate the HH:MM:SS format
+         *
+         * @default 'default'
+         */
+        mode?: 'default' | 'withSeconds';
+    }
+
+    /**
+     * Check if the string is a valid time.
+     */
+    function isTime(str: string, options?: IsTimeOptions): boolean;
 
     const isURL: typeof _isURL.default;
     type IsURLOptions = _isURL.IsURLOptions;

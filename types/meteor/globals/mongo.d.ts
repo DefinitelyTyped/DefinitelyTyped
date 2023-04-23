@@ -177,7 +177,7 @@ declare namespace Mongo {
                  * The server connection that will manage this collection. Uses the default connection if not specified. Pass the return value of calling `DDP.connect` to specify a different
                  * server. Pass `null` to specify no connection. Unmanaged (`name` is null) collections cannot specify a connection.
                  */
-                connection?: Object | null | undefined;
+                connection?: DDP.DDPStatic | null | undefined;
                 /** The method of generating the `_id` fields of new documents in this collection.  Possible values:
                  * - **`'STRING'`**: random strings
                  * - **`'MONGO'`**:  random [`Mongo.ObjectID`](#mongo_object_id) values

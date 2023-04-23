@@ -942,6 +942,7 @@ declare namespace Dockerode {
         platform?: string | undefined;
         target?: string | undefined;
         outputs?: string | undefined;
+        nocache?: boolean | undefined;
     }
 
     interface ImageDistributionOptions {
@@ -1145,7 +1146,7 @@ declare namespace Dockerode {
         Volumes?: { [volume: string]: {} } | undefined;
         WorkingDir?: string | undefined;
         NetworkDisabled?: boolean | undefined;
-        MacAddress?: boolean | undefined;
+        MacAddress?: string | undefined;
         ExposedPorts?: { [port: string]: {} } | undefined;
         StopSignal?: string | undefined;
         StopTimeout?: number | undefined;
@@ -1175,6 +1176,7 @@ declare namespace Dockerode {
         host?: string | undefined;
         port?: number | string | undefined;
         username?: string | undefined;
+        headers?: { [name: string]: string };
         ca?: string | string[] | Buffer | Buffer[] | undefined;
         cert?: string | string[] | Buffer | Buffer[] | undefined;
         key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined;

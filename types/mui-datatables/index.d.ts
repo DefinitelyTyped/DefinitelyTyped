@@ -8,7 +8,7 @@
 //                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
 //                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.4
 import { ComponentsProps, ComponentsOverrides, ComponentsVariants } from '@mui/material';
 
 import * as React from 'react';
@@ -32,9 +32,9 @@ export interface MUIDataTableData {
     index: number;
 }
 
-export interface MUIDataTableCurrentData {
-    rowIndex: number;
-    dataIndex: number;
+export interface MUIDataTableCurrentData<T = any> {
+    index: number;
+    data: T[];
 }
 
 export interface MUIDataTableStateRows {
@@ -64,13 +64,13 @@ export interface MUIDataTableState {
     sortOrder: MUISortOptions;
 }
 
-export interface MUIDataTableMeta {
+export interface MUIDataTableMeta<T = any> {
     currentTableData: MUIDataTableCurrentData[];
     columnData: MUIDataTableColumnState;
     columnIndex: number;
     rowData: any[];
     rowIndex: number;
-    tableData: MUIDataTableData[];
+    tableData: T[];
     tableState: MUIDataTableState;
 }
 

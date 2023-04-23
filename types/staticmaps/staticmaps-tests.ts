@@ -48,6 +48,9 @@ map.addMarker({
     img: './marker.png', // can also be a URL
     height: 48,
     width: 48,
+    drawHeight: 24,
+    drawWidth: 24,
+    resizeMode: 'cover',
     offsetX: 24,
     offsetY: 48,
 });

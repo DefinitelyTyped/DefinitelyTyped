@@ -2,6 +2,9 @@
 
 > O repositório para definições de tipo do TypeScript de *alta qualidade*.
 
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [English](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+
 Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as informações neste README sejam mais atualizadas.
 
 *Link para o [manual do Admin](./docs/admin.md)*
@@ -497,8 +500,8 @@ No tempo de escrita, a [history v2 `tsconfig.json`](https://github.com/%44efinit
 Se há outros pacotes no Definitely Typed que são incompatíveis com a nova versão, você precisará adicionar mapeamentos de caminho para a versão antiga.
 Você também precisará fazer isso recursivamente para pacotes dependentes da versão antiga.
 
-Por exemplo, `react-router` depende de `history@2`, então o [`tsconfig.json` do react-router](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) tem um mapeamento de caminho para `"history": [ "history/v2" ]`.
-Provisoriamente, o `react-router-bootstrap` (que depende do `react-router`) também precisou ter o mesmo mapeamento de caminhos adicionado (`"history": [ "history/v2" ]`) no seu `tsconfig.json` até que o sua dependência `react-router` fosse atualizada para a última versão.
+Por exemplo, `browser-sync` depende de `micromatch@2`, então o [`tsconfig.json` do browser-sync](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) tem um mapeamento de caminho para `"micromatch": [ "micromatch/v2" ]`.
+Provisoriamente, o `browser-sync-webpack-plugin` (que depende do `browser-sync`) também precisou ter o mesmo mapeamento de caminhos adicionado (`"micromatch": [ "micromatch/v2" ]`) no seu `tsconfig.json` até que o sua dependência `browser-sync` fosse atualizada para a última versão.
 
 `/// <reference types=".." />` também não vai funcionar com o mapeamento de caminhos, então dependências devem usar `import`.
 

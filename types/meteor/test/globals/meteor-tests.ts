@@ -128,6 +128,15 @@ namespace MeteorTests {
         Meteor.subscribe('counts-by-room', Session.get('roomId'));
     });
 
+    // Async publish function
+    Meteor.publish('userData', async function (userId: unknown) {
+        check(userId, String);
+        const user = await Meteor.users.findOneAsync(userId);
+        if (user) {
+            return Meteor.users.find(userId, { fields: { profile: 1 } });
+        }
+    });
+
     // Checking status
     let status: DDP.Status = 'connected';
 
@@ -1108,14 +1117,14 @@ namespace MeteorTests {
         Accounts.registerLoginHandler('impersonate', (options: { targetUserId: string }) => {
             const currentUser = Meteor.userId();
             if (!currentUser) {
-                return { error: 'No user was logged in' };
+                return { error: new Error('No user was logged in') };
             }
 
             const isSuperUser = (userId: string) => true;
 
             if (!isSuperUser(currentUser)) {
                 const errMsg = `User ${currentUser} tried to impersonate but is not allowed`;
-                return { error: errMsg };
+                return { error: new Error(errMsg) };
             }
             // By returning an object with userId, the session will now be logged in as that user
             return { userId: options.targetUserId };

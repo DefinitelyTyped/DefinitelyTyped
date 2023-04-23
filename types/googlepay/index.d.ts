@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.6
+// Type definitions for non-npm package Google Pay API 0.7
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -7,6 +7,7 @@
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
 //                 Jose L Ugia <https://github.com/JlUgia>
+//                 Dominik Mengelt <https://github.com/dmengelt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
@@ -833,6 +834,17 @@ declare namespace google.payments.api {
          * parameters are needed to complete a transaction.
          */
         cardNetworkParameters?: CardNetworkParameters[] | undefined;
+
+        /**
+         * You might require the card verification code (CVC) value of a card in order to process a transaction
+         * for various regulations, security requirements, or acquirers’ requirements. By default,
+         * the CVC isn't requested from the user in Google Pay during checkout since it's required and verified
+         * in the initial card acquisition. If you want CVC to be present in the payment token,
+         * communicate with your point of contact from Google to turn this feature on.
+         *
+         * @default false
+         */
+        cvcRequired?: boolean | undefined;
     }
 
     /**

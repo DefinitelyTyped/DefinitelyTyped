@@ -1,5 +1,7 @@
 import tape = require('tape');
 
+import Test = require('tape/lib/test');
+
 var name: string;
 var cb: tape.TestCase;
 var topts: tape.TestOptions;
