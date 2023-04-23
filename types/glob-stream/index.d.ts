@@ -5,7 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="glob" />
 
 import glob = require('glob');
 
@@ -22,7 +21,7 @@ declare namespace GlobStream {
     export type UniqueByStringPredicate = 'cwd' | 'base' | 'path';
     export type UniqueByFunctionPredicate = (entry: Entry) => string;
 
-    export interface Options extends glob.IOptions {
+    export interface Options extends glob.GlobOptions {
         /**
          * Whether or not to error upon an empty singular glob.
          */
