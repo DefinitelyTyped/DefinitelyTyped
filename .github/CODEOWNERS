@@ -584,6 +584,7 @@
 /types/blob-stream/                                       @erichillah
 /types/blob-to-buffer/                                    @nrlquaker
 /types/blobshape/                                         @OyewoleOyedeji
+/types/block-stream2/                                     @trim21
 /types/blocked/                                           @l-jonas
 /types/blocked-at/                                        @dolezel
 /types/blockies/                                          @LogvinovLeon
@@ -811,6 +812,7 @@
 /types/chai-html/                                         @adjerbetian
 /types/chai-jest-snapshot/                                @mattvperry
 /types/chai-jquery/                                       @kazimanzurrashid
+/types/chai-json-pattern/                                 @chrishrb
 /types/chai-json-schema/                                  @ulrichheiniger
 /types/chai-jwt/                                          @xapdkop
 /types/chai-like/                                         @ChayimFriedman2
@@ -2102,7 +2104,7 @@
 /types/eyevinn-iaf/                                       @birme @oscnord
 /types/ez-plus/                                           @AndersonFriaca
 /types/f1/                                                @neolwc
-/types/fabric/                                            @oklemencic @joewashear007 @mrand01 @NotWoods @bmartinson @RogerioTeixeira @BradleyHill @bmkrol823 @glenngartner @codertx @mike667 @nataliemarleny @buzzyboy @nkdevil
+/types/fabric/                                            @oklemencic @joewashear007 @mrand01 @NotWoods @bmartinson @RogerioTeixeira @BradleyHill @bmkrol823 @glenngartner @codertx @mike667 @nataliemarleny @buzzyboy
 /types/facebook-instant-games/                            @menushka @oyvindjam @doterax
 /types/facebook-js-sdk/                                   @amritk @mahmoudzohdi @fluidsonic @bengry
 /types/facebook-locales/                                  @CvX
@@ -2330,6 +2332,7 @@
 /types/formidable/v1/                                     @Nemo157 @martin-badin
 /types/formol/                                            @today-
 /types/forms/                                             @suXinjke @voxpelli @ljharb
+/types/formulon/                                          @tomsellek
 /types/forwarded/                                         @BendingBender
 /types/fossil-delta/                                      @endel
 /types/foundation/                                        @borisyankov
@@ -3960,6 +3963,7 @@
 /types/json-socket/                                       @svi3c
 /types/json-stable-stringify/                             @mhfrantz
 /types/json-stable-stringify-without-jsonify/             @davwheat
+/types/json-stream/                                       @trim21
 /types/json-string-splitter/                              @jeswr
 /types/json-stringify-nice/                               @BendingBender
 /types/json-stringify-safe/                               @BendingBender
@@ -4291,6 +4295,7 @@
 /types/leaflet/v0/                                        @rgripper
 /types/leaflet-areaselect/                                @awallat
 /types/leaflet-boundary-canvas/                           @TurtIeSocks
+/types/leaflet-contextmenu/                               @antoniovlx
 /types/leaflet-curve/                                     @onikiienko @AndreaCimini
 /types/leaflet-deepzoom/                                  @hlovdal
 /types/leaflet-draw/                                      @matt-guest @reblace @YunS-Stacy @beschoenen
@@ -4331,6 +4336,7 @@
 /types/leaflet.polylinemeasure/                           @RiON69
 /types/leaflet.utm/                                       @Elcaten
 /types/leaflet.vectorgrid/                                @codyduong
+/types/leaflet.wms/                                       @antoniovlx
 /types/leakage/                                           @atd-schubert
 /types/leapmotionts/                                      @logotype
 /types/ledgerhq__hw-app-btc/                              @gregdhill
@@ -5783,6 +5789,7 @@
 /types/passport-oauth2/                                   @pasieronen @WangZishi @EduardoAC @ivan94 @daphnesmit @JoelKlint
 /types/passport-oauth2-client-password/                   @akaNightmare
 /types/passport-oauth2-refresh/                           @daphnesmit @btorresgil
+/types/passport-openidconnect/                            @liorm @seng-siong
 /types/passport-orcid/                                    @thewilkybarkid
 /types/passport-remember-me/                              @gristow
 /types/passport-remember-me-extended/                     @AylaJK
@@ -6356,7 +6363,6 @@
 /types/react-click-outside/                               @screendriver @Ky6uk
 /types/react-click-outside-hook/                          @bdeloeste
 /types/react-clipboardjs-copy/                            @DefinitelyTyped
-/types/react-clock/                                       @everas7
 /types/react-close-on-escape/                             @JamesAlias
 /types/react-codemirror/                                  @velveret @rudi-c
 /types/react-codesandboxer/                               @Methuselah96
@@ -8018,6 +8024,7 @@
 /types/terraformer__arcgis/                               @JeffJacobson @gavinr
 /types/terraformer__spatial/                              @zakjan
 /types/terraformer__wkt/                                  @fwang49asu
+/types/territory-indonesia/                               @tifandotme
 /types/teslajs/                                           @fcastilloec
 /types/test-console/                                      @roberto @guidoux @gbmoretti
 /types/test-listen/                                       @stephenmathieson
@@ -8702,7 +8709,6 @@
 /types/wistia-player-browser/                             @klittlepage
 /types/wkhtmltopdf/                                       @digijap @rensdewolf
 /types/wnumb/                                             @acoreyj @eikooc
-/types/wojtekmaj__react-daterange-picker/                 @davidalvarezr
 /types/wojtekmaj__react-datetimerange-picker/             @Psvensso
 /types/wol/                                               @ovidiupruteanu
 /types/wonder.js/                                         @yyc-git
