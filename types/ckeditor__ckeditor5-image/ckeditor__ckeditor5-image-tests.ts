@@ -108,11 +108,11 @@ isHtmlIncluded(new CKDataTransfer(new DataTransfer()));
 
 new ImageLoadObserver(new View(new StylesProcessor()));
 
-// $ExpectError
+// @ts-expect-error
 new InsertImageCommand(editor).execute();
-// $ExpectError
+// @ts-expect-error
 new InsertImageCommand(editor).execute('');
-// $ExpectError
+// @ts-expect-error
 new InsertImageCommand(editor).execute(['']);
 new InsertImageCommand(editor).execute({ source: '' });
 new InsertImageCommand(editor).execute({ source: ['', ''] });
@@ -145,7 +145,7 @@ new ImageCaptionUtils(editor).matchImageCaptionViewElement(viewElement)?.name;
 // $ExpectType Element | null
 new ImageCaptionUtils(editor).getCaptionFromImageModelElement(modelElement);
 
-// $ExpectError
+// @ts-expect-error
 new ImageInsertFormRowView();
 new ImageInsertFormRowView(new Locale());
 

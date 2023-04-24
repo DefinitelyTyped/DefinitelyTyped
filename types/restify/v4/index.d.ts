@@ -1,6 +1,6 @@
 // Type definitions for restify 4.3
 // Project: https://github.com/restify/node-restify
-// Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
+// Definitions by: Bret Little <https://github.com/blittle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

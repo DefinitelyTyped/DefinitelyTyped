@@ -1,13 +1,14 @@
-// Type definitions for D3JS d3-hierarchy module 3.0
+// Type definitions for D3JS d3-hierarchy module 3.1
 // Project: https://github.com/d3/d3-hierarchy/, https://d3js.org/d3-hierarchy
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
+//                 Fil <https://github.com/Fil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.2
 
 // -----------------------------------------------------------------------
 // Hierarchy
@@ -26,6 +27,8 @@ export interface HierarchyLink<Datum> {
 }
 
 export interface HierarchyNode<Datum> {
+    new(data: Datum): this;
+
     /**
      * The associated data, as specified to the constructor.
      */
@@ -216,12 +219,27 @@ export interface StratifyOperator<Datum> {
      * @param parentId The parent id accessor.
      */
     parentId(parentId: (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined)): this;
+
+    /**
+     * Returns the current path accessor, which defaults to undefined.
+     */
+    path(): ((d: Datum, i: number, data: Datum[]) => string) | null | undefined;
+    /**
+     * If path is specified, sets the path accessor to the given function and returns this stratify operator.
+     * Otherwise, returns the current path accessor, which defaults to undefined.
+     * If a path accessor is set, the id and parentId arguments are ignored,
+     * and a unix-like hierarchy is computed on the slash-delimited strings
+     * returned by the path accessor, imputing parent nodes and ids as necessary.
+     *
+     * @param path The path accessor.
+     */
+    path(path: ((d: Datum, i: number, data: Datum[]) => string) | null | undefined): this;
 }
 
 /**
  * Constructs a new stratify operator with the default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function stratify<Datum>(): StratifyOperator<Datum>;
 
 // -----------------------------------------------------------------------
@@ -309,7 +327,7 @@ export interface ClusterLayout<Datum> {
 /**
  * Creates a new cluster layout with default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function cluster<Datum>(): ClusterLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -367,7 +385,7 @@ export interface TreeLayout<Datum> {
 /**
  * Creates a new tree layout with default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function tree<Datum>(): TreeLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -595,7 +613,7 @@ export interface TreemapLayout<Datum> {
 /**
  * Creates a new treemap layout with default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function treemap<Datum>(): TreemapLayout<Datum>;
 
 // Tiling functions ------------------------------------------------------
@@ -707,7 +725,7 @@ export interface PartitionLayout<Datum> {
 /**
  * Creates a new partition layout with the default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function partition<Datum>(): PartitionLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -819,7 +837,7 @@ export interface PackLayout<Datum> {
 /**
  * Creates a new pack layout with the default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function pack<Datum>(): PackLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -878,5 +896,5 @@ export function packSiblings<Datum extends PackRadius>(circles: Datum[]): Array<
  *
  * @param circles The specified array of circles to pack.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function packEnclose<Datum extends PackCircle>(circles: Datum[]): PackCircle;

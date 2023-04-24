@@ -7,20 +7,21 @@ badRequestError.data.some;
 const badRequestError2: Boom.BoomError = Boom.badImplementation('message');
 
 const unauthorizedError1 = Boom.unauthorized('message', 'scheme', {some: 'attribute'});
-unauthorizedError1.output.payload.attributes === { some: 'attribute', error: 'message' };
-unauthorizedError1.output.headers === { 'WWW-Authenticate': 'scheme some="attribute", error="message"' };
+unauthorizedError1.output.payload.attributes.some === 'attribute';
+unauthorizedError1.output.payload.attributes.error === 'message';
+unauthorizedError1.output.headers['WWW-Authenticate'] === 'scheme some="attribute", error="message"';
 
 const unauthorizedError2 = Boom.unauthorized('message', ['scheme']);
 unauthorizedError2.output.payload.attributes === undefined;
-unauthorizedError2.output.headers === { 'WWW-Authenticate': 'scheme' };
+unauthorizedError2.output.headers[ 'WWW-Authenticate'] === 'scheme';
 
 const unauthorizedError3 = Boom.unauthorized(null, 'scheme', 'attribute');
 unauthorizedError3.output.payload.attributes === 'attribute';
-unauthorizedError3.output.headers === { 'WWW-Authenticate': 'scheme attribute' };
+unauthorizedError3.output.headers['WWW-Authenticate'] === 'scheme attribute';
 
 const unauthorizedError4 = Boom.unauthorized(null, 'scheme', {some: 'attribute'});
-unauthorizedError4.output.payload.attributes === { some: 'attribute' };
-unauthorizedError4.output.headers === { 'WWW-Authenticate': 'scheme some="attribute"' };
+unauthorizedError4.output.payload.attributes.some === 'attribute';
+unauthorizedError4.output.headers['WWW-Authenticate'] === 'scheme some="attribute"';
 
 const paymentRequiredError = Boom.paymentRequired('message', {some: 'data'});
 paymentRequiredError.data.some;

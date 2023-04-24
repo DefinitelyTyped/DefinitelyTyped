@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { unzipSync } from 'three/examples/jsm/libs/fflate.module.min';
+import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
 import WEBGL from 'three/examples/jsm/capabilities/WebGL';
 
 const vertextPostProcessingShader = /* glsl */ `
@@ -120,7 +120,7 @@ function init() {
 
     /** Post-processing scene */
 
-    const planeGeometry = new THREE.PlaneBufferGeometry(2, 2);
+    const planeGeometry = new THREE.PlaneGeometry(2, 2);
     const screenQuad = new THREE.Mesh(planeGeometry, postProcessMaterial);
     postProcessScene.add(screenQuad);
 
@@ -155,7 +155,7 @@ function init() {
             fragmentShader,
         });
 
-        const geometry = new THREE.PlaneBufferGeometry(planeWidth, planeHeight);
+        const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
 
         mesh = new THREE.Mesh(geometry, material);
 

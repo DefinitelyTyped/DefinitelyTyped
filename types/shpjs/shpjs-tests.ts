@@ -34,6 +34,11 @@ parsedShp = shp.parseShp(new Buffer(''), new Buffer('proj'));
 parsedShp = shp.parseShp(new ArrayBuffer(50), 'proj');
 parsedShp = shp.parseShp(new Int32Array(50), 'proj');
 
+// Should parse shapes without projection (use default)
+parsedShp = shp.parseShp(new Int32Array(50));
+parsedShp = shp.parseShp(new ArrayBuffer(50));
+parsedShp = shp.parseShp(new Buffer(''));
+
 parsedDbf = shp.parseDbf(new Buffer(''), new Buffer(''));
 parsedDbf = shp.parseDbf(new ArrayBuffer(50), new Buffer(''));
 parsedDbf = shp.parseDbf(new Int32Array(50), new Buffer(''));

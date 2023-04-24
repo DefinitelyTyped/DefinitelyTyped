@@ -14,7 +14,8 @@ function MyApp() {
 function IncorrectType() {
     const [value, onChange] = React.useState([0, 0]);
 
-    return <DateTimeRangePicker onChange={onChange} value={value} />; // $ExpectError
+    // @ts-expect-error
+    return <DateTimeRangePicker onChange={onChange} value={value} />;
 }
 
 function ChangeHandlerWrongType() {
@@ -24,7 +25,8 @@ function ChangeHandlerWrongType() {
 
     return (
         <DateTimeRangePicker
-            onChange={handleChange} // $ExpectError
+            // @ts-expect-error
+            onChange={handleChange}
             value={value}
         />
     );
@@ -33,7 +35,8 @@ function ChangeHandlerWrongType() {
 function MayReturnNull() {
     return (
         <DateTimeRangePicker
-            onChange={React.useCallback((_: [Date?, Date?]) => {}, [])} // $ExpectError
+            // @ts-expect-error
+            onChange={React.useCallback((_: [Date?, Date?]) => {}, [])}
             value={[new Date(), new Date()]}
         />
     );
@@ -42,7 +45,8 @@ function MayReturnNull() {
 function MayReturnUndefined() {
     return (
         <DateTimeRangePicker
-            onChange={React.useCallback((_: [Date, Date?] | null) => {}, [])} // $ExpectError
+            // @ts-expect-error
+            onChange={React.useCallback((_: [Date, Date?] | null) => {}, [])}
             value={[new Date(), new Date()]}
         />
     );

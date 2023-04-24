@@ -7,19 +7,19 @@
 
 declare namespace PouchDB {
     interface Database<Content extends {} = {}> {
-        transform<NewContent>(config: {
+        transform<NewContent extends {}>(config: {
             incoming?(doc: Core.Document<Content>): Core.Document<NewContent> | Promise<Core.Document<NewContent>>;
             outgoing?(doc: Core.Document<NewContent>): Core.Document<Content> | Promise<Core.Document<Content>>;
         }): void;
         // api.filter provided for backwards compat with the old "filter-pouch"
-        filter<NewContent>(config: {
+        filter<NewContent extends {}>(config: {
             incoming?(doc: Core.Document<Content>): Core.Document<NewContent> | Promise<Core.Document<NewContent>>;
             outgoing?(doc: Core.Document<NewContent>): Core.Document<Content> | Promise<Core.Document<Content>>;
         }): void;
     }
 }
 
-// tslint:disable-next-line:no-declare-current-package no-single-declare-module
+// eslint-disable-next-line no-declare-current-package
 declare module 'transform-pouch' {
     const plugin: PouchDB.Plugin & {transform: () => void, filter: () => void};
     export = plugin;

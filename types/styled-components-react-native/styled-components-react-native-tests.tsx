@@ -32,8 +32,10 @@ class MyReactNativeComponent extends React.Component {
 }
 
 const ValidProp = <StyledText adjustsFontSizeToFit />;
-const invalidProp = <StyledText randoName={2} />; // $ExpectError
-const invalidTag = styled.div``; // $ExpectError
+// @ts-expect-error
+const invalidProp = <StyledText randoName={2} />;
+// @ts-expect-error
+const invalidTag = styled.div``;
 
 interface MyTheme {
     primary: string;
@@ -109,7 +111,7 @@ async function typedThemes() {
         }};
     `;
     //  can't use a FlattenInterpolation as the first argument, would make broken css
-    // $ExpectError
+    // @ts-expect-error
     const ThemedView4 = styled.View(themedCss);
 
     const themedCssWithNesting = css((props) => ({
@@ -175,7 +177,8 @@ async function themeAugmentation() {
         >
             <>
                 <extra.ThemeProvider
-                    theme={(base) => base} // $ExpectError
+                    // @ts-expect-error
+                    theme={(base) => base}
                 >
                     <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
                 </extra.ThemeProvider>

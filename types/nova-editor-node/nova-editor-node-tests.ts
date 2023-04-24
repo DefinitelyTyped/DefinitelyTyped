@@ -133,7 +133,7 @@ function doTask() {
 /// https://novadocs.panic.com/api-reference/file-system/
 
 nova.fs.copyAsync('src', 'dst', function callback(err) {
-    // $ExpectError
+    // @ts-expect-error
     this;
     // $ExpectType Error | undefined
     err;
@@ -152,7 +152,7 @@ nova.fs.copyAsync(
 );
 
 nova.fs.moveAsync('src', 'dst', function callback(err) {
-    // $ExpectError
+    // @ts-expect-error
     this;
     // $ExpectType Error | undefined
     err;
@@ -222,6 +222,8 @@ new IssueCollection().set('fileURI', [issue]);
 
 /// https://novadocs.panic.com/api-reference/notification-request/
 
+const unnamedRequest = new NotificationRequest();
+
 const request = new NotificationRequest('foobar-not-found');
 
 request.title = nova.localize('Foobar Not Found');
@@ -240,6 +242,10 @@ promise.then(
 
 nova.path.join('test');
 nova.path.join('test', 'a', 'b');
+
+// @ts-expect-error
+nova.path.relative('/path/to/folder/one');
+nova.path.relative('/path/to/folder/one', '/path/to/folder/two');
 
 /// https://novadocs.panic.com/api-reference/process/
 
@@ -268,6 +274,21 @@ process.onRequest('getCount', request => {
         resolve({ count: 10 });
     });
 });
+
+// $ExpectType WritableStream<any> | null
+process.stdin;
+// $ExpectType WritableStreamDefaultWriter<any> | undefined
+process.stdin?.getWriter();
+
+// $ExpectType ReadableStream<any> | null
+process.stdout;
+// $ExpectType ReadableStreamDefaultReader<any> | undefined
+process.stdout?.getReader();
+
+// $ExpectType ReadableStream<any> | null
+process.stderr;
+// $ExpectType ReadableStreamDefaultReader<any> | undefined
+process.stderr?.getReader();
 
 /// https://novadocs.panic.com/api-reference/scanner/
 
@@ -335,7 +356,7 @@ action2.data;
 
 /// https://novadocs.panic.com/api-reference/text-editor/
 
-// $ExpectError
+// @ts-expect-error
 new TextEditor();
 
 declare const editor: TextEditor;
@@ -388,7 +409,7 @@ nova.workspace.showInputPalette('This is an input', {
 nova.workspace.openFile("file:///tmp/test/txt");
 nova.workspace.openFile("file:///tmp/test/txt", { line: 1 });
 nova.workspace.openFile("file:///tmp/test/txt", { line: 1, column: 2 });
-// $ExpectError
+// @ts-expect-error
 nova.workspace.openFile("file:///tmp/test/txt", { column: 2 });
 nova.workspace.openNewTextDocument();
 nova.workspace.openNewTextDocument({ content: "<!doctype html>" });
@@ -397,6 +418,60 @@ nova.workspace.openNewTextDocument({ content: "<!doctype html>", syntax: "html" 
 nova.workspace.openNewTextDocument({ line: 1 });
 nova.workspace.openNewTextDocument({ line: 1, column: 2 });
 nova.workspace.openNewTextDocument({ syntax: "html", line: 1 });
-// $ExpectError
+// @ts-expect-error
 nova.workspace.openNewTextDocument({ syntax: "html", column: 2 });
 nova.workspace.openNewTextDocument({ content: "<!doctype html>", syntax: "html", line: 1, column: 2 });
+
+/// https://docs.nova.app/api-reference/configuration/
+
+type ConfigCustomThis = number & { __t: 'ConfigCustomThis' };
+const configCustomThis: ConfigCustomThis = 2 as ConfigCustomThis;
+nova.config.observe(
+    'apexskier.testConfig',
+    function(newValue: string, oldValue: string) {
+        // $ExpectType string
+        newValue;
+        // $ExpectType string
+        oldValue;
+        // $ExpectType ConfigCustomThis
+        this;
+    },
+    configCustomThis,
+);
+
+nova.config.observe<string, ConfigCustomThis>(
+    'apexskier.testConfig',
+    function(newValue: string, oldValue: string) {
+        // $ExpectType string
+        newValue;
+        // $ExpectType string
+        oldValue;
+        // $ExpectType ConfigCustomThis
+        this;
+    },
+    // @ts-expect-error
+    'should fail because string is not the right type',
+);
+
+nova.config.observe(
+    'apexskier.testConfig',
+    (newValue: string, oldValue: string) => {
+        // $ExpectType string
+        newValue;
+        // $ExpectType string
+        oldValue;
+        // Closures (arrow functions) do not preserve this value.
+        // $ExpectType undefined
+        this;
+    },
+    configCustomThis,
+);
+
+nova.config.observe('apexskier.testConfig', (newValue: string, oldValue: string) => {
+    // $ExpectType string
+    newValue;
+    // $ExpectType string
+    oldValue;
+    // $ExpectType undefined
+    this;
+});

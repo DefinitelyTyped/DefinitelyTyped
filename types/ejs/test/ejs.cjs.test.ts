@@ -2,7 +2,11 @@
 
 import ejs = require('ejs');
 import { readFileSync as read } from 'fs';
-import LRU = require('lru-cache');
+class LRU extends Map<string, ejs.TemplateFunction> {
+    reset(): void {
+        this.clear();
+    }
+}
 
 const fileName = 'test.ejs';
 const people = ['geddy', 'neil', 'alex'];
@@ -42,6 +46,7 @@ ejsFunction = ejs.compile(template);
 ejsFunction = ejs.compile(template, options);
 ejsFunction = ejs.compile(template, { cache: true, filename: fileName });
 ejsFunction = ejs.compile(template, { cache: true, filename: fileName, root: './' });
+ejsFunction = ejs.compile(template, { cache: true, filename: fileName, root: ['./'] });
 ejsFunction = ejs.compile(template, { context: { foo: 'FOO' } });
 ejsFunction = ejs.compile(template, { compileDebug: false });
 ejsFunction = ejs.compile(template, { client: true });
@@ -70,7 +75,7 @@ ejs.fileLoader = (path: string) => '';
 
 /** @see https://github.com/mde/ejs/tree/v2.5.7#caching */
 ejs.clearCache();
-ejs.cache = LRU(100);
+ejs.cache = new LRU();
 
 /** @see https://github.com/mde/ejs/tree/v2.5.7#custom-delimiters */
 ejs.delimiter; // $ExpectType string | undefined

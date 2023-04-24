@@ -64,9 +64,30 @@ const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
   },
 };
 
+const archiveScreenshareLayoutOptions: OpenTok.ArchiveOptions = {
+  outputMode: 'composed',
+  layout: {
+    type: 'bestFit',
+    screenshareType: 'pip',
+  },
+}
+
+const patchStream: OpenTok.PatchStream = {
+  hasAudio: false,
+  hasVideo: true
+}
+
 client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.Archive) => {
   if (err) return console.log(err);
   console.log(archive.id);
+});
+
+client.addArchiveStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
+});
+
+client.removeArchiveStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
 });
 
 client.stopArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {
@@ -82,6 +103,14 @@ client.getArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {
 client.getBroadcast('BROADCAST_ID', (err: Error, broadcast: OpenTok.Broadcast) => {
   if (err) return console.log(err);
   console.log(broadcast);
+});
+
+client.addBroadcastStream('BROADCAST_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
+});
+
+client.removeBroadcastStream('BROADCAST_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
 });
 
 client.getStream('SESSION_ID', 'STREAM_ID', (err: Error, stream: OpenTok.Stream) => {
@@ -121,6 +150,7 @@ const broadcastOptions: OpenTok.BroadcastOptions = {
   layout: {
     type: 'bestFit',
   },
+  streamMode: 'auto'
 };
 
 client.startBroadcast('SESSION_ID', broadcastOptions, (err: Error, broadcast: OpenTok.Broadcast) => {

@@ -42,6 +42,15 @@ element.addEventListener(Carousel.Events.slid, event => {
     event.to; // $ExpectType number
 });
 
+// Ensure that using a string literal as the event type works the same as using
+// the `Carousel.Events` enum.
+element.addEventListener('slid.bs.carousel', event => {
+    event.direction; // $ExpectType Direction
+    event.relatedTarget; // $ExpectType Element
+    event.from; // $ExpectType number
+    event.to; // $ExpectType number
+});
+
 element.addEventListener(Carousel.Events.slide, event => {
     event.direction; // $ExpectType Direction
     event.relatedTarget; // $ExpectType Element
@@ -49,19 +58,19 @@ element.addEventListener(Carousel.Events.slide, event => {
     event.to; // $ExpectType number
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').carousel();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').carousel({ interval: 1000 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').carousel(0);
 
-$('.alert').carousel('cycle'); // $ExpectType void
-$('.alert').carousel('pause'); // $ExpectType void
-$('.alert').carousel('prev'); // $ExpectType void
-$('.alert').carousel('next'); // $ExpectType void
-$('.alert').carousel('nextWhenVisible'); // $ExpectType void
-$('.alert').carousel('to'); // $ExpectType void
-$('.alert').carousel('dispose'); // $ExpectType void
+$('.alert').carousel('cycle'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('pause'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('prev'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('next'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('nextWhenVisible'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('to'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('dispose'); // $ExpectType JQuery<HTMLElement>

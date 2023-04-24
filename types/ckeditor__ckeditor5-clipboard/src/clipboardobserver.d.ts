@@ -36,9 +36,15 @@ export default class ClipboardObserver extends DomEventObserver {
         'dragleave',
     ];
 
-    onDomEvent(domEvent: DragEvent | ClipboardEvent): void;
+    onDomEvent(domEvent: HTMLElementEventMap[ClipboardObserver['domEventType'][number]]): void;
 }
 
 export interface ClipboardEventData {
     readonly dataTransfer: DataTransfer;
+}
+
+declare module '@ckeditor/ckeditor5-engine/src/view/view' {
+    interface Observers {
+        ClipboardObserver: ClipboardObserver;
+    }
 }

@@ -124,11 +124,9 @@ marked.use({
             return false;
         },
         listitem(text, task, checked) {
-            if (task)
-                return `<li class="task-list-item ${checked ? "checked" : ""}">${text}</li>\n`;
-            else
-                return `<li>${text}</li>\n`;
-        }
+            if (task) return `<li class="task-list-item ${checked ? 'checked' : ''}">${text}</li>\n`;
+            else return `<li>${text}</li>\n`;
+        },
     },
     tokenizer: {
         codespan(src) {

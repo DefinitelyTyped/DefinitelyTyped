@@ -13,7 +13,7 @@
  * { 'content-length': '123',
  *   'content-type': 'text/plain',
  *   'connection': 'keep-alive',
- *   'host': 'mysite.com',
+ *   'host': 'example.com',
  *   'accept': '*' }
  * ```
  *
@@ -34,15 +34,16 @@
  *   'content-LENGTH', '123',
  *   'content-type', 'text/plain',
  *   'CONNECTION', 'keep-alive',
- *   'Host', 'mysite.com',
+ *   'Host', 'example.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
     import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
+    import { LookupOptions } from 'node:dns';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -113,56 +114,129 @@ declare module 'http' {
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {}
     interface ClientRequestArgs {
-        signal?: AbortSignal | undefined;
-        protocol?: string | null | undefined;
+        _defaultAgent?: Agent | undefined;
+        agent?: Agent | boolean | undefined;
+        auth?: string | null | undefined;
+        // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
+        createConnection?:
+            | ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket)
+            | undefined;
+        defaultPort?: number | string | undefined;
+        family?: number | undefined;
+        headers?: OutgoingHttpHeaders | undefined;
+        hints?: LookupOptions['hints'];
         host?: string | null | undefined;
         hostname?: string | null | undefined;
-        family?: number | undefined;
-        port?: number | string | null | undefined;
-        defaultPort?: number | string | undefined;
+        insecureHTTPParser?: boolean | undefined;
         localAddress?: string | undefined;
-        socketPath?: string | undefined;
+        localPort?: number | undefined;
+        lookup?: LookupFunction | undefined;
         /**
-         * @default 8192
+         * @default 16384
          */
         maxHeaderSize?: number | undefined;
         method?: string | undefined;
         path?: string | null | undefined;
-        headers?: OutgoingHttpHeaders | undefined;
-        auth?: string | null | undefined;
-        agent?: Agent | boolean | undefined;
-        _defaultAgent?: Agent | undefined;
-        timeout?: number | undefined;
+        port?: number | string | null | undefined;
+        protocol?: string | null | undefined;
         setHost?: boolean | undefined;
-        // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
-        createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
-        lookup?: LookupFunction | undefined;
+        signal?: AbortSignal | undefined;
+        socketPath?: string | undefined;
+        timeout?: number | undefined;
+        uniqueHeaders?: Array<string | string[]> | undefined;
+        joinDuplicateHeaders?: boolean;
     }
-    interface ServerOptions {
-        IncomingMessage?: typeof IncomingMessage | undefined;
-        ServerResponse?: typeof ServerResponse | undefined;
+    interface ServerOptions<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    > {
         /**
-         * Optionally overrides the value of
-         * `--max-http-header-size` for requests received by this server, i.e.
-         * the maximum length of request headers in bytes.
-         * @default 8192
+         * Specifies the `IncomingMessage` class to be used. Useful for extending the original `IncomingMessage`.
          */
-        maxHeaderSize?: number | undefined;
+        IncomingMessage?: Request | undefined;
         /**
-         * Use an insecure HTTP parser that accepts invalid HTTP headers when true.
+         * Specifies the `ServerResponse` class to be used. Useful for extending the original `ServerResponse`.
+         */
+        ServerResponse?: Response | undefined;
+        /**
+         * Sets the timeout value in milliseconds for receiving the entire request from the client.
+         * @see Server.requestTimeout for more information.
+         * @default 300000
+         * @since v18.0.0
+         */
+        requestTimeout?: number | undefined;
+        /**
+         * It joins the field line values of multiple headers in a request with `, ` instead of discarding the duplicates.
+         * @default false
+         * @since v18.14.0
+         */
+        joinDuplicateHeaders?: boolean;
+        /**
+         * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
+         * after it has finished writing the last response, before a socket will be destroyed.
+         * @see Server.keepAliveTimeout for more information.
+         * @default 5000
+         * @since v18.0.0
+         */
+        keepAliveTimeout?: number | undefined;
+        /**
+         * Sets the interval value in milliseconds to check for request and headers timeout in incomplete requests.
+         * @default 30000
+         */
+        connectionsCheckingInterval?: number | undefined;
+        /**
+         * Use an insecure HTTP parser that accepts invalid HTTP headers when `true`.
          * Using the insecure parser should be avoided.
          * See --insecure-http-parser for more information.
          * @default false
          */
         insecureHTTPParser?: boolean | undefined;
+        /**
+         * Optionally overrides the value of
+         * `--max-http-header-size` for requests received by this server, i.e.
+         * the maximum length of request headers in bytes.
+         * @default 16384
+         * @since v13.3.0
+         */
+        maxHeaderSize?: number | undefined;
+        /**
+         * If set to `true`, it disables the use of Nagle's algorithm immediately after a new incoming connection is received.
+         * @default true
+         * @since v16.5.0
+         */
+        noDelay?: boolean | undefined;
+        /**
+         * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
+         * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
+         * @default false
+         * @since v16.5.0
+         */
+        keepAlive?: boolean | undefined;
+        /**
+         * If set to a positive number, it sets the initial delay before the first keepalive probe is sent on an idle socket.
+         * @default 0
+         * @since v16.5.0
+         */
+        keepAliveInitialDelay?: number | undefined;
+        /**
+         * A list of response headers that should be sent only once.
+         * If the header's value is an array, the items will be joined using `; `.
+         */
+        uniqueHeaders?: Array<string | string[]> | undefined;
     }
-    type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
+    type RequestListener<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
     /**
      * @since v0.1.17
      */
-    class Server extends NetServer {
-        constructor(requestListener?: RequestListener);
-        constructor(options: ServerOptions, requestListener?: RequestListener);
+    class Server<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    > extends NetServer {
+        constructor(requestListener?: RequestListener<Request, Response>);
+        constructor(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>);
         /**
          * Sets the timeout value for sockets, and emits a `'timeout'` event on
          * the Server object, passing the socket as an argument, if a timeout
@@ -211,14 +285,12 @@ declare module 'http' {
          * Limit the amount of time the parser will wait to receive the complete HTTP
          * headers.
          *
-         * In case of inactivity, the rules defined in `server.timeout` apply. However,
-         * that inactivity based timeout would still allow the connection to be kept open
-         * if the headers are being sent very slowly (by default, up to a byte per 2
-         * minutes). In order to prevent this, whenever header data arrives an additional
-         * check is made that more than `server.headersTimeout` milliseconds has not
-         * passed since the connection was established. If the check fails, a `'timeout'`event is emitted on the server object, and (by default) the socket is destroyed.
-         * See `server.timeout` for more information on how timeout behavior can be
-         * customized.
+         * If the timeout expires, the server responds with status 408 without
+         * forwarding the request to the request listener and then closes the connection.
+         *
+         * It must be set to a non-zero value (e.g. 120 seconds) to protect against
+         * potential Denial-of-Service attacks in case the server is deployed without a
+         * reverse proxy in front.
          * @since v11.3.0, v10.14.0
          */
         headersTimeout: number;
@@ -251,80 +323,126 @@ declare module 'http' {
          * @since v14.11.0
          */
         requestTimeout: number;
+        /**
+         * Closes all connections connected to this server.
+         * @since v18.2.0
+         */
+        closeAllConnections(): void;
+        /**
+         * Closes all connections connected to this server which are not sending a request or waiting for a response.
+         * @since v18.2.0
+         */
+        closeIdleConnections(): void;
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'connection', listener: (socket: Socket) => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
         addListener(event: 'listening', listener: () => void): this;
-        addListener(event: 'checkContinue', listener: RequestListener): this;
-        addListener(event: 'checkExpectation', listener: RequestListener): this;
+        addListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        addListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         addListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        addListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        addListener(event: 'request', listener: RequestListener): this;
-        addListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        addListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
+        addListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        addListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         emit(event: string, ...args: any[]): boolean;
         emit(event: 'close'): boolean;
         emit(event: 'connection', socket: Socket): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'listening'): boolean;
-        emit(event: 'checkContinue', req: IncomingMessage, res: ServerResponse): boolean;
-        emit(event: 'checkExpectation', req: IncomingMessage, res: ServerResponse): boolean;
+        emit(
+            event: 'checkContinue',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
+        emit(
+            event: 'checkExpectation',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
         emit(event: 'clientError', err: Error, socket: stream.Duplex): boolean;
-        emit(event: 'connect', req: IncomingMessage, socket: stream.Duplex, head: Buffer): boolean;
-        emit(event: 'request', req: IncomingMessage, res: ServerResponse): boolean;
-        emit(event: 'upgrade', req: IncomingMessage, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: 'connect', req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
+        emit(
+            event: 'request',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
+        emit(event: 'upgrade', req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'close', listener: () => void): this;
         on(event: 'connection', listener: (socket: Socket) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'listening', listener: () => void): this;
-        on(event: 'checkContinue', listener: RequestListener): this;
-        on(event: 'checkExpectation', listener: RequestListener): this;
+        on(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        on(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         on(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        on(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        on(event: 'request', listener: RequestListener): this;
-        on(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'connect', listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'request', listener: RequestListener<Request, Response>): this;
+        on(event: 'upgrade', listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: 'close', listener: () => void): this;
         once(event: 'connection', listener: (socket: Socket) => void): this;
         once(event: 'error', listener: (err: Error) => void): this;
         once(event: 'listening', listener: () => void): this;
-        once(event: 'checkContinue', listener: RequestListener): this;
-        once(event: 'checkExpectation', listener: RequestListener): this;
+        once(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        once(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         once(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        once(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        once(event: 'request', listener: RequestListener): this;
-        once(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        once(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
+        once(event: 'request', listener: RequestListener<Request, Response>): this;
+        once(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'connection', listener: (socket: Socket) => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
         prependListener(event: 'listening', listener: () => void): this;
-        prependListener(event: 'checkContinue', listener: RequestListener): this;
-        prependListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        prependListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         prependListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        prependListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        prependListener(event: 'request', listener: RequestListener): this;
-        prependListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
+        prependListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        prependListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
         prependOnceListener(event: 'listening', listener: () => void): this;
-        prependOnceListener(event: 'checkContinue', listener: RequestListener): this;
-        prependOnceListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependOnceListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         prependOnceListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        prependOnceListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        prependOnceListener(event: 'request', listener: RequestListener): this;
-        prependOnceListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
+        prependOnceListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        prependOnceListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
     }
     /**
      * This class serves as the parent class of {@link ClientRequest} and {@link ServerResponse}. It is an abstract of outgoing message from
      * the perspective of the participants of HTTP transaction.
      * @since v0.1.17
      */
-    class OutgoingMessage extends stream.Writable {
-        readonly req: IncomingMessage;
+    class OutgoingMessage<Request extends IncomingMessage = IncomingMessage> extends stream.Writable {
+        readonly req: Request;
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
         useChunkedEncodingByDefault: boolean;
@@ -392,13 +510,13 @@ declare module 'http' {
          * const headers = outgoingMessage.getHeaders();
          * // headers === { foo: 'bar', 'set-cookie': ['foo=bar', 'bar=baz'] }
          * ```
-         * @since v8.0.0
+         * @since v7.7.0
          */
         getHeaders(): OutgoingHttpHeaders;
         /**
          * Returns an array of names of headers of the outgoing outgoingMessage. All
          * names are lowercase.
-         * @since v8.0.0
+         * @since v7.7.0
          */
         getHeaderNames(): string[];
         /**
@@ -408,7 +526,7 @@ declare module 'http' {
          * ```js
          * const hasContentType = outgoingMessage.hasHeader('content-type');
          * ```
-         * @since v8.0.0
+         * @since v7.7.0
          */
         hasHeader(name: string): boolean;
         /**
@@ -418,6 +536,7 @@ declare module 'http' {
          * outgoingMessage.removeHeader('Content-Encoding');
          * ```
          * @since v0.4.0
+         * @param name Header name
          */
         removeHeader(name: string): void;
         /**
@@ -461,7 +580,7 @@ declare module 'http' {
      * passed as the second parameter to the `'request'` event.
      * @since v0.1.17
      */
-    class ServerResponse extends OutgoingMessage {
+    class ServerResponse<Request extends IncomingMessage = IncomingMessage> extends OutgoingMessage<Request> {
         /**
          * When using implicit headers (not calling `response.writeHead()` explicitly),
          * this property controls the status code that will be sent to the client when
@@ -491,15 +610,50 @@ declare module 'http' {
          * @since v0.11.8
          */
         statusMessage: string;
-        constructor(req: IncomingMessage);
+        constructor(req: Request);
         assignSocket(socket: Socket): void;
         detachSocket(socket: Socket): void;
         /**
-         * Sends a HTTP/1.1 100 Continue message to the client, indicating that
+         * Sends an HTTP/1.1 100 Continue message to the client, indicating that
          * the request body should be sent. See the `'checkContinue'` event on`Server`.
          * @since v0.3.0
          */
         writeContinue(callback?: () => void): void;
+        /**
+         * Sends an HTTP/1.1 103 Early Hints message to the client with a Link header,
+         * indicating that the user agent can preload/preconnect the linked resources.
+         * The `hints` is an object containing the values of headers to be sent with
+         * early hints message. The optional `callback` argument will be called when
+         * the response message has been written.
+         *
+         * Example:
+         *
+         * ```js
+         * const earlyHintsLink = '</styles.css>; rel=preload; as=style';
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLink,
+         * });
+         *
+         * const earlyHintsLinks = [
+         *   '</styles.css>; rel=preload; as=style',
+         *   '</scripts.js>; rel=preload; as=script',
+         * ];
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLinks,
+         *   'x-trace-id': 'id for diagnostics'
+         * });
+         *
+         * const earlyHintsCallback = () => console.log('early hints message sent');
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLinks
+         * }, earlyHintsCallback);
+         * ```
+         *
+         * @since v18.11.0
+         * @param hints An object containing the values of headers
+         * @param callback Will be called when the response message has been written
+         */
+        writeEarlyHints(hints: Record<string, string | string[]>, callback?: () => void): void;
         /**
          * Sends a response header to the request. The status code is a 3-digit HTTP
          * status code, like `404`. The last argument, `headers`, are the response headers.
@@ -557,10 +711,14 @@ declare module 'http' {
          * will result in a `TypeError` being thrown.
          * @since v0.1.30
          */
-        writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
+        writeHead(
+            statusCode: number,
+            statusMessage?: string,
+            headers?: OutgoingHttpHeaders | OutgoingHttpHeader[],
+        ): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         /**
-         * Sends a HTTP/1.1 102 Processing message to the client, indicating that
+         * Sends an HTTP/1.1 102 Processing message to the client, indicating that
          * the request body should be sent.
          * @since v10.0.0
          */
@@ -608,7 +766,7 @@ declare module 'http' {
          * The `request.aborted` property will be `true` if the request has
          * been aborted.
          * @since v0.11.14
-         * @deprecated Since v17.0.0 - Check `destroyed` instead.
+         * @deprecated Since v17.0.0,v16.12.0 - Check `destroyed` instead.
          */
         aborted: boolean;
         /**
@@ -622,13 +780,58 @@ declare module 'http' {
          */
         protocol: string;
         /**
-         * Whether the request is send through a reused socket.
+         * When sending request through a keep-alive enabled agent, the underlying socket
+         * might be reused. But if server closes connection at unfortunate time, client
+         * may run into a 'ECONNRESET' error.
+         *
+         * ```js
+         * const http = require('http');
+         *
+         * // Server has a 5 seconds keep-alive timeout by default
+         * http
+         *   .createServer((req, res) => {
+         *     res.write('hello\n');
+         *     res.end();
+         *   })
+         *   .listen(3000);
+         *
+         * setInterval(() => {
+         *   // Adapting a keep-alive agent
+         *   http.get('http://localhost:3000', { agent }, (res) => {
+         *     res.on('data', (data) => {
+         *       // Do nothing
+         *     });
+         *   });
+         * }, 5000); // Sending request on 5s interval so it's easy to hit idle timeout
+         * ```
+         *
+         * By marking a request whether it reused socket or not, we can do
+         * automatic error retry base on it.
+         *
+         * ```js
+         * const http = require('http');
+         * const agent = new http.Agent({ keepAlive: true });
+         *
+         * function retriableRequest() {
+         *   const req = http
+         *     .get('http://localhost:3000', { agent }, (res) => {
+         *       // ...
+         *     })
+         *     .on('error', (err) => {
+         *       // Check if retry is needed
+         *       if (req.reusedSocket &#x26;&#x26; err.code === 'ECONNRESET') {
+         *         retriableRequest();
+         *       }
+         *     });
+         * }
+         *
+         * retriableRequest();
+         * ```
          * @since v13.0.0, v12.16.0
          */
         reusedSocket: boolean;
         /**
          * Limits maximum response headers count. If set to 0, no limit will be applied.
-         * @default 2000
          */
         maxHeadersCount: number;
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
@@ -685,13 +888,19 @@ declare module 'http' {
          * @deprecated
          */
         addListener(event: 'abort', listener: () => void): this;
-        addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         addListener(event: 'continue', listener: () => void): this;
         addListener(event: 'information', listener: (info: InformationEvent) => void): this;
         addListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         addListener(event: 'socket', listener: (socket: Socket) => void): this;
         addListener(event: 'timeout', listener: () => void): this;
-        addListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'drain', listener: () => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
@@ -739,13 +948,19 @@ declare module 'http' {
          * @deprecated
          */
         prependListener(event: 'abort', listener: () => void): this;
-        prependListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependListener(event: 'continue', listener: () => void): this;
         prependListener(event: 'information', listener: (info: InformationEvent) => void): this;
         prependListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         prependListener(event: 'socket', listener: (socket: Socket) => void): this;
         prependListener(event: 'timeout', listener: () => void): this;
-        prependListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'drain', listener: () => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
@@ -757,13 +972,19 @@ declare module 'http' {
          * @deprecated
          */
         prependOnceListener(event: 'abort', listener: () => void): this;
-        prependOnceListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: 'continue', listener: () => void): this;
         prependOnceListener(event: 'information', listener: (info: InformationEvent) => void): this;
         prependOnceListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         prependOnceListener(event: 'socket', listener: (socket: Socket) => void): this;
         prependOnceListener(event: 'timeout', listener: () => void): this;
-        prependOnceListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'drain', listener: () => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
@@ -788,7 +1009,7 @@ declare module 'http' {
          * The `message.aborted` property will be `true` if the request has
          * been aborted.
          * @since v10.1.0
-         * @deprecated Since v17.0.0 - Check `message.destroyed` from [stream.Readable](https://nodejs.org/dist/latest-v17.x/docs/api/stream.html#class-streamreadable).
+         * @deprecated Since v17.0.0,v16.12.0 - Check `message.destroyed` from <a href="stream.html#class-streamreadable" class="type">stream.Readable</a>.
          */
         aborted: boolean;
         /**
@@ -840,7 +1061,7 @@ declare module 'http' {
          *
          * This property is guaranteed to be an instance of the `net.Socket` class,
          * a subclass of `stream.Duplex`, unless the user specified a socket
-         * type other than `net.Socket`.
+         * type other than `net.Socket` or internally nulled.
          * @since v0.3.0
          */
         socket: Socket;
@@ -855,7 +1076,7 @@ declare module 'http' {
          * // { 'user-agent': 'curl/7.22.0',
          * //   host: '127.0.0.1:8000',
          * //   accept: '*' }
-         * console.log(request.headers);
+         * console.log(request.getHeaders());
          * ```
          *
          * Duplicates in raw headers are handled in the following ways, depending on the
@@ -931,14 +1152,14 @@ declare module 'http' {
          * To parse the URL into its parts:
          *
          * ```js
-         * new URL(request.url, `http://${request.headers.host}`);
+         * new URL(request.url, `http://${request.getHeaders().host}`);
          * ```
          *
-         * When `request.url` is `'/status?name=ryan'` and`request.headers.host` is `'localhost:3000'`:
+         * When `request.url` is `'/status?name=ryan'` and`request.getHeaders().host` is `'localhost:3000'`:
          *
          * ```console
          * $ node
-         * > new URL(request.url, `http://${request.headers.host}`)
+         * > new URL(request.url, `http://${request.getHeaders().host}`)
          * URL {
          *   href: 'http://localhost:3000/status?name=ryan',
          *   origin: 'http://localhost:3000',
@@ -1131,12 +1352,23 @@ declare module 'http' {
      * added to the `'request'` event.
      * @since v0.1.13
      */
-    function createServer(requestListener?: RequestListener): Server;
-    function createServer(options: ServerOptions, requestListener?: RequestListener): Server;
+    function createServer<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
+    function createServer<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    >(
+        options: ServerOptions<Request, Response>,
+        requestListener?: RequestListener<Request, Response>,
+    ): Server<Request, Response>;
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
     interface RequestOptions extends ClientRequestArgs {}
     /**
+     * `options` in `socket.connect()` are also supported.
+     *
      * Node.js maintains several connections per server to make HTTP requests.
      * This function allows one to transparently issue requests.
      *
@@ -1321,7 +1553,11 @@ declare module 'http' {
      * @since v0.3.6
      */
     function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    function request(
+        url: string | URL,
+        options: RequestOptions,
+        callback?: (res: IncomingMessage) => void,
+    ): ClientRequest;
     /**
      * Since most requests are GET requests without bodies, Node.js provides this
      * convenience method. The only difference between this method and {@link request} is that it sets the method to GET and calls `req.end()`automatically. The callback must take care to consume the
@@ -1384,6 +1620,32 @@ declare module 'http' {
      */
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+
+    /**
+     * Performs the low-level validations on the provided name that are done when `res.setHeader(name, value)` is called.
+     * Passing illegal value as name will result in a TypeError being thrown, identified by `code: 'ERR_INVALID_HTTP_TOKEN'`.
+     * @param name Header name
+     * @since v14.3.0
+     */
+    function validateHeaderName(name: string): void;
+    /**
+     * Performs the low-level validations on the provided value that are done when `res.setHeader(name, value)` is called.
+     * Passing illegal value as value will result in a TypeError being thrown.
+     * - Undefined value error is identified by `code: 'ERR_HTTP_INVALID_HEADER_VALUE'`.
+     * - Invalid value character error is identified by `code: 'ERR_INVALID_CHAR'`.
+     * @param name Header name
+     * @param value Header value
+     * @since v14.3.0
+     */
+    function validateHeaderValue(name: string, value: string): void;
+
+    /**
+     * Set the maximum number of idle HTTP parsers. Default: 1000.
+     * @param count
+     * @since v18.8.0, v16.18.0
+     */
+    function setMaxIdleHTTPParsers(count: number): void;
+
     let globalAgent: Agent;
     /**
      * Read-only property specifying the maximum allowed size of HTTP headers in bytes.

@@ -22,9 +22,27 @@ export interface Emitter {
             priority?: PriorityString | number | undefined;
         },
     ): void;
+    on(
+        event: string,
+        callback: (this: this, info: EventInfo, ...args: any[]) => void,
+        options?: {
+            priority?: PriorityString | number | undefined;
+        },
+    ): void;
+    /**
+     * Registers a callback function to be executed on the next time the event is fired only. This is similar to
+     * calling {@link #on} followed by {@link #off} in the callback.
+     */
     once<K extends string>(
         event: K,
         callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: {
+            priority?: PriorityString | number | undefined;
+        },
+    ): void;
+    once(
+        event: string,
+        callback: (this: this, info: EventInfo, ...args: any[]) => void,
         options?: {
             priority?: PriorityString | number | undefined;
         },
@@ -34,6 +52,7 @@ export interface Emitter {
      * Shorthand for {@link #stopListening `this.stopListening( this, event, callback )`}.
      */
     off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    off(event: string, callback?: (this: this, info: EventInfo, ...args: any[]) => void): void;
     /**
      * Registers a callback function to be executed when an event is fired in a specific (emitter) object.
      *

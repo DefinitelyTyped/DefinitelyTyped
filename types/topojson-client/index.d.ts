@@ -18,39 +18,40 @@ import {
     Polygon,
     Topology,
     Transform,
+    Properties
 } from "topojson-specification";
 
 export type Transformer = (point: number[], index?: boolean) => number[];
 
-export function feature<P = GeoJSON.GeoJsonProperties>(
+export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     topology: Topology,
     object: Point<P> | string,
 ): GeoJSON.Feature<GeoJSON.Point, P>;
-export function feature<P = GeoJSON.GeoJsonProperties>(
+export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     topology: Topology,
     object: MultiPoint<P> | string,
 ): GeoJSON.Feature<GeoJSON.MultiPoint, P>;
-export function feature<P = GeoJSON.GeoJsonProperties>(
+export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     topology: Topology,
     object: LineString<P> | string,
 ): GeoJSON.Feature<GeoJSON.LineString, P>;
-export function feature<P = GeoJSON.GeoJsonProperties>(
+export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     topology: Topology,
     object: MultiLineString<P> | string,
 ): GeoJSON.Feature<GeoJSON.MultiLineString, P>;
-export function feature<P = GeoJSON.GeoJsonProperties>(
+export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     topology: Topology,
     object: Polygon<P> | string,
 ): GeoJSON.Feature<GeoJSON.Polygon, P>;
-export function feature<P = GeoJSON.GeoJsonProperties>(
+export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     topology: Topology,
     object: MultiPolygon<P> | string,
 ): GeoJSON.Feature<GeoJSON.MultiPolygon, P>;
-export function feature<P = GeoJSON.GeoJsonProperties>(
+export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     topology: Topology,
     object: GeometryCollection<P> | string,
 ): GeoJSON.FeatureCollection<GeoJSON.GeometryObject, P>;
-export function feature<P = GeoJSON.GeoJsonProperties>(
+export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     topology: Topology,
     object: GeometryObject<P> | string,
 ): GeoJSON.Feature<GeoJSON.GeometryObject, P> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject, P>;

@@ -23,6 +23,6 @@ NProgress.configure({
     showSpinner: false,
     trickleSpeed: 250,
     parent: '#content',
-    // $ExpectError
+    // @ts-expect-error
     foo: ''
 });

@@ -9,6 +9,7 @@ import './test/crypto';
 import './test/dgram';
 import './test/diagnostics_channel';
 import './test/dns';
+import './test/dom-events'; // dom-events behaves differently under lib-dom
 import './test/events';
 import './test/fs';
 import './test/globals';
@@ -27,6 +28,7 @@ import './test/readline';
 import './test/repl';
 import './test/stream';
 import './test/string_decoder';
+import './test/test';
 import './test/timers_promises';
 import './test/timers';
 import './test/tls';
@@ -43,9 +45,11 @@ import './test/zlib';
 
 import * as url from 'node:url';
 import * as http from 'node:http';
+import * as http2 from 'node:http2';
 import * as https from 'node:https';
 import * as net from 'node:net';
 import * as inspector from 'node:inspector';
+import * as stream from 'node:stream';
 import * as trace_events from 'node:trace_events';
 
 //////////////////////////////////////////////////////
@@ -107,7 +111,7 @@ import * as trace_events from 'node:trace_events';
             foo: number;
         }
 
-        class MyServerResponse extends http.ServerResponse {
+        class MyServerResponse<Request extends http.IncomingMessage = http.IncomingMessage> extends http.ServerResponse<Request> {
             foo: string;
         }
 
@@ -245,4 +249,18 @@ import * as trace_events from 'node:trace_events';
     const s2: string = s.trimRight();
     const s3: string = s.trimStart();
     const s4: string = s.trimEnd();
+}
+
+////////////////////////////////////////////////////
+/// Node.js http2 tests
+////////////////////////////////////////////////////
+
+{
+    http2.connect('https://foo.com', {
+        createConnection: (authority, option) => {
+            authority; // $ExpectType URL
+            option; // $ExpectType SessionOptions
+            return new stream.Duplex();
+        },
+    });
 }

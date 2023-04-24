@@ -3,6 +3,7 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -19,7 +20,14 @@ interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
 }
 
-export default class Component extends CoreView.extend(ViewMixin, ClassNamesSupport) {
+// The generic here is for a *signature: a way to hang information for tools
+// like Glint which can provide typey checking for component templates using
+// information supplied via this generic. While it may appear useless on this
+// class definition and extension, it is used by external tools and should not
+// be removed.
+// eslint-disable-next-line no-unnecessary-generics
+export default interface Component<S = unknown> extends ViewMixin, ClassNamesSupport, Opaque<S> {}
+export default class Component<S = unknown> extends CoreView {
     // methods
     readDOMAttr(name: string): string;
     // properties
@@ -103,6 +111,17 @@ export default class Component extends CoreView.extend(ViewMixin, ClassNamesSupp
  * @return the same object passed in, now associated with the manager
  */
 export function setComponentManager<T>(managerFactory: (owner: unknown) => ComponentManager<unknown>, object: T): T;
+
+/**
+ * Takes a component class and returns the template associated with the given component class,
+ * if any, or one of its superclasses, if any, or undefined if no template association was found.
+ *
+ * @param object the component object
+ * @return the template factory of the given component
+ */
+ export function getComponentTemplate(obj: object): TemplateFactory | undefined;
+
+export function setComponentTemplate<T>(factory: TemplateFactory, obj: T): T;
 
 // In normal TypeScript, these built-in components are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces

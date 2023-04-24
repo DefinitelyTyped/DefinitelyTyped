@@ -162,7 +162,7 @@ r10 = r10.on('load', function(result: ResponseDatumGET[]) {
     // do something;
 });
 
-// $ExpectError
+// @ts-expect-error
 r10 = r10.on<ResponseDatumGET[]>('load', function(result: number) { // fails, wrong argument type for callback
     const that: d3Request.Request = this;
     const res: number = result;

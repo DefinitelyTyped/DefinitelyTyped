@@ -2,7 +2,7 @@
 // Project: https://github.com/igor-dv/jest-specific-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="jest" />
 

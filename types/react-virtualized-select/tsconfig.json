@@ -5,6 +5,9 @@
             "es6",
             "dom"
         ],
+        "paths": {
+            "react": ["react/v17"]
+        },
         "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,

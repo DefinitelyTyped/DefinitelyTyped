@@ -11,10 +11,14 @@ type _KeysOfType<Key extends keyof TypeLookup, Type> =
 type KeysOfType<Type> =
     { [Key in keyof TypeLookup]: _KeysOfType<Key, Type> }[keyof TypeLookup];
 
-// Since `TypeLookup` resolves all *other* types, including `null` and
-// `undefined`, we can assume that if the type does *not* resolve from
-// `KeysOfType`, it is safe to treat it as 'object'.
 export type TypeOf<T> =
+    // Start by handling the case where `T` is no specific type, i.e. it is
+    // `unknown`. In that case, it will be *one of* the type names, but which
+    // one we cannot know statically.
+    unknown extends T ? AllTypeNames :
+    // Otherwise, since `TypeLookup` resolves all *other* types, including
+    // `null` and `undefined`, we can assume that if the type does *not* resolve
+    // from `KeysOfType`, it is safe to treat it as 'object'.
     KeysOfType<T> extends never ? 'object' : KeysOfType<T>;
 
 export interface TypeLookup {
@@ -30,6 +34,8 @@ export interface TypeLookup {
     null: null;
     undefined: undefined;
 }
+
+type AllTypeNames = 'object' | keyof TypeLookup;
 
 // Don't export anything but the required type util
 export {};

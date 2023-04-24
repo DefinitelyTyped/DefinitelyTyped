@@ -8,8 +8,8 @@ const outputWithoutOptions = js2coffee(javaScriptFn);
 // $ExpectType string
 const outputWithOptions = js2coffee(javaScriptFn, { comments: true, indent: 2 });
 
-// $ExpectError
+// @ts-expect-error
 const noOutputGotZero = js2coffee();
 
-// $ExpectError
+// @ts-expect-error
 const noOutputGotInvalidOptions = js2coffee(javaScriptFn, { ast: false, transpile: { presets: ["@babel/env"] } });

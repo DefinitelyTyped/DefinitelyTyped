@@ -36,7 +36,6 @@ import * as R from 'ramda';
     // tslint:disable-next-line:no-unnecessary-class
     class Foo {
         constructor(arg: string) {}
-        bar: string;
     }
 
     const unknownObject: unknown = {};

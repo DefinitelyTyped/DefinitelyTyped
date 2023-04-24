@@ -1,6 +1,8 @@
 declare namespace jsrsasign.KJUR.asn1 {
     /** base class for ASN.1 DER encoder object */
     class ASN1Object {
+        constructor(params?: { tlv?: string });
+
         /** flag whether internal data was changed */
         isModified: string;
 
@@ -15,6 +17,11 @@ declare namespace jsrsasign.KJUR.asn1 {
 
         /** hexadecimal string of ASN.1 TLV value(V) */
         hV: string;
+
+        /** JSON object parameter for ASN.1 encode */
+        params: {
+            tlv?: string;
+        } | null;
 
         /**
          * get hexadecimal ASN.1 TLV length(L) bytes from TLV value(V)

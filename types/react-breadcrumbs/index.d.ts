@@ -19,12 +19,12 @@ declare module "react-breadcrumbs" {
         wrapper?: React.FunctionComponent | React.ComponentClass | undefined;
     }
 
-    class Breadcrumbs extends React.Component<BreadcrumbsProps> {}
+    class Breadcrumbs extends React.Component<React.PropsWithChildren<BreadcrumbsProps>> {}
 
     interface BreadcrumbProps {
         data: LocationDescriptor & { title?: React.ReactNode | undefined };
         hidden?: boolean | undefined;
     }
 
-    class Breadcrumb extends React.Component<BreadcrumbProps> {}
+    class Breadcrumb extends React.Component<React.PropsWithChildren<BreadcrumbProps>> {}
 }

@@ -37,3 +37,10 @@ function testCorsCredentialsPromiseFunction(ctx: Koa.Context) {
 }
 
 app.use(cors({ credentials: testCorsCredentialsPromiseFunction }));
+
+app.use(
+    cors({
+        secureContext: true,
+        privateNetworkAccess: true,
+    }),
+);

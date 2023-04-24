@@ -149,7 +149,10 @@ interface SVGTSpanElement extends SVGElement { }
 interface SVGUseElement extends SVGElement { }
 interface SVGViewElement extends SVGElement { }
 
+interface FormData {}
 interface Text { }
 interface TouchList { }
 interface WebGLRenderingContext { }
 interface WebGL2RenderingContext { }
+
+interface TrustedHTML { }

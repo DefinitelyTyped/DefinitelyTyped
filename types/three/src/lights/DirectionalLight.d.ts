@@ -2,7 +2,7 @@ import { Object3D } from './../core/Object3D';
 import { DirectionalLightShadow } from './DirectionalLightShadow';
 import { Light } from './Light';
 import { Vector3 } from '../math/Vector3';
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 
 /**
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js|src/lights/DirectionalLight.js}
@@ -22,7 +22,9 @@ export class DirectionalLight extends Light {
     type: string;
 
     /**
-     * @default THREE.Object3D.DefaultUp
+     * This is set equal to {@link Object3D.DEFAULT_UP} (0, 1, 0), so that the light shines from the top down.
+     *
+     * @default {@link Object3D.DEFAULT_UP}
      */
     readonly position: Vector3;
 

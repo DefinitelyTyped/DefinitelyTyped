@@ -20,6 +20,10 @@
             "libraryName": "acme-client",
             "asOfVersion": "3.3.0"
         },
+        "acorn": {
+            "libraryName": "acorn",
+            "asOfVersion": "6.0.0"
+        },
         "actions-on-google": {
             "libraryName": "actions-on-google",
             "asOfVersion": "2.0.0"
@@ -32,6 +36,10 @@
             "libraryName": "adhan",
             "asOfVersion": "4.0.0"
         },
+        "adobe__node-fetch-retry": {
+            "libraryName": "@adobe/node-fetch-retry",
+            "asOfVersion": "2.1.0"
+        },
         "ag-grid": {
             "libraryName": "ag-grid",
             "asOfVersion": "3.2.0"
@@ -43,6 +51,10 @@
         "aggregate-error": {
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
+        },
+        "agilite": {
+            "libraryName": "agilite",
+            "asOfVersion": "7.3.0"
         },
         "agora-rtc-sdk": {
             "libraryName": "agora-rtc-sdk",
@@ -83,6 +95,14 @@
         "all-property-names": {
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
+        },
+        "amazon-connect-streams": {
+            "libraryName": "amazon-connect-streams",
+            "asOfVersion": "1.4.8"
+        },
+        "amqp-connection-manager": {
+            "libraryName": "amqp-connection-manager",
+            "asOfVersion": "3.4.0"
         },
         "angular-dynamic-locale": {
             "libraryName": "angular-dynamic-locale",
@@ -171,6 +191,10 @@
         "askmethat-rating": {
             "libraryName": "askmethat-rating",
             "asOfVersion": "0.4.0"
+        },
+        "asn1js": {
+            "libraryName": "asn1js",
+            "asOfVersion": "3.0.0"
         },
         "assertion-error": {
             "libraryName": "assertion-error",
@@ -356,6 +380,10 @@
             "libraryName": "bitwise",
             "asOfVersion": "2.0.0"
         },
+        "bl": {
+            "libraryName": "bl",
+            "asOfVersion": "5.1.0"
+        },
         "blob-util": {
             "libraryName": "blob-util",
             "asOfVersion": "2.0.0"
@@ -412,6 +440,14 @@
             "libraryName": "builtin-modules",
             "asOfVersion": "3.1.0"
         },
+        "bull": {
+            "libraryName": "bull",
+            "asOfVersion": "4.10.0"
+        },
+        "bull-board": {
+            "libraryName": "bull-board",
+            "asOfVersion": "2.0.0"
+        },
         "bulma-calendar": {
             "libraryName": "bulma-calendar",
             "asOfVersion": "6.0.2"
@@ -427,6 +463,10 @@
         "burns": {
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
+        },
+        "cacheable-request": {
+            "libraryName": "cacheable-request",
+            "asOfVersion": "8.3.1"
         },
         "cachefactory": {
             "libraryName": "cachefactory",
@@ -503,6 +543,10 @@
         "change-case": {
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
+        },
+        "chartist": {
+            "libraryName": "chartist",
+            "asOfVersion": "1.0.0"
         },
         "cheap-ruler": {
             "libraryName": "cheap-ruler",
@@ -784,9 +828,17 @@
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
         },
+        "cron-converter": {
+            "libraryName": "cron-converter",
+            "asOfVersion": "2.0.0"
+        },
         "cropperjs": {
             "libraryName": "cropperjs",
             "asOfVersion": "1.3.0"
+        },
+        "cross-platform-terminal-characters": {
+            "libraryName": "cross-platform-terminal-characters",
+            "asOfVersion": "3.1.0"
         },
         "crypto-hash": {
             "libraryName": "crypto-hash",
@@ -1153,6 +1205,18 @@
             "libraryName": "email-validator",
             "asOfVersion": "1.0.6"
         },
+        "ember-qunit": {
+            "libraryName": "ember-qunit",
+            "asOfVersion": "6.1.1"
+        },
+        "ember-resolver": {
+            "libraryName": "ember-resolver",
+            "asOfVersion": "9.0.0"
+        },
+        "ember__test-helpers": {
+            "libraryName": "@ember/test-helpers",
+            "asOfVersion": "2.9.1"
+        },
         "emoji-regex": {
             "libraryName": "emoji-regex",
             "asOfVersion": "9.2.0"
@@ -1160,6 +1224,10 @@
         "empty-trash": {
             "libraryName": "empty-trash",
             "asOfVersion": "3.0.0"
+        },
+        "enhanced-resolve": {
+            "libraryName": "enhanced-resolve",
+            "asOfVersion": "5.0.0"
         },
         "ensure-error": {
             "libraryName": "ensure-error",
@@ -1209,6 +1277,14 @@
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
         },
+        "eslint-visitor-keys": {
+            "libraryName": "eslint-visitor-keys",
+            "asOfVersion": "3.3.0"
+        },
+        "esm-utils": {
+            "libraryName": "esm-utils",
+            "asOfVersion": "2.0.1"
+        },
         "ethereumjs-tx": {
             "libraryName": "ethereumjs-tx",
             "asOfVersion": "2.0.0"
@@ -1253,13 +1329,13 @@
             "libraryName": "expo",
             "asOfVersion": "33.0.0"
         },
-        "expo__vector-icons": {
-            "libraryName": "@expo/vector-icons",
-            "asOfVersion": "10.0.0"
-        },
         "expo-localization": {
             "libraryName": "expo-localization",
             "asOfVersion": "3.0.0"
+        },
+        "expo__vector-icons": {
+            "libraryName": "@expo/vector-icons",
+            "asOfVersion": "10.0.0"
         },
         "expr-eval": {
             "libraryName": "expr-eval",
@@ -1272,6 +1348,10 @@
         "express-handlebars": {
             "libraryName": "express-handlebars",
             "asOfVersion": "6.0.0"
+        },
+        "express-jwt": {
+            "libraryName": "express-jwt",
+            "asOfVersion": "7.4.2"
         },
         "express-mongo-sanitize": {
             "libraryName": "express-mongo-sanitize",
@@ -1288,6 +1368,14 @@
         "express-rate-limit": {
             "libraryName": "express-rate-limit",
             "asOfVersion": "6.0.0"
+        },
+        "express-request-id": {
+            "libraryName": "express-request-id",
+            "asOfVersion": "3.0.0"
+        },
+        "express-unless": {
+            "libraryName": "express-unless",
+            "asOfVersion": "2.0.1"
         },
         "express-urlrewrite": {
             "libraryName": "express-urlrewrite",
@@ -1361,6 +1449,10 @@
             "libraryName": "fastify-static",
             "asOfVersion": "2.2.1"
         },
+        "favicons": {
+            "libraryName": "favicons",
+            "asOfVersion": "7.0.0"
+        },
         "favicons-webpack-plugin": {
             "libraryName": "favicons-webpack-plugin",
             "asOfVersion": "2.1.0"
@@ -1384,6 +1476,10 @@
         "fetch-jsonp": {
             "libraryName": "fetch-jsonp",
             "asOfVersion": "1.1.0"
+        },
+        "fhir-kit-client": {
+            "libraryName": "fhir-kit-client",
+            "asOfVersion": "1.6.7"
         },
         "figures": {
             "libraryName": "figures",
@@ -1513,6 +1609,10 @@
             "libraryName": "fromnow",
             "asOfVersion": "3.0.1"
         },
+        "fs-capacitor": {
+            "libraryName": "fs-capacitor",
+            "asOfVersion": "8.0.0"
+        },
         "fs-promise": {
             "libraryName": "fs-promise",
             "asOfVersion": "2.0.0"
@@ -1557,6 +1657,10 @@
             "libraryName": "generate-password",
             "asOfVersion": "1.5.1"
         },
+        "generic-pool": {
+            "libraryName": "generic-pool",
+            "asOfVersion": "3.8.1"
+        },
         "geolib": {
             "libraryName": "geolib",
             "asOfVersion": "2.0.23"
@@ -1593,6 +1697,10 @@
             "libraryName": "getopts",
             "asOfVersion": "2.1.0"
         },
+        "git-parse": {
+            "libraryName": "git-parse",
+            "asOfVersion": "2.1.1"
+        },
         "git-remote-origin-url": {
             "libraryName": "git-remote-origin-url",
             "asOfVersion": "3.0.0"
@@ -1600,6 +1708,10 @@
         "github": {
             "libraryName": "github",
             "asOfVersion": "7.1.0"
+        },
+        "github-slugger": {
+            "libraryName": "github-slugger",
+            "asOfVersion": "2.0.0"
         },
         "github-username": {
             "libraryName": "github-username",
@@ -1621,10 +1733,6 @@
             "libraryName": "globby",
             "asOfVersion": "9.1.0"
         },
-        "google__markerclustererplus": {
-            "libraryName": "@google/markerclustererplus",
-            "asOfVersion": "3.0.3"
-        },
         "google-cloud__pubsub": {
             "libraryName": "@google-cloud/pubsub",
             "asOfVersion": "0.26.0"
@@ -1640,6 +1748,10 @@
         "google-maps-react": {
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
+        },
+        "google__markerclustererplus": {
+            "libraryName": "@google/markerclustererplus",
+            "asOfVersion": "3.0.3"
         },
         "graphene-pk11": {
             "libraryName": "graphene-pk11",
@@ -1672,6 +1784,10 @@
         "gsap": {
             "libraryName": "gsap",
             "asOfVersion": "3.0.0"
+        },
+        "guardian__prosemirror-invisibles": {
+            "libraryName": "@guardian/prosemirror-invisibles",
+            "asOfVersion": "1.3.3"
         },
         "gulp-pug": {
             "libraryName": "gulp-pug",
@@ -1709,6 +1825,14 @@
             "libraryName": "handsontable",
             "asOfVersion": "0.35.0"
         },
+        "hapi-auth-jwt2": {
+            "libraryName": "hapi-auth-jwt2",
+            "asOfVersion": "8.6.1"
+        },
+        "hapi-pino": {
+            "libraryName": "hapi-pino",
+            "asOfVersion": "9.1.0"
+        },
         "hapi__accept": {
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.0"
@@ -1724,6 +1848,10 @@
         "hapi__cryptiles": {
             "libraryName": "@hapi/cryptiles",
             "asOfVersion": "5.0.0"
+        },
+        "hapi__hapi": {
+            "libraryName": "@hapi/hapi",
+            "asOfVersion": "21.0.0"
         },
         "hapi__hoek": {
             "libraryName": "@hapi/hoek",
@@ -1748,10 +1876,6 @@
         "hapi__wreck": {
             "libraryName": "@hapi/wreck",
             "asOfVersion": "17.0.0"
-        },
-        "hapi-auth-jwt2": {
-            "libraryName": "hapi-auth-jwt2",
-            "asOfVersion": "8.6.1"
         },
         "hard-rejection": {
             "libraryName": "hard-rejection",
@@ -1860,6 +1984,10 @@
         "http-status-codes": {
             "libraryName": "http-status-codes",
             "asOfVersion": "1.2.0"
+        },
+        "human-object-diff": {
+            "libraryName": "human-object-diff",
+            "asOfVersion": "3.0.0"
         },
         "humanize-string": {
             "libraryName": "humanize-string",
@@ -2000,6 +2128,10 @@
         "ionic": {
             "libraryName": "ionic",
             "asOfVersion": "3.19.0"
+        },
+        "ioredis": {
+            "libraryName": "ioredis",
+            "asOfVersion": "5.0.0"
         },
         "ip-address": {
             "libraryName": "ip-address",
@@ -2201,6 +2333,10 @@
             "libraryName": "jest-each",
             "asOfVersion": "24.3.0"
         },
+        "jest-expect-message": {
+            "libraryName": "jest-expect-message",
+            "asOfVersion": "1.1.0"
+        },
         "jest-get-type": {
             "libraryName": "jest-get-type",
             "asOfVersion": "24.2.0"
@@ -2292,6 +2428,10 @@
         "json-stream-stringify": {
             "libraryName": "json-stream-stringify",
             "asOfVersion": "2.0.3"
+        },
+        "json-to-csv-export": {
+            "libraryName": "json-to-csv-export",
+            "asOfVersion": "2.0.0"
         },
         "json5": {
             "libraryName": "json5",
@@ -2412,6 +2552,30 @@
         "keytar": {
             "libraryName": "keytar",
             "asOfVersion": "4.4.2"
+        },
+        "keyv": {
+            "libraryName": "keyv",
+            "asOfVersion": "4.2.0"
+        },
+        "keyv__mongo": {
+            "libraryName": "@keyv/mongo",
+            "asOfVersion": "2.1.5"
+        },
+        "keyv__mysql": {
+            "libraryName": "@keyv/mysql",
+            "asOfVersion": "1.3.1"
+        },
+        "keyv__postgres": {
+            "libraryName": "@keyv/postgres",
+            "asOfVersion": "1.2.1"
+        },
+        "keyv__redis": {
+            "libraryName": "@keyv/redis",
+            "asOfVersion": "2.3.0"
+        },
+        "keyv__sqlite": {
+            "libraryName": "@keyv/sqlite",
+            "asOfVersion": "3.0.1"
         },
         "knex": {
             "libraryName": "knex",
@@ -2577,6 +2741,10 @@
             "libraryName": "lodash-decorators",
             "asOfVersion": "4.0.0"
         },
+        "log-process-errors": {
+            "libraryName": "log-process-errors",
+            "asOfVersion": "9.1.0"
+        },
         "log-symbols": {
             "libraryName": "log-symbols",
             "asOfVersion": "3.0.0"
@@ -2605,6 +2773,10 @@
             "libraryName": "loglevel",
             "asOfVersion": "1.6.2"
         },
+        "long": {
+            "libraryName": "long",
+            "asOfVersion": "5.0.0"
+        },
         "looks-same": {
             "libraryName": "looks-same",
             "asOfVersion": "4.1.0"
@@ -2624,6 +2796,14 @@
         "lower-case-first": {
             "libraryName": "lower-case-first",
             "asOfVersion": "1.0.1"
+        },
+        "lru-cache": {
+            "libraryName": "lru-cache",
+            "asOfVersion": "7.10.0"
+        },
+        "lz-string": {
+            "libraryName": "lz-string",
+            "asOfVersion": "1.5.0"
         },
         "make-dir": {
             "libraryName": "make-dir",
@@ -2688,6 +2868,10 @@
         "matcher": {
             "libraryName": "matcher",
             "asOfVersion": "2.0.0"
+        },
+        "material-components-web": {
+            "libraryName": "material-components-web",
+            "asOfVersion": "1.0.0"
         },
         "material__animation": {
             "libraryName": "@material/animation",
@@ -2797,10 +2981,6 @@
             "libraryName": "@material/top-app-bar",
             "asOfVersion": "1.0.0"
         },
-        "material-components-web": {
-            "libraryName": "material-components-web",
-            "asOfVersion": "1.0.0"
-        },
         "mathjs": {
             "libraryName": "mathjs",
             "asOfVersion": "9.4.1"
@@ -2845,9 +3025,17 @@
             "libraryName": "meow",
             "asOfVersion": "6.0.0"
         },
+        "mermaid": {
+            "libraryName": "mermaid",
+            "asOfVersion": "9.2.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
+        },
+        "micro": {
+            "libraryName": "micro",
+            "asOfVersion": "10.0.0"
         },
         "microgears": {
             "libraryName": "microgears",
@@ -2860,6 +3048,14 @@
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
+        },
+        "minipass": {
+            "libraryName": "minipass",
+            "asOfVersion": "3.3.5"
+        },
+        "mkdirp": {
+            "libraryName": "mkdirp",
+            "asOfVersion": "2.0.0"
         },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
@@ -2909,6 +3105,10 @@
             "libraryName": "moment-timezone",
             "asOfVersion": "0.5.30"
         },
+        "monday-sdk-js": {
+            "libraryName": "monday-sdk-js",
+            "asOfVersion": "0.2.1"
+        },
         "mongodb": {
             "libraryName": "mongodb",
             "asOfVersion": "4.0.0"
@@ -2920,6 +3120,10 @@
         "mongoose": {
             "libraryName": "mongoose",
             "asOfVersion": "5.11.0"
+        },
+        "mongoose-paginate-v2": {
+            "libraryName": "mongoose-paginate-v2",
+            "asOfVersion": "1.6.0"
         },
         "monk": {
             "libraryName": "monk",
@@ -3097,6 +3301,14 @@
             "libraryName": "node-waves",
             "asOfVersion": "0.7.6"
         },
+        "node-xlsx": {
+            "libraryName": "node-xlsx",
+            "asOfVersion": "0.21.0"
+        },
+        "nodecredstash": {
+            "libraryName": "nodecredstash",
+            "asOfVersion": "3.0.0"
+        },
         "nookies": {
             "libraryName": "nookies",
             "asOfVersion": "2.0.3"
@@ -3173,6 +3385,10 @@
             "libraryName": "@okta/okta-vue",
             "asOfVersion": "3.1.0"
         },
+        "ol": {
+            "libraryName": "ol",
+            "asOfVersion": "7.0.0"
+        },
         "on-change": {
             "libraryName": "on-change",
             "asOfVersion": "1.1.0"
@@ -3212,6 +3428,14 @@
         "ora": {
             "libraryName": "ora",
             "asOfVersion": "3.2.0"
+        },
+        "orbit-ui__react-components": {
+            "libraryName": "@orbit-ui/react-components",
+            "asOfVersion": "18.1.2"
+        },
+        "orderedmap": {
+            "libraryName": "orderedmap",
+            "asOfVersion": "2.0.0"
         },
         "os-locale": {
             "libraryName": "os-locale",
@@ -3389,6 +3613,10 @@
             "libraryName": "p-whilst",
             "asOfVersion": "2.0.0"
         },
+        "package-info": {
+            "libraryName": "package-info",
+            "asOfVersion": "5.0.0"
+        },
         "package-json": {
             "libraryName": "package-json",
             "asOfVersion": "6.1.0"
@@ -3420,6 +3648,30 @@
         "parse-ms": {
             "libraryName": "parse-ms",
             "asOfVersion": "2.1.0"
+        },
+        "parse5": {
+            "libraryName": "parse5",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-html-rewriting-stream": {
+            "libraryName": "parse5-html-rewriting-stream",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-htmlparser2-tree-adapter": {
+            "libraryName": "parse5-htmlparser2-tree-adapter",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-parser-stream": {
+            "libraryName": "parse5-parser-stream",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-plain-text-conversion-stream": {
+            "libraryName": "parse5-plain-text-conversion-stream",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-sax-parser": {
+            "libraryName": "parse5-sax-parser",
+            "asOfVersion": "7.0.0"
         },
         "pascal-case": {
             "libraryName": "pascal-case",
@@ -3503,6 +3755,14 @@
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
         },
+        "pino-pretty": {
+            "libraryName": "pino-pretty",
+            "asOfVersion": "5.0.0"
+        },
+        "pino-std-serializers": {
+            "libraryName": "pino-std-serializers",
+            "asOfVersion": "4.0.0"
+        },
         "pixi-spine": {
             "libraryName": "pixi-spine",
             "asOfVersion": "1.4.2"
@@ -3531,6 +3791,10 @@
             "libraryName": "pkg-versions",
             "asOfVersion": "2.0.0"
         },
+        "pkijs": {
+            "libraryName": "pkijs",
+            "asOfVersion": "3.0.1"
+        },
         "playcanvas": {
             "libraryName": "playcanvas",
             "asOfVersion": "1.23.0"
@@ -3550,6 +3814,58 @@
         "png-async": {
             "libraryName": "png-async",
             "asOfVersion": "0.9.4"
+        },
+        "png-img": {
+            "libraryName": "png-img",
+            "asOfVersion": "4.0.4"
+        },
+        "pollyjs__adapter": {
+            "libraryName": "@pollyjs/adapter",
+            "asOfVersion": "6.0.4"
+        },
+        "pollyjs__adapter-fetch": {
+            "libraryName": "@pollyjs/adapter-fetch",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-node-http": {
+            "libraryName": "@pollyjs/adapter-node-http",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-puppeteer": {
+            "libraryName": "@pollyjs/adapter-puppeteer",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-xhr": {
+            "libraryName": "@pollyjs/adapter-xhr",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__core": {
+            "libraryName": "@pollyjs/core",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__node-server": {
+            "libraryName": "@pollyjs/node-server",
+            "asOfVersion": "6.0.1"
+        },
+        "pollyjs__persister": {
+            "libraryName": "@pollyjs/persister",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-fs": {
+            "libraryName": "@pollyjs/persister-fs",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-local-storage": {
+            "libraryName": "@pollyjs/persister-local-storage",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-rest": {
+            "libraryName": "@pollyjs/persister-rest",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__utils": {
+            "libraryName": "@pollyjs/utils",
+            "asOfVersion": "6.0.1"
         },
         "poly2tri": {
             "libraryName": "poly2tri",
@@ -3583,6 +3899,10 @@
             "libraryName": "postcss-nested",
             "asOfVersion": "4.2.1"
         },
+        "postcss-preset-env": {
+            "libraryName": "postcss-preset-env",
+            "asOfVersion": "8.0.0"
+        },
         "postmark": {
             "libraryName": "postmark",
             "asOfVersion": "2.0.0"
@@ -3611,9 +3931,77 @@
             "libraryName": "printf",
             "asOfVersion": "0.3.0"
         },
+        "prosemirror-changeset": {
+            "libraryName": "prosemirror-changeset",
+            "asOfVersion": "2.2.0"
+        },
+        "prosemirror-collab": {
+            "libraryName": "prosemirror-collab",
+            "asOfVersion": "1.3.0"
+        },
+        "prosemirror-commands": {
+            "libraryName": "prosemirror-commands",
+            "asOfVersion": "1.3.0"
+        },
+        "prosemirror-dropcursor": {
+            "libraryName": "prosemirror-dropcursor",
+            "asOfVersion": "1.5.0"
+        },
+        "prosemirror-gapcursor": {
+            "libraryName": "prosemirror-gapcursor",
+            "asOfVersion": "1.3.0"
+        },
+        "prosemirror-history": {
+            "libraryName": "prosemirror-history",
+            "asOfVersion": "1.3.0"
+        },
+        "prosemirror-inputrules": {
+            "libraryName": "prosemirror-inputrules",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-keymap": {
+            "libraryName": "prosemirror-keymap",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-markdown": {
+            "libraryName": "prosemirror-markdown",
+            "asOfVersion": "1.9.0"
+        },
+        "prosemirror-menu": {
+            "libraryName": "prosemirror-menu",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-model": {
+            "libraryName": "prosemirror-model",
+            "asOfVersion": "1.17.0"
+        },
+        "prosemirror-schema-basic": {
+            "libraryName": "prosemirror-schema-basic",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-schema-list": {
+            "libraryName": "prosemirror-schema-list",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-state": {
+            "libraryName": "prosemirror-state",
+            "asOfVersion": "1.4.0"
+        },
         "prosemirror-tables": {
             "libraryName": "prosemirror-tables",
             "asOfVersion": "0.9.1"
+        },
+        "prosemirror-test-builder": {
+            "libraryName": "prosemirror-test-builder",
+            "asOfVersion": "1.1.0"
+        },
+        "prosemirror-transform": {
+            "libraryName": "prosemirror-transform",
+            "asOfVersion": "1.5.0"
+        },
+        "prosemirror-view": {
+            "libraryName": "prosemirror-view",
+            "asOfVersion": "1.24.0"
         },
         "protobufjs": {
             "libraryName": "protobufjs",
@@ -3642,6 +4030,14 @@
         "pupa": {
             "libraryName": "pupa",
             "asOfVersion": "2.0.0"
+        },
+        "puppeteer": {
+            "libraryName": "puppeteer",
+            "asOfVersion": "7.0.4"
+        },
+        "puppeteer-core": {
+            "libraryName": "puppeteer-core",
+            "asOfVersion": "7.0.4"
         },
         "pusher-js": {
             "libraryName": "pusher-js",
@@ -3750,6 +4146,10 @@
         "raspi-soft-pwm": {
             "libraryName": "raspi-soft-pwm",
             "asOfVersion": "5.1.0"
+        },
+        "rate-limit-redis": {
+            "libraryName": "rate-limit-redis",
+            "asOfVersion": "3.0.0"
         },
         "raven-js": {
             "libraryName": "raven-js",
@@ -3883,6 +4283,10 @@
             "libraryName": "react-circular-progressbar",
             "asOfVersion": "1.1.0"
         },
+        "react-clock": {
+            "libraryName": "react-clock",
+            "asOfVersion": "4.1.0"
+        },
         "react-collapsible": {
             "libraryName": "react-collapsible",
             "asOfVersion": "2.3.0"
@@ -3898,6 +4302,10 @@
         "react-countup": {
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
+        },
+        "react-datetime-picker": {
+            "libraryName": "react-datetime-picker",
+            "asOfVersion": "5.0.0"
         },
         "react-daum-postcode": {
             "libraryName": "react-daum-postcode",
@@ -4018,6 +4426,10 @@
         "react-jss": {
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
+        },
+        "react-leaflet": {
+            "libraryName": "react-leaflet",
+            "asOfVersion": "3.0.0"
         },
         "react-loader-spinner": {
             "libraryName": "react-loader-spinner",
@@ -4195,6 +4607,10 @@
             "libraryName": "react-rnd",
             "asOfVersion": "8.0.0"
         },
+        "react-router-native": {
+            "libraryName": "react-router-native",
+            "asOfVersion": "6.4.0"
+        },
         "react-scrollbar-size": {
             "libraryName": "react-scrollbar-size",
             "asOfVersion": "3.0.0"
@@ -4235,9 +4651,21 @@
             "libraryName": "react-swipeable",
             "asOfVersion": "5.2.0"
         },
+        "react-tabs": {
+            "libraryName": "react-tabs",
+            "asOfVersion": "5.0.0"
+        },
         "react-tether": {
             "libraryName": "react-tether",
             "asOfVersion": "1.0.0"
+        },
+        "react-textarea-autosize": {
+            "libraryName": "react-textarea-autosize",
+            "asOfVersion": "8.0.0"
+        },
+        "react-time-picker": {
+            "libraryName": "react-time-picker",
+            "asOfVersion": "6.0.0"
         },
         "react-toast-notifications": {
             "libraryName": "react-toast-notifications",
@@ -4423,6 +4851,10 @@
             "libraryName": "resumablejs",
             "asOfVersion": "1.1.0"
         },
+        "retry-as-promised": {
+            "libraryName": "retry-as-promised",
+            "asOfVersion": "7.0.3"
+        },
         "rev-hash": {
             "libraryName": "rev-hash",
             "asOfVersion": "3.0.0"
@@ -4442,6 +4874,10 @@
         "rgb2hex": {
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
+        },
+        "rimraf": {
+            "libraryName": "rimraf",
+            "asOfVersion": "4.0.5"
         },
         "riot": {
             "libraryName": "riot",
@@ -4538,6 +4974,10 @@
         "sanitize-filename": {
             "libraryName": "sanitize-filename",
             "asOfVersion": "1.6.3"
+        },
+        "sass": {
+            "libraryName": "sass",
+            "asOfVersion": "1.45.0"
         },
         "sass-webpack-plugin": {
             "libraryName": "sass-webpack-plugin",
@@ -4803,6 +5243,10 @@
             "libraryName": "stacktrace-js",
             "asOfVersion": "2.0.1"
         },
+        "standard-engine": {
+            "libraryName": "standard-engine",
+            "asOfVersion": "15.0.0"
+        },
         "stellar-base": {
             "libraryName": "stellar-base",
             "asOfVersion": "0.13.2"
@@ -4947,6 +5391,10 @@
             "libraryName": "strong-error-handler",
             "asOfVersion": "3.2.0"
         },
+        "structured-source": {
+            "libraryName": "structured-source",
+            "asOfVersion": "4.0.0"
+        },
         "styled-jsx": {
             "libraryName": "styled-jsx",
             "asOfVersion": "3.4.4"
@@ -4983,6 +5431,10 @@
             "libraryName": "svg-pan-zoom",
             "asOfVersion": "3.4.0"
         },
+        "svg-path-bbox": {
+            "libraryName": "svg-path-bbox",
+            "asOfVersion": "1.1.0"
+        },
         "svg-tag-names": {
             "libraryName": "svg-tag-names",
             "asOfVersion": "3.0.0"
@@ -4990,6 +5442,10 @@
         "svg.js": {
             "libraryName": "svg.js",
             "asOfVersion": "2.3.1"
+        },
+        "svgo": {
+            "libraryName": "svgo",
+            "asOfVersion": "3.0.0"
         },
         "swagger-parser": {
             "libraryName": "swagger-parser",
@@ -5002,6 +5458,10 @@
         "sweetalert": {
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
+        },
+        "swell-js": {
+            "libraryName": "swell-js",
+            "asOfVersion": "3.19.3"
         },
         "swiper": {
             "libraryName": "swiper",
@@ -5026,6 +5486,14 @@
         "tabris-plugin-firebase": {
             "libraryName": "tabris-plugin-firebase",
             "asOfVersion": "2.1.0"
+        },
+        "tailwindcss": {
+            "libraryName": "tailwindcss",
+            "asOfVersion": "3.1.0"
+        },
+        "tailwindcss__typography": {
+            "libraryName": "@tailwindcss/typography",
+            "asOfVersion": "0.5.6"
         },
         "tcomb": {
             "libraryName": "tcomb",
@@ -5183,6 +5651,10 @@
             "libraryName": "@tweenjs/tween.js",
             "asOfVersion": "18.6.1"
         },
+        "twemoji": {
+            "libraryName": "twemoji",
+            "asOfVersion": "13.1.1"
+        },
         "twilio": {
             "libraryName": "twilio",
             "asOfVersion": "3.19.2"
@@ -5246,6 +5718,10 @@
         "universal-router": {
             "libraryName": "universal-router",
             "asOfVersion": "8.0.0"
+        },
+        "unix-permissions": {
+            "libraryName": "unix-permissions",
+            "asOfVersion": "4.1.0"
         },
         "unsplash-js": {
             "libraryName": "unsplash-js",
@@ -5491,6 +5967,10 @@
             "libraryName": "wix-style-react",
             "asOfVersion": "7.47.1"
         },
+        "wojtekmaj__react-daterange-picker": {
+            "libraryName": "@wojtekmaj/react-daterange-picker",
+            "asOfVersion": "5.0.1"
+        },
         "wolfy87-eventemitter": {
             "libraryName": "wolfy87-eventemitter",
             "asOfVersion": "5.2.0"
@@ -5527,6 +6007,22 @@
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
         },
+        "wordpress__compose": {
+            "libraryName": "@wordpress/compose",
+            "asOfVersion": "6.1.0"
+        },
+        "wordpress__core-data": {
+            "libraryName": "@wordpress/core-data",
+            "asOfVersion": "5.0.0"
+        },
+        "wordpress__data": {
+            "libraryName": "@wordpress/data",
+            "asOfVersion": "7.0.0"
+        },
+        "wordpress__data-controls": {
+            "libraryName": "@wordpress/data-controls",
+            "asOfVersion": "3.0.0"
+        },
         "wordpress__dependency-extraction-webpack-plugin": {
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
             "asOfVersion": "2.7.0"
@@ -5559,6 +6055,10 @@
             "libraryName": "@wordpress/is-shallow-equal",
             "asOfVersion": "2.0.0"
         },
+        "wordpress__jest-console": {
+            "libraryName": "@wordpress/jest-console",
+            "asOfVersion": "5.2.0"
+        },
         "wordpress__priority-queue": {
             "libraryName": "@wordpress/priority-queue",
             "asOfVersion": "1.6.0"
@@ -5574,6 +6074,66 @@
         "words-to-numbers": {
             "libraryName": "words-to-numbers",
             "asOfVersion": "1.3.0"
+        },
+        "workbox-background-sync": {
+            "libraryName": "workbox-background-sync",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-broadcast-update": {
+            "libraryName": "workbox-broadcast-update",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-build": {
+            "libraryName": "workbox-build",
+            "asOfVersion": "5.1.0"
+        },
+        "workbox-cacheable-response": {
+            "libraryName": "workbox-cacheable-response",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-core": {
+            "libraryName": "workbox-core",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-expiration": {
+            "libraryName": "workbox-expiration",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-google-analytics": {
+            "libraryName": "workbox-google-analytics",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-navigation-preload": {
+            "libraryName": "workbox-navigation-preload",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-precaching": {
+            "libraryName": "workbox-precaching",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-range-requests": {
+            "libraryName": "workbox-range-requests",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-routing": {
+            "libraryName": "workbox-routing",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-strategies": {
+            "libraryName": "workbox-strategies",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-streams": {
+            "libraryName": "workbox-streams",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-webpack-plugin": {
+            "libraryName": "workbox-webpack-plugin",
+            "asOfVersion": "6.0.0"
+        },
+        "workbox-window": {
+            "libraryName": "workbox-window",
+            "asOfVersion": "5.0.0"
         },
         "wouter": {
             "libraryName": "wouter",
@@ -5654,6 +6214,10 @@
         "yoctodelay": {
             "libraryName": "yoctodelay",
             "asOfVersion": "1.2.0"
+        },
+        "yup": {
+            "libraryName": "yup",
+            "asOfVersion": "0.32.0"
         },
         "z-schema": {
             "libraryName": "z-schema",

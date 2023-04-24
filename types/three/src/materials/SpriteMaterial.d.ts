@@ -1,5 +1,4 @@
-import { ColorRepresentation } from '../utils';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
 
@@ -9,6 +8,7 @@ export interface SpriteMaterialParameters extends MaterialParameters {
     alphaMap?: Texture | null | undefined;
     rotation?: number | undefined;
     sizeAttenuation?: boolean | undefined;
+    fog?: boolean | undefined;
 }
 
 export class SpriteMaterial extends Material {
@@ -47,6 +47,12 @@ export class SpriteMaterial extends Material {
      * @default true
      */
     transparent: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     readonly isSpriteMaterial: true;
 

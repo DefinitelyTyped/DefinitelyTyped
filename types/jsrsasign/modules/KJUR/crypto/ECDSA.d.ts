@@ -14,7 +14,7 @@ declare namespace jsrsasign.KJUR.crypto {
      * - secp384r1, NIST P-384, P-384 (*)
      */
     class ECDSA {
-        constructor(publicKey?: { curve: string; pub?: string | undefined });
+        constructor(publicKey?: { curve?: string | undefined; pub?: string | undefined; prv?: string | undefined });
 
         getBigRandom(limit: number): BigInteger;
         setNamedCurve(curveName: string): void;
@@ -49,6 +49,16 @@ declare namespace jsrsasign.KJUR.crypto {
          * var prvhex = keypair.ecprvhex; // hexadecimal string of EC private key (=d)
          */
         generateKeyPairHex(): { ecprvhex: string; ecpubhex: string };
+
+        /**
+         * generate public key for EC private key
+         * @return associative array of hexadecimal string of private and public key
+         * @example
+         * var ec = new KJUR.crypto.ECDSA({'curve': 'secp256r1', 'prv': prvHex});
+         * var pubhex = ec.generatePublicKeyHex(); // hexadecimal string of EC public key
+         * var pub ec.getPublicKeyXYHex() → { x: '01bacf...', y: 'c3bc22...' }
+         */
+         generatePublicKeyHex(): string;
 
         /**
          * signing to message hash

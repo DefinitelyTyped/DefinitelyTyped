@@ -1,10 +1,19 @@
-import { AllowOptionalDependencies, DeltaResult, Dependency, Graph, Module, SerializerOptions } from 'metro';
+import type {
+    AllowOptionalDependencies,
+    DeltaResult,
+    Dependency,
+    Module,
+    ReadOnlyGraph,
+    SerializerOptions,
+} from 'metro';
+import CountingSet from 'metro/lib/CountingSet';
 
 export const dependency: Dependency = {
     absolutePath: 'abspath',
     data: {
         name: 'name',
         data: {
+            key: 'key',
             asyncType: 'prefetch',
             isOptional: true,
             locs: [],
@@ -14,7 +23,7 @@ export const dependency: Dependency = {
 
 export const module: Module = {
     dependencies: new Map().set('dep', dependency),
-    inverseDependencies: new Set(['d1', 'd2']),
+    inverseDependencies: new CountingSet(['d1', 'd2']),
     output: [],
     path: 'path',
     getSource: (): Buffer => {
@@ -22,10 +31,9 @@ export const module: Module = {
     },
 };
 
-export const graph: Graph = {
+export const graph: ReadOnlyGraph = {
     dependencies: new Map().set('mod', module),
-    importBundleNames: new Set(),
-    entryPoints: ['entry'],
+    entryPoints: new Set(['entry']),
     transformOptions: {
         dev: true,
         hot: true,
@@ -52,9 +60,11 @@ export const serializerOptions: SerializerOptions = {
     createModuleId: (filePath: string): number => 123,
     dev: true,
     getRunModuleStatement: (moduleId: string | number) => 'abc',
+    includeAsyncPaths: true,
     modulesOnly: false,
     processModuleFilter: (module: Module): boolean => true,
     projectRoot: 'root',
+    serverRoot: 'root',
     runBeforeMainModule: [],
     runModule: true,
 };

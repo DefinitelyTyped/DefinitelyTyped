@@ -1,4 +1,4 @@
-// Type definitions for Sortable.js 1.10
+// Type definitions for Sortable.js 1.15
 // Project: https://github.com/RubaXa/Sortable
 // Definitions by: Maw-Fox <https://github.com/Maw-Fox>
 //                 Maarten Staa <https://github.com/maartenstaa>
@@ -83,8 +83,9 @@ declare class Sortable {
     /**
      * Sorts the elements according to the array.
      * @param order an array of strings to sort.
+     * @param useAnimation default: false.
      */
-    sort(order: ReadonlyArray<string>): void;
+    sort(order: ReadonlyArray<string>, useAnimation?: boolean): void;
 
     /**
      * Saving and restoring of the sort.
@@ -129,6 +130,10 @@ declare namespace Sortable {
          * dragged element
          */
         item: HTMLElement;
+        /**
+         * dragged elements
+         */
+        items: HTMLElement[];
         /**
          * new index within parent
          */
@@ -491,6 +496,18 @@ declare namespace Sortable {
          * @param state a class's state.
          */
         toggleClass(element: HTMLElement, name: string, state: boolean): void;
+
+        /**
+         * Selects the provided multi-drag item
+         * @param element The element to be selected
+         */
+        select(element: HTMLElement): void;
+
+        /**
+         * Deselects the provided multi-drag item
+         * @param element The element to be deselected
+         */
+        deselect(element: HTMLElement): void;
     }
 
     interface DOMRect {

@@ -3,14 +3,18 @@ import { init } from 'zfont';
 
 init(zdog);
 
-new zdog.Font(); // $ExpectError
-new zdog.Font({}); // $ExpectError
+// @ts-expect-error
+new zdog.Font();
+// @ts-expect-error
+new zdog.Font({});
 const font = new zdog.Font({ src: './path/to/font.ttf' });
 
 font.waitForLoad(); // $ExpectType Promise<void>
 
-new zdog.Text(); // $ExpectError
-new zdog.Text({}); // $ExpectError
+// @ts-expect-error
+new zdog.Text();
+// @ts-expect-error
+new zdog.Text({});
 const text = new zdog.Text({ font });
 new zdog.Text({ font, value: 'a' });
 new zdog.Text({ font, value: ['a', 'b'] });
@@ -28,8 +32,10 @@ text.fontSize; // $ExpectType number
 text.textAlign; // $ExpectType TextAlign
 text.textBaseline; // $ExpectType TextBaseline
 
-new zdog.TextGroup(); // $ExpectError
-new zdog.TextGroup({}); // $ExpectError
+// @ts-expect-error
+new zdog.TextGroup();
+// @ts-expect-error
+new zdog.TextGroup({});
 const textGroup = new zdog.TextGroup({ font });
 new zdog.TextGroup({ font, value: 'a' });
 new zdog.TextGroup({ font, value: ['a', 'b'] });

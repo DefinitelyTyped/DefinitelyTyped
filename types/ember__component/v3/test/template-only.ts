@@ -4,4 +4,5 @@ const to = templateOnly(); // $ExpectType TemplateOnlyComponent
 
 to.toString(); // $ExpectType string
 
-new TemplateOnlyComponent(); // $ExpectError
+// @ts-expect-error
+new TemplateOnlyComponent();

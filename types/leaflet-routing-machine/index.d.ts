@@ -83,17 +83,17 @@ declare module 'leaflet' {
             draggableWaypoints?: boolean | undefined;
             dragStyles?: PathOptions[] | undefined;
             maxGeocoderTolerance?: number | undefined;
-            geocoderPlaceholder?: ((waypointIndex: number, numberWaypoints: number) => string) | undefined;
+            geocoderPlaceholder?: ((waypointIndex: number, numberOfWaypoints: number) => string) | undefined;
             geocodersClassName?: string | undefined;
-            geocoderClass?: ((waypointIndex: number, numberWaypoints: number) => void) | undefined;
+            geocoderClass?: ((waypointIndex: number, numberOfWaypoints: number) => void) | undefined;
             waypointNameFallback?: ((latLng: LatLng) => string) | undefined;
-            createGeocoder?: ((waypointIndex: number, numberWaypoints: number, plan: Plan) => {}) | undefined;
+            createGeocoder?: ((waypointIndex: number, numberOfWaypoints: number, plan: Plan) => {}) | undefined;
             addButtonClassName?: string | undefined;
-            createMarker?: ((waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => Marker) | undefined;
+            createMarker?: ((waypointIndex: number, waypoint: Waypoint, numberOfWaypoints: number) => Marker | boolean) | undefined;
             routeWhileDragging?: boolean | undefined;
             reverseWaypoints?: boolean | undefined;
             language?: string | undefined;
-            createGeocoderElement?: ((waypoint: Waypoint, waypointIndex: number, numberWaypoints: number, options: PlanOptions) => GeocoderElement) | undefined;
+            createGeocoderElement?: ((waypoint: Waypoint, waypointIndex: number, numberOfWaypoints: number, options: PlanOptions) => GeocoderElement) | undefined;
         }
 
         class Line extends LayerGroup {
@@ -192,7 +192,7 @@ declare module 'leaflet' {
         }
 
         class GeocoderElement {
-            constructor(wp: Waypoint, i: number, numberWaypoints: number, options: GeocoderElementOptions);
+            constructor(waypoint: Waypoint, i: number, numberOfWaypoints: number, options: GeocoderElementOptions);
 
             getContainer(): HTMLElement;
             setValue(v: any): void;
@@ -202,7 +202,7 @@ declare module 'leaflet' {
 
         interface GeocoderElementOptions {
             createGeocoder?: ((i: number, nWps: number, options: GeocoderElementOptions) => any) | undefined;
-            geocoderPlaceholder?: ((i: number, numberWaypoints: number, geocoderElement: GeocoderElement) => string) | undefined;
+            geocoderPlaceholder?: ((i: number, numberOfWaypoints: number, geocoderElement: GeocoderElement) => string) | undefined;
             geocoderClass?: (() => string) | undefined;
             waypointNameFallback?: ((latLng: LatLng) => string) | undefined;
             maxGeocoderTolerance?: number | undefined;
@@ -340,7 +340,7 @@ declare module 'leaflet' {
 
         function formatter(options?: FormatterOptions): Formatter;
 
-        function geocoderElement(waypoint: Waypoint, i: number, numberWaypoints: number, options: GeocoderElementOptions): GeocoderElement;
+        function geocoderElement(waypoint: Waypoint, i: number, numberOfWaypoints: number, options: GeocoderElementOptions): GeocoderElement;
 
         function itineraryBuilder(options?: ItineraryBuilderOptions): ItineraryBuilder;
 
@@ -368,7 +368,7 @@ declare module 'leaflet' {
 
         function formatter(options?: Routing.FormatterOptions): Routing.Formatter;
 
-        function geocoderElement(waypoint: Routing.Waypoint, i: number, numberWaypoints: number, options: Routing.GeocoderElementOptions): Routing.GeocoderElement;
+        function geocoderElement(waypoint: Routing.Waypoint, i: number, numberOfWaypoints: number, options: Routing.GeocoderElementOptions): Routing.GeocoderElement;
 
         function itineraryBuilder(options?: Routing.ItineraryBuilderOptions): Routing.ItineraryBuilder;
 

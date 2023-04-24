@@ -1,6 +1,6 @@
 import AttributeElement from './attributeelement';
 import ContainerElement from './containerelement';
-import Document from './document';
+import ViewDocument from './document';
 import DocumentFragment from './documentfragment';
 import DomConverter from './domconverter';
 import EditableElement from './editableelement';
@@ -31,10 +31,10 @@ import View from './view';
  * Read more about changing the view in the {@glink framework/guides/architecture/editing-engine#changing-the-view Changing the view}
  * section of the {@glink framework/guides/architecture/editing-engine Editing engine architecture} guide.
  */
-export default class DowncastWriter {
-    constructor(document: Document);
+export default class DowncastWriter<D extends ViewDocument = ViewDocument> {
+    constructor(document: D);
 
-    readonly document: Document;
+    readonly document: D;
 
     addClass(className: string | string[], element: Element): void;
     breakAttributes(positionOrRange: Position | Range): Position | Range;
@@ -111,8 +111,8 @@ export default class DowncastWriter {
     createText(data: string): Text;
     createUIElement(
         name: string,
-        attributes?: Record<string, string>,
-        renderFunction?: (this: DowncastWriter, domElement: HTMLElement) => void,
+        attributes?: Record<string, string> | null,
+        renderFunction?: (this: UIElement, domElement: Document) => void,
         options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): UIElement;
     insert(

@@ -1,6 +1,7 @@
 {
     "private": true,
+    "type": "module",
     "dependencies": {
-        "boxen": "^4.2.0"
+        "boxen": "^7.0.0"
     }
 }

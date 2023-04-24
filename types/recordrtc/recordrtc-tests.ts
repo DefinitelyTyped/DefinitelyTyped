@@ -35,7 +35,19 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream =>
     instance.setRecordingDuration(fiveMinutes, () => {});
 
     // $ExpectType void
+    instance.getDataURL(dataURL => {
+        console.log({ dataURL });
+    });
+
+    // $ExpectType void
     instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
+    const StereoAudioRecorder = new RecordRTC.StereoAudioRecorder(stream, { desiredSampRate: 1000 });
+    StereoAudioRecorder.record();
+    StereoAudioRecorder.stop((blob: Blob) => {});
+    StereoAudioRecorder.pause();
+    StereoAudioRecorder.resume();
+    StereoAudioRecorder.clearRecordedData();
+    StereoAudioRecorder.onAudioProcessStarted();
 });
 
 const canvas = document.querySelector('canvas')!;
@@ -61,7 +73,7 @@ RecordRTC.getSeekableBlob(new Blob(), outputBlob => {
 RecordRTC.DiskStorage.Fetch((dataUrl, type) => {
     dataUrl; // $ExpectType string
     const check1 = type === 'audioBlob';
-    // $ExpectError
+    // @ts-expect-error
     const check2 = type === 'invalid';
 });
 RecordRTC.DiskStorage.Store({

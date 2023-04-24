@@ -62,33 +62,43 @@ const secureFormsOptionsError = {
 // Init SDK
 const payu = PayU('POS_ID');
 PayU('POS_ID', {dev: true});
-PayU(); // $ExpectError
-PayU(123); // $ExpectError
-PayU('POS_ID', {dev: 'on'}); // $ExpectError
+// @ts-expect-error
+PayU();
+// @ts-expect-error
+PayU(123);
+// @ts-expect-error
+PayU('POS_ID', {dev: 'on'});
 
 // SDK functions
 payu.extractRefReqId('URL_WITH_REF_REQ_ID');
-payu.extractRefReqId(); // $ExpectError
+// @ts-expect-error
+payu.extractRefReqId();
 
 payu.sendCvv('REF_REQ_ID');
-payu.sendCvv(); // $ExpectError
+// @ts-expect-error
+payu.sendCvv();
 
 payu.tokenize();
 payu.tokenize('SINGLE');
-payu.tokenize('UNKNOWN'); // $ExpectError
+// @ts-expect-error
+payu.tokenize('UNKNOWN');
 
 // Init Secure Forms
 const secureForms = payu.secureForms();
 payu.secureForms(secureFormsOptions);
-payu.secureForms('options'); // $ExpectError
-payu.secureForms(secureFormsOptionsError); // $ExpectError
+// @ts-expect-error
+payu.secureForms('options');
+// @ts-expect-error
+payu.secureForms(secureFormsOptionsError);
 
 // Add Secure Forms
 const secureForm = secureForms.add();
 secureForms.add('number');
-secureForms.add('UNKNOWN'); // $ExpectError
+// @ts-expect-error
+secureForms.add('UNKNOWN');
 secureForms.add('cvv', options);
-secureForms.add('cvv', optionsWithError);  // $ExpectError
+// @ts-expect-error
+secureForms.add('cvv', optionsWithError);
 
 // Secure Form Functions
 secureForm
@@ -99,8 +109,13 @@ secureForm
     .update(options)
     .on('ready', () => {});
 
-secureForm.render(); // $ExpectError
-secureForm.update(optionsWithError); // $ExpectError
-secureForm.on(); // $ExpectError
-secureForm.on('xxxx'); // $ExpectError
-secureForm.on('ready'); // $ExpectError
+// @ts-expect-error
+secureForm.render();
+// @ts-expect-error
+secureForm.update(optionsWithError);
+// @ts-expect-error
+secureForm.on();
+// @ts-expect-error
+secureForm.on('xxxx');
+// @ts-expect-error
+secureForm.on('ready');

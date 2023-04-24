@@ -1,4 +1,4 @@
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable no-unnecessary-generics */
 import { BlockInstance } from '@wordpress/blocks';
 import { Autocomplete, ToolbarButton } from '@wordpress/components';
 import { ComponentType, HTMLProps, ReactNode } from 'react';
@@ -6,6 +6,11 @@ import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
 
 declare namespace RichText {
     interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, 'onChange'> {
+        /**
+         * By default, all registered formats are allowed. This setting can be used to fine-tune
+         * the allowed formats.
+         */
+        allowedFormats?: string[] | undefined;
         /**
          * A list of autocompleters to use instead of the default.
          */

@@ -1,8 +1,20 @@
 import IORedis, { RedisOptions } from 'ioredis-mock';
 
+// see https://www.npmjs.com/package/ioredis-mock for MockRedisInput input
 // see https://github.com/luin/ioredis/tree/master/examples
 
+const emptyOption = new IORedis();
+
 const redis = new IORedis({
+    data: {
+        user_next: '3',
+        emails: {
+            'clark@daily.planet': '1',
+            'bruce@wayne.enterprises': '2',
+        },
+        'user:1': { id: '1', username: 'superman', email: 'clark@daily.planet' },
+        'user:2': { id: '2', username: 'batman', email: 'bruce@wayne.enterprises' },
+    },
     port: 1234,
     host: process.env.redisEndpoint,
     username: process.env.redisUsername,
@@ -69,8 +81,8 @@ const f = async () => {
     // now you can see we have one new message
 
     // use xread to read all messages in channel
-    const messages1 = await redis.xread(['STREAMS', channel, 0]);
-    const messages2 = messages1[0][1];
+    const messages1 = await redis.xread('STREAMS', channel, 0);
+    const messages2 = messages1![0][1];
     console.log(`reading messages from channel ${channel}, found ${messages2.length} messages`);
     for (const msg1 of messages2) {
         const msg2 = msg1[1][0].toString();

@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.36
+// Type definitions for react-big-calendar 1.6
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -10,33 +10,57 @@
 //                 Lucas Silva Souza <https://github.com/lksilva>
 //                 Siarhey Belofost <https://github.com/SergeyBelofost>
 //                 Mark Nelissen <https://github.com/marknelissen>
-//                 Eric Kenney <https://github.com/KenneyE>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Jan Michalak <https://github.com/michalak111>
 //                 Tom Price <https://github.com/tomtom5152>
 //                 Daniele Carrucciu <https://github.com/catruzz>
 //                 Chris Frewin <https://github.com/princefishthrower>
+//                 decimoseptimo <https://github.com/decimoseptimo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
 import * as React from 'react';
+import {
+    milliseconds,
+    seconds,
+    minutes,
+    hours,
+    month,
+    startOf,
+    endOf,
+    add,
+    eq,
+    neq,
+    gte,
+    gt,
+    lte,
+    lt,
+    inRange,
+    min,
+    max,
+    Unit,
+    StartOfWeek,
+} from 'date-arithmetic';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export type DayPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
-export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => React.HTMLAttributes<HTMLDivElement>;
+export type EventPropGetter<T> = (
+    event: T,
+    start: Date,
+    end: Date,
+    isSelected: boolean,
+) => { className?: string | undefined; style?: React.CSSProperties };
 export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
 
-export type stringOrDate = string | Date;
+export type stringOrDate = string | Date; // this isn't documented in the official repo, a thorough review is needed as to where stringOrDate or Date applies
 
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
-export type ViewProps<TEvent extends object = Event, TResource extends object = object> =
- Omit<
+export type ViewProps<TEvent extends object = Event, TResource extends object = object> = Omit<
     CalendarProps<TEvent, TResource>,
-    'elementProps' | 'className' | 'style' | 'view' | 'toolbar' | 'components' |
-    'formats' | 'messages' | 'culture'
+    'elementProps' | 'className' | 'style' | 'view' | 'toolbar' | 'components' | 'formats' | 'messages' | 'culture'
 > & {
     date: stringOrDate; // date has always a value, in contrast to optional date in CalendarProps
 
@@ -54,19 +78,21 @@ export type ViewProps<TEvent extends object = Event, TResource extends object = 
     onDoubleClickEvent: any; // = this.handleDoubleClickEvent
     onSelectSlot: any; // = this.handleSelectSlot
 };
-export type ViewsProps<TEvent extends object = Event, TResource extends object = object> = View[] | {
-    work_week?: boolean | React.ComponentType<any> & ViewStatic | undefined,
-    day?: boolean | React.ComponentType<any> & ViewStatic | undefined,
-    agenda?: boolean | React.ComponentType<any> & ViewStatic | undefined,
-    month?: boolean | React.ComponentType<any> & ViewStatic | undefined,
-    week?: boolean | React.ComponentType<any> & ViewStatic | undefined
-};
+export type ViewsProps<TEvent extends object = Event, TResource extends object = object> =
+    | View[]
+    | {
+          work_week?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+          day?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+          agenda?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+          month?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+          week?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+      };
 export type DayLayoutFunction<TEvent extends object = Event> = (_: {
-    events: TEvent[],
-    minimumStartDifference: number,
-    slotMetrics: any,
-    accessors: any,
-}) => Array<{ event: TEvent, style: React.CSSProperties }>;
+    events: TEvent[];
+    minimumStartDifference: number;
+    slotMetrics: any;
+    accessors: any;
+}) => Array<{ event: TEvent; style: React.CSSProperties }>;
 export type DayLayoutAlgorithm = 'overlap' | 'no-overlap';
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
@@ -171,49 +197,65 @@ export interface DateHeaderProps {
     onDrillDown: () => void;
 }
 
-export interface ResourceHeaderProps {
+export interface ResourceHeaderProps<TResource extends object = object> {
     label: React.ReactNode;
     index: number;
-    resource: object;
+    resource: TResource;
+}
+
+export interface DateCellWrapperProps {
+    range: Date[];
+    value: Date;
+    children: JSX.Element;
 }
 
 export interface Components<TEvent extends object = Event, TResource extends object = object> {
     event?: React.ComponentType<EventProps<TEvent>> | undefined;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>> | undefined;
     eventContainerWrapper?: React.ComponentType | undefined;
-    dateCellWrapper?: React.ComponentType | undefined;
+    dateCellWrapper?: React.ComponentType<DateCellWrapperProps> | undefined;
     dayColumnWrapper?: React.ComponentType | undefined;
     timeSlotWrapper?: React.ComponentType | undefined;
     timeGutterHeader?: React.ComponentType | undefined;
     timeGutterWrapper?: React.ComponentType | undefined;
     toolbar?: React.ComponentType<ToolbarProps<TEvent, TResource>> | undefined;
-    agenda?: {
-        date?: React.ComponentType | undefined;
-        time?: React.ComponentType | undefined;
-        event?: React.ComponentType<EventProps<TEvent>> | undefined;
-    } | undefined;
-    day?: {
-        header?: React.ComponentType<HeaderProps> | undefined;
-        event?: React.ComponentType<EventProps<TEvent>> | undefined;
-    } | undefined;
-    week?: {
-        header?: React.ComponentType<HeaderProps> | undefined;
-        event?: React.ComponentType<EventProps<TEvent>> | undefined;
-    } | undefined;
-    work_week?: {
-      header?: React.ComponentType<HeaderProps> | undefined;
-      event?: React.ComponentType<EventProps<TEvent>> | undefined;
-    } | undefined;
-    month?: {
-        header?: React.ComponentType<HeaderProps> | undefined;
-        dateHeader?: React.ComponentType<DateHeaderProps> | undefined;
-        event?: React.ComponentType<EventProps<TEvent>> | undefined;
-    } | undefined;
+    agenda?:
+        | {
+              date?: React.ComponentType | undefined;
+              time?: React.ComponentType | undefined;
+              event?: React.ComponentType<EventProps<TEvent>> | undefined;
+          }
+        | undefined;
+    day?:
+        | {
+              header?: React.ComponentType<HeaderProps> | undefined;
+              event?: React.ComponentType<EventProps<TEvent>> | undefined;
+          }
+        | undefined;
+    week?:
+        | {
+              header?: React.ComponentType<HeaderProps> | undefined;
+              event?: React.ComponentType<EventProps<TEvent>> | undefined;
+          }
+        | undefined;
+    work_week?:
+        | {
+              header?: React.ComponentType<HeaderProps> | undefined;
+              event?: React.ComponentType<EventProps<TEvent>> | undefined;
+          }
+        | undefined;
+    month?:
+        | {
+              header?: React.ComponentType<HeaderProps> | undefined;
+              dateHeader?: React.ComponentType<DateHeaderProps> | undefined;
+              event?: React.ComponentType<EventProps<TEvent>> | undefined;
+          }
+        | undefined;
     /**
      * component used as a header for each column in the TimeGridHeader
      */
     header?: React.ComponentType<HeaderProps> | undefined;
-    resourceHeader?: React.ComponentType<ResourceHeaderProps> | undefined;
+    resourceHeader?: React.ComponentType<ResourceHeaderProps<TResource>> | undefined;
 }
 
 export interface ToolbarProps<TEvent extends object = Event, TResource extends object = object> {
@@ -240,7 +282,7 @@ export interface EventProps<TEvent extends object = Event> {
 
 export interface EventWrapperProps<TEvent extends object = Event> {
     // https://github.com/intljusticemission/react-big-calendar/blob/27a2656b40ac8729634d24376dff8ea781a66d50/src/TimeGridEvent.js#L28
-    style?: React.CSSProperties & { xOffset: number } | undefined;
+    style?: (React.CSSProperties & { xOffset: number }) | undefined;
     className: string;
     event: TEvent;
     isRtl: boolean;
@@ -282,11 +324,35 @@ export interface Messages {
     noEventsInRange?: string | undefined;
 }
 
+/**
+ * @resourceId For "TimeGrid" views
+ * @bounds For "select" action
+ * @box For "click" or "doubleClick" actions
+ */
 export interface SlotInfo {
-  start: stringOrDate;
-  end: stringOrDate;
-  slots: Date[] | string[];
-  action: 'select' | 'click' | 'doubleClick';
+    start: Date;
+    end: Date;
+    slots: Date[];
+    action: 'select' | 'click' | 'doubleClick';
+    resourceId?: number | string | undefined;
+    bounds?:
+        | {
+              x: number;
+              y: number;
+              top: number;
+              bottom: number;
+              left: number;
+              right: number;
+          }
+        | undefined;
+    box?:
+        | {
+              x: number;
+              y: number;
+              clientX: number;
+              clientY: number;
+          }
+        | undefined;
 }
 
 export type Culture = string;
@@ -294,20 +360,89 @@ export type FormatInput = number | string | Date;
 
 export interface DateLocalizerSpec {
     firstOfWeek: (culture: Culture) => number;
-    format: (value: FormatInput, format: string, culture: Culture) => string;
+    format: (value: FormatInput, format: string, culture?: Culture) => string;
     formats: Formats;
     propType?: Validator<any> | undefined;
+    startOfWeek: StartOfWeek;
+    merge: (date: Date, time: Date) => Date | null;
+    inRange: typeof inRange;
+    lt: typeof lt;
+    lte: typeof lte;
+    gt: typeof gt;
+    gte: typeof gte;
+    eq: typeof eq;
+    neq: typeof neq;
+    startOf: typeof startOf;
+    endOf: typeof endOf;
+    add: typeof add;
+    range: (start: Date, end: Date, unit?: Unit) => Date[];
+    diff: (dateA: Date, dateB: Date, unit?: Unit) => number;
+    ceil: (date: Date, unit: Unit) => Date;
+    min: typeof min;
+    max: typeof max;
+    minutes: typeof minutes;
+    firstVisibleDay: (date: Date, localizer: any) => Date;
+    lastVisibleDay: (date: Date, localizer: any) => Date;
+    visibleDays: (date: Date, localizer: any) => Date[];
+
+    getSlotDate: (date: Date, minutesFromMidnight: number, offset: number) => Date;
+    getTimezoneOffset: (date: Date) => number;
+    getDstOffset: (date: Date, dateB: Date) => number;
+    getTotalMin: (dateA: Date, dateB: Date) => number;
+    getMinutesFromMidnight: (date: Date) => number;
+    continuesPrior: (dateA: Date, dateB: Date) => boolean;
+    continuesAfter: (dateA: Date, dateB: Date, dateC: Date) => boolean;
+    sortEvents: (eventA: Event, eventB: Event) => boolean;
+    inEventRange: (event: Event, range: DateRange) => boolean;
+    isSameDate: (dateA: Date, dateB: Date) => boolean;
+    startAndEndAreDateOnly: (dateA: Date, dateB: Date) => boolean;
+    segmentOffset: number;
 }
 
+// As documented in https://jquense.github.io/react-big-calendar/examples/?path=/docs/guides-localizers--page
 export class DateLocalizer {
     formats: Formats;
     propType: Validator<any>;
-    startOfWeek: (culture: Culture) => number;
+    startOfWeek: (culture: Culture) => StartOfWeek;
 
     constructor(spec: DateLocalizerSpec);
 
-    format(value: FormatInput, format: string, culture: Culture): string;
+    format(value: FormatInput, format: string, culture?: Culture): string;
     messages: Messages;
+
+    merge: (date: Date, time: Date) => Date | null;
+    inRange: typeof inRange;
+    lt: typeof lt;
+    lte: typeof lte;
+    gt: typeof gt;
+    gte: typeof gte;
+    eq: typeof eq;
+    neq: typeof neq;
+    startOf: typeof startOf;
+    endOf: typeof endOf;
+    add: typeof add;
+    range: (start: Date, end: Date, unit?: Unit) => Date[];
+    diff: (dateA: Date, dateB: Date, unit?: Unit) => number;
+    ceil: (date: Date, unit?: Unit) => Date;
+    min: typeof min;
+    max: typeof max;
+    minutes: typeof minutes;
+    firstVisibleDay: (date: Date, localizer: any) => Date;
+    lastVisibleDay: (date: Date, localizer: any) => Date;
+    visibleDays: (date: Date, localizer: any) => Date[];
+
+    getSlotDate: (date: Date, minutesFromMidnight: number, offset: number) => Date;
+    getTimezoneOffset: (date: Date) => number;
+    getDstOffset: (date: Date, dateB: Date) => number;
+    getTotalMin: (dateA: Date, dateB: Date) => number;
+    getMinutesFromMidnight: (date: Date) => number;
+    continuesPrior: (dateA: Date, dateB: Date) => boolean;
+    continuesAfter: (dateA: Date, dateB: Date, dateC: Date) => boolean;
+    sortEvents: (eventA: Event, eventB: Event) => boolean;
+    inEventRange: (event: Event, range: DateRange) => boolean;
+    isSameDate: (dateA: Date, dateB: Date) => boolean;
+    startAndEndAreDateOnly: (dateA: Date, dateB: Date) => boolean;
+    segmentOffset: number;
 }
 
 export interface CalendarProps<TEvent extends object = Event, TResource extends object = object> {
@@ -316,7 +451,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     localizer: DateLocalizer;
 
     date?: stringOrDate | undefined;
-    getNow?: (() => Date) | undefined;
+    getNow?: () => stringOrDate | undefined;
     view?: View | undefined;
     events?: TEvent[] | undefined;
     backgroundEvents?: TEvent[] | undefined;
@@ -328,14 +463,17 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onDoubleClickEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onSelectEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onKeyPressEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
-    onSelecting?: ((range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null) | undefined;
-    onRangeChange?: ((range: Date[] | { start: stringOrDate; end: stringOrDate }, view: View | undefined) => void) | undefined;
+    onSelecting?: (range: { start: Date; end: Date }) => boolean | undefined;
+    onRangeChange?: (range: Date[] | { start: Date; end: Date }, view?: View) => void | undefined;
     showAllEvents?: boolean | undefined;
     selected?: any;
     views?: ViewsProps<TEvent, TResource> | undefined;
     doShowMoreDrillDown?: boolean | undefined;
     drilldownView?: View | null | undefined;
-    getDrilldownView?: ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void) | null | undefined;
+    getDrilldownView?:
+        | ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void)
+        | null
+        | undefined;
     length?: number | undefined;
     toolbar?: boolean | undefined;
     popup?: boolean | undefined;
@@ -350,10 +488,11 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     slotGroupPropGetter?: SlotGroupPropGetter | undefined;
     dayPropGetter?: DayPropGetter | undefined;
     showMultiDayTimes?: boolean | undefined;
-    min?: stringOrDate | undefined;
-    max?: stringOrDate | undefined;
+    min?: Date | undefined;
+    max?: Date | undefined;
     scrollToTime?: Date | undefined;
-    culture?: string | undefined;
+    enableAutoScroll?: boolean | undefined;
+    culture?: Culture | undefined;
     formats?: Formats | undefined;
     components?: Components<TEvent, TResource> | undefined;
     messages?: Messages | undefined;
@@ -368,7 +507,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     resourceIdAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
     resourceTitleAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
     defaultView?: View | undefined;
-    defaultDate?: Date | undefined;
+    defaultDate?: stringOrDate | undefined;
     className?: string | undefined;
     elementProps?: React.HTMLAttributes<HTMLElement> | undefined;
     style?: React.CSSProperties | undefined;
@@ -377,7 +516,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
 
 export interface TitleOptions {
     formats: DateFormat[];
-    culture?: string | undefined;
+    culture?: Culture | undefined;
     [propName: string]: any;
 }
 
@@ -392,19 +531,30 @@ export interface MoveOptions {
     today: Date;
 }
 
-export class Calendar<
-    TEvent extends object = Event,
-    TResource extends object = object
-> extends React.Component<CalendarProps<TEvent, TResource>> {}
+export class Calendar<TEvent extends object = Event, TResource extends object = object> extends React.Component<
+    CalendarProps<TEvent, TResource>
+> {}
 
 export interface components {
+    timeSlotWrapper: React.ComponentType;
     dateCellWrapper: React.ComponentType;
     eventWrapper: React.ComponentType<Event>;
 }
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
 export function dateFnsLocalizer(config: object): DateLocalizer;
-export function luxonLocalizer(config: object): DateLocalizer;
+export function luxonLocalizer(
+    luxonDateTime: object,
+    options?: {
+        /**
+         * Luxon uses 1 based values for month and weekday
+         * So we default to Sunday (7)
+         * @default 7
+         */
+        firstDayOfWeek: number;
+    },
+): DateLocalizer;
+export function dayjsLocalizer(dayjs: object): DateLocalizer;
 
 export const Navigate: {
     PREVIOUS: 'PREV';
@@ -429,8 +579,8 @@ export interface TimeGridProps<TEvent extends object = Event, TResource extends 
     step?: number | undefined;
     timeslots?: number | undefined;
     range?: any[] | undefined;
-    min?: stringOrDate | undefined;
-    max?: stringOrDate | undefined;
+    min?: Date | undefined;
+    max?: Date | undefined;
     getNow?: (() => Date) | undefined;
     scrollToTime?: Date | undefined;
     showMultiDayTimes?: boolean | undefined;
@@ -444,19 +594,17 @@ export interface TimeGridProps<TEvent extends object = Event, TResource extends 
     selectable?: boolean | 'ignoreEvents' | undefined;
     longPressThreshold?: number | undefined;
     onNavigate?: ((action: NavigateAction) => void) | undefined;
-    onSelectSlot?: ((slotInfo: {
-        start: stringOrDate;
-        end: stringOrDate;
-        slots: Date[] | string[];
-        action: 'select' | 'click' | 'doubleClick';
-    }) => void) | undefined;
+    onSelectSlot?: ((slotInfo: SlotInfo) => void) | undefined;
     onSelectEnd?: ((...args: any[]) => any) | undefined;
     onSelectStart?: ((...args: any[]) => any) | undefined;
     onSelectEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onDoubleClickEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onKeyPressEvent?: ((...args: any[]) => any) | undefined;
     onDrillDown?: ((date: Date, view: View) => void) | undefined;
-    getDrilldownView?: ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void) | null | undefined;
+    getDrilldownView?:
+        | ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void)
+        | null
+        | undefined;
     dayLayoutAlgorithm?: any;
 }
 

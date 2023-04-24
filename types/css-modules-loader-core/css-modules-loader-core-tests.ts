@@ -12,7 +12,7 @@ const withPlugins = new Core([
 ]);
 const withDefaultPlugins = new Core(Core.defaultPlugins);
 
-// $ExpectError
+// @ts-expect-error
 const noArray = new Core(Core.values);
 
 // Validating the source can be anything that has toString() defined

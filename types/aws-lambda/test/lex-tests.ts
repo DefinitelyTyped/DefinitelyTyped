@@ -133,10 +133,11 @@ lexSlotDetail.resolutions[1];
 lexSlotDetail.resolutions[2];
 lexSlotDetail.resolutions[3];
 lexSlotDetail.resolutions[4];
-lexSlotDetail.resolutions[5]; // $ExpectError
+// @ts-expect-error
+lexSlotDetail.resolutions[5];
 
 lexSlotDetail = {
-    // $ExpectError
+    // @ts-expect-error
     resolutions: [
         { value: 'value0' },
         { value: 'value1' },

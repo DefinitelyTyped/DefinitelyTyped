@@ -33,7 +33,8 @@ const tom = Person2.create({
     name: 'Tom Dale',
 });
 
-const badTom = Person2.create({ name: 99 }); // $ExpectError
+// @ts-expect-error
+const badTom = Person2.create({ name: 99 });
 
 const yehuda = Person2.createPerson('Yehuda Katz');
 

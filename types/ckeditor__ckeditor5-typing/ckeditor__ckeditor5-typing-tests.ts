@@ -11,16 +11,18 @@ import {
     TextTransformation,
     TextWatcher,
     TwoStepCaretMovement,
-    Typing
+    Typing,
 } from '@ckeditor/ckeditor5-typing';
 import DeleteCommand from '@ckeditor/ckeditor5-typing/src/deletecommand';
 import InputCommand from '@ckeditor/ckeditor5-typing/src/inputcommand';
 import {
     TextTransformationConfig,
-    TextTransformationDescription
+    TextTransformationDescription,
 } from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import findAttributeRange from '@ckeditor/ckeditor5-typing/src/utils/findattributerange';
-import injectUnsafeKeystrokesHandling, { isNonTypingKeystroke } from '@ckeditor/ckeditor5-typing/src/utils/injectunsafekeystrokeshandling';
+import injectUnsafeKeystrokesHandling, {
+    isNonTypingKeystroke,
+} from '@ckeditor/ckeditor5-typing/src/utils/injectunsafekeystrokeshandling';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -37,6 +39,15 @@ del.init();
 
 const textWatcher = new TextWatcher(new Model(), foo => foo.startsWith('bar'));
 textWatcher.hasMatch === textWatcher.testCallback('foo');
+
+textWatcher.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<TextWatcher, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+textWatcher.set('foo');
 
 const twoStep = new TwoStepCaretMovement(editor);
 twoStep.init();
@@ -95,4 +106,4 @@ editor.commands.get('InputCommand');
 editor.commands.get('DeleteCommand');
 
 // $ExpectType boolean
-isNonTypingKeystroke(new KeyEventData(new View(new StylesProcessor()), new KeyboardEvent("foo")));
+isNonTypingKeystroke(new KeyEventData(new View(new StylesProcessor()), new KeyboardEvent('foo')));

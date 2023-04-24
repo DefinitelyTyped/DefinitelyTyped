@@ -91,13 +91,13 @@ interface NonDeepMutableExtendedUser {
     const replacedUser01 = Immutable.replace(user1, { firstName: 'Super', lastName: 'Monkey' });
     const replacedUser02 = Immutable.replace(user1, { firstName: 'Super', lastName: 'Monkey' }, { deep: true });
 
-    // $ExpectError
+    // @ts-expect-error
     user1.firstName = 'Untouchable';
     // asMutable on object
     const mutableObject = Immutable.asMutable(user1);
     mutableObject.firstName = 'Sedated';
 
-    // $ExpectError
+    // @ts-expect-error
     users.push('Super');
     // asMutable on array
     const mutableArray = Immutable.asMutable(users);
@@ -111,17 +111,17 @@ interface NonDeepMutableExtendedUser {
     const array: Immutable.Immutable<User[]> = Immutable.from([ { firstName: 'Angry', lastName: 'Monkey' } ]);
 
     const immutableElement: Immutable.Immutable<User> = array[0];
-    // $ExpectError
+    // @ts-expect-error
     immutableElement.firstName = 'Krusty';
 
     const asMutableDefault: Array<Immutable.Immutable<User>> = array.asMutable();
     // Can't mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
-    // $ExpectError
+    // @ts-expect-error
     asMutableDefault[0].firstName = 'Krusty';
 
     const asMutableNotDeep: Array<Immutable.Immutable<User>> = array.asMutable({ deep: false });
     // Can't mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
-    // $ExpectError
+    // @ts-expect-error
     asMutableNotDeep[0].firstName = 'Krusty';
 
     // Can mutate at any depth
@@ -257,13 +257,13 @@ interface NonDeepMutableExtendedUser {
     // Can't mutate beyond 1 level deep
     const mutableUser21 = immutableUserEx.asMutable();
     mutableUser21.firstName = 'Krusty';
-    // $ExpectError
+    // @ts-expect-error
     mutableUser21.address.line1 = 'Example';
 
     // Can't mutate beyond 1 level deep
     const mutableUser22 = immutableUserEx.asMutable({ deep: false });
     mutableUser22.firstName = 'Krusty';
-    // $ExpectError
+    // @ts-expect-error
     mutableUser22.address.line1 = 'Example';
 
     // Can mutate at any depth

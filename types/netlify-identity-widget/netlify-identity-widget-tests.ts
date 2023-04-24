@@ -82,12 +82,12 @@ NetlifyIdentityWidget.off('error', (err) => {});
 const user = NetlifyIdentityWidget.currentUser();
 
 // User could be null
-// $ExpectError
+// @ts-expect-error
 const userID = user.id;
 
 if (user != null) {
   // user_metadata could be null
-  // $ExpectError
+  // @ts-expect-error
   const name = user.user_metadata.full_name;
 
   if (user.user_metadata != null) {

@@ -19,7 +19,7 @@ InlineEditor.create('', { placeholder: 'foo' }).then(editor => {
         editor,
         new InlineEditorUIView(new Locale(), new View(new StylesProcessor())),
     );
-    // $ExpectError
+    // @ts-expect-error
     inlineEditorUI.init(document.createElement('div'));
     inlineEditorUI.init();
     new InlineEditorUIView(new Locale(), new View(new StylesProcessor()), document.createElement('div'), {
@@ -28,7 +28,7 @@ InlineEditor.create('', { placeholder: 'foo' }).then(editor => {
 });
 
 const htmlElement: HTMLElement = document.createElement('div');
-// $ExpectError
+// @ts-expect-error
 new InlineEditor();
 
 class MyPlugin extends Plugin {
@@ -39,11 +39,11 @@ class MyPlugin extends Plugin {
     let editor = await InlineEditor.create('foo');
     editor = await InlineEditor.create(htmlElement);
     editor = await InlineEditor.create(htmlElement, { plugins: [MyPlugin] });
-    // $ExpectError
+    // @ts-expect-error
     editor.create();
     const str: string = editor.getData();
     editor.setData(str);
-    // $ExpectError
+    // @ts-expect-error
     editor.setData();
     const processor: HtmlDataProcessor = editor.data.processor;
     editor.updateSourceElement();
@@ -53,7 +53,7 @@ class MyPlugin extends Plugin {
     const uiView: InlineEditorUIView = editor.ui.view;
     // $ExpectType number
     uiView.viewportTopOffset;
-    // $ExpectError
+    // @ts-expect-error
     uiView.viewportTopOffset = 4;
 
     editor = await InlineEditor.create(htmlElement, {
@@ -67,9 +67,9 @@ class MyPlugin extends Plugin {
     editor.destroy().then(() => {});
 
     ui.init();
-    // $ExpectError
+    // @ts-expect-error
     ui.init(null);
-    // $ExpectError
+    // @ts-expect-error
     ui.init(htmlElement);
     let bool: boolean = ui.focusTracker.isFocused;
 

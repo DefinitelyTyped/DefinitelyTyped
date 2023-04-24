@@ -12,8 +12,11 @@ import * as R from 'ramda';
     // $ExpectType string
     truncate('0123456789ABC'); // => '0123456789…'
 
+    function notNull<T>(a: T | null | undefined): a is T {
+        return a != null;
+    }
     // $ExpectType (a: number | undefined) => number | undefined
-    const addOneIfNotNil = R.when<undefined | number, number>(x => x != null, R.add(1));
+    const addOneIfNotNil = R.when<undefined | number, number, number>(notNull, R.add(1));
 
     // $ExpectType number | undefined
     const nil = addOneIfNotNil(undefined);

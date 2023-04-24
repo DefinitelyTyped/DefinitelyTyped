@@ -16,7 +16,7 @@ declare class IncomingForm extends EventEmitter {
      *
      * @link https://github.com/node-formidable/formidable#parserequest-callback
      */
-    parse(request: IncomingMessage, callback: (err: any, fields: Fields, files: Files) => void): void;
+    parse(request: IncomingMessage, callback?: (err: any, fields: Fields, files: Files) => void): void;
 
     once(eventName: 'end', listener: () => void): this;
     once(eventName: 'error', listener: (err: any) => void): this;

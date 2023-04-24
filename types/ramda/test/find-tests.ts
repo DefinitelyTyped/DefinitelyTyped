@@ -15,8 +15,8 @@ import * as R from 'ramda';
 
     number = R.find(R.is(Number), unknownArray);
     number = findNumber(unknownArray);
-    // $ExpectError
+    // @ts-expect-error
     string = R.find(R.is(Number), unknownArray);
-    // $ExpectError
+    // @ts-expect-error
     string = findNumber(unknownArray);
 };

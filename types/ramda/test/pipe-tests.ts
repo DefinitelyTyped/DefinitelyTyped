@@ -41,14 +41,14 @@ function shout(x: number): string {
         return n % 2 === 0;
     }
 
-    const a: R.Dictionary<number> = R.pipe(R.filter(isEven))({
+    const a: Record<string, number> = R.pipe(R.filter(isEven))({
         a: 0,
         b: 1,
     }); // => { a: 0 }
 
     const b: number[] = R.pipe(R.filter(isEven))([0, 1]); // => [0]
 
-    const c: R.Dictionary<number> = R.pipe(R.reject(isEven))({
+    const c: Record<string, number> = R.pipe(R.reject(isEven))({
         a: 0,
         b: 1,
     }); // => { b: 1 }
@@ -146,7 +146,7 @@ function shout(x: number): string {
 };
 () => {
     // Expected at least 1 arguments, but got 0
-    // $ExpectError
+    // @ts-expect-error
     const f0 = R.pipe();
     // $ExpectType (x: number, y: number) => number
     const f1 = R.pipe(Math.pow);

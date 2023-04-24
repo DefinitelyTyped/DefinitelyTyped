@@ -30,8 +30,29 @@ const mapiRequest: MapiRequest = directionsService.getDirections({
 });
 
 mapiRequest.send().then((response: MapiResponse) => {
-    const body = response.body as DirectionsResponse;
-    const route = body.routes;
+    const body = response.body;
+    const routes = body.routes;
+    const polyline = routes[0].geometry;
+});
+
+const mapiRequestGeoJSON: MapiRequest = directionsService.getDirections({
+    profile: 'walking',
+    geometries: "geojson",
+    waypoints: [
+        {
+            coordinates: [1, 3],
+        },
+        {
+            coordinates: [2, 4],
+        },
+    ],
+    exclude: [],
+});
+
+mapiRequestGeoJSON.send().then((response: MapiResponse) => {
+    const body = response.body;
+    const routes = body.routes;
+    const coordinates = routes[0].geometry.coordinates;
 });
 
 const mapMatchingService: MapMatchingService = MapMatching(client);
@@ -120,6 +141,39 @@ staticMapService.getStaticImage({
             geoJson: geoOverlay,
         },
     ],
+});
+
+staticMapService.getStaticImage({
+    ownerId: 'owner-id',
+    styleId: 'some-style',
+    width: 16,
+    height: 16,
+    position: 'auto',
+    addlayer: {
+        id: 'better-boundary',
+        type: 'line',
+        source: 'composite',
+        'source-layer': 'admin',
+        filter: [
+            'all',
+            ['==', ['get', 'admin_level'], 1],
+            ['==', ['get', 'maritime'], 'false'],
+            ['match', ['get', 'worldview'], ['all', 'US'], true, false],
+        ],
+        layout: { 'line-join': 'bevel' },
+        paint: { 'line-color': '%236898B3', 'line-width': 1.5, 'line-dasharray': [1.5, 1] },
+    },
+    before_layer: 'road-label',
+});
+
+staticMapService.getStaticImage({
+    ownerId: 'owner-id',
+    styleId: 'some-style',
+    width: 16,
+    height: 16,
+    position: 'auto',
+    setfilter: ['>', 'height', 300],
+    layer_id: 'building',
 });
 
 const geocodeService: GeocodeService = Geocoding(config);

@@ -5,10 +5,10 @@ function testProvider($ariaProvider: angular.aria.IAriaProvider): void {
     // $ExpectType void
     $ariaProvider.config({ariaChecked: true, ariaReadonly: false});
 
-    // $ExpectError
+    // @ts-expect-error
     $ariaProvider.config({ariaDisabled: 44});
 
-    // $ExpectError
+    // @ts-expect-error
     $ariaProvider.config({unknownkey: false});
 }
 
@@ -16,6 +16,6 @@ function testService($aria: angular.aria.IAriaService): void {
     // $ExpectType boolean
     $aria.config('tabindex');
 
-    // $ExpectError
+    // @ts-expect-error
     $aria.config('unknown-string');
 }

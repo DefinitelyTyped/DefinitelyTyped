@@ -3,6 +3,7 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -136,7 +137,7 @@ export function next<M extends AnyFn>(
  * `run.once()`, `run.scheduleOnce()`, `run.next()`, `run.debounce()`, or
  * `run.throttle()`.
  */
-export function cancel(timer: EmberRunTimer): boolean;
+export function cancel(timer?: EmberRunTimer): boolean;
 
 /**
  * Delay calling the target method until the debounce period has elapsed

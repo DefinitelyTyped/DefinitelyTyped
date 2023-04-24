@@ -35,11 +35,7 @@ export function getConnection(
     filters?: Variables | null,
 ): RecordProxy | null | undefined;
 
-export function getConnectionID(
-    recordID: DataID,
-    key: string,
-    filters?: Variables | null,
-): DataID;
+export function getConnectionID(recordID: DataID, key: string, filters?: Variables | null): DataID;
 
 export function insertEdgeAfter(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
 

@@ -321,6 +321,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     value="Hello World"
     onChange={nextContent => console.log(nextContent.toUpperCase())}
     onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
+    allowedFormats={['core/bold', 'core/italic']}
 />;
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: 'blue' }} className="foo" value="Hello World" dir="rtl" />;
@@ -557,3 +558,19 @@ be.useBlockProps.save();
 
 // $ExpectType Record<string, unknown>
 be.useBlockProps.save({ foo: "bar" });
+
+// $ExpectType string
+be.getTypographyClassesAndStyles({}, false).className;
+be.getTypographyClassesAndStyles({}, {}).className;
+be.getTypographyClassesAndStyles({}, {minFontSize: "33"}).className;
+
+// $ExpectType Record<string, string>
+be.getTypographyClassesAndStyles({}, false).style;
+be.getTypographyClassesAndStyles({}, {}).style;
+be.getTypographyClassesAndStyles({}, {minFontSize: "33"}).style;
+
+// $ExpectType "HELLO"
+be.useCachedTruthy("HELLO");
+
+// $ExpectType 42
+be.useCachedTruthy(42);

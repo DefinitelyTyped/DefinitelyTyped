@@ -25,7 +25,7 @@ function loader(this: loader.LoaderContext) {
 
     // get options readonly
     const options = getOptions(this);
-    // $ExpectError
+    // @ts-expect-error
     options.prop = {};
 
     getRemainingRequest(this);

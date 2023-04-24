@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component, { getComponentTemplate, setComponentTemplate } from '@ember/component';
 import Object, { computed, get } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
 import { assertType } from './lib/assert';
@@ -122,8 +122,48 @@ Component.extend({
     },
 });
 
-// $ExpectError
+// @ts-expect-error
 Component.reopen({
     attributeBindings: ['metadata:data-my-metadata'],
-    metadata: ''
+    metadata: '',
 });
+
+interface MySig {
+    Args: {
+        Named: {
+            name: string;
+            age: number;
+        };
+        Positional: [action: () => void];
+    };
+}
+
+// These type helpers are stolen (and tweaked) from Glimmer and Glint internals
+// just to demo that this actually has the expected behavior with a signature
+// and an Ember component
+type GetWithFallback<T, K, Fallback> = K extends keyof T ? T[K] : Fallback;
+type NamedArgsFor<T> = GetWithFallback<GetWithFallback<T, 'Args', {}>, 'Named', object>;
+
+interface SigExample extends NamedArgsFor<MySig> { }
+class SigExample extends Component<MySig> {
+    get accessArgs() {
+        const {
+            name, // $ExpectType string
+            age, // $ExpectType number
+        } = this;
+
+        return `${name} is ${age} years old`;
+    }
+}
+
+// $ExpectType TemplateFactory | undefined
+getComponentTemplate(component1);
+
+// @ts-expect-error
+getComponentTemplate('foo');
+
+// $ExpectType typeof Component
+setComponentTemplate(hbs`foo`, Component);
+
+// @ts-expect-error
+setComponentTemplate('foo', Component);

@@ -8,7 +8,7 @@ import * as R from 'ramda';
     // $ExpectType boolean
     endsWithStringC('abc'); // => true
 
-    // $ExpectError
+    // @ts-expect-error
     R.endsWith(3, [1, 2, 3]);
 
     // $ExpectType (list: readonly number[]) => boolean

@@ -275,13 +275,17 @@ const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
 const combinedStyle6: StyleProp<TextStyle | null> = StyleSheet.compose(null, null);
 
 // The following use of the compose method is invalid:
-const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle); // $ExpectError
+// @ts-expect-error
+const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle);
 
-const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(composeTextStyle, composeTextStyle); // $ExpectError
+// @ts-expect-error
+const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(composeTextStyle, composeTextStyle);
 
-const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose([composeTextStyle], null); // $ExpectError
+// @ts-expect-error
+const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose([composeTextStyle], null);
 
-const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(Math.random() < 0.5 ? composeTextStyle : null, null); // $ExpectError
+// @ts-expect-error
+const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(Math.random() < 0.5 ? composeTextStyle : null, null);
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
@@ -1075,6 +1079,7 @@ class TextTest extends React.Component {
                 numberOfLines={2}
                 onLayout={this.handleOnLayout}
                 onTextLayout={this.handleOnTextLayout}
+                disabled
             >
                 Test text
             </Text>
@@ -1320,7 +1325,7 @@ const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
 const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
   const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
+  return new Promise(() => e.nativeEvent.value);
 }} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
@@ -1472,7 +1477,7 @@ DynamicColorIOS({
 // Test you cannot set internals of ColorValue directly
 const OpaqueTest1 = () => (
     <View
-        // $ExpectError
+        // @ts-expect-error
         style={{
             backgroundColor: {
                 resource_paths: ['?attr/colorControlNormal'],
@@ -1483,7 +1488,7 @@ const OpaqueTest1 = () => (
 
 const OpaqueTest2 = () => (
     <View
-        // $ExpectError
+        // @ts-expect-error
         style={{
             backgroundColor: {
                 semantic: 'string',
@@ -1497,7 +1502,8 @@ const OpaqueTest2 = () => (
 );
 
 // Test you cannot amend opaque type
-PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
+// @ts-expect-error
+PlatformColor('?attr/colorControlNormal').resource_paths.push('foo');
 
 const someColorProp: ColorValue = PlatformColor('test');
 

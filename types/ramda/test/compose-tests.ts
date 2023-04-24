@@ -13,7 +13,7 @@ import * as R from 'ramda';
 
     const wrongCompose = R.compose(
         double,
-        // $ExpectError
+        // @ts-expect-error
         limit10,
     );
     const res: boolean = R.compose(limit10, double)(10);
@@ -54,7 +54,7 @@ import * as R from 'ramda';
 
 () => {
     // Expected at least 1 arguments, but got 0
-    // $ExpectError
+    // @ts-expect-error
     const f0 = R.compose();
     // $ExpectType (x: number, y: number) => number
     const f1 = R.compose(Math.pow);

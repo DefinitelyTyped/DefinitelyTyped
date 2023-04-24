@@ -45,7 +45,8 @@ class Foo extends EmberObject {
     firstName: string;
     lastName: string;
 
-    @action // $ExpectError
+    // @ts-expect-error
+    @action
     bar: string;
 
     @computed('firstName', 'lastName')
@@ -53,7 +54,8 @@ class Foo extends EmberObject {
         return `${this.firstName} ${this.lastName}`;
     }
 
-    @computed('firstName', 'lastName') // $ExpectError
+    // @ts-expect-error
+    @computed('firstName', 'lastName')
     badFullName: string;
 
     @computed('fullName', function (this: Foo) {
@@ -76,164 +78,249 @@ class Bar extends EmberObject {
 
     values: number[];
 
-    @alias aliasTest0: string; // $ExpectError
-    @alias() aliasTest1: string; // $ExpectError
+    // @ts-expect-error
+    @alias aliasTest0: string;
+    // @ts-expect-error
+    @alias() aliasTest1: string;
     @alias('firstName') aliasTest2: string;
 
-    @and andTest0: boolean; // $ExpectError
+    // @ts-expect-error
+    @and andTest0: boolean;
     @and() andTest1: boolean;
     @and('firstName') andTest2: boolean;
     @and('firstName', 'lastName') andTest3: boolean;
 
-    @bool boolTest0: boolean; // $ExpectError
-    @bool() boolTest1: boolean; // $ExpectError
+    // @ts-expect-error
+    @bool boolTest0: boolean;
+    // @ts-expect-error
+    @bool() boolTest1: boolean;
     @bool('firstName') boolTest2: boolean;
 
-    @collect collectTest0: any; // $ExpectError
+    // @ts-expect-error
+    @collect collectTest0: any;
     @collect() collectTest1: any;
     @collect('firstName') collectTest2: any;
 
-    @deprecatingAlias deprecatingAliasTest0: string; // $ExpectError
-    @deprecatingAlias() deprecatingAliasTest1: string; // $ExpectError
+    // @ts-expect-error
+    @deprecatingAlias deprecatingAliasTest0: string;
+    // @ts-expect-error
+    @deprecatingAlias() deprecatingAliasTest1: string;
     @deprecatingAlias('firstName') deprecatingAliasTest2: string;
 
-    @empty emptyTest0: boolean; // $ExpectError
-    @empty() emptyTest1: boolean; // $ExpectError
+    // @ts-expect-error
+    @empty emptyTest0: boolean;
+    // @ts-expect-error
+    @empty() emptyTest1: boolean;
     @empty('firstName') emptyTest2: boolean;
 
-    @equal equalTest0: boolean; // $ExpectError
-    @equal() equalTest1: boolean; // $ExpectError
-    @equal('firstName') equalTest2: boolean; // $ExpectError
+    // @ts-expect-error
+    @equal equalTest0: boolean;
+    // @ts-expect-error
+    @equal() equalTest1: boolean;
+    // @ts-expect-error
+    @equal('firstName') equalTest2: boolean;
     @equal('firstName', 'lastName') equalTest3: boolean;
 
-    @filter filterTest1: string[]; // $ExpectError
-    @filter() filterTest2: string[]; // $ExpectError
-    @filter('firstName') filterTest3: string[]; // $ExpectError
+    // @ts-expect-error
+    @filter filterTest1: string[];
+    // @ts-expect-error
+    @filter() filterTest2: string[];
+    // @ts-expect-error
+    @filter('firstName') filterTest3: string[];
     @filter('firstName', x => x) filterTest4: string[];
-    @filter('firstName', 'secondName', x => x) filterTest5: string[]; // $ExpectError
+    // @ts-expect-error
+    @filter('firstName', 'secondName', x => x) filterTest5: string[];
     @filter('firstName', ['secondName'], x => x) filterTest6: string[];
 
-    @filterBy filterByTest1: any[]; // $ExpectError
-    @filterBy() filterByTest2: any[]; // $ExpectError
-    @filterBy('firstName') filterByTest3: any[]; // $ExpectError
+    // @ts-expect-error
+    @filterBy filterByTest1: any[];
+    // @ts-expect-error
+    @filterBy() filterByTest2: any[];
+    // @ts-expect-error
+    @filterBy('firstName') filterByTest3: any[];
     @filterBy('firstName', 'id') filterByTest4: any[];
 
-    @gt gtTest1: boolean; // $ExpectError
-    @gt() gtTest2: boolean; // $ExpectError
-    @gt('firstName') gtTest3: boolean; // $ExpectError
+    // @ts-expect-error
+    @gt gtTest1: boolean;
+    // @ts-expect-error
+    @gt() gtTest2: boolean;
+    // @ts-expect-error
+    @gt('firstName') gtTest3: boolean;
     @gt('firstName', 3) gtTest4: boolean;
 
-    @gte gteTest1: boolean; // $ExpectError
-    @gte() gteTest2: boolean; // $ExpectError
-    @gte('firstName') gteTest3: boolean; // $ExpectError
+    // @ts-expect-error
+    @gte gteTest1: boolean;
+    // @ts-expect-error
+    @gte() gteTest2: boolean;
+    // @ts-expect-error
+    @gte('firstName') gteTest3: boolean;
     @gte('firstName', 3) gteTest4: boolean;
 
-    @intersect intersectTest1: any; // $ExpectError
+    // @ts-expect-error
+    @intersect intersectTest1: any;
     @intersect() intersectTest2: any;
     @intersect('firstName') intersectTest3: any;
     @intersect('firstName', 'lastName') intersectTest4: any;
 
-    @lt ltTest1: boolean; // $ExpectError
-    @lt() ltTest2: boolean; // $ExpectError
-    @lt('firstName') ltTest3: boolean; // $ExpectError
+    // @ts-expect-error
+    @lt ltTest1: boolean;
+    // @ts-expect-error
+    @lt() ltTest2: boolean;
+    // @ts-expect-error
+    @lt('firstName') ltTest3: boolean;
     @lt('firstName', 3) ltTest4: boolean;
 
-    @lte lteTest1: boolean; // $ExpectError
-    @lte() lteTest2: boolean; // $ExpectError
-    @lte('firstName') lteTest3: boolean; // $ExpectError
+    // @ts-expect-error
+    @lte lteTest1: boolean;
+    // @ts-expect-error
+    @lte() lteTest2: boolean;
+    // @ts-expect-error
+    @lte('firstName') lteTest3: boolean;
     @lte('firstName', 3) lteTest4: boolean;
 
-    @map mapTest1: string[]; // $ExpectError
-    @map() mapTest2: string[]; // $ExpectError
-    @map('firstName') mapTest3: string[]; // $ExpectError
+    // @ts-expect-error
+    @map mapTest1: string[];
+    // @ts-expect-error
+    @map() mapTest2: string[];
+    // @ts-expect-error
+    @map('firstName') mapTest3: string[];
     @map('firstName', x => x) mapTest4: string[];
 
-    @mapBy mapByTest1: any[]; // $ExpectError
-    @mapBy() mapByTest2: any[]; // $ExpectError
-    @mapBy('firstName') mapByTest3: any[]; // $ExpectError
+    // @ts-expect-error
+    @mapBy mapByTest1: any[];
+    // @ts-expect-error
+    @mapBy() mapByTest2: any[];
+    // @ts-expect-error
+    @mapBy('firstName') mapByTest3: any[];
     @mapBy('firstName', 'id') mapByTest4: any[];
 
-    @match matchTest1: boolean; // $ExpectError
-    @match() matchTest2: boolean; // $ExpectError
-    @match('firstName') matchTest3: boolean; // $ExpectError
-    @match('firstName', 'abc') matchTest4: boolean; // $ExpectError
+    // @ts-expect-error
+    @match matchTest1: boolean;
+    // @ts-expect-error
+    @match() matchTest2: boolean;
+    // @ts-expect-error
+    @match('firstName') matchTest3: boolean;
+    // @ts-expect-error
+    @match('firstName', 'abc') matchTest4: boolean;
     @match('firstName', /\s+/) matchTest5: boolean;
 
-    @max maxTest1: number; // $ExpectError
-    @max() maxTest2: number; // $ExpectError
+    // @ts-expect-error
+    @max maxTest1: number;
+    // @ts-expect-error
+    @max() maxTest2: number;
     @max('values') maxTest3: number;
-    @max('values', 'a') maxTest4: number; // $ExpectError
+    // @ts-expect-error
+    @max('values', 'a') maxTest4: number;
 
-    @min minTest1: number; // $ExpectError
-    @min() minTest2: number; // $ExpectError
+    // @ts-expect-error
+    @min minTest1: number;
+    // @ts-expect-error
+    @min() minTest2: number;
     @min('values') minTest3: number;
-    @min('values', 'a') minTest4: number; // $ExpectError
+    // @ts-expect-error
+    @min('values', 'a') minTest4: number;
 
-    @none noneTest1: number; // $ExpectError
-    @none() noneTest2: number; // $ExpectError
+    // @ts-expect-error
+    @none noneTest1: number;
+    // @ts-expect-error
+    @none() noneTest2: number;
     @none('values') noneTest3: number;
-    @none('values', 'a') noneTest4: number; // $ExpectError
+    // @ts-expect-error
+    @none('values', 'a') noneTest4: number;
 
-    @not notTest1: number; // $ExpectError
-    @not() notTest2: number; // $ExpectError
+    // @ts-expect-error
+    @not notTest1: number;
+    // @ts-expect-error
+    @not() notTest2: number;
     @not('values') notTest3: number;
-    @not('values', 'a') notTest4: number; // $ExpectError
+    // @ts-expect-error
+    @not('values', 'a') notTest4: number;
 
-    @notEmpty notEmptyTest1: boolean; // $ExpectError
-    @notEmpty() notEmptyTest2: boolean; // $ExpectError
+    // @ts-expect-error
+    @notEmpty notEmptyTest1: boolean;
+    // @ts-expect-error
+    @notEmpty() notEmptyTest2: boolean;
     @notEmpty('firstName') notEmptyTest3: boolean;
-    @notEmpty('firstName', 'a') notEmptyTest4: boolean; // $ExpectError
+    // @ts-expect-error
+    @notEmpty('firstName', 'a') notEmptyTest4: boolean;
 
-    @oneWay oneWayTest1: boolean; // $ExpectError
-    @oneWay() oneWayTest2: boolean; // $ExpectError
+    // @ts-expect-error
+    @oneWay oneWayTest1: boolean;
+    // @ts-expect-error
+    @oneWay() oneWayTest2: boolean;
     @oneWay('firstName') oneWayTest3: boolean;
-    @oneWay('firstName', 'b') oneWayTest4: boolean; // $ExpectError
+    // @ts-expect-error
+    @oneWay('firstName', 'b') oneWayTest4: boolean;
 
-    @or orTest1: boolean; // $ExpectError
+    // @ts-expect-error
+    @or orTest1: boolean;
     @or() orTest2: boolean;
     @or('firstName') orTest3: boolean;
     @or('firstName', 'lastName') orTest4: boolean;
 
-    @readOnly readOnlyTest1: boolean; // $ExpectError
-    @readOnly() readOnlyTest2: boolean; // $ExpectError
+    // @ts-expect-error
+    @readOnly readOnlyTest1: boolean;
+    // @ts-expect-error
+    @readOnly() readOnlyTest2: boolean;
     @readOnly('firstName') readOnlyTest3: boolean;
 
-    @reads readsTest1: boolean; // $ExpectError
-    @reads() readsTest2: boolean; // $ExpectError
+    // @ts-expect-error
+    @reads readsTest1: boolean;
+    // @ts-expect-error
+    @reads() readsTest2: boolean;
     @reads('firstName') readsTest3: boolean;
-    @reads('firstName', 'a') readsTest4: boolean; // $ExpectError
+    // @ts-expect-error
+    @reads('firstName', 'a') readsTest4: boolean;
 
-    @setDiff setDiffTest1: number; // $ExpectError
-    @setDiff() setDiffTest2: number; // $ExpectError
-    @setDiff('values') setDiffTest3: number; // $ExpectError
+    // @ts-expect-error
+    @setDiff setDiffTest1: number;
+    // @ts-expect-error
+    @setDiff() setDiffTest2: number;
+    // @ts-expect-error
+    @setDiff('values') setDiffTest3: number;
     @setDiff('values', 'otherThing') setDiffTest4: number;
-    @setDiff('values', 'otherThing', 'a') setDiffTest5: number; // $ExpectError
+    // @ts-expect-error
+    @setDiff('values', 'otherThing', 'a') setDiffTest5: number;
 
-    @sort sortTest1: number; // $ExpectError
-    @sort() sortTest2: number; // $ExpectError
-    @sort('values') sortTest3: number; // $ExpectError
+    // @ts-expect-error
+    @sort sortTest1: number;
+    // @ts-expect-error
+    @sort() sortTest2: number;
+    // @ts-expect-error
+    @sort('values') sortTest3: number;
     @sort('values', 'id') sortTest4: number;
-    @sort('values', 'id', 'a') sortTest5: number; // $ExpectError
+    // @ts-expect-error
+    @sort('values', 'id', 'a') sortTest5: number;
     @sort('values', (a, b) => a - b) sortTest6: number;
     @sort('values', ['id'], (a, b) => a - b) sortTest7: number;
-    @sort('values', 'id', (a, b) => a - b) sortTest8: number; // $ExpectError
-    @sort(['id'], (a, b) => a - b) sortTest9: number; // $ExpectError
+    // @ts-expect-error
+    @sort('values', 'id', (a, b) => a - b) sortTest8: number;
+    // @ts-expect-error
+    @sort(['id'], (a, b) => a - b) sortTest9: number;
 
-    @sum sumTest1: number; // $ExpectError
-    @sum() sumTest2: number; // $ExpectError
+    // @ts-expect-error
+    @sum sumTest1: number;
+    // @ts-expect-error
+    @sum() sumTest2: number;
     @sum('values') sumTest3: number;
 
-    @union unionTest1: any; // $ExpectError
+    // @ts-expect-error
+    @union unionTest1: any;
     @union() unionTest2: any;
     @union('firstName') unionTest3: any;
     @union('firstName', 'lastName') unionTest4: any;
 
-    @uniq uniqTest1: number; // $ExpectError
-    @uniq() uniqTest2: number; // $ExpectError
+    // @ts-expect-error
+    @uniq uniqTest1: number;
+    // @ts-expect-error
+    @uniq() uniqTest2: number;
     @uniq('values') uniqTest3: number;
 
-    @uniqBy uniqByTest1: number; // $ExpectError
-    @uniqBy() uniqByTest2: number; // $ExpectError
-    @uniqBy('values') uniqByTest3: number; // $ExpectError
+    // @ts-expect-error
+    @uniqBy uniqByTest1: number;
+    // @ts-expect-error
+    @uniqBy() uniqByTest2: number;
+    // @ts-expect-error
+    @uniqBy('values') uniqByTest3: number;
     @uniqBy('values', 'id') uniqByTest4: number;
 }

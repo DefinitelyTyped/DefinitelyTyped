@@ -7,7 +7,8 @@
 // TypeScript Version: 3.1
 
 import { ComponentType, ReactElement } from 'react';
-import { DecoratorFunction, StoryFn, StoryContext, Parameters, StoryApi } from '@storybook/addons';
+import { DecoratorFunction, StoryFn, Parameters, StoryApi } from '@storybook/addons';
+import { StoryContext } from '@storybook/csf/dist/story';
 
 export interface WrapStoryProps {
     storyFn?: StoryFn | undefined;
@@ -50,7 +51,7 @@ export interface Options {
 
 export function withInfo<A = unknown>(
     story: StoryFn<A>,
-    context: StoryContext
+    context: StoryContext<{ component: any; storyResult: A; }>
 ): ReturnType<DecoratorFunction<A>>;
 
 // Legacy, but supported

@@ -1,9 +1,8 @@
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { Vector2 } from './../math/Vector2';
 import { MaterialParameters, Material } from './Material';
 import { NormalMapTypes } from '../constants';
-import { ColorRepresentation } from '../utils';
 
 export interface MeshToonMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
@@ -31,6 +30,7 @@ export interface MeshToonMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     wireframeLinecap?: string | undefined;
     wireframeLinejoin?: string | undefined;
+    fog?: boolean | undefined;
 }
 
 export class MeshToonMaterial extends Material {
@@ -160,6 +160,12 @@ export class MeshToonMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshToonMaterialParameters): void;
 }

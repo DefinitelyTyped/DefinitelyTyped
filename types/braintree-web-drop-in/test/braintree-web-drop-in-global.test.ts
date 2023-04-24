@@ -1,8 +1,7 @@
 import {
-    Dropin,
+    ChangeActiveViewPayload,
     PaymentMethodRequestablePayload,
     PaymentOptionSelectedPayload,
-    cardPaymentMethodPayload,
 } from 'braintree-web-drop-in';
 
 braintree.dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
@@ -60,7 +59,7 @@ braintree.dropin.create({ authorization: '', container: 'my-div' }, (error, myDr
         },
         googlePay: {
             merchantId: '',
-            googlePayVersion: '',
+            googlePayVersion: 1,
             transactionInfo: {
                 currencyCode: 'USD',
                 totalPriceStatus: 'FINAL',
@@ -94,13 +93,38 @@ braintree.dropin.create({ authorization: '', container: 'my-div' }, (error, myDr
         const myPaymentOption: 'card' | 'paypal' | 'paypalCredit' = paymentOption;
     }
 
+    function onChangeActiveView({ previousViewId, newViewId }: ChangeActiveViewPayload) {
+        const myPreviousView:
+            | 'card'
+            | 'paypal'
+            | 'paypalCredit'
+            | 'venmo'
+            | 'googlePay'
+            | 'applePay'
+            | 'methods'
+            | 'options'
+            | 'delete-confirmation' = previousViewId;
+        const myNewView:
+            | 'card'
+            | 'paypal'
+            | 'paypalCredit'
+            | 'venmo'
+            | 'googlePay'
+            | 'applePay'
+            | 'methods'
+            | 'options'
+            | 'delete-confirmation' = newViewId;
+    }
+
     myDropin.on('noPaymentMethodRequestable', onNoPaymentMethodRequestable);
     myDropin.on('paymentMethodRequestable', onPaymentMethodRequestable);
     myDropin.on('paymentOptionSelected', onPaymentOptionSelected);
+    myDropin.on('changeActiveView', onChangeActiveView);
 
     myDropin.off('noPaymentMethodRequestable', onNoPaymentMethodRequestable);
     myDropin.off('paymentMethodRequestable', onPaymentMethodRequestable);
     myDropin.off('paymentOptionSelected', onPaymentOptionSelected);
+    myDropin.off('changeActiveView', onChangeActiveView);
 
     myDropin.requestPaymentMethod((error, payload) => {
         if (error) {
@@ -126,4 +150,10 @@ braintree.dropin.create({ authorization: '', container: 'my-div' }, (error, myDr
         }
     });
     await myDropin.teardown();
+
+    myDropin.updateConfiguration('paypal', 'amount', '10.00');
+    myDropin.updateConfiguration('paypalCredit', 'amount', '10.00');
+    myDropin.updateConfiguration('applePay', 'paymentRequest', { total: { amount: '10.00' } });
+    myDropin.updateConfiguration('googlePay', 'transactionInfo', { totalPrice: '10.00' });
+    myDropin.updateConfiguration('threeDSecure', 'amount', '10.00');
 })();

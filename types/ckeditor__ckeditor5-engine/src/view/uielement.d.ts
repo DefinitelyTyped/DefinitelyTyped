@@ -1,6 +1,4 @@
-import Document from './document';
 import DomConverter from './domconverter';
-import DowncastWriter from './downcastwriter';
 import Element from './element';
 import View from './view';
 
@@ -23,8 +21,43 @@ import View from './view';
  * {@link module:engine/view/downcastwriter~DowncastWriter#createUIElement `downcastWriter#createUIElement()`} method.
  */
 export default class UIElement extends Element {
-    render(this: DowncastWriter, domDocument: Document, domConverter: DomConverter): HTMLElement;
+    /**
+     * Returns `null` because filler is not needed for UIElements.
+     */
+    getFillerOffset(): null;
+
+    /**
+     * Renders this {@link module:engine/view/uielement~UIElement} to DOM. This method is called by
+     * {@link module:engine/view/domconverter~DomConverter}.
+     * Do not use inheritance to create custom rendering method, replace `render()` method instead:
+     *
+     *    const myUIElement = downcastWriter.createUIElement( 'span' );
+     *    myUIElement.render = function( domDocument, domConverter ) {
+     *      const domElement = this.toDomElement( domDocument );
+     *
+     *      domConverter.setContentOf( domElement, '<b>this is ui element</b>' );
+     *
+     *      return domElement;
+     *    };
+     *
+     * If changes in your UI element should trigger some editor UI update you should call
+     * the {@link module:core/editor/editorui~EditorUI#update `editor.ui.update()`} method
+     * after rendering your UI element.
+     */
+    render(domDocument: Document, domConverter: DomConverter): HTMLElement;
+
+    /**
+     * Creates DOM element based on this view UIElement.
+     * Note that each time this method is called new DOM element is created.
+     */
     toDomElement(domDocument: Document): HTMLElement;
 }
 
+/**
+ * This function injects UI element handling to the given {@link module:engine/view/document~Document document}.
+ *
+ * A callback is added to {@link module:engine/view/document~Document#event:keydown document keydown event}.
+ * The callback handles the situation when right arrow key is pressed and selection is collapsed before a UI element.
+ * Without this handler, it would be impossible to "jump over" UI element using right arrow key.
+ */
 export function injectUiElementHandling(view: View): void;

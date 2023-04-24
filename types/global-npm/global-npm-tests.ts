@@ -13,6 +13,6 @@ npm.load(() => {
 
     npm.commands.view(['typescript'], true, () => {});
 
-    // $ExpectError
+    // @ts-expect-error
     npm.commands.install('typescript', () => {});
 });

@@ -16,14 +16,14 @@ BalloonEditor.create('', { placeholder: 'foo' }).then(editor => {
     });
     editor.ui.editor instanceof Editor;
     const classicEditorUI = new BalloonEditorUI(editor, new EditorUIView());
-    // $ExpectError
+    // @ts-expect-error
     classicEditorUI.init(document.createElement('div'));
     classicEditorUI.init();
     new BalloonEditorUIView(new Locale(), new View(new StylesProcessor()), document.createElement('div'));
 });
 
 const htmlElement: HTMLElement = document.createElement('div');
-// $ExpectError
+// @ts-expect-error
 new BalloonEditor();
 
 class MyPlugin extends Plugin {}
@@ -32,11 +32,11 @@ class MyPlugin extends Plugin {}
     let editor = await BalloonEditor.create('foo');
     editor = await BalloonEditor.create(htmlElement);
     editor = await BalloonEditor.create(htmlElement, { plugins: [MyPlugin] });
-    // $ExpectError
+    // @ts-expect-error
     editor.create();
     const str: string = editor.getData();
     editor.setData(str);
-    // $ExpectError
+    // @ts-expect-error
     editor.setData();
     // $ExpectType HtmlDataProcessor
     editor.data.processor;

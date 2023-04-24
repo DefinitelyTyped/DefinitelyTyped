@@ -1,8 +1,3 @@
-// Type definitions for Google Apps Script 2019-03-25
-// Project: https://developers.google.com/apps-script/
-// Generator: https://github.com/grant/google-apps-script-dts
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAppsScript {
   namespace BigQuery {
     namespace Collection {
@@ -674,7 +669,7 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  interface Bigquery {
+  interface BigQuery {
     Datasets?: BigQuery.Collection.DatasetsCollection | undefined;
     Jobs?: BigQuery.Collection.JobsCollection | undefined;
     Projects?: BigQuery.Collection.ProjectsCollection | undefined;
@@ -795,4 +790,4 @@ declare namespace GoogleAppsScript {
   }
 }
 
-declare var Bigquery: GoogleAppsScript.Bigquery;
+declare var BigQuery: GoogleAppsScript.BigQuery;

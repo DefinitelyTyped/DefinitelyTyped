@@ -26,7 +26,7 @@ import * as R from 'ramda';
         const key = 'name';
 
         if (R.has(key as 'name' | 'weight', foo)) {
-            // $ExpectType { name: unknown; } | { weight: unknown; }
+            // $ExpectType ObjectHavingSome<"name" | "weight">
             const bar = foo;
         }
 
@@ -39,13 +39,21 @@ import * as R from 'ramda';
 
 // The key argument needs to be compatible to string
 () => {
-    R.has(4, {}); // $ExpectError
-    R.has(4); // $ExpectError
-    R.has(R.__, {})(4); // $ExpectError
-    R.has(R.__)({}, 4); // $ExpectError
+    // @ts-expect-error
+    R.has(4, {});
+    // @ts-expect-error
+    R.has(4);
+    // @ts-expect-error
+    R.has(R.__, {})(4);
+    // @ts-expect-error
+    R.has(R.__)({}, 4);
 
-    R.has(null, {}); // $ExpectError
-    R.has(null); // $ExpectError
-    R.has(R.__, {})(null); // $ExpectError
-    R.has(R.__)({}, null); // $ExpectError
+    // @ts-expect-error
+    R.has(null, {});
+    // @ts-expect-error
+    R.has(null);
+    // @ts-expect-error
+    R.has(R.__, {})(null);
+    // @ts-expect-error
+    R.has(R.__)({}, null);
 };

@@ -98,7 +98,7 @@ class RedirectRoute extends Route {
 }
 
 class InvalidRedirect extends Route {
-    // $ExpectError
+    // @ts-expect-error
     redirect(model: {}, a: Transition, anOddArg: any) {
         if (!model) {
             this.transitionTo('there');
@@ -121,11 +121,13 @@ class TransitionToExamples extends Route {
     }
 
     transitionToNonsense() {
-        this.transitionTo({ cannotDoModelHere: true }); // $ExpectError
+        // @ts-expect-error
+        this.transitionTo({ cannotDoModelHere: true });
     }
 
     transitionToBadQP() {
-        this.transitionTo({ queryParams: 12 }); // $ExpectError
+        // @ts-expect-error
+        this.transitionTo({ queryParams: 12 });
     }
 
     transitionToId() {
@@ -228,36 +230,36 @@ class TypedRoute extends Route<ExampleModel> {
 interface InvalidModel { id: number; }
 
 class InvalidTypedRoute extends Route<ExampleModel> {
-    // $ExpectError
+    // @ts-expect-error
     model(params: any): InvalidModel {
       return { id: 123 };
     }
 
-    // $ExpectError
+    // @ts-expect-error
     serialize(model: InvalidModel): number {
         return model.id;
     }
 
-    // $ExpectError
+    // @ts-expect-error
     afterModel(model: InvalidModel): void {
         if (model.id === 0) {
             this.transitionTo('some.other.route');
         }
     }
 
-    // $ExpectError
+    // @ts-expect-error
     redirect(model: InvalidModel): void {
         if (model.id === 0) {
             this.transitionTo('some.other.route');
         }
     }
 
-    // $ExpectError
+    // @ts-expect-error
     setupController(controller: Controller, model: InvalidModel, transition: Transition) {
         controller.set('model', model);
     }
 
-    // $ExpectError
+    // @ts-expect-error
     renderTemplate(controller: Controller, model: InvalidModel) {
         this.render('template', { model });
     }

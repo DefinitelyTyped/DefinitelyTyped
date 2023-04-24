@@ -4,6 +4,9 @@ import cookieParser = require('cookie-parser');
 const app = express();
 app.use(cookieParser('optional secret string'));
 
+const req = null as any as express.Request;
+req.secret; // $ExpectType string | undefined
+
 let obj: object;
 let str: string;
 let notTrue: false;

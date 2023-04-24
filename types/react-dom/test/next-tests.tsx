@@ -1,28 +1,31 @@
 /// <reference types="../next"/>
-import React = require('react');
-import ReactDOMClient = require('react-dom/client');
 
-function createRoot() {
-    const root = ReactDOMClient.createRoot(document.documentElement);
+function preloadTest() {
+    function Component() {
+        ReactDOM.preload('foo', { as: 'style', integrity: 'sad' });
+        ReactDOM.preload('bar', { as: 'font' });
+        ReactDOM.preload('baz', { as: 'script', crossOrigin: 'use-credentials' });
+        ReactDOM.preload('baz', {
+            // @ts-expect-error
+            as: 'title',
+        });
 
-    root.render(<div>initial render</div>);
-
-    // only makes sense for `hydrateRoot`
-    // $ExpectError
-    ReactDOMClient.createRoot(document);
-}
-
-function hydrateRoot() {
-    const hydrateable = ReactDOMClient.hydrateRoot(document, <div>initial render</div>, {
-        identifierPrefix: 'react-18-app',
-        onRecoverableError: error => {
-            console.error(error);
-        },
-    });
-    hydrateable.render(<div>render update</div>);
-    ReactDOMClient.hydrateRoot(document, {
-        // Forgot `initialChildren`
-        // $ExpectError
-        identifierPrefix: 'react-18-app',
-    });
+        ReactDOM.preinit('foo', {
+            as: 'style',
+            crossOrigin: 'anonymous',
+            precedence: 'high',
+            integrity: 'sad',
+        });
+        ReactDOM.preinit('bar', {
+            // @ts-expect-error Only available in preload
+            as: 'font',
+        });
+        ReactDOM.preinit('baz', {
+            as: 'script',
+        });
+        ReactDOM.preinit('baz', {
+            // @ts-expect-error
+            as: 'title',
+        });
+    }
 }

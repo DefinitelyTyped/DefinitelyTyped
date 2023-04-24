@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+         "paths": {
+            "@geakstr/sass-inline-svg": [
+                "geakstr__sass-inline-svg"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "geakstr__sass-inline-svg-tests.ts"
+    ]
+}

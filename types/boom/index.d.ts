@@ -1,7 +1,6 @@
 // Type definitions for boom 7.3
 // Project: https://github.com/hapijs/boom
-// Definitions by: Igor Rogatty <https://github.com/rogatty>
-//                 AJP <https://github.com/AJamesPhillips>
+// Definitions by: AJP <https://github.com/AJamesPhillips>
 //                 Jinesh Shah <https://github.com/jineshshah36>
 //                 Timon van Spronsen <https://github.com/TimonVS>
 //                 Daniel Machado <https://github.com/danielmachado>

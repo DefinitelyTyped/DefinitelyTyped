@@ -49,8 +49,11 @@ import * as R from 'ramda';
 
     type KeyOfUnion<T> = T extends infer U ? keyof U : never;
 
-    // Order of string keys matters. c, a, b ¯\_(ツ)_/¯
-    // $ExpectType Record<"c" | "a" | "b", void>
+    /**
+     * Typescript implementation of union order is not guaranteed and can
+     * change. Therefor using `||` here, which is a feature of $ExpectType
+     */
+    // $ExpectType Record<"c" | "a" | "b", void> || Record<"a" | "b" | "c", void>
     R.map<A | C, Record<KeyOfUnion<A | C>, void>>(
         // $ExpectType (value: string | number) => void
         value => {

@@ -14,7 +14,9 @@ logfmt2.log({foo: 'bar'});
 logfmt.log({foo: 'bar'});
 
 logfmt.stringify({foo: "bar", a: 14, baz: 'hello kitty'});
-logfmt.parse("foo=bar a=14 baz=\"hello kitty\" cool%story=bro f %^asdf code=H12");
+const parsed = logfmt.parse("foo=bar a=14 baz=\"hello kitty\" cool%story=bro f %^asdf code=H12");
+
+parsed.something === true || false || "a string" || null || undefined;
 
 process.stdin.pipe(logfmt.streamParser());
 
@@ -68,7 +70,7 @@ logfmt.log({foo: "bar", a: 14, baz: 'hello kitty'}, process.stderr);
 // logfmt's trick of copying the prototype onto itself seems to trip up
 // TypeScript on module-level member assignment, so this should work but doesn't
 //
-// $ExpectError
+// @ts-expect-error
 logfmt.stream = process.stderr;
 logfmt.log({foo: "bar", a: 14, baz: 'hello kitty'});
 

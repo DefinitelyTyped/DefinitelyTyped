@@ -26,18 +26,21 @@ const onFileResultPromise = asyncBusboy(req, {
 });
 // can't assert via ExpectType because TS4.1 detects OnFileResult as Pick<Result, "fields">
 let assignableToOnFileResult: Promise<OnFileResult> = onFileResultPromise;
-let assignableToResult: Promise<Result> = onFileResultPromise; // $ExpectError
+// @ts-expect-error
+let assignableToResult: Promise<Result> = onFileResultPromise;
 assignableToOnFileResult = assignableToResult; // make sure that OnFileResult is supertype of Result
 
 const onFileResultPromise2 = asyncBusboy(req, { headers: {}, onFile: () => {} });
 // can't assert via ExpectType because TS4.1 detects OnFileResult as Pick<Result, "fields">
 assignableToOnFileResult = onFileResultPromise2;
-assignableToResult = onFileResultPromise2; // $ExpectError
+// @ts-expect-error
+assignableToResult = onFileResultPromise2;
 
 const onFileResultPromise3 = asyncBusboy(req, { highWaterMark: 10, onFile: () => {} });
 // can't assert via ExpectType because TS4.1 detects OnFileResult as Pick<Result, "fields">
 assignableToOnFileResult = onFileResultPromise3;
-assignableToResult = onFileResultPromise3; // $ExpectError
+// @ts-expect-error
+assignableToResult = onFileResultPromise3;
 
 (async () => {
     const result = await resultPromise;
@@ -48,7 +51,8 @@ assignableToResult = onFileResultPromise3; // $ExpectError
     const onFileResult = await onFileResultPromise;
 
     onFileResult.fields; // $ExpectType { [key: string]: unknown; }
-    onFileResult.files; // $ExpectError
+    // @ts-expect-error
+    onFileResult.files;
 
     const file = result.files[0];
     file.fieldname; // $ExpectType string

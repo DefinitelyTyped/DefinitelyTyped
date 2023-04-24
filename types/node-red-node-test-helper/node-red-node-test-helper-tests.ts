@@ -20,7 +20,7 @@ function helperTests(testHelper: typeof anotherHelper) {
         item.type;
         // $ExpectType string | undefined
         item.key;
-        // $ExpectError
+        // @ts-expect-error
         item.invalidKey;
     }
 

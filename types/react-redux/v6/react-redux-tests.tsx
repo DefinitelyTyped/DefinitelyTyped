@@ -574,7 +574,8 @@ const WrappedTestComponent = connect()(TestComponent);
 const ADecoratedTestComponent: React.ComponentClass<TestProp> = WrappedTestComponent;
 <WrappedTestComponent property1={42} />;
 
-const ATestComponent: React.ComponentClass<TestProp> = TestComponent;  // $ExpectError
+// @ts-expect-error
+const ATestComponent: React.ComponentClass<TestProp> = TestComponent;
 
 // stateless functions
 interface HelloMessageProps {
@@ -1001,16 +1002,20 @@ function TestWithoutTOwnPropsDecoratedInference() {
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
 
     // This should not compile, it is missing ForwardedProps
-    React.createElement(ConnectedWithOwnPropsClass, { own: 'string' }); // $ExpectError
-    React.createElement(ConnectedWithOwnPropsStateless, { own: 'string' }); // $ExpectError
+    // @ts-expect-error
+    React.createElement(ConnectedWithOwnPropsClass, { own: 'string' });
+    // @ts-expect-error
+    React.createElement(ConnectedWithOwnPropsStateless, { own: 'string' });
 
     // This should compile
     React.createElement(ConnectedWithOwnPropsClass, { own: 'string', forwarded: 'string' });
     React.createElement(ConnectedWithOwnPropsStateless, { own: 'string', forwarded: 'string' });
 
     // This should not compile, it is missing ForwardedProps
-    React.createElement(ConnectedWithTypeHintClass, { own: 'string' });  // $ExpectError
-    React.createElement(ConnectedWithTypeHintStateless, { own: 'string' });  // $ExpectError
+    // @ts-expect-error
+    React.createElement(ConnectedWithTypeHintClass, { own: 'string' });
+    // @ts-expect-error
+    React.createElement(ConnectedWithTypeHintStateless, { own: 'string' });
 
     interface AllProps {
         own: string;
@@ -1172,11 +1177,13 @@ function TestFailsMoreSpecificInjectedProps() {
 
     // Since it is possible the injected props could fail to satisfy the decoration props,
     // the following line should fail to compile.
-    connect(mapStateToProps, mapDispatchToProps)(Component); // $ExpectError
+    // @ts-expect-error
+    connect(mapStateToProps, mapDispatchToProps)(Component);
 
     // Confirm that this also fails with functional components
     const FunctionalComponent = (props: MoreSpecificDecorationProps) => null;
-    connect(mapStateToProps, mapDispatchToProps)(Component); // $ExpectError
+    // @ts-expect-error
+    connect(mapStateToProps, mapDispatchToProps)(Component);
 }
 
 function TestLibraryManagedAttributes() {

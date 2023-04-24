@@ -2,7 +2,7 @@ import * as capitalize from 'capitalize';
 // tslint:disable-next-line:no-duplicate-imports
 import { words } from 'capitalize';
 
-// $ExpectError
+// @ts-expect-error
 capitalize();
 // $ExpectType string
 capitalize('united states');
@@ -18,7 +18,7 @@ capitalize.words('uniTed staTes', false);
 capitalize.words('hello-cañapolísas');
 // $ExpectType string
 capitalize.words("it's a nice day", false);
-// $ExpectError
+// @ts-expect-error
 words();
 // $ExpectType string
 words('united states');

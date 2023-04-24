@@ -2,7 +2,7 @@ import { Vector3 } from './../math/Vector3';
 import { Line } from './../objects/Line';
 import { Mesh } from './../objects/Mesh';
 import { Object3D } from './../core/Object3D';
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 
 // Extras / Helpers /////////////////////////////////////////////////////////////////////
 
@@ -55,4 +55,8 @@ export class ArrowHelper extends Object3D {
      * @param color The desired color.
      */
     setColor(color: ColorRepresentation): void;
+
+    copy(source: this): this;
+
+    dispose(): void;
 }

@@ -312,6 +312,6 @@ interface Range<T extends Range.Endpoint> {
 }
 
 declare namespace Range {
-    type Endpoint = Date | number | string;
+    type Endpoint = Date | number | string | { valueOf(): number | string };
     type Bounds = '()' | '[]' | '[)' | '(]';
 }

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "no-padding": false,
         "no-reference-import": false,
         "no-var-keyword": false,

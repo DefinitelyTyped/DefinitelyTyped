@@ -1,6 +1,6 @@
 import SitemapGenerator = require('sitemap-generator');
 
-// $ExpectError
+// @ts-expect-error
 SitemapGenerator();
 
 SitemapGenerator('https://example.com/');
@@ -18,7 +18,7 @@ const generator = SitemapGenerator('https://example.com/', {
     // simplecrawler props
     userAgent: 'Node/SitemapGenerator',
     stripQuerystring: false,
-    // $ExpectError
+    // @ts-expect-error
     wait: () => {},
 });
 
@@ -28,9 +28,9 @@ generator.on('ignore', () => {});
 generator.on('error', error => {
     error.message;
 });
-// $ExpectError
+// @ts-expect-error
 generator.on('bar', () => {});
-// $ExpectError
+// @ts-expect-error
 generator.on('add', error => {
     error.message;
 });

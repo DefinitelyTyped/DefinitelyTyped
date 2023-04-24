@@ -30,6 +30,15 @@ export interface FastbootRequest {
    * FastBoot server is responding to.
    */
   protocol: string;
+
+  /**
+   * The request type of the request that the current
+   * FastBoot server is responding to.
+   */
+  method: string;
+
+  /** Contains key-value pairs of data submitted in the request body. */
+  body: Record<string, unknown>;
 }
 
 export interface Shoebox {
@@ -39,7 +48,7 @@ export interface Shoebox {
 
 export default class FastBoot extends Service {
   /** Allows you to check if you are running within FastBoot. */
-  isFastboot: boolean;
+  isFastBoot: boolean;
 
   /**
    * A request object which exposes details about the current request being

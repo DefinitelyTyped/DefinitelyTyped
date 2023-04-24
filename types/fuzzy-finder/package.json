@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./dist/fuzzy-finder.m.d.ts",
+                "default": "./index.d.ts"
+            }
+        }
+    }
+}

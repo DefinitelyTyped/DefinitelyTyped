@@ -11,6 +11,8 @@ config.debug = false;
 config.safe = false;
 config.silent = false;
 config.config = '_config.yml';
+config.draft = false;
+config.drafts = false;
 
 let h: Hexo;
 h = hexo;

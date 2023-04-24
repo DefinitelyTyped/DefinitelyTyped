@@ -128,4 +128,5 @@ const appElementTestHtmlElement = <ReactModal isOpen appElement={el1} />;
 const appElementTestHtmlElementArray = <ReactModal isOpen appElement={[el1, el2]} />;
 const appElementTestHtmlCollection = <ReactModal isOpen appElement={el1Children} />;
 const appElementTestNodeList = <ReactModal isOpen appElement={fooClassList} />;
-const appElementTestExpectError = <ReactModal isOpen appElement={{}} />; // $ExpectError
+// @ts-expect-error
+const appElementTestExpectError = <ReactModal isOpen appElement={{}} />;

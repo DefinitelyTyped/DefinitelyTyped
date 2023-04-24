@@ -1,4 +1,4 @@
-import inquirer = require('inquirer');
+import inquirer, { DistinctQuestion } from 'inquirer';
 
 /**
  * Represents answers provided by the user.
@@ -18,7 +18,7 @@ interface RPGAnswers {
 /**
  * Heirarchical conversation example
  */
-const directionsPrompt: inquirer.DistinctQuestion<RPGAnswers> = {
+const directionsPrompt: DistinctQuestion<RPGAnswers> = {
     type: 'list',
     name: 'direction',
     message: 'Which direction would you like to go?',

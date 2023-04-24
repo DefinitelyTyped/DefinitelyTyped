@@ -9,7 +9,7 @@ import { WebGLRenderLists } from './webgl/WebGLRenderLists';
 import { WebGLState } from './webgl/WebGLState';
 import { Vector2 } from './../math/Vector2';
 import { Vector4 } from './../math/Vector4';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { WebGLRenderTarget } from './WebGLRenderTarget';
 import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
 import { Object3D } from './../core/Object3D';
@@ -17,13 +17,11 @@ import { Material } from './../materials/Material';
 import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { BufferGeometry } from './../core/BufferGeometry';
-import { Texture } from '../textures/Texture';
+import { OffscreenCanvas, Texture } from '../textures/Texture';
 import { Data3DTexture } from '../textures/Data3DTexture';
-import { XRAnimationLoopCallback } from './webxr/WebXR';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
 import { DataArrayTexture } from '../textures/DataArrayTexture';
-import { ColorRepresentation } from '../utils';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -31,10 +29,6 @@ export interface Renderer {
     render(scene: Object3D, camera: Camera): void;
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
-
-/** This is only available in worker JS contexts, not the DOM. */
-// tslint:disable-next-line:no-empty-interface
-export interface OffscreenCanvas extends EventTarget {}
 
 export interface WebGLRendererParameters {
     /**
@@ -129,11 +123,6 @@ export class WebGLRenderer implements Renderer {
     domElement: HTMLCanvasElement;
 
     /**
-     * The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.
-     */
-    context: WebGLRenderingContext;
-
-    /**
      * Defines whether the renderer should automatically clear its output before rendering.
      * @default true
      */
@@ -188,9 +177,9 @@ export class WebGLRenderer implements Renderer {
     outputEncoding: TextureEncoding;
 
     /**
-     * @default false
+     * @default true
      */
-    physicallyCorrectLights: boolean;
+    useLegacyLights: boolean;
 
     /**
      * @default THREE.NoToneMapping
@@ -218,7 +207,7 @@ export class WebGLRenderer implements Renderer {
     /**
      * Return the WebGL context.
      */
-    getContext(): WebGLRenderingContext;
+    getContext(): WebGLRenderingContext | WebGL2RenderingContext;
     getContextAttributes(): any;
     forceContextLoss(): void;
     forceContextRestore(): void;
@@ -336,7 +325,7 @@ export class WebGLRenderer implements Renderer {
      * A build in function that can be used instead of requestAnimationFrame. For WebXR projects this function must be used.
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
      */
-    setAnimationLoop(callback: XRAnimationLoopCallback | null): void;
+    setAnimationLoop(callback: XRFrameRequestCallback | null): void;
 
     /**
      * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.

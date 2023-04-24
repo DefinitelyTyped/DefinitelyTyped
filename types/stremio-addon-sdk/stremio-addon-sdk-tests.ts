@@ -156,7 +156,7 @@ args;
 // $ExpectType Promise<any>
 addon.get({resource: shortResource[0], ...args});
 
-// $ExpectError
+// @ts-expect-error
 addon.get(args);
 
 const resource: FullManifestResource = {
@@ -237,6 +237,7 @@ const stream: Stream = {
 stream;
 
 const subtitle: Subtitle = {
+    id: "eng-1",
     url: "",
     lang: "english"
 };

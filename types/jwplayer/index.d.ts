@@ -8,8 +8,8 @@
 //                 Daniel Cassidy <https://github.com/djcsdy>
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 Zack Haigh <https://github.com/zetagame>
+//                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 
@@ -335,40 +335,54 @@ declare namespace jwplayer {
     type NoParamEvent =
         | 'adBlock'
         | 'beforeComplete'
-        | 'complete'
         | 'beforePlay'
+        | 'complete'
         | 'displayClick'
         | 'playlistComplete'
+        | 'remove'
         | 'seeked'
-        | 'remove';
+        | 'userActive'
+        | 'userInactive';
+
+    interface SliderCue {
+        begin: number;
+        cueType: string;
+        text: string;
+    }
 
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
+        addCues(cues: SliderCue[]): JWPlayer;
+        addPlugin(name: string, pluginInstance: any): void;
+        getAdBlock(): boolean;
         getAudioTracks(): any[];
         getBuffer(): number;
         getCaptionsList(): any[];
+        getContainer(): HTMLElement;
         getControls(): boolean;
+        getCues(): SliderCue[];
         getCurrentAudioTrack(): number;
         getCurrentCaptions(): number;
         getCurrentQuality(): number;
         getDuration(): number;
-        getHeight(): number;
+        getEnvironment(): Environment;
+        getFloating(): boolean;
         getFullscreen(): boolean;
+        getHeight(): number;
         getMute(): boolean;
+        getPlaybackRate(): number;
         getPlaylist(): any[];
         getPlaylistIndex(): number;
         getPlaylistItem(index?: number): any;
+        getPlugin(name: string): any;
         getPosition(): number;
         getQualityLevels(): any[];
         getRenderingMode(): string;
         getSafeRegion(): Region;
         getState(): string;
-        getVolume(): number;
-        getContainer(): HTMLElement;
-        getEnvironment(): Environment;
-        getWidth(): number;
         getVisualQuality(): QualityLevel | undefined;
-        getPlaybackRate(): number;
+        getVolume(): number;
+        getWidth(): number;
         load(playlist: any[] | string): JWPlayer;
         on<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): JWPlayer;
         on(event: NoParamEvent, callback: () => void): JWPlayer;
@@ -380,32 +394,36 @@ declare namespace jwplayer {
         trigger<TEvent extends keyof EventParams>(event: TEvent, args: EventParams[TEvent]): JWPlayer;
         trigger(event: NoParamEvent): JWPlayer;
         pause(state?: boolean): JWPlayer;
+        pauseAd(toggle: boolean): void;
         play(state?: boolean): JWPlayer;
-        playAd(tag: string): void;
+        playAd(tag: string | string[]): void;
         playlistItem(index: number): void;
         registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
-        resize(width: number, height: number): JWPlayer;
+        resize(width: number | string, height: number): JWPlayer;
         seek(position: number): JWPlayer;
+        setCaptions(options: CaptionOptions): JWPlayer;
         setControls(controls: boolean): void;
+        setCues(cues: SliderCue[]): JWPlayer;
         setCurrentAudioTrack(index: number): void;
         setCurrentCaptions(index: number): void;
         setCurrentQuality(index: number): void;
-        setPlaybackRate(rate: number): void;
+        setFloating(shouldFloat: boolean): void;
         setFullscreen(state: boolean): void;
         setMute(state?: boolean): JWPlayer;
+        setPlaybackRate(rate: number): void;
         setup(options: any): JWPlayer;
         setVolume(volume: number): JWPlayer;
-        setCaptions(options: CaptionOptions): JWPlayer;
+        skipAd(): JWPlayer;
         stop(): JWPlayer;
-    }
-
-    interface JWPlayerStatic {
-        (query?: string | number | Element): JWPlayer;
-        key: string;
-        version: string;
     }
 }
 
-declare const jwplayer: jwplayer.JWPlayerStatic;
+interface JWPlayerStatic {
+    (query?: string | number | Element): jwplayer.JWPlayer;
+    key: string;
+    version: string;
+}
+
+declare const jwplayer: JWPlayerStatic;

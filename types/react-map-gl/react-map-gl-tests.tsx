@@ -11,6 +11,8 @@ import {
     InteractiveMap,
     Layer,
     LinearInterpolator,
+    Marker,
+    Popup,
     SVGOverlay,
     SVGRedrawOptions,
     ScaleControl,
@@ -145,6 +147,18 @@ class MyMap extends React.Component<{}, State> {
                             maxzoom={22}
                         ></Layer>
                     </Source>
+                    <Marker
+                        latitude={0}
+                        longitude={0}
+                    >
+                        <div>Marker text</div>
+                    </Marker>
+                    <Popup
+                        latitude={0}
+                        longitude={0}
+                    >
+                        <div>Popup text</div>
+                    </Popup>
                 </InteractiveMap>
                 <StaticMap
                     {...this.state.viewport}

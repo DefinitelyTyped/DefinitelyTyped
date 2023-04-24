@@ -1,4 +1,4 @@
-import { Object3D, Camera, MOUSE, Raycaster } from '../../../src/Three';
+import { Object3D, Camera, MOUSE, Raycaster, Mesh, Vector3, Quaternion } from '../../../src/Three';
 
 export class TransformControls extends Object3D {
     constructor(object: Camera, domElement?: HTMLElement);
@@ -21,11 +21,7 @@ export class TransformControls extends Object3D {
     showY: boolean;
     showZ: boolean;
     readonly isTransformControls: true;
-    mouseButtons: {
-        LEFT: MOUSE;
-        MIDDLE: MOUSE;
-        RIGHT: MOUSE;
-    };
+    mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
 
     attach(object: Object3D): this;
     detach(): this;
@@ -39,4 +35,44 @@ export class TransformControls extends Object3D {
     setSpace(space: 'world' | 'local'): void;
     reset(): void;
     dispose(): void;
+}
+
+export class TransformControlsGizmo extends Object3D {
+    type: 'TransformControlsGizmo';
+    isTransformControlsGizmo: true;
+
+    gizmo: {
+        translate: Object3D;
+        rotate: Object3D;
+        scale: Object3D;
+    };
+    helper: {
+        translate: Object3D;
+        rotate: Object3D;
+        scale: Object3D;
+    };
+    picker: {
+        translate: Object3D;
+        rotate: Object3D;
+        scale: Object3D;
+    };
+
+    constructor();
+}
+
+export class TransformControlsPlane extends Mesh {
+    type: 'TransformControlsPlane';
+    isTransformControlsPlane: true;
+
+    constructor();
+
+    mode: 'translate' | 'scale' | 'rotate';
+
+    axis: 'X' | 'Y' | 'Z' | 'XY' | 'YZ' | 'XZ' | 'XYZ' | 'E';
+
+    space: 'local' | 'world';
+
+    eye: Vector3;
+    worldPosition: Vector3;
+    worldQuaternion: Quaternion;
 }

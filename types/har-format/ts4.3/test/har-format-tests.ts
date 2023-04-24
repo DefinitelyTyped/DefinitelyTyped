@@ -63,12 +63,12 @@ const paramsPostData: harFormat.PostData = {
     ],
 };
 
-// $ExpectError
+// @ts-expect-error
 const missingPostData: harFormat.PostData = {
     mimeType: 'text/plain',
 };
 
-// $ExpectError
+// @ts-expect-error
 const tooMuchPostData: harFormat.PostData = {
     mimeType: 'multipart/form-data',
     params: [

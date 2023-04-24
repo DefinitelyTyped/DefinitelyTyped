@@ -18,6 +18,7 @@ declare global {
         // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/method-override/index.d.ts)
         interface Request {}
         interface Response {}
+        interface Locals {}
         interface Application {}
     }
 }
@@ -55,17 +56,19 @@ export interface ParamsDictionary {
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
+export interface Locals extends Express.Locals {}
+
 export interface RequestHandler<
     P = ParamsDictionary,
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    Locals extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>
 > {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2)
     (
-        req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
-        res: Response<ResBody, Locals>,
+        req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
+        res: Response<ResBody, LocalsObj>,
         next: NextFunction,
     ): void;
 }
@@ -75,11 +78,11 @@ export type ErrorRequestHandler<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    Locals extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>
 > = (
     err: any,
-    req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
-    res: Response<ResBody, Locals>,
+    req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
+    res: Response<ResBody, LocalsObj>,
     next: NextFunction,
 ) => void;
 
@@ -90,10 +93,10 @@ export type RequestHandlerParams<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    Locals extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>
 > =
-    | RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
-    | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
+    | RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>
+    | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
 type RemoveTail<S extends string, Tail extends string> = S extends `${infer P}${Tail}` ? P : S;
@@ -129,12 +132,14 @@ export interface IRouterMatcher<
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>
     >(
-        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
+        // (it's used as the default type parameter for P)
+        // eslint-disable-next-line no-unnecessary-generics
         path: Route,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
         Path extends string,
@@ -142,34 +147,38 @@ export interface IRouterMatcher<
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>
     >(
-        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
+        // (it's used as the default type parameter for P)
+        // eslint-disable-next-line no-unnecessary-generics
         path: Path,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>
     >(
         path: PathParams,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>
     >(
         path: PathParams,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     (path: PathParams, subApplication: Application): T;
 }
@@ -182,40 +191,44 @@ export interface IRouterHandler<T, Route extends string = string> {
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>
         >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+        // (This generic is meant to be passed explicitly.)
+            // eslint-disable-next-line no-unnecessary-generics
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
         P = RouteParameters<Route>,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>
         >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+        // (This generic is meant to be passed explicitly.)
+            // eslint-disable-next-line no-unnecessary-generics
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>
     >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>
     >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
 }
 
@@ -369,7 +382,7 @@ export interface Request<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    Locals extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>
 > extends http.IncomingMessage,
         Express.Request {
     /**
@@ -643,7 +656,7 @@ export interface Request<
      * After middleware.init executed, Request will contain res and next properties
      * See: express/lib/middleware/init.js
      */
-    res?: Response<ResBody, Locals> | undefined;
+    res?: Response<ResBody, LocalsObj> | undefined;
     next?: NextFunction | undefined;
 }
 
@@ -658,7 +671,7 @@ export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
 export interface Response<
     ResBody = any,
-    Locals extends Record<string, any> = Record<string, any>,
+    LocalsObj extends Record<string, any> = Record<string, any>,
     StatusCode extends number = number
 > extends http.ServerResponse,
         Express.Response {
@@ -914,7 +927,7 @@ export interface Response<
     headersSent: boolean;
 
     /** Get value for header `field`. */
-    get(field: string): string;
+    get(field: string): string|undefined;
 
     /** Clear cookie `name`. */
     clearCookie(name: string, options?: CookieOptions): this;
@@ -978,6 +991,7 @@ export interface Response<
      *
      * Examples:
      *
+     *    res.redirect('back');
      *    res.redirect('/foo/bar');
      *    res.redirect('http://example.com');
      *    res.redirect(301, 'http://example.com');
@@ -986,6 +1000,7 @@ export interface Response<
      */
     redirect(url: string): void;
     redirect(status: number, url: string): void;
+    /** @deprecated use res.redirect(status, url) instead */
     redirect(url: string, status: number): void;
 
     /**
@@ -1001,7 +1016,7 @@ export interface Response<
     render(view: string, options?: object, callback?: (err: Error, html: string) => void): void;
     render(view: string, callback?: (err: Error, html: string) => void): void;
 
-    locals: Locals;
+    locals: LocalsObj & Locals;
 
     charset: string;
 
@@ -1043,7 +1058,7 @@ export type ApplicationRequestHandler<T> = IRouterHandler<T> &
     ((...handlers: RequestHandlerParams[]) => T);
 
 export interface Application<
-    Locals extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>
 > extends EventEmitter, IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
@@ -1210,7 +1225,7 @@ export interface Application<
 
     map: any;
 
-    locals: Locals;
+    locals: LocalsObj & Locals;
 
     /**
      * The app.routes object houses all of the routes defined mapped by the

@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.54
+// Type definitions for plotly.js 2.12
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -21,15 +21,46 @@
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as _d3 from 'd3';
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
-import { OhclData } from './lib/traces/ohcl';
+import { OhlcData } from './lib/traces/ohlc';
 import { CandlestickData } from './lib/traces/candlestick';
 import { PieData } from './lib/traces/pie';
 
 export as namespace Plotly;
-export { BoxPlotData, ViolinData, OhclData, CandlestickData, PieData };
+export { BoxPlotData, ViolinData, OhlcData, CandlestickData, PieData };
+
+export type DefaultIcons =
+    | 'undo'
+    | 'home'
+    | 'camera-retro'
+    | 'zoombox'
+    | 'pan'
+    | 'zoom_plus'
+    | 'zoom_minus'
+    | 'autoscale'
+    | 'tooltip_basic'
+    | 'tooltip_compare'
+    | 'plotlylogo'
+    | 'z-axis'
+    | '3d_rotate'
+    | 'camera'
+    | 'movie'
+    | 'question'
+    | 'disk'
+    | 'drawopenpath'
+    | 'drawclosedpath'
+    | 'lasso'
+    | 'selectbox'
+    | 'drawline'
+    | 'drawrect'
+    | 'drawcircle'
+    | 'eraseshape'
+    | 'spikeline'
+    | 'pencil'
+    | 'newplotlylogo';
+
+export const Icons: { [K in DefaultIcons]: Icon };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -64,11 +95,17 @@ export interface PlotDatum {
     xaxis: LayoutAxis;
     y: Datum;
     yaxis: LayoutAxis;
+    text: string;
 }
 
 export interface PlotMouseEvent {
     points: PlotDatum[];
     event: MouseEvent;
+}
+
+export interface PlotHoverEvent extends PlotMouseEvent {
+    xvals: Datum[];
+    yvals: Datum[];
 }
 
 export interface PlotCoordinate {
@@ -242,7 +279,8 @@ export interface BeforePlotEvent {
 }
 
 export interface PlotlyHTMLElement extends HTMLElement {
-    on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_click' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_hover', callback: (event: PlotHoverEvent) => void): void;
     on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
     on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
     on(event: 'plotly_relayout' | 'plotly_relayouting', callback: (event: PlotRelayoutEvent) => void): void;
@@ -315,16 +353,9 @@ export function newPlot(
     layout?: Partial<Layout>,
     config?: Partial<Config>,
 ): Promise<PlotlyHTMLElement>;
-export function plot(
-    root: Root,
-    data: Data[],
-    layout?: Partial<Layout>,
-    config?: Partial<Config>,
-): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
-export const d3: typeof _d3;
 export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
 export function update(
     root: Root,
@@ -364,6 +395,7 @@ export function react(
 ): Promise<PlotlyHTMLElement>;
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
+export function register(modules: PlotlyModule | PlotlyModule[]): void;
 
 // Layout
 export interface Layout {
@@ -436,7 +468,7 @@ export interface Layout {
     annotations: Array<Partial<Annotations>>;
     shapes: Array<Partial<Shape>>;
     images: Array<Partial<Image>>;
-    updatemenus: {}; // TODO
+    updatemenus: Array<Partial<UpdateMenu>>;
     sliders: Array<Partial<Slider>>;
     legend: Partial<Legend>;
     font: Partial<Font>;
@@ -481,16 +513,26 @@ export interface Layout {
     datarevision: number | string;
     editrevision: number | string;
     selectionrevision: number | string;
+    modebar: Partial<ModeBar>;
 }
 
 export interface Legend extends Label {
-    traceorder: 'grouped' | 'normal' | 'reversed';
-    x: number;
-    y: number;
     borderwidth: number;
+    groupclick: 'toggleitem' | 'togglegroup';
+    grouptitlefont: Partial<Font>;
+    itemclick: 'toggle' | 'toggleothers' | false;
+    itemdoubleclick: 'toggle' | 'toggleothers' | false;
+    itemsizing: 'trace' | 'constant';
+    itemwidth: number;
     orientation: 'v' | 'h';
+    title: Partial<LegendTitle>;
     tracegroupgap: number;
+    traceorder: 'grouped' | 'normal' | 'reversed' | 'reversed+grouped';
+    uirevision: number | string;
+    valign: 'top' | 'middle' | 'bottom';
+    x: number;
     xanchor: 'auto' | 'left' | 'center' | 'right';
+    y: number;
     yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
@@ -623,7 +665,7 @@ export interface Axis {
         | 'median descending';
     categoryarray: any[];
     tickfont: Partial<Font>;
-    tickangle: "auto" | number;
+    tickangle: 'auto' | number;
     tickprefix: string;
     /**
      * If `all`, all tick labels are displayed with a prefix.
@@ -810,6 +852,8 @@ export interface LayoutAxis extends Axis {
     automargin: boolean;
     autotick: boolean;
     angle: any;
+    griddash: Dash;
+    l2p: (v: Datum) => number;
 }
 
 export interface SceneAxis extends Axis {
@@ -855,6 +899,18 @@ export interface Margin {
     pad: number;
 }
 
+export interface ModeBar {
+    activecolor: Color;
+    add: ModeBarDefaultButtons | ModeBarDefaultButtons[];
+    bgcolor: Color;
+    color: Color;
+    orientation: 'v' | 'h';
+    remove: ModeBarDefaultButtons | ModeBarDefaultButtons[];
+    uirevision: number | string;
+}
+
+export type ModeBarButtonAny = ModeBarDefaultButtons | ModeBarButton;
+
 export type ModeBarDefaultButtons =
     | 'lasso2d'
     | 'select2d'
@@ -871,6 +927,7 @@ export type ModeBarDefaultButtons =
     | 'pan3d'
     | 'orbitRotation'
     | 'tableRotation'
+    | 'handleDrag3d'
     | 'resetCameraDefault3d'
     | 'resetCameraLastSave3d'
     | 'hoverClosest3d'
@@ -883,7 +940,15 @@ export type ModeBarDefaultButtons =
     | 'toggleHover'
     | 'toImage'
     | 'resetViews'
-    | 'toggleSpikelines';
+    | 'toggleSpikelines'
+    | 'zoomInMapbox'
+    | 'zoomOutMapbox'
+    | 'resetViewMapbox'
+    | 'togglespikelines'
+    | 'togglehover'
+    | 'hovercompare'
+    | 'hoverclosest'
+    | 'v1hovermode';
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
@@ -1000,7 +1065,7 @@ export interface PlotNumber {
 }
 
 export interface Template {
-    data?: { [type in PlotType]?: Partial<PlotData> } | undefined;
+    data?: { [type in PlotType]?: Array<Partial<PlotData>> } | undefined;
     layout?: Partial<Layout> | undefined;
 }
 
@@ -1053,7 +1118,6 @@ export type PlotType =
     | 'cone'
     | 'contour'
     | 'contourcarpet'
-    | 'contourgl'
     | 'densitymapbox'
     | 'funnel'
     | 'funnelarea'
@@ -1095,7 +1159,7 @@ export type Data =
     | Partial<PlotData>
     | Partial<BoxPlotData>
     | Partial<ViolinData>
-    | Partial<OhclData>
+    | Partial<OhlcData>
     | Partial<CandlestickData>
     | Partial<PieData>;
 
@@ -1169,6 +1233,7 @@ export interface PlotData {
         | 'gauge+number+delta'
         | 'gauge+delta';
     histfunc: 'count' | 'sum' | 'avg' | 'min' | 'max';
+    histnorm: '' | 'percent' | 'probability' | 'density' | 'probability density';
     hoveron: 'points' | 'fills';
     hoverinfo:
         | 'all'
@@ -1210,6 +1275,10 @@ export interface PlotData {
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
+    xhoverformat: string;
+    yhoverformat: string;
+    zhoverformat: string;
+    texttemplate: string | string[];
     textinfo:
         | 'label'
         | 'label+text'
@@ -1243,6 +1312,7 @@ export interface PlotData {
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
+    fillpattern: Partial<Pattern>;
     showlegend: boolean;
     legendgroup: string;
     parents: string[];
@@ -1303,6 +1373,22 @@ export interface PlotData {
     locations: Datum[];
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
+    offset: number;
+    contours: Partial<{
+        coloring: 'fill' | 'heatmap' | 'lines' | 'none';
+        end: number;
+        labelfont: Partial<Font>;
+        labelformat: string;
+        operation: '=' | '<' | '>=' | '>' | '<=' | '[]' | '()' | '[)' | '(]' | '][' | ')(' | '](' | ')[';
+        showlabels: boolean;
+        showlines: boolean;
+        size: number;
+        start: number;
+        type: 'levels' | 'constraint';
+        value: number | [lowerBound: number, upperBound: number];
+    }>;
+    autocontour: boolean;
+    ncontours: number;
 }
 
 /**
@@ -1316,7 +1402,19 @@ export interface TransformStyle {
 
 export interface TransformAggregation {
     target: string;
-    func?: 'count' | 'sum' | 'avg' | 'median' | 'mode' | 'rms' | 'stddev' | 'min' | 'max' | 'first' | 'last' | undefined;
+    func?:
+        | 'count'
+        | 'sum'
+        | 'avg'
+        | 'median'
+        | 'mode'
+        | 'rms'
+        | 'stddev'
+        | 'min'
+        | 'max'
+        | 'first'
+        | 'last'
+        | undefined;
     funcmode?: 'sample' | 'population' | undefined;
     enabled?: boolean | undefined;
 }
@@ -1363,7 +1461,7 @@ export interface ColorBar {
     tickcolor: Color;
     showticklabels: boolean;
     tickfont: Font;
-    tickangle: "auto" | number;
+    tickangle: 'auto' | number;
     tickformat: string;
     tickformatstops: Array<Partial<TickFormatStop>>;
     tickprefix: string;
@@ -1409,12 +1507,15 @@ export interface PlotMarker {
     pad?: Partial<Padding> | undefined;
     width?: number | undefined;
     colorbar?: Partial<ColorBar> | undefined;
-    gradient?: {
-        type: 'radial' | 'horizontal' | 'vertical' | 'none';
-        color: Color;
-        typesrc: any;
-        colorsrc: any;
-    } | undefined;
+    gradient?:
+        | {
+              type: 'radial' | 'horizontal' | 'vertical' | 'none';
+              color: Color;
+              typesrc: any;
+              colorsrc: any;
+          }
+        | undefined;
+    pattern?: Partial<Pattern>;
 }
 
 export type ScatterMarker = PlotMarker;
@@ -1490,6 +1591,12 @@ export interface Config {
     staticPlot: boolean;
 
     /**
+     * Determines whether math should be typeset or not,
+     * when MathJax (either v2 or v3) is present on the page.
+     */
+    typesetMath: boolean;
+
+    /**
      * When set it determines base URL for the 'Edit in Chart Studio' `showEditInChartStudio`/`showSendToCloud` mode bar button and the showLink/sendData on-graph link.
      * To enable sending your data to Chart Studio Cloud, you need to set both `plotlyServerURL` to 'https://chart-studio.plotly.com' and also set `showSendToCloud` to true.
      * @default ''
@@ -1517,6 +1624,9 @@ export interface Config {
 
     /** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
     doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
+
+    /** sets the delay for registering a double-click in ms */
+    doubleClickDelay: number;
 
     /** new users see some hints about interactivity */
     showTips: boolean;
@@ -1564,7 +1674,7 @@ export interface Config {
     modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
     /** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
-    modeBarButtonsToAdd: ModeBarDefaultButtons[] | ModeBarButton[];
+    modeBarButtonsToAdd: ModeBarButtonAny[];
 
     /**
      * fully custom mode bar buttons as nested array, where the outer
@@ -1572,7 +1682,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
+    modeBarButtons: ModeBarButtonAny[][] | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
@@ -1584,7 +1694,7 @@ export interface Config {
      * function to add the background color to a different container
      * or 'opaque' to ensure there's white behind it
      */
-    setBackground: () => string | 'opaque' | 'transparent';
+    setBackground: ((gd: PlotlyHTMLElement, bgColor: string) => void) | 'opaque' | 'transparent';
 
     /** URL to topojson files used in geo charts */
     topojsonURL: string;
@@ -1608,8 +1718,34 @@ export interface Config {
     /** Which localization should we use? Should be a string like 'en' or 'en-US' */
     locale: string;
 
+    /**
+     * Localization definitions
+     * Locales can be provided either here (specific to one chart) or globally
+     * by registering them as modules.
+     * Should be an object of objects {locale: {dictionary: {...}, format: {...}}}
+     * {
+     *     da: {
+     *         dictionary: {'Reset axes': 'Nulstil aksler', ...},
+     *         format: {months: [...], shortMonths: [...]}
+     *     },
+     *     ...
+     * }
+     * All parts are optional. When looking for translation or format fields, we
+     * look first for an exact match in a config locale, then in a registered
+     * module. If those fail, we strip off any regionalization ('en-US' -> 'en')
+     * and try each (config, registry) again. The final fallback for translation
+     * is untranslated (which is US English) and for formats is the base English
+     * (the only consequence being the last fallback date format %x is DD/MM/YYYY
+     * instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
+     * for our automatic number formatting, but can be used in custom formats.
+     */
+    locales: {};
+
     /** Make the chart responsive to window size */
     responsive: boolean;
+
+    /** Watermark the images with the company's logo */
+    watermark: boolean;
 }
 
 // Components
@@ -1656,6 +1792,12 @@ export interface Label {
 
     /** Sets the default hover label font used by all traces on the graph. */
     font: Partial<Font>;
+}
+
+export interface LegendTitle {
+    font: Partial<Font>;
+    side: 'top' | 'left' | 'top left';
+    text: string;
 }
 
 export interface HoverLabel extends Label {
@@ -2201,29 +2343,259 @@ export interface Slider {
 }
 
 export interface CurrentValue {
-  /**
-   * Shows the currently-selected value above the slider.
-   */
-  visible: boolean;
-  /**
-   * The alignment of the value readout relative to the length of the slider.
-   */
-  xanchor: 'left' | 'center' | 'right';
-  /**
-   * The amount of space, in pixels, between the current value label
-   * and the slider.
-   */
-  offset: number;
-  /**
-   * When currentvalue.visible is true, this sets the prefix of the label.
-   */
-  prefix: string;
-  /**
-   * When currentvalue.visible is true, this sets the suffix of the label.
-   */
-  suffix: string;
-  /**
-   * Sets the font of the current value label text.
-   */
-  font: Partial<Font>;
+    /**
+     * Shows the currently-selected value above the slider.
+     */
+    visible: boolean;
+    /**
+     * The alignment of the value readout relative to the length of the slider.
+     */
+    xanchor: 'left' | 'center' | 'right';
+    /**
+     * The amount of space, in pixels, between the current value label
+     * and the slider.
+     */
+    offset: number;
+    /**
+     * When currentvalue.visible is true, this sets the prefix of the label.
+     */
+    prefix: string;
+    /**
+     * When currentvalue.visible is true, this sets the suffix of the label.
+     */
+    suffix: string;
+    /**
+     * Sets the font of the current value label text.
+     */
+    font: Partial<Font>;
 }
+
+/**
+ * 'Sets the pattern within the marker.
+ */
+export interface Pattern {
+    /**
+     * Sets the shape of the pattern fill.
+     * By default, no pattern is used for filling the area.
+     */
+    shape?: '' | '/' | '\\' | 'x' | '-' | '|' | '+' | '.';
+    /**
+     * Determines whether `marker.color` should be used
+     * as a default to `bgcolor` or a `fgcolor`.
+     */
+    fillmode?: 'replace' | 'overlay';
+    /**
+     * When there is no colorscale sets the color of background pattern fill.
+     * Defaults to a `marker.color` background when `fillmode` is *overlay*.
+     * Otherwise, defaults to a transparent background.
+     */
+    bgcolor?: string;
+    /**
+     * When there is no colorscale sets the color of foreground pattern fill.
+     * Defaults to a `marker.color` background when `fillmode` is *replace*.
+     * Otherwise, defaults to dark grey or white
+     * to increase contrast with the `bgcolor`.
+     */
+    fgcolor?: string;
+    /**
+     * Sets the opacity of the foreground pattern fill.
+     * Defaults to a 0.5 when `fillmode` is *overlay*.
+     * Otherwise, defaults to 1.
+     */
+    fgopacity?: string;
+    /**
+     * Sets the size of unit squares of the pattern fill in pixels,
+     * which corresponds to the interval of repetition of the pattern.
+     */
+    size?: number;
+    /**
+     * Sets the solidity of the pattern fill.
+     * Solidity is roughly the fraction of the area filled by the pattern.
+     * Solidity of 0 shows only the background color without pattern
+     * and solidty of 1 shows only the foreground color without pattern.
+     */
+    solidity?: number;
+}
+
+export interface UpdateMenuButton {
+    /**
+     * Sets the arguments values to be passed to the Plotly method set in `method` on click.
+     */
+    args: any[];
+    /**
+     * Sets a 2nd set of `args`, these arguments values are passed to the Plotly method set in
+     * method` when clicking this button while in the active state. Use this to create
+     * toggle buttons.
+     */
+    args2: any[];
+    /**
+     * When true, the API method is executed. When false, all other behaviors are
+     * the same and command execution is skipped. This may be useful when hooking
+     * into, for example, the `plotly_buttonclicked` method and executing the API
+     * command manually without losing the benefit of the updatemenu automatically
+     * binding to the state of the plot through the specification of `method`
+     * and `args`.
+     */
+    execute: boolean;
+    /**
+     * Sets the text label to appear on the button.
+     */
+    label: string;
+    /**
+     * Sets the Plotly method to be called on click. If the `skip` method is
+     * used, the API updatemenu will function as normal but will perform no
+     * API calls and will not bind automatically to state updates. This may be
+     * used to create a component interface and attach to updatemenu events
+     * manually via JavaScript.
+     */
+    method: 'restyle' | 'relayout' | 'animate' | 'update' | 'skip';
+    /**
+     * When used in a template, named items are created in the output figure in
+     * addition to any items the figure already has in this array. You can modify
+     * these items in the output figure by making your own item with
+     * `templateitemname` matching this `name` alongside your modifications
+     * (including `visible: false` or `enabled: false` to hide it). Has no effect
+     * outside of a template.
+     */
+    name: string;
+    /**
+     * Used to refer to a named item in this array in the template. Named items
+     * from the template will be created even without a matching item in the
+     * input figure, but you can modify one by making an item with
+     * `templateitemname` matching its `name`, alongside your modifications
+     * (including `visible: false` or `enabled: false` to hide it). If there is
+     * no template or no matching item, this item will be hidden unless you
+     * explicitly show it with `visible: true`.
+     */
+    templateitemname: string;
+    /**
+     * Determines whether or not this button is visible.
+     */
+    visible: boolean;
+}
+
+export interface UpdateMenu {
+    /**
+     * Determines which button (by index starting from 0) is considered active.
+     */
+    active?: number;
+    /**
+     * Sets the background color of the update menu buttons.
+     */
+    bgcolor?: Color;
+    /**
+     * Sets the color of the border enclosing the update menu.
+     */
+    bordercolor?: Color;
+    /**
+     * Sets the width (in px) of the border enclosing the update menu.
+     */
+    borderwidth: number;
+    /**
+     * array of object where each object has one or more of the keys listed below.
+     */
+    buttons: Array<Partial<UpdateMenuButton>>;
+    /**
+     * Determines the direction in which the buttons are laid out, whether
+     * in a dropdown menu or a row/column of buttons. For `left` and `up`,
+     * the buttons will still appear in left-to-right or top-to-bottom order
+     * respectively.
+     */
+    direction: 'left' | 'up' | 'right' | 'down';
+    /**
+     * Sets the font of the update menu button text.
+     */
+    font: Partial<Font>;
+    /**
+     * When used in a template, named items are created in the output
+     * figure in addition to any items the figure already has in this array.
+     * You can modify these items in the output figure by making your own item
+     * with `templateitemname` matching this `name` alongside your modifications
+     * (including `visible: false` or `enabled: false` to hide it). Has no
+     * effect outside of a template.
+     */
+    name: string;
+    /**
+     * Sets the padding around the buttons or dropdown menu.
+     */
+    pad: Partial<Padding>;
+    /**
+     * Highlights active dropdown item or active button if true.
+     */
+    showactive: boolean;
+    /**
+     * Used to refer to a named item in this array in the template. Named
+     * items from the template will be created even without a matching item
+     * in the input figure, but you can modify one by making an item with
+     * `templateitemname` matching its `name`, alongside your modifications
+     * (including `visible: false` or `enabled: false` to hide it). If there
+     * is no template or no matching item, this item will be hidden unless
+     * you explicitly show it with `visible: true`.
+     */
+    templateitemname: string;
+    /**
+     * Determines whether the buttons are accessible via a dropdown menu or
+     * whether the buttons are stacked horizontally or vertically
+     */
+    type: 'dropdown' | 'buttons';
+    /**
+     * Determines whether or not the update menu is visible.
+     */
+    visible: boolean;
+    /**
+     * Sets the x position (in normalized coordinates) of the update menu.
+     */
+    x: number;
+    /**
+     * Sets the update menu's horizontal position anchor. This anchor binds
+     * the `x` position to the "left", "center" or "right" of the range selector.
+     */
+    xanchor: 'auto' | 'left' | 'center' | 'right';
+    /**
+     * Sets the y position (in normalized coordinates) of the update menu.
+     */
+    y: number;
+    /**
+     * Sets the update menu's vertical position anchor This anchor binds
+     * the `y` position to the "top", "middle" or "bottom" of the range selector.
+     */
+    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+}
+
+interface TraceModule {
+    moduleType: 'trace';
+    name: string;
+    categories: string[];
+    meta: Record<string, unknown>;
+    [key: string]: unknown;
+}
+
+interface LocaleModule {
+    moduleType: 'locale';
+    name: string;
+    dictionary: Record<string, unknown>;
+    format: Record<string, unknown>;
+}
+
+interface TransformModule {
+    moduleType: 'transform';
+    name: string;
+    transform: any;
+    calcTransform: any;
+    attributes: Record<string, unknown>;
+    supplyDefaults: any;
+}
+
+interface ComponentModule {
+    moduleType: 'component';
+    name: string;
+    [key: string]: unknown;
+}
+
+interface ApiMethodModule {
+    moduleType: 'apiMethod';
+    name: string;
+    fn: any;
+}
+
+type PlotlyModule = TraceModule | LocaleModule | TransformModule | ComponentModule | ApiMethodModule;

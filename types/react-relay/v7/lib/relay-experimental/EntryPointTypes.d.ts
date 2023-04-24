@@ -48,7 +48,7 @@ export type EnvironmentProviderOptions<T extends Record<string, unknown> = Recor
 
 export interface PreloadedQuery<
     TQuery extends OperationType,
-    TEnvironmentProviderOptions = EnvironmentProviderOptions
+    TEnvironmentProviderOptions = EnvironmentProviderOptions,
 > extends Readonly<{
         kind: 'PreloadedQuery';
         environment: IEnvironment;
@@ -114,7 +114,7 @@ interface InternalEntryPointRepresentation<
      * a bag of extra props that you may define in `entrypoint` file and they will be passed to the EntryPointComponent
      * as `extraProps`
      */
-    TExtraProps
+    TExtraProps extends {} | null,
 > extends Readonly<{
         root: JSResourceReference<
             EntryPointComponent<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
@@ -129,7 +129,7 @@ type ThinQueryParamsObject<TPreloadedQueries extends Record<string, OperationTyp
 };
 
 type ThinNestedEntryPointParamsObject<
-    TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined> = {}
+    TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined> = {},
 > = {
     [K in keyof TPreloadedEntryPoints]: ThinNestedEntryPointParams<TPreloadedEntryPoints[K]>;
 };
@@ -156,7 +156,7 @@ export interface PreloadProps<
     TPreloadParams extends {},
     TPreloadedQueries extends Record<string, OperationType>,
     TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined>,
-    TExtraProps extends {} | null
+    TExtraProps extends {} | null,
 > extends Readonly<{
         entryPoints?: ThinNestedEntryPointParamsObject<TPreloadedEntryPoints> | undefined;
         extraProps?: TExtraProps | undefined;
@@ -177,7 +177,7 @@ export type EntryPointComponent<
     TPreloadedQueries extends Record<string, OperationType>,
     TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined>,
     TRuntimeProps extends {} = {},
-    TExtraProps extends {} | null = {}
+    TExtraProps extends {} | null = {},
 > = ComponentType<EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>>;
 
 // Return type of `loadEntryPoint(...)`
@@ -200,7 +200,7 @@ export type PreloadedEntryPoint<TEntryPointComponent> = TEntryPointComponent ext
 
 export interface ThinQueryParams<
     TQuery extends OperationType,
-    TEnvironmentProviderOptions extends EnvironmentProviderOptions = EnvironmentProviderOptions
+    TEnvironmentProviderOptions extends EnvironmentProviderOptions = EnvironmentProviderOptions,
 > extends Readonly<{
         /**
          * A reference to the $Parameters file that matches the type param provided to preloadQuery type.

@@ -76,12 +76,12 @@ function init() {
     scene.background = new THREE.Color(0x000000);
 
     renderer = new THREE.WebGLRenderer();
-    renderer.physicallyCorrectLights = true;
+    renderer.useLegacyLights = false;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
     //
 
-    let geometry: THREE.TorusKnotBufferGeometry | THREE.PlaneGeometry = new THREE.TorusKnotGeometry(18, 8, 150, 20);
+    let geometry: THREE.TorusKnotGeometry | THREE.PlaneGeometry = new THREE.TorusKnotGeometry(18, 8, 150, 20);
     // let geometry = new THREE.SphereGeometry( 26, 64, 32 );
     let material: THREE.MeshStandardMaterial | THREE.MeshBasicMaterial = new THREE.MeshStandardMaterial({
         color: 0xffffff,

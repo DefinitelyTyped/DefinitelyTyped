@@ -21,6 +21,7 @@ export interface TextLayerItemInternal {
     str: string;
     transform: number[];
     width: number;
+    height: number;
 }
 
 export interface TextItem {
@@ -57,7 +58,13 @@ export interface Props {
      * A function that customizes how a text layer is rendered.
      * Passes itext item and index for item.
      */
-    customTextRenderer?: ((layer: TextLayerItemInternal) => JSX.Element) | undefined;
+    customTextRenderer?: ((layer: TextLayerItemInternal) => string) | undefined;
+
+    /**
+     * The ratio between physical pixels and device-independent pixels (DIPs) on the current device.
+     * @default window.devicePixelRatio
+     */
+    devicePixelRatio?: number;
 
     /**
      * Defines what the component should display in case of an error.
@@ -114,7 +121,17 @@ export interface Props {
     /**
      * Function called when the page is successfully rendered on the screen.
      */
-    onRenderSuccess?: (() => void) | undefined;
+    onRenderSuccess?: ((page: PDFPageProxy) => void) | undefined;
+
+    /**
+     * Function called in case of an error while rendering the text layer.
+     */
+    onRenderTextLayerError?: ((error: Error) => void) | undefined;
+
+    /**
+     * Function called when the text layer is successfully rendered on the screen.
+     */
+    onRenderTextLayerSuccess?: (() => void) | undefined;
 
     /**
      * Function called when annotations are successfully loaded.
@@ -129,7 +146,7 @@ export interface Props {
     /**
      * Function called when text layer items are successfully loaded.
      */
-    onGetTextSuccess?: ((items: TextItem[]) => void) | undefined;
+    onGetTextSuccess?: (({ items, styles }: { items: TextItem[], styles: CSSStyleDeclaration }) => void) | undefined;
 
     /**
      * Function called in case of an error while loading text layer items.

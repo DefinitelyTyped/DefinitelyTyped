@@ -12,7 +12,7 @@ plugin.save();
 Autosave.isContextPlugin;
 const state: 'synchronized' | 'waiting' | 'saving' = 'saving';
 plugin.state === state;
-// $ExpectError
+// @ts-expect-error
 plugin.state = state;
 plugin.adapter.save(myEditor);
 

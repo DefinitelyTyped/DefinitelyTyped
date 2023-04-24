@@ -5,6 +5,13 @@ new Revision().setAttribute('', '');
 new Revision().removeAttribute('');
 new Revision().authors.has(new Revision().creator!);
 new Revision().id.startsWith('');
+new Revision().on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<Revision, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+new Revision().set('foo');
 
 new RevisionHistory().adapter.updateRevisions([
     {

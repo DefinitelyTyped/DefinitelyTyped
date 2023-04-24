@@ -4,7 +4,7 @@ import lessMiddleware = require('less-middleware');
 var app = express();
 
 app.use(lessMiddleware('public', {
-    cacheFile: null,
+    cacheFile: undefined,
     debug: false,
     dest: 'dest',
     force: false,

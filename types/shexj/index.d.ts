@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
+// Conforms to <https://shex.io/shex-semantics/#shexj> and shex-test@2.2.0-alpha.1
+
+export {}; // only export specified symbols (strict-export-declare-modifiers)
+
 /**
  * Structure for expressing a Shape Expression schema.
  * @see <a href="http://shex.io/shex-semantics/#dfn-shapes-schema">ShEx Schema definition</a>
@@ -24,22 +28,67 @@ export interface Schema {
     /**
      * Identifies default starting shape expression.
      */
-    start?: shapeExpr | undefined;
+    start?: shapeExprOrRef | undefined;
     /**
      * List of ShEx schemas to <a href="http://shex.io/shex-semantics/#import">import</a> when processing this schema.
      */
     imports?: IRIREF[] | undefined; // +
     /**
-     * The list of {@link shapeExpr}s defined in this schema. Each MUST include and {@link ShapeOr#id}.
+     * The list of {@link ShapeDecl}s defined in this schema. Each MUST include and {@link ShapeOr#id}.
      */
-    shapes?: shapeExpr[] | undefined; // +
+    shapes?: ShapeDecl[] | undefined; // +
+}
+
+export interface semactsAndAnnotations {
+    /**
+     * List of semantic actions to be executed when evaluating conformance.
+     */
+    semActs?: SemAct[] | undefined; // +;
+    /**
+     * List of {@link SemAct#predicate}/{@link SemAct#object} annotations.
+     */
+    annotations?: Annotation[] | undefined; // +
+}
+
+/**
+ * A declaration for a shapeExpr with added inheritance constraints.
+ * @see <a href="http://shex.io/shex-semantics/#dfn-shapedecl">ShEx ShapeDecl definition</a>
+ */
+export interface ShapeDecl {
+    /**
+     * Mandatory type "ShapeDecl".
+     */
+    type: "ShapeDecl";
+    /**
+     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
+     */
+    id: shapeDeclLabel;
+    /**
+     * Whether this ShapeDecl participates in <a href="http://shex.io/shex-semantics/#dfn-inheritanceSubstitution">inheritance substitution</a>.
+     */
+    abstract?: BOOL | undefined;
+    /**
+     * The list of {@link shapeExprOrRef}s that a neighborhood MUST conform to in order to conform to this ShapeDecl.
+     */
+    restricts?: shapeExprOrRef[] | undefined; // +
+    /**
+     * The {@link shapeExpr} to which this neighborhood MUST also conform.
+     */
+    shapeExpr: shapeExpr;
 }
 
 /**
  * Union of shape expression types.
  * @see <a href="http://shex.io/shex-semantics/#dfn-shapeexpr">ShEx shapeExpr definition</a>
  */
-export type shapeExpr = ShapeOr | ShapeAnd | ShapeNot | NodeConstraint | Shape | ShapeExternal | shapeExprRef;
+export type shapeExpr = ShapeOr | ShapeAnd | ShapeNot | NodeConstraint | Shape | ShapeExternal;
+
+/**
+ * Union of shapeExpr and shapeDeclRef.
+ * @see <a href="http://shex.io/shex-semantics/#dfn-shapeexpr">ShEx shapeExpr definition</a>
+ */
+export type shapeExprOrRef = shapeExpr | shapeDeclRef;
 
 /**
  * A non-exclusive choice of shape expressions; considered conformant if any of {@link #shapeExprs} conforms.
@@ -51,15 +100,9 @@ export interface ShapeOr {
      */
     type: "ShapeOr";
     /**
-     * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
-     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
+     * List of two or more {@link shapeExprOrRef}s in this disjunction.
      */
-    id?: shapeExprLabel | undefined;
-    /**
-     * List of two or more {@link shapeExpr}s in this disjunction.
-     */
-    shapeExprs: shapeExpr[]; // {2,}
+    shapeExprs: shapeExprOrRef[]; // {2,}
 }
 
 /**
@@ -72,15 +115,9 @@ export interface ShapeAnd {
      */
     type: "ShapeAnd";
     /**
-     * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
-     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
+     * List of two or more {@link shapeExprOrRef}s in this conjunction.
      */
-    id?: shapeExprLabel | undefined;
-    /**
-     * List of two or more {@link shapeExpr}s in this conjunction.
-     */
-    shapeExprs: shapeExpr[]; // {2,}
+    shapeExprs: shapeExprOrRef[]; // {2,}
 }
 
 /**
@@ -93,15 +130,9 @@ export interface ShapeNot {
      */
     type: "ShapeNot";
     /**
-     * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
-     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
+     * The {@link shapeExprOrRef} that must be non-conformant for this shape expression to be conformant.
      */
-    id?: shapeExprLabel | undefined;
-    /**
-     * The {@link shapeExpr} that must be non-conformant for this shape expression to be conformant.
-     */
-    shapeExpr: shapeExpr;
+    shapeExpr: shapeExprOrRef;
 }
 
 /**
@@ -113,12 +144,6 @@ export interface ShapeExternal {
      * Mandatory type "ShapeExternal".
      */
     type: "ShapeExternal";
-    /**
-     * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
-     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
-     */
-    id?: shapeExprLabel | undefined;
 }
 
 /**
@@ -126,36 +151,32 @@ export interface ShapeExternal {
  * The reference is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
  * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
-export type shapeExprRef = shapeExprLabel;
+export type shapeDeclRef = shapeDeclLabel;
 
 /**
  * An identifier for a shape expression.
  * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
  * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
-export type shapeExprLabel = IRIREF | BNODE;
+export type shapeDeclLabel = IRIREF | BNODE;
+
+export type nodeKind = "iri" | "bnode" | "nonliteral" | "literal";
 
 /**
  * A collection of constraints on <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-node">RDF Term</a>s expected for conformance.
  * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
  * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
-export interface NodeConstraint extends xsFacet {
+export interface NodeConstraint extends xsFacets, semactsAndAnnotations {
     /**
      * Mandatory type "NodeConstraint".
      */
     type: "NodeConstraint";
     /**
-     * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
-     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
-     */
-    id?: shapeExprLabel | undefined;
-    /**
      * Type of <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-node">RDF Term</a> expected for a conformant RDF node.
      * @see <a href="http://shex.io/shex-semantics/#nodeKind">ShEx nodeKind definition</a>
      */
-    nodeKind?: "iri" | "bnode" | "nonliteral" | "literal" | undefined;
+    nodeKind?: nodeKind | undefined;
     /**
      * The <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-datatype-iri">RDF Literal datatype IRITerm</a> expected for a conformant RDF node.
      * @see <a href="http://shex.io/shex-semantics/#datatype">ShEx datatype definition</a>
@@ -169,17 +190,17 @@ export interface NodeConstraint extends xsFacet {
 }
 
 /**
- * The set of XML Schema Facets supported in ShEx; defers to {@link stringFacet} and {@link numericFacet}.
+ * The set of XML Schema Facets supported in ShEx; defers to {@link stringFacets} and {@link numericFacets}.
  * @see <a href="http://shex.io/shex-semantics/#xs-string">ShEx String Facet Constraints</a> and <a href="http://shex.io/shex-semantics/#xs-numeric">ShEx Numeric Facet Constraints</a>.
  */
-export interface xsFacet extends stringFacet, numericFacet {
+export interface xsFacets extends stringFacets, numericFacets {
 }
 
 /**
  * The set of <a href="https://www.w3.org/TR/xmlschema-2/#facets">XML Schema Facets</a> applying to <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-lexical-form">lexical forms of RDF terms</a>.
  * @see <a href="http://shex.io/shex-semantics/#xs-string">ShEx String Facet Constraints</a>.
  */
-export interface stringFacet {
+export interface stringFacets {
     /**
      * Expected length of the lexical form of an RDF Term.
      */
@@ -206,7 +227,7 @@ export interface stringFacet {
  * The set of <a href="https://www.w3.org/TR/xmlschema-2/#facets">XML Schema Facets</a> applying to <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-value-space">numeric values of RDF terms</a>.
  * @see <a href="http://shex.io/shex-semantics/#xs-numeric">ShEx Numeric Facet Constraints</a>.
  */
-export interface numericFacet {
+export interface numericFacets {
     /**
      * Conformant <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">RDF Literal</a> has as a numeric value <= {@link mininclusive}.
      */
@@ -236,7 +257,7 @@ export interface numericFacet {
 }
 
 /**
- * Union of numeric types in ShEx used in {@link numericFacet}s.
+ * Union of numeric types in ShEx used in {@link numericFacets}s.
  */
 export type numericLiteral = INTEGER | DECIMAL | DOUBLE;
 
@@ -283,6 +304,9 @@ export interface IriStem {
     stem: IRIREF;
 }
 
+export type iriRangeStem = IRIREF | Wildcard;
+export type iriRangeExclusion = IRIREF | IriStem;
+
 /**
  * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a>s through a list of exclusions.
  * The initial match is made on an IRI stem per {@link IriStem} or a {@link Wildcard} to accept any IRI.
@@ -296,11 +320,11 @@ export interface IriStemRange {
     /**
      * substring of IRI to be matched or a {@link Wildcard} matching any IRI.
      */
-    stem: IRIREF | Wildcard;
+    stem: iriRangeStem;
     /**
      * IRIs or {@link IRIStem}s to exclude.
      */
-    exclusions: Array<IRIREF | IriStem>; // +
+    exclusions: iriRangeExclusion[]; // +
 }
 
 /**
@@ -317,6 +341,9 @@ export interface LiteralStem {
     stem: STRING;
 }
 
+export type literalRangeStem = string | Wildcard;
+export type literalRangeExclusion = string | LiteralStem;
+
 /**
  * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">RDF Literal</a>s through a list of exclusions.
  * The initial match is made on an Literal stem per {@link LiteralStem} or a {@link Wildcard} to accept any Literal.
@@ -330,11 +357,11 @@ export interface LiteralStemRange {
     /**
      * substring of Literal to be matched or a {@link Wildcard} matching any Literal.
      */
-    stem: STRING | Wildcard;
+    stem: literalRangeStem;
     /**
      * Literals or {@link LiteralStem}s to exclude.
      */
-    exclusions: Array<STRING | LiteralStem>; // +
+    exclusions: literalRangeExclusion[]; // +
 }
 
 /**
@@ -365,6 +392,9 @@ export interface LanguageStem {
     stem: LANGTAG;
 }
 
+export type languageRangeStem = string | Wildcard;
+export type languageRangeExclusion = string | LanguageStem;
+
 /**
  * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-langugae-tag">RDF Language Tag</a>s through a list of exclusions.
  * The initial match is made on an Language Tag stem per {@link Language TagStem} or a {@link Wildcard} to accept any Language Tag.
@@ -378,11 +408,11 @@ export interface LanguageStemRange {
     /**
      * substring of Language-Tag to be matched or a {@link Wildcard} matching any Language Tag.
      */
-    stem: LANGTAG | Wildcard;
+    stem: languageRangeStem;
     /**
      * Language Tags or {@link LanguageStem}s to exclude.
      */
-    exclusions: Array<LANGTAG | LanguageStem>; // +
+    exclusions: languageRangeExclusion[]; // +
 }
 
 /**
@@ -399,17 +429,11 @@ export interface Wildcard {
 /**
  * A collection of {@link tripleExpr}s which must be matched by <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-triple">RDF Triple</a>s in conformance data.
  */
-export interface Shape {
+export interface Shape extends semactsAndAnnotations {
     /**
      * Mandatory type "Shape".
      */
     type: "Shape";
-    /**
-     * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
-     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
-     */
-    id?: shapeExprLabel | undefined;
     /**
      * Only the predicates mentioned in the {@link expression} may appear in conformant data.
      */
@@ -419,35 +443,37 @@ export interface Shape {
      */
     extra?: IRIREF[] | undefined;
     /**
+     * List of one or more {@link shapeExprOrRef}s that a neighborhood must satisfy in order to conform to this shape.
+     */
+    extends?: shapeExprOrRef[];
+    /**
      * A tree of {@link tripleExpr}s specifying a set triples into or out of conformant <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-node">RDF Nodes</a>.
      */
-    expression?: tripleExpr | undefined;
-    /**
-     * List of semantic actions to be executed when evaluating conformance.
-     */
-    semActs?: SemAct[] | undefined; // +;
-    /**
-     * List of {@link SemAct#predicate}/{@link SemAct#object} annotations attached to this {@link Shape}.
-     */
-    annotations?: Annotation[] | undefined; // +
+    expression?: tripleExprOrRef | undefined;
 }
 
 /**
  * Union of triple expression types.
- * @see <a href="http://shex.io/shex-semantics/#dfn-tripleexpr">ShEx shapeExpr definition</a>
+ * @see <a href="http://shex.io/shex-semantics/#dfn-tripleexpr">ShEx tripleExpr definition</a>
  */
-export type tripleExpr = EachOf | OneOf | TripleConstraint | tripleExprRef;
+export type tripleExpr = EachOf | OneOf | TripleConstraint;
+
+/**
+ * A tripleExpr or a label to one.
+ * @see <a href="http://shex.io/shex-semantics/#dfn-tripleexpr">ShEx tripleExpr definition</a>
+ */
+export type tripleExprOrRef = tripleExpr | tripleExprRef;
 
 /**
  * Common attributes appearing in every form of {@link tripleExpr}.
  */
-export interface tripleExprBase {
+export interface tripleExprBase extends semactsAndAnnotations {
     /**
      * Optional identifier for {@link tripleExpr}s for reference by {@link tripleExprRef}.
      * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
      * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
      */
-    id?: shapeExprLabel | undefined;
+    id?: tripleExprLabel | undefined;
     /**
      * Minimum number of times matching triples must appear in conformant data.
      */
@@ -456,14 +482,6 @@ export interface tripleExprBase {
      * Maximum number of times matching triples must appear in conformant data.
      */
     max?: INTEGER | undefined;
-    /**
-     * List of semantic actions to be executed when evaluating conformance.
-     */
-    semActs?: SemAct[] | undefined; // +;
-    /**
-     * List of {@link SemAct#predicate}/{@link SemAct#object} annotations attached to this {@link tripleExpr}.
-     */
-    annotations?: Annotation[] | undefined; // +
 }
 
 /**
@@ -475,7 +493,7 @@ export interface EachOf extends tripleExprBase {
      * Mandatory type "EachOf".
      */
     type: "EachOf";
-    expressions: tripleExpr[]; // {2,}
+    expressions: tripleExprOrRef[]; // {2,}
 }
 
 /**
@@ -487,7 +505,7 @@ export interface OneOf extends tripleExprBase {
      * Mandatory type "OneOf".
      */
     type: "OneOf";
-    expressions: tripleExpr[]; // {2,}
+    expressions: tripleExprOrRef[]; // {2,}
 }
 
 /**
@@ -510,7 +528,7 @@ export interface TripleConstraint extends tripleExprBase {
     /**
      * A {@link shapeExpr} matching a conformant <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-triple">RDF Triple</a>s subject or object, depending on the value of {@link inverse}.
      */
-    valueExpr?: shapeExpr | undefined;
+    valueExpr?: shapeExprOrRef | undefined;
 }
 
 /**

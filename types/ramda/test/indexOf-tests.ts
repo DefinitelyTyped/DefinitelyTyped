@@ -8,7 +8,7 @@ import * as R from 'ramda';
 
     indexOf3([1, 2, 3, 4]); // => 2
 
-    // $ExpectError
+    // @ts-expect-error
     indexOf3('123');
 };
 
@@ -16,7 +16,7 @@ import * as R from 'ramda';
     // $ExpectType (list: string | readonly string[]) => number
     const indexOfString3 = R.indexOf('3');
 
-    // $ExpectError
+    // @ts-expect-error
     indexOfString3([1, 2]);
 
     indexOfString3('123'); // => 2
@@ -27,7 +27,7 @@ import * as R from 'ramda';
 () => {
     R.indexOf(3, [1, 2, 3, 4]); // => 2
 
-    // $ExpectError
+    // @ts-expect-error
     R.indexOf('3', [1, 2, 3, 4]);
 
     // $ExpectType number

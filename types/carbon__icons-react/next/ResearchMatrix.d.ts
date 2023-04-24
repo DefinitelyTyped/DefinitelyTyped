@@ -1,1 +1,0 @@
-export { ResearchMatrix as default } from "./";

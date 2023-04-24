@@ -13,7 +13,8 @@ const assert: typeof Ember.assert = Ember.assert;
 /**
  * @ember/debug tests
  */
-runInDebug(); // $ExpectError
+// @ts-expect-error
+runInDebug();
 runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
 
 // Log a warning if we have more than 3 tomsters
@@ -25,12 +26,15 @@ warn('Too many tomsters!', tomsterCount <= 3, {
     id: 'ember-debug.too-many-tomsters',
 });
 
-debug(); // $ExpectError
+// @ts-expect-error
+debug();
 debug('Too many tomsters!'); // $ExpectType void
-debug('Too many tomsters!', 'foo'); // $ExpectError
+// @ts-expect-error
+debug('Too many tomsters!', 'foo');
 
 // next is not called, so no warnings get the default behavior
-registerWarnHandler(); // $ExpectError
+// @ts-expect-error
+registerWarnHandler();
 registerWarnHandler(() => {}); // $ExpectType void
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -40,7 +44,8 @@ registerWarnHandler((message, options, next) => { // $ExpectType void
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
     options; // $ExpectType { id: string; } | undefined
-    next(); // $ExpectError
+    // @ts-expect-error
+    next();
 });
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -54,7 +59,8 @@ registerWarnHandler((message, options, next) => { // $ExpectType void
 });
 
 // next is not called, so no warnings get the default behavior
-registerDeprecationHandler(); // $ExpectError
+// @ts-expect-error
+registerDeprecationHandler();
 registerDeprecationHandler(() => {}); // $ExpectType void
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -64,7 +70,8 @@ registerDeprecationHandler((message, options, next) => { // $ExpectType void
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
     options; // $ExpectType { id: string; until: string; } | undefined
-    next(); // $ExpectError
+    // @ts-expect-error
+    next();
 });
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string

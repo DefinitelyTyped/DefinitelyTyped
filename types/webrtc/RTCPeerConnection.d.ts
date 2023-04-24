@@ -1,8 +1,3 @@
-// Type definitions for WebRTC 2016-09-13
-// Project: https://www.w3.org/TR/webrtc/
-// Definitions by: Danilo Bargen <https://github.com/dbrgn/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//
 // W3 Spec: https://www.w3.org/TR/webrtc/
 //
 // Note: Commented out definitions clash with definitions in lib.es6.d.ts. I
@@ -10,16 +5,6 @@
 // ES6 library ones.
 
 /// <reference path='MediaStream.d.ts' />
-
-// https://www.w3.org/TR/webrtc/#idl-def-rtcerrordetailtype
-type RTCErrorDetailType =
-    | 'data-channel-failure'
-    | 'dtls-failure'
-    | 'fingerprint-failure'
-    | 'hardware-encoder-error'
-    | 'hardware-encoder-not-available'
-    | 'sctp-failure'
-    | 'sdp-syntax-error';
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcerror
 interface RTCError extends DOMException {
@@ -84,7 +69,6 @@ interface RTCAnswerOptions extends RTCOfferAnswerOptions {
 // https://www.w3.org/TR/webrtc/#idl-def-rtciceserver
 interface RTCIceServer {
     credential?: string | undefined;
-    credentialType?: RTCIceCredentialType | undefined;
     urls: string | string[];
     username?: string | undefined;
 }
@@ -127,7 +111,7 @@ interface RTCIceTransport extends EventTarget {
 }
 
 interface RTCDtlsTransportEventMap {
-    "error": RTCErrorEvent;
+    "error": Event;
     "statechange": Event;
 }
 
@@ -137,7 +121,7 @@ interface RTCDtlsTransport extends EventTarget {
     readonly iceTransport: RTCIceTransport;
     readonly state: RTCDtlsTransportState;
     getRemoteCertificates(): ArrayBuffer[];
-    onerror: DtlsTransportEventHandler<RTCErrorEvent>;
+    onerror: DtlsTransportEventHandler<Event>;
     onstatechange: DtlsTransportEventHandler<Event>;
     addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -152,7 +136,7 @@ interface RTCRtpCodecCapability {
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpheaderextensioncapability
 interface RTCRtpHeaderExtensionCapability {
-    uri?: string | undefined;
+    uri: string;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcapabilities

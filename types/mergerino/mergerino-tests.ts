@@ -178,7 +178,7 @@ function deepMergeWithArr() {
 //         }>;
 //     }
 //     const state: State = { arr: [{ prop: true }] };
-//     const newState = merge(state, { arr: { 0: { prop: false, nonExists: 42 } } });  // $ExpectError
+//     const newState = merge(state, { arr: { 0: { prop: false, nonExists: 42 } } });  // @ts-expect-error
 // }
 
 function topLevelFunctionPatch() {

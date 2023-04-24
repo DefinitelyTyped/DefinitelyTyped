@@ -62,5 +62,5 @@ const us: topojson.UsAtlas = {
     arcs: [[[]]],
 };
 
-// $ExpectError
+// @ts-expect-error
 us.objects.xxx;

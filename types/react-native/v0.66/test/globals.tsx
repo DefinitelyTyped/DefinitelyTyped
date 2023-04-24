@@ -13,17 +13,20 @@ function testInterval() {
     handle = setInterval((arg1: number, arg2: string) => {
         console.log('arg1', arg1);
         console.log('arg2', arg2);
-    }, 0, 'wrong-type', '200'); // $ExpectError
+    // @ts-expect-error
+    }, 0, 'wrong-type', '200');
     clearInterval(handle);
 
-    handle = setInterval((missingArg: any) => { // $ExpectError
+    // @ts-expect-error
+    handle = setInterval((missingArg: any) => {
         console.log('missingArg', missingArg);
     }, 0);
     clearInterval(handle);
 
     handle = setInterval((arg1: number) => {
         console.log('arg1', arg1);
-    }, 0, 100, 'missing-arg'); // $ExpectError
+    // @ts-expect-error
+    }, 0, 100, 'missing-arg');
     clearInterval(handle);
 }
 
@@ -40,17 +43,20 @@ function testTimeout() {
     handle = setTimeout((arg1: number, arg2: string) => {
         console.log('arg1', arg1);
         console.log('arg2', arg2);
-    }, 0, 'wrong-type', '200'); // $ExpectError
+    // @ts-expect-error
+    }, 0, 'wrong-type', '200');
     clearTimeout(handle);
 
-    handle = setTimeout((missingArg: any) => { // $ExpectError
+    // @ts-expect-error
+    handle = setTimeout((missingArg: any) => {
         console.log('missingArg', missingArg);
     }, 0);
     clearTimeout(handle);
 
     handle = setTimeout((arg1: number) => {
         console.log('arg1', arg1);
-    }, 0, 100, 'missing-arg'); // $ExpectError
+    // @ts-expect-error
+    }, 0, 100, 'missing-arg');
     clearTimeout(handle);
 }
 
@@ -67,17 +73,20 @@ function testImmediate() {
     handle = setImmediate((arg1: number, arg2: string) => {
         console.log('arg1', arg1);
         console.log('arg2', arg2);
-    }, 'wrong-type', '200'); // $ExpectError
+    // @ts-expect-error
+    }, 'wrong-type', '200');
     clearImmediate(handle);
 
-    handle = setImmediate((missingArg: any) => { // $ExpectError
+    // @ts-expect-error
+    handle = setImmediate((missingArg: any) => {
         console.log('missingArg', missingArg);
     });
     clearImmediate(handle);
 
     handle = setImmediate((arg1: number) => {
         console.log('arg1', arg1);
-    }, 100, 'missing-arg'); // $ExpectError
+    // @ts-expect-error
+    }, 100, 'missing-arg');
     clearImmediate(handle);
 }
 

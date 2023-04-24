@@ -38,11 +38,12 @@ declare class Offcanvas extends BaseComponent {
 declare namespace Offcanvas {
     interface Options {
         /**
-         * Apply a backdrop on body while offcanvas is open
+         * Apply a backdrop on body while offcanvas is open. Alternatively, specify `static` for a backdrop which
+         * doesn’t close the offcanvas when clicked.
          *
          * @default true
          */
-        backdrop: boolean;
+        backdrop: boolean | 'static';
 
         /**
          * Closes the offcanvas when escape key is pressed
@@ -81,7 +82,7 @@ declare namespace Offcanvas {
         hidden = 'hidden.bs.offcanvas',
     }
 
-    type jQueryInterface = (config?: 'toggle' | 'show' | 'hide') => void;
+    type jQueryInterface = (config?: 'toggle' | 'show' | 'hide') => JQuery;
 }
 
 export default Offcanvas;

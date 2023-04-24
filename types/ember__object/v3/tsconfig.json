@@ -65,6 +65,7 @@
         "test/observable.ts",
         "test/octane.ts",
         "test/proxy.ts",
-        "test/reopen.ts"
+        "test/reopen.ts",
+        "test/get-set.ts"
     ]
 }

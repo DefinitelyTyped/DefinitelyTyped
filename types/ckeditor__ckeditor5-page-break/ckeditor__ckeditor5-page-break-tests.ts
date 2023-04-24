@@ -8,12 +8,12 @@ const editor = new MyEditor();
 PageBreak.requires.forEach(Plugin => {
     (['Widget', 'PageBreakUI', 'PageBreakEditing'] as const).forEach(value => {
         Plugin.pluginName === value;
-        // $ExpectError
+        // @ts-expect-error
         Plugin.pluginName === 'foo';
     });
     new Plugin(editor).init();
 });
-// $ExpectError
+// @ts-expect-error
 PageBreak.requires.length === 9;
 new PageBreak(editor);
 

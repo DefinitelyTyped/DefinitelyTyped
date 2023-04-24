@@ -1,11 +1,11 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const BlendShader: {
     uniforms: {
-        tDiffuse1: Uniform;
-        tDiffuse2: Uniform;
-        mixRatio: Uniform;
-        opacity: Uniform;
+        tDiffuse1: IUniform;
+        tDiffuse2: IUniform;
+        mixRatio: IUniform;
+        opacity: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

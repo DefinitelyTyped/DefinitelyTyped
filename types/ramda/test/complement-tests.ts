@@ -16,10 +16,15 @@ import * as R from 'ramda';
 
     const isLengthNotEqual = R.complement(isLengthEqual);
 
-    // $ExpectError
+    // @ts-expect-error
     isLengthNotEqual('FOO', 'BAR');
     isLengthNotEqual('BAZ', 4); // => true
 
-    // $ExpectType (value: any) => boolean
+    // $ExpectType (value: any) => value is any
     R.complement(R.isNil);
+
+    const isStringAndNotNumber = (value: string | number): value is string => true;
+
+    // $ExpectType (value: string | number) => value is number
+    const isNumberAndNotString = R.complement(isStringAndNotNumber);
 };

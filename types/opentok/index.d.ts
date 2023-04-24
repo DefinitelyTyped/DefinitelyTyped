@@ -1,4 +1,4 @@
-// Type definitions for opentok v2.12.1
+// Type definitions for opentok 2.14
 // Project: https://github.com/opentok/opentok-node
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
@@ -18,7 +18,8 @@ declare module 'opentok' {
       duration: string;
       id: string;
       name: string;
-      partnerId: string;
+      partnerId?: string;
+      projectId?: string;
       reason: string;
       sessionId: string;
       size: number;
@@ -27,7 +28,11 @@ declare module 'opentok' {
       hasVideo: boolean;
       outputMode: OutputMode;
       resolution?: '640x480' | '1280x720' | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
+      streams?: Stream[] | undefined;
       url: string;
+      delete(callback: (error: Error | null) => void): void;
+      stop(callback: (error: Error | null, archive?: Archive) => void): void;
     }
 
     export interface ArchiveOptions {
@@ -37,9 +42,10 @@ declare module 'opentok' {
       outputMode?: OutputMode | undefined;
       layout?: ArchiveLayoutOptions | undefined;
       resolution?: string | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
     }
 
-    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
+    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions | ScreenshareArchiveLayoutOptions;
 
     export interface PredefinedArchiveLayoutOptions {
       type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation' | 'focus';
@@ -50,6 +56,11 @@ declare module 'opentok' {
       stylesheet: string;
     }
 
+    export interface ScreenshareArchiveLayoutOptions {
+      type: 'bestFit';
+      screenshareType?: 'bestFit' | 'horizontalPresentation' | 'verticalPresentation' | 'pip';
+    }
+
     export type MediaMode = 'relayed' | 'routed';
 
     export type ArchiveMode = 'manual' | 'always';
@@ -58,6 +69,17 @@ declare module 'opentok' {
       mediaMode?: MediaMode | undefined;
       archiveMode?: ArchiveMode | undefined;
       location?: string | undefined;
+    }
+
+    export interface Stream {
+      streamId: string;
+      hasAudio: boolean;
+      hasVideo: boolean;
+    }
+
+    export interface PatchStream {
+      hasAudio?: boolean | undefined;
+      hasVideo?: boolean | undefined;
     }
 
     export interface Session {
@@ -71,6 +93,8 @@ declare module 'opentok' {
       auth?: { [key: string]: string } | undefined;
       secure: boolean;
       from: string;
+      video?: boolean;
+      observeForceMute?: boolean;
     }
 
     export type Role = 'subscriber' | 'publisher' | 'moderator';
@@ -117,6 +141,7 @@ declare module 'opentok' {
       outputs: BroadcastOutputOptions;
       maxDuration?: number | undefined;
       resolution?: '640x480' | '1280x720' | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
       layout: BroadcastLayout;
     }
 
@@ -169,7 +194,7 @@ declare module 'opentok' {
       id: string;
       name: string;
       layoutClassList: string[];
-      videoType: 'camera' | 'screen';
+      videoType: 'camera' | 'screen' | 'custom';
     }
   }
 
@@ -209,6 +234,14 @@ declare module 'opentok' {
       callback: (error: Error | null, broadcasts?: OpenTok.Broadcast[]) => void,
     ): void;
     public listStreams(sessionId: string, callback: (error: Error | null, streams?: OpenTok.Stream[]) => void): void;
+    public addArchiveStream(archiveId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public removeArchiveStream(archiveId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public addBroadcastStream(broadcastId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public removeBroadcastStream(broadcastId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
     public playDTMF(
       sessionId: string,
       connectionId: string,

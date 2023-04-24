@@ -14,14 +14,16 @@ class Foo extends EmberObject {
 }
 const f = new Foo();
 assertType<string>(f.hello());
-assertType<string>(f.bar()); // $ExpectError
-assertType<string>(f.baz()); // $ExpectError
+// @ts-expect-error
+assertType<string>(f.bar());
+// @ts-expect-error
+assertType<string>(f.baz());
 
 // TODO: enable after TS 3.0 https://github.com/typed-ember/ember-cli-typescript/issues/291
 // class Foo2 extends EmberObject.extend({
 //     bar: ''
 // }) {
 //     hello() { return 'world'; }
-//     protected bar() { return 'bar'; } // $ExpectError
+//     protected bar() { return 'bar'; } // @ts-expect-error
 //     private baz() { return 'baz'; }
 // }

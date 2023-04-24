@@ -1,7 +1,9 @@
 import { ComponentType } from 'react';
 
+import Button from '../button';
 import Dashicon from '../dashicon';
 import Dropdown from '../dropdown';
+import { NavigableMenu } from '../navigable-container';
 import Popover from '../popover';
 
 declare namespace DropdownMenu {
@@ -33,6 +35,27 @@ declare namespace DropdownMenu {
          * @defaultValue "top center"
          */
         position?: Popover.Position | undefined;
+
+        /**
+         * Object to pass as props to the underlying NavigableMenu component.
+         */
+        menuProps?: Partial<NavigableMenu.Props> | undefined;
+
+        /**
+         * Object to pass as props to the underlying Popover component.
+         */
+        popoverProps?: Partial<Popover.Props> | undefined;
+
+        /**
+         * Object to pass as props to the underlying toggle Button component.
+         */
+        toggleProps?: Partial<Button.ButtonProps> | undefined;
+
+        /**
+         * Whether to disable the arrow down key to open the dropdown menu.
+         * @defaultValue false
+         */
+        disableOpenOnArrowDown?: boolean | undefined;
     }
     interface PropsWithChildren extends BaseProps {
         /**

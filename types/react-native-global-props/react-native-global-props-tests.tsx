@@ -6,7 +6,6 @@ import {
     ListView,
     ListViewProps,
     ModalProps,
-    PickerProps,
     RefreshControlProps,
     ScrollViewProps,
     SliderProps,
@@ -91,10 +90,6 @@ const customModalProps: ModalProps = {};
 // $ExpectType void
 setCustomModal(customModalProps);
 
-const customPickerProps: PickerProps = {};
-// $ExpectType void
-setCustomPicker(customPickerProps);
-
 const customRefreshControlProps: RefreshControlProps = {
     refreshing: false,
 };
@@ -116,6 +111,10 @@ setCustomStatusBar(customStatusBarProps);
 const customSwitchProps: SwitchProps = {};
 // $ExpectType void
 setCustomSwitch(customSwitchProps);
+
+const customPickerProps = {};
+// $ExpectType void
+setCustomPicker(customPickerProps);
 
 const customListViewProps: ListViewProps = {
     dataSource: new ListView.DataSource({}),

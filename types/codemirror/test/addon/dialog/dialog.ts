@@ -16,5 +16,6 @@ const closeDialog: () => void = editor.openDialog('my message', (value: string, 
 });
 const closeDialog2: () => void = editor.openDialog(document.body, (value: string, e: Event) => {});
 const closeDialog3: () => void = editor.openDialog(document.body, (value: string, e: Event) => {}, {
-    closeOnBlur: 'maybe', // $ExpectError
+    // @ts-expect-error
+    closeOnBlur: 'maybe',
 });

@@ -1,6 +1,6 @@
 // Type definitions for normalize-wheel 1.0
 // Project: https://github.com/basilfx/normalize-wheel
-// Definitions by: baerlux <https://github.com/baerlux>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

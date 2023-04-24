@@ -5,47 +5,65 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AP {
-    interface RequestOptions {
+    type RequestOptions = {
         /**
          * The HTTP method name.
          */
-        type: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'PATCH';
+        type?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'PATCH';
 
         /**
          * If the request should be cached.
          */
-        cache: boolean;
+        cache?: boolean;
 
         /**
          * The body of the request; required if type is 'POST' or 'PUT'. Optionally, for 'GET' this will append the object as key=value pairs to the end of the URL query string.
          */
-        data: string | object;
+        data?: string | object;
 
         /**
          * The content-type string value of the entity body, above; required when data is supplied.
          */
-        contentType: string;
+        contentType?: string;
 
         /**
          * An object containing headers to set; supported headers are: 'Accept', 'If-Match' and 'If-None-Match'.
          */
-        headers: { Accept: string; 'If-Match': string; 'If-None-Match': string };
-
-        /**
-         * An optional callback function executed on a 200 success status code.
-         */
-        success: (response: string) => void;
+        headers?: { Accept: string; 'If-Match': string; 'If-None-Match': string };
 
         /**
          * An optional callback function executed when a HTTP status error code is returned.
          */
-        error: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
+        error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
 
         /**
          * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
          */
-        experimental: boolean;
-    }
+        experimental?: boolean;
+    } & (
+        | {
+              /**
+               * An optional callback function executed on a 200 success status code.
+               */
+              success?: (response: string) => void;
+
+              /**
+               * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+               */
+              binaryAttachment?: false;
+          }
+        | {
+              /**
+               * An optional callback function executed on a 200 success status code.
+               */
+              success?: (response: ArrayBuffer) => void;
+
+              /**
+               * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+               */
+              binaryAttachment: true;
+          }
+    );
 
     function defineGlobal(module: object): void;
     function defineModule(name: string, module: object): void;
@@ -92,15 +110,50 @@ declare namespace AP {
      * @param url Either the URI to request or an options object (as below) containing at least a 'url' property; This value should be relative to the context path of the host application.
      * @param options The options of the request.
      */
-    function request(url: string, options?: Partial<RequestOptions>): Promise<{ body: string; xhr: XMLHttpRequest }>;
+    function request(
+        url: string,
+        options?: {
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment?: false;
+        } & RequestOptions,
+    ): Promise<{ body: string; xhr: XMLHttpRequest }>;
     function request(
         options: {
             /**
              * The url to request from the host application, relative to the host's context path
              */
             url: string;
-        } & Partial<RequestOptions>,
+
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment?: false;
+        } & RequestOptions,
     ): Promise<{ body: string; xhr: XMLHttpRequest }>;
+    function request(
+        url: string,
+        options: {
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment: true;
+        } & RequestOptions,
+    ): Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>;
+    function request(
+        options: {
+            /**
+             * The url to request from the host application, relative to the host's context path
+             */
+            url: string;
+
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment: true;
+        } & RequestOptions,
+    ): Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>;
 
     /**
      * A Confluence specific JavaScript module which provides functions to interact with the macro editor.
@@ -219,7 +272,10 @@ declare namespace AP {
          *    alert(result.error);    // if unsuccessful, the reason for the failure
          * });
          */
-        function setContentProperty(contentProperty: ContentProperty, callback: (result: {property: ContentProperty} | {error: string}) => void): void;
+        function setContentProperty(
+            contentProperty: ContentProperty,
+            callback: (result: { property: ContentProperty } | { error: string }) => void,
+        ): void;
 
         /**
          * Raise contentProperty.update event for the Content Property with the given key on the current Content. It also provide content property to the callback like getContentProperty does.
@@ -242,12 +298,14 @@ declare namespace AP {
          * @param callback the callback that handles the response
          */
         function getToken(callback: (token: string) => void): void;
+        function getToken(): Promise<string>;
 
         /**
          * Retrieves the current user context containing details such as space key, issue id, etc.
          * @param callback the callback that handles the response
          */
         function getContext(callback: (context: any) => void): void;
+        function getContext(): Promise<any>;
     }
 
     /**
@@ -658,7 +716,7 @@ declare namespace AP {
          * Listener arguments begin with the event name, followed by any arguments passed to `events.emit`, followed by an object describing the complete event information.
          * @param listener A listener callback to subscribe for any event name
          */
-        function onAny(listener: (data: object) => void): void;
+        function onAny(listener: (name: string, data: object) => void): void;
 
         /**
          * Adds a listener for all occurrences of any event, regardless of name.
@@ -669,7 +727,7 @@ declare namespace AP {
          * @param listener A listener callback to subscribe for any event name
          * @param filter A filter function to filter the events. Callback will always be called when a matching event occurs if the filter is unspecified
          */
-        function onAnyPublic(listener: (data: object) => void, filter: (toCompare: any) => boolean): void;
+        function onAnyPublic(listener: (name: string, data: object) => void, filter: (toCompare: any) => boolean): void;
 
         /**
          * Removes a particular listener for an event.
@@ -701,13 +759,13 @@ declare namespace AP {
          * Removes an `any` event listener.
          * @param listener A listener callback to unsubscribe from any event name
          */
-        function offAny(listener: (data: object) => void): void;
+        function offAny(listener: (name: string, data: object) => void): void;
 
         /**
          * Removes an `anyPublic` event listener.
          * @param listener A listener callback to unsubscribe from any event name
          */
-        function offAnyPublic(listener: (data: object) => void): void;
+        function offAnyPublic(listener: (name: string, data: object) => void): void;
 
         /**
          * Emits an event on this bus, firing listeners by name as well as all 'any' listeners.
@@ -823,6 +881,8 @@ declare namespace AP {
         /**
          * Gets the selected text on the page.
          * @param callback method to be executed with the selected text.
+         * @deprecated This method has been deprecated by Atlassian for security reasons and will always return an empty string as of 2022-07-11.
+         * @see {@link https://community.developer.atlassian.com/t/deprecation-of-connect-js-getselectedtext-api-for-security-reasons/54968}
          */
         function getSelectedText(callback: (selection: string) => void): void;
     }
@@ -998,37 +1058,37 @@ declare namespace AP {
             /**
              * A specific dashboard in Jira. Takes a `dashboardId` to identify the dashboard.
              */
-            'dashboard' |
+            | 'dashboard'
 
             /**
              * A specific Issue in Jira. Takes an `issueKey` to identify the issue.
              */
-            'issue' |
+            | 'issue'
 
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            'addonModule' |
+            | 'addonModule'
 
             /**
              * The profile page for a Jira User. Takes a `username` or `userAccountId` to identify the user.
              */
-            'userProfile' |
+            | 'userProfile'
 
             /**
              * The admin details of a specific Jira Project. Takes a `projectKey` to identify the project. Only accessible to administrators.
              */
-            'projectAdminSummary' |
+            | 'projectAdminSummary'
 
             /**
              * The admin panel definted by a connect addon. Takes an `addonKey`, `adminPageKey`, `projectKey` and `projectId`. Only accessible to administrators.
              */
-            'projectAdminTabPanel' |
+            | 'projectAdminTabPanel'
 
             /**
              * A specific location contained within the site. Takes either a `relativeUrl` or `absoluteUrl` to identify the path.
              */
-            'site';
+            | 'site';
 
         type NavigatorTargetConfluence =
             /**
@@ -1075,6 +1135,9 @@ declare namespace AP {
              * A specific location contained within a site. Takes a `relativeUrl` to identify the path.
              */
             | 'site';
+
+        type CustomDataBasicValue = string | number | boolean | null | undefined;
+        type CustomDataValue = CustomDataBasicValue | CustomDataBasicValue[];
 
         interface NavigatorContext {
             /**
@@ -1140,8 +1203,10 @@ declare namespace AP {
             /**
              * Contains parameters that will be added as query parameters to the product url with "ac." prepended.
              * Used only in `addonModule` target. See Add-on specific context parameters for more info.
+             * @example Passing { foo: 'bar' } here causes your iframe to be called with "...?ac.foo=bar"
+             * @see {@link https://developer.atlassian.com/cloud/confluence/context-parameters#apps}
              */
-            customData: string;
+            customData: Record<string, CustomDataValue>;
 
             /**
              * Identifies a version of a piece of content in Confluence. This parameter is optional, and only applies to the `contentView` target, allowing navigation to a specific version.

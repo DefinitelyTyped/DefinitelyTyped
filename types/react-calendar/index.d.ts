@@ -1,7 +1,8 @@
-// Type definitions for react-calendar 3.5
+// Type definitions for react-calendar 3.9
 // Project: https://github.com/wojtekmaj/react-calendar
 // Definitions by: Stéphane Saquet <https://github.com/Guymestef>
 //                 Katie Soldau <https://github.com/ksoldau>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -18,6 +19,7 @@ export type ViewCallback = (props: ViewCallbackProperties) => void;
 export type DrillCallback = (props: DrillCallbackProperties) => void;
 
 export default function Calendar(props: CalendarProps): JSX.Element;
+export function Calendar(props: CalendarProps): JSX.Element;
 
 export interface CalendarProps {
     activeStartDate?: Date | undefined;
@@ -33,7 +35,9 @@ export interface CalendarProps {
     formatMonth?: FormatterCallback | undefined;
     formatMonthYear?: FormatterCallback | undefined;
     formatShortWeekday?: FormatterCallback | undefined;
+    formatWeekday?: FormatterCallback | undefined;
     formatYear?: FormatterCallback | undefined;
+    goToRangeStartOnSelect?: boolean | undefined;
     inputRef?:
         | ((ref: HTMLInputElement | null) => void)
         | RefObject<HTMLInputElement>
@@ -76,7 +80,7 @@ export interface CalendarProps {
     tileClassName?: string | string[] | ((props: CalendarTileProperties) => string | string[] | null) | undefined;
     tileContent?: string | JSX.Element | ((props: CalendarTileProperties) => JSX.Element | null) | undefined;
     tileDisabled?: ((props: CalendarTileProperties) => boolean) | undefined;
-    value?: Date | Date[] | null | undefined;
+    value?: Date | null | undefined | [Date | null, Date | null];
     view?: Detail | undefined;
 }
 

@@ -1,9 +1,11 @@
-// Type definitions for ember-data 4.0
+// Type definitions for ember-data 4.4
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Chris Thoburn <https://github.com/runspired>
+//                 Peter Wagenet <https://github.com/wagenet>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
@@ -17,6 +19,7 @@ import TransformRegistry from 'ember-data/types/registries/transform';
 import ModelRegistry from 'ember-data/types/registries/model';
 import SerializerRegistry from 'ember-data/types/registries/serializer';
 import AdapterRegistry from 'ember-data/types/registries/adapter';
+import EmberError from '@ember/error';
 
 /**
   The keys from the actual Model class, removing all the keys which come from
@@ -54,6 +57,37 @@ interface RelationshipMeta<Model extends DS.Model> {
     isRelationship: true;
 }
 
+export interface ModelSchema<ModelName extends keyof ModelRegistry = keyof ModelRegistry> {
+    modelName: ModelName;
+    fields: Map<string, 'attribute' | 'belongsTo' | 'hasMany'>;
+    attributes: Map<string, AttributeSchema>;
+    relationshipsByName: Map<string, RelationshipSchema>;
+    eachAttribute<T>(callback: (this: T, key: string, attribute: AttributeSchema) => void, binding?: T): void;
+    eachRelationship<T>(callback: (this: T, key: string, relationship: RelationshipSchema) => void, binding?: T): void;
+    eachTransformedAttribute<T>(
+        callback: (this: T, key: string, relationship: RelationshipSchema) => void,
+        binding?: T,
+    ): void;
+}
+export interface RelationshipSchema {
+    name: string; // property key for this relationship
+    kind: 'belongsTo' | 'hasMany';
+    type: string; // related type
+    options: {
+        async: boolean;
+        polymorphic?: boolean;
+        as?: string;
+        inverse: string | null; // property key on the related type (if any)
+        [key: string]: unknown;
+    };
+}
+export interface AttributeSchema {
+    name: string;
+    kind?: 'attribute';
+    options?: Record<string, unknown>;
+    type?: string;
+}
+
 export namespace DS {
     /**
      * Convert an hash of errors into an array with errors in JSON-API format.
@@ -68,6 +102,8 @@ export namespace DS {
         async?: boolean | undefined;
         inverse?: RelationshipsFor<M> | null | undefined;
         polymorphic?: boolean | undefined;
+        as?: string;
+        [key: string]: unknown;
     }
 
     interface Sync {
@@ -123,8 +159,9 @@ export namespace DS {
     const VERSION: string;
 
     interface AttrOptions<T> {
-        defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T) | undefined;
+        defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T) | null | undefined;
         allowNull?: boolean | undefined; // TODO: restrict to boolean transform (TS 2.8)
+        [key: string]: unknown;
     }
 
     // The TransformRegistry should really only contain transforms, but historically people have just put the return type directly in.
@@ -173,6 +210,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
@@ -265,7 +308,9 @@ export namespace DS {
      * subclasses are used to indicate specific error states. The following
      * subclasses are provided:
      */
-    class AdapterError extends Ember.Object {}
+    class AdapterError extends EmberError {
+        static extend(options?: { message?: string }): typeof AdapterError;
+    }
     /**
      * A `DS.InvalidError` is used by an adapter to signal the external API
      * was unable to process a request because the content was not
@@ -886,11 +931,9 @@ export namespace DS {
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
      * relationship.
      */
-    interface ManyArray<T> extends Ember.MutableArray<T> {}
-    class ManyArray<T> extends Ember.Object.extend(
-        Ember.MutableArray as {},
-        Ember.Evented
-    ) {
+    // tslint:disable-next-line:no-empty-interface -- used for declaration merge
+    interface ManyArray<T> extends Ember.MutableArray<T>, Evented {}
+    class ManyArray<T> extends Ember.Object {
         /**
          * The loading state of this array
          */
@@ -993,7 +1036,7 @@ export namespace DS {
         /**
          * A hash of adapter options
          */
-        adapterOptions: {};
+        adapterOptions: Record<string, unknown>;
         /**
          * The name of the type of the underlying record for this snapshot, as a string.
          */
@@ -1132,8 +1175,7 @@ export namespace DS {
             modelName: K,
             query: object,
             options?: { adapterOptions?: object | undefined }
-        ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
-            PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
+        ): PromiseArray<ModelRegistry[K], AdapterPopulatedRecordArray<ModelRegistry[K]>>;
         /**
          * This method makes a request for one record, where the `id` is not known
          * beforehand (if the `id` is known, use [`findRecord`](#method_findRecord)
@@ -1250,7 +1292,7 @@ export namespace DS {
          */
         findRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             id: string,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
@@ -1260,7 +1302,7 @@ export namespace DS {
          */
         findAll<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             sinceToken: string,
             snapshotRecordArray: SnapshotRecordArray<K>
         ): RSVP.Promise<any>;
@@ -1270,7 +1312,7 @@ export namespace DS {
          */
         query<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             query: {}
         ): RSVP.Promise<any>;
         /**
@@ -1279,7 +1321,7 @@ export namespace DS {
          */
         queryRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             query: {}
         ): RSVP.Promise<any>;
         /**
@@ -1287,7 +1329,7 @@ export namespace DS {
          */
         findMany<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             ids: any[],
             snapshots: any[]
         ): RSVP.Promise<any>;
@@ -1318,7 +1360,7 @@ export namespace DS {
          */
         createRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -1327,7 +1369,7 @@ export namespace DS {
          */
         updateRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -1335,7 +1377,7 @@ export namespace DS {
          */
         deleteRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -1388,6 +1430,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
@@ -1505,7 +1553,7 @@ export namespace DS {
          * Normalize the record and recursively normalize/extract all the embedded records
          * while pushing them into the store as they are encountered
          */
-        normalize(typeClass: Model, hash: {}, prop: string): {};
+        normalize(typeClass: ModelSchema, hash: {}, prop: string): {};
         /**
          * Serialize `belongsTo` relationship when it is configured as an embedded object.
          */
@@ -1609,98 +1657,98 @@ export namespace DS {
          */
         normalizeResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeFindRecordResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeQueryRecordResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeFindAllResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeFindBelongsToResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeFindHasManyResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeFindManyResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeQueryResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeCreateRecordResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeDeleteRecordResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeUpdateRecordResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeSaveResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeSingleResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
         ): {};
         normalizeArrayResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
@@ -1710,7 +1758,7 @@ export namespace DS {
          * the server. You should override this method, munge the hash
          * and call super if you have generic normalization to do.
          */
-        normalize(typeClass: Model, hash: {}): {};
+        normalize(typeClass: ModelSchema, hash: {}): {};
         /**
          * Returns the resource's ID.
          */
@@ -1718,7 +1766,7 @@ export namespace DS {
         /**
          * Returns the resource's attributes formatted as a JSON-API "attributes object".
          */
-        extractAttributes(modelClass: {}, resourceHash: {}): {};
+        extractAttributes(modelClass: ModelSchema, resourceHash: {}): {};
         /**
          * Returns a relationship formatted as a JSON-API "relationship object".
          */
@@ -1737,7 +1785,7 @@ export namespace DS {
         /**
          * Returns the resource's relationships formatted as a JSON-API "relationships object".
          */
-        extractRelationships(modelClass: {}, resourceHash: {}): {};
+        extractRelationships(modelClass: ModelSchema, resourceHash: {}): {};
         modelNameFromPayloadKey(key: string): string;
         /**
          * Check if the given hasMany relationship should be serialized
@@ -1765,7 +1813,7 @@ export namespace DS {
          */
         serializeIntoHash<K extends keyof ModelRegistry>(
             hash: {},
-            typeClass: ModelRegistry[K],
+            typeClass: ModelSchema<K>,
             snapshot: Snapshot<K>,
             options?: {}
         ): any;
@@ -1813,7 +1861,7 @@ export namespace DS {
          * adapter payload. By default Ember Data expects meta information to
          * be located on the `meta` property of the payload object.
          */
-        extractMeta(store: Store, modelClass: Model, payload: {}): any;
+        extractMeta(store: Store, modelClass: ModelSchema, payload: {}): any;
         /**
          * `extractErrors` is used to extract model errors when a call
          * to `DS.Model#save` fails with an `InvalidError`. By default
@@ -1822,7 +1870,7 @@ export namespace DS {
          */
         extractErrors(
             store: Store,
-            typeClass: Model,
+            typeClass: ModelSchema,
             payload: {},
             id: string | number
         ): {};
@@ -1877,7 +1925,7 @@ export namespace DS {
          * the server. You should override this method, munge the hash
          * and call super if you have generic normalization to do.
          */
-        normalize(modelClass: Model, resourceHash: {}, prop?: string): {};
+        normalize(modelClass: ModelSchema, resourceHash: {}, prop?: string): {};
         /**
          * This method allows you to push a payload containing top-level
          * collections of records organized per type.
@@ -1905,7 +1953,7 @@ export namespace DS {
          */
         serializeIntoHash<K extends keyof ModelRegistry>(
             hash: {},
-            typeClass: Model,
+            typeClass: ModelSchema<K>,
             snapshot: Snapshot<K>,
             options?: {}
         ): any;
@@ -2021,7 +2069,7 @@ export namespace DS {
          */
         findRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             id: string,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
@@ -2030,7 +2078,7 @@ export namespace DS {
          */
         findAll<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             sinceToken: string,
             snapshotRecordArray: SnapshotRecordArray<K>
         ): RSVP.Promise<any>;
@@ -2039,7 +2087,7 @@ export namespace DS {
          */
         query<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             query: {},
             recordArray: AdapterPopulatedRecordArray<any>
         ): RSVP.Promise<any>;
@@ -2049,7 +2097,7 @@ export namespace DS {
          */
         queryRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             query: {}
         ): RSVP.Promise<any>;
         /**
@@ -2060,7 +2108,7 @@ export namespace DS {
          */
         generateIdForRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             inputProperties: {}
         ): string | number;
         /**
@@ -2076,7 +2124,7 @@ export namespace DS {
          */
         createRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -2085,7 +2133,7 @@ export namespace DS {
          */
         updateRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -2094,7 +2142,7 @@ export namespace DS {
          */
         deleteRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -2104,7 +2152,7 @@ export namespace DS {
          */
         findMany<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelRegistry[K],
+            type: ModelSchema<K>,
             ids: any[],
             snapshots: any[]
         ): RSVP.Promise<any>;
@@ -2180,7 +2228,7 @@ export namespace DS {
          */
         normalizeResponse(
             store: Store,
-            primaryModelClass: Model,
+            primaryModelClass: ModelSchema,
             payload: {},
             id: string | number,
             requestType: string
@@ -2199,27 +2247,12 @@ export namespace DS {
          * should override this method, munge the hash and return the normalized
          * payload.
          */
-        normalize(typeClass: Model, hash: {}): {};
+        normalize(typeClass: ModelSchema, hash: {}): {};
     }
 }
 
 export default DS;
 
-declare module '@ember/routing/route' {
-    export default interface Route {
-        store: DS.Store;
-    }
-}
-declare module '@ember/controller' {
-    export default interface Controller {
-        store: DS.Store;
-    }
-}
-declare module '@ember/debug/data-adapter' {
-    export default interface DataAdapter {
-        store: DS.Store;
-    }
-}
 declare module '@ember/service' {
     interface Registry {
         store: DS.Store;

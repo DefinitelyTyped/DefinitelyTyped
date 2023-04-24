@@ -34,19 +34,21 @@ import CrimsonQClient = require('crimsonq');
     const producer = CQ.Producer(); // $ExpectType Producer
     const consumer = CQ.Consumer('I_AM_A_CONSUMER'); // $ExpectType Consumer
     await consumer.init(['/topic/path/#'], 1); // $ExpectType Error | undefined
-    await consumer.getTopics();  // $ExpectType CommandResult | ErrorConstructor
+    await consumer.getTopics();  // $ExpectType CommandResult | ErrorConstructor || ErrorConstructor | CommandResult
     consumer.events; // $ExpectType CrimsonQEventEmitter
     consumer.events.on('message', async (msg) => {
         msg; // $ExpectType RecievedMessage
         const value = JSON.parse(msg.message.value);
         if (value.failMe) {
-            msg.fail("Faile this"); // $ExpectType Promise<CommandResult | ErrorConstructor | undefined>
+            msg.fail("Faile this"); // $ExpectType Promise<CommandResult | ErrorConstructor | undefined> ||  Promise<ErrorConstructor | CommandResult | undefined>
         } else {
-            msg.done(); // $ExpectType Promise<CommandResult | ErrorConstructor | undefined>
+            msg.done(); // $ExpectType Promise<CommandResult | ErrorConstructor | undefined> || Promise<ErrorConstructor | CommandResult | undefined>
         }
     });
 
-    producer.pushToConsumer('I_AM_A_CONSUMER', { msgValuesKey: 'msg Values Value' }); // $ExpectType Promise<CommandResult | ErrorConstructor>
-    producer.pushToConsumer('I_AM_A_CONSUMER', { failMe: true, msgValuesKey: 'msg Values Value' }); // $ExpectType Promise<CommandResult | ErrorConstructor>
-    producer.pushToTopic('/topic/path/more/parts/to/match', { msgSecondValuesKey: 'msg Second Values Value' }); // $ExpectType Promise<CommandResult | ErrorConstructor>
+    producer.pushToConsumer('I_AM_A_CONSUMER', { msgValuesKey: 'msg Values Value' }); // $ExpectType Promise<CommandResult | ErrorConstructor> || Promise<ErrorConstructor | CommandResult>
+    // tslint:disable-next-line
+    producer.pushToConsumer('I_AM_A_CONSUMER', { failMe: true, msgValuesKey: 'msg Values Value' }); // $ExpectType Promise<CommandResult | ErrorConstructor> || Promise<ErrorConstructor | CommandResult>
+    // tslint:disable-next-line
+    producer.pushToTopic('/topic/path/more/parts/to/match', { msgSecondValuesKey: 'msg Second Values Value' }); // $ExpectType Promise<CommandResult | ErrorConstructor> || Promise<ErrorConstructor | CommandResult>
 })();

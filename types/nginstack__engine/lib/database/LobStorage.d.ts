@@ -4,14 +4,16 @@ declare class LobStorage {
     constructor(classKey: number | DBKey);
     classKey: number;
     private batchChanges_;
+    logChanges: boolean;
     beginBatch(): void;
-    endBatch(): any;
+    endBatch(): DataSet;
     private compress_;
     private decompress_;
     private encode_;
     private decode_;
     private tryCompress_;
     private prepareContent_;
+    private getDataSetForUpdate_;
     addLob(
         fileName: string,
         content: string,
@@ -39,4 +41,5 @@ declare class LobStorage {
     getLobExtraAttributes(key: number): any;
 }
 import DBKey = require('../dbkey/DBKey.js');
+import DataSet = require('../dataset/DataSet.js');
 import LargeObject = require('./LargeObject.js');

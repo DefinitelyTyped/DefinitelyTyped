@@ -72,7 +72,7 @@ interface CommonProps {
  * http://maisano.github.io/react-router-transition/animated-switch/props
  */
 export interface AnimatedSwitchProps extends CommonProps {
-    children: React.ReactNode|React.ReactNodeArray|React.ReactChildren;
+    children: React.ReactNode;
 }
 
 /**

@@ -70,12 +70,12 @@ declare module 'barnard59-core' {
 
 function testAugmentedVariables(variables: VariableMap) {
     variables.set('foo', 'bar');
-    // $ExpectError
+    // @ts-expect-error
     variables.set('foo', {});
 
     const foo: string = variables.get('foo');
     const bar: number = variables.get('bar');
-    // $ExpectError
+    // @ts-expect-error
     const notBar: string = variables.get('bar');
 }
 

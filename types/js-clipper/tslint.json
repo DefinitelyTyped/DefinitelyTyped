@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "member-access": false,
         "new-parens": false,
         "no-consecutive-blank-lines": false,
@@ -13,7 +12,6 @@
         "prefer-const": false,
         "prefer-template": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

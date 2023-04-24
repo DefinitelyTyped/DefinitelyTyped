@@ -1,4 +1,4 @@
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 import { Object3D } from './../core/Object3D';
 import { LineSegments } from './../objects/LineSegments';
 
@@ -17,4 +17,6 @@ export class BoxHelper extends LineSegments {
     update(object?: Object3D): void;
 
     setFromObject(object: Object3D): this;
+
+    dispose(): void;
 }

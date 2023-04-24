@@ -3,9 +3,11 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
+import Owner from '@ember/owner';
 import { Opaque } from 'ember/-private/type-utils';
 
 // In normal TypeScript, this modifier is essentially an opaque token
@@ -20,3 +22,22 @@ export interface OnModifier extends Opaque<'modifier:on'> {}
  * @see https://api.emberjs.com/ember/4.1/classes/Ember.Templates.helpers/methods/on?anchor=on
  */
 export const on: OnModifier;
+
+/**
+ * Given a modifier manager factory and a modifier, tell Ember to set the
+ * manager returned by that factory as the manager for the modifier.
+ *
+ * @param factory A function which takes an `owner` and returns a [modifier
+ *   manager](https://emberjs.github.io/rfcs/0373-Element-Modifier-Managers.html).
+ * @param modifier The modifier definition to associate with the manager.
+ */
+export function setModifierManager<T>(
+  factory: (owner: Owner) => unknown,
+  modifier: T
+): T;
+
+/**
+ * Given a target version of Ember, return an opaque token which Ember can use
+ * to determine what a given modifier manager supports.
+ */
+export function capabilities(version: string): unknown;

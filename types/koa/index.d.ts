@@ -1,7 +1,6 @@
 // Type definitions for Koa 2.13.1
 // Project: http://koajs.com
-// Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
-//                 jKey Lu <https://github.com/jkeylu>
+// Definitions by: jKey Lu <https://github.com/jkeylu>
 //                 Brice Bernard <https://github.com/brikou>
 //                 harryparkdotio <https://github.com/harryparkdotio>
 //                 Wooram Jun <https://github.com/chatoo2412>
@@ -517,7 +516,7 @@ declare class Application<
      * Return a request handler callback
      * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => Promise<void>;
 
     /**
      * Initialize a new context.

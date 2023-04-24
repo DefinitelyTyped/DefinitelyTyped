@@ -11,7 +11,8 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
-    "files": ["index.d.ts", "styled-theming-tests.ts"]
+    "files": ["index.d.ts", "styled-theming-tests.tsx"]
 }

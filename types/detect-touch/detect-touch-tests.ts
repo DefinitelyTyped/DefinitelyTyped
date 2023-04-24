@@ -6,5 +6,5 @@ hasTouch;
 // $ExpectType boolean
 detectTouch();
 
-// $ExpectError
+// @ts-expect-error
 detectTouch({});

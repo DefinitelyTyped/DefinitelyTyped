@@ -1,7 +1,6 @@
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Vector3 } from '../math/Vector3';
 import { Light } from './Light';
-import { ColorRepresentation } from '../utils';
 
 export class HemisphereLight extends Light {
     /**
@@ -17,7 +16,9 @@ export class HemisphereLight extends Light {
     type: string;
 
     /**
-     * @default THREE.Object3D.DefaultUp
+     * This is set equal to {@link Object3D.DEFAULT_UP} (0, 1, 0), so that the light shines from the top down.
+     *
+     * @default {@link Object3D.DEFAULT_UP}
      */
     position: Vector3;
 

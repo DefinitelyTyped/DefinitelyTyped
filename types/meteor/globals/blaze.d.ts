@@ -1,3 +1,4 @@
+
 declare namespace Blaze {
     var View: ViewStatic;
 

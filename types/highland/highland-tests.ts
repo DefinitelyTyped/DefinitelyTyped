@@ -334,13 +334,13 @@ fooStream = fooStream.sort();
 // $ExpectType Stream<Foo>
 fooStream = fooStream.sortBy((a: Foo, b: Foo) => 1);
 
-// $ExpectError
+// @ts-expect-error
 fooStream.split();
 
 // $ExpectType Stream<string>
 _(['']).split();
 
-// $ExpectError
+// @ts-expect-error
 fooStream.splitBy(",")
 
 // $ExpectType Stream<string>
@@ -390,19 +390,19 @@ barStream = barArrStream.flatten();
 barStream = barStreamStream.flatten();
 barStream = barStreamArrStream.flatten();
 
-// $ExpectError
+// @ts-expect-error
 barArrStream.flatten<Foo>();
 
 fooStream = fooStream.fork();
 
 fooStream = fooStreamStream.merge();
 
-// $ExpectError
+// @ts-expect-error
 fooStream.merge();
 
 fooStream = fooStreamStream.mergeWithLimit(1);
 
-// $ExpectError
+// @ts-expect-error
 fooStream.mergeWithLimit(1);
 
 fooStream = fooStream.observe();
@@ -415,17 +415,17 @@ barStream = barStreamStream.sequence();
 
 barStream = barStreamStream.series<Bar>();
 
-// $ExpectError
+// @ts-expect-error
 fooStream.sequence();
-// $ExpectError
+// @ts-expect-error
 barStream.series();
-// $ExpectError
+// @ts-expect-error
 fooStreamStream.sequence<Bar>();
 
 bar = fooStream.through((x: Highland.Stream<Foo>) => bar);
 barStream = fooStream.through(readwritable);
 
-// $ExpectError
+// @ts-expect-error
 fooStream.through((x: Highland.Stream<Bar>) => bar);
 
 // $ExpectType Stream<[Foo, Foo]>
@@ -488,7 +488,7 @@ fooStream.toPromise(MyPromise);
 fooStream.toPromise<Promise<Foo>>(Promise);
 // $ExpectType MyPromise<Foo>
 fooStream.toPromise<MyPromise<Foo>>(MyPromise);
-// $ExpectError
+// @ts-expect-error
 fooStream.toPromise<Promise<Foo>>(MyPromise);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

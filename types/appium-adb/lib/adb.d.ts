@@ -37,6 +37,14 @@ export interface CreateAdbOptions {
 
 interface ADB extends AdbMethods, Required<CreateAdbOptions> {
     executable: AdbExecutable;
+
+    /**
+     * Create a new instance of `ADB` that inherits configuration from this `ADB` instance.
+     * This avoids the need to call `ADB.createADB()` multiple times.
+     * @param opts - Additional options mapping to pass to the `ADB` constructor.
+     * @returns The resulting class instance.
+     */
+    clone(opts?: CreateAdbOptions): ADB;
 }
 
 declare const ADB: {

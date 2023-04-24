@@ -51,6 +51,7 @@ console.log(backend.db);
 backend.on('error', (error) => console.error(error));
 backend.on('send', (agent, context) => console.log(agent, context));
 backend.addListener('timing', (type, time, request) => console.log(type, new Date(time), request));
+backend.on('someCustomEvent', (arg0: string, arg1: number) => {});
 
 // getOps allows for `from` and `to` to both be `null`:
 // https://github.com/share/sharedb/blob/960f5d152f6a8051ed2dcb00a57681a3ebbd7dc2/README.md#getops
@@ -65,15 +66,15 @@ const readonlyProjection = backend.projections['notes_minimal'];
 console.log(readonlyProjection.target, readonlyProjection.fields);
 // backend.projections is used by sharedb internally, so they shouldn't be messed with.
 // Test that marking as readonly in API prevents external modification.
-// $ExpectError
+// @ts-expect-error
 delete backend.projections;
-// $ExpectError
+// @ts-expect-error
 delete backend.projections.notes_minimal;
-// $ExpectError
+// @ts-expect-error
 backend.projections['notes_minimal'].target = 'notes2';
-// $ExpectError
+// @ts-expect-error
 backend.projections['notes_minimal'].fields = {};
-// $ExpectError
+// @ts-expect-error
 backend.projections['notes_minimal'].fields['title'] = true;
 
 // Exercise middleware (backend.use)
@@ -89,6 +90,9 @@ for (const action of submitRelatedActions) {
 
         if (agent.custom.user) {
             console.log(agent.custom.user.id);
+            console.log(agent.src);
+            console.log(agent.clientId);
+            console.log(agent.connectTime);
         }
         console.log(
             request.action,
@@ -149,6 +153,7 @@ backend.use('query', (context, callback) => {
         context.projection,
         context.fields,
         context.channel,
+        context.channels,
         context.query,
         context.options,
         context.snapshotProjection,
@@ -208,6 +213,17 @@ backend.use('sendPresence', (context, callback) => {
     callback();
 });
 
+backend.use('apply', (context, callback) => {
+    context.$fixup([{insert: 'foo'}]);
+    callback();
+});
+
+backend.use('commit', (context, callback) => {
+    // @ts-expect-error :: don't allow $fixup outside of 'apply'
+    context.$fixup([{insert: 'foo'}]);
+    callback();
+});
+
 backend.on('submitRequestEnd', (error, request) => {
     console.log(request.op);
 });
@@ -222,6 +238,16 @@ const connectionHasPending: boolean = connection.hasPending();
 connection.whenNothingPending(() => console.log('whenNothingPending resolved'));
 connection.send({ a: 'nonExistentAction', some: 'data' });
 
+connection.on('doc', (doc) => {
+    console.log(doc.data);
+});
+connection.on('connected', (reason) => {
+    if (reason === 'foo') console.log(reason);
+});
+
+connection.on('pong', () => {});
+if (connection.canSend) connection.ping();
+
 const doc = connection.get('examples', 'counter');
 
 doc.fetch((err) => {
@@ -232,6 +258,8 @@ doc.fetch((err) => {
         startServer();
     }
 });
+
+doc.create({foo: true}, 'http://sharejs.org/types/JSONv0');
 
 function startServer() {
     const server = http.createServer();
@@ -412,10 +440,8 @@ backend.getOpsBulk(agent, 'collection', 'id', {abc: 0}, {abc: 5}, {opsOptions: {
 
 class SocketLike {
     readyState = 1;
-
     close(reason?: number): void {}
     send(data: any): void {}
-
     onmessage: (event: any) => void;
     onclose: (event: any) => void;
     onerror: (event: any) => void;

@@ -36,7 +36,7 @@ interface SchedulerInteraction {
   timestamp: number;
 }
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = Rax;
 export as namespace Rax;
 
@@ -88,7 +88,7 @@ declare namespace Rax {
    * - Rax stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
    *   to component.
    *
-   * `C` must be the type _of_ a Rax component so you need to use typeof as in ElementRef<typeof MyComponent>.
+   * `C` must be the type _of_ a Rax component so you need to use typeof as in `ElementRef<typeof MyComponent>`.
    */
   type ElementRef<
       C extends

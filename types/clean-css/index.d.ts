@@ -1,5 +1,5 @@
 // Type definitions for clean-css 4.2
-// Project: https://github.com/jakubpawlowicz/clean-css
+// Project: https://github.com/clean-css/clean-css
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Andrew Potter <https://github.com/GolaWaya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -94,7 +94,7 @@ declare namespace CleanCSS {
         /**
          * Output source map if requested with `sourceMap` option
          */
-        sourceMap: SourceMapGenerator;
+        sourceMap?: SourceMapGenerator;
 
         /**
          * A list of errors raised

@@ -3,5 +3,5 @@ import validateObjectId = require('validate-objectid');
 // $ExpectType boolean
 validateObjectId('ab89cfd');
 
-// $ExpectError
+// @ts-expect-error
 validateObjectId();

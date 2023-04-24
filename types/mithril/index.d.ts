@@ -19,9 +19,9 @@ declare function request<T>(options: Mithril.RequestOptions<T> & { url: string }
 declare function request<T>(url: string, options?: Mithril.RequestOptions<T>): Promise<T>;
 
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // tslint:disable-line:no-unnecessary-generics
+declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // eslint-disable-line no-unnecessary-generics
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // tslint:disable-line:no-unnecessary-generics
+declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // eslint-disable-line no-unnecessary-generics
 
 declare namespace Mithril {
     interface CommonAttributes<Attrs, State> {
@@ -43,17 +43,17 @@ declare namespace Mithril {
 
     interface Hyperscript {
         /** Creates a virtual element (Vnode). */
-        (selector: string, ...children: Children[]): Vnode<any, any>;
-        /** Creates a virtual element (Vnode). */
-        (selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
-        /** Creates a virtual element (Vnode). */
-        <Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
-        /** Creates a virtual element (Vnode). */
         <Attrs, State>(
             component: ComponentTypes<Attrs, State>,
             attributes: Attrs & CommonAttributes<Attrs, State>,
             ...args: Children[]
         ): Vnode<Attrs, State>;
+        /** Creates a virtual element (Vnode). */
+        (selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
+        /** Creates a virtual element (Vnode). */
+        <Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
+        /** Creates a virtual element (Vnode). */
+        (selector: string, ...children: Children[]): Vnode<any, any>;
         /** Creates a fragment virtual element (Vnode). */
         fragment(attrs: CommonAttributes<any, any> & { [key: string]: any }, children: ChildArrayOrPrimitive): Vnode<any, any>;
         /** Turns an HTML string into a virtual element (Vnode). Do not use trust on unsanitized user input. */

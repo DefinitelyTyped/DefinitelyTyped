@@ -9,11 +9,11 @@ new NamedRegExp(/aaa/gi);
 // $ExpectType NamedRegExp
 new NamedRegExp();
 
-// $ExpectError
+// @ts-expect-error
 new NamedRegExp(1);
 
-// $ExpectError
+// @ts-expect-error
 new NamedRegExp({});
 
-// $ExpectError
+// @ts-expect-error
 new NamedRegExp([]);

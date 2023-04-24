@@ -30,16 +30,20 @@ bb.addListener('field', (name, value, info) => {
     info; // $ExpectType FieldInfo
 });
 bb.addListener('partsLimit', () => {});
-bb.addListener('partsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.addListener('partsLimit', foo => {});
 bb.addListener('filesLimit', () => {});
-bb.addListener('filesLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.addListener('filesLimit', foo => {});
 bb.addListener('fieldsLimit', () => {});
-bb.addListener('fieldsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.addListener('fieldsLimit', foo => {});
 bb.addListener('error', e => {
     e; // $ExpectType unknown
 });
 bb.addListener('close', () => {});
-bb.addListener('close', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.addListener('close', foo => {});
 // test fallback
 bb.on('foo', foo => {
     foo; // $ExpectType any
@@ -59,16 +63,20 @@ bb.on('field', (name, value, info) => {
     info; // $ExpectType FieldInfo
 });
 bb.on('partsLimit', () => {});
-bb.on('partsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.on('partsLimit', foo => {});
 bb.on('filesLimit', () => {});
-bb.on('filesLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.on('filesLimit', foo => {});
 bb.on('fieldsLimit', () => {});
-bb.on('fieldsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.on('fieldsLimit', foo => {});
 bb.on('error', e => {
     e; // $ExpectType unknown
 });
 bb.on('close', () => {});
-bb.on('close', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.on('close', foo => {});
 // test fallback
 bb.on('foo', foo => {
     foo; // $ExpectType any
@@ -88,16 +96,20 @@ bb.once('field', (name, value, info) => {
     info; // $ExpectType FieldInfo
 });
 bb.once('partsLimit', () => {});
-bb.once('partsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.once('partsLimit', foo => {});
 bb.once('filesLimit', () => {});
-bb.once('filesLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.once('filesLimit', foo => {});
 bb.once('fieldsLimit', () => {});
-bb.once('fieldsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.once('fieldsLimit', foo => {});
 bb.once('error', e => {
     e; // $ExpectType unknown
 });
 bb.once('close', () => {});
-bb.once('close', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.once('close', foo => {});
 // test fallback
 bb.once('foo', foo => {
     foo; // $ExpectType any
@@ -117,16 +129,20 @@ bb.removeListener('field', (name, value, info) => {
     info; // $ExpectType FieldInfo
 });
 bb.removeListener('partsLimit', () => {});
-bb.removeListener('partsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.removeListener('partsLimit', foo => {});
 bb.removeListener('filesLimit', () => {});
-bb.removeListener('filesLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.removeListener('filesLimit', foo => {});
 bb.removeListener('fieldsLimit', () => {});
-bb.removeListener('fieldsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.removeListener('fieldsLimit', foo => {});
 bb.removeListener('error', e => {
     e; // $ExpectType unknown
 });
 bb.removeListener('close', () => {});
-bb.removeListener('close', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.removeListener('close', foo => {});
 // test fallback
 bb.removeListener('foo', foo => {
     foo; // $ExpectType any
@@ -146,16 +162,20 @@ bb.off('field', (name, value, info) => {
     info; // $ExpectType FieldInfo
 });
 bb.off('partsLimit', () => {});
-bb.off('partsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.off('partsLimit', foo => {});
 bb.off('filesLimit', () => {});
-bb.off('filesLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.off('filesLimit', foo => {});
 bb.off('fieldsLimit', () => {});
-bb.off('fieldsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.off('fieldsLimit', foo => {});
 bb.off('error', e => {
     e; // $ExpectType unknown
 });
 bb.off('close', () => {});
-bb.off('close', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.off('close', foo => {});
 // test fallback
 bb.off('foo', foo => {
     foo; // $ExpectType any
@@ -175,16 +195,20 @@ bb.prependListener('field', (name, value, info) => {
     info; // $ExpectType FieldInfo
 });
 bb.prependListener('partsLimit', () => {});
-bb.prependListener('partsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.prependListener('partsLimit', foo => {});
 bb.prependListener('filesLimit', () => {});
-bb.prependListener('filesLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.prependListener('filesLimit', foo => {});
 bb.prependListener('fieldsLimit', () => {});
-bb.prependListener('fieldsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.prependListener('fieldsLimit', foo => {});
 bb.prependListener('error', e => {
     e; // $ExpectType unknown
 });
 bb.prependListener('close', () => {});
-bb.prependListener('close', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.prependListener('close', foo => {});
 // test fallback
 bb.prependListener('foo', foo => {
     foo; // $ExpectType any
@@ -204,16 +228,20 @@ bb.prependOnceListener('field', (name, value, info) => {
     info; // $ExpectType FieldInfo
 });
 bb.prependOnceListener('partsLimit', () => {});
-bb.prependOnceListener('partsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.prependOnceListener('partsLimit', foo => {});
 bb.prependOnceListener('filesLimit', () => {});
-bb.prependOnceListener('filesLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.prependOnceListener('filesLimit', foo => {});
 bb.prependOnceListener('fieldsLimit', () => {});
-bb.prependOnceListener('fieldsLimit', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.prependOnceListener('fieldsLimit', foo => {});
 bb.prependOnceListener('error', e => {
     e; // $ExpectType unknown
 });
 bb.prependOnceListener('close', () => {});
-bb.prependOnceListener('close', foo => {}); // $ExpectError
+// @ts-expect-error
+bb.prependOnceListener('close', foo => {});
 // test fallback
 bb.prependOnceListener('foo', foo => {
     foo; // $ExpectType any

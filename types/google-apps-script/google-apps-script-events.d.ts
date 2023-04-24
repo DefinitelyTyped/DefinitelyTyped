@@ -1,10 +1,3 @@
-// Type definitions for Google Apps Script 2019-04-02
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 oshliaer <https://github.com/oshliaer>
-//                 RCRJ <https://github.com/RCRJ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.script.d.ts" />
 /// <reference path="google-apps-script.spreadsheet.d.ts" />
 /// <reference path="google-apps-script.slides.d.ts" />
@@ -24,6 +17,7 @@ declare namespace GoogleAppsScript {
 
     interface AppsScriptHttpRequestEvent {
       parameter: { [key: string]: string };
+      pathInfo: string;
       contextPath: string;
       contentLength: number;
       queryString: string;
@@ -54,6 +48,7 @@ declare namespace GoogleAppsScript {
       | 'OTHER';
     interface SheetsOnChange extends AppsScriptEvent {
       changeType: SheetsOnChangeChangeType;
+      source: Spreadsheet.Spreadsheet;
     }
 
     interface SheetsOnEdit extends AppsScriptEvent {

@@ -3,7 +3,7 @@
 // Definitions by: Robert Van Gorkom <https://github.com/vangorra>
 //                 Matthew Zartman <https://github.com/mrz5018>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="meteor" />
 

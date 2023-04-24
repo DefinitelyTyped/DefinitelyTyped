@@ -7,8 +7,9 @@ io.use(middleware);
 
 io.on('connection', (socket) => {
   socket.on('*', (packet) => {
-    // client.emit('foo', 'bar', 'baz')
-    packet.data === ['foo', 'bar', 'baz'];
+    packet.data[0] === 'foo';
+    packet.data[1] === 'bar';
+    packet.data[2] === 'baz';
   });
 });
 

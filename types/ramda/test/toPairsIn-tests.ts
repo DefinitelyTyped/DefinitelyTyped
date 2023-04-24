@@ -13,8 +13,8 @@ class F {
 };
 
 class C {
-    x: 'X';
-    y: 'Y';
+    x: 'X' = 'X';
+    y: 'Y' = 'Y';
 }
 
 () => {

@@ -1,4 +1,4 @@
-import * as AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk2-types';
 import * as S3S from 's3-streams';
 
 const s3 = new AWS.S3();

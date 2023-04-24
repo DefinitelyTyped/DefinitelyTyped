@@ -5,12 +5,16 @@
         "jsdoc-format": false,
         "no-empty-interface": false,
         "no-return-await": false,
-        "no-self-import": false,
-        "no-unnecessary-generics": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "space-before-function-paren": false,
-        "npm-naming": [true, { "mode": "code", "errors": [["NoDefaultExport", false]] }]
+        "npm-naming": [
+            true,
+            {
+                "mode": "code",
+                "errors": [["NoDefaultExport", false]]
+            }
+        ]
     }
 }

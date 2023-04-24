@@ -39,13 +39,13 @@ function divideNumbers(a: number, b: number) {
     righto(divideNumbersCPS, rDivideNumbers1, new Promise<number>(r => r(5)));
     // $ExpectType Righto<[boolean], null>
     const rBool = righto<[], [boolean], null>((fn) => fn(null, true));
-    // $ExpectError
+    // @ts-expect-error
     righto(divideNumbersCPS, rDivideNumbers1, "");
-    // $ExpectError
+    // @ts-expect-error
     righto(divideNumbersCPS, rDivideNumbers1);
-    // $ExpectError
+    // @ts-expect-error
     righto(divideNumbersCPS, rDivideNumbers1, 2, 3);
-    // $ExpectError
+    // @ts-expect-error
     righto(divideNumbers, 5, 6);
 
     // $ExpectType Righto<[number, string, boolean], Error>
@@ -54,13 +54,13 @@ function divideNumbers(a: number, b: number) {
     const rNoReturn = righto(noReturnCPS);
     // $ExpectType Righto<[number], undefined>
     righto(noArgsCPS);
-    // $ExpectError
+    // @ts-expect-error
     righto(noArgsCPS, 5);
 
     righto(divideNumbersCPS, righto.after(rDivideNumbers1), rDivideNumbers1, rDivideNumbers2);
     righto(divideNumbersCPS, rDivideNumbers1, rDivideNumbers2, righto.after(rDivideNumbers1));
     righto(divideNumbersCPS, righto.after(rDivideNumbers1), rDivideNumbers1, rDivideNumbers2, righto.after(rDivideNumbers1));
-    // $ExpectError
+    // @ts-expect-error
     righto(divideNumbersCPS, righto.after(rDivideNumbers1), rDivideNumbers1, righto.after(rDivideNumbers1), rDivideNumbers2);
 //#endregion
 
@@ -151,7 +151,7 @@ function divideNumbers(a: number, b: number) {
     // $ExpectType Righto<[string], any>
     const syncTask = righto.sync(numToString, someNumber);
     righto.sync(numToString, 5);
-    // $ExpectError
+    // @ts-expect-error
     righto.sync(numToString, rBool);
 //#endregion
 

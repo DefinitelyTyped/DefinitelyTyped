@@ -10,6 +10,7 @@ intro.setOption('showProgress', true);
 intro.setOptions({
     hidePrev: true,
     hideNext: false,
+    nextToDone: true,
     scrollPadding: 30,
     hintAnimation: false,
     steps: [
@@ -74,6 +75,12 @@ intro
     .exit(true)
     .exit(false)
     .refresh()
+    .onbeforeexit(() => {
+        return true;
+    })
+    .onbeforeexit(() => {
+        alert('Before Exit');
+    })
     .onbeforechange(function(element) {
         element.getAttribute('class');
     })

@@ -344,6 +344,11 @@ const Test = reduxForm<TestFormData>({
                                 component={ MyArrayField }
                             />
 
+                            <FieldArray
+                                name="field9.5"
+                                component={ MyArrayField }
+                            />
+
                             {/* Passing child props via explicit props arg (TS-preferable)*/}
                             <FieldArrayCustom
                                 name="field10"

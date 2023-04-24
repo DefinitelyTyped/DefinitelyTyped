@@ -1,9 +1,8 @@
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { Vector2 } from './../math/Vector2';
 import { MaterialParameters, Material } from './Material';
 import { NormalMapTypes } from '../constants';
-import { ColorRepresentation } from '../utils';
 
 export interface MeshStandardMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -30,10 +29,9 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     alphaMap?: Texture | null | undefined;
     envMap?: Texture | null | undefined;
     envMapIntensity?: number | undefined;
-    refractionRatio?: number | undefined;
     wireframe?: boolean | undefined;
     wireframeLinewidth?: number | undefined;
-
+    fog?: boolean | undefined;
     flatShading?: boolean | undefined;
 }
 
@@ -171,11 +169,6 @@ export class MeshStandardMaterial extends Material {
     envMapIntensity: number;
 
     /**
-     * @default 0.98
-     */
-    refractionRatio: number;
-
-    /**
      * @default false
      */
     wireframe: boolean;
@@ -200,6 +193,12 @@ export class MeshStandardMaterial extends Material {
      * @default false
      */
     flatShading: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     isMeshStandardMaterial: boolean;
 

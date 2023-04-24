@@ -4,7 +4,9 @@ import * as $ from 'jquery';
 const element = new Element();
 
 // $ExpectType Toast
-new Toast(element, { animation: false });
+const toast = new Toast(element, { animation: false });
+// $ExpectType boolean
+toast.isShown();
 
 // $ExpectType Toast | null
 Toast.getInstance(element);
@@ -33,11 +35,11 @@ element.addEventListener(Toast.Events.shown, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').toast();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').toast({ animation: false });
 
-$('.alert').toast('hide'); // $ExpectType void
-$('.alert').toast('show'); // $ExpectType void
+$('.alert').toast('hide'); // $ExpectType JQuery<HTMLElement>
+$('.alert').toast('show'); // $ExpectType JQuery<HTMLElement>

@@ -6,8 +6,12 @@ const currencySource = 'EUR';
 const currencyTarget = 'PLN';
 const extension = 'odt';
 const lang = 'pl';
+const timezone = 'Asia/Tokyo';
 const tempPath = '/tmp';
 const templatePath = './templates';
+const factories = 2;
+const startFactory = true;
+const attempts = 2;
 
 const emptyCurrencyRates = {};
 const currencyRates = {
@@ -62,10 +66,14 @@ const options: carbone.Options = {
     tempPath,
     templatePath,
     lang,
+    timezone,
     translations,
     currencySource,
     currencyTarget,
     currencyRates,
+    factories,
+    startFactory,
+    attempts
 };
 
 const emptyRenderOptions: carbone.RenderOptions = {};
@@ -78,6 +86,7 @@ const renderOptions: carbone.RenderOptions = {
     currencyTarget,
     enum: enums,
     lang,
+    timezone,
     translations,
     variableStr: '',
 };
@@ -101,6 +110,7 @@ const renderXMLOptions: carbone.RenderXMLOptions = {
     complement: data,
     formatters,
     lang,
+    timezone,
     translations,
     existingVariables: variables,
     extension,

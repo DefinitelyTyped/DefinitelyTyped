@@ -22,7 +22,7 @@ import {
 // $ExpectType AProps
 setLinkProps({ href: '/route' });
 
-// $ExpectError
+// @ts-expect-error
 setLinkProps({ onClick: () => null });
 
 // $ExpectType ReactHTMLElement<HTMLAnchorElement>
@@ -46,10 +46,10 @@ useQueryParams();
 // $ExpectType void
 useRedirect('/route1', '/route2');
 
-// $ExpectError
+// @ts-expect-error
 navigate();
 
-// $ExpectError
+// @ts-expect-error
 navigate(1);
 
 // $ExpectType string

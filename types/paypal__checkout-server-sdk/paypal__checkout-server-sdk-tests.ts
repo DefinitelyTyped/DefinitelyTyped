@@ -40,6 +40,15 @@ ordersCreateRequest.requestBody({
     },
 });
 
+ordersPatchRequest.requestBody([
+    {
+        from: '',
+        op: 'replace',
+        path: `/purchase_units/@reference_id=='default'/shipping/type`,
+        value: 'SHIPPING',
+    },
+]);
+
 async () => {
     const ordersAuthorizeResponse = await client.execute(ordersAuthorizeRequest);
     const ordersCaptureResponse = await client.execute(ordersCaptureRequest);

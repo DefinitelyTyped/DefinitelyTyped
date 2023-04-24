@@ -64,12 +64,15 @@ const AdalProtectedPage2 = withAdalLoginApi(ProtectedPage2, () => <h4>loading...
 // user must login to use only specific pages
 runWithAdal(authContext, () => {
      const routes = <div>
-          <Route exact={true} path='/' component={SignInPage} /> // $ExpectError
-          <Route path='/private1' component={AdalProtectedPage1} /> // $ExpectError
-          <Route path='/private2' component={AdalProtectedPage2} /> // $ExpectError
+          {/* @ts-expect-error */}
+          <Route exact={true} path='/' component={SignInPage} />
+          {/* @ts-expect-error */}
+          <Route path='/private1' component={AdalProtectedPage1} />
+          {/* @ts-expect-error */}
+          <Route path='/private2' component={AdalProtectedPage2} />
         </div>;
-        // $ExpectError
+        // @ts-expect-error
      const App = <ConnectedRouter history={({} as any)} children={routes} />;
-     // $ExpectError
+     // @ts-expect-error
      ReactDOM.render(<App />, document.getElementById('react-app') as HTMLElement);
 }, true);

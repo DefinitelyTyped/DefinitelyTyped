@@ -6,8 +6,10 @@ const s7string: nodes7.S7Types = "";
 
 const i = new nodes7(); // $ExpectType NodeS7
 
-i.initiateConnection(); // $ExpectError
-i.initiateConnection({});  // $ExpectError
+// @ts-expect-error
+i.initiateConnection();
+// @ts-expect-error
+i.initiateConnection({});
 // $ExpectType void
 i.initiateConnection({}, () => {});
 // $ExpectType void
@@ -23,36 +25,47 @@ i.initiateConnection({
     remoteTSAP: 0x0
 }, (err) => {});
 i.initiateConnection({
-    host: 0  // $ExpectError
+    // @ts-expect-error
+    host: 0
 }, () => {});
 i.initiateConnection({
-    port: "0"  // $ExpectError
+    // @ts-expect-error
+    port: "0"
 }, () => {});
 i.initiateConnection({
-    rack: "0"  // $ExpectError
+    // @ts-expect-error
+    rack: "0"
 }, () => {});
 i.initiateConnection({
-    slot: "0"  // $ExpectError
+    // @ts-expect-error
+    slot: "0"
 }, () => {});
 i.initiateConnection({
-    timeout: "0"  // $ExpectError
+    // @ts-expect-error
+    timeout: "0"
 }, () => {});
 i.initiateConnection({
-    localTSAP: "0"  // $ExpectError
+    // @ts-expect-error
+    localTSAP: "0"
 }, () => {});
 i.initiateConnection({
-    remoteTSAP: "0"  // $ExpectError
+    // @ts-expect-error
+    remoteTSAP: "0"
 }, () => {});
 
-i.dropConnection(); // $ExpectError
+// @ts-expect-error
+i.dropConnection();
 i.dropConnection(() => {}); // $ExpectType void
 
-i.setTranslationCB(); // $ExpectError
-i.setTranslationCB(() => {}); // $ExpectError
+// @ts-expect-error
+i.setTranslationCB();
+// @ts-expect-error
+i.setTranslationCB(() => {});
 i.setTranslationCB(() => ""); // $ExpectType void
 i.setTranslationCB(x => x); // $ExpectType void
 
-i.addItems(); // $ExpectError
+// @ts-expect-error
+i.addItems();
 // $ExpectType void
 i.addItems("");
 // $ExpectType void
@@ -73,11 +86,16 @@ i.removeItems("");
 // $ExpectType void
 i.removeItems([""]);
 
-i.writeItems(); // $ExpectError
-i.writeItems(""); // $ExpectError
-i.writeItems([""]); // $ExpectError
-i.writeItems("", 0); // $ExpectError
-i.writeItems([""], [0]); // $ExpectError
+// @ts-expect-error
+i.writeItems();
+// @ts-expect-error
+i.writeItems("");
+// @ts-expect-error
+i.writeItems([""]);
+// @ts-expect-error
+i.writeItems("", 0);
+// @ts-expect-error
+i.writeItems([""], [0]);
 // $ExpectType number
 i.writeItems("", 0, () => {});
 // $ExpectType number
@@ -86,10 +104,13 @@ i.writeItems([""], [0], () => {});
 i.writeItems("", 0, (err) => {});
 // $ExpectType number
 i.writeItems([""], [0], (err) => {});
-i.writeItems("", [0], () => {}); // $ExpectError
-i.writeItems([""], 0, () => {}); // $ExpectError
+// @ts-expect-error
+i.writeItems("", [0], () => {});
+// @ts-expect-error
+i.writeItems([""], 0, () => {});
 
-i.readAllItems(); // $ExpectError
+// @ts-expect-error
+i.readAllItems();
 // $ExpectType void
 i.readAllItems(() => {});
 // $ExpectType void

@@ -33,10 +33,12 @@
         "test/create-negative.ts",
         "test/event.ts",
         "test/extend.ts",
+        "test/internals.ts",
         "test/object.ts",
         "test/observable.ts",
         "test/octane.ts",
         "test/proxy.ts",
-        "test/reopen.ts"
+        "test/reopen.ts",
+        "test/get-set.ts"
     ]
 }

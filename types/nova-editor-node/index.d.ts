@@ -9,10 +9,8 @@
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
 
 /// <reference no-default-lib="true"/>
-/// <reference lib="es7" />
-
-type ReadableStream<T = any> = unknown;
-type WritableStream<T = any> = unknown;
+/// <reference lib="es2020" />
+/// <reference lib="WebWorker" />
 
 /// https://docs.nova.app/api-reference/assistants-registry/
 
@@ -296,7 +294,7 @@ type ConfigurationValue = string | number | string[] | boolean;
 
 interface Configuration {
     onDidChange<T>(key: string, callback: (newValue: T, oldValue: T) => void): Disposable;
-    observe<T>(key: string, callback: (newValue: T, oldValue: T) => void): Disposable;
+    observe<T, K>(key: string, callback: (this: K, newValue: T, oldValue: T) => void, thisValue?: K): Disposable;
     get(key: string): ConfigurationValue | null;
     get(key: string, coerce: 'string'): string | null;
     get(key: string, coerce: 'number'): number | null;
@@ -585,7 +583,7 @@ interface NotificationCenter {
 /// https://docs.nova.app/api-reference/notification-request/
 
 declare class NotificationRequest {
-    constructor(identifier: string);
+    constructor(identifier?: string);
 
     readonly identifier: string;
     title?: string;
@@ -615,6 +613,7 @@ interface Path {
     isAbsolute(path: string): boolean;
     join(...paths: string[]): string;
     normalize(path: string): string;
+    relative(from: string, to: string): string;
     split(path: string): string[];
 }
 
@@ -640,14 +639,14 @@ declare class Process {
     readonly env?: { [key: string]: string };
     readonly command: string;
     readonly pid: number;
-    readonly stdio?: [
-        ReadableStream | WritableStream | null,
-        ReadableStream | WritableStream | null,
-        ReadableStream | WritableStream | null,
+    readonly stdio: [
+        WritableStream | null,
+        ReadableStream | null,
+        ReadableStream | null,
     ];
-    readonly stdin?: ReadableStream | WritableStream | null;
-    readonly stdout?: ReadableStream | WritableStream | null;
-    readonly stderr?: ReadableStream | WritableStream | null;
+    readonly stdin:  WritableStream | null;
+    readonly stdout: ReadableStream | null;
+    readonly stderr: ReadableStream | null;
 
     onStdout(callback: (line: string) => void): Disposable;
     onStderr(callback: (line: string) => void): Disposable;
@@ -1011,7 +1010,7 @@ interface Workspace {
     readonly config: Configuration;
     readonly textDocuments: ReadonlyArray<TextDocument>;
     readonly textEditors: ReadonlyArray<TextEditor>;
-    readonly activeTextEditor: TextEditor;
+    readonly activeTextEditor: TextEditor | null | undefined;
 
     onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;
     onDidChangePath(callback: (newPath: TextEditor) => void): Disposable;
@@ -1074,8 +1073,6 @@ interface Workspace {
 
 declare function atob(data: string): string;
 declare function btoa(data: string): string;
-
-type TimerHandler = string | Function;
 
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function clearTimeout(handle?: number): void;

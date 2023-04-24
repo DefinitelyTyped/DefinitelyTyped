@@ -39,6 +39,15 @@ import React = require('./next');
 export {};
 
 declare module '.' {
+    export interface SuspenseProps {
+        /**
+         * The presence of this prop indicates that the content is computationally expensive to render.
+         * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
+         * @see {@link https://github.com/facebook/react/pull/19936}
+         */
+        unstable_expectedLoadTime?: number | undefined;
+    }
+
     export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
     export type SuspenseListTailMode = 'collapsed' | 'hidden';
 
@@ -93,4 +102,11 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
+
+    // tslint:disable-next-line ban-types
+    export function experimental_useEffectEvent<T extends Function>(event: T): T;
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
+        functions: (formData: FormData) => void;
+    }
 }

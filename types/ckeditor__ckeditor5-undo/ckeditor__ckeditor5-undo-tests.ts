@@ -20,7 +20,7 @@ command.execute(new Batch({ isUndoable: true }));
 
 const redo = new RedoCommand(editor);
 redo.execute();
-// $ExpectError
+// @ts-expect-error
 redo.execute(new Batch());
 
 new UndoUI(editor).init();

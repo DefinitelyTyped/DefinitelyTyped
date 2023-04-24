@@ -5,11 +5,11 @@ import InlineChunkHtmlPlugin  = require('react-dev-utils/InlineChunkHtmlPlugin')
 import ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 import WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 
-// $ExpectError
+// @ts-expect-error
 new InterpolateHtmlPlugin(HtmlWebpackPlugin, { PUBLIC_URL: 0 });
 const plugin1 = new InterpolateHtmlPlugin(HtmlWebpackPlugin, { PUBLIC_URL: '' });
 
-// $ExpectError
+// @ts-expect-error
 new InlineChunkHtmlPlugin({}, [/runtime/]);
 const plugin2 = new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime/]);
 

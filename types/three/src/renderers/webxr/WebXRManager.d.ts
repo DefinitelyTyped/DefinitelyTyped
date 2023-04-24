@@ -1,7 +1,15 @@
-import { Group } from '../../objects/Group';
-import { Camera } from '../../cameras/Camera';
+// https://threejs.org/docs/#api/en/renderers/webxr/WebXRManager
+
+/// <reference types="webxr" />
+
+import { Vector4 } from '../../math/Vector4';
+import { ArrayCamera } from '../../cameras/ArrayCamera';
+import { PerspectiveCamera } from '../../cameras/PerspectiveCamera';
 import { EventDispatcher } from '../../core/EventDispatcher';
-import { XRFrameRequestCallback, XRReferenceSpace, XRReferenceSpaceType, XRSession } from './WebXR';
+import { XRTargetRaySpace, XRGripSpace, XRHandSpace } from './WebXRController';
+
+export type WebXRCamera = PerspectiveCamera & { viewport: Vector4 };
+export type WebXRArrayCamera = Omit<ArrayCamera, 'cameras'> & { cameras: [WebXRCamera, WebXRCamera] };
 
 export class WebXRManager extends EventDispatcher {
     constructor(renderer: any, gl: WebGLRenderingContext);
@@ -16,17 +24,33 @@ export class WebXRManager extends EventDispatcher {
      */
     isPresenting: boolean;
 
-    getController(index: number): Group;
-    getControllerGrip(index: number): Group;
-    getHand(index: number): Group;
+    /**
+     * @default true
+     */
+    cameraAutoUpdate: boolean;
+
+    getController(index: number): XRTargetRaySpace;
+    getControllerGrip(index: number): XRGripSpace;
+    getHand(index: number): XRHandSpace;
     setFramebufferScaleFactor(value: number): void;
     setReferenceSpaceType(value: XRReferenceSpaceType): void;
     getReferenceSpace(): XRReferenceSpace | null;
+    setReferenceSpace(value: XRReferenceSpace): void;
+    getBaseLayer(): XRWebGLLayer | XRProjectionLayer;
+    getBinding(): XRWebGLBinding;
+    getFrame(): XRFrame;
     getSession(): XRSession | null;
-    setSession(value: XRSession): Promise<void>;
-    getCamera(camera: Camera): Camera;
+    setSession(value: XRSession | null): Promise<void>;
+    getCamera(): WebXRArrayCamera;
+    updateCamera(camera: PerspectiveCamera): void;
     setAnimationLoop(callback: XRFrameRequestCallback | null): void;
     getFoveation(): number | undefined;
-    setFoveation(foveation: number): void;
+    setFoveation(value: number): void;
+
+    /**
+     * Returns the set of planes detected by WebXR's plane detection API.
+     */
+    getPlanes(): Set<XRPlane>;
+
     dispose(): void;
 }

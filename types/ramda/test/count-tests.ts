@@ -7,12 +7,12 @@ import * as R from 'ramda';
     R.count(R.equals('a'))(letters); // => 4
 
     // Mismatch between `predicate` and `list`
-    // $ExpectError
+    // @ts-expect-error
     R.count(R.gt(2))(letters);
-    // $ExpectError
+    // @ts-expect-error
     R.count(R.equals('a'))(numbers);
 
     // Predicate doesn't return `boolean`
-    // $ExpectError
+    // @ts-expect-error
     R.count(R.add(2));
 };

@@ -60,7 +60,7 @@ import * as R from 'ramda';
 
     // Evolver disallows unknown prop:
 
-    // $ExpectError
+    // @ts-expect-error
     const ev3: R.Evolver<{ a: string }> = { b: R.not };
 
     // Typed Evolver disallows nesting:
@@ -69,11 +69,11 @@ import * as R from 'ramda';
 
     // Evolver disallows nesting for primitives:
 
-    // $ExpectError
+    // @ts-expect-error
     const ev5: R.Evolver<{ a: string }> = { a: { b: R.not } };
 
     // Evolver needs function:
 
-    // $ExpectError
+    // @ts-expect-error
     const ev6: R.Evolver = { a: 1 };
 };

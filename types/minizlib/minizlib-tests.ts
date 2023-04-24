@@ -1,4 +1,4 @@
-import zlib = require("minizlib");
+import zlib = require('minizlib');
 
 // $ExpectType BrotliCompress
 new zlib.BrotliCompress({});

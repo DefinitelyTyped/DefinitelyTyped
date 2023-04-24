@@ -11,9 +11,9 @@ type Pair = KeyValuePair<string, number>;
         ['a', 1],
         ['b', 2],
         ['c', 3],
-    ];
+    ] as const;
 
-    function flattenPairs(pair: [string, number], acc: Array<string | number>): Array<string | number> {
+    function flattenPairs(pair: readonly [string, number], acc: Array<string | number>): Array<string | number> {
         return acc.concat(pair);
     }
 

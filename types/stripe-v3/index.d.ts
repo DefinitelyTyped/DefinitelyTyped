@@ -117,6 +117,13 @@ declare namespace stripe {
             clientSecret: string,
             options?: ConfirmSofortPaymentOptions
         ): Promise<PaymentIntentResponse>;
+        confirmAuBecsDebitPayment(
+            clientSecret: string,
+            options?: ConfirmSofortPaymentOptions
+        ): Promise<PaymentIntentResponse>;
+        verifyIdentity(
+            clientSecret: string,
+        ): Promise<VerificationSessionResult>;
     }
 
     type StripeRedirectResponse = never | {
@@ -853,6 +860,13 @@ declare namespace stripe {
         error?: Error | undefined;
     }
 
+    interface VerificationSessionResult {
+        verificationSession?: {
+            id: string;
+        };
+        error?: Error | undefined;
+    }
+
     // Container for all payment request related types
     namespace paymentRequest {
         interface DisplayItem {
@@ -978,7 +992,7 @@ declare namespace stripe {
             locale?: string | undefined;
         }
 
-        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank';
+        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank' | 'auBankAccount';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
             getElement(type: elementsType): Element | null;

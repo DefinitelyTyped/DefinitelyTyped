@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "@maxim_mazurok/gapi.client.tpu-v2alpha1": "latest"
+  }
+}

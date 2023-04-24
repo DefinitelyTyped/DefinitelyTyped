@@ -85,6 +85,7 @@ declare module 'module' {
         static wrap(code: string): string;
         static createRequire(path: string | URL): NodeRequire;
         static builtinModules: string[];
+        static isBuiltin(moduleName: string): boolean;
         static Module: typeof Module;
         constructor(id: string, parent?: Module);
     }

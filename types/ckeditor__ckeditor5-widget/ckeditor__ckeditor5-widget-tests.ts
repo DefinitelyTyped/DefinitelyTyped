@@ -5,12 +5,8 @@ import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import Resizer from '@ckeditor/ckeditor5-widget/src/widgetresize/resizer';
-import SizeView from '@ckeditor/ckeditor5-widget/src/widgetresize/sizeview';
 import {
-    findOptimalInsertionRange,
-    checkSelectionOnObject,
-    getLabel,
+    checkSelectionOnObject, findOptimalInsertionRange, getLabel,
     isWidget,
     setHighlightHandling,
     setLabel,
@@ -18,9 +14,12 @@ import {
     Widget,
     WidgetResize,
     WidgetToolbarRepository,
-    WidgetTypeAround,
+    WidgetTypeAround
 } from '@ckeditor/ckeditor5-widget/';
 import HighlightStack from '@ckeditor/ckeditor5-widget/src/highlightstack';
+import Resizer from '@ckeditor/ckeditor5-widget/src/widgetresize/resizer';
+import ResizeState from '@ckeditor/ckeditor5-widget/src/widgetresize/resizerstate';
+import SizeView from '@ckeditor/ckeditor5-widget/src/widgetresize/sizeview';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -66,6 +65,14 @@ resizer = widgetResize.attachTo({
 });
 resizer = widgetResize.getResizerByViewElement(containerElement)!;
 resizer.destroy();
+resizer.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<Resizer, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+resizer.set('foo');
 
 const widgetTypeAround = new WidgetTypeAround(editor);
 widgetTypeAround.init();
@@ -99,6 +106,27 @@ new HighlightStack().add(
     new DowncastWriter(new Document(new StylesProcessor())),
 );
 new HighlightStack().remove('', new DowncastWriter(new Document(new StylesProcessor())));
+
+const resizeState = new ResizeState({
+    isCentered: () => true,
+    getHandleHost: () => document.body,
+    editor,
+    getResizeHost: () => document.body,
+    onCommit: () => {
+        return;
+    },
+    viewElement: containerElement,
+    modelElement: new Element('div'),
+});
+
+resizeState.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<ResizeState, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+resizeState.set('foo');
 
 // $ExpectType Widget
 editor.plugins.get('Widget');

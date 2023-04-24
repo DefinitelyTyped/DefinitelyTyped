@@ -31,7 +31,7 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.physicallyCorrectLights = true;
+    renderer.useLegacyLights = false;
     renderer.xr.enabled = true;
     container.appendChild(renderer.domElement);
 
@@ -84,7 +84,7 @@ function init() {
 
     //
 
-    const ballGeometry = new THREE.SphereBufferGeometry(0.175, 32, 32);
+    const ballGeometry = new THREE.SphereGeometry(0.175, 32, 32);
     const ballGroup = new THREE.Group();
     ballGroup.position.z = -2;
 

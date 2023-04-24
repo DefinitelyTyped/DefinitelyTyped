@@ -525,12 +525,12 @@ declare namespace Environment {
     /**
      * Represents a question.
      */
-    type Question<T> = inquirer.DistinctQuestion<T>;
+    type Question<T extends inquirer.Answers> = inquirer.DistinctQuestion<T>;
 
     /**
      * Represents a collection of questions.
      */
-    type Questions<T> = inquirer.QuestionCollection<T>;
+    type Questions<T extends inquirer.Answers> = inquirer.QuestionCollection<T>;
 
     /**
      * Represents an answer-hash.

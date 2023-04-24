@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@storybook/addons": "^5.2.0",
-        "@storybook/react": "^5.2.0"
+        "@storybook/addons": "^6.5.9",
+        "@storybook/react": "^6.5.9"
     }
 }

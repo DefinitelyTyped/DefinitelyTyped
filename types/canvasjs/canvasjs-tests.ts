@@ -14,6 +14,17 @@ const columnChart = new CanvasJS.Chart("chartContainer",
             horizontalAlign: "center"
         },
         theme: "theme2",
+        toolbar: {
+            itemBackgroundColor: "#fff",
+            itemBackgroundColorOnHover: "#eccaa0",
+            buttonBorderColor: "#eccaa0",
+            buttonBorderThickness: 2,
+            fontColor: "#d6d6d6",
+            fontColorOnHover: "#d3d3d3"
+        },
+        zoomType: "xy",
+        rangeChanging: (e) => null,
+        rangeChanged: (e) => e.type === "rangeChanged",
         data: [
             {
                 type: "column",

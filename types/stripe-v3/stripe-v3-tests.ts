@@ -570,4 +570,16 @@ describe("Stripe elements", () => {
         const card = elements.getElement('card');
         console.log(card);
     });
+
+    it("should open document verification modal", () => {
+        stripe.verifyIdentity(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.verificationSession) {
+                console.log(result.verificationSession.id);
+            }
+        });
+    });
 });

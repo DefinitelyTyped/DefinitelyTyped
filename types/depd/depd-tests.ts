@@ -6,7 +6,8 @@ deprecate('message');
 
 const obj = { p1: 'deprecated property', p2: 'normal property' };
 deprecate.property(obj, 'p1', 'property [p1] is deprecated!');
-deprecate.property(obj, 'p3', 'property [p3] is deprecated!'); // $ExpectError
+// @ts-expect-error
+deprecate.property(obj, 'p3', 'property [p3] is deprecated!');
 
 interface TestDeprecatedFunction {
     func1?(): void;
@@ -18,7 +19,7 @@ obj2.func1 = deprecate.function(() => {
     console.log('all calls to [func1] are deprecated ');
 });
 
-// $ExpectError
+// @ts-expect-error
 obj2.func2 = deprecate.function(() => {
     console.log('all calls to [func2] are deprecated ');
 }, 'func2');

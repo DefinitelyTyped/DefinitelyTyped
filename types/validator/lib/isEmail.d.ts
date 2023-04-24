@@ -48,6 +48,11 @@ export interface IsEmailOptions {
      *  the validation fails.
      */
     host_blacklist?: string[] | undefined;
+    /**
+     *  If blacklisted_chars receives a string, then the validator will reject emails that include
+     *  any of the characters in the string, in the name part.
+     */
+    blacklisted_chars?: string | undefined;
 }
 
 /**

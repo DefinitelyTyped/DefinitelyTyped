@@ -1,4 +1,4 @@
-import events = require('node:events');
+import * as events from 'node:events';
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
@@ -30,6 +30,9 @@ declare const any: any;
 
     result = emitter.getMaxListeners();
     result = emitter.listenerCount(event);
+
+    const handler: Function = () => {};
+    result = emitter.listenerCount(event, handler);
 }
 
 {
@@ -121,6 +124,8 @@ async function test() {
 
     const eventTarget = new EventTarget();
     events.EventEmitter.setMaxListeners(42, eventTarget);
+    // @ts-expect-error - ensure constructor does not return a constructor
+    new eventTarget();
 
     const eventEmitter = new events.EventEmitter();
     events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);

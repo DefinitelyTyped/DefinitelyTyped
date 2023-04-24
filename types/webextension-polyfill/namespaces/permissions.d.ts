@@ -1,8 +1,6 @@
 /**
  * Namespace: browser.permissions
  * Generated from Mozilla sources. Do not manually edit!
- *
- * Permissions: "manifest:optional_permissions"
  */
 import { Manifest } from "./manifest";
 import { Events } from "./events";

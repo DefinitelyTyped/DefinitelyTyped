@@ -1,3 +1,5 @@
+import Ast from './Ast';
+
 export interface Context {
   [key: string]: any;
 }
@@ -30,7 +32,11 @@ declare class Expression {
    */
   evalSync(context?: Context): any;
 
-  _getAst(): any;
+  /**
+   * Get the abstract syntax tree that represents the compiled expression
+   * @returns the abstract syntax tree
+   */
+  _getAst(): Ast;
 }
 
 export default Expression;

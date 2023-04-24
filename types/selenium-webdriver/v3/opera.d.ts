@@ -165,7 +165,11 @@ export class Driver extends webdriver.WebDriver {
      *     or {@code null} to use the currently active flow.
      * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: webdriver.Capabilities | Options, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    static createSession(
+        opt_config?: webdriver.Capabilities | Options,
+        opt_service?: remote.DriverService,
+        opt_flow?: webdriver.promise.ControlFlow,
+    ): Driver;
 
     /**
      * This function is a no-op as file detectors are not supported by this

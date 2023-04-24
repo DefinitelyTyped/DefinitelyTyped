@@ -1,6 +1,6 @@
 // Type definitions for ifvisible 1.1
 // Project: https://github.com/muhammaddadu/ifvisible
-// Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>, Max Boguslavskiy <https://github.com/maxbogus>
+// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface OnEveryReturn {

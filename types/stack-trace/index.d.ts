@@ -12,6 +12,7 @@ export interface StackFrame {
     getLineNumber(): number;
     getColumnNumber(): number;
     isNative(): boolean;
+    isConstructor(): boolean;
 }
 
 export declare function get(belowFn?: () => void): StackFrame[];
