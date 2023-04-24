@@ -8,7 +8,7 @@
 // NOTE: This type definitions aim to augment the declerations from the @types/react type definitions
 // in order to add jsdocs which are used in Codux <https://www.codux.com>
 
-import { CSSProperties } from 'react';
+import { CSSProperties } from 'react/v17';
 
 declare namespace React {
     interface HTMLAttributes<T> {
