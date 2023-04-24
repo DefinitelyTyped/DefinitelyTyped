@@ -13,8 +13,7 @@ const exclusiveOptions = {
     colors: false,
     stylize: () => '',
 };
-// $ExpectType string
-inspect(unknown);
+inspect(unknown); // $ExpectType string
 inspect(unknown, {});
 inspect(unknown, baseOptions);
 inspect(unknown, {
