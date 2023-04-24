@@ -425,13 +425,13 @@ declare module 'v8' {
       /**
        * The `init` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
        * @since v17.1.0, v16.14.0
-       * @param init The {@link Init | `init` callback}  callback to call when a promise is created.
+       * @param init The {@link Init | `init` callback} to call when a promise is created.
        */
       onInit: (init: Init) => Function
       /**
        * The `settled` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
        * @since v17.1.0, v16.14.0
-       * @param settled The {@link Settled | `settled` callback} callback to call when a promise is created.
+       * @param settled The {@link Settled | `settled` callback} to call when a promise is created.
        */
       onSettled: (settled: Settled) => Function
       /**
