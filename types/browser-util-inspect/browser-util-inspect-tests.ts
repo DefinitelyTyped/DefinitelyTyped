@@ -14,12 +14,14 @@ const exclusiveOptions = {
     stylize: () => '',
 };
 inspect(unknown); // $ExpectType string
-inspect(unknown, {});
-inspect(unknown, baseOptions);
+inspect(unknown, {}); // $ExpectType string
+inspect(unknown, baseOptions); // $ExpectType string
+// $ExpectType string
 inspect(unknown, {
     ...baseOptions,
     colors: exclusiveOptions.colors,
 });
+// $ExpectType string
 inspect(unknown, {
     ...baseOptions,
     stylize: exclusiveOptions.stylize,
