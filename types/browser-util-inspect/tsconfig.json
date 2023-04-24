@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "ES2015"
+        ],
+        "module": "CommonJS",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "target": "ES2015",
+        "typeRoots": [
+            "../"
+        ],
+        "types": []
+    },
+    "files": [
+        "browser-util-inspect-tests.ts",
+        "index.d.ts"
+    ]
+}
