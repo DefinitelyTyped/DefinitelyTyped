@@ -416,34 +416,38 @@ declare module 'v8' {
      * @since v17.1.0, v16.14.0
      */
     interface Callbacks {
-        init: Init;
-        before: Before;
-        after: After;
-        settled: Settled;
+        init?: Init;
+        before?: Before;
+        after?: After;
+        settled?: Settled;
     }
     interface PromiseHooks {
         /**
          * The `init` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
          * @param init The {@link Init | `init` callback} to call when a promise is created.
+         * @return Call to stop the hook.
          */
         onInit: (init: Init) => Function;
         /**
          * The `settled` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
          * @param settled The {@link Settled | `settled` callback} to call when a promise is created.
+         * @return Call to stop the hook.
          */
         onSettled: (settled: Settled) => Function;
         /**
          * The `before` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
          * @param before The {@link Before | `before` callback} to call before a promise continuation executes.
+         * @return Call to stop the hook.
          */
         onBefore: (before: Before) => Function;
         /**
          * The `after` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
          * @param after The {@link After | `after` callback} to call after a promise continuation executes.
+         * @return Call to stop the hook.
          */
         onAfter: (after: After) => Function;
         /**
@@ -453,6 +457,7 @@ declare module 'v8' {
          * The hook callbacks must be plain functions. Providing async functions will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
          * @param callbacks The {@link Callbacks | Hook Callbacks} to register
+         * @return Used for disabling hooks
          */
         createHook: (callbacks: Callbacks) => Function;
     }
