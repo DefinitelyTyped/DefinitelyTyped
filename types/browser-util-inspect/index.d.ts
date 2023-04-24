@@ -9,17 +9,17 @@ declare function inspect(obj: unknown, opts?: inspect.Options): string;
 
 declare namespace inspect {
     type Options = {
-        readonly showHidden?: boolean;
-        readonly depth?: number;
-        readonly customInspect?: boolean;
+        readonly showHidden?: boolean | undefined;
+        readonly depth?: number | undefined;
+        readonly customInspect?: boolean | undefined;
     } & (
         | {
-              readonly colors?: boolean;
-              readonly stylize?: never;
+              readonly colors?: boolean | undefined;
+              readonly stylize?: undefined;
           }
         | {
-              readonly colors?: never;
-              readonly stylize?: (str: string, styleType: StyleType) => string;
+              readonly colors?: undefined;
+              readonly stylize?: ((str: string, styleType: StyleType) => string) | undefined;
           }
     );
 
