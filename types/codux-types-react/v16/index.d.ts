@@ -2,11 +2,8 @@
 // Project: https://www.codux.com/
 // Definitions by: Codux <https://www.codux.com/>
 //                 Reza Banazadeh <https://github.com/0xRezaa>
-// Definitions: https://www.codux.com/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
-
-// NOTE: This type definitions aim to augment the declerations from the @types/react type definitions
-// in order to add jsdocs which are used in Codux <https://www.codux.com>
 
 import { CSSProperties } from 'react/v16';
 
