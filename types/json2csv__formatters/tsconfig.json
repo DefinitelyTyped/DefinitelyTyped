@@ -9,6 +9,7 @@
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": [],
+        "paths": { "@json2csv/*": ["json2csv__*"] },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
