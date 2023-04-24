@@ -1,4 +1,4 @@
-// Type definitions for React 18.0
+// Type definitions for React 18.2
 // Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
