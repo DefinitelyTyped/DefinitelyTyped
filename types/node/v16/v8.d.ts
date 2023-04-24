@@ -380,7 +380,7 @@ declare module 'v8' {
      * @param parent The promise continued from, if applicable.
      */
     interface Init {
-        <TPromise, TParent>(promise: Promise<TPromise>, parent: Promise<TParent>): void;
+        (promise: Promise<unknown>, parent: Promise<unknown>): void;
     }
     /**
      * Called before a promise continuation executes. This can be in the form of `then()`, `catch()`, or `finally()` handlers or an await resuming.
@@ -390,14 +390,14 @@ declare module 'v8' {
      * @since v17.1.0, v16.14.0
      */
     interface Before {
-        <T>(promise: Promise<T>): void;
+        (promise: Promise<unknown>): void;
     }
     /**
      * Called immediately after a promise continuation executes. This may be after a `then()`, `catch()`, or `finally()` handler or before an await after another await.
      * @since v17.1.0, v16.14.0
      */
     interface After {
-        <T>(promise: Promise<T>): void;
+        (promise: Promise<unknown>): void;
     }
     /**
      * Called when the promise receives a resolution or rejection value. This may occur synchronously in the case of {@link Promise.resolve()} or
@@ -405,7 +405,7 @@ declare module 'v8' {
      * @since v17.1.0, v16.14.0
      */
     interface Settled {
-        <T>(promise: Promise<T>): void;
+        (promise: Promise<unknown>): void;
     }
     /**
      * Key events in the lifetime of a promise have been categorized into four areas: creation of a promise, before/after a continuation handler is called or
@@ -460,7 +460,7 @@ declare module 'v8' {
      * The `promiseHooks` interface can be used to track promise lifecycle events.
      * @since v17.1.0, v16.14.0
      */
-    export const promiseHooks: PromiseHooks;
+    const promiseHooks: PromiseHooks;
 }
 declare module 'node:v8' {
     export * from 'v8';
