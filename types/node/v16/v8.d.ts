@@ -452,7 +452,7 @@ declare module 'v8' {
         onAfter: (after: After) => Function;
         /**
          * Registers functions to be called for different lifetime events of each promise.
-         * The callbacks init()/before()/after()/settled() are called for the respective events during a promise's lifetime.
+         * The callbacks `init()`/`before()`/`after()`/`settled()` are called for the respective events during a promise's lifetime.
          * All callbacks are optional. For example, if only promise creation needs to be tracked, then only the init callback needs to be passed.
          * The hook callbacks must be plain functions. Providing async functions will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
