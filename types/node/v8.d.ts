@@ -441,6 +441,100 @@ declare module 'v8' {
         spaceAvailableSize: number;
         physicalSpaceSize: number;
     }
+    /**
+     * Called when a promise is constructed. This does not mean that corresponding before/after events will occur, only that the possibility exists. This will
+     * happen if a promise is created without ever getting a continuation.
+     * @since v17.1.0, v16.14.0
+     * @param promise The promise being created.
+     * @param parent The promise continued from, if applicable.
+     */
+    interface Init {
+        (promise: Promise<unknown>, parent: Promise<unknown>): void;
+    }
+    /**
+     * Called before a promise continuation executes. This can be in the form of `then()`, `catch()`, or `finally()` handlers or an await resuming.
+     *
+     * The before callback will be called 0 to N times. The before callback will typically be called 0 times if no continuation was ever made for the promise.
+     * The before callback may be called many times in the case where many continuations have been made from the same promise.
+     * @since v17.1.0, v16.14.0
+     */
+    interface Before {
+        (promise: Promise<unknown>): void;
+    }
+    /**
+     * Called immediately after a promise continuation executes. This may be after a `then()`, `catch()`, or `finally()` handler or before an await after another await.
+     * @since v17.1.0, v16.14.0
+     */
+    interface After {
+        (promise: Promise<unknown>): void;
+    }
+    /**
+     * Called when the promise receives a resolution or rejection value. This may occur synchronously in the case of {@link Promise.resolve()} or
+     * {@link Promise.reject()}.
+     * @since v17.1.0, v16.14.0
+     */
+    interface Settled {
+        (promise: Promise<unknown>): void;
+    }
+    /**
+     * Key events in the lifetime of a promise have been categorized into four areas: creation of a promise, before/after a continuation handler is called or
+     * around an await, and when the promise resolves or rejects.
+     *
+     * Because promises are asynchronous resources whose lifecycle is tracked via the promise hooks mechanism, the `init()`, `before()`, `after()`, and
+     * `settled()` callbacks must not be async functions as they create more promises which would produce an infinite loop.
+     * @since v17.1.0, v16.14.0
+     */
+    interface HookCallbacks {
+        init?: Init;
+        before?: Before;
+        after?: After;
+        settled?: Settled;
+    }
+    interface PromiseHooks {
+        /**
+         * The `init` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
+         * @since v17.1.0, v16.14.0
+         * @param init The {@link Init | `init` callback} to call when a promise is created.
+         * @return Call to stop the hook.
+         */
+        onInit: (init: Init) => Function;
+        /**
+         * The `settled` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
+         * @since v17.1.0, v16.14.0
+         * @param settled The {@link Settled | `settled` callback} to call when a promise is created.
+         * @return Call to stop the hook.
+         */
+        onSettled: (settled: Settled) => Function;
+        /**
+         * The `before` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
+         * @since v17.1.0, v16.14.0
+         * @param before The {@link Before | `before` callback} to call before a promise continuation executes.
+         * @return Call to stop the hook.
+         */
+        onBefore: (before: Before) => Function;
+        /**
+         * The `after` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
+         * @since v17.1.0, v16.14.0
+         * @param after The {@link After | `after` callback} to call after a promise continuation executes.
+         * @return Call to stop the hook.
+         */
+        onAfter: (after: After) => Function;
+        /**
+         * Registers functions to be called for different lifetime events of each promise.
+         * The callbacks `init()`/`before()`/`after()`/`settled()` are called for the respective events during a promise's lifetime.
+         * All callbacks are optional. For example, if only promise creation needs to be tracked, then only the init callback needs to be passed.
+         * The hook callbacks must be plain functions. Providing async functions will throw as it would produce an infinite microtask loop.
+         * @since v17.1.0, v16.14.0
+         * @param callbacks The {@link HookCallbacks | Hook Callbacks} to register
+         * @return Used for disabling hooks
+         */
+        createHook: (callbacks: HookCallbacks) => Function;
+    }
+    /**
+     * The `promiseHooks` interface can be used to track promise lifecycle events.
+     * @since v17.1.0, v16.14.0
+     */
+    const promiseHooks: PromiseHooks;
 }
 declare module 'node:v8' {
     export * from 'v8';
