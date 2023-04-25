@@ -560,27 +560,27 @@ be.useBlockProps.save();
 be.useBlockProps.save({ foo: "bar" });
 
 {
-  const innerBlockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useInnerBlockProps();
-  innerBlockProps;
+  const innerBlocksProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useInnerBlocksProps();
+  innerBlocksProps;
 }
 
 {
-  const innerBlockProps = be.useInnerBlockProps({ foo: "bar" });
+  const innerBlocksProps = be.useInnerBlocksProps({ foo: "bar" });
   // $ExpectType string
-  innerBlockProps.foo;
+  innerBlocksProps.foo;
 }
 
 {
-  const innerBlockProps = be.useInnerBlockProps({ ref: useRef("test") });
+  const innerBlocksProps = be.useInnerBlocksProps({ ref: useRef("test") });
 
-  innerBlockProps.ref((current: unknown) => {});
+  innerBlocksProps.ref((current: unknown) => {});
 }
 
 // $ExpectType Record<string, unknown>
-be.useInnerBlockProps.save();
+be.useInnerBlocksProps.save();
 
 // $ExpectType Record<string, unknown>
-be.useInnerBlockProps.save({ foo: "bar" });
+be.useInnerBlocksProps.save({ foo: "bar" });
 
 // $ExpectType string
 be.getTypographyClassesAndStyles({}, false).className;

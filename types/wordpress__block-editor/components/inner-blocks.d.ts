@@ -1,5 +1,5 @@
 import { TemplateArray } from '@wordpress/blocks';
-import { ComponentType } from 'react';
+import { ComponentType, Ref } from 'react';
 
 import { EditorTemplateLock } from '../';
 
@@ -57,9 +57,7 @@ declare const InnerBlocks: {
 
 export interface UseInnerBlocksProps {
     <Props extends Record<string, unknown>>(
-        props?: Props & {
-            [K in keyof Props]: K extends keyof Reserved ? never : Props[K];
-        } & { ref?: Ref<unknown> },
+        props?: Props & { ref?: Ref<unknown> },
         options?: InnerBlocks.Props
     ): Omit<Props, 'ref'> & Merged & Reserved;
 
