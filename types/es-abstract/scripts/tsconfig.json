@@ -3,8 +3,6 @@
         "module": "CommonJS",
         "target": "ESNext",
         "lib": ["ESNext"],
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
         "types": [],
         "strict": true,
         "noEmit": true,
