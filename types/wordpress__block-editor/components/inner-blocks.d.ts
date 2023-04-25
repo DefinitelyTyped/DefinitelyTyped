@@ -3,6 +3,8 @@ import { ComponentType } from 'react';
 
 import { EditorTemplateLock } from '../';
 
+import { Merged, Reserved } from './use-block-props';
+
 declare namespace InnerBlocks {
     interface Props {
         allowedBlocks?: string[] | undefined;
@@ -52,5 +54,18 @@ declare const InnerBlocks: {
      */
     DefaultBlockAppender: ComponentType<{ children?: never | undefined }>;
 };
+
+export interface UseInnerBlocksProps {
+    <Props extends Record<string, unknown>>(
+        props?: Props & {
+            [K in keyof Props]: K extends keyof Reserved ? never : Props[K];
+        } & { ref?: Ref<unknown> },
+        options?: InnerBlocks.Props
+    ): Omit<Props, 'ref'> & Merged & Reserved;
+
+    save: (props?: Record<string, unknown>) => Record<string, unknown>;
+}
+
+export const useInnerBlocksProps: UseInnerBlocksProps;
 
 export default InnerBlocks;
