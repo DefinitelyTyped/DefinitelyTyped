@@ -251,8 +251,9 @@ function createRoot() {
 function hydrateRoot() {
     const hydrateable = ReactDOMClient.hydrateRoot(document, <div>initial render</div>, {
         identifierPrefix: 'react-18-app',
-        onRecoverableError: error => {
+        onRecoverableError: (error, errorInfo) => {
             console.error(error);
+            console.info(errorInfo.componentStack);
         },
     });
     hydrateable.render(<div>render update</div>);
