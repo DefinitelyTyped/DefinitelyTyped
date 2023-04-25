@@ -415,7 +415,7 @@ declare module 'v8' {
      * `settled()` callbacks must not be async functions as they create more promises which would produce an infinite loop.
      * @since v17.1.0, v16.14.0
      */
-    interface Callbacks {
+    interface HookCallbacks {
         init?: Init;
         before?: Before;
         after?: After;
@@ -456,10 +456,10 @@ declare module 'v8' {
          * All callbacks are optional. For example, if only promise creation needs to be tracked, then only the init callback needs to be passed.
          * The hook callbacks must be plain functions. Providing async functions will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
-         * @param callbacks The {@link Callbacks | Hook Callbacks} to register
+         * @param callbacks The {@link HookCallbacks | Hook Callbacks} to register
          * @return Used for disabling hooks
          */
-        createHook: (callbacks: Callbacks) => Function;
+        createHook: (callbacks: HookCallbacks) => Function;
     }
     /**
      * The `promiseHooks` interface can be used to track promise lifecycle events.
