@@ -1,31 +1,36 @@
 export class Participant {
     /**
-     * Create a new participant with details from peer
-     * @param {any} peer
-     */
-    constructor(peer: any);
-    /**
      * @type {string}
+     * @description This represents the participant's ID
      */
     id: string;
     /**
      * @type {string}
+     * @description This represents the participant's name
      */
     displayName: string;
     /**
      * @type {Map<string, Stream>}
+     * @description This represents the all the Streams that the participant is producing
+     *
      */
     streams: Map<string, Stream>;
     /**
      * @type {"low" | "med" | "high"}
+     * @description This represents the quality of video being consumed for the participant
+     *
      */
-    quality: "low" | "med" | "high";
+    quality: 'low' | 'med' | 'high';
     /**
      * @type {boolean}
+     * @description This represents if the participant is local or remote
+     *
      */
     local: boolean;
     /**
      * @type {{cam:boolean, share: boolean}}
+     * @description This represents participant's current pin state
+     *
      */
     pinState: {
         cam: boolean;
@@ -33,138 +38,186 @@ export class Participant {
     };
     /**
      * @type {boolean}
+     * @description This represents participant's current webcam status
      */
     webcamOn: boolean;
     /**
      * @type {boolean}
+     * @description This represents participant's current mic status
+     *
      */
     micOn: boolean;
     /**
      * @type {"CONFERENCE" | "VIEWER"}
-     */
-    mode: "CONFERENCE" | "VIEWER";
-    eventEmitter: EventEmitter;
-    _setPinState(obj: any): void;
-    remove(): void;
-    enableMic(): void;
-    disableMic(): void;
-    enableWebcam(): void;
-    disableWebcam(): void;
-    addStream(stream: any): void;
-    updateStream(stream: any): void;
-    deleteStream(streamId: any): Stream;
-    updateParticipantMediaState(kind: any, state: any): void;
-    videoQualityChanged(prevQuality: any, currentQuality: any): void;
-    /**
+     * @description This represents participant's current mode
      *
+     */
+    mode: 'CONFERENCE' | 'VIEWER';
+    /**
+     * @description This method can be used to kickout a participant from the meeting
+     */
+    remove(): void;
+    /**
+     * @description This method can be used to enable mic of the participant in the meeting
+     */
+    enableMic(): void;
+    /**
+     * @description This method can be used to disable mic of the participant in the meeting
+     */
+    disableMic(): void;
+    /**
+     * @description This method can be used to enable webcam of the participant in the meeting
+     */
+    enableWebcam(): void;
+    /**
+     * @description This method can be used to disable webcam of the participant in the meeting
+     */
+    disableWebcam(): void;
+    /**
+     *  @description This method can be used to set the incoming video quality of the participant
      * @param {"low" | "med" | 'high'} quality
      */
-    setQuality(quality: "low" | "med" | 'high'): void;
+    setQuality(quality: 'low' | 'med' | 'high'): void;
     /**
-     *
-     * @param {number} width
-     * @param {number} height
+     * @description This method can be used to set the video quality of the participant based on the size of the viewport it is being displayed in
+     * @param {number} width Width of the Viewport in which participant video is shown
+     * @param {number} height Height of the Viewport in which participant video is shown
      */
     setViewPort(width: number, height: number): void;
+
     /**
-     * @param {"SHARE_AND_CAM" | "CAM" | "SHARE"} type
+     * @param {"SHARE_AND_CAM" | "CAM" | "SHARE"} type If `SHARE_AND_CAM` is provided, it will pin screenshare and camera of the participant.
+     * If `CAM` is provided, it will only pin the participant's camera, If `SHARE` is provided, it will only pin the participant's screen share
      */
-    pin(type: "SHARE_AND_CAM" | "CAM" | "SHARE"): void;
+    pin(type: 'SHARE_AND_CAM' | 'CAM' | 'SHARE'): void;
     /**
-     * @param {"SHARE_AND_CAM" | "CAM" | "SHARE"} type
+     * @param {"SHARE_AND_CAM" | "CAM" | "SHARE"} type   If `SHARE_AND_CAM` is provided, it will unpin screenshare and camera of the participant.
+     * If `CAM` is provided, it will only unpin the participant's camera, If `SHARE` is provided, it will only unpin the participant's screen share
      */
-    unpin(type: "SHARE_AND_CAM" | "CAM" | "SHARE"): void;
+    unpin(type: 'SHARE_AND_CAM' | 'CAM' | 'SHARE'): void;
     /**
+     * @deprecated
      *@param {{meetingId: string, payload: string, token:string }} options
      */
-    switchTo({ meetingId, payload, token }: {
-        meetingId: string;
-        payload: string;
-        token: string;
-    }): Promise<void>;
-    getVideoStats(): Promise<[{
-        bitrate: number;
-        roundTripTime: number;
-        jitter: number;
-        totalPackets: number;
-        packetsLost: number;
-        network: string;
-        codec: string;
-        limitaion: any;
-        size: any;
-    }] | [{
-        bitrate: number;
-        rtt: number;
-        network: string;
-        codec: string;
-        jitter: number;
-        totalPackets: number;
-        packetsLost: number;
-        concealmentEvents: number;
-        insertedSamplesForDecelaration: number;
-        removedSamplesForAccelaration: number;
-        size: any;
-    }]>;
-    getShareStats(): Promise<[{
-        bitrate: number;
-        rtt: number;
-        network: string;
-        codec: string;
-        jitter: number;
-        totalPackets: number;
-        packetsLost: number;
-        concealmentEvents: number;
-        insertedSamplesForDecelaration: number;
-        removedSamplesForAccelaration: number;
-        size: any;
-    }] | [{
-        bitrate: number;
-        roundTripTime: number;
-        jitter: number;
-        totalPackets: number;
-        packetsLost: number;
-        network: string;
-        codec: string;
-        limitaion: any;
-        size: any;
-    }]>;
-    getAudioStats(): Promise<[{
-        bitrate: number;
-        rtt: number;
-        network: string;
-        codec: string;
-        jitter: number;
-        totalPackets: number;
-        packetsLost: number;
-        concealmentEvents: number;
-        insertedSamplesForDecelaration: number;
-        removedSamplesForAccelaration: number;
-        size: any;
-    }] | [{
-        bitrate: number;
-        roundTripTime: number;
-        jitter: number;
-        totalPackets: number;
-        packetsLost: number;
-        network: string;
-        codec: string;
-    }]>;
+    switchTo({ meetingId, payload, token }: { meetingId: string; payload: string; token: string }): Promise<void>;
+    /**
+     * @description This method returns the Video Statistics of the participant. To learn more about the video statistics check these [reference](https://docs.videosdk.live/react/guide/video-and-audio-calling-api-sdk/render-media/understanding-call-quality)
+     */
+    getVideoStats(): Promise<
+        | [
+              {
+                  bitrate: number;
+                  roundTripTime: number;
+                  jitter: number;
+                  totalPackets: number;
+                  packetsLost: number;
+                  network: string;
+                  codec: string;
+                  limitaion: any;
+                  size: any;
+              },
+          ]
+        | [
+              {
+                  bitrate: number;
+                  rtt: number;
+                  network: string;
+                  codec: string;
+                  jitter: number;
+                  totalPackets: number;
+                  packetsLost: number;
+                  concealmentEvents: number;
+                  insertedSamplesForDecelaration: number;
+                  removedSamplesForAccelaration: number;
+                  size: any;
+              },
+          ]
+    >;
+    /**
+     * @description This method returns the Screen Share Statistics of the participant. To learn more about the video statistics check these [reference](https://docs.videosdk.live/react/guide/video-and-audio-calling-api-sdk/render-media/understanding-call-quality)
+     */
+    getShareStats(): Promise<
+        | [
+              {
+                  bitrate: number;
+                  rtt: number;
+                  network: string;
+                  codec: string;
+                  jitter: number;
+                  totalPackets: number;
+                  packetsLost: number;
+                  concealmentEvents: number;
+                  insertedSamplesForDecelaration: number;
+                  removedSamplesForAccelaration: number;
+                  size: any;
+              },
+          ]
+        | [
+              {
+                  bitrate: number;
+                  roundTripTime: number;
+                  jitter: number;
+                  totalPackets: number;
+                  packetsLost: number;
+                  network: string;
+                  codec: string;
+                  limitaion: any;
+                  size: any;
+              },
+          ]
+    >;
+    /**
+     * @description This method returns the Audio Statistics of the participant. To learn more about the video statistics check these [reference](https://docs.videosdk.live/react/guide/video-and-audio-calling-api-sdk/render-media/understanding-call-quality)
+     */
+    getAudioStats(): Promise<
+        | [
+              {
+                  bitrate: number;
+                  rtt: number;
+                  network: string;
+                  codec: string;
+                  jitter: number;
+                  totalPackets: number;
+                  packetsLost: number;
+                  concealmentEvents: number;
+                  insertedSamplesForDecelaration: number;
+                  removedSamplesForAccelaration: number;
+                  size: any;
+              },
+          ]
+        | [
+              {
+                  bitrate: number;
+                  roundTripTime: number;
+                  jitter: number;
+                  totalPackets: number;
+                  packetsLost: number;
+                  network: string;
+                  codec: string;
+              },
+          ]
+    >;
     consumeMicStreams(): void;
     consumeWebcamStreams(): void;
     stopConsumingWebcamStreams(): void;
     stopConsumingMicStreams(): void;
     /**
      * Add event listener
-     * @param {EV_STREAM_ENABLED | EV_STREAM_DISABLED | EV_MEDIA_STATUS_CHANGED} eventType
-     * @param {Function} listener Callback function
+     * @param eventType Event name to which you want to subscribe.
+     * @param {Function} listener Callback function which will be triggered when the event happens
      */
-    on(eventType: "stream-enabled" | "stream-disabled" | "media-status-changed", listener: Function): void;
+    on(
+        eventType: 'stream-enabled' | 'stream-disabled' | 'media-status-changed' | 'video-quality-changed',
+        listener: Function,
+    ): void;
     /**
-     * Remove event listener
-     * @param {EV_STREAM_ENABLED | EV_STREAM_DISABLED | EV_MEDIA_STATUS_CHANGED} eventType
-     * @param {Function} listener Callback function
+     * Remove event
+     * @param eventType Event name to which you want to unsubscribe.
+     * @param {Function} listener Callback function which was passed while subscribing to the event
      */
-    off(eventType: "stream-enabled" | "stream-disabled" | "media-status-changed", listener: Function): void;
+    off(
+        eventType: 'stream-enabled' | 'stream-disabled' | 'media-status-changed' | 'video-quality-changed',
+        listener: Function,
+    ): void;
 }
-import { Stream } from "./stream";
-import { EventEmitter } from "events";
+import { Stream } from './stream';
