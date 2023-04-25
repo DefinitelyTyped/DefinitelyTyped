@@ -1,10 +1,11 @@
 // Type definitions for non-npm package maxmsp 1.0
-// Project: http://max-javascript-reference.tim-schenk.de/
+// Project: https://docs.cycling74.com/max8/vignettes/javascript_usage_topic
 // Definitions by: TomW <https://github.com/twhiston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions originally created by: ErnstHot <https://github.com/ErnstHot>
 // Documentation is property of Cycling '74 and published with permission.
 // These are type definitions for max msp's [js]/[jsui] API 1.0.0
+// API Reference: http://max-javascript-reference.tim-schenk.de/
 // For npm use @types/max-api instead
 
 /*
