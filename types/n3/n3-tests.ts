@@ -152,6 +152,22 @@ function test_doc_rdf_stream_to_triples_1() {
     }());
 }
 
+function test_doc_rdf_stream_to_triples_2() {
+    interface QuadBnode extends N3.BaseQuad {
+        subject: N3.BlankNode;
+        predicate: N3.BlankNode;
+        object: N3.BlankNode;
+        graph: N3.BlankNode;
+    }
+    const parser: N3.Parser<QuadBnode> = new N3.Parser<QuadBnode>({ factory: N3.DataFactory });
+    parser.parse('abc', console.log);
+
+    const rdfStream = fs.createReadStream('cartoons.ttl');
+    const result = parser.parse(rdfStream);
+
+    result.forEach((s) => console.log(s));
+}
+
 function test_doc_from_triples_to_string() {
     const writer: N3.Writer = new N3.Writer({ prefixes: { c: 'http://example.org/cartoons#' } });
     writer.addQuad(N3.DataFactory.quad(
@@ -245,6 +261,11 @@ function test_doc_storing() {
         console.log(mickey.object.datatype);
     }
     console.log(mickey.subject, mickey.predicate, mickey.object, '.');
+
+    const quadGenerator: Generator<RDF.Quad> = store.readQuads(N3.DataFactory.namedNode('http://ex.org/Mickey'), null, null, null);
+    for (const q of quadGenerator) {
+        console.log(q.subject, q.predicate, q.object, '.');
+    }
 
     const quadStream: RDF.Stream = store.match(N3.DataFactory.namedNode('http://ex.org/Mickey'));
 
