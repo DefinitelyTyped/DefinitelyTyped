@@ -3802,6 +3802,89 @@ declare namespace jsts {
                 toString(): string;
             }
         }
+
+        namespace polygonize {
+            import ArrayList = java.utils.ArrayList;
+            import Geometry = jsts.geom.Geometry;
+            import HashSet = java.utils.HashSet;
+            import LineString = jsts.geom.LineString;
+            import Polygon = jsts.geom.Polygon;
+
+            export class Polygonizer {
+                /**
+                 * Creates a polygonizer that extracts all polygons.
+                 */
+                constructor();
+                /**
+                 * Creates a polygonizer, specifying whether a valid polygonal geometry must be created.
+                 * If the argument is true then areas may be discarded in order to ensure
+                 * that the extracted geometry is a valid polygonal geometry.
+                 *
+                 * @param {boolean} extractOnlyPolygonal true if a valid polygonal geometry should be extracted
+                 */
+                constructor(extractOnlyPolygonal: boolean);
+
+                /**
+                 * Adds a collection of geometries to the edges to be polygonized.
+                 * May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted and used.
+                 *
+                 * @param geomList {Array} a list of Geometrys with linework to be polygonized
+                 */
+                add(geomList: Array<Geometry>): void;
+
+                /**
+                 * Add a Geometry to the edges to be polygonized.
+                 * May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted and used
+                 *
+                 * @param g {Geometry} a Geometry with linework to be polygonized
+                 */
+                add(g: Geometry): void;
+
+                /**
+                 * Allows disabling the valid ring checking, to optimize situations where invalid rings are not expected.
+                 * The default is true.
+                 *
+                 * @param isCheckingRingsValid {boolean} true if generated rings should be checked for validity
+                 */
+                setCheckRingsValid(isCheckingRingsValid: boolean): void;
+
+                /**
+                 * Gets the list of polygons formed by the polygonization.
+                 */
+                getPolygons(): ArrayList<Polygon>;
+
+                /**
+                 * Gets a geometry representing the polygons formed by the polygonization.
+                 * If a valid polygonal geometry was extracted the result is a Polygonal geometry.
+                 *
+                 * @returns a geometry containing the polygons
+                 */
+                getGeometry(): Geometry;
+
+                /**
+                 * Gets the list of dangling lines found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which are dangles
+                 */
+                getDangles(): HashSet<LineString>;
+
+                /**
+                 * Gets the list of cut edges found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which are cut edges
+                 */
+                getCutEdges(): ArrayList<LineString>;
+
+                /**
+                 * Gets the list of lines forming invalid rings found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which form invalid rings
+                 */
+                getInvalidRingLines(): ArrayList<LineString>;
+            }
+        }
     }
 
     namespace precision {
@@ -3928,6 +4011,174 @@ declare namespace jsts {
             setDistanceTolerance(distanceTolerance: number): void;
 
             getResultGeometry(): Geometry;
+        }
+    }
+
+    namespace util {
+        /**
+         * An extendable array of primitive int values.
+         */
+        export class IntArrayList {
+            /**
+             * Constructs an empty list.
+             */
+            constructor();
+            /**
+             * Constructs an empty list with the specified initial capacity
+             *
+             * @param initialCapacity {integer} the initial capacity of the list
+             */
+            constructor(initialCapacity: number);
+
+            /**
+             * Returns the number of values in this list.
+             */
+            size(): number;
+
+            /**
+             * Increases the capacity of this list instance, if necessary,
+             * to ensure that it can hold at least the number of elements specified by the capacity argument.
+             *
+             * @param capacity {integer} the desired capacity
+             */
+            ensureCapacity(capacity: number): void;
+
+            /**
+             * Adds a value to the end of this list.
+             *
+             * @param value {integer} the value to add
+             */
+            add(value: number): void;
+
+            /**
+             * Adds all values in an array to the end of this list.
+             *
+             * @param values an array of values
+             */
+            addAll(values: number[]): void;
+
+            /**
+             * Returns a int array containing a copy of the values in this list.
+             */
+            toArray(): number[];
+        }
+    }
+}
+
+declare namespace java {
+    namespace utils {
+        export class Iterator<T> {
+            /**
+             * Returns true if the iteration has more elements.
+             * @return {boolean}
+             */
+            hasNext(): boolean;
+
+            /**
+             * Returns the next element in the iteration.
+             * @return {T}
+             */
+            next(): T;
+
+            /**
+             * Removes from the underlying collection the last element returned by the
+             * iterator (optional operation).
+             */
+            remove(): void;
+        }
+        export class Comparator<T> {
+            compare(a: T, b: T): number;
+        }
+        export class Collection<T> {
+            /**
+             * Ensures that this collection contains the specified element (optional
+             * operation).
+             * @param {T} e
+             * @return {boolean}
+             */
+            add(e: T): boolean;
+            /**
+             * Appends all of the elements in the specified collection to the end of this
+             * list, in the order that they are returned by the specified collection's
+             * iterator (optional operation).
+             * @param {javascript.util.Collection} c
+             * @return {boolean}
+             */
+            addAll(c: Collection<T>): boolean;
+            /**
+             * Returns true if this collection contains no elements.
+             * @return {boolean}
+             */
+            isEmpty(): boolean;
+            /**
+             * Returns an iterator over the elements in this collection.
+             * @return {javascript.util.Iterator}
+             */
+            iterator(): Iterator<T>;
+            /**
+             * Returns an iterator over the elements in this collection.
+             * @return {number}
+             */
+            size(): number;
+            /**
+             * Returns an array containing all of the elements in this collection.
+             * @return {Array}
+             */
+            toArray(): Array<T>;
+            /**
+             * Removes a single instance of the specified element from this collection if it
+             * is present. (optional)
+             * @param {Object} e
+             * @return {boolean}
+             */
+            remove(e: T): boolean;
+        }
+        export class List<T> extends Collection<T> {
+            /**
+             * Returns the element at the specified position in this list.
+             * @param {number} index
+             * @return {T}
+             */
+            get(index: number): T;
+            /**
+             * Replaces the element at the specified position in this list with the
+             * specified element (optional operation).
+             * @param {number} index
+             * @param {Object} e
+             * @return {Object}
+             */
+            set(index: number, e: T): T;
+        }
+        export class ArrayList<T> extends List<T> {
+            constructor(c?: Collection<T>);
+
+            /**
+             * Increases the capacity of this list instance, if necessary,
+             * to ensure that it can hold at least the number of elements specified by the capacity argument.
+             *
+             * @param capacity {integer} the desired capacity
+             */
+            ensureCapacity(capacity: number): void;
+
+            /**
+             * Empties this list
+             */
+            clear(): void;
+
+            sort(comparator: Comparator<T>): void;
+        }
+        export class Set<T> extends Collection<T> {
+            /**
+             * Returns true if this set contains the specified element. More formally,
+             * returns true if and only if this set contains an element e such that (o==null ?
+             * e==null : o.equals(e)).
+             * @param {T} e
+             * @return {boolean}
+             */
+            contains(e: T): boolean;
+        }
+        export class HashSet<T> extends Set<T> {
+            constructor(c?: Collection<T>);
         }
     }
 }

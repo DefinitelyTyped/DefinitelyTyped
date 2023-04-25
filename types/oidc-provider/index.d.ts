@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 8.1
+// Type definitions for oidc-provider 8.2
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -195,6 +195,7 @@ declare class Interaction extends BaseModel {
     uid: string;
     lastSubmission?: InteractionResults | undefined;
     grantId?: string | undefined;
+    cid: string;
 
     save(ttl: number): Promise<string>;
     persist(): Promise<string>;

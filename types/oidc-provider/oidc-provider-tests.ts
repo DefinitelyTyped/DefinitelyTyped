@@ -292,6 +292,7 @@ const provider = new Provider('https://op.example.com', {
     interactions: {
         async url(ctx, interaction) {
             ctx.oidc.issuer.substring(0);
+            interaction.cid.substring(0);
             interaction.iat.toFixed();
             interaction.returnTo.substring(0);
             JSON.stringify(interaction.params.foo);

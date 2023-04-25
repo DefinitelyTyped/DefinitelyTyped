@@ -1,4 +1,4 @@
-// For Library Version: 1.111.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -1926,6 +1926,8 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      */
     getGridColumnGap(): CSSSize;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Implements IGridConfigurable interface
      *
      * @returns An array with the DOM elements
@@ -1944,6 +1946,8 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      */
     getGridGap(): cssgrid.CSSGridGapShortHand;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the layout configuration of the `CSSGrid`.
      *
      * @returns The grid layout
@@ -2764,6 +2768,8 @@ declare module "sap/ui/layout/cssgrid/GridBoxLayout" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns a gridTemplateColumns value based on boxWidth and boxMinWidth properties
      *
      * @returns A value for gridTemplateColumns property
@@ -3258,6 +3264,8 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Removes all display:grid styles from the provided HTML element
      */
     _removeGridLayout(
@@ -3267,6 +3275,8 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
       oElement: HTMLElement
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Sets all display:grid styles to the provided HTML element
      */
     _setGridLayout(
@@ -3298,6 +3308,8 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
      */
     isResponsive(): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Hook function for the Grid's onAfterRendering
      */
     onGridAfterRendering(
@@ -3307,6 +3319,8 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
       oGrid: cssgrid.IGridConfigurable
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Hook function for the Grid's resize. Will be called if the grid layout is responsive.
      */
     onGridResize(
@@ -3508,6 +3522,8 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -4355,6 +4371,8 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -4639,6 +4657,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     ): this;
     /**
      * @SINCE 1.32
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:breakpointChanged breakpointChanged} to attached listeners.
      *
@@ -6627,6 +6646,7 @@ declare module "sap/ui/layout/form/FormContainer" {
     static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.74.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets the editable state of the `FormContainer`.
      *
@@ -7064,6 +7084,7 @@ declare module "sap/ui/layout/form/FormElement" {
     static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.74.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets the editable state of the `FormElement`.
      *
@@ -7166,6 +7187,8 @@ declare module "sap/ui/layout/form/FormElement" {
       iIndex: int
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Labels inside of a Form must be invalidated if "editable" changed on Form
      */
     invalidateLabel(): void;
@@ -10576,6 +10599,8 @@ declare module "sap/ui/layout/Grid" {
      */
     destroyContent(): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the `Grid` accessibility information.
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -12163,6 +12188,8 @@ declare module "sap/ui/layout/HorizontalLayout" {
      */
     destroyContent(): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
@@ -12433,6 +12460,8 @@ declare module "sap/ui/layout/PaneContainer" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13649,6 +13678,7 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Disables the resize handler for this control, this leads to an automatic resize of the contents whenever
      * the control changes its size. The resize handler is enabled in every control instance by default. For
@@ -13662,6 +13692,8 @@ declare module "sap/ui/layout/Splitter" {
       bTemporarily?: boolean
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Disables the resizing of the Splitter contents via keyboard. This changes the Splitter bars to non-focusable
      * elements.
      */
@@ -13670,6 +13702,7 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Disables recalculation and resize of the splitter contents while dragging the splitter bar. This means
      * that the contents are resized only once after moving the splitter bar.
@@ -13679,6 +13712,7 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Enables the resize handler for this control, this leads to an automatic resize of the contents whenever
      * the control changes its size. The resize handler is enabled in every control instance by default. For
@@ -13691,6 +13725,8 @@ declare module "sap/ui/layout/Splitter" {
       bTemporarily?: boolean
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Enables the resizing of the Splitter contents via keyboard. This makes the Splitter bars focusable elements.
      */
     enableKeyboardSupport(): void;
@@ -13698,12 +13734,15 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Enables recalculation and resize of the splitter contents while dragging the splitter bar. This means
      * that the contents are resized several times per second when moving the splitter bar.
      */
     enableLiveResize(): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13732,6 +13771,7 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Returns the current actual content sizes as pixel value - these values can change with every resize.
      *
@@ -14208,6 +14248,8 @@ declare module "sap/ui/layout/VerticalLayout" {
      */
     destroyContent(): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *

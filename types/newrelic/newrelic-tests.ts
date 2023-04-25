@@ -111,6 +111,8 @@ newrelic.instrumentMessages({
     },
 });
 
+newrelic.setUserID('user-id'); // $ExpectType void
+
 newrelic.shutdown(); // $ExpectType void
 newrelic.shutdown({ collectPendingData: true });
 newrelic.shutdown({ timeout: 3000 });

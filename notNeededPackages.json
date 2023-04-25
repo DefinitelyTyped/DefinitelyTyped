@@ -4287,6 +4287,10 @@
             "libraryName": "react-circular-progressbar",
             "asOfVersion": "1.1.0"
         },
+        "react-clock": {
+            "libraryName": "react-clock",
+            "asOfVersion": "4.1.0"
+        },
         "react-collapsible": {
             "libraryName": "react-collapsible",
             "asOfVersion": "2.3.0"
@@ -5967,6 +5971,14 @@
             "libraryName": "wix-style-react",
             "asOfVersion": "7.47.1"
         },
+        "wojtekmaj__react-daterange-picker": {
+            "libraryName": "@wojtekmaj/react-daterange-picker",
+            "asOfVersion": "5.0.1"
+        },
+        "wojtekmaj__react-datetimerange-picker": {
+            "libraryName": "@wojtekmaj/react-datetimerange-picker",
+            "asOfVersion": "5.0.1"
+        },
         "wolfy87-eventemitter": {
             "libraryName": "wolfy87-eventemitter",
             "asOfVersion": "5.2.0"
@@ -6014,6 +6026,10 @@
         "wordpress__data": {
             "libraryName": "@wordpress/data",
             "asOfVersion": "7.0.0"
+        },
+        "wordpress__data-controls": {
+            "libraryName": "@wordpress/data-controls",
+            "asOfVersion": "3.0.0"
         },
         "wordpress__dependency-extraction-webpack-plugin": {
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",

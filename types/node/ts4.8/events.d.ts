@@ -610,10 +610,14 @@ declare module 'events' {
                 emit(eventName: string | symbol, ...args: any[]): boolean;
                 /**
                  * Returns the number of listeners listening to the event named `eventName`.
+                 *
+                 * If `listener` is provided, it will return how many times the listener
+                 * is found in the list of the listeners of the event.
                  * @since v3.2.0
                  * @param eventName The name of the event being listened for
+                 * @param listener The event handler function
                  */
-                listenerCount(eventName: string | symbol): number;
+                listenerCount(eventName: string | symbol, listener?: Function): number;
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has

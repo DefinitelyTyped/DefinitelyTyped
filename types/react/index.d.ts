@@ -1,4 +1,4 @@
-// Type definitions for React 18.0
+// Type definitions for React 18.2
 // Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -1930,11 +1930,21 @@ declare namespace React {
         is?: string | undefined;
     }
 
+    /**
+     * For internal usage only.
+     * Different release channels declare additional types of ReactNode this particular release channel accepts.
+     * App or library types should never augment this interface.
+     */
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {}
+
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
         // Standard HTML Attributes
         accept?: string | undefined;
         acceptCharset?: string | undefined;
-        action?: string | undefined;
+        action?:
+            | string
+            | undefined
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS];
         allowFullScreen?: boolean | undefined;
         allowTransparency?: boolean | undefined;
         alt?: string | undefined;
@@ -1963,7 +1973,10 @@ declare namespace React {
         download?: any;
         encType?: string | undefined;
         form?: string | undefined;
-        formAction?: string | undefined;
+        formAction?:
+            | string
+            | undefined
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS];
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
@@ -2091,7 +2104,10 @@ declare namespace React {
     interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
         disabled?: boolean | undefined;
         form?: string | undefined;
-        formAction?: string | undefined;
+        formAction?:
+            | string
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS]
+            | undefined;
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
@@ -2150,7 +2166,10 @@ declare namespace React {
 
     interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
         acceptCharset?: string | undefined;
-        action?: string | undefined;
+        action?:
+            | string
+            | undefined
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS];
         autoComplete?: string | undefined;
         encType?: string | undefined;
         method?: string | undefined;
@@ -2240,7 +2259,10 @@ declare namespace React {
         disabled?: boolean | undefined;
         enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
         form?: string | undefined;
-        formAction?: string | undefined;
+        formAction?:
+            | string
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS]
+            | undefined;
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
