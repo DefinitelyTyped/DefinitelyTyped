@@ -11,7 +11,7 @@ import { Connection } from './connection';
 import { Meeting } from './meeting';
 import { Participant } from './participant';
 import { Stream } from './stream';
-import { MediaStream } from './mediaStream';
+import { MediaStream, MediaStreamTrack } from './mediaStream';
 
 /**
  * @param mirror - Indicates whether the video specified by streamURL should be mirrored.
@@ -42,6 +42,8 @@ export interface RTCViewProps {
 }
 
 export class RTCView extends Component<RTCViewProps, any> {}
+
+export { MediaStream, MediaStreamTrack };
 
 /**
  * @param children - Render child component.
