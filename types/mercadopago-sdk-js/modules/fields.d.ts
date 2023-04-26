@@ -45,7 +45,7 @@ type OptionsToken =
   | string
   | undefined;
 
-export interface fields {
+export type Fields = {
     create(field: FieldName, options?: FieldsOptions): Field
     createCardToken(nonPCIData: FieldsCardTokenParams, options: OptionsToken): Promise<CardTokenResponse | void>
     updateCardToken(token: string, options: OptionsToken): Promise<CardTokenResponse | void> 

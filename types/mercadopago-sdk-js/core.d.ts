@@ -1,6 +1,6 @@
 import { CardForm, CardFormOptions } from "./modules/cardform";
 import { Bricks, BricksStyle } from "./modules/bricks";
-import { fields } from "./modules/fields";
+import { Fields } from "./modules/fields";
 import { Issuer, PayerCost, Setting, CardTokenResponse } from "./shared";
 
 export type Options = {
@@ -126,13 +126,6 @@ type CardTokenUpdateParams = {
   token?: string;
 };
 
-type ValidateFieldsParams = {
-  cardNumber: boolean;
-  cardExpirationMonth: boolean;
-  cardExpirationYear: boolean;
-  securityCode?: boolean;
-};
-
 type MercadoPagoCore = {
   getIdentificationTypes(): Promise<IdentificationTypesResponse[]>;
   getPaymentMethods(
@@ -143,15 +136,13 @@ type MercadoPagoCore = {
     installmentsParams: InstallmentsParams
   ): Promise<InstallmentsResponse[]>;
   createCardToken(
-    cardTokenParams: CardTokenParams,
-    validateFieldsParams: ValidateFieldsParams
+    cardTokenParams: CardTokenParams
   ): Promise<CardTokenResponse>;
   updateCardToken(
-    CardTokenUpdateParams: CardTokenUpdateParams,
-    validateFieldsParams: ValidateFieldsParams
+    CardTokenUpdateParams: CardTokenUpdateParams
   ): Promise<CardTokenResponse>;
 
-  fields: fields;
+  fields: Fields;
 
   bricks(style: BricksStyle): Bricks
 
