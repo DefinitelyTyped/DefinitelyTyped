@@ -225,3 +225,35 @@ const authenticationMethodsPolicyMigrationState: MicrosoftGraph.AuthenticationMe
 const conditionalAccessGuestOrExternalUserTypes: MicrosoftGraph.ConditionalAccessGuestOrExternalUserTypes = "unknownFutureValue";
 
 const appManagementConfiguration: MicrosoftGraph.AppManagementConfiguration = {};
+
+const authenticationMethodModes: MicrosoftGraph.AuthenticationMethodModes = "unknownFutureValue";
+
+const authenticationStrengthRequirements: MicrosoftGraph.AuthenticationStrengthRequirements = "unknownFutureValue";
+
+const baseAuthenticationMethod: MicrosoftGraph.BaseAuthenticationMethod = "x509Certificate";
+
+const authenticationCombinationConfiguration: MicrosoftGraph.AuthenticationCombinationConfiguration = {};
+
+const authenticationMethodModeDetail: MicrosoftGraph.AuthenticationMethodModeDetail = {};
+
+const authenticationStrengthPolicy: MicrosoftGraph.AuthenticationStrengthPolicy = {};
+
+const authenticationStrengthRoot: MicrosoftGraph.AuthenticationStrengthRoot = {};
+
+const conditionalAccessRoot: MicrosoftGraph.ConditionalAccessRoot = {};
+
+const authenticationContextClassReference: MicrosoftGraph.AuthenticationContextClassReference = {};
+
+const namedLocation: MicrosoftGraph.NamedLocation = {};
+
+const conditionalAccessPolicy: MicrosoftGraph.ConditionalAccessPolicy = {};
+
+const conditionalAccessTemplate: MicrosoftGraph.ConditionalAccessTemplate = {};
+
+const customSecurityAttributeDefinition: MicrosoftGraph.CustomSecurityAttributeDefinition = {};
+
+const updateAllowedCombinationsResult: MicrosoftGraph.UpdateAllowedCombinationsResult = {};
+
+const chatMessageHistoryItem: MicrosoftGraph.ChatMessageHistoryItem = {};
+
+const chatMessageReaction: MicrosoftGraph.ChatMessageReaction = {};
