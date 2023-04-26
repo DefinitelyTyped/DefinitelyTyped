@@ -1,6 +1,8 @@
 // Type definitions for @videosdk.live/react-sdk 0.1
 // Project: https://docs.videosdk.live/docs/realtime-communication/sdk-reference/react-sdk/setup
-// Definitions by: Rajan Surani <https://github.com/zujonow>
+// Definitions by: Rajan Surani <https://github.com/rajansurani>
+//                 Ahmed Bhesaniya <https://github.com/ahmedbhesaniya97>
+//                 Zujo Now <https://github.com/zujonow> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Meeting, Participant, Stream, Connection } from 'videosdk.live__js-sdk';

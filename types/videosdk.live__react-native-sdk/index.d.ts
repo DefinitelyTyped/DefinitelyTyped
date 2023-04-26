@@ -1,6 +1,8 @@
 // Type definitions for @videosdk.live/react-native-sdk 0.0
 // Project: https://docs.videosdk.live/docs/realtime-communication/sdk-reference/react-native-sdk/setup
-// Definitions by: Rajan Surani <https://github.com/zujonow>
+// Definitions by: Rajan Surani <https://github.com/rajansurani>
+//                 Ahmed Bhesaniya <https://github.com/ahmedbhesaniya97>
+//                 Zujo Now <https://github.com/zujonow>             
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component } from 'react';
