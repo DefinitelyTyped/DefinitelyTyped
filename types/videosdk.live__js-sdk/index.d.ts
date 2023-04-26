@@ -2,7 +2,7 @@
 // Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
 // Definitions by: Rajan Surani <https://github.com/rajansurani>
 //                 Ahmed Bhesaniya <https://github.com/ahmedbhesaniya97>
-//                 Zujo Now <https://github.com/zujonow> 
+//                 Zujo Now <https://github.com/zujonow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export namespace VideoSDK {

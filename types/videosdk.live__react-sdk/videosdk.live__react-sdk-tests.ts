@@ -1,4 +1,8 @@
-import { createCameraVideoTrack, createMicrophoneAudioTrack, createScreenShareVideoTrack } from 'videosdk.live__react-sdk';
+import {
+    createCameraVideoTrack,
+    createMicrophoneAudioTrack,
+    createScreenShareVideoTrack,
+} from 'videosdk.live__react-sdk';
 
 // #ExpectType Promise<MediaStream>
 const customAudioTrack = createMicrophoneAudioTrack({ microphoneId: '1' });
@@ -7,4 +11,4 @@ const customAudioTrack = createMicrophoneAudioTrack({ microphoneId: '1' });
 const customVideoTrack = createCameraVideoTrack({ cameraId: '1' });
 
 // #ExpectType Promise<MediaStream>
-const customScreenShareTrack = createScreenShareVideoTrack({ });
+const customScreenShareTrack = createScreenShareVideoTrack({});

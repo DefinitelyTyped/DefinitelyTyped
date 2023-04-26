@@ -15,4 +15,4 @@ const customAudioTrack = VideoSDK.createMicrophoneAudioTrack({ microphoneId: '1'
 const customVideoTrack = VideoSDK.createCameraVideoTrack({ cameraId: '1' });
 
 // #ExpectType Promise<MediaStream>
-const customScreenShareTrack = VideoSDK.createScreenShareVideoTrack({ });
+const customScreenShareTrack = VideoSDK.createScreenShareVideoTrack({});
