@@ -240,45 +240,45 @@ export type BlessedIntrinsicElementsPrefixed = {
 // elements will collide with ones set in react defs.
 
 // augment react JSX when old JSX transform is used
-declare global {
+declare module "react" {
     namespace JSX {
         interface ButtonHTMLAttributes<T>
-            extends React.HTMLAttributes<T>,
+            extends HTMLAttributes<T>,
                 Omit<
                     DetailedBlessedProps<ButtonElement>,
                     'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
                 > {}
 
         interface TableHTMLAttributes<T>
-            extends React.HTMLAttributes<T>,
+            extends HTMLAttributes<T>,
                 Omit<
                     DetailedBlessedProps<TableElement>,
                     'border' | 'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
                 > {}
 
         interface TextareaHTMLAttributes<T>
-            extends React.HTMLAttributes<T>,
+            extends HTMLAttributes<T>,
                 Omit<
                     DetailedBlessedProps<TextElement>,
                     'draggable' | 'fill' | 'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
                 > {}
 
         interface InputHTMLAttributes<T>
-            extends React.HTMLAttributes<T>,
+            extends HTMLAttributes<T>,
                 Omit<
                     DetailedBlessedProps<InputElement>,
                     'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
                 > {}
 
         interface SVGLineElementAttributes<T>
-            extends React.SVGProps<T>,
+            extends SVGProps<T>,
                 Omit<
                     DetailedBlessedProps<LineElement>,
                     'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'orientation' | 'ref' | 'style'
                 > {}
 
         interface SVGTextElementAttributes<T>
-            extends React.SVGProps<T>,
+            extends SVGProps<T>,
                 Omit<
                     DetailedBlessedProps<TextElement>,
                     'fill' | 'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
