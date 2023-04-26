@@ -8,8 +8,14 @@ export interface ModalImageProps extends React.ImgHTMLAttributes<HTMLImageElemen
     /* The small image to display */
     small: string;
 
+    /* The srcset attribute for the small image */
+    smallSrcSet?: string;
+
+    /* The medium image to display */
+    medium?: string;
+
     /* The large image to display */
-    large: string;
+    large?: string;
 
     /* The alt tag for the image */
     alt?: string;
@@ -20,38 +26,18 @@ export interface ModalImageProps extends React.ImgHTMLAttributes<HTMLImageElemen
     /* Should the zoom button be hidden? */
     hideZoom?: boolean;
 
-    /* Should the rotate button be hidden? */
-    hideRotate?: boolean;
-
-    /* Should the fullscreen button be hidden? */
-    hideFullscreen?: boolean;
-
-    /* The download url for the image */
-    download?: string;
+    /* Should the rotate button be shown? */
+    showRotate?: boolean;
 
     /* The color to display in the background. */
     imageBackgroundColor?: string;
-
-    /* The zoom scale */
-    zoomMargin?: number;
-
-    /* Should the modal close when the background is clicked? */
-    shouldHideOnClickOutside?: boolean;
-
-    /* Should the modal close when the esc key is pressed? */
-    shouldCloseOnEsc?: boolean;
-
-    /* Custom styles for the modal */
-    customModalStyles?: React.CSSProperties;
-
-    /* The custom loader to display while the image is loading */
-    customLoader?: React.ReactNode;
 
     /* The class name for the modal */
     className?: string;
 }
 
-// export default function ModalImage(props: ModalImageProps): JSX.Element;
 declare class ModalImage extends React.Component<ModalImageProps> {}
+declare class Lightbox extends React.Component<ModalImageProps> {}
 
 export default ModalImage;
+export { Lightbox };

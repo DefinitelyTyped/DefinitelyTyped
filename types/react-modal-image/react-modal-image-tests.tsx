@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ModalImage, { ModalImageProps } from 'react-modal-image';
+import ModalImage, { Lightbox, ModalImageProps } from 'react-modal-image';
 
 const props: ModalImageProps = {
     /* The small image to display */
@@ -17,32 +17,8 @@ const props: ModalImageProps = {
     /* Should the zoom button be hidden? */
     hideZoom: true,
 
-    /* Should the rotate button be hidden? */
-    hideRotate: true,
-
-    /* Should the fullscreen button be hidden? */
-    hideFullscreen: true,
-
-    /* The download url for the image */
-    download: 'https://example.com/image-download.jpg',
-
     /* The color to display in the background. */
     imageBackgroundColor: '#000',
-
-    /* The zoom scale */
-    zoomMargin: 10,
-
-    /* Should the modal close when the background is clicked? */
-    shouldHideOnClickOutside: true,
-
-    /* Should the modal close when the esc key is pressed? */
-    shouldCloseOnEsc: true,
-
-    /* Custom styles for the modal */
-    customModalStyles: { width: '50%', height: '50%' },
-
-    /* The custom loader to display while the image is loading */
-    customLoader: <div>Loading...</div>,
 
     /* The class name for the modal */
     className: 'example-class',
@@ -50,6 +26,11 @@ const props: ModalImageProps = {
 
 class ReactModalImageTest extends React.Component {
     render() {
-        return <ModalImage {...props} />;
+        return (
+            <>
+                <ModalImage {...props} />
+                <Lightbox {...props} />
+            </>
+        );
     }
 }
