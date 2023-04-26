@@ -1088,7 +1088,7 @@ table = new Tabulator('#test', {
 
 // 5.3
 options = {
-    debugInvalidComponentFunc: false,
+    debugInvalidComponentFuncs: false,
     debugDeprecation: false,
 };
 

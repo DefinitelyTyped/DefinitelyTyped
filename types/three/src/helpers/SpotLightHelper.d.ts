@@ -2,7 +2,7 @@ import { Light } from './../lights/Light';
 import { Matrix4 } from './../math/Matrix4';
 import { Object3D } from './../core/Object3D';
 import { LineSegments } from '../objects/LineSegments';
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 
 export class SpotLightHelper extends Object3D {
     constructor(light: Light, color?: ColorRepresentation);

@@ -246,6 +246,31 @@ function dataset_match() {
     matched = rdf.dataset().match(null, null, null, term);
 }
 
+function test_reduce() {
+    const quad: QuadExt = <any> {};
+    const dataset: DatasetExt = <any> {};
+
+    // $ExpectType QuadExt
+    const reduced = dataset.reduce((previousValue: QuadExt, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => {
+        return previousValue;
+    });
+
+    // $ExpectType QuadExt
+    const reducedWithInitial = dataset.reduce((previousValue: QuadExt, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => {
+        return previousValue;
+    }, quad);
+
+    // $ExpectType string
+    const reducedToOther = dataset.reduce((previousValue: string, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => {
+        return previousValue;
+    }, '');
+
+    // $ExpectType number
+    const reducedToExplicit = dataset.reduce<number>((previousValue: number, currentValue: QuadExt, currentIndex: number, self: DatasetExt) => {
+        return previousValue;
+    }, 0);
+}
+
 function dataset_merge_array(): DatasetExt {
     const other: Quad[] = <any> {};
     return rdf.dataset().merge(other);

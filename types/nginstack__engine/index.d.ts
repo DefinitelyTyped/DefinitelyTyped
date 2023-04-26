@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 70.0
+// Type definitions for @nginstack/engine 71.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -431,8 +431,6 @@
 /// <reference path="lib/version/compareVersions.d.ts" />
 /// <reference path="lib/vfs/VirtualFileSystem.d.ts" />
 /// <reference path="lib/xml/formatCDATA.d.ts" />
-/// <reference path="lib/xml/ReadElementTextBehaviour.d.ts" />
-/// <reference path="lib/xml/ReadError.d.ts" />
 /// <reference path="lib/xml/removeUnsupportedChars.d.ts" />
 /// <reference path="lib/xml/TokenType.d.ts" />
 /// <reference path="lib/xml/XMLStreamReader.d.ts" />
