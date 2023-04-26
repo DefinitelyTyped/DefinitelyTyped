@@ -4,7 +4,6 @@
 //                 Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Stephen King <https://github.com/sbking>
-//                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Samson Keung <https://github.com/samsonkeung>
