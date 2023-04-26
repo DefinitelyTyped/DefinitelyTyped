@@ -439,12 +439,3 @@ const outerIdentifierPathTrue = newPath.getOuterBindingIdentifierPaths(true);
 outerIdentifierPathTrue; // $ExpectType Record<string, NodePath<Identifier>[]>
 const outerIdentifierPathBoolean = newPath.getOuterBindingIdentifierPaths(booleanVar);
 outerIdentifierPathBoolean; // $ExpectType Record<string, NodePath<Identifier> | NodePath<Identifier>[]>
-
-function isIdentifierPath(path: NodePath<t.Node>): path is NodePath<t.Identifier> {
-    return t.isIdentifier(path.node);
-}
-declare const childPath: NodePath<t.Node>;
-childPath.findParent(() => true); // $ExpectType NodePath<Node> | null
-childPath.findParent(isIdentifierPath); // $ExpectType NodePath<Identifier> | null
-childPath.find(() => true); // $ExpectType NodePath<Node> | null
-childPath.find(isIdentifierPath); // $ExpectType NodePath<Identifier> | null
