@@ -48,4 +48,8 @@ const props: ModalImageProps = {
     className: 'example-class',
 };
 
-<ModalImage {...props} />;
+class ReactModalImageTest extends React.Component {
+    render() {
+        return <ModalImage {...props} />;
+    }
+}
