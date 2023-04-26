@@ -4,7 +4,7 @@ type BrickError = {
   message: string;
 };
 
-type TBrickCallbacks = {
+type BrickCallbacks = {
   onSubmit: (
     formData: CardFormData | PaymentFormData,
     param2?: AdditionalCardFormData | AdditionalPaymentFormData
@@ -48,7 +48,7 @@ declare enum PaymentOption {
   ONBOARDING_CREDITS_FORM = "creditForm",
 }
 
-type TPaymentOptions = {
+type PaymentOptions = {
   [PaymentOption.CREDIT_CARD_FORM]?: boolean;
   [PaymentOption.DEBIT_CARD_FORM]?: boolean;
   [PaymentOption.SAVED_CARD_FORM]?: string;
@@ -58,7 +58,7 @@ type TPaymentOptions = {
   [PaymentOption.ONBOARDING_CREDITS_FORM]?: boolean;
 };
 
-type TPaymentOptionsBooleanOnly = TPaymentOptions & {
+type PaymentOptionsBooleanOnly = PaymentOptions & {
   [PaymentOption.SAVED_CARD_FORM]?: boolean;
 };
 
@@ -95,12 +95,12 @@ declare enum WalletButtonRedirectMode {
 type BrickVisualCustomization = {
   texts?: CustomizableTexts;
   font?: string;
-  style?: TBricksStyle;
+  style?: BricksStyle;
   hideNewCardForm?: boolean;
   hidePaymentButton?: boolean;
   hideFormTitle?: boolean;
-  hideValuePropsFrom?: TPaymentOptionsBooleanOnly;
-  defaultPaymentOption?: TPaymentOptions;
+  hideValuePropsFrom?: PaymentOptionsBooleanOnly;
+  defaultPaymentOption?: PaymentOptions;
   preserveSavedCardsOrder?: boolean;
   hideRedirectionPanel?: boolean;
   showExternalReference?: boolean;
@@ -128,34 +128,34 @@ type PaymentMethods = {
   mercadoPago?: GenericPaymentMethod;
 };
 
-type TCheckoutThemes = {
+type CheckoutThemes = {
   headerColor?: string;
   elementsColor?: string;
 };
 
-type TCheckout = {
-  theme: TCheckoutThemes;
+type Checkout = {
+  theme: CheckoutThemes;
 };
 
-type TWalletButtonTextCustomization = {
+type WalletButtonTextCustomization = {
   action: WalletButtonAction;
   valueProp: WalletButtonValueProp;
 };
 
-type TStatusBrickBackUrls = {
+type StatusBrickBackUrls = {
   error: string;
   return: string;
 };
 
-type TBrickCustomization = {
+type BrickCustomization = {
   visual?: BrickVisualCustomization;
   paymentMethods?: PaymentMethods;
-  checkout?: TCheckout;
-  texts?: TWalletButtonTextCustomization;
-  backUrls?: TStatusBrickBackUrls;
+  checkout?: Checkout;
+  texts?: WalletButtonTextCustomization;
+  backUrls?: StatusBrickBackUrls;
 };
 
-type TBrickInitialization = {
+type BrickInitialization = {
   amount?: number;
   payer?: Payer;
   preferenceId?: string;
@@ -164,19 +164,19 @@ type TBrickInitialization = {
   redirectMode?: WalletButtonRedirectMode;
 };
 
-type TBrickSettings = {
+type BrickSettings = {
   //For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-  callbacks?: TBrickCallbacks;
-  initialization?: TBrickInitialization;
-  customization?: TBrickCustomization;
+  callbacks?: BrickCallbacks;
+  initialization?: BrickInitialization;
+  customization?: BrickCustomization;
 };
 
-export type TBricksStyle = {
+export type BricksStyle = {
   theme?: "default" | "dark" | "flat" | "bootstrap";
-  customVariables?: TCustomVariables;
+  customVariables?: CustomVariables;
 };
 
-type TCustomVariables = {
+type CustomVariables = {
   textPrimaryColor?: string;
   textSecondaryColor?: string;
   inputBackgroundColor?: string;
@@ -238,7 +238,7 @@ type PayerAPI = {
 declare enum PaymentType {
   CREDIT_CARD = "credit_card",
   DEBIT_CARD = "debit_card",
-  TICKET = "ticket",
+  ICKET = "ticket",
   BANK_TRANSFER = "bank_transfer",
   WALLET_PURCHASE = "wallet_purchase",
   ONBOARDING_CREDITS = "onboarding_credits",
@@ -306,7 +306,7 @@ type PaymentFormData = {
     | null;
 };
 
-type TBrickController = {
+type BrickController = {
   unmount: () => void;
   getFormData: () => Promise<CardFormData | PaymentFormData>;
   getAdditionalData: () => Promise<
@@ -316,11 +316,11 @@ type TBrickController = {
 
 type BrickTypes = 'cardPayment' | 'payment' | 'statusScreen' | 'wallet'
 
-export interface Bricks {
+export type Bricks = {
   isInitialized(): boolean;
   create(
     brick: BrickTypes,
     containerId: string,
-    settings: TBrickSettings
-  ): Promise<TBrickController>;
+    settings: BrickSettings
+  ): Promise<BrickController>;
 }

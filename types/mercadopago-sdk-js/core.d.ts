@@ -1,18 +1,18 @@
-import { CardForm, TCardFormOptions } from "./modules/cardform";
-import { Bricks, TBricksStyle } from "./modules/bricks";
+import { CardForm, CardFormOptions } from "./modules/cardform";
+import { Bricks, BricksStyle } from "./modules/bricks";
 import { fields } from "./modules/fields";
-import { Issuer, PayerCost, Setting, TCardTokenResponse } from "./shared";
+import { Issuer, PayerCost, Setting, CardTokenResponse } from "./shared";
 
-export type TOptions = {
+export type Options = {
   locale?: string;
   advancedFraudPrevention?: boolean;
   trackingDisabled?: boolean;
   siteId?: string;
 };
 
-type TProcessingMode = "gateway" | "aggregator";
+type ProcessingMode = "gateway" | "aggregator";
 
-type TIdentificationTypesResponse = {
+type IdentificationTypesResponse = {
   id: string;
   name: string;
   type: string;
@@ -20,9 +20,9 @@ type TIdentificationTypesResponse = {
   max_length: number;
 };
 
-type TPaymentMethodsParams = {
+type PaymentMethodsParams = {
   bin: string;
-  processingMode?: TProcessingMode;
+  processingMode?: ProcessingMode;
 };
 
 type FinancingDeals = {
@@ -66,18 +66,18 @@ type Paging = {
   offset: number;
 };
 
-type TPaymentMethodsResponse = {
+type PaymentMethodsResponse = {
   paging: Paging;
   results: Result[];
 };
 
-type TIssuersParams = {
+type IssuersParams = {
   payment_method_id?: string;
   paymentMethodId?: string;
   bin: string;
 };
 
-type TIssuersResponse = {
+type IssuersResponse = {
   id: string;
   name: string;
   secure_thumbnail: string;
@@ -86,19 +86,19 @@ type TIssuersResponse = {
   merchant_account_id: string;
 };
 
-type TInstallmentsParams = {
+type InstallmentsParams = {
   locale?: string;
   amount: string;
   bin: string;
   paymentMethodId?: string;
   payment_method_id?: string;
-  processingMode?: TProcessingMode;
-  processing_mode?: TProcessingMode;
+  processingMode?: ProcessingMode;
+  processing_mode?: ProcessingMode;
   paymentTypeId?: string;
   payment_type_id?: string;
 };
 
-type TInstallmentsResponse = {
+type InstallmentsResponse = {
   payment_method_id: string;
   payment_type_id: string;
   issuer: Issuer;
@@ -108,7 +108,7 @@ type TInstallmentsResponse = {
   agreements?: unknown;
 };
 
-type TCardTokenParams = {
+type CardTokenParams = {
   cardNumber?: string;
   cardholderName?: string;
   identificationType?: string;
@@ -119,14 +119,14 @@ type TCardTokenParams = {
   cardId?: string;
 };
 
-type TCardTokenUpdateParams = {
+type CardTokenUpdateParams = {
   securityCode?: string;
   cardExpirationMonth?: string;
   cardExpirationYear?: string;
   token?: string;
 };
 
-type TValidateFieldsParams = {
+type ValidateFieldsParams = {
   cardNumber: boolean;
   cardExpirationMonth: boolean;
   cardExpirationYear: boolean;
@@ -134,28 +134,28 @@ type TValidateFieldsParams = {
 };
 
 type MercadoPagoCore = {
-  getIdentificationTypes(): Promise<TIdentificationTypesResponse[]>;
+  getIdentificationTypes(): Promise<IdentificationTypesResponse[]>;
   getPaymentMethods(
-    paymentMethodsParams: TPaymentMethodsParams
-  ): Promise<TPaymentMethodsResponse>;
-  getIssuers(issuersParams: TIssuersParams): Promise<TIssuersResponse[]>;
+    paymentMethodsParams: PaymentMethodsParams
+  ): Promise<PaymentMethodsResponse>;
+  getIssuers(issuersParams: IssuersParams): Promise<IssuersResponse[]>;
   getInstallments(
-    installmentsParams: TInstallmentsParams
-  ): Promise<TInstallmentsResponse[]>;
+    installmentsParams: InstallmentsParams
+  ): Promise<InstallmentsResponse[]>;
   createCardToken(
-    TcardTokenParams: TCardTokenParams,
-    validateFieldsParams: TValidateFieldsParams
-  ): Promise<TCardTokenResponse>;
+    cardTokenParams: CardTokenParams,
+    validateFieldsParams: ValidateFieldsParams
+  ): Promise<CardTokenResponse>;
   updateCardToken(
-    TCardTokenUpdateParams: TCardTokenUpdateParams,
-    validateFieldsParams: TValidateFieldsParams
-  ): Promise<TCardTokenResponse>;
+    CardTokenUpdateParams: CardTokenUpdateParams,
+    validateFieldsParams: ValidateFieldsParams
+  ): Promise<CardTokenResponse>;
 
   fields: fields;
 
-  bricks(style: TBricksStyle): Bricks
+  bricks(style: BricksStyle): Bricks
 
-  cardForm(options: TCardFormOptions): CardForm;
+  cardForm(options: CardFormOptions): CardForm;
 }
 
 export { MercadoPagoCore };

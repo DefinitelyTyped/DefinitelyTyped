@@ -3,14 +3,14 @@
 // Definitions by: mercadopago
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { MercadoPagoCore, TOptions } from './core'
+import { MercadoPagoCore, Options } from './core'
 
 export {};
 
 declare global {
   interface Window {
     MercadoPago: {
-        new(publicKey: string, options: TOptions): MercadoPagoCore;
+        new(publicKey: string, options: Options): MercadoPagoCore;
     };
   }
 }

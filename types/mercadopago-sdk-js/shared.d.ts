@@ -21,11 +21,11 @@ export type Setting = {
     bin: Bin;
 };
 
-export type ICustomFonts = {
+export type CustomFonts = {
     src: string;
 };
 
-export type TCardTokenResponse = {
+export type CardTokenResponse = {
     id: string;
     public_key: string;
     card_id?: unknown;
@@ -65,7 +65,7 @@ export type Issuer = {
     id: number;
 };
 
-export type IFieldStyle = {
+export type FieldStyle = {
     [key: string]: string;
 };
 

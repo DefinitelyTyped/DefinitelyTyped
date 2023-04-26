@@ -1,9 +1,9 @@
-import { CardNumber, ICustomFonts, IFieldStyle, SecurityCode, TCardTokenResponse } from "../shared";
+import { CardNumber, CustomFonts, FieldStyle, SecurityCode, CardTokenResponse } from "../shared";
 
-type TFieldsOptions = {
+type FieldsOptions = {
     placeholder?: string;
-    style?: IFieldStyle;
-    customFonts?: ICustomFonts[];
+    style?: FieldStyle;
+    customFonts?: CustomFonts[];
     mode?: string;
     enableLuhnValidation?: boolean;
     group?: string;
@@ -11,15 +11,15 @@ type TFieldsOptions = {
 
 type FieldEvent = 'blur' | 'focus' | 'change' | 'ready' | 'validityChange' | 'error' | 'binChange' | 'paste';
 
-type Field = 'securityCode' | 'cardNumber' | 'expirationDate' | 'expirationMonth' | 'expirationYear';
+type FieldName = 'securityCode' | 'cardNumber' | 'expirationDate' | 'expirationMonth' | 'expirationYear';
 
 type FieldsUpdatableProperties = {
-    style?: IFieldStyle;
+    style?: FieldStyle;
     placeholder?: string;
     settings?: SecurityCode | CardNumber;
 };
 
-type IField = {
+type Field = {
     mount: (container: string) => void;
     unmount: () => void;
     on: (event: FieldEvent, callback: (args: any) => void) => void;
@@ -28,14 +28,14 @@ type IField = {
     blur: () => void;
 }
 
-type TFieldsCardTokenParams = {
+type FieldsCardTokenParams = {
     cardId?: string;
     cardholderName?: string;
     identificationType?: string;
     identificationNumber?: string;
 };
 
-type TOptionsToken =
+type OptionsToken =
   | {
       group: string;
       productId?: string;
@@ -46,7 +46,7 @@ type TOptionsToken =
   | undefined;
 
 export interface fields {
-    create(field: Field, options?: TFieldsOptions): IField
-    createCardToken(nonPCIData: TFieldsCardTokenParams, options: TOptionsToken): Promise<TCardTokenResponse | void>
-    updateCardToken(token: string, options: TOptionsToken): Promise<TCardTokenResponse | void> 
+    create(field: FieldName, options?: FieldsOptions): Field
+    createCardToken(nonPCIData: FieldsCardTokenParams, options: OptionsToken): Promise<CardTokenResponse | void>
+    updateCardToken(token: string, options: OptionsToken): Promise<CardTokenResponse | void> 
 }

@@ -1,6 +1,6 @@
-import { ICustomFonts, IFieldStyle, Issuer, PayerCost, SecurityCode, Setting } from "../shared";
+import { CustomFonts, FieldStyle, Issuer, PayerCost, SecurityCode, Setting } from "../shared";
 
-type TCardFormData = {
+type CardFormData = {
     amount: string;
     token: string;
     installments: string;
@@ -14,23 +14,23 @@ type TCardFormData = {
   };
 
 type UpdatableProperties = {
-    style?: IFieldStyle;
+    style?: FieldStyle;
     placeholder?: string;
     settings?: SecurityCode;
   };
 
-  interface EventListener {
+  type EventListener = {
     (evt: Event): void;
 }
 
-type TCardFormListener = {
+type CardFormListener = {
   event: string[];
   fn: EventListener;
 };
 
-type TCardFormListeners = TCardFormListener[];
+type CardFormListeners = CardFormListener[];
 
-type TCardFormProperties = {
+type CardFormProperties = {
   id: string;
   placeholder?: string;
   element?:
@@ -38,28 +38,28 @@ type TCardFormProperties = {
     | HTMLInputElement
     | HTMLSelectElement
     | HTMLFormElement;
-  listeners?: TCardFormListeners;
+  listeners?: CardFormListeners;
   hidden?: boolean;
   style?: { [key: string]: string };
-  customFonts?: ICustomFonts[];
+  customFonts?: CustomFonts[];
   mode?: string;
 };
 
-type TAVAILABLE_PROCESSING_MODE = "aggregator" | "gateway";
+type AVAILABLE_PROCESSING_MODE = "aggregator" | "gateway";
 
-type TError = { message: string, code: string };
+type Error = { message: string, code: string };
 
-type TIdentificationTypesResponseCardForm = {
+type IdentificationTypesResponseCardForm = {
   id: string;
   name: string;
 };
 
-type TInstallmentsResponseCardForm = {
+type InstallmentsResponseCardForm = {
   merchant_account_id?: string;
   payer_costs: PayerCost[];
 };
 
-type TPaymentMethodsResponseCardForm = {
+type PaymentMethodsResponseCardForm = {
   issuer: Issuer;
   id: string;
   payment_type_id: string;
@@ -77,11 +77,11 @@ type TPaymentMethodsResponseCardForm = {
   merchant_account_id: string;
 };
 
-type TCardTokenResponseCardForm = {
+type CardTokenResponseCardForm = {
   token: string;
 };
 
-type TIssuersResponseCardForm = {
+type IssuersResponseCardForm = {
   id: string;
   name: string;
   thumbnail: string;
@@ -89,83 +89,83 @@ type TIssuersResponseCardForm = {
   merchant_account_id: string;
 };
 
-type TFechingCallback = () => unknown;
-type TOnFormMounted = (error?: Error) => void;
-type TOnFormUnmounted = (error?: Error) => void;
-type TOnIdentificationTypesReceived = (
+type FechingCallback = () => unknown;
+type OnFormMounted = (error?: Error) => void;
+type OnFormUnmounted = (error?: Error) => void;
+type OnIdentificationTypesReceived = (
   error?: Error,
-  response?: TIdentificationTypesResponseCardForm[]
+  response?: IdentificationTypesResponseCardForm[]
 ) => void;
-type TOnInstallmentsReceived = (
+type OnInstallmentsReceived = (
   error?: Error,
-  response?: TInstallmentsResponseCardForm
+  response?: InstallmentsResponseCardForm
 ) => void;
-type TOnPaymentMethodsReceived = (
+type OnPaymentMethodsReceived = (
   error?: Error,
-  response?: TPaymentMethodsResponseCardForm[]
+  response?: PaymentMethodsResponseCardForm[]
 ) => void;
-type TOnCardTokenReceived = (
+type OnCardTokenReceived = (
   error?: Error,
-  response?: TCardTokenResponseCardForm
+  response?: CardTokenResponseCardForm
 ) => void;
-type TOnIssuersReceived = (
+type OnIssuersReceived = (
   error?: Error,
-  response?: TIssuersResponseCardForm[]
+  response?: IssuersResponseCardForm[]
 ) => void;
-type TOnSubmit = (event: Event) => void;
-type TOnFetching = (name: string) => TFechingCallback;
-type TOnReady = () => void;
-type TOnValidityChange = (error?: TError[], field?: string) => void;
-type TOnError = (error?: TError[], event?: string) => void;
-type TOnBinChange = (bin: string) => void;
+type OnSubmit = (event: Event) => void;
+type OnFetching = (name: string) => FechingCallback;
+type OnReady = () => void;
+type OnValidityChange = (error?: Error[], field?: string) => void;
+type OnError = (error?: Error[], event?: string) => void;
+type OnBinChange = (bin: string) => void;
 
-type TCallbacks = {
-  onFormMounted?: TOnFormMounted;
-  onFormUnmounted?: TOnFormUnmounted;
-  onIdentificationTypesReceived?: TOnIdentificationTypesReceived;
-  onPaymentMethodsReceived?: TOnPaymentMethodsReceived;
-  onIssuersReceived?: TOnIssuersReceived;
-  onInstallmentsReceived?: TOnInstallmentsReceived;
-  onCardTokenReceived?: TOnCardTokenReceived;
-  onSubmit?: TOnSubmit;
-  onFetching?: TOnFetching;
-  onReady?: TOnReady;
-  onValidityChange?: TOnValidityChange;
-  onError?: TOnError;
-  onBinChange?: TOnBinChange;
+type Callbacks = {
+  onFormMounted?: OnFormMounted;
+  onFormUnmounted?: OnFormUnmounted;
+  onIdentificationTypesReceived?: OnIdentificationTypesReceived;
+  onPaymentMethodsReceived?: OnPaymentMethodsReceived;
+  onIssuersReceived?: OnIssuersReceived;
+  onInstallmentsReceived?: OnInstallmentsReceived;
+  onCardTokenReceived?: OnCardTokenReceived;
+  onSubmit?: OnSubmit;
+  onFetching?: OnFetching;
+  onReady?: OnReady;
+  onValidityChange?: OnValidityChange;
+  onError?: OnError;
+  onBinChange?: OnBinChange;
 };
 
-type TCardFormMap = {
+type CardFormMap = {
   id: string;
-  cardholderName: TCardFormProperties;
-  cardholderEmail: TCardFormProperties;
-  cardNumber: TCardFormProperties;
-  securityCode: TCardFormProperties;
-  installments: TCardFormProperties;
-  cardExpirationMonth?: TCardFormProperties;
-  cardExpirationYear?: TCardFormProperties;
-  cardExpirationDate?: TCardFormProperties;
-  identificationType: TCardFormProperties;
-  identificationNumber: TCardFormProperties;
-  issuer: TCardFormProperties;
-  expirationDate?: TCardFormProperties;
-  expirationMonth?: TCardFormProperties;
+  cardholderName: CardFormProperties;
+  cardholderEmail: CardFormProperties;
+  cardNumber: CardFormProperties;
+  securityCode: CardFormProperties;
+  installments: CardFormProperties;
+  cardExpirationMonth?: CardFormProperties;
+  cardExpirationYear?: CardFormProperties;
+  cardExpirationDate?: CardFormProperties;
+  identificationType: CardFormProperties;
+  identificationNumber: CardFormProperties;
+  issuer: CardFormProperties;
+  expirationDate?: CardFormProperties;
+  expirationMonth?: CardFormProperties;
 };
 
-export type TCardFormOptions = {
-  form: TCardFormMap;
-  callbacks: TCallbacks;
+export type CardFormOptions = {
+  form: CardFormMap;
+  callbacks: Callbacks;
   amount: number | string;
-  processingMode: TAVAILABLE_PROCESSING_MODE;
+  processingMode: AVAILABLE_PROCESSING_MODE;
   autoMount?: boolean;
   iframe?: boolean;
 };
 
-export interface CardForm {
+export type CardForm = {
     mount(): void;
     unmount(): void;
     submit(): void;
     update(field: string, properties: UpdatableProperties): void;
-    createCardToken(): Promise<TCardTokenResponseCardForm | void>;
-    getCardFormData(): TCardFormData
+    createCardToken(): Promise<CardTokenResponseCardForm | void>;
+    getCardFormData(): CardFormData
 }
