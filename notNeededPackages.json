@@ -5295,6 +5295,10 @@
             "libraryName": "serialize-error",
             "asOfVersion": "4.0.0"
         },
+        "sharp": {
+            "libraryName": "sharp",
+            "asOfVersion": "0.32.0"
+        },
         "sharp-timer": {
             "libraryName": "sharp-timer",
             "asOfVersion": "0.1.3"
