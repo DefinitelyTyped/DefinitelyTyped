@@ -7,9 +7,7 @@ AnotherOne,25
 `.trim();
 
 // $ExpectType any[]
-const result = convertCsvToJson
-.fieldDelimiter(',')
-.csvStringToJson(sourceCsvString);
+const result = convertCsvToJson.fieldDelimiter(',').csvStringToJson(sourceCsvString);
 
 // $ExpectValue 2
 const length = result.length;
