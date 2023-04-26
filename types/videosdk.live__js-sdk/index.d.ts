@@ -3,9 +3,8 @@
 // Definitions by: Rajan Surani <https://github.com/zujonow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="../webrtc" />
-export class VideoSDK {
-    static Constants: {
+export namespace VideoSDK {
+    const Constants: {
         errors: {
             INVALID_API_KEY: number;
             INVALID_TOKEN: number;
@@ -60,14 +59,14 @@ export class VideoSDK {
     };
     /**
      * Configure SDK with token.
-     * @param {string} token
+     * @param token
      * - You can generate a token in two ways:
      *
      * 1. **Temporary Token** : You can visit [Dashboard's API Key section](https://app.videosdk.live/api-keys) and generate the temporary token from there.
      * 2. **Server** : You can setup JWT in backend and make an API call to get the token from your server.
      * ---
      */
-    static config(token: string): void;
+    function config(token: string): void;
     /**
      * @param meetingId -
      * - Unique Id of the meeting where that participant will be joining.
@@ -76,13 +75,16 @@ export class VideoSDK {
      * ---
      * @param name - Name of the participant who will be joining the meeting, this name will be displayed to other participants in the same meeting.
      * ---
-     * @param micEnabled - Whether mic of the participant will be on while joining the meeting. If it is set to false, then mic of that participant will be disabled by default, but can be enabled or disabled later.
+     * @param micEnabled - Whether mic of the participant will be on while joining the meeting. If it is set to false,
+     * then mic of that participant will be disabled by default, but can be enabled or disabled later.
      * ---
-     * @param webcamEnabled - Whether webcam of the participant will be on while joining the meeting. If it is set to false, then webcam of that participant will be disabled by default, but can be enabled or disabled later.
+     * @param webcamEnabled - Whether webcam of the participant will be on while joining the meeting. If it is set to false,
+     * then webcam of that participant will be disabled by default, but can be enabled or disabled later.
      * ---
      * @param participantId - You can specify your custom participantId here.
      * ---
-     * @param multiStream - Sets wheather to send multi resoultion streams while publishing video. Please refere thi link for more understanding [What is multiStream ?](https://docs.videosdk.live/react/guide/video-and-audio-calling-api-sdk/render-media/optimize-video-track#what-is-multistream)
+     * @param multiStream - Sets wheather to send multi resoultion streams while publishing video. Please refere thi link for more understanding
+     * [What is multiStream ?](https://docs.videosdk.live/react/guide/video-and-audio-calling-api-sdk/render-media/optimize-video-track#what-is-multistream)
      * ---
      * @param maxResolution - You can specify your custom participantId here.
      * ---
@@ -104,7 +106,7 @@ export class VideoSDK {
      * ---
      *
      */
-    static initMeeting({
+    function initMeeting({
         meetingId,
         customCameraVideoTrack,
         customMicrophoneAudioTrack,
@@ -138,7 +140,8 @@ export class VideoSDK {
     /**
      * @param cameraId - It will be the id of the camera from which the video should be captured.
      * ---
-     * @param encoderConfig - This will accept the resolution (height x width) of video you want to capture. You can checkout all value [here](https://docs.videosdk.live/react/api/sdk-reference/custom-tracks#parameters)
+     * @param encoderConfig - This will accept the resolution (height x width) of video you want to capture.
+     * You can checkout all value [here](https://docs.videosdk.live/react/api/sdk-reference/custom-tracks#parameters)
      *
      * #### Example : `h360p_w640p`, `h720p_w1280p`, `h1080p_w1440p`
      * ---
@@ -151,7 +154,8 @@ export class VideoSDK {
      * #### Values : `motion`, `text`, `detail`
      *
      * ---
-     * @param multiStream - It will specifiy if the stream should send multiple resolution layers or single resolution layer. Please refere thi link for more understanding [What is multiStream ?](https://docs.videosdk.live/react/guide/video-and-audio-calling-api-sdk/render-media/optimize-video-track#what-is-multistream)
+     * @param multiStream - It will specifiy if the stream should send multiple resolution layers or single resolution layer. Please refere thi link for more understanding
+     * [What is multiStream ?](https://docs.videosdk.live/react/guide/video-and-audio-calling-api-sdk/render-media/optimize-video-track#what-is-multistream)
      * ---
      *
      * **Code Example**
@@ -167,7 +171,7 @@ export class VideoSDK {
      *  });
      * ```
      */
-    static createCameraVideoTrack({
+    function createCameraVideoTrack({
         cameraId,
         encoderConfig,
         facingMode,
@@ -200,7 +204,8 @@ export class VideoSDK {
         multiStream?: boolean;
     }): Promise<MediaStream>;
     /**
-     * @param encoderConfig - This will accept the  height & FPS of video you want to capture. You can checkout all value [here](https://docs.videosdk.live/react/api/sdk-reference/custom-tracks#parameters)
+     * @param encoderConfig - This will accept the  height & FPS of video you want to capture.
+     * You can checkout all value [here](https://docs.videosdk.live/react/api/sdk-reference/custom-tracks#parameters)
      *
      * #### Example : `h360p_30fps`, `h720p_5fps`, `h720p_15fps`, `h1080p_15fps`, `h1080p_30fps`
      * ---
@@ -208,10 +213,10 @@ export class VideoSDK {
      *
      * #### Values : `motion`, `text`, `detail`
      * ---
-     *@param withAudio - It will specifiy to use screen share with audio or not
+     * @param withAudio - It will specifiy to use screen share with audio or not
      *
      * #### Values : `enable`, `disable`
-     *---
+     * ---
      *
      * **Code Example**
      * ```js
@@ -224,7 +229,7 @@ export class VideoSDK {
      *  });
      * ```
      */
-    static createScreenShareVideoTrack({
+    function createScreenShareVideoTrack({
         encoderConfig,
         optimizationMode,
         withAudio,
@@ -262,10 +267,10 @@ export class VideoSDK {
      *    echoCancellation: true,
      *    autoGainControl: true,
      *  },
-     *});
+     * });
      * ```
      */
-    static createMicrophoneAudioTrack({
+    function createMicrophoneAudioTrack({
         noiseConfig,
         encoderConfig,
         microphoneId,
@@ -289,5 +294,11 @@ export class VideoSDK {
     }): Promise<MediaStream>;
 }
 
+import { Connection } from './connection';
+import { ConnectionMeeting } from './connectionMeeting';
+import { ConnectionParticipant } from './connectionParticipant';
 import { Meeting } from './meeting';
+import { Participant } from './participant';
+import { Stream } from './stream';
+export { Meeting, Participant, Connection, ConnectionMeeting, ConnectionParticipant, Stream };
 export const ZujoSDK: typeof VideoSDK;

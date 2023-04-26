@@ -1,3 +1,5 @@
+import { MediaStreamTrack } from './mediaStream';
+
 export class Stream {
     /**
      * Id of the stream

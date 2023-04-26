@@ -1,3 +1,5 @@
+import { MediaStream } from './mediaStream';
+
 export class Meeting {
     /**
      * @description

@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "videosdk.live__js-sdk-tests.ts"
+        "videosdk.live__react-sdk-tests.ts"
     ]
 }
