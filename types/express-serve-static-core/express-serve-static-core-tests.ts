@@ -257,3 +257,18 @@ app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
 app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
     res.get('content-type'); // $ExpectType string | undefined
 });
+
+// Sending and downloading files
+
+app.get('/file.txt', (req, res) => {
+    res.download('/some/path/to/file.txt', 'file.txt', { maxAge: 3_600_000 }, error => {
+        // $ExpectType Error
+        error;
+    });
+});
+
+app.get('/file2.txt', (req, res) => {
+    res.sendFile('/some/path/to/file2.txt', { maxAge: 3_600_000 });
+    // @ts-expect-error
+    res.sendFile('/some/path/to/file2.txt', { 'max-age': 3_600_000 });
+});
