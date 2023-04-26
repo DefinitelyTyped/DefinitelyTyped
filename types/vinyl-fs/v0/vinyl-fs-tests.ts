@@ -212,7 +212,7 @@ describe('source stream', () => {
 
 // const path = require('path');
 // const fs = require('graceful-fs');
-import rimraf = require('rimraf');
+import { rimraf } from 'rimraf';
 
 // const bufEqual = require('buffer-equal');
 // const through = require('through2');

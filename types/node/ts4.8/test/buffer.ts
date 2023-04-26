@@ -474,3 +474,9 @@ buff.writeDoubleBE(123.123, 0);
 {
     buff.compare(buff); // $ExpectType 0 | 1 | -1
 }
+
+{
+    const u16 = new Uint16Array([0xffff]);
+    Buffer.copyBytesFrom(u16); // $ExpectType Buffer
+    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
+}

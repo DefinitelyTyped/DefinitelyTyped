@@ -226,6 +226,12 @@ declare module 'util' {
      */
     export function transferableAbortSignal(signal: AbortSignal): AbortSignal;
     /**
+     * Listens to abort event on the provided `signal` and returns a promise that is fulfilled when the `signal` is aborted.
+     * If the passed `resource` is garbage collected before the `signal` is aborted, the returned promise shall remain pending indefinitely.
+     * @param resource  Any non-null entity, reference to which is held weakly.
+     */
+    export function aborted(signal: AbortSignal, resource: any): Promise<void>;
+    /**
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
