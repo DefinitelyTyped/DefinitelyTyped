@@ -4,7 +4,6 @@ import { Fields } from "./modules/fields";
 import { Issuer, PayerCost, Setting, CardTokenResponse } from "./shared";
 
 export type Options = {
-  locale?: string;
   advancedFraudPrevention?: boolean;
   trackingDisabled?: boolean;
   siteId?: string;
