@@ -1,10 +1,10 @@
-// Type definitions for @carbon/icons-react 11.15
+// Type definitions for @carbon/icons-react 11.16
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-/** 2074 icons total */
+/** 2080 icons total */
 
 export interface CarbonIconProps
   extends Omit<
@@ -666,6 +666,8 @@ export const DocumentEpdf: CarbonIconType;
 export const DocumentExport: CarbonIconType;
 export const DocumentHorizontal: CarbonIconType;
 export const DocumentImport: CarbonIconType;
+export const DocumentMultiple_01: CarbonIconType;
+export const DocumentMultiple_02: CarbonIconType;
 export const DocumentPdf: CarbonIconType;
 export const DocumentPreliminary: CarbonIconType;
 export const DocumentProtected: CarbonIconType;
@@ -923,6 +925,7 @@ export const IbmMatch_360: CarbonIconType;
 export const IbmMq: CarbonIconType;
 export const IbmOpenEnterpriseLanguages: CarbonIconType;
 export const IbmPowerVs: CarbonIconType;
+export const IbmProcessMining: CarbonIconType;
 export const IbmTelehealth: CarbonIconType;
 export const IbmTenet: CarbonIconType;
 export const IbmToolchain: CarbonIconType;
@@ -1500,6 +1503,7 @@ export const RecordingFilledAlt: CarbonIconType;
 export const Recycle: CarbonIconType;
 export const Redo: CarbonIconType;
 export const RefEvapotranspiration: CarbonIconType;
+export const ReferenceArchitecture: CarbonIconType;
 export const ReflectHorizontal: CarbonIconType;
 export const ReflectVertical: CarbonIconType;
 export const WatsonHealthRegionAnalysisArea: CarbonIconType;
@@ -1969,6 +1973,7 @@ export const UserServiceDesk: CarbonIconType;
 export const UserSettings: CarbonIconType;
 export const UserSimulation: CarbonIconType;
 export const UserSpeaker: CarbonIconType;
+export const UserSponsor: CarbonIconType;
 export const UserXRay: CarbonIconType;
 export const UserProfileAlt: CarbonIconType;
 export const UvIndex: CarbonIconType;
@@ -2049,6 +2054,7 @@ export const WeatherStation: CarbonIconType;
 export const Webhook: CarbonIconType;
 export const Websheet: CarbonIconType;
 export const Wheat: CarbonIconType;
+export const WhitePaper: CarbonIconType;
 export const Wifi: CarbonIconType;
 export const WifiController: CarbonIconType;
 export const WifiNotSecure: CarbonIconType;

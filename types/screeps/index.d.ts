@@ -1,7 +1,6 @@
 // Type definitions for Screeps 3.3
 // Project: https://github.com/screeps/screeps
-// Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
-//                 Nhan Ho <https://github.com/NhanHo>
+// Definitions by: Nhan Ho <https://github.com/NhanHo>
 //                 Bryan <https://github.com/bryanbecker>
 //                 Resi Respati <https://github.com/resir014>
 //                 Adam Laycock <https://github.com/Arcath>

@@ -1,4 +1,4 @@
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 import { Light } from './Light';
 import { PointLightShadow } from './PointLightShadow';
 

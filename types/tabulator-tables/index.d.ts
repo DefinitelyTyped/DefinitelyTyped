@@ -40,7 +40,7 @@ export interface OptionsDebug {
     debugEventsInternal?: boolean;
 
     /** Disable component function warnings */
-    debugInvalidComponentFunc?: boolean;
+    debugInvalidComponentFuncs?: boolean;
 
     /** Disable deprecation warnings */
     debugDeprecation?: boolean;
@@ -2601,7 +2601,7 @@ declare class Tabulator {
     getColumnLayout: () => ColumnLayout[];
 
     /** If you have previously used the getColumnLayout function to retrieve a tables layout, you can use the setColumnLayout function to apply it to a table. */
-    setColumnLayout: (layout: ColumnLayout) => void;
+    setColumnLayout: (layout: ColumnLayout[]) => void;
 
     /** You can show a hidden column at any point using the showColumn function. */
     showColumn: (column?: ColumnLookup) => void;

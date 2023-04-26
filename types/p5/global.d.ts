@@ -888,11 +888,11 @@ declare global {
 
     /**
      *   All drawing that follows erase() will subtract
-     *   from the canvas.Erased areas will reveal the web
-     *   page underneath the canvas.Erasing can be canceled
-     *   with noErase(). Drawing done with image() and
-     *   background() in between erase() and noErase() will
-     *   not erase the canvas but works as usual.
+     *   from the canvas. Erased areas will reveal the web
+     *   page underneath the canvas. Erasing can be
+     *   canceled with noErase(). Drawing done with image()
+     *   and  background() in between erase() and noErase()
+     *   will not erase the canvas but works as usual.
      *   @param [strengthFill] A number (0-255) for the
      *   strength of erasing for a shape's fill. This will
      *   default to 255 when no argument is given, which is
@@ -1307,6 +1307,7 @@ declare global {
      *   Note that smooth() is active by default in 2D
      *   mode, so it is necessary to call noSmooth() to
      *   disable smoothing of geometry, images, and fonts.
+     *
      *   In 3D mode, noSmooth() is enabled by default, so
      *   it is necessary to call smooth() if you would like
      *   smooth (antialiased) edges on your geometry.
@@ -1357,6 +1358,7 @@ declare global {
      *   resized images. Note that smooth() is active by
      *   default in 2D mode; noSmooth() can be used to
      *   disable smoothing of geometry, images, and fonts.
+     *
      *   In 3D mode, noSmooth() is enabled by default, so
      *   it is necessary to call smooth() if you would like
      *   smooth (antialiased) edges on your geometry.
@@ -1366,35 +1368,36 @@ declare global {
 
     /**
      *   Sets the style for rendering line endings. These
-     *   ends are either rounded, squared or extended, each
-     *   of which specified with the corresponding
-     *   parameters: ROUND, SQUARE and PROJECT. The default
+     *   ends are either rounded, squared, or extended,
+     *   each of which specified with the corresponding
+     *   parameters: ROUND, SQUARE, or PROJECT. The default
      *   cap is ROUND. The parameter to this method must be
      *   written in ALL CAPS because they are predefined as
      *   constants in ALL CAPS and Javascript is a
      *   case-sensitive language.
-     *   @param cap either ROUND, SQUARE or PROJECT
+     *   @param cap either ROUND, SQUARE, or PROJECT
      *   @chainable
      */
     function strokeCap(cap: p5.STROKE_CAP): p5;
 
     /**
      *   Sets the style of the joints which connect line
-     *   segments. These joints are either mitered, beveled
-     *   or rounded and specified with the corresponding
-     *   parameters MITER, BEVEL and ROUND. The default
-     *   joint is MITER. The parameter to this method must
-     *   be written in ALL CAPS because they are predefined
-     *   as constants in ALL CAPS and Javascript is a
+     *   segments. These joints are either mitered,
+     *   beveled, or rounded and specified with the
+     *   corresponding parameters: MITER, BEVEL, or ROUND.
+     *   The default joint is MITER in 2D mode and ROUND in
+     *   WebGL mode. The parameter to this method must be
+     *   written in ALL CAPS because they are predefined as
+     *   constants in ALL CAPS and Javascript is a
      *   case-sensitive language.
-     *   @param join either MITER, BEVEL, ROUND
+     *   @param join either MITER, BEVEL, or ROUND
      *   @chainable
      */
     function strokeJoin(join: p5.STROKE_JOIN): p5;
 
     /**
      *   Sets the width of the stroke used for lines,
-     *   points and the border around shapes. All widths
+     *   points, and the border around shapes. All widths
      *   are set in units of pixels. Note that it is
      *   affected by any transformation or scaling that has
      *   been applied previously.
@@ -1984,7 +1987,7 @@ declare global {
      *   normal.
      *   @chainable
      */
-    function normal(vector: Vector): p5;
+    function normal(vector: p5.Vector): p5;
 
     /**
      *   Sets the 3d vertex normal to use for subsequent
@@ -2283,6 +2286,16 @@ declare global {
      *   @return current frameRate
      */
     function frameRate(): number;
+
+    /**
+     *   Returns _targetFrameRate variable. The default
+     *   _targetFrameRate is set to 60. This could be
+     *   changed by calling frameRate() and setting it to
+     *   the desired value. When getTargetFrameRate() is
+     *   called, it should return the value that was set.
+     *   @return _targetFrameRate
+     */
+    function getTargetFrameRate(): number;
 
     /**
      *   Hides the cursor from view.
@@ -4297,10 +4310,8 @@ declare global {
      *   number of frames you want your animation to be, if
      *   you are very sure of this number.
      *
-     *   It is not recommended to write this function
-     *   inside setup, since it won't work properly. The
-     *   recommended use can be seen in the example, where
-     *   we use it inside an event function, like
+     *   This may be called in setup, or, like in the
+     *   example below, inside an event function, like
      *   keyPressed or mousePressed.
      *   @param filename File name of your gif
      *   @param duration Duration in seconds that you wish
@@ -8768,7 +8779,7 @@ declare global {
      *   The available attributes are:
      *
      *   alpha - indicates if the canvas contains an alpha
-     *   buffer default is false
+     *   buffer default is true
      *
      *   depth - indicates whether the drawing buffer has a
      *   depth buffer of at least 16 bits - default is true
@@ -8781,7 +8792,7 @@ declare global {
      *
      *   premultipliedAlpha - indicates that the page
      *   compositor will assume the drawing buffer contains
-     *   colors with pre-multiplied alpha default is false
+     *   colors with pre-multiplied alpha default is true
      *
      *   preserveDrawingBuffer - if true the buffers will
      *   not be cleared and and will preserve their values
@@ -8811,7 +8822,7 @@ declare global {
      *   The available attributes are:
      *
      *   alpha - indicates if the canvas contains an alpha
-     *   buffer default is false
+     *   buffer default is true
      *
      *   depth - indicates whether the drawing buffer has a
      *   depth buffer of at least 16 bits - default is true
@@ -8824,7 +8835,7 @@ declare global {
      *
      *   premultipliedAlpha - indicates that the page
      *   compositor will assume the drawing buffer contains
-     *   colors with pre-multiplied alpha default is false
+     *   colors with pre-multiplied alpha default is true
      *
      *   preserveDrawingBuffer - if true the buffers will
      *   not be cleared and and will preserve their values
@@ -8995,7 +9006,7 @@ declare global {
         successCallback?: (...args: any[]) => any,
         errorCallback?: (...args: any[]) => any,
         whileLoading?: (...args: any[]) => any
-    ): SoundFile;
+    ): p5.SoundFile;
 
     /**
      *   Create a p5.Convolver. Accepts a path to a

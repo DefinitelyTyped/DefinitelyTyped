@@ -176,6 +176,7 @@ declare namespace yargs {
         ): Argv<T>;
         command(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, any>): Argv<T>;
         command(module: CommandModule<T, any>): Argv<T>;
+        command(modules: Array<CommandModule<T, any>>): Argv<T>;
 
         // Advanced API
         /** Apply command modules from a directory relative to the module calling this method. */
@@ -878,9 +879,13 @@ declare namespace yargs {
 
     // prettier-ignore
     type InferredOptionTypePrimitive<O extends Options | PositionalOptions> =
-        O extends { default: infer D } ? InferredOptionTypeInner<O> | D :
-        IsRequiredOrHasDefault<O> extends true ? InferredOptionTypeInner<O> :
-        InferredOptionTypeInner<O> | undefined;
+        O extends { default: infer D } ?
+            IsRequiredOrHasDefault<O> extends true ?
+                InferredOptionTypeInner<O> | Exclude<D, undefined> :
+                InferredOptionTypeInner<O> | D  :
+            IsRequiredOrHasDefault<O> extends true ?
+                InferredOptionTypeInner<O> :
+                InferredOptionTypeInner<O> | undefined;
 
     // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =

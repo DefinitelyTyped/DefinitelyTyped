@@ -34,6 +34,15 @@ user.logOn({
 user.logOff();
 user.relog();
 
+user.logOn({
+    refreshToken: 'token123',
+    steamID: '76561197960287930',
+});
+
+user.logOn({
+    refreshToken: '123token',
+});
+
 user.requestValidationEmail().catch(err => console.error(err));
 
 user.enableTwoFactor()

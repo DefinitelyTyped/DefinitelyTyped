@@ -19,7 +19,6 @@
 //                 Jerome De Leon <https://github.com/JeromeDeLeon>
 //                 Kent Robin Haugen <https://github.com/kentrh>
 //                 Switt Kongdachalert <https://github.com/swittk>
-//                 Dan Syrstad <https://github.com/dsyrstad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 

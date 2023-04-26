@@ -1,4 +1,4 @@
-import Component, { getComponentTemplate } from '@ember/component';
+import Component, { getComponentTemplate, setComponentTemplate } from '@ember/component';
 import Object, { computed, get } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
 import { assertType } from './lib/assert';
@@ -144,7 +144,7 @@ interface MySig {
 type GetWithFallback<T, K, Fallback> = K extends keyof T ? T[K] : Fallback;
 type NamedArgsFor<T> = GetWithFallback<GetWithFallback<T, 'Args', {}>, 'Named', object>;
 
-interface SigExample extends NamedArgsFor<MySig> {}
+interface SigExample extends NamedArgsFor<MySig> { }
 class SigExample extends Component<MySig> {
     get accessArgs() {
         const {
@@ -161,3 +161,9 @@ getComponentTemplate(component1);
 
 // @ts-expect-error
 getComponentTemplate('foo');
+
+// $ExpectType typeof Component
+setComponentTemplate(hbs`foo`, Component);
+
+// @ts-expect-error
+setComponentTemplate('foo', Component);

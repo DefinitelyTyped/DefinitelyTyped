@@ -245,6 +245,11 @@ function onChange(e: GoogleAppsScript.Events.SheetsOnChange) {
     if (e.changeType === 'FORMAT') {
         console.log('Formatting change detected');
     }
+    const sheetName = e.source?.getSheetName();
+    console.log(sheetName);
+    if (sheetName !== undefined) {
+        console.log('Success to get e.source field');
+    }
 }
 
 const createFileAndGetDescription = () => {
@@ -710,4 +715,43 @@ const analyticsReporting = () => {
             },
         ],
     });
+};
+
+// Spreadsheet Drawing test
+const sheetDrawing = () => {
+    const sheet = SpreadsheetApp.getActiveSheet();
+    const drawing = sheet.getDrawings()[0];
+    // get methods
+    drawing.getContainerInfo();
+    drawing.getHeight();
+    drawing.getOnAction();
+    drawing.getSheet();
+    drawing.getWidth();
+    drawing.getZIndex();
+    // set methods
+    drawing.setHeight(100);
+    drawing.setOnAction("functionName");
+    drawing.setPosition(0, 0, 10, 10);
+    drawing.setWidth(100);
+    drawing.setZIndex(100);
+    // delete drawing
+    drawing.remove();
+};
+
+// Font Color objects
+const sheetFontColorObjects = () => {
+    const sheet = SpreadsheetApp.getActiveSheet();
+    // Test for a single cell
+    const singleBuilder = SpreadsheetApp.newColor().setRgbColor("#808080").build();
+    sheet.getRange("A1").setFontColorObject(singleBuilder);
+    // Test for multiple cells
+    const multipleBuilders = [
+        [SpreadsheetApp.newColor().setRgbColor("#000000").build(), SpreadsheetApp.newColor().setRgbColor("#800000").build()],
+        [SpreadsheetApp.newColor().setRgbColor("#008000").build(), SpreadsheetApp.newColor().setRgbColor("#000080").build()],
+    ];
+    sheet.getRange("A1:B2").setFontColorObjects(multipleBuilders);
+};
+
+const utilitiesParseDate = () => {
+  Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
 };

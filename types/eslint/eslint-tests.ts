@@ -477,7 +477,12 @@ rule = {
                 // @ts-expect-error
                 node.parent;
             },
-            'Program:exit'() {},
+            'Program:exit'(node) {
+                node.body;
+            },
+            'IfStatement:exit'(node) {
+                node.parent;
+            },
             'MemberExpression[object.name="req"]': (node: Rule.Node) => {
                 node.parent;
             },
@@ -709,6 +714,8 @@ eslint = new ESLint({
     }
 });
 eslint = new ESLint({ reportUnusedDisableDirectives: "error" });
+// @ts-expect-error
+eslint = new ESLint({ reportUnusedDisableDirectives: 2 });
 eslint = new ESLint({ resolvePluginsRelativeTo: "test" });
 eslint = new ESLint({ rulePaths: ["foo"] });
 
@@ -887,6 +894,33 @@ ruleTester.run('my-rule', rule, {
 
 ruleTester.run('simple-valid-test', rule, {
     valid: ['foo', 'bar', { code: 'foo', options: [{ allowFoo: true }] }],
+});
+
+//#endregion
+
+//#region FlatConfig
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        parser: {
+            parse: () => AST
+        }
+    }
+});
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        parser: {
+            parseForESLint: () => ({ ast: AST })
+        }
+    }
+});
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        // @ts-expect-error
+        parser: "foo-parser"
+    }
 });
 
 //#endregion

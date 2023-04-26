@@ -1,4 +1,4 @@
-import { ReportableEvent } from '../../lib/reporting';
+import { ReportableEvent } from './reporting';
 import { Terminal } from 'metro-core';
 
 export type TerminalReportableEvent =
@@ -12,5 +12,6 @@ export type TerminalReportableEvent =
 
 export class TerminalReporter {
     constructor(terminal: Terminal);
+    readonly terminal: Terminal;
     update(event: TerminalReportableEvent): void;
 }

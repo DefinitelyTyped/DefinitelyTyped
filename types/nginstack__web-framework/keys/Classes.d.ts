@@ -65,7 +65,6 @@ export const TIME_EXPRESSIONS: number;
 export const USER_SECURITY_POLICIES: number;
 export const USER_STATUSES: number;
 export const USERS_IMAGE: number;
-export const USERS_TEST: number;
 export const USERS: number;
 export const VIRTUAL_FILE_SYSTEM_LOB: number;
 export const VIRTUAL_FILE_SYSTEM: number;
