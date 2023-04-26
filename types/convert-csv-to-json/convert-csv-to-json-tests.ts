@@ -4,14 +4,12 @@ const sourceCsvString = `
 firstName,age
 Someone,18
 AnotherOne,25
-`.trim()
+`.trim();
 
-// $ExpectType []{firstName:string, age:number}
+// $ExpectType any[]
 const result = convertCsvToJson
 .fieldDelimiter(',')
-.csvStringToJson(sourceCsvString)
+.csvStringToJson(sourceCsvString);
 
 // $ExpectValue 2
-const length = result.length
-
-
+const length = result.length;
