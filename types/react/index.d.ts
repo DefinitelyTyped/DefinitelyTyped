@@ -2227,10 +2227,6 @@ declare namespace React {
         dateTime?: string | undefined;
     }
 
-    interface SVGLineElementAttributes<T> extends SVGProps<T> {}
-
-    interface SVGTextElementAttributes<T> extends SVGProps<T> {}
-
     type HTMLInputTypeAttribute =
         | 'button'
         | 'checkbox'
