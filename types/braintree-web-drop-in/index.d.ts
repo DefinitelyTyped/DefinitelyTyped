@@ -291,6 +291,6 @@ declare global {
         export const dropin: {
             create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
             create(options: Options): Promise<Dropin>;
-        }
+        };
     }
 }
