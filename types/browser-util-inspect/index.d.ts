@@ -62,10 +62,12 @@ declare namespace inspect {
         | {
               /**
                * Whether to use colors. The colors are from {@link colors} and {@link styles}.
+               * If true, it is effectively the same as passing `stylizeWithColor` to {@link Options#stylize}.
                *
                * Mutually exclusive with {@link Options#stylize}.
                *
                * @default false
+               * @see https://github.com/deecewan/browser-util-inspect/blob/master/index.js The source code for `stylizeWithColor`.
                */
               readonly colors?: boolean | undefined;
               readonly stylize?: undefined;
@@ -77,8 +79,7 @@ declare namespace inspect {
                *
                * Mutually exclusive with {@link Options#colors}.
                *
-               * @default stylizeWithColor
-               * @see https://github.com/deecewan/browser-util-inspect/blob/master/index.js The source code for `stylizeWithColor`.
+               * @default undefined
                */
               readonly stylize?: Stylizer | undefined;
           }
