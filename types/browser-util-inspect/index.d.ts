@@ -132,7 +132,7 @@ declare namespace inspect {
      */
     type Stylizer = (str: string, type: OutputType) => string;
     /**
-     * Expected type of custom inspect functions of objects.
+     * Expected type of custom inspect functions of objects. It must be named `inspect`.
      *
      * @param this the object
      * @param depth the current remaining depth to expand nested objects up to
