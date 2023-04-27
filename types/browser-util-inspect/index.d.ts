@@ -13,7 +13,7 @@ export = inspect;
  * @param value a value to be inspected
  * @param options an optional {@link inspect.Options} object
  * @returns a string representation of {@link value}
- * @see https://nodejs.org/api/util.html#utilinspectobject-options The documentation for the Node.js function this is based on.
+ * @see https://nodejs.org/api/util.html#utilinspectobject-options the documentation for the Node.js function this is based on
  */
 declare function inspect(value: unknown, options?: inspect.Options): string;
 /**
@@ -62,12 +62,12 @@ declare namespace inspect {
         | {
               /**
                * Whether to use colors. The colors are from {@link colors} and {@link styles}.
-               * If true, it is effectively the same as passing `stylizeWithColor` to {@link Options#stylize}.
+               * If `true`, it is effectively the same as passing `stylizeWithColor` to {@link Options#stylize}.
                *
                * Mutually exclusive with {@link Options#stylize}.
                *
                * @default false
-               * @see https://github.com/deecewan/browser-util-inspect/blob/master/index.js The source code for `stylizeWithColor`.
+               * @see https://github.com/deecewan/browser-util-inspect/blob/master/index.js the source code for `stylizeWithColor`
                */
               readonly colors?: boolean | undefined;
               readonly stylize?: undefined;
