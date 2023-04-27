@@ -247,12 +247,16 @@ declare namespace inspect {
      * An object containing {@link Effect}s.
      *
      * It is used when {@link Options#colors} is `true`.
+     *
+     * @default Effects
      */
     let colors: Effects;
     /**
      * An object mapping {@link OutputType}s to keys of {@link colors}.
      *
      * It is used when {@link Options#colors} is `true`.
+     *
+     * @default {boolean:'yellow',date:'magenta',null:'bold',number:'yellow',regexp:'red',special:'cyan',string:'green',undefined:'grey',}
      */
     let styles: { [_ in OutputType]?: keyof typeof colors | undefined };
 }
