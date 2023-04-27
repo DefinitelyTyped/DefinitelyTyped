@@ -1,4 +1,3 @@
-// @ts-expect-error
 import readTimeEstimate from 'read-time-estimate';
 
 const string = `<img src="test.png"/><div class="wrapper">
