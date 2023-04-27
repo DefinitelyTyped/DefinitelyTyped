@@ -47,3 +47,53 @@ arb.loadActual().then(async tree => {
     const deps = await results[0].querySelectorAll(":type(git)");
     console.log(deps);
 });
+
+async function why(spec: string) {
+    const tree = await arb.loadActual();
+    const nodesSet = tree.inventory.query("packageName", spec);
+    const nodes: Arborist.Node[] = [];
+    nodesSet.forEach((node) => {
+        nodes.push(node);
+    });
+
+    const expls = [];
+    for (const node of nodes) {
+        const { extraneous, dev, optional, devOptional, peer, inBundle, overridden } = node;
+        const explRaw = node.explain();
+        const expl = explRaw as
+            & typeof explRaw
+            & (
+                | {
+                    extraneous: true;
+                    dev?: never;
+                    optional?: never;
+                    devOptional?: never;
+                    peer?: never;
+                    bundled?: never;
+                    overridden?: never;
+                }
+                | {
+                    extraneous?: false;
+                    dev: boolean;
+                    optional: boolean;
+                    devOptional: boolean;
+                    peer: boolean;
+                    bundled: boolean;
+                    overridden: boolean;
+                }
+            );
+        if (extraneous) {
+            expl.extraneous = true;
+        } else {
+            expl.dev = dev;
+            expl.optional = optional;
+            expl.devOptional = devOptional;
+            expl.peer = peer;
+            expl.bundled = inBundle;
+            expl.overridden = overridden;
+        }
+        expls.push(expl);
+    }
+    return expls;
+}
+console.log(why("lodash"));

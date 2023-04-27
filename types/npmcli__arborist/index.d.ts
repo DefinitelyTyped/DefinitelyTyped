@@ -217,8 +217,13 @@ declare namespace Arborist {
         /** Errors encountered while parsing package.json or version specifiers. */
         errors: Error[];
 
-        /** If this is a Link, this is the node it  */
+        /** If this is a Link, this is the node it links to */
         target: Node;
+
+        overridden?: boolean;
+
+        /** When overrides are used, this is the virtual root */
+        sourceReference?: Node;
 
         /** Identify the node that will be returned when code in this package runs `require(name)` */
         resolve(name: string): Node;
@@ -228,11 +233,15 @@ declare namespace Arborist {
         querySelectorAll(query: string): Promise<Node[]>;
 
         toJSON(): Node;
+
+        explain(seen?: Node[]): Explanation;
     }
 
     class Link extends Node {
         isLink: true;
     }
+
+    type DependencyProblem = "DETACHED" | "MISSING" | "PEER LOCAL" | "INVALID";
 
     /**
      * Edge objects represent a dependency relationship a package node to the
@@ -262,6 +271,8 @@ declare namespace Arborist {
         to: Node;
         /** True if `edge.to` satisfies the specifier. */
         valid: boolean;
+        invalid: boolean;
+        missing: boolean;
         /**
          * A string indicating the type of error if there is a problem, or `null`
          * if it's valid.  Values, in order of precedence:
@@ -276,8 +287,10 @@ declare namespace Arborist {
          *   means that the dependency is not a peer.
          * * `INVALID` Indicates that the dependency does not satisfy `edge.spec`.
          */
-        error: "DETACHED" | "MISSING" | "PEER LOCAL" | "INVALID" | null;
+        error: DependencyProblem | null;
         reload(hard?: boolean): void;
+
+        explain(seen?: Node[]): Explanation;
     }
 
     interface AuditReport extends Map<string, Vuln> {
@@ -400,8 +413,8 @@ declare namespace Arborist {
         filter(fn: (node: Node) => boolean): Generator<Node, void>;
         add(node: Node): void;
         delete(node: Node): void;
-        query(key: string, val: Node): Set<string>;
-        query(key: string, val?: never): Set<Node>;
+        query(key: string, val: string | undefined): Set<Node>;
+        query(key: string): IterableIterator<Node>;
         has(node: Node): boolean;
         set?(k: never, v: never): never;
     }
@@ -429,6 +442,27 @@ declare namespace Arborist {
         signal: NodeJS.Signals;
         stdout: string;
         stderr: string;
+    }
+    interface DependencyExplanation {
+        type: string | null;
+        name: string;
+        spec: string;
+        rawSpec?: string;
+        overridden?: boolean;
+        bundled?: boolean;
+        error?: DependencyProblem;
+        from?: Node;
+    }
+    interface Explanation {
+        name: string;
+        version: string;
+        errors?: Error[];
+        package?: PackageJson;
+        whileInstalling?: { name: string; version: string; path: string };
+        location?: string;
+        isWorkspace?: boolean;
+        dependents?: DependencyExplanation[];
+        linksIn?: DependencyExplanation[];
     }
 }
 
