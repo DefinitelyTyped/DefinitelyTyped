@@ -13,12 +13,14 @@ export = inspect;
  * @param value a value to be inspected
  * @param options an optional {@link inspect.Options} object
  * @returns a string representation of {@link value}
- * @external https://nodejs.org/api/util.html#utilinspectobject-options The documentation for the Node.js function this is based on.
+ * @see https://nodejs.org/api/util.html#utilinspectobject-options The documentation for the Node.js function this is based on.
  */
 declare function inspect(value: unknown, options?: inspect.Options): string;
 
 /**
  * Objects and types used for {@link inspect}.
+ *
+ * @variation 2
  */
 declare namespace inspect {
     /**
@@ -65,7 +67,7 @@ declare namespace inspect {
                * Mutually exclusive with {@link Options#colors}.
                *
                * @default stylizeWithColor
-               * @external https://github.com/deecewan/browser-util-inspect/blob/master/index.js The source code for `stylizeWithColor`.
+               * @see https://github.com/deecewan/browser-util-inspect/blob/master/index.js The source code for `stylizeWithColor`.
                */
               readonly stylize?: Stylizer | undefined;
           }
@@ -132,7 +134,7 @@ declare namespace inspect {
      * Effect type. Two Select Graphic Rendition (SGR) codes are expected.
      * The first one applies the effect while the second one undoes the effect (without affecting other effects).
      *
-     * @external https://en.wikipedia.org/wiki/ANSI_escape_code#SGR Select Graphic Rendition (SGR) codes
+     * @see https://en.wikipedia.org/wiki/ANSI_escape_code#SGR Select Graphic Rendition (SGR) codes
      */
     type Effect = [
         /**
