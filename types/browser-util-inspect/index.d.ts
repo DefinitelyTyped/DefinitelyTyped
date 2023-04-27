@@ -8,13 +8,14 @@ export = inspect;
 /**
  * Inspect a value as a string.
  *
- * @param obj a value to be inspected
- * @param opts an optional {@link inspect.Options} object
+ * @param value a value to be inspected
+ * @param options an optional {@link inspect.Options} object
+ * @returns a string representation of {@link value}
  */
-declare function inspect(obj: unknown, opts?: inspect.Options): string;
+declare function inspect(value: unknown, options?: inspect.Options): string;
 
 /**
- * Objects and types used in {@link inspect}.
+ * Objects and types used for {@link inspect}.
  */
 declare namespace inspect {
     /**
@@ -34,9 +35,9 @@ declare namespace inspect {
          */
         readonly depth?: number | undefined;
         /**
-         * Whether to use `inspect` hooks on objects if available.
+         * Whether to use custom inspect functions on objects if available.
          *
-         * The hook signature is `inspect(depth: number, options: Options) => unknown`.
+         * The custom inspect function type is {@link CustomInspect}.
          *
          * @default true
          */
@@ -56,19 +57,37 @@ declare namespace inspect {
         | {
               readonly colors?: undefined;
               /**
-               * Custom function to stylize the output.
+               * Custom function for styling the output.
                *
                * Mutually exclusive with {@link Options#colors}.
                *
                * @default stylizeWithColor
                */
-              readonly stylize?: ((str: string, type: OutputType) => string) | undefined;
+              readonly stylize?: Stylizer | undefined;
           }
     );
     /**
      * Union of output types for styling.
      */
     type OutputType = 'boolean' | 'date' | 'name' | 'null' | 'number' | 'regexp' | 'special' | 'string' | 'undefined';
+    /**
+     * Type of custom function for styling the output.
+     *
+     * @param str the string representation of the value
+     * @param type the type of the value
+     * @returns a stylized string representation of the value
+     */
+    type Stylizer = (str: string, type: OutputType) => string;
+    /**
+     * Expected type of custom inspect functions of objects.
+     *
+     * @param this the object
+     * @param depth the current remaining depth to expand nested objects up to
+     * @param options the {@link Options} passed into {@link inspect}
+     * @returns a custom string or object representation of `this`
+     */
+    type CustomInspect = (this: unknown, depth: number, options: Options) => unknown;
+
     /**
      * Effect type. Two Select Graphic Rendition (SGR) codes are expected.
      * The first one applies the effect while the second one undoes the effect (without affecting other effects).
