@@ -1,4 +1,4 @@
-// Type definitions for k6 0.43
+// Type definitions for k6 0.44
 // Project: https://k6.io/docs/
 // Definitions by: na-- <https://github.com/na-->
 //                 Mihail Stoykov <https://github.com/MStoykov>
@@ -44,6 +44,7 @@ import './options';
 import './experimental/redis';
 import './experimental/timers';
 import './experimental/tracing';
+import './experimental/webcrypto';
 import './experimental/websockets';
 import './ws';
 import './net/grpc';
