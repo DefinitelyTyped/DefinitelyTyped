@@ -510,7 +510,7 @@ declare module 'http' {
          * @param name Header name
          * @param value Header value
          */
-        appendHeader(name: string, value: number | string | ReadonlyArray<string>): this;
+        appendHeader(name: string, value: string | ReadonlyArray<string>): this;
         /**
          * Gets the value of HTTP header with the given name. If such a name doesn't
          * exist in message, it will be `undefined`.
