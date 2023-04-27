@@ -18,17 +18,17 @@ declare module 'browser-util-inspect' {
 
 // `inspect.CustomInspect`
 const customInspectable0 = {
-        inspect(depth: number, options: Options): string {
-            return String(this) + depth + options;
-        },
+    inspect(depth: number, options: Options): string {
+        return String(this) + depth + options;
     },
-    customInspect0: CustomInspect = customInspectable0.inspect,
-    customInspectable1 = {
-        inspect(): unknown {
-            return {};
-        },
+};
+const customInspect0: CustomInspect = customInspectable0.inspect;
+const customInspectable1 = {
+    inspect(): unknown {
+        return {};
     },
-    customInspect1: CustomInspect = customInspectable1.inspect;
+};
+const customInspect1: CustomInspect = customInspectable1.inspect;
 
 // `inspect.Stylizer`
 function stylizer(str: string, type: OutputType): string {
@@ -39,14 +39,14 @@ const stylizer0: Stylizer = stylizer;
 // `inspect`
 declare const unknown: unknown;
 const baseOptions = {
-        showHidden: false,
-        depth: 2,
-        customInspect: true,
-    },
-    exclusiveOptions = {
-        colors: false,
-        stylize: () => '',
-    };
+    showHidden: false,
+    depth: 2,
+    customInspect: true,
+};
+const exclusiveOptions = {
+    colors: false,
+    stylize: () => '',
+};
 // @ts-expect-error
 inspect();
 inspect(unknown); // $ExpectType string
