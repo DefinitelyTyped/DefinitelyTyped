@@ -2,6 +2,15 @@ import inspect = require('browser-util-inspect');
 
 type Options = inspect.Options;
 type StyleType = inspect.StyleType;
+type Effect = inspect.Effect;
+type Effects = inspect.Effects;
+const { colors, styles } = inspect;
+
+declare module 'browser-util-inspect' {
+    interface Effects {
+        extended: Effect;
+    }
+}
 
 declare const unknown: unknown;
 const baseOptions = {
@@ -31,3 +40,46 @@ inspect(unknown, {
     ...baseOptions,
     ...exclusiveOptions,
 });
+
+// @ts-expect-error
+delete inspect.colors.black;
+inspect.colors.blue = [0, 0];
+// @ts-expect-error
+inspect.colors.bold = [0, 0, 0];
+inspect.colors.cyan[0] = 0;
+inspect.colors.cyan[1] = 0;
+// @ts-expect-error
+inspect.colors.cyan[2] = 0;
+inspect.colors.extended = [0, 0];
+inspect.colors = { ...inspect.colors };
+// @ts-expect-error
+inspect.colors = {};
+inspect.colors = {
+    ...inspect.colors,
+    // @ts-expect-error
+    unextended: [0, 0],
+};
+inspect.colors = {
+    ...inspect.colors,
+    // @ts-expect-error
+    extended: [0, 0, 0],
+};
+
+delete inspect.styles.boolean;
+inspect.styles.date = 'extended';
+// @ts-expect-error
+inspect.styles.name = null;
+// @ts-expect-error
+inspect.styles.null = '';
+inspect.styles.number = undefined;
+inspect.styles = { ...inspect.styles };
+inspect.styles = {};
+inspect.styles = { regexp: undefined };
+inspect.styles = {
+    // @ts-expect-error
+    unstyled: 'white',
+};
+inspect.styles = {
+    // @ts-expect-error
+    special: null,
+};
