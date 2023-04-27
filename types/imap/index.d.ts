@@ -83,6 +83,8 @@ declare namespace Connection {
             /** (Only available with status() calls) Number of messages in this mailbox not having the Seen flag (marked as not having been read). */
             unseen: number;
         };
+        /** (Available with openBox() and status()) The highest modification sequence value of all messages in the mailbox. */
+        highestmodseq: string;
     }
 
     export interface ImapMessageBodyInfo {
