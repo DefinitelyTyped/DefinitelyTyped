@@ -72,18 +72,44 @@ declare namespace inspect {
     );
     /**
      * Union of output types for styling.
-     *
-     * @member 'boolean' a boolean
-     * @member 'date' a {@link Date}
-     * @member 'name' the name of a property
-     * @member 'null' `null`
-     * @member 'number' a number
-     * @member 'regexp' a {@link RegExp}
-     * @member 'special' a {@link Function}, unexpanded object, getter, setter, or circular reference
-     * @member 'string' a string
-     * @member 'undefined' `undefined`
      */
-    type OutputType = 'boolean' | 'date' | 'name' | 'null' | 'number' | 'regexp' | 'special' | 'string' | 'undefined';
+    type OutputType =
+        /**
+         * A boolean.
+         */
+        | 'boolean'
+        /**
+         * A {@link Date}.
+         */
+        | 'date'
+        /**
+         * A property name.
+         */
+        | 'name'
+        /**
+         * `null`.
+         */
+        | 'null'
+        /**
+         * A number.
+         */
+        | 'number'
+        /**
+         * A {@link RegExp}.
+         */
+        | 'regexp'
+        /**
+         * A {@link Function}, unexpanded object, getter, setter, or circular reference.
+         */
+        | 'special'
+        /**
+         * A string.
+         */
+        | 'string'
+        /**
+         * `undefined`.
+         */
+        | 'undefined';
     /**
      * Type of custom function for styling the output.
      *
@@ -106,11 +132,18 @@ declare namespace inspect {
      * Effect type. Two Select Graphic Rendition (SGR) codes are expected.
      * The first one applies the effect while the second one undoes the effect (without affecting other effects).
      *
-     * @member applySgr the SGR code to apply the effect
-     * @member undoSgr the SGR code to undo the effect (without affecting other effects)
      * @external https://en.wikipedia.org/wiki/ANSI_escape_code#SGR Select Graphic Rendition (SGR) codes
      */
-    type Effect = [applySgr: number, undoSgr: number];
+    type Effect = [
+        /**
+         * The SGR code to apply the effect.
+         */
+        applySgr: number,
+        /**
+         * The SGR code to undo the effect (without affecting other effects).
+         */
+        undoSgr: number,
+    ];
     /**
      * Type containing {@link Effect}s.
      *
