@@ -1,6 +1,5 @@
 export type SecurityCode = {
     mode: string;
-    card_location: string;
     length: number;
   };
   

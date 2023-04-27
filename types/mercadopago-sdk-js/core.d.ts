@@ -3,8 +3,20 @@ import { Bricks, BricksStyle } from "./modules/bricks";
 import { Fields } from "./modules/fields";
 import { Issuer, PayerCost, Setting, CardTokenResponse } from "./shared";
 
+declare enum Locale {
+  ES_AR = 'es-AR',
+  ES_CL = 'es-CL',
+  ES_CO = 'es-CO',
+  ES_MX = 'es-MX',
+  ES_VE = 'es-VE',
+  ES_UY = 'es-UY',
+  ES_PE = 'es-PE',
+  PT_BR = 'pt-BR',
+  EN_US = 'en-US'
+} 
+
 export type Options = {
-  locale?: string;
+  locale?: Locale;
   advancedFraudPrevention?: boolean;
   trackingDisabled?: boolean;
 };
@@ -86,7 +98,7 @@ type IssuersResponse = {
 };
 
 type InstallmentsParams = {
-  locale?: string;
+  locale?: Locale;
   amount: string;
   bin: string;
   paymentMethodId?: string;

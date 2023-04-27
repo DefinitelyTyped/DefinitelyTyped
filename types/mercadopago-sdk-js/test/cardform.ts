@@ -8,7 +8,7 @@ const cardForm = mpInstance.cardForm({
         id: 'form-checkout',
         cardholderName: {
             id: 'form-checkout__cardholderName',
-            placeholder: 'Nome completo',
+            placeholder: 'Full name',
         },
         cardholderEmail: {
             id: 'form-checkout__cardholderEmail',
@@ -16,7 +16,7 @@ const cardForm = mpInstance.cardForm({
         },
         cardNumber: {
             id: 'form-checkout__cardNumber',
-            placeholder: 'Número do Cartão',
+            placeholder: 'Card number',
         },
         securityCode: {
             id: 'form-checkout__CVV',
@@ -24,7 +24,7 @@ const cardForm = mpInstance.cardForm({
         },
         installments: {
             id: 'form-checkout__installments',
-            placeholder: 'Número de parcelas'
+            placeholder: 'Number of installments'
         },
         cardExpirationMonth: {
             id: 'form-checkout__expirationMonth',
@@ -48,22 +48,22 @@ const cardForm = mpInstance.cardForm({
         },
         issuer: {
             id: 'form-checkout__issuer',
-            placeholder: 'Banco emissor'
+            placeholder: 'Bank'
         }
     },
     callbacks: {
         onFormMounted: function (error) {
-            if (error) return console.log('Callback para tratar o erro: montando o cardForm ', error)
+            if (error) return console.log('Callback to treat the error: mounting cardform ', error)
         },
         onFormUnmounted: function (error) {
-            if (error) return console.log('Callback para tratar o erro: desmontando o cardForm ', error)
+            if (error) return console.log('Callback to treat the error: unmounting cardform ', error)
             console.log('unmounted')
         },
         onIdentificationTypesReceived: function (error, identificationTypes) {
-            if (error) return console.log('Callback para tratar o erro: recebendo tipos de documento ', error)
+            if (error) return console.log('Callback to treat the error: recieving doc type', error)
         },
         onPaymentMethodsReceived: function (error, paymentMethods) {
-            if (error) return console.log('Callback para tratar o erro: recebendo payment methods ', error)
+            if (error) return console.log('Callback to treat the error: recieving payment methods ', error)
 
             const securityCodePlaceholder = paymentMethods && paymentMethods[0].settings[0].security_code?.length === 3 ? '123' : '1234';
             cardForm.update('securityCode', {
@@ -71,13 +71,13 @@ const cardForm = mpInstance.cardForm({
             });
         },
         onIssuersReceived: function (error, issuers) {
-            if (error) return console.log('Callback para tratar o erro: recebendo emissores ', error)
+            if (error) return console.log('Callback to treat the error: recieving emissors ', error)
         },
         onInstallmentsReceived: function (error, installments) {
-            if (error) return console.log('Callback para tratar o erro: recebendo parcelas ', error)
+            if (error) return console.log('Callback to treat the error: recieving payment installments ', error)
         },
         onCardTokenReceived: function (error, token) {
-            if (error) return console.log('Callback para tratar o erro: recebendo o token ', error)
+            if (error) return console.log('Callback to treat the error: recieving card token ', error)
         },
         onSubmit: function (event) {
             event.preventDefault();
