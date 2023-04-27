@@ -581,3 +581,12 @@ page.$(selector);
 page.$$();
 // $ExpectType ElementHandle[]
 page.$$(selector);
+
+//
+// Touchscreen.tap
+//
+
+// @ts-expect-error
+page.touchscreen.tap();
+// $ExpectType void
+page.touchscreen.tap(1, 2);

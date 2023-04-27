@@ -9,8 +9,8 @@ import {
     Mouse,
     PageFunction, Response,
     SelectOptionsObject,
-    Touchscreen,
     Worker } from "./";
+import { Touchscreen } from "./touchscreen";
 
 /**
  * Page provides methods to interact with a single tab in a running web browser

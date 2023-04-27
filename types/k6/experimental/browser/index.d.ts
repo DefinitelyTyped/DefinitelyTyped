@@ -4,6 +4,7 @@
  */
 
 import './page';
+import './touchscreen';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
@@ -52,12 +53,6 @@ export class Locator {}
  * ElementHandle represents an in-page DOM element.
  */
 export class ElementHandle {}
-
-/**
- * Touchscreen provides an api for interacting with a virtual touchscreen. It
- * in main-frame CSS pixels relative to the top-left corner of the viewport.
- */
-export class Touchscreen {}
 
 /**
  * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
