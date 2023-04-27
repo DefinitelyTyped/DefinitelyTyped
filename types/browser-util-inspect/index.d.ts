@@ -16,11 +16,22 @@ export = inspect;
  * @see https://nodejs.org/api/util.html#utilinspectobject-options The documentation for the Node.js function this is based on.
  */
 declare function inspect(value: unknown, options?: inspect.Options): string;
+/**
+ * See {@link inspect}.
+ *
+ * @variation 2
+ * @param value a value to be inspected
+ * @param showHidden see {@link inspect.Options#showHidden}
+ * @param depth see {@link inspect.Options#depth}
+ * @param colors see {@link inspect.Options#colors}
+ * @returns a string representation of {@link value}
+ */
+declare function inspect(value: unknown, showHidden?: boolean, depth?: number, colors?: boolean): string;
 
 /**
  * Objects and types used for {@link inspect}.
  *
- * @variation 2
+ * @variation 0
  */
 declare namespace inspect {
     /**
