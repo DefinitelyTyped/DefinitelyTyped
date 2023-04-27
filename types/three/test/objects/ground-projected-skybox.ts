@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GroundProjectedEnv } from 'three/examples/jsm/objects/GroundProjectedEnv';
+import { GroundProjectedSkybox } from 'three/examples/jsm/objects/GroundProjectedSkybox';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { FlakesTexture } from 'three/examples/jsm/textures/FlakesTexture';
@@ -15,7 +15,7 @@ const params = {
 let camera: THREE.PerspectiveCamera;
 let scene: THREE.Scene;
 let renderer: THREE.WebGLRenderer;
-let env: GroundProjectedEnv;
+let skybox: GroundProjectedSkybox;
 let dirLight: THREE.DirectionalLight;
 
 init();
@@ -64,9 +64,9 @@ function initScene() {
 
     const textureCube = cubeLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
 
-    env = new GroundProjectedEnv(textureCube);
-    env.scale.setScalar(100);
-    scene.add(env);
+    skybox = new GroundProjectedSkybox(textureCube);
+    skybox.scale.setScalar(100);
+    scene.add(skybox);
 
     scene.background = textureCube;
     scene.environment = textureCube;
@@ -154,6 +154,6 @@ function renderScene() {
 function render() {
     renderScene();
 
-    env.radius = params.radius;
-    env.height = params.height;
+    skybox.radius = params.radius;
+    skybox.height = params.height;
 }
