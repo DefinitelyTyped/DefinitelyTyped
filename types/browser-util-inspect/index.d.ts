@@ -23,7 +23,7 @@ declare namespace inspect {
           }
     );
     type StyleType = 'boolean' | 'date' | 'name' | 'null' | 'number' | 'regexp' | 'special' | 'string' | 'undefined';
-    type Effect = [startSgr: number, endSgr: number];
+    type Effect = [applySgr: number, restoreSgr: number];
     interface Effects {
         bold: Effect;
         italic: Effect;
