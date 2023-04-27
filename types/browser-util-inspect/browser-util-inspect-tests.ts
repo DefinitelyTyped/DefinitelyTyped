@@ -1,19 +1,42 @@
 import inspect = require('browser-util-inspect');
 
+// accessibility
 type CustomInspect = inspect.CustomInspect;
 type Effect = inspect.Effect;
 type Effects = inspect.Effects;
-type Option = inspect.Options;
+type Options = inspect.Options;
 type OutputType = inspect.OutputType;
 type Stylizer = inspect.Stylizer;
 const { colors, styles } = inspect;
 
+// augmentation
 declare module 'browser-util-inspect' {
     interface Effects {
         extended: Effect;
     }
 }
 
+// `inspect.CustomInspect`
+const customInspectable0 = {
+        inspect(depth: number, options: Options): string {
+            return String(this) + depth + options;
+        },
+    },
+    customInspect0: CustomInspect = customInspectable0.inspect,
+    customInspectable1 = {
+        inspect(): unknown {
+            return {};
+        },
+    },
+    customInspect1: CustomInspect = customInspectable1.inspect;
+
+// `inspect.Stylizer`
+function stylizer(str: string, type: OutputType): string {
+    return str + type;
+}
+const stylizer0: Stylizer = stylizer;
+
+// `inspect`
 declare const unknown: unknown;
 const baseOptions = {
     showHidden: false,
@@ -48,6 +71,7 @@ inspect(unknown, {
     ...exclusiveOptions,
 });
 
+// `inspect.colors`
 // @ts-expect-error
 delete inspect.colors.black;
 inspect.colors.blue = [0, 0];
@@ -74,6 +98,7 @@ inspect.colors = {
     extended: [0, 0, 0],
 };
 
+// `inspect.styles`
 delete inspect.styles.boolean;
 inspect.styles.date = 'extended';
 // @ts-expect-error
