@@ -4,8 +4,8 @@
  */
 
 /**
- * Page provides methods to interact with a single tab in a browser in Chromium.
- * One instance of the browser can have many page instances.
+ * Page provides methods to interact with a single tab in a running web browser
+ * instance. One instance of the browser can have many page instances.
  */
 export class Page {
   /**
