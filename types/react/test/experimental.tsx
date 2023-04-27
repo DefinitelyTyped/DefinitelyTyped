@@ -71,3 +71,30 @@ function useEvent() {
         }),
     );
 }
+
+function formActionsTest() {
+    <form
+        action={formData => {
+            // $ExpectType FormData
+            formData;
+        }}
+    >
+        <input type="text" name="title" defaultValue="Hello" />
+        <input
+            type="submit"
+            formAction={formData => {
+                // $ExpectType FormData
+                formData;
+            }}
+            value="Save"
+        />
+        <button
+            formAction={formData => {
+                // $ExpectType FormData
+                formData;
+            }}
+        >
+            Delete
+        </button>
+    </form>;
+}

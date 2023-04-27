@@ -1,5 +1,5 @@
-// Type definitions for React 18.0
-// Project: http://facebook.github.io/react/
+// Type definitions for React 18.2
+// Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
@@ -132,9 +132,19 @@ declare namespace React {
         key?: Key | null | undefined;
     }
     interface RefAttributes<T> extends Attributes {
+        /**
+         * Allows getting a ref to the component instance.
+         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
+         * @see https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom
+         */
         ref?: Ref<T> | undefined;
     }
     interface ClassAttributes<T> extends Attributes {
+        /**
+         * Allows getting a ref to the component instance.
+         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
+         * @see https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom
+         */
         ref?: LegacyRef<T> | undefined;
     }
 
@@ -1375,7 +1385,9 @@ declare namespace React {
     interface DOMAttributes<T> {
         children?: ReactNode | undefined;
         dangerouslySetInnerHTML?: {
-            __html: string;
+            // Should be InnerHTML['innerHTML'].
+            // But unfortunately we're mixing renderer-specific type declarations.
+            __html: string | TrustedHTML;
         } | undefined;
 
         // Clipboard Events
@@ -1880,11 +1892,14 @@ declare namespace React {
 
         // RDFa Attributes
         about?: string | undefined;
+        content?: string | undefined;
         datatype?: string | undefined;
         inlist?: any;
         prefix?: string | undefined;
         property?: string | undefined;
+        rel?: string | undefined;
         resource?: string | undefined;
+        rev?: string | undefined;
         typeof?: string | undefined;
         vocab?: string | undefined;
 
@@ -1915,11 +1930,21 @@ declare namespace React {
         is?: string | undefined;
     }
 
+    /**
+     * For internal usage only.
+     * Different release channels declare additional types of ReactNode this particular release channel accepts.
+     * App or library types should never augment this interface.
+     */
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {}
+
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
         // Standard HTML Attributes
         accept?: string | undefined;
         acceptCharset?: string | undefined;
-        action?: string | undefined;
+        action?:
+            | string
+            | undefined
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS];
         allowFullScreen?: boolean | undefined;
         allowTransparency?: boolean | undefined;
         alt?: string | undefined;
@@ -1937,7 +1962,6 @@ declare namespace React {
         classID?: string | undefined;
         cols?: number | undefined;
         colSpan?: number | undefined;
-        content?: string | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
@@ -1949,7 +1973,10 @@ declare namespace React {
         download?: any;
         encType?: string | undefined;
         form?: string | undefined;
-        formAction?: string | undefined;
+        formAction?:
+            | string
+            | undefined
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS];
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
@@ -1992,7 +2019,6 @@ declare namespace React {
         poster?: string | undefined;
         preload?: string | undefined;
         readOnly?: boolean | undefined;
-        rel?: string | undefined;
         required?: boolean | undefined;
         reversed?: boolean | undefined;
         rows?: number | undefined;
@@ -2047,7 +2073,6 @@ declare namespace React {
         hrefLang?: string | undefined;
         media?: string | undefined;
         ping?: string | undefined;
-        rel?: string | undefined;
         target?: HTMLAttributeAnchorTarget | undefined;
         type?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
@@ -2063,7 +2088,6 @@ declare namespace React {
         hrefLang?: string | undefined;
         media?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
-        rel?: string | undefined;
         shape?: string | undefined;
         target?: string | undefined;
     }
@@ -2080,7 +2104,10 @@ declare namespace React {
     interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
         disabled?: boolean | undefined;
         form?: string | undefined;
-        formAction?: string | undefined;
+        formAction?:
+            | string
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS]
+            | undefined;
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
@@ -2139,14 +2166,16 @@ declare namespace React {
 
     interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
         acceptCharset?: string | undefined;
-        action?: string | undefined;
+        action?:
+            | string
+            | undefined
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS];
         autoComplete?: string | undefined;
         encType?: string | undefined;
         method?: string | undefined;
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
-        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2230,7 +2259,10 @@ declare namespace React {
         disabled?: boolean | undefined;
         enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
         form?: string | undefined;
-        formAction?: string | undefined;
+        formAction?:
+            | string
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS]
+            | undefined;
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
@@ -2285,7 +2317,6 @@ declare namespace React {
         imageSrcSet?: string | undefined;
         imageSizes?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
-        rel?: string | undefined;
         sizes?: string | undefined;
         type?: string | undefined;
         charSet?: string | undefined;
@@ -2314,7 +2345,6 @@ declare namespace React {
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
-        content?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
         media?: string | undefined;

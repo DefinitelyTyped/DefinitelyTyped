@@ -72,6 +72,8 @@ const chartConfig: zc.graphset[] = [
         ],
     }, {
         type: 'line',
+        x: '15%',
+        y: '5%',
         timeZone: 1,
         zoomSnap: true,
         labels: [
@@ -123,7 +125,7 @@ const chartConfig: zc.graphset[] = [
             link: {
                 aspect: 'arc',
             },
-            maxSize: 15,
+            maxSize: '15px',
             minSize: 5,
             node: {
                 type: 'circle',

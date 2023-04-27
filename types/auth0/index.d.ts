@@ -216,6 +216,10 @@ export type Grant = 'authorization_code' | 'client_credentials' | 'implicit' | '
 
 export interface Client {
     /**
+     * The name of the tenant the client belongs to.
+     */
+    tenant?: string | undefined;
+    /**
      * The name of the client.
      */
     name?: string | undefined;

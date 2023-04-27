@@ -1,4 +1,4 @@
-// For Library Version: 1.112.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -532,9 +532,9 @@ declare module "sap/ui/table/AnalyticalTable" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     *    https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
-     *    {@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
-     *    {@link fiori:/analytical-table-alv/ Analytical Table}
+     *   https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     *   {@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
+     *   {@link fiori:/analytical-table-alv/ Analytical Table}
      */
     constructor(
       /**
@@ -874,6 +874,8 @@ declare module "sap/ui/table/AnalyticalTable" {
       iToIndex: int
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * This function is used by some composite controls to force updating the AnalyticalInfo
      */
     resumeUpdateAnalyticalInfo(
@@ -1120,6 +1122,8 @@ declare module "sap/ui/table/AnalyticalTable" {
       bSumOnTop?: boolean
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * This function is used by some composite controls to avoid updating the AnalyticalInfo when several column
      * are added to the table. In order to finally update the AnalyticalInfo and request data, resumeUpdateAnalyticalInfo
      * must be called.
@@ -1434,6 +1438,7 @@ declare module "sap/ui/table/Column" {
     ): this;
     /**
      * @SINCE 1.33.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:columnMenuOpen columnMenuOpen} to attached listeners.
      *
@@ -1750,6 +1755,8 @@ declare module "sap/ui/table/Column" {
      */
     getTemplate(): Control | string;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns a template clone. It either finds an unused clone or clones a new one from the template.
      *
      * @returns Clone of the template, or `null` if no template is defined
@@ -2293,6 +2300,8 @@ declare module "sap/ui/table/Column" {
       sWidth?: CSSSize
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns whether the column should be rendered.
      *
      * @returns Returns `true`, if the column should be rendered
@@ -2819,6 +2828,8 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3238,6 +3249,8 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3765,6 +3778,8 @@ declare module "sap/ui/table/RowActionItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5308,7 +5323,7 @@ declare module "sap/ui/table/Table" {
      */
     destroyRowSettingsTemplate(): this;
     /**
-     * @deprecated (since 1.72) - Use the `extension` aggregation instead.
+     * @deprecated (since 1.72) - Use, for example, a `sap.m.Title` control in the `extension` aggregation instead.
      *
      * Destroys the title in the aggregation {@link #getTitle title}.
      *
@@ -5672,6 +5687,7 @@ declare module "sap/ui/table/Table" {
     ): void;
     /**
      * @SINCE 1.54
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:beforeOpenContextMenu beforeOpenContextMenu} to attached listeners.
      *
@@ -5701,6 +5717,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @SINCE 1.37.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:busyStateChanged busyStateChanged} to attached listeners.
      *
@@ -5719,6 +5736,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * @SINCE 1.21.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:cellClick cellClick} to attached listeners.
      *
@@ -5762,6 +5780,7 @@ declare module "sap/ui/table/Table" {
     /**
      * @SINCE 1.21.0
      * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:cellContextmenu cellContextmenu} to attached listeners.
      *
@@ -5804,6 +5823,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @SINCE 1.21.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:columnFreeze columnFreeze} to attached listeners.
      *
@@ -5824,6 +5844,8 @@ declare module "sap/ui/table/Table" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:columnMove columnMove} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -5847,6 +5869,8 @@ declare module "sap/ui/table/Table" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -5870,6 +5894,8 @@ declare module "sap/ui/table/Table" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:columnSelect columnSelect} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -5889,6 +5915,8 @@ declare module "sap/ui/table/Table" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:columnVisibility columnVisibility} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -5913,6 +5941,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @SINCE 1.23.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:customFilter customFilter} to attached listeners.
      *
@@ -5934,6 +5963,8 @@ declare module "sap/ui/table/Table" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:filter filter} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -5958,6 +5989,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @SINCE 1.37.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:firstVisibleRowChanged firstVisibleRowChanged} to attached listeners.
      *
@@ -5975,6 +6007,8 @@ declare module "sap/ui/table/Table" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:group group} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -5995,6 +6029,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @SINCE 1.60
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:paste paste} to attached listeners.
      *
@@ -6016,6 +6051,8 @@ declare module "sap/ui/table/Table" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:rowSelectionChange rowSelectionChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6050,6 +6087,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * @SINCE 1.86
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:rowsUpdated rowsUpdated} to attached listeners.
      *
@@ -6062,6 +6100,8 @@ declare module "sap/ui/table/Table" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:sort sort} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -6091,8 +6131,8 @@ declare module "sap/ui/table/Table" {
     /**
      * Sets the focus to the stored focus DOM reference.
      *
-     * If {@param oFocusInfo.targetInfo} is of type {@type sap.ui.core.message.Message}, the focus will be set
-     * as accurately as possible according to the information provided by {@type sap.ui.core.message.Message}.
+     * If `oFocusInfo.targetInfo` is of type {@link sap.ui.core.message.Message}, the focus will be set as accurately
+     * as possible according to the information provided by {@link sap.ui.core.message.Message}.
      */
     focus(
       /**
@@ -6513,6 +6553,12 @@ declare module "sap/ui/table/Table" {
      * of rows can be defined with the {@link sap.ui.table.Table#setRowActionTemplate rowActionTemplate} aggregation
      * of the table. Furthermore, row-specific settings can be defined with the {@link sap.ui.table.Table#setRowSettingsTemplate
      * rowSettingsTemplate} aggregation of the table.
+     *
+     * **Note:** During the binding of rows, the (exact) count needs to be available in the table and has to
+     * be requested. If the count is not requested, this may lead to unexpected behavior in the table, such
+     * as scrolling, accessibility, or keyboard issues. Please refer to the documentation of the used model
+     * for information on requesting the count, for example, {@link sap.ui.model.odata.v2.ODataModel} or {@link
+     * sap.ui.model.odata.v4.ODataModel}.
      */
     getRows(): Row[];
     /**
@@ -6625,7 +6671,7 @@ declare module "sap/ui/table/Table" {
      */
     getThreshold(): int;
     /**
-     * @deprecated (since 1.72) - Use the `extension` aggregation instead.
+     * @deprecated (since 1.72) - Use, for example, a `sap.m.Title` control in the `extension` aggregation instead.
      *
      * Gets content of aggregation {@link #getTitle title}.
      *
@@ -7536,7 +7582,7 @@ declare module "sap/ui/table/Table" {
       iThreshold: int
     ): this;
     /**
-     * @deprecated (since 1.72) - Use the `extension` aggregation instead.
+     * @deprecated (since 1.72) - Use, for example, a `sap.m.Title` control in the `extension` aggregation instead.
      *
      * Sets the aggregated {@link #getTitle title}.
      *
@@ -7955,7 +8001,7 @@ declare module "sap/ui/table/Table" {
     alternateRowColors?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.72) - Use the `extension` aggregation instead.
+     * @deprecated (since 1.72) - Use, for example, a `sap.m.Title` control in the `extension` aggregation instead.
      *
      * Control or text of title section of the Table (if not set it will be hidden)
      */
@@ -8000,6 +8046,12 @@ declare module "sap/ui/table/Table" {
      * of rows can be defined with the {@link sap.ui.table.Table#setRowActionTemplate rowActionTemplate} aggregation
      * of the table. Furthermore, row-specific settings can be defined with the {@link sap.ui.table.Table#setRowSettingsTemplate
      * rowSettingsTemplate} aggregation of the table.
+     *
+     * **Note:** During the binding of rows, the (exact) count needs to be available in the table and has to
+     * be requested. If the count is not requested, this may lead to unexpected behavior in the table, such
+     * as scrolling, accessibility, or keyboard issues. Please refer to the documentation of the used model
+     * for information on requesting the count, for example, {@link sap.ui.model.odata.v2.ODataModel} or {@link
+     * sap.ui.model.odata.v4.ODataModel}.
      */
     rows?: Row[] | Row | AggregationBindingInfo | `{${string}}`;
 
@@ -8728,6 +8780,8 @@ declare module "sap/ui/table/TreeTable" {
       iLevel: int
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9100,6 +9154,8 @@ declare module "sap/ui/table/TreeTable" {
       iToIndex: int
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Allows to hide the tree structure (tree icons, indentation) in tree mode (property `useGroupMode` is
      * set to `false`).
      *

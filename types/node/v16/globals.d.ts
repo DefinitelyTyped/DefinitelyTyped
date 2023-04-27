@@ -62,7 +62,7 @@ interface AbortSignal {
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
     readonly aborted: boolean;
-    readonly signal: any;
+    readonly reason: any;
 }
 
 declare var AbortController: {
@@ -144,7 +144,7 @@ declare namespace NodeJS {
         /**
          * Name of the script [if this function was defined in a script]
          */
-        getFileName(): string | null;
+        getFileName(): string | undefined;
 
         /**
          * Current line number [if this function was defined in a script]

@@ -14,6 +14,7 @@ const mediaOptions: MediaOptions = {
             },
         },
         adaptiveStreaming: {
+            adaptiveResolution: true,
             seamlessPlay: true,
             maxWidth: 1000,
             maxHeight: 800,

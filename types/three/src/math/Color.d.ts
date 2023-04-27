@@ -1,5 +1,4 @@
 import { ColorSpace } from '../constants';
-import { ColorRepresentation } from '../utils';
 
 import { BufferAttribute } from './../core/BufferAttribute';
 import { InterleavedBufferAttribute } from './../core/InterleavedBufferAttribute';
@@ -157,7 +156,7 @@ declare const _colorKeywords: {
     yellowgreen: 0x9acd32;
 };
 
-export type ColorKeyword = keyof typeof _colorKeywords;
+export type ColorRepresentation = Color | string | number;
 
 export interface HSL {
     h: number;
@@ -236,7 +235,7 @@ export class Color {
      * Faster than {@link Color#setStyle .setStyle()} method if you don't need the other CSS-style formats.
      * @param style Color name in X11 format.
      */
-    setColorName(style: ColorKeyword, colorSpace?: ColorSpace): Color;
+    setColorName(style: string, colorSpace?: ColorSpace): Color;
 
     /**
      * Clones this color.

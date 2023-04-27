@@ -328,7 +328,7 @@ declare namespace jest {
      * @remarks
      * For mocking functions, and 'get' or 'set' accessors, use `jest.spyOn()` instead.
      */
-    function replaceProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): ReplaceProperty<T[K]>;
+    function replaceProperty<T extends object, K extends keyof T>(obj: T, key: K, value: T[K]): ReplaceProperty<T[K]>;
     /**
      * Exhausts tasks queued by `setImmediate()`.
      *

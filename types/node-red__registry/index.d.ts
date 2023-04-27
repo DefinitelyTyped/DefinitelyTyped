@@ -3,7 +3,7 @@
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 //                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// Minimum TypeScript Version: 4.7
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction, Express } from 'express';
@@ -20,13 +20,6 @@ declare namespace registry {
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;
-    }
-    interface PluginDefinition {
-        id?: string;
-        type: string;
-        module?: string;
-        onadd?(): void;
-        _?: any;
     }
     interface NodeSetting<T> {
         value: T;
@@ -51,11 +44,12 @@ declare namespace registry {
          * @param constructor - the constructor function for this node type
          * @param opts - optional additional options for the node
          */
+        // eslint-disable-next-line no-unnecessary-generics
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
             constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line no-unnecessary-generics
             opts?: {
-                credentials?: NodeCredentials<TCreds> | undefined;
+                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line no-unnecessary-generics
                 settings?: NodeSettings<TSets> | undefined; // eslint-disable-line no-unnecessary-generics
             },
         ): void;
@@ -89,29 +83,6 @@ declare namespace registry {
          * @param id the node id for the credentials
          */
         deleteCredentials(id: string): void;
-    }
-
-    interface NodeAPIPlugins {
-        /**
-         * Registers a plugin definition
-         * @param id - the string id of the plugin
-         * @param definition - the definition object of the plugin
-         */
-        registerPlugin(id: string, definition: PluginDefinition): void;
-
-        /**
-         * Returns the plugin definition for the given id
-         * @param id - the string id of the plugin
-         * @returns the plugin definition
-         */
-        get(id: string): PluginDefinition;
-
-        /**
-         * Returns the plugin definitions for the given type
-         * @param type - the string type of the plugin
-         * @returns the plugin definitions
-         */
-        getByType(type: string): PluginDefinition[];
     }
 
     interface NodeAPIComms {
@@ -149,13 +120,37 @@ declare namespace registry {
     interface NodeAPIPlugins {
         /**
          * Registers a plugin constructor
-         * @param type - the string type name
-         * @param pluginDef - the plugin definition
+         * @param id - the string id of the plugin
+         * @param definition - the definition object of the plugin
          */
         // eslint-disable-next-line no-unnecessary-generics
-        registerPlugin<TPluginDef extends PluginDef>(type: string, definition: PluginDefinition<TPluginDef>): void;
+        registerPlugin<TPluginDef extends PluginDef = PluginDef>(
+            id: string,
+            definition: PluginDefinition<TPluginDef>, // eslint-disable-line no-unnecessary-generics
+        ): void;
+
+        /**
+         * Returns the plugin definition for the given id
+         * @param id - the string id of the plugin
+         * @returns the plugin definition
+         */
+        // eslint-disable-next-line no-unnecessary-generics
+        get<TPluginDef extends PluginDef = PluginDef>(id: string): PluginDefinition<TPluginDef>;
+
+        /**
+         * Returns the plugin definitions for the given type
+         * @param type - the string type of the plugin
+         * @returns the plugin definitions
+         */
+        // eslint-disable-next-line no-unnecessary-generics
+        getByType<TPluginDef extends PluginDef = PluginDef>(type: string): Array<PluginDefinition<TPluginDef>>;
     }
     interface PluginDefinition<TPluginDef> {
+        id?: string;
+        type: string;
+        module?: string;
+        onadd?(): void;
+        _?: any;
         settings?: NodeSettings<TPluginDef> | undefined;
         onadd?: () => void;
     }
@@ -168,7 +163,6 @@ declare namespace registry {
      */
     interface NodeAPI<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData> {
         nodes: NodeAPINodes;
-        plugins: NodeAPIPlugins;
         log: NodeApiLog;
         settings: TSets;
         events: EventEmitter;
@@ -223,6 +217,8 @@ declare namespace registry {
         z: string;
         name?: string | undefined;
         credentials: TCreds;
+        _flow?: FlowInfo;
+        _alias?: string;
         /**
          * Update the wiring configuration for this node.
          * @param wires -the new wiring configuration
@@ -418,8 +414,46 @@ declare namespace registry {
          */
         keys(storeName: string | undefined, cb: (err: Error, value: unknown[]) => void): void;
     }
+
     interface NodeContext extends NodeContextData {
         global: NodeContextData;
         flow: NodeContextData;
+    }
+
+    type FlowType = 'subflow' | 'flow';
+
+    interface FlowInfo {
+        TYPE: FlowType;
+        path: string;
+        flow: Node;
+        subflowDef?: SubflowDef;
+    }
+
+    type SubflowDefEnvType = 'cred' | string;
+
+    interface SubflowDefEnv {
+        name: string;
+        type: SubflowDefEnvType;
+        value?: any;
+    }
+
+    interface SubflowDefInOutWire {
+        id: string;
+    }
+
+    interface SubflowDefInOut {
+        wires: SubflowDefInOutWire[];
+    }
+
+    interface SubflowDef {
+        id: string;
+        name: string;
+        configs?: Node[];
+        nodes?: Node[];
+        subflows?: Node[];
+        in?: SubflowDefInOut[];
+        out?: SubflowDefInOut[];
+        env?: SubflowDefEnv[];
+        status?: any;
     }
 }
