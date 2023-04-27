@@ -22,6 +22,8 @@ const exclusiveOptions = {
     colors: false,
     stylize: () => '',
 };
+// @ts-expect-error
+inspect();
 inspect(unknown); // $ExpectType string
 inspect(unknown, {}); // $ExpectType string
 inspect(unknown, baseOptions); // $ExpectType string
@@ -51,6 +53,8 @@ inspect.colors.cyan[1] = 0;
 // @ts-expect-error
 inspect.colors.cyan[2] = 0;
 inspect.colors.extended = [0, 0];
+// @ts-expect-error
+delete inspect.colors;
 inspect.colors = { ...inspect.colors };
 // @ts-expect-error
 inspect.colors = {};
@@ -72,6 +76,8 @@ inspect.styles.name = null;
 // @ts-expect-error
 inspect.styles.null = '';
 inspect.styles.number = undefined;
+// @ts-expect-error
+delete inspect.styles;
 inspect.styles = { ...inspect.styles };
 inspect.styles = {};
 inspect.styles = { regexp: undefined };
