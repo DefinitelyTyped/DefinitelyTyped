@@ -62,13 +62,13 @@ declare namespace inspect {
                *
                * @default stylizeWithColor
                */
-              readonly stylize?: ((str: string, styleType: StyleType) => string) | undefined;
+              readonly stylize?: ((str: string, type: OutputType) => string) | undefined;
           }
     );
     /**
      * Union of output types for styling.
      */
-    type StyleType = 'boolean' | 'date' | 'name' | 'null' | 'number' | 'regexp' | 'special' | 'string' | 'undefined';
+    type OutputType = 'boolean' | 'date' | 'name' | 'null' | 'number' | 'regexp' | 'special' | 'string' | 'undefined';
     /**
      * Effect type. Two Select Graphic Rendition (SGR) codes are expected.
      * The first one applies the effect while the second one undoes the effect (without affecting other effects).
@@ -169,9 +169,9 @@ declare namespace inspect {
      */
     let colors: Effects;
     /**
-     * An object mapping {@link StyleType}s to keys of {@link colors}.
+     * An object mapping {@link OutputType}s to keys of {@link colors}.
      *
      * It is used when {@link Options#colors} is `true`.
      */
-    let styles: { [_ in StyleType]?: keyof typeof colors | undefined };
+    let styles: { [_ in OutputType]?: keyof typeof colors | undefined };
 }

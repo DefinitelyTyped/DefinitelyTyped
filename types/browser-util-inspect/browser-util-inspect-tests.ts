@@ -1,7 +1,7 @@
 import inspect = require('browser-util-inspect');
 
-type Options = inspect.Options;
-type StyleType = inspect.StyleType;
+type Option = inspect.Options;
+type OutputType = inspect.OutputType;
 type Effect = inspect.Effect;
 type Effects = inspect.Effects;
 const { colors, styles } = inspect;
