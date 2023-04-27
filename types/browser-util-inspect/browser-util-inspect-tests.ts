@@ -39,14 +39,14 @@ const stylizer0: Stylizer = stylizer;
 // `inspect`
 declare const unknown: unknown;
 const baseOptions = {
-    showHidden: false,
-    depth: 2,
-    customInspect: true,
-};
-const exclusiveOptions = {
-    colors: false,
-    stylize: () => '',
-};
+        showHidden: false,
+        depth: 2,
+        customInspect: true,
+    },
+    exclusiveOptions = {
+        colors: false,
+        stylize: () => '',
+    };
 // @ts-expect-error
 inspect();
 inspect(unknown); // $ExpectType string
