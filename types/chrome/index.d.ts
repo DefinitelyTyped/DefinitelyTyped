@@ -4913,7 +4913,7 @@ declare namespace chrome.input.ime {
          * The auto-capitalize type of the text field.
          * @since Chrome 69.
          */
-        autoCaptialize: AutoCapitalizeType;
+        autoCapitalize: AutoCapitalizeType;
         /**
          * Whether text entered into the text field should be used to improve typing suggestions for the user.
          * @since Chrome 68.
