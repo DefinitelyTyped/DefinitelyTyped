@@ -30,6 +30,13 @@ declare namespace FBInstant {
     let tournament: Tournaments;
 
     /**
+     * Contains functions and properties related to Graph APIs.
+     *
+     * @since 7.0
+     */
+    let graphApi: GraphApi;
+
+    /**
      * The current locale. Use this to determine what language the current game should be localized with.
      * The value will not be accurate until FBInstant.startGameAsync() resolves.
      *
@@ -169,6 +176,24 @@ declare namespace FBInstant {
     function switchGameAsync(appID: string, data?: any): Promise<void>;
 
     /**
+     * Utility function to check if the current player can call {@link switchNativeGameAsync()}.
+     *
+     * @returns Whether the player can call {@link switchNativeGameAsync} or not.
+     * @since 7.0
+     */
+    function canSwitchNativeGameAsync(): Promise<boolean>;
+
+    /**
+     * Request that the client switch to its Native (Android/iOS) Game. The API will reject if the switch fails - else,
+     * the client will open the Game or Store.
+     *
+     * @param data An optional data payload. This will be set as the entrypoint data for the game being switched to.
+     * Must be less than or equal to 1000 characters when stringified.
+     * @since 7.0
+     */
+    function switchNativeGameAsync(data?: object): Promise<void>;
+
+    /**
      * Returns whether or not the user is eligible to have shortcut creation requested.
      *
      * Will return false if createShortcutAsync was already called this session or the user is ineligible for shortcut creation.
@@ -212,6 +237,34 @@ declare namespace FBInstant {
     function onPause(func: () => void): void;
 
     /**
+     * Attempt to load or re-load a banner ad.
+     *
+     * @example
+     * FBInstant.loadBannerAdAsync(
+     *   'my_placement_id'
+     * ).then(() => {
+     *   console.log('success');
+     * });
+     * @param placementID The placement ID that's been set up in your Audience Network settings.
+     * @returns A promise that resolves after loading a banner ad, or rejects with a #apierror if it couldn't be created.
+     * @throws RATE_LIMITED
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @since 7.0
+     */
+    function loadBannerAdAsync(placementID: string): Promise<void>;
+
+    /**
+     * Attempt to hide a banner ad.
+     *
+     * @example
+     * FBInstant.hideBannerAdAsync();
+     * @returns A promise that resolves after the ad is hidden.
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @since 7.0
+     */
+    function hideBannerAdAsync(): Promise<void>;
+
+    /**
      * Attempt to create an instance of interstitial ad. This instance can then be preloaded and presented.
      * @param placementID The placement ID that's been setup in your Audience Network settings.
      * @returns A promise that resolves with a AdInstance, or rejects with a APIError if it couldn't be created.
@@ -228,6 +281,23 @@ declare namespace FBInstant {
      * @throws CLIENT_UNSUPPORTED_OPERATION
      */
     function getRewardedVideoAsync(placementID: string): Promise<AdInstance>;
+
+    /**
+     * Attempt to create an instance of rewarded interstitial. This instance can then be preloaded and presented.
+     *
+     * @example
+     * FBInstant.getRewardedInterstitialAsync(
+     *   'my_placement_id'
+     * ).then(function(rewardedInterstitial) {
+     *   rewardedInterstitial.getPlacementID(); // 'my_placement_id'
+     * });
+     * @param placementID The placement ID that's been setup in your Audience Network settings.
+     * @returns A promise that resolves with a {@link AdInstance}, or rejects with a {@link APIError} if it couldn't be created.
+     * @throws ADS_TOO_MANY_INSTANCES
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @since 7.0
+     */
+    function getRewardedInterstitialAsync(placementID: string): Promise<AdInstance>;
 
     /**
      * Attempts to match the current player with other users looking for people to play with. If successful, a new Messenger group
@@ -525,6 +595,22 @@ declare namespace FBInstant {
          * @returns A unique identifier for the player.
          */
         getID(): string | null;
+
+        /**
+         * A unique identifier for the player. This is the standard Facebook Application-Scoped ID which is used for all
+         * Graph API calls. If your game shares an AppID with a native game this is the ID you will see in the native
+         * game too.
+         *
+         * @example
+         * // This function should be called after FBInstant.initializeAsync()
+         * // resolves.
+         * var playerASID = FBInstant.player.getASIDAsync().then(
+         *  asid => console.log(asid)
+         * );
+         * @returns A unique identifier for the player.
+         * @since 7.0
+         */
+        getASIDAsync(): Promise<string | null>;
 
         /**
          * Fetch the player's unique identifier along with a signature that verifies that the identifier indeed
@@ -1383,6 +1469,28 @@ declare namespace FBInstant {
      */
     interface LocalizationsDict {
         [x: string]: string;
+    }
+
+    /**
+     * Contains functions and properties related to Graph APIs.
+     *
+     * @since 7.0
+     */
+    interface GraphApi {
+        /**
+         * Performs a graph API Call and returns the result.
+         *
+         * @example
+         * FBInstant.graphApi.requestAsync('/me?fields=id,name')
+         *   .then(function(response) {
+         *     ...
+         *   });
+         * @param path The graph API path to perform the request against.
+         * @param method HTTP method that will be used for this request. `GET` is the default if not specified.
+         * @param params Parameters that will be sent as part of the request.
+         * @returns The result of the graph API call.
+         */
+        requestAsync(path: string, method?: string, params?: object): Promise<object>;
     }
 
     type SignedPurchaseRequest = string;

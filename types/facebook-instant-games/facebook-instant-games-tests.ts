@@ -194,3 +194,28 @@ FBInstant.tournament.getTournamentsAsync()
 FBInstant.tournament.joinAsync('1122334455')
     .then(() => {
     });
+
+FBInstant.canSwitchNativeGameAsync().then(canSwitchNativeGame => {
+    if (canSwitchNativeGame) {
+        FBInstant.switchNativeGameAsync({}).then(() => {
+        });
+    }
+});
+
+FBInstant.loadBannerAdAsync('my_placement_id').then(() => {
+    // console.log('success');
+});
+
+FBInstant.hideBannerAdAsync().then(() => {
+});
+
+FBInstant.getRewardedInterstitialAsync('my_placement_id').then(adInstance => {
+    adInstance.getPlacementID(); // 'my_placement_id'
+});
+
+FBInstant.graphApi.requestAsync('/me?fields=id,name', 'GET', {}).then(response => {
+});
+
+FBInstant.player.getASIDAsync().then(asid => {
+    // console.log(asid);
+});
