@@ -1,5 +1,6 @@
 import { ElementHandle } from 'k6/experimental/browser';
 import { Page } from 'k6/experimental/browser/page';
+import { Request } from 'k6/experimental/browser/request';
 import { Response } from 'k6/experimental/browser/response';
 
 const url = 'http://example.com';
@@ -582,6 +583,52 @@ page.$(selector);
 page.$$();
 // $ExpectType ElementHandle[]
 page.$$(selector);
+
+//
+// Request
+//
+const request = new Request();
+
+// $ExpectType Record<string, string>
+request.allHeaders();
+
+// $ExpectType Frame
+request.frame();
+
+// $ExpectType Record<string, string>
+request.headers();
+
+// $ExpectType { name: string; value: string; }[]
+request.headersArray();
+
+// @ts-expect-error
+request.headerValue();
+// $ExpectType string | null
+request.headerValue("content-type");
+
+// $ExpectType boolean
+request.isNavigationRequest();
+
+// $ExpectType string
+request.method();
+
+// $ExpectType string
+request.postData();
+
+// $ExpectType ArrayBuffer | null
+request.postDataBuffer();
+
+// $ExpectType ResourceType
+request.resourceType();
+
+// $ExpectType Response | null
+request.response();
+
+// $ExpectType { body: number; headers: number; }
+request.size();
+
+// $ExpectType ResourceTiming
+request.timing();
 
 //
 // Response
