@@ -11110,7 +11110,7 @@ export interface DevInfo<S = Record<string, DpType>> {
     appId: number;
     appKey: string;
     /**
-     * @desc 网络是否在线
+     * @description 网络是否在线
      */
     appOnline: boolean;
     attribute: number;
@@ -11124,7 +11124,7 @@ export interface DevInfo<S = Record<string, DpType>> {
     communication: Record<string, any>;
     devAttribute: number;
     /**
-     * @desc 设备是否在线
+     * @description 设备是否在线
      */
     deviceOnline: boolean;
     deviceType: number;
@@ -11148,7 +11148,7 @@ export interface DevInfo<S = Record<string, DpType>> {
     isAdmin: boolean;
     isCloudOnline: boolean;
     /**
-     * @desc 局域网是否在线
+     * @description 局域网是否在线
      */
     isLocalOnline: boolean;
     isMeshBleOnline: boolean;
@@ -11303,7 +11303,7 @@ export interface NavigationOptions {
      */
     enablePopGesture?: boolean | undefined;
     /**
-     * @desc 蓝牙离线提示是否覆盖整个面板(除头部栏外)
+     * @description 蓝牙离线提示是否覆盖整个面板(除头部栏外)
      * @defaultValueValue true
      */
     isBleOfflineOverlay?: boolean | undefined;
@@ -11399,7 +11399,7 @@ export let TYSdk: {
         getDpCodeById(id: string | number): string;
         getDpCodes(): string[];
         /**
-         * @desc 主动从设备获取 dp 点状态
+         * @description 主动从设备获取 dp 点状态
          */
         getDpDataFromDevice(idOrCode: string | number): Promise<void>;
         getDpIdByCode(code: string): string;
@@ -11423,11 +11423,11 @@ export let TYSdk: {
         isSigMeshDevice(): boolean;
         isWifiDevice(): boolean;
         /**
-         * @desc 下发 dp 点
+         * @description 下发 dp 点
          */
         putDeviceData(cmd: Record<string, any>): Promise<{ success: boolean }>;
         /**
-         * @desc 局域网下发 dp 点
+         * @description 局域网下发 dp 点
          */
         putLocalDpData(cmd: Record<string, any>): Promise<void>;
         setDevState(state: Record<string, DpValue>): DevInfo;
@@ -11449,7 +11449,7 @@ export let TYSdk: {
         // eslint-disable-next-line no-unnecessary-generics
         on<T>(event: string, callback: (args: T) => void): void;
         /**
-         * @desc
+         * @description
          * type: dpData 设备状态变更通知，payload 为更新的 DP 状态
          * type: devInfo 设备信息变更通知，payload 为 devInfo
          * type: deviceOnline 设备是否在线通知，payload 为 boolean
@@ -11462,19 +11462,19 @@ export let TYSdk: {
             }) => void,
         ): void;
         /**
-         * @desc app 网络状态变更通知
+         * @description app 网络状态变更通知
          */
         on(event: 'networkStateChange', callback: (data: { appOnline: boolean }) => void): void;
         /**
-         * @desc 云定时状态变更通知
+         * @description 云定时状态变更通知
          */
         on(event: 'linkageTimeUpdate', callback: (data: {}) => void): void;
         /**
-         * @desc 设备局域网在线状态变更通知
+         * @description 设备局域网在线状态变更通知
          */
         on(event: 'deviceLocalStateChange', callback: (data: { state: boolean }) => void): void;
         /**
-         * @desc 蓝牙状态变更通知
+         * @description 蓝牙状态变更通知
          */
         on(event: 'bluetoothChange', callback: (value: boolean) => void): void;
         once(event: string, callback: AnyFunction): void;
@@ -11518,11 +11518,11 @@ export let TYSdk: {
         };
 
         /**
-         * @desc 根据 uiId 跳转二级页面
+         * @description 根据 uiId 跳转二级页面
          */
         jumpSubPage(uiIdParams: { uiId: string }, pageParams: any): void;
         /**
-         * @desc 跳转到 app 内置路由页面或网页
+         * @description 跳转到 app 内置路由页面或网页
          * @param routeId app 路由 url 或网页链接
          */
         jumpTo(routeId: string): void;

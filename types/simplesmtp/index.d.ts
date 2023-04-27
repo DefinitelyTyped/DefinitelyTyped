@@ -69,7 +69,6 @@ export interface SmtpServerOptions {
 /**
  * <p>Constructs a SMTP server</p>
  *
- * @constructor
  * @namespace SMTP Server module
  * @param {Object} [options] Options object
  */

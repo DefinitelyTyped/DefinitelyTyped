@@ -935,8 +935,6 @@ declare namespace Ember {
 
         /**
         Defines the properties that will be concatenated from the superclass (instead of overridden).
-        @property concatenatedProperties
-        @type Array
         @default null
         **/
         concatenatedProperties: any[];
@@ -944,14 +942,12 @@ declare namespace Ember {
         /**
         Destroyed object property flag. If this property is true the observers and bindings were
         already removed by the effect of calling the destroy() method.
-        @property isDestroyed
         @default false
         **/
         isDestroyed: boolean;
         /**
         Destruction scheduled flag. The destroy() method has been called. The object stays intact
         until the end of the run loop at which point the isDestroyed flag is set.
-        @property isDestroying
         @default false
         **/
         isDestroying: boolean;
@@ -1792,11 +1788,9 @@ declare namespace Ember {
               primary way of interacting with a promise is through its `then` method, which
               registers callbacks to receive either a promise's eventual value or the reason
               why the promise cannot be fulfilled.
-              @class RSVP.Promise
               @param {function} resolver
               @param {String} label optional string for labeling the promise.
               Useful for tooling.
-              @constructor
             */
             constructor(resolver: PromiseResolverFunction, label?: string);
 
@@ -1927,8 +1921,6 @@ declare namespace Ember {
         /**
         The controller associated with this route.
 
-        @property controller
-        @type Ember.Controller
         @since 1.6.0
         */
         controller: Controller;
@@ -1954,8 +1946,6 @@ declare namespace Ember {
         * passed to the `setupController` method.
         * used as the controller for the view being rendered by the route.
         * returned from a call to `controllerFor` for the route.
-        @property controllerName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -2062,11 +2052,9 @@ declare namespace Ember {
 
         /**
         Configuration hash for this route's queryParams.
-        @property queryParams
         @for Ember.Route
-        @type Hash
         */
-        queryParams: {};
+        queryParams: Record<string, any>;
 
         /**
         Refresh the model on this route and any child routes, firing the
@@ -2236,8 +2224,6 @@ declare namespace Ember {
         This is similar with `viewName`, but is useful when you just want a custom
         template without a view.
 
-        @property templateName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -2265,8 +2251,6 @@ declare namespace Ember {
         define a specific view, set this property.
         This is useful when multiple routes would benefit from using the same view
         because it doesn't require a custom `renderTemplate` method.
-        @property viewName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -2308,8 +2292,6 @@ declare namespace Ember {
         on the `actions` hash handles it. To continue bubbling the action,
         you must return `true` from the handler
 
-        @property actions
-        @type Hash
         @default null
         */
         actions: ActionsHash;

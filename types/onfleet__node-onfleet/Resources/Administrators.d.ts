@@ -23,10 +23,10 @@ declare namespace Admin {
     }
 
     /**
-     * @prop email - The administrator’s complete name.
-     * @prop name - The administrator’s email address.
-     * @prop phone - Optional. The administrator's phone number.
-     * @prop isReadOnly - Optional. Whether this administrator can perform write operations.
+     * email - The administrator’s complete name.
+     * name - The administrator’s email address.
+     * phone - Optional. The administrator's phone number.
+     * isReadOnly - Optional. Whether this administrator can perform write operations.
      */
     interface CreateAdminProps {
         email: string;

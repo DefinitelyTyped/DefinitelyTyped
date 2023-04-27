@@ -158,7 +158,6 @@ declare namespace struct {
      * Pass in an Object containing the struct fields to auto-populate the
      * struct with the data.
      *
-     * @constructor
      */
     interface StructType<TDefinition extends StructTypeDefinitionBase = any> extends ref.Type<StructObject<StructObjectProperties<TDefinition>>> {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */

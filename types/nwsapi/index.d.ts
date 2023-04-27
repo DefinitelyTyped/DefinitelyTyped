@@ -18,7 +18,6 @@ declare function nwsapi(global: nwsapi.Global): nwsapi.NWSAPI;
 declare namespace nwsapi {
     // tslint:disable: no-redundant-jsdoc-2
     /**
-     * @enum
      * The `MatcherMode` type should be described using a **TypeScript** enum,\
      * but **TypeScript** doesn't treat `true`, `false` or `null`
      * as constant expressions in enum initializers.

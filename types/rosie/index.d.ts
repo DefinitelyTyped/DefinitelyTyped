@@ -240,7 +240,6 @@ declare namespace rosie {
         /**
          * Generates values for all the registered options using the values given.
          *
-         * @private
          * @param {object} options
          * @return {object}
          */
