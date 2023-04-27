@@ -1,9 +1,8 @@
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { Vector2 } from './../math/Vector2';
 import { MaterialParameters, Material } from './Material';
 import { NormalMapTypes } from '../constants';
-import { ColorRepresentation } from '../utils';
 
 export interface MeshMatcapMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;

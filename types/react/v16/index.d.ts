@@ -1,5 +1,5 @@
 // Type definitions for React 16.14
-// Project: http://facebook.github.io/react/
+// Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
@@ -224,7 +224,6 @@ declare namespace React {
 
     //
     // React Nodes
-    // http://facebook.github.io/react/docs/glossary.html
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
@@ -1342,7 +1341,9 @@ declare namespace React {
     interface DOMAttributes<T> {
         children?: ReactNode | undefined;
         dangerouslySetInnerHTML?: {
-            __html: string;
+            // Should be InnerHTML['innerHTML'].
+            // But unfortunately we're mixing renderer-specific type declarations.
+            __html: string | TrustedHTML;
         } | undefined;
 
         // Clipboard Events
@@ -1845,11 +1846,14 @@ declare namespace React {
 
         // RDFa Attributes
         about?: string | undefined;
+        content?: string | undefined;
         datatype?: string | undefined;
         inlist?: any;
         prefix?: string | undefined;
         property?: string | undefined;
+        rel?: string | undefined;
         resource?: string | undefined;
+        rev?: string | undefined;
         typeof?: string | undefined;
         vocab?: string | undefined;
 
@@ -1902,7 +1906,6 @@ declare namespace React {
         classID?: string | undefined;
         cols?: number | undefined;
         colSpan?: number | undefined;
-        content?: string | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
@@ -1957,7 +1960,6 @@ declare namespace React {
         poster?: string | undefined;
         preload?: string | undefined;
         readOnly?: boolean | undefined;
-        rel?: string | undefined;
         required?: boolean | undefined;
         reversed?: boolean | undefined;
         rows?: number | undefined;
@@ -2012,7 +2014,6 @@ declare namespace React {
         hrefLang?: string | undefined;
         media?: string | undefined;
         ping?: string | undefined;
-        rel?: string | undefined;
         target?: HTMLAttributeAnchorTarget | undefined;
         type?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
@@ -2029,7 +2030,6 @@ declare namespace React {
         hrefLang?: string | undefined;
         media?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
-        rel?: string | undefined;
         shape?: string | undefined;
         target?: string | undefined;
     }
@@ -2112,7 +2112,6 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
-        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2249,7 +2248,6 @@ declare namespace React {
         imageSrcSet?: string | undefined;
         media?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
-        rel?: string | undefined;
         sizes?: string | undefined;
         type?: string | undefined;
         charSet?: string | undefined;
@@ -2278,7 +2276,6 @@ declare namespace React {
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
-        content?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
         media?: string | undefined;

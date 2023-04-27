@@ -288,6 +288,7 @@ declare namespace TelegramBot {
         photo_size?: number | undefined;
         photo_width?: number | undefined;
         photo_height?: number | undefined;
+        start_parameter?: string | undefined;
         need_name?: boolean | undefined;
         need_phone_number?: boolean | undefined;
         need_email?: boolean | undefined;
@@ -1840,7 +1841,6 @@ declare class TelegramBot extends EventEmitter<
         description: string,
         payload: string,
         providerToken: string,
-        startParameter: string,
         currency: string,
         prices: ReadonlyArray<TelegramBot.LabeledPrice>,
         options?: TelegramBot.SendInvoiceOptions,

@@ -40,7 +40,7 @@ export interface OptionsDebug {
     debugEventsInternal?: boolean;
 
     /** Disable component function warnings */
-    debugInvalidComponentFunc?: boolean;
+    debugInvalidComponentFuncs?: boolean;
 
     /** Disable deprecation warnings */
     debugDeprecation?: boolean;

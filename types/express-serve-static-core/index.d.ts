@@ -12,6 +12,8 @@
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
 
+import { SendOptions } from 'send';
+
 declare global {
     namespace Express {
         // These open interfaces may be extended in an application-specific manner via declaration merging.
@@ -669,6 +671,16 @@ export interface MediaType {
 
 export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
+export interface SendFileOptions extends SendOptions {
+    /** Object containing HTTP headers to serve with the file. */
+    headers?: Record<string, unknown>;
+}
+
+export interface DownloadOptions extends SendOptions {
+    /** Object containing HTTP headers to serve with the file. The header `Content-Disposition` will be overridden by the filename argument. */
+    headers?: Record<string, unknown>;
+}
+
 export interface Response<
     ResBody = any,
     LocalsObj extends Record<string, any> = Record<string, any>,
@@ -782,7 +794,7 @@ export interface Response<
      * @api public
      */
     sendFile(path: string, fn?: Errback): void;
-    sendFile(path: string, options: any, fn?: Errback): void;
+    sendFile(path: string, options: SendFileOptions, fn?: Errback): void;
 
     /**
      * @deprecated Use sendFile instead.
@@ -791,7 +803,7 @@ export interface Response<
     /**
      * @deprecated Use sendFile instead.
      */
-    sendfile(path: string, options: any): void;
+    sendfile(path: string, options: SendFileOptions): void;
     /**
      * @deprecated Use sendFile instead.
      */
@@ -799,7 +811,7 @@ export interface Response<
     /**
      * @deprecated Use sendFile instead.
      */
-    sendfile(path: string, options: any, fn: Errback): void;
+    sendfile(path: string, options: SendFileOptions, fn: Errback): void;
 
     /**
      * Transfer the file at the given `path` as an attachment.
@@ -816,7 +828,7 @@ export interface Response<
      */
     download(path: string, fn?: Errback): void;
     download(path: string, filename: string, fn?: Errback): void;
-    download(path: string, filename: string, options: any, fn?: Errback): void;
+    download(path: string, filename: string, options: DownloadOptions, fn?: Errback): void;
 
     /**
      * Set _Content-Type_ response header with `type` through `mime.lookup()`

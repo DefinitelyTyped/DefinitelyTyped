@@ -1,7 +1,7 @@
 import { PointLight } from './../lights/PointLight';
 import { Matrix4 } from './../math/Matrix4';
 import { Object3D } from './../core/Object3D';
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 
 export class PointLightHelper extends Object3D {
     constructor(light: PointLight, sphereSize?: number, color?: ColorRepresentation);

@@ -1,5 +1,5 @@
 import { Light } from './Light';
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 
 export class RectAreaLight extends Light {
     constructor(color?: ColorRepresentation, intensity?: number, width?: number, height?: number);

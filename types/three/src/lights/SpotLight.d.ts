@@ -1,9 +1,8 @@
-import { Color } from './../math/Color';
 import { Vector3 } from '../math/Vector3';
 import { Object3D } from './../core/Object3D';
 import { SpotLightShadow } from './SpotLightShadow';
 import { Light } from './Light';
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 import { Texture } from '../textures/Texture';
 
 /**

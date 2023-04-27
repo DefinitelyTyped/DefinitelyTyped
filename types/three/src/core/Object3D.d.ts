@@ -28,7 +28,14 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     constructor();
 
     /**
-     * Unique number for this object instance.
+     * Flag to check if a given object is of type {@link Object3D}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isObject3D: true;
+
+    /**
+     * Unique number for this {@link Object3D} instance.
      * @remarks Note that ids are assigned in chronological order: 1, 2, 3, ..., incrementing by one for each new object.
      * @remarks Expects a `Integer`
      */
@@ -41,15 +48,19 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     uuid: string;
 
     /**
-     * Optional name of the object (doesn't need to be unique).
-     * @defaultValue `''`
+     * Optional name of the object
+     * @remarks _(doesn't need to be unique)_.
+     * @defaultValue `""`
      */
     name: string;
 
     /**
+     * A Read-only _string_ to check `this` object type.
+     * @remarks This can be used to find a specific type of Object3D in a scene.
+     * @remarks Sub-classes will update this value.
      * @defaultValue `Object3D`
      */
-    type: string; // TODO Replace for "Object3D" // TODO add readonly
+    readonly type: string | 'Object3D';
 
     /**
      * Object's parent in the {@link https://en.wikipedia.org/wiki/Scene_graph | scene graph}.
@@ -208,13 +219,6 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      * @defaultValue `undefined`
      */
     customDistanceMaterial?: Material | undefined;
-
-    /**
-     * Flag to check if a given object is of type {@link Object3D}.
-     * @remarks This is a _constant_ value
-     * @defaultValue `true`
-     */
-    readonly isObject3D: true;
 
     /**
      * An optional callback that is executed immediately before a 3D object is rendered.
@@ -551,7 +555,7 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     toJSON(meta?: { geometries: any; materials: any; textures: any; images: any }): any;
 
     /**
-     * Returns a clone of this object and optionally all descendants.
+     * Returns a clone of `this` object and optionally all descendants.
      * @param recursive If true, descendants of the object are also cloned. Default `true`
      */
     clone(recursive?: boolean): this;
@@ -562,5 +566,5 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      * @param source
      * @param recursive If true, descendants of the object are also copied. Default `true`
      */
-    copy(source: Object3D, recursive?: boolean): this;
+    copy(source: this, recursive?: boolean): this;
 }

@@ -28,6 +28,11 @@ function registryTests() {
         const nodeConstructor: registry.NodeConstructor<MyNode, MyNodeDef, MyNodeCredentials> = function (nodeDef) {
             RED.nodes.createNode(this, nodeDef);
 
+            // $ExpectType FlowInfo | undefined
+            this._flow;
+            // $ExpectType string | undefined
+            this._alias;
+
             // $ExpectType string
             nodeDef.defKey;
             // @ts-expect-error
@@ -174,10 +179,10 @@ function registryTests() {
 
         RED.plugins.registerPlugin('my-plugin', { type: 'my-plugin-type' });
 
-        // $ExpectType PluginDefinition
+        // $ExpectType PluginDefinition<PluginDef>
         RED.plugins.get('my-plugin');
 
-        // $ExpectType PluginDefinition[]
+        // $ExpectType PluginDefinition<PluginDef>[]
         RED.plugins.getByType('my-plugin-type');
     }
 
@@ -187,6 +192,7 @@ function registryTests() {
 
     function pluginAPITests(RED: registry.NodeAPI<ExtendedNodeRedSettings>) {
         const pluginDefinition: registry.PluginDefinition<MyPluginDef> = {
+            type: 'my-plugin',
             settings: {
                 '*': { value: '', exportable: true },
                 defKey: { value: '', exportable: true },

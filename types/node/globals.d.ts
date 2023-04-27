@@ -63,6 +63,7 @@ interface AbortSignal extends EventTarget {
      */
     readonly aborted: boolean;
     readonly reason: any;
+    onabort: null | ((this: AbortSignal, event: Event) => any);
 }
 
 declare var AbortController: typeof globalThis extends {onmessage: any; AbortController: infer T}
@@ -158,7 +159,7 @@ declare namespace NodeJS {
         /**
          * Name of the script [if this function was defined in a script]
          */
-        getFileName(): string | null;
+        getFileName(): string | undefined;
 
         /**
          * Current line number [if this function was defined in a script]

@@ -1014,6 +1014,7 @@ function testBrowserAcionGetBadgeBackgroundColor() {
     chrome.browserAction.getBadgeBackgroundColor(undefined);
 }
 
+
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeText
 function testBrowserAcionGetBadgeText() {
     chrome.browserAction.getBadgeText({}, console.log);
@@ -1175,20 +1176,35 @@ async function testActionForPromise() {
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});
     await chrome.action.getBadgeText({});
+    const getBackTextColor1: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({});
+    const getBackTextColor2: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({ tabId: 0 });
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
     await chrome.action.getUserSettings();
+    const isEnabled1: boolean = await chrome.action.isEnabled();
+    const isEnabled2: boolean = await chrome.action.isEnabled(0);
     await chrome.action.openPopup({ windowId: 1 });
     await chrome.action.setBadgeBackgroundColor({ color: 'white' });
     await chrome.action.setBadgeText({ text: 'text1' });
+    await chrome.action.setBadgeTextColor({ color: 'white' });
     await chrome.action.setIcon({ path: { '16': 'path/to/icon.png' } });
     await chrome.action.setPopup({ popup: 'popup1' });
     await chrome.action.setTitle({ title: 'title1' });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/action/
+async function testActionForCallback() {
+    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
+    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
+    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
+    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/alarms/
 async function testAlarmsForPromise() {
     await chrome.alarms.getAll();
+    await chrome.alarms.create('name1', { when: Date.now() });
+    await chrome.alarms.create({ when: Date.now() });
     await chrome.alarms.clearAll();
     await chrome.alarms.clear();
     await chrome.alarms.clear('name1');
@@ -1302,6 +1318,11 @@ async function testScriptingForPromise() {
         { id: 'id2', js: ['script2.js'], runAt: 'document_start', allFrames: true, world: 'ISOLATED' },
         { id: 'id3', css: ['style1.css'], excludeMatches: ['*://*.example.com/*'], runAt: 'document_end', allFrames: true, world: 'MAIN' },
     ]);
+    await chrome.scripting.updateContentScripts([
+        { id: 'id1', js: ['script1.js'] },
+        { id: 'id2', js: ['script2.js'], runAt: 'document_start', allFrames: true, world: 'ISOLATED' },
+        { id: 'id3', css: ['style1.css'], excludeMatches: ['*://*.example.com/*'], runAt: 'document_end', allFrames: true, world: 'MAIN' },
+    ])
     await chrome.scripting.unregisterContentScripts({ ids: ['id1', 'id2'] });
     await chrome.scripting.unregisterContentScripts({ files: ['script1.js', 'style1.css'] });
     await chrome.scripting.getRegisteredContentScripts();
@@ -1970,4 +1991,31 @@ function testFileSystemProvider() {
             errorCallback: (error: string) => void,
         ) => {},
     );
+}
+
+// https://developer.chrome.com/docs/extensions/reference/sessions/
+function testSessions() {
+    const myMax = { maxResults: 1 };
+    chrome.sessions.getDevices(devices => { })
+    chrome.sessions.getDevices({}, devices => { });
+    chrome.sessions.getDevices(myMax, devices => { });
+    chrome.sessions.getRecentlyClosed(sessions => {});
+    chrome.sessions.getRecentlyClosed({}, sessions => { });
+    chrome.sessions.getRecentlyClosed(myMax, sessions => { });
+    chrome.sessions.restore(restoredSession => { });
+    chrome.sessions.restore('myString', restoredSession => { });
+    chrome.sessions.onChanged.addListener(() => { });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/sessions/
+async function testSessionsForPromise() {
+    const myMax = { maxResults: 1 };
+    await chrome.sessions.getDevices();
+    await chrome.sessions.getDevices({});
+    await chrome.sessions.getDevices(myMax);
+    await chrome.sessions.getRecentlyClosed();
+    await chrome.sessions.getRecentlyClosed({});
+    await chrome.sessions.getRecentlyClosed(myMax);
+    await chrome.sessions.restore();
+    await chrome.sessions.restore('myString');
 }

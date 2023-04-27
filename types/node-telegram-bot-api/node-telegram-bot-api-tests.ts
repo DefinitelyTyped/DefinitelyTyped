@@ -242,7 +242,6 @@ MyTelegramBot.sendInvoice(
     'Invoice Description',
     'Invoice Payload',
     'Providertoken',
-    'Startparameter',
     'Currency',
     [
         {
@@ -250,7 +249,7 @@ MyTelegramBot.sendInvoice(
             amount: 1200,
         },
     ],
-    { is_flexible: true },
+    { is_flexible: true, start_parameter: 'start_parameter' },
 );
 MyTelegramBot.answerShippingQuery('shippingQueryId', true, {
     shipping_options: [

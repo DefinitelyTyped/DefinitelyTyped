@@ -35,6 +35,7 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
 export interface RaycasterParameters {
     Mesh?: any;
     Line?: { threshold: number } | undefined;
+    Line2?: { threshold: number } | undefined;
     LOD?: any;
     Points?: { threshold: number } | undefined;
     Sprite?: any;

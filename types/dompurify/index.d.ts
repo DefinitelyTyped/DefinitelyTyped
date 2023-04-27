@@ -7,6 +7,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Nicholas Ellul <https://github.com/NicholasEllul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.5
 /// <reference types="trusted-types"/>
 
 export as namespace DOMPurify;
@@ -14,8 +15,20 @@ export = DOMPurify;
 
 declare const DOMPurify: createDOMPurifyI;
 
+type WindowLike = Pick<
+    typeof globalThis,
+    | 'NodeFilter'
+    | 'Node'
+    | 'Element'
+    | 'HTMLTemplateElement'
+    | 'DocumentFragment'
+    | 'HTMLFormElement'
+    | 'DOMParser'
+    | 'NamedNodeMap'
+>;
+
 interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
-    (window?: Window): DOMPurify.DOMPurifyI;
+    (window?: Window | WindowLike): DOMPurify.DOMPurifyI;
 }
 
 declare namespace DOMPurify {

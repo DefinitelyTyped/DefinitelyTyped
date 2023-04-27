@@ -3,7 +3,7 @@
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 //                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// Minimum TypeScript Version: 4.7
 
 import { Request, Response, NextFunction, Express } from 'express';
 import { Server as HttpsServer } from 'https';

@@ -121,6 +121,18 @@ interface ParseMetadata {
     ): Promise<loadImage.MetaData>;
 }
 
+interface ReplaceHead {
+    (
+        blob: Blob,
+        head: ArrayBuffer | Uint8Array,
+        callback: (blob: Blob|null) => void
+    ): void;
+    (
+        blob: Blob,
+        head: ArrayBuffer | Uint8Array,
+    ): Promise<Blob|null>;
+}
+
 // loadImage is implemented as a callable object.
 interface LoadImage {
     (file: File | Blob | string, callback: loadImage.LoadImageCallback, options: loadImage.LoadImageOptions):
@@ -133,6 +145,11 @@ interface LoadImage {
 
     // Parses image meta data and calls the callback/returns the promise with the image head
     blobSlice: (this: Blob, start?: number, end?: number) => Blob;
+
+    // Replaces the image head of a JPEG blob with the given one
+    replaceHead: ReplaceHead;
+
+    writeExifData: (buffer: ArrayBuffer | Uint8Array, data: loadImage.MetaData, id: number | string, value: loadImage.ExifTagValue) => ArrayBuffer | Uint8Array;
 }
 
 declare const loadImage: LoadImage;

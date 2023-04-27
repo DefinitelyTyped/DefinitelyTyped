@@ -8,7 +8,7 @@
 //                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
 //                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.4
 import { ComponentsProps, ComponentsOverrides, ComponentsVariants } from '@mui/material';
 
 import * as React from 'react';

@@ -1,4 +1,4 @@
-// Type definitions for rdf-ext 2.0
+// Type definitions for rdf-ext 2.2
 // Project: https://github.com/rdf-ext/rdf-ext
 // Definitions by: tpluscode <https://github.com/tpluscode>
 //                 Jesse Wright <https://github.com/jeswr>

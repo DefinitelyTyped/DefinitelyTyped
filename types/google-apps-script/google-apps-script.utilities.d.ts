@@ -1,9 +1,3 @@
-// Type definitions for Google Apps Script 2020-01-02
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
@@ -72,6 +66,7 @@ declare namespace GoogleAppsScript {
       newBlob(data: string, contentType: string, name: string): Base.Blob;
       parseCsv(csv: string): string[][];
       parseCsv(csv: string, delimiter: Char): string[][];
+      parseDate(date: string, timeZone: string, format: string): Date;
       sleep(milliseconds: Integer): void;
       ungzip(blob: Base.BlobSource): Base.Blob;
       unzip(blob: Base.BlobSource): Base.Blob[];

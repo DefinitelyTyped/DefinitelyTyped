@@ -272,7 +272,17 @@ minio.statObject('testBucket', 'hello.jpg', (error: Error | null, stat: Minio.Bu
 });
 minio.statObject('testBucket', 'hello.jpg');
 
+minio.removeObject('testBucket', 'hello.jpg', {}, (error: Error | null) => {
+    console.log(error);
+});
 minio.removeObject('testBucket', 'hello.jpg', (error: Error | null) => {
+    console.log(error);
+});
+minio.removeObject('testBucket', 'hello.jpg', {});
+minio.removeObject('testBucket', 'hello.jpg', { versionId: "my-version" });
+minio.removeObject('testBucket', 'hello.jpg', { versionId: "my-version", governanceBypass: false });
+minio.removeObject('testBucket', 'hello.jpg', { governanceBypass: false });
+minio.removeObject('testBucket', 'hello.jpg', { versionId: "my-version", governanceBypass: false }, (error: Error | null) => {
     console.log(error);
 });
 minio.removeObject('testBucket', 'hello.jpg');
