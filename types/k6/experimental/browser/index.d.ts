@@ -5,6 +5,7 @@
 
 import './page';
 import './touchscreen';
+import './response';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
@@ -23,9 +24,9 @@ export class JSHandle<T = any> {}
 export class Frame {}
 
 /**
- * Response class represents responses which are received by page.
+ * Request class represents requests which are sent by a page.
  */
-export class Response {}
+export class Request {}
 
 /**
  * Keyboard provides an api for managing a virtual keyboard.
@@ -97,4 +98,40 @@ export interface SelectOptionsObject {
    * Matches by the index.
    */
   index?: number;
+}
+
+export interface SecurityDetailsObject {
+  /**
+   * Common Name component of the Issuer field. The value is extracted from the
+   * certificate. This should only be used for informational purposes.
+   */
+  issuer?: string;
+
+  /**
+   * The specific TLS protocol used. For example `TLS 1.3`.
+   */
+  protocol?: string;
+
+  /**
+   * Common Name component of the Subject field. The value is extracted from the
+   * certificate. This should only be used for informational purposes.
+   */
+  subjectName?: string;
+
+  /**
+   * Unix timestamp (in seconds) specifying the exact date/time when this cert
+   * becomes valid.
+   */
+  validFrom?: number;
+
+  /**
+   * Unix timestamp (in seconds) specifying the exact date/time when this cert
+   * becomes invalid.
+   */
+  validTo?: number;
+
+  /**
+   * Subject Alternative Name (SAN) DNS names and IP addresses.
+   */
+  sanList?: string[];
 }

@@ -1,5 +1,6 @@
 import { ElementHandle } from 'k6/experimental/browser';
 import { Page } from 'k6/experimental/browser/page';
+import { Response } from 'k6/experimental/browser/response';
 
 const url = 'http://example.com';
 const selector = 'a[href="http://example.com"]';
@@ -581,6 +582,63 @@ page.$(selector);
 page.$$();
 // $ExpectType ElementHandle[]
 page.$$(selector);
+
+//
+// Response
+//
+const response = new Response();
+
+// $ExpectType Record<string, string>
+response.allHeaders();
+
+// $ExpectType ArrayBuffer
+response.body();
+
+// $ExpectType Frame
+response.frame();
+
+// $ExpectType Record<string, string>
+response.headers();
+
+// $ExpectType { name: string; value: string; }[]
+response.headersArray();
+
+// @ts-expect-error
+response.headerValue();
+// $ExpectType string | null
+response.headerValue("content-type");
+
+// @ts-expect-error
+response.headerValues();
+// $ExpectType string[]
+response.headerValues("content-type");
+
+// $ExpectType any
+response.json();
+
+// $ExpectType boolean
+response.ok();
+
+// $ExpectType Request
+response.request();
+
+// $ExpectType SecurityDetailsObject | null
+response.securityDetails();
+
+// $ExpectType { ipAddress: string; port: number; } | null
+response.serverAddr();
+
+// $ExpectType number
+response.status();
+
+// $ExpectType string
+response.statusText();
+
+// $ExpectType { body: number; headers: number; }
+response.size();
+
+// $ExpectType string
+response.url();
 
 //
 // Touchscreen.tap
