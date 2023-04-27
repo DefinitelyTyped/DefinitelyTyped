@@ -106,4 +106,4 @@ export {
     VenmoTokenizePayload,
 };
 
-export as namespace braintreeWeb;
+export as namespace braintree;
