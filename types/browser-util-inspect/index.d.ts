@@ -8,9 +8,12 @@ export = inspect;
 /**
  * Inspect a value as a string.
  *
+ * Circular references are replaced by `[Circular]`.
+ *
  * @param value a value to be inspected
  * @param options an optional {@link inspect.Options} object
  * @returns a string representation of {@link value}
+ * @external https://nodejs.org/api/util.html#utilinspectobject-options The documentation for the Node.js function this is based on.
  */
 declare function inspect(value: unknown, options?: inspect.Options): string;
 
@@ -35,7 +38,7 @@ declare namespace inspect {
          */
         readonly depth?: number | undefined;
         /**
-         * Whether to use custom inspect functions on objects if available.
+         * Whether to use custom inspect functions of objects if available.
          *
          * The custom inspect function type is {@link CustomInspect}.
          *
@@ -62,12 +65,23 @@ declare namespace inspect {
                * Mutually exclusive with {@link Options#colors}.
                *
                * @default stylizeWithColor
+               * @external https://github.com/deecewan/browser-util-inspect/blob/master/index.js The source code for `stylizeWithColor`.
                */
               readonly stylize?: Stylizer | undefined;
           }
     );
     /**
      * Union of output types for styling.
+     *
+     * @member 'boolean' a boolean
+     * @member 'date' a {@link Date}
+     * @member 'name' the name of a property
+     * @member 'null' `null`
+     * @member 'number' a number
+     * @member 'regexp' a {@link RegExp}
+     * @member 'special' a {@link Function}, unexpanded object, getter, setter, or circular reference
+     * @member 'string' a string
+     * @member 'undefined' `undefined`
      */
     type OutputType = 'boolean' | 'date' | 'name' | 'null' | 'number' | 'regexp' | 'special' | 'string' | 'undefined';
     /**
@@ -94,6 +108,7 @@ declare namespace inspect {
      *
      * @member applySgr the SGR code to apply the effect
      * @member undoSgr the SGR code to undo the effect (without affecting other effects)
+     * @external https://en.wikipedia.org/wiki/ANSI_escape_code#SGR Select Graphic Rendition (SGR) codes
      */
     type Effect = [applySgr: number, undoSgr: number];
     /**
