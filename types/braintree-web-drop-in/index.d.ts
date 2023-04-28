@@ -288,7 +288,7 @@ export function create(options: Options): Promise<Dropin>;
 // Global
 declare global {
     namespace braintree {
-        export const dropin: {
+        const dropin: {
             create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
             create(options: Options): Promise<Dropin>;
         };
