@@ -913,4 +913,4 @@ declare namespace b3 {
     const CONDITION: string;
 }
 
-export = b3;
+export {b3};
