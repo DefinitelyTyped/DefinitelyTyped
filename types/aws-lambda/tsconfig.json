@@ -29,6 +29,7 @@
         "test/cloudwatch-tests.ts",
         "test/codepipeline-tests.ts",
         "test/codebuild-tests.ts",
+        "test/codecommit-tests.ts",
         "test/connect-contact-flow-tests.ts",
         "test/cognito-tests.ts",
         "test/dynamodb-tests.ts",

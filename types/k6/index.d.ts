@@ -1,4 +1,4 @@
-// Type definitions for k6 0.43
+// Type definitions for k6 0.44
 // Project: https://k6.io/docs/
 // Definitions by: na-- <https://github.com/na-->
 //                 Mihail Stoykov <https://github.com/MStoykov>
@@ -8,6 +8,7 @@
 //                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
+//                 Ankur Agarwal <https://github.com/ankur22>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
@@ -41,9 +42,11 @@ import './html';
 import './http';
 import './metrics';
 import './options';
+import './experimental/browser';
 import './experimental/redis';
 import './experimental/timers';
 import './experimental/tracing';
+import './experimental/webcrypto';
 import './experimental/websockets';
 import './ws';
 import './net/grpc';
@@ -54,7 +57,7 @@ import './net/grpc';
 /**
  * Run checks on a value.
  * https://k6.io/docs/javascript-api/k6/check-val-sets-tags/
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
@@ -79,7 +82,7 @@ export function fail(err?: string): never;
 /**
  * Run code inside a group.
  * https://k6.io/docs/javascript-api/k6/group-name-fn/
- * @typeParam RT - Return type.
+ * @template RT - Return type.
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
@@ -101,7 +104,7 @@ export function sleep(t: number): void;
 
 /**
  * Check procedure.
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  */
 export interface Checker<VT> {
     /**
@@ -114,7 +117,7 @@ export interface Checker<VT> {
 
 /**
  * Named check procedures.
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  */
 export interface Checkers<VT> {
     [description: string]: Checker<VT>;

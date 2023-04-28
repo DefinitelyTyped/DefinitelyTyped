@@ -2,8 +2,10 @@
 import {
     Blob as NodeBlob,
     Buffer as ImportedBuffer,
+    File,
     constants,
     isUtf8,
+    isAscii,
     kMaxLength,
     kStringMaxLength,
     resolveObjectURL,
@@ -40,6 +42,11 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const bool1: boolean = isUtf8(new Buffer('hello'));
     const bool2: boolean = isUtf8(new ArrayBuffer(0));
     const bool3: boolean = isUtf8(new Uint8Array());
+}
+{
+    const bool1: boolean = isAscii(new Buffer('hello'));
+    const bool2: boolean = isAscii(new ArrayBuffer(0));
+    const bool3: boolean = isAscii(new Uint8Array());
 }
 
 // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
@@ -332,6 +339,20 @@ async () => {
 declare const blob3: Blob;
 blob3.stream();
 
+// File
+{
+    const file1 = new File(['asd', Buffer.from('test'), new NodeBlob(['dummy'])], 'filename1.txt');
+    const file2 = new File([file1], 'filename2.txt', {
+        type: 'plain/txt',
+        endings: 'transparent',
+        lastModified: Date.now() - 1000,
+    });
+    file1.name; // $ExpectType string
+    file1.lastModified; // $ExpectType number
+    file2.name; // $ExpectType string
+    file2.lastModified; // $ExpectType number
+}
+
 {
     atob(btoa('test')); // $ExpectType string
 }
@@ -452,4 +473,10 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     buff.compare(buff); // $ExpectType 0 | 1 | -1
+}
+
+{
+    const u16 = new Uint16Array([0xffff]);
+    Buffer.copyBytesFrom(u16); // $ExpectType Buffer
+    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
 }

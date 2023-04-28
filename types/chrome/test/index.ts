@@ -975,8 +975,130 @@ async function testDeclarativeNetRequest() {
     })
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-enable
+function testBrowserAcionEnable() {
+    chrome.browserAction.enable();
+    chrome.browserAction.enable(console.log);
+    chrome.browserAction.enable(0);
+    chrome.browserAction.enable(0, console.log);
+    chrome.browserAction.enable(null);
+    chrome.browserAction.enable(null, console.log);
+    chrome.browserAction.enable(undefined);
+    chrome.browserAction.enable(undefined, console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-disable
+function testBrowserAcionDisable() {
+    chrome.browserAction.disable();
+    chrome.browserAction.disable(console.log);
+    chrome.browserAction.disable(0);
+    chrome.browserAction.disable(0, console.log);
+    chrome.browserAction.disable(null);
+    chrome.browserAction.disable(null, console.log);
+    chrome.browserAction.disable(undefined);
+    chrome.browserAction.disable(undefined, console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeBackgroundColor
+function testBrowserAcionGetBadgeBackgroundColor() {
+    chrome.browserAction.getBadgeBackgroundColor({}, console.log);
+    chrome.browserAction.getBadgeBackgroundColor({ tabId: 0 }, console.log);
+    chrome.browserAction.getBadgeBackgroundColor({ tabId: null }, console.log);
+    chrome.browserAction.getBadgeBackgroundColor({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getBadgeBackgroundColor();
+    // @ts-expect-error
+    chrome.browserAction.getBadgeBackgroundColor(null);
+    // @ts-expect-error
+    chrome.browserAction.getBadgeBackgroundColor(undefined);
+}
+
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeText
+function testBrowserAcionGetBadgeText() {
+    chrome.browserAction.getBadgeText({}, console.log);
+    chrome.browserAction.getBadgeText({ tabId: 0 }, console.log);
+    chrome.browserAction.getBadgeText({ tabId: null }, console.log);
+    chrome.browserAction.getBadgeText({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getBadgeText();
+    // @ts-expect-error
+    chrome.browserAction.getBadgeText(null);
+    // @ts-expect-error
+    chrome.browserAction.getBadgeText(undefined);
+    // @ts-expect-error
+    chrome.browserAction.getBadgeText(console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
+function testBrowserAcionGetPopup() {
+    chrome.browserAction.getPopup({});
+    chrome.browserAction.getPopup({}, console.log);
+    chrome.browserAction.getPopup({ tabId: 0 });
+    chrome.browserAction.getPopup({ tabId: 0 }, console.log);
+    chrome.browserAction.getPopup({ tabId: null });
+    chrome.browserAction.getPopup({ tabId: null }, console.log);
+    chrome.browserAction.getPopup({ tabId: undefined });
+    chrome.browserAction.getPopup({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getPopup();
+    // @ts-expect-error
+    chrome.browserAction.getPopup(null);
+    // @ts-expect-error
+    chrome.browserAction.getPopup(undefined);
+    // @ts-expect-error
+    chrome.browserAction.getPopup(console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
+function testBrowserAcionGetTitle() {
+    chrome.browserAction.getTitle({});
+    chrome.browserAction.getTitle({}, console.log);
+    chrome.browserAction.getTitle({ tabId: 0 });
+    chrome.browserAction.getTitle({ tabId: 0 }, console.log);
+    chrome.browserAction.getTitle({ tabId: null });
+    chrome.browserAction.getTitle({ tabId: null }, console.log);
+    chrome.browserAction.getTitle({ tabId: undefined });
+    chrome.browserAction.getTitle({ tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.getTitle();
+    // @ts-expect-error
+    chrome.browserAction.getTitle(null);
+    // @ts-expect-error
+    chrome.browserAction.getTitle(undefined);
+    // @ts-expect-error
+    chrome.browserAction.getTitle(console.log);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeBackgroundColor
+function testBrowserAcionSetBadgeBackgroundColor() {
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red' });
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red' }, console.log);
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red', tabId: 0 });
+    chrome.browserAction.setBadgeBackgroundColor({ color: 'red', tabId: 0 }, console.log);
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 });
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor();
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({});
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({ tabId: 0 });
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3] }, console.log);
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor(null);
+    // @ts-expect-error
+    chrome.browserAction.setBadgeBackgroundColor(undefined);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
-function testSetBrowserBadgeText() {
+function testBrowserActionSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({});
     chrome.browserAction.setBadgeText({ text: "test" });
     chrome.browserAction.setBadgeText({ text: null });
@@ -991,6 +1113,61 @@ function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText(undefined);
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setIcon
+function testBrowserAcionSetIcon() {
+    chrome.browserAction.setIcon({ path: '/icon.png' });
+    chrome.browserAction.setIcon({ path: '/icon.png' }, console.log);
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' } });
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' } }, console.log);
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' }, tabId: 0 });
+    chrome.browserAction.setIcon({ path: { 16: '/icon.png' }, tabId: 0 }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setIcon();
+    // @ts-expect-error
+    chrome.browserAction.setIcon(null);
+    // @ts-expect-error
+    chrome.browserAction.setIcon(undefined);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setPopup
+function testBrowserAcionSetPopup() {
+    chrome.browserAction.setPopup({ popup: 'index.html' });
+    chrome.browserAction.setPopup({ popup: 'index.html' }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: 0 });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: 0 }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: null });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: null }, console.log);
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: undefined });
+    chrome.browserAction.setPopup({ popup: 'index.html', tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setPopup();
+    // @ts-expect-error
+    chrome.browserAction.setPopup(null);
+    // @ts-expect-error
+    chrome.browserAction.setPopup(undefined);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setTitle
+function testBrowserAcionSetTitle() {
+    chrome.browserAction.setTitle({ title: 'Title' });
+    chrome.browserAction.setTitle({ title: 'Title' }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: 0 });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: 0 }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: null });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: null }, console.log);
+    chrome.browserAction.setTitle({ title: 'Title', tabId: undefined });
+    chrome.browserAction.setTitle({ title: 'Title', tabId: undefined }, console.log);
+
+    // @ts-expect-error
+    chrome.browserAction.setTitle();
+    // @ts-expect-error
+    chrome.browserAction.setTitle(null);
+    // @ts-expect-error
+    chrome.browserAction.setTitle(undefined);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/action/
 async function testActionForPromise() {
     await chrome.action.disable();
@@ -999,20 +1176,35 @@ async function testActionForPromise() {
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});
     await chrome.action.getBadgeText({});
+    const getBackTextColor1: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({});
+    const getBackTextColor2: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({ tabId: 0 });
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
     await chrome.action.getUserSettings();
+    const isEnabled1: boolean = await chrome.action.isEnabled();
+    const isEnabled2: boolean = await chrome.action.isEnabled(0);
     await chrome.action.openPopup({ windowId: 1 });
     await chrome.action.setBadgeBackgroundColor({ color: 'white' });
     await chrome.action.setBadgeText({ text: 'text1' });
+    await chrome.action.setBadgeTextColor({ color: 'white' });
     await chrome.action.setIcon({ path: { '16': 'path/to/icon.png' } });
     await chrome.action.setPopup({ popup: 'popup1' });
     await chrome.action.setTitle({ title: 'title1' });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/action/
+async function testActionForCallback() {
+    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
+    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
+    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
+    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/alarms/
 async function testAlarmsForPromise() {
     await chrome.alarms.getAll();
+    await chrome.alarms.create('name1', { when: Date.now() });
+    await chrome.alarms.create({ when: Date.now() });
     await chrome.alarms.clearAll();
     await chrome.alarms.clear();
     await chrome.alarms.clear('name1');
@@ -1126,6 +1318,11 @@ async function testScriptingForPromise() {
         { id: 'id2', js: ['script2.js'], runAt: 'document_start', allFrames: true, world: 'ISOLATED' },
         { id: 'id3', css: ['style1.css'], excludeMatches: ['*://*.example.com/*'], runAt: 'document_end', allFrames: true, world: 'MAIN' },
     ]);
+    await chrome.scripting.updateContentScripts([
+        { id: 'id1', js: ['script1.js'] },
+        { id: 'id2', js: ['script2.js'], runAt: 'document_start', allFrames: true, world: 'ISOLATED' },
+        { id: 'id3', css: ['style1.css'], excludeMatches: ['*://*.example.com/*'], runAt: 'document_end', allFrames: true, world: 'MAIN' },
+    ])
     await chrome.scripting.unregisterContentScripts({ ids: ['id1', 'id2'] });
     await chrome.scripting.unregisterContentScripts({ files: ['script1.js', 'style1.css'] });
     await chrome.scripting.getRegisteredContentScripts();
@@ -1251,6 +1448,25 @@ async function testDynamicRules() {
             condition: {
                 initiatorDomains: ["www.example.com"],
                 tabIds: [2, 3, 76],
+            },
+            id: 2,
+            priority: 3,
+        }],
+    });
+
+    await chrome.declarativeNetRequest.updateDynamicRules({
+        addRules: [{
+            action: {
+                type: chrome.declarativeNetRequest.RuleActionType.MODIFY_HEADERS,
+                requestHeaders: [{
+                    header: "X-Test-Header",
+                    operation: chrome.declarativeNetRequest.HeaderOperation.SET,
+                    value: "test-value",
+                }],
+            },
+            condition: {
+                resourceTypes: [chrome.declarativeNetRequest.ResourceType.MAIN_FRAME],
+                domains: ["www.example.com"],
             },
             id: 2,
             priority: 3,
@@ -1396,6 +1612,7 @@ function testContextMenusRemove() {
     chrome.contextMenus.remove('dummy-id', () => console.log('removed'));
     // @ts-expect-error
     chrome.contextMenus.remove('dummy-id', (invalid: any) => console.log('removed'));
+    chrome.contextMenus.remove(Math.random() > 0.5 ? "1" : 1)
 }
 
 function testContextMenusRemoveAll() {
@@ -1408,6 +1625,7 @@ function testContextMenusRemoveAll() {
 function testContextMenusUpdate() {
     chrome.contextMenus.update(1, { title: 'Hello World!' });
     chrome.contextMenus.update(1, { title: 'Hello World!' }, () => console.log('updated'));
+    chrome.contextMenus.update(Math.random() > 0.5 ? "1" : 1, { title: 'Hello World!' }, () => console.log('updated'));
     // @ts-expect-error
     chrome.contextMenus.update(1, { title: 'Hello World!' }, (invalid: any) => console.log('updated'));
     chrome.contextMenus.update('dummy-id', { title: 'Hello World!' });
@@ -1580,6 +1798,7 @@ function testDownloads() {
     chrome.downloads.acceptDanger(1, () => { })
     chrome.downloads.drag(1)
     chrome.downloads.setShelfEnabled(true)
+    chrome.downloads.setUiOptions({ enabled: true }, () => { })
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads
@@ -1594,6 +1813,7 @@ async function testDownloadsForPromise() {
     await chrome.downloads.erase({})
     await chrome.downloads.removeFile(1)
     await chrome.downloads.acceptDanger(1)
+    await chrome.downloads.setUiOptions({ enabled: true })
 }
 
 // https://developer.chrome.com/docs/extensions/reference/extension
@@ -1718,4 +1938,84 @@ async function testOffscreenDocument() {
     });
     await chrome.offscreen.hasDocument();
     await chrome.offscreen.closeDocument();
+}
+
+// https://developer.chrome.com/docs/extensions/reference/fileSystemProvider/
+function testFileSystemProvider() {
+    // Checking onGetMetadataRequested, its option and EntryMetadata.
+    chrome.fileSystemProvider.onGetMetadataRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.MetadataRequestedEventOptions,
+            successCallback: (metadata: chrome.fileSystemProvider.EntryMetadata) => void,
+            errorCallback: (error: string) => void,
+        ) => {
+            const entryMetadata: chrome.fileSystemProvider.EntryMetadata = {};
+            if (options.isDirectory) {
+                entryMetadata.isDirectory = true;
+            }
+            if (options.name) {
+                entryMetadata.name = 'some-file.txt';
+            }
+            if (options.size) {
+                entryMetadata.size = 42;
+            }
+            if (options.mimeType) {
+                entryMetadata.mimeType = 'text/plain';
+            }
+        },
+    );
+
+    // Checking onReadDirectoryRequested.
+    chrome.fileSystemProvider.onReadDirectoryRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.DirectoryPathRequestedEventOptions,
+            successCallback: (entries: chrome.fileSystemProvider.EntryMetadata[], hasMore: boolean) => void,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
+
+    // Checking onGetActionsRequested.
+    chrome.fileSystemProvider.onGetActionsRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.GetActionsRequestedOptions,
+            successCallback: (actions: chrome.fileSystemProvider.Action[]) => void,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
+
+    // Checking onExecuteActionRequested.
+    chrome.fileSystemProvider.onExecuteActionRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.ExecuteActionRequestedOptions,
+            successCallback: () => void,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
+}
+
+// https://developer.chrome.com/docs/extensions/reference/sessions/
+function testSessions() {
+    const myMax = { maxResults: 1 };
+    chrome.sessions.getDevices(devices => { })
+    chrome.sessions.getDevices({}, devices => { });
+    chrome.sessions.getDevices(myMax, devices => { });
+    chrome.sessions.getRecentlyClosed(sessions => {});
+    chrome.sessions.getRecentlyClosed({}, sessions => { });
+    chrome.sessions.getRecentlyClosed(myMax, sessions => { });
+    chrome.sessions.restore(restoredSession => { });
+    chrome.sessions.restore('myString', restoredSession => { });
+    chrome.sessions.onChanged.addListener(() => { });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/sessions/
+async function testSessionsForPromise() {
+    const myMax = { maxResults: 1 };
+    await chrome.sessions.getDevices();
+    await chrome.sessions.getDevices({});
+    await chrome.sessions.getDevices(myMax);
+    await chrome.sessions.getRecentlyClosed();
+    await chrome.sessions.getRecentlyClosed({});
+    await chrome.sessions.getRecentlyClosed(myMax);
+    await chrome.sessions.restore();
+    await chrome.sessions.restore('myString');
 }

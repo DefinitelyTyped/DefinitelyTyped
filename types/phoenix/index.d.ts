@@ -23,6 +23,7 @@ export class Channel {
   constructor(topic: string, params?: object | (() => object), socket?: Socket);
 
   state: ChannelState;
+  topic: string;
 
   join(timeout?: number): Push;
   leave(timeout?: number): Push;

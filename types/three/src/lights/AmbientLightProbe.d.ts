@@ -1,4 +1,4 @@
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 import { LightProbe } from './LightProbe';
 
 export class AmbientLightProbe extends LightProbe {

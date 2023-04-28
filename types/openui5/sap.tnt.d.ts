@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.113.0
 
 declare module "sap/tnt/library" {
   /**
@@ -596,6 +596,8 @@ declare module "sap/tnt/NavigationList" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1011,6 +1013,8 @@ declare module "sap/tnt/NavigationListItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1493,6 +1497,8 @@ declare module "sap/tnt/SideNavigation" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining

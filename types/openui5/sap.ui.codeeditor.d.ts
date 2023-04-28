@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -221,6 +221,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -241,6 +243,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining

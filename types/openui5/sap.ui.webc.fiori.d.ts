@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -1490,6 +1490,8 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:scanError scanError} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1506,6 +1508,8 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:scanSuccess scanSuccess} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1787,6 +1791,8 @@ declare module "sap/ui/webc/fiori/DynamicSideContent" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2800,6 +2806,8 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3946,6 +3954,8 @@ declare module "sap/ui/webc/fiori/MediaGallery" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:displayAreaClick displayAreaClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3957,6 +3967,8 @@ declare module "sap/ui/webc/fiori/MediaGallery" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:overflowClick overflowClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3968,6 +3980,8 @@ declare module "sap/ui/webc/fiori/MediaGallery" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5119,6 +5133,8 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:close close} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5130,6 +5146,8 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggle toggle} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5791,6 +5809,8 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:close close} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7066,6 +7086,8 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:click click} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7854,6 +7876,8 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:coPilotClick coPilotClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7870,6 +7894,8 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:logoClick logoClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7886,6 +7912,8 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:menuItemClick menuItemClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7902,6 +7930,8 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:notificationsClick notificationsClick} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -7921,6 +7951,8 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:productSwitchClick productSwitchClick} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -7940,6 +7972,8 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:profileClick profileClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8646,6 +8680,8 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:click click} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -8990,6 +9026,8 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -10458,6 +10496,8 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:nameClick nameClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11047,6 +11087,8 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:drop drop} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11063,6 +11105,8 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:itemDelete itemDelete} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11079,6 +11123,8 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11896,6 +11942,8 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:fileNameClick fileNameClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11907,6 +11955,8 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:rename rename} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11918,6 +11968,8 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:retry retry} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11929,6 +11981,8 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:terminate terminate} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12648,6 +12702,8 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12659,6 +12715,8 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12691,6 +12749,8 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:confirm confirm} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13139,6 +13199,8 @@ declare module "sap/ui/webc/fiori/Wizard" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:stepChange stepChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining

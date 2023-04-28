@@ -852,6 +852,19 @@ import { promisify } from 'node:util';
 }
 
 {
+    crypto.createPrivateKey({
+        key: 'abc123',
+        format: 'der',
+        encoding: 'hex'
+    });
+    crypto.createPublicKey({
+        key: 'abc123',
+        format: 'der',
+        encoding: 'hex'
+    });
+}
+
+{
     const keyObject = crypto.createSecretKey(Buffer.from('asdf')); // $ExpectType KeyObject
     keyObject instanceof crypto.KeyObject;
     assert.equal(keyObject.symmetricKeySize, 4);
@@ -1305,6 +1318,19 @@ import { promisify } from 'node:util';
     };
     crypto.createPublicKey({ key: jwk, format: 'jwk' });
     crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+    crypto.verify(
+        'ES256',
+        Buffer.from('asd'),
+        { key: jwk, format: 'jwk' },
+        Buffer.from('sig')
+    );
+    crypto.verify(
+        'ES256',
+        Buffer.from('asd'),
+        { key: jwk, format: 'jwk' },
+        Buffer.from('sig'),
+        (error: Error | null, result: boolean): void => {}
+    );
 }
 
 {
@@ -1405,7 +1431,7 @@ import { promisify } from 'node:util';
     let b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
     b = crypto.subtle;
 
-    crypto.webcrypto.randomUUID(); // $ExpectType string
+    crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
     crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
     // @ts-expect-error

@@ -1,8 +1,9 @@
-import Player from '@vimeo/player';
+import Player = require('@vimeo/player');
 
 // based on README.md of @vimeo/player >> https://github.com/vimeo/player.js
 
 let player: Player;
+let defaultPlayer: Player.default;
 
 player = new Player('handstick', {
     id: 19231868,
@@ -29,6 +30,10 @@ player = new Player('handstick', {
     title: true,
     transparent: true,
 });
+
+player = new Player.default('handstick');
+defaultPlayer = new Player('handstick');
+defaultPlayer = new Player.default('handstick');
 
 const onPlay = (data: any) => {
     // data is an object containing properties specific to that event

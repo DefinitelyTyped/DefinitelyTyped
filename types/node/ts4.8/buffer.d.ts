@@ -47,6 +47,7 @@ declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
     import { ReadableStream as WebReadableStream } from 'node:stream/web';
     export function isUtf8(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
+    export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -164,14 +165,42 @@ declare module 'buffer' {
          */
         stream(): WebReadableStream;
     }
+    export interface FileOptions {
+        /**
+         * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts will be
+         * converted to the platform native line-ending as specified by `require('node:os').EOL`.
+         */
+        endings?: 'native' | 'transparent';
+        /** The File content-type. */
+        type?: string;
+        /** The last modified date of the file. `Default`: Date.now(). */
+        lastModified?: number;
+    }
+    /**
+     * A [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) provides information about files.
+     * @experimental
+     * @since v18.13.0
+     */
+    export class File extends Blob {
+        constructor(sources: Array<BinaryLike | Blob>, fileName: string, options?: FileOptions);
+        /**
+         * The name of the `File`.
+         * @since v18.13.0
+         */
+        readonly name: string;
+        /**
+         * The last modified date of the `File`.
+         * @since v18.13.0
+         */
+        readonly lastModified: number;
+    }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
 
     import { Blob as NodeBlob } from 'buffer';
     // This conditional type will be the existing global Blob in a browser, or
     // the copy below in a Node environment.
-    type __Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : NodeBlob;
-
+    type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
     global {
         // Buffer class
         type BufferEncoding =
@@ -398,6 +427,14 @@ declare module 'buffer' {
              * @param totalLength Total length of the `Buffer` instances in `list` when concatenated.
              */
             concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
+            /**
+             * Copies the underlying memory of `view` into a new `Buffer`.
+             * @since v18.16.0
+             * @param view The `TypedArray` to copy.
+             * @param offset The starting offset within `view`.
+             * @param length The number of elements from `view` to copy.
+             */
+            copyBytesFrom(view: NodeJS.TypedArray, offset?: number, length?: number): Buffer;
             /**
              * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of`Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
              *

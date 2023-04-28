@@ -5,7 +5,22 @@
 import * as oauth2lib from "simple-oauth2";
 
 // Set the configuration settings
-const credentials: oauth2lib.ModuleOptions = {
+const credentials_1: oauth2lib.ModuleOptions = {
+    client: {
+        id: "<client-id>",
+        secret: "<client-secret>",
+    },
+    auth: {
+        tokenHost: "https://api.oauth.com",
+    },
+    http: {
+        json: false
+    }
+};
+
+const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode(credentials_1);
+
+const credentials_2: oauth2lib.ModuleOptions = {
     client: {
         id: "<client-id>",
         secret: "<client-secret>",
@@ -14,11 +29,22 @@ const credentials: oauth2lib.ModuleOptions = {
         tokenHost: "https://api.oauth.com",
     },
 };
+const oauth2ClientCredentials = new oauth2lib.ClientCredentials(credentials_2);
 
-const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode(credentials);
-const oauth2ClientCredentials = new oauth2lib.ClientCredentials(credentials);
+const credentials_3: oauth2lib.ModuleOptions = {
+    client: {
+        id: "<client-id>",
+        secret: "<client-secret>",
+    },
+    auth: {
+        tokenHost: "https://api.oauth.com",
+    },
+    http: {
+        json: 'strict'
+    }
+};
 const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
-  credentials
+    credentials_3
 );
 
 // Test custom `idParamName`
@@ -32,6 +58,12 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
                 // noop
             },
             json: true
+        },
+        options: {
+            bodyFormat: 'form',
+            authorizationMethod: 'body',
+            credentialsEncodingMode: 'loose',
+            scopeSeparator: ','
         }
     });
     oauth2AuthorizationCode.authorizeURL({ foobar: "x" });

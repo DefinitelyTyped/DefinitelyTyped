@@ -66,6 +66,7 @@ export class MarchingCubes extends Mesh {
     blur(intensity: number): void;
 
     reset(): void;
+    update(): void;
     render(renderCallback: any): void;
     generateGeometry(): BufferGeometry;
     generateBufferGeometry(): BufferGeometry;

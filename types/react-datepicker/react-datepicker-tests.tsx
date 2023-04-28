@@ -2,8 +2,6 @@ import * as React from 'react';
 import DatePicker, {
     CalendarContainer,
     registerLocale,
-    setDefaultLocale,
-    getDefaultLocale,
     ReactDatePickerProps,
     ReactDatePickerCustomHeaderProps,
 } from 'react-datepicker';
@@ -11,8 +9,6 @@ import enUS from 'date-fns/locale/en-US';
 import { Modifier } from 'react-popper';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
-setDefaultLocale('en-GB');
-const defaultLocale = getDefaultLocale();
 
 const topLogger: Modifier<'topLogger'> = {
     name: 'topLogger',
@@ -65,7 +61,7 @@ const topLogger: Modifier<'topLogger'> = {
     filterTime={date => true}
     fixedHeight
     forceShowMonthNavigation
-    formatWeekDay={formattedDate => formattedDate[0]}
+    formatWeekDay={(day) => day[0]}
     formatWeekNumber={date => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""

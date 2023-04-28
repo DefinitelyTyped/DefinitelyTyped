@@ -490,6 +490,16 @@ management
         // error handler
     });
 
+// Get all Connections with params (with promise)
+management
+    .getConnections({ name: 'connectionName', strategy: 'auth0', include_fields: true, fields: ['id', 'name'] })
+    .then((connections: auth0.Connection[]) => {
+        console.log(connections);
+    })
+    .catch(err => {
+        // error handler
+    });
+
 // Rules
 // Get all Rules with promise
 management
@@ -1006,6 +1016,10 @@ management.getLogs(
     },
     logs => console.log(logs),
 );
+
+// Log streams
+management.getLogStreams().then(logStreams => console.log(logStreams));
+management.getLogStreams((err, logStreams) => console.log(logStreams));
 
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
@@ -1735,3 +1749,94 @@ management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials)
 
 management.deleteDeviceCredential({ id: 'id' }).then(() => {});
 management.deleteDeviceCredential({ id: 'id' }, err => {});
+
+// Fetch a user's authentication methods
+management.users
+    .getAuthenticationMethods({ id: 'my_id' })
+    .then((authenticationMethods: auth0.AuthenticationMethod[]) => {
+        console.log(authenticationMethods);
+    });
+
+// Fetch a user's authentication methods using cb style
+management.users.getAuthenticationMethods(
+    { id: 'my_id' },
+    (err: Error, getAuthenticationMethods: auth0.AuthenticationMethod[]) => {
+        if (err) {
+            throw err;
+        }
+
+        console.log(getAuthenticationMethods);
+    },
+);
+
+// Fetch a user's authentication method by id
+management.users
+    .getAuthenticationMethodById({ id: 'my_id', authentication_method_id: 'authentication_method_id' })
+    .then((authenticationMethod: auth0.AuthenticationMethod) => {
+        console.log(authenticationMethod);
+    });
+
+// Fetch a user's authentication method by id using cb style
+management.users.getAuthenticationMethodById(
+    { id: 'my_id', authentication_method_id: 'authentication_method_id' },
+    (err: Error, getAuthenticationMethod: auth0.AuthenticationMethod) => {
+        if (err) {
+            throw err;
+        }
+
+        console.log();
+    },
+);
+
+// Delete a user's authentication methods
+management.users
+    .deleteAuthenticationMethodById({ id: 'my_id', authentication_method_id: 'authentication_method_id' })
+    .then(() => {});
+
+// Delete a user's authentication methods using cb style
+management.users.deleteAuthenticationMethodById(
+    { id: 'my_id', authentication_method_id: 'authentication_method_id' },
+    (err: Error) => {
+        if (err) {
+            throw err;
+        }
+    },
+);
+
+// Delete a user's authentication method by id
+management.users.deleteAuthenticationMethods({ id: 'my_id' }).then(() => {});
+
+// Delete a user's authentication method by id using cb style
+management.users.deleteAuthenticationMethods({ id: 'my_id' }, (err: Error) => {
+    if (err) {
+        throw err;
+    }
+});
+
+// Retrieve all multi-factor authentication configurations
+management.getGuardianFactors().then((guardianFactor: auth0.GuardianFactor[]) => {
+    console.log(guardianFactor);
+});
+
+// Retrieve all multi-factor authentication configurations using cb style
+management.getGuardianFactors((err: Error, guardianFactor: auth0.GuardianFactor[]) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(guardianFactor);
+});
+
+// Regenerates recover-code
+management.users.regenerateRecoveryCode({ id: 'my_id' }).then(res => {
+    console.log(res.recovery_code);
+});
+
+// Regenerates recover-code using cb style
+management.users.regenerateRecoveryCode({ id: 'my_id' }, (err: Error, res) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(res.recovery_code);
+});

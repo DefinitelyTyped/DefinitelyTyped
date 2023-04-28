@@ -3040,14 +3040,6 @@ declare namespace zingchart {
      */
     cursor?: string;
     /**
-     * @description Prefix attribute or array using "data-" to define a custom token.
-     */
-    [key: `data${string}`]: any;
-    /**
-     * @description Prefix attribute or array using "data-" to define a custom token.
-     */
-    [key: `data-${string}`]: any;
-    /**
      * @description Set true to enable optimization for large data set when connecting two points.
      */
     fastVectorPath?: any;
@@ -3898,14 +3890,6 @@ declare namespace zingchart {
      * @description Sets the cursor shape when hovering over the object.
      */
     cursor?: string;
-    /**
-     * @description Prefix attribute or array using "data-" to define a custom token.
-     */
-    [key: `data${string}`]: any;
-    /**
-     * @description Prefix attribute or array using "data-" to define a custom token.
-     */
-    [key: `data-${string}`]: any;
     /**
      * @description Sets the angle of the axis along which the linear gradient is drawn.
      */
@@ -7601,6 +7585,7 @@ declare namespace zingchart {
      */
     'minor-ticks'?: number;
     minorTicks?: number;
+    aperture?: number;
     /**
      * Gauge Charts Only: To set the minimum, maximum, and step scale values. '0:10' | '0:25:5' | ...
      */
@@ -15764,13 +15749,6 @@ declare namespace zingchart {
       };
       link?: link;
       'link[sibling]'?: link;
-      [key: `link[cls-${string}`]: link;
-      [key: `link[container-${string}`]: link;
-      [key: `link[group-${string}`]: link;
-      [key: `link[level-${string}`]: link;
-      [key: `link[parent-${string}`]: link;
-      [key: `link[source-${string}`]: link;
-      [key: `link[target-${string}`]: link;
       links?: link;
       'max-iterations'?: any;
       /**
@@ -15861,11 +15839,6 @@ declare namespace zingchart {
       'node[collapsed]'?: node;
       'node[leaf]'?: node;
       'node[parent]'?: node;
-      [key: `node[cls-${string}`]: node;
-      [key: `node[container-${string}`]: node;
-      [key: `node[group-${string}`]: node;
-      [key: `node[level-${string}`]: node;
-      [key: `node[parent-${string}`]: node;
       style?: {
         // The following attributes can be used to style grid charts:
         '.td'?: gridStyles;
@@ -16804,12 +16777,48 @@ declare namespace zingchart {
     scaleV?: scaleV;
     'scale-x'?: scaleX;
     scaleX?: scaleX;
-    [key: `scale-x-${number}`]: scaleX;
-    [key: `scaleX${number}`]: scaleX;
+    'scale-x-1'?: scaleX;
+    'scale-x-2'?: scaleX;
+    'scale-x-3'?: scaleX;
+    'scale-x-4'?: scaleX;
+    'scale-x-5'?: scaleX;
+    'scale-x-6'?: scaleX;
+    'scale-x-7'?: scaleX;
+    'scale-x-8'?: scaleX;
+    'scale-x-9'?: scaleX;
+    'scale-x-10'?: scaleX;
+    scaleX1?: scaleX;
+    scaleX2?: scaleX;
+    scaleX3?: scaleX;
+    scaleX4?: scaleX;
+    scaleX5?: scaleX;
+    scaleX6?: scaleX;
+    scaleX7?: scaleX;
+    scaleX8?: scaleX;
+    scaleX9?: scaleX;
+    scaleX10?: scaleX;
     'scale-y'?: scaleY;
     scaleY?: scaleY;
-    [key: `scale-y-${number}`]: scaleY;
-    [key: `scaleY${number}`]: scaleY;
+    'scale-y-1'?: scaleY;
+    'scale-y-2'?: scaleY;
+    'scale-y-3'?: scaleY;
+    'scale-y-4'?: scaleY;
+    'scale-y-5'?: scaleY;
+    'scale-y-6'?: scaleY;
+    'scale-y-7'?: scaleY;
+    'scale-y-8'?: scaleY;
+    'scale-y-9'?: scaleY;
+    'scale-y-10'?: scaleY;
+     scaleY1?: scaleY;
+     scaleY2?: scaleY;
+     scaleY3?: scaleY;
+     scaleY4?: scaleY;
+     scaleY5?: scaleY;
+     scaleY6?: scaleY;
+     scaleY7?: scaleY;
+     scaleY8?: scaleY;
+     scaleY9?: scaleY;
+     scaleY10?: scaleY;
     scale?: {
       /**
        * To modify the size of the chart. Provide a value in relation to 1.0 or 100%. 0.3 | 0.9 | "30%" | "90%" | ...
@@ -18302,6 +18311,14 @@ declare namespace zingchart {
        */
       type?: string;
     };
+    /**
+     * Sets the x position of the chart
+     */
+    x?: string | number;
+    /**
+     * Sets the y position of the chart
+     */
+    y?: string | number;
     zoom?: {
       /**
        * Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 be

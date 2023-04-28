@@ -205,7 +205,7 @@ export type OutputEncoding = StringEncoding | BinaryEncoding;
 
 /**
  * Output type. Varies with output encoding.
- * @typeParam OE - Output encoding.
+ * @template OE - Output encoding.
  */
 export type Output<OE extends OutputEncoding> = OE extends StringEncoding
     ? string

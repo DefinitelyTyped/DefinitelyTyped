@@ -1,4 +1,4 @@
-import { ColorRepresentation } from '../utils';
+import { ColorRepresentation } from '../math/Color';
 import { Object3D } from './../core/Object3D';
 import { LineSegments } from './../objects/LineSegments';
 

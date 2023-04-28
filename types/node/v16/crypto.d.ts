@@ -1159,11 +1159,13 @@ declare module 'crypto' {
         format?: KeyFormat | undefined;
         type?: 'pkcs1' | 'pkcs8' | 'sec1' | undefined;
         passphrase?: string | Buffer | undefined;
+        encoding?: string | undefined;
     }
     interface PublicKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
         type?: 'pkcs1' | 'spki' | undefined;
+        encoding?: string | undefined;
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
@@ -1274,6 +1276,7 @@ declare module 'crypto' {
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
+    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     type KeyLike = string | Buffer | KeyObject;
     /**
      * The `Sign` class is a utility for generating signatures. It can be used in one
@@ -1428,8 +1431,8 @@ declare module 'crypto' {
          * be passed instead of a public key.
          * @since v0.1.92
          */
-        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
-        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: string, signature_format?: BinaryToTextEncoding): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput, signature: NodeJS.ArrayBufferView): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput, signature: string, signature_format?: BinaryToTextEncoding): boolean;
     }
     /**
      * Creates a `DiffieHellman` key exchange object using the supplied `prime` and an
@@ -2936,11 +2939,16 @@ declare module 'crypto' {
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v12.0.0
      */
-    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
     function verify(
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
-        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
+        signature: NodeJS.ArrayBufferView
+    ): boolean;
+    function verify(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
         signature: NodeJS.ArrayBufferView,
         callback: (error: Error | null, result: boolean) => void
     ): void;
@@ -3089,12 +3097,13 @@ declare module 'crypto' {
          */
         disableEntropyCache?: boolean | undefined;
     }
+    type UUID = `${string}-${string}-${string}-${string}-${string}`;
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
      * cryptographic pseudorandom number generator.
      * @since v15.6.0
      */
-    function randomUUID(options?: RandomUUIDOptions): string;
+    function randomUUID(options?: RandomUUIDOptions): UUID;
     interface X509CheckOptions {
         /**
          * @default 'always'
@@ -3553,7 +3562,7 @@ declare module 'crypto' {
              * The UUID is generated using a cryptographic pseudorandom number generator.
              * @since v16.7.0
              */
-            randomUUID(): string;
+            randomUUID(): UUID;
             CryptoKey: CryptoKeyConstructor;
         }
         // This constructor throws ILLEGAL_CONSTRUCTOR so it should not be newable.
