@@ -1,4 +1,4 @@
-import { mpInstance } from ".";
+import { mpInstance } from "../mercadopago-sdk-js-tests";
 
 const brickBuilder = mpInstance.bricks({})
 

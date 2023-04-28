@@ -76,21 +76,21 @@ interface ValidityChangeArg<FieldName> extends DefaultArg {
     errorMessages: ErrorMessage<FieldName>[];
 }
 
-type CallbackArgs<EventName, FieldName> =
-    EventName extends 'blur' ? DefaultArg :
-    EventName extends 'focus' ? DefaultArg :
-    EventName extends 'ready' ? DefaultArg :
-    EventName extends 'change' ? DefaultArg :
-    EventName extends 'validityChange' ? ValidityChangeArg<FieldName> :
-    EventName extends 'error' ? ErrorArg :
-    EventName extends 'binChange' ? BinChangeArg :
+type CallbackArgs<FieldEvent, FieldName> =
+    FieldEvent extends 'blur' ? DefaultArg :
+    FieldEvent extends 'focus' ? DefaultArg :
+    FieldEvent extends 'ready' ? DefaultArg :
+    FieldEvent extends 'change' ? DefaultArg :
+    FieldEvent extends 'validityChange' ? ValidityChangeArg<FieldName> :
+    FieldEvent extends 'error' ? ErrorArg :
+    FieldEvent extends 'binChange' ? BinChangeArg :
     DefaultArg;
 
 
 type Field = {
     mount: (container: string) => void;
     unmount: () => void;
-    on: <EventName extends FieldEvent> (event: FieldEvent, callback: (args: CallbackArgs<EventName, FieldName>) => void) => void;
+    on: < FieldEvent> (event: FieldEvent, callback: (args: CallbackArgs<FieldEvent, FieldName>) => void) => void;
     update: (properties: FieldsUpdatableProperties) => void;
     focus: () => void;
     blur: () => void;
