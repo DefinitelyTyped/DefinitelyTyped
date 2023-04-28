@@ -65,7 +65,7 @@ export class GUI {
     __folders: { [folderName: string]: GUI };
     domElement: HTMLElement;
 
-    add<T extends Record<string, unknown>>(
+    add<T extends object>(
         target: T,
         propName: keyof T,
         min?: number,
