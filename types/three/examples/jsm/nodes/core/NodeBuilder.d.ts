@@ -64,12 +64,10 @@ export default abstract class NodeBuilder {
     shaderStage: NodeShaderStageOption | null;
     buildStage: BuildStageOption | null;
     stack: Node[];
-    get node(): Node;
 
-    addStack(node: Node): void;
-    removeStack(node: Node): void;
     setHashNode(node: Node, hash: string): void;
     addNode(node: Node): void;
+    get currentNode(): Node;
     getMethod(method: string): string;
     getNodeFromHash(hash: string): Node;
 

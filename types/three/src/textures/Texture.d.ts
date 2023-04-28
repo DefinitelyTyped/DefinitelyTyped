@@ -124,6 +124,11 @@ export class Texture extends EventDispatcher {
     mapping: AnyMapping;
 
     /**
+     * Lets you select the uv attribute to map the texture to. `0` for `uv` and `1` for `uv2`.
+     */
+    channel: number;
+
+    /**
      * This defines how the {@link Texture} is wrapped *horizontally* and corresponds to **U** in UV mapping.
      * @remarks for **WEBGL1** - tiling of images in textures only functions if image dimensions are powers of two
      * (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.
@@ -232,26 +237,6 @@ export class Texture extends EventDispatcher {
     /**
      * How much a single repetition of the texture is offset from the beginning, in each direction **U** and **V**.
      * @remarks Typical range is `0.0` to `1.0`.
-     * @remarks
-     * The below texture types share the `first` uv channel in the engine.
-     * The offset (and repeat) setting is evaluated according to the following priorities and then shared by those textures:
-     *  - color map
-     *  - specular map
-     *  - displacement map
-     *  - normal map
-     *  - bump map
-     *  - roughness map
-     *  - metalness map
-     *  - alpha map
-     *  - emissive map
-     *  - clearcoat map
-     *  - clearcoat normal map
-     *  - clearcoat roughnessMap map
-     * @remarks
-     * The below {@link Texture} types share the `second` uv channel in the engine.
-     * The offset (and repeat) setting is evaluated according to the following priorities and then shared by those textures:
-     *  - ao map
-     *  - light map
      * @defaultValue `new THREE.Vector2(0, 0)`
      */
     offset: Vector2;
@@ -261,8 +246,6 @@ export class Texture extends EventDispatcher {
      * @remarks
      * If repeat is set greater than `1` in either direction, the corresponding *Wrap* parameter should
      * also be set to {@link THREE.RepeatWrapping} or {@link THREE.MirroredRepeatWrapping} to achieve the desired tiling effect.
-     * @remarks
-     * Setting different repeat values for textures is restricted in the same way like {@link .offset | .offset}.
      * @see {@link wrapS}
      * @see {@link wrapT}
      * @defaultValue `new THREE.Vector2( 1, 1 )`

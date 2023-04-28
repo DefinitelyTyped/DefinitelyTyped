@@ -28,6 +28,7 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
     object: TIntersected;
     uv?: Vector2 | undefined;
     uv2?: Vector2 | undefined;
+    normal?: Vector3;
     /** The index number of the instance where the ray intersects the {@link THREE.InstancedMesh | InstancedMesh } */
     instanceId?: number | undefined;
 }

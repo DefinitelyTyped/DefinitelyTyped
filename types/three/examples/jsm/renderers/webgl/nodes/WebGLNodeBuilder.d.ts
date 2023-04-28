@@ -12,7 +12,6 @@ export class WebGLNodeBuilder extends NodeBuilder {
     );
 
     addSlot(shaderStage: NodeShaderStageOption, slotNode: SlotNode): Node;
-    addFlowCode(code: string): string;
 
     getTexture(textureProperty: string, uvSnippet: string): string;
     getTextureBias(textureProperty: string, uvSnippet: string, biasSnippet: string): string;

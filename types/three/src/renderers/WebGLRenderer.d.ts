@@ -22,6 +22,7 @@ import { Data3DTexture } from '../textures/Data3DTexture';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
 import { DataArrayTexture } from '../textures/DataArrayTexture';
+import { WebGLProgram } from './webgl/WebGLProgram';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -99,6 +100,21 @@ export interface WebGLDebug {
      * Enables error checking and reporting when shader programs are being compiled.
      */
     checkShaderErrors: boolean;
+
+    /**
+     * A callback function that can be used for custom error reporting. The callback receives the WebGL context, an
+     * instance of WebGLProgram as well two instances of WebGLShader representing the vertex and fragment shader.
+     * Assigning a custom function disables the default error reporting.
+     * @default `null`
+     */
+    onShaderError:
+        | ((
+              gl: WebGLRenderingContext,
+              program: WebGLProgram,
+              glVertexShader: WebGLShader,
+              glFragmentShader: WebGLShader,
+          ) => void)
+        | null;
 }
 
 /**
