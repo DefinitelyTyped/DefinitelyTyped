@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.52
+// Type definitions for non-npm package Google Maps JavaScript API 3.53
 // Project: https://developers.google.com/maps/
 // Definitions by: Alex Muramoto <https://github.com/amuramoto>
 //                 Angela Yu <https://github.com/wangela>
@@ -7,7 +7,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.52
+// Google Maps JS API Version: 3.53
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -155,68 +155,68 @@ declare namespace google.maps {
     /**
      * The center of the Circle.
      */
-    center?: google.maps.LatLng|null|google.maps.LatLngLiteral;
+    center?: null|google.maps.LatLng|google.maps.LatLngLiteral;
     /**
      * Indicates whether this <code>Circle</code> handles mouse events.
      * @defaultValue <code>true</code>
      */
-    clickable?: boolean|null;
+    clickable?: null|boolean;
     /**
      * If set to <code>true</code>, the user can drag this circle over the map.
      * @defaultValue <code>false</code>
      */
-    draggable?: boolean|null;
+    draggable?: null|boolean;
     /**
      * If set to <code>true</code>, the user can edit this circle by dragging
      * the control points shown at the center and around the circumference of
      * the circle.
      * @defaultValue <code>false</code>
      */
-    editable?: boolean|null;
+    editable?: null|boolean;
     /**
      * The fill color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    fillColor?: string|null;
+    fillColor?: null|string;
     /**
      * The fill opacity between 0.0 and 1.0.
      */
-    fillOpacity?: number|null;
+    fillOpacity?: null|number;
     /**
      * Map on which to display the Circle.
      */
-    map?: google.maps.Map|null;
+    map?: null|google.maps.Map;
     /**
      * The radius in meters on the Earth&#39;s surface.
      */
-    radius?: number|null;
+    radius?: null|number;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: string|null;
+    strokeColor?: null|string;
     /**
      * The stroke opacity between 0.0 and 1.0.
      */
-    strokeOpacity?: number|null;
+    strokeOpacity?: null|number;
     /**
      * The stroke position.
      * @defaultValue {@link google.maps.StrokePosition.CENTER}
      */
-    strokePosition?: google.maps.StrokePosition|null;
+    strokePosition?: null|google.maps.StrokePosition;
     /**
      * The stroke width in pixels.
      */
-    strokeWeight?: number|null;
+    strokeWeight?: null|number;
     /**
      * Whether this circle is visible on the map.
      * @defaultValue <code>true</code>
      */
-    visible?: boolean|null;
+    visible?: null|boolean;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: number|null;
+    zIndex?: null|number;
   }
   /**
    * This interface provides convenience methods for generating matrices to use
@@ -1770,7 +1770,7 @@ declare namespace google.maps {
     /**
      * The icon to render on the line.
      */
-    icon?: google.maps.Symbol|null;
+    icon?: null|google.maps.Symbol;
     /**
      * The distance from the start of the line at which an icon is to be
      * rendered. This distance may be expressed as a percentage of line&#39;s
@@ -1923,7 +1923,7 @@ declare namespace google.maps {
         options?: google.maps.InfoWindowOpenOptions|null|google.maps.Map|
         google.maps.StreetViewPanorama,
         anchor?: google.maps.MVCObject|null|
-        google.maps.marker.AdvancedMarkerView): void;
+        google.maps.marker.AdvancedMarkerElement): void;
     setContent(content?: string|Element|null|Text): void;
     setOptions(options?: google.maps.InfoWindowOptions|null): void;
     setPosition(position?: google.maps.LatLng|null|
@@ -1940,7 +1940,8 @@ declare namespace google.maps {
      * anchor. The InfoWindow will be rendered on the same map or panorama as
      * the anchor <strong>(when available)</strong>.
      */
-    anchor?: google.maps.MVCObject|null|google.maps.marker.AdvancedMarkerView;
+    anchor?: google.maps.MVCObject|null|
+        google.maps.marker.AdvancedMarkerElement;
     /**
      * The map or panorama on which to render this InfoWindow.
      */
@@ -3768,11 +3769,11 @@ declare namespace google.maps {
     text: string;
   }
   export interface MarkerLibrary {
-    AdvancedMarkerView: typeof google.maps.marker.AdvancedMarkerView;
+    AdvancedMarkerElement: typeof google.maps.marker.AdvancedMarkerElement;
     Animation: typeof google.maps.Animation;
     CollisionBehavior: typeof google.maps.CollisionBehavior;
     Marker: typeof google.maps.Marker;
-    PinView: typeof google.maps.marker.PinView;
+    PinElement: typeof google.maps.marker.PinElement;
   }
   /**
    * MarkerOptions object used to define the properties that can be set on a
@@ -4345,28 +4346,28 @@ declare namespace google.maps {
      * Indicates whether this <code>Polygon</code> handles mouse events.
      * @defaultValue <code>true</code>
      */
-    clickable?: boolean|null;
+    clickable?: null|boolean;
     /**
      * If set to <code>true</code>, the user can drag this shape over the map.
      * The <code>geodesic</code> property defines the mode of dragging.
      * @defaultValue <code>false</code>
      */
-    draggable?: boolean|null;
+    draggable?: null|boolean;
     /**
      * If set to <code>true</code>, the user can edit this shape by dragging the
      * control points shown at the vertices and on each segment.
      * @defaultValue <code>false</code>
      */
-    editable?: boolean|null;
+    editable?: null|boolean;
     /**
      * The fill color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    fillColor?: string|null;
+    fillColor?: null|string;
     /**
      * The fill opacity between 0.0 and 1.0
      */
-    fillOpacity?: number|null;
+    fillOpacity?: null|number;
     /**
      * When <code>true</code>, edges of the polygon are interpreted as geodesic
      * and will follow the curvature of the Earth. When <code>false</code>,
@@ -4375,11 +4376,11 @@ declare namespace google.maps {
      * as the dimensions are maintained relative to the surface of the earth.
      * @defaultValue <code>false</code>
      */
-    geodesic?: boolean|null;
+    geodesic?: null|boolean;
     /**
      * Map on which to display Polygon.
      */
-    map?: google.maps.Map|null;
+    map?: null|google.maps.Map;
     /**
      * The ordered sequence of coordinates that designates a closed loop. Unlike
      * polylines, a polygon may consist of one or more paths. As a result, the
@@ -4397,29 +4398,29 @@ declare namespace google.maps {
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: string|null;
+    strokeColor?: null|string;
     /**
      * The stroke opacity between 0.0 and 1.0
      */
-    strokeOpacity?: number|null;
+    strokeOpacity?: null|number;
     /**
      * The stroke position.
      * @defaultValue {@link google.maps.StrokePosition.CENTER}
      */
-    strokePosition?: google.maps.StrokePosition|null;
+    strokePosition?: null|google.maps.StrokePosition;
     /**
      * The stroke width in pixels.
      */
-    strokeWeight?: number|null;
+    strokeWeight?: null|number;
     /**
      * Whether this polygon is visible on the map.
      * @defaultValue <code>true</code>
      */
-    visible?: boolean|null;
+    visible?: null|boolean;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: number|null;
+    zIndex?: null|number;
   }
   /**
    * A polyline is a linear overlay of connected line segments on the map.
@@ -4493,19 +4494,19 @@ declare namespace google.maps {
      * Indicates whether this <code>Polyline</code> handles mouse events.
      * @defaultValue <code>true</code>
      */
-    clickable?: boolean|null;
+    clickable?: null|boolean;
     /**
      * If set to <code>true</code>, the user can drag this shape over the map.
      * The <code>geodesic</code> property defines the mode of dragging.
      * @defaultValue <code>false</code>
      */
-    draggable?: boolean|null;
+    draggable?: null|boolean;
     /**
      * If set to <code>true</code>, the user can edit this shape by dragging the
      * control points shown at the vertices and on each segment.
      * @defaultValue <code>false</code>
      */
-    editable?: boolean|null;
+    editable?: null|boolean;
     /**
      * When <code>true</code>, edges of the polygon are interpreted as geodesic
      * and will follow the curvature of the Earth. When <code>false</code>,
@@ -4514,15 +4515,15 @@ declare namespace google.maps {
      * as the dimensions are maintained relative to the surface of the earth.
      * @defaultValue <code>false</code>
      */
-    geodesic?: boolean|null;
+    geodesic?: null|boolean;
     /**
      * The icons to be rendered along the polyline.
      */
-    icons?: google.maps.IconSequence[]|null;
+    icons?: null|google.maps.IconSequence[];
     /**
      * Map on which to display Polyline.
      */
-    map?: google.maps.Map|null;
+    map?: null|google.maps.Map;
     /**
      * The ordered sequence of coordinates of the Polyline. This path may be
      * specified using either a simple array of <code>LatLng</code>s, or an
@@ -4531,30 +4532,30 @@ declare namespace google.maps {
      * or removing LatLngs in the <code>MVCArray</code> will automatically
      * update the polyline on the map.
      */
-    path?: google.maps.MVCArray<google.maps.LatLng>|null|
+    path?: null|google.maps.MVCArray<google.maps.LatLng>|
         (google.maps.LatLng|google.maps.LatLngLiteral)[];
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: string|null;
+    strokeColor?: null|string;
     /**
      * The stroke opacity between 0.0 and 1.0.
      */
-    strokeOpacity?: number|null;
+    strokeOpacity?: null|number;
     /**
      * The stroke width in pixels.
      */
-    strokeWeight?: number|null;
+    strokeWeight?: null|number;
     /**
      * Whether this polyline is visible on the map.
      * @defaultValue <code>true</code>
      */
-    visible?: boolean|null;
+    visible?: null|boolean;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: number|null;
+    zIndex?: null|number;
   }
   export interface Projection {
     /**
@@ -4650,64 +4651,64 @@ declare namespace google.maps {
     /**
      * The bounds.
      */
-    bounds?: google.maps.LatLngBounds|null|google.maps.LatLngBoundsLiteral;
+    bounds?: null|google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral;
     /**
      * Indicates whether this <code>Rectangle</code> handles mouse events.
      * @defaultValue <code>true</code>
      */
-    clickable?: boolean|null;
+    clickable?: null|boolean;
     /**
      * If set to <code>true</code>, the user can drag this rectangle over the
      * map.
      * @defaultValue <code>false</code>
      */
-    draggable?: boolean|null;
+    draggable?: null|boolean;
     /**
      * If set to <code>true</code>, the user can edit this rectangle by dragging
      * the control points shown at the corners and on each edge.
      * @defaultValue <code>false</code>
      */
-    editable?: boolean|null;
+    editable?: null|boolean;
     /**
      * The fill color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    fillColor?: string|null;
+    fillColor?: null|string;
     /**
      * The fill opacity between 0.0 and 1.0
      */
-    fillOpacity?: number|null;
+    fillOpacity?: null|number;
     /**
      * Map on which to display Rectangle.
      */
-    map?: google.maps.Map|null;
+    map?: null|google.maps.Map;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: string|null;
+    strokeColor?: null|string;
     /**
      * The stroke opacity between 0.0 and 1.0
      */
-    strokeOpacity?: number|null;
+    strokeOpacity?: null|number;
     /**
      * The stroke position.
      * @defaultValue {@link google.maps.StrokePosition.CENTER}
      */
-    strokePosition?: google.maps.StrokePosition|null;
+    strokePosition?: null|google.maps.StrokePosition;
     /**
      * The stroke width in pixels.
      */
-    strokeWeight?: number|null;
+    strokeWeight?: null|number;
     /**
      * Whether this rectangle is visible on the map.
      * @defaultValue <code>true</code>
      */
-    visible?: boolean|null;
+    visible?: null|boolean;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: number|null;
+    zIndex?: null|number;
   }
   /**
    * Options for the rendering of the rotate control.
@@ -10110,31 +10111,32 @@ declare namespace google.maps.marker {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
-   * Creates an <code>AdvancedMarkerView</code> with the options specified. If a
-   * map is specified, the <code>AdvancedMarkerView</code> is added to the map
-   * upon construction. Note that the position must be set for the
-   * <code>AdvancedMarkerView</code> to display.
+   * Creates an <code>AdvancedMarkerElement</code> with the options specified.
+   * If a map is specified, the <code>AdvancedMarkerElement</code> is added to
+   * the map upon construction. Note that the position must be set for the
+   * <code>AdvancedMarkerElement</code> to display.
    *
-   * When using `v=beta`, can be accessed by calling `const {AdvancedMarkerView}
-   * = await google.maps.importLibrary("marker")`. See
+   * When using `v=beta`, can be accessed by calling
+   * `const {AdvancedMarkerElement} = await
+   * google.maps.importLibrary("marker")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class AdvancedMarkerView implements
-      google.maps.marker.AdvancedMarkerViewOptions {
+  export class AdvancedMarkerElement implements
+      google.maps.marker.AdvancedMarkerElementOptions {
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      *
-     * Creates an <code>AdvancedMarkerView</code> with the options specified. If
-     * a map is specified, the <code>AdvancedMarkerView</code> is added to the
-     * map upon construction. Note that the position must be set for the
-     * <code>AdvancedMarkerView</code> to display.
+     * Creates an <code>AdvancedMarkerElement</code> with the options specified.
+     * If a map is specified, the <code>AdvancedMarkerElement</code> is added to
+     * the map upon construction. Note that the position must be set for the
+     * <code>AdvancedMarkerElement</code> to display.
      *
      * When using `v=beta`, can be accessed by calling
-     * `const {AdvancedMarkerView} = await google.maps.importLibrary("marker")`.
-     * See
+     * `const {AdvancedMarkerElement} = await
+     * google.maps.importLibrary("marker")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(options?: google.maps.marker.AdvancedMarkerViewOptions);
+    constructor(options?: google.maps.marker.AdvancedMarkerElementOptions);
     /**
      * Adds the given listener function to the given event name in the Maps
      * Eventing system.
@@ -10145,118 +10147,109 @@ declare namespace google.maps.marker {
         google.maps.MapsEventListener;
     /**
      * See {@link
-     * google.maps.marker.AdvancedMarkerViewOptions.collisionBehavior}.
+     * google.maps.marker.AdvancedMarkerElementOptions.collisionBehavior}.
      */
     collisionBehavior?: null|google.maps.CollisionBehavior;
     /**
-     * See {@link google.maps.marker.AdvancedMarkerViewOptions.content}.
+     * See {@link google.maps.marker.AdvancedMarkerElementOptions.content}.
      */
     content?: null|Element;
-    draggable: boolean;
-    element?: null|HTMLElement|SVGElement;
     /**
-     * See {@link google.maps.marker.AdvancedMarkerViewOptions.gmpDraggable}.
+     * This field is read-only. The DOM Element backing the view.
+     */
+    element: HTMLElement;
+    /**
+     * See {@link google.maps.marker.AdvancedMarkerElementOptions.gmpDraggable}.
      */
     gmpDraggable?: null|boolean;
     /**
-     * See {@link google.maps.marker.AdvancedMarkerViewOptions.map}.
+     * See {@link google.maps.marker.AdvancedMarkerElementOptions.map}.
      */
     map?: null|google.maps.Map;
     /**
-     * See {@link google.maps.marker.AdvancedMarkerViewOptions.position}.
+     * See {@link google.maps.marker.AdvancedMarkerElementOptions.position}.
      */
     position?: null|google.maps.LatLng|google.maps.LatLngLiteral|
         google.maps.LatLngAltitudeLiteral;
     /**
-     * See {@link google.maps.marker.AdvancedMarkerViewOptions.title}.
+     * See {@link google.maps.marker.AdvancedMarkerElementOptions.title}.
      */
     title: string;
     /**
-     * See {@link google.maps.marker.AdvancedMarkerViewOptions.zIndex}.
+     * See {@link google.maps.marker.AdvancedMarkerElementOptions.zIndex}.
      */
     zIndex?: null|number;
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
-   * Options for constructing an {@link google.maps.marker.AdvancedMarkerView}.
+   * Options for constructing an {@link
+   * google.maps.marker.AdvancedMarkerElement}.
    */
-  export interface AdvancedMarkerViewOptions {
+  export interface AdvancedMarkerElementOptions {
     /**
-     * An enumeration specifying how an <code>AdvancedMarkerView</code> should
-     * behave when it collides with another <code>AdvancedMarkerView</code> or
-     * with the basemap labels on a vector map. <p><strong>Note</strong>:
-     * <code>AdvancedMarkerView</code> to <code>AdvancedMarkerView</code>
-     * collision works on both raster and vector maps, however,
-     * <code>AdvancedMarkerView</code> to base map&#39;s label collision only
-     * works on vector maps.
+     * An enumeration specifying how an <code>AdvancedMarkerElement</code>
+     * should behave when it collides with another
+     * <code>AdvancedMarkerElement</code> or with the basemap labels on a vector
+     * map. <p><strong>Note</strong>: <code>AdvancedMarkerElement</code> to
+     * <code>AdvancedMarkerElement</code> collision works on both raster and
+     * vector maps, however, <code>AdvancedMarkerElement</code> to base
+     * map&#39;s label collision only works on vector maps.
      */
     collisionBehavior?: null|google.maps.CollisionBehavior;
     /**
-     * The DOM Element backing the visual of an <code>AdvancedMarkerView</code>.
-     * <p><strong>Note</strong>: <code>AdvancedMarkerView</code> does not clone
-     * the passed-in DOM element. Once the DOM element is passed to an
-     * <code>AdvancedMarkerView</code>, passing the same DOM element to another
-     * <code>AdvancedMarkerView</code> will move the DOM element and cause the
-     * previous <code>AdvancedMarkerView</code> to look empty.
-     * @defaultValue {@link google.maps.marker.PinView.element}
+     * The DOM Element backing the visual of an
+     * <code>AdvancedMarkerElement</code>. <p><strong>Note</strong>:
+     * <code>AdvancedMarkerElement</code> does not clone the passed-in DOM
+     * element. Once the DOM element is passed to an
+     * <code>AdvancedMarkerElement</code>, passing the same DOM element to
+     * another <code>AdvancedMarkerElement</code> will move the DOM element and
+     * cause the previous <code>AdvancedMarkerElement</code> to look empty.
+     * @defaultValue {@link google.maps.marker.PinElement.element}
      */
     content?: null|Element;
     /**
-     * If <code>true</code>, the <code>AdvancedMarkerView</code> can be dragged.
-     * <p><strong>Note</strong>: <code>AdvancedMarkerView</code> with altitude
-     * is not draggable.
-     * @defaultValue <code>false</code>
-     * @deprecated <code>draggable</code> is deprecated as of April 2023.
-     *     Use {@link google.maps.marker.AdvancedMarkerView.gmpDraggable}
-     *     instead.
-     */
-    draggable?: null|boolean;
-    /**
-     * This field is read-only. The DOM Element backing the view.
-     */
-    element?: null|HTMLElement|SVGElement;
-    /**
-     * If <code>true</code>, the <code>AdvancedMarkerView</code> can be dragged.
-     * <p><strong>Note</strong>: <code>AdvancedMarkerView</code> with altitude
-     * is not draggable.
+     * If <code>true</code>, the <code>AdvancedMarkerElement</code> can be
+     * dragged. <p><strong>Note</strong>: <code>AdvancedMarkerElement</code>
+     * with altitude is not draggable.
      * @defaultValue <code>false</code>
      */
     gmpDraggable?: null|boolean;
     /**
-     * Map on which to display the <code>AdvancedMarkerView</code>. The map is
-     * required to display the <code>AdvancedMarkerView</code> and can be
-     * provided by setting {@link google.maps.marker.AdvancedMarkerView.map} if
-     * not provided at the construction.
+     * Map on which to display the <code>AdvancedMarkerElement</code>. The map
+     * is required to display the <code>AdvancedMarkerElement</code> and can be
+     * provided by setting {@link google.maps.marker.AdvancedMarkerElement.map}
+     * if not provided at the construction.
      */
     map?: null|google.maps.Map;
     /**
-     * Sets the <code>AdvancedMarkerView</code>&#39;s position. An
-     * <code>AdvancedMarkerView</code> may be constructed without a position,
+     * Sets the <code>AdvancedMarkerElement</code>&#39;s position. An
+     * <code>AdvancedMarkerElement</code> may be constructed without a position,
      * but will not be displayed until its position is provided - for example,
      * by a user&#39;s actions or choices. An
-     * <code>AdvancedMarkerView</code>&#39;s position can be provided by
-     * setting {@link google.maps.marker.AdvancedMarkerView.position} if not
+     * <code>AdvancedMarkerElement</code>&#39;s position can be provided by
+     * setting {@link google.maps.marker.AdvancedMarkerElement.position} if not
      * provided at the construction. <p><strong>Note</strong>:
-     * <code>AdvancedMarkerView</code> with altitude is only supported on vector
-     * maps.
+     * <code>AdvancedMarkerElement</code> with altitude is only supported on
+     * vector maps.
      */
     position?: null|google.maps.LatLng|google.maps.LatLngLiteral;
     /**
      * Rollover text. If provided, an accessibility text (e.g. for use with
-     * screen readers) will be added to the <code>AdvancedMarkerView</code> with
-     * the provided value.
+     * screen readers) will be added to the <code>AdvancedMarkerElement</code>
+     * with the provided value.
      */
     title?: null|string;
     /**
-     * All <code>AdvancedMarkerView</code>s are displayed on the map in order of
-     * their zIndex, with higher values displaying in front of
-     * <code>AdvancedMarkerView</code>s with lower values. By default,
-     * <code>AdvancedMarkerView</code>s are displayed according to their
-     * vertical position on screen, with lower <code>AdvancedMarkerView</code>s
-     * appearing in front of <code>AdvancedMarkerView</code>s farther up the
-     * screen. Note that <code>zIndex</code> is also used to help determine
-     * relative priority between {@link
+     * All <code>AdvancedMarkerElement</code>s are displayed on the map in order
+     * of their zIndex, with higher values displaying in front of
+     * <code>AdvancedMarkerElement</code>s with lower values. By default,
+     * <code>AdvancedMarkerElement</code>s are displayed according to their
+     * vertical position on screen, with lower
+     * <code>AdvancedMarkerElement</code>s appearing in front of
+     * <code>AdvancedMarkerElement</code>s farther up the screen. Note that
+     * <code>zIndex</code> is also used to help determine relative priority
+     * between {@link
      * google.maps.CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY} Advanced
      * Markers. A higher <code>zIndex</code> value indicates higher priority.
      */
@@ -10265,69 +10258,69 @@ declare namespace google.maps.marker {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
-   * A <code>PinView</code> represents a DOM element that consists of a shape
+   * A <code>PinElement</code> represents a DOM element that consists of a shape
    * and a glyph. The shape has the same balloon style as seen in the
-   * default {@link google.maps.marker.AdvancedMarkerView}. The glyph is an
-   * optional DOM element displayed in the balloon shape. A <code>PinView</code>
-   * may have a different aspect ratio depending on its {@link
-   * google.maps.marker.PinView.scale}.
+   * default {@link google.maps.marker.AdvancedMarkerElement}. The glyph is an
+   * optional DOM element displayed in the balloon shape. A
+   * <code>PinElement</code> may have a different aspect ratio depending on
+   * its {@link google.maps.marker.PinElement.scale}.
    *
-   * When using `v=beta`, can be accessed by calling `const {PinView} = await
+   * When using `v=beta`, can be accessed by calling `const {PinElement} = await
    * google.maps.importLibrary("marker")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class PinView implements google.maps.marker.PinViewOptions {
+  export class PinElement implements google.maps.marker.PinElementOptions {
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      *
-     * A <code>PinView</code> represents a DOM element that consists of a shape
-     * and a glyph. The shape has the same balloon style as seen in the
-     * default {@link google.maps.marker.AdvancedMarkerView}. The glyph is an
+     * A <code>PinElement</code> represents a DOM element that consists of a
+     * shape and a glyph. The shape has the same balloon style as seen in the
+     * default {@link google.maps.marker.AdvancedMarkerElement}. The glyph is an
      * optional DOM element displayed in the balloon shape. A
-     * <code>PinView</code> may have a different aspect ratio depending on
-     * its {@link google.maps.marker.PinView.scale}.
+     * <code>PinElement</code> may have a different aspect ratio depending on
+     * its {@link google.maps.marker.PinElement.scale}.
      *
-     * When using `v=beta`, can be accessed by calling `const {PinView} = await
-     * google.maps.importLibrary("marker")`. See
+     * When using `v=beta`, can be accessed by calling `const {PinElement} =
+     * await google.maps.importLibrary("marker")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(options?: google.maps.marker.PinViewOptions);
+    constructor(options?: google.maps.marker.PinElementOptions);
     /**
      * Adds the given listener function to the given event name.
      */
     addListener(eventName: string, handler: Function):
         google.maps.MapsEventListener;
     /**
-     * See {@link google.maps.marker.PinViewOptions.background}.
+     * See {@link google.maps.marker.PinElementOptions.background}.
      */
     background?: null|string;
     /**
-     * See {@link google.maps.marker.PinViewOptions.borderColor}.
+     * See {@link google.maps.marker.PinElementOptions.borderColor}.
      */
     borderColor?: null|string;
     /**
-     * This Field is read-only. The DOM Element backing the view.
+     * This field is read-only. The DOM Element backing the view.
      */
-    element?: null|HTMLElement|SVGElement;
+    element: HTMLElement;
     /**
-     * See {@link google.maps.marker.PinViewOptions.glyph}.
+     * See {@link google.maps.marker.PinElementOptions.glyph}.
      */
     glyph?: null|string|Element|URL;
     /**
-     * See {@link google.maps.marker.PinViewOptions.glyphColor}.
+     * See {@link google.maps.marker.PinElementOptions.glyphColor}.
      */
     glyphColor?: null|string;
     /**
-     * See {@link google.maps.marker.PinViewOptions.scale}.
+     * See {@link google.maps.marker.PinElementOptions.scale}.
      */
     scale?: null|number;
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
-   * Options for creating a {@link google.maps.marker.PinView}.
+   * Options for creating a {@link google.maps.marker.PinElement}.
    */
-  export interface PinViewOptions {
+  export interface PinElementOptions {
     /**
      * The background color of the pin shape. Supports any CSS <a
      * href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color
@@ -10340,10 +10333,6 @@ declare namespace google.maps.marker {
      * value</a>.
      */
     borderColor?: null|string;
-    /**
-     * This Field is read-only. The DOM Element backing the view.
-     */
-    element?: null|HTMLElement|SVGElement;
     /**
      * The DOM element displayed in the pin.
      */
@@ -10670,6 +10659,17 @@ declare namespace google.maps.places {
      * <code>bounds</code> can be used.
      */
     location?: google.maps.LatLng;
+    /**
+     * A soft boundary or hint to use when searching for places.
+     */
+    locationBias?: google.maps.LatLng|google.maps.LatLngLiteral|
+        google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|
+        google.maps.Circle|google.maps.CircleLiteral|string|null;
+    /**
+     * Bounds to constrain search results.
+     */
+    locationRestriction?: google.maps.LatLngBounds|
+        google.maps.LatLngBoundsLiteral|null;
     /**
      * The character position in the input term at which the service uses text
      * for predictions (the position of the cursor in the input field).
@@ -11164,6 +11164,7 @@ declare namespace google.maps.places {
      * place’s category.
      */
     svgIconMaskURI?: string|null;
+    toJSON(): object;
     /**
      * An array of <a
      * href="https://developers.google.com/maps/documentation/places/web-service/supported_types">types
@@ -11263,7 +11264,7 @@ declare namespace google.maps.places {
      */
     addListener(eventName: string, handler: Function):
         google.maps.MapsEventListener;
-    componentRestrictions?: google.maps.places.ComponentRestrictions|null;
+    componentRestrictions?: null|google.maps.places.ComponentRestrictions;
     /**
      * This Field is read-only. The DOM Element backing the view.
      */
@@ -11277,9 +11278,9 @@ declare namespace google.maps.places {
         google.maps.Circle|google.maps.CircleLiteral|string|null;
     locationRestriction?: google.maps.LatLngBounds|
         google.maps.LatLngBoundsLiteral|null;
-    requestedLanguage?: string|null;
-    requestedRegion?: string|null;
-    types?: string[]|null;
+    requestedLanguage?: null|string;
+    requestedRegion?: null|string;
+    types?: null|string[];
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -11292,7 +11293,7 @@ declare namespace google.maps.places {
      * predictions to only those within the parent component. For example, the
      * country.
      */
-    componentRestrictions?: google.maps.places.ComponentRestrictions|null;
+    componentRestrictions?: null|google.maps.places.ComponentRestrictions;
     /**
      * This Field is read-only. The DOM Element backing the view.
      */
@@ -11319,7 +11320,7 @@ declare namespace google.maps.places {
      * the <a href="https://developers.google.com/maps/faq#languagesupport">list
      * of supported languages</a>.
      */
-    requestedLanguage?: string|null;
+    requestedLanguage?: null|string;
     /**
      * A region code which is used for result formatting and for result
      * filtering. It does not restrict the suggestions to this country. The
@@ -11332,14 +11333,14 @@ declare namespace google.maps.places {
      * (technically for the entity of &quot;The United Kingdom of Great Britain
      * and Northern Ireland&quot;).
      */
-    requestedRegion?: string|null;
+    requestedRegion?: null|string;
     /**
      * The types of predictions to be returned. For supported types, see the <a
      * href="https://developers.google.com/maps/documentation/javascript/places-autocomplete#constrain-place-types">
      * developer&#39;s guide</a>. If no types are specified, all types will be
      * returned.
      */
-    types?: string[]|null;
+    types?: null|string[];
   }
   /**
    * A Place details query to be sent to the <code>PlacesService</code>.
