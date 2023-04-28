@@ -85,3 +85,19 @@ function useCacheTest() {
         refresh(() => 'refresh');
     }
 }
+
+const useOptimisticState = React.experimental_useOptimisticState;
+function Cart() {
+    const savedCartSize = 0;
+    const [optimisticCartSize, addToOptimisticCart] = useOptimisticState(savedCartSize, (prevSize, newItem) => {
+        console.log('Increment optimistic cart size for ' + newItem);
+        return prevSize + 1;
+    });
+
+    // $ExpectType number
+    optimisticCartSize;
+
+    const addItemToCart = (item: unknown) => {
+        addToOptimisticCart(item);
+    };
+}

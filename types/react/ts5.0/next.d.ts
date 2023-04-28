@@ -83,4 +83,9 @@ declare module '.' {
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
     export function unstable_useCacheRefresh(): () => void;
+
+    function experimental_useOptimisticState<State, Action>(
+        passthrough: State,
+        reducer?: (state: State, action: Action) => State,
+    ): [State, (action: Action) => void];
 }
