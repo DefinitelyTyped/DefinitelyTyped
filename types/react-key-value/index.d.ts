@@ -28,14 +28,9 @@ declare class KeyValue extends React.Component<KeyValueProps> {
     static displayName: string;
 }
 
-interface KV {
-    keyItem: string;
-    valueItem: string;
-}
-
 interface KeyValueProps {
-    rows?: KV[];
-    onChange?: (rows: KV[]) => void;
+    rows?: Array<{keyItem: string, valueItem: string}>;
+    onChange?: (rows: Array<{keyItem: string, valueItem: string}>) => void;
     customAddButtonRenderer?: (handleAddNew: () => any) => React.ReactElement;
     keyInputPlaceholder?: string;
     valueInputPlaceholder?: string;
