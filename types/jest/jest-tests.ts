@@ -1432,6 +1432,9 @@ describe('', () => {
         expect({}).toBe(expect.arrayContaining(['a', 'b']));
         expect(['abc']).toBe(expect.arrayContaining(['a', 'b']));
 
+        expect({}).toBe(expect.arrayContaining(['a', 'b'] as const));
+        expect(['abc']).toBe(expect.arrayContaining(['a', 'b'] as const));
+
         expect.objectContaining({});
         expect.stringMatching('foo');
         expect.stringMatching(/foo/);
@@ -1599,6 +1602,9 @@ expect(7).toBe(jasmine.any(Number));
 
 expect({}).toBe(jasmine.arrayContaining(['a', 'b']));
 expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b']));
+
+expect({}).toBe(jasmine.arrayContaining(['a', 'b'] as const));
+expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b'] as const));
 
 jasmine.arrayContaining([]);
 new (jasmine.arrayContaining([]))([]);
