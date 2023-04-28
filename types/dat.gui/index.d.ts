@@ -72,10 +72,10 @@ export class GUI {
         max?: number,
         step?: number,
     ): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, status: boolean): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: string[]): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: number[]): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: Object): GUIController;
+    add<T extends object>(target: T, propName: keyof T, status: boolean): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: string[]): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: number[]): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: Object): GUIController;
 
     addColor(target: Object, propName: string): GUIController;
 
@@ -113,7 +113,7 @@ export class GUI {
     useLocalStorage: boolean;
 }
 
-export class GUIController<T extends Record<string, unknown> = Record<string, unknown>> {
+export class GUIController<T extends object = object> {
     domElement: HTMLElement;
     object: Object;
     property: string;
