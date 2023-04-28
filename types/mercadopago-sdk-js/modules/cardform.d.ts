@@ -1,6 +1,6 @@
 import { CustomFonts, FieldStyle, Issuer, PayerCost, SecurityCode, Setting } from "../shared";
 
-type CardFormData = {
+export interface CardFormData {
     amount: string;
     token: string;
     installments: string;
@@ -11,26 +11,26 @@ type CardFormData = {
     processingMode: string;
     merchantAccountId?: string;
     cardholderEmail?: string;
-  };
+}
 
-type UpdatableProperties = {
+export interface UpdatableProperties {
     style?: FieldStyle;
     placeholder?: string;
     settings?: SecurityCode;
-  };
+  }
 
-  type EventListener = {
+  export interface EventListener {
     (evt: Event): void;
 }
 
-type CardFormListener = {
+export interface CardFormListener {
   event: string[];
   fn: EventListener;
-};
+}
 
-type CardFormListeners = CardFormListener[];
+export type CardFormListeners = CardFormListener[];
 
-type CardFormProperties = {
+export interface CardFormProperties {
   id: string;
   placeholder?: string;
   element?:
@@ -43,23 +43,23 @@ type CardFormProperties = {
   style?: { [key: string]: string };
   customFonts?: CustomFonts[];
   mode?: string;
-};
+}
 
-type AVAILABLE_PROCESSING_MODE = "aggregator" | "gateway";
+export type AVAILABLE_PROCESSING_MODE = "aggregator" | "gateway";
 
-type Error = { message: string, code: string };
+export interface Error { message: string; code: string; }
 
-type IdentificationTypesResponseCardForm = {
+export interface IdentificationTypesResponseCardForm {
   id: string;
   name: string;
-};
+}
 
-type InstallmentsResponseCardForm = {
+export interface InstallmentsResponseCardForm {
   merchant_account_id?: string;
   payer_costs: PayerCost[];
-};
+}
 
-type PaymentMethodsResponseCardForm = {
+export interface PaymentMethodsResponseCardForm {
   issuer: Issuer;
   id: string;
   payment_type_id: string;
@@ -75,51 +75,51 @@ type PaymentMethodsResponseCardForm = {
   status: string;
   settings: Setting[];
   merchant_account_id: string;
-};
+}
 
-type CardTokenResponseCardForm = {
+export interface CardTokenResponseCardForm {
   token: string;
-};
+}
 
-type IssuersResponseCardForm = {
+export interface IssuersResponseCardForm {
   id: string;
   name: string;
   thumbnail: string;
   processing_mode: string;
   merchant_account_id: string;
-};
+}
 
-type FechingCallback = () => unknown;
-type OnFormMounted = (error?: Error) => void;
-type OnFormUnmounted = (error?: Error) => void;
-type OnIdentificationTypesReceived = (
+export type FechingCallback = () => unknown;
+export type OnFormMounted = (error?: Error) => void;
+export type OnFormUnmounted = (error?: Error) => void;
+export type OnIdentificationTypesReceived = (
   error?: Error,
   response?: IdentificationTypesResponseCardForm[]
 ) => void;
-type OnInstallmentsReceived = (
+export type OnInstallmentsReceived = (
   error?: Error,
   response?: InstallmentsResponseCardForm
 ) => void;
-type OnPaymentMethodsReceived = (
+export type OnPaymentMethodsReceived = (
   error?: Error,
   response?: PaymentMethodsResponseCardForm[]
 ) => void;
-type OnCardTokenReceived = (
+export type OnCardTokenReceived = (
   error?: Error,
   response?: CardTokenResponseCardForm
 ) => void;
-type OnIssuersReceived = (
+export type OnIssuersReceived = (
   error?: Error,
   response?: IssuersResponseCardForm[]
 ) => void;
-type OnSubmit = (event: Event) => void;
-type OnFetching = (name: string) => FechingCallback;
-type OnReady = () => void;
-type OnValidityChange = (error?: Error[], field?: string) => void;
-type OnError = (error?: Error[], event?: string) => void;
-type OnBinChange = (bin: string) => void;
+export type OnSubmit = (event: Event) => void;
+export type OnFetching = (name: string) => FechingCallback;
+export type OnReady = () => void;
+export type OnValidityChange = (error?: Error[], field?: string) => void;
+export type OnError = (error?: Error[], event?: string) => void;
+export type OnBinChange = (bin: string) => void;
 
-type Callbacks = {
+export interface Callbacks {
   onFormMounted?: OnFormMounted;
   onFormUnmounted?: OnFormUnmounted;
   onIdentificationTypesReceived?: OnIdentificationTypesReceived;
@@ -133,9 +133,9 @@ type Callbacks = {
   onValidityChange?: OnValidityChange;
   onError?: OnError;
   onBinChange?: OnBinChange;
-};
+}
 
-type CardFormMap = {
+export interface CardFormMap {
   id: string;
   cardholderName: CardFormProperties;
   cardholderEmail: CardFormProperties;
@@ -150,22 +150,22 @@ type CardFormMap = {
   issuer: CardFormProperties;
   expirationDate?: CardFormProperties;
   expirationMonth?: CardFormProperties;
-};
+}
 
-export type CardFormOptions = {
+export interface CardFormOptions {
   form: CardFormMap;
   callbacks: Callbacks;
   amount: number | string;
   processingMode: AVAILABLE_PROCESSING_MODE;
   autoMount?: boolean;
   iframe?: boolean;
-};
+}
 
-export type CardForm = {
+export interface CardForm {
     mount(): void;
     unmount(): void;
     submit(): void;
     update(field: string, properties: UpdatableProperties): void;
-    createCardToken(): Promise<CardTokenResponseCardForm | void>;
-    getCardFormData(): CardFormData
+    createCardToken(): Promise<CardTokenResponseCardForm | undefined>;
+    getCardFormData(): CardFormData;
 }

@@ -1,30 +1,30 @@
-export type SecurityCode = {
+export interface SecurityCode {
     mode: string;
     length: number;
-  };
-  
-export type CardNumber = {
+}
+
+export interface CardNumber {
     length: number;
     validation: string;
-  };
+}
 
-export type Bin = {
+export interface Bin {
     pattern: string;
     installments_pattern: string;
     exclusion_pattern: string;
-};
+}
 
-export type Setting = {
+export interface Setting {
     security_code: SecurityCode;
     card_number: CardNumber;
     bin: Bin;
-};
+}
 
-export type CustomFonts = {
+export interface CustomFonts {
     src: string;
-};
+}
 
-export type CardTokenResponse = {
+export interface CardTokenResponse {
     id: string;
     public_key: string;
     card_id?: unknown;
@@ -42,9 +42,9 @@ export type CardTokenResponse = {
     date_due: Date;
     live_mode: boolean;
     cardholder: Cardholder;
-};
+}
 
-export type PayerCost = {
+export interface PayerCost {
     installment_rate: number;
     discount_rate: number;
     min_allowed_amount: number;
@@ -56,15 +56,15 @@ export type PayerCost = {
     recommended_message?: string;
     installment_amount?: number;
     total_amount?: number;
-  }
+}
 
-export type Issuer = {
+export interface Issuer {
     default: boolean;
     name: string;
     id: number;
-};
+}
 
-export type FieldStyle = {
+export interface FieldStyle {
     color?: string;
     "font-family"?: string;
     fontFamily?: string;
@@ -100,14 +100,14 @@ export type FieldStyle = {
     "text-align"?: string;
     textAlign?: string;
     width?: string;
-  };
+}
 
-type Identification = {
+export interface Identification {
     number: string;
     type: string;
-};
+}
 
-type Cardholder = {
+export interface Cardholder {
     identification: Identification;
     name: string;
-};
+}

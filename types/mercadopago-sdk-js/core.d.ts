@@ -13,38 +13,38 @@ declare enum Locale {
   ES_PE = 'es-PE',
   PT_BR = 'pt-BR',
   EN_US = 'en-US'
-} 
+}
 
-export type Options = {
+export interface Options {
   locale?: Locale;
   advancedFraudPrevention?: boolean;
   trackingDisabled?: boolean;
-};
+}
 
 type ProcessingMode = "gateway" | "aggregator";
 
-type IdentificationTypesResponse = {
+interface IdentificationTypesResponse {
   id: string;
   name: string;
   type: string;
   min_length: number;
   max_length: number;
-};
+}
 
-type PaymentMethodsParams = {
+interface PaymentMethodsParams {
   bin: string;
   processingMode?: ProcessingMode;
-};
+}
 
-type FinancingDeals = {
+interface FinancingDeals {
   legals?: unknown;
   installments?: unknown;
   expiration_date?: unknown;
   start_date?: unknown;
   status: string;
-};
+}
 
-type Result = {
+interface Result {
   financial_institutions: unknown[];
   secure_thumbnail: string;
   payer_costs: PayerCost[];
@@ -69,35 +69,35 @@ type Result = {
   additional_info_needed: string[];
   status: string;
   settings: Setting[];
-};
+}
 
-type Paging = {
+interface Paging {
   total: number;
   limit: number;
   offset: number;
-};
+}
 
-type PaymentMethodsResponse = {
+interface PaymentMethodsResponse {
   paging: Paging;
   results: Result[];
-};
+}
 
-type IssuersParams = {
+interface IssuersParams {
   payment_method_id?: string;
   paymentMethodId?: string;
   bin: string;
-};
+}
 
-type IssuersResponse = {
+interface IssuersResponse {
   id: string;
   name: string;
   secure_thumbnail: string;
   thumbnail: string;
   processing_mode: string;
   merchant_account_id: string;
-};
+}
 
-type InstallmentsParams = {
+interface InstallmentsParams {
   locale?: Locale;
   amount: string;
   bin: string;
@@ -107,9 +107,9 @@ type InstallmentsParams = {
   processing_mode?: ProcessingMode;
   paymentTypeId?: string;
   payment_type_id?: string;
-};
+}
 
-type InstallmentsResponse = {
+interface InstallmentsResponse {
   payment_method_id: string;
   payment_type_id: string;
   issuer: Issuer;
@@ -117,9 +117,9 @@ type InstallmentsResponse = {
   merchant_account_id?: string;
   payer_costs: PayerCost[];
   agreements?: unknown;
-};
+}
 
-type CardTokenParams = {
+interface CardTokenParams {
   cardNumber?: string;
   cardholderName?: string;
   identificationType?: string;
@@ -128,16 +128,16 @@ type CardTokenParams = {
   cardExpirationMonth?: string;
   cardExpirationYear?: string;
   cardId?: string;
-};
+}
 
-type CardTokenUpdateParams = {
+interface CardTokenUpdateParams {
   securityCode?: string;
   cardExpirationMonth?: string;
   cardExpirationYear?: string;
   token?: string;
-};
+}
 
-type MercadoPagoCore = {
+interface MercadoPagoCore {
   getIdentificationTypes(): Promise<IdentificationTypesResponse[]>;
   getPaymentMethods(
     paymentMethodsParams: PaymentMethodsParams
@@ -155,7 +155,7 @@ type MercadoPagoCore = {
 
   fields: Fields;
 
-  bricks(style: BricksStyle): Bricks
+  bricks(style: BricksStyle): Bricks;
 
   cardForm(options: CardFormOptions): CardForm;
 }

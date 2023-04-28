@@ -1,6 +1,6 @@
-import * as mp from "./index";
+import * as mp from "mercadopago-sdk-js";
 
-//initiate MP library
+// initiate MP library
 const mpInstance = new window.MercadoPago("pk", {});
 
 mpInstance.getIdentificationTypes();

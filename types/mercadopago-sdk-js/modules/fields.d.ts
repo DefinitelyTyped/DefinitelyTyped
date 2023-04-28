@@ -1,67 +1,59 @@
 import { CardNumber, CustomFonts, FieldStyle, SecurityCode, CardTokenResponse } from "../shared";
 
-type BaseFieldsOptions = {
+export interface BaseFieldsOptions {
     customFonts?: CustomFonts[];
     group?: string;
-};
-
-interface DateYearFieldsOptions extends BaseFieldsOptions {
-    mode?: 'short' | 'full'
 }
 
-interface CardNumberOptions extends BaseFieldsOptions {
+export interface DateYearFieldsOptions extends BaseFieldsOptions {
+    mode?: 'short' | 'full';
+}
+
+export interface CardNumberOptions extends BaseFieldsOptions {
     enableLuhnValidation?: boolean;
 }
 
-interface SecurityCodeOptions extends BaseFieldsOptions { }
-
-interface ExpirationMonthOptions extends BaseFieldsOptions { }
-
-interface ExpirationYearOptions extends DateYearFieldsOptions { }
-
-interface ExpirationDateOptions extends DateYearFieldsOptions { }
-
-type FieldsOptions<T> =
+export type FieldsOptions<T> =
     T extends 'cardNumber' ? CardNumberOptions :
-    T extends 'securityCode' ? SecurityCodeOptions :
-    T extends 'expirationMonth' ? ExpirationMonthOptions :
-    T extends 'expirationYear' ? ExpirationYearOptions :
-    T extends 'expirationDate' ? ExpirationDateOptions :
+    T extends 'securityCode' ? BaseFieldsOptions :
+    T extends 'expirationMonth' ? BaseFieldsOptions :
+    T extends 'expirationYear' ? DateYearFieldsOptions :
+    T extends 'expirationDate' ? DateYearFieldsOptions :
     never;
 
-type FieldEvent = 'blur' | 'focus' | 'change' | 'ready' | 'validityChange' | 'error' | 'binChange' | 'paste';
+export type FieldEvent = 'blur' | 'focus' | 'change' | 'ready' | 'validityChange' | 'error' | 'binChange' | 'paste';
 
-type FieldName = 'securityCode' | 'cardNumber' | 'expirationDate' | 'expirationMonth' | 'expirationYear';
+export type FieldName = 'securityCode' | 'cardNumber' | 'expirationDate' | 'expirationMonth' | 'expirationYear';
 
-type FieldsUpdatableProperties = {
+export interface FieldsUpdatableProperties {
     style?: FieldStyle;
     placeholder?: string;
     settings?: SecurityCode | CardNumber;
-};
+}
 
-type InvalidType = 'invalid_type';
-type InvalidLength = 'invalid_length';
-type InvalidValue = 'invalid_value';
+export type InvalidType = 'invalid_type';
+export type InvalidLength = 'invalid_length';
+export type InvalidValue = 'invalid_value';
 
-type CardNumberCause = InvalidType | InvalidLength;
-type SecurityCodeCause = CardNumberCause;
-type ExpirationMonthCause = InvalidType | InvalidValue;
-type ExpirationYearCause = ExpirationMonthCause | CardNumberCause;
-type ExpirationDateCause = ExpirationYearCause;
+export type CardNumberCause = InvalidType | InvalidLength;
+export type SecurityCodeCause = CardNumberCause;
+export type ExpirationMonthCause = InvalidType | InvalidValue;
+export type ExpirationYearCause = ExpirationMonthCause | CardNumberCause;
+export type ExpirationDateCause = ExpirationYearCause;
 
-type DefaultArg = {
+export interface DefaultArg {
     field: string;
-};
+}
 
-interface ErrorArg extends DefaultArg {
+export interface ErrorArg extends DefaultArg {
     error: string;
 }
 
-interface BinChangeArg extends DefaultArg {
+export interface BinChangeArg extends DefaultArg {
     bin?: string;
 }
 
-type ErrorMessage<FieldName> = {
+export interface ErrorMessage<FieldName> {
     message: string;
     cause:
     FieldName extends 'cardNumber' ? CardNumberCause :
@@ -72,11 +64,11 @@ type ErrorMessage<FieldName> = {
     never;
 }
 
-interface ValidityChangeArg<FieldName> extends DefaultArg {
-    errorMessages: ErrorMessage<FieldName>[];
+export interface ValidityChangeArg<FieldName> extends DefaultArg {
+    errorMessages: ErrorMessage<FieldName[]>;
 }
 
-type CallbackArgs<FieldEvent, FieldName> =
+export type CallbackArgs<FieldEvent, FieldName> =
     FieldEvent extends 'blur' ? DefaultArg :
     FieldEvent extends 'focus' ? DefaultArg :
     FieldEvent extends 'ready' ? DefaultArg :
@@ -86,8 +78,7 @@ type CallbackArgs<FieldEvent, FieldName> =
     FieldEvent extends 'binChange' ? BinChangeArg :
     DefaultArg;
 
-
-type Field = {
+export interface Field {
     mount: (container: string) => void;
     unmount: () => void;
     on: < FieldEvent> (event: FieldEvent, callback: (args: CallbackArgs<FieldEvent, FieldName>) => void) => void;
@@ -96,14 +87,14 @@ type Field = {
     blur: () => void;
 }
 
-type FieldsCardTokenParams = {
+export interface FieldsCardTokenParams {
     cardId?: string;
     cardholderName?: string;
     identificationType?: string;
     identificationNumber?: string;
-};
+}
 
-type OptionsToken =
+export type OptionsToken =
     | {
         group: string;
         productId?: string;
@@ -113,8 +104,8 @@ type OptionsToken =
     | string
     | undefined;
 
-export type Fields = {
-    create(field: FieldName, options?: FieldsOptions<FieldName>): Field
-    createCardToken(nonPCIData: FieldsCardTokenParams, options: OptionsToken): Promise<CardTokenResponse | void>
-    updateCardToken(token: string, options: OptionsToken): Promise<CardTokenResponse | void>
+export interface Fields {
+    create(field: FieldName, options?: FieldsOptions<FieldName>): Field;
+    createCardToken(nonPCIData: FieldsCardTokenParams, options: OptionsToken): Promise<CardTokenResponse | undefined>;
+    updateCardToken(token: string, options: OptionsToken): Promise<CardTokenResponse | undefined>;
 }

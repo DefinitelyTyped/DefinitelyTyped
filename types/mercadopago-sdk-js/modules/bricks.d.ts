@@ -1,10 +1,10 @@
-type BrickError = {
+export interface BrickError {
   type: "non_critical" | "critical";
   cause: string;
   message: string;
-};
+}
 
-type BrickCallbacks = {
+export interface BrickCallbacks {
   onSubmit: (
     formData: CardFormData | PaymentFormData,
     param2?: AdditionalCardFormData | AdditionalPaymentFormData
@@ -12,9 +12,9 @@ type BrickCallbacks = {
   onReady?: () => void;
   onError?: (error: BrickError) => void;
   onBinChange?: (bin: string) => void;
-};
+}
 
-type PayerAddress = {
+export interface PayerAddress {
   zipCode?: string;
   federalUnit?: string;
   city?: string;
@@ -22,9 +22,9 @@ type PayerAddress = {
   streetNumber?: string;
   neighborhood?: string;
   complement?: string;
-};
+}
 
-type Payer = {
+export interface Payer {
   email?: string;
   identification?: PayerIdentification;
   customerId?: string;
@@ -32,13 +32,13 @@ type Payer = {
   address?: PayerAddress;
   firstName?: string;
   lastName?: string;
-};
+}
 
-type CustomizableTexts = {
+export interface CustomizableTexts {
   [key: string]: string | { [key: string]: string };
-};
+}
 
-declare enum PaymentOption {
+export enum PaymentOption {
   CREDIT_CARD_FORM = "creditCardForm",
   DEBIT_CARD_FORM = "debitCardForm",
   SAVED_CARD_FORM = "savedCardForm",
@@ -48,51 +48,51 @@ declare enum PaymentOption {
   ONBOARDING_CREDITS_FORM = "creditForm",
 }
 
-type PaymentOptions = {
+export interface PaymentOptions {
   [PaymentOption.CREDIT_CARD_FORM]?: boolean;
   [PaymentOption.DEBIT_CARD_FORM]?: boolean;
-  [PaymentOption.SAVED_CARD_FORM]?: string;
+  [PaymentOption.SAVED_CARD_FORM]?: string | boolean;
   [PaymentOption.TICKET_FORM]?: boolean;
   [PaymentOption.BANK_TRANSFER_FORM]?: boolean;
   [PaymentOption.MERCADO_PAGO_FORM]?: boolean;
   [PaymentOption.ONBOARDING_CREDITS_FORM]?: boolean;
-};
+}
 
-type PaymentOptionsBooleanOnly = PaymentOptions & {
+export interface PaymentOptionsBooleanOnly extends PaymentOptions {
   [PaymentOption.SAVED_CARD_FORM]?: boolean;
-};
+}
 
-declare enum WalletButtonBackground {
+export enum WalletButtonBackground {
   MERCADO_PAGO_COLOR = "default",
   BLACK = "black",
   BLUE = "blue",
   WHITE = "white",
 }
 
-declare enum WalletButtonValuePropColor {
+export enum WalletButtonValuePropColor {
   WHITE = "white",
   GREY = "grey",
 }
 
-declare enum WalletButtonAction {
+export enum WalletButtonAction {
   PAY = "pay",
   BUY = "buy",
 }
 
-declare enum WalletButtonValueProp {
+export enum WalletButtonValueProp {
   PRACTICALITY = "practicality",
   CONVENIENCE = "convenience",
   SECURITY_DETAILS = "security_details",
   SECURITY_SAFETY = "security_safety",
 }
 
-declare enum WalletButtonRedirectMode {
+export enum WalletButtonRedirectMode {
   MODAL = "modal",
   SELF = "self",
   BLANK = "blank",
 }
 
-type BrickVisualCustomization = {
+export interface BrickVisualCustomization {
   texts?: CustomizableTexts;
   font?: string;
   style?: BricksStyle;
@@ -113,11 +113,11 @@ type BrickVisualCustomization = {
   verticalPadding?: string;
   horizontalPadding?: string;
   hideValueProp?: boolean;
-};
+}
 
-type GenericPaymentMethod = string | string[];
+export type GenericPaymentMethod = string | string[];
 
-type PaymentMethods = {
+export interface PaymentMethods {
   maxInstallments?: number;
   minInstallments?: number;
   creditCard?: GenericPaymentMethod;
@@ -126,57 +126,57 @@ type PaymentMethods = {
   bankTransfer?: GenericPaymentMethod;
   atm?: GenericPaymentMethod;
   mercadoPago?: GenericPaymentMethod;
-};
+}
 
-type CheckoutThemes = {
+export interface CheckoutThemes {
   headerColor?: string;
   elementsColor?: string;
-};
+}
 
-type Checkout = {
+export interface Checkout {
   theme: CheckoutThemes;
-};
+}
 
-type WalletButtonTextCustomization = {
+export interface WalletButtonTextCustomization {
   action: WalletButtonAction;
   valueProp: WalletButtonValueProp;
-};
+}
 
-type StatusBrickBackUrls = {
+export interface StatusBrickBackUrls {
   error: string;
   return: string;
-};
+}
 
-type BrickCustomization = {
+export interface BrickCustomization {
   visual?: BrickVisualCustomization;
   paymentMethods?: PaymentMethods;
   checkout?: Checkout;
   texts?: WalletButtonTextCustomization;
   backUrls?: StatusBrickBackUrls;
-};
+}
 
-type BrickInitialization = {
+export interface BrickInitialization {
   amount?: number;
   payer?: Payer;
   preferenceId?: string;
   paymentId?: number;
   externalReference?: string;
   redirectMode?: WalletButtonRedirectMode;
-};
+}
 
-type BrickSettings = {
-  //For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
+export interface BrickSettings {
+  // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
   callbacks?: BrickCallbacks;
   initialization?: BrickInitialization;
   customization?: BrickCustomization;
-};
+}
 
-export type BricksStyle = {
+export interface BricksStyle {
   theme?: "default" | "dark" | "flat" | "bootstrap";
   customVariables?: CustomVariables;
-};
+}
 
-type CustomVariables = {
+export interface CustomVariables {
   textPrimaryColor?: string;
   textSecondaryColor?: string;
   inputBackgroundColor?: string;
@@ -211,31 +211,31 @@ type CustomVariables = {
   secondaryColor?: string;
   warningColor?: string;
   fontSizeExtraExtraLarge?: string;
-};
+}
 
-type PayerIdentification = {
+export interface PayerIdentification {
   type: string;
   number: string;
-};
+}
 
-type PayerAddressAPI = {
+export interface PayerAddressAPI {
   zip_code: string;
   federal_unit: string;
   city: string;
   street_name: string;
   street_number: string;
   neighborhood: string;
-};
+}
 
-type PayerAPI = {
+export interface PayerAPI {
   email?: string;
   identification?: PayerIdentification;
   address?: PayerAddressAPI;
   first_name?: string;
   last_name?: string;
-};
+}
 
-declare enum PaymentType {
+export enum PaymentType {
   CREDIT_CARD = "credit_card",
   DEBIT_CARD = "debit_card",
   ICKET = "ticket",
@@ -247,12 +247,12 @@ declare enum PaymentType {
   NONE = "",
 }
 
-type SavedCardPayer = {
+export interface SavedCardPayer {
   type: "customer";
   id: string;
-};
+}
 
-type CardFormData = {
+export interface CardFormData {
   token: string;
   issuer_id: string | null;
   payment_method_id: string;
@@ -261,9 +261,9 @@ type CardFormData = {
   processing_mode?: string;
   installments: number;
   payer: PayerAPI;
-};
+}
 
-type SavedCardFormData = {
+export interface SavedCardFormData {
   token: string;
   issuer_id: string | null;
   payment_method_id: string;
@@ -272,30 +272,30 @@ type SavedCardFormData = {
   processing_mode?: string;
   installments: number;
   payer: SavedCardPayer;
-};
+}
 
-type TicketFormData = {
+export interface TicketFormData {
   transaction_amount: number;
   payment_method_id: string;
   payer: PayerAPI;
-};
+}
 
-type AdditionalSavedCardFormData = {
+export interface AdditionalSavedCardFormData {
   bin: string;
-};
+}
 
-type AdditionalCardFormData = {
+export interface AdditionalCardFormData {
   bin: string;
-};
+}
 
-type AdditionalTicketFormData = Record<string, unknown>;
+export type AdditionalTicketFormData = Record<string, unknown>;
 
-type AdditionalPaymentFormData =
+export type AdditionalPaymentFormData =
   | AdditionalCardFormData
   | AdditionalSavedCardFormData
   | AdditionalTicketFormData;
 
-type PaymentFormData = {
+export interface PaymentFormData {
   paymentType: PaymentType;
   selectedPaymentMethod: PaymentType;
   formData?: CardFormData | SavedCardFormData | TicketFormData | null;
@@ -304,19 +304,19 @@ type PaymentFormData = {
     | AdditionalCardFormData
     | AdditionalTicketFormData
     | null;
-};
+}
 
-type BrickController = {
+export interface BrickController {
   unmount: () => void;
   getFormData: () => Promise<CardFormData | PaymentFormData>;
   getAdditionalData: () => Promise<
     AdditionalCardFormData | AdditionalPaymentFormData
   >;
-};
+}
 
-type BrickTypes = 'cardPayment' | 'payment' | 'statusScreen' | 'wallet'
+export type BrickTypes = 'cardPayment' | 'payment' | 'statusScreen' | 'wallet';
 
-export type Bricks = {
+export interface Bricks {
   isInitialized(): boolean;
   create(
     brick: BrickTypes,
