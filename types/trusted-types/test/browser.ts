@@ -120,3 +120,23 @@ window.TrustedScriptURL;
 
 // @ts-expect-error
 trustedTypes;
+
+// Verify that DOM injection sinks can take TrustedHTML
+
+const policyHTML = policy.createHTML('<p></p>');
+
+// DOMParser injection sink
+const parser = new DOMParser();
+parser.parseFromString(policyHTML, 'text/html');
+
+// Eleemnt injection sink
+const el = new Element();
+el.insertAdjacentHTML('afterbegin', policyHTML);
+
+// Document injection sinks
+const doc = new Document();
+doc.write(policyHTML);
+doc.writeln(policyHTML);
+
+// Range injection sink
+const range = doc.createRange().createContextualFragment(policyHTML);

@@ -31,6 +31,24 @@ declare global {
     // Attach the relevant Trusted Types properties to the Window object.
     // tslint:disable-next-line no-empty-interface -- interface to allow module augmentation
     interface Window extends lib.TrustedTypesWindow {}
+
+    // Injection sinks that take TrustedHTML
+    interface DOMParser {
+        parseFromString(string: string | TrustedHTML, type: DOMParserSupportedType): Document;
+    }
+
+    interface Element {
+        insertAdjacentHTML(position: string, string: string | TrustedHTML): void;
+    }
+
+    interface Document {
+        write(text: string | TrustedHTML): void;
+        writeln(text: string | TrustedHTML): void;
+    }
+
+    interface Range {
+        createContextualFragment(fragment: string | TrustedHTML): DocumentFragment;
+    }
 }
 
 // These are the available exports when using the polyfill as npm package (e.g. in nodejs)
