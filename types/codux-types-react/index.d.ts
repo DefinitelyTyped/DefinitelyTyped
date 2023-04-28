@@ -1,4 +1,4 @@
-// Type augmentation for React 18.0
+// Type definitions for React 18.0
 // Project: https://www.codux.com/
 // Definitions by: Codux <https://www.codux.com/>
 //                 Reza Banazadeh <https://github.com/0xRezaa>
