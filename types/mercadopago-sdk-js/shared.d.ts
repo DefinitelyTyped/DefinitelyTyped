@@ -65,8 +65,42 @@ export type Issuer = {
 };
 
 export type FieldStyle = {
-    [key: string]: string;
-};
+    color?: string;
+    "font-family"?: string;
+    fontFamily?: string;
+    "font-size"?: string;
+    fontSize?: string;
+    "font-style"?: string;
+    fontStyle?: string;
+    "font-variant"?: string;
+    fontVariant?: string;
+    "font-weight"?: string;
+    fontWeight?: string;
+    height?: string;
+    margin?: string;
+    "margin-bottom"?: string;
+    marginBottom?: string;
+    "margin-left"?: string;
+    marginLeft?: string;
+    "margin-right"?: string;
+    marginRight?: string;
+    "margin-top"?: string;
+    marginTop?: string;
+    padding?: string;
+    "padding-bottom"?: string;
+    paddingBottom?: string;
+    "padding-left"?: string;
+    paddingLeft?: string;
+    "padding-right"?: string;
+    paddingRight?: string;
+    "padding-top"?: string;
+    paddingTop?: string;
+    "placeholder-color"?: string;
+    placeholderColor?: string;
+    "text-align"?: string;
+    textAlign?: string;
+    width?: string;
+  };
 
 type Identification = {
     number: string;
