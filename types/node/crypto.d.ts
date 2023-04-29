@@ -112,18 +112,8 @@ declare module 'crypto' {
         const SSL_OP_CRYPTOPRO_TLSEXT_BUG: number;
         /** Instructs OpenSSL to disable a SSL 3.0/TLS 1.0 vulnerability workaround added in OpenSSL 0.9.6d. */
         const SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS: number;
-        /** Instructs OpenSSL to always use the tmp_rsa key when performing RSA operations. */
-        const SSL_OP_EPHEMERAL_RSA: number;
         /** Allows initial connection to servers that do not support RI. */
         const SSL_OP_LEGACY_SERVER_CONNECT: number;
-        const SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER: number;
-        const SSL_OP_MICROSOFT_SESS_ID_BUG: number;
-        /** Instructs OpenSSL to disable the workaround for a man-in-the-middle protocol-version vulnerability in the SSL 2.0 server implementation. */
-        const SSL_OP_MSIE_SSLV2_RSA_PADDING: number;
-        const SSL_OP_NETSCAPE_CA_DN_BUG: number;
-        const SSL_OP_NETSCAPE_CHALLENGE_BUG: number;
-        const SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG: number;
-        const SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG: number;
         /** Instructs OpenSSL to disable support for SSL/TLS compression. */
         const SSL_OP_NO_COMPRESSION: number;
         const SSL_OP_NO_QUERY_MTU: number;
@@ -135,16 +125,6 @@ declare module 'crypto' {
         const SSL_OP_NO_TLSv1: number;
         const SSL_OP_NO_TLSv1_1: number;
         const SSL_OP_NO_TLSv1_2: number;
-        const SSL_OP_PKCS1_CHECK_1: number;
-        const SSL_OP_PKCS1_CHECK_2: number;
-        /** Instructs OpenSSL to always create a new key when using temporary/ephemeral DH parameters. */
-        const SSL_OP_SINGLE_DH_USE: number;
-        /** Instructs OpenSSL to always create a new key when using temporary/ephemeral ECDH parameters. */
-        const SSL_OP_SINGLE_ECDH_USE: number;
-        const SSL_OP_SSLEAY_080_CLIENT_DH_BUG: number;
-        const SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG: number;
-        const SSL_OP_TLS_BLOCK_PADDING_BUG: number;
-        const SSL_OP_TLS_D5_BUG: number;
         /** Instructs OpenSSL to disable version rollback attack detection. */
         const SSL_OP_TLS_ROLLBACK_BUG: number;
         const ENGINE_METHOD_RSA: number;
@@ -162,7 +142,6 @@ declare module 'crypto' {
         const DH_CHECK_P_NOT_PRIME: number;
         const DH_UNABLE_TO_CHECK_GENERATOR: number;
         const DH_NOT_SUITABLE_GENERATOR: number;
-        const ALPN_ENABLED: number;
         const RSA_PKCS1_PADDING: number;
         const RSA_SSLV23_PADDING: number;
         const RSA_NO_PADDING: number;
@@ -2346,8 +2325,6 @@ declare module 'crypto' {
      * @since v6.6.0
      */
     function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
-    /** @deprecated since v10.0.0 */
-    const DEFAULT_ENCODING: BufferEncoding;
     type KeyType = 'rsa' | 'rsa-pss' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
     type KeyFormat = 'pem' | 'der' | 'jwk';
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
