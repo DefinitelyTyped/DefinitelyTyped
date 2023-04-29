@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "codux-types-react-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
