@@ -1093,6 +1093,13 @@ declare module 'tls' {
      */
     let DEFAULT_MIN_VERSION: SecureVersion;
     /**
+     * The default value of the ciphers option of tls.createSecureContext().
+     * It can be assigned any of the supported OpenSSL ciphers.
+     * Defaults to the content of crypto.constants.defaultCoreCipherList, unless
+     * changed using CLI options using --tls-default-ciphers.
+     */
+    let DEFAULT_CIPHERS: string;
+    /**
      * An immutable array of strings representing the root certificates (in PEM
      * format) used for verifying peer certificates. This is the default value
      * of the ca option to tls.createSecureContext().
