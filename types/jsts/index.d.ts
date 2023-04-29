@@ -113,40 +113,33 @@ declare namespace jsts {
          */
         export class LineIntersector {
             /**
-             * @type {int}
              */
             static COLLINEAR: number;
             /**
              * Indicates that line segments intersect in a line segment
              *
-             * @type {int}
              */
             static COLLINEAR_INTERSECTION: number;
             /**
-             * @type {int}
              */
             static DO_INTERSECT: number;
             /**
              * These are deprecated, due to ambiguous naming
              *
-             * @type {int}
              */
             static DONT_INTERSECT: number;
             /**
              * Indicates that line segments do not intersect
              *
-             * @type {int}
              */
             static NO_INTERSECTION: number;
             /**
              * Indicates that line segments intersect in a single point
              *
-             * @type {int}
              */
             static POINT_INTERSECTION: number;
 
             /**
-             * @constructor
              */
             constructor();
 
@@ -294,7 +287,6 @@ declare namespace jsts {
          */
         export class RobustLineIntersector extends LineIntersector {
             /**
-             * @constructor
              */
             constructor();
 
@@ -746,22 +738,18 @@ declare namespace jsts {
          */
         export class Coordinate {
             /**
-             * @constructor
              */
             constructor(x: number, y: number);
 
             /**
-             * @constructor
              */
             constructor(c: Coordinate);
 
             /**
-             * @constructor
              */
             constructor();
 
             /**
-             * @constructor
              */
             constructor(x: number, y: number, z: number);
 
@@ -2503,7 +2491,6 @@ declare namespace jsts {
 
         export class LineString extends Geometry {
             /**
-             * @constructor
              */
             constructor(points: Array<Coordinate>, factory?: any);
 
@@ -2552,8 +2539,6 @@ declare namespace jsts {
              */
             constructor(lineStrings: LineString[], factory: GeometryFactory);
             /**
-             * @constructor
-             *
              * @deprecated Use GeometryFactory instead
              */
             constructor(lineStrings: LineString[], precisionModel: PrecisionModel, SRID: number);
@@ -2586,7 +2571,6 @@ declare namespace jsts {
 
         export class Point extends Geometry {
             /**
-             * @constructor
              */
             constructor(coordinate: Coordinate, factory?: any);
 
@@ -2608,12 +2592,9 @@ declare namespace jsts {
 
         export class MultiPoint extends GeometryCollection {
             /**
-             * @constructor
              */
             constructor(points: Point[], factory: GeometryFactory);
             /**
-             * @constructor
-             *
              * @deprecated Use GeometryFactory instead
              */
             constructor(points: Point[], precisionModel: PrecisionModel, SRID: number);
@@ -2656,7 +2637,6 @@ declare namespace jsts {
          */
         export class Polygon extends Geometry {
             /**
-             * @constructor
              */
             constructor(shell: LinearRing, holes?: Array<LinearRing>, factory?: any);
 
@@ -2826,7 +2806,6 @@ declare namespace jsts {
          *          p0
          * @param {Coordinate}
          *          p1
-         * @constructor
          */
         export class LineSegment {
             p0: Coordinate;
@@ -3173,7 +3152,6 @@ declare namespace jsts {
              * <p>
              *
              * @see WKTReader
-             * @constructor
              */
             constructor();
 
@@ -3204,7 +3182,6 @@ declare namespace jsts {
          */
         export class WKTReader {
             /**
-             * @constructor
              */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
@@ -3224,7 +3201,6 @@ declare namespace jsts {
 
         export class WKTWriter {
             /**
-             * @constructor
              */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
@@ -3289,25 +3265,21 @@ declare namespace jsts {
                 /**
                  * Specifies a round line buffer end cap style.
                  *
-                 * @type {int}
                  */
                 static CAP_ROUND: number;
                 /**
                  * Specifies a flat line buffer end cap style.
                  *
-                 * @type {int}
                  */
                 static CAP_FLAT: number;
                 /**
                  * Specifies a square line buffer end cap style.
                  *
-                 * @type {int}
                  */
                 static CAP_SQUARE: number;
                 /**
                  * Specifies a round join style.
                  *
-                 * @type {int}
                  */
                 static JOIN_ROUND: number;
                 /**
@@ -3317,7 +3289,6 @@ declare namespace jsts {
                 /**
                  * Specifies a bevel join style.
                  *
-                 * @type {int}
                  */
                 static JOIN_BEVEL: number;
 
@@ -3326,20 +3297,17 @@ declare namespace jsts {
                  * value of 8 gives less than 2% max error in the buffer distance. For a max
                  * error of < 1%, use QS = 12. For a max error of < 0.1%, use QS = 18.
                  *
-                 * @type {int}
                  */
                 static DEFAULT_QUADRANT_SEGMENTS: number;
                 /**
                  * The default mitre limit Allows fairly pointy mitres.
                  *
-                 * @type {double}
                  */
                 static DEFAULT_MITRE_LIMIT: number;
 
                 /**
                  * Contains the parameters which describe how a buffer should be constructed.
                  *
-                 * @constructor
                  */
                 constructor(quadrantSegments?: number, endCapStyle?: number, joinStyle?: number, mitreLimit?: number);
 
@@ -3519,7 +3487,6 @@ declare namespace jsts {
                  * This value should be less than the decimal precision of double-precision
                  * values (16).
                  *
-                 * @type {int}
                  */
                 static MAX_PRECISION_DIGITS: number;
 
@@ -3531,7 +3498,6 @@ declare namespace jsts {
                  *          g the geometry to buffer.
                  * @param {BufferParameters}
                  *          bufParams the buffer parameters to use.
-                 * @constructor
                  */
                 constructor(g: Geometry, bufParams: BufferParameters);
 
@@ -3754,7 +3720,6 @@ declare namespace jsts {
                 /**
                  * A special value of segmentIndex used for locations inside area geometries.
                  *
-                 * @type {int}
                  */
                 static INSIDE_AREA: number;
 

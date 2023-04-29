@@ -510,7 +510,6 @@ declare module 'angular' {
             /**
              * Sets the `aria-describedby` property on the modal.
              * The string should be an id (without the leading '#') pointing to the element that describes your modal.
-             * @type {string}
              * @memberOf IModalSettings
              */
             ariaDescribedBy?: string | undefined;
@@ -518,7 +517,6 @@ declare module 'angular' {
             /**
              * Sets the `aria-labelledby` property on the modal.
              * The string should be an id (without the leading '#') pointing to the element that labels your modal.
-             * @type {string}
              * @memberOf IModalSettings
              */
             ariaLabelledBy?: string | undefined;

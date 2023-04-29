@@ -97,20 +97,15 @@ export class Entry {
      *     milliseconds since 0:00:00, January 1, 1970 UTC. If omitted, the
      *     current time will be used.
      * @param {string=} opt_type The log type, if known.
-     * @constructor
      */
     constructor(level: Level | string | number, message: string, opt_timestamp?: number, opt_type?: string | IType);
 
-    /** @type {!logging.Level} */
     level: Level;
 
-    /** @type {string} */
     message: string;
 
-    /** @type {number} */
     timestamp: number;
 
-    /** @type {string} */
     type: string;
 
     /**
@@ -143,13 +138,9 @@ export class Logger {
      */
     constructor(name: string, opt_level?: Level);
 
-    /** @private {string} */
     name_: string;
-    /** @private {Level} */
     level_: Level;
-    /** @private {Logger} */
     parent_: Logger;
-    /** @private {Set<function(!Entry)>} */
     handlers_: any;
 
     /** @return {string} the name of this logger. */
@@ -277,7 +268,6 @@ export class LogManager {
      * @param {string} name the logger's name.
      * @param {!Logger} parent the logger's parent.
      * @return {!Logger} the new logger.
-     * @private
      */
     createLogger_(name: string, parent: Logger): Logger;
 }
@@ -330,7 +320,6 @@ export interface IType {
 
 /**
  * Common log types.
- * @enum {string}
  */
 export const Type: IType;
 

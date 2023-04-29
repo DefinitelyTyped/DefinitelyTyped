@@ -14,7 +14,6 @@ import ref = require('ref');
  * Pass in an Object containing the struct fields to auto-populate the
  * struct with the data.
  *
- * @constructor
  */
 interface StructType extends ref.Type {
     /** Pass it an existing Buffer instance to use that as the backing buffer. */

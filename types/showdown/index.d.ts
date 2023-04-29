@@ -1041,7 +1041,6 @@ declare namespace Showdown {
 
     interface ConverterStatic {
         /**
-         * @constructor
          * @param converterOptions - Configuration object, describes which extensions to apply.
          */
         new(converterOptions?: ConverterOptions): Converter;

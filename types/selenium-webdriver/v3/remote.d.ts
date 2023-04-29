@@ -84,7 +84,6 @@ export namespace DriverService {
          *
          * @param {...CommandLineFlag} var_args The arguments to include.
          * @return {!THIS} A self reference.
-         * @this {THIS}
          * @template THIS
          */
         addArguments(...var_args: string[]): this;
@@ -221,7 +220,6 @@ export namespace SeleniumServer {
  */
 export class FileDetector extends webdriver.FileDetector {
     /**
-     * @constructor
      **/
     constructor();
 

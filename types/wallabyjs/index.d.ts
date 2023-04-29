@@ -9,17 +9,17 @@ declare module 'wallabyjs' {
    *
    * @interface
    *
-   * @property {IWallabyCompiler=}     compilers - File patterns as keys and compiler functions as values.
-   * @property {boolean=}              debug - Flag if debug messages written to Wallaby console (default=false).
-   * @property {IWallabyEnvironment=} env - Specify a different test runner or change the runner settings.
-   * @property {string[] | IWallabyFilePattern[]}   files - Specifies an array of source files or file name patterns to copy
+   * compilers - File patterns as keys and compiler functions as values.
+   * debug - Flag if debug messages written to Wallaby console (default=false).
+   * env - Specify a different test runner or change the runner settings.
+   * files - Specifies an array of source files or file name patterns to copy
    *                                                        to the local cache.
-   * @property {Function=}             postprocessor - Function that runs for every batch of file changes after all compilers and preprocessors.
-   * @property {Function=}             preprocessors - Function that runs for every batch of file changes after all compilers.
-   * @property {string=}               testFramework - Specifies the name and version of the testing framework you are using for your tests.
-   * @property {string[] | IWallabyFilePattern[]}   tests - Specifies an array of test files or test file name patterns to copy
+   * postprocessor - Function that runs for every batch of file changes after all compilers and preprocessors.
+   * preprocessors - Function that runs for every batch of file changes after all compilers.
+   * testFramework - Specifies the name and version of the testing framework you are using for your tests.
+   * tests - Specifies an array of test files or test file name patterns to copy
    *                                                        to the local cache.
-   * @property {IWallabyWorkers=}      workers - Degree of parallelism used to run your tests and controls the way wallaby re-uses workers.
+   * workers - Degree of parallelism used to run your tests and controls the way wallaby re-uses workers.
    *
    * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
    */
@@ -79,9 +79,9 @@ declare module 'wallabyjs' {
    * @export
    * @interface IWallabyCompilerResult
    *
-   * @property  {string}  map - Source map.
-   * @property  {string}  code - Code transformed to JavaScript.
-   * @property  {any}  ranges - All converable ranges of the original file.
+   * map - Source map.
+   * code - Code transformed to JavaScript.
+   * ranges - All converable ranges of the original file.
    *
    * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
    */
@@ -107,8 +107,8 @@ declare module 'wallabyjs' {
    *
    * @interface IWallabyFile
    *
-   * @property {string=}  content - The current content of the file.
-   * @property {string=}  path - The current path to the file.
+   * content - The current content of the file.
+   * path - The current path to the file.
    * @function rename - Allows you to rename/move the file to newPath.
    * @function changeExt - Shortcut for the rename function allowing you to change the file extension.
    *
@@ -126,10 +126,10 @@ declare module 'wallabyjs' {
    *
    * @interface IWallabyFilePattern
    *
-   * @property {string}   pattern - File name or file pattern.
-   * @property {boolean=}   ignore - Used to completely exclude the file from Wallaby (default=false).
-   * @property {boolean=}   instrument - Determines if file is instrumented (default=true).
-   * @property {boolean=}   load - Determines if the file is loaded to sandbox HTML via script tag .(default=true).
+   * pattern - File name or file pattern.
+   * ignore - Used to completely exclude the file from Wallaby (default=false).
+   * instrument - Determines if file is instrumented (default=true).
+   * load - Determines if the file is loaded to sandbox HTML via script tag .(default=true).
    *
    * @see {@link https://wallabyjs.com/docs/config/files.html} for details.
    */
@@ -145,9 +145,9 @@ declare module 'wallabyjs' {
    *
    * @interface IWallabyEnvironment
    *
-   * @property  {IWallabyEnvironmentParameters=}  params - set parameters on environment.
-   * @property  {string=}  runner - Path of local Node / PhantomJs / Electron.
-   * @property  {string=}  type - Specify a different test runner or change the runner settings.
+   * params - set parameters on environment.
+   * runner - Path of local Node / PhantomJs / Electron.
+   * type - Specify a different test runner or change the runner settings.
    *
    * @see {@link https://wallabyjs.com/docs/config/runner.html} for details.
    */
@@ -163,8 +163,8 @@ declare module 'wallabyjs' {
    *
    * @interface IWallabyEnvironmentParameters
    *
-   * @property  {string=}  env - Semicolon-separated spawed runner process env variables.
-   * @property  {string=}  runner - Space-separated spawed runner process flags.
+   * env - Semicolon-separated spawed runner process env variables.
+   * runner - Space-separated spawed runner process flags.
    *
    * @see {@link https://wallabyjs.com/docs/config/runner.html} for details.
    */
@@ -178,8 +178,8 @@ declare module 'wallabyjs' {
    *
    * @interface IWallabyEnvironmentViewportSize
    *
-   * @property  {number=} width - Width in pixels for the viewport size in PhantomJs/Electron.
-   * @property  {number=} height - height in pixels for the viewport size in PhantomJs/Electron.
+   * width - Width in pixels for the viewport size in PhantomJs/Electron.
+   * height - height in pixels for the viewport size in PhantomJs/Electron.
    */
   export interface IWallabyEnvironmentViewportSize {
     width?: number | undefined;
@@ -191,7 +191,7 @@ declare module 'wallabyjs' {
    *
    * @interface IWallabyWorkers
    *
-   * @property  {boolean=}  recycle - Specifies the degree of parallelism used to run your tests and
+   * recycle - Specifies the degree of parallelism used to run your tests and
    *                                  controls the way wallaby re-uses workers.
    *
    * @see {@link https://wallabyjs.com/docs/config/workers.html} for details.
@@ -205,10 +205,10 @@ declare module 'wallabyjs' {
    *
    * @interface IWallaby
    *
-   * @property  {string=} localProjectDir - String property which returns the project local folder.
-   * @property  {string=} projectCacheDir - String property which returns the project cache folder.
-   * @property  {IWallabyBuiltInCompilers=} compilers - Property which allows you to access the built-in TypeScript, CoffeeScript and Babel compilers.
-   * @property  {object=} defaults - Property which allows you to set the default values for file object properties.
+   * localProjectDir - String property which returns the project local folder.
+   * projectCacheDir - String property which returns the project cache folder.
+   * compilers - Property which allows you to access the built-in TypeScript, CoffeeScript and Babel compilers.
+   * defaults - Property which allows you to set the default values for file object properties.
    *
    * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
    */
