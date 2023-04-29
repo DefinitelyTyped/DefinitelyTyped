@@ -1287,6 +1287,10 @@ declare namespace AP {
         ): void;
     }
 
+    namespace theming {
+        function initializeTheming(): void;
+    }
+
     /**
      * A JavaScript module which provides functions to interact with the user currently in session.
      */
