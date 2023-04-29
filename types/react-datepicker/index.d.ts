@@ -181,6 +181,7 @@ export interface ReactDatePickerProps<
     showWeekNumbers?: boolean | undefined;
     showYearDropdown?: boolean | undefined;
     showYearPicker?: boolean | undefined;
+    showIcon?: boolean | undefined;
     startDate?: Date | null | undefined;
     startOpen?: boolean | undefined;
     strictParsing?: boolean | undefined;
