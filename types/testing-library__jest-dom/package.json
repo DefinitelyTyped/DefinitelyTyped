@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "exports": {
+        ".": {
+          "types": "./index.d.ts"
+        },
+        "./matchers": {
+          "types": "./matchers.d.ts"
+        }
+      }
+}
