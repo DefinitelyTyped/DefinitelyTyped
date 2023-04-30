@@ -9,6 +9,7 @@
 /// <reference path="MusicKit.API.d.ts" />
 /// <reference path="MusicKit.API.Response.d.ts" />
 /// <reference path="MusicKit.API.QueryParameters.d.ts" />
+/// <reference path="MusicKit.API.CommonObjects.d.ts" />
 /// <reference path="MusicKit.Events.d.ts" />
 /// <reference path="MusicKit.MediaItem.d.ts" />
 /// <reference path="MusicKit.MKError.d.ts" />
@@ -17,6 +18,17 @@
 /// <reference path="MusicKit.Queue.d.ts" />
 /// <reference path="MusicKit.Resource.d.ts" />
 /// <reference path="MusicKit.SetQueueOptions.d.ts" />
+
+/**
+ * A protocol for music items that your app can fetch by using a catalog charts request.
+ * https://developer.apple.com/documentation/musickit/musiccatalogchartrequestable
+ */
+type MUSIC_CATALOG_CHART_TYPE = MusicKit.Albums | MusicKit.MusicVideos | MusicKit.Playlists | MusicKit.Songs;
+
+/**
+ * An object that represents the results of a catalog search query.
+ * https://developer.apple.com/documentation/applemusicapi/searchresponse/results
+ */
 
 interface RESOURCE {
     Activity: MusicKit.Activities;
@@ -39,114 +51,176 @@ interface RESOURCE {
     Station: MusicKit.Stations;
     Storefront: MusicKit.Storefronts;
 }
+
 type RESOURCES = RESOURCE[keyof RESOURCE];
 type RESOURCE_TYPES = RESOURCES['type'];
 type RESOURCE_BY_TYPE_PROPERTY = {
     [key in RESOURCE_TYPES]: filterUnionByProperty<RESOURCES, 'type', key>;
 };
 
-type ResourceHref<T> = T extends CATALOG_RESOURCE_TYPE
-    ? `/v1/catalog/{{storefrontId}}/${T['type']}/${number | string}`
-    : T extends LIBRARY_RESOURCE_TYPE
-    ? `/v1/me/library/${T['type']}/${number | string}`
-    : T extends MusicKit.Storefronts
-    ? `/v1/storefronts/${MusicKit.Storefronts['id']}`
-    : T extends MusicKit.Ratings
-    ? `/v1/me/ratings/${RESOURCES['type']}/${number | string}`
-    : T extends MusicKit.PersonalRecommendations
-    ? `/v1/me/recommendations/${string}`
-    : never;
+export type CATALOG_RESOURCE_TYPE =
+    | RESOURCE['Activity']
+    | RESOURCE['Album']
+    | RESOURCE['AppleCurator']
+    | RESOURCE['Artist']
+    | RESOURCE['Curator']
+    | RESOURCE['Genre']
+    | RESOURCE['MusicVideo']
+    | RESOURCE['Playlist']
+    | RESOURCE['RecordLabel']
+    | RESOURCE['Song']
+    | RESOURCE['Station'];
 
-/**
- * A protocol for music items that your app can fetch by using a catalog charts request.
- * https://developer.apple.com/documentation/musickit/musiccatalogchartrequestable
- */
-type MUSIC_CATALOG_CHART_TYPE = MusicKit.Albums | MusicKit.MusicVideos | MusicKit.Playlists | MusicKit.Songs;
+export type LIBRARY_RESOURCE_TYPE =
+    | RESOURCE['LibraryAlbum']
+    | RESOURCE['LibraryArtist']
+    | RESOURCE['LibraryMusicVideo']
+    | RESOURCE['LibraryPlaylist']
+    | RESOURCE['LibrarySong'];
 
-/**
- * An object that represents the results of a catalog search query.
- * https://developer.apple.com/documentation/applemusicapi/searchresponse/results
- */
-type CATALOG_RESOURCE_TYPE =
-    | MusicKit.Activities
-    | MusicKit.Albums
-    | MusicKit.AppleCurators
-    | MusicKit.Artists
-    | MusicKit.Curators
-    | MusicKit.Genres
-    | MusicKit.MusicVideos
-    | MusicKit.Playlists
-    | MusicKit.RecordLabels
-    | MusicKit.Songs
-    | MusicKit.Stations;
+export type GENERAL_RESOURCE_TYPE = RESOURCE['PersonalRecommendation'] | RESOURCE['Rating'] | RESOURCE['Storefront'];
 
-type LIBRARY_RESOURCE_TYPE =
-    | MusicKit.LibraryAlbums
-    | MusicKit.LibraryArtists
-    | MusicKit.LibraryMusicVideos
-    | MusicKit.LibraryPlaylists
-    | MusicKit.LibrarySongs;
+interface ACTION_TYPE {
+    Search: 'search';
+    SearchMultiple: 'searchMultiple';
+    GetAllResources: 'getAllResources';
+    GetMultipleResources: 'getMultipleResources';
+    GetSingleResource: 'getSingleResource';
+}
 
-type filterUnionByProperty<Union, Property extends string | number | symbol, Condition> = Union extends Record<
-    Property,
-    Condition
->
-    ? Union
-    : never;
+type ActionType = ACTION_TYPE[keyof ACTION_TYPE];
 
-type PathToResourceInfo<T extends ValidatePath> =
-    T extends `/v1/${infer place}/${infer storefrontId}/${infer resourceKey}/${infer resourceId}`
-        ? {
-              place: place extends 'catalog' ? 'catalog' : 'library';
-              storefrontId: storefrontId;
-              resourceType: resourceKey extends RESOURCE_TYPES ? RESOURCE_BY_TYPE_PROPERTY[resourceKey] : never;
-              id: resourceId;
-          }
-        : never;
+type APIBaseParameters = {
+    action: ActionType;
+    useOption?: 'Relationships' | 'Views';
+    version?: string;
+};
+type CatalogAPIParameters = APIBaseParameters & {
+    resource: CATALOG_RESOURCE_TYPE;
+    action: ACTION_TYPE[keyof Omit<ACTION_TYPE, 'GetAllResources'>];
+};
+type LibraryAPIParameters = APIBaseParameters & {
+    resource: LIBRARY_RESOURCE_TYPE;
+};
+type GeneralAPIParameters = APIBaseParameters & {
+    resource: GENERAL_RESOURCE_TYPE;
+};
+type APIParameters = CatalogAPIParameters | LibraryAPIParameters | GeneralAPIParameters;
 
-type ValidatePath = `/v1/${ResourcePlace}/${'{{storefrontId}}' | StorefrontId}/${RESOURCE_TYPES}${
-    | ''
-    | `/${string | number}`}`;
+type isNeedIDPathParameter<T extends APIParameters> = T['action'] extends 'getSingleResource' ? true : false;
+type isNeedRelationshipPathParameter<T extends APIParameters> = isNeedIDPathParameter<T> extends false
+    ? false
+    : T['useOption'] extends 'Relationships'
+    ? T['resource']['relationships'] extends undefined
+        ? false
+        : true
+    : false;
+type isNeedViewPathParameter<T extends APIParameters> = isNeedIDPathParameter<T> extends false
+    ? false
+    : T['useOption'] extends 'Views'
+    ? T['resource']['views'] extends undefined
+        ? false
+        : true
+    : false;
 
-type PathToQueryParameters<path extends ValidatePath> =
-    PathToResourceInfo<path>['resourceType'] extends CATALOG_RESOURCE_TYPE
-        ? [path, MusicKit.CatalogResourceAPI<PathToResourceInfo<path>['resourceType']>['queryParameters']]
-        : PathToResourceInfo<path>['resourceType'] extends LIBRARY_RESOURCE_TYPE
-        ? [path, MusicKit.LibraryResourceAPI<PathToResourceInfo<path>['resourceType']>['queryParameters']]
-        : never;
+type getRelationshipKeys<T extends APIParameters> = keyof Required<T['resource']>['relationships'];
+type getViewKeys<T extends APIParameters> = keyof Required<T['resource']>['views'];
+type getAttributesKeys<T extends APIParameters> = keyof Required<T['resource']>['attributes'];
 
-type ParamsToResponse<
-    path extends ValidatePath,
-    queryParameters extends PathToQueryParameters<path> | undefined,
-> = PathToResourceInfo<path>['resourceType'] extends CATALOG_RESOURCE_TYPE
-    ? [path, queryParameters, MusicKit.CatalogResourceAPI<PathToResourceInfo<path>['resourceType']>['response']]
-    : PathToResourceInfo<path>['resourceType'] extends LIBRARY_RESOURCE_TYPE
-    ? [path, queryParameters, MusicKit.LibraryResourceAPI<PathToResourceInfo<path>['resourceType']>['response']]
-    : never;
-type Version = 1;
-type ResourcePlace = 'catalog' | 'library';
-type Name = 'Taro' | 'Jiro' | 'Hanako';
-type Age = 10 | 20;
-// type ResourcePaths<T extends RESOURCES> = T extends CATALOG_RESOURCE_TYPE ? `/v${Version}/${ResourcePlace}/${StorefrontId}/${T["type"]}/{id}` :  T extends LIBRARY_RESOURCE_TYPE ? `/v${Version}/${ResourcePlace}/${StorefrontId}/${T["type"]}/{id}` : never  ;
-
-type ResourcePaths = {
-    [T in RESOURCES['type']]: {
-        [P in ResourcePlace]: `/v${Version}/${P}/{{storefrontId}}/${T}/${number | string}`;
-    } & Record<'resource', RESOURCE_BY_TYPE_PROPERTY[T]>;
+type stringLiteral<T> = T extends `${string & T}` ? T : never;
+type getPathParameters<T extends APIParameters> = {
+    id: isNeedIDPathParameter<T> extends true ? `/${T['resource']['id']}` : '';
+    relationships: isNeedRelationshipPathParameter<T> extends true ? `/${stringLiteral<getRelationshipKeys<T>>}` : '';
+    views: isNeedViewPathParameter<T> extends true ? `/${stringLiteral<getViewKeys<T>>}` : '';
 };
 
-type API_TYPE<T extends RESOURCES> = T extends LIBRARY_RESOURCE_TYPE
-    ? MusicKit.LibraryResourceAPI<T> | MusicKit.LibraryResourcesAPI<T> | MusicKit.SearchLibraryAPI<T>
-    : T extends CATALOG_RESOURCE_TYPE
-    ?
-          | MusicKit.SearchSuggestionsAPI<MusicKit.TermSuggestion>
-          | MusicKit.SearchSuggestionsAPI<MusicKit.TopResultSuggestion<T>>
-          | MusicKit.SearchHintsAPI
-          | MusicKit.CatalogResourceAPI<T>
-          | MusicKit.CatalogResourcesAPI<T>
-          | MusicKit.SearchCatalogAPI<T>
-    : T extends MUSIC_CATALOG_CHART_TYPE
-    ? MusicKit.ChartAPI<T>
+type catalogBasePath = `/catalog/{{storefrontId}}`;
+type libraryBasePath = `/me/library`;
+type otherBasePath = ``;
+
+type generateBasePath<T extends APIParameters, Path extends string> = `/${T['version'] extends string
+    ? T['version']
+    : 'v1'}${Path}/${T['resource']['type']}`;
+
+type getPath<T extends APIParameters> = T extends CatalogAPIParameters
+    ? `${generateBasePath<T, catalogBasePath>}${getPathParameters<T>['id']}${getPathParameters<T>['relationships']}`
+    : T extends LibraryAPIParameters
+    ? `${generateBasePath<T, libraryBasePath>}${getPathParameters<T>['id']}${getPathParameters<T>['relationships']}`
+    : T extends GeneralAPIParameters
+    ? `${generateBasePath<T, otherBasePath>}${getPathParameters<T>['id']}${getPathParameters<T>['relationships']}`
+    : never;
+
+type isNeedIDsQueryParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE['GetMultipleResources']
+    ? true
+    : false;
+
+type isNeedExtendQueryParameter<T extends APIParameters> = T['resource']['attributes'] extends undefined ? false : true;
+
+type isNeedIncludeQueryParameter<T extends APIParameters> = T['resource']['relationships'] extends undefined
+    ? false
+    : true;
+
+type isNeedViewsQueryParameter<T extends APIParameters> = T extends CatalogAPIParameters
+    ? T['action'] extends ACTION_TYPE['GetSingleResource']
+        ? true
+        : false
+    : false;
+
+type isNeedLimitQueryParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE['GetAllResources']
+    ? true
+    : isNeedRelationshipPathParameter<T> extends true
+    ? true
+    : isNeedViewPathParameter<T> extends true
+    ? true
+    : false;
+
+type isNeedOffsetQueryParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE['GetAllResources']
+    ? true
+    : false;
+type isNeedWithQueryParameter<T extends APIParameters> = isNeedViewPathParameter<T>;
+
+type getQueryParameters<T extends APIParameters> = Omit<
+    {
+        ids: Required<T['resource']['id']>[];
+        l?: StorefrontId;
+        include?: isNeedIncludeQueryParameter<T> extends true ? getRelationshipKeys<T>[] : never;
+        extend?: isNeedExtendQueryParameter<T> extends true ? getAttributesKeys<T>[] : never;
+        views?: isNeedViewsQueryParameter<T> extends true ? getViewKeys<T>[] : never;
+        limit?: isNeedLimitQueryParameter<T> extends true ? number : never;
+        offset?: isNeedOffsetQueryParameter<T> extends true ? number : never;
+        with?: isNeedWithQueryParameter<T> extends true ? getAttributesKeys<T>[] : never;
+    },
+    isNeedIDsQueryParameter<T> extends false ? 'ids' : ''
+>;
+
+/**
+ * https://developer.apple.com/documentation/applemusicapi/search
+ */
+interface APIResponse {
+    request: {
+        baseUrl: string;
+        fetchOptions: {
+            headers: HeadersInit;
+        };
+        path: string;
+        queryParameters: APIParameters;
+        urlParameters: Record<string, any>;
+        url: string;
+    };
+    response: Response;
+}
+
+type getAPIResponse<T extends APIParameters> =
+    APIResponse & isNeedLimitQueryParameter<T> extends true ? {
+        data: T['resource'][];
+        next?: string;
+    } : {
+        data: T['resource'][];
+    }
+;
+
+type filterUnionByProperty<Union, Property extends string, Condition> = Union extends Record<Property, Condition>
+    ? Union
     : never;
 
 type StorefrontId =

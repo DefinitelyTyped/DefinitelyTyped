@@ -6,11 +6,14 @@ declare namespace MusicKit {
         include?: T['relationships'];
         l?: string;
     }
-    type ResourcesQueryParameters<T extends CATALOG_RESOURCE_TYPE | LIBRARY_RESOURCE_TYPE> =
-        ResourceQueryParameters<T> & { ids: string[] };
 
-    type ResourcesWithRelationQueryParameters<T extends CATALOG_RESOURCE_TYPE | LIBRARY_RESOURCE_TYPE> =
-        ResourceQueryParameters<T> & { limit?: number };
+    interface AllResourceQueryParameters<T extends RESOURCES> {
+        extend?: T['type'];
+        include?: T['relationships'];
+        l?: string;
+        limit?: number;
+        offset?: string;
+    }
 
     interface SearchQueryParameters {
         l?: string;
@@ -33,11 +36,14 @@ declare namespace MusicKit {
         [P in keyof T]: (variant: T[P]) => any;
     };
 
-    type GetCatalogResourceQueryParameters<T extends RESOURCES> = ResourceQueryParameters<T> & {
+    type GetCatalogResourceQueryParameters<T extends CATALOG_RESOURCE_TYPE> = ResourceQueryParameters<T> & {
         views: Array<keyof Required<T>['views']>;
     };
 
-    type GetCatalogResourcesQueryParameters<T extends CATALOG_RESOURCE_TYPE> = ResourcesQueryParameters<T>;
+    type GetCatalogResourcesQueryParameters<T extends CATALOG_RESOURCE_TYPE> = ResourceQueryParameters<T> & {
+        ids?: string[]
+    };
+
 
     /**
      * Search the catalog by using a query.
@@ -52,13 +58,24 @@ declare namespace MusicKit {
      * Fetch a library resource by using its identifier.
      * https://developer.apple.com/documentation/applemusicapi/get_a_library_album
      */
-    type GetLibraryResourceQueryParameters<T extends LIBRARY_RESOURCE_TYPE> = ResourcesQueryParameters<T>;
+    type GetLibraryResourceQueryParameters<T extends LIBRARY_RESOURCE_TYPE> = ResourceQueryParameters<T> & {
+        views: never;
+    }
 
     /**
      * Fetch one or more library resources by using their identifiers.
      * https://developer.apple.com/documentation/applemusicapi/get_multiple_library_albums
      */
-    type GetLibraryResourcesQueryParameters<T extends LIBRARY_RESOURCE_TYPE> = ResourcesQueryParameters<T>;
+    type GetLibraryResourcesQueryParameters<T extends LIBRARY_RESOURCE_TYPE> = ResourceQueryParameters<T> & {
+        ids: `${string}${"."}${string}`[];
+    };
+
+    /**
+     * Fetch all the library albums in alphabetical order.
+     * https://developer.apple.com/documentation/applemusicapi/get_all_library_albums
+     */
+    type GetAllLibraryResourcesQueryParameters<T extends LIBRARY_RESOURCE_TYPE> = AllResourceQueryParameters<T>;
+
 
     /**
      * Search the library by using a query.

@@ -33,9 +33,8 @@ declare namespace MusicKit {
     interface Storefronts {
         id: string;
         type: 'storefronts';
-        href: ResourceHref<Storefronts>;
         views: never;
-        relationships: never;
+        relationships?: Partial<{}>;
         attributes?: {
             defaultLanguageTag: ISO639;
             explicitContentPolicy: 'allowed' | 'opt-in' | 'prohibited';
@@ -51,9 +50,8 @@ declare namespace MusicKit {
     interface Genres {
         id: string;
         type: 'genres';
-        href: ResourceHref<Genres>;
         views: never;
-        relationships: never;
+        relationships?: Partial<{}>;
         attributes?: {
             name: string;
             parentId?: string;
@@ -69,7 +67,6 @@ declare namespace MusicKit {
     interface Songs {
         id: MusicItemID;
         type: 'songs';
-        href: ResourceHref<Songs>;
         views: never;
         attributes?: {
             albumName: string;
@@ -119,7 +116,6 @@ declare namespace MusicKit {
     interface MusicVideos {
         id: MusicItemID;
         type: 'music-videos';
-        href: ResourceHref<MusicVideos>;
         attributes?: {
             albumName?: string;
             artistName: string;
@@ -162,7 +158,6 @@ declare namespace MusicKit {
     interface AppleCurators {
         id: string;
         type: 'apple-curators';
-        href: ResourceHref<AppleCurators>;
         views: never;
         attributes?: {
             artwork: Artwork;
@@ -185,7 +180,6 @@ declare namespace MusicKit {
     interface Curators {
         id: string;
         type: 'curators';
-        href: ResourceHref<Curators>;
         views: never;
         attributes?: {
             artwork: Artwork;
@@ -205,7 +199,6 @@ declare namespace MusicKit {
     interface Stations {
         id: string;
         type: 'stations';
-        href: ResourceHref<Stations>;
         views: never;
         attributes?: {
             artwork: Artwork;
@@ -231,7 +224,6 @@ declare namespace MusicKit {
     interface Albums {
         id: string;
         type: 'albums';
-        href: ResourceHref<Albums>;
         attributes?: {
             artistName: string;
             artistUrl?: string;
@@ -276,7 +268,6 @@ declare namespace MusicKit {
     interface LibraryAlbums {
         id: string;
         type: 'library-albums';
-        href: ResourceHref<LibraryAlbums>;
         views: never;
         attributes?: {
             artistName: string;
@@ -306,7 +297,6 @@ declare namespace MusicKit {
     interface LibraryArtists {
         id: string;
         type: 'library-artists';
-        href: ResourceHref<LibraryArtists>;
         views: never;
         attributes?: {
             name: string;
@@ -324,7 +314,6 @@ declare namespace MusicKit {
     interface LibraryMusicVideos {
         id: string;
         type: 'library-music-videos';
-        href: ResourceHref<LibraryMusicVideos>;
         views: never;
         attributes?: {
             albumName?: string;
@@ -354,7 +343,6 @@ declare namespace MusicKit {
     interface LibraryPlaylists {
         id: string;
         type: 'library-playlists';
-        href: ResourceHref<LibraryPlaylists>;
         views: never;
         attributes?: {
             artwork?: Artwork;
@@ -378,7 +366,6 @@ declare namespace MusicKit {
     interface LibrarySongs {
         id: string;
         type: 'library-songs';
-        href: ResourceHref<LibrarySongs>;
         views: never;
         attributes?: {
             albumName: string;
@@ -410,7 +397,6 @@ declare namespace MusicKit {
     interface Artists {
         id: string;
         type: 'artists';
-        href: ResourceHref<Artists>;
         attributes?: {
             editorialNotes?: EditorialNotes;
             genreNames: string[];
@@ -428,7 +414,7 @@ declare namespace MusicKit {
                 href?: string;
                 next?: string;
                 views: never;
-                relationships: never;
+                relationships?: Partial<{}>;
                 attributes: {
                     title: string;
                 };
@@ -454,7 +440,6 @@ declare namespace MusicKit {
     interface Playlists {
         id: string;
         type: 'playlists';
-        href: ResourceHref<Playlists>;
         attributes?: {
             artwork?: Artwork;
             curatorName: string;
@@ -484,8 +469,7 @@ declare namespace MusicKit {
     interface RecordLabels {
         id: string;
         type: 'record-labels';
-        href: ResourceHref<RecordLabels>;
-        relationships: never;
+        relationships?: Partial<{}>;
         attributes?: {
             artwork: Artwork;
             description?: DescriptionAttribute;
@@ -505,7 +489,6 @@ declare namespace MusicKit {
     interface Activities {
         id: string;
         type: 'activities';
-        href: ResourceHref<Activities>;
         views: never;
         attributes?: {
             artwork: Artwork;
@@ -525,7 +508,6 @@ declare namespace MusicKit {
     interface PersonalRecommendations {
         id: string;
         type: 'personal-recommendation';
-        href: ResourceHref<PersonalRecommendations>;
         views: never;
         attributes?: {
             kind: 'music-recommendations' | 'recently-played' | 'unknown';
@@ -559,7 +541,6 @@ declare namespace MusicKit {
     interface Ratings {
         id: string;
         type: 'ratings';
-        href: ResourceHref<Ratings>;
         views: never;
         attributes?: {
             value?: -1 | 1;

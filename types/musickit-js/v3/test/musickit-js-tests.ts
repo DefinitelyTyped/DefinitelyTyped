@@ -14,9 +14,10 @@ const test = async () => {
     res = await player.api.music('/v1/catalog/{{storefrontId}}/songs/123456789');
 
     // $ExpectType APIResponse & { data: CatalogResourceResponse<Songs>; }
-    res = await player.api.music<MusicKit.CatalogResourceAPI<MusicKit.Songs>>(
-        '/v1/catalog/{{storefrontId}}/songs/123456789',
-    );
+    res = await player.api.music<{
+        action: 'getSingleResource';
+        resource: MusicKit.Songs;
+    }>('/v1/catalog/{{storefrontId}}/songs/123456789');
     if (res.data.data[0].attributes) {
         const {
             // $ExpectType string

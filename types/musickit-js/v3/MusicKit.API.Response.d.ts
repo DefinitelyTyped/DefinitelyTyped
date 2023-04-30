@@ -1,21 +1,4 @@
 declare namespace MusicKit {
-    /**
-     * https://developer.apple.com/documentation/applemusicapi/search
-     */
-    interface APIResponse {
-        request: {
-            baseUrl: string;
-            fetchOptions: {
-                headers: HeadersInit;
-            };
-            path: string;
-            queryParameters: QueryParameters;
-            urlParameters: Record<string, any>;
-            url: string;
-        };
-        response: Response;
-    }
-
     type CatalogResourceAPIResponse<T extends CATALOG_RESOURCE_TYPE> = Promise<
         APIResponse & {
             data: CatalogResourceResponse<T>;
