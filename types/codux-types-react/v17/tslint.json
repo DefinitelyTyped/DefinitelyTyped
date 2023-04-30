@@ -4,6 +4,7 @@
         "no-empty-interface": false,
         "no-object-literal-type-assertion": false,
         "strict-export-declare-modifiers": false,
-        "void-return": false
+        "void-return": false,
+        "npm-naming": false
     }
 }
