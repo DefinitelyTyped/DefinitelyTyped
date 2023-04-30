@@ -1,4 +1,4 @@
-// Type definitions for polylabel 1.0
+// Type definitions for polylabel 1.2
 // Project: https://github.com/mapbox/polylabel
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
