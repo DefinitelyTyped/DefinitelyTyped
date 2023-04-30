@@ -12487,3 +12487,11 @@ declare namespace google.maps.visualization {
     weight: number;
   }
 }
+
+/**
+ * when google.maps.Geocoder will throw authorization error
+ * @see {https://developers.google.com/maps/documentation/javascript/events}
+ */
+declare interface Window {
+  gm_authFailure?: () => void;
+}
