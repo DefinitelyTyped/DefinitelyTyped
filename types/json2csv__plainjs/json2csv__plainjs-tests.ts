@@ -1,5 +1,6 @@
 import { Parser, StreamParser, Field, ParserOptions, StreamOptions, AsyncOptions } from '@json2csv/plainjs';
 import BaseParser from '@json2csv/plainjs/src/BaseParser';
+import * as utils from '@json2csv/plainjs/src/utils';
 import { default as defaultFormatter } from '@json2csv/formatters';
 import { flatten, unwind } from '@json2csv/transforms';
 
@@ -83,3 +84,7 @@ streamParser.pushHeaderIfNotWritten();
 streamParser.pushLine('foo');
 streamParser.write('foo');
 streamParser.end();
+
+utils.getProp({}, 'foo', 'bar'); // $ExpectType any
+utils.flattenReducer([1, 2, 3], [4, 5, 6]); // $ExpectType number
+utils.fastJoin(['foo', 'bar'], ','); // $ExpectType string
