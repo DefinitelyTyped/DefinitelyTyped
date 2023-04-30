@@ -21,5 +21,6 @@ export interface FieldObject {
 
 export type Field = string | ((row: any[]) => string) | FieldObject;
 
+export { Options as ParserOptions } from './BaseParser';
 export { default as Parser } from './Parser';
-export { default as StreamParser } from './StreamParser';
+export { default as StreamParser, Options as StreamOptions, AsyncOptions } from './StreamParser';

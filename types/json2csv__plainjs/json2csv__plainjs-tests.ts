@@ -1,6 +1,5 @@
-import { Parser, StreamParser, Field } from '@json2csv/plainjs';
-import BaseParser, { Options as ParserOptions } from '@json2csv/plainjs/src/BaseParser';
-import { Options as StreamParserOptions, AsyncOptions } from '@json2csv/plainjs/src/StreamParser';
+import { Parser, StreamParser, Field, ParserOptions, StreamOptions, AsyncOptions } from '@json2csv/plainjs';
+import BaseParser from '@json2csv/plainjs/src/BaseParser';
 import { default as defaultFormatter } from '@json2csv/formatters';
 import { flatten, unwind } from '@json2csv/transforms';
 
@@ -51,7 +50,7 @@ function baseTests(parser: BaseParser) {
 baseTests(parser);
 parser.parse('foo'); // $ExpectType string
 
-const streamOptions: StreamParserOptions = { ...options, ndjson: true };
+const streamOptions: StreamOptions = { ...options, ndjson: true };
 const asyncOptions: AsyncOptions = {
     stringBufferSize: 123,
     numberBufferSize: 123,
