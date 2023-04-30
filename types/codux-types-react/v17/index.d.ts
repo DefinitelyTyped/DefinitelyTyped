@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { CSSProperties } from 'react/v17';
+import { CSSProperties } from 'react';
 
 declare namespace React {
     interface HTMLAttributes<T> {

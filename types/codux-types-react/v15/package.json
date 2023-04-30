@@ -1,5 +1,8 @@
 {
   "private": true,
+  "dependencies": {
+    "@types/react": "^15.7"
+  },
   "exports": {
     ".": {
       "types": {
