@@ -9,9 +9,8 @@
             "es6"
         ],
         "paths": {
-            "react": ["react/v17"],
-            "react-dom": ["react-dom/v17"],
-            "react-dom/*": ["react-dom/v17/*"]
+            "codux-types-react": ["codux-types-react/v17"],
+            "react": ["react/v17"]
         },
         "noImplicitAny": true,
         "noImplicitThis": true,
