@@ -7,6 +7,8 @@
 
 import { CSSProperties } from 'react';
 
+export {};
+
 declare namespace React {
     interface HTMLAttributes<T> {
         /**
