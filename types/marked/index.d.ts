@@ -1,4 +1,4 @@
-// Type definitions for Marked 4.0
+// Type definitions for Marked 4.3
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -552,6 +552,16 @@ export namespace marked {
          * if highlighting was successful)
          */
         highlight?(code: string, lang: string, callback?: (error: any, code?: string) => void): string | void;
+
+        /**
+         * Hooks are methods that hook into some part of marked.
+         * preprocess is called to process markdown before sending it to marked.
+         * postprocess is called to process html after marked has finished parsing.
+         */
+        hooks?: {
+            preprocess?: (markdown: string) => string,
+            postprocess?: (html: string) => string,
+        };
 
         /**
          * Set the prefix for code block classes.
