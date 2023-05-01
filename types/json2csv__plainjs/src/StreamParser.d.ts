@@ -1,4 +1,4 @@
-import { Tokenizer, TokenizerOptions, TokenParser } from '@streamparser/json';
+import { Tokenizer, TokenizerOptions, TokenParser } from '@streamparser/json/index';
 import JSON2CSVBase, { Options as BaseOptions } from './BaseParser';
 
 export interface Options extends BaseOptions {

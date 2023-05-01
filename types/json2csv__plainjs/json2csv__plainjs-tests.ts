@@ -4,7 +4,7 @@ import * as utils from '@json2csv/plainjs/src/utils';
 import { default as defaultFormatter } from '@json2csv/formatters';
 import { flatten, unwind } from '@json2csv/transforms';
 
-import { Tokenizer, TokenParser } from '@streamparser/json';
+import { Tokenizer, TokenParser } from '@streamparser/json/index';
 
 const options: ParserOptions = {
     fields: [
@@ -34,7 +34,7 @@ new Parser(options);
 const parser = new Parser();
 
 function baseTests(parser: BaseParser) {
-    parser.opts; // $ExpectType ParserOptions
+    parser.opts; // $ExpectType Required<Options>
     parser.getHeader(); // $ExpectType string
     // @ts-expect-error `globalDefaultValue` missing
     parser.preprocessFieldsInfo([]);
@@ -65,7 +65,7 @@ new StreamParser({}, {});
 new StreamParser(streamOptions, asyncOptions);
 const streamParser = new StreamParser();
 
-streamParser.tokenizer; // $ExpectType TBD
+streamParser.tokenizer; // $ExpectType Tokenizer | { write(data: any): void; end(): void; } | undefined
 streamParser.tokenParser; // $ExpectType TokenParser | undefined
 
 baseTests(streamParser);
