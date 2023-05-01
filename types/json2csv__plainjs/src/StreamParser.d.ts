@@ -1,4 +1,4 @@
-import Tokenizer, { TokenizerOptions } from '@streamparser/json/tokenizer';
+import { Tokenizer, TokenizerOptions, TokenParser } from '@streamparser/json';
 import JSON2CSVBase, { Options as BaseOptions } from './BaseParser';
 
 export interface Options extends BaseOptions {
@@ -12,7 +12,11 @@ export interface AsyncOptions extends TokenizerOptions {
 export default class JSON2CSVStreamParser extends JSON2CSVBase {
     constructor(opts?: BaseOptions, asyncOpts?: AsyncOptions);
 
-    configureCallbacks(tokenizer: Tokenizer, tokenParser: Tokenizer): void;
+    tokenizer?: Tokenizer | ReturnType<this['getObjectModeTokenzier']> | undefined;
+    tokenParser?: TokenParser | undefined;
+    protected _hasWritten?: boolean | undefined;
+
+    configureCallbacks(tokenizer: Tokenizer, tokenParser: TokenParser): void;
 
     initTokenizer(opts?: BaseOptions, asyncOpts?: AsyncOptions): void;
 

@@ -13,5 +13,11 @@ export default class JSON2CSVNodeAsyncParser<I = any, O = any> {
         readableStrategy?: QueuingStrategy<O>,
     );
 
+    opts?: StreamOptions | undefined;
+    // asyncOpts isn't optional since it's set to `{}` when nothing is passed
+    asyncOpts: AsyncOptions;
+    writableStrategy?: QueuingStrategy<I> | undefined;
+    readableStrategy?: QueuingStrategy<O> | undefined;
+
     parse(data: string | Stream | object): ReadableStream<JSON2CSVWHATWGTransformStream>;
 }

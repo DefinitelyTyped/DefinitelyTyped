@@ -38,6 +38,12 @@ new AsyncParser(streamOptions, asyncOptions, { highWaterMark: 123 }, { highWater
 declare const readableStream: ReadableStream;
 
 const parser = new AsyncParser();
+
+parser.opts; // $ExpectType Options | undefined
+parser.asyncOpts; // $ExpectType AsyncOptions
+parser.readableStrategy; // $ExpectType QueuingStrategy<any> | undefined
+parser.writableStrategy; // $ExpectType QueuingStrategy<any> | undefined
+
 parser.parse('foo');
 parser.parse(readableStream);
 parser.parse([]);

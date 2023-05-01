@@ -2,7 +2,13 @@
 import { Transform, TransformOptions } from 'node:stream';
 import { StreamParser, StreamOptions, AsyncOptions } from '@json2csv/plainjs';
 
+/**
+ * @todo Update this body to match StreamParser whenever it changes.
+ * Doing this is the closest I think we can get with TypeScript to mimicking
+ * {@link <https://github.com/juanjoDiaz/json2csv/blob/2d827e99d849e3afbbfcde4fa25f9789aab25c83/packages/node/src/Transform.js#L9>}
+ */
 declare class _Transform extends Transform implements StreamParser {
+    opts: StreamParser['opts'];
     getHeader: StreamParser['getHeader'];
     preprocessOpts: StreamParser['preprocessOpts'];
     preprocessFieldsInfo: StreamParser['preprocessFieldsInfo'];

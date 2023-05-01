@@ -15,6 +15,8 @@ export interface Options {
 export default class JSON2CSVBase {
     constructor(opts?: Options);
 
+    opts: Required<Options>;
+
     getHeader(): string;
 
     preprocessOpts(opts?: Options): Required<Options>;
