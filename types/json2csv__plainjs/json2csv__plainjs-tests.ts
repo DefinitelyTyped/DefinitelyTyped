@@ -85,6 +85,18 @@ streamParser.pushLine('foo');
 streamParser.write('foo');
 streamParser.end();
 
+streamParser.onData = data => {
+    data; // $ExpectType any
+};
+streamParser.onEnd = () => {};
+streamParser.onError = () => {};
+streamParser.onHeader = header => {
+    header; // $ExpectType string
+};
+streamParser.onLine = line => {
+    line; // $ExpectType any[]
+};
+
 utils.getProp({}, 'foo', 'bar'); // $ExpectType any
 utils.flattenReducer([1, 2, 3], [4, 5, 6]); // $ExpectType number[]
 utils.fastJoin(['foo', 'bar'], ','); // $ExpectType string
