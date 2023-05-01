@@ -1290,6 +1290,8 @@ describe('', () => {
         expect({}).toHaveProperty(['property'], {});
         expect({}).toHaveProperty(['property', 'deep']);
         expect({}).toHaveProperty(['property', 'deep'], {});
+        expect({}).toHaveProperty(['property', 'deep'] as const);
+        expect({}).toHaveProperty(['property', 'deep'] as const, {});
 
         expect(jest.fn()).toHaveReturned();
 
