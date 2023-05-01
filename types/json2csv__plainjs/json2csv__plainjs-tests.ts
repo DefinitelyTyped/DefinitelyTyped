@@ -86,5 +86,5 @@ streamParser.write('foo');
 streamParser.end();
 
 utils.getProp({}, 'foo', 'bar'); // $ExpectType any
-utils.flattenReducer([1, 2, 3], [4, 5, 6]); // $ExpectType number
+utils.flattenReducer([1, 2, 3], [4, 5, 6]); // $ExpectType number[]
 utils.fastJoin(['foo', 'bar'], ','); // $ExpectType string
