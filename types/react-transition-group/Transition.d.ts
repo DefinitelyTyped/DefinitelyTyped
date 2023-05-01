@@ -135,7 +135,7 @@ interface BaseTransitionProps<RefElement extends undefined | HTMLElement> {
 }
 
 export type TransitionStatus = typeof ENTERING | typeof ENTERED | typeof EXITING | typeof EXITED | typeof UNMOUNTED;
-export type TransitionChildren = ReactNode | ((status: TransitionStatus) => ReactNode);
+export type TransitionChildren = ReactNode | ((status: TransitionStatus, childProps: any) => ReactNode);
 
 export interface TimeoutProps<RefElement extends undefined | HTMLElement> extends BaseTransitionProps<RefElement> {
     /**
