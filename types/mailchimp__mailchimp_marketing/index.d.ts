@@ -399,6 +399,58 @@ export namespace lists {
         _links: Link[];
     }
 
+    interface batchListMembersOpts {
+      skipMergeValidation?: boolean;
+      skipDuplicateCheck?: boolean;
+    }
+
+    interface batchListMembersResponse {
+      new_members?: MembersSuccessResponse[];
+      updated_members?: MembersSuccessResponse[];
+      errors?: Array<{
+        email_address: string;
+        error: string;
+        error_code: string;
+        field: string;
+        field_message: string;
+      }>;
+    }
+
+    type EmailType = "text"|"html";
+
+    interface batchListMembersBodyMembersObject {
+      email_address: string;
+      email_type: EmailType;
+      status: Status;
+      vip?: boolean;
+      location?: {
+        latitude: number;
+        longtitude: number;
+      };
+      tags?: string[]; // non-documented tho still available to use
+      ip_signup?: string;
+      timestamp_signup?: string;
+      ip_opt?: string;
+      timestamp_opt?: string;
+      language?: string; // https://mailchimp.com/help/view-and-edit-contact-languages/
+      merge_fields?: {[k: string]: string}; // https://mailchimp.com/developer/marketing/docs/merge-fields/#structure
+    }
+
+    interface batchListMembersBody {
+      members: batchListMembersBodyMembersObject[];
+      sync_tags?: boolean;
+      update_existing?: boolean;
+    }
+
+    /**
+     * Batch subscribe or unsubscribe
+     * https://mailchimp.com/developer/marketing/api/lists/batch-subscribe-or-unsubscribe//
+     * @param listId The unique ID for the list.
+     * @param body
+     * @param opts Optional parameters
+     */
+    function batchListMembers(listId: string, body: batchListMembersBody, opts?: batchListMembersOpts): Promise<batchListMembersResponse | ErrorResponse>;
+
     /**
      * Add or update a list member.
      * @param listId The unique ID for the list.
