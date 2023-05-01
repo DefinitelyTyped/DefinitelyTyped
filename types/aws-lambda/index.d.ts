@@ -41,6 +41,7 @@
 //                 James Lakin <https://github.com/jamesorlakin>
 //                 Ross Gerbasi <https://github.com/aphex>
 //                 Joey Kilpatrick <https://github.com/joeykilpatrick>
+//                 Thomas Weustenfeld <https://github.com/tw00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -86,7 +87,8 @@ export * from "./trigger/s3-batch";
 export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
-export * from './trigger/msk';
+export * from "./trigger/msk";
+export * from "./trigger/mq";
 export * from "./trigger/secretsmanager";
 export * from "./trigger/s3-event-notification";
 export * from "./trigger/amplify-resolver";
