@@ -352,6 +352,18 @@ declare namespace zingchart {
      */
     type?: string;
   }
+  interface choropleth {
+    aspect?: string;
+    color?: string;
+    effect?: string;
+    steps?: number[];
+    colors?: string[];
+    intervals?: number;
+    progression?: string;
+    maxPercent?: number;
+    mirrored?: boolean;
+    labels?: label[];
+  }
   interface contextMenu {
     button?: {
       /**
@@ -15566,6 +15578,10 @@ declare namespace zingchart {
        * 51B5" | ...
        */
       color?: string;
+      /**
+       * Use the choropleth object to configure how the map is colored with the following properties.
+       */
+      choropleth?: choropleth;
       /**
        * To set the type of color arrangement applied to the word cloud. Use the "color" value with the "color" attribute. Use the "palette
        * " value with the "palette" array. "random" (default) | "color" | "palette"
