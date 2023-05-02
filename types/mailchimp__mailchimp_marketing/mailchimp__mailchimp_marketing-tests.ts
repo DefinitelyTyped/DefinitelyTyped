@@ -33,6 +33,7 @@ const batchListMembersBody: mailchimp.lists.BatchListMembersBody = {
 
 const batchListMembersOpts: mailchimp.lists.BatchListMembersOpts = {
     skipDuplicateCheck: true,
+    skipMergeValidation: true,
 };
 
 const setListMemberBody: mailchimp.lists.SetListMemberBody = {
@@ -103,7 +104,7 @@ const getListMergeFieldsBody: mailchimp.lists.ListOptions = {
 };
 
 // Promise<MembersSuccessResponse | ErrorResponse>
-mailchimp.lists.batchListMembers('test', batchListMembersBody);
+mailchimp.lists.batchListMembers('test', batchListMembersBody, batchListMembersOpts);
 
 // Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.setListMember('test', 'test', setListMemberBody);
