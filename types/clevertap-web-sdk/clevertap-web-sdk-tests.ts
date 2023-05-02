@@ -3,16 +3,13 @@ import clevertap = require('clevertap-web-sdk');
 clevertap.privacy.push({ optOut: false }); // Set the flag to true, if the user of the device opts out of sharing their data
 clevertap.privacy.push({ useIP: false }); // Set the flag to true, if the user agrees to share their IP data
 clevertap.init('ACCOUNT_ID', 'eu1', 'TARGET_DOMAIN'); // Replace with values applicable to you. Refer below
-
 clevertap.spa = true;
 clevertap.enablePersonalization = true;
 clevertap.raiseNotificationClicked = () => {
     // callback for notification clicked
 };
-
 // event without properties
 clevertap.event.push('Product viewed');
-
 // event with properties
 clevertap.event.push('Product viewed', {
     'Product name': 'Casio Chronograph Watch',
@@ -23,6 +20,7 @@ clevertap.event.push('Product viewed', {
 const productViewedDetails = clevertap.event.getDetails('Product viewed');
 // each of the below mentioned fields are optional
 // if set, these populate demographic information in the Dashboard
+
 clevertap.profile.push({
     Site: {
         Name: 'Jack Montana', // String
@@ -58,7 +56,6 @@ clevertap.onUserLogin.push({
         'MSG-whatsapp': true, // Enable WhatsApp notifications
     },
 });
-
 const LOG_LEVEL = 0;
 clevertap.setLogLevel(LOG_LEVEL);
 // Here Log Levels is an integer that can be any of the folowing:
@@ -70,7 +67,6 @@ const ctid = clevertap.getCleverTapID();
 clevertap.logout();
 clevertap.clear();
 clevertap.pageChanged();
-
 clevertap.notifications.push({
     apnsWebPushId: '<apple web push id>',
     apnsWebPushServiceUrl: '<safari package service url>',
@@ -82,11 +78,24 @@ clevertap.notifications.push({
     askAgainTimeInSeconds: 5,
     serviceWorkerPath: '/foo/my_sw.js', // path to your custom service worker file
 });
-
+clevertap.renderNotificationClicked({
+    msgId: '232',
+    kv: 1212,
+    msgCTkv: 'sdsdsa',
+    pivotId: 'asdasasd',
+    wzrk_slideNo: 232323,
+});
+clevertap.renderNotificationViewed({
+    msgId: '232',
+    kv: 1212,
+    msgCTkv: 'sdsdsa',
+    pivotId: 'asdasasd',
+    wzrk_slideNo: 232323,
+});
+clevertap.setOffline(true);
+clevertap.setOffline(false);
 clevertap.notifications.push('Title', 'Body', 'Ok', 'Cancel');
-
 const totalVisits = clevertap.user.getTotalVisits();
 const lastVisit = clevertap.user.getLastVisit();
-
 const timeElapsed = clevertap.session.getTimeElapsed();
 const pageCount = clevertap.session.getPageCount();

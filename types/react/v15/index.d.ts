@@ -1,5 +1,5 @@
 // Type definitions for React 15.7
-// Project: http://facebook.github.io/react/
+// Project: https://react.dev/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
@@ -131,7 +131,6 @@ declare namespace React {
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
         allowpopups?: boolean | undefined;
-        autoFocus?: boolean | undefined;
         autosize?: boolean | undefined;
         blinkfeatures?: string | undefined;
         disableblinkfeatures?: string | undefined;
@@ -2591,6 +2590,7 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
+        autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: boolean | undefined;
         contextMenu?: string | undefined;
@@ -2613,11 +2613,14 @@ declare namespace React {
 
         // RDFa Attributes
         about?: string | undefined;
+        content?: string | undefined;
         datatype?: string | undefined;
         inlist?: any;
         prefix?: string | undefined;
         property?: string | undefined;
+        rel?: string | undefined;
         resource?: string | undefined;
+        rev?: string | undefined;
         typeof?: string | undefined;
         vocab?: string | undefined;
 
@@ -2659,7 +2662,6 @@ declare namespace React {
         as?: string | undefined;
         async?: boolean | undefined;
         autoComplete?: string | undefined;
-        autoFocus?: boolean | undefined;
         autoPlay?: boolean | undefined;
         capture?: boolean | string | undefined;
         cellPadding?: number | string | undefined;
@@ -2671,10 +2673,9 @@ declare namespace React {
         classID?: string | undefined;
         cols?: number | undefined;
         colSpan?: number | undefined;
-        content?: string | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         data?: string | undefined;
         dateTime?: string | undefined;
         default?: boolean | undefined;
@@ -2727,7 +2728,6 @@ declare namespace React {
         poster?: string | undefined;
         preload?: string | undefined;
         readOnly?: boolean | undefined;
-        rel?: string | undefined;
         required?: boolean | undefined;
         reversed?: boolean | undefined;
         rows?: number | undefined;
@@ -2763,7 +2763,6 @@ declare namespace React {
         href?: string | undefined;
         hrefLang?: string | undefined;
         media?: string | undefined;
-        rel?: string | undefined;
         target?: string | undefined;
     }
 
@@ -2776,7 +2775,6 @@ declare namespace React {
         href?: string | undefined;
         hrefLang?: string | undefined;
         media?: string | undefined;
-        rel?: string | undefined;
         shape?: string | undefined;
         target?: string | undefined;
     }
@@ -2791,7 +2789,6 @@ declare namespace React {
     }
 
     interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoFocus?: boolean | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         formAction?: string | undefined;
@@ -2852,7 +2849,6 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
-        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2895,10 +2891,9 @@ declare namespace React {
         accept?: string | undefined;
         alt?: string | undefined;
         autoComplete?: string | undefined;
-        autoFocus?: boolean | undefined;
         capture?: boolean | string | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         formAction?: string | undefined;
@@ -2929,7 +2924,6 @@ declare namespace React {
     }
 
     interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoFocus?: boolean | undefined;
         challenge?: string | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
@@ -2949,13 +2943,12 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
         imageSrcSet?: string | undefined;
         media?: string | undefined;
-        rel?: string | undefined;
         sizes?: string | undefined;
         type?: string | undefined;
     }
@@ -2971,7 +2964,7 @@ declare namespace React {
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         loop?: boolean | undefined;
         mediaGroup?: string | undefined;
         muted?: boolean | undefined;
@@ -2982,7 +2975,6 @@ declare namespace React {
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
-        content?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
         media?: string | undefined;
@@ -3050,7 +3042,7 @@ declare namespace React {
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean | undefined;
         charSet?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         defer?: boolean | undefined;
         integrity?: string | undefined;
         nonce?: string | undefined;
@@ -3060,7 +3052,6 @@ declare namespace React {
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
         autoComplete?: string | undefined;
-        autoFocus?: boolean | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         multiple?: boolean | undefined;
@@ -3094,7 +3085,6 @@ declare namespace React {
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoComplete?: string | undefined;
-        autoFocus?: boolean | undefined;
         cols?: number | undefined;
         dirName?: string | undefined;
         disabled?: boolean | undefined;
@@ -3641,7 +3631,6 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement { }
         interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
@@ -3649,7 +3638,6 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
-        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 

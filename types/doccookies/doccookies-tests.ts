@@ -1,10 +1,3 @@
-// Type definitions for docCookies
-// Project: https://developer.mozilla.org/en-US/docs/Web/API/document.cookie
-// Definitions by: Jon Egerton <https://github.com/jonegerton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 docCookies.setItem("test0", "Hello world!");
 docCookies.setItem("test1", "Unicode test: \u00E0\u00E8\u00EC\u00F2\u00F9", Infinity);
 docCookies.setItem("test2", "Hello world!", new Date(2020, 5, 12));

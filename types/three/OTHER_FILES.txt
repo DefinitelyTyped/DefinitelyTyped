@@ -1,5 +1,9 @@
+build/three.d.cts
+build/three.d.ts
+build/three.module.d.ts
 examples/jsm/animation/AnimationClipCreator.d.ts
 examples/jsm/csm/CSMShader.d.ts
+examples/jsm/controls/MapControls.d.ts
 examples/jsm/curves/NURBSCurve.d.ts
 examples/jsm/curves/NURBSSurface.d.ts
 examples/jsm/curves/NURBSUtils.d.ts
@@ -55,7 +59,6 @@ examples/jsm/loaders/LWOLoader.d.ts
 examples/jsm/loaders/MD2Loader.d.ts
 examples/jsm/loaders/MDDLoader.d.ts
 examples/jsm/loaders/NRRDLoader.d.ts
-examples/jsm/loaders/PCDLoader.d.ts
 examples/jsm/loaders/PDBLoader.d.ts
 examples/jsm/loaders/PLYLoader.d.ts
 examples/jsm/loaders/PRWMLoader.d.ts
@@ -150,7 +153,6 @@ examples/jsm/shaders/LuminosityHighPassShader.d.ts
 examples/jsm/shaders/LuminosityShader.d.ts
 examples/jsm/shaders/MirrorShader.d.ts
 examples/jsm/shaders/NormalMapShader.d.ts
-examples/jsm/shaders/PixelShader.d.ts
 examples/jsm/shaders/RGBShiftShader.d.ts
 examples/jsm/shaders/SAOShader.d.ts
 examples/jsm/shaders/SepiaShader.d.ts
@@ -168,7 +170,6 @@ examples/jsm/shaders/VerticalTiltShiftShader.d.ts
 examples/jsm/shaders/VignetteShader.d.ts
 examples/jsm/shaders/VolumeShader.d.ts
 examples/jsm/shaders/WaterRefractionShader.d.ts
-examples/jsm/utils/BufferGeometryUtils.d.ts
 examples/jsm/utils/GeometryCompressionUtils.d.ts
 examples/jsm/utils/PackedPhongMaterial.d.ts
 examples/jsm/utils/SceneUtils.d.ts

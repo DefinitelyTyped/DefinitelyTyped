@@ -3,12 +3,10 @@
     "rules": {
         "ban-types": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "prefer-declare-function": false,
         "space-before-function-paren": false,
         "typedef-whitespace": false,
         "unified-signatures": false,

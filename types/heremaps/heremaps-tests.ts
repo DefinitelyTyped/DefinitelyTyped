@@ -114,8 +114,8 @@ let calculateRouteParams = {
 };
 router.calculateRoute(
     calculateRouteParams,
-    result => {
-        console.log(result.response.route[0]);
+    (result: H.service.RoutingService.RoutingServiceResult) => {
+        console.log(result.routes[0]);
     },
     error => {
         console.log(error);

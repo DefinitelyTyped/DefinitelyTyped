@@ -18,9 +18,9 @@ new SlotNode({
     nodeType: 'float',
 });
 
-NodeUtils.getNodesKeys(new Nodes.ConstNode(1));
+NodeUtils.getNodeChildren(new Nodes.ConstNode(1));
 NodeUtils.getValueType(1);
 NodeUtils.getValueFromType('color');
 
-Nodes.LightsNode.setReference(PointLight, Nodes.PunctualLightNode);
+Nodes.LightsNode.setReference(PointLight, Nodes.PointLightNode);
 Nodes.LightsNode.setReference(HemisphereLight, Nodes.HemisphereLightNode);

@@ -1,4 +1,4 @@
-// For Library Version: 1.108.0
+// For Library Version: 1.113.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -670,6 +670,8 @@ declare module "sap/f/AvatarGroup" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1411,6 +1413,8 @@ declare module "sap/f/CardBase" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the DOM Element that should get the focus.
      *
      * @returns Returns the DOM Element that should get the focus
@@ -1790,6 +1794,8 @@ declare module "sap/f/cards/Header" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
      */
@@ -1801,9 +1807,15 @@ declare module "sap/f/cards/Header" {
       /**
        * The mapping of "aria-" prefixed attributes
        */
-      mAriaProps: object
+      mAriaProps: {
+        role: string;
+
+        level: string;
+      }
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2393,6 +2405,8 @@ declare module "sap/f/cards/NumericHeader" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
      */
@@ -2404,9 +2418,15 @@ declare module "sap/f/cards/NumericHeader" {
       /**
        * The mapping of "aria-" prefixed attributes
        */
-      mAriaProps: object
+      mAriaProps: {
+        role: string;
+
+        level: string;
+      }
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2446,6 +2466,18 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Value of property `number`
      */
     getNumber(): string;
+    /**
+     * @SINCE 1.109
+     *
+     * Gets current value of property {@link #getNumberVisible numberVisible}.
+     *
+     * Whether the main numeric indicator is visible or not
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `numberVisible`
+     */
+    getNumberVisible(): boolean;
     /**
      * Gets current value of property {@link #getScale scale}.
      *
@@ -2653,6 +2685,25 @@ declare module "sap/f/cards/NumericHeader" {
        * New value for property `number`
        */
       sNumber: string
+    ): this;
+    /**
+     * @SINCE 1.109
+     *
+     * Sets a new value for property {@link #getNumberVisible numberVisible}.
+     *
+     * Whether the main numeric indicator is visible or not
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setNumberVisible(
+      /**
+       * New value for property `numberVisible`
+       */
+      bNumberVisible?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getScale scale}.
@@ -2869,6 +2920,13 @@ declare module "sap/f/cards/NumericHeader" {
      * the first five are displayed. Without rounding the number.
      */
     number?: string | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.109
+     *
+     * Whether the main numeric indicator is visible or not
+     */
+    numberVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the unit of measurement (scaling prefix) for the main indicator. Financial characters can be
@@ -3140,6 +3198,8 @@ declare module "sap/f/dnd/GridDropInfo" {
 
   import { dnd } from "sap/ui/core/library";
 
+  import Control from "sap/ui/core/Control";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -3227,36 +3287,40 @@ declare module "sap/f/dnd/GridDropInfo" {
      * Gets current value of property {@link #getDropIndicatorSize dropIndicatorSize}.
      *
      * A function which will define the desired drop indicator size. The drop indicator shows the user how the
-     * grid will rearrange after drop.
-     *
-     * Use when custom size needs to be defined. For example when an item is dragged from outside a grid and
-     * is dropped over the grid.
+     * grid will rearrange after drop. Use when custom size needs to be defined. For example, when an item is
+     * dragged from outside a grid and is dropped over the grid.
      *
      * If not specified or if the function returns `null`, the indicator size will be calculated automatically.
      *
-     * This callback will be called when the indicator is displayed, that happens during the drag over movement.
+     * This callback will be called when the indicator is displayed, which happens during the drag over movement.
      *
-     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
-     * columns: }` or `null`.
+     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: int, columns:
+     * int}` or `null`.
      *
      * @returns Value of property `dropIndicatorSize`
      */
-    getDropIndicatorSize(): Function;
+    getDropIndicatorSize():
+      | ((
+          p1: Control
+        ) => {
+          rows: int;
+
+          columns: int;
+        } | null)
+      | undefined;
     /**
-     * Sets a new value for property {@link #getDropIndicatorSize dropIndicatorSize}.
+     * Sets a new value for property {@link #setDropIndicatorSize dropIndicatorSize}.
      *
      * A function which will define the desired drop indicator size. The drop indicator shows the user how the
-     * grid will rearrange after drop.
-     *
-     * Use when custom size needs to be defined. For example when an item is dragged from outside a grid and
-     * is dropped over the grid.
+     * grid will rearrange after drop. Use when custom size needs to be defined. For example when an item is
+     * dragged from outside a grid and is dropped over the grid.
      *
      * If not specified or if the function returns `null`, the indicator size will be calculated automatically.
      *
-     * This callback will be called when the indicator is displayed, that happens during the drag over movement.
+     * This callback will be called when the indicator is displayed, which happens during the drag over movement.
      *
-     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
-     * columns: }` or `null`.
+     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: int, columns:
+     * int}` or `null`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3266,7 +3330,13 @@ declare module "sap/f/dnd/GridDropInfo" {
       /**
        * New value for property `dropIndicatorSize`
        */
-      fnDropIndicatorSize: Function
+      fnDropIndicatorSize?: (
+        p1: Control
+      ) => {
+        rows: int;
+
+        columns: int;
+      } | null
     ): this;
   }
 
@@ -3280,10 +3350,10 @@ declare module "sap/f/dnd/GridDropInfo" {
      *
      * If not specified or if the function returns `null`, the indicator size will be calculated automatically.
      *
-     * This callback will be called when the indicator is displayed, that happens during the drag over movement.
+     * This callback will be called when the indicator is displayed, which happens during the drag over movement.
      *
-     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
-     * columns: }` or `null`.
+     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: int, columns:
+     * int}` or `null`.
      */
     dropIndicatorSize?: Function | PropertyBindingInfo | `{${string}}`;
   }
@@ -3533,6 +3603,7 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * @SINCE 1.93
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:pinnedStateChange pinnedStateChange} to attached listeners.
      *
@@ -5122,6 +5193,7 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * @SINCE 1.54
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
      *
@@ -5971,7 +6043,7 @@ declare module "sap/f/FlexibleColumnLayout" {
   /**
    * @SINCE 1.46
    *
-   * Implements the master-detail-detail paradigm by displaying up to three pages in separate columns.
+   * Implements the list-detail-detail paradigm by displaying up to three pages in separate columns.
    *
    * Overview:
    *
@@ -6853,6 +6925,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6906,6 +6980,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:afterEndColumnNavigate afterEndColumnNavigate} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6959,6 +7035,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:afterMidColumnNavigate afterMidColumnNavigate} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7012,6 +7090,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:beginColumnNavigate beginColumnNavigate} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -7069,6 +7149,7 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): boolean;
     /**
      * @SINCE 1.76
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
      *
@@ -7094,6 +7175,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:endColumnNavigate endColumnNavigate} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -7150,6 +7233,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:midColumnNavigate midColumnNavigate} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -7206,6 +7291,8 @@ declare module "sap/f/FlexibleColumnLayout" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8621,10 +8708,10 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
    * them should lead.
    *
    * Calling `getNextUIState(2)` will return information about the expected layout and action buttons if the
-   * application should display three views (master-detail-detail), based on the current state.
+   * application should display three views (list-detail-detail), based on the current state.
    *
    * Similarly, calling `getNextUIState(0)` will return information about the expected layout and action buttons
-   * if the application should display the initial view only (master), based on the current state.
+   * if the application should display the initial view only (list), based on the current state.
    *
    * For more information, see {@link sap.f.FlexibleColumnLayoutSemanticHelper#getCurrentUIState} and {@link
    * sap.f.FlexibleColumnLayoutSemanticHelper#getNextUIState}
@@ -8740,7 +8827,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      */
     getNextUIState(
       /**
-       * the view level that should be represented. 0 means initial (master only), 1 - master-detail, 2 - master-detail-detail,
+       * the view level that should be represented. 0 means initial (list only), 1 - list-detail, 2 - list-detail-detail,
        * 3 and above - subsequent views
        */
       iNextLevel: int
@@ -9371,6 +9458,8 @@ declare module "sap/f/GridContainer" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9399,6 +9488,8 @@ declare module "sap/f/GridContainer" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:columnsChange columnsChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9415,6 +9506,8 @@ declare module "sap/f/GridContainer" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -10734,6 +10827,8 @@ declare module "sap/f/GridList" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -10796,12 +10891,16 @@ declare module "sap/f/GridList" {
      */
     getCustomLayout(): GridLayoutBase;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Implements IGridConfigurable interface.
      *
      * @returns An array with the DOM elements
      */
     getGridDomRefs(): HTMLElement[];
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Implements IGridConfigurable interface.
      *
      * @returns The grid layout
@@ -11403,6 +11502,8 @@ declare module "sap/f/ProductSwitch" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12672,6 +12773,8 @@ declare module "sap/f/SearchManager" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12688,6 +12791,8 @@ declare module "sap/f/SearchManager" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:search search} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12708,6 +12813,8 @@ declare module "sap/f/SearchManager" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -15510,8 +15617,6 @@ declare module "sap/f/semantic/SemanticPage" {
      * If all the areas have assigned values greater than 1, the numbers are scaled so that at least one of
      * them is equal to 1. For example, value of `2:4:8` is equal to `1:2:4`.
      *
-     *  When this property is set the `titlePrimaryArea` property has no effect.
-     *
      * Default value is `"1:1.6:1.6"`.
      *
      * @returns Value of property `titleAreaShrinkRatio`
@@ -16468,8 +16573,6 @@ declare module "sap/f/semantic/SemanticPage" {
      * If all the areas have assigned values greater than 1, the numbers are scaled so that at least one of
      * them is equal to 1. For example, value of `2:4:8` is equal to `1:2:4`.
      *
-     *  When this property is set the `titlePrimaryArea` property has no effect.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"1:1.6:1.6"`.
@@ -16529,39 +16632,6 @@ declare module "sap/f/semantic/SemanticPage" {
        * The titleMainAction to set
        */
       oTitleMainAction: TitleMainAction
-    ): this;
-    /**
-     * @SINCE 1.52
-     * @deprecated (since 1.58) - Please use the `titleAreaShrinkRatio` property instead. The value of `titleAreaShrinkRatio`
-     * must be set in `Heading:Content:Actions` format where Heading, Content and Actions are numbers greater
-     * than or equal to 0. The greater value a section has the faster it shrinks when the screen size is being
-     * reduced.
-     *
-     * `titlePrimaryArea=Begin` can be achieved by setting a low number for the Heading area to `titleAreaShrinkRatio`,
-     * for example `1:1.6:1.6`.
-     *
-     * `titlePrimaryArea=Middle` can be achieved by setting a low number for the Content area to `titleAreaShrinkRatio`,
-     * for example `1.6:1:1.6`.
-     *
-     * Sets a new value for property {@link #getTitlePrimaryArea titlePrimaryArea}.
-     *
-     * Determines which of the title areas (Begin, Middle) is primary.
-     *
-     * **Note:** The primary area is shrinking at a lower rate, remaining visible as long as it can.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Begin`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setTitlePrimaryArea(
-      /**
-       * New value for property `titlePrimaryArea`
-       */
-      sTitlePrimaryArea?:
-        | DynamicPageTitleArea
-        | keyof typeof DynamicPageTitleArea
     ): this;
     /**
      * @SINCE 1.58
@@ -16692,8 +16762,6 @@ declare module "sap/f/semantic/SemanticPage" {
      *
      * If all the areas have assigned values greater than 1, the numbers are scaled so that at least one of
      * them is equal to 1. For example, value of `2:4:8` is equal to `1:2:4`.
-     *
-     *  When this property is set the `titlePrimaryArea` property has no effect.
      */
     titleAreaShrinkRatio?:
       | DynamicPageTitleShrinkRatio
@@ -17562,6 +17630,8 @@ declare module "sap/f/ShellBar" {
 
   import Button from "sap/m/Button";
 
+  import { BarContexts } from "sap/m/BarInPageEnabler";
+
   import { URI } from "sap/ui/core/library";
 
   import Menu from "sap/m/Menu";
@@ -17658,6 +17728,7 @@ declare module "sap/f/ShellBar" {
     static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets classes according to the context of the page. Possible contexts are header, footer, and subheader.
      *
@@ -17666,6 +17737,7 @@ declare module "sap/f/ShellBar" {
     _applyContextClassFor(): IBar;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets the HTML tag according to the context of the page. Possible contexts are header, footer, and subheader.
      *
@@ -17685,6 +17757,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets classes and HTML tag according to the context of the page. Possible contexts are header, footer,
      * and subheader
@@ -18237,6 +18310,8 @@ declare module "sap/f/ShellBar" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:avatarPressed avatarPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18253,6 +18328,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:copilotPressed copilotPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18269,6 +18346,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:homeIconPressed homeIconPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18285,6 +18364,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:menuButtonPressed menuButtonPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18301,6 +18382,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:navButtonPressed navButtonPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18317,6 +18400,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:notificationsPressed notificationsPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18333,6 +18418,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:productSwitcherPressed productSwitcherPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18349,6 +18436,8 @@ declare module "sap/f/ShellBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:searchButtonPressed searchButtonPressed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18374,12 +18463,13 @@ declare module "sap/f/ShellBar" {
     getAdditionalContent(): IShellBar[];
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Gets the available Bar contexts.
      *
      * @returns with all available contexts
      */
-    getContext(): Object;
+    getContext(): BarContexts;
     /**
      * Gets current value of property {@link #getHomeIcon homeIcon}.
      *
@@ -18404,6 +18494,7 @@ declare module "sap/f/ShellBar" {
     getHomeIconTooltip(): string;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Gets the HTML tag of the root DOM Reference.
      *
@@ -18556,6 +18647,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Returns if the bar is sensitive to the container context. Implementation of the IBar interface
      *
@@ -18619,6 +18711,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @SINCE 1.65
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Sets the HTML tag of the root DOM Reference.
      *
@@ -18950,12 +19043,10 @@ declare module "sap/f/SidePanel" {
 
   /**
    * @SINCE 1.107
-   * @EXPERIMENTAL (since 1.107) - This class is experimental and provides only limited functionality. Also
-   * the API might be changed in future.
    *
    * Overview:
    *
-   * `SidePanel` is a layout control that allows primary and additional content to be displayed by clicking/tapping
+   * `SidePanel` is a layout control that allows primary and additional content to be displayed by choosing
    * the action items from its action bar.
    *
    * Usage:
@@ -18963,8 +19054,8 @@ declare module "sap/f/SidePanel" {
    * Action bar with action items have two states - collapsed and expanded. In collapsed state only icons
    * are displayed, and in expanded state both icons and titles are displayed.
    *
-   * Each action item can have a content and click/tap on action item toggles the display of its content.
-   * The content can be added to the action item's `content` aggregation, or can be added or changed later.
+   * Each action item can have a content and choose an action item toggles the display of its content. The
+   * content can be added to the action item's `content` aggregation, or can be added or changed later.
    *
    * Each click/tap fires an event, and in the event handler specific content can be added/changed to the
    * `content` aggregation of the clicked/tapped action item or data can be retreived from the same aggregation
@@ -18983,21 +19074,21 @@ declare module "sap/f/SidePanel" {
    * an overflow icon is displayed, and it toggles ON/OFF an overflow menu with the rest of the action items
    * that are not visible at the moment.
    *
-   * Screen width > 1440 px
-   *
-   *
-   * 	 - When expanded, the side content shrinks the main content.
-   *
-   * Screen width <= 1440 px
-   *
-   *
-   * 	 - When expanded, the side content is placed over the main content.
+   * When expanded, the side content shrinks the main content.
    *
    * **On mobile device**
    *
    * The side panel contains action bar that have action items placed horizontally at the bottom of the display,
    * and when expanded, the side content is displayed above the action bar. If there is not enough room for
    * all action items, the action bar can be swiped to access the rest of the action items.
+   *
+   * Resizing:
+   *
+   * Resizing functionality only affects desktop or tablet devices.
+   *
+   * By setting the `sidePanelResizable` property, the expanded side panel can be resized by mouse (by drag
+   * or by double click on resize splitter), by keyboard or by choosing one of three predefined positions
+   * in the side panel's context menu (min, max and default widths)
    *
    * Keyboard shortcuts:
    *
@@ -19012,6 +19103,22 @@ declare module "sap/f/SidePanel" {
    * 			opened side content panel to the action items
    * 	 - [F6] / [Shift] + [F6] - Navigate back and forth between main content, side panel and side content
    * 			groups [Esc] - Close the opened side content panel and set focus back to main content
+   *
+   * If the side panel's `sidePanelResizable` property is set, there is an action item chosen, and the resize
+   * splitter is focused:
+   *
+   *
+   * 	 - [Home] - set the expanded side panel width to the minimum value defined in `sidePanelMinWidth` property
+   *
+   * 	 - [End] - set the expanded side panel width to the maximum value defined in `sidePanelMaxWidth` property
+   *
+   * 	 - [Enter] - set the expanded side panel width to the default value defined in `sidePanelWidth` property
+   *
+   * 	 - [Shift]+[F10] or [Context menu] - show the resize context menu
+   * 	 - [Arrow Left] / [Arrow Right] - increase/decrease the width of the expanded side panel with the regular
+   * 			step
+   * 	 - [Shift] + [Arrow Left] / [Arrow Right] - increase/decrease the width of the expanded side panel with
+   * 			the larger step
    */
   export default class SidePanel extends Control {
     /**
@@ -19189,6 +19296,8 @@ declare module "sap/f/SidePanel" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggle toggle} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -19248,6 +19357,73 @@ declare module "sap/f/SidePanel" {
      * or `null`.
      */
     getSelectedItem(): ID;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSidePanelMaxWidth sidePanelMaxWidth}.
+     *
+     * Determines the maximum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     *
+     * Default value is `"90%"`.
+     *
+     * @returns Value of property `sidePanelMaxWidth`
+     */
+    getSidePanelMaxWidth(): CSSSize;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSidePanelMinWidth sidePanelMinWidth}.
+     *
+     * Determines the minimum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     *
+     * Default value is `"15rem"`.
+     *
+     * @returns Value of property `sidePanelMinWidth`
+     */
+    getSidePanelMinWidth(): CSSSize;
+    /**
+     * Gets current value of property {@link #getSidePanelResizable sidePanelResizable}.
+     *
+     * Determines whether the side panel is resizable or fixed. **Note:** setting this property only affects
+     * desktop or tablet devices.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `sidePanelResizable`
+     */
+    getSidePanelResizable(): boolean;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSidePanelResizeLargerStep sidePanelResizeLargerStep}.
+     *
+     * Determines the large step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by large step with `Shift + Left Arrow` and `Shift + Right Arrow` keys when
+     * the resize splitter is focused.
+     *
+     * Default value is `100`.
+     *
+     * @returns Value of property `sidePanelResizeLargerStep`
+     */
+    getSidePanelResizeLargerStep(): int;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSidePanelResizeStep sidePanelResizeStep}.
+     *
+     * Determines the step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by this step with `Left Arrow` and `Right Arrow` keys when the resize splitter
+     * is focused.
+     *
+     * Default value is `10`.
+     *
+     * @returns Value of property `sidePanelResizeStep`
+     */
+    getSidePanelResizeStep(): int;
     /**
      * Gets current value of property {@link #getSidePanelWidth sidePanelWidth}.
      *
@@ -19391,23 +19567,106 @@ declare module "sap/f/SidePanel" {
       sAriaLabel?: string
     ): this;
     /**
-     * Sets a new value for property {@link #getSidePanelWidth sidePanelWidth}.
+     * @SINCE 1.109.0
      *
-     * Determines the side panel width (Side Content width + Action Bar width). **Note:** if the width is given
-     * in percent(%), it is calculated as given percent from the Side Panel parent container width, otherwise
-     * it's calculated in absolute units.
+     * Sets a new value for property {@link #getSidePanelMaxWidth sidePanelMaxWidth}.
+     *
+     * Determines the maximum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `"20rem"`.
+     * Default value is `"90%"`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
-    setSidePanelWidth(
+    setSidePanelMaxWidth(
       /**
-       * New value for property `sidePanelWidth`
+       * New value for property `sidePanelMaxWidth`
        */
-      sSidePanelWidth?: CSSSize
+      sSidePanelMaxWidth?: CSSSize
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSidePanelMinWidth sidePanelMinWidth}.
+     *
+     * Determines the minimum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"15rem"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelMinWidth(
+      /**
+       * New value for property `sidePanelMinWidth`
+       */
+      sSidePanelMinWidth?: CSSSize
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSidePanelResizable sidePanelResizable}.
+     *
+     * Determines whether the side panel is resizable or fixed. **Note:** setting this property only affects
+     * desktop or tablet devices.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelResizable(
+      /**
+       * New value for property `sidePanelResizable`
+       */
+      bSidePanelResizable?: boolean
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSidePanelResizeLargerStep sidePanelResizeLargerStep}.
+     *
+     * Determines the large step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by large step with `Shift + Left Arrow` and `Shift + Right Arrow` keys when
+     * the resize splitter is focused.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `100`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelResizeLargerStep(
+      /**
+       * New value for property `sidePanelResizeLargerStep`
+       */
+      iSidePanelResizeLargerStep?: int
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSidePanelResizeStep sidePanelResizeStep}.
+     *
+     * Determines the step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by this step with `Left Arrow` and `Right Arrow` keys when the resize splitter
+     * is focused.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `10`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelResizeStep(
+      /**
+       * New value for property `sidePanelResizeStep`
+       */
+      iSidePanelResizeStep?: int
     ): this;
   }
 
@@ -19423,11 +19682,53 @@ declare module "sap/f/SidePanel" {
     ariaLabel?: string | PropertyBindingInfo;
 
     /**
+     * Determines whether the side panel is resizable or fixed. **Note:** setting this property only affects
+     * desktop or tablet devices.
+     */
+    sidePanelResizable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Determines the side panel width (Side Content width + Action Bar width). **Note:** if the width is given
      * in percent(%), it is calculated as given percent from the Side Panel parent container width, otherwise
      * it's calculated in absolute units.
      */
     sidePanelWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * Determines the minimum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     */
+    sidePanelMinWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * Determines the maximum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     */
+    sidePanelMaxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * Determines the step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by this step with `Left Arrow` and `Right Arrow` keys when the resize splitter
+     * is focused.
+     */
+    sidePanelResizeStep?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * Determines the large step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by large step with `Shift + Left Arrow` and `Shift + Right Arrow` keys when
+     * the resize splitter is focused.
+     */
+    sidePanelResizeLargerStep?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The list of controls for the main content.
@@ -19480,8 +19781,6 @@ declare module "sap/f/SidePanelItem" {
 
   /**
    * @SINCE 1.107
-   * @EXPERIMENTAL (since 1.107) - This class is experimental and provides only limited functionality. Also
-   * the API might be changed in future.
    *
    * Overview:
    *

@@ -12,7 +12,7 @@ import {
     Texture,
 } from '../../../src/Three';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass';
 
 export class OutlinePass extends Pass {
     constructor(resolution: Vector2, scene: Scene, camera: Camera, selectedObjects?: Object3D[]);
@@ -48,7 +48,7 @@ export class OutlinePass extends Pass {
     materialCopy: ShaderMaterial;
     oldClearColor: Color;
     oldClearAlpha: number;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
     tempPulseColor1: Color;
     tempPulseColor2: Color;
     textureMatrix: Matrix4;

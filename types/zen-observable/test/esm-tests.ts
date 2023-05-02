@@ -33,7 +33,7 @@ zip().subscribe(
 
 zip(...[Observable.of(1)]).subscribe(
     (
-        // $ExpectType number[]
+        // $ExpectType number[] || [number]
         val,
     ) => {},
 );
@@ -77,7 +77,7 @@ combineLatest().subscribe(
 
 combineLatest(...[Observable.of(1)]).subscribe(
     (
-        // $ExpectType number[]
+        // $ExpectType number[] || [number]
         val,
     ) => {},
 );

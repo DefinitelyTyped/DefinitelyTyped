@@ -120,6 +120,17 @@ export namespace Action {
         color: ColorValue;
     }
 
+    /**
+     * An object with information about the popup to open.
+     */
+    interface OpenPopupOptionsType {
+        /**
+         * Defaults to the $(topic:current-window)[current window].
+         * Optional.
+         */
+        windowId?: number;
+    }
+
     type OnClickDataModifiersItemEnum = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
     interface Static {
@@ -225,9 +236,11 @@ export namespace Action {
         isEnabled(details: Details): Promise<boolean>;
 
         /**
-         * Opens the extension popup window in the active window.
+         * Opens the extension popup window in the specified window.
+         *
+         * @param options Optional. An object with information about the popup to open.
          */
-        openPopup(): Promise<void>;
+        openPopup(options?: OpenPopupOptionsType): Promise<void>;
 
         /**
          * Fired when a browser action icon is clicked.  This event will not fire if the browser action has a popup.

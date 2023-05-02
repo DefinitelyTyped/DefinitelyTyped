@@ -1,4 +1,4 @@
-// For Library Version: 1.107.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -92,7 +92,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * Object with getCompletions method
        */
-      oCustomCompleter: object
+      oCustomCompleter: {
+        getCompletions: Function;
+      }
     ): void;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.codeeditor.CodeEditor`.
@@ -219,6 +221,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -239,6 +243,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining

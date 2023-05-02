@@ -1,8 +1,3 @@
-// Type definitions for SlickGrid CheckboxSelectColumn Plugin 2.1.0
-// Project: https://github.com/mleibman/SlickGrid
-// Definitions by: berwyn <https://github.com/berwyn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Slick {
     export interface SlickGridCheckBoxSelectColumnOptions extends PluginOptions {
         /**

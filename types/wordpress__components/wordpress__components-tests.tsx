@@ -131,8 +131,6 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 
 // Card renders a `div` by default:
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
-// `div` doesn't support autoFocus:
-// @ts-expect-error
 <C.Card autoFocus />;
 
 <C.CardBody isShady size="extraSmall">
@@ -413,6 +411,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // form-token-field
 //
 <C.FormTokenField
+    label={'Select a FooBar'}
     value={[
         'foo',
         {
@@ -877,7 +876,7 @@ const kbshortcuts = {
 //
 // toggle-control
 //
-<C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
+<C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} disabled={false} />;
 <C.ToggleControl label="Uncontrolled" />;
 
 //

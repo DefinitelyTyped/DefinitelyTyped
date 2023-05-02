@@ -220,7 +220,7 @@ const rendererExtension: marked.RendererExtension = {
     },
 };
 
-const tokenizerAndRendererExtension = {
+const tokenizerAndRendererExtension: marked.TokenizerAndRendererExtension = {
     name: 'name',
     level: 'block',
     tokenizer(src: string) {
@@ -340,3 +340,13 @@ console.log(slugger2.slug('Test Slug'));
 marked.use({ renderer: new Renderer() });
 marked.use({ renderer: new TextRenderer() });
 marked.use({ tokenizer: new Tokenizer() });
+marked.use({
+    hooks: {
+        preprocess(markdown) {
+            return markdown;
+        },
+        postprocess(html) {
+            return html;
+        },
+    }
+});

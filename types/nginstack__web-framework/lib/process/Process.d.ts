@@ -42,7 +42,7 @@ declare class Process {
     private uploadDialog_;
     private fileLoader_;
     private clearHistoryFlag;
-    getLinks(): Record<string, Link>;
+    getLinks(): Record<string, import('../anchor/Link')>;
     simpleLayoutOutputHandler: any;
     currentInteraction: Interaction;
     lastInteraction: Interaction;
@@ -84,6 +84,7 @@ declare class Process {
     lookup(field: GridField): void;
     private _prepareLookupGrid;
     write(content: any): void;
+    canDoHistory: boolean;
     requires(uri: string): void;
     private writeRequiredFiles;
     grid(name: string, opt_ds?: DataSet, opt_classKey?: number, opt_masterGrid?: Grid): Grid;
@@ -241,11 +242,11 @@ declare namespace Process {
 import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
 import Environment = require('../environment/Environment.js');
 import LayoutManager = require('./LayoutManager.js');
-type Link = import('../anchor/Link');
 import Interaction = require('./Interaction.js');
 type Grid = import('../grid/Grid');
 type GridField = import('../grid/GridField');
 import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+type Link = import('../anchor/Link');
 type Button = import('../button/Button');
 import SimpleLayout = require('../simple-layout/SimpleLayout.js');
 import File = require('@nginstack/engine/lib/io/File.js');

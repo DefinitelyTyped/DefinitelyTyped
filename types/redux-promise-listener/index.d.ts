@@ -38,7 +38,7 @@ declare namespace ReduxPromiseListener {
             RejectAction extends AnyAction,
             TReturn = ResolveAction['payload']
         >(
-            // tslint:disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line no-unnecessary-generics
             config: Config<StartAction, ResolveAction, RejectAction, TReturn>,
         ) => AsyncFunction<TReturn>;
     }

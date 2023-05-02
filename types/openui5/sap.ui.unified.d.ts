@@ -1,4 +1,4 @@
-// For Library Version: 1.108.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -239,21 +239,6 @@ declare module "sap/ui/unified/library" {
     ZoomOut = "ZoomOut",
   }
   /**
-   * @SINCE 1.81.0
-   *
-   * Types of HTTP request methods.
-   */
-  export enum FileUploaderHttpRequestMethod {
-    /**
-     * HTTP request POST method.
-     */
-    Post = "POST",
-    /**
-     * HTTP request PUT method.
-     */
-    Put = "PUT",
-  }
-  /**
    * @SINCE 1.48.0
    *
    * Types of display mode for overlapping appointments.
@@ -291,7 +276,7 @@ declare module "sap/ui/unified/library" {
        * The initial Blobs which can be used to determine a new array of Blobs for further processing.
        */
       aBlobs: Blob[]
-    ): Promise<any>;
+    ): Promise<Blob[]>;
   }
 
   /**
@@ -767,15 +752,17 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Displays a date in the calendar but doesn't set the focus.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     displayDate(
       /**
-       * JavaScript date object for focused date.
+       * JavaScript date object for focused date
        */
-      oDate: Object
+      oDate: Date
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -787,6 +774,8 @@ declare module "sap/ui/unified/Calendar" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -799,6 +788,7 @@ declare module "sap/ui/unified/Calendar" {
     ): this;
     /**
      * @SINCE 1.34.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:startDateChange startDateChange} to attached listeners.
      *
@@ -812,6 +802,7 @@ declare module "sap/ui/unified/Calendar" {
     ): this;
     /**
      * @SINCE 1.56
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:weekNumberSelect weekNumberSelect} to attached listeners.
      *
@@ -838,13 +829,13 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Displays and sets the focused date of the calendar.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     focusDate(
       /**
        * A JavaScript date object for focused date
        */
-      oDate: Object
+      oDate: Date
     ): this;
     /**
      * @SINCE 1.28.0
@@ -891,6 +882,16 @@ declare module "sap/ui/unified/Calendar" {
      * @returns Value of property `firstDayOfWeek`
      */
     getFirstDayOfWeek(): int;
+    /**
+     * @SINCE 1.111
+     *
+     * Gets current value of property {@link #getInitialFocusedDate initialFocusedDate}.
+     *
+     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     *
+     * @returns Value of property `initialFocusedDate`
+     */
+    getInitialFocusedDate(): object;
     /**
      * Gets current value of property {@link #getIntervalSelection intervalSelection}.
      *
@@ -1040,31 +1041,15 @@ declare module "sap/ui/unified/Calendar" {
      */
     getSingleSelection(): boolean;
     /**
-     * @SINCE 1.24.0
-     *
-     * Gets content of aggregation {@link #getSpecialDates specialDates}.
-     *
-     * Dates or date ranges with type, to visualize special days in the `Calendar`. If one day is assigned to
-     * more than one Type, only the first one will be used.
-     *
-     * To set a single date (instead of a range), set only the `startDate` property of the {@link sap.ui.unified.DateRange}
-     * class.
-     *
-     * **Note:** Keep in mind that the `NonWorking` type is for marking specific dates or date ranges as non-working,
-     * where if you need a weekly-reccuring non-working days (weekend), you should use the `nonWorkingDays`
-     * property. Both the non-working days (from property) and dates (from aggregation) are visualized the same.
-     */
-    getSpecialDates(): DateTypeRange[];
-    /**
      * @SINCE 1.34.1
      *
      * Returns the first day of the displayed month.
      *
      * There might be some days of the previous month shown, but they can not be focused.
      *
-     * @returns JavaScript date object for start date.
+     * @returns JavaScript date object for start date
      */
-    getStartDate(): Object;
+    getStartDate(): Date;
     /**
      * @SINCE 1.38.0
      *
@@ -1300,6 +1285,23 @@ declare module "sap/ui/unified/Calendar" {
       iFirstDayOfWeek?: int
     ): this;
     /**
+     * @SINCE 1.111
+     *
+     * Sets a new value for property {@link #getInitialFocusedDate initialFocusedDate}.
+     *
+     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setInitialFocusedDate(
+      /**
+       * New value for property `initialFocusedDate`
+       */
+      oInitialFocusedDate?: object
+    ): this;
+    /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
      * If set, interval selection is allowed
@@ -1333,7 +1335,7 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Sets a maximum date for the calendar.
      *
-     * @returns `this` for method chaining
+     * @returns Reference to `this` for method chaining
      */
     setMaxDate(
       /**
@@ -1344,7 +1346,7 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Sets a minimum date for the calendar.
      *
-     * @returns `this` for method chaining
+     * @returns Reference to `this` for method chaining
      */
     setMinDate(
       /**
@@ -1413,7 +1415,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType?: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * @SINCE 1.34.0
@@ -1431,12 +1433,12 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets the visibility of the Current date button in the calendar.
      *
-     * @returns `this` for method chaining
+     * @returns Reference to `this` for method chaining
      */
     setShowCurrentDateButton(
       /**
@@ -1634,6 +1636,13 @@ declare module "sap/ui/unified/Calendar" {
       | `{${string}}`;
 
     /**
+     * @SINCE 1.111
+     *
+     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     */
+    initialFocusedDate?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Dates or date ranges for selected dates.
      *
      * To set a single date (instead of a range), set only the `startDate` property of the {@link sap.ui.unified.DateRange}
@@ -1733,6 +1742,8 @@ declare module "sap/ui/unified/calendar/DatesRow" {
     $MonthSettings,
   } from "sap/ui/unified/calendar/Month";
 
+  import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -1806,19 +1817,33 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * displays the a given date without setting the focus
+     * Displays the given date without setting the focus
      *
      * Property `date` date to be focused or displayed. It must be in the displayed date range beginning with
      * `startDate` and `days` days So set this properties before setting the date.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     displayDate(
       /**
        * JavaScript date object for focused date.
        */
-      oDate: object
+      oDate: Date
     ): this;
+    /**
+     * @SINCE 1.110.0
+     *
+     * Gets current value of property {@link #getCalendarWeekNumbering calendarWeekNumbering}.
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with `Month.prototype.firstDayOfWeek`
+     * property.
+     *
+     * @returns Value of property `calendarWeekNumbering`
+     */
+    getCalendarWeekNumbering():
+      | CalendarWeekNumbering
+      | keyof typeof CalendarWeekNumbering;
     /**
      * Gets current value of property {@link #getDays days}.
      *
@@ -1853,18 +1878,39 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      */
     getStartDate(): object;
     /**
+     * @SINCE 1.110.0
+     *
+     * Sets a new value for property {@link #getCalendarWeekNumbering calendarWeekNumbering}.
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with `Month.prototype.firstDayOfWeek`
+     * property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setCalendarWeekNumbering(
+      /**
+       * New value for property `calendarWeekNumbering`
+       */
+      sCalendarWeekNumbering?:
+        | CalendarWeekNumbering
+        | keyof typeof CalendarWeekNumbering
+    ): this;
+    /**
      * Setter for property `date`.
      *
      * Property `date` date to be focused or displayed. It must be in the displayed date range beginning with
      * `startDate` and `days` days So set this properties before setting the date.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setDate(
       /**
        * JavaScript date object for start date.
        */
-      oDate: object
+      oDate: Date
     ): this;
     /**
      * Sets a new value for property {@link #getDays days}.
@@ -1904,21 +1950,15 @@ declare module "sap/ui/unified/calendar/DatesRow" {
       bShowDayNamesLine?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getStartDate startDate}.
+     * Sets start date of the row.
      *
-     * Start date of the row If in rendering phase the date property is not in the range startDate + days, it
-     * is set to the start date So after setting the start date the date should be set to be in the range of
-     * the start date
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setStartDate(
       /**
-       * New value for property `startDate`
+       * A JavaScript date
        */
-      oStartDate: object
+      oStartDate: Date
     ): this;
   }
 
@@ -1942,6 +1982,18 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      * days.
      */
     showDayNamesLine?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.110.0
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with `Month.prototype.firstDayOfWeek`
+     * property.
+     */
+    calendarWeekNumbering?:
+      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -2410,6 +2462,7 @@ declare module "sap/ui/unified/calendar/Header" {
     ): this;
     /**
      * @SINCE 1.32.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:pressButton0 pressButton0} to attached listeners.
      *
@@ -2422,6 +2475,8 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:pressButton1 pressButton1} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2433,6 +2488,8 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:pressButton2 pressButton2} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2444,6 +2501,8 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:pressCurrentDate pressCurrentDate} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2455,6 +2514,8 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:pressNext pressNext} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2466,6 +2527,8 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:pressPrevious pressPrevious} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3307,16 +3370,16 @@ declare module "sap/ui/unified/calendar/Month" {
       oListener?: object
     ): this;
     /**
-     * checks if a date is focusable in the current rendered output. So if not rendered or in other month it
+     * Checks if a date is focusable in the current rendered output. So if not rendered or in other month it
      * is not focusable.
      *
      * @returns flag if focusable
      */
     checkDateFocusable(
       /**
-       * JavaScript date object for focused date.
+       * JavaScript date object for focused date
        */
-      oDate: object
+      oDate: Date
     ): boolean;
     /**
      * @SINCE 1.38.0
@@ -3393,17 +3456,19 @@ declare module "sap/ui/unified/calendar/Month" {
       oListener?: object
     ): this;
     /**
-     * displays the month of a given date without setting the focus
+     * Displays the month of a given date without setting the focus.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     displayDate(
       /**
-       * JavaScript date object for focused date.
+       * JavaScript date object for focused date
        */
-      oDate: object
+      oDate: Date
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:focus focus} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3428,6 +3493,8 @@ declare module "sap/ui/unified/calendar/Month" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3440,6 +3507,7 @@ declare module "sap/ui/unified/calendar/Month" {
     ): this;
     /**
      * @SINCE 1.60
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:weekNumberSelect weekNumberSelect} to attached listeners.
      *
@@ -3814,20 +3882,15 @@ declare module "sap/ui/unified/calendar/Month" {
         | keyof typeof CalendarWeekNumbering
     ): this;
     /**
-     * Sets a new value for property {@link #getDate date}.
+     * Sets a date for the month.
      *
-     * A date as JavaScript Date object. The month including this date is rendered and this date is focused
-     * initially (if no other focus is set).
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setDate(
       /**
-       * New value for property `date`
+       * a JavaScript date
        */
-      oDate: object
+      oDate: Date
     ): this;
     /**
      * @SINCE 1.28.9
@@ -4426,6 +4489,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     ): this;
     /**
      * @SINCE 1.38.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:pageChange pageChange} to attached listeners.
      *
@@ -4438,6 +4502,8 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5063,7 +5129,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * JavaScript Date object for focused date.
        */
-      oDateTime: object
+      oDateTime: Date
     ): boolean;
     /**
      * Destroys all the selectedDates in the aggregation {@link #getSelectedDates selectedDates}.
@@ -5114,15 +5180,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     /**
      * Displays the month of a given date without setting the focus
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     displayDate(
       /**
        * JavaScript Date object for focused date.
        */
-      oDate: object
+      oDate: Date
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:focus focus} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5143,6 +5211,8 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5206,6 +5276,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * @returns Value of property `primaryCalendarType`
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -5369,6 +5450,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       vSpecialDate: int | string | DateTypeRange
     ): DateTypeRange | null;
     /**
+     * Sets a date for the months row.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    setDate(
+      /**
+       * a JavaScript date
+       */
+      oDate: Date
+    ): this;
+    /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
      * If set, interval selection is allowed
@@ -5432,7 +5524,25 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType?: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
@@ -5471,20 +5581,15 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       bSingleSelection?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getStartDate startDate}.
-     *
-     * Start date, as JavaScript Date object, of the row. The month of this date is the first month of the displayed
-     * row.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     * Sets start date of the month row.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     setStartDate(
       /**
-       * New value for property `startDate`
+       * A JavaScript date
        */
-      oStartDate: object
+      oStartDate: Date
     ): this;
   }
 
@@ -5532,6 +5637,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * is used.
      */
     primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     */
+    secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
       | PropertyBindingInfo
       | `{${string}}`;
@@ -5816,7 +5932,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * JavaScript Date object for focused date.
        */
-      oDate: object
+      oDate: Date
     ): boolean;
     /**
      * Destroys all the selectedDates in the aggregation {@link #getSelectedDates selectedDates}.
@@ -5865,17 +5981,19 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       oListener?: object
     ): this;
     /**
-     * Displays the given date without setting the focus
+     * Displays the given date without setting the focus.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     displayDate(
       /**
-       * JavaScript Date object for focused date.
+       * A JavaScript Date
        */
-      oDate: object
+      oDate: Date
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:focus focus} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5896,6 +6014,8 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5975,6 +6095,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * @returns Value of property `primaryCalendarType`
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -6132,22 +6263,15 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       vSpecialDate: int | string | DateTypeRange
     ): DateTypeRange | null;
     /**
-     * Sets a new value for property {@link #getDate date}.
+     * Setter for the `date` property.
      *
-     * A date as JavaScript Date object. The month including this date is rendered and this date is focused
-     * initially (if no other focus is set). If the date property is not in the range `startDate` + `items`
-     * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
-     * be set to be in the visible range.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setDate(
       /**
-       * New value for property `date`
+       * A JavaScript Date
        */
-      oDate: object
+      oDate: Date
     ): this;
     /**
      * Sets a new value for property {@link #getIntervalMinutes intervalMinutes}.
@@ -6236,7 +6360,25 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType?: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
@@ -6275,19 +6417,15 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       bSingleSelection?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getStartDate startDate}.
+     * Sets start date, as JavaScript Date object, of the row.
      *
-     * Start date, as JavaScript Date object, of the row.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setStartDate(
       /**
-       * New value for property `startDate`
+       * A JavaScript Date
        */
-      oStartDate: object
+      oStartDate: Date
     ): this;
   }
 
@@ -6345,6 +6483,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * is used.
      */
     primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     */
+    secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
       | PropertyBindingInfo
       | `{${string}}`;
@@ -6635,6 +6784,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     ): this;
     /**
      * @SINCE 1.38.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:pageChange pageChange} to attached listeners.
      *
@@ -6647,6 +6797,8 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6683,12 +6835,12 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     /**
      * @SINCE 1.38.0
      *
-     * return the first date of the first rendered year **Note:** If the YearPicker is not rendered no date
+     * Return the first date of the first rendered year **Note:** If the YearPicker is not rendered no date
      * is returned
      *
-     * @returns JavaScript Date Object
+     * @returns A JavaScript Date
      */
-    getFirstRenderedDate(): object;
+    getFirstRenderedDate(): Date;
     /**
      * @SINCE 1.74
      *
@@ -6791,13 +6943,13 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     /**
      * displays the next page
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     nextPage(): this;
     /**
      * displays the previous page
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     previousPage(): this;
     /**
@@ -6841,6 +6993,17 @@ declare module "sap/ui/unified/calendar/YearPicker" {
        * New value for property `columns`
        */
       iColumns?: int
+    ): this;
+    /**
+     * Setter for the `date` property
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    setDate(
+      /**
+       * a JavaScript date
+       */
+      oDate: Date
     ): this;
     /**
      * @SINCE 1.74
@@ -7573,6 +7736,8 @@ declare module "sap/ui/unified/CalendarDateInterval" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * If more than this number of days are displayed, start and end month are displayed on the button.
      *
      * @returns The number of days to determine how the start and end of month are displayed
@@ -7614,13 +7779,13 @@ declare module "sap/ui/unified/CalendarDateInterval" {
      */
     getShowDayNamesLine(): boolean;
     /**
-     * Gets current value of property {@link #getStartDate startDate}.
+     * Returns the start date of the interval.
      *
      * Start date of the Interval
      *
-     * @returns Value of property `startDate`
+     * @returns JavaScript date object for property `startDate`
      */
-    getStartDate(): object;
+    getStartDate(): Date;
     /**
      * Sets a new value for property {@link #getDays days}.
      *
@@ -7639,11 +7804,13 @@ declare module "sap/ui/unified/CalendarDateInterval" {
       iDays?: int
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Setter for property `firstDayOfWeek`.
      *
      * Property `firstDayOfWeek` is not supported in `sap.ui.unified.CalendarDateInterval` control.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setFirstDayOfWeek(
       /**
@@ -7652,11 +7819,13 @@ declare module "sap/ui/unified/CalendarDateInterval" {
       iFirstDayOfWeek?: int
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Setter for property `months`.
      *
      * Property `months` is not supported in `sap.ui.unified.CalendarDateInterval` control.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setMonths(
       /**
@@ -7704,19 +7873,15 @@ declare module "sap/ui/unified/CalendarDateInterval" {
       bShowDayNamesLine?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getStartDate startDate}.
+     * Set start date for the interval.
      *
-     * Start date of the Interval
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setStartDate(
       /**
-       * New value for property `startDate`
+       * A JavaScript Date
        */
-      oStartDate: object
+      oStartDate: Date
     ): this;
   }
 
@@ -7767,6 +7932,22 @@ declare module "sap/ui/unified/CalendarLegend" {
    *
    * A legend for the Calendar Control. Displays special dates colors with their corresponding description.
    * The aggregation specialDates can be set herefor.
+   *
+   * Calendar Legend Navigation:
+   *
+   * If the Calendar Legend is associated with a `sap.ui.unified.Calendar` control, the users can navigate
+   * through the Calendar Legend items. Only special dates related to the navigated legend's item type are
+   * displayed in the calendar grid. **Note: ** Standard calendar legend items (Today, Selected, Working Day
+   * and Non-Working Day) are also navigatable, but focusing them does not affect the special dates display
+   * (all calendar special dates are displayed).
+   *
+   * Keyboard shortcuts (when the legend is navigatable):
+   *
+   *
+   * 	 - [Arrow Up], [Arrow Left] - Move to the previous calendar legend item
+   * 	 - [Arrow Down], [Arrow Right] - Move to the next calendar legend item
+   * 	 - [Home], [Page Up] - Move to the first calendar legend item
+   * 	 - [End], [Page Down] - Move to the last calendar legend item
    */
   export default class CalendarLegend extends Control {
     /**
@@ -8519,15 +8700,17 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     /**
      * Displays a month in the `CalendarMonthInterval` but doesn't set the focus.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     displayDate(
       /**
        * JavaScript date object for displayed date. (The month of this date will be displayed.)
        */
-      oDatetime: Object
+      oDatetime: Date
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8539,6 +8722,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8551,6 +8736,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     ): this;
     /**
      * @SINCE 1.34.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:startDateChange startDateChange} to attached listeners.
      *
@@ -8571,7 +8757,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * JavaScript date object for focused date. (The month of this date will be focused.)
        */
-      oDatetime: Object
+      oDatetime: Date
     ): Calendar;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
@@ -8838,44 +9024,26 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       oLegend: ID | CalendarLegend
     ): this;
     /**
-     * @SINCE 1.38.0
+     * Sets a maximum date for the calendar.
      *
-     * Sets a new value for property {@link #getMaxDate maxDate}.
-     *
-     * Maximum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
-     *
-     * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
-     * month of the `maxDate`.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setMaxDate(
       /**
-       * New value for property `maxDate`
+       * A JavaScript Date
        */
-      oMaxDate?: object
+      oDate?: Date
     ): this;
     /**
-     * @SINCE 1.38.0
+     * Sets a minimum date for the calendar.
      *
-     * Sets a new value for property {@link #getMinDate minDate}.
-     *
-     * Minimum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
-     *
-     * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
-     * of the `minDate`.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setMinDate(
       /**
-       * New value for property `minDate`
+       * A JavaScript Date
        */
-      oMinDate?: object
+      oDate?: Date
     ): this;
     /**
      * Sets a new value for property {@link #getMonths months}.
@@ -8933,6 +9101,17 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        * New value for property `singleSelection`
        */
       bSingleSelection?: boolean
+    ): this;
+    /**
+     * Sets start date for the interval.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    setStartDate(
+      /**
+       * A JavaScript date
+       */
+      oStartDate: Date
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -9469,6 +9648,7 @@ declare module "sap/ui/unified/CalendarRow" {
     ): this;
     /**
      * @SINCE 1.38.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:intervalSelect intervalSelect} to attached listeners.
      *
@@ -9494,6 +9674,8 @@ declare module "sap/ui/unified/CalendarRow" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:leaveRow leaveRow} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9510,6 +9692,8 @@ declare module "sap/ui/unified/CalendarRow" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9539,6 +9723,8 @@ declare module "sap/ui/unified/CalendarRow" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:startDateChange startDateChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9552,7 +9738,7 @@ declare module "sap/ui/unified/CalendarRow" {
     /**
      * Focus the given `CalendarAppointment` in the `CalendarRow`.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     focusAppointment(
       /**
@@ -9563,13 +9749,13 @@ declare module "sap/ui/unified/CalendarRow" {
     /**
      * Focus the `CalendarAppointment` in the `CalendarRow` that is nearest to the given date.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     focusNearestAppointment(
       /**
        * Javascript Date object.
        */
-      oDate: object
+      oDate: Date
     ): this;
     /**
      * @SINCE 1.81.0
@@ -9863,7 +10049,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * are used in one container (e.g. `PlanningCalendar`), it is better if the container triggers the resize
      * check once and then calls this function of each `CalendarRow`.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     handleResize(
       /**
@@ -10324,19 +10510,15 @@ declare module "sap/ui/unified/CalendarRow" {
       bShowSubIntervals?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getStartDate startDate}.
+     * Set the start date of the row.
      *
-     * Start date, as JavaScript Date object, of the row. As default, the current date is used.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setStartDate(
       /**
-       * New value for property `startDate`
+       * Start date, as JavaScript Date object, of the row
        */
-      oStartDate: object
+      oStartDate?: Date
     ): this;
     /**
      * Sets a new value for property {@link #getUpdateCurrentTime updateCurrentTime}.
@@ -10382,7 +10564,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * (e.G. `PlanningCalendar`), it is better if the container triggers the interval once and then calls this
      * function of each `CalendarRow`.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     updateCurrentTimeVisualization(): this;
   }
@@ -10638,8 +10820,6 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
   import Event from "sap/ui/base/Event";
-
-  import Calendar from "sap/ui/unified/Calendar";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -10965,15 +11145,17 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     /**
      * Displays an item in the `CalendarTimeInterval` but doesn't set the focus.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     displayDate(
       /**
        * JavaScript date object for displayed item.
        */
-      oDate: object
-    ): Calendar;
+      oDate: Date
+    ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -10985,6 +11167,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -10997,6 +11181,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     ): this;
     /**
      * @SINCE 1.34.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:startDateChange startDateChange} to attached listeners.
      *
@@ -11011,14 +11196,14 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     /**
      * Sets the focused item of the `CalendarTimeInterval`.
      *
-     * @returns `this` to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     focusDate(
       /**
-       * JavaScript date object for focused item.
+       * JavaScript date object for focused item
        */
-      oDate: object
-    ): Calendar;
+      oDate: Date
+    ): this;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
      * ariaLabelledBy}.
@@ -11337,44 +11522,26 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       oLegend: ID | CalendarLegend
     ): this;
     /**
-     * @SINCE 1.38.0
+     * Set maximum date that can be shown and selected in the Calendar.
      *
-     * Sets a new value for property {@link #getMaxDate maxDate}.
-     *
-     * Maximum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
-     *
-     * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
-     * month of the `maxDate`.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setMaxDate(
       /**
-       * New value for property `maxDate`
+       * Max date as a JS Date object
        */
-      oMaxDate?: object
+      oDate?: Date
     ): this;
     /**
-     * @SINCE 1.38.0
+     * Set minimum date that can be shown and selected in the Calendar.
      *
-     * Sets a new value for property {@link #getMinDate minDate}.
-     *
-     * Minimum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
-     *
-     * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
-     * of the `minDate`.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setMinDate(
       /**
-       * New value for property `minDate`
+       * Min date as a JS Date object
        */
-      oMinDate?: object
+      oDate?: Date
     ): this;
     /**
      * @SINCE 1.34.0
@@ -11415,20 +11582,15 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       bSingleSelection?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getStartDate startDate}.
+     * Sets start date for the interval.
      *
-     * Start date of the Interval as JavaScript Date object. The time interval corresponding to this Date and
-     * `items` and `intervalMinutes` will be the first time in the displayed row.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setStartDate(
       /**
-       * New value for property `startDate`
+       * A JavaScript date
        */
-      oStartDate: object
+      oStartDate: Date
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -11799,6 +11961,7 @@ declare module "sap/ui/unified/ColorPicker" {
     ): this;
     /**
      * @SINCE 1.48.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -11849,6 +12012,7 @@ declare module "sap/ui/unified/ColorPicker" {
     ): this;
     /**
      * @SINCE 1.48.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -12316,6 +12480,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
     ): this;
     /**
      * @SINCE 1.60.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -12366,6 +12531,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
     ): this;
     /**
      * @SINCE 1.85
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -12898,6 +13064,8 @@ declare module "sap/ui/unified/ContentSwitcher" {
 declare module "sap/ui/unified/Currency" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { AccessibilityInfo } from "sap/ui/core/library";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -12996,12 +13164,14 @@ declare module "sap/ui/unified/Currency" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
      * @returns Current accessibility state of the control.
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getCurrency currency}.
      *
@@ -13267,35 +13437,34 @@ declare module "sap/ui/unified/DateRange" {
      */
     getStartDate(): object;
     /**
-     * Sets a new value for property {@link #getEndDate endDate}.
+     * Set end date for a date range.
      *
-     * End date for a date range. If empty only a single date is presented by this DateRange element. This must
-     * be a JavaScript date object.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setEndDate(
       /**
-       * New value for property `endDate`
+       * A JavaScript date
        */
-      oEndDate?: object
+      oDate?: Date,
+      /**
+       * If true, `endDate` is not marked as changed
+       */
+      bInvalidate?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getStartDate startDate}.
+     * Set start date for a date range.
      *
-     * Start date for a date range. This must be a JavaScript date object.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setStartDate(
       /**
-       * New value for property `startDate`
+       * A JavaScript date
        */
-      oStartDate?: object
+      oDate?: Date,
+      /**
+       * If true, `startDate` is not marked as changed
+       */
+      bInvalidate?: boolean
     ): this;
   }
 
@@ -13528,14 +13697,13 @@ declare module "sap/ui/unified/FileUploader" {
     CSSSize,
   } from "sap/ui/core/library";
 
-  import {
-    IProcessableBlobs,
-    FileUploaderHttpRequestMethod,
-  } from "sap/ui/unified/library";
+  import { IProcessableBlobs } from "sap/ui/unified/library";
 
   import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
 
   import Event from "sap/ui/base/Event";
+
+  import FileUploaderHttpRequestMethod from "sap/ui/unified/FileUploaderHttpRequestMethod";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -14314,7 +14482,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * **Note:** The attached additional data however is retained.
      *
-     * @returns The `sap.ui.unified.FileUploader` instance
+     * @returns Reference to `this` for method chaining
      */
     clear(): this;
     /**
@@ -14565,6 +14733,7 @@ declare module "sap/ui/unified/FileUploader" {
     ): this;
     /**
      * @SINCE 1.102.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:afterDialogClose afterDialogClose} to attached listeners.
      *
@@ -14578,6 +14747,7 @@ declare module "sap/ui/unified/FileUploader" {
     ): this;
     /**
      * @SINCE 1.102.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:beforeDialogOpen beforeDialogOpen} to attached listeners.
      *
@@ -14590,6 +14760,8 @@ declare module "sap/ui/unified/FileUploader" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -14610,6 +14782,8 @@ declare module "sap/ui/unified/FileUploader" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:fileAllowed fileAllowed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -14621,6 +14795,8 @@ declare module "sap/ui/unified/FileUploader" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:fileEmpty fileEmpty} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -14638,6 +14814,7 @@ declare module "sap/ui/unified/FileUploader" {
     ): this;
     /**
      * @SINCE 1.24.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:filenameLengthExceed filenameLengthExceed} to attached listeners.
      *
@@ -14655,6 +14832,8 @@ declare module "sap/ui/unified/FileUploader" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:fileSizeExceed fileSizeExceed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -14675,6 +14854,8 @@ declare module "sap/ui/unified/FileUploader" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:typeMissmatch typeMissmatch} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -14700,6 +14881,7 @@ declare module "sap/ui/unified/FileUploader" {
     ): this;
     /**
      * @SINCE 1.24.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:uploadAborted uploadAborted} to attached listeners.
      *
@@ -14724,6 +14906,8 @@ declare module "sap/ui/unified/FileUploader" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:uploadComplete uploadComplete} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -14788,6 +14972,7 @@ declare module "sap/ui/unified/FileUploader" {
     ): this;
     /**
      * @SINCE 1.24.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:uploadProgress uploadProgress} to attached listeners.
      *
@@ -14825,6 +15010,7 @@ declare module "sap/ui/unified/FileUploader" {
     ): this;
     /**
      * @SINCE 1.30.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:uploadStart uploadStart} to attached listeners.
      *
@@ -15108,7 +15294,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The initial Blobs which can be used to determine/calculate a new array of Blobs for further processing.
        */
       aBlobs: Blob[]
-    ): Promise<any>;
+    ): Promise<Blob[]>;
     /**
      * Gets current value of property {@link #getSameFilenameAllowed sameFilenameAllowed}.
      *
@@ -16274,6 +16460,25 @@ declare module "sap/ui/unified/FileUploader" {
   }
 }
 
+declare module "sap/ui/unified/FileUploaderHttpRequestMethod" {
+  /**
+   * @SINCE 1.81.0
+   *
+   * Types of HTTP request methods.
+   */
+  enum FileUploaderHttpRequestMethod {
+    /**
+     * HTTP request POST method.
+     */
+    Post = "POST",
+    /**
+     * HTTP request PUT method.
+     */
+    Put = "PUT",
+  }
+  export default FileUploaderHttpRequestMethod;
+}
+
 declare module "sap/ui/unified/FileUploaderParameter" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
@@ -16722,6 +16927,8 @@ declare module "sap/ui/unified/Menu" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -17408,6 +17615,8 @@ declare module "sap/ui/unified/MenuItemBase" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -17462,6 +17671,8 @@ declare module "sap/ui/unified/MenuItemBase" {
      */
     getVisible(): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Changes the visual hover state of the menu item.
      *
      * Subclasses may override this function.
@@ -17477,12 +17688,16 @@ declare module "sap/ui/unified/MenuItemBase" {
       oMenu: Menu
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Informs the item that the item HTML is now applied to the DOM.
      *
      * Subclasses may override this function.
      */
     onAfterRendering(): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Event handler which is called whenever the submenu of the item is opened or closed.
      *
      * Subclasses may override this function.
@@ -17494,6 +17709,8 @@ declare module "sap/ui/unified/MenuItemBase" {
       bOpened: boolean
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Produces the HTML of an item and writes it to render-output-buffer during the rendering of the corresponding
      * menu.
      *
@@ -18650,6 +18867,8 @@ declare module "sap/ui/unified/ShellHeadItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -19110,6 +19329,8 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -19803,6 +20024,8 @@ declare module "sap/ui/unified/ShellOverlay" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -20342,8 +20565,6 @@ declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/unified/Calendar": undefined;
 
-    "sap/ui/unified/calendar/CalendarUtils": undefined;
-
     "sap/ui/unified/calendar/DatesRow": undefined;
 
     "sap/ui/unified/calendar/Header": undefined;
@@ -20387,6 +20608,8 @@ declare namespace sap {
     "sap/ui/unified/DateTypeRange": undefined;
 
     "sap/ui/unified/FileUploader": undefined;
+
+    "sap/ui/unified/FileUploaderHttpRequestMethod": undefined;
 
     "sap/ui/unified/FileUploaderParameter": undefined;
 

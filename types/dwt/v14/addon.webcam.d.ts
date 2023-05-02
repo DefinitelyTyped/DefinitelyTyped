@@ -168,7 +168,6 @@ interface VideoPropertySetting {
 }
 
 /**
- * @class
  */
 interface Webcam {
     IsModuleInstalled(): boolean;

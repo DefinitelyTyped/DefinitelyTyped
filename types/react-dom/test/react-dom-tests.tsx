@@ -103,6 +103,107 @@ describe('React dom test utils', () => {
         ReactTestUtils.Simulate.keyDown(node, { key: 'Enter', keyCode: 13, which: 13 });
     });
 
+    it('Simulate all event types', () => {
+        const element = document.createElement('div');
+        const dom = ReactDOM.render(
+            React.createElement('input', { type: 'text' }),
+            element
+        ) as Element;
+        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        // @see: https://github.com/facebook/react/blob/v18.2.0/packages/react-dom/src/test-utils/ReactTestUtils.js#L620
+        const simulatedEventTypes = [
+            'blur',
+            'cancel',
+            'click',
+            'close',
+            'contextMenu',
+            'copy',
+            'cut',
+            'auxClick',
+            'doubleClick',
+            'dragEnd',
+            'dragStart',
+            'drop',
+            'focus',
+            'input',
+            'invalid',
+            'keyDown',
+            'keyPress',
+            'keyUp',
+            'mouseDown',
+            'mouseUp',
+            'paste',
+            'pause',
+            'play',
+            'pointerCancel',
+            'pointerDown',
+            'pointerUp',
+            'rateChange',
+            'reset',
+            'resize',
+            'seeked',
+            'submit',
+            'touchCancel',
+            'touchEnd',
+            'touchStart',
+            'volumeChange',
+            'drag',
+            'dragEnter',
+            'dragExit',
+            'dragLeave',
+            'dragOver',
+            'mouseMove',
+            'mouseOut',
+            'mouseOver',
+            'pointerMove',
+            'pointerOut',
+            'pointerOver',
+            'scroll',
+            'toggle',
+            'touchMove',
+            'wheel',
+            'abort',
+            'animationEnd',
+            'animationIteration',
+            'animationStart',
+            'canPlay',
+            'canPlayThrough',
+            'durationChange',
+            'emptied',
+            'encrypted',
+            'ended',
+            'error',
+            'gotPointerCapture',
+            'load',
+            'loadedData',
+            'loadedMetadata',
+            'loadStart',
+            'lostPointerCapture',
+            'playing',
+            'progress',
+            'seeking',
+            'stalled',
+            'suspend',
+            'timeUpdate',
+            'transitionEnd',
+            'waiting',
+            'mouseEnter',
+            'mouseLeave',
+            'pointerEnter',
+            'pointerLeave',
+            'change',
+            'select',
+            'beforeInput',
+            'compositionEnd',
+            'compositionStart',
+            'compositionUpdate',
+          ] as const;
+
+          simulatedEventTypes.forEach((eventType) => {
+            ReactTestUtils.Simulate[eventType](node);
+          });
+    });
+
     it('renderIntoDocument', () => {
         const element = React.createElement('input', { type: 'text' });
         ReactTestUtils.renderIntoDocument(element);
@@ -199,16 +300,15 @@ describe('React dom test utils', () => {
             it('accepts a callback that is void', () => {
                 ReactTestUtils.act(() => {});
             });
-            it('accepts a callback that returns null', () => {
-                ReactTestUtils.act(() => null);
-            });
             it('accepts a callback that returns a value', () => {
-                ReactTestUtils.act(() => "value");
+                const result = ReactTestUtils.act(() => "value");
+                result.then(x => {});
             });
-            it('returns a type that is Promise-like', () => {
+            it('returns void', () => {
                 // tslint:disable-next-line no-void-expression
                 const result = ReactTestUtils.act(() => {});
-                result.then(x => {});
+                // @ts-expect-error
+                result.then;
             });
         });
         describe('with async callback', () => {
@@ -219,7 +319,7 @@ describe('React dom test utils', () => {
                 await ReactTestUtils.act(async () => null);
             });
             it('a callback that returns a value', async () => {
-                await ReactTestUtils.act(async () => "value");
+                await ReactTestUtils.act(async () => 'value');
             });
             it('returns a Promise-like', () => {
                 const result = ReactTestUtils.act(async () => {});
@@ -228,6 +328,15 @@ describe('React dom test utils', () => {
         });
     });
 });
+
+async function batchTests() {
+    // $ExpectType string
+    const output1 = ReactDOM.unstable_batchedUpdates(input => {
+        // $ExpectType number
+        input;
+        return 'hi';
+    }, 1);
+}
 
 function createRoot() {
     const root = ReactDOMClient.createRoot(document.documentElement);
@@ -243,8 +352,9 @@ function createRoot() {
 function hydrateRoot() {
     const hydrateable = ReactDOMClient.hydrateRoot(document, <div>initial render</div>, {
         identifierPrefix: 'react-18-app',
-        onRecoverableError: error => {
+        onRecoverableError: (error, errorInfo) => {
             console.error(error);
+            console.info(errorInfo.componentStack);
         },
     });
     hydrateable.render(<div>render update</div>);

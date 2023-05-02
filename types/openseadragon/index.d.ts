@@ -350,7 +350,7 @@ declare namespace OpenSeadragon {
         timeout?: number | undefined;
         useCanvas?: boolean | undefined;
         minPixelRatio?: number | undefined;
-        mouseNavEnabled?: number | undefined;
+        mouseNavEnabled?: boolean | undefined;
         showNavigationControl?: boolean | undefined;
         navigationControlAnchor?: ControlAnchor | undefined;
         showZoomControl?: boolean | undefined;

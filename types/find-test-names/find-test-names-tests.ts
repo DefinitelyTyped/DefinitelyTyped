@@ -44,3 +44,5 @@ const source = `
 findEffectiveTestTags(source); // $ExpectType Record<string, Tags>
 
 findEffectiveTestTagsIn('specFilename'); // $ExpectType Record<string, Tags>
+
+structure[0].requiredTags; // $ExpectType string[] | undefined

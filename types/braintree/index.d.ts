@@ -17,13 +17,6 @@ declare namespace braintree {
      * Braintree Config and Client
      */
 
-    export enum Environment {
-        Development = 'Development',
-        Production = 'Production',
-        Qa = 'Qa',
-        Sandbox = 'Sandbox',
-    }
-
     export type TextFieldSearchFn = () => {
         is: (input: string) => void;
         isNot: (input: string) => void;
@@ -136,6 +129,26 @@ declare namespace braintree {
     }) => void;
 
     export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
+
+    export class Environment {
+        constructor(
+            server: string,
+            port: string,
+            authUrl: string,
+            ssl: boolean,
+            graphQLServer: string,
+            graphQLPort: string,
+        );
+
+        baseUrl: string;
+        baseGraphQLUrl: string;
+        uriScheme: string;
+
+        static readonly Development: Environment;
+        static readonly Production: Environment;
+        static readonly Qa: Environment;
+        static readonly Sandbox: Environment;
+    }
 
     export interface KeyGatewayConfig {
         environment: Environment;
@@ -1293,7 +1306,7 @@ declare namespace braintree {
         nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number | undefined;
-        paidThroughDate: Date;
+        paidThroughDate?: Date | undefined;
         paymentMethodToken: string;
         planId: string;
         price?: string | undefined;
@@ -1351,7 +1364,7 @@ declare namespace braintree {
         trialPeriod?: boolean | undefined;
     }
 
-    export interface SubscriptionUpdateRequest extends SubscriptionRequest {
+    export interface SubscriptionUpdateRequest extends Partial<SubscriptionRequest> {
         options?:
             | {
                   paypal?:
@@ -1361,7 +1374,7 @@ declare namespace braintree {
                       | undefined;
                   prorateCharges?: boolean | undefined;
                   replaceAllAddOnsAndDiscounts?: boolean | undefined;
-                  revertSubscriptionOnProrationFailure: boolean | undefined;
+                  revertSubscriptionOnProrationFailure?: boolean | undefined;
               }
             | undefined;
     }

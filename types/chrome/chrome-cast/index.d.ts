@@ -1,9 +1,3 @@
-// Type definitions for Chrome Cast application development
-// Project: https://developers.google.com/cast/
-// Definitions by: Thomas Stig Jacobsen <https://github.com/eXeDK>
-//                 Stefan Ullinger <https://github.com/stefanullinger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 ////////////////////
 // Cast
 // @see https://code.google.com/p/chromium/codesearch#chromium/src/ui/file_manager/externs/chrome_cast.js

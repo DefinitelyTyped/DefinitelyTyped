@@ -1,7 +1,7 @@
-import { NamedNode, Term } from "rdf-js";
+import { NamedNode, Term } from "@rdfjs/types";
 import { PropType } from './_PropType';
 
-interface NamedNodeExt<Iri extends string = string> extends NamedNode<Iri> {
+export interface NamedNodeExt<Iri extends string = string> extends NamedNode<Iri> {
   toCanonical(): string;
   toJSON(): {
     value: PropType<NamedNode, 'value'>;
@@ -10,8 +10,8 @@ interface NamedNodeExt<Iri extends string = string> extends NamedNode<Iri> {
 }
 
 // tslint:disable-next-line:no-unnecessary-class
-declare class NamedNodeExt<Iri extends string = string> {
+export class NamedNodeExt<Iri extends string = string> {
     constructor(iri: Iri);
 }
 
-export = NamedNodeExt;
+export default NamedNodeExt;

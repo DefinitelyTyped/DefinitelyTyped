@@ -1,4 +1,4 @@
-// For Library Version: 1.108.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -196,6 +196,25 @@ declare module "sap/ui/ux3/library" {
      */
     Fixed = "Fixed",
   }
+}
+
+declare module "sap/ui/ux3/ShellPersonalization" {
+  /**
+   * @deprecated (since 1.36) - This class was never released for productive use and will never be.
+   * @EXPERIMENTAL (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
+   * experimental work and might change or disappear in future versions.
+   *
+   * Experimental implementation of visual Ux3 Shell personalization / branding.
+   *
+   * DO NOT USE PRODUCTIVELY!!!
+   *
+   * Being completely non-generic as of now, this is supposed to facilitate discussions with Ux about the
+   * personalization capabilities. Once that concept is more final, we can go for a cleaner implementation,
+   * considering the number of configurable properties etc.
+   */
+  const ShellPersonalization: undefined;
+
+  export default ShellPersonalization;
 }
 
 declare module "sap/ui/ux3/ActionBar" {
@@ -434,6 +453,8 @@ declare module "sap/ui/ux3/ActionBar" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -459,6 +480,8 @@ declare module "sap/ui/ux3/ActionBar" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -606,6 +629,8 @@ declare module "sap/ui/ux3/ActionBar" {
       oBusinessAction: ThingAction
     ): int;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Checks whether the control is still valid (is in the DOM). ActionBar instance is rendered if and only
      * if 'isActive' returns 'true'. This check is called implicitely by the rendere, MUST not be removed.
      *
@@ -1147,6 +1172,8 @@ declare module "sap/ui/ux3/Collection" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:propertyChanged propertyChanged} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1158,6 +1185,8 @@ declare module "sap/ui/ux3/Collection" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1676,6 +1705,8 @@ declare module "sap/ui/ux3/CollectionInspector" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:collectionSelected collectionSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1687,6 +1718,8 @@ declare module "sap/ui/ux3/CollectionInspector" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:editCollection editCollection} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1698,6 +1731,8 @@ declare module "sap/ui/ux3/CollectionInspector" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:itemSelectionChanged itemSelectionChanged} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2029,10 +2064,14 @@ declare module "sap/ui/ux3/DataSet" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Rerendering of the FilterArea
      */
     _rerenderFilter(): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Rerendering of the Toolbar
      */
     _rerenderToolbar(): void;
@@ -2189,6 +2228,8 @@ declare module "sap/ui/ux3/DataSet" {
      */
     clearSelection(): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Creates a view switch button
      *
      * @returns viewSwitch instance
@@ -2197,12 +2238,12 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * View
        */
-      oView: object,
+      oView: /* was: sap.m.Element */ any,
       /**
        * Index of view
        */
       iIndex: int
-    ): object;
+    ): /* was: sap.m.Button */ any;
     /**
      * Destroys all the filter in the aggregation {@link #getFilter filter}.
      *
@@ -2257,6 +2298,8 @@ declare module "sap/ui/ux3/DataSet" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:search search} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2273,6 +2316,8 @@ declare module "sap/ui/ux3/DataSet" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2305,6 +2350,8 @@ declare module "sap/ui/ux3/DataSet" {
      */
     getItems(): DataSetItem[];
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the LeadSelection index
      *
      * @returns selected index
@@ -2329,6 +2376,8 @@ declare module "sap/ui/ux3/DataSet" {
      */
     getSelectedIndices(): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns id of selected Item from given index
      *
      * @returns id of selected item
@@ -2468,6 +2517,8 @@ declare module "sap/ui/ux3/DataSet" {
       iIndex: int
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns true if iIndex is selected
      *
      * @returns index selected true/false
@@ -2540,6 +2591,8 @@ declare module "sap/ui/ux3/DataSet" {
       vView: int | string | DataSetView
     ): DataSetView | null;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Set the LeadSelection index
      */
     setLeadSelection(
@@ -2829,6 +2882,8 @@ declare module "sap/ui/ux3/DataSetItem" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selected selected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3069,6 +3124,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     destroyTemplate(): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * View finalization: Called when leaving the view
      */
     exitView(aItems: DataSetItem[]): void;
@@ -3197,6 +3254,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getTemplate(): Control;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Eventhandler for the selection of an Item
      */
     handleSelection(
@@ -3206,6 +3265,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       oEvent: Event
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * View Initialization: Called when selecting the view
      */
     initView(
@@ -3215,6 +3276,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       aItems: any[]
     ): void;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Check if Item `oItem` is selected
      */
     isItemSelected(
@@ -3419,6 +3482,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       oTemplate: Control
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * View update: Called when pagination adds items
      */
     updateView(
@@ -3746,6 +3811,8 @@ declare module "sap/ui/ux3/Exact" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:refineSearch refineSearch} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3770,6 +3837,8 @@ declare module "sap/ui/ux3/Exact" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:search search} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -4363,6 +4432,8 @@ declare module "sap/ui/ux3/ExactAttribute" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:supplyAttributes supplyAttributes} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -4586,6 +4657,8 @@ declare module "sap/ui/ux3/ExactAttribute" {
       sListOrder?: ExactOrder | keyof typeof ExactOrder
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.base.ManagedObject.prototype.setProperty
      *
@@ -5014,6 +5087,8 @@ declare module "sap/ui/ux3/ExactBrowser" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5034,6 +5109,8 @@ declare module "sap/ui/ux3/ExactBrowser" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:save save} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5682,6 +5759,8 @@ declare module "sap/ui/ux3/ExactList" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6252,6 +6331,8 @@ declare module "sap/ui/ux3/FacetFilterList" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7008,6 +7089,8 @@ declare module "sap/ui/ux3/Feed" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:chunkAdded chunkAdded} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7024,6 +7107,8 @@ declare module "sap/ui/ux3/Feed" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:filterChange filterChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7040,6 +7125,8 @@ declare module "sap/ui/ux3/Feed" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:search search} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7056,6 +7143,8 @@ declare module "sap/ui/ux3/Feed" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggleLive toggleLive} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -7072,6 +7161,8 @@ declare module "sap/ui/ux3/Feed" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toolsItemSelected toolsItemSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8163,6 +8254,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:actionItemSelected actionItemSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8183,6 +8276,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:commentAdded commentAdded} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8199,6 +8294,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:deleted deleted} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8210,6 +8307,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:inspect inspect} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8221,6 +8320,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:referenceClicked referenceClicked} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8237,6 +8338,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:senderClicked senderClicked} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8248,6 +8351,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggleFavorite toggleFavorite} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8264,6 +8369,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggleFlagged toggleFlagged} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8280,6 +8387,8 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggleShared toggleShared} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9138,6 +9247,8 @@ declare module "sap/ui/ux3/Feeder" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:submit submit} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9466,6 +9577,8 @@ declare module "sap/ui/ux3/NavigationBar" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -10197,6 +10310,8 @@ declare module "sap/ui/ux3/NotificationBar" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:display display} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -10214,6 +10329,7 @@ declare module "sap/ui/ux3/NotificationBar" {
     ): this;
     /**
      * @SINCE 1.12.2
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
@@ -10232,6 +10348,8 @@ declare module "sap/ui/ux3/NotificationBar" {
       }
     ): this;
     /**
+     * @SINCE 1.24.5
+     *
      * Gets current value of property {@link #getAlwaysShowToggler alwaysShowToggler}.
      *
      * This property defines if the toggler should be displayed the whole time when the NotificationBar is shown.
@@ -10401,6 +10519,8 @@ declare module "sap/ui/ux3/NotificationBar" {
     resizeEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @SINCE 1.24.5
+     *
      * This property defines if the toggler should be displayed the whole time when the NotificationBar is shown.
      */
     alwaysShowToggler?: boolean | PropertyBindingInfo | `{${string}}`;
@@ -10601,6 +10721,8 @@ declare module "sap/ui/ux3/Notifier" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:messageSelected messageSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11080,6 +11202,8 @@ declare module "sap/ui/ux3/Overlay" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:close close} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -11099,6 +11223,8 @@ declare module "sap/ui/ux3/Overlay" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -11118,6 +11244,8 @@ declare module "sap/ui/ux3/Overlay" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:open open} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11134,6 +11262,8 @@ declare module "sap/ui/ux3/Overlay" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:openNew openNew} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11941,6 +12071,8 @@ declare module "sap/ui/ux3/QuickView" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11966,6 +12098,8 @@ declare module "sap/ui/ux3/QuickView" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11982,6 +12116,8 @@ declare module "sap/ui/ux3/QuickView" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:navigate navigate} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -13241,6 +13377,8 @@ declare module "sap/ui/ux3/Shell" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13252,6 +13390,8 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:logout logout} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13263,6 +13403,8 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:paneBarItemSelected paneBarItemSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13288,6 +13430,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * @SINCE 1.12.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:paneClosed paneClosed} to attached listeners.
      *
@@ -13305,6 +13448,8 @@ declare module "sap/ui/ux3/Shell" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:search search} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13316,6 +13461,8 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:worksetItemSelected worksetItemSelected} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -14086,6 +14233,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * @SINCE 1.7.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Moves the complete Shell away from the right window border by the given number of pixels (left border
      * in RTL case).
@@ -14613,6 +14761,8 @@ declare module "sap/ui/ux3/ThingAction" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -15358,6 +15508,8 @@ declare module "sap/ui/ux3/ThingInspector" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -15378,6 +15530,8 @@ declare module "sap/ui/ux3/ThingInspector" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -15405,6 +15559,8 @@ declare module "sap/ui/ux3/ThingInspector" {
       }
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -16335,6 +16491,8 @@ declare module "sap/ui/ux3/ThingViewer" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -17351,6 +17509,8 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:close close} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -17365,6 +17525,8 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): boolean;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -17376,6 +17538,8 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:enter enter} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -17396,6 +17560,8 @@ declare module "sap/ui/ux3/ToolPopup" {
       }
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:iconChanged iconChanged} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -17407,6 +17573,8 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:open open} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -17419,6 +17587,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     ): this;
     /**
      * @SINCE 1.19.0
+     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -18053,31 +18222,6 @@ declare module "sap/ui/ux3/ToolPopup" {
 }
 
 declare namespace sap {
-  namespace ui {
-    /**
-     * @SINCE 0.13
-     * @deprecated (since 1.38)
-     *
-     * Controls that implement the SAP User Experience (UX) Guidelines 3.0
-     */
-    namespace ux3 {
-      /**
-       * @deprecated (since 1.36) - This class was never released for productive use and will never be.
-       * @EXPERIMENTAL (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
-       * experimental work and might change or disappear in future versions.
-       *
-       * Experimental implementation of visual Ux3 Shell personalization / branding.
-       *
-       * DO NOT USE PRODUCTIVELY!!!
-       *
-       * Being completely non-generic as of now, this is supposed to facilitate discussions with Ux about the
-       * personalization capabilities. Once that concept is more final, we can go for a cleaner implementation,
-       * considering the number of configurable properties etc.
-       */
-      export const ShellPersonalization: undefined;
-    }
-  }
-
   interface IUI5DefineDependencyNames {
     "sap/ui/ux3/ActionBar": undefined;
 

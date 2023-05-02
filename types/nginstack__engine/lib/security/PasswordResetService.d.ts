@@ -3,7 +3,7 @@ declare function PasswordResetService(): void;
 declare class PasswordResetService {
     requestAdministratorPasswordReset(expiresIn: number): AdministratorPasswordResetRequest;
     resetAdministratorPassword(requestKey: number, authCode: string, newPassword: string): void;
-    sendPasswordResetMail(
+    sendPasswordResetEmail(
         userKey: DBKey | number,
         options: {
             senderName?: string;

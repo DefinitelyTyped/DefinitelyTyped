@@ -1760,7 +1760,7 @@ export function geoIdentity(): GeoIdentityTransform;
  * A clipping function transforming a stream such that geometries (lines or polygons) that cross the antimeridian line are cut in two, one on each side.
  * Typically used for pre-clipping.
  */
-export const geoClipAntimeridian: ((stream: GeoStream) => GeoStream);
+export function geoClipAntimeridian(stream: GeoStream): GeoStream;
 
 /**
  * Generates a clipping function transforming a stream such that geometries are bounded by a small circle of radius angle around the projection’s center.

@@ -4,7 +4,7 @@ declare class GlobalAction {
     constructor(name: string);
     private name_;
     onShow: LegacyEvent;
-    params: any;
+    params: Record<string, any>;
     activity: string | null;
     caption: string;
     enabled: boolean;

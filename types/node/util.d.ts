@@ -6,28 +6,44 @@
  * ```js
  * const util = require('util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
     export interface InspectOptions {
         /**
-         * If set to `true`, getters are going to be
-         * inspected as well. If set to `'get'` only getters without setter are going
-         * to be inspected. If set to `'set'` only getters having a corresponding
-         * setter are going to be inspected. This might cause side effects depending on
-         * the getter function.
-         * @default `false`
+         * If `true`, object's non-enumerable symbols and properties are included in the formatted result.
+         * `WeakMap` and `WeakSet` entries are also included as well as user defined prototype properties (excluding method properties).
+         * @default false
          */
-        getters?: 'get' | 'set' | boolean | undefined;
         showHidden?: boolean | undefined;
         /**
+         * Specifies the number of times to recurse while formatting object.
+         * This is useful for inspecting large objects.
+         * To recurse up to the maximum call stack size pass `Infinity` or `null`.
          * @default 2
          */
         depth?: number | null | undefined;
+        /**
+         * If `true`, the output is styled with ANSI color codes. Colors are customizable.
+         */
         colors?: boolean | undefined;
+        /**
+         * If `false`, `[util.inspect.custom](depth, opts, inspect)` functions are not invoked.
+         * @default true
+         */
         customInspect?: boolean | undefined;
+        /**
+         * If `true`, `Proxy` inspection includes the target and handler objects.
+         * @default false
+         */
         showProxy?: boolean | undefined;
+        /**
+         * Specifies the maximum number of `Array`, `TypedArray`, `WeakMap`, and `WeakSet` elements
+         * to include when formatting. Set to `null` or `Infinity` to show all elements.
+         * Set to `0` or negative to show no elements.
+         * @default 100
+         */
         maxArrayLength?: number | null | undefined;
         /**
          * Specifies the maximum number of characters to
@@ -36,6 +52,12 @@ declare module 'util' {
          * @default 10000
          */
         maxStringLength?: number | null | undefined;
+        /**
+         * The length at which input values are split across multiple lines.
+         * Set to `Infinity` to format the input as a single line
+         * (in combination with `compact` set to `true` or any number >= `1`).
+         * @default 80
+         */
         breakLength?: number | undefined;
         /**
          * Setting this to `false` causes each object key
@@ -45,13 +67,33 @@ declare module 'util' {
          * `breakLength`. Short array elements are also grouped together. Note that no
          * text will be reduced below 16 characters, no matter the `breakLength` size.
          * For more information, see the example below.
-         * @default `true`
+         * @default true
          */
         compact?: boolean | number | undefined;
+        /**
+         * If set to `true` or a function, all properties of an object, and `Set` and `Map`
+         * entries are sorted in the resulting string.
+         * If set to `true` the default sort is used.
+         * If set to a function, it is used as a compare function.
+         */
         sorted?: boolean | ((a: string, b: string) => number) | undefined;
+        /**
+         * If set to `true`, getters are going to be
+         * inspected as well. If set to `'get'` only getters without setter are going
+         * to be inspected. If set to `'set'` only getters having a corresponding
+         * setter are going to be inspected. This might cause side effects depending on
+         * the getter function.
+         * @default false
+         */
+        getters?: 'get' | 'set' | boolean | undefined;
+        /**
+         * If set to `true`, an underscore is used to separate every three digits in all bigints and numbers.
+         * @default false
+         */
+        numericSeparator?: boolean | undefined;
     }
     export type Style = 'special' | 'number' | 'bigint' | 'boolean' | 'undefined' | 'null' | 'string' | 'symbol' | 'date' | 'regexp' | 'module';
-    export type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => string;
+    export type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => any; // TODO: , inspect: inspect
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
@@ -183,6 +225,12 @@ declare module 'util' {
      * @returns The same AbortSignal
      */
     export function transferableAbortSignal(signal: AbortSignal): AbortSignal;
+    /**
+     * Listens to abort event on the provided `signal` and returns a promise that is fulfilled when the `signal` is aborted.
+     * If the passed `resource` is garbage collected before the `signal` is aborted, the returned promise shall remain pending indefinitely.
+     * @param resource  Any non-null entity, reference to which is held weakly.
+     */
+    export function aborted(signal: AbortSignal, resource: any): Promise<void>;
     /**
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
@@ -899,7 +947,7 @@ declare module 'util' {
      * });
      * ```
      * @since v8.2.0
-     * @param original An `async` function
+     * @param fn An `async` function
      * @return a callback style function
      */
     export function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
@@ -1198,16 +1246,31 @@ declare module 'util' {
      *   - `tokens` Detailed parse information (only if `tokens` was specified).
      *
      */
-    export function parseArgs<T extends ParseArgsConfig>(config: T): ParsedResults<T>;
+    export function parseArgs<T extends ParseArgsConfig>(config?: T): ParsedResults<T>;
 
     interface ParseArgsOptionConfig {
-        type: 'string' | 'boolean';
-        short?: string;
-        multiple?: boolean;
         /**
+         * Type of argument.
+         */
+        type: 'string' | 'boolean';
+        /**
+         * Whether this option can be provided multiple times.
+         * If `true`, all values will be collected in an array.
+         * If `false`, values for the option are last-wins.
+         * @default false.
+         */
+        multiple?: boolean | undefined;
+        /**
+         * A single character alias for the option.
+         */
+        short?: string | undefined;
+        /**
+         * The default option value when it is not set by args.
+         * It must be of the same type as the the `type` property.
+         * When `multiple` is `true`, it must be an array.
          * @since v18.11.0
          */
-        default?: string | boolean | string[] | boolean[];
+        default?: string | boolean | string[] | boolean[] | undefined;
     }
 
     interface ParseArgsOptionsConfig {
@@ -1215,11 +1278,30 @@ declare module 'util' {
     }
 
     export interface ParseArgsConfig {
-        strict?: boolean;
-        allowPositionals?: boolean;
-        tokens?: boolean;
-        options?: ParseArgsOptionsConfig;
-        args?: string[];
+        /**
+         * Array of argument strings.
+         */
+        args?: string[] | undefined;
+        /**
+         * Used to describe arguments known to the parser.
+         */
+        options?: ParseArgsOptionsConfig | undefined;
+        /**
+         * Should an error be thrown when unknown arguments are encountered,
+         * or when arguments are passed that do not match the `type` configured in `options`.
+         * @default true
+         */
+        strict?: boolean | undefined;
+        /**
+         * Whether this command accepts positional arguments.
+         */
+        allowPositionals?: boolean | undefined;
+        /**
+         * Return the parsed tokens. This is useful for extending the built-in behavior,
+         * from adding additional checks through to reprocessing the tokens in different ways.
+         * @default false
+         */
+        tokens?: boolean | undefined;
     }
 
     /*
@@ -1350,6 +1432,91 @@ declare module 'util' {
               tokens?: Token[];
           }
         : PreciseParsedResults<T>;
+
+    /**
+     * @since v18.13.0
+     */
+    export class MIMEType {
+        /**
+         * Creates a new MIMEType object by parsing the input.
+         *
+         * A `TypeError` will be thrown if the `input` is not a valid MIME.
+         * Note that an effort will be made to coerce the given values into strings.
+         * @param input The input MIME to parse.
+         */
+        constructor(input: string | { toString: () => string });
+
+        /**
+         * Gets and sets the type portion of the MIME.
+         */
+        type: string;
+
+        /**
+         * Gets and sets the subtype portion of the MIME.
+         */
+        subtype: string;
+
+        /**
+         * Gets the essence of the MIME.
+         *
+         * Use `mime.type` or `mime.subtype` to alter the MIME.
+         */
+        readonly essence: string;
+
+        /**
+         * Gets the `MIMEParams` object representing the parameters of the MIME.
+         */
+        readonly params: MIMEParams;
+
+        /**
+         * Returns the serialized MIME.
+         *
+         * Because of the need for standard compliance, this method
+         * does not allow users to customize the serialization process of the MIME.
+         */
+        toString(): string;
+    }
+
+    /**
+     * @since v18.13.0
+     */
+    export class MIMEParams {
+        /**
+         * Remove all name-value pairs whose name is `name`.
+         */
+        delete(name: string): void;
+        /**
+         * Returns an iterator over each of the name-value pairs in the parameters.
+         */
+        entries(): IterableIterator<[name: string, value: string]>;
+        /**
+         * Returns the value of the first name-value pair whose name is `name`.
+         * If there are no such pairs, `null` is returned.
+         */
+        get(name: string): string | null;
+        /**
+         * Returns `true` if there is at least one name-value pair whose name is `name`.
+         */
+        has(name: string): boolean;
+        /**
+         * Returns an iterator over the names of each name-value pair.
+         */
+        keys(): IterableIterator<string>;
+        /**
+         * Sets the value in the `MIMEParams` object associated with `name` to `value`.
+         * If there are any pre-existing name-value pairs whose names are `name`,
+         * set the first such pair's value to `value`.
+         */
+        set(name: string, value: string): void;
+        /**
+         * Returns an iterator over the values of each name-value pair.
+         */
+        values(): IterableIterator<string>;
+        /**
+         * Returns an iterator over each of the name-value pairs in the parameters.
+         */
+        [Symbol.iterator]: typeof MIMEParams.prototype.entries;
+    }
 }
 declare module 'util/types' {
     export * from 'util/types';

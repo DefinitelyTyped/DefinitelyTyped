@@ -57,6 +57,14 @@ declare module 'net' {
         noDelay?: boolean | undefined;
         keepAlive?: boolean | undefined;
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamily?: boolean | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamilyAttemptTimeout?: number | undefined;
     }
     interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;
@@ -281,7 +289,13 @@ declare module 'net' {
          * The string representation of the local IP family. `'IPv4'` or `'IPv6'`.
          * @since v18.8.0
          */
-         readonly localFamily?: string;
+        readonly localFamily?: string;
+        /**
+         * This is `true` if the socket is not connected yet, either because `.connect()`
+         * has not yet been called or because it is still in the process of connecting (see `socket.connecting`).
+         * @since v10.16.0
+         */
+        readonly pending: boolean;
         /**
          * This property represents the state of the connection as a string.
          * @see {https://nodejs.org/api/net.html#socketreadystate}
