@@ -18,7 +18,7 @@ class TestChild extends React.Component implements TransitionGroupChildLifecycle
     componentWillLeave(callback: () => void) {
         callback();
     }
-    
+
     componentDidLeave() {}
 
     render() {
