@@ -36,8 +36,6 @@
 /// <reference path = "components/Waveform.d.ts" />
 
 declare namespace GorillaEngine {
-
-
   /**
    * Instrument parameter session persistence
    */
@@ -68,8 +66,8 @@ declare namespace GorillaEngine {
      */
     normValue: number;
     /**
-     * Its actual value. 
-     * */
+     * Its actual value.
+     */
     value: number;
     normValueAsync: number;
     valueAsync: number;
@@ -78,7 +76,7 @@ declare namespace GorillaEngine {
     readonly maxValue: number;
     readonly resolution: number;
     /**
-     *  The number of its steps if it's a stepped parameter 
+     *  The number of its steps if it's a stepped parameter
      */
     readonly numSteps: number;
     readonly key: string;
@@ -100,116 +98,115 @@ declare namespace GorillaEngine {
   interface Instrument {
     on(propName: string, handler: (normValue: number) => void): void;
     /**
-  * Method used to retrieve a serialised module from the Gorilla Engine.
-  *
-  * @param {Instrument#Path} path The path to the module that should be retrieved.
-  * @returns {string|boolean} The serialised module found at the given `path` or `false` if nothing was found.
-  */
-    getModuleAtPath(path: string): string | boolean
+     * Method used to retrieve a serialised module from the Gorilla Engine.
+     *
+     * @param path The path to the module that should be retrieved.
+     * @returns The serialised module found at the given `path` or `false` if nothing was found.
+     */
+    getModuleAtPath(path: string): string | boolean;
     /**
-  * Method used to determine if a value from the Gorilla Engine is a module.
-  *
-  * @param {Instrument#Path} path The path to the value that should be determined.
-  * @returns {boolean} `true` if the value found at the given `path` is a module or `false` if it's not or nothing was found.
-  */
-    isModuleAtPath(path: string): boolean
+     * Method used to determine if a value from the Gorilla Engine is a module.
+     *
+     * @param path The path to the value that should be determined.
+     * @returns `true` if the value found at the given `path` is a module or `false` if it's not or nothing was found.
+     */
+    isModuleAtPath(path: string): boolean;
     /**
-  * Method used to retrieve a value from the Gorilla Engine.
-  *
-  * @param {Instrument#Path} path The path to the value that should be retrieved.
-  * @returns {string|Object|Number|Int32Array|Float64Array|boolean} The value found at the given `path` or `false` if nothing was found.
-  */
-    getValueAtPath(path: string): string | Object | Number | Int32Array | Float64Array | boolean
+     * Method used to retrieve a value from the Gorilla Engine.
+     *
+     * @param path The path to the value that should be retrieved.
+     * @returns The value found at the given `path` or `false` if nothing was found.
+     */
+    getValueAtPath(path: string): string | object | number | Int32Array | Float64Array | boolean;
 
     /**
- * Method used to set a string at a certain path in the engine.
- * This method could for example be used to set a user sample to a certain Zone in the Gorilla Engine.
- *
- * @param {Instrument#Path} path The path to the string that should be set.
- * @param {string} value The string that should be set at the given `path`.
- * @returns {boolean} `true` if the value has been set succcessfully or `false` otherwise.
- */
-    setStringAtPath(path: string, value: string): boolean
-
+     * Method used to set a string at a certain path in the engine.
+     * This method could for example be used to set a user sample to a certain Zone in the Gorilla Engine.
+     *
+     * @param path The path to the string that should be set.
+     * @param value The string that should be set at the given `path`.
+     * @returns `true` if the value has been set succcessfully or `false` otherwise.
+     */
+    setStringAtPath(path: string, value: string): boolean;
 
     /**
      * Method used to render a section of a sample to a waveform. Commonly used to source the `value` property of the `waveform` control.
      *
-     * @param {number} numPoints The number of points that the waveform should be rendered into.
-     * @param {number} zoneId The id of the zone whichs sample should be rendered to a waveform.
-     * @param {number} start A normalised value indicating from where in the sample waveform rendering should start.
-     * @param {number} end A normalised value indicating  where in the sample waveform rendering should end.
-     * @returns {Uint8Array} The waveform of the sample found at `zoneId`.
+     * @param numPoints The number of points that the waveform should be rendered into.
+     * @param zoneId The id of the zone whichs sample should be rendered to a waveform.
+     * @param start A normalised value indicating from where in the sample waveform rendering should start.
+     * @param end A normalised value indicating  where in the sample waveform rendering should end.
+     * @returns The waveform of the sample found at `zoneId`.
      */
-    getWaveformData(numPoints: number, zoneId: number, start: number, end: number): Uint8Array
+    getWaveformData(numPoints: number, zoneId: number, start: number, end: number): Uint8Array;
 
     /**
      * Method used to retrieve an array of integers from the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the array that should be retrieved.
-     * @returns {Int32Array | boolean} The array of integers found at the given `path` or `false` if nothing was found.
+     * @param path The path to the array that should be retrieved.
+     * @returns The array of integers found at the given `path` or `false` if nothing was found.
      */
-    getIntArrayAtPath(path: string): Int32Array | boolean
+    getIntArrayAtPath(path: string): Int32Array | boolean;
 
     /**
      * Method used to set an array of integers at a ceterain path in the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the integer array that should be set.
-     * @param {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array} value The integer array that should be set at the given `path`.
-     * @returns {boolean} `true` if the value has been set succcessfully or `false` otherwise.
+     * @param path The path to the integer array that should be set.
+     * @param value The integer array that should be set at the given `path`.
+     * @returns `true` if the value has been set succcessfully or `false` otherwise.
      */
-    setIntArrayAtPath(path: string, value: Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array): boolean
+    setIntArrayAtPath(path: string, value: Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array): boolean;
 
     /**
      * Method used to retrieve an array of doubles from the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the array that should be retrieved.
-     * @returns {Float64Array | boolean} The array of doubles found at the given `path` or `false` if nothing was found.
+     * @param path The path to the array that should be retrieved.
+     * @returns The array of doubles found at the given `path` or `false` if nothing was found.
      */
-    getDoubleArrayAtPath(path: string): Float64Array | boolean
+    getDoubleArrayAtPath(path: string): Float64Array | boolean;
 
     /**
      * Method used to set an array of floats or doubles at a ceterain path in the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the double array that should be set.
-     * @param {Float32Array|Float64Array} value The float or double array that should be set at the given `path`.
-     * @returns {boolean} `true` if the value has been set succcessfully or `false` otherwise.
+     * @param path The path to the double array that should be set.
+     * @param value The float or double array that should be set at the given `path`.
+     * @returns `true` if the value has been set succcessfully or `false` otherwise.
      */
-    setDoubleArrayAtPath(path: string, value: Float32Array | Float64Array): boolean
+    setDoubleArrayAtPath(path: string, value: Float32Array | Float64Array): boolean;
 
     /**
      * Method used to retrieve a double from the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the double should be retrieved.
-     * @returns {number|boolean} The double found at the given `path` or `false` if nothing was found.
+     * @param path The path to the double should be retrieved.
+     * @returns The double found at the given `path` or `false` if nothing was found.
      */
-    getDoubleAtPath(pat: string): number | boolean
+    getDoubleAtPath(path: string): number | boolean;
 
     /**
      * Method used to set a double at a ceterain path in the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the double that should be set.
-     * @param {number} value The double that should be set at the given `path`.
-     * @returns {boolean} `true` if the value has been set succcessfully or `false` otherwise.
+     * @param path The path to the double that should be set.
+     * @param value The double that should be set at the given `path`.
+     * @returns `true` if the value has been set succcessfully or `false` otherwise.
      */
-    setDoubleAtPath(path: string, value: number): boolean
+    setDoubleAtPath(path: string, value: number): boolean;
 
     /**
      * Method used to set an integer at a ceterain path in the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the integer that should be set.
-     * @param {number} value The integer that should be set at the given `path`.
-     * @returns {boolean} `true` if the value has been set succcessfully or `false` otherwise.
+     * @param path The path to the integer that should be set.
+     * @param value The integer that should be set at the given `path`.
+     * @returns `true` if the value has been set succcessfully or `false` otherwise.
      */
-    setIntAtPath(path: string, value: number): boolean
+    setIntAtPath(path: string, value: number): boolean;
 
     /**
      * Method used to retrieve an integer from the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the integer should be retrieved.
-     * @returns {number|boolean} The integer found at the given `path` or `false` if nothing was found.
+     * @param path The path to the integer should be retrieved.
+     * @returns The integer found at the given `path` or `false` if nothing was found.
      */
-    getIntAtPath(path: string): number | boolean
+    getIntAtPath(path: string): number | boolean;
 
     /**
      * Method used to insert a Gorilla Engine module at a given path.
@@ -218,58 +215,58 @@ declare namespace GorillaEngine {
      * the module at the speficied index while other value types overwrite the value at the index.
      * To replace a module at a `path` use {@link Instrument#removeModuleAtPath} prior to inserting the new module.
      *
-     * @param {Instrument#Path} path The path at which the module should be inserted.
-     * @param {string} value A Gorilla Enginge module serialised to JSON that should be set at the given `path`.
-     * @returns {boolean} `true` if the module has been inserted succcessfully or `false` otherwise.
+     * @param path The path at which the module should be inserted.
+     * @param value A Gorilla Enginge module serialised to JSON that should be set at the given `path`.
+     * @returns `true` if the module has been inserted succcessfully or `false` otherwise.
      */
-    insertModuleAtPath(path: string, value: string): boolean
+    insertModuleAtPath(path: string, value: string): boolean;
 
     /**
      * Method used to remove a module at a given `path`.
      *
-     * @param {Instrument#Path} path The path to the module that should be removed.
-     * @returns {boolean} `true` if the module has been removed succcessfully or `false` otherwise.
+     * @param path The path to the module that should be removed.
+     * @returns `true` if the module has been removed succcessfully or `false` otherwise.
      */
-    removeModuleAtPath(path: string): boolean
+    removeModuleAtPath(path: string): boolean;
 
     /**
      * Method used to set a normalised double at a ceterain path in the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the normalised double that should be set.
-     * @param {number} value The normalised double that should be set at the given `path`.
-     * @returns {boolean} `true` if the value has been set succcessfully or `false` otherwise.
+     * @param path The path to the normalised double that should be set.
+     * @param value The normalised double that should be set at the given `path`.
+     * @returns `true` if the value has been set succcessfully or `false` otherwise.
      */
-    setNormalisedDoubleAtPath(path: string, value: number): boolean
+    setNormalisedDoubleAtPath(path: string, value: number): boolean;
 
     /**
      * Method used to retrieve a normalised double from the Gorilla Engine.
      *
-     * @param {Instrument#Path} path The path to the normalised double should be retrieved.
-     * @returns {number|boolean} The normalised double found at the given `path` or `false` if nothing was found.
+     * @param path The path to the normalised double should be retrieved.
+     * @returns The normalised double found at the given `path` or `false` if nothing was found.
      */
-    getNormalisedDoubleAtPath(): number | boolean
+    getNormalisedDoubleAtPath(): number | boolean;
 
     /**
      * Method used to retrieve MIDI data from the first instrument script that implements `on midi_drag`
      *
-     * @returns {Array<Object>} Array of Midi Events { status, data0, data1, tickAbsolute }
+     * @returns Array of Midi Events
      */
-    getMidiDragData(): Array<Object>
+    getMidiDragData(): Array<{ status: any, data0: any, data1: any, tickAbsolute: any }>;
 
     /**
      * Method used to send a `note on` MIDI event to the Gorilla Engine.
      *
-     * @param {number} key The musical key that should be triggered. The key is expected to be between `0` and `127`.
-     * @param {number} velocity The velocity that the key should be triggerd with. The velocity is expected to be between `0` and `127`.
+     * @param key The musical key that should be triggered. The key is expected to be between `0` and `127`.
+     * @param velocity The velocity that the key should be triggerd with. The velocity is expected to be between `0` and `127`.
      */
-    noteOn(key: number, velocity: number): void
+    noteOn(key: number, velocity: number): void;
 
     /**
      * Method used to send a `note off` MIDI event to the Gorilla Engine.
      *
-     * @param {number} key The musical key that should be untriggered. The key is expected to be between `0` and `127`.
+     * @param key The musical key that should be untriggered. The key is expected to be between `0` and `127`.
      */
-    noteOff(ke: number): void
+    noteOff(ke: number): void;
 
     /**
      * Method used to stringify a given `value` at a certain `path` in the Gorilla Engine.
@@ -277,24 +274,20 @@ declare namespace GorillaEngine {
      * The value is denormalised according to the scale of the parameter found at `path` and
      * the parameter’s unit is appended to the string accordingly.
      *
-     * @param {Instrument#Path} path The path at which the value should be stringified.
-     * @param {number} value A value that should be stringified at the given `path`.
-     * @returns {boolean|string} `false` if the value could not be stringified or the given `value` as a `string`.
+     * @param path The path at which the value should be stringified.
+     * @param value A value that should be stringified at the given `path`.
+     * @returns `false` if the value could not be stringified or the given `value` as a `string`.
      */
-    valueToStringAtPath(path: string, value: number): boolean | string
-
+    valueToStringAtPath(path: string, value: number): boolean | string;
   }
 
-  /**
-   * Blob
-   */
   interface Blob {
     loadInstrument(name: string): Instrument;
     getInstrumentNames(): string[];
   }
 
   interface PreviewPlayer {
-    on(eventName: string, callback: any): void
+    on(eventName: string, callback: any): void;
   }
 
   function registerUncaughtUIExceptionCallback(handler: (err: Error) => void): void;
@@ -310,7 +303,7 @@ declare namespace GorillaEngine {
   function openURLinBrowser(path: string): void;
   function getPluginMM(v: boolean): void;
   function getPluginAE(v: boolean): void;
-  function getPreviewPlayer(): PreviewPlayer
+  function getPreviewPlayer(): PreviewPlayer;
   function openFileChooser(config: {
     allowMultiple?: boolean,
     browseDirectory?: boolean,
@@ -320,7 +313,7 @@ declare namespace GorillaEngine {
     allowedExtensions?: string,
     defaultLocation?: string,
   }): void;
-  var sessionSaveLoadCallbackTimeoutMs: number;
+  let sessionSaveLoadCallbackTimeoutMs: number;
 
   namespace UI {
     function loadUIfromYAML(ymlPath: string): void;

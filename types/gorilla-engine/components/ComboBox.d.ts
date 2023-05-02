@@ -53,7 +53,6 @@ declare namespace GorillaEngine.UI {
                 separatorColo?: string;
                 separatorHeight: number;
                 separatorPadding: number;
-                
             }
         >;
         subPopup: Partial<ComboBoxPopupStyles>;

@@ -8,47 +8,47 @@ declare namespace GorillaEngine.UI {
   }
 
   interface Modulation {
-    legacyCompatibility?: boolean
+    legacyCompatibility?: boolean;
     color?: string;
     visible?: boolean;
     active?: boolean;
     resolution?: any;
     tooltip: {
-      enabled?: boolean,
-      text?: string,
+      enabled?: boolean;
+      text?: string;
       font?: {
-        size?: number,
-        color: string
-      },
-      color: string,
-      border: {
-        width: number,
-        color: string,
-        radius: number
+        size?: number;
+        color: string;
       }
-    }
+      color: string;
+      border: {
+        width: number;
+        color: string;
+        radius: number;
+      }
+    };
     centerLine?: {
       width?: number;
-      backgroundColor?: string,
-      visible?: boolean
+      backgroundColor?: string;
+      visible?: boolean;
     };
     values: any;
     centerValue: {
-      value?: number,
-      backgroundColor?: string,
-      visible?: boolean
-    },
+      value?: number;
+      backgroundColor?: string;
+      visible?: boolean;
+    };
     indication?: {
       enabled?: boolean;
-      backgroundColor?: string
-    }
-    setValues: (values: any) => void
+      backgroundColor?: string;
+    };
+    setValues: (values: any) => void;
   }
   interface GridMeasure {
     fractionOfBar: number;
     showLabels?: boolean;
     tickHeight: number;
-    font?: { size: number }
+    font?: { size: number };
   }
 
   interface SliceEditorProps extends Common, Bounds, Background, Clickable {

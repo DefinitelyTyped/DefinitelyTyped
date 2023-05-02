@@ -17,7 +17,7 @@ declare namespace GorillaEngine.UI {
     }
 
     interface TextBox extends TextBoxProps {
-      grabKeyboardFocus(): void
+      grabKeyboardFocus(): void;
     }
 
     class TextBox extends Component {
