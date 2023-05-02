@@ -15,6 +15,7 @@ declare namespace GorillaEngine.UI {
     canResize: boolean;
     canPan: boolean;
     enabled: boolean;
+    bindings: any;
   }
 
   interface WaveformMarker {

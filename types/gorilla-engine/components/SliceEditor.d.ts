@@ -42,7 +42,7 @@ declare namespace GorillaEngine.UI {
       enabled?: boolean;
       backgroundColor?: string
     }
-    setValues: (args: any) => void
+    setValues: (values: any) => void
   }
   interface GridMeasure {
     fractionOfBar: number;
