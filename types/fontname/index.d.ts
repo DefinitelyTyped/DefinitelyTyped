@@ -36,4 +36,5 @@ declare class FontName {
   parse(buffer: ArrayBuffer): FontInfo[];
 }
 declare const _default: FontName;
+// tslint:disable-next-line:npm-naming
 export default _default;
