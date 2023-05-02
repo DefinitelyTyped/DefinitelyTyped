@@ -2,14 +2,17 @@
 
 import '../../';
 
-export type FoldRangeFinder = (cm: CodeMirror.Editor, pos: CodeMirror.Position) => CodeMirror.FoldRange | undefined;
-
 declare module '../../' {
     interface EditorConfiguration {
         /**
          * Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded.
          */
         foldGutter?: boolean | FoldGutterOptions | undefined;
+    }
+
+    interface FoldRange {
+        from: Position;
+        to: Position;
     }
 
     interface FoldGutterOptions {
@@ -32,11 +35,6 @@ declare module '../../' {
          * The range-finder function to use when determining whether something can be folded.
          * When not given, CodeMirror.fold.auto will be used as default.
          */
-        rangeFinder?: FoldRangeFinder | undefined;
-    }
-
-    interface FoldRange {
-        from: Position;
-        to: Position;
+        rangeFinder?: (cm: Editor, pos: Position) => FoldRange | undefined;
     }
 }
