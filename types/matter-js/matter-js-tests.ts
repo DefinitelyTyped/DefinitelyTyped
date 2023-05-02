@@ -111,6 +111,11 @@ var constraint1 = Constraint.create({
 
 World.addConstraint(engine.world, constraint1);
 
+// $ExpectType Body | null
+var bodyA = constraint1.bodyA;
+// $ExpectType Body | null
+var bodyB = constraint1.bodyB;
+
 // Query
 // $ExpectType Collision[]
 var collisions = Query.ray([box1, box2, circle1], { x: 1, y: 2 }, { x: 3, y: 4 });
