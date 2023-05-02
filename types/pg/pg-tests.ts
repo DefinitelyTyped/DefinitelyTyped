@@ -1,6 +1,7 @@
 import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError } from 'pg';
 import TypeOverrides = require('pg/lib/type-overrides');
 import { NoticeMessage } from 'pg-protocol/dist/messages';
+import { assert } from 'console';
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -245,7 +246,28 @@ pool.connect().then(client => {
 });
 
 pool.on('error', (err, client) => {
+    // $ExpectType PoolClient
+    client;
     console.error('idle client error', err.message, err.stack);
+});
+pool.on('connect', (client) => {
+        // $ExpectType PoolClient
+        client;
+});
+pool.on('acquire', (client) => {
+    // $ExpectType PoolClient
+    client;
+});
+pool.on('release', (err, client) => {
+    // $ExpectType PoolClient
+    client;
+    if (err) {
+        console.error('connection released to pool: ', err.message);
+    }
+});
+pool.on('remove', (client) => {
+    // $ExpectType PoolClient
+    client;
 });
 
 (async () => {

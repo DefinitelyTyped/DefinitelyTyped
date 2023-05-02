@@ -1,4 +1,4 @@
-// Type definitions for pg 8.6
+// Type definitions for pg 8.10
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -203,7 +203,7 @@ export class Pool extends events.EventEmitter {
     ): void;
     // tslint:enable:no-unnecessary-generics
 
-    on(event: 'error', listener: (err: Error, client: PoolClient) => void): this;
+    on(event: 'release' | 'error', listener: (err: Error, client: PoolClient) => void): this;
     on(event: 'connect' | 'acquire' | 'remove', listener: (client: PoolClient) => void): this;
 }
 
