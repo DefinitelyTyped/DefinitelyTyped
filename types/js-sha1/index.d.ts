@@ -15,3 +15,4 @@ interface JsSha1 {
 declare var sha1: JsSha1;
 
 export = sha1;
+export as namespace sha1;
