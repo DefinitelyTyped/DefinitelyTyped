@@ -136,6 +136,16 @@ const supportedCommands: number =
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
+playbackConfig.shakaConfig = {
+    manifest: {
+        availabilityWindowOverride: 30,
+    },
+};
+
+const options = new cast.framework.CastReceiverOptions();
+options.versionCode = 0;
+options.useShakaForHls = true;
+options.shakaVersion = '4.3.5';
 
 cast.framework.CastReceiverContext.getInstance().addEventListener(
     [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
@@ -189,19 +199,19 @@ cast.framework.CastReceiverContext.getInstance()
 
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
-    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_CHANGED, (timedMetadataEvent) => {
+    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_CHANGED, timedMetadataEvent => {
         const { id, dashTimedMetadata, hlsTimedMetadata, startTime, endTime } = timedMetadataEvent.timedMetadataInfo;
     });
 
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
-    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_ENTER, (timedMetadataEvent) => {
+    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_ENTER, timedMetadataEvent => {
         const { id, dashTimedMetadata, hlsTimedMetadata, startTime, endTime } = timedMetadataEvent.timedMetadataInfo;
     });
 
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
-    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_EXIT, (timedMetadataEvent) => {
+    .addEventListener(cast.framework.events.EventType.TIMED_METADATA_EXIT, timedMetadataEvent => {
         const { id, dashTimedMetadata, hlsTimedMetadata, startTime, endTime } = timedMetadataEvent.timedMetadataInfo;
     });
 
