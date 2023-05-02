@@ -8,7 +8,7 @@
 
 export as namespace intlTelInput;
 
-export = intlTelInput;
+export default intlTelInput;
 
 /**
  * initialise the plugin with optional options.
