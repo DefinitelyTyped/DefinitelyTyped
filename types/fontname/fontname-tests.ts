@@ -1,3 +1,3 @@
-import FontName from 'fontname'
+import FontName from 'fontname';
 
-FontName.parse(new ArrayBuffer(8))
+FontName.parse(new ArrayBuffer(8));
