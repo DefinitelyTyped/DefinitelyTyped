@@ -10,13 +10,12 @@ import {
     AggregatePaginateModel,
     PaginateOptions,
     AggregatePaginateResult,
-    Document,
 } from 'mongoose';
 import mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
 import { Router, Request, Response } from 'express';
 
 //#region Test Models
-interface User extends Document {
+interface User {
     email: string;
     username: string;
     password: string;
@@ -28,7 +27,7 @@ interface HobbyStats {
     count: number;
 }
 
-const UserSchema: Schema = new Schema({
+const UserSchema: Schema = new Schema<User>({
     email: String,
     username: String,
     password: String,
@@ -37,9 +36,7 @@ const UserSchema: Schema = new Schema({
 
 UserSchema.plugin(mongooseAggregatePaginate);
 
-interface UserModel<T extends Document> extends AggregatePaginateModel<T> {}
-
-const UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
+const UserModel = model<User, AggregatePaginateModel<User>>('User', UserSchema);
 //#endregion
 
 //#region Test Paginate
