@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "rimraf": "^5.0.0"
-    }
-}
