@@ -1,4 +1,4 @@
-import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError } from 'pg';
+import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError, Connection } from 'pg';
 import TypeOverrides = require('pg/lib/type-overrides');
 import { NoticeMessage } from 'pg-protocol/dist/messages';
 
@@ -314,3 +314,13 @@ const dynamicPasswordAsync = new Client({
     password: async () => 'sync-secret',
 });
 dynamicPasswordAsync.connect();
+
+const bindConfig = {
+    statement: 'Select 1 from foo where bar = $1',
+    binary: 'false',
+    values: ['xyz'],
+    valueMapper: (param: any, index: number) => ([param, index])
+};
+
+const con = new Connection();
+con.bind(bindConfig, true);
