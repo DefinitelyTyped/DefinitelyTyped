@@ -399,12 +399,12 @@ export namespace lists {
         _links: Link[];
     }
 
-    interface batchListMembersOpts {
+    interface BatchListMembersOpts {
       skipMergeValidation?: boolean;
       skipDuplicateCheck?: boolean;
     }
 
-    interface batchListMembersResponse {
+    interface BatchListMembersResponse {
       new_members?: MembersSuccessResponse[];
       updated_members?: MembersSuccessResponse[];
       errors?: Array<{
@@ -418,7 +418,7 @@ export namespace lists {
 
     type EmailType = "text"|"html";
 
-    interface batchListMembersBodyMembersObject {
+    interface BatchListMembersBodyMembersObject {
       email_address: string;
       email_type: EmailType;
       status: Status;
@@ -436,8 +436,8 @@ export namespace lists {
       merge_fields?: {[k: string]: string}; // https://mailchimp.com/developer/marketing/docs/merge-fields/#structure
     }
 
-    interface batchListMembersBody {
-      members: batchListMembersBodyMembersObject[];
+    interface BatchListMembersBody {
+      members: BatchListMembersBodyMembersObject[];
       sync_tags?: boolean;
       update_existing?: boolean;
     }
@@ -449,7 +449,7 @@ export namespace lists {
      * @param body
      * @param opts Optional parameters
      */
-    function batchListMembers(listId: string, body: batchListMembersBody, opts?: batchListMembersOpts): Promise<batchListMembersResponse | ErrorResponse>;
+    function batchListMembers(listId: string, body: BatchListMembersBody, opts?: BatchListMembersOpts): Promise<BatchListMembersResponse | ErrorResponse>;
 
     /**
      * Add or update a list member.
