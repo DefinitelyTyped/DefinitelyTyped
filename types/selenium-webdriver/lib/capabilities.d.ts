@@ -3,7 +3,6 @@ import { logging, ProxyConfig } from '../';
 
 /**
  * Recognized browser names.
- * @enum {string}
  */
 export interface IBrowser {
     CHROME: 'chrome';
@@ -22,7 +21,6 @@ export const Browser: IBrowser;
  * Common platform names. These platforms are not explicitly defined by the
  * WebDriver spec, however, their use is encouraged for interoperability.
  *
- * @enum {string}
  * @see <https://w3c.github.io/webdriver/webdriver-spec.html>
  */
 export interface IPlatform {
@@ -38,7 +36,6 @@ export const Platform: IPlatform;
  *
  * [document readiness]: https://html.spec.whatwg.org/#current-document-readiness
  *
- * @enum {string}
  */
 export interface IPageLoadStrategy {
     /**
@@ -67,7 +64,6 @@ export const PageLoadStrategy: IPageLoadStrategy;
  * unhandled user prompts (`window.alert()`, `window.confirm()`, and
  * `window.prompt()`).
  *
- * @enum {string}
  */
 export interface IUserPromptHandler {
     /** All prompts should be silently accepted. */
@@ -92,7 +88,6 @@ export const UserPromptHandler: IUserPromptHandler;
 
 /**
  * Common webdriver capability keys.
- * @enum {string}
  */
 export interface ICapability {
     /**

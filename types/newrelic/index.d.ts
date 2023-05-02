@@ -1,4 +1,4 @@
-// Type definitions for newrelic 9.4
+// Type definitions for newrelic 9.13
 // Project: https://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
@@ -355,6 +355,13 @@ export const instrumentWebframework: Instrument;
  * This method is just like `instrument`, except it provides a message-service-specialized shim.
  */
 export const instrumentMessages: Instrument;
+
+/**
+ * This method gives you a way to associate a unique identifier with a transaction event,
+ * transaction trace and errors within transaction. A new property, `enduser.id`, will be
+ * added to the error and reported to errors inbox.
+ */
+export function setUserID(userID: string): void;
 
 /**
  * Gracefully shuts down the agent.

@@ -9,16 +9,16 @@
 // core
 import AttributeNode from 'three/examples/jsm/nodes/core/AttributeNode';
 import BypassNode from 'three/examples/jsm/nodes/core/BypassNode';
-import CodeNode from 'three/examples/jsm/nodes/core/CodeNode';
+import CodeNode from 'three/examples/jsm/nodes/code/CodeNode';
 import ContextNode from 'three/examples/jsm/nodes/core/ContextNode';
-import ExpressionNode from 'three/examples/jsm/nodes/core/ExpressionNode';
-import FunctionCallNode from 'three/examples/jsm/nodes/core/FunctionCallNode';
-import FunctionNode from 'three/examples/jsm/nodes/core/FunctionNode';
+import ExpressionNode from 'three/examples/jsm/nodes/code/ExpressionNode';
+import FunctionCallNode from 'three/examples/jsm/nodes/code/FunctionCallNode';
+import FunctionNode from 'three/examples/jsm/nodes/code/FunctionNode';
 import InstanceIndexNode from 'three/examples/jsm/nodes/core/InstanceIndexNode';
 import PropertyNode from 'three/examples/jsm/nodes/core/PropertyNode';
 import UniformNode from 'three/examples/jsm/nodes/core/UniformNode';
 import VarNode from 'three/examples/jsm/nodes/core/VarNode';
-import VaryNode from 'three/examples/jsm/nodes/core/VaryNode';
+import VaryNode from 'three/examples/jsm/nodes/core/VaryingNode';
 
 // accessors
 import BufferNode from 'three/examples/jsm/nodes/accessors/BufferNode';
@@ -256,7 +256,7 @@ export const abs = nodeProxy(MathNode, MathNode.ABS);
 export const sign = nodeProxy(MathNode, MathNode.SIGN);
 export const length = nodeProxy(MathNode, MathNode.LENGTH);
 export const negate = nodeProxy(MathNode, MathNode.NEGATE);
-export const invert = nodeProxy(MathNode, MathNode.INVERT);
+export const oneMinus = nodeProxy(MathNode, MathNode.ONE_MINUS);
 export const dFdx = nodeProxy(MathNode, MathNode.DFDX);
 export const dFdy = nodeProxy(MathNode, MathNode.DFDY);
 export const round = nodeProxy(MathNode, MathNode.ROUND);

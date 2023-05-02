@@ -245,6 +245,11 @@ function onChange(e: GoogleAppsScript.Events.SheetsOnChange) {
     if (e.changeType === 'FORMAT') {
         console.log('Formatting change detected');
     }
+    const sheetName = e.source?.getSheetName();
+    console.log(sheetName);
+    if (sheetName !== undefined) {
+        console.log('Success to get e.source field');
+    }
 }
 
 const createFileAndGetDescription = () => {
@@ -745,4 +750,8 @@ const sheetFontColorObjects = () => {
         [SpreadsheetApp.newColor().setRgbColor("#008000").build(), SpreadsheetApp.newColor().setRgbColor("#000080").build()],
     ];
     sheet.getRange("A1:B2").setFontColorObjects(multipleBuilders);
+};
+
+const utilitiesParseDate = () => {
+  Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
 };

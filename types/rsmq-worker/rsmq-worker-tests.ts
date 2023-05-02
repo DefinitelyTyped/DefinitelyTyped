@@ -20,3 +20,5 @@ worker.send('message2', 1, (e: Error, id:string) => {
 worker.send('message3', () => {});
 
 worker.stop();
+
+worker.quit();

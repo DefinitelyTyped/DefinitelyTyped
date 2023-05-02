@@ -2,7 +2,7 @@
 // From https://hapijs.com/api/16.1.1#error-response
 
 import * as Hapi from 'hapi';
-const Boom = require('hapi../../boom');
+import * as Boom from 'boom';
 
 const server = new Hapi.Server();
 

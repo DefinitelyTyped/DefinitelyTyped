@@ -3,7 +3,6 @@ import * as remote from './remote';
 
 /**
  * IEDriverServer logging levels.
- * @enum {string}
  */
 export type Level = 'FATAL' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE';
 

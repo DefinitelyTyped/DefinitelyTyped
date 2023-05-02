@@ -768,12 +768,9 @@ declare module 'tls' {
          */
         crl?: string | Buffer | Array<string | Buffer> | undefined;
         /**
-         * Diffie Hellman parameters, required for Perfect Forward Secrecy. Use
-         * openssl dhparam to create the parameters. The key length must be
-         * greater than or equal to 1024 bits or else an error will be thrown.
-         * Although 1024 bits is permissible, use 2048 bits or larger for
-         * stronger security. If omitted or invalid, the parameters are
-         * silently discarded and DHE ciphers will not be available.
+         * `'auto'` or custom Diffie-Hellman parameters, required for non-ECDHE perfect forward secrecy.
+         * If omitted or invalid, the parameters are silently discarded and DHE ciphers will not be available.
+         * ECDHE-based perfect forward secrecy will still be available.
          */
         dhparam?: string | Buffer | undefined;
         /**
@@ -1095,6 +1092,13 @@ declare module 'tls' {
      * are provided, the lowest minimum is used.
      */
     let DEFAULT_MIN_VERSION: SecureVersion;
+    /**
+     * The default value of the ciphers option of tls.createSecureContext().
+     * It can be assigned any of the supported OpenSSL ciphers.
+     * Defaults to the content of crypto.constants.defaultCoreCipherList, unless
+     * changed using CLI options using --tls-default-ciphers.
+     */
+    let DEFAULT_CIPHERS: string;
     /**
      * An immutable array of strings representing the root certificates (in PEM
      * format) used for verifying peer certificates. This is the default value

@@ -5,10 +5,10 @@ type FunctionComponent<Props> = (props: Props) => JSX.Element | null;
 // tslint:disable-next-line: strict-export-declare-modifiers
 type ClassComponent<Props> = new (props: Props) => JSX.ElementClass;
 // tslint:disable-next-line: strict-export-declare-modifiers
-type Component<Props> = FunctionComponent<Props> | ClassComponent<Props>;
+type Component<Props> = FunctionComponent<Props> | ClassComponent<Props> | keyof JSX.IntrinsicElements;
 // tslint:disable-next-line: strict-export-declare-modifiers
 interface NestedMDXComponents {
-    [key: string]: NestedMDXComponents | Component<any> | keyof JSX.IntrinsicElements;
+    [key: string]: NestedMDXComponents | Component<any>;
 }
 
 // Public MDX helper types
@@ -19,7 +19,7 @@ interface NestedMDXComponents {
  * The key is the name of the element to override. The value is the component to render instead.
  */
 export type MDXComponents = NestedMDXComponents & {
-    [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]> | keyof JSX.IntrinsicElements;
+    [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]>;
 } & {
     /**
      * If a wrapper component is defined, the MDX content will be wrapped inside of it.

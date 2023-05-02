@@ -1,10 +1,3 @@
-// Type definitions for WebRTC 2016-09-13
-// Project: https://www.w3.org/TR/webrtc/
-// Definitions by: Danilo Bargen <https://github.com/dbrgn/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//
-// W3 Spec: https://www.w3.org/TR/webrtc/
-//
 // Note: Commented out definitions clash with definitions in lib.es6.d.ts. I
 // still kept them in here though, as sometimes they're more specific than the
 // ES6 library ones.

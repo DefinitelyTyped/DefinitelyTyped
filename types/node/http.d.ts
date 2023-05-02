@@ -345,6 +345,7 @@ declare module 'http' {
             event: 'connect',
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
+        addListener(event: 'dropRequest', listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
         addListener(event: 'request', listener: RequestListener<Request, Response>): this;
         addListener(
             event: 'upgrade',
@@ -367,6 +368,7 @@ declare module 'http' {
         ): boolean;
         emit(event: 'clientError', err: Error, socket: stream.Duplex): boolean;
         emit(event: 'connect', req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: 'dropRequest', req: InstanceType<Request>, socket: stream.Duplex): boolean;
         emit(
             event: 'request',
             req: InstanceType<Request>,
@@ -382,6 +384,7 @@ declare module 'http' {
         on(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         on(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
         on(event: 'connect', listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'dropRequest', listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
         on(event: 'request', listener: RequestListener<Request, Response>): this;
         on(event: 'upgrade', listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
@@ -396,6 +399,7 @@ declare module 'http' {
             event: 'connect',
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
+        once(event: 'dropRequest', listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
         once(event: 'request', listener: RequestListener<Request, Response>): this;
         once(
             event: 'upgrade',
@@ -413,6 +417,10 @@ declare module 'http' {
             event: 'connect',
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
+        prependListener(
+            event: 'dropRequest',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
+        ): this;
         prependListener(event: 'request', listener: RequestListener<Request, Response>): this;
         prependListener(
             event: 'upgrade',
@@ -429,6 +437,10 @@ declare module 'http' {
         prependOnceListener(
             event: 'connect',
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
+        prependOnceListener(
+            event: 'dropRequest',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
         ): this;
         prependOnceListener(event: 'request', listener: RequestListener<Request, Response>): this;
         prependOnceListener(
@@ -479,11 +491,26 @@ declare module 'http' {
         setTimeout(msecs: number, callback?: () => void): this;
         /**
          * Sets a single header value for the header object.
+         * If the header already exists in the to-be-sent headers, its value will be replaced. Use an array of strings to send multiple headers with the same name.
          * @since v0.4.0
          * @param name Header name
          * @param value Header value
          */
         setHeader(name: string, value: number | string | ReadonlyArray<string>): this;
+        /**
+         * Append a single header value for the header object.
+         *
+         * If the value is an array, this is equivalent of calling this method multiple times.
+         *
+         * If there were no previous value for the header, this is equivalent of calling `outgoingMessage.setHeader(name, value)`.
+         *
+         * Depending of the value of `options.uniqueHeaders` when the client request or the server were created,
+         * this will end up in the header being sent multiple times or a single time with values joined using `; `.
+         * @since v18.3.0, v16.17.0
+         * @param name Header name
+         * @param value Header value
+         */
+        appendHeader(name: string, value: string | ReadonlyArray<string>): this;
         /**
          * Gets the value of HTTP header with the given name. If such a name doesn't
          * exist in message, it will be `undefined`.
@@ -610,6 +637,14 @@ declare module 'http' {
          * @since v0.11.8
          */
         statusMessage: string;
+        /**
+         * If set to `true`, Node.js will check whether the `Content-Length` header value
+         * and the size of the body, in bytes, are equal. Mismatching the
+         * `Content-Length` header value will result in an `Error` being thrown,
+         * identified by `code: 'ERR_HTTP_CONTENT_LENGTH_MISMATCH'`.
+         * @since v18.10.0, v16.18.0
+         */
+        strictContentLength: boolean;
         constructor(req: Request);
         assignSocket(socket: Socket): void;
         detachSocket(socket: Socket): void;
@@ -1091,6 +1126,20 @@ declare module 'http' {
          */
         headers: IncomingHttpHeaders;
         /**
+         * Similar to `message.headers`, but there is no join logic and the values are always arrays of strings, even for headers received just once.
+         *
+         * ```js
+         * // Prints something like:
+         * //
+         * // { 'user-agent': ['curl/7.22.0'],
+         * //   host: ['127.0.0.1:8000'],
+         * //   accept: ['*'] }
+         * console.log(request.headersDistinct);
+         * ```
+         * @since v18.3.0, v16.17.0
+         */
+        headersDistinct: NodeJS.Dict<string[]>;
+        /**
          * The raw request/response headers list exactly as they were received.
          *
          * The keys and values are in the same list. It is _not_ a
@@ -1120,6 +1169,12 @@ declare module 'http' {
          * @since v0.3.0
          */
         trailers: NodeJS.Dict<string>;
+        /**
+         * Similar to `message.trailers`, but there is no join logic and the values are always arrays of strings, even for headers received just once.
+         * Only populated at the `'end'` event.
+         * @since v18.3.0, v16.17.0
+         */
+        trailersDistinct: NodeJS.Dict<string[]>;
         /**
          * The raw request/response trailer keys and values exactly as they were
          * received. Only populated at the `'end'` event.

@@ -75,7 +75,7 @@
         "test/nodes/nodes-ShaderNodeElements.ts",
         "test/nodes/nodes-webgl_nodes_materials_instance_uniform.ts",
         "test/nodes/nodes-webgl.ts",
-        "test/objects/ground-projected-env.ts",
+        "test/objects/ground-projected-skybox.ts",
         "test/objects/instanced-mesh.ts",
         "test/objects/objects-reflector.ts",
         "test/postprocessing/postprocessing-acesfilmictonemapping.ts",

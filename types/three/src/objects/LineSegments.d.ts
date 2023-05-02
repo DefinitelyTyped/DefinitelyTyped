@@ -30,6 +30,8 @@ export class LineSegments<
     readonly isLineSegments: true;
 
     /**
+     * A Read-only _string_ to check if `this` object type.
+     * @remarks Sub-classes will update this value.
      * @override
      * @defaultValue `LineSegments`
      */
