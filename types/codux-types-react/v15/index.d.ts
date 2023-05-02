@@ -2,6 +2,8 @@
 // Project: https://www.codux.com/
 // Definitions by: Codux <https://www.codux.com/>
 //                 Reza Banazadeh <https://github.com/0xRezaa>
+//                 Serhii Zadorozhnyi <https://github.com/cylon3035>
+//                 Daniel van den Eijkel <https://github.com/danieleww>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
