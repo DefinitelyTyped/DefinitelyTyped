@@ -38,6 +38,9 @@ import React = require('./next');
 
 export {};
 
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+
 declare module '.' {
     export interface SuspenseProps {
         /**
@@ -105,4 +108,19 @@ declare module '.' {
 
     // tslint:disable-next-line ban-types
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
+        functions: (formData: FormData) => void;
+    }
+
+    export interface TransitionStartFunction {
+        /**
+         * Marks all state updates inside the async function as transitions
+         *
+         * @see {https://react.dev/reference/react/ts5.0/useTransition#starttransition}
+         *
+         * @param callback
+         */
+        (callback: () => Promise<VoidOrUndefinedOnly>): void;
+    }
 }
