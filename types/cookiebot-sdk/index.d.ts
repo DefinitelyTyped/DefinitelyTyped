@@ -30,6 +30,10 @@ declare const Cookiebot: {
     submitCustomConsent(optinPreferences: boolean, optinStatistics: boolean, optinMarketing: boolean): void;
 };
 
+interface Window {
+  Cookiebot?: typeof Cookiebot;
+}
+
 interface WindowEventMap {
     CookiebotOnConsentReady: Event;
     CookiebotOnLoad: Event;
