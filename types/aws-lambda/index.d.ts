@@ -87,6 +87,7 @@ export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
 export * from './trigger/msk';
+export * from "./trigger/self-managed-kafka";
 export * from "./trigger/secretsmanager";
 export * from "./trigger/s3-event-notification";
 export * from "./trigger/amplify-resolver";

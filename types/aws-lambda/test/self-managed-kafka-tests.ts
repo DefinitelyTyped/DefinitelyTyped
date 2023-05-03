@@ -1,17 +1,21 @@
-import { MSKEvent, MSKHandler, MSKRecord, MSKRecordHeader } from 'aws-lambda';
+import {
+    SelfManagedKafkaEvent,
+    SelfManagedKafkaHandler,
+    SelfManagedKafkaRecord,
+    SelfManagedKafkaRecordHeader,
+} from 'aws-lambda';
 
-declare let headers: MSKRecordHeader[];
-declare let header: MSKRecordHeader;
+declare let headers: SelfManagedKafkaRecordHeader[];
+declare let header: SelfManagedKafkaRecordHeader;
 declare let key: string;
 declare let value: number[];
 
-const handler: MSKHandler = (_event, context, callback) => {
-    const event: MSKEvent = _event;
+const handler: SelfManagedKafkaHandler = (_event, context, callback) => {
+    const event: SelfManagedKafkaEvent = _event;
     str = event.eventSource;
-    str = event.eventSourceArn;
     str = event.bootstrapServers;
 
-    const record: MSKRecord = event.records[str][num];
+    const record: SelfManagedKafkaRecord = event.records[str][num];
     str = record.topic;
     num = record.partition;
     num = record.offset;
