@@ -107,3 +107,19 @@ function formActionsTest() {
         </button>
     </form>;
 }
+
+const useOptimistic = React.experimental_useOptimistic;
+function Cart() {
+    const savedCartSize = 0;
+    const [optimisticCartSize, addToOptimisticCart] = useOptimistic(savedCartSize, (prevSize, newItem) => {
+        console.log('Increment optimistic cart size for ' + newItem);
+        return prevSize + 1;
+    });
+
+    // $ExpectType number
+    optimisticCartSize;
+
+    const addItemToCart = (item: unknown) => {
+        addToOptimisticCart(item);
+    };
+}

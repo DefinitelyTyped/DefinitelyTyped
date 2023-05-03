@@ -1,11 +1,5 @@
 /// <reference types="../next"/>
 
-// NOTE: forward declarations for tests
-declare var console: Console;
-interface Console {
-    log(...args: any[]): void;
-}
-
 const contextUsers = React.createContext(['HAL']);
 const promisedUsers = Promise.resolve(['Dave']);
 
@@ -90,20 +84,4 @@ function useCacheTest() {
         // @ts-expect-error -- experimental only
         refresh(() => 'refresh');
     }
-}
-
-const useOptimisticState = React.experimental_useOptimisticState;
-function Cart() {
-    const savedCartSize = 0;
-    const [optimisticCartSize, addToOptimisticCart] = useOptimisticState(savedCartSize, (prevSize, newItem) => {
-        console.log('Increment optimistic cart size for ' + newItem);
-        return prevSize + 1;
-    });
-
-    // $ExpectType number
-    optimisticCartSize;
-
-    const addItemToCart = (item: unknown) => {
-        addToOptimisticCart(item);
-    };
 }
