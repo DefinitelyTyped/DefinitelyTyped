@@ -32,4 +32,22 @@ import ReactDOM = require('./next');
 
 export {};
 
-declare module '.' {}
+declare module '.' {
+    interface FormStatusNotPending {
+        pending: false;
+        data: null;
+        method: null;
+        action: null;
+    }
+
+    interface FormStatusPending {
+        pending: true;
+        data: FormData;
+        method: string;
+        action: string | ((formData: FormData) => void | Promise<void>);
+    }
+
+    type FormStatus = FormStatusPending | FormStatusNotPending;
+
+    function experimental_useFormStatus(): FormStatus;
+}
