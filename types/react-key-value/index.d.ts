@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from 'react';
 
-declare class KeyValue extends React.Component<KeyValueProps> {
+export declare class KeyValue extends React.Component<KeyValueProps> {
     handleKeyItemChange(index: bigint, value: any): any;
 
     handleRemove(index: bigint): any;
@@ -28,7 +28,7 @@ declare class KeyValue extends React.Component<KeyValueProps> {
     static displayName: string;
 }
 
-interface KeyValueProps {
+export interface KeyValueProps {
     rows?: Array<{keyItem: string, valueItem: string}>;
     onChange?: (rows: Array<{keyItem: string, valueItem: string}>) => void;
     customAddButtonRenderer?: (handleAddNew: () => any) => React.ReactElement;

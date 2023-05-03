@@ -1,4 +1,4 @@
-import KeyValue from 'react-key-value';
+import { KeyValue } from 'react-key-value';
 import * as React from "react";
 
 <KeyValue
