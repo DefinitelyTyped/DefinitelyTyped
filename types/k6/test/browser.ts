@@ -1,4 +1,4 @@
-import { ElementHandle } from 'k6/experimental/browser';
+import { ElementHandle, ElementState } from 'k6/experimental/browser';
 import { Page } from 'k6/experimental/browser/page';
 import { Request } from 'k6/experimental/browser/request';
 import { Response } from 'k6/experimental/browser/response';
@@ -583,6 +583,241 @@ page.$(selector);
 page.$$();
 // $ExpectType ElementHandle[]
 page.$$(selector);
+
+//
+// Locator
+//
+const locator = page.locator(selector);
+
+// $ExpectType Promise<void>
+locator.click();
+// $ExpectType Promise<void>
+locator.click({ button: 'right' });
+// @ts-expect-error
+locator.click({ button: 'top' });
+// $ExpectType Promise<void>
+locator.click({ delay: 1000 });
+// $ExpectType Promise<void>
+locator.click({ clickCount: 2 });
+// $ExpectType Promise<void>
+locator.click({ force: true });
+// $ExpectType Promise<void>
+locator.click({ modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+// $ExpectType Promise<void>
+locator.click({ noWaitAfter: true });
+// $ExpectType Promise<void>
+locator.click({ position: { x: 0, y: 0 } });
+// $ExpectType Promise<void>
+locator.click({ timeout: 10000 });
+// $ExpectType Promise<void>
+locator.click({ trial: true });
+
+// $ExpectType void
+locator.dblclick();
+// $ExpectType void
+locator.dblclick({ button: 'right' });
+// @ts-expect-error
+locator.dblclick({ button: 'top' });
+// $ExpectType void
+locator.dblclick({ delay: 1000 });
+// $ExpectType void
+locator.dblclick({ force: true });
+// $ExpectType void
+locator.dblclick({ modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+// @ts-expect-error
+locator.dblclick({ modifiers: ['Esc'] });
+// $ExpectType void
+locator.dblclick({ noWaitAfter: true });
+// $ExpectType void
+locator.dblclick({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.dblclick({ timeout: 10000 });
+// $ExpectType void
+locator.dblclick({ trial: true });
+
+// $ExpectType void
+locator.check();
+// $ExpectType void
+locator.check({ force: true });
+// $ExpectType void
+locator.check({ noWaitAfter: true });
+// $ExpectType void
+locator.check({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.check({ timeout: 10000 });
+// $ExpectType void
+locator.check({ trial: true });
+
+// $ExpectType void
+locator.uncheck();
+// $ExpectType void
+locator.uncheck({ force: true });
+// $ExpectType void
+locator.uncheck({ noWaitAfter: true });
+// $ExpectType void
+locator.uncheck({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.uncheck({ timeout: 10000 });
+// $ExpectType void
+locator.uncheck({ trial: true });
+
+// $ExpectType boolean
+locator.isChecked();
+// $ExpectType boolean
+locator.isChecked({ timeout: 10000 });
+
+// $ExpectType boolean
+locator.isEnabled();
+// $ExpectType boolean
+locator.isEnabled({ timeout: 10000 });
+
+// $ExpectType boolean
+locator.isDisabled();
+// $ExpectType boolean
+locator.isDisabled({ timeout: 10000 });
+
+// $ExpectType boolean
+locator.isVisible();
+// $ExpectType boolean
+locator.isVisible({ timeout: 10000 });
+
+// $ExpectType boolean
+locator.isHidden();
+// $ExpectType boolean
+locator.isHidden({ timeout: 10000 });
+
+// @ts-expect-error
+locator.fill();
+// $ExpectType void
+locator.fill("text");
+// $ExpectType void
+locator.fill("text", { force: true });
+// $ExpectType void
+locator.fill("text", { noWaitAfter: true });
+// $ExpectType void
+locator.fill("text", { timeout: 10000 });
+// $ExpectType void
+locator.fill("text", { trial: true });
+
+// $ExpectType void
+locator.focus();
+// $ExpectType void
+locator.focus({ timeout: 10000 });
+
+// @ts-expect-error
+locator.getAttribute();
+// $ExpectType string | null
+locator.getAttribute("attr");
+// $ExpectType string | null
+locator.getAttribute("attr", { timeout: 10000 });
+
+// $ExpectType string
+locator.innerHTML();
+// $ExpectType string
+locator.innerHTML({ timeout: 10000 });
+
+// $ExpectType string
+locator.innerText();
+// $ExpectType string
+locator.innerText({ timeout: 10000 });
+
+// $ExpectType string
+locator.textContent();
+// $ExpectType string
+locator.textContent({ timeout: 10000 });
+
+// $ExpectType string
+locator.inputValue();
+// $ExpectType string
+locator.inputValue({ timeout: 10000 });
+
+// @ts-expect-error
+locator.selectOption();
+// @ts-expect-error
+locator.selectOption({ timeout: 10000 });
+// $ExpectType string[]
+locator.selectOption("value");
+// $ExpectType string[]
+locator.selectOption(["value1", "value2"]);
+// $ExpectType string[]
+locator.selectOption({ value: "value" });
+// $ExpectType string[]
+locator.selectOption({ label: "label" });
+// $ExpectType string[]
+locator.selectOption({ index: 1 });
+// $ExpectType string[]
+locator.selectOption({ value: "value", label: "label" });
+// $ExpectType string[]
+locator.selectOption({ value: "value", index: 1 });
+// $ExpectType string[]
+locator.selectOption({ label: "label", index: 1 });
+// $ExpectType string[]
+locator.selectOption({ value: "value", label: "label", index: 1 });
+// $ExpectType string[]
+locator.selectOption("value", { force: true });
+// $ExpectType string[]
+locator.selectOption("value", { noWaitAfter: true });
+// $ExpectType string[]
+locator.selectOption("value", { timeout: 10000 });
+
+// @ts-expect-error
+locator.type();
+// @ts-expect-error
+locator.type({ timeout: 10000 });
+// $ExpectType void
+locator.type("text");
+// $ExpectType void
+locator.type("text", { delay: 1000 });
+// @ts-expect-error
+locator.type("text", { force: true });
+// $ExpectType void
+locator.type("text", { noWaitAfter: true });
+// $ExpectType void
+locator.type("text", { timeout: 10000 });
+// @ts-expect-error
+locator.type("text", { trial: true });
+
+// $ExpectType void
+locator.hover();
+// $ExpectType void
+locator.hover({ force: true });
+// $ExpectType void
+locator.hover({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.hover({ timeout: 10000 });
+// $ExpectType void
+locator.hover({ trial: true });
+
+// $ExpectType void
+locator.tap();
+// $ExpectType void
+locator.tap({ force: true });
+// $ExpectType void
+locator.tap({ noWaitAfter: true });
+// $ExpectType void
+locator.tap({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.tap({ timeout: 10000 });
+// $ExpectType void
+locator.tap({ trial: true });
+
+// @ts-expect-error
+locator.dispatchEvent();
+// $ExpectType void
+locator.dispatchEvent("click");
+// $ExpectType void
+locator.dispatchEvent("click", { buttons: 2 & 4 });
+// $ExpectType void
+locator.dispatchEvent("click", { buttons: 2 & 4 }, { timeout: 10000 });
+
+// $ExpectType void
+locator.waitFor();
+for (const state of ["attached", "detached", "visible", "hidden"]) {
+    // $ExpectType void
+    locator.waitFor({ state: state as ElementState });
+    // $ExpectType void
+    locator.waitFor({ state: state as ElementState, timeout: 10000 });
+}
 
 //
 // Request

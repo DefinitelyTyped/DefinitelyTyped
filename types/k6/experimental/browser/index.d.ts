@@ -7,6 +7,7 @@ import './page';
 import './touchscreen';
 import './request';
 import './response';
+import './locator';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
@@ -38,18 +39,6 @@ export class Keyboard {}
  * Mouse provides an api for managing a virtual mouse.
  */
 export class Mouse {}
-
-/**
- * The Locator API makes it easier to work with dynamically changing elements.
- * Some of the benefits of using it over existing ways to locate an element
- * (e.g. Page.$()) include:
- *
- * - Helps with writing robust tests by finding an element even if the
- * underlying frame navigates.
- * - Makes it easier to work with dynamic web pages and SPAs built with Svelte,
- * React, Vue, etc.
- */
-export class Locator {}
 
 /**
  * ElementHandle represents an in-page DOM element.
@@ -139,6 +128,12 @@ export interface SecurityDetailsObject {
 
 export type ResourceType = "document"|"stylesheet"|"image"|"media"|"font"|"script"|"texttrack"|"xhr"|"fetch"|"eventsource"|"websocket"|"manifest"|"other";
 
+export type MouseButton = "left"|"right"|"middle";
+
+export type KeyboardModifier = "Alt"|"Control"|"Meta"|"Shift";
+
+export type ElementState = "attached"|"detached"|"visible"|"hidden";
+
 export interface ResourceTiming {
   /**
    * Request start time in milliseconds elapsed since January 1, 1970 00:00:00 UTC
@@ -198,3 +193,102 @@ export interface ResourceTiming {
    */
   responseEnd: number;
 }
+
+export interface TimeoutOptions {
+  /**
+   * Maximum time in milliseconds. Pass 0 to disable the timeout. Default is overridden by the setDefaultTimeout option on `BrowserContext` or `Page`.
+   * Defaults to 30000.
+   */
+  timeout?: number;
+}
+
+export interface StrictnessOptions {
+  /**
+   * When `true`, the call requires selector to resolve to a single element.
+   * If given selector resolves to more than one element, the call throws
+   * an exception. Defaults to `false`.
+   */
+  strict?: boolean;
+}
+
+export type ElementHandleOptions = {
+  /**
+   * Setting this to `true` will bypass the actionability checks (`visible`, `stable`, `enabled`).
+   * Defaults to `false`.
+   */
+  force?: boolean,
+
+  /**
+   * If set to `true` and a navigation occurs from performing this action, it will not wait for it to complete.
+   * Defaults to `false`.
+   */
+  noWaitAfter?: boolean,
+
+  /**
+   * Setting this to `true` will perform the actionability checks without performing the action.
+   * Defaults to `false`.
+   */
+  trial?: boolean,
+} & TimeoutOptions;
+
+export type ElementClickOptions = ElementHandleOptions & {
+  /**
+   * A point to use relative to the top left corner of the element. If not supplied, a visible point of the element is used.
+   */
+  position?: { x: number, y: number }
+};
+
+export type KeyboardPressOptions = {
+  /**
+   * Milliseconds to wait between `keydown` and `keyup`.
+   */
+  delay?: number,
+
+  /**
+   * If set to `true` and a navigation occurs from performing this action, it will not wait for it to complete.
+   * Defaults to `false`.
+   */
+  noWaitAfter?: boolean,
+} & TimeoutOptions;
+
+export type KeyboardMultiPressOptions = {
+  /**
+   * Milliseconds to wait between key presses. Defaults to `0`.
+   */
+  delay?: number,
+
+  /**
+   * If set to `true` and a navigation occurs from performing this action, it will not wait for it to complete.
+   * Defaults to `false`.
+   */
+  noWaitAfter?: boolean,
+} & TimeoutOptions;
+
+export type MouseMoveOptions = ElementClickOptions & {
+  /**
+   * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the action. If not specified, currently pressed modifiers are used.
+   */
+  modifiers?: KeyboardModifier[],
+};
+
+export type MouseClickOptions = MouseMoveOptions & {
+  /**
+   * The mouse button to use during the action.
+   * Defaults to `left`.
+   */
+  button?: MouseButton,
+
+  /**
+   * Milliseconds to wait between `mousedown` and `mouseup`.
+   * Defaults to 0.
+   */
+  delay?: number,
+};
+
+export type MouseMultiClickOptions = MouseClickOptions & {
+  /**
+   * The number of times the action is performed.
+   * Defaults to 1.
+   */
+  clickCount?: number,
+};
