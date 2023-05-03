@@ -20,11 +20,12 @@ declare namespace MusicKit {
             path: T extends APIParameters ? getPath<T> : string,
             queryParameters?: T extends APIParameters ? getQueryParameters<T> : any,
             options?: { fetchOptions: { method: 'GET' | 'POST' | 'DELETE' | 'PUT' } },
-        ): Promise<T extends APIParameters
-            ? getAPIResponse<T>
-            : APIResponse & {
-                data: Resource[];
-            }
+        ): Promise<
+            T extends APIParameters
+                ? getAPIResponse<T>
+                : APIResponse & {
+                      data: Resource[];
+                  }
         >;
     }
 }

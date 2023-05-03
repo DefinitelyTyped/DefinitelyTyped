@@ -13,12 +13,12 @@ const test = async () => {
     // $ExpectType APIResponse & { data: unknown; }
     res = await player.api.music('/v1/catalog/{{storefrontId}}/songs/123456789');
 
-    // $ExpectType APIResponse & { data: CatalogResourceResponse<Songs>; }
+    // $ExpectType APIResponse & { data: MusicKit.Songs[]; }
     res = await player.api.music<{
         action: 'getSingleResource';
         resource: MusicKit.Songs;
     }>('/v1/catalog/{{storefrontId}}/songs/123456789');
-    if (res.data.data[0].attributes) {
+    if (res.data[0].attributes) {
         const {
             // $ExpectType string
             albumName,
@@ -64,29 +64,34 @@ const test = async () => {
             workName,
             // $ExpectType string | undefined
             artistUrl,
-        } = res.data.data[0].attributes;
+        } = res.data[0].attributes;
     }
 
-    // $ExpectType APIResponse & { data: CatalogResourceResponse<Albums>; }
-    res = await player.api.music<MusicKit.CatalogResourceAPI<MusicKit.Albums>>(
-        '/v1/catalog/{{storefrontId}}/albums/123456789',
-        {
-            views: ['appears-on'],
-        },
-    );
+    // $ExpectType APIResponse & { data: MusicKit.Albums[]; }
+    res = await player.api.music<{
+        action: 'getSingleResource';
+        resource: MusicKit.Albums;
+    }>('/v1/catalog/{{storefrontId}}/albums/123456789');
 
-    // $ExpectType APIResponse & { data: CatalogResourcesResponse<Albums>; }
-    res = await player.api.music<MusicKit.CatalogResourcesAPI<MusicKit.Albums>>('/v1/catalog/{{storefrontId}}/albums', {
+    // $ExpectType APIResponse & { data: MusicKit.Albums[]; }
+    res = await player.api.music<{
+        action: 'getMultipleResources';
+        resource: MusicKit.Albums;
+    }>('/v1/catalog/{{storefrontId}}/albums', {
         ids: ['123456789', '987654321'],
     });
 
-    // $ExpectType APIResponse & { data: LibraryResourceResponse<LibraryAlbums>; }
-    res = await player.api.music<MusicKit.LibraryResourceAPI<MusicKit.LibraryAlbums>>(
-        '/v1/me/library/albums/l.sticiFl',
-    );
+    // $ExpectType APIResponse & { data: MusicKit.LibraryAlbums[];}
+    res = await player.api.music<{
+        action: 'getSingleResource';
+        resource: MusicKit.LibraryAlbums;
+    }>('/v1/me/library/albums/l.sticiFl');
 
-    // $ExpectType APIResponse & { data: LibraryResourcesResponse<LibraryAlbums>; }
-    res = await player.api.music<MusicKit.LibraryResourcesAPI<MusicKit.LibraryAlbums>>('/v1/me/library/albums', {
+    // $ExpectType APIResponse & { data: MusicKit.LibraryAlbums[]; }
+    res = await player.api.music<{
+        action: 'getMultipleResources';
+        resource: MusicKit.LibraryAlbums;
+    }>('/v1/me/library/albums', {
         ids: ['l.sticiFl'],
     });
 

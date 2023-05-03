@@ -7,7 +7,6 @@
 
 /// <reference path="MusicKit.d.ts" />
 /// <reference path="MusicKit.API.d.ts" />
-/// <reference path="MusicKit.API.Response.d.ts" />
 /// <reference path="MusicKit.API.QueryParameters.d.ts" />
 /// <reference path="MusicKit.API.CommonObjects.d.ts" />
 /// <reference path="MusicKit.Events.d.ts" />
@@ -58,7 +57,7 @@ type RESOURCE_BY_TYPE_PROPERTY = {
     [key in RESOURCE_TYPES]: filterUnionByProperty<RESOURCES, 'type', key>;
 };
 
-export type CATALOG_RESOURCE_TYPE =
+type CATALOG_RESOURCE_TYPE =
     | RESOURCE['Activity']
     | RESOURCE['Album']
     | RESOURCE['AppleCurator']
@@ -71,21 +70,39 @@ export type CATALOG_RESOURCE_TYPE =
     | RESOURCE['Song']
     | RESOURCE['Station'];
 
-export type LIBRARY_RESOURCE_TYPE =
+type LIBRARY_RESOURCE_TYPE =
     | RESOURCE['LibraryAlbum']
     | RESOURCE['LibraryArtist']
     | RESOURCE['LibraryMusicVideo']
     | RESOURCE['LibraryPlaylist']
     | RESOURCE['LibrarySong'];
 
-export type GENERAL_RESOURCE_TYPE = RESOURCE['PersonalRecommendation'] | RESOURCE['Rating'] | RESOURCE['Storefront'];
+type PERSONAL_RATING_RESOURCE_TYPE =
+    | RESOURCE['Album']
+    | RESOURCE['MusicVideo']
+    | RESOURCE['Playlist']
+    | RESOURCE['Song']
+    | RESOURCE['Station']
+    | RESOURCE['LibraryAlbum']
+    | RESOURCE['LibraryMusicVideo']
+    | RESOURCE['LibraryPlaylist']
+    | RESOURCE['LibrarySong'];
+
+type GENERAL_RESOURCE_TYPE = RESOURCE['PersonalRecommendation'] | RESOURCE['Rating'] | RESOURCE['Storefront'];
 
 interface ACTION_TYPE {
-    Search: 'search';
-    SearchMultiple: 'searchMultiple';
+    SearchResources: 'searchResources';
+    SearchHints: 'searchHints';
+    SearchSuggestions: 'searchSuggestions';
     GetAllResources: 'getAllResources';
     GetMultipleResources: 'getMultipleResources';
     GetSingleResource: 'getSingleResource';
+    GetPersonalMultipleResources: 'getPersonalMultipleResources';
+    GetPersonalSingleResource: 'getPersonalSingleResource';
+    GetRecentlyAddedResources: 'getRecentlyAddedResources';
+    GetRecentlyPlayedResources: 'getRecentlyPlayedResources';
+    GetRecentlyPlayedRTracks: 'getRecentlyPlayedRTracks';
+    GetRecentlyPlayedStations: 'getRecentlyPlayedStations';
 }
 
 type ActionType = ACTION_TYPE[keyof ACTION_TYPE];
@@ -97,17 +114,36 @@ type APIBaseParameters = {
 };
 type CatalogAPIParameters = APIBaseParameters & {
     resource: CATALOG_RESOURCE_TYPE;
-    action: ACTION_TYPE[keyof Omit<ACTION_TYPE, 'GetAllResources'>];
+    action: ACTION_TYPE[
+        | 'GetMultipleResources'
+        | 'GetSingleResource'
+        | 'SearchResources'
+        | 'SearchHints'
+        | 'SearchSuggestions'];
 };
 type LibraryAPIParameters = APIBaseParameters & {
     resource: LIBRARY_RESOURCE_TYPE;
+    action: ACTION_TYPE['GetAllResources' | 'GetMultipleResources' | 'GetSingleResource' | 'SearchResources'];
+};
+type PersonalRatingAPIParameters = APIBaseParameters & {
+    resource: PERSONAL_RATING_RESOURCE_TYPE;
+    action: ACTION_TYPE['GetPersonalSingleResource' | 'GetPersonalMultipleResources'];
 };
 type GeneralAPIParameters = APIBaseParameters & {
     resource: GENERAL_RESOURCE_TYPE;
+    action: ACTION_TYPE['GetAllResources' | 'GetMultipleResources' | 'GetSingleResource'];
 };
-type APIParameters = CatalogAPIParameters | LibraryAPIParameters | GeneralAPIParameters;
+type GetRecentlyAddedAPIParameters = APIBaseParameters & {
+    resource: GENERAL_RESOURCE_TYPE;
+    action: ACTION_TYPE['GetRecentlyAddedResources'];
+};
+type APIParameters = CatalogAPIParameters | LibraryAPIParameters | PersonalRatingAPIParameters | GeneralAPIParameters;
 
-type isNeedIDPathParameter<T extends APIParameters> = T['action'] extends 'getSingleResource' ? true : false;
+type isNeedIDPathParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE[
+    | 'GetSingleResource'
+    | 'GetPersonalSingleResource']
+    ? true
+    : false;
 type isNeedRelationshipPathParameter<T extends APIParameters> = isNeedIDPathParameter<T> extends false
     ? false
     : T['useOption'] extends 'Relationships'
@@ -122,6 +158,21 @@ type isNeedViewPathParameter<T extends APIParameters> = isNeedIDPathParameter<T>
         ? false
         : true
     : false;
+type isNeedSearchResourcesPathParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE['SearchResources']
+    ? true
+    : false;
+type isNeedSearchHintsPathParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE['SearchHints']
+    ? true
+    : false;
+type isNeedSearchSuggestionsPathParameter<T extends APIParameters> =
+    T['action'] extends ACTION_TYPE['SearchSuggestions'] ? true : false;
+
+type isNeedCatalogResourceTypeConvertedResourcePathParameter<T extends APIParameters> =
+    T['resource'] extends LIBRARY_RESOURCE_TYPE
+        ? T['action'] extends ACTION_TYPE['GetAllResources' | 'GetMultipleResources' | 'GetSingleResource']
+            ? true
+            : false
+        : false;
 
 type getRelationshipKeys<T extends APIParameters> = keyof Required<T['resource']>['relationships'];
 type getViewKeys<T extends APIParameters> = keyof Required<T['resource']>['views'];
@@ -129,26 +180,65 @@ type getAttributesKeys<T extends APIParameters> = keyof Required<T['resource']>[
 
 type stringLiteral<T> = T extends `${string & T}` ? T : never;
 type getPathParameters<T extends APIParameters> = {
+    type: isNeedSearchResourcesPathParameter<T> extends false
+        ? isNeedSearchHintsPathParameter<T> extends false
+            ? isNeedSearchSuggestionsPathParameter<T> extends false
+                ? isNeedCatalogResourceTypeConvertedResourcePathParameter<T> extends true
+                    ? T['resource']['type'] extends LIBRARY_RESOURCE_TYPE['type']
+                        ? `/${libraryResourceTypeToCatalogResourceType<T['resource']['type']>}`
+                        : `/${T['resource']['type']}`
+                    : `/${T['resource']['type']}`
+                : ''
+            : ''
+        : '';
     id: isNeedIDPathParameter<T> extends true ? `/${T['resource']['id']}` : '';
     relationships: isNeedRelationshipPathParameter<T> extends true ? `/${stringLiteral<getRelationshipKeys<T>>}` : '';
     views: isNeedViewPathParameter<T> extends true ? `/${stringLiteral<getViewKeys<T>>}` : '';
+    search: isNeedSearchResourcesPathParameter<T> extends true
+        ? `/search`
+        : isNeedSearchHintsPathParameter<T> extends true
+        ? `/search/hints`
+        : isNeedSearchSuggestionsPathParameter<T> extends true
+        ? `/search/suggestions`
+        : '';
 };
 
 type catalogBasePath = `/catalog/{{storefrontId}}`;
 type libraryBasePath = `/me/library`;
-type otherBasePath = ``;
+type personalRatingBasePath = `/me/ratings`;
+type generalBasePath = ``;
 
-type generateBasePath<T extends APIParameters, Path extends string> = `/${T['version'] extends string
+type libraryResourceTypeToCatalogResourceType<T extends LIBRARY_RESOURCE_TYPE['type']> =
+    T extends RESOURCE['LibraryAlbum']['type']
+        ? RESOURCE['Album']['type']
+        : T extends RESOURCE['LibraryArtist']['type']
+        ? RESOURCE['Artist']['type']
+        : T extends RESOURCE['LibraryMusicVideo']['type']
+        ? RESOURCE['MusicVideo']['type']
+        : T extends RESOURCE['LibraryPlaylist']['type']
+        ? RESOURCE['Playlist']['type']
+        : T extends RESOURCE['LibrarySong']['type']
+        ? RESOURCE['Song']['type']
+        : T;
+
+type generatePath<T extends APIParameters, Path extends string> = `/${T['version'] extends string
     ? T['version']
-    : 'v1'}${Path}/${T['resource']['type']}`;
+    : 'v1'}${Path}${getPathParameters<T>['type']}${getPathParameters<T>['id']}${getPathParameters<T>['relationships']}${getPathParameters<T>['search']}`;
 
 type getPath<T extends APIParameters> = T extends CatalogAPIParameters
-    ? `${generateBasePath<T, catalogBasePath>}${getPathParameters<T>['id']}${getPathParameters<T>['relationships']}`
+    ? `${generatePath<T, catalogBasePath>}`
     : T extends LibraryAPIParameters
-    ? `${generateBasePath<T, libraryBasePath>}${getPathParameters<T>['id']}${getPathParameters<T>['relationships']}`
+    ? `${generatePath<T, libraryBasePath>}`
+    : T extends PersonalRatingAPIParameters
+    ? `${generatePath<T, personalRatingBasePath>}`
     : T extends GeneralAPIParameters
-    ? `${generateBasePath<T, otherBasePath>}${getPathParameters<T>['id']}${getPathParameters<T>['relationships']}`
+    ? `${generatePath<T, generalBasePath>}`
     : never;
+
+type test = getPath<{
+    action: 'getPersonalSingleResource';
+    resource: MusicKit.LibrarySongs;
+}>;
 
 type isNeedIDsQueryParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE['GetMultipleResources']
     ? true
@@ -193,6 +283,11 @@ type getQueryParameters<T extends APIParameters> = Omit<
     isNeedIDsQueryParameter<T> extends false ? 'ids' : ''
 >;
 
+type test2 = getQueryParameters<{
+    action: 'searchSuggestions';
+    resource: MusicKit.Songs;
+}>;
+
 /**
  * https://developer.apple.com/documentation/applemusicapi/search
  */
@@ -210,14 +305,14 @@ interface APIResponse {
     response: Response;
 }
 
-type getAPIResponse<T extends APIParameters> =
-    APIResponse & isNeedLimitQueryParameter<T> extends true ? {
-        data: T['resource'][];
-        next?: string;
-    } : {
-        data: T['resource'][];
-    }
-;
+type getAPIResponse<T extends APIParameters> = APIResponse & isNeedLimitQueryParameter<T> extends true
+    ? {
+          data: T['resource'][];
+          next?: string;
+      }
+    : {
+          data: T['resource'][];
+      };
 
 type filterUnionByProperty<Union, Property extends string, Condition> = Union extends Record<Property, Condition>
     ? Union
