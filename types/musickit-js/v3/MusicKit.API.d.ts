@@ -27,5 +27,22 @@ declare namespace MusicKit {
                       data: Resource[];
                   }
         >;
+        lyric(catalogSongID: MusicKit.Songs['id']): Promise<
+            APIResponse & {
+                data: {
+                    id: string;
+                    type: 'lyrics';
+                    attributes: {
+                        ttml: XMLDocument;
+                        playParams: {
+                            id: string;
+                            kind: 'lyric';
+                            catalogId: string;
+                            displayType: number;
+                        };
+                    };
+                }[];
+            }
+        >;
     }
 }
