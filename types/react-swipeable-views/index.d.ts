@@ -17,13 +17,21 @@ export type OnSwitchingCallbackTypeDescriptor = "move" | "end";
 
 export type AxisType = "x" | "x-reverse" | "y" | "y-reverse";
 
+export interface Actions {
+    updateHeight: UpdateHeightAction;
+}
+
+export type ActionCallback = (actions: Actions) => void;
+
+export type UpdateHeightAction = () => void;
+
 export interface SpringConfig {
     duration: string;
     easeFunction: string;
     delay: string;
 }
 
-export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
+export interface SwipeableViewsProps extends Omit<React.HTMLProps<HTMLDivElement>, 'action'> {
     animateHeight?: boolean | undefined;
     animateTransitions?: boolean | undefined;
     axis?: AxisType | undefined;
@@ -46,6 +54,7 @@ export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
     springConfig?: SpringConfig | undefined;
     slideClassName?: string | undefined;
     threshold?: number | undefined;
+    action?: ActionCallback;
 }
 
 export interface SwipeableViewsState {
