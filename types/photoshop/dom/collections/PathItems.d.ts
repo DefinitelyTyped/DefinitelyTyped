@@ -7,7 +7,7 @@ import { SubPathInfo } from "../objects/SubPathInfo";
  * see [[PathPointInfo]] and [[SubPathInfo]] classes and pass them to [[PathItems.add]]() method.
  *
  */
-export declare class PathItems {
+export declare class PathItems extends Array<PathItem> {
     /**
      * @ignore
      */

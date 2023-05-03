@@ -1,10 +1,6 @@
 import { Document } from "./Document";
 import * as Constants from "./Constants";
 /**
- * @ignore
- */
-export declare function PSGuide(id: number, docId: number): Guide;
-/**
  * Represents a single guide in the document.
  * @minVersion 23.0
  */

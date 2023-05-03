@@ -35,7 +35,7 @@ import { ColorSampler } from "../ColorSampler";
  *
  * @minVersion 24.0
  */
-export declare class ColorSamplers {
+export declare class ColorSamplers extends Array<ColorSampler> {
     /**
      * @ignore
      */

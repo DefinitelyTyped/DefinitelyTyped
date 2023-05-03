@@ -4,6 +4,7 @@ import { Layers } from "./collections/Layers";
 import { Bounds } from "./objects/Bounds";
 import { TextItem } from "./TextItem";
 import * as Unit from "../util/unit";
+import { ApplyImageOptions } from "./types/ApplyImageTypes";
 /** @ignore */
 export declare enum PSLayerKind {
     any = 0,
@@ -21,14 +22,6 @@ export declare enum PSLayerKind {
     background = 12,
     groupEnd = 13
 }
-/**
- * @ignore
- */
-export declare function validateLayer(l: Layer): void;
-/**
- * @ignore
- */
-export declare function PSLayer(id: number, docId: number, layerKind?: number): Layer;
 /**
  * An object within a document that contains visual elements of the image, equivalent to a layer in Photoshop.
  *
@@ -544,23 +537,6 @@ export declare class Layer {
      */
     applyPolarCoordinates(conversion: Constants.PolarConversionType): Promise<void>;
     /**
-     * Applies the radial blur filter.
-     *
-     * Unsupported color modes: Bitmap, Indexed Color
-     *
-     * *Added in Photoshop ?*
-     * @param amount The amount of blur. [1,100]
-     * @param blurMethod Radial blur comes in two flavors: spin and zoom.
-     * Spin provides the effect of pinning the image at the designated center and rotating it.
-     * Zoom provides the effect of motion towards the designated center point.
-     * @param blurQuality The smoothness or graininess of the blurred image (default: RadialBlurQuality.BEST).
-     * @param blurCenterX The pixel position of blur center in horizontal direction.
-     * By default in the center of the canvas (optional).
-     * @param blurCenterY The pixel position of blur center in vertical direction.
-     * By default in the center of the canvas (optional).
-     * @async
-     */
-    /**
      * Applies the Ripple filter.
      *
      * Unsupported color modes: Indexed Color, Bitmap
@@ -685,6 +661,16 @@ export declare class Layer {
      * @minVersion 24.0
      */
     applyZigZag(amount: number, ridges: number, style: Constants.ZigZagType): Promise<void>;
+    /**
+     * The applyImage method lets you blend one image’s layer and channel (the source) with a this layer (the target).
+     * This will change pixels contained in this layer.
+     * Performs Image > Apply Image on the document. See the ApplyImageOptions
+     * object for more info and examples.
+     * @param applyImageOptions Option object for applyImage.
+     * @async
+     * @minVersion 24.5
+     */
+    applyImage(applyImageOptions: ApplyImageOptions): Promise<void>;
     /**
      * Deletes this layer from the document.
      * ```javascript

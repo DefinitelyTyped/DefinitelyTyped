@@ -11,7 +11,7 @@ import * as Constants from "../Constants";
  * app.activeDocument.guides.add(Constants.Direction.HORIZONTAL, 20);
  * ```
  */
-export declare class Guides {
+export declare class Guides extends Array<Guide> {
     /**
      * @ignore
      */

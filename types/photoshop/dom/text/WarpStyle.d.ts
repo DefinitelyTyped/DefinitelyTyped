@@ -6,14 +6,14 @@ import * as Constants from "../Constants";
 export declare class WarpStyle {
     /**
      * he style of warp to apply to the text.
-     * @default WarpStyle.NONE
+     * @default NONE
      * @minVersion 24.1
      */
     get style(): Constants.WarpStyle;
     set style(style: Constants.WarpStyle);
     /**
      * The warp direction
-     * @default Direction.HORIZONTAL
+     * @default HORIZONTAL
      * @minVersion 24.1
      */
     get direction(): Constants.Direction;
