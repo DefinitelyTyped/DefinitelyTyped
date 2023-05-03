@@ -1,13 +1,12 @@
 import { Texture } from './Texture';
 import {
-    Mapping,
     Wrapping,
     PixelFormat,
     TextureDataType,
-    TextureEncoding,
     MagnificationTextureFilter,
     MinificationTextureFilter,
     CubeTextureMapping,
+    ColorSpace,
 } from '../constants';
 
 /**
@@ -41,7 +40,7 @@ export class CubeTexture extends Texture {
      * @param format See {@link Texture.format | .format}. Default {@link THREE.RGBAFormat}
      * @param type See {@link Texture.type | .type}. Default {@link THREE.UnsignedByteType}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
-     * @param encoding See {@link Texture.encoding | .encoding}. Default {@link THREE.LinearEncoding}
+     * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
         images?: any[], // HTMLImageElement or HTMLCanvasElement
@@ -53,7 +52,7 @@ export class CubeTexture extends Texture {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        encoding?: TextureEncoding,
+        colorSpace?: ColorSpace,
     );
 
     /**

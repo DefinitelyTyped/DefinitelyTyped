@@ -681,11 +681,14 @@ export type TrianglesDrawModes = typeof TrianglesDrawMode | typeof TriangleStrip
 ///////////////////////////////////////////////////////////////////////////////
 // Texture Encodings
 
+/** @deprecated Use {@link LinearSRGBColorSpace} or {@link NoColorSpace} in three.js r152+. */
 export const LinearEncoding: 3000;
+/** @deprecated Use {@link SRGBColorSpace} in three.js r152+. */
 export const sRGBEncoding: 3001;
 /**
  * Texture Encodings.
  * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
+ * @deprecated Use {@link ColorSpace} in three.js r152+.
  */
 export type TextureEncoding = typeof LinearEncoding | typeof sRGBEncoding;
 
@@ -901,26 +904,3 @@ export type PixelFormatGPU =
     | 'DEPTH_COMPONENT32F'
     | 'DEPTH24_STENCIL8'
     | 'DEPTH32F_STENCIL8';
-
-///////////////////////////////////////////////////////////////////////////////
-
-export type BuiltinShaderAttributeName =
-    | 'position'
-    | 'normal'
-    | 'uv'
-    | 'color'
-    | 'skinIndex'
-    | 'skinWeight'
-    | 'instanceMatrix'
-    | 'morphTarget0'
-    | 'morphTarget1'
-    | 'morphTarget2'
-    | 'morphTarget3'
-    | 'morphTarget4'
-    | 'morphTarget5'
-    | 'morphTarget6'
-    | 'morphTarget7'
-    | 'morphNormal0'
-    | 'morphNormal1'
-    | 'morphNormal2'
-    | 'morphNormal3';

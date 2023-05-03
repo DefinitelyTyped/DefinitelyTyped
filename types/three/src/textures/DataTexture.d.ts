@@ -4,9 +4,9 @@ import {
     Wrapping,
     PixelFormat,
     TextureDataType,
-    TextureEncoding,
     MagnificationTextureFilter,
     MinificationTextureFilter,
+    ColorSpace,
 } from '../constants';
 import { TextureImageData } from './types';
 
@@ -50,7 +50,7 @@ export class DataTexture extends Texture {
      * @param magFilter See {@link Texture.magFilter | .magFilter}. Default {@link THREE.NearestFilter}
      * @param minFilter  See {@link Texture.minFilter | .minFilter}. Default {@link THREE.NearestFilter}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
-     * @param encoding See {@link Texture.encoding | .encoding}. Default {@link THREE.LinearEncoding}
+     * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
         data?: BufferSource | null,
@@ -64,7 +64,7 @@ export class DataTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        encoding?: TextureEncoding,
+        colorSpace?: ColorSpace,
     );
 
     /**

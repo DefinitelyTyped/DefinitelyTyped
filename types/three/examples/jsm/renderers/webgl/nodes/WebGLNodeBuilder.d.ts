@@ -13,25 +13,6 @@ export class WebGLNodeBuilder extends NodeBuilder {
 
     addSlot(shaderStage: NodeShaderStageOption, slotNode: SlotNode): Node;
 
-    getTexture(textureProperty: string, uvSnippet: string): string;
-    getTextureBias(textureProperty: string, uvSnippet: string, biasSnippet: string): string;
-
-    getTextureLevel(
-        textureProperty: string,
-        uvSnippet: string,
-        biasSnippet: string,
-        shaderStage?: NodeShaderStageOption,
-    ): string;
-    getCubeTexture(texturePropert: string, uvSnippet: string, shaderStage?: NodeShaderStageOption): string;
-
-    getCubeTextureLevel(
-        textureProperty: string,
-        uvSnippet: string,
-        biasSnippet: string,
-        shaderStage?: NodeShaderStageOption,
-    ): string;
-
-    getCubeTextureBias(textureProperty: string, uvSnippet: string, biasSnippet: string): string;
     getUniforms(shaderStage: string): string;
 
     getAttributes(shaderStage: string): string;

@@ -45,7 +45,6 @@ export default abstract class NodeBuilder {
     updateNodes: Node[];
     hashNodes: { [hash: string]: Node };
 
-    scene: Scene;
     lightsNode: LightsNode;
     fogNode: FogNode;
 
@@ -84,13 +83,6 @@ export default abstract class NodeBuilder {
     abstract getFragCoord(): string;
 
     isFlipY(): boolean;
-
-    abstract getTexture(textureProperty: string, uvSnippet: string): string;
-
-    abstract getTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
-
-    abstract getCubeTexture(textureProperty: string, uvSnippet: string): string;
-    abstract getCubeTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
 
     // @TODO: rename to .generateConst()
     getConst(type: NodeTypeOption, value?: unknown): Node;

@@ -14,7 +14,7 @@ import { WebGLRenderTarget } from './WebGLRenderTarget';
 import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
 import { Object3D } from './../core/Object3D';
 import { Material } from './../materials/Material';
-import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
+import { ToneMapping, ShadowMapType, CullFace, TextureEncoding, ColorSpace } from '../constants';
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { BufferGeometry } from './../core/BufferGeometry';
 import { OffscreenCanvas, Texture } from '../textures/Texture';
@@ -189,8 +189,16 @@ export class WebGLRenderer implements Renderer {
     /**
      * Default is LinearEncoding.
      * @default THREE.LinearEncoding
+     * @deprecated Use {@link WebGLRenderer.outputColorSpace .outputColorSpace} in three.js r152+.
      */
     outputEncoding: TextureEncoding;
+
+    /**
+     * Color space used for output to HTMLCanvasElement. Supported values are
+     * {@link SRGBColorSpace} and {@link LinearSRGBColorSpace}.
+     * @default THREE.SRGBColorSpace.
+     */
+    outputColorSpace: ColorSpace;
 
     /**
      * @default true

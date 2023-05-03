@@ -27,7 +27,8 @@ export { default as UniformNode } from './core/UniformNode';
 export { default as VarNode } from './core/VarNode';
 export { default as VaryingNode } from './core/VaryingNode';
 
-export * as NodeUtils from './core/NodeUtils.js';
+import * as NodeUtils from './core/NodeUtils.js';
+export { NodeUtils };
 
 // math
 export {
@@ -141,7 +142,7 @@ export { default as DFGApprox } from './functions/BSDF/DFGApprox';
 export { default as F_Schlick } from './functions/BSDF/F_Schlick';
 export { default as V_GGX_SmithCorrelated } from './functions/BSDF/V_GGX_SmithCorrelated';
 
-export { default as getDistanceAttenuation } from './functions/light/getDistanceAttenuation';
+export { getDistanceAttenuation } from './lighting/LightUtils';
 
 export { default as getGeometryRoughness } from './functions/material/getGeometryRoughness';
 export { default as getRoughness } from './functions/material/getRoughness';

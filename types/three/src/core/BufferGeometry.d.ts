@@ -1,15 +1,19 @@
 import { BufferAttribute } from './BufferAttribute';
 import { InterleavedBufferAttribute } from './InterleavedBufferAttribute';
-import { GLBufferAttribute } from './GLBufferAttribute';
-import { Box3 } from './../math/Box3';
-import { Sphere } from './../math/Sphere';
-import { Matrix4 } from './../math/Matrix4';
-import { Quaternion } from './../math/Quaternion';
-import { Vector2 } from './../math/Vector2';
-import { Vector3 } from './../math/Vector3';
+import { Box3 } from '../math/Box3';
+import { Sphere } from '../math/Sphere';
+import { Matrix4 } from '../math/Matrix4';
+import { Quaternion } from '../math/Quaternion';
+import { Vector2 } from '../math/Vector2';
+import { Vector3 } from '../math/Vector3';
 import { EventDispatcher } from './EventDispatcher';
-import { BuiltinShaderAttributeName } from '../constants';
-import * as BufferGeometryUtils from '../../examples/jsm/utils/BufferGeometryUtils';
+import { GLBufferAttribute } from './GLBufferAttribute';
+
+export type NormalBufferAttributes = Record<string, BufferAttribute | InterleavedBufferAttribute>;
+export type NormalOrGLBufferAttributes = Record<
+    string,
+    BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute
+>;
 
 /**
  * A representation of mesh, line, or point geometry
@@ -19,20 +23,46 @@ import * as BufferGeometryUtils from '../../examples/jsm/utils/BufferGeometryUti
  * @example
  * ```typescript
  * const geometry = new THREE.BufferGeometry();
+ *
  * // create a simple square shape. We duplicate the top left and bottom right
  * // vertices because each vertex needs to appear once per triangle.
- * const vertices = new Float32Array([
- *         -1.0, -1.0, 1.0,
- *          1.0, -1.0, 1.0,
- *          1.0,  1.0, 1.0,
+ * const vertices = new Float32Array( [
+ *   -1.0, -1.0,  1.0, // v0
+ *    1.0, -1.0,  1.0, // v1
+ *    1.0,  1.0,  1.0, // v2
  *
- *          1.0,  1.0, 1.0,
- *         -1.0,  1.0, 1.0,
- *         -1.0, -1.0, 1.0]);
+ *    1.0,  1.0,  1.0, // v3
+ *   -1.0,  1.0,  1.0, // v4
+ *   -1.0, -1.0,  1.0  // v5
+ * ] );
+ *
  * // itemSize = 3 because there are 3 values (components) per vertex
- * geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
- * const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
- * const mesh = new THREE.Mesh(geometry, material);
+ * geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+ * const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+ * const mesh = new THREE.Mesh( geometry, material );
+ * ```
+ * @example
+ * ```typescript
+ * const geometry = new THREE.BufferGeometry();
+ *
+ * const vertices = new Float32Array( [
+ *   -1.0, -1.0,  1.0, // v0
+ *    1.0, -1.0,  1.0, // v1
+ *    1.0,  1.0,  1.0, // v2
+ *   -1.0,  1.0,  1.0, // v3
+ * ] );
+ * geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+ *
+ * const indices = [
+ *   0, 1, 2,
+ *   2, 3, 0,
+ * ];
+ *
+ * geometry.setIndex( indices );
+ * geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+ *
+ * const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+ * const mesh = new THREE.Mesh( geometry, material );
  * ```
  * @see Example: {@link https://threejs.org/examples/#webgl_buffergeometry | Mesh with non-indexed faces}
  * @see Example: {@link https://threejs.org/examples/#webgl_buffergeometry_indexed | Mesh with indexed faces}
@@ -43,7 +73,9 @@ import * as BufferGeometryUtils from '../../examples/jsm/utils/BufferGeometryUti
  * @see {@link https://threejs.org/docs/index.html#api/en/core/BufferGeometry | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/BufferGeometry.js | Source}
  */
-export class BufferGeometry extends EventDispatcher {
+export class BufferGeometry<
+    Attributes extends NormalOrGLBufferAttributes = NormalBufferAttributes,
+> extends EventDispatcher {
     /**
      * This creates a new {@link THREE.BufferGeometry | BufferGeometry} object.
      */
@@ -87,9 +119,7 @@ export class BufferGeometry extends EventDispatcher {
      * use {@link setAttribute | .setAttribute} and {@link getAttribute | .getAttribute} to access attributes of this geometry.
      * @defaultValue `{}`
      */
-    attributes: {
-        [name: string]: BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute; // TODO Replace for 'Record<>'
-    };
+    attributes: Attributes;
 
     /**
      * Hashmap of {@link THREE.BufferAttribute | BufferAttributes} holding details of the geometry's morph targets.
@@ -185,30 +215,25 @@ export class BufferGeometry extends EventDispatcher {
      * @param name
      * @param attribute
      */
-    setAttribute(
-        name: BuiltinShaderAttributeName | (string & {}),
-        attribute: BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute,
-    ): this;
+    setAttribute<K extends keyof Attributes>(name: K, attribute: Attributes[K]): this;
 
     /**
      * Returns the {@link attributes | attribute} with the specified name.
      * @param name
      */
-    getAttribute(
-        name: BuiltinShaderAttributeName | (string & {}),
-    ): BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute;
+    getAttribute<K extends keyof Attributes>(name: K): Attributes[K];
 
     /**
      * Deletes the  {@link attributes | attribute} with the specified name.
      * @param name
      */
-    deleteAttribute(name: BuiltinShaderAttributeName | (string & {})): BufferGeometry;
+    deleteAttribute(name: keyof Attributes): this;
 
     /**
      * Returns true if the {@link attributes | attribute} with the specified name exists.
      * @param name
      */
-    hasAttribute(name: BuiltinShaderAttributeName | (string & {})): boolean;
+    hasAttribute(name: keyof Attributes): boolean;
 
     /**
      * Adds a group to this geometry
@@ -329,7 +354,9 @@ export class BufferGeometry extends EventDispatcher {
     computeTangents(): void;
 
     /**
-     * Computes vertex normals by averaging face normals.
+     * Computes vertex normals for the given vertex data. For indexed geometries, the method sets each vertex normal to
+     * be the average of the face normals of the faces that share that vertex. For non-indexed geometries, vertices are
+     * not shared, and the method sets each vertex normal to be the same as the face normal.
      */
     computeVertexNormals(): void;
 

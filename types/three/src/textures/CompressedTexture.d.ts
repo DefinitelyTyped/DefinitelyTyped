@@ -4,9 +4,9 @@ import {
     Wrapping,
     CompressedPixelFormat,
     TextureDataType,
-    TextureEncoding,
     MagnificationTextureFilter,
     MinificationTextureFilter,
+    ColorSpace,
 } from '../constants';
 
 /**
@@ -30,6 +30,7 @@ export class CompressedTexture extends Texture {
      * @param magFilter See {@link Texture.magFilter | .magFilter}. Default {@link THREE.LinearFilter}
      * @param minFilter  See {@link Texture.minFilter | .minFilter}. Default {@link THREE.LinearMipmapLinearFilter}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
+     * @param colorSpace See {@link Texture.colorSpace .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
         mipmaps: ImageData[],
@@ -43,7 +44,7 @@ export class CompressedTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        encoding?: TextureEncoding,
+        colorSpace?: ColorSpace,
     );
 
     /**
