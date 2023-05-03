@@ -37,4 +37,3 @@ export interface KeyValueProps {
     hideLabels?: boolean;
 }
 
-export default KeyValue;
