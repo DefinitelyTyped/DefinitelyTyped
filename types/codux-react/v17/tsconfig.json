@@ -8,8 +8,8 @@
             "es6"
         ],
         "paths": {
-            "codux-types-react": ["codux-types-react/v16"],
-            "react": ["react/v16"]
+            "codux-react": ["codux-react/v17"],
+            "react": ["react/v17"]
         },
         "noImplicitAny": true,
         "noImplicitThis": true,

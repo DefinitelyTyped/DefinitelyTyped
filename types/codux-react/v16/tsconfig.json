@@ -5,17 +5,16 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "paths": {
-            "codux-types-react": ["codux-types-react/v15"],
-            "react": ["react/v15"]
+            "codux-react": ["codux-react/v16"],
+            "react": ["react/v16"]
         },
         "noImplicitAny": true,
-        "noImplicitThis": false,
+        "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
