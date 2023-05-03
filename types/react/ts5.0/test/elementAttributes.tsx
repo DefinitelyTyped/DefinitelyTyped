@@ -109,3 +109,33 @@ const eventCallbacksTestCases = [
     <output onClick={e => e.currentTarget.value} />,
     <time onClick={e => e.currentTarget.dateTime} />,
 ];
+
+function formActionsTest() {
+    <form
+        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+        action={formData => {
+            // $ExpectType FormData
+            formData;
+        }}
+    >
+        <input type="text" name="title" defaultValue="Hello" />
+        <input
+            type="submit"
+            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+            formAction={formData => {
+                // $ExpectType FormData
+                formData;
+            }}
+            value="Save"
+        />
+        <button
+            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+            formAction={formData => {
+                // $ExpectType FormData
+                formData;
+            }}
+        >
+            Delete
+        </button>
+    </form>;
+}
