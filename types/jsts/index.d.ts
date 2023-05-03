@@ -3850,6 +3850,56 @@ declare namespace jsts {
                 getInvalidRingLines(): ArrayList<LineString>;
             }
         }
+
+        namespace linemerge {
+            import Collection = java.utils.Collection;
+            import Geometry = jsts.geom.Geometry;
+            import LineString = jsts.geom.LineString;
+            /**
+             * Merges a collection of linear components to form maximal-length linestrings.
+             * Merging stops at nodes of degree 1 or degree 3 or more.
+             * In other words, all nodes of degree 2 are merged together.
+             * The exception is in the case of an isolated loop, which only has degree-2 nodes.
+             * In this case one of the nodes is chosen as a starting point.
+             *
+             * The direction of each merged LineString will be that of the majority of the LineStrings from which it was derived.
+             * Any dimension of Geometry is handled - the constituent linework is extracted to form the edges.
+             * The edges must be correctly noded; that is, they must only meet at their endpoints.
+             * The LineMerger will accept non-noded input but will not merge non-noded edges.
+             *
+             * Input lines which are empty or contain only a single unique coordinate are not included in the merging.
+             */
+            export class LineMerger {
+                /**
+                 * Creates a new line merger.
+                 */
+                constructor();
+
+                /**
+                 * Adds a Geometry to be processed. May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted.
+                 *
+                 * @param geometry geometry to be line-merged
+                 */
+                add(geometry: Geometry): void;
+
+                /**
+                 *
+                 * Adds a collection of Geometries to be processed. May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted.
+                 *
+                 * @param geometries the geometries to be line-merged
+                 */
+                add(geometries: Collection<Geometry>): void;
+
+                /**
+                 * Gets the LineStrings created by the merging process.
+                 *
+                 * @returns the collection of merged LineStrings
+                 */
+                getMergedLineStrings(): Collection<LineString>;
+            }
+        }
     }
 
     namespace precision {
