@@ -8,7 +8,7 @@ import { PathItem } from "../PathItem";
  *  - Use the [[SubPathItem]] object to retrieve information about existing subpaths. The properties are read-only.
  *
  */
-export declare class SubPathItems {
+export declare class SubPathItems extends Array<SubPathItem> {
     /**
      * @ignore
      */
