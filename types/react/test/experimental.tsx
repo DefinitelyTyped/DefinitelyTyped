@@ -72,6 +72,15 @@ function useEvent() {
     );
 }
 
+function useAsyncAction() {
+    const [isPending, startTransition] = React.useTransition();
+
+    function handleClick() {
+        // $ExpectType void
+        startTransition(async () => {});
+    }
+}
+
 function formActionsTest() {
     <form
         action={formData => {
