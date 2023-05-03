@@ -36,4 +36,3 @@ export interface KeyValueProps {
     valueInputPlaceholder?: string;
     hideLabels?: boolean;
 }
-
