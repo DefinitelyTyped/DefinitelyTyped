@@ -11,281 +11,283 @@ import { CSSProperties } from 'react';
 
 export {};
 
-declare namespace React {
-    interface HTMLAttributes<T> {
-        /**
-         * @important input, textarea, button
-         */
-        autoFocus?: boolean | undefined;
-        /**
-         * @important body, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, div, form, input, button, tr, th, td, caption
-         */
-        className?: string | undefined;
-        /**
-         * @important html
-         */
-        dir?: string | undefined;
-        /**
-         * @important body, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, div, form, input, button, tr, th, td, caption
-         */
-        id?: string | undefined;
-        /**
-         * @important html
-         */
-        lang?: string | undefined;
-        /**
-         * @important body, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, div, form, input, button, tr, th, td, caption
-         */
-        style?: CSSProperties | undefined;
-        /**
-         * @important meta
-         */
-        content?: string | undefined;
-        /**
-         * @important link
-         */
-        rel?: string | undefined;
-    }
+declare global {
+    namespace React {
+        interface HTMLAttributes<T> {
+            /**
+             * @important input, textarea, button
+             */
+            autoFocus?: boolean | undefined;
+            /**
+             * @important body, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, div, form, input, button, tr, th, td, caption
+             */
+            className?: string | undefined;
+            /**
+             * @important html
+             */
+            dir?: string | undefined;
+            /**
+             * @important body, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, div, form, input, button, tr, th, td, caption
+             */
+            id?: string | undefined;
+            /**
+             * @important html
+             */
+            lang?: string | undefined;
+            /**
+             * @important body, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, div, form, input, button, tr, th, td, caption
+             */
+            style?: CSSProperties | undefined;
+            /**
+             * @important meta
+             */
+            content?: string | undefined;
+            /**
+             * @important link
+             */
+            rel?: string | undefined;
+        }
 
-    interface AnchorHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        download?: any;
-        /**
-         * @important
-         */
-        href?: string | undefined;
-        /**
-         * @important
-         */
-        target?: string | undefined;
-    }
+        interface AnchorHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            download?: any;
+            /**
+             * @important
+             */
+            href?: string | undefined;
+            /**
+             * @important
+             */
+            target?: string | undefined;
+        }
 
-    interface ButtonHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        disabled?: boolean | undefined;
-        /**
-         * @important
-         */
-        form?: string | undefined;
-        /**
-         * @important
-         */
-        formAction?: string | undefined;
-        /**
-         * @important
-         */
-        formEncType?: string | undefined;
-        /**
-         * @important
-         */
-        formMethod?: string | undefined;
-        /**
-         * @important
-         */
-        formNoValidate?: boolean | undefined;
-        /**
-         * @important
-         */
-        formTarget?: string | undefined;
-        /**
-         * @important
-         */
-        type?: string | undefined;
-        /**
-         * @important
-         */
-        value?: string | string[] | number | undefined;
-    }
+        interface ButtonHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            disabled?: boolean | undefined;
+            /**
+             * @important
+             */
+            form?: string | undefined;
+            /**
+             * @important
+             */
+            formAction?: string | undefined;
+            /**
+             * @important
+             */
+            formEncType?: string | undefined;
+            /**
+             * @important
+             */
+            formMethod?: string | undefined;
+            /**
+             * @important
+             */
+            formNoValidate?: boolean | undefined;
+            /**
+             * @important
+             */
+            formTarget?: string | undefined;
+            /**
+             * @important
+             */
+            type?: string | undefined;
+            /**
+             * @important
+             */
+            value?: string | string[] | number | undefined;
+        }
 
-    interface ImgHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        alt?: string | undefined;
-        /**
-         * @important
-         */
-        height?: number | string | undefined;
-        /**
-         * @important
-         */
-        sizes?: string | undefined;
-        /**
-         * @important
-         */
-        src?: string | undefined;
-        /**
-         * @important
-         */
-        srcSet?: string | undefined;
-        /**
-         * @important
-         */
-        width?: number | string | undefined;
-    }
+        interface ImgHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            alt?: string | undefined;
+            /**
+             * @important
+             */
+            height?: number | string | undefined;
+            /**
+             * @important
+             */
+            sizes?: string | undefined;
+            /**
+             * @important
+             */
+            src?: string | undefined;
+            /**
+             * @important
+             */
+            srcSet?: string | undefined;
+            /**
+             * @important
+             */
+            width?: number | string | undefined;
+        }
 
-    interface InputHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        disabled?: boolean | undefined;
-        /**
-         * @important
-         */
-        max?: number | string | undefined;
-        /**
-         * @important
-         */
-        maxLength?: number | undefined;
-        /**
-         * @important
-         */
-        min?: number | string | undefined;
-        /**
-         * @important
-         */
-        placeholder?: string | undefined;
-        /**
-         * @important
-         */
-        required?: boolean | undefined;
-        /**
-         * @important
-         */
-        step?: number | string | undefined;
-        /**
-         * @important
-         */
-        type?: string | undefined;
-        /**
-         * @important
-         */
-        value?: string | string[] | number | undefined;
-    }
+        interface InputHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            disabled?: boolean | undefined;
+            /**
+             * @important
+             */
+            max?: number | string | undefined;
+            /**
+             * @important
+             */
+            maxLength?: number | undefined;
+            /**
+             * @important
+             */
+            min?: number | string | undefined;
+            /**
+             * @important
+             */
+            placeholder?: string | undefined;
+            /**
+             * @important
+             */
+            required?: boolean | undefined;
+            /**
+             * @important
+             */
+            step?: number | string | undefined;
+            /**
+             * @important
+             */
+            type?: string | undefined;
+            /**
+             * @important
+             */
+            value?: string | string[] | number | undefined;
+        }
 
-    interface LabelHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        form?: string | undefined;
-    }
+        interface LabelHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            form?: string | undefined;
+        }
 
-    interface LinkHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        href?: string | undefined;
-        /**
-         * @important
-         */
-        media?: string | undefined;
-        /**
-         * @important
-         */
-        sizes?: string | undefined;
-        /**
-         * @important
-         */
-        type?: string | undefined;
-    }
+        interface LinkHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            href?: string | undefined;
+            /**
+             * @important
+             */
+            media?: string | undefined;
+            /**
+             * @important
+             */
+            sizes?: string | undefined;
+            /**
+             * @important
+             */
+            type?: string | undefined;
+        }
 
-    interface MetaHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        charSet?: string | undefined;
-        /**
-         * @important
-         */
-        httpEquiv?: string | undefined;
-        /**
-         * @important
-         */
-        name?: string | undefined;
-    }
+        interface MetaHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            charSet?: string | undefined;
+            /**
+             * @important
+             */
+            httpEquiv?: string | undefined;
+            /**
+             * @important
+             */
+            name?: string | undefined;
+        }
 
-    interface OptionHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        label?: string | undefined;
-        /**
-         * @important
-         */
-        selected?: boolean | undefined;
-    }
+        interface OptionHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            label?: string | undefined;
+            /**
+             * @important
+             */
+            selected?: boolean | undefined;
+        }
 
-    interface ScriptHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        src?: string | undefined;
-        /**
-         * @important
-         */
-        type?: string | undefined;
-    }
+        interface ScriptHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            src?: string | undefined;
+            /**
+             * @important
+             */
+            type?: string | undefined;
+        }
 
-    interface SelectHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        disabled?: boolean | undefined;
-        // form?: string | undefined;
-        /**
-         * @important
-         */
-        multiple?: boolean | undefined;
-        // name?: string | undefined;
-        /**
-         * @important
-         */
-        required?: boolean | undefined;
-        /**
-         * @important
-         */
-        size?: number | undefined;
-    }
+        interface SelectHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            disabled?: boolean | undefined;
+            // form?: string | undefined;
+            /**
+             * @important
+             */
+            multiple?: boolean | undefined;
+            // name?: string | undefined;
+            /**
+             * @important
+             */
+            required?: boolean | undefined;
+            /**
+             * @important
+             */
+            size?: number | undefined;
+        }
 
-    interface StyleHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        media?: string | undefined;
-        /**
-         * @important
-         */
-        type?: string | undefined;
-    }
+        interface StyleHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            media?: string | undefined;
+            /**
+             * @important
+             */
+            type?: string | undefined;
+        }
 
-    interface TextareaHTMLAttributes<T> {
-        /**
-         * @important
-         */
-        cols?: number | undefined;
-        /**
-         * @important
-         */
-        disabled?: boolean | undefined;
-        /**
-         * @important
-         */
-        maxLength?: number | undefined;
-        /**
-         * @important
-         */
-        placeholder?: string | undefined;
-        /**
-         * @important
-         */
-        required?: boolean | undefined;
-        /**
-         * @important
-         */
-        rows?: number | undefined;
+        interface TextareaHTMLAttributes<T> {
+            /**
+             * @important
+             */
+            cols?: number | undefined;
+            /**
+             * @important
+             */
+            disabled?: boolean | undefined;
+            /**
+             * @important
+             */
+            maxLength?: number | undefined;
+            /**
+             * @important
+             */
+            placeholder?: string | undefined;
+            /**
+             * @important
+             */
+            required?: boolean | undefined;
+            /**
+             * @important
+             */
+            rows?: number | undefined;
+        }
     }
 }
