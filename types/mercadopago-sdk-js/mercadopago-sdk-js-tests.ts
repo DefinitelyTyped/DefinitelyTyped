@@ -1,7 +1,7 @@
-import * as mp from "mercadopago-sdk-js";
+import { MercadoPago } from 'mercadopago-sdk-js';
 
 // initiate MP library
-const mpInstance = new window.MercadoPago("pk", {});
+const mpInstance = new MercadoPago("pk", {});
 
 mpInstance.getIdentificationTypes();
 mpInstance.getInstallments({ amount: "100", bin: "123456" });

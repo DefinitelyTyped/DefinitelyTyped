@@ -3,14 +3,12 @@
 // Definitions by: mercadopago <https://github.com/mercadopago>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { MercadoPagoCore, Options } from './core';
+import { mercadopagocore } from './core';
 
-export {};
-
-declare global {
-  interface Window {
-    MercadoPago: {
-        new(publicKey: string, options: Options): MercadoPagoCore;
-    };
+export namespace mercadopago {
+  interface MercadoPago {
+      new(publicKey: string, options: mercadopagocore.Options): mercadopagocore.MercadoPagoCore;
   }
 }
+
+export const MercadoPago: mercadopago.MercadoPago;
