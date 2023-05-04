@@ -1,4 +1,5 @@
 declare module 'url' {
+    import { ClientRequestArgs } from 'node:http';
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     // Input to `url.format`
@@ -71,6 +72,33 @@ declare module 'url' {
      * @param url The path to convert to a File URL.
      */
     function pathToFileURL(url: string): URL;
+    /**
+     * This utility function converts a URL object into an ordinary options object as
+     * expected by the `http.request()` and `https.request()` APIs.
+     *
+     * ```js
+     * import { urlToHttpOptions } from 'url';
+     * const myURL = new URL('https://a:b@測試?abc#foo');
+     *
+     * console.log(urlToHttpOptions(myURL));
+     *
+     * {
+     *   protocol: 'https:',
+     *   hostname: 'xn--g6w251d',
+     *   hash: '#foo',
+     *   search: '?abc',
+     *   pathname: '/',
+     *   path: '/?abc',
+     *   href: 'https://a:b@xn--g6w251d/?abc#foo',
+     *   auth: 'a:b'
+     * }
+     *
+     * ```
+     * @since v14.18.0
+     * @param url The `WHATWG URL` object to convert to an options object.
+     * @return Options object
+     */
+    function urlToHttpOptions(url: URL): ClientRequestArgs;
 
     interface URLFormatOptions {
         auth?: boolean | undefined;
