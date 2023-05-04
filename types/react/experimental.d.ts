@@ -42,6 +42,12 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module '.' {
+    // Need an interface to not cause ReactNode to be a self-referential type.
+    interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
+        promises: PromiseLikeOfReactNode;
+    }
+
     export interface SuspenseProps {
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
