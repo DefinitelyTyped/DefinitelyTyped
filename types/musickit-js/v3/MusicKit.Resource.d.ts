@@ -521,16 +521,7 @@ declare namespace MusicKit {
             };
         };
         relationships?: Partial<{
-            content: Relationship<
-                | Albums
-                | LibraryMusicVideos
-                | LibraryPlaylists
-                | LibrarySongs
-                | MusicVideos
-                | Playlists
-                | Songs
-                | Stations
-            >;
+            content: Relationship<PERSONAL_RATING_RESOURCE_TYPE>;
         }>;
     }
 
@@ -546,16 +537,7 @@ declare namespace MusicKit {
             value?: -1 | 1;
         };
         relationships?: Partial<{
-            content: Relationship<
-                | Albums
-                | LibraryMusicVideos
-                | LibraryPlaylists
-                | LibrarySongs
-                | MusicVideos
-                | Playlists
-                | Songs
-                | Stations
-            >;
+            content: Relationship<PERSONAL_RATING_RESOURCE_TYPE>;
         }>;
     }
 }

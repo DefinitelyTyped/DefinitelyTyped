@@ -15,7 +15,7 @@ const test = async () => {
 
     // $ExpectType APIResponse & { data: MusicKit.Songs[]; }
     res = await player.api.music<{
-        action: 'getSingleResource';
+        action: 'GetSingleResource';
         resource: MusicKit.Songs;
     }>('/v1/catalog/{{storefrontId}}/songs/123456789');
     if (res.data[0].attributes) {
@@ -69,13 +69,13 @@ const test = async () => {
 
     // $ExpectType APIResponse & { data: MusicKit.Albums[]; }
     res = await player.api.music<{
-        action: 'getSingleResource';
+        action: 'GetSingleResource';
         resource: MusicKit.Albums;
     }>('/v1/catalog/{{storefrontId}}/albums/123456789');
 
     // $ExpectType APIResponse & { data: MusicKit.Albums[]; }
     res = await player.api.music<{
-        action: 'getMultipleResources';
+        action: 'GetMultipleResources';
         resource: MusicKit.Albums;
     }>('/v1/catalog/{{storefrontId}}/albums', {
         ids: ['123456789', '987654321'],
@@ -83,22 +83,23 @@ const test = async () => {
 
     // $ExpectType APIResponse & { data: MusicKit.LibraryAlbums[];}
     res = await player.api.music<{
-        action: 'getSingleResource';
+        action: 'GetSingleResource';
         resource: MusicKit.LibraryAlbums;
     }>('/v1/me/library/albums/l.sticiFl');
 
     // $ExpectType APIResponse & { data: MusicKit.LibraryAlbums[]; }
     res = await player.api.music<{
-        action: 'getMultipleResources';
+        action: 'GetMultipleResources';
         resource: MusicKit.LibraryAlbums;
     }>('/v1/me/library/albums', {
         ids: ['l.sticiFl'],
     });
 
     // $ExpectType APIResponse & { data: LibraryResourcesResponse<LibraryAlbums | LibraryPlaylists>; }
-    res = await player.api.music<MusicKit.LibraryResourcesAPI<MusicKit.LibraryAlbums | MusicKit.LibraryPlaylists>>(
-        '/v1/me/library/recently-added',
-    );
+    res = await player.api.music<{
+        action: 'GetRecentlyAddedResources';
+        resource: never;
+    }>('/v1/me/library/recently-added');
 
     // $ExpectType APIResponse & { data: ChartResponse<Albums | MusicVideos | Playlists>; }
     res = await player.api.music<MusicKit.ChartAPI<MusicKit.Albums | MusicKit.MusicVideos | MusicKit.Playlists>>(

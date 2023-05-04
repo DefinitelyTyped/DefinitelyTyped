@@ -22,26 +22,26 @@ declare namespace MusicKit {
             options?: { fetchOptions: { method: 'GET' | 'POST' | 'DELETE' | 'PUT' } },
         ): Promise<
             T extends APIParameters
-                ? getAPIResponse<T>
+            ? {
+                    data: getAPIResponse<T>
+                }
                 : APIResponse & {
                       data: Resource[];
                   }
         >;
         lyric(catalogSongID: MusicKit.Songs['id']): Promise<
-            APIResponse & {
-                data: {
-                    id: string;
-                    type: 'lyrics';
-                    attributes: {
-                        ttml: XMLDocument;
-                        playParams: {
-                            id: string;
-                            kind: 'lyric';
-                            catalogId: string;
-                            displayType: number;
-                        };
+            {
+                id: string;
+                type: 'lyrics';
+                attributes: {
+                    ttml: XMLDocument;
+                    playParams: {
+                        id: string;
+                        kind: 'lyric';
+                        catalogId: string;
+                        displayType: number;
                     };
-                }[];
+                };
             }
         >;
     }
