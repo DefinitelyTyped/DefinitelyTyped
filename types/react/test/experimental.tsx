@@ -149,6 +149,15 @@ function Optimistic() {
         );
         addToOptimisticCartTyped2(String(item));
     };
+
+    const [state, setStateDefaultAction] = useOptimistic(1);
+    const handleClick = () => {
+        setStateDefaultAction(2);
+        setStateDefaultAction(() => 3);
+        setStateDefaultAction(n => n + 1);
+        // @ts-expect-error string is not assignable to number
+        setStateDefaultAction('4');
+    };
 }
 
 // ReactNode tests

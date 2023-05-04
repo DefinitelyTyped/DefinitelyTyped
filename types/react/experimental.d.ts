@@ -130,8 +130,11 @@ declare module '.' {
         (callback: () => Promise<VoidOrUndefinedOnly>): void;
     }
 
+    function experimental_useOptimistic<State>(
+        passthrough: State,
+    ): [State, (action: State | ((pendingState: State) => State)) => void];
     function experimental_useOptimistic<State, Action>(
         passthrough: State,
-        reducer?: (state: State, action: Action) => State,
+        reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
 }
