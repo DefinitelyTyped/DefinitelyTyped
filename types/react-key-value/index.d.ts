@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from 'react';
 
-export declare class KeyValue extends React.Component<KeyValueProps> {
+export class KeyValue extends React.Component<KeyValueProps> {
     handleKeyItemChange(index: bigint, value: any): any;
 
     handleRemove(index: bigint): any;
