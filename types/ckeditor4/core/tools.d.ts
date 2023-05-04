@@ -25,7 +25,7 @@ declare namespace CKEDITOR {
         buildStyleHtml(css: string | string[]): string;
 
         buildTableMap(
-            table: CKEDITOR.dom.element,
+            table: dom.element,
             startRow?: number,
             startCell?: number,
             endRow?: number,
@@ -258,8 +258,8 @@ declare namespace CKEDITOR {
         tryThese(...fn: Array<(...args: unknown[]) => unknown>): unknown;
 
         /**
-        * @version 4.1.0
-        */
+         * @version 4.1.0
+         */
         writeCssText(styles: { [key: string]: unknown }, sort?: boolean): string;
     }
 

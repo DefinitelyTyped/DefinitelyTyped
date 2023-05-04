@@ -603,14 +603,14 @@ declare namespace CKEDITOR {
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_rect.html */
         interface rect {
-            bottom: number
-            height: number
-            left: number
-            right: number
-            top: number
-            width: number
-            x: number
-            y: number
+            bottom: number;
+            height: number;
+            left: number;
+            right: number;
+            top: number;
+            width: number;
+            x: number;
+            y: number;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_selection.html */
