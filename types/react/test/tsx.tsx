@@ -590,6 +590,10 @@ function reactNodeTests() {
         }
     </div>;
     <div>{createChildren()}</div>;
+    // @ts-expect-error plain objects are not allowed
+    <div>{{ dave: true }}</div>;
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+    <div>{Promise.resolve('React')}</div>;
 }
 
 function elementTypeTests() {
@@ -653,6 +657,16 @@ function elementTypeTests() {
     class RenderReactNode extends React.Component<{children?: React.ReactNode}> {
         render() {
           return this.props.children;
+        }
+    }
+
+    const ReturnPromise = () => Promise.resolve('React');
+    // @ts-expect-error experimental release channel only
+    const FCPromise: React.FC = ReturnPromise;
+    class RenderPromise extends React.Component {
+        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+        render() {
+          return Promise.resolve('React');
         }
     }
 
@@ -727,6 +741,15 @@ function elementTypeTests() {
     React.createElement(ReturnReactNode);
     <RenderReactNode />;
     React.createElement(RenderReactNode);
+
+    // @ts-expect-error Only available in experimental release channel
+    <ReturnPromise />;
+    // @ts-expect-error Only available in experimental release channel
+    React.createElement(ReturnPromise);
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+    <RenderPromise />;
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+    React.createElement(RenderPromise);
 }
 
 function managingRefs() {
