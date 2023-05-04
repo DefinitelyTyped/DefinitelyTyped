@@ -8,7 +8,6 @@ export declare class CountItem {
      * The index of the Group the CountItem belongs to.
      */
     readonly groupIndex: number;
-    private _position;
     /**
      * The class name of the referenced CountItem object
      * @minVersion 24.1

@@ -31,6 +31,7 @@ const {
     direction,
     graphSONVersion,
     gryoVersion,
+    merge,
     operator,
     order,
     pick,
@@ -75,11 +76,13 @@ function constructorTests() {
     driverRemoteConnection.close();
     driverRemoteConnection.removeListener('log', eventHandler);
 
+    client.addListener('log', eventHandler);
     client.open();
     client.isOpen;
     client.submit(new Bytecode());
     client.stream(new Bytecode());
     client.close();
+    client.removeListener('log', eventHandler);
 
     resultSet.toArray();
     resultSet.first();
@@ -172,6 +175,7 @@ function processTests() {
     translator.getTraversalSource();
     translator.of(graphTraversalSource);
     translator.translate(bytecode);
+    translator.convert({});
 
     transaction.begin();
     transaction.close();
@@ -241,6 +245,10 @@ function predefinedEnumTests() {
     graphSONVersion['v3_0'].toString() === 'V3_0';
     gryoVersion['v1_0'].toString() === 'V1_0';
     gryoVersion['v3_0'].toString() === 'V3_0';
+    merge.inV.toString() === 'inV';
+    merge.outV.toString() === 'outV';
+    merge.onCreate.toString() === 'onCreate';
+    merge.onMatch.toString() === 'onMatch';
     operator.addAll.toString() === 'addAll';
     operator.and.toString() === 'and';
     operator.assign.toString() === 'assign';
@@ -253,9 +261,7 @@ function predefinedEnumTests() {
     operator.sum.toString() === 'sum';
     operator.sumLong.toString() === 'sumLong';
     order.asc.toString() === 'asc';
-    order.decr.toString() === 'decr';
     order.desc.toString() === 'desc';
-    order.incr.toString() === 'incr';
     order.shuffle.toString() === 'shuffle';
     pick.any.toString() === 'any';
     pick.none.toString() === 'none';

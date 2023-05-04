@@ -1,6 +1,8 @@
 build/three.d.cts
 build/three.d.ts
+build/three.min.d.ts
 build/three.module.d.ts
+build/three.module.min.d.ts
 examples/jsm/animation/AnimationClipCreator.d.ts
 examples/jsm/csm/CSMShader.d.ts
 examples/jsm/controls/MapControls.d.ts
@@ -36,7 +38,6 @@ examples/jsm/helpers/VertexNormalsHelper.d.ts
 examples/jsm/helpers/VertexTangentsHelper.d.ts
 examples/jsm/interactive/HTMLMesh.d.ts
 examples/jsm/interactive/InteractiveGroup.d.ts
-examples/jsm/libs/stats.module.d.ts
 examples/jsm/lights/LightProbeGenerator.d.ts
 examples/jsm/lines/Wireframe.d.ts
 examples/jsm/lines/WireframeGeometry2.d.ts
@@ -121,7 +122,6 @@ examples/jsm/postprocessing/TAARenderPass.d.ts
 examples/jsm/postprocessing/TexturePass.d.ts
 examples/jsm/postprocessing/UnrealBloomPass.d.ts
 examples/jsm/renderers/CSS2DRenderer.d.ts
-examples/jsm/renderers/CSS3DRenderer.d.ts
 examples/jsm/renderers/Projector.d.ts
 examples/jsm/renderers/SVGRenderer.d.ts
 examples/jsm/shaders/AfterimageShader.d.ts
@@ -170,6 +170,7 @@ examples/jsm/shaders/VerticalTiltShiftShader.d.ts
 examples/jsm/shaders/VignetteShader.d.ts
 examples/jsm/shaders/VolumeShader.d.ts
 examples/jsm/shaders/WaterRefractionShader.d.ts
+examples/jsm/utils/BufferGeometryUtils.d.ts
 examples/jsm/utils/GeometryCompressionUtils.d.ts
 examples/jsm/utils/PackedPhongMaterial.d.ts
 examples/jsm/utils/SceneUtils.d.ts

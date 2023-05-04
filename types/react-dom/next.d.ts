@@ -46,6 +46,7 @@ declare module '.' {
         crossOrigin?: string | undefined;
         precedence?: string | undefined;
         integrity?: string | undefined;
+        nonce?: string | undefined;
     }
     function preinit(href: string, options?: PreinitOptions): void;
 }
