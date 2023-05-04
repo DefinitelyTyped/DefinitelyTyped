@@ -11,7 +11,7 @@ declare namespace CKEDITOR {
             };
             readonly buffers: {
                 readonly event: { new (minInterval: number, output: (...args: any[]) => void, contextObj?: object): tools.buffers.event }
-                readonly throttle: { new (minInterval: number, output: (...args: any[]) => void, contextObj?: object): tools.buffers.event }
+                readonly throttle: { new (minInterval: number, output: (...args: any[]) => void, contextObj?: object): tools.buffers.throttle }
             };
         } & tools;
     }
