@@ -31,7 +31,6 @@ declare class Class_SandBox extends Class__object {
      * @brief 查询沙箱的 global 对象
      * 
      * @readonly
-     * @type Object
      */
     
     global: object
@@ -44,7 +43,6 @@ declare class Class_SandBox extends Class__object {
      * 
      * 
      * @readonly
-     * @type Object
      */
     
     modules: object
