@@ -9,6 +9,7 @@ import './request';
 import './response';
 import './locator';
 import './js_handle';
+import './keyboard';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
@@ -25,11 +26,6 @@ export class Frame {}
  * Request class represents requests which are sent by a page.
  */
 export class Request {}
-
-/**
- * Keyboard provides an api for managing a virtual keyboard.
- */
-export class Keyboard {}
 
 /**
  * Mouse provides an api for managing a virtual mouse.

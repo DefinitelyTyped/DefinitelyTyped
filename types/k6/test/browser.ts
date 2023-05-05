@@ -585,6 +585,40 @@ page.$$();
 page.$$(selector);
 
 //
+// Keyboard
+//
+const keyboard = page.keyboard;
+
+// @ts-expect-error
+keyboard.down();
+// $ExpectType void
+keyboard.down("a");
+
+// @ts-expect-error
+keyboard.insertText();
+// $ExpectType void
+keyboard.insertText("a");
+
+// @ts-expect-error
+keyboard.press();
+// $ExpectType void
+keyboard.press("a");
+// $ExpectType void
+keyboard.press("a", { delay: 1000 });
+
+// @ts-expect-error
+keyboard.type();
+// $ExpectType void
+keyboard.type("a");
+// $ExpectType void
+keyboard.type("a", { delay: 1000 });
+
+// @ts-expect-error
+keyboard.up();
+// $ExpectType void
+keyboard.up("a");
+
+//
 // Locator
 //
 const locator = page.locator(selector);
