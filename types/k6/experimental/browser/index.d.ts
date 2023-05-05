@@ -8,17 +8,13 @@ import './touchscreen';
 import './request';
 import './response';
 import './locator';
+import './js_handle';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
  * separate pages, cache, and cookies.
  */
 export class BrowserContext {}
-
-/**
- * JSHandle represents an in-page JavaScript object.
- */
-export class JSHandle<T = any> {}
 
 /**
  * Frame represents the frame within a page. A page is made up of hierarchy of frames.

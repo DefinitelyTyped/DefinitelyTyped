@@ -820,6 +820,53 @@ for (const state of ["attached", "detached", "visible", "hidden"]) {
 }
 
 //
+// JSHandle
+//
+const jsHandle = page.evaluateHandle(() => null);
+
+// $ExpectType ElementHandle | null
+jsHandle.asElement();
+
+// $ExpectType void
+jsHandle.dispose();
+
+// @ts-expect-error
+jsHandle.evaluate();
+// @ts-expect-error
+jsHandle.evaluate(1);
+// @ExpectType void
+jsHandle.evaluate("");
+// @ExpectType void
+jsHandle.evaluate(() => {});
+// @ExpectType string
+jsHandle.evaluate(() => { ""; });
+// @ExpectType string
+jsHandle.evaluate((a: string) => { a; }, "");
+// @ExpectType string[]
+jsHandle.evaluate((a: string[]) => a, [""]);
+
+// @ts-expect-error
+jsHandle.evaluateHandle();
+// @ts-expect-error
+jsHandle.evaluateHandle(1);
+// @ExpectType JSHandle
+jsHandle.evaluateHandle("");
+// @ExpectType JSHandle
+jsHandle.evaluateHandle(() => {});
+// @ExpectType JSHandle
+jsHandle.evaluateHandle(() => { ""; });
+// @ExpectType JSHandle
+jsHandle.evaluateHandle((a: string) => { a; }, "");
+// @ExpectType JSHandle
+jsHandle.evaluateHandle((a: string[]) => a, [""]);
+
+// $ExpectType Map<string, JSHandle<any>>
+jsHandle.getProperties();
+
+// $ExpectType any
+jsHandle.jsonValue();
+
+//
 // Request
 //
 const request = new Request();
