@@ -20,6 +20,9 @@ import {
     JSONRecord,
     Options,
     ListEditorParams,
+    NumberParams,
+    InputParams,
+    TextAreaParams
 } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
@@ -1283,4 +1286,73 @@ table = new Tabulator('#testDataLoader', {
         },
     ],
     dataLoaderLoading: document.createElement('div') as HTMLElement,
+});
+
+// Testing editor params for Input, TextArea and Number
+
+const numberEditorParams: NumberParams = {
+    elementAttributes: {
+        maxlength: "10",
+    },
+    min: 0,
+    max: 100,
+    mask: '999',
+    maskAutoFill: false,
+    maskLetterChar: 'A',
+    maskNumberChar: '9',
+    maskWildcardChar: '*',
+    step: 1,
+    verticalNavigation: 'table',
+    selectContents: true,
+};
+
+const inputEditorParams: InputParams = {
+    elementAttributes: {
+        maxlength: "10"
+    },
+    mask: "AAA-999",
+    maskAutoFill: false,
+    maskLetterChar: 'A',
+    maskNumberChar: '9',
+    maskWildcardChar: '*',
+    search: true,
+    selectContents: true,
+};
+
+const textAreaEditorParams: TextAreaParams = {
+    elementAttributes: {
+        maxlength: "10"
+    },
+    mask: "AAA-999",
+    maskAutoFill: false,
+    maskLetterChar: 'A',
+    maskNumberChar: '9',
+    maskWildcardChar: '*',
+    verticalNavigation: 'editor',
+    shiftEnterSubmit: false,
+    selectContents: false,
+};
+
+table = new Tabulator('#test', {
+    data: [],
+    columns: [
+        {
+            field: 'number_field',
+            title: 'Number',
+            editor: 'number',
+            editorParams: numberEditorParams
+        },
+        {
+            field: 'input_field',
+            title: 'Input',
+            editor: 'input',
+            editorParams: inputEditorParams
+        },
+        {
+            field: 'textarea_field',
+            title: 'TextArea',
+            editor: 'textarea',
+            editorParams: textAreaEditorParams
+        }
+    ]
 });
