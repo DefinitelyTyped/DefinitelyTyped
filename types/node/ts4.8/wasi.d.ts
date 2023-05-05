@@ -3,26 +3,23 @@
  * underlying operating system via a collection of POSIX-like functions.
  *
  * ```js
- * import { readFile } from 'fs/promises';
+ * import { readFile } from 'node:fs/promises';
  * import { WASI } from 'wasi';
- * import { argv, env } from 'process';
+ * import { argv, env } from 'node:process';
  *
  * const wasi = new WASI({
+ *   version: 'preview1',
  *   args: argv,
  *   env,
  *   preopens: {
- *     '/sandbox': '/some/real/path/that/wasm/can/access'
- *   }
+ *     '/sandbox': '/some/real/path/that/wasm/can/access',
+ *   },
  * });
  *
- * // Some WASI binaries require:
- * //   const importObject = { wasi_unstable: wasi.wasiImport };
- * const importObject = { wasi_snapshot_preview1: wasi.wasiImport };
- *
  * const wasm = await WebAssembly.compile(
- *   await readFile(new URL('./demo.wasm', import.meta.url))
+ *   await readFile(new URL('./demo.wasm', import.meta.url)),
  * );
- * const instance = await WebAssembly.instantiate(wasm, importObject);
+ * const instance = await WebAssembly.instantiate(wasm, wasi.getImportObject());
  *
  * wasi.start(instance);
  * ```
@@ -64,11 +61,8 @@
  * ```console
  * $ wat2wasm demo.wat
  * ```
- *
- * The `--experimental-wasi-unstable-preview1` CLI argument is needed for this
- * example to run.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/wasi.js)
  */
 declare module 'wasi' {
     interface WASIOptions {
