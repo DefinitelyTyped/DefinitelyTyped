@@ -90,8 +90,12 @@ const { r2: { upload: { token }} } = await (async () => {
     const r3: Attachments.UploadResponseModel = await client.attachments.upload(Buffer.alloc(8), {
         filename: "filename",
     });
+    const r4: Attachments.UploadResponseModel = await client.attachments.upload(Buffer.from("Test"), {
+        filename: "filename",
+        binary: true
+    });
 
-    return { r1, r2, r3 };
+    return { r1, r2, r3, r4 };
 })();
 
 /** Tickets Methods */
