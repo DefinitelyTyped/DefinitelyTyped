@@ -11,7 +11,7 @@ import { HistoryState } from "../HistoryState";
  * var snapshots = app.activeDocument.historyStates.filter(h => h.snapshot)
  * ```
  */
-export declare class HistoryStates {
+export declare class HistoryStates extends Array<HistoryState> {
     /**
      * @ignore
      */

@@ -749,6 +749,15 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     // But no return results in `void`.
     // @ts-expect-error
     const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
+
+    // @ts-expect-error
+    const render: React.ReactNode = () => React.createElement('div');
+    // @ts-expect-error
+    const emptyObject: React.ReactNode = { };
+    // @ts-expect-error
+    const plainObject: React.ReactNode = { dave: true };
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+    const promise: React.ReactNode = Promise.resolve('React');
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });

@@ -19,6 +19,7 @@ const example2: WebAppManifest = {
     name: 'Super Racer 3000',
     description: 'The ultimate futuristic racing game from the future!',
     short_name: 'Racer3K',
+    id: 'foo',
     icons: [
         {
             src: 'icon/lowres.webp',

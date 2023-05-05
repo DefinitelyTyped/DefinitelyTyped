@@ -61,7 +61,7 @@ export interface LayerCompCreateOptions {
  *
  * @targetfolder objects/options
  * @optionobject
- * @minVersion
+ * @minVersion 24.0
  */
 export interface LayerCompRecaptureOptions {
     /**
