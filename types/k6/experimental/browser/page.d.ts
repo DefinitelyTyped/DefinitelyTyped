@@ -3,7 +3,6 @@ import {
     ElementHandle,
     EvaluationArgument,
     Frame,
-    Mouse,
     PageFunction,
     SelectOptionsObject,
     Worker } from "./";
@@ -12,6 +11,7 @@ import { Response } from "./response";
 import { Locator } from "./locator";
 import { JSHandle } from "./js_handle";
 import { Keyboard } from "./keyboard";
+import { Mouse } from "./mouse";
 
 /**
  * Page provides methods to interact with a single tab in a running web browser

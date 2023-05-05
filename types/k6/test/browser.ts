@@ -619,6 +619,59 @@ keyboard.up();
 keyboard.up("a");
 
 //
+// Mouse
+//
+
+const mouse = page.mouse;
+
+// @ts-expect-error
+mouse.click();
+// @ts-expect-error
+mouse.click(0);
+// $ExpectType void
+mouse.click(0, 0);
+// $ExpectType void
+mouse.click(0, 0, { button: 'right' });
+// $ExpectType void
+mouse.click(0, 0, { clickCount: 2 });
+// $ExpectType void
+mouse.click(0, 0, { delay: 1000 });
+
+// @ts-expect-error
+mouse.dblclick();
+// @ts-expect-error
+mouse.dblclick(0);
+// $ExpectType void
+mouse.dblclick(0, 0);
+// $ExpectType void
+mouse.dblclick(0, 0, { button: 'right' });
+// $ExpectType void
+mouse.dblclick(0, 0, { delay: 1000 });
+
+// $ExpectType void
+mouse.down();
+// $ExpectType void
+mouse.down({ button: 'right' });
+// $ExpectType void
+mouse.down({ clickCount: 2 });
+
+// @ts-expect-error
+mouse.move();
+// @ts-expect-error
+mouse.move(0);
+// $ExpectType void
+mouse.move(0, 0);
+// $ExpectType void
+mouse.move(0, 0, { steps: 10 });
+
+// $ExpectType void
+mouse.up();
+// $ExpectType void
+mouse.up({ button: 'right' });
+// $ExpectType void
+mouse.up({ clickCount: 2 });
+
+//
 // Locator
 //
 const locator = page.locator(selector);

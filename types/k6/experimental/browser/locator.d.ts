@@ -1,14 +1,13 @@
 import {
+    MouseClickOptions,
     ElementClickOptions,
     KeyboardPressOptions,
+    KeyboardModifierOptions,
     MouseMoveOptions,
     TimeoutOptions,
     ElementHandleOptions,
     EvaluationArgument,
     ElementState,
-    MouseMultiClickOptions,
-    StrictnessOptions,
-    MouseClickOptions,
 } from "./";
 
 /**
@@ -27,13 +26,13 @@ export class Locator {
    * @param options Click options.
    * @returns Promise which resolves when the element is successfully clicked.
    */
-  click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
+  click(options?: MouseMoveOptions & MouseClickOptions): Promise<void>;
 
   /**
    * Mouse double click on the chosen element.
    * @param options Double click options.
    */
-  dblclick(options?: MouseMoveOptions & MouseClickOptions & StrictnessOptions): void;
+  dblclick(options?: { clickCount?: number } & MouseClickOptions & KeyboardModifierOptions & ElementClickOptions): void;
 
   /**
    * Use this method to select an `input type="checkbox"`.
@@ -160,7 +159,7 @@ export class Locator {
    * @param text Text to type into the input field.
    * @param options Typing options.
    */
-  type(text: string, options?: KeyboardMultiPressOptions): void;
+  type(text: string, options?: KeyboardPressOptions): void;
 
   /**
    * Hover over the element.
