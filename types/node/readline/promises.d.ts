@@ -7,7 +7,6 @@
 declare module 'readline/promises' {
     import { Interface as _Interface, ReadLineOptions, Completer, AsyncCompleter, Direction } from 'node:readline';
     import { Abortable } from 'node:events';
-
     class Interface extends _Interface {
         /**
          * The rl.question() method displays the query by writing it to the output, waits for user input to be provided on input,
@@ -45,12 +44,16 @@ declare module 'readline/promises' {
         question(query: string): Promise<string>;
         question(query: string, options: Abortable): Promise<string>;
     }
-
     class Readline {
         /**
          * @param stream A TTY stream.
          */
-        constructor(stream: NodeJS.WritableStream, options?: { autoCommit?: boolean });
+        constructor(
+            stream: NodeJS.WritableStream,
+            options?: {
+                autoCommit?: boolean;
+            }
+        );
         /**
          * The `rl.clearLine()` method adds to the internal list of pending action an action that clears current line of the associated `stream` in a specified direction identified by `dir`.
          * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true` was passed to the constructor.
@@ -80,7 +83,6 @@ declare module 'readline/promises' {
          */
         rollback(): this;
     }
-
     /**
      * The `readlinePromises.createInterface()` method creates a new `readlinePromises.Interface` instance.
      *

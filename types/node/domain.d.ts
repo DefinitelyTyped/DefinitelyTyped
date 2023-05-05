@@ -12,7 +12,7 @@
  * will be notified, rather than losing the context of the error in the`process.on('uncaughtException')` handler, or causing the program to
  * exit immediately with an error code.
  * @deprecated Since v1.4.2 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/domain.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/domain.js)
  */
 declare module 'domain' {
     import EventEmitter = require('node:events');
@@ -63,8 +63,8 @@ declare module 'domain' {
          * This is the most basic way to use a domain.
          *
          * ```js
-         * const domain = require('domain');
-         * const fs = require('fs');
+         * const domain = require('node:domain');
+         * const fs = require('node:fs');
          * const d = domain.create();
          * d.on('error', (er) => {
          *   console.error('Caught error!', er);
