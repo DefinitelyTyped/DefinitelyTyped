@@ -62,7 +62,7 @@
  * $ wat2wasm demo.wat
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/wasi.js)
  */
 declare module 'wasi' {
     interface WASIOptions {
@@ -85,11 +85,11 @@ declare module 'wasi' {
          */
         preopens?: NodeJS.Dict<string> | undefined;
         /**
-         * By default, WASI applications terminate the Node.js
-         * process via the `__wasi_proc_exit()` function. Setting this option to `true`
-         * causes `wasi.start()` to return the exit code rather than terminate the
-         * process.
-         * @default false
+         * By default, when WASI applications call `__wasi_proc_exit()`
+         *  `wasi.start()` will return with the exit code specified rather than terminatng the process.
+         * Setting this option to `false` will cause the Node.js process to exit with
+         * the specified exit code instead.
+         * @default true
          */
         returnOnExit?: boolean | undefined;
         /**

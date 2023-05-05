@@ -6,7 +6,7 @@
  * ```js
  * const util = require('node:util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
@@ -1834,7 +1834,7 @@ declare module 'util/types' {
      * ```js
      * const vm = require('node:vm');
      * const context = vm.createContext({});
-     * const myError = vm.runInContext('new Error', context);
+     * const myError = vm.runInContext('new Error()', context);
      * console.log(util.types.isNativeError(myError)); // true
      * console.log(myError instanceof Error); // false
      * ```

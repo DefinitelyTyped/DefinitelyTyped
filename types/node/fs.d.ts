@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -847,6 +847,9 @@ declare module 'fs' {
      * Asynchronous [`stat(2)`](http://man7.org/linux/man-pages/man2/stat.2.html). The callback gets two arguments `(err, stats)` where`stats` is an `fs.Stats` object.
      *
      * In case of an error, the `err.code` will be one of `Common System Errors`.
+     *
+     * {@link stat} follows symbolic links. Use {@link lstat} to look at the
+     * links themselves.
      *
      * Using `fs.stat()` to check for the existence of a file before calling`fs.open()`, `fs.readFile()`, or `fs.writeFile()` is not recommended.
      * Instead, user code should open/read/write the file directly and handle the
@@ -1881,6 +1884,7 @@ declare module 'fs' {
             | {
                   encoding: BufferEncoding | null;
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | BufferEncoding
             | undefined
@@ -1898,6 +1902,7 @@ declare module 'fs' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer',
         callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void
@@ -1912,6 +1917,7 @@ declare module 'fs' {
         options:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | undefined
@@ -1932,6 +1938,7 @@ declare module 'fs' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         },
         callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void
     ): void;
@@ -1947,6 +1954,7 @@ declare module 'fs' {
                 | {
                       encoding: BufferEncoding | null;
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   }
                 | BufferEncoding
                 | null
@@ -1963,6 +1971,7 @@ declare module 'fs' {
                 | {
                       encoding: 'buffer';
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   }
         ): Promise<Buffer[]>;
         /**
@@ -1975,6 +1984,7 @@ declare module 'fs' {
             options?:
                 | (ObjectEncodingOptions & {
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   })
                 | BufferEncoding
                 | null
@@ -1988,6 +1998,7 @@ declare module 'fs' {
             path: PathLike,
             options: ObjectEncodingOptions & {
                 withFileTypes: true;
+                recursive?: boolean | undefined;
             }
         ): Promise<Dirent[]>;
     }
@@ -2010,6 +2021,7 @@ declare module 'fs' {
             | {
                   encoding: BufferEncoding | null;
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | BufferEncoding
             | null
@@ -2025,6 +2037,7 @@ declare module 'fs' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer'
     ): Buffer[];
@@ -2038,6 +2051,7 @@ declare module 'fs' {
         options?:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | null
@@ -2051,6 +2065,7 @@ declare module 'fs' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         }
     ): Dirent[];
     /**
@@ -3850,6 +3865,9 @@ declare module 'fs' {
      */
     export function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
     export interface OpenDirOptions {
+        /**
+         * @default 'utf8'
+         */
         encoding?: BufferEncoding | undefined;
         /**
          * Number of directory entries that are buffered
@@ -3858,6 +3876,10 @@ declare module 'fs' {
          * @default 32
          */
         bufferSize?: number | undefined;
+        /**
+         * @default false
+         */
+        recursive?: boolean;
     }
     /**
      * Synchronously open a directory. See [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html).
@@ -3920,6 +3942,10 @@ declare module 'fs' {
          * @default true
          */
         force?: boolean;
+        /**
+         * Modifiers for copy operation. See `mode` flag of {@link copyFileSync()}
+         */
+        mode?: number;
         /**
          * When `true` timestamps from `src` will
          * be preserved.

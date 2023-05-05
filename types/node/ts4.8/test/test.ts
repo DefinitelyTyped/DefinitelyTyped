@@ -18,6 +18,7 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
+    testNamePatterns: ['executed'],
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -78,6 +79,8 @@ test(undefined, undefined, t => {
     t.afterEach(() => {});
     // $ExpectType void
     t.beforeEach(() => {});
+    // $ExpectType void
+    t.before(() => {});
 });
 
 // Test the subtest approach.

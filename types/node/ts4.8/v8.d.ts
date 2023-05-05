@@ -4,7 +4,7 @@
  * ```js
  * const v8 = require('node:v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/v8.js)
  */
 declare module 'v8' {
     import { Readable } from 'node:stream';
@@ -29,6 +29,9 @@ declare module 'v8' {
         does_zap_garbage: DoesZapCodeSpaceFlag;
         number_of_native_contexts: number;
         number_of_detached_contexts: number;
+        total_global_handles_size: number;
+        used_global_handles_size: number;
+        external_memory: number;
     }
     interface HeapCodeStatistics {
         code_and_metadata_size: number;

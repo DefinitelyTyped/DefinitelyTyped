@@ -14,7 +14,7 @@
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
@@ -1131,6 +1131,20 @@ declare module 'stream' {
          * @param stream a stream to attach a signal to
          */
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
+        /**
+         * Returns the default highWaterMark used by streams.
+         * Defaults to `16384` (16 KiB), or `16` for `objectMode`.
+         * @since v19.9.0
+         * @param objectMode
+         */
+        function getDefaultHighWaterMark(objectMode: boolean): number;
+        /**
+         * Sets the default highWaterMark used by streams.
+         * @since v19.9.0
+         * @param objectMode
+         * @param value highWaterMark value
+         */
+        function setDefaultHighWaterMark(objectMode: boolean, value: number): void;
         interface FinishedOptions extends Abortable {
             error?: boolean | undefined;
             readable?: boolean | undefined;
