@@ -97,8 +97,8 @@ export interface EventSequenceOptions {
 
 export type ElementHandleOptions = {
   /**
-   * Setting this to `true` will bypass the actionability checks (`visible`, `stable`, `enabled`).
-   * Defaults to `false`.
+   * Setting this to `true` will bypass the actionability checks (visible,
+   * stable, enabled). Defaults to `false`.
    */
   force?: boolean,
 
@@ -109,30 +109,33 @@ export type ElementHandleOptions = {
   noWaitAfter?: boolean,
 
   /**
-   * Setting this to `true` will perform the actionability checks without performing the action.
-   * Defaults to `false`.
+   * Setting this to `true` will perform the actionability checks without
+   * performing the action. Useful to wait until the element is ready for the
+   * action without performing it. Defaults to `false`.
    */
   trial?: boolean,
 } & TimeoutOptions;
 
 export type ElementClickOptions = ElementHandleOptions & {
   /**
-   * A point to use relative to the top left corner of the element. If not supplied, a visible point of the element is used.
+   * A point to use relative to the top left corner of the element. If not supplied,
+   * a visible point of the element is used.
    */
   position?: { x: number, y: number }
 };
 
 export interface KeyboardModifierOptions {
   /**
-   * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the action. If not specified, currently pressed modifiers are used.
+   * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the action.
+   * If not specified, currently pressed modifiers are used.
    */
   modifiers?: KeyboardModifier[];
 }
 
 export type KeyboardPressOptions = {
   /**
-   * If set to `true` and a navigation occurs from performing this action, it will not wait for it to complete.
-   * Defaults to `false`.
+   * If set to `true` and a navigation occurs from performing this action, it
+   * will not wait for it to complete. Defaults to `false`.
    */
   noWaitAfter?: boolean,
 } & EventSequenceOptions & TimeoutOptions;
