@@ -7,6 +7,7 @@
 
 /// <reference types="node"/>
 
+import stream from "node:stream";
 import { PathLike } from "fs";
 
 export type ZendeskCallback<TResponse, TResult> = (
@@ -86,7 +87,7 @@ export namespace Attachments {
         show(attachmentId: number): Promise<ShowResponseModel>;
 
         upload(
-            file: PathLike,
+            file: PathLike | Buffer | stream,
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
@@ -95,7 +96,7 @@ export namespace Attachments {
             cb: ZendeskCallback<unknown, UploadResponseModel>,
         ): void;
         upload(
-            file: PathLike,
+            file: PathLike | Buffer | stream,
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
