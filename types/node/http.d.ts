@@ -37,7 +37,7 @@
  *   'Host', 'example.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
@@ -185,6 +185,13 @@ declare module 'http' {
          * @default 30000
          */
         connectionsCheckingInterval?: number | undefined;
+        /**
+         * Optionally overrides all `socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
+         * This affects `highWaterMark` property of both `IncomingMessage` and `ServerResponse`.
+         * Default: @see stream.getDefaultHighWaterMark().
+         * @since v20.1.0
+         */
+        highWaterMark?: number | undefined;
         /**
          * Use an insecure HTTP parser that accepts invalid HTTP headers when `true`.
          * Using the insecure parser should be avoided.

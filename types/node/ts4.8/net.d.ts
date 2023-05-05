@@ -10,7 +10,7 @@
  * ```js
  * const net = require('node:net');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/net.js)
  */
 declare module 'net' {
     import * as stream from 'node:stream';
@@ -267,6 +267,12 @@ declare module 'net' {
          */
         readonly connecting: boolean;
         /**
+         * This is `true` if the socket is not connected yet, either because `.connect()`has not yet been called or because it is still in the process of connecting
+         * (see `socket.connecting`).
+         * @since v11.2.0, v10.16.0
+         */
+        readonly pending: boolean;
+        /**
          * See `writable.destroyed` for further details.
          */
         readonly destroyed: boolean;
@@ -287,12 +293,6 @@ declare module 'net' {
          * @since v18.8.0, v16.18.0
          */
         readonly localFamily?: string;
-        /**
-         * This is `true` if the socket is not connected yet, either because `.connect()`has not yet been called or because it is still in the process of connecting
-         * (see `socket.connecting`).
-         * @since v11.2.0, v10.16.0
-         */
-        readonly pending: boolean;
         /**
          * This property represents the state of the connection as a string.
          *

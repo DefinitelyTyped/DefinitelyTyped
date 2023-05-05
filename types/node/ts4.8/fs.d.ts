@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -131,6 +131,36 @@ declare module 'fs' {
      * @since v0.1.21
      */
     export class Stats {}
+    export interface StatsFsBase<T> {
+        /** Type of file system. */
+        type: T;
+        /**  Optimal transfer block size. */
+        bsize: T;
+        /**  Total data blocks in file system. */
+        blocks: T;
+        /** Free blocks in file system. */
+        bfree: T;
+        /** Available blocks for unprivileged users */
+        bavail: T;
+        /** Total file nodes in file system. */
+        files: T;
+        /** Free file nodes in file system. */
+        ffree: T;
+    }
+    export interface StatsFs extends StatsFsBase<number> {}
+    /**
+     * Provides information about a mounted file system
+     *
+     * Objects returned from {@link statfs} and {@link statfsSync} are of this type.
+     * If `bigint` in the `options` passed to those methods is true, the numeric values
+     * will be `bigint` instead of `number`.
+     * @since  v18.15.0
+     */
+    export class StatsFs {}
+    export interface BigIntStatsFs extends StatsFsBase<bigint> {}
+    export interface StatFsOptions {
+        bigint?: boolean | undefined;
+    }
     /**
      * A representation of a directory entry, which can be a file or a subdirectory
      * within the directory, as returned by reading from an `fs.Dir`. The
@@ -818,6 +848,9 @@ declare module 'fs' {
      *
      * In case of an error, the `err.code` will be one of `Common System Errors`.
      *
+     * {@link stat} follows symbolic links. Use {@link lstat} to look at the
+     * links themselves.
+     *
      * Using `fs.stat()` to check for the existence of a file before calling`fs.open()`, `fs.readFile()`, or `fs.writeFile()` is not recommended.
      * Instead, user code should open/read/write the file directly and handle the
      * error raised if the file is not available.
@@ -1081,6 +1114,72 @@ declare module 'fs' {
         ): Promise<BigIntStats>;
         function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
+    /**
+     * Asynchronous [`statfs(2)`](http://man7.org/linux/man-pages/man2/statfs.2.html). Returns information about the mounted file system which
+     * contains `path`. The callback gets two arguments `(err, stats)` where `stats`is an `fs.StatFs` object.
+     *
+     * In case of an error, the `err.code` will be one of `Common System Errors`.
+     * @since v19.6.0, v18.15.0
+     * @param path A path to an existing file or directory on the file system to be queried.
+     */
+    export function statfs(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: StatsFs) => void): void;
+    export function statfs(
+        path: PathLike,
+        options:
+            | (StatFsOptions & {
+                  bigint?: false | undefined;
+              })
+            | undefined,
+        callback: (err: NodeJS.ErrnoException | null, stats: StatsFs) => void
+    ): void;
+    export function statfs(
+        path: PathLike,
+        options: StatFsOptions & {
+            bigint: true;
+        },
+        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStatsFs) => void
+    ): void;
+    export function statfs(path: PathLike, options: StatFsOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: StatsFs | BigIntStatsFs) => void): void;
+    export namespace statfs {
+        /**
+         * Asynchronous statfs(2) - Returns information about the mounted file system which contains path. The callback gets two arguments (err, stats) where stats is an <fs.StatFs> object.
+         * @param path A path to an existing file or directory on the file system to be queried.
+         */
+        function __promisify__(
+            path: PathLike,
+            options?: StatFsOptions & {
+                bigint?: false | undefined;
+            }
+        ): Promise<StatsFs>;
+        function __promisify__(
+            path: PathLike,
+            options: StatFsOptions & {
+                bigint: true;
+            }
+        ): Promise<BigIntStatsFs>;
+        function __promisify__(path: PathLike, options?: StatFsOptions): Promise<StatsFs | BigIntStatsFs>;
+    }
+    /**
+     * Synchronous [`statfs(2)`](http://man7.org/linux/man-pages/man2/statfs.2.html). Returns information about the mounted file system which
+     * contains `path`.
+     *
+     * In case of an error, the `err.code` will be one of `Common System Errors`.
+     * @since v19.6.0, v18.15.0
+     * @param path A path to an existing file or directory on the file system to be queried.
+     */
+    export function statfsSync(
+        path: PathLike,
+        options?: StatFsOptions & {
+            bigint?: false | undefined;
+        }
+    ): StatsFs;
+    export function statfsSync(
+        path: PathLike,
+        options: StatFsOptions & {
+            bigint: true;
+        }
+    ): BigIntStatsFs;
+    export function statfsSync(path: PathLike, options?: StatFsOptions): StatsFs | BigIntStatsFs;
     /**
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -1785,6 +1884,7 @@ declare module 'fs' {
             | {
                   encoding: BufferEncoding | null;
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | BufferEncoding
             | undefined
@@ -1802,6 +1902,7 @@ declare module 'fs' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer',
         callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void
@@ -1816,6 +1917,7 @@ declare module 'fs' {
         options:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | undefined
@@ -1836,6 +1938,7 @@ declare module 'fs' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         },
         callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void
     ): void;
@@ -1851,6 +1954,7 @@ declare module 'fs' {
                 | {
                       encoding: BufferEncoding | null;
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   }
                 | BufferEncoding
                 | null
@@ -1867,6 +1971,7 @@ declare module 'fs' {
                 | {
                       encoding: 'buffer';
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   }
         ): Promise<Buffer[]>;
         /**
@@ -1879,6 +1984,7 @@ declare module 'fs' {
             options?:
                 | (ObjectEncodingOptions & {
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   })
                 | BufferEncoding
                 | null
@@ -1892,6 +1998,7 @@ declare module 'fs' {
             path: PathLike,
             options: ObjectEncodingOptions & {
                 withFileTypes: true;
+                recursive?: boolean | undefined;
             }
         ): Promise<Dirent[]>;
     }
@@ -1914,6 +2021,7 @@ declare module 'fs' {
             | {
                   encoding: BufferEncoding | null;
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | BufferEncoding
             | null
@@ -1929,6 +2037,7 @@ declare module 'fs' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer'
     ): Buffer[];
@@ -1942,6 +2051,7 @@ declare module 'fs' {
         options?:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | null
@@ -1955,6 +2065,7 @@ declare module 'fs' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         }
     ): Dirent[];
     /**
@@ -3754,6 +3865,9 @@ declare module 'fs' {
      */
     export function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
     export interface OpenDirOptions {
+        /**
+         * @default 'utf8'
+         */
         encoding?: BufferEncoding | undefined;
         /**
          * Number of directory entries that are buffered
@@ -3762,6 +3876,10 @@ declare module 'fs' {
          * @default 32
          */
         bufferSize?: number | undefined;
+        /**
+         * @default false
+         */
+        recursive?: boolean;
     }
     /**
      * Synchronously open a directory. See [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html).
@@ -3824,6 +3942,10 @@ declare module 'fs' {
          * @default true
          */
         force?: boolean;
+        /**
+         * Modifiers for copy operation. See `mode` flag of {@link copyFileSync()}
+         */
+        mode?: number;
         /**
          * When `true` timestamps from `src` will
          * be preserved.

@@ -183,6 +183,7 @@ function fixupModuleStructure(node: DocRoot): void {
     // yet another rename
     renameModule('performance_measurement_apis', 'perf_hooks');
     renameModule('http/2', 'http2');
+    renameModule('test_runner', 'node:test');
     renameModule('tls_(ssl)', 'tls');
     renameModule('webassembly_system_interface_(wasi)', 'wasi');
     unnestModule(['fs', 'promises_api'], 'fs/promises');

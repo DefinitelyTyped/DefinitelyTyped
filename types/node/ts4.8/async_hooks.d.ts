@@ -12,7 +12,7 @@
  * import async_hooks from 'node:async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/async_hooks.js)
  */
 declare module 'async_hooks' {
     /**
@@ -278,9 +278,7 @@ declare module 'async_hooks' {
             fn: Func,
             type?: string,
             thisArg?: ThisArg
-        ): Func & {
-            asyncResource: AsyncResource;
-        };
+        ): Func;
         /**
          * Binds the given function to execute to this `AsyncResource`'s scope.
          * @since v14.8.0, v12.19.0
@@ -288,9 +286,7 @@ declare module 'async_hooks' {
          */
         bind<Func extends (...args: any[]) => any>(
             fn: Func
-        ): Func & {
-            asyncResource: AsyncResource;
-        };
+        ): Func;
         /**
          * Call the provided function with the provided arguments in the execution context
          * of the async resource. This will establish the context, trigger the AsyncHooks
@@ -378,9 +374,7 @@ declare module 'async_hooks' {
          */
         static bind<Func extends (...args: any[]) => any>(
             fn: Func
-        ): Func & {
-            asyncResource: AsyncResource;
-        };
+        ): Func;
         /**
          * Captures the current execution context and returns a function that accepts a
          * function as an argument. Whenever the returned function is called, it
@@ -410,9 +404,7 @@ declare module 'async_hooks' {
          * @experimental
          * @return A new function with the signature `(fn: (...args) : R, ...args) : R`.
          */
-        static snapshot(): (<R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R) & {
-            asyncResource: AsyncResource;
-        };
+        static snapshot(): <R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R;
         /**
          * Disables the instance of `AsyncLocalStorage`. All subsequent calls
          * to `asyncLocalStorage.getStore()` will return `undefined` until`asyncLocalStorage.run()` or `asyncLocalStorage.enterWith()` is called again.
