@@ -2,13 +2,14 @@
 // Project: https://github.com/mercadopago/sdk-js
 // Definitions by: mercadopago <https://github.com/mercadopago>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 5.0
 
-import { mercadopagocore } from './core';
+/// <reference path="core.d.ts" />
 
-export namespace mercadopago {
+declare namespace mercadopago {
   interface MercadoPago {
       new(publicKey: string, options: mercadopagocore.Options): mercadopagocore.MercadoPagoCore;
   }
 }
 
-export const MercadoPago: mercadopago.MercadoPago;
+declare var MercadoPago: mercadopago.MercadoPago;

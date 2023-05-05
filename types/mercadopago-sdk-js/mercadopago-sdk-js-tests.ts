@@ -1,5 +1,3 @@
-import { MercadoPago } from 'mercadopago-sdk-js';
-
 // initiate MP library
 const mpInstance = new MercadoPago("pk", {});
 
@@ -28,7 +26,7 @@ brickBuilder.create('cardPayment', 'container', {
     amount: 100
   },
   callbacks: {
-    onSubmit: (formData, additionalData) => {
+    onSubmit: (formData: any, additionalData: any) => {
       return new Promise(() => {
         console.log(formData, additionalData);
       });
@@ -39,8 +37,6 @@ brickBuilder.create('cardPayment', 'container', {
 const fieldInstance = mpInstance.fields.create("cardNumber", {});
 fieldInstance.mount("containerId");
 fieldInstance.update({});
-fieldInstance.on('validityChange', (args) => { });
+fieldInstance.on('validityChange', (args: any) => { });
 mpInstance.fields.createCardToken({}, undefined);
 fieldInstance.unmount();
-
-export { mpInstance };

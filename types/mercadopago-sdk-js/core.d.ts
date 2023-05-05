@@ -1,9 +1,9 @@
-import { CardForm, CardFormOptions } from "./modules/cardform";
-import { Bricks, BricksStyle } from "./modules/bricks";
-import { Fields } from "./modules/fields";
-import { Issuer, PayerCost, Setting, CardTokenResponse } from "./shared";
+/// <reference path="shared.d.ts" />
+/// <reference path="./modules/bricks.d.ts" />
+/// <reference path="./modules/cardform.d.ts" />
+/// <reference path="./modules/fields.d.ts" />
 
-export namespace mercadopagocore {
+declare namespace mercadopagocore {
   enum Locale {
     ES_AR = 'es-AR',
     ES_CL = 'es-CL',
@@ -48,8 +48,8 @@ export namespace mercadopagocore {
   interface Result {
     financial_institutions: unknown[];
     secure_thumbnail: string;
-    payer_costs: PayerCost[];
-    issuer: Issuer;
+    payer_costs: shared.PayerCost[];
+    issuer: shared.Issuer;
     total_financial_cost?: unknown;
     min_accreditation_days: number;
     max_accreditation_days: number;
@@ -69,7 +69,7 @@ export namespace mercadopagocore {
     processing_mode: string;
     additional_info_needed: string[];
     status: string;
-    settings: Setting[];
+    settings: shared.Setting[];
   }
 
   interface Paging {
@@ -113,10 +113,10 @@ export namespace mercadopagocore {
   interface InstallmentsResponse {
     payment_method_id: string;
     payment_type_id: string;
-    issuer: Issuer;
+    issuer: shared.Issuer;
     processing_mode: string;
     merchant_account_id?: string;
-    payer_costs: PayerCost[];
+    payer_costs: shared.PayerCost[];
     agreements?: unknown;
   }
 
@@ -149,15 +149,15 @@ export namespace mercadopagocore {
     ): Promise<InstallmentsResponse[]>;
     createCardToken(
       cardTokenParams: CardTokenParams
-    ): Promise<CardTokenResponse>;
+    ): Promise<shared.CardTokenResponse>;
     updateCardToken(
       CardTokenUpdateParams: CardTokenUpdateParams
-    ): Promise<CardTokenResponse>;
+    ): Promise<shared.CardTokenResponse>;
 
-    fields: Fields;
+    fields: fields.Fields;
 
-    bricks(style: BricksStyle): Bricks;
+    bricks(style: bricks.BricksStyle): bricks.Bricks;
 
-    cardForm(options: CardFormOptions): CardForm;
+    cardForm(options: cardform.CardFormOptions): cardform.CardForm;
   }
 }
