@@ -57,7 +57,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
    */
   SectionSeparatorComponent?:
     | React.ComponentType<any>
-    | React.ReactElement
+    | React.ReactElement<unknown>
     | null
     | undefined;
 

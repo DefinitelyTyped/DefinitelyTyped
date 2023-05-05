@@ -14,7 +14,7 @@ export class InputAccessoryView extends React.Component<InputAccessoryViewProps>
 export interface InputAccessoryViewProps {
   backgroundColor?: ColorValue | undefined;
 
-  children?: React.ReactNode | undefined;
+  children?: React.ReactNode;
 
   /**
    * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
