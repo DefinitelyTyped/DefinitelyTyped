@@ -368,7 +368,7 @@ function hydrateRoot() {
 }
 
 /**
- * source:
+ * source: https://react.dev/reference/react-dom/server/renderToPipeableStream
  */
 function pipeableStreamDocumentedExample() {
     function App() {
@@ -382,16 +382,18 @@ function pipeableStreamDocumentedExample() {
     }
 
     let didError = false;
-    const res: Response = {} as any;
-    const stream = ReactDOMServer.renderToPipeableStream(<App />, {
+    const response: Response = {} as any;
+    const { pipe } = ReactDOMServer.renderToPipeableStream(<App />, {
+        bootstrapScripts: ['/main.js'],
         onShellReady() {
-            res.statusCode = didError ? 500 : 200;
-            res.setHeader('Content-type', 'text/html');
-            stream.pipe(res);
+            response.statusCode = didError ? 500 : 200;
+            response.setHeader('content-type', 'text/html');
+            pipe(response);
         },
         onShellError(error) {
-            res.statusCode = 500;
-            res.send('<!doctype html><p>Loading...</p><script src="clientrender.js"></script>');
+            response.statusCode = 500;
+            response.setHeader('content-type', 'text/html');
+            response.send('<h1>Something went wrong</h1>');
         },
         onAllReady() {},
         onError(err) {
