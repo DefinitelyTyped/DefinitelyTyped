@@ -41,7 +41,7 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/buffer.js)
  */
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
@@ -446,7 +446,7 @@ declare module 'buffer' {
              *
              * ```js
              * const u16 = new Uint16Array([0, 0xffff]);
-             * const buf = Buffer.copyBytesFrom(u16, 0, 1);
+             * const buf = Buffer.copyBytesFrom(u16, 1, 1);
              * u16[1] = 0;
              * console.log(buf.length); // 2
              * console.log(buf[0]); // 255
@@ -488,7 +488,7 @@ declare module 'buffer' {
              * // Prints: <Buffer 00 00 00 00 00>
              * ```
              *
-             * If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown.
+             * If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_OUT_OF_RANGE` is thrown.
              *
              * If `fill` is specified, the allocated `Buffer` will be initialized by calling `buf.fill(fill)`.
              *
@@ -525,7 +525,7 @@ declare module 'buffer' {
              */
             alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
             /**
-             * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown.
+             * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_OUT_OF_RANGE` is thrown.
              *
              * The underlying memory for `Buffer` instances created in this way is _not_
              * _initialized_. The contents of the newly created `Buffer` are unknown and _may contain sensitive data_. Use `Buffer.alloc()` instead to initialize`Buffer` instances with zeroes.
@@ -562,8 +562,8 @@ declare module 'buffer' {
              */
             allocUnsafe(size: number): Buffer;
             /**
-             * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown. A zero-length `Buffer` is created
-             * if `size` is 0.
+             * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_OUT_OF_RANGE` is thrown. A zero-length `Buffer` is created if
+             * `size` is 0.
              *
              * The underlying memory for `Buffer` instances created in this way is _not_
              * _initialized_. The contents of the newly created `Buffer` are unknown and _may contain sensitive data_. Use `buf.fill(0)` to initialize

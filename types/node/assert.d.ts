@@ -1,7 +1,7 @@
 /**
  * The `node:assert` module provides a set of assertion functions for verifying
  * invariants.
- * @see [source](https://github.com/nodejs/node/blob/v20.0.0/lib/assert.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/assert.js)
  */
 declare module 'assert' {
     /**
@@ -35,9 +35,10 @@ declare module 'assert' {
             });
         }
         /**
-         * This feature is currently experimental and behavior might still change.
+         * This feature is deprecated and will be removed in a future version.
+         * Please consider using alternatives such as the `mock` helper function.
          * @since v14.2.0, v12.19.0
-         * @experimental
+         * @deprecated Deprecated
          */
         class CallTracker {
             /**

@@ -486,7 +486,9 @@ export class NodeProcessingContext {
         this.context.indent = getIndent(node);
         if (isFunctionDeclaration(node)) {
             processRes = this.processFunctionDeclaration(node);
-        } else if (isNamedModuleDeclaration(node) && !node.name.text.startsWith('node:')) { // apparently everything is a module
+        } else if (isNamedModuleDeclaration(node)
+            && !(node.name.text.startsWith('node:') && node.name.text !== 'node:test') // apparently everything is a module
+        ) {
             processRes = this.handleModuleDeclaration();
         } else if (isClassDeclaration(node)) {
             processRes = this.handleClassDeclaration(node);
