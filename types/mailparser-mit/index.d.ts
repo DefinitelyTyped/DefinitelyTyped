@@ -90,8 +90,14 @@ export interface ParsedEmail {
     attachments?: Attachment[];
 }
 
-export class MailParser extends Stream {
+export class MailParser extends Stream implements NodeJS.WritableStream {
     constructor(options?: MailParserOptions);
+    writable: boolean;
+    write(buffer: string | Uint8Array, cb?: ((err?: Error | null | undefined) => void) | undefined): boolean;
+    write(str: string, encoding?: BufferEncoding | undefined, cb?: ((err?: Error | null | undefined) => void) | undefined): boolean;
+    end(cb?: (() => void) | undefined): this;
+    end(data: string | Uint8Array, cb?: (() => void) | undefined): this;
+    end(str: string, encoding?: BufferEncoding | undefined, cb?: (() => void) | undefined): this;
     options: MailParserOptions;
     /** The complete tree structure of the e-mail */
     mimeTree: MimeTreeNode;
