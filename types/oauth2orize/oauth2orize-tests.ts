@@ -17,6 +17,17 @@ server.grant(oauth2orize.grant.code((client, redirectURI, user, ares, done) => {
   // });
 }));
 
+server.grant(oauth2orize.grant.code({
+    modes: {
+        query: (txn, res, params) => {
+            txn.redirectURI;
+            Object.entries(params);
+            res.write('');
+        }
+    },
+    scopeSeparator: " ",
+}, (client, redirectURI, user, ares, done) => {}));
+
 // Register Exchanges
 function findOne(code: string, callback: (err: Error, code: {
   clientId: string, userId: string, redirectURI: string, scope: string

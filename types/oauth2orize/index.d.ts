@@ -177,7 +177,10 @@ export class OAuth2Server {
 
 export namespace grant {
   interface Options {
-    // For maximum flexibility, multiple scope spearators can optionally be
+    modes?: {
+      query?: (txn: OAuth2, res: ServerResponse, params: Record<string, unknown>) => void;
+    };
+    // For maximum flexibility, multiple scope separators can optionally be
     // allowed.  This allows the server to accept clients that separate scope
     // with either space or comma (' ', ',').  This violates the specification,
     // but achieves compatibility with existing client libraries that are already
@@ -198,7 +201,7 @@ export namespace exchange {
     // of the token endpoint, the property will contain the OAuth 2.0 client.
     userProperty?: string | undefined;
 
-    // For maximum flexibility, multiple scope spearators can optionally be
+    // For maximum flexibility, multiple scope separators can optionally be
     // allowed.  This allows the server to accept clients that separate scope
     // with either space or comma (' ', ',').  This violates the specification,
     // but achieves compatibility with existing client libraries that are already
