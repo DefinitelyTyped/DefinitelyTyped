@@ -70,11 +70,13 @@ export interface MailData {
     attachments: Array<{ content: Attachment; level: number }>;
 }
 
+export type Headers = { [header: string]: string  | string[] };
+
 export interface ParsedEmail {
     html?: string;
     text?: string;
     alternatives?: Array<MailData['calendar'][number]['content']>;
-    headers: { [header: string]: string };
+    headers: Headers;
     subject?: string;
     references?: string[];
     messageId?: string;
@@ -106,6 +108,6 @@ export class MailParser extends Stream implements NodeJS.WritableStream {
 
     on(event: string, callback: (any: any) => void): this;
     on(event: 'end', listener: (email: ParsedEmail) => void): this;
-    on(event: 'headers', listener: (headers: { [header: string]: string }) => void): this;
+    on(event: 'headers', listener: (headers: Headers) => void): this;
     on(event: 'attachment', listener: (attachment: StreamAttachment, rootNode: MimeTreeNode) => void): this;
 }
