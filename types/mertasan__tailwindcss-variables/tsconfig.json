@@ -18,9 +18,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@mertasan/tailwindcss-variables": ["mertasan__tailwindcss-variables"],
-            "@mertasan/tailwindcss-variables/api": ["mertasan__tailwindcss-variables/api"],
-            "@mertasan/tailwindcss-variables/colorVariable": ["mertasan__tailwindcss-variables/colorVariable"]
+            "@mertasan/*": ["mertasan__*"]
         }
     },
     "files": [
