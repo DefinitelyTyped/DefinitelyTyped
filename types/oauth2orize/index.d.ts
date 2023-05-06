@@ -29,7 +29,7 @@ export interface OAuth2 {
 export interface OAuth2Req {
   clientID: string;
   redirectURI: string;
-  scope: string;
+  scope: string[];
   state: string;
   type: string;
   transactionID: string;

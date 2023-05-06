@@ -31,6 +31,7 @@ server.grant(oauth2orize.grant.code({
 }, (client, redirectURI, user, ares, done) => {}));
 
 server.grant(oauth2orize.grant.code((client, redirectURI, user, ares, areq, locals, done) => {
+    areq.scope // $ExpectType string[]
     done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
 }));
 server.grant(oauth2orize.grant.code(((client, redirectURI, user, ares, areq, done) => {
