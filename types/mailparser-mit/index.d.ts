@@ -43,6 +43,7 @@ export interface Attachment {
     generatedFileName: string;
     length: number;
     transferEncoding: string;
+    fileName?: string;
 }
 export interface StreamAttachment extends Omit<Attachment, 'content'> {
     contents: Stream;
