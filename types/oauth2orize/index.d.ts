@@ -155,11 +155,10 @@ export class OAuth2Server {
   exchange(type: string, fn: MiddlewareFunction): OAuth2Server;
   exchange(fn: MiddlewareFunction): OAuth2Server;
 
-  authorize(options: AuthorizeOptions, validate: ValidateFunction): MiddlewareFunction;
-  authorize(validate: ValidateFunction): MiddlewareFunction;
+  authorize(options: AuthorizeOptions, validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
 
-  authorization(options: AuthorizeOptions, validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
-  authorization(validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorization: OAuth2Server["authorize"];
 
   decision(options: DecisionOptions, parse: DecisionParseFunction): MiddlewareFunction;
   decision(parse: DecisionParseFunction): MiddlewareFunction;

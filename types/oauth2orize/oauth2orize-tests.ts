@@ -70,6 +70,8 @@ class Clients {
   };
 // );
 
+server.authorization((clientId, redirectURI, done) => {});
+
 // Session Serialization
 server.serializeClient((client, done) => {
   done(null, client.id);
