@@ -52,7 +52,7 @@ export interface MimeTreeNode {
     attachment?: boolean;
     childNodes: MimeTreeNode[];
     content?: string | Buffer;
-    from?: [ContactInfo];
+    from?: ContactInfo[];
     headers?: Array<{ key: string; value: string }>;
     messageId?: string;
     meta: { [key: string]: any };
@@ -71,7 +71,9 @@ export interface MailData {
     attachments: Array<{ content: Attachment; level: number }>;
 }
 
-export type Headers = { [header: string]: string  | string[] };
+export interface Headers {
+    [header: string]: string | string[];
+}
 
 export interface ParsedEmail {
     html?: string;
@@ -96,11 +98,11 @@ export interface ParsedEmail {
 export class MailParser extends Stream implements NodeJS.WritableStream {
     constructor(options?: MailParserOptions);
     writable: boolean;
-    write(buffer: string | Uint8Array, cb?: ((err?: Error | null | undefined) => void) | undefined): boolean;
-    write(str: string, encoding?: BufferEncoding | undefined, cb?: ((err?: Error | null | undefined) => void) | undefined): boolean;
-    end(cb?: (() => void) | undefined): this;
-    end(data: string | Uint8Array, cb?: (() => void) | undefined): this;
-    end(str: string, encoding?: BufferEncoding | undefined, cb?: (() => void) | undefined): this;
+    write(buffer: string | Uint8Array, cb?: (err?: Error | null) => void): boolean;
+    write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
+    end(cb?: () => void): this;
+    end(data: string | Uint8Array, cb?: () => void): this;
+    end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     options: MailParserOptions;
     /** The complete tree structure of the e-mail */
     mimeTree: MimeTreeNode;

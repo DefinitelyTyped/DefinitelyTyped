@@ -22,7 +22,7 @@ parser.on('end', email => {
 });
 // $ExpectType MailParser
 parser.on('headers', headers => {
-    // $ExpectType { [header: string]: string; }
+    // $ExpectType Headers
     const _email = headers;
 });
 // $ExpectType MailParser
