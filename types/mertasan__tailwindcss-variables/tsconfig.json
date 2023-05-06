@@ -22,10 +22,7 @@
         }
     },
     "files": [
-        "internal/PluginOptions.d.ts",
         "index.d.ts",
-        "api.d.ts",
-        "colorVariable.d.ts",
         "mertasan__tailwindcss-variables-tests.ts"
     ]
 }
