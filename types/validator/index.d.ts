@@ -1148,9 +1148,9 @@ declare namespace validator {
      */
     function isUppercase(str: string): boolean;
 
-    type UUIDVersion = 3 | 4 | 5 | '3' | '4' | '5' | 'all';
+    type UUIDVersion = '1' | '2' | '3' | '4' | '5' | 'all' | 1 | 2 | 3 | 4 | 5;
     /**
-     * Check if the string is a UUID (version 3, 4 or 5).
+     * Check if the string is a UUID (version 1, 2, 3, 4 or 5).
      *
      * @param [version="all"] - UUID version
      */
