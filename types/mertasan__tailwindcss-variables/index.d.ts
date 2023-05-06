@@ -7,8 +7,8 @@ import { Config, PluginCreator } from 'tailwindcss/types/config';
 import type { PluginOptions } from './internal/PluginOptions';
 
 declare const plugin: {
-  (options: PluginOptions): { handler: PluginCreator; config?: Config };
-  __isOptionsFunction: true
+    (options: PluginOptions): { handler: PluginCreator; config?: Config };
+    __isOptionsFunction: true;
 };
 
 export = plugin;
