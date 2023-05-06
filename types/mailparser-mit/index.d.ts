@@ -51,7 +51,7 @@ export interface MimeTreeNode {
     attachment?: boolean;
     childNodes: MimeTreeNode[];
     content?: string | Buffer;
-    from?: ContactInfo[];
+    from?: [ContactInfo];
     headers?: Array<{ key: string; value: string }>;
     messageId?: string;
     meta: { [key: string]: any };
