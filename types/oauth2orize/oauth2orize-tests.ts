@@ -16,7 +16,7 @@ server.grant(oauth2orize.grant.code(((client, redirectURI, user, ares, done) => 
   //   return done(null, code);
   // });
 
-  done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
+  done; // $ExpectType IssueGrantCodeDoneFunction
 }) as oauth2orize.IssueGrantCodeFunction));
 
 server.grant(oauth2orize.grant.code({
@@ -31,14 +31,14 @@ server.grant(oauth2orize.grant.code({
 }, (client, redirectURI, user, ares, done) => {}));
 
 server.grant(oauth2orize.grant.code((client, redirectURI, user, ares, areq, locals, done) => {
-    areq.scope // $ExpectType string[]
-    done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
+    areq.scope; // $ExpectType string[]
+    done; // $ExpectType IssueGrantCodeDoneFunction
 }));
 server.grant(oauth2orize.grant.code(((client, redirectURI, user, ares, areq, done) => {
-    done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
+    done; // $ExpectType IssueGrantCodeDoneFunction
 }) as oauth2orize.IssueGrantCodeFunctionArity6));
 server.grant(oauth2orize.grant.code(((client, redirectURI, user, done) => {
-    done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
+    done; // $ExpectType IssueGrantCodeDoneFunction
 }) as oauth2orize.IssueGrantCodeFunctionArity4));
 
 // Register Exchanges
@@ -47,7 +47,7 @@ function findOne(code: string, callback: (err: Error, code: {
 }) => void): void {}
 
 server.exchange(oauth2orize.exchange.code(((client, code, redirectURI, done) => {
-  done // $ExpectType oauth2orize.ExchangeDoneFunction
+  done; // $ExpectType ExchangeDoneFunction
   findOne(code, (err, code) => {
     if (err) {
       done(err);
@@ -67,14 +67,14 @@ server.exchange(oauth2orize.exchange.code(((client, code, redirectURI, done) => 
 }) as oauth2orize.IssueExchangeCodeFunction));
 
 server.exchange(oauth2orize.exchange.code((client, code, redirectURI, body, authInfo, done) => {
-  done // $ExpectType oauth2orize.ExchangeDoneFunction
+  done; // $ExpectType ExchangeDoneFunction
 }));
 server.exchange(oauth2orize.exchange.code(((client, code, redirectURI, body, done) => {
-  done // $ExpectType oauth2orize.ExchangeDoneFunction
+  done; // $ExpectType ExchangeDoneFunction
 }) as oauth2orize.IssueExchangeCodeFunctionArity5));
 
 server.exchange(oauth2orize.exchange.authorizationCode(((client, code, redirectURI, done) => {
-  done // $ExpectType oauth2orize.ExchangeDoneFunction
+  done; // $ExpectType ExchangeDoneFunction
 }) as oauth2orize.IssueExchangeCodeFunction));
 
 // Implement Authorization Endpoint
@@ -107,13 +107,13 @@ class Clients {
 // );
 
 server.authorize((clientID, redirectURI, scope, type, done) => {
-    done // $ExpectType oauthorize.ValidateDoneFunction
+    done; // $ExpectType ValidateDoneFunction
 });
 server.authorize(((clientID, redirectURI, scope, done) => {
-    done // $ExpectType oauthorize.ValidateDoneFunction
+    done; // $ExpectType ValidateDoneFunction
 }) as oauth2orize.ValidateFunctionArity4);
 server.authorize(((areq, done) => {
-    done // $ExpectType oauthorize.ValidateDoneFunction
+    done; // $ExpectType ValidateDoneFunction
 }) as oauth2orize.ValidateFunctionArity2);
 
 server.authorization((clientId, redirectURI, done) => {});

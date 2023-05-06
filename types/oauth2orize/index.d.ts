@@ -239,7 +239,7 @@ export namespace exchange {
   function authorizationCode(issue: IssueExchangeCodeFunctionArity5): MiddlewareFunction;
   function authorizationCode(issue: IssueExchangeCodeFunction): MiddlewareFunction;
 
-  var code: typeof authorizationCode;
+  const code: typeof authorizationCode;
 
   // arity == 5; issue(client, scope, req.body, req.authInfo, issued);
   function clientCredentials(options: Options, issue: (client: any, scope: string[], body: any, authInfo: any, issued: ExchangeDoneFunction) => void): MiddlewareFunction;
