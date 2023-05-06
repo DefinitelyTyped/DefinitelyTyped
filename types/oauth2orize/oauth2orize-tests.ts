@@ -7,7 +7,7 @@ import * as http from 'http';
 const server = oauth2orize.createServer();
 
 // Register Grants
-server.grant(oauth2orize.grant.code((client, redirectURI, user, ares, done) => {
+server.grant(oauth2orize.grant.code(((client, redirectURI, user, ares, done) => {
   // var code = utils.uid(16);
 
   // var ac = new AuthorizationCode(code, client.id, redirectURI, user.id, ares.scope);
@@ -15,7 +15,9 @@ server.grant(oauth2orize.grant.code((client, redirectURI, user, ares, done) => {
   //   if (err) { return done(err); }
   //   return done(null, code);
   // });
-}));
+
+  done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
+}) as oauth2orize.IssueGrantCodeFunction));
 
 server.grant(oauth2orize.grant.code({
     modes: {
@@ -27,6 +29,16 @@ server.grant(oauth2orize.grant.code({
     },
     scopeSeparator: " ",
 }, (client, redirectURI, user, ares, done) => {}));
+
+server.grant(oauth2orize.grant.code((client, redirectURI, user, ares, areq, locals, done) => {
+    done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
+}));
+server.grant(oauth2orize.grant.code(((client, redirectURI, user, ares, areq, done) => {
+    done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
+}) as oauth2orize.IssueGrantCodeFunctionArity6));
+server.grant(oauth2orize.grant.code(((client, redirectURI, user, done) => {
+    done // $ExpectType oauth2orize.IssueGrantCodeDoneFunction
+}) as oauth2orize.IssueGrantCodeFunctionArity4));
 
 // Register Exchanges
 function findOne(code: string, callback: (err: Error, code: {

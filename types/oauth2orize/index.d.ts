@@ -140,7 +140,12 @@ export type SerializeClientDoneFunction = (err: Error | null, id: string) => voi
 export type DeserializeClientFunction = (id: string, done: DeserializeClientDoneFunction) => void;
 export type DeserializeClientDoneFunction = (err: Error | null, client?: any | boolean) => void;
 
-export type IssueGrantCodeFunction = (client: any, redirectUri: string, user: any, res: any, issued: (err: Error | null, code?: string) => void) => void;
+export type IssueGrantCodeDoneFunction = (err: Error | null, code?: string) => void;
+
+export type IssueGrantCodeFunctionArity7 = (client: any, redirectUri: string, user: any, res: any, req: OAuth2Req, locals: any, issued: IssueGrantCodeDoneFunction) => void;
+export type IssueGrantCodeFunctionArity6 = (client: any, redirectUri: string, user: any, res: any, req: OAuth2Req, issued: IssueGrantCodeDoneFunction) => void;
+export type IssueGrantCodeFunction = (client: any, redirectUri: string, user: any, res: any, issued: IssueGrantCodeDoneFunction) => void;
+export type IssueGrantCodeFunctionArity4 = (client: any, redirectUri: string, user: any, issued: IssueGrantCodeDoneFunction) => void;
 
 export type IssueGrantTokenFunction = (client: any, user: any, ares: any, issued: (err: Error | null, code?: string, params?: any) => void) => void;
 
@@ -188,8 +193,14 @@ export namespace grant {
     scopeSeparator?: string | undefined;
   }
 
+  function code(options: Options, issue: IssueGrantCodeFunctionArity7): MiddlewareFunction;
+  function code(options: Options, issue: IssueGrantCodeFunctionArity6): MiddlewareFunction;
   function code(options: Options, issue: IssueGrantCodeFunction): MiddlewareFunction;
+  function code(options: Options, issue: IssueGrantCodeFunctionArity4): MiddlewareFunction;
+  function code(issue: IssueGrantCodeFunctionArity7): MiddlewareFunction;
+  function code(issue: IssueGrantCodeFunctionArity6): MiddlewareFunction;
   function code(issue: IssueGrantCodeFunction): MiddlewareFunction;
+  function code(issue: IssueGrantCodeFunctionArity4): MiddlewareFunction;
 
   function token(options: Options, issue: IssueGrantTokenFunction): MiddlewareFunction;
   function token(issue: IssueGrantTokenFunction): MiddlewareFunction;
