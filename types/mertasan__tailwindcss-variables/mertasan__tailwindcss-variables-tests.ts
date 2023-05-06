@@ -1,0 +1,30 @@
+import variablesPlugin from '@mertasan/tailwindcss-variables';
+import variablesApi from '@mertasan/tailwindcss-variables/api';
+import colorVariable from '@mertasan/tailwindcss-variables/colorVariable';
+import plugin from 'tailwindcss/plugin';
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  content: [],
+  theme: {
+    colors: {
+      primary: colorVariable('--colors-primary'),
+    },
+  },
+  plugins: [
+    variablesPlugin,
+    variablesPlugin({
+      colorVariables: true,
+      darkToRoot: true,
+      extendColors: {},
+      forceRGB: true,
+      toBase: true,
+      variablePrefix: 'admin',
+    }),
+    plugin(({ addComponents }) => {
+      addComponents(variablesApi.variables({}, {}));
+      addComponents(variablesApi.darkVariables({}, {}, 'class'));
+      addComponents(variablesApi.getComponents('.form', {}));
+    }),
+  ],
+};

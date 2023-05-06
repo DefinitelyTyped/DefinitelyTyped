@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "ES2018.Promise"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@mertasan/tailwindcss-variables": ["mertasan__tailwindcss-variables"],
+            "@mertasan/tailwindcss-variables/api": ["mertasan__tailwindcss-variables/api"],
+            "@mertasan/tailwindcss-variables/colorVariable": ["mertasan__tailwindcss-variables/colorVariable"]
+        }
+    },
+    "files": [
+        "internal/PluginOptions.d.ts",
+        "index.d.ts",
+        "api.d.ts",
+        "colorVariable.d.ts",
+        "mertasan__tailwindcss-variables-tests.ts"
+    ]
+}
