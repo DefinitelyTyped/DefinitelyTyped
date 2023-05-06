@@ -149,6 +149,8 @@ export type IssueGrantCodeFunctionArity4 = (client: any, redirectUri: string, us
 
 export type IssueGrantTokenFunction = (client: any, user: any, ares: any, issued: (err: Error | null, code?: string, params?: any) => void) => void;
 
+export type IssueExchangeCodeFunctionArity6 = (client: any, code: string, redirectURI: string, body: Record<string, unknown>, authInfo: any, issued: ExchangeDoneFunction) => void;
+export type IssueExchangeCodeFunctionArity5 = (client: any, code: string, redirectURI: string, body: Record<string, unknown>, issued: ExchangeDoneFunction) => void;
 export type IssueExchangeCodeFunction = (client: any, code: string, redirectURI: string, issued: ExchangeDoneFunction) => void;
 
 export type ExchangeDoneFunction = (err: Error | null, accessToken?: string | boolean, refreshToken?: string, params?: any) => void;
@@ -220,11 +222,14 @@ export namespace exchange {
     scopeSeparator?: string | undefined;
   }
 
+  function authorizationCode(options: Options, issue: IssueExchangeCodeFunctionArity6): MiddlewareFunction;
+  function authorizationCode(options: Options, issue: IssueExchangeCodeFunctionArity5): MiddlewareFunction;
   function authorizationCode(options: Options, issue: IssueExchangeCodeFunction): MiddlewareFunction;
+  function authorizationCode(issue: IssueExchangeCodeFunctionArity6): MiddlewareFunction;
+  function authorizationCode(issue: IssueExchangeCodeFunctionArity5): MiddlewareFunction;
   function authorizationCode(issue: IssueExchangeCodeFunction): MiddlewareFunction;
 
-  function code(options: Options, issue: IssueExchangeCodeFunction): MiddlewareFunction;
-  function code(issue: IssueExchangeCodeFunction): MiddlewareFunction;
+  var code: typeof authorizationCode;
 
   // arity == 5; issue(client, scope, req.body, req.authInfo, issued);
   function clientCredentials(options: Options, issue: (client: any, scope: string[], body: any, authInfo: any, issued: ExchangeDoneFunction) => void): MiddlewareFunction;

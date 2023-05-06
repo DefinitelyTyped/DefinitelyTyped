@@ -45,7 +45,8 @@ function findOne(code: string, callback: (err: Error, code: {
   clientId: string, userId: string, redirectURI: string, scope: string
 }) => void): void {}
 
-server.exchange(oauth2orize.exchange.code((client, code, redirectURI, done) => {
+server.exchange(oauth2orize.exchange.code(((client, code, redirectURI, done) => {
+  done // $ExpectType oauth2orize.ExchangeDoneFunction
   findOne(code, (err, code) => {
     if (err) {
       done(err);
@@ -62,7 +63,18 @@ server.exchange(oauth2orize.exchange.code((client, code, redirectURI, done) => {
     //   return done(null, token);
     // });
   });
+}) as oauth2orize.IssueExchangeCodeFunction));
+
+server.exchange(oauth2orize.exchange.code((client, code, redirectURI, body, authInfo, done) => {
+  done // $ExpectType oauth2orize.ExchangeDoneFunction
 }));
+server.exchange(oauth2orize.exchange.code(((client, code, redirectURI, body, done) => {
+  done // $ExpectType oauth2orize.ExchangeDoneFunction
+}) as oauth2orize.IssueExchangeCodeFunctionArity5));
+
+server.exchange(oauth2orize.exchange.authorizationCode(((client, code, redirectURI, done) => {
+  done // $ExpectType oauth2orize.ExchangeDoneFunction
+}) as oauth2orize.IssueExchangeCodeFunction));
 
 // Implement Authorization Endpoint
 class Clients {
