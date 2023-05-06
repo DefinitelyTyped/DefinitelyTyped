@@ -46,7 +46,7 @@ export interface Attachment {
     fileName?: string;
 }
 export interface StreamAttachment extends Omit<Attachment, 'content'> {
-    contents: Stream;
+    stream: Stream;
 }
 export interface MimeTreeNode {
     attachment?: boolean;
