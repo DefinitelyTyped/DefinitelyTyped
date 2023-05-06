@@ -128,7 +128,11 @@ export type MiddlewareErrorFunction = (err: Error, req: MiddlewareRequest, res: 
 
 export type MiddlewareNextFunction = (err?: Error) => void;
 
-export type ValidateFunction = (clientId: string, redirectURI: string, validated: (err: Error | null, client?: any, redirectURI?: string) => void) => void;
+export type ValidateDoneFunction = (err: Error | null, client?: any, redirectURI?: string) => void;
+export type ValidateFunctionArity5 = (clientId: string, redirectURI: string, scope: string[], type: string, validated: ValidateDoneFunction) => void;
+export type ValidateFunctionArity4 = (clientId: string, redirectURI: string, scope: string[], validated: ValidateDoneFunction) => void;
+export type ValidateFunction = (clientId: string, redirectURI: string, validated: ValidateDoneFunction) => void;
+export type ValidateFunctionArity2 = (areq: OAuth2Req, validated: ValidateDoneFunction) => void;
 
 export type ImmediateFunction = (client: any, user: any, scope: string[], type: string, areq: any, done: (err: Error | null, allow: boolean, info: any, locals: any) => void) => void;
 
@@ -162,8 +166,14 @@ export class OAuth2Server {
   exchange(type: string, fn: MiddlewareFunction): OAuth2Server;
   exchange(fn: MiddlewareFunction): OAuth2Server;
 
+  authorize(options: AuthorizeOptions, validate: ValidateFunctionArity5, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(options: AuthorizeOptions, validate: ValidateFunctionArity4, immediate?: ImmediateFunction): MiddlewareFunction;
   authorize(options: AuthorizeOptions, validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(options: AuthorizeOptions, validate: ValidateFunctionArity2, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(validate: ValidateFunctionArity5, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(validate: ValidateFunctionArity4, immediate?: ImmediateFunction): MiddlewareFunction;
   authorize(validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(validate: ValidateFunctionArity2, immediate?: ImmediateFunction): MiddlewareFunction;
 
   authorization: OAuth2Server["authorize"];
 

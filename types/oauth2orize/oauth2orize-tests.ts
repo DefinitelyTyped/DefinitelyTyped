@@ -87,7 +87,7 @@ class Clients {
 
 // app.get('/dialog/authorize',
   // login.ensureLoggedIn(),
-  server.authorize((clientID, redirectURI, done) => {
+  server.authorize(((clientID, redirectURI, done) => {
     Clients.findOne(clientID, (err, client) => {
       if (err) {
         done(err);
@@ -99,12 +99,22 @@ class Clients {
         done(null, client, client.redirectURI);
       }
     });
-  });
+  }) as oauth2orize.ValidateFunction);
   (req: http.IncomingMessage, res: http.ServerResponse) => {
     // res.render('dialog', { transactionID: req.oauth2.transactionID,
     //                        user: req.user, client: req.oauth2.client });
   };
 // );
+
+server.authorize((clientID, redirectURI, scope, type, done) => {
+    done // $ExpectType oauthorize.ValidateDoneFunction
+});
+server.authorize(((clientID, redirectURI, scope, done) => {
+    done // $ExpectType oauthorize.ValidateDoneFunction
+}) as oauth2orize.ValidateFunctionArity4);
+server.authorize(((areq, done) => {
+    done // $ExpectType oauthorize.ValidateDoneFunction
+}) as oauth2orize.ValidateFunctionArity2);
 
 server.authorization((clientId, redirectURI, done) => {});
 
