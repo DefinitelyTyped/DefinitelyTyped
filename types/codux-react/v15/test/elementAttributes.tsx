@@ -1,0 +1,51 @@
+import * as React from 'react';
+
+const testCases = [
+    <span />,
+    <span accessKey="s" />,
+    <span autoFocus />,
+    <span className="klass" />,
+    <span contentEditable />,
+    <span contextMenu="menuId" />,
+    <span dir="rtl" />,
+    <span draggable />,
+    <span hidden />,
+    <span id="s" />,
+    <span lang="art-x-tokipona" />,
+    <input placeholder="placeholder" />,
+    <span slot="my-text" />,
+    <span spellCheck />,
+    <span tabIndex={0} />,
+    <span title="title" />,
+    <span role="button" />,
+    <span autoCapitalize="off" />,
+    <span autoCapitalize="none" />,
+    <span autoCapitalize="on" />,
+    <span autoCapitalize="words" />,
+    <span autoCapitalize="sentences" />,
+    <span autoCorrect="off" />,
+    <span autoCorrect="on" />,
+    <input value={['one', 'two'] as string[]} />,
+    <input value={['one', 'two']} />,
+    <input accept="image/*" capture="user" />,
+    <input accept="image/*" capture="environment" />,
+    <input accept="image/*" capture />,
+    <input accept="video/*" capture="user" />,
+    <input accept="video/*" capture="environment" />,
+    <input accept="video/*" capture />,
+    <input accept="audio/*" capture />,
+
+    <div role="dialog" />,
+    <div role="none presentation" />,
+    <svg role="treeitem" />,
+    <a target="_blank"></a>,
+    <a target="some-frame"></a>,
+    <input type="button" />,
+    <input type="some-type" />,
+    // @ts-expect-error
+    <input enterKeyHint="don" />,
+    <picture>
+        <source media="test" srcSet="test" />
+        <img src="test" width={100} height={100} />
+    </picture>,
+];
