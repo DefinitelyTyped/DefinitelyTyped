@@ -101,23 +101,27 @@ type PERSONAL_RATING_RESOURCE_TYPE =
     | RESOURCE['LibraryPlaylist']
     | RESOURCE['LibrarySong'];
 
-type GENERAL_RESOURCE_TYPE = RESOURCE['PersonalRecommendation'] | RESOURCE['Rating'] | RESOURCE['Storefront'];
+type RECOMMENDATIONS_RESOURCE_TYPE = RESOURCE['PersonalRecommendation'];
+
+type GENERAL_RESOURCE_TYPE = RESOURCE['Rating'] | RESOURCE['Storefront'];
 
 interface ACTION_TYPE {
-    SearchCatalogResources: 'SearchCatalogResources';
-    GetCatalogSearchHints: 'GetCatalogSearchHints';
-    GetTermsSearchSuggestions: 'GetTermsSearchSuggestions';
-    GetTopResultsSearchSuggestions: 'GetTopResultsSearchSuggestions';
-    GetAllSearchSuggestions: 'GetAllSearchSuggestions';
     GetAllResources: 'GetAllResources';
+    GetAllSearchSuggestions: 'GetAllSearchSuggestions';
+    GetCatalogSearchHints: 'GetCatalogSearchHints';
+    GetPersonalHeavyRotationContent: 'GetPersonalHeavyRotationContent';
     GetMultipleResources: 'GetMultipleResources';
-    GetSingleResource: 'GetSingleResource';
+    GetPersonalDefaultRecommendations: 'GetPersonalDefaultRecommendations';
     GetPersonalMultipleResources: 'GetPersonalMultipleResources';
     GetPersonalSingleResource: 'GetPersonalSingleResource';
     GetRecentlyAddedResources: 'GetRecentlyAddedResources';
     GetRecentlyPlayedResources: 'GetRecentlyPlayedResources';
     GetRecentlyPlayedRTracks: 'GetRecentlyPlayedRTracks';
     GetRecentlyPlayedStations: 'GetRecentlyPlayedStations';
+    GetSingleResource: 'GetSingleResource';
+    GetTermsSearchSuggestions: 'GetTermsSearchSuggestions';
+    GetTopResultsSearchSuggestions: 'GetTopResultsSearchSuggestions';
+    SearchCatalogResources: 'SearchCatalogResources';
 }
 
 type ActionType = ACTION_TYPE[keyof ACTION_TYPE];
@@ -178,11 +182,24 @@ type SearchCatalogResourcesAPIParameters = APIBaseParameters & {
     action: ACTION_TYPE['SearchCatalogResources'];
 };
 
+type GetPersonalDefaultRecommendationsAPIParameters = APIBaseParameters & {
+    resource: RECOMMENDATIONS_RESOURCE_TYPE;
+    action: ACTION_TYPE['GetPersonalDefaultRecommendations'];
+};
+
+type GetPersonalHeavyRotationContentAPIParameters = APIBaseParameters & {
+    resource: never;
+    action: ACTION_TYPE['GetPersonalHeavyRotationContent'];
+};
+
+
 type APIParameters =
     | CatalogAPIParameters
     | GeneralAPIParameters
     | GetAllSearchSuggestionsAPIParameters
     | GetCatalogSearchHintsAPIParameters
+    | GetPersonalHeavyRotationContentAPIParameters
+    | GetPersonalDefaultRecommendationsAPIParameters
     | GetRecentlyAddedResourcesAPIParameters
     | GetRecentlyPlayedResourcesAPIParameters
     | GetTermsSearchSuggestionsAPIParameters
@@ -269,6 +286,8 @@ type catalogSearchBasePath = `/catalog/{{storefrontId}}`;
 type libraryBasePath = `/me/library`;
 type recentBasePath = `/me/recent`;
 type personalRatingBasePath = `/me/ratings`;
+type personalRecommendationsBasePath = `/me/recommendations`;
+type personalHeavyRotationContentBasePath = `/me/history/heavy-rotation`;
 type generalBasePath = ``;
 
 type libraryResourceToCatalogResource<T extends LIBRARY_RESOURCE_TYPE> = T extends RESOURCE['LibraryAlbum']
@@ -301,10 +320,14 @@ type getPath<T extends APIParameters> = T extends CatalogAPIParameters
     ? `${generatePath<T, libraryBasePath>}`
     : T extends GetRecentlyPlayedResourcesAPIParameters
     ? `${generatePath<T, recentBasePath>}`
+    : T extends GetPersonalDefaultRecommendationsAPIParameters
+    ? `${generatePath<T, personalRecommendationsBasePath>}`
+    : T extends GetPersonalHeavyRotationContentAPIParameters
+    ? `${generatePath<T, personalHeavyRotationContentBasePath>}`
     : never;
 
-type test = getPath<{
-    action: 'GetRecentlyPlayedResources';
+type test = getQueryParameters<{
+    action: "GetPersonalHeavyRotationContent";
     resource: never;
 }>;
 
@@ -312,11 +335,17 @@ type isNeedIDsQueryParameter<T extends APIParameters> = T['action'] extends ACTI
     ? true
     : false;
 
-type isNeedExtendQueryParameter<T extends APIParameters> = T['resource']['attributes'] extends undefined ? false : true;
+type isNeedExtendQueryParameter<T extends APIParameters> =
+    T extends ACTION_TYPE["GetPersonalDefaultRecommendations"]
+    | ACTION_TYPE["GetPersonalHeavyRotationContent"]
+    ? true
+    : T['resource']['attributes'] extends undefined ? false : true;
 
-type isNeedIncludeQueryParameter<T extends APIParameters> = T['resource']['relationships'] extends undefined
-    ? false
-    : true;
+type isNeedIncludeQueryParameter<T extends APIParameters> =
+    T extends ACTION_TYPE["GetPersonalDefaultRecommendations"]
+    | ACTION_TYPE["GetPersonalHeavyRotationContent"]
+    ? true
+    : T['resource']['relationships'] extends undefined ? false : true;
 
 type isNeedViewsQueryParameter<T extends APIParameters> = T extends CatalogAPIParameters
     ? T['action'] extends ACTION_TYPE['GetSingleResource']
@@ -324,15 +353,21 @@ type isNeedViewsQueryParameter<T extends APIParameters> = T extends CatalogAPIPa
         : false
     : false;
 
-type isNeedLimitQueryParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE['GetAllResources']
+type isNeedLimitQueryParameter<T extends APIParameters> = T['action'] extends
+    ACTION_TYPE['GetAllResources']
+    | ACTION_TYPE["GetPersonalDefaultRecommendations"]
+    | ACTION_TYPE["GetPersonalHeavyRotationContent"]
     ? true
     :
-          | isNeedRelationshipPathParameter<T>
-          | isNeedViewPathParameter<T>
-          | isNeedSearchCatalogResourcesPathParameter<T>
-          | isNeedGetCatalogSearchHintsPathParameter<T>;
+    | isNeedRelationshipPathParameter<T>
+    | isNeedViewPathParameter<T>
+    | isNeedSearchCatalogResourcesPathParameter<T>
+    | isNeedGetCatalogSearchHintsPathParameter<T>;
 
-type isNeedOffsetQueryParameter<T extends APIParameters> = T['action'] extends ACTION_TYPE['GetAllResources']
+type isNeedOffsetQueryParameter<T extends APIParameters> = T['action'] extends
+    ACTION_TYPE['GetAllResources']
+    | ACTION_TYPE["GetPersonalDefaultRecommendations"]
+    | ACTION_TYPE["GetPersonalHeavyRotationContent"]
     ? true
     : isNeedSearchCatalogResourcesPathParameter<T>;
 
@@ -393,8 +428,8 @@ type getQueryParameters<T extends APIParameters> = Omit<
 >;
 
 type test2 = getQueryParameters<{
-    action: 'SearchCatalogResources';
-    resource: MusicKit.Albums;
+    action: "GetPersonalDefaultRecommendations";
+    resource: MusicKit.PersonalRecommendations;
 }>;
 
 /**
@@ -432,6 +467,10 @@ type getAPIResponse<T extends APIParameters> = APIResponse & T extends SearchCat
     ? MusicKit.RecentlyAddedResourcesResponse
     : T['action'] extends ACTION_TYPE['GetRecentlyPlayedResources']
     ? MusicKit.RecentlyPlayedResourcesResponse
+    : T['action'] extends ACTION_TYPE["GetPersonalDefaultRecommendations"]
+    ? MusicKit.PersonalDefaultRecommendationsResponse
+    : T['action'] extends ACTION_TYPE["GetPersonalHeavyRotationContent"]
+    ? MusicKit.PersonalHeavyRotationContentResponse
     : isNeedLimitQueryParameter<T> extends true
     ? {
           data: T['resource'][];
@@ -446,7 +485,7 @@ type getAPIResponse<T extends APIParameters> = APIResponse & T extends SearchCat
       };
 
 type test3 = getAPIResponse<{
-    action: 'GetRecentlyAddedResources';
+    action: "GetPersonalDefaultRecommendations";
     resource: never;
 }>;
 

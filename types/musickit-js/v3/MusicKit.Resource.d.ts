@@ -450,6 +450,7 @@ declare namespace MusicKit {
             playlistType: 'editorial' | 'external' | 'personal-mix' | 'replay' | 'user-shared';
             url: string;
             trackTypes: Array<'music-videos' | 'songs'>;
+            playParams?: PlayParameters;
         };
         relationships?: Partial<{
             curator: Relationship<Activities | AppleCurators | Curators>;
@@ -503,7 +504,7 @@ declare namespace MusicKit {
 
     /**
      * A resource object that represents recommended resources for a user calculated using their selected preferences.
-     * https://developer.apple.com/documentation/applemusicapi/personalrecommendations
+     * https://developer.apple.com/documentation/applemusicapi/personalrecommendation
      */
     interface PersonalRecommendations {
         id: string;
@@ -521,7 +522,7 @@ declare namespace MusicKit {
             };
         };
         relationships?: Partial<{
-            content: Relationship<PERSONAL_RATING_RESOURCE_TYPE>;
+            contents: Relationship<PERSONAL_RATING_RESOURCE_TYPE>;
         }>;
     }
 

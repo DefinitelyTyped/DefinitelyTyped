@@ -4,13 +4,13 @@ declare namespace MusicKit {
      * https://developer.apple.com/documentation/musickit/artwork
      */
     interface Artwork {
-        bgColor: string;
+        bgColor?: string;
         height: number;
         width: number;
-        textColor1: string;
-        textColor2: string;
-        textColor3: string;
-        textColor4: string;
+        textColor1?: string;
+        textColor2?: string;
+        textColor3?: string;
+        textColor4?: string;
         url: string;
     }
 
@@ -57,7 +57,9 @@ declare namespace MusicKit {
      */
     interface PlayParameters {
         id: string;
-        kind: string;
+        kind: CATALOG_RESOURCE_TYPE["type"];
+        catalogId?: string;
+        isLibrary: boolean;
     }
 
     /**

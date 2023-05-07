@@ -57,7 +57,7 @@ declare namespace MusicKit {
         /**
          * The attributes object for the media item.
          */
-        readonly attributes: any;
+        readonly attributes: Songs["attributes"]|LibrarySongs["attributes"];
         /**
          * A string containing the content rating for the media item.
          */
@@ -115,6 +115,6 @@ declare namespace MusicKit {
         /**
          * The type of the media item.
          */
-        type: any;
+        type: keyof SetQueueOptions;
     }
 }

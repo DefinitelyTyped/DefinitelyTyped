@@ -98,13 +98,21 @@ declare namespace MusicKit {
     }
 
     interface RecentlyAddedResourcesResponse {
-        data: LIBRARY_RESOURCE_TYPE[];
+        data: Array<LibraryAlbums|LibraryPlaylists>;
         next?: getPath<GetRecentlyAddedResourcesAPIParameters>;
     }
 
     interface RecentlyPlayedResourcesResponse {
-        data: RESOURCES[];
+        data: Array<Albums|Playlists|Stations>;
         next?: getPath<GetRecentlyPlayedResourcesAPIParameters>;
+    }
+
+    interface PersonalDefaultRecommendationsResponse{
+        data: Array<PersonalRecommendations>;
+    }
+
+    interface PersonalHeavyRotationContentResponse {
+        data: Array<LibraryAlbums|LibrarySongs|LibraryPlaylists>;
     }
 }
 
@@ -121,8 +129,10 @@ declare namespace MusicKit {
      * https://developer.apple.com/documentation/applemusicapi/searchresponse/results
      */
     type SearchCatalogResponseResults<T extends CATALOG_RESOURCE_TYPE> = {
-        [P in T['type']]: SearchResult<RESOURCE_BY_TYPE_PROPERTY[P]>;
+        [P in T['type']]?: SearchResult<RESOURCE_BY_TYPE_PROPERTY[P]>;
     };
+
+        type a = SearchCatalogResponseResults<Albums>;
 
 
     interface SearchLibraryResult<T> {

@@ -32,6 +32,11 @@ declare namespace MusicKit {
          */
         song?: string | undefined;
         songs?: string[] | undefined;
+
+        /**
+         * The catalog station used to set a music player's playback queue.
+         */
+        station?: string | undefined;
         /**
          * The start position for a set playback queue.
          */
@@ -40,5 +45,11 @@ declare namespace MusicKit {
          * A content URL used to set a music player's playback queue.
          */
         url?: string | undefined;
+
+        /**
+         * A Boolean value that indicates whether to start playback immediately.
+         * The default value is false.
+         */
+        startPlaying?: boolean | undefined;
     }
 }
