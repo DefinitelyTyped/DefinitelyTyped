@@ -2,7 +2,6 @@
 // Project: https://github.com/shinnn/find-pkg-dir
 // Definitions by: David GABISON <https://github.com/pulsovi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
 
 /**
  * Find the root directory of a Node.js project from a given path.
