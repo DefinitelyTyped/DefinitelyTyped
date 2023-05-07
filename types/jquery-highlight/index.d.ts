@@ -55,7 +55,7 @@ interface HighlightOptions {
 }
 
 interface JQuery {
-   highlight(words?: string | string[], options?: HighlightOptions, callback?: Function): JQuery;
+   highlight(words?: string | string[], options?: HighlightOptions, callback?: () => void): JQuery;
 
    unhighlight(options?: UnhighlightSelectOption): JQuery;
 }
