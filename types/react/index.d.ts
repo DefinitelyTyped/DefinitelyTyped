@@ -3126,6 +3126,7 @@ declare namespace React {
     }
 
     namespace JSX {
+        type ElementType = GlobalJSXElementType;
         interface Element extends GlobalJSXElement {}
         interface ElementClass extends GlobalJSXElementClass {}
         interface ElementAttributesProperty extends GlobalJSXElementAttributesProperty {}
@@ -3406,6 +3407,7 @@ declare global {
 // React.JSX needs to point to global.JSX to keep global module augmentations intact.
 // But we can't access global.JSX so we need to create these aliases instead.
 // Once the global JSX namespace will be removed we replace React.JSX with the contents of global.JSX
+type GlobalJSXElementType = JSX.ElementType;
 interface GlobalJSXElement extends JSX.Element {}
 interface GlobalJSXElementClass extends JSX.ElementClass {}
 interface GlobalJSXElementAttributesProperty extends JSX.ElementAttributesProperty {}
