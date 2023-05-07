@@ -8,12 +8,12 @@
 
 interface Templates {
     button?: string | undefined;
-    ul?: string | undefined;
+    popupContainer?: string | undefined;
     filter?: string | undefined;
     filterClearBtn?: string | undefined;
-    li?: string | undefined;
+    option?: string | undefined;
     divider?: string | undefined;
-    liGroup?: string | undefined;
+    optionGroup?: string | undefined;
 }
 
 interface MultiSelectOptionElement {
