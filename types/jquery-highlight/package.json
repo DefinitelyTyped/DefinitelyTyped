@@ -3,7 +3,6 @@
     "version": "0.9.1",
     "description": "TypeScript definitions for jquery-highlight",
     "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/jquery-highlight",
-    "license": "MIT",
     "contributors": [
         {
             "name": "Mustafa Salaheldin",
