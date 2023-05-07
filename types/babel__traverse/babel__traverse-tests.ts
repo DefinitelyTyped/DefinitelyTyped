@@ -20,14 +20,14 @@ const MyVisitor: Visitor = {
 const MyVisitor2: Visitor = {
     Identifier(path) {
         path.type; // $ExpectType "Identifier"
-        path.parentPath; // $ExpectAssignable NodePath<Node>
+        path.parentPath; // $ExpectType NodePath<Node>
         console.log('Visiting: ' + path.node.name);
     },
     ArrayExpression(path) {
         path.get('elements'); // $ExpectType NodePath<SpreadElement | Expression | null>[]
     },
     Program(path) {
-        path.parentPath; // $ExpectType NodePath<Node> | null
+        path.parentPath; // $ExpectType null
     },
 };
 
@@ -58,7 +58,7 @@ const v1: Visitor = {
         }
         // $ExpectType [NodePath<BinaryExpression>]
         path.replaceWith(t.binaryExpression('**', path.node.left, t.numericLiteral(2)));
-        path.parentPath!.replaceWith(
+        path.parentPath.replaceWith(
             t.expressionStatement(t.stringLiteral("Anyway the wind blows, doesn't really matter to me, to me.")),
         );
         // $ExpectType [NodePath<BinaryExpression>]
@@ -70,7 +70,7 @@ const v1: Visitor = {
             t.binaryExpression('**', path.node.left, t.numericLiteral(2)),
             t.expressionStatement(t.stringLiteral("Anyway the wind blows, doesn't really matter to me, to me.")),
         ] as const);
-        path.parentPath!.remove();
+        path.parentPath.remove();
     },
 
     Identifier(path) {
@@ -98,8 +98,6 @@ const v1: Visitor = {
     FunctionDeclaration(path, state) {
         path.type; // $ExpectType "FunctionDeclaration"
 
-        path.get('body.body'); // $ExpectType NodePath<Statement>[]
-        path.get('body.body.0'); // $ExpectType NodePath<Statement> | undefined
         path.replaceWithSourceString(`function add(a, b) {
             return a + b;
         }`);
@@ -371,7 +369,7 @@ const objectTypeAnnotation: NodePath<t.ObjectTypeAnnotation> = new NodePath<t.Ob
     {} as any,
 );
 
-objectTypeAnnotation.get('indexers'); // $ExpectType NodePath<ObjectTypeIndexer>[] | NodePath<undefined>
+objectTypeAnnotation.get('indexers'); // $ExpectType NodePathResult<ObjectTypeIndexer[] | undefined>
 
 // Test that NodePath can be narrowed from union to single type
 const path: NodePath<t.ExportDefaultDeclaration | t.ExportNamedDeclaration> = new NodePath<t.ExportNamedDeclaration>(

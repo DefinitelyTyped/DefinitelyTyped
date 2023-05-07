@@ -331,14 +331,6 @@ export interface VisitNodeObject<S, P extends Node> {
     exit?: VisitNodeFunction<S, P>;
 }
 
-type PathChildPattern<P extends string, C extends string> = `${P}.${C}`;
-
-type ReadIndexType<T extends string> = T extends `${number}` ? number : T;
-
-type ParseNodeSelector<S extends string> = S extends PathChildPattern<infer P, infer C>
-    ? [ReadIndexType<P>, ...ParseNodeSelector<C>]
-    : [ReadIndexType<S>];
-
 export type NodeKeyOfArrays<T extends Node> = {
     [P in keyof T]-?: T[P] extends Array<Node | null | undefined> ? P : never;
 }[keyof T];
@@ -347,55 +339,19 @@ export type NodeKeyOfNodes<T extends Node> = {
     [P in keyof T]-?: T[P] extends Node | null | undefined ? P : never;
 }[keyof T];
 
-type NodeKeyOf<N extends Node | Node[]> = {
-    [Key in keyof N]-?: N[Key] extends Array<Node | null | undefined>
-        ? Key
-        : N[Key] extends Node | null | undefined
-        ? Key
-        : never;
-}[keyof N];
-
-type ASTKeyType<T extends Node | Array<Node | null | undefined>> = T extends Array<Node | null | undefined>
-    ? keyof T & number
-    : T extends Node
-    ? NodeKeyOf<T>
-    : never;
-
-type SelectASTChild<N extends Node | Node[], K extends unknown> = K extends ASTKeyType<N> ? N[K] : never;
-
-type ToNodePath<T extends unknown | unknown[]> =
-    | (Extract<T, unknown[]> extends never ? never : Array<NodePath<Extract<T, unknown[]>[number]>>)
-    | (Exclude<T, unknown[]> extends never ? never : NodePath<Exclude<T, unknown[]>>);
-
-type SelectASTDescendant<N, S extends unknown[]> = N extends Node | Node[]
-    ? S extends [infer P, ...infer C]
-        ? C extends []
-            ? SelectASTChild<N, P>
-            : SelectASTDescendant<SelectASTChild<N, P>, C>
-        : never
-    : never;
-
-type UndefinedIfListKey<S extends unknown[]> = Extract<S[number], number> extends never ? never : undefined;
-
-type SelectNodePath<N extends Node | Node[], S extends unknown[]> = SelectASTDescendant<N, S> extends never
-    ? never
-    : ToNodePath<SelectASTDescendant<N, S>> | UndefinedIfListKey<S>;
-
 export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Node[]
     ? { -readonly [K in keyof T]: NodePath<Extract<T[K], Node>> }
     : T extends Node
     ? [NodePath<T>]
     : never;
 
-export type ParentType<T> = T extends Node ? t.ParentMaps[T['type']] : null;
-
 type NodeListType<N, K extends keyof N> = N[K] extends Array<infer P> ? (P extends Node ? P : never) : never;
 
 type NodesInsertionParam<T extends Node> = T | readonly T[] | [T, ...T[]];
 
 export class NodePath<T = Node> {
-    constructor(hub: HubInterface, parent: ParentType<T>);
-    parent: ParentType<T>;
+    constructor(hub: HubInterface, parent: Node);
+    parent: Node;
     hub: Hub;
     data: Record<string | symbol, unknown>;
     context: TraversalContext;
@@ -404,7 +360,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: any;
     skipKeys: any;
-    parentPath: NodePath | null;
+    parentPath: T extends t.Program ? null : NodePath;
     container: Node | Node[] | null;
     listKey: string | null;
     key: string | number | null;
@@ -798,17 +754,8 @@ export class NodePath<T = Node> {
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
-    get<T extends Node, K extends keyof T>(
-        this: NodePath<T>,
-        key: K,
-        context?: boolean | TraversalContext,
-    ): ToNodePath<Extract<T[K], any[]>> | ToNodePath<Exclude<T[K], any[]>>;
-    get<T extends Node, K extends string>(
-        this: NodePath<T>,
-        key: K,
-        context?: boolean | TraversalContext,
-    ): SelectNodePath<T extends Node ? T : never, ParseNodeSelector<K>>;
-    get(key: string, context?: true | TraversalContext): NodePath | NodePath[] | undefined;
+    get<K extends keyof T>(key: K, context?: boolean | TraversalContext): NodePathResult<T[K]>;
+    get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
     getBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
@@ -1509,6 +1456,10 @@ export interface TraversalContext<S = unknown> {
     state: S;
     opts: TraverseOptions;
 }
+
+export type NodePathResult<T> =
+    | (Extract<T, Node | null | undefined> extends never ? never : NodePath<Extract<T, Node | null | undefined>>)
+    | (T extends Array<Node | null | undefined> ? Array<NodePath<T[number]>> : never);
 
 export interface VirtualTypeAliases {
     BindingIdentifier: t.Identifier;
