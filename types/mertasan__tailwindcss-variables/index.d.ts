@@ -4,10 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Config, PluginCreator } from 'tailwindcss/types/config';
-import type { PluginOptions } from './internal/PluginOptions';
+
+declare namespace plugin {
+    interface PluginOptions {
+        darkToRoot?: boolean;
+        variablePrefix?: string;
+        colorVariables?: boolean;
+        extendColors?: Record<string, string>;
+        forceRGB?: boolean;
+        toBase?: boolean;
+    }
+}
 
 declare const plugin: {
-    (options: PluginOptions): { handler: PluginCreator; config?: Config };
+    (options: plugin.PluginOptions): { handler: PluginCreator; config?: Config };
     __isOptionsFunction: true;
 };
 

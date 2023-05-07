@@ -1,4 +1,4 @@
-import type { PluginOptions } from './internal/PluginOptions';
+import type { PluginOptions } from './index';
 import type { RecursiveKeyValuePair } from 'tailwindcss/types/config';
 
 declare const api: {
