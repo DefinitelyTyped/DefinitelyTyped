@@ -315,7 +315,7 @@ const handleCalendarAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const ev = cal.getEventById(recurringEventId);
 
     // $ExpectType string[]
-    const attends: typeof attendees[number]['displayName'][] = ev.getGuestList().map(guest => guest.getName());
+    const attends: (typeof attendees)[number]['displayName'][] = ev.getGuestList().map(guest => guest.getName());
 
     console.log({ attends });
 
@@ -683,35 +683,33 @@ const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
     .setHelpText('Hey! You put a string in your string!')
     .build();
 
-const mimeTypes: string[] = [
-    MimeType.GOOGLE_APPS_SCRIPT,
-];
+const mimeTypes: string[] = [MimeType.GOOGLE_APPS_SCRIPT];
 
 // analytics reporting test
 const analyticsReporting = () => {
     const gaData = AnalyticsReporting.Reports.batchGet({
         reportRequests: [
             {
-                viewId: "",
+                viewId: '',
                 dateRanges: [
                     {
-                        startDate: "2023-03-08",
-                        endDate: "2023-03-08",
+                        startDate: '2023-03-08',
+                        endDate: '2023-03-08',
                     },
                 ],
                 metrics: [
                     {
-                        expression: "some metrics",
-                        alias: "some metrics",
-                        formattingType: "some metrics",
-                    }
+                        expression: 'some metrics',
+                        alias: 'some metrics',
+                        formattingType: 'some metrics',
+                    },
                 ],
                 dimensions: [
                     {
-                        name: "some dimensions"
-                    }
+                        name: 'some dimensions',
+                    },
                 ],
-                samplingLevel: "LARGE",
+                samplingLevel: 'LARGE',
             },
         ],
     });
@@ -730,7 +728,7 @@ const sheetDrawing = () => {
     drawing.getZIndex();
     // set methods
     drawing.setHeight(100);
-    drawing.setOnAction("functionName");
+    drawing.setOnAction('functionName');
     drawing.setPosition(0, 0, 10, 10);
     drawing.setWidth(100);
     drawing.setZIndex(100);
@@ -742,16 +740,45 @@ const sheetDrawing = () => {
 const sheetFontColorObjects = () => {
     const sheet = SpreadsheetApp.getActiveSheet();
     // Test for a single cell
-    const singleBuilder = SpreadsheetApp.newColor().setRgbColor("#808080").build();
-    sheet.getRange("A1").setFontColorObject(singleBuilder);
+    const singleBuilder = SpreadsheetApp.newColor().setRgbColor('#808080').build();
+    sheet.getRange('A1').setFontColorObject(singleBuilder);
     // Test for multiple cells
     const multipleBuilders = [
-        [SpreadsheetApp.newColor().setRgbColor("#000000").build(), SpreadsheetApp.newColor().setRgbColor("#800000").build()],
-        [SpreadsheetApp.newColor().setRgbColor("#008000").build(), SpreadsheetApp.newColor().setRgbColor("#000080").build()],
+        [
+            SpreadsheetApp.newColor().setRgbColor('#000000').build(),
+            SpreadsheetApp.newColor().setRgbColor('#800000').build(),
+        ],
+        [
+            SpreadsheetApp.newColor().setRgbColor('#008000').build(),
+            SpreadsheetApp.newColor().setRgbColor('#000080').build(),
+        ],
     ];
-    sheet.getRange("A1:B2").setFontColorObjects(multipleBuilders);
+    sheet.getRange('A1:B2').setFontColorObjects(multipleBuilders);
 };
 
 const utilitiesParseDate = () => {
-  Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
+    Utilities.parseDate('2022/01/01', 'GMT', 'yyyy/MM/dd');
+};
+
+// Spreadsheet CellImage test
+const sheetCellImage = () => {
+    const sheet = SpreadsheetApp.getActiveSheet();
+    const imageBuilder = SpreadsheetApp.newCellImage();
+    // set methods
+    imageBuilder.setSourceUrl('https://hostname/path/image.jpeg');
+    imageBuilder.setAltTextTitle('Title').toBuilder();
+    imageBuilder.setAltTextDescription('Description').toBuilder();
+    imageBuilder.toBuilder();
+    // get method
+    imageBuilder.getAltTextTitle();
+    imageBuilder.getAltTextDescription();
+    imageBuilder.getContentUrl();
+    imageBuilder.getUrl();
+    const cellImage = imageBuilder.build();
+    // cell image
+    cellImage.getAltTextDescription();
+    cellImage.getAltTextTitle();
+    cellImage.getContentUrl();
+    cellImage.getUrl();
+    cellImage.toBuilder();
 };
