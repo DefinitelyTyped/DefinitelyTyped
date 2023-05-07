@@ -17,5 +17,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "./index.d.ts",
+        "./tonic-ui__react-tests.tsx"
+    ]
 }
