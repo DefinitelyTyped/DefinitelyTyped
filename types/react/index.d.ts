@@ -3125,6 +3125,7 @@ declare namespace React {
         componentStack: string;
     }
 
+    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
         type ElementType = GlobalJSXElementType;
         interface Element extends GlobalJSXElement {}
