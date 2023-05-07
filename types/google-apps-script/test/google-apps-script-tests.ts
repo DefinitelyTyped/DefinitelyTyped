@@ -774,4 +774,4 @@ const sheetCellImage = () => {
     cellImage.getAltTextDescription();
     cellImage.getContentUrl();
     cellImage.getUrl();
-}
+};

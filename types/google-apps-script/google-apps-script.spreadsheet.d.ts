@@ -115,8 +115,8 @@ declare namespace GoogleAppsScript {
       getAltTextTitle(): string;
       getContentUrl(): string;
       getUrl(): string;
-      setAltTextDescription(description: string): CellImage
-      setAltTextTitle(title: string): CellImage
+      setAltTextDescription(description: string): CellImage;
+      setAltTextTitle(title: string): CellImage;
       setSourceUrl(url: string): CellImageBuilder;
       toBuilder(): CellImageBuilder;
     }
