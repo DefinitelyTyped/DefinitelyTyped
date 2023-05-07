@@ -103,7 +103,7 @@ declare namespace GoogleAppsScript {
       getAltTextDescription(): string;
       getAltTextTitle(): string;
       getContentUrl(): string;
-      getUrl(): string;
+      getUrl(): string | null;
       toBuilder(): CellImageBuilder;
     }
     /**
@@ -114,9 +114,9 @@ declare namespace GoogleAppsScript {
       getAltTextDescription(): string;
       getAltTextTitle(): string;
       getContentUrl(): string;
-      getUrl(): string;
-      setAltTextDescription(description: string): CellImage;
-      setAltTextTitle(title: string): CellImage;
+      getUrl(): string | null;
+      setAltTextDescription(description: string): CellImageBuilder;
+      setAltTextTitle(title: string): CellImageBuilder;
       setSourceUrl(url: string): CellImageBuilder;
       toBuilder(): CellImageBuilder;
     }

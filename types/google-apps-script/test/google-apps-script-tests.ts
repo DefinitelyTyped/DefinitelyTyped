@@ -760,8 +760,8 @@ const utilitiesParseDate = () => {
 const sheetCellImage = () => {
     const imageBuilder = SpreadsheetApp.newCellImage();
     // set methods
-    imageBuilder.setAltTextTitle('Title').toBuilder();
-    imageBuilder.setAltTextDescription('Description').toBuilder();
+    imageBuilder.setAltTextTitle('Title');
+    imageBuilder.setAltTextDescription('Description');
     imageBuilder.setSourceUrl('https://hostname/path/image.jpeg');
     // get methods
     imageBuilder.getAltTextTitle();
