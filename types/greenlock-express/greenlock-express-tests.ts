@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express = require("express");
 import { RequestListener } from 'http';
 import greenlock, { opts } from 'greenlock-express';
 
@@ -9,7 +9,7 @@ const o: opts = {
   cluster: false
 };
 
-const expressApp: Express = express();
+const expressApp = express();
 
 // $ExpectType serve
 greenlock.init(o);
