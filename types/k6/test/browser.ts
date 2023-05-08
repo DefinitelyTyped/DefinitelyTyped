@@ -1,13 +1,14 @@
-import browser from 'k6/experimental/browser';
+import { ElementHandle } from 'k6/experimental/browser';
+import { Page } from 'k6/experimental/browser/page';
 
 const url = 'http://example.com';
 const selector = 'a[href="http://example.com"]';
-const elementHandle: browser.ElementHandle = new browser.ElementHandle();
+const elementHandle = new ElementHandle();
 
 //
 // Create a page
 //
-const page = new browser.Page();
+const page = new Page();
 
 // $ExpectType void
 page.bringToFront();
