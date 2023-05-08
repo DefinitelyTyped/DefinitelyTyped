@@ -218,6 +218,18 @@ async function testPromisify() {
 }
 
 {
+    const bigIntStatsListener: fs.BigIntStatsListener = (current: fs.BigIntStats, previous: fs.BigIntStats) => {
+        console.log(current, previous);
+    };
+    fs.unwatchFile('/tmp/file', bigIntStatsListener);
+
+    const statsListener: fs.StatsListener = (current: fs.Stats, previous: fs.Stats) => {
+        console.log(current, previous);
+    };
+    fs.unwatchFile('/tmp/file', statsListener);
+}
+
+{
     fs.access('/path/to/folder', (err) => { });
 
     fs.access(Buffer.from(''), (err) => { });
