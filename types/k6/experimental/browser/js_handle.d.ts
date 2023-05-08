@@ -1,4 +1,5 @@
-import { ElementHandle, PageFunction } from ".";
+import { PageFunction } from ".";
+import { ElementHandle } from "./element_handle";
 
 /**
  * JSHandle represents an in-page JavaScript object.

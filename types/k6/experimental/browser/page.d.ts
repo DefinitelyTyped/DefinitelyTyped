@@ -1,19 +1,20 @@
 import {
     BrowserContext,
-    ElementHandle,
     EvaluationArgument,
     Frame,
     PageFunction,
     SelectOptionsObject,
     KeyboardModifier,
     Worker,
-    MouseButton } from "./";
+    MouseButton,
+    ScreenshotOptions } from "./";
 import { Touchscreen } from "./touchscreen";
 import { Response } from "./response";
 import { Locator } from "./locator";
 import { JSHandle } from "./js_handle";
 import { Keyboard } from "./keyboard";
 import { Mouse } from "./mouse";
+import { ElementHandle } from "./element_handle";
 
 /**
  * Page provides methods to interact with a single tab in a running web browser
@@ -954,31 +955,7 @@ export class Page {
      * the currently visible viewport. Defaults to `false`.
      */
     fullPage?: boolean;
-
-    /**
-     * Hides default white background and allows capturing screenshots with
-     * transparency. Not applicable to `jpeg` images. Defaults to `false`.
-     */
-    omitBackground?: boolean;
-
-    /**
-     * The file path to save the image to. The screenshot type will be inferred
-     * from file extension. If `path` is a relative path, then it is resolved
-     * relative to the current working directory. If no path is provided, the
-     * image won't be saved to the disk.
-     */
-    path?: string;
-
-    /**
-     * The quality of the image, between 0-100; `jpeg` only.
-     */
-    quality?: number;
-
-    /**
-     * Specify screenshot type, defaults to `png`.
-     */
-    type?: "png"|"jpeg";
-   }): ArrayBuffer;
+   } & ScreenshotOptions): ArrayBuffer;
 
   /**
    * **NOTE** Use locator-based locator.selectOption(values[, options]) instead.

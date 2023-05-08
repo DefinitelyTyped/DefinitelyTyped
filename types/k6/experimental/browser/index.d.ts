@@ -10,6 +10,7 @@ import './response';
 import './locator';
 import './js_handle';
 import './keyboard';
+import './element_handle';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
@@ -21,11 +22,6 @@ export class BrowserContext {}
  * Frame represents the frame within a page. A page is made up of hierarchy of frames.
  */
 export class Frame {}
-
-/**
- * ElementHandle represents an in-page DOM element.
- */
-export class ElementHandle {}
 
 /**
  * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
@@ -80,12 +76,23 @@ export type KeyboardModifier = "Alt" | "Control" | "Meta" | "Shift";
 
 export type ElementState = "attached" | "detached" | "visible" | "hidden";
 
+export type InputElementState = ElementState | "enabled" | "disabled" | "editable";
+
 export interface TimeoutOptions {
   /**
    * Maximum time in milliseconds. Pass 0 to disable the timeout. Default is overridden by the setDefaultTimeout option on `BrowserContext` or `Page`.
    * Defaults to 30000.
    */
   timeout?: number;
+}
+
+export interface StrictnessOptions {
+  /**
+   * When `true`, the call requires selector to resolve to a single element.
+   * If given selector resolves to more than one element, the call throws
+   * an exception. Defaults to `false`.
+   */
+  strict?: boolean;
 }
 
 export interface EventSequenceOptions {
@@ -107,16 +114,18 @@ export type ElementHandleOptions = {
    * Defaults to `false`.
    */
   noWaitAfter?: boolean,
+} & TimeoutOptions;
 
+export type ElementHandlePointerOptions = ElementHandleOptions & {
   /**
    * Setting this to `true` will perform the actionability checks without
    * performing the action. Useful to wait until the element is ready for the
    * action without performing it. Defaults to `false`.
    */
   trial?: boolean,
-} & TimeoutOptions;
+};
 
-export type ElementClickOptions = ElementHandleOptions & {
+export type ElementClickOptions = ElementHandlePointerOptions & {
   /**
    * A point to use relative to the top left corner of the element. If not supplied,
    * a visible point of the element is used.
@@ -266,4 +275,56 @@ export interface SecurityDetailsObject {
    * extracted from the certificate.
    */
   sanList?: string[];
+}
+
+export interface Rect {
+  /**
+   * The x coordinate of the element in pixels.
+   * (0, 0) is the top left corner of the viewport.
+   */
+  x: number;
+
+  /**
+   * The y coordinate of the element in pixels.
+   * (0, 0) is the top left corner of the viewport.
+   */
+  y: number;
+
+  /**
+   * The width of the element in pixels.
+   */
+  width: number;
+
+  /**
+   * The height of the element in pixels.
+   */
+  height: number;
+}
+
+export type ImageFormat = 'jpeg' | 'png';
+
+export interface ScreenshotOptions {
+  /**
+   * The file path to save the image to. The screenshot type will be inferred from file extension.
+   */
+  path?: string;
+
+  /**
+   * The screenshot format.
+   * @default 'png'
+   */
+  type?: ImageFormat;
+
+  /**
+   * Hide default white background and allow capturing screenshots with transparency.
+   * Not applicable to `jpeg` images.
+   * @default false
+   */
+  omitBackground?: boolean;
+
+  /**
+   * The quality of the image, between 0-100. Not applicable to `png` images.
+   * @default 100
+   */
+  quality?: number;
 }
