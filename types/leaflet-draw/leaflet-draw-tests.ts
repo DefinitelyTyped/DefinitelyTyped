@@ -31,7 +31,7 @@ const drawControl = new L.Control.Draw({
                 color: '#662d91'
             }
         },
-        circlemarker:{
+        circlemarker: {
             repeatMode: true
         },
     },
