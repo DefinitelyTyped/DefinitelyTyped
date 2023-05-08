@@ -295,7 +295,7 @@ declare namespace WebSocket {
         type: string;
         target: WebSocket;
     }
-    
+
     interface Room {
         clients: string[];
     }
