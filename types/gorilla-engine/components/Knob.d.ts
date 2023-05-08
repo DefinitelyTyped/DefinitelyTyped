@@ -4,6 +4,7 @@ declare namespace GorillaEngine.UI {
         min: number;
         max: number;
         value: number;
+        stepSize: number;
     }
 
     interface Knob extends KnobProps {}
