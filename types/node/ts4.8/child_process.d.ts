@@ -980,7 +980,10 @@ declare module 'child_process' {
     interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
     }
-    type ExecFileException = ExecException & NodeJS.ErrnoException;
+    type ExecFileException =
+        & Omit<ExecException, 'code'>
+        & Omit<NodeJS.ErrnoException, 'code'>
+        & { code?: string | number | undefined | null };
     /**
      * The `child_process.execFile()` function is similar to {@link exec} except that it does not spawn a shell by default. Rather, the specified
      * executable `file` is spawned directly as a new process making it slightly more
