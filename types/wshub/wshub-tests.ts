@@ -1,8 +1,8 @@
-import WebSocket = require("ws");
+import WebSocket = require("wshub");
 import * as http from "http";
 import * as https from "https";
 import * as url from "url";
-import * as wslib from "ws";
+import * as wslib from "wshub";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
