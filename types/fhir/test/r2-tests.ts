@@ -1,4 +1,3 @@
-
 // account-example.canonical.json
 const r2Test0: fhir2.Account = {"id":"example","resourceType":"Account"};
 
