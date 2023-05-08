@@ -240,6 +240,31 @@ async function testPromisify() {
 }
 
 {
+    // @ts-expect-error
+    const invalidStatsListener: fs.StatsListener = (current: fs.BigIntStats, previous: fs.BigIntStats) => {
+        console.log(current, previous);
+    };
+    // @ts-expect-error
+    const invalidBigIntStatsListener: fs.BigIntStatsListener = (current: fs.Stats, previous: fs.Stats) => {
+        console.log(current, previous);
+    };
+}
+
+{
+    const bigIntStatsListener: fs.BigIntStatsListener = (current: fs.BigIntStats, previous: fs.BigIntStats) => {
+        console.log(current, previous);
+    };
+    const statsListener = (current: fs.Stats, previous: fs.Stats) => {
+        console.log(current, previous);
+    };
+
+    // @ts-expect-error
+    fs.watchFile('/tmp/file', bigIntStatsListener);
+    // @ts-expect-error
+    fs.watchFile('/tmp/file', { bigint: true }, statsListener);
+}
+
+{
     fs.access('/path/to/folder', (err) => { });
 
     fs.access(Buffer.from(''), (err) => { });
