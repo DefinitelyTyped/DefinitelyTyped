@@ -16,5 +16,9 @@ export interface CopyStaticFilesOptions {
     recursive: boolean;
 }
 
-declare function copyStaticFiles(options?: Partial<CopyStaticFilesOptions>): (build: any) => void;
-export default copyStaticFiles;
+export interface CopyStaticFilesPluginInstance {
+    name: 'copy-static-files';
+    setup(build: any): void;
+}
+
+export default function(options?: Partial<CopyStaticFilesOptions>): CopyStaticFilesPluginInstance;
