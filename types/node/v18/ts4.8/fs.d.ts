@@ -2899,7 +2899,7 @@ declare module 'fs' {
                   bigint?: false | undefined;
               })
             | undefined,
-        listener: (curr: Stats, prev: Stats) => void
+        listener: StatsListener
     ): StatWatcher;
     export function watchFile(
         filename: PathLike,
@@ -2908,7 +2908,7 @@ declare module 'fs' {
                   bigint: true;
               })
             | undefined,
-        listener: (curr: BigIntStats, prev: BigIntStats) => void
+        listener: BigIntStatsListener
     ): StatWatcher;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
@@ -2927,7 +2927,8 @@ declare module 'fs' {
      * @since v0.1.31
      * @param listener Optional, a listener previously attached using `fs.watchFile()`
      */
-    export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: Stats) => void): void;
+    export function unwatchFile(filename: PathLike, listener?: StatsListener): void;
+    export function unwatchFile(filename: PathLike, listener?: BigIntStatsListener): void;
     export interface WatchOptions extends Abortable {
         encoding?: BufferEncoding | 'buffer' | undefined;
         persistent?: boolean | undefined;
@@ -2935,6 +2936,8 @@ declare module 'fs' {
     }
     export type WatchEventType = 'rename' | 'change';
     export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
+    export type StatsListener = (curr: Stats, prev: Stats) => void;
+    export type BigIntStatsListener = (curr: BigIntStats, prev: BigIntStats) => void;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a
      * directory.
