@@ -3,7 +3,6 @@
 // Definitions by: David Enke <https://github.com/davidenke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ You can declare types that are available via importing the module */
 export interface CopyStaticFilesOptions {
     src: string;
     dest: string;
