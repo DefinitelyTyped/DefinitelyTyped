@@ -338,7 +338,10 @@ declare module 'child_process' {
     interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
     }
-    type ExecFileException = ExecException & NodeJS.ErrnoException;
+    type ExecFileException =
+        & Omit<ExecException, 'code'>
+        & Omit<NodeJS.ErrnoException, 'code'>
+        & { code?: string | number | undefined | null };
 
     function execFile(file: string): ChildProcess;
     function execFile(file: string, options: (BaseEncodingOptions & ExecFileOptions) | undefined | null): ChildProcess;

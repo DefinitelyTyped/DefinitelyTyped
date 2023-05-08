@@ -16,13 +16,13 @@ import { URL } from 'node:url';
     childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
     childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
     childProcess.spawnSync("echo test");
-    childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
-    childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
-    childProcess.spawnSync("echo test", {input: new Uint8Array([])});
-    childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+    childProcess.spawnSync("echo test", { windowsVerbatimArguments: false });
+    childProcess.spawnSync("echo test", { windowsVerbatimArguments: false, argv0: "echo-test" });
+    childProcess.spawnSync("echo test", { input: new Uint8Array([]) });
+    childProcess.spawnSync("echo test", { input: new DataView(new ArrayBuffer(1)) });
     childProcess.spawnSync("echo test", { encoding: 'utf-8' });
     childProcess.spawnSync("echo test", { encoding: 'buffer' });
-    childProcess.spawnSync("echo test", { cwd: new URL('file://aaaaaaaa')});
+    childProcess.spawnSync("echo test", { cwd: new URL('file://aaaaaaaa') });
 
     childProcess.spawnSync("echo test").output; // $ExpectType (Buffer | null)[]
     childProcess.spawnSync("echo test", {}).output; // $ExpectType (Buffer | null)[]
@@ -58,17 +58,30 @@ import { URL } from 'node:url';
 }
 
 {
-    childProcess.execFile("npm", () => {});
-    childProcess.execFile("npm", { windowsHide: true, signal: new AbortSignal(), }, () => {});
-    childProcess.execFile("npm", { shell: true }, () => {});
-    childProcess.execFile("npm", { shell: '/bin/sh' }, () => {});
-    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, () => {});
+    childProcess.execFile("npm", () => { });
+    childProcess.execFile("npm", { windowsHide: true, signal: new AbortSignal(), }, () => { });
+    childProcess.execFile("npm", { shell: true }, () => { });
+    childProcess.execFile("npm", { shell: '/bin/sh' }, () => { });
+    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, () => { });
     childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
     childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
     childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     childProcess.execFile("npm", (err) => {
         if (err && err.errno) assert(err.code === 'ENOENT');
+    });
+    childProcess.execFile('npm', (err) => {
+        if (err !== null) {
+            if (typeof err.code === 'string') {
+                console.log(err.code.charCodeAt(0));
+            } else if (typeof err.code === 'number') {
+                console.log(err.code.toExponential());
+            } else if (err.code === null) {
+                // @ts-expect-error -- since err.code is null, this assignment has a type error
+                const x: string = err.code;
+                console.log(x);
+            }
+        }
     });
 }
 
@@ -78,17 +91,17 @@ import { URL } from 'node:url';
 }
 
 {
-    childProcess.execFileSync("echo test", {input: new Uint8Array([])});
-    childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+    childProcess.execFileSync("echo test", { input: new Uint8Array([]) });
+    childProcess.execFileSync("echo test", { input: new DataView(new ArrayBuffer(1)) });
 
     childProcess.execFileSync("echo test"); // $ExpectType Buffer
     childProcess.execFileSync("echo test", {}); // $ExpectType Buffer
-    childProcess.execFileSync("echo test", {encoding: 'buffer'}); // $ExpectType Buffer
-    childProcess.execFileSync("echo test", {encoding: 'utf8'}); // $ExpectType string
+    childProcess.execFileSync("echo test", { encoding: 'buffer' }); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", { encoding: 'utf8' }); // $ExpectType string
     childProcess.execFileSync("echo test", ['test']); // $ExpectType Buffer
     childProcess.execFileSync("echo test", ['test'], {}); // $ExpectType Buffer
-    childProcess.execFileSync("echo test", ['test'], {encoding: 'buffer'}); // $ExpectType Buffer
-    childProcess.execFileSync("echo test", ['test'], {encoding: 'utf8'}); // $ExpectType string
+    childProcess.execFileSync("echo test", ['test'], { encoding: 'buffer' }); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", ['test'], { encoding: 'utf8' }); // $ExpectType string
     ((opts?: childProcess.ExecFileSyncOptions) => childProcess.execFileSync('echo test', ['args'], opts))(); // $ExpectType string | Buffer
 }
 
@@ -192,8 +205,8 @@ async function testPromisify() {
     _boolean = cp.send({
         type: 'test'
     }, _socket, {
-            keepOpen: true
-        });
+        keepOpen: true
+    });
 
     _boolean = cp.send(1, _socket, {
         keepOpen: true
@@ -208,10 +221,10 @@ async function testPromisify() {
     _boolean = cp.send({
         type: 'test'
     }, _socket, {
-            keepOpen: true
-        }, (error) => {
-            const _err: Error | null = error;
-        });
+        keepOpen: true
+    }, (error) => {
+        const _err: Error | null = error;
+    });
 
     _boolean = cp.send(1, _server);
     _boolean = cp.send('one', _server);
@@ -240,8 +253,8 @@ async function testPromisify() {
     _boolean = cp.send({
         type: 'test'
     }, _server, {
-            keepOpen: true
-        });
+        keepOpen: true
+    });
 
     _boolean = cp.send(1, _server, {
         keepOpen: true
@@ -256,10 +269,10 @@ async function testPromisify() {
     _boolean = cp.send({
         type: 'test'
     }, _server, {
-            keepOpen: true
-        }, (error) => {
-            const _err: Error | null = error;
-        });
+        keepOpen: true
+    }, (error) => {
+        const _err: Error | null = error;
+    });
 
     const stdin: Writable | null = cp.stdio[0];
     const stdout: Readable | null = cp.stdio[1];
