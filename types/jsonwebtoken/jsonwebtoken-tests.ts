@@ -4,9 +4,9 @@
  * Created by using code samples from https://github.com/auth0/node-jsonwebtoken.
  */
 
-import jwt = require("jsonwebtoken");
-import fs = require("fs");
-import { createSecretKey, KeyObject } from "crypto";
+import jwt = require('jsonwebtoken');
+import fs = require('fs');
+import { createSecretKey, KeyObject } from 'crypto';
 
 let token: string;
 let cert: Buffer;
@@ -17,38 +17,38 @@ interface TestObject {
 }
 
 const testBoolean = true as boolean;
-const testObject = { foo: "bar" };
+const testObject = { foo: 'bar' };
 
 /**
  * jwt.sign
  * https://github.com/auth0/node-jsonwebtoken#usage
  */
 // sign with default (HMAC SHA256)
-token = jwt.sign(testObject, "shhhhh");
+token = jwt.sign(testObject, 'shhhhh');
 
 // sign with default (HMAC SHA256) and single audience
-token = jwt.sign(testObject, "shhhhh", { audience: "theAudience" });
+token = jwt.sign(testObject, 'shhhhh', { audience: 'theAudience' });
 
 // sign with default (HMAC SHA256) and multiple audiences
-token = jwt.sign(testObject, "shhhhh", {
-    audience: ["audience1", "audience2"],
+token = jwt.sign(testObject, 'shhhhh', {
+    audience: ['audience1', 'audience2'],
 });
 
 // sign with default (HMAC SHA256) and a keyid
-token = jwt.sign(testObject, "shhhhh", { keyid: "theKeyId" });
+token = jwt.sign(testObject, 'shhhhh', { keyid: 'theKeyId' });
 
 // sign with RSA SHA256
-cert = fs.readFileSync("private.key"); // get private key
-token = jwt.sign(testObject, cert, { algorithm: "RS256" });
+cert = fs.readFileSync('private.key'); // get private key
+token = jwt.sign(testObject, cert, { algorithm: 'RS256' });
 
 // sign with encrypted RSA SHA256 private key (only PEM encoding is supported)
-const privKey: Buffer = fs.readFileSync("encrypted_private.key"); // get private key
-const secret = { key: privKey.toString(), passphrase: "keypwd" };
-token = jwt.sign(testObject, secret, { algorithm: "RS256" }); // the algorithm option is mandatory in this case
-token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm: "RS256" });
+const privKey: Buffer = fs.readFileSync('encrypted_private.key'); // get private key
+const secret = { key: privKey.toString(), passphrase: 'keypwd' };
+token = jwt.sign(testObject, secret, { algorithm: 'RS256' }); // the algorithm option is mandatory in this case
+token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm: 'RS256' });
 
 // sign with secret key (KeyObject)
-secretKey = createSecretKey("shhhhh", "utf-8");
+secretKey = createSecretKey('shhhhh', 'utf-8');
 token = jwt.sign(testObject, secretKey);
 
 // sign with insecure key size
@@ -58,15 +58,12 @@ token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInsecureKe
 token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInvalidAsymmetricKeyTypes: true });
 
 // sign with algorithm none
-token = jwt.sign(testObject, null, { algorithm: "none" });
+token = jwt.sign(testObject, null, { algorithm: 'none' });
 // @ts-expect-error
 token = jwt.sign({ foo: 'bar' }, null, { algorithm: 'RS256', allowInvalidAsymmetricKeyTypes: true });
 
 // sign asynchronously
-jwt.sign(testObject, cert, { algorithm: "RS256" }, (
-    err: Error | null,
-    token: string | undefined,
-) => {
+jwt.sign(testObject, cert, { algorithm: 'RS256' }, (err: Error | null, token: string | undefined) => {
     if (err) {
         console.log(err);
         return;
@@ -76,10 +73,7 @@ jwt.sign(testObject, cert, { algorithm: "RS256" }, (
 });
 
 // sign asynchronously with algorithm none
-jwt.sign(testObject, null, { algorithm: "none" }, (
-    err: Error | null,
-    token: string | undefined,
-) => {
+jwt.sign(testObject, null, { algorithm: 'none' }, (err: Error | null, token: string | undefined) => {
     if (err) {
         console.log(err);
         return;
@@ -88,10 +82,7 @@ jwt.sign(testObject, null, { algorithm: "none" }, (
     console.log(token);
 });
 // @ts-expect-error
-jwt.sign(testObject, null, { algorithm: "RS256" }, (
-    err: Error | null,
-    token: string | undefined,
-) => {
+jwt.sign(testObject, null, { algorithm: 'RS256' }, (err: Error | null, token: string | undefined) => {
     if (err) {
         console.log(err);
         return;
@@ -108,7 +99,7 @@ jwt.sign(testObject, null, { algorithm: "RS256" }, (
 jwt.verify(token, secretKey);
 
 // verify a token symmetric
-jwt.verify(token, "shhhhh", (err, decoded) => {
+jwt.verify(token, 'shhhhh', (err, decoded) => {
     const result = decoded as TestObject;
 
     console.log(result.foo); // bar
@@ -122,7 +113,7 @@ jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
 });
 
 // invalid token
-jwt.verify(token, "wrong-secret", (err, decoded) => {
+jwt.verify(token, 'wrong-secret', (err, decoded) => {
     // err
     // decoded undefined
 });
@@ -142,7 +133,7 @@ jwt.verify(token, secret, { allowInvalidAsymmetricKeyTypes: true }, (err, decode
 });
 
 // verify a token asymmetric
-cert = fs.readFileSync("public.pem"); // get public key
+cert = fs.readFileSync('public.pem'); // get public key
 jwt.verify(token, cert, (err, decoded) => {
     const result = decoded as TestObject;
 
@@ -171,34 +162,31 @@ jwt.verify(token, getKeyFailed, (err, decoded) => {
 });
 
 // verify audience
-cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, { audience: "urn:foo" }, (err, decoded) => {
+cert = fs.readFileSync('public.pem'); // get public key
+jwt.verify(token, cert, { audience: 'urn:foo' }, (err, decoded) => {
     // if audience mismatch, err == invalid audience
 });
 jwt.verify(token, cert, { audience: /urn:f[o]{2}/ }, (err, decoded) => {
     // if audience mismatch, err == invalid audience
 });
-jwt.verify(token, cert, { audience: [/urn:f[o]{2}/, "urn:bar"] }, (err, decoded) => {
+jwt.verify(token, cert, { audience: [/urn:f[o]{2}/, 'urn:bar'] }, (err, decoded) => {
     // if audience mismatch, err == invalid audience
 });
 
 // verify issuer
-cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, { audience: "urn:foo", issuer: "urn:issuer" }, (
-    err,
-    decoded,
-) => {
+cert = fs.readFileSync('public.pem'); // get public key
+jwt.verify(token, cert, { audience: 'urn:foo', issuer: 'urn:issuer' }, (err, decoded) => {
     // if issuer mismatch, err == invalid issuer
 });
 
 // verify algorithm
-cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, { algorithms: ["RS256"] }, (err, decoded) => {
+cert = fs.readFileSync('public.pem'); // get public key
+jwt.verify(token, cert, { algorithms: ['RS256'] }, (err, decoded) => {
     // if algorithm mismatch, err == invalid algorithm
 });
 
 // verify without expiration check
-cert = fs.readFileSync("public.pem"); // get public key
+cert = fs.readFileSync('public.pem'); // get public key
 jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
     // if ignoreExpration == false and token is expired, err == expired token
 });

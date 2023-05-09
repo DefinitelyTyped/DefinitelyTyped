@@ -96,19 +96,10 @@ interface DecodeOptions {
     complete?: boolean | undefined;
     json?: boolean | undefined;
 }
-type VerifyErrors =
-    | JsonWebTokenError
-    | NotBeforeError
-    | TokenExpiredError;
-type VerifyCallback<T = Jwt | JwtPayload | string> = (
-    error: VerifyErrors | null,
-    decoded: T | undefined,
-) => void;
+type VerifyErrors = JsonWebTokenError | NotBeforeError | TokenExpiredError;
+type VerifyCallback<T = Jwt | JwtPayload | string> = (error: VerifyErrors | null, decoded: T | undefined) => void;
 
-type SignCallback = (
-    error: Error | null,
-    encoded: string | undefined,
-) => void;
+type SignCallback = (error: Error | null, encoded: string | undefined) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
 interface JwtHeader {
@@ -144,27 +135,25 @@ interface Jwt {
 
 // https://github.com/auth0/node-jsonwebtoken#algorithms-supported
 type Algorithm =
-    "HS256" | "HS384" | "HS512" |
-    "RS256" | "RS384" | "RS512" |
-    "ES256" | "ES384" | "ES512" |
-    "PS256" | "PS384" | "PS512" |
-    "none";
+    | 'HS256'
+    | 'HS384'
+    | 'HS512'
+    | 'RS256'
+    | 'RS384'
+    | 'RS512'
+    | 'ES256'
+    | 'ES384'
+    | 'ES512'
+    | 'PS256'
+    | 'PS384'
+    | 'PS512'
+    | 'none';
 
-type SigningKeyCallback = (
-    error: Error | null,
-    signingKey?: Secret
-) => void;
+type SigningKeyCallback = (error: Error | null, signingKey?: Secret) => void;
 
-type GetPublicKeyOrSecret = (
-    header: JwtHeader,
-    callback: SigningKeyCallback
-) => void;
+type GetPublicKeyOrSecret = (header: JwtHeader, callback: SigningKeyCallback) => void;
 
-type Secret =
-    | string
-    | Buffer
-    | KeyObject
-    | { key: string | Buffer; passphrase: string };
+type Secret = string | Buffer | KeyObject | { key: string | Buffer; passphrase: string };
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string
@@ -173,15 +162,11 @@ type Secret =
  * [options] - Options for the signature
  * returns - The JSON Web Token string
  */
-declare function sign(
-    payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
-    options?: SignOptions,
-): string;
+declare function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options?: SignOptions): string;
 declare function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: null,
-    options?: SignOptions & { algorithm: "none" },
+    options?: SignOptions & { algorithm: 'none' },
 ): string;
 
 /**
@@ -191,11 +176,7 @@ declare function sign(
  * [options] - Options for the signature
  * callback - Callback to get the encoded token on
  */
-declare function sign(
-    payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
-    callback: SignCallback,
-): void;
+declare function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, callback: SignCallback): void;
 declare function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
@@ -205,7 +186,7 @@ declare function sign(
 declare function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: null,
-    options: SignOptions & { algorithm: "none" },
+    options: SignOptions & { algorithm: 'none' },
     callback: SignCallback,
 ): void;
 
@@ -217,9 +198,13 @@ declare function sign(
  * returns - The decoded token.
  */
 declare function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
-declare function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions & {
-    complete?: false
-}): JwtPayload | string;
+declare function verify(
+    token: string,
+    secretOrPublicKey: Secret,
+    options?: VerifyOptions & {
+        complete?: false;
+    },
+): JwtPayload | string;
 declare function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): Jwt | JwtPayload | string;
 
 /**
@@ -266,12 +251,14 @@ declare function decode(token: string, options: DecodeOptions & { json: true }):
 declare function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
 
 interface JWTStatic {
-    decode: typeof decode,
-    verify: typeof verify,
-    sign: typeof sign,
-    JsonWebTokenError: typeof JsonWebTokenError,
-    NotBeforeError: typeof NotBeforeError,
-    TokenExpiredError: typeof TokenExpiredError,
+    decode: typeof decode;
+    verify: typeof verify;
+    sign: typeof sign;
+    JsonWebTokenError: typeof JsonWebTokenError;
+    NotBeforeError: typeof NotBeforeError;
+    TokenExpiredError: typeof TokenExpiredError;
 }
 
-export = JWTStatic
+declare const jwtStatic: JWTStatic;
+
+export = jwtStatic;
