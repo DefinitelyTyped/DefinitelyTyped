@@ -143,7 +143,7 @@ jwt.verify(token, cert, (err, decoded) => {
 // verify a token assymetric with async key fetch function
 jwt.verify(
     token,
-    function (header, callback) {
+    (header, callback) => {
         cert = fs.readFileSync('public.pem');
         console.log(header.alg);
         callback(null, cert);
@@ -157,7 +157,7 @@ jwt.verify(
 
 jwt.verify(
     token,
-    function (header, callback) {
+    (header, callback) => {
         cert = fs.readFileSync('public.pem');
         console.log(header.alg);
 
