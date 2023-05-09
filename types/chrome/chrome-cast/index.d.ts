@@ -93,7 +93,6 @@ declare namespace chrome.cast {
     }
 
     /**
-     * @constant {!Array<number>}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.VERSION
      */
     export var VERSION: Array<number>;

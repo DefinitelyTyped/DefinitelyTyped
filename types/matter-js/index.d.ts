@@ -2362,21 +2362,21 @@ declare namespace Matter {
 
         /**
          * Sets scene background
-         * 
+         *
          * default undefined
          */
         background?: string | undefined;
 
         /**
          * Sets wireframe background if `render.options.wireframes` is enabled
-         * 
+         *
          * default undefined
          */
         wireframeBackground?: string | undefined;
 
         /**
          * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
-         * 
+         *
          * default true
          */
         showSleeping?: boolean | undefined;

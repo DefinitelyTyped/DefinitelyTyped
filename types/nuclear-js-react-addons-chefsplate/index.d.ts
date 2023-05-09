@@ -86,7 +86,7 @@ declare const nuclearMixin: any;
  *     }
  *   }
  * ```
- * 
+ *
  * @param [Component] Component to wrap
  * @param [additionalContextTypes] Additional contextTypes to add
  * @returns Returns function if using decorator pattern

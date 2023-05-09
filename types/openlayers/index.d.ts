@@ -4817,7 +4817,6 @@ export namespace has {
     /**
      * The ratio between physical pixels and device-independent pixels
      * (dips) on the device (`window.devicePixelRatio`).
-     * @constant
      * @api stable
      */
     const DEVICE_PIXEL_RATIO: number;
@@ -4825,28 +4824,24 @@ export namespace has {
     /**
      * True if both the library and browser support Canvas.  Always `false`
      * if `ol.ENABLE_CANVAS` is set to `false` at compile time.
-     * @constant
      * @api stable
      */
     const CANVAS: boolean;
 
     /**
      * Indicates if DeviceOrientation is supported in the user's browser.
-     * @constant
      * @api stable
      */
     const DEVICE_ORIENTATION: boolean;
 
     /**
      * Is HTML5 geolocation supported in the current browser?
-     * @constant
      * @api stable
      */
     const GEOLOCATION: boolean;
 
     /**
      * True if browser supports touch events.
-     * @constant
      * @api stable
      */
     const TOUCH: boolean;
@@ -4854,7 +4849,6 @@ export namespace has {
     /**
      * True if both OpenLayers and browser support WebGL.  Always `false`
      * if `ol.ENABLE_WEBGL` is set to `false` at compile time.
-     * @constant
      * @api stable
      */
     const WEBGL: boolean;
@@ -5134,13 +5128,11 @@ export namespace interaction {
 
             /**
              * The coordinate of the drag event.
-             * @constant
              * @api stable
              */
             coordinate: ol.Coordinate;
 
             /**
-             * @constant
              * @api
              */
             mapBrowserEvent: ol.MapBrowserEvent;
@@ -5976,7 +5968,6 @@ export namespace interaction {
 
             /**
              * The coordinate of the drag event.
-             * @constant
              * @api
              */
             coordinate: ol.Coordinate;
@@ -7050,7 +7041,6 @@ export class MapBrowserEvent extends MapEvent {
 
     /**
      * The original browser event.
-     * @constant
      * @api stable
      */
     originalEvent: Event;
@@ -7619,7 +7609,6 @@ export namespace proj {
 
     /**
      * Meters per unit lookup table.
-     * @constant
      * @api stable
      */
     const METERS_PER_UNIT: { [k: string]: number };
@@ -8191,7 +8180,6 @@ export namespace source {
         /**
          * The attribution containing a link to the Microsoft® Bing™ Maps Platform APIs’
          * Terms Of Use.
-         * @constant
          * @api
          */
         static TOS_ATTRIBUTION: ol.Attribution;
@@ -8655,7 +8643,6 @@ export namespace source {
         /**
          * The attribution containing a link to the OpenStreetMap Copyright and License
          * page.
-         * @constant
          * @api
          */
         static ATTRIBUTION: ol.Attribution;

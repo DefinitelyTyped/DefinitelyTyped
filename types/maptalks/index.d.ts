@@ -1835,7 +1835,7 @@ export namespace DomUtil {
     /**
      * Get dom's css class
      * @param  name css class
-     * @return {String} class字符串
+     * @return class字符串
      *  DomUtil
      */
     function getClass(el: string): string;
@@ -3246,21 +3246,21 @@ export class Extent {
 
     /**
      * Get the minimum point
-     * @param {Coorindate} [out=undefined] - optional point to receive result
+     * @param [out=undefined] - optional point to receive result
      * @return
      */
     getMin(out?: Coordinate): Coordinate;
 
     /**
      * Get the maximum point
-     * @param {Coorindate} [out=undefined] - optional point to receive result
+     * @param [out=undefined] - optional point to receive result
      * @return
      */
     getMax(out?: Coordinate): Coordinate;
 
     /**
      * Get center of the extent.
-     * @param {Coorindate} [out=undefined] - optional point to receive result
+     * @param [out=undefined] - optional point to receive result
      * @return
      */
     getCenter(out?: Coordinate): Coordinate;
