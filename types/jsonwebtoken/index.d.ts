@@ -18,13 +18,13 @@
 
 import { KeyObject } from 'crypto';
 
-export class JsonWebTokenError extends Error {
+declare class JsonWebTokenError extends Error {
     inner: Error;
 
     constructor(message: string, error?: Error);
 }
 
-export class TokenExpiredError extends JsonWebTokenError {
+declare class TokenExpiredError extends JsonWebTokenError {
     expiredAt: Date;
 
     constructor(message: string, expiredAt: Date);
@@ -33,13 +33,13 @@ export class TokenExpiredError extends JsonWebTokenError {
 /**
  * Thrown if current time is before the nbf claim.
  */
-export class NotBeforeError extends JsonWebTokenError {
+declare class NotBeforeError extends JsonWebTokenError {
     date: Date;
 
     constructor(message: string, date: Date);
 }
 
-export interface SignOptions {
+interface SignOptions {
     /**
      * Signature algorithm. Could be one of these values :
      * - HS256:    HMAC using SHA-256 hash algorithm (default)
@@ -71,7 +71,7 @@ export interface SignOptions {
     allowInvalidAsymmetricKeyTypes?: boolean | undefined;
 }
 
-export interface VerifyOptions {
+interface VerifyOptions {
     algorithms?: Algorithm[] | undefined;
     audience?: string | RegExp | Array<string | RegExp> | undefined;
     clockTimestamp?: number | undefined;
@@ -92,26 +92,26 @@ export interface VerifyOptions {
     allowInvalidAsymmetricKeyTypes?: boolean | undefined;
 }
 
-export interface DecodeOptions {
+interface DecodeOptions {
     complete?: boolean | undefined;
     json?: boolean | undefined;
 }
-export type VerifyErrors =
+type VerifyErrors =
     | JsonWebTokenError
     | NotBeforeError
     | TokenExpiredError;
-export type VerifyCallback<T = Jwt | JwtPayload | string> = (
+type VerifyCallback<T = Jwt | JwtPayload | string> = (
     error: VerifyErrors | null,
     decoded: T | undefined,
 ) => void;
 
-export type SignCallback = (
+type SignCallback = (
     error: Error | null,
     encoded: string | undefined,
 ) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
-export interface JwtHeader {
+interface JwtHeader {
     alg: string | Algorithm;
     typ?: string | undefined;
     cty?: string | undefined;
@@ -125,7 +125,7 @@ export interface JwtHeader {
 }
 
 // standard claims https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
-export interface JwtPayload {
+interface JwtPayload {
     [key: string]: any;
     iss?: string | undefined;
     sub?: string | undefined;
@@ -136,31 +136,31 @@ export interface JwtPayload {
     jti?: string | undefined;
 }
 
-export interface Jwt {
+interface Jwt {
     header: JwtHeader;
     payload: JwtPayload | string;
     signature: string;
 }
 
 // https://github.com/auth0/node-jsonwebtoken#algorithms-supported
-export type Algorithm =
+type Algorithm =
     "HS256" | "HS384" | "HS512" |
     "RS256" | "RS384" | "RS512" |
     "ES256" | "ES384" | "ES512" |
     "PS256" | "PS384" | "PS512" |
     "none";
 
-export type SigningKeyCallback = (
+type SigningKeyCallback = (
     error: Error | null,
     signingKey?: Secret
 ) => void;
 
-export type GetPublicKeyOrSecret = (
+type GetPublicKeyOrSecret = (
     header: JwtHeader,
     callback: SigningKeyCallback
 ) => void;
 
-export type Secret =
+type Secret =
     | string
     | Buffer
     | KeyObject
@@ -173,12 +173,12 @@ export type Secret =
  * [options] - Options for the signature
  * returns - The JSON Web Token string
  */
-export function sign(
+declare function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
     options?: SignOptions,
 ): string;
-export function sign(
+declare function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: null,
     options?: SignOptions & { algorithm: "none" },
@@ -191,18 +191,18 @@ export function sign(
  * [options] - Options for the signature
  * callback - Callback to get the encoded token on
  */
-export function sign(
+declare function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
     callback: SignCallback,
 ): void;
-export function sign(
+declare function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
     options: SignOptions,
     callback: SignCallback,
 ): void;
-export function sign(
+declare function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: null,
     options: SignOptions & { algorithm: "none" },
@@ -216,9 +216,11 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions & { complete?: false }): JwtPayload | string;
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): Jwt | JwtPayload | string;
+declare function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
+declare function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions & {
+    complete?: false
+}): JwtPayload | string;
+declare function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): Jwt | JwtPayload | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -229,24 +231,24 @@ export function verify(token: string, secretOrPublicKey: Secret, options?: Verif
  * [options] - Options for the verification
  * callback - Callback to get the decoded token on
  */
-export function verify(
+declare function verify(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     callback?: VerifyCallback<JwtPayload | string>,
 ): void;
-export function verify(
+declare function verify(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options: VerifyOptions & { complete: true },
     callback?: VerifyCallback<Jwt>,
 ): void;
-export function verify(
+declare function verify(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions & { complete?: false },
     callback?: VerifyCallback<JwtPayload | string>,
 ): void;
-export function verify(
+declare function verify(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions,
@@ -259,6 +261,17 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(token: string, options: DecodeOptions & { complete: true }): null | Jwt;
-export function decode(token: string, options: DecodeOptions & { json: true }): null | JwtPayload;
-export function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
+declare function decode(token: string, options: DecodeOptions & { complete: true }): null | Jwt;
+declare function decode(token: string, options: DecodeOptions & { json: true }): null | JwtPayload;
+declare function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
+
+interface JWTStatic {
+    decode: typeof decode,
+    verify: typeof verify,
+    sign: typeof sign,
+    JsonWebTokenError: typeof JsonWebTokenError,
+    NotBeforeError: typeof NotBeforeError,
+    TokenExpiredError: typeof TokenExpiredError,
+}
+
+export = JWTStatic
