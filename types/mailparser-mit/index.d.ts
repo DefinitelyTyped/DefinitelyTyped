@@ -43,9 +43,10 @@ export interface Attachment {
     generatedFileName: string;
     length: number;
     transferEncoding: string;
+    fileName?: string;
 }
 export interface StreamAttachment extends Omit<Attachment, 'content'> {
-    contents: Stream;
+    stream: Stream;
 }
 export interface MimeTreeNode {
     attachment?: boolean;
@@ -70,11 +71,15 @@ export interface MailData {
     attachments: Array<{ content: Attachment; level: number }>;
 }
 
+export interface Headers {
+    [header: string]: string | string[];
+}
+
 export interface ParsedEmail {
     html?: string;
     text?: string;
     alternatives?: Array<MailData['calendar'][number]['content']>;
-    headers: { [header: string]: string };
+    headers: Headers;
     subject?: string;
     references?: string[];
     messageId?: string;
@@ -90,8 +95,14 @@ export interface ParsedEmail {
     attachments?: Attachment[];
 }
 
-export class MailParser extends Stream {
+export class MailParser extends Stream implements NodeJS.WritableStream {
     constructor(options?: MailParserOptions);
+    writable: true;
+    write(buffer: string | Uint8Array, cb?: (err?: Error | null) => void): boolean;
+    write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
+    end(cb?: () => void): this;
+    end(data: string | Uint8Array, cb?: () => void): this;
+    end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     options: MailParserOptions;
     /** The complete tree structure of the e-mail */
     mimeTree: MimeTreeNode;
@@ -100,6 +111,6 @@ export class MailParser extends Stream {
 
     on(event: string, callback: (any: any) => void): this;
     on(event: 'end', listener: (email: ParsedEmail) => void): this;
-    on(event: 'headers', listener: (headers: { [header: string]: string }) => void): this;
+    on(event: 'headers', listener: (headers: Headers) => void): this;
     on(event: 'attachment', listener: (attachment: StreamAttachment, rootNode: MimeTreeNode) => void): this;
 }

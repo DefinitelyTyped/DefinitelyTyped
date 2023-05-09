@@ -1,4 +1,5 @@
 import { MailParser } from 'mailparser-mit';
+import { createReadStream } from 'fs';
 
 // $ExpectType MailParser
 const parser = new MailParser();
@@ -22,7 +23,7 @@ parser.on('end', email => {
 });
 // $ExpectType MailParser
 parser.on('headers', headers => {
-    // $ExpectType { [header: string]: string; }
+    // $ExpectType Headers
     const _email = headers;
 });
 // $ExpectType MailParser
@@ -32,3 +33,5 @@ parser.on('attachment', (attachment, node) => {
     // $ExpectType MimeTreeNode
     const _node = node;
 });
+// pipes a readableStream file to MailParser
+createReadStream('email.eml').pipe(parser);
