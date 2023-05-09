@@ -97,7 +97,7 @@ export interface ParsedEmail {
 
 export class MailParser extends Stream implements NodeJS.WritableStream {
     constructor(options?: MailParserOptions);
-    writable: boolean;
+    writable: true;
     write(buffer: string | Uint8Array, cb?: (err?: Error | null) => void): boolean;
     write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
     end(cb?: () => void): this;
