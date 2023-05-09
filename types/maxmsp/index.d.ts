@@ -236,7 +236,7 @@ declare class File {
      * which is located at /Library/Application Support/Cycling ’74 on Macintosh and C:\Program Files\Common Files\Cycling ’74 on Windows. By default, typelist is empty.
      * If able to, the File constructor opens the file specified by filename, provided it is one of the types in typelist.
      */
-    constructor(filename: string, access: string, typelist: string);
+    constructor(filename: string, access?: string, typelist?: string);
 
     /**
      * File access permissions: "read", "write", or "readwrite". By default, this value is "read".
