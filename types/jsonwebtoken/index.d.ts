@@ -19,13 +19,13 @@
 import { KeyObject } from 'crypto';
 
 declare namespace jwt {
-    export class JsonWebTokenError extends Error {
+    class JsonWebTokenError extends Error {
         inner: Error;
 
         constructor(message: string, error?: Error);
     }
 
-    export class TokenExpiredError extends JsonWebTokenError {
+    class TokenExpiredError extends JsonWebTokenError {
         expiredAt: Date;
 
         constructor(message: string, expiredAt: Date);
@@ -34,13 +34,13 @@ declare namespace jwt {
     /**
      * Thrown if current time is before the nbf claim.
      */
-    export class NotBeforeError extends JsonWebTokenError {
+    class NotBeforeError extends JsonWebTokenError {
         date: Date;
 
         constructor(message: string, date: Date);
     }
 
-    export interface SignOptions {
+    interface SignOptions {
         /**
          * Signature algorithm. Could be one of these values :
          * - HS256:    HMAC using SHA-256 hash algorithm (default)
@@ -72,7 +72,7 @@ declare namespace jwt {
         allowInvalidAsymmetricKeyTypes?: boolean | undefined;
     }
 
-    export interface VerifyOptions {
+    interface VerifyOptions {
         algorithms?: Algorithm[] | undefined;
         audience?: string | RegExp | Array<string | RegExp> | undefined;
         clockTimestamp?: number | undefined;
@@ -93,20 +93,20 @@ declare namespace jwt {
         allowInvalidAsymmetricKeyTypes?: boolean | undefined;
     }
 
-    export interface DecodeOptions {
+    interface DecodeOptions {
         complete?: boolean | undefined;
         json?: boolean | undefined;
     }
-    export type VerifyErrors = JsonWebTokenError | NotBeforeError | TokenExpiredError;
-    export type VerifyCallback<T = Jwt | JwtPayload | string> = (
+    type VerifyErrors = JsonWebTokenError | NotBeforeError | TokenExpiredError;
+    type VerifyCallback<T = Jwt | JwtPayload | string> = (
         error: VerifyErrors | null,
         decoded: T | undefined,
     ) => void;
 
-    export type SignCallback = (error: Error | null, encoded: string | undefined) => void;
+    type SignCallback = (error: Error | null, encoded: string | undefined) => void;
 
     // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
-    export interface JwtHeader {
+    interface JwtHeader {
         alg: string | Algorithm;
         typ?: string | undefined;
         cty?: string | undefined;
@@ -120,7 +120,7 @@ declare namespace jwt {
     }
 
     // standard claims https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
-    export interface JwtPayload {
+    interface JwtPayload {
         [key: string]: any;
         iss?: string | undefined;
         sub?: string | undefined;
@@ -131,14 +131,14 @@ declare namespace jwt {
         jti?: string | undefined;
     }
 
-    export interface Jwt {
+    interface Jwt {
         header: JwtHeader;
         payload: JwtPayload | string;
         signature: string;
     }
 
     // https://github.com/auth0/node-jsonwebtoken#algorithms-supported
-    export type Algorithm =
+    type Algorithm =
         | 'HS256'
         | 'HS384'
         | 'HS512'
@@ -153,11 +153,11 @@ declare namespace jwt {
         | 'PS512'
         | 'none';
 
-    export type SigningKeyCallback = (error: Error | null, signingKey?: Secret) => void;
+    type SigningKeyCallback = (error: Error | null, signingKey?: Secret) => void;
 
-    export type GetPublicKeyOrSecret = (header: JwtHeader, callback: SigningKeyCallback) => void;
+    type GetPublicKeyOrSecret = (header: JwtHeader, callback: SigningKeyCallback) => void;
 
-    export type Secret = string | Buffer | KeyObject | { key: string | Buffer; passphrase: string };
+    type Secret = string | Buffer | KeyObject | { key: string | Buffer; passphrase: string };
 
     /**
      * Synchronously sign the given payload into a JSON Web Token string
@@ -166,8 +166,8 @@ declare namespace jwt {
      * [options] - Options for the signature
      * returns - The JSON Web Token string
      */
-    export function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options?: SignOptions): string;
-    export function sign(
+    function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options?: SignOptions): string;
+    function sign(
         payload: string | Buffer | object,
         secretOrPrivateKey: null,
         options?: SignOptions & { algorithm: 'none' },
@@ -180,14 +180,14 @@ declare namespace jwt {
      * [options] - Options for the signature
      * callback - Callback to get the encoded token on
      */
-    export function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, callback: SignCallback): void;
-    export function sign(
+    function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, callback: SignCallback): void;
+    function sign(
         payload: string | Buffer | object,
         secretOrPrivateKey: Secret,
         options: SignOptions,
         callback: SignCallback,
     ): void;
-    export function sign(
+    function sign(
         payload: string | Buffer | object,
         secretOrPrivateKey: null,
         options: SignOptions & { algorithm: 'none' },
@@ -201,15 +201,15 @@ declare namespace jwt {
      * [options] - Options for the verification
      * returns - The decoded token.
      */
-    export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
-    export function verify(
+    function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
+    function verify(
         token: string,
         secretOrPublicKey: Secret,
         options?: VerifyOptions & {
             complete?: false;
         },
     ): JwtPayload | string;
-    export function verify(
+    function verify(
         token: string,
         secretOrPublicKey: Secret,
         options?: VerifyOptions,
@@ -224,24 +224,24 @@ declare namespace jwt {
      * [options] - Options for the verification
      * callback - Callback to get the decoded token on
      */
-    export function verify(
+    function verify(
         token: string,
         secretOrPublicKey: Secret | GetPublicKeyOrSecret,
         callback?: VerifyCallback<JwtPayload | string>,
     ): void;
-    export function verify(
+    function verify(
         token: string,
         secretOrPublicKey: Secret | GetPublicKeyOrSecret,
         options: VerifyOptions & { complete: true },
         callback?: VerifyCallback<Jwt>,
     ): void;
-    export function verify(
+    function verify(
         token: string,
         secretOrPublicKey: Secret | GetPublicKeyOrSecret,
         options?: VerifyOptions & { complete?: false },
         callback?: VerifyCallback<JwtPayload | string>,
     ): void;
-    export function verify(
+    function verify(
         token: string,
         secretOrPublicKey: Secret | GetPublicKeyOrSecret,
         options?: VerifyOptions,
@@ -254,9 +254,10 @@ declare namespace jwt {
      * [options] - Options for decoding
      * returns - The decoded Token
      */
-    export function decode(token: string, options: DecodeOptions & { complete: true }): null | Jwt;
-    export function decode(token: string, options: DecodeOptions & { json: true }): null | JwtPayload;
-    export function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
+    function decode(token: string, options: DecodeOptions & { complete: true }): null | Jwt;
+    function decode(token: string, options: DecodeOptions & { json: true }): null | JwtPayload;
+    function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
 }
 
+// eslint-disable-next-line export-just-namespace
 export = jwt;
