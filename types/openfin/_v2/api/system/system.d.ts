@@ -221,10 +221,10 @@ export interface ServiceIdentifier {
  * peakNonPagedPoolUsage The peak nonpaged pool usage in bytes
  * peakPagedPoolUsage The peak paged pool usage in bytes
  * peakPagefileUsage The peak value in bytes of pagefileUsage during the lifetime of this process
- * @property { number } peakWorkingSetSize The peak working set size in bytes
- * @property { number } processId The native process identifier
- * @property { string } uuid The application UUID
- * @property { number } workingSetSize The current working set size (both shared and private data) in bytes
+ * peakWorkingSetSize The peak working set size in bytes
+ * processId The native process identifier
+ * uuid The application UUID
+ * workingSetSize The current working set size (both shared and private data) in bytes
  */
 /**
  * ProxyConfig interface

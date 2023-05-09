@@ -430,7 +430,7 @@ declare namespace chrome {
         /**
          * Fired when an embedding app requests to embed this app.
          * @since Chrome 43.
-         * @see[Documentation]{@link https://developer.chrome.com/apps/tags/appview}
+         * @see https://developer.chrome.com/apps/tags/appview
          */
         const onEmbedRequested: chrome.events.Event<(request: AppView.EmbedRequest) => void>;
         /**
@@ -536,7 +536,7 @@ declare namespace chrome {
              */
             type: 'none';
             /**
-             * @requires(dev) Chrome dev only
+             * @requires Chrome dev only
              * @requires Permissions: 'app.window.alpha'
              * @description
              * Enable alpha on frame 'none'
@@ -643,7 +643,7 @@ declare namespace chrome {
              */
             frame?: 'none' | 'chrome' | FrameOptions | FrameOptionsChrome | undefined;
             /**
-             * @requires(dev) Chrome dev only
+             * @requires Chrome dev only
              * @requires Permissions: 'app.window.alpha'
              * @description
              * Enable alpha on frame 'none'
@@ -1913,7 +1913,7 @@ declare namespace chrome {
     // Certificate Provider //
     //////////////////////////
     /**
-     * @requires(CrOS) Chrome OS only.
+     * @requires Chrome OS only.
      * @requires Permissions: 'certificateProvider'
      * @description
      * Use this API to expose certificates to the platform which
@@ -2053,14 +2053,14 @@ declare namespace chrome {
     // Clipboard //
     ///////////////
     /**
-     * @requires(dev) **Dev** channel only.
+     * @requires **Dev** channel only.
      * @requires Permissions: 'clipboard'
      * @description
      * *This API is* **experimental**. *It is* **only** *available to Chrome users on the* **dev** *channel.*
      * The chrome.clipboard API is provided to allow users to access data of the clipboard.
      * This is a temporary solution for chromeos platform apps until open-web alternative is available.
      * It will be deprecated once open-web solution is available.
-     * @see[Docs]{@link https://developer.chrome.com/apps/clipboard}
+     * @see https://developer.chrome.com/apps/clipboard
      */
     namespace clipboard {
         /** Image type */
@@ -2119,7 +2119,7 @@ declare namespace chrome {
      * trigger actions in your app, for example, an
      * action to open the browser action or send a command
      * to the app.
-     * @see[Usage]{@link https://developer.chrome.com/apps/commands}
+     * @see https://developer.chrome.com/apps/commands
      */
     namespace commands {
         interface Command {
@@ -2466,7 +2466,7 @@ declare namespace chrome {
     // Diagnostics //
     /////////////////
     /**
-     * @requires(CrOS) Only Chrome OS. Crashes app on Windows.
+     * @requires Only Chrome OS. Crashes app on Windows.
      * @requires Permissions: 'diagnostics'
      */
     namespace diagnostics {
@@ -2480,7 +2480,7 @@ declare namespace chrome {
     // Display Source //
     ////////////////////
     /**
-     * @requires(dev) Development versions only
+     * @requires Development versions only
      * @requires Permissions: 'displaySource'
      * The *chrome.displaySource* API creates a Display session using WebMediaStreamTrack as sources.
      * @todo TODO Finish documentation and typings
@@ -2590,7 +2590,7 @@ declare namespace chrome {
     // DNS //
     /////////
     /**
-     * @requires(CrOS) Only Chrome OS. Crashes app on Windows.
+     * @requires Only Chrome OS. Crashes app on Windows.
      * @requires Permissions: 'diagnostics'
      * @description
      * Use the *chrome.dns* API for dns resolution.
@@ -2665,7 +2665,7 @@ declare namespace chrome {
     /**
      * @requires Permissions: 'enterprise.deviceAttributes'
      * @requires Note: This API is only available to apps force-installed by enterprise policy.
-     * @requires(CrOS) Only available on Chrome OS.
+     * @requires Only available on Chrome OS.
      * @since Chrome 46.
      * @description
      * Use the chrome.enterprise.deviceAttributes API to read device attributes.
@@ -2711,11 +2711,11 @@ declare namespace chrome {
     /**
      * @requires Permissions: 'enterprise.platformKeys'
      * @requires Note: This API is only available to apps force-installed by enterprise policy.
-     * @requires(CrOS) Only available on Chrome OS.
+     * @requires Only available on Chrome OS.
      * @description
      * Use the chrome.enterprise.platformKeys API to generate hardware-backed keys and to install certificates for these keys.
      * The certificates will be managed by the platform and can be used for TLS authentication, network access or by other extension through chrome.platformKeys.
-     * @see[Documentation]{@link https://developer.chrome.com/extensions/enterprise_platformKeys}
+     * @see https://developer.chrome.com/extensions/enterprise_platformKeys
      */
     namespace enterprise.platformKeys {
         interface Token {
@@ -2976,14 +2976,14 @@ declare namespace chrome {
             /** Matches if the URL (without fragment identifier) matches a specified regular expression.
              * Port numbers are stripped from the URL if they match the default port number.
              * The regular expressions use the RE2 syntax.
-             * @see[RE2 syntax docs]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
+             * @see https://github.com/google/re2/blob/master/doc/syntax.txt
              */
             urlMatches?: string | undefined;
             /**
              * Matches if the URL without query segment and fragment identifier matches a specified regular expression.
              * Port numbers are stripped from the URL if they match the default port number.
              * The regular expressions use the RE2 syntax.
-             * @see[RE2 syntax docs]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
+             * @see https://github.com/google/re2/blob/master/doc/syntax.txt
              * @since Chrome 28.
              */
             originAndPathMatches?: string | undefined;
@@ -3175,7 +3175,7 @@ declare namespace chrome {
                 allFrames?: boolean | undefined;
                 /**
                  * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
-                 * @see[frame ref]{@link https://developer.chrome.com/apps/webNavigation#frame_ids}
+                 * @see https://developer.chrome.com/apps/webNavigation#frame_ids
                  * @since Chrome 50.
                  */
                 frameId?: integer | undefined;
@@ -3212,7 +3212,7 @@ declare namespace chrome {
              * Be careful using the code parameter.
              * Incorrect use of it may open your app
              * to cross site scripting attacks.
-             * @see[More information]{@link https://en.wikipedia.org/wiki/Cross-site_scripting}
+             * @see https://en.wikipedia.org/wiki/Cross-site_scripting
              */
             code: string;
         }
@@ -3224,13 +3224,13 @@ declare namespace chrome {
     // File Browser Handle //
     /////////////////////////
     /**
-     * @requires(CrOS) Chrome OS Only
+     * @requires Chrome OS Only
      * @requires Permissions: 'fileBrowserHandler'
      * @requires Manifest: 'file_browser_handlers'
      * @description
      * Use the chrome.fileBrowserHandler API to extend the Chrome OS file browser.
      * For example, you can use this API to enable users to upload files to your website.
-     * @see[Documentation]{@link https://developer.chrome.com/extensions/fileBrowserHandler}
+     * @see https://developer.chrome.com/extensions/fileBrowserHandler
      */
     namespace fileBrowserHandler {
         type FileBrowserHandleExecuteId =
@@ -3449,7 +3449,7 @@ declare namespace chrome {
          * */
         function retainEntry(entry: FileEntry | DirectoryEntry): string;
         /**
-         * @requires(Kiosk) Kiosk mode only
+         * @requires Kiosk -Kiosk mode only
          * @requires Permissions: The writable option requires the 'fileSystem': {'write'} permission in the manifest.
          * Requests access to a file system for a volume represented by options.volumeId.
          * If options.writable is set to true, then the file system will be writable.
@@ -3460,7 +3460,7 @@ declare namespace chrome {
          */
         function requestFileSystem(options: Volume, callback: (fileSystem: FileSystem) => void): void;
         /**
-         * @requires(Kiosk) Chrome OS Kiosk mode only
+         * @requires Kiosk -Chrome OS Kiosk mode only
          * @requires Permissions: The 'fileSystem': {'requestFileSystem'} manifest permission is required.
          * Returns a list of volumes available for requestFileSystem().
          * Available to kiosk apps running in the kiosk session only.
@@ -3485,7 +3485,7 @@ declare namespace chrome {
      * that can be accessible from the file manager on Chrome OS.
      * @since Chrome 40.
      * @requires Permissions: 'fileSystemProvider'
-     * @requires(CrOS) This API works only on Chrome OS.
+     * @requires This API works only on Chrome OS.
      * @requires Manifest:
      * Requires an section in addition to the permission.
      * The file_system_provider section must be declared as follows:
@@ -3504,7 +3504,7 @@ declare namespace chrome {
      * allow to add more than one mount points from the UI. If watchable is false, then a
      * refresh button will be rendered. Note, that if possible you should add support for
      * watchers, so changes on the file system can be reflected immediately and automatically.
-     * @see[More information]{@link https://developer.chrome.com/apps/fileSystemProvider}
+     * @see https://developer.chrome.com/apps/fileSystemProvider
      */
     namespace fileSystemProvider {
         /**
@@ -4239,8 +4239,8 @@ declare namespace chrome {
      * Migrate GCM apps to Firebase Cloud Messaging (FCM),
      * which inherits the reliable and scalable GCM infrastructure,
      * plus many new features. See the migration guide to learn more.
-     * @see[Migration guide]{@link https://developers.google.com/cloud-messaging/android/android-migrate-fcm}
-     * @see[GCM Imlementation guide]{@link https://developers.google.com/cloud-messaging/chrome/client}
+     * @see https://developers.google.com/cloud-messaging/android/android-migrate-fcm
+     * @see https://developers.google.com/cloud-messaging/chrome/client
      * @since Chrome 35.
      * @requires Permissions: 'gcm'
      */
@@ -4440,8 +4440,8 @@ declare namespace chrome {
         function getDevices(options: DeviceOptions, callback: (devices: HidDeviceInfo[]) => void): void;
 
         /**
-         * @requires(dev) **Dev channel only!**
-         * @see[Learn more]{@link https://developer.chrome.com/apps/api_index#dev_apis}
+         * @requires **Dev channel only!**
+         * @see https://developer.chrome.com/apps/api_index#dev_apis
          * @description
          * Presents a device picker to the user and returns
          * HidDeviceInfo objects for the devices selected. If the user
@@ -4455,8 +4455,8 @@ declare namespace chrome {
 
         /**
          * @since Chrome 45.
-         * @requires(dev) **Dev channel only!**
-         * @see[Learn more]{@link https://developer.chrome.com/apps/api_index#dev_apis}
+         * @requires **Dev channel only!**
+         * @see https://developer.chrome.com/apps/api_index#dev_apis
          * Presents a device picker to the user and returns
          * HidDeviceInfo objects for the devices selected. If the user
          * cancels the picker devices will be empty. A user gesture is
@@ -4528,7 +4528,7 @@ declare namespace chrome {
          * have been granted at install time or when the user
          * accepted an optional permission.
          * @since Chrome 41.
-         * @see[permissions.request]{@link https://developer.chrome.com/apps/permissions#method-request}
+         * @see https://developer.chrome.com/apps/permissions#method-request
          */
         const onDeviceAdded: chrome.events.Event<(device: HidDeviceInfo) => void>;
 
@@ -4536,7 +4536,7 @@ declare namespace chrome {
          * Event generated when a device is removed from the system.
          * The callback will contain the deviceId property of the device passed to onDeviceAdded.
          * @since Chrome 41.
-         * @see[See onDeviceAdded for which events are delivered]{@link https://developer.chrome.com/apps/hid#event-onDeviceAdded}.
+         * @see https://developer.chrome.com/apps/hid#event-onDeviceAdded
          */
         const onDeviceRemoved: chrome.events.Event<(deviceId: integer) => void>;
     }
@@ -4549,7 +4549,7 @@ declare namespace chrome {
     /**
      * Use the chrome.i18n infrastructure to implement internationalization across your whole app.
      * Content scripts: Fully supported.
-     * @see[Docs]{@link https://developer.chrome.com/apps/i18n}
+     * @see https://developer.chrome.com/apps/i18n
      * @since Chrome 25.
      */
     namespace i18n {
@@ -4562,7 +4562,7 @@ declare namespace chrome {
          */
         type LanguageCode = kLanguageInfoTable | 'und';
         /**
-         * @see[Source]{@link https://github.com/chromium/chromium/blob/master/ui/base/l10n/l10n_util.cc}
+         * @see https://github.com/chromium/chromium/blob/master/ui/base/l10n/l10n_util.cc
          */
         type kLanguageInfoTable =
             'af' |     // Afrikaans
@@ -4811,7 +4811,7 @@ declare namespace chrome {
     /**
      * Use the chrome.identity API to get OAuth2 access tokens.
      * @requires Permissions: 'identity'
-     * @see[Identity User]{@link https://developer.chrome.com/apps/app_identity}
+     * @see https://developer.chrome.com/apps/app_identity
      * @since Chrome 29.
      */
     namespace identity {
@@ -4885,7 +4885,7 @@ declare namespace chrome {
         }
 
         /**
-         * @requires(dev) **Dev channel only.**
+         * @requires **Dev channel only.**
          * @description
          * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
          * getAccounts is only supported on dev channel.
@@ -5270,7 +5270,7 @@ declare namespace chrome {
     /**
      * Use the chrome.mdns API to discover services over mDNS.
      * This comprises a subset of the features of the NSD spec:
-     * @see[NSD Spec]{@link http://www.w3.org/TR/discovery-api/}
+     * @see http://www.w3.org/TR/discovery-api
      * @requires Permissions: 'mdns'
      * @since Chrome 31
      */
@@ -5290,7 +5290,7 @@ declare namespace chrome {
          * Locked to this because it's the only one that can be used.
          *
          * const char kEventFilterServiceTypeKey[] = "serviceType";
-         * @see[Source: event_matcher.cc, line 19]{@link https://github.com/chromium/chromium/tree/master/extensions/common/event_matcher.cc}
+         * @see https://github.com/chromium/chromium/tree/master/extensions/common/event_matcher.cc
          */
         type ValidServiceTypes = 'serviceType';
 
@@ -5347,7 +5347,7 @@ declare namespace chrome {
      * @since Chrome 24.
      * @requires Permissions: {'mediaGalleries': ['accessType1' | 'accessType2', ...]}
      *                        {'mediaGalleries': ['accessType1' | 'accessType2', ..., 'allAutoDetected']}
-     * @see[More information]{@link https://developer.chrome.com/apps/mediaGalleries}
+     * @see https://developer.chrome.com/apps/mediaGalleries
      */
     namespace mediaGalleries {
         type Interactive =
@@ -5580,7 +5580,7 @@ declare namespace chrome {
     // NETWORKING CONFIG //
     ///////////////////////
     /**
-     * @requires(CrOS) Chrome OS only.
+     * @requires Chrome OS only.
      * @requires Permissions: 'networking.config'
      * @description
      * Use the *networking.config* API to authenticate to captive portals.
@@ -5675,14 +5675,14 @@ declare namespace chrome {
     // Open Network Configuration (ONC) //
     //////////////////////////////////////
     /**
-     * @requires(CrOS kiosk mode) This API is available in Chrome OS kiosk sessions.
+     * @requires CrOS kiosk mode -This API is available in Chrome OS kiosk sessions.
      * @requires Permissions: 'networking.onc'
      * @since Chrome 59
      * @description
      * The chrome.networking.onc API is used for configuring network connections
      * (Cellular, Ethernet, VPN, WiFi or WiMAX).
      * Network connection configurations are specified following
-     * @see[Open Network Configuration (ONC) specification.]{@link https://chromium.googlesource.com/chromium/src/+/master/components/onc/docs/onc_spec.md}
+     * @see https://chromium.googlesource.com/chromium/src/+/master/components/onc/docs/onc_spec.md
      * @description
      * **NOTE**
      * Most interface properties and type values use UpperCamelCase to match
@@ -6331,7 +6331,7 @@ declare namespace chrome {
      * templates and show these notifications to users in the system tray.
      * @requires Permissions: 'notifications'
      * @since Chrome 28.
-     * @see[Docs]{@link https://developer.chrome.com/extensions/notifications}
+     * @see https://developer.chrome.com/extensions/notifications
      */
     namespace notifications {
         /**
@@ -6593,7 +6593,7 @@ declare namespace chrome {
     // Platform Keys //
     ///////////////////
     /**
-     * @requires(CrOS) Only for Chrome OS.
+     * @requires Only for Chrome OS.
      * @requires Permissions: 'platformKeys'
      * @description
      * Use the *chrome.platformKeys* API to access client certificates
@@ -6614,7 +6614,7 @@ declare namespace chrome {
             certificate: ArrayBuffer;
 
             /**
-             * @see[KeyAlgorithm]{@link http://www.w3.org/TR/WebCryptoAPI/#key-algorithm-interface}
+             * @see http://www.w3.org/TR/WebCryptoAPI/#key-algorithm-interface
              * @description
              * The KeyAlgorithm of the certified key. This contains algorithm
              * parameters that are inherent to the key of the certificate (e.g. the key
@@ -6625,7 +6625,7 @@ declare namespace chrome {
 
         /**
          * Analogous to TLS1.1's CertificateRequest.
-         * @see{@link http://tools.ietf.org/html/rfc4346#section-7.4.4}
+         * @see http://tools.ietf.org/html/rfc4346#section-7.4.4
          */
         interface ClientCertificateRequest {
             /**
@@ -6730,8 +6730,8 @@ declare namespace chrome {
          * @param callback The public and private CryptoKey of a certificate which can only be used with *subleCrypto*.
          * @param callback.privateKey Might be *null* if this app does not have access to it.
          * @param callback.privateKey
-         * @see[WebCrypto's importKey docs]{@link http://www.w3.org/TR/WebCryptoAPI/#SubtleCrypto-method-importKey}
-         * @see[CryptoKey docs]{@link http://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey}
+         * @see http://www.w3.org/TR/WebCryptoAPI/#SubtleCrypto-method-importKey
+         * @see http://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey
          */
         function getKeyPair(
             certificate: ArrayBuffer,
@@ -6742,7 +6742,7 @@ declare namespace chrome {
          * An implementation of WebCrypto's SubtleCrypto
          * that allows crypto operations on keys of client
          * certificates that are available to this app.
-         * @see[SubtleCrypto]{@link http://www.w3.org/TR/WebCryptoAPI/#subtlecrypto-interface}
+         * @see http://www.w3.org/TR/WebCryptoAPI/#subtlecrypto-interface
          */
         function subtleCrypto(): SubtleCrypto;
 
@@ -7240,8 +7240,8 @@ declare namespace chrome {
              * Also, there is no default exit behavior.
              * In normal webpages, the browser intercepts the ESC key to exit pointer lock.
              * This behavior is not present in Chrome Apps.
-             * @see[Pointer Lock Docs]{@link http://www.w3.org/TR/pointerlock/}
-             * @see[Pepper's Mouse Lock API]{@link https://developers.google.com/native-client/peppercpp/classpp_1_1_mouse_lock}
+             * @see http://www.w3.org/TR/pointerlock/
+             * @see https://developers.google.com/native-client/peppercpp/classpp_1_1_mouse_lock
              */
             'pointerLock' |
             /** Gives your app access to the chrome.power API. */
@@ -7295,7 +7295,7 @@ declare namespace chrome {
              * Many capabilities, such as cross-origin XMLHttpRequests,
              * programmatically injected content scripts require host permissions.
              * For details on the syntax:
-             * @see[Match Patterns]{@link https://developer.chrome.com/apps/match_patterns}
+             * @see https://developer.chrome.com/apps/match_patterns
              * A path is allowed but treated as /*
              */
             UrlMatches |
@@ -7309,7 +7309,7 @@ declare namespace chrome {
         }
         interface FileSystemPermission {
             /**
-             * @requires(CrOS) 'requestFileSystem' is only for ChromeOS
+             * @requires 'requestFileSystem' is only for ChromeOS
              */
             fileSystem: Array<'write' | 'retainEntries' | 'directory' | 'requestFileSystem'>;
         }
@@ -7451,7 +7451,7 @@ declare namespace chrome {
             /**
              * One integer specifying the version of the manifest file format your package requires.
              * As of Chrome 18, developers should specify 2 (without quotes).
-             * @see[Manifest Version Info]{@link https://developer.chrome.com/apps/manifest/manifest_version}
+             * @see https://developer.chrome.com/apps/manifest/manifest_version
              * @required
              */
             manifest_version: 2;
@@ -7464,7 +7464,7 @@ declare namespace chrome {
              *  - Chrome Web Store
              *
              * You can specify locale-specific strings, see Internationalization docs:
-             * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
+             * @see https://developer.chrome.com/extensions/i18n
              * @required
              * @requires string - Maximum 45 characters!
              */
@@ -7474,7 +7474,7 @@ declare namespace chrome {
              * A couple of rules apply to the integers: they must be between 0 and 65535, inclusive,
              * and non-zero integers can't start with 0. For example, 99999 and 032 are both invalid.
              * A missing integer is equal to zero. For example, 1.1.9.9999 is newer than 1.1.
-             * @see[Manifest- Version Docs]{@link https://developer.chrome.com/apps/manifest/version}
+             * @see https://developer.chrome.com/apps/manifest/version
              * @required
              */
             version: string;
@@ -7487,7 +7487,7 @@ declare namespace chrome {
              * Specifies the subdirectory of _locales that contains the default strings for this app.
              * This field is required in apps that have a _locales directory; it must be absent in
              * apps that have no _locales directory. For details, see Internationalization:
-             * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
+             * @see https://developer.chrome.com/extensions/i18n
              */
             default_locale?: string | undefined;
 
@@ -7496,7 +7496,7 @@ declare namespace chrome {
              * that describes the extension. The description should be suitable for both the
              * browser's extension management UI and the Chrome Web Store. You can specify
              * locale-specific strings for this field; see Internationalization for details.
-             * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
+             * @see https://developer.chrome.com/extensions/i18n
              */
             description?: string | undefined;
 
@@ -7528,7 +7528,7 @@ declare namespace chrome {
             //////////////
 
             /**
-             * @requires(CrOS) **Will only work on Chrome OS.**
+             * @requires **Will only work on Chrome OS.**
              * @description
              * The action_handlers manifest property declares which user actions or intents the
              * application supports; these can serve as alternate launch points for your application.
@@ -7541,7 +7541,7 @@ declare namespace chrome {
 
             /**
              * App author information
-             * @see[Not implemented anywhere in code]{@link https://github.com/chromium/chromium/blob/master/chrome/browser/chromeos/extensions/device_local_account_management_policy_provider.cc#L46}
+             * @see https://github.com/chromium/chromium/blob/master/chrome/browser/chromeos/extensions/device_local_account_management_policy_provider.cc#L46
              */
             author?: {
                 name: string,
@@ -7550,7 +7550,7 @@ declare namespace chrome {
 
             /**
              * Allows inspection of page contents, not enabled on stable anyways except for whitelist.
-             * @see[Docs]{@link https://github.com/chromium/chromium/blob/master/extensions/common/manifest_handlers/automation.cc}
+             * @see https://github.com/chromium/chromium/blob/master/extensions/common/manifest_handlers/automation.cc
              */
             automation?: AutomationOptions | boolean | undefined;
 
@@ -7610,7 +7610,7 @@ declare namespace chrome {
              * intercept, block, or modify web requests in-flight using **declarativeWebRequest**
              * or take actions depending on the content of a page, without requiring permission
              * to read the page's content using **declarativeContent**.
-             * @see[event_rules docs]{@link https://developer.chrome.com/extensions/manifest/event_rules}
+             * @see https://developer.chrome.com/extensions/manifest/event_rules
              */
             event_rules?: {
                 /** Event name */
@@ -7707,7 +7707,7 @@ declare namespace chrome {
 
             /**
              * Import resources from another extension / app.
-             * @see[Shared modules]{@link https://developer.chrome.com/apps/shared_modules}
+             * @see https://developer.chrome.com/apps/shared_modules
              */
             import?: {
                 id: string;
@@ -7765,8 +7765,8 @@ declare namespace chrome {
 
             /**
              * Native Client
-             * @see[NDK Docs]{@link https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/doc/devguide/distributing.rst}
-             * @see[Chromium Source]{@link https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/tools/fix_manifest.py}
+             * @see https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/doc/devguide/distributing.rst
+             * @see https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/tools/fix_manifest.py
              */
             platforms?: {
                 nacl_arch: ToStringLiteral<typeof chrome.runtime.PlatformNaclArch>;
@@ -7847,7 +7847,7 @@ declare namespace chrome {
              * - New Tab page
              *
              * You can specify locale-specific strings, see Internationalization docs:
-             * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
+             * @see https://developer.chrome.com/extensions/i18n
              */
             short_name?: string | undefined;
 
@@ -7884,7 +7884,7 @@ declare namespace chrome {
                 /**
                  * The storage.managed_schema property indicates a file within the app that contains the policy schema.
                  * @see ManagedSchema for schema content typings
-                 * @see[Docs and Schema Format]{@link https://developer.chrome.com/apps/manifest/storage}
+                 * @see https://developer.chrome.com/apps/manifest/storage
                  */
                 managed_schema: string;
             } | undefined;
@@ -7896,9 +7896,9 @@ declare namespace chrome {
              * **⚠ Warning**
              * As of M33, Windows stable / beta channel users can only
              * download apps hosted in the Chrome Web Store
-             * @requires(not Windows)
+             * @requires not-Windows
              * (@see[Protecting Windows users from malicious extensions]{@link http://blog.chromium.org/2013/11/protecting-windows-users-from-malicious.html}).
-             * @see[Documentation]{@link https://developer.chrome.com/apps/autoupdate}
+             * @see https://developer.chrome.com/apps/autoupdate
              */
             update_url?: string | undefined;
 
@@ -7914,7 +7914,7 @@ declare namespace chrome {
              *   ],
              *   'title': 'View FooBar presentation'
              * }
-             * @see[Documentation]{@link https://developer.chrome.com/apps/manifest/url_handlers}
+             * @see https://developer.chrome.com/apps/manifest/url_handlers
              *
              */
             url_handlers?: {
@@ -7955,7 +7955,7 @@ declare namespace chrome {
              * section in the app manifest. Partitions may be granted access to a set of files by
              * matching partition name patterns with file name patterns. Both sorts of patterns may
              * contain the * wildcard.
-             * @see[Accessing packaged resources]{@link https://developer.chrome.com/apps/tags/webview#local_resources}
+             * @see https://developer.chrome.com/apps/tags/webview#local_resources
              */
             webview?: {
                 /** Webview partition list */
@@ -7965,7 +7965,7 @@ declare namespace chrome {
 
         /**
          * Manifest for Chrome OS Kiosk apps
-         * @requires(CrOS Kiosk App) **Only for Chrome OS Kiosk Apps.**
+         * @requires CrOS Kiosk App -**Only for Chrome OS Kiosk Apps.**
          */
         interface ValidKioskManifest extends PartialManifest {
             /**
@@ -7993,7 +7993,7 @@ declare namespace chrome {
 
             /**
              * Not useful since it will prevent app from running.
-             * @see[Source]{@link https://github.com/chromium/chromium/blob/master/chrome/browser/chromeos/extensions/device_local_account_management_policy_provider.cc#L155}
+             * @see https://github.com/chromium/chromium/blob/master/chrome/browser/chromeos/extensions/device_local_account_management_policy_provider.cc#L155
              */
             kiosk_secondary_apps?: any;
         }
@@ -8206,7 +8206,7 @@ declare namespace chrome {
          */
         const onMessageExternal: ExtensionMessageEvent;
         /**
-         * @required(Chrome OS Kiosk app) Currently, this event is only fired for Chrome OS kiosk apps.
+         * @required Chrome OS Kiosk app - Currently, this event is only fired for Chrome OS kiosk apps.
          * Fired when an app or the device that it runs on needs to be restarted.
          * The app should close all its windows at its earliest convenient time to let the restart to happen.
          * If the app does nothing, a restart will be enforced after a 24-hour grace period has passed.
@@ -8252,7 +8252,7 @@ declare namespace chrome {
     // SignedIn Devices //
     //////////////////////
     /**
-     * @requires(dev) Requires Chrome *dev*
+     * @requires Requires Chrome *dev*
      * Use the *chrome.signedInDevices* API to get a list of devices
      * signed into chrome with the same account as the current profile.
      */
@@ -8370,7 +8370,7 @@ declare namespace chrome {
             name?: string | undefined;
             /**
              * The size of the buffer used to receive data.
-             * @default: 4096
+             * @default 4096
              */
             bufferSize?: integer | undefined;
         }
@@ -8412,7 +8412,7 @@ declare namespace chrome {
              * These will be tls1, tls1.1, or tls1.2.
              * *Note*
              * tls1.3 should be supported from Chrome 67.
-             * @see[TLS Info and support table]{@link https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.3}
+             * @see https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.3
              */
             tlsVersion?: {
                 min?: 'tls1' | 'tls1.1' | 'tls1.2' | 'tls1.3' | undefined,
@@ -8896,7 +8896,7 @@ declare namespace chrome {
          * receive the loopback packets; while on Unix-like systems, the
          * applications with loopback off will not SEND the loopback packets to
          * other applications on the same host.
-         * @see[MSDN]{@link http://goo.gl/6vqbj}
+         * @see http://goo.gl/6vqbj
          *
          * Calling this method does not require multicast permissions.
          *
@@ -9102,8 +9102,8 @@ declare namespace chrome {
      * the same data can be available across different clients. Read Manage Data for
      * more on using this API.
      *
-     * @requires[Permissions: 'syncFileSystem']
-     * @see[Learn more: Manage Data]{@link https://developer.chrome.com/apps/app_storage}
+     * @requires Permissions: 'syncFileSystem'
+     * @see https://developer.chrome.com/apps/app_storage
      * @since Chrome 27
      */
     namespace syncFileSystem {
@@ -9198,7 +9198,7 @@ declare namespace chrome {
          * Returns a syncable filesystem backed by Google Drive.
          * The returned DOMFileSystem instance can be operated on
          * in the same way as the Temporary and Persistant file systems
-         * @see[More information]{@link http://dev.w3.org/2009/dap/file-system/file-dir-sys.html}
+         * @see http://dev.w3.org/2009/dap/file-system/file-dir-sys.html
          * @description
          * Calling this multiple times from the same app will return the same handle to the same file system.
          * Note this call can fail.
@@ -9300,7 +9300,7 @@ declare namespace chrome {
             /** Information about each logical processor. */
             processors: ProcessorInfo[];
             /**
-             * @requires(CrOS) Currently supported on Chrome OS only.
+             * @requires Currently supported on Chrome OS only.
              * @description
              * List of CPU temperature readings from each thermal zone of the CPU.
              * Temperatures are in degrees Celsius.
@@ -9458,20 +9458,20 @@ declare namespace chrome {
          */
         interface DisplayPropertiesInfo {
             /**
-             * @requires(CrOS) Chrome OS only.
+             * @requires Chrome OS only.
              * @description
              * If set to true, changes the display mode to unified desktop.
              * If set to false, unified desktop mode will be disabled.
              * This is only valid for the primary display.
              * If provided, mirroringSourceId must not be provided and other properties may not apply.
              * This is has no effect if not provided.
-             * @see(See `enableUnifiedDesktop` for details).
+             * @see `enableUnifiedDesktop` for details
              * @since Chrome 59
              * */
             isUnified?: boolean | undefined;
 
             /**
-             * @requires(CrOS) Chrome OS only.
+             * @requires Chrome OS only.
              * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
              * @see setMirrorMode
              * @description
@@ -9518,7 +9518,7 @@ declare namespace chrome {
 
             /**
              * If set, updates the display's logical bounds origin along y-axis.
-             * @see[See documentation for boundsOriginX parameter.]
+             * @see Documentation for boundsOriginX parameter.
              */
             boundsOriginY?: integer | undefined;
 
@@ -9546,7 +9546,7 @@ declare namespace chrome {
         interface DisplayInfoFlags {
             /**
              * If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode.
-             * @see[enableUnifiedDesktop]
+             * @see enableUnifiedDesktop
              * @default false
              */
             singleUnified?: boolean | undefined;
@@ -9559,7 +9559,7 @@ declare namespace chrome {
             /** The user-friendly name (e.g. 'HP LCD monitor'). */
             name: string;
             /**
-             * @requires(CrOS Kiosk app) Only available in Chrome OS Kiosk apps
+             * @requires CrOS Kiosk app -Only available in Chrome OS Kiosk apps
              */
             edid?: {
                 /**
@@ -9576,7 +9576,7 @@ declare namespace chrome {
                 yearOfManufacture?: string | undefined;
             } | undefined
             /**
-             * @requires(CrOS) Only working properly on Chrome OS.
+             * @requires Only working properly on Chrome OS.
              * Identifier of the display that is being mirrored on the display unit.
              * If mirroring is not in progress, set to an empty string
              * Currently exposed only on ChromeOS.
@@ -9584,7 +9584,7 @@ declare namespace chrome {
              */
             mirroringSourceId: string;
             /**
-             * @requires(CrOS) Only available on Chrome OS.
+             * @requires Only available on Chrome OS.
              * Identifiers of the displays to which the source display is being mirrored.
              * Empty if no displays are being mirrored. This will be set to the same value
              * for all displays.
@@ -9610,7 +9610,7 @@ declare namespace chrome {
             /** The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher. */
             workArea: Bounds;
             /**
-             * @requires(CrOS) Only available on Chrome OS.
+             * @requires Only available on Chrome OS.
              * The list of available display modes.
              * The current mode will have isSelected=true.
              * Only available on Chrome OS.
@@ -9661,7 +9661,7 @@ declare namespace chrome {
         function getInfo(flags: DisplayInfoFlags, callback: (info: DisplayInfo[]) => void): void;
 
         /**
-         * @requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+         * @requires CrOS Kiosk apps | WebUI -This is only available to Chrome OS Kiosk apps and Web UI.
          * @description Requests the layout info for all displays.
          * @since Chrome 53
          * @export
@@ -9670,7 +9670,7 @@ declare namespace chrome {
         function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
 
         /**
-         * @requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+         * @requires CrOS Kiosk apps | WebUI -This is only available to Chrome OS Kiosk apps and Web UI.
          * @description
          * Updates the properties for the display specified by **id**,
          * according to the information provided in **info**.
@@ -9682,7 +9682,7 @@ declare namespace chrome {
         function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback?: () => void): void;
 
         /**
-         * @requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+         * @requires CrOS Kiosk apps | WebUI -This is only available to Chrome OS Kiosk apps and Web UI.
          * @description
          * Set the layout for all displays.
          * Any display not included will use the default layout.
@@ -9695,7 +9695,7 @@ declare namespace chrome {
         function setDisplayLayout(layouts: DisplayLayout[], callback?: () => void): void;
 
         /**
-         * @requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+         * @requires CrOS Kiosk apps | WebUI -This is only available to Chrome OS Kiosk apps and Web UI.
          * @description
          * Enables/disables the unified desktop feature.
          * Note that this simply enables the feature, but will not change the actual desktop mode.
@@ -9777,7 +9777,7 @@ declare namespace chrome {
         function clearTouchCalibration(id: string): void;
 
         /**
-         * @requires(CrOS Kiosk app) Chrome OS Kiosk apps only
+         * @requires CrOS Kiosk app -Chrome OS Kiosk apps only
          * @since Chrome 65.
          * @description
          * Sets the display mode to the specified mirror mode.
@@ -9837,7 +9837,7 @@ declare namespace chrome {
     // System Power Source //
     /////////////////////////
     /**
-     * @requires(CrOS Kiosk) Chrome OS kiosk app.
+     * @requires CrOS Kiosk -Chrome OS kiosk app.
      * @requires Permissions: 'system.powerSource'
      * @description The chrome.system.powerSource API allows Chrome Kiosk Apps to query the state of connected power sources.
      * @since Latest
@@ -10210,7 +10210,7 @@ declare namespace chrome {
      * Errors generated by this API are reported by setting runtime.lastError
      * and executing the function's regular callback. The callback's
      * regular parameters will be undefined in this case.
-     * @see[Accessing Hardware Devices]{@link https://developer.chrome.com/apps/app_usb}
+     * @see https://developer.chrome.com/apps/app_usb
      */
     namespace usb {
         /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
@@ -10508,7 +10508,7 @@ declare namespace chrome {
 
         /**
          * @deprecated Since Chrome 40.
-         * @requires(CrOS) Chrome OS specific. This operation is now implicitly performed as a part of *openDevice*.
+         * @requires Chrome OS specific. This operation is now implicitly performed as a part of *openDevice*.
          */
         function requestAccess(device: Device, interfaceId: integer, callback: (success: boolean) => void): void;
 
@@ -10538,7 +10538,7 @@ declare namespace chrome {
          *                  - vendorId: The device vendor ID.
          *                  - productId: The product ID.
          *                  - The interface ID to request access to. Only available on Chrome OS. It has no effect on other platforms.
-         * @requires(CrOS) Chrome OS if you specify *interfaceId*
+         * @requires Chrome OS if you specify *interfaceId*
          * @param callback
          */
         function findDevices(options: { vendorId: integer, productId: integer, interfaceId?: integer | undefined }, callback: (handles: ConnectionHandle[]) => void): void;
@@ -10678,7 +10678,7 @@ declare namespace chrome {
     // Virtual Keyboard //
     //////////////////////
     /**
-     * @requires(CrOS Kiosk) Important: This API works only in Chrome OS apps.
+     * @requires CrOS Kiosk -Important: This API works only in Chrome OS apps.
      * @requires Permissions: 'virtualKeyboard'
      * @since Chrome 58
      * @description
@@ -10723,7 +10723,7 @@ declare namespace chrome {
     //////////////////
     /**
      * Use the chrome.vpnProvider API to implement a VPN client.
-     * @requires(CrOS) Important: This API works only on Chrome OS.
+     * @requires Important: This API works only on Chrome OS.
      * @requires Permissions: 'vpnProvider'
      * @since Chrome 43.
      */
@@ -11113,7 +11113,7 @@ declare namespace chrome {
         /**
          * Redirects a request by applying a regular expression on the URL.
          * The regular expressions use the RE2 syntax.
-         * @see[RE2 syntax]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
+         * @see https://github.com/google/re2/blob/master/doc/syntax.txt
          */
         class RedirectByRegEx {
             protected readonly typeGuard: 'RedirectByRegEx';
@@ -11523,7 +11523,7 @@ declare namespace chrome {
     /**
      * Chrome experimental apis may be using this namespace.
      * Please consult the official documentation.
-     * @see[Documentation]{@link https://developer.chrome.com/apps/experimental}
+     * @see https://developer.chrome.com/apps/experimental
      */
     const experimental: any;
     // #endregion
@@ -11562,8 +11562,8 @@ declare namespace chrome {
      * chrome.loadTimes() is a non-standard API that exposes loading metrics
      * and network information to developers in order to help them better
      * understand their site's performance in the real world.
-     * @see[Use this instead]{@link https://www.w3.org/TR/navigation-timing-2/}
-     * @see[Deprecation article]{@link https://developers.google.com/web/updates/2017/12/chrome-loadtimes-deprecated}
+     * @see https://www.w3.org/TR/navigation-timing-2/
+     * @see https://developers.google.com/web/updates/2017/12/chrome-loadtimes-deprecated
      */
     function loadTimes(): chrome.deprecatedButUsable;
 
@@ -11581,7 +11581,7 @@ declare namespace chrome {
  * Not all apps can be embedded; apps have to explicitly allow themselves to be embedded.
  * @since Chrome 43.
  * @requires Permissions: 'appview'
- * @see[Documentation]{@link https://developer.chrome.com/apps/tags/appview}
+ * @see https://developer.chrome.com/apps/tags/appview
  */
 declare class HTMLAppViewElement extends HTMLElement {
     /** Create a new AppView tag */
@@ -12519,7 +12519,7 @@ declare namespace WebView {
          * Be careful using the *code* parameter.
          * Incorrect use of it may open your app to
          * cross site scripting attacks.
-         * @see[More information]{@link https://en.wikipedia.org/wiki/Cross-site_scripting}
+         * @see https://en.wikipedia.org/wiki/Cross-site_scripting
          */
         code?: string | undefined,
         /**
@@ -13099,7 +13099,7 @@ declare namespace WebView {
 
     /**
      * Interface which provides access to webRequest events on the guest page.
-     * @see[chrome.webRequest]{@link http://developer.chrome.com/extensions/webRequest}
+     * @see http://developer.chrome.com/extensions/webRequest
      * extensions API for details on webRequest life cycle and related concepts.
      *
      * To illustrate how usage differs from the extensions webRequest API,
@@ -13110,7 +13110,7 @@ declare namespace WebView {
      *   function(details) { return {cancel: true}; }, {urls: ['*://www.evil.com/*']}, ['blocking']);
      * @description
      * Additionally, this interface supports declarative webRequest rules through onRequest and onMessage events.
-     * @see[Docs]{@link http://developer.chrome.com/extensions/declarativeWebRequest.htmldeclarativeWebRequest}
+     * @see http://developer.chrome.com/extensions/declarativeWebRequest.htmldeclarativeWebRequest
      * @description
      * Note that conditions and actions for declarative webview webRequests should be instantiated
      * from their chrome.webViewRequest.* counterparts. The following example code declaratively
@@ -13157,13 +13157,13 @@ declare namespace WebView {
          * Provides the Declarative Event API consisting of addRules, removeRules, and getRules.
          * This interface supports declarative webRequest rules through
          * **onRequest** and **onMessage** events.
-         * @see[See declarativeWebRequest for API details.]{@link http://developer.chrome.com/extensions/declarativeWebRequest.html}
+         * @see http://developer.chrome.com/extensions/declarativeWebRequest.html
          */
         onRequest: chrome.webViewRequest.OnRequestEvent;
         /**
          * This interface supports declarative webRequest rules through
          * **onRequest** and **onMessage** events.
-         * @see[See declarativeWebRequest for API details.]{@link http://developer.chrome.com/extensions/declarativeWebRequest.html}
+         * @see http://developer.chrome.com/extensions/declarativeWebRequest.html
          */
         onMessage: chrome.webViewRequest.OnMessageEvent;
     }
@@ -13218,11 +13218,11 @@ declare interface HTMLElementTagNameMap {
  * Only warnings since:
  *  1. It's not possible as of now to override or remove something from *Window* or *Document*.
  *  2. It may also cause other unforseen consequences if it's removed (and if it was possible).
- * @see[Disallowed]
+ * @see Disallowed
  */
 /**
  * Chrome app - Web APIs
- * @see[Docs]{@link https://developer.chrome.com/apps/api_other}
+ * @see https://developer.chrome.com/apps/api_other
  */
 interface ChromeWindow {
     ///

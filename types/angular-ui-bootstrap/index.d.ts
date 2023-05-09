@@ -28,12 +28,12 @@ declare module 'angular' {
 
         interface IButtonConfig {
             /**
-             * @default: 'active'
+             * @default 'active'
              */
             activeClass?: string | undefined;
 
             /**
-             * @default: 'Click'
+             * @default 'Click'
              */
             toggleEvent?: string | undefined;
         }
@@ -199,7 +199,7 @@ declare module 'angular' {
              * @default null
              */
             dateDisabled?: DatepickerCallback<boolean> | undefined;
-            
+
             /**
              * Defines an optional expression to add classes based on passing an object with date and current mode properties.
              *
@@ -306,12 +306,12 @@ declare module 'angular' {
 
         interface IDropdownConfig {
             /**
-             * @default: 'uib-dropdown-open'
+             * @default 'uib-dropdown-open'
              */
             appendToOpenClass?: string | undefined;
 
             /**
-             * @default: 'open'
+             * @default 'open'
              */
             openClass?: string | undefined;
         }
@@ -510,14 +510,12 @@ declare module 'angular' {
             /**
              * Sets the `aria-describedby` property on the modal.
              * The string should be an id (without the leading '#') pointing to the element that describes your modal.
-             * @memberOf IModalSettings
              */
             ariaDescribedBy?: string | undefined;
 
             /**
              * Sets the `aria-labelledby` property on the modal.
              * The string should be an id (without the leading '#') pointing to the element that labels your modal.
-             * @memberOf IModalSettings
              */
             ariaLabelledBy?: string | undefined;
         }
@@ -571,7 +569,7 @@ declare module 'angular' {
             /**
              * Limit number for pagination size.
              *
-             * @default: null
+             * @default null
              */
             maxSize?: number | undefined;
 
@@ -708,14 +706,14 @@ declare module 'angular' {
             /**
              * Whether bars use transitions to achieve the width change.
              *
-             * @default: true
+             * @default true
              */
             animate?: boolean | undefined;
 
             /**
              * A number that specifies the total value of bars that is required.
              *
-             * @default: 100
+             * @default 100
              */
             max?: number | undefined;
         }
@@ -725,28 +723,28 @@ declare module 'angular' {
             /**
              * Changes the number of icons.
              *
-             * @default: 5
+             * @default 5
              */
             max?: number | undefined;
 
             /**
              * A variable used in the template to specify the state for selected icons.
              *
-             * @default: null
+             * @default null
              */
             stateOn?: string | undefined;
 
             /**
              * A variable used in the template to specify the state for unselected icons.
              *
-             * @default: null
+             * @default null
              */
             stateOff?: string | undefined;
 
             /**
              * An array of strings defining titles for all icons.
              *
-             * @default: ["one", "two", "three", "four", "five"]
+             * @default ["one", "two", "three", "four", "five"]
              */
             titles?: Array<string> | undefined;
         }

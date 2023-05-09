@@ -81,7 +81,7 @@ export default class ViewModule extends Base {
  *
  * [bounds] initial bounds
  *
- * @property {string} [backgroundColor="#FFF"] - _Updatable._
+ * [backgroundColor="#FFF"] - _Updatable._
  * The view’s _backfill_ color as a hexadecimal value. Not to be confused with the content background color
  * (`document.body.style.backgroundColor`),
  * this color briefly fills a view’s (a) content area before its content is loaded as well as (b) newly exposed
@@ -89,55 +89,55 @@ export default class ViewModule extends Base {
  * this value to the anticipated content background color can help improve user experience.
  * Default is white.
  *
- * @property {object} [contentNavigation]
+ * [contentNavigation]
  * Restrict navigation to URLs that match a whitelisted pattern.
  * In the lack of a whitelist, navigation to URLs that match a blacklisted pattern would be prohibited.
  * See [here](https://developer.chrome.com/extensions/match_patterns) for more details.
- * @property {string[]} [contentNavigation.whitelist=[]] List of whitelisted URLs.
- * @property {string[]} [contentNavigation.blacklist=[]] List of blacklisted URLs.
+ * [contentNavigation.whitelist=[]] List of whitelisted URLs.
+ * [contentNavigation.blacklist=[]] List of blacklisted URLs.
  *
- * @property {object} [contextMenuSettings] - _Updatable._
+ * [contextMenuSettings] - _Updatable._
  * Configure the context menu when right-clicking on a view.
- * @property {boolean} [contextMenuSettings.enable=true] Should the context menu display on right click.
- * @property {boolean} [contextMenuSettings.devtools=true] Should the context menu contain a button for opening devtools.
- * @property {boolean} [contextMenuSettings.reload=true] Should the context menu contain a button for reloading the page.
+ * [contextMenuSettings.enable=true] Should the context menu display on right click.
+ * [contextMenuSettings.devtools=true] Should the context menu contain a button for opening devtools.
+ * [contextMenuSettings.reload=true] Should the context menu contain a button for reloading the page.
  *
- * @property {any} [customData=""] - _Updatable._
+ * [customData=""] - _Updatable._
  * A field that the user can attach serializable data to to be ferried around with the view options.
  * _When omitted, the default value of this property is the empty string (`""`)._
  *
- * @property {any} [customContext=""] - _Updatable._
+ * [customContext=""] - _Updatable._
  * A field that the user can use to attach serializable data that will be saved when {@link Platform#getSnapshot Platform.getSnapshot}
  * is called.  If a window or a view in a Platform is trying to update or retrieve its own context, it can use the
  * {@link Platform#setContext Platform.setContext} and {@link Platform#getContext Platform.getContext} calls.
  * When omitted, the default value of this property is the empty string (`""`).
  * As opposed to customData this is meant for frequent updates and sharing with other contexts. [Example]{@tutorial customContext}
  *
- * @property {object[]} [hotkeys=[]] - _Updatable._
+ * [hotkeys=[]] - _Updatable._
  * Defines the list of hotkeys that will be emitted as a `hotkey` event on the view. For usage example see [example]{@tutorial hotkeys}.
  * Within Platform, OpenFin also implements a set of pre-defined actions called
  * [keyboard commands]{@link https://developers.openfin.co/docs/platform-api#section-5-3-using-keyboard-commands}
  * that can be assigned to a specific hotkey in the platform manifest.
- * @property {string} hotkeys.keys The key combination of the hotkey, i.e. "Ctrl+T"
- * @property {boolean} [hotkeys.preventDefault=false] preventDefault will prevent the page keydown/keyup events from being emitted.
+ * hotkeys.keys The key combination of the hotkey, i.e. "Ctrl+T"
+ * [hotkeys.preventDefault=false] preventDefault will prevent the page keydown/keyup events from being emitted.
  *
- * @property {string} name
+ * name
  * The name of the view.
 
- * @property {preloadScript[]} [preloadScripts] - _Inheritable_
+ * [preloadScripts] - _Inheritable_
  * A list of scripts that are eval'ed before other scripts in the page. When omitted, _inherits_
  * from the parent application.
  *
- * @property {string} [processAffinity=<application uuid>]
+ * [processAffinity=<application uuid>]
  * A string to attempt to group renderers together. Will only be used if pages are on the same origin.
  *
- * @property {Identity} [target]
+ * [target]
  * The identity of the window this view should be attached to.
  *
- * @property {string} [url="about:blank"]
+ * [url="about:blank"]
  * The URL of the view.
  *
- * @property {string} [uuid=<application uuid>]
+ * [uuid=<application uuid>]
  * The `uuid` of the application, unique within the set of all `Application`s running in OpenFin Runtime.
  * If omitted, defaults to the `uuid` of the application spawning the view.
  * If given, must match the `uuid` of the  application spawning the view.
@@ -164,7 +164,6 @@ export declare class View extends WebContents<ViewEvents> {
      * applications you have created.
      * @param { string } code JavaScript code to be executed on the view.
      * @function executeJavaScript
-     * @memberOf View
      * @instance
      * @return {Promise.<void>}
      * @tutorial View.executeJavaScript
@@ -182,7 +181,6 @@ export declare class View extends WebContents<ViewEvents> {
     /**
     * Returns the zoom level of the view.
     * @function getZoomLevel
-    * @memberOf View
     * @instance
     * @return {Promise.<number>}
     * @tutorial View.getZoomLevel
@@ -191,7 +189,6 @@ export declare class View extends WebContents<ViewEvents> {
      * Sets the zoom level of the view.
      * @param { number } level The zoom level
      * @function setZoomLevel
-     * @memberOf View
      * @instance
      * @return {Promise.<void>}
      * @tutorial View.setZoomLevel
@@ -201,7 +198,6 @@ export declare class View extends WebContents<ViewEvents> {
      * @param { string } searchTerm Term to find in page
      * @param { FindInPageOptions } options Search options
      * @function findInPage
-     * @memberOf View
      * @instance
      * @return {Promise.<number>}
      * @tutorial View.findInPage
@@ -214,7 +210,6 @@ export declare class View extends WebContents<ViewEvents> {
      * "keepSelection" - Translate the selection into a normal selection.<br>
      * "activateSelection" - Focus and click the selection node.<br>
      * @function stopFindInPage
-     * @memberOf View
      * @instance
      * @return {Promise.<void>}
      * @tutorial View.stopFindInPage
@@ -232,7 +227,6 @@ export declare class View extends WebContents<ViewEvents> {
     /**
      * Navigates the view back one page.
      * @function navigateBack
-     * @memberOf View
      * @instance
      * @return {Promise.<void>}
      * @tutorial View.navigateBack
@@ -240,7 +234,6 @@ export declare class View extends WebContents<ViewEvents> {
     /**
      * Navigates the view forward one page.
      * @function navigateForward
-     * @memberOf View
      * @instance
      * @return {Promise.<void>}
      * @tutorial View.navigateForward
@@ -248,7 +241,6 @@ export declare class View extends WebContents<ViewEvents> {
     /**
      * Stops any current navigation the view is performing.
      * @function stopNavigation
-     * @memberOf View
      * @instance
      * @return {Promise.<void>}
      * @tutorial View.stopNavigation
@@ -256,7 +248,6 @@ export declare class View extends WebContents<ViewEvents> {
     /**
     * Reloads the view current page
     * @function reload
-    * @memberOf View
     * @instance
     * @return {Promise.<void>}
     * @tutorial View.reload
@@ -265,7 +256,6 @@ export declare class View extends WebContents<ViewEvents> {
     * Prints the view's web page
     * @param { PrintOptions } [options] Printer Options
     * @function print
-    * @memberOf View
     * @instance
     * @return {Promise.<void>}
     * @tutorial View.print
@@ -273,7 +263,6 @@ export declare class View extends WebContents<ViewEvents> {
     /**
     * Returns an array with all system printers
     * @function getPrinters
-    * @memberOf View
     * @instance
     * @return { Promise.Array.<PrinterInfo> }
     * @tutorial View.getPrinters
@@ -281,7 +270,6 @@ export declare class View extends WebContents<ViewEvents> {
     /**
     * Shows the Chromium Developer Tools
     * @function showDeveloperTools
-    * @memberOf View
     * @instance
     * @return {Promise.<void>}
     * @tutorial View.showDeveloperTools

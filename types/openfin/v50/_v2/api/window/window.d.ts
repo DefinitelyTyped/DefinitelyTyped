@@ -143,10 +143,10 @@ export interface FindInPageOptions {
  * [scaleFactor] The scale factor of the web page.
  * [pagesPerSheet] The number of pages to print per page sheet.
  * [collate] Whether the web page should be collated.
- * @property { number } [copies] The number of copies of the web page to print.
- * @property { Record<string, number> } [pageRanges] The page range to print. Should have two keys: from and to.
- * @property { string } [duplexMode] Set the duplex mode of the printed web page. Can be simplex, shortEdge, or longEdge.
- * @property { Dpi } [dpi] Set dpi for the printed web page
+ * [copies] The number of copies of the web page to print.
+ * [pageRanges] The page range to print. Should have two keys: from and to.
+ * [duplexMode] Set the duplex mode of the printed web page. Can be simplex, shortEdge, or longEdge.
+ * [dpi] Set dpi for the printed web page
  */
 /**
 * PrinterInfo interface
@@ -205,29 +205,29 @@ export interface FindInPageOptions {
  * * Not supported on rounded corner windows
  * [alphaMask.red=-1] 0-255
  * [alphaMask.green=-1] 0-255
- * @property {number} [alphaMask.blue=-1] 0-255
+ * [alphaMask.blue=-1] 0-255
  *
- * @property {boolean} [alwaysOnTop=false] - _Updatable._
+ * [alwaysOnTop=false] - _Updatable._
  * A flag to always position the window at the top of the window stack.
  *
- * @property {object} [api]
+ * [api]
  * Configurations for API injection.
  *
- * @property {object} [api.iframe] Configure if the the API should be injected into iframes based on domain.
+ * [api.iframe] Configure if the the API should be injected into iframes based on domain.
  *
- * @property {boolean} [api.iframe.crossOriginInjection=false] Controls if the `fin` API object is present for cross origin iframes.
- * @property {boolean} [api.iframe.sameOriginInjection=true] Controls if the `fin` API object is present for same origin iframes.
+ * [api.iframe.crossOriginInjection=false] Controls if the `fin` API object is present for cross origin iframes.
+ * [api.iframe.sameOriginInjection=true] Controls if the `fin` API object is present for same origin iframes.
  *
- * @property {string} [applicationIcon = ""] - _Deprecated_ - use `icon` instead.
+ * [applicationIcon = ""] - _Deprecated_ - use `icon` instead.
  *
- * @property {number} [aspectRatio=0] - _Updatable._
+ * [aspectRatio=0] - _Updatable._
  * The aspect ratio of width to height to enforce for the window. If this value is equal to or less than zero,
  * an aspect ratio will not be enforced.
  *
- * @property {boolean} [autoShow=true]
+ * [autoShow=true]
  * A flag to automatically show the window when it is created.
  *
- * @property {string} [backgroundColor="#FFF"]
+ * [backgroundColor="#FFF"]
  * The window’s _backfill_ color as a hexadecimal value. Not to be confused with the content background color
  * (`document.body.style.backgroundColor`),
  * this color briefly fills a window’s (a) content area before its content is loaded as well as (b) newly exposed
@@ -235,165 +235,165 @@ export interface FindInPageOptions {
  * this value to the anticipated content background color can help improve user experience.
  * Default is white.
  *
- * @property {object} [contentNavigation]
+ * [contentNavigation]
  * Restrict navigation to URLs that match a whitelisted pattern.
  * In the lack of a whitelist, navigation to URLs that match a blacklisted pattern would be prohibited.
  * See [here](https://developer.chrome.com/extensions/match_patterns) for more details.
- * @property {string[]} [contentNavigation.whitelist=[]] List of whitelisted URLs.
- * @property {string[]} [contentNavigation.blacklist=[]] List of blacklisted URLs.
+ * [contentNavigation.whitelist=[]] List of whitelisted URLs.
+ * [contentNavigation.blacklist=[]] List of blacklisted URLs.
 
- * @property {boolean} [contextMenu=true] - _Updatable._
+ * [contextMenu=true] - _Updatable._
  * A flag to show the context menu when right-clicking on a window.
  * Gives access to the devtools for the window.
  *
- * @property {object} [contextMenuSettings] - _Updatable._
+ * [contextMenuSettings] - _Updatable._
  * Configure the context menu when right-clicking on a window.
- * @property {boolean} [contextMenuSettings.enable=true] Should the context menu display on right click.
- * @property {boolean} [contextMenuSettings.devtools=true] Should the context menu contain a button for opening devtools.
- * @property {boolean} [contextMenuSettings.reload=true] Should the context menu contain a button for reloading the page.
+ * [contextMenuSettings.enable=true] Should the context menu display on right click.
+ * [contextMenuSettings.devtools=true] Should the context menu contain a button for opening devtools.
+ * [contextMenuSettings.reload=true] Should the context menu contain a button for reloading the page.
  *
- * @property {object} [cornerRounding] - _Updatable._
+ * [cornerRounding] - _Updatable._
  * Defines and applies rounded corners for a frameless window. **NOTE:** On macOS corner is not ellipse but circle rounded by the
  *  average of _height_ and _width_.
- * @property {number} [cornerRounding.height=0] The height in pixels.
- * @property {number} [cornerRounding.width=0] The width in pixels.
+ * [cornerRounding.height=0] The height in pixels.
+ * [cornerRounding.width=0] The width in pixels.
  *
- * @property {any} [customData=""] - _Updatable._
+ * [customData=""] - _Updatable._
  * A field that the user can attach serializable data to to be ferried around with the window options.
  * _When omitted, the default value of this property is the empty string (`""`)._
  *
- * @property {any} [customContext=""] - _Updatable._
+ * [customContext=""] - _Updatable._
  * A field that the user can use to attach serializable data that will be saved when {@link Platform#getSnapshot Platform.getSnapshot}
  * is called.  If a window in a Platform is trying to update or retrieve its own context, it can use the
  * {@link Platform#setContext Platform.setContext} and {@link Platform#getContext Platform.getContext} calls.
  * When omitted, the default value of this property is the empty string (`""`).
  * As opposed to customData this is meant for frequent updates and sharing with other contexts. [Example]{@tutorial customContext}
  *
- * @property {object[]} [customRequestHeaders]
+ * [customRequestHeaders]
  * Defines list of custom headers for requests sent by the window.
- * @property {string[]} [customRequestHeaders.urlPatterns=[]] The URL patterns for which the headers will be applied
- * @property {object[]} [customRequestHeaders.headers=[]] Objects representing headers and their values,
+ * [customRequestHeaders.urlPatterns=[]] The URL patterns for which the headers will be applied
+ * [customRequestHeaders.headers=[]] Objects representing headers and their values,
  * where the object key is the name of header and value at key is the value of the header
  *
- * @property {boolean} [defaultCentered=false]
+ * [defaultCentered=false]
  * Centers the window in the primary monitor. This option overrides `defaultLeft` and `defaultTop`. When `saveWindowState` is `true`,
  * this value will be ignored for subsequent launches in favor of the cached value. **NOTE:** On macOS _defaultCenter_ is
  * somewhat above center vertically.
  *
- * @property {number} [defaultHeight=500]
+ * [defaultHeight=500]
  * The default height of the window. When `saveWindowState` is `true`, this value will be ignored for subsequent launches
  * in favor of the cached value.
  *
- * @property {number} [defaultLeft=100]
+ * [defaultLeft=100]
  * The default left position of the window. When `saveWindowState` is `true`, this value will be ignored for subsequent
  * launches in favor of the cached value.
  *
- * @property {number} [defaultTop=100]
+ * [defaultTop=100]
  * The default top position of the window. When `saveWindowState` is `true`, this value will be ignored for subsequent
  * launches in favor of the cached value.
  *
- * @property {number} [defaultWidth=800]
+ * [defaultWidth=800]
  * The default width of the window. When `saveWindowState` is `true`, this value will be ignored for subsequent
  * launches in favor of the cached value.
  *
- * @property {boolean} [frame=true] - _Updatable._
+ * [frame=true] - _Updatable._
  * A flag to show the frame.
  *
  * @hidden-property {boolean} [hideOnClose=false] - A flag to allow a window to be hidden when the close button is clicked.
  *
- * @property {object[]} [hotkeys=[]] - _Updatable._
+ * [hotkeys=[]] - _Updatable._
  * Defines the list of hotkeys that will be emitted as a `hotkey` event on the window. For usage example see [example]{@tutorial hotkeys}.
  * Within Platform, OpenFin also implements a set of pre-defined actions called
  * [keyboard commands]{@link https://developers.openfin.co/docs/platform-api#section-5-3-using-keyboard-commands}
  * that can be assigned to a specific hotkey in the platform manifest.
- * @property {string} hotkeys.keys The key combination of the hotkey, i.e. "Ctrl+T"
- * @property {boolean} [hotkeys.preventDefault=false] Whether or not to prevent default key handling before emitting the event
+ * hotkeys.keys The key combination of the hotkey, i.e. "Ctrl+T"
+ * [hotkeys.preventDefault=false] Whether or not to prevent default key handling before emitting the event
  *
- * @property {string} [icon] - _Updatable. Inheritable._
+ * [icon] - _Updatable. Inheritable._
  * A URL for the icon to be shown in the window title bar and the taskbar.
  * _When omitted, inherits from the parent application._
  *
- * @property {number} [maxHeight=-1] - _Updatable._
+ * [maxHeight=-1] - _Updatable._
  * The maximum height of a window. Will default to the OS defined value if set to -1.
  *
- * @property {boolean} [maximizable=true] - _Updatable._
+ * [maximizable=true] - _Updatable._
  * A flag that lets the window be maximized.
  *
- * @property {number} [maxWidth=-1] - _Updatable._
+ * [maxWidth=-1] - _Updatable._
  * The maximum width of a window. Will default to the OS defined value if set to -1.
  *
- * @property {number} [minHeight=0] - _Updatable._
+ * [minHeight=0] - _Updatable._
  * The minimum height of a window.
  *
- * @property {boolean} [minimizable=true] - _Updatable._
+ * [minimizable=true] - _Updatable._
  * A flag that lets the window be minimized.
  *
- * @property {number} [minWidth=0] - _Updatable._
+ * [minWidth=0] - _Updatable._
  * The minimum width of a window.
  *
- * @property {string} name
+ * name
  * The name of the window.
  *
- * @property {number} [opacity=1.0] - _Updatable._
+ * [opacity=1.0] - _Updatable._
  * A flag that specifies how transparent the window will be.
  * This value is clamped between `0.0` and `1.0`.
  *
- * @property {preloadScript[]} [preloadScripts] - _Inheritable_
+ * [preloadScripts] - _Inheritable_
  * A list of scripts that are eval'ed before other scripts in the page. When omitted, _inherits_
  * from the parent application.
  *
- * @property {boolean} [resizable=true] - _Updatable._
+ * [resizable=true] - _Updatable._
  * A flag to allow the user to resize the window.
  *
- * @property {object} [resizeRegion] - _Updatable._
+ * [resizeRegion] - _Updatable._
  * Defines a region in pixels that will respond to user mouse interaction for resizing a frameless window.
- * @property {number} [resizeRegion.bottomRightCorner=9]
+ * [resizeRegion.bottomRightCorner=9]
  * The size in pixels of an additional square resizable region located at the bottom right corner of a frameless window.
- * @property {number} [resizeRegion.size=7]
+ * [resizeRegion.size=7]
  * The size in pixels.
- * @property {object} [resizeRegion.sides={top:true,right:true,bottom:true,left:true}]
+ * [resizeRegion.sides={top:true,right:true,bottom:true,left:true}]
  * Sides that a window can be resized from.
  *
- * @property {boolean} [saveWindowState=true]
+ * [saveWindowState=true]
  * A flag to cache the location of the window.
  * ** note ** - This option is ignored in Platforms as it would cause inconsistent {@link Platform#applySnapshot applySnapshot} behavior.
  *
- * @property {boolean} [shadow=false]
+ * [shadow=false]
  * A flag to display a shadow on frameless windows.
  * `shadow` and `cornerRounding` are mutually exclusive.
  * On Windows 7, Aero theme is required.
  *
- * @property {boolean} [showTaskbarIcon=true] - _Updatable._ _Windows_.
+ * [showTaskbarIcon=true] - _Updatable._ _Windows_.
  * A flag to show the window's icon in the taskbar.
  *
- * @property {boolean} [smallWindow=false]
+ * [smallWindow=false]
  * A flag to specify a frameless window that can be be created and resized to less than 41x36px (width x height).
  * _Note: Caveats of small windows are no Aero Snap and drag to/from maximize._
  *
- * @property {string} [state="normal"]
+ * [state="normal"]
  * The visible state of the window on creation.
  * One of:
  * * `"maximized"`
  * * `"minimized"`
  * * `"normal"`
  *
- * @property {string} [taskbarIcon=string] - Deprecated - use `icon` instead._Windows_.
+ * [taskbarIcon=string] - Deprecated - use `icon` instead._Windows_.
  *
- * @property {string} [taskbarIconGroup=<application uuid>] - _Windows_.
+ * [taskbarIconGroup=<application uuid>] - _Windows_.
  * Specify a taskbar group for the window.
  * _If omitted, defaults to app's uuid (`fin.Application.getCurrentSync().identity.uuid`)._
  *
- * @property {string} [url="about:blank"]
+ * [url="about:blank"]
  * The URL of the window.
  *
- * @property {string} [uuid=<application uuid>]
+ * [uuid=<application uuid>]
  * The `uuid` of the application, unique within the set of all `Application`s running in OpenFin Runtime.
  * If omitted, defaults to the `uuid` of the application spawning the window.
  * If given, must match the `uuid` of the  application spawning the window.
  * In other words, the application's `uuid` is the only acceptable value, but is the default, so there's
  * really no need to provide it.
  *
- * @property {boolean} [waitForPageLoad=false]
+ * [waitForPageLoad=false]
  * When set to `true`, the window will not appear until the `window` object's `load` event fires.
  * When set to `false`, the window will appear immediately without waiting for content to be loaded.
  */
@@ -546,7 +546,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * applications you have created.
      * @param { string } code JavaScript code to be executed on the window.
      * @function executeJavaScript
-     * @memberOf Window
      * @instance
      * @return {Promise.<void>}
      * @tutorial Window.executeJavaScript
@@ -556,14 +555,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<void>}
      * @function focus
      * @fires focused
-     * @memberOf Window
      * @instance
      * @tutorial Window.focus
      */
     /**
     * Returns the zoom level of the window.
     * @function getZoomLevel
-    * @memberOf Window
     * @instance
     * @return {Promise.<number>}
     * @tutorial Window.getZoomLevel
@@ -572,7 +569,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * Sets the zoom level of the window.
      * @param { number } level The zoom level
      * @function setZoomLevel
-     * @memberOf Window
      * @instance
      * @return {Promise.<void>}
      * @tutorial Window.setZoomLevel
@@ -582,7 +578,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @param { string } searchTerm Term to find in page
      * @param { FindInPageOptions } options Search options
      * @function findInPage
-     * @memberOf Window
      * @instance
      * @return {Promise.<number>}
      * @tutorial Window.findInPage
@@ -595,7 +590,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * "keepSelection" - Translate the selection into a normal selection.<br>
      * "activateSelection" - Focus and click the selection node.<br>
      * @function stopFindInPage
-     * @memberOf Window
      * @instance
      * @return {Promise.<void>}
      * @tutorial Window.stopFindInPage
@@ -604,7 +598,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * Navigates the window to a specified URL. The url must contain the protocol prefix such as http:// or https://.
      * @param {string} url - The URL to navigate the window to.
      * @function navigate
-     * @memberOf Window
      * @instance
      * @return {Promise.<void>}
      * @tutorial Window.navigate
@@ -612,7 +605,6 @@ export declare class _Window extends WebContents<WindowEvents> {
     /**
      * Navigates the window back one page.
      * @function navigateBack
-     * @memberOf Window
      * @instance
      * @return {Promise.<void>}
      * @tutorial Window.navigateBack
@@ -620,7 +612,6 @@ export declare class _Window extends WebContents<WindowEvents> {
     /**
      * Navigates the window forward one page.
      * @function navigateForward
-     * @memberOf Window
      * @instance
      * @return {Promise.<void>}
      * @tutorial Window.navigateForward
@@ -628,7 +619,6 @@ export declare class _Window extends WebContents<WindowEvents> {
     /**
      * Stops any current navigation the window is performing.
      * @function stopNavigation
-     * @memberOf Window
      * @instance
      * @return {Promise.<void>}
      * @tutorial Window.stopNavigation
@@ -636,7 +626,6 @@ export declare class _Window extends WebContents<WindowEvents> {
     /**
     * Reloads the window current page
     * @function reload
-    * @memberOf Window
     * @instance
     * @return {Promise.<void>}
     * @tutorial Window.reload
@@ -645,7 +634,6 @@ export declare class _Window extends WebContents<WindowEvents> {
     * Prints the window's web page
     * @param { PrintOptions } [options] Printer Options
     * @function print
-    * @memberOf Window
     * @instance
     * @return {Promise.<void>}
     * @tutorial Window.print
@@ -653,7 +641,6 @@ export declare class _Window extends WebContents<WindowEvents> {
     /**
     * Returns an array with all system printers
     * @function getPrinters
-    * @memberOf Window
     * @instance
     * @return { Promise.Array.<PrinterInfo> }
     * @tutorial Window.getPrinters

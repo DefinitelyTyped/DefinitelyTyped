@@ -41,7 +41,6 @@ declare class Class_XmlNode extends Class__object {
      * - XmlDocumentType: DOCUMENT_TYPE_NODE(10)
      *
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -63,8 +62,6 @@ declare class Class_XmlNode extends Class__object {
      * - XmlDocument: \#document
      * - XmlDocumentType: doctype 名称
      *
-     *
-     * @readonly
      *
      */
 
@@ -100,8 +97,6 @@ declare class Class_XmlNode extends Class__object {
      * @brief 返回节点的根元素（XmlDocument 对象）
      *
      *
-     * @readonly
-     * @type XmlDocument
      */
 
     ownerDocument: Class_XmlDocument
@@ -113,8 +108,6 @@ declare class Class_XmlNode extends Class__object {
      * @brief 可返回某节点的父节点
      *
      *
-     * @readonly
-     * @type XmlNode
      */
 
     parentNode: Class_XmlNode
@@ -126,8 +119,6 @@ declare class Class_XmlNode extends Class__object {
      * @brief 返回指定节点的子节点的节点列表
      *
      *
-     * @readonly
-     * @type XmlNodeList
      */
 
     childNodes: Class_XmlNodeList
@@ -139,8 +130,6 @@ declare class Class_XmlNode extends Class__object {
      * @brief 返回节点的首个子节点
      *
      *
-     * @readonly
-     * @type XmlNode
      */
 
     firstChild: Class_XmlNode
@@ -152,8 +141,6 @@ declare class Class_XmlNode extends Class__object {
      * @brief 返回节点的最后一个子节点
      *
      *
-     * @readonly
-     * @type XmlNode
      */
 
     lastChild: Class_XmlNode
@@ -165,8 +152,6 @@ declare class Class_XmlNode extends Class__object {
      * @brief 返回某节点之前紧跟的节点（处于同一树层级），如果没有此节点，那么该属性返回 null
      *
      *
-     * @readonly
-     * @type XmlNode
      */
 
     previousSibling: Class_XmlNode
@@ -178,8 +163,6 @@ declare class Class_XmlNode extends Class__object {
      * @brief 返回某个元素之后紧跟的节点（处于同一树层级中），如果无此节点，则属性返回 null
      *
      *
-     * @readonly
-     * @type XmlNode
      */
 
     nextSibling: Class_XmlNode

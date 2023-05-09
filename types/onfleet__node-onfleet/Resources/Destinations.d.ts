@@ -17,10 +17,10 @@ declare namespace Destination {
      * country - The name of the country.
      * [name] - A name associated with this address, for example, "Transamerica Pyramid".
      * number - The number component of this address, it may also contain letters.
-     * @prop { string } [postalCode] - The postal or zip code.
-     * @prop { string } [state] - The name of the state, province or jurisdiction.
-     * @prop { string } street - The name of the street.
-     * @prop { string } [unparsed] - A complete address specified in a single, unparsed string where the various elements are separated by commas.
+     * [postalCode] - The postal or zip code.
+     * [state] - The name of the state, province or jurisdiction.
+     * street - The name of the street.
+     * [unparsed] - A complete address specified in a single, unparsed string where the various elements are separated by commas.
      * * If present, all other address properties will be ignored (with the exception of name and apartment).
      * * In some countries, you may skip most address details (like city or state) if you provide a valid postalCode:
      *  for example, 325 Front Street W., M5V 3B5, CA will be geocoded correctly.

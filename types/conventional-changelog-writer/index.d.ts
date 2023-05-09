@@ -67,7 +67,7 @@ declare namespace conventionalChangelogWriter {
         /**
          * Should all references be linked?
          *
-         * @defaults
+         * @default
          * `true` if (`context.repository` or `context.repoUrl`), `context.commit` and
          * `context.issue` are truthy.
          */
@@ -211,7 +211,7 @@ declare namespace conventionalChangelogWriter {
          * If this value is a `string`, it checks the existence of the field. Set to
          * other type to disable it.
          *
-         * @defaults
+         * @default
          * If `commit.version` is a valid semver.
          */
         generateOn?: Options.GenerateOn<TContext, TCommit> | undefined;
@@ -219,7 +219,7 @@ declare namespace conventionalChangelogWriter {
         /**
          * Last chance to modify your context before generating a changelog.
          *
-         * @defaults
+         * @default
          * Pass through.
          */
         finalizeContext?: Options.FinalizeContext<TContext, TCommit> | undefined;
@@ -276,25 +276,25 @@ declare namespace conventionalChangelogWriter {
         /**
          * The main handlebars template.
          *
-         * @defaults
+         * @default
          * [template.hbs](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-writer/templates/template.hbs)
          */
         mainTemplate?: string | undefined;
 
         /**
-         * @defaults
+         * @default
          * [header.hbs](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-writer/templates/header.hbs)
          */
         headerPartial?: string | undefined;
 
         /**
-         * @defaults
+         * @default
          * [commit.hbs](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-writer/templates/commit.hbs)
          */
         commitPartial?: string | undefined;
 
         /**
-         * @defaults
+         * @default
          * [footer.hbs](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-writer/templates/footer.hbs)
          */
         footerPartial?: string | undefined;

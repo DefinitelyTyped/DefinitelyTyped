@@ -4817,7 +4817,7 @@ export namespace has {
     /**
      * The ratio between physical pixels and device-independent pixels
      * (dips) on the device (`window.devicePixelRatio`).
-     * @const
+     * @constant
      * @api stable
      */
     const DEVICE_PIXEL_RATIO: number;
@@ -4825,28 +4825,28 @@ export namespace has {
     /**
      * True if both the library and browser support Canvas.  Always `false`
      * if `ol.ENABLE_CANVAS` is set to `false` at compile time.
-     * @const
+     * @constant
      * @api stable
      */
     const CANVAS: boolean;
 
     /**
      * Indicates if DeviceOrientation is supported in the user's browser.
-     * @const
+     * @constant
      * @api stable
      */
     const DEVICE_ORIENTATION: boolean;
 
     /**
      * Is HTML5 geolocation supported in the current browser?
-     * @const
+     * @constant
      * @api stable
      */
     const GEOLOCATION: boolean;
 
     /**
      * True if browser supports touch events.
-     * @const
+     * @constant
      * @api stable
      */
     const TOUCH: boolean;
@@ -4854,7 +4854,7 @@ export namespace has {
     /**
      * True if both OpenLayers and browser support WebGL.  Always `false`
      * if `ol.ENABLE_WEBGL` is set to `false` at compile time.
-     * @const
+     * @constant
      * @api stable
      */
     const WEBGL: boolean;
@@ -5134,13 +5134,13 @@ export namespace interaction {
 
             /**
              * The coordinate of the drag event.
-             * @const
+             * @constant
              * @api stable
              */
             coordinate: ol.Coordinate;
 
             /**
-             * @const
+             * @constant
              * @api
              */
             mapBrowserEvent: ol.MapBrowserEvent;
@@ -5976,7 +5976,7 @@ export namespace interaction {
 
             /**
              * The coordinate of the drag event.
-             * @const
+             * @constant
              * @api
              */
             coordinate: ol.Coordinate;
@@ -7050,7 +7050,7 @@ export class MapBrowserEvent extends MapEvent {
 
     /**
      * The original browser event.
-     * @const
+     * @constant
      * @api stable
      */
     originalEvent: Event;
@@ -7619,7 +7619,7 @@ export namespace proj {
 
     /**
      * Meters per unit lookup table.
-     * @const
+     * @constant
      * @api stable
      */
     const METERS_PER_UNIT: { [k: string]: number };
@@ -8191,7 +8191,7 @@ export namespace source {
         /**
          * The attribution containing a link to the Microsoft® Bing™ Maps Platform APIs’
          * Terms Of Use.
-         * @const
+         * @constant
          * @api
          */
         static TOS_ATTRIBUTION: ol.Attribution;
@@ -8655,7 +8655,7 @@ export namespace source {
         /**
          * The attribution containing a link to the OpenStreetMap Copyright and License
          * page.
-         * @const
+         * @constant
          * @api
          */
         static ATTRIBUTION: ol.Attribution;

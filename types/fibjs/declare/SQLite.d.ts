@@ -30,8 +30,6 @@ declare class Class_SQLite extends Class_DbConnection {
      *
      * @brief 当前数据库文件名
      *
-     * @readonly
-     *
      */
 
     fileName: string

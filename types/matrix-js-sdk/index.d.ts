@@ -371,7 +371,7 @@ export type SyncCallback = (state: SyncState, prevState: SyncState, data: SyncDa
 /**
  * Only part of the MatrixClient methods was put here
  * because they are too many.
- * @huan 14 June 2019
+ * @author huan - 14 June 2019
  */
 export class MatrixClient extends EventEmitter {
     store: MatrixStore;

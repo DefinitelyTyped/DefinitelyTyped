@@ -177,9 +177,9 @@ interface EasySpeech {
      * `false`) unless you run `EasySpeech.reset()`.
      *
      * @return
-     * @fulfil  true, if initialized, false, if skipped (because already
+     * fulfil:  true, if initialized, false, if skipped (because already
      *   initialized)
-     * @reject  - The error `message` property will always begin with
+     * reject: The error `message` property will always begin with
      *   `EasySpeech: ` and contain one of the following:
      *
      *   - `browser misses features` - The browser will not be able to use speech
@@ -209,7 +209,7 @@ interface EasySpeech {
     /**
      * Returns all available voices.
      *
-     * @condition `EasySpeech.init` must have been called and resolved to `true`
+     * condition: `EasySpeech.init` must have been called and resolved to `true`
      * @return
      */
     voices(): SpeechSynthesisVoice[];
@@ -219,7 +219,7 @@ interface EasySpeech {
      * will run in parallel to any additional handlers, attached when calling
      * `EasySpeech.speak`
      *
-     * @condition `EasySpeech.init` must have been called and resolved to `true`
+     * condition: `EasySpeech.init` must have been called and resolved to `true`
      *
      * @param  handlers
      * @param  handlers.boundary - optional, event handler
@@ -238,7 +238,7 @@ interface EasySpeech {
      * Sets defaults for utterances. Invalid values will be ignored without error
      * or warning.
      *
-     * @condition `EasySpeech.init` must have been called and resolved to `true`
+     * condition: `EasySpeech.init` must have been called and resolved to `true`
      *
      * @see https://wicg.github.io/speech-api/#utterance-attributes
      * @param  options - Optional object containing values to set values
@@ -256,7 +256,7 @@ interface EasySpeech {
      * Speaks a voice by given parameters, constructs utterance by best possible
      * combinations of parameters and defaults.
      *
-     * @condition `EasySpeech.init` must have been called and resolved to `true`
+     * condition: `EasySpeech.init` must have been called and resolved to `true`
      *
      * If the given utterance parameters are missing or invalid, defaults will be
      * used as fallback.
@@ -293,8 +293,8 @@ interface EasySpeech {
      *
      *
      * @return
-     * @fulfill  Resolves to the `end` event
-     * @reject  rejects using the `error` event
+     * fulfill:  Resolves to the `end` event
+     * reject:  rejects using the `error` event
      */
     speak(
         options: {
@@ -310,28 +310,28 @@ interface EasySpeech {
     /**
      * Cancels the current speaking, if any running
      *
-     * @condition `EasySpeech.init` must have been called and resolved to `true`
+     * condition: `EasySpeech.init` must have been called and resolved to `true`
      */
     cancel(): void;
 
     /**
      * Resumes to speak, if any paused
      *
-     * @condition `EasySpeech.init` must have been called and resolved to `true`
+     * condition: `EasySpeech.init` must have been called and resolved to `true`
      */
     resume(): void;
 
     /**
      * Pauses the current speaking, if any running
      *
-     * @condition `EasySpeech.init` must have been called and resolved to `true`
+     * condition: `EasySpeech.init` must have been called and resolved to `true`
      */
     pause(): void;
 
     /**
      * Resets the internal state to a default-uninitialized state
      *
-     * @condition `EasySpeech.init` must have been called and resolved to `true`
+     * condition: `EasySpeech.init` must have been called and resolved to `true`
      */
     reset(): void;
 }

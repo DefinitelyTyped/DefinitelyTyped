@@ -23,17 +23,17 @@ export type Velocity = { [key: string]: number };
 interface SpringHelperConfig {
     /**
      * Specified stiffness
-     * @defaults 170
+     * @default 170
      */
     stiffness?: number | undefined;
     /**
      * Specifies damping
-     * @defaults 26
+     * @default 26
      */
     damping?: number | undefined;
     /**
         * Specifies both the rounding of the interpolated value and the speed (internal).
-         * @defaults 0.01
+         * @default 0.01
         */
     precision?: number | undefined;
 }
