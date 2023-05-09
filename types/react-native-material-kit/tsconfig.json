@@ -12,6 +12,14 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "react-native": [
+                "react-native/v0.71"
+            ],
+            "react-native/*": [
+                "react-native/v0.71/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

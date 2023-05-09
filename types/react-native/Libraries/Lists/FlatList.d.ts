@@ -3,55 +3,13 @@ import type {
   ListRenderItem,
   ViewToken,
   VirtualizedListProps,
-} from './VirtualizedList';
+} from '@react-native/virtualized-lists';
 import type {ScrollViewComponent} from '../Components/ScrollView/ScrollView';
-import {StyleProp} from '../StyleSheet/StyleSheet';
-import {ViewStyle} from '../StyleSheet/StyleSheetTypes';
-import {View} from '../Components/View/View';
+import type {StyleProp} from '../StyleSheet/StyleSheet';
+import type {ViewStyle} from '../StyleSheet/StyleSheetTypes';
+import type {View} from '../Components/View/View';
 
 export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
-  /**
-   * Rendered in between each item, but not at the top or bottom
-   */
-  ItemSeparatorComponent?: React.ComponentType<any> | null | undefined;
-
-  /**
-   * Rendered when the list is empty.
-   */
-  ListEmptyComponent?:
-    | React.ComponentType<any>
-    | React.ReactElement<unknown>
-    | null
-    | undefined;
-
-  /**
-   * Rendered at the very end of the list.
-   */
-  ListFooterComponent?:
-    | React.ComponentType<any>
-    | React.ReactElement<unknown>
-    | null
-    | undefined;
-
-  /**
-   * Styling for internal View for ListFooterComponent
-   */
-  ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined;
-
-  /**
-   * Rendered at the very beginning of the list.
-   */
-  ListHeaderComponent?:
-    | React.ComponentType<any>
-    | React.ReactElement<unknown>
-    | null
-    | undefined;
-
-  /**
-   * Styling for internal View for ListHeaderComponent
-   */
-  ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined;
-
   /**
    * Optional custom style for multi-item rows generated when numColumns > 1
    */
@@ -73,10 +31,10 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     | undefined;
 
   /**
-   * For simplicity, data is just a plain array. If you want to use something else,
-   * like an immutable list, use the underlying VirtualizedList directly.
+   * An array (or array-like list) of items to render. Other data types can be
+   * used by targeting VirtualizedList directly.
    */
-  data: ReadonlyArray<ItemT> | null | undefined;
+  data: ArrayLike<ItemT> | null | undefined;
 
   /**
    * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -99,7 +57,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
    */
   getItemLayout?:
     | ((
-        data: Array<ItemT> | null | undefined,
+        data: ArrayLike<ItemT> | null | undefined,
         index: number,
       ) => {length: number; offset: number; index: number})
     | undefined;
@@ -138,19 +96,6 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
   numColumns?: number | undefined;
 
   /**
-   * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
-   */
-  onEndReached?: ((info: {distanceFromEnd: number}) => void) | null | undefined;
-
-  /**
-   * How far from the end (in units of visible length of the list) the bottom edge of the
-   * list must be from the end of the content to trigger the `onEndReached` callback.
-   * Thus a value of 0.5 will trigger `onEndReached` when the end of the content is
-   * within half the visible length of the list.
-   */
-  onEndReachedThreshold?: number | null | undefined;
-
-  /**
    * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
    * Make sure to also set the refreshing prop correctly.
    */
@@ -178,7 +123,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
    * _renderItem = ({item}) => (
    *   <TouchableOpacity onPress={() => this._onPress(item)}>
    *     <Text>{item.title}</Text>
-   *   <TouchableOpacity/>
+   *   </TouchableOpacity>
    * );
    * ...
    * <FlatList data={[{title: 'Title Text', key: 'item1'}]} renderItem={this._renderItem} />
@@ -212,9 +157,10 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
   fadingEdgeLength?: number | undefined;
 }
 
-export class FlatList<ItemT = any> extends React.Component<
-  FlatListProps<ItemT>
-> {
+export abstract class FlatListComponent<
+  ItemT,
+  Props,
+> extends React.Component<Props> {
   /**
    * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
    */
@@ -239,6 +185,7 @@ export class FlatList<ItemT = any> extends React.Component<
   scrollToItem: (params: {
     animated?: boolean | null | undefined;
     item: ItemT;
+    viewOffset?: number | undefined;
     viewPosition?: number | undefined;
   }) => void;
 
@@ -281,3 +228,8 @@ export class FlatList<ItemT = any> extends React.Component<
   // TODO: use `unknown` instead of `any` for Typescript >= 3.0
   setNativeProps: (props: {[key: string]: any}) => void;
 }
+
+export class FlatList<ItemT = any> extends FlatListComponent<
+  ItemT,
+  FlatListProps<ItemT>
+> {}
