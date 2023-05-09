@@ -428,6 +428,7 @@ interface XRSession extends EventTarget {
     readonly visibilityState: XRVisibilityState;
     readonly frameRate?: number | undefined;
     readonly supportedFrameRates?: Float32Array | undefined;
+    readonly enabledFeatures?: string[] | undefined;
 
     /**
      * Removes a callback from the animation frame painting callback from
