@@ -4913,7 +4913,7 @@ declare namespace chrome.input.ime {
          * The auto-capitalize type of the text field.
          * @since Chrome 69.
          */
-        autoCaptialize: AutoCapitalizeType;
+        autoCapitalize: AutoCapitalizeType;
         /**
          * Whether text entered into the text field should be used to improve typing suggestions for the user.
          * @since Chrome 68.
@@ -6906,6 +6906,16 @@ declare namespace chrome.runtime {
          * @since Chrome 80.
          */
         origin?: string | undefined;
+        /**
+         * The lifecycle the document that opened the connection is in at the time the port was created. Note that the lifecycle state of the document may have changed since port creation.
+         * @since Chrome 106.
+         */
+        documentLifecycle?: string | undefined;
+        /**
+         * A UUID of the document that opened the connection.
+         * @since Chrome 106.
+         */
+        documentId?: string | undefined;
     }
 
     /**

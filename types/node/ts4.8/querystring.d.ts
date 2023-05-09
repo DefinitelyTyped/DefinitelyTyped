@@ -1,15 +1,15 @@
 /**
- * The `querystring` module provides utilities for parsing and formatting URL
+ * The `node:querystring` module provides utilities for parsing and formatting URL
  * query strings. It can be accessed using:
  *
  * ```js
- * const querystring = require('querystring');
+ * const querystring = require('node:querystring');
  * ```
  *
  * `querystring` is more performant than `URLSearchParams` but is not a
- * standardized API. Use `URLSearchParams` when performance is not critical
- * or when compatibility with browser code is desirable.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/querystring.js)
+ * standardized API. Use `URLSearchParams` when performance is not critical or
+ * when compatibility with browser code is desirable.
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/querystring.js)
  */
 declare module 'querystring' {
     interface StringifyOptions {

@@ -1,12 +1,12 @@
 /**
- * The `repl` module provides a Read-Eval-Print-Loop (REPL) implementation that
- * is available both as a standalone program or includible in other applications.
- * It can be accessed using:
+ * The `node:repl` module provides a Read-Eval-Print-Loop (REPL) implementation
+ * that is available both as a standalone program or includible in other
+ * applications. It can be accessed using:
  *
  * ```js
- * const repl = require('repl');
+ * const repl = require('node:repl');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/repl.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/repl.js)
  */
 declare module 'repl' {
     import { Interface, Completer, AsyncCompleter } from 'node:readline';
@@ -124,7 +124,7 @@ declare module 'repl' {
      * or directly using the JavaScript `new` keyword.
      *
      * ```js
-     * const repl = require('repl');
+     * const repl = require('node:repl');
      *
      * const options = { useColors: true };
      *
@@ -251,7 +251,7 @@ declare module 'repl' {
          * The following example shows two new commands added to the REPL instance:
          *
          * ```js
-         * const repl = require('repl');
+         * const repl = require('node:repl');
          *
          * const replServer = repl.start({ prompt: '> ' });
          * replServer.defineCommand('sayhello', {
@@ -260,7 +260,7 @@ declare module 'repl' {
          *     this.clearBufferedCommand();
          *     console.log(`Hello, ${name}!`);
          *     this.displayPrompt();
-         *   }
+         *   },
          * });
          * replServer.defineCommand('saybye', function saybye() {
          *   console.log('Goodbye!');
@@ -401,7 +401,7 @@ declare module 'repl' {
      * If `options` is a string, then it specifies the input prompt:
      *
      * ```js
-     * const repl = require('repl');
+     * const repl = require('node:repl');
      *
      * // a Unix style prompt
      * repl.start('$ ');

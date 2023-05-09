@@ -24,7 +24,7 @@ gui.open();
 }
 {
     // $ExpectType GUI
-    gui.addLight('', new THREE.Light());
+    gui.addLight('', new THREE.PointLight());
 }
 {
     // $ExpectType GUI

@@ -38,7 +38,16 @@ import React = require('./next');
 
 export {};
 
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+
 declare module '.' {
+    // Need an interface to not cause ReactNode to be a self-referential type.
+    interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
+        promises: PromiseLikeOfReactNode;
+    }
+
     export interface SuspenseProps {
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
@@ -109,4 +118,23 @@ declare module '.' {
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
         functions: (formData: FormData) => void;
     }
+
+    export interface TransitionStartFunction {
+        /**
+         * Marks all state updates inside the async function as transitions
+         *
+         * @see {https://react.dev/reference/react/useTransition#starttransition}
+         *
+         * @param callback
+         */
+        (callback: () => Promise<VoidOrUndefinedOnly>): void;
+    }
+
+    function experimental_useOptimistic<State>(
+        passthrough: State,
+    ): [State, (action: State | ((pendingState: State) => State)) => void];
+    function experimental_useOptimistic<State, Action>(
+        passthrough: State,
+        reducer: (state: State, action: Action) => State,
+    ): [State, (action: Action) => void];
 }

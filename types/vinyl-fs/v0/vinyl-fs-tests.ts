@@ -212,7 +212,8 @@ describe('source stream', () => {
 
 // const path = require('path');
 // const fs = require('graceful-fs');
-import rimraf = require('rimraf');
+// import rimraf = require('rimraf');
+const rimraf = (...args: any[]) => undefined as any;
 
 // const bufEqual = require('buffer-equal');
 // const through = require('through2');

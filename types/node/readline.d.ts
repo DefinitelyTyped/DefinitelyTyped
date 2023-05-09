@@ -1,5 +1,5 @@
 /**
- * The `readline` module provides an interface for reading data from a `Readable` stream (such as `process.stdin`) one line at a time.
+ * The `node:readline` module provides an interface for reading data from a `Readable` stream (such as `process.stdin`) one line at a time.
  *
  * To use the promise-based APIs:
  *
@@ -13,7 +13,7 @@
  * import * as readline from 'node:readline';
  * ```
  *
- * The following simple example illustrates the basic use of the `readline` module.
+ * The following simple example illustrates the basic use of the `node:readline`module.
  *
  * ```js
  * import * as readline from 'node:readline/promises';
@@ -30,7 +30,7 @@
  *
  * Once this code is invoked, the Node.js application will not terminate until the`readline.Interface` is closed because the interface waits for data to be
  * received on the `input` stream.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/readline.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/readline.js)
  */
 declare module 'readline' {
     import { Abortable, EventEmitter } from 'node:events';
@@ -408,11 +408,11 @@ declare module 'readline' {
      * implement a small command-line interface:
      *
      * ```js
-     * const readline = require('readline');
+     * const readline = require('node:readline');
      * const rl = readline.createInterface({
      *   input: process.stdin,
      *   output: process.stdout,
-     *   prompt: 'OHAI> '
+     *   prompt: 'OHAI> ',
      * });
      *
      * rl.prompt();
@@ -440,15 +440,15 @@ declare module 'readline' {
      * well as a `for await...of` loop:
      *
      * ```js
-     * const fs = require('fs');
-     * const readline = require('readline');
+     * const fs = require('node:fs');
+     * const readline = require('node:readline');
      *
      * async function processLineByLine() {
      *   const fileStream = fs.createReadStream('input.txt');
      *
      *   const rl = readline.createInterface({
      *     input: fileStream,
-     *     crlfDelay: Infinity
+     *     crlfDelay: Infinity,
      *   });
      *   // Note: we use the crlfDelay option to recognize all instances of CR LF
      *   // ('\r\n') in input.txt as a single line break.
@@ -465,12 +465,12 @@ declare module 'readline' {
      * Alternatively, one could use the `'line'` event:
      *
      * ```js
-     * const fs = require('fs');
-     * const readline = require('readline');
+     * const fs = require('node:fs');
+     * const readline = require('node:readline');
      *
      * const rl = readline.createInterface({
      *   input: fs.createReadStream('sample.txt'),
-     *   crlfDelay: Infinity
+     *   crlfDelay: Infinity,
      * });
      *
      * rl.on('line', (line) => {
@@ -481,15 +481,15 @@ declare module 'readline' {
      * Currently, `for await...of` loop can be a bit slower. If `async` / `await`flow and speed are both essential, a mixed approach can be applied:
      *
      * ```js
-     * const { once } = require('events');
-     * const { createReadStream } = require('fs');
-     * const { createInterface } = require('readline');
+     * const { once } = require('node:events');
+     * const { createReadStream } = require('node:fs');
+     * const { createInterface } = require('node:readline');
      *
      * (async function processLineByLine() {
      *   try {
      *     const rl = createInterface({
      *       input: createReadStream('big-file.txt'),
-     *       crlfDelay: Infinity
+     *       crlfDelay: Infinity,
      *     });
      *
      *     rl.on('line', (line) => {

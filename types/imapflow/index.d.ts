@@ -117,12 +117,12 @@ export class ImapFlow extends EventEmitter {
     status(
         path: string,
         query: {
-            messages: boolean;
-            recent: boolean;
-            uidNext: boolean;
-            uidValidity: boolean;
-            unseen: boolean;
-            highestModseq: boolean;
+            messages?: boolean;
+            recent?: boolean;
+            uidNext?: boolean;
+            uidValidity?: boolean;
+            unseen?: boolean;
+            highestModseq?: boolean;
         },
     ): Promise<StatusObject>;
 
@@ -222,7 +222,7 @@ export interface FetchQueryObject {
     internalDate?: boolean;
     size?: boolean;
     source?: boolean | object;
-    threadId?: string;
+    threadId?: boolean;
     labels?: boolean;
     headers?: boolean | string[];
     bodyParts?: string[];
@@ -301,7 +301,7 @@ export interface StatusObject {
     uid?: number;
     uidValidity?: bigint;
     unseen?: number;
-    highestModSeq?: bigint;
+    highestModseq?: bigint;
 }
 
 export interface IdInfoObject {

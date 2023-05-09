@@ -1,10 +1,10 @@
 /**
- * The `child_process` module provides the ability to spawn subprocesses in
+ * The `node:child_process` module provides the ability to spawn subprocesses in
  * a manner that is similar, but not identical, to [`popen(3)`](http://man7.org/linux/man-pages/man3/popen.3.html). This capability
  * is primarily provided by the {@link spawn} function:
  *
  * ```js
- * const { spawn } = require('child_process');
+ * const { spawn } = require('node:child_process');
  * const ls = spawn('ls', ['-lh', '/usr']);
  *
  * ls.stdout.on('data', (data) => {
@@ -44,8 +44,8 @@
  * without blocking the Node.js event loop. The {@link spawnSync} function provides equivalent functionality in a synchronous manner that blocks
  * the event loop until the spawned process either exits or is terminated.
  *
- * For convenience, the `child_process` module provides a handful of synchronous
- * and asynchronous alternatives to {@link spawn} and {@link spawnSync}. Each of these alternatives are implemented on
+ * For convenience, the `node:child_process` module provides a handful of
+ * synchronous and asynchronous alternatives to {@link spawn} and {@link spawnSync}. Each of these alternatives are implemented on
  * top of {@link spawn} or {@link spawnSync}.
  *
  * * {@link exec}: spawns a shell and runs a command within that
@@ -63,7 +63,7 @@
  * For certain use cases, such as automating shell scripts, the `synchronous counterparts` may be more convenient. In many cases, however,
  * the synchronous methods can have significant impact on performance due to
  * stalling the event loop while spawned processes complete.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/child_process.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/child_process.js)
  */
 declare module 'child_process' {
     import { ObjectEncodingOptions } from 'node:fs';
@@ -94,8 +94,7 @@ declare module 'child_process' {
          * `subprocess.stdin` is an alias for `subprocess.stdio[0]`. Both properties will
          * refer to the same value.
          *
-         * The `subprocess.stdin` property can be `undefined` if the child process could
-         * not be successfully spawned.
+         * The `subprocess.stdin` property can be `null` or `undefined`if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stdin: Writable | null;
@@ -109,7 +108,7 @@ declare module 'child_process' {
          * refer to the same value.
          *
          * ```js
-         * const { spawn } = require('child_process');
+         * const { spawn } = require('node:child_process');
          *
          * const subprocess = spawn('ls');
          *
@@ -118,8 +117,7 @@ declare module 'child_process' {
          * });
          * ```
          *
-         * The `subprocess.stdout` property can be `null` if the child process could
-         * not be successfully spawned.
+         * The `subprocess.stdout` property can be `null` or `undefined`if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stdout: Readable | null;
@@ -132,14 +130,13 @@ declare module 'child_process' {
          * `subprocess.stderr` is an alias for `subprocess.stdio[2]`. Both properties will
          * refer to the same value.
          *
-         * The `subprocess.stderr` property can be `null` if the child process could
-         * not be successfully spawned.
+         * The `subprocess.stderr` property can be `null` or `undefined`if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stderr: Readable | null;
         /**
          * The `subprocess.channel` property is a reference to the child's IPC channel. If
-         * no IPC channel currently exists, this property is `undefined`.
+         * no IPC channel exists, this property is `undefined`.
          * @since v7.1.0
          */
         readonly channel?: Pipe | null | undefined;
@@ -154,16 +151,16 @@ declare module 'child_process' {
          * in the array are `null`.
          *
          * ```js
-         * const assert = require('assert');
-         * const fs = require('fs');
-         * const child_process = require('child_process');
+         * const assert = require('node:assert');
+         * const fs = require('node:fs');
+         * const child_process = require('node:child_process');
          *
          * const subprocess = child_process.spawn('ls', {
          *   stdio: [
          *     0, // Use parent's stdin for child.
          *     'pipe', // Pipe child's stdout to parent.
          *     fs.openSync('err.out', 'w'), // Direct child's stderr to a file.
-         *   ]
+         *   ],
          * });
          *
          * assert.strictEqual(subprocess.stdio[0], null);
@@ -204,7 +201,7 @@ declare module 'child_process' {
          * emitted.
          *
          * ```js
-         * const { spawn } = require('child_process');
+         * const { spawn } = require('node:child_process');
          * const grep = spawn('grep', ['ssh']);
          *
          * console.log(`Spawned child pid: ${grep.pid}`);
@@ -251,7 +248,7 @@ declare module 'child_process' {
          * returns `true` if [`kill(2)`](http://man7.org/linux/man-pages/man2/kill.2.html) succeeds, and `false` otherwise.
          *
          * ```js
-         * const { spawn } = require('child_process');
+         * const { spawn } = require('node:child_process');
          * const grep = spawn('grep', ['ssh']);
          *
          * grep.on('close', (code, signal) => {
@@ -284,7 +281,7 @@ declare module 'child_process' {
          *
          * ```js
          * 'use strict';
-         * const { spawn } = require('child_process');
+         * const { spawn } = require('node:child_process');
          *
          * const subprocess = spawn(
          *   'sh',
@@ -294,8 +291,8 @@ declare module 'child_process' {
          *       console.log(process.pid, 'is alive')
          *     }, 500);"`,
          *   ], {
-         *     stdio: ['inherit', 'inherit', 'inherit']
-         *   }
+         *     stdio: ['inherit', 'inherit', 'inherit'],
+         *   },
          * );
          *
          * setTimeout(() => {
@@ -317,7 +314,7 @@ declare module 'child_process' {
          * For example, in the parent script:
          *
          * ```js
-         * const cp = require('child_process');
+         * const cp = require('node:child_process');
          * const n = cp.fork(`${__dirname}/sub.js`);
          *
          * n.on('message', (m) => {
@@ -371,10 +368,10 @@ declare module 'child_process' {
          * a TCP server object to the child process as illustrated in the example below:
          *
          * ```js
-         * const subprocess = require('child_process').fork('subprocess.js');
+         * const subprocess = require('node:child_process').fork('subprocess.js');
          *
          * // Open up the server object and send the handle.
-         * const server = require('net').createServer();
+         * const server = require('node:net').createServer();
          * server.on('connection', (socket) => {
          *   socket.end('handled by parent');
          * });
@@ -398,10 +395,9 @@ declare module 'child_process' {
          * Once the server is now shared between the parent and child, some connections
          * can be handled by the parent and some by the child.
          *
-         * While the example above uses a server created using the `net` module, `dgram`module servers use exactly the same workflow with the exceptions of listening on
-         * a `'message'` event instead of `'connection'` and using `server.bind()` instead
-         * of `server.listen()`. This is, however, currently only supported on Unix
-         * platforms.
+         * While the example above uses a server created using the `node:net` module,`node:dgram` module servers use exactly the same workflow with the exceptions of
+         * listening on a `'message'` event instead of `'connection'` and using`server.bind()` instead of `server.listen()`. This is, however, only
+         * supported on Unix platforms.
          *
          * #### Example: sending a socket object
          *
@@ -410,13 +406,13 @@ declare module 'child_process' {
          * handle connections with "normal" or "special" priority:
          *
          * ```js
-         * const { fork } = require('child_process');
+         * const { fork } = require('node:child_process');
          * const normal = fork('subprocess.js', ['normal']);
          * const special = fork('subprocess.js', ['special']);
          *
          * // Open up the server and send sockets to child. Use pauseOnConnect to prevent
          * // the sockets from being read before they are sent to the child process.
-         * const server = require('net').createServer({ pauseOnConnect: true });
+         * const server = require('node:net').createServer({ pauseOnConnect: true });
          * server.on('connection', (socket) => {
          *
          *   // If this is special priority...
@@ -482,11 +478,11 @@ declare module 'child_process' {
          * the child and the parent.
          *
          * ```js
-         * const { spawn } = require('child_process');
+         * const { spawn } = require('node:child_process');
          *
          * const subprocess = spawn(process.argv[0], ['child_program.js'], {
          *   detached: true,
-         *   stdio: 'ignore'
+         *   stdio: 'ignore',
          * });
          *
          * subprocess.unref();
@@ -500,11 +496,11 @@ declare module 'child_process' {
          * to wait for the child to exit before exiting itself.
          *
          * ```js
-         * const { spawn } = require('child_process');
+         * const { spawn } = require('node:child_process');
          *
          * const subprocess = spawn(process.argv[0], ['child_program.js'], {
          *   detached: true,
-         *   stdio: 'ignore'
+         *   stdio: 'ignore',
          * });
          *
          * subprocess.unref();
@@ -663,7 +659,7 @@ declare module 'child_process' {
      * ```js
      * const defaults = {
      *   cwd: undefined,
-     *   env: process.env
+     *   env: process.env,
      * };
      * ```
      *
@@ -682,7 +678,7 @@ declare module 'child_process' {
      * exit code:
      *
      * ```js
-     * const { spawn } = require('child_process');
+     * const { spawn } = require('node:child_process');
      * const ls = spawn('ls', ['-lh', '/usr']);
      *
      * ls.stdout.on('data', (data) => {
@@ -701,7 +697,7 @@ declare module 'child_process' {
      * Example: A very elaborate way to run `ps ax | grep ssh`
      *
      * ```js
-     * const { spawn } = require('child_process');
+     * const { spawn } = require('node:child_process');
      * const ps = spawn('ps', ['ax']);
      * const grep = spawn('grep', ['ssh']);
      *
@@ -738,7 +734,7 @@ declare module 'child_process' {
      * Example of checking for failed `spawn`:
      *
      * ```js
-     * const { spawn } = require('child_process');
+     * const { spawn } = require('node:child_process');
      * const subprocess = spawn('bad_command');
      *
      * subprocess.on('error', (err) => {
@@ -749,14 +745,14 @@ declare module 'child_process' {
      * Certain platforms (macOS, Linux) will use the value of `argv[0]` for the process
      * title while others (Windows, SunOS) will use `command`.
      *
-     * Node.js currently overwrites `argv[0]` with `process.execPath` on startup, so`process.argv[0]` in a Node.js child process will not match the `argv0`parameter passed to `spawn` from the parent,
-     * retrieve it with the`process.argv0` property instead.
+     * Node.js overwrites `argv[0]` with `process.execPath` on startup, so`process.argv[0]` in a Node.js child process will not match the `argv0`parameter passed to `spawn` from the parent. Retrieve
+     * it with the`process.argv0` property instead.
      *
      * If the `signal` option is enabled, calling `.abort()` on the corresponding`AbortController` is similar to calling `.kill()` on the child process except
      * the error passed to the callback will be an `AbortError`:
      *
      * ```js
-     * const { spawn } = require('child_process');
+     * const { spawn } = require('node:child_process');
      * const controller = new AbortController();
      * const { signal } = controller;
      * const grep = spawn('grep', ['ssh'], { signal });
@@ -815,7 +811,7 @@ declare module 'child_process' {
      * need to be dealt with accordingly:
      *
      * ```js
-     * const { exec } = require('child_process');
+     * const { exec } = require('node:child_process');
      *
      * exec('"/path/to/test file/test.sh" arg1 arg2');
      * // Double quotes are used so that the space in the path is not interpreted as
@@ -841,7 +837,7 @@ declare module 'child_process' {
      * encoding, `Buffer` objects will be passed to the callback instead.
      *
      * ```js
-     * const { exec } = require('child_process');
+     * const { exec } = require('node:child_process');
      * exec('cat *.js missing_file | wc -l', (error, stdout, stderr) => {
      *   if (error) {
      *     console.error(`exec error: ${error}`);
@@ -866,8 +862,8 @@ declare module 'child_process' {
      * callback, but with two additional properties `stdout` and `stderr`.
      *
      * ```js
-     * const util = require('util');
-     * const exec = util.promisify(require('child_process').exec);
+     * const util = require('node:util');
+     * const exec = util.promisify(require('node:child_process').exec);
      *
      * async function lsExample() {
      *   const { stdout, stderr } = await exec('ls');
@@ -881,11 +877,11 @@ declare module 'child_process' {
      * the error passed to the callback will be an `AbortError`:
      *
      * ```js
-     * const { exec } = require('child_process');
+     * const { exec } = require('node:child_process');
      * const controller = new AbortController();
      * const { signal } = controller;
      * const child = exec('grep ssh', { signal }, (error) => {
-     *   console.log(error); // an AbortError
+     *   console.error(error); // an AbortError
      * });
      * controller.abort();
      * ```
@@ -984,7 +980,10 @@ declare module 'child_process' {
     interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
     }
-    type ExecFileException = ExecException & NodeJS.ErrnoException;
+    type ExecFileException =
+        & Omit<ExecException, 'code'>
+        & Omit<NodeJS.ErrnoException, 'code'>
+        & { code?: string | number | undefined | null };
     /**
      * The `child_process.execFile()` function is similar to {@link exec} except that it does not spawn a shell by default. Rather, the specified
      * executable `file` is spawned directly as a new process making it slightly more
@@ -995,7 +994,7 @@ declare module 'child_process' {
      * supported.
      *
      * ```js
-     * const { execFile } = require('child_process');
+     * const { execFile } = require('node:child_process');
      * const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      *   if (error) {
      *     throw error;
@@ -1018,8 +1017,8 @@ declare module 'child_process' {
      * callback, but with two additional properties `stdout` and `stderr`.
      *
      * ```js
-     * const util = require('util');
-     * const execFile = util.promisify(require('child_process').execFile);
+     * const util = require('node:util');
+     * const execFile = util.promisify(require('node:child_process').execFile);
      * async function getVersion() {
      *   const { stdout } = await execFile('node', ['--version']);
      *   console.log(stdout);
@@ -1035,11 +1034,11 @@ declare module 'child_process' {
      * the error passed to the callback will be an `AbortError`:
      *
      * ```js
-     * const { execFile } = require('child_process');
+     * const { execFile } = require('node:child_process');
      * const controller = new AbortController();
      * const { signal } = controller;
      * const child = execFile('node', ['--version'], { signal }, (error) => {
-     *   console.log(error); // an AbortError
+     *   console.error(error); // an AbortError
      * });
      * controller.abort();
      * ```
@@ -1231,7 +1230,7 @@ declare module 'child_process' {
      *     console.log(`Hello from ${process.argv[2]}!`);
      *   }, 1_000);
      * } else {
-     *   const { fork } = require('child_process');
+     *   const { fork } = require('node:child_process');
      *   const controller = new AbortController();
      *   const { signal } = controller;
      *   const child = fork(__filename, ['child'], { signal });

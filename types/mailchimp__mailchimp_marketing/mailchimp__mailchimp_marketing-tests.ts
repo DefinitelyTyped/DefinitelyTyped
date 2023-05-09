@@ -7,25 +7,54 @@ mailchimp.setConfig({
     server: 'test',
 });
 
+const batchListMembersBody: mailchimp.lists.BatchListMembersBody = {
+    sync_tags: true,
+    update_existing: true,
+    members: [
+        {
+            email_address: 'test@email.com',
+            email_type: 'html',
+            status: 'subscribed',
+            vip: true,
+            location: {
+                latitude: 34,
+                longtitude: 45,
+            },
+            tags: ['one', 'two', 'three'],
+            ip_opt: 'test',
+            timestamp_opt: 'timestamp',
+            language: 'lang',
+            merge_fields: { test: 'value', key: 'value' },
+            timestamp_signup: 'timestamp',
+            ip_signup: 'test',
+        },
+    ],
+};
+
+const batchListMembersOpts: mailchimp.lists.BatchListMembersOpts = {
+    skipDuplicateCheck: true,
+    skipMergeValidation: true,
+};
+
 const setListMemberBody: mailchimp.lists.SetListMemberBody = {
     email_address: 'test',
     status_if_new: 'subscribed' as const,
     status: 'subscribed' as const,
     merge_fields: undefined,
-    interests: {property1: true},
-    language: "language",
+    interests: { property1: true },
+    language: 'language',
     vip: true,
-    location: { latitude: 123, logitude: 123},
+    location: { latitude: 123, logitude: 123 },
     marketing_permissions: [
         {
-          marketing_permission_id: "string",
-          enabled: true
-        }
+            marketing_permission_id: 'string',
+            enabled: true,
+        },
     ],
-    ip_signup: "192.0.2.1",
-    timestamp_signup: "YYYY-MM-DD",
-    ip_opt: "192.0.2.1",
-    timestamp_opt: "YYYY-MM-DD"
+    ip_signup: '192.0.2.1',
+    timestamp_signup: 'YYYY-MM-DD',
+    ip_opt: '192.0.2.1',
+    timestamp_opt: 'YYYY-MM-DD',
 };
 
 const addListMemberBody: mailchimp.lists.AddListMemberBody = {
@@ -62,7 +91,7 @@ const getAllListsBody: mailchimp.lists.ListOptions = {
     sortField: 'string',
     sortDir: 'string',
     hasEcommerceStore: false,
-    includeTotalContacts: false
+    includeTotalContacts: false,
 };
 
 const getListMergeFieldsBody: mailchimp.lists.ListOptions = {
@@ -71,8 +100,11 @@ const getListMergeFieldsBody: mailchimp.lists.ListOptions = {
     count: 0,
     offset: 0,
     type: 'text',
-    required: true
+    required: true,
 };
+
+// Promise<MembersSuccessResponse | ErrorResponse>
+mailchimp.lists.batchListMembers('test', batchListMembersBody, batchListMembersOpts);
 
 // Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.setListMember('test', 'test', setListMemberBody);

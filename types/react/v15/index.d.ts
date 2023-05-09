@@ -592,6 +592,9 @@ declare namespace React {
     interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     }
 
+    interface SVGLineElementAttributes<T> extends React.SVGProps<T> {}
+    interface SVGTextElementAttributes<T> extends React.SVGProps<T> {}
+
     interface DOMAttributes<T> {
         children?: ReactNode | undefined;
         dangerouslySetInnerHTML?: {
@@ -3627,9 +3630,23 @@ declare namespace React {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
+
+    namespace JSX {
+        interface Element extends GlobalJSXElement {}
+        interface ElementClass extends GlobalJSXElementClass {}
+        interface ElementAttributesProperty extends GlobalJSXElementAttributesProperty {}
+        interface ElementChildrenAttribute extends GlobalJSXElementChildrenAttribute {}
+
+        interface IntrinsicAttributes extends GlobalJSXIntrinsicAttributes {}
+        interface IntrinsicClassAttributes<T> extends GlobalJSXIntrinsicClassAttributes<T> {}
+        interface IntrinsicElements extends GlobalJSXIntrinsicElements {}
+    }
 }
 
 declare global {
+    /**
+     * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
+     */
     namespace JSX {
         interface Element extends React.ReactElement { }
         interface ElementClass extends React.Component<any> {
@@ -3798,7 +3815,7 @@ declare global {
             foreignObject: React.SVGProps<SVGForeignObjectElement>;
             g: React.SVGProps<SVGGElement>;
             image: React.SVGProps<SVGImageElement>;
-            line: React.SVGProps<SVGLineElement>;
+            line: React.SVGLineElementAttributes<SVGLineElement>;
             linearGradient: React.SVGProps<SVGLinearGradientElement>;
             marker: React.SVGProps<SVGMarkerElement>;
             mask: React.SVGProps<SVGMaskElement>;
@@ -3812,7 +3829,7 @@ declare global {
             stop: React.SVGProps<SVGStopElement>;
             switch: React.SVGProps<SVGSwitchElement>;
             symbol: React.SVGProps<SVGSymbolElement>;
-            text: React.SVGProps<SVGTextElement>;
+            text: React.SVGTextElementAttributes<SVGTextElement>;
             textPath: React.SVGProps<SVGTextPathElement>;
             tspan: React.SVGProps<SVGTSpanElement>;
             use: React.SVGProps<SVGUseElement>;
@@ -3820,3 +3837,16 @@ declare global {
         }
     }
 }
+
+// React.JSX needs to point to global.JSX to keep global module augmentations intact.
+// But we can't access global.JSX so we need to create these aliases instead.
+// Once the global JSX namespace will be removed we replace React.JSX with the contents of global.JSX
+interface GlobalJSXElement extends JSX.Element {}
+interface GlobalJSXElementClass extends JSX.ElementClass {}
+interface GlobalJSXElementAttributesProperty extends JSX.ElementAttributesProperty {}
+interface GlobalJSXElementChildrenAttribute extends JSX.ElementChildrenAttribute {}
+
+interface GlobalJSXIntrinsicAttributes extends JSX.IntrinsicAttributes {}
+interface GlobalJSXIntrinsicClassAttributes<T> extends JSX.IntrinsicClassAttributes<T> {}
+
+interface GlobalJSXIntrinsicElements extends JSX.IntrinsicElements {}

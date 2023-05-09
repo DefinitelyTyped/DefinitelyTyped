@@ -1,4 +1,4 @@
-import { Loader, LoadingManager, ShapePath, BufferGeometry, Vector3, Shape } from '../../../src/Three';
+import { Loader, LoadingManager, ShapePath, BufferGeometry, Vector3, Shape, Vector2 } from '../../../src/Three';
 
 export interface SVGResultPaths extends ShapePath {
     userData?:
@@ -43,14 +43,25 @@ export class SVGLoader extends Loader {
         lineCap?: string,
         miterLimit?: number,
     ): StrokeStyle;
+
+    /**
+     * Generates a stroke with some witdh around the given path.
+     * @remarks The path can be open or closed (last point equals to first point)
+     * @param points  Array of Vector2D (the path). Minimum 2 points.
+     * @param style  Object with SVG properties as returned by SVGLoader.getStrokeStyle(), or SVGLoader.parse() in the path.userData.style object
+     * @param arcDivisions Arc divisions for round joins and endcaps. (Optional)
+     * @param minDistance Points closer to this distance will be merged. (Optional)
+     * @returns BufferGeometry with stroke triangles (In plane z = 0). UV coordinates are generated ('u' along path. 'v' across it, from left to right)
+     */
     static pointsToStroke(
-        points: Vector3[],
+        points: Vector2[],
         style: StrokeStyle,
         arcDivisions?: number,
         minDistance?: number,
     ): BufferGeometry;
+
     static pointsToStrokeWithBuffers(
-        points: Vector3[],
+        points: Vector2[],
         style: StrokeStyle,
         arcDivisions?: number,
         minDistance?: number,
@@ -59,5 +70,6 @@ export class SVGLoader extends Loader {
         uvs?: number[],
         vertexOffset?: number,
     ): number;
+
     static createShapes(shapePath: ShapePath): Shape[];
 }

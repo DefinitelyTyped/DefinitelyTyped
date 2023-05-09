@@ -18,7 +18,7 @@ interface LayerCreateOptionsBase {
     group?: boolean;
     /**
      * Label color of the newly created layer or group.
-     * @default Constants.LabelColors.NONE
+     * @default NONE
      * @minVersion 22.5
      */
     color?: Constants.LabelColors;
@@ -32,14 +32,14 @@ interface LayerCreateOptionsBase {
     /**
      * Deprecated, please use `blendMode` above as it will override this value.
      *
-     * @default Constants.BlendMode.NORMAL
+     * @default NORMAL
      * @minVersion 22.5
      * @deprecated
      */
     mode?: Constants.BlendMode;
     /**
      * Blend mode of the newly created layer or group.
-     * @default Constants.BlendMode.NORMAL
+     * @default NORMAL
      * @minVersion 22.5
      */
     blendMode?: Constants.BlendMode;
@@ -49,7 +49,7 @@ interface LayerCreateOptionsBase {
  * As a type, `PixelLayerCreateOptions` can be used in Typescript development.
  *
  * ```javascript
- * const options = { name: "myLayer", opacity: 80, blendMode: Constants.BlendMode.COLORDODGE };
+ * const options = { name: "myLayer", opacity: 80, blendMode: constants.BlendMode.COLORDODGE };
  * await require('photoshop').app.activeDocument.createLayer(options);
  * ```
  *

@@ -286,12 +286,11 @@ export function create(options: Options, callback: (error: object | null, dropin
 export function create(options: Options): Promise<Dropin>;
 
 // Global
-
 declare global {
-    const braintree: {
-        dropin: {
+    namespace braintree {
+        const dropin: {
             create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
             create(options: Options): Promise<Dropin>;
         };
-    };
+    }
 }

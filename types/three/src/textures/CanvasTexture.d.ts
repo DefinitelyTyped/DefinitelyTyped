@@ -29,7 +29,6 @@ export class CanvasTexture extends Texture {
      * @param format See {@link Texture.format | .format}. Default {@link THREE.RGBAFormat}
      * @param type See {@link Texture.type | .type}. Default {@link THREE.UnsignedByteType}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
-     * @param encoding See {@link Texture.encoding | .encoding}. Default {@link THREE.LinearEncoding}
      */
     constructor(
         canvas: TexImageSource | OffscreenCanvas,

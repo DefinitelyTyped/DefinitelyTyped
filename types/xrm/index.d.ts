@@ -805,7 +805,7 @@ declare namespace Xrm {
              * @param T Generic type parameter.
              * @param key The key.
              * @returns The shared variable.
-             * @desc Gets the shared variable with the specified key.
+             * @description Gets the shared variable with the specified key.
              * Used to pass values between handlers of an event.
              */
             getSharedVariable<T>(key: string): T;
@@ -815,7 +815,7 @@ declare namespace Xrm {
              * @param T Generic type parameter.
              * @param key The key.
              * @param value The value.
-             * @desc Sets the shared variable with the specified key.
+             * @description Sets the shared variable with the specified key.
              * Used to pass values between handlers of an event.
              */
             setSharedVariable<T>(key: string, value: T): void;

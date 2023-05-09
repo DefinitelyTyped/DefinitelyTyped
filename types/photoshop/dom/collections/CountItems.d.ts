@@ -6,7 +6,7 @@ import { SolidColor } from "../objects/SolidColor";
  *
  *
  */
-export declare class CountItems {
+export declare class CountItems extends Array<CountItem> {
     /**
      * @ignore
      */

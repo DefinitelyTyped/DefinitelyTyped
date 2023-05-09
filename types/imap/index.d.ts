@@ -246,7 +246,6 @@ declare namespace Connection {
 }
 
 declare class Connection extends EventEmitter implements Connection.MessageFunctions {
-        /** @constructor */
         constructor(config: Connection.Config);
 
         // from NodeJS.EventEmitter

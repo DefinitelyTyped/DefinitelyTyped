@@ -94,7 +94,7 @@ export declare class TextItem {
     });
     /**
      * The text orientation.
-     * @default Direction.HORIZONTAL
+     * @default HORIZONTAL
      * @minVersion 24.1
      */
     get orientation(): Constants.Orientation;

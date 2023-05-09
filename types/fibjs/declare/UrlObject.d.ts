@@ -32,7 +32,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     href: string
@@ -45,7 +45,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     protocol: string
@@ -71,7 +71,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     auth: string
@@ -84,7 +84,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     username: string
@@ -97,7 +97,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     password: string
@@ -110,7 +110,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     host: string
@@ -123,7 +123,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     hostname: string
@@ -136,7 +136,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     port: string
@@ -149,7 +149,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     path: string
@@ -162,7 +162,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     pathname: string
@@ -175,7 +175,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     search: string
@@ -201,7 +201,7 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type String
+     *
      */
 
     hash: string
