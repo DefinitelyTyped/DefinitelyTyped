@@ -21,6 +21,7 @@ export function AccordionItem(props: AccordionItemProps): JSX.Element;
 export function AccordionToggle(props: AccordionToggleProps): JSX.Element;
 export function AccordionToggleIcon(props: AccordionToggleIconProps): JSX.Element;
 export function Alert(props: AlertProps): JSX.Element;
+export function AlertCloseButton(props: ButtonProps): JSX.Element;
 export function AnimatePresence(): any;
 export function Badge(props: BadgeProps): JSX.Element;
 export function Box(props: TonicProps): JSX.Element;
@@ -56,6 +57,7 @@ export function InputGroupAddon(props: InputGroupAddonProps): JSX.Element;
 export function InputGroupAppend(props: TonicProps): JSX.Element;
 export function InputGroupPrepend(props: TonicProps): JSX.Element;
 export function LightMode(props: React.PropsWithChildren<{}>): JSX.Element;
+export function LinearProgress(props: LinearProgressProps): JSX.Element;
 export function Link(props: LinkProps): JSX.Element;
 export function LinkButton(props: ButtonProps): JSX.Element;
 export function Menu(props: MenuProps): JSX.Element;
@@ -85,6 +87,7 @@ export function PopoverFooter(props: TonicProps): JSX.Element;
 export function PopoverHeader(props: TonicProps): JSX.Element;
 export function PopoverTrigger(props: PopoverTriggerProps): JSX.Element;
 export function Portal(props: PortalProps): JSX.Element;
+export function PortalManager(props: React.PropsWithChildren<{}>): JSX.Element;
 export function Radio(props: InputProps): JSX.Element;
 export function RadioGroup(props: RadioGroupProps<string | number | undefined>): JSX.Element;
 export function SVGIcon(props: TonicProps): JSX.Element;
@@ -114,11 +117,13 @@ export function TableHeaderRow(props: TonicProps): JSX.Element;
 export function TableRow(props: TonicProps): JSX.Element;
 export function Tabs(props: TabsProps<string | number | undefined>): JSX.Element;
 export function Tag(props: TagProps): JSX.Element;
+export function TagCloseButton(props: ButtonProps): JSX.Element;
 export function Text(props: TextProps): JSX.Element;
 export function TextLabel(props: TextLabelProps): JSX.Element;
 export function Textarea(props: TextareaProps): JSX.Element;
 export const theme: TonicProviderTheme;
 export function Toast(props: ToastProps): JSX.Element;
+export function ToastCloseButton(props: ButtonProps): JSX.Element;
 export function ToastController(props: ToastControllerProps): JSX.Element;
 export function ToastProvider(props: ToastProviderProps): JSX.Element;
 export function ToastTransition(props: ToastTransitionProps): JSX.Element;
@@ -136,17 +141,18 @@ export function useColorMode(): [colorMode: ThemeColorModes, setColorMode: React
 export function useColorStyle<ThemeColorStyle>(config: {
     colorMode: ThemeColorModes;
 }): [colorStyle: ThemeColorStyle, setColorStyle: React.Dispatch<ThemeColorStyle>];
-export const useDrawer: any;
-export const useInputGroup: any;
-export const useMenu: any;
-export const useModal: any;
-export const usePagination: any;
-export const usePopover: any;
-export const useRadioGroup: any;
-export const useSubmenu: any;
-export const useTabs: any;
-export const useTheme: any;
-export const useToast: any;
+export function useDrawer(): any;
+export function useInputGroup(): any;
+export function useMenu(): any;
+export function useModal(): any;
+export function usePagination(): any;
+export function usePopover(): any;
+export function usePortalManager(): PortalObject;
+export function useRadioGroup(): any;
+export function useSubmenu(): any;
+export function useTabs(): any;
+export function useTheme(): any;
+export function useToast(): any;
 
 export type Breakpoints = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '_';
 type ThemeColorModes = 'light' | 'dark';
@@ -345,6 +351,15 @@ export interface InputGroupAddonProps extends TonicProps {
     variant?: 'outline' | 'filled' | 'unstyled';
 }
 
+export interface LinearProgressProps extends Omit<TonicProps, 'color'> {
+    color?: string | string[];
+    min?: number;
+    max?: number;
+    size?: 'xs' | 'sm' | 'md' | 'lg';
+    variant?: 'indeterminate' | 'determinate';
+    value: number;
+}
+
 export interface LinkProps extends TonicHTMLAnchorProps {
     href?: string;
 }
@@ -488,21 +503,17 @@ export interface PopoverTriggerProps extends Omit<TonicProps, 'children'> {
     children: React.ReactNode | ((args: { getPopoverTriggerProps: () => TonicProps }) => React.ReactNode);
 }
 
+export interface PortalObject {
+    (
+        render: (close: () => void) => React.ReactNode,
+        options?: { id?: string; appendToParentPortal?: boolean; containerRef?: Element | null },
+    ): string;
+    remove(id: string): void;
+}
+
 export interface PortalProps {
     appendToParentPortal?: boolean;
     containerRef?: React.RefObject<HTMLElement>;
-}
-
-export interface TonicProviderProps {
-    colorMode?: {
-        defaultValue: ThemeColorModes;
-        value?: ThemeColorModes;
-    };
-    colorStyle?: {
-        defaultValue: { light: ThemeColorStyle; dark: ThemeColorStyle };
-    };
-    useCSSBaseline?: boolean;
-    theme?: TonicProviderTheme;
 }
 
 export interface RadioGroupProps<T extends string | number | undefined>
@@ -650,6 +661,18 @@ export interface ToastTransitionProps extends Omit<TonicProps, 'children'> {
     unmountOnExit?: boolean;
 }
 
+export interface TonicProviderProps {
+    colorMode?: {
+        defaultValue: ThemeColorModes;
+        value?: ThemeColorModes;
+    };
+    colorStyle?: {
+        defaultValue: { light: ThemeColorStyle; dark: ThemeColorStyle };
+    };
+    useCSSBaseline?: boolean;
+    theme?: TonicProviderTheme;
+}
+
 type TonicProviderTheme = Record<string, unknown>;
 
 export interface TooltipProps extends Omit<TonicProps, 'children'> {
@@ -758,10 +781,28 @@ export interface ThemeColorStyle {
 // Extends CSS properties to remove those that conflict with Tonic and add some shorthands/helpers
 type _ExtendedCSSProperties = Omit<React.CSSProperties, 'direction' | 'scrollBehavior' | 'offset'> & {
     tabIndex?: string | number | undefined; // tabIndex is defined in HTMLAttributes as just a number. Redefining to be less annoying to work with
+
     paddingX?: string | number | undefined;
     paddingY?: string | number | undefined;
+    px?: string | number | undefined;
+    py?: string | number | undefined;
+    p?: React.CSSProperties['padding'];
+    pt?: React.CSSProperties['paddingTop'];
+    pr?: React.CSSProperties['paddingRight'];
+    pb?: React.CSSProperties['paddingBottom'];
+    pl?: React.CSSProperties['paddingLeft'];
+
     marginX?: string | number | undefined;
     marginY?: string | number | undefined;
+    mx?: string | number | undefined;
+    my?: string | number | undefined;
+    m?: React.CSSProperties['margin'];
+    mt?: React.CSSProperties['marginTop'];
+    mr?: React.CSSProperties['marginRight'];
+    mb?: React.CSSProperties['marginBottom'];
+    ml?: React.CSSProperties['marginLeft'];
+
+    bg?: React.CSSProperties['background'];
 };
 
 /**
