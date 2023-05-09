@@ -141,25 +141,32 @@ jwt.verify(token, cert, (err, decoded) => {
 });
 
 // verify a token assymetric with async key fetch function
-function getKeySuccess(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
-    cert = fs.readFileSync('public.pem');
+jwt.verify(
+    token,
+    function (header, callback) {
+        cert = fs.readFileSync('public.pem');
+        console.log(header.alg);
+        callback(null, cert);
+    },
+    (err, decoded) => {
+        const result = decoded as TestObject;
 
-    callback(null, cert);
-}
-jwt.verify(token, getKeySuccess, (err, decoded) => {
-    const result = decoded as TestObject;
+        console.log(result.foo); // bar
+    },
+);
 
-    console.log(result.foo); // bar
-});
+jwt.verify(
+    token,
+    function (header, callback) {
+        cert = fs.readFileSync('public.pem');
+        console.log(header.alg);
 
-function getKeyFailed(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
-    cert = fs.readFileSync('public.pem');
-
-    callback(new Error('FAILED_KEY_RETRIEVAL'), cert);
-}
-jwt.verify(token, getKeyFailed, (err, decoded) => {
-    console.error(err); // new JsonWebTokenError('error in secret or public key callback: FAILED_KEY_RETRIEVAL')
-});
+        callback(new Error('FAILED_KEY_RETRIEVAL'), cert);
+    },
+    (err, decoded) => {
+        console.error(err); // new JsonWebTokenError('error in secret or public key callback: FAILED_KEY_RETRIEVAL')
+    },
+);
 
 // verify audience
 cert = fs.readFileSync('public.pem'); // get public key
