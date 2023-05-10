@@ -180,6 +180,7 @@ interface LoadImage {
     requiresMetaData: (options: loadImage.LoadImageOptions) => boolean;
     fetchBlob: (url: string, callback: () => void) => void;
     transform: (img: unknown, options: unknown, callback: () => void, file: unknown, data: unknown) => void;
+    global: Window;
 }
 
 declare const loadImage: LoadImage;
