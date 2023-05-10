@@ -1,8 +1,8 @@
 import express = require("express");
 import { RequestListener } from 'http';
-import greenlock, { opts } from 'greenlock-express';
+import greenlock = require('greenlock-express');
 
-const o: opts = {
+const o: greenlock.Options = {
   packageRoot: './',
   maintainerEmail: 'user@example.com',
   configDir: './greenlock.d',
@@ -11,19 +11,19 @@ const o: opts = {
 
 const expressApp = express();
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o);
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o).ready();
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o).ready(expressApp);
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o).master();
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o).master(expressApp);
 
 // $ExpectType void
@@ -31,19 +31,19 @@ greenlock.init(o).serve(expressApp);
 
 const genericApp: RequestListener = (req, res) => {};
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o);
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o).ready();
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o).ready(genericApp);
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o).master();
 
-// $ExpectType serve
+// $ExpectType Serve
 greenlock.init(o).master(genericApp);
 
 // $ExpectType void
