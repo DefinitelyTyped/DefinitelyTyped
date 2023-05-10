@@ -165,6 +165,7 @@ declare namespace jwplayer {
 
     interface ControlsParam {
         controls: boolean;
+        type: 'controls';
     }
 
     interface ErrorParam {
@@ -483,8 +484,9 @@ declare namespace jwplayer {
         removePlaylistItemCallback(): void;
         resize(width: number | string, height: number): JWPlayer;
         seek(position: number): JWPlayer;
+        setAllowFullscreen(allowFullscreen?: boolean): JWPlayer;
         setCaptions(styles: CaptionOptions): JWPlayer;
-        setControls(controls: boolean): void;
+        setControls(state?: boolean): JWPlayer;
         setCues(cues: SliderCue[]): JWPlayer;
         setCurrentAudioTrack(index: number): void;
         setCurrentCaptions(index: number): void;
