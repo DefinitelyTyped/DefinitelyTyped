@@ -2,7 +2,6 @@
 // Project: https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react
 // Definitions by: Derek Hawker <https://github.com/derekhawker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
 
 import * as React from 'react';
 
