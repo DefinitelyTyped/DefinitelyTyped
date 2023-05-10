@@ -17,6 +17,9 @@ const selector = esquery.parse(s);
 const nodes = esquery.query(AST, s);
 
 // $ExpectType Node[]
+esquery.traverse(AST, s, (node, parent, ancestry) => {});
+
+// $ExpectType Node[]
 esquery(AST, s);
 
 // @ts-expect-error
