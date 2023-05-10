@@ -16,8 +16,11 @@ declare namespace loadImage {
 
     type ExifTagValue = number | string | string[];
 
+    type ExifMap = Record<number, number>;
+
     interface Exif {
         [tag: number]: ExifTagValue;
+        map: Record<string, number>;
         get: (tagName: 'Orientation' | 'Thumbnail' | 'Exif' | 'GPSInfo' | 'Interoperability') => ExifTagValue;
     }
 
@@ -34,6 +37,12 @@ declare namespace loadImage {
         originalHeight?: number | undefined;
         exif?: Exif | undefined;
         iptc?: Iptc | undefined;
+        exifOffsets?: ExifMap;
+    }
+
+    interface WriteExifData {
+        exif: Omit<Exif, 'get'>;
+        exifOffsets: ExifMap;
     }
 
     interface BasicOptions {
@@ -102,6 +111,15 @@ declare namespace loadImage {
 
         // Disables creating the imageHead property.
         disableImageHead?: boolean | undefined;
+
+        disableExif?: boolean | undefined;
+        disableExifOffsets?: boolean | undefined;
+        includeExifTags?: Record<number, boolean> | undefined;
+        excludeExifTags?: Record<number, boolean> | undefined;
+        disableIptc?: boolean | undefined;
+        disableIptcOffsets?: boolean | undefined;
+        includeIptcTags?: Record<number, boolean> | undefined;
+        excludeIptcTags?: Record<number, boolean> | undefined;
     }
 
     type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
@@ -133,6 +151,10 @@ interface ReplaceHead {
     ): Promise<Blob|null>;
 }
 
+interface Scale {
+    <O extends loadImage.LoadImageOptions>(image: HTMLImageElement | HTMLCanvasElement, options?: O): O extends loadImage.CanvasTrueOptions ? HTMLCanvasElement : HTMLImageElement;
+}
+
 // loadImage is implemented as a callable object.
 interface LoadImage {
     (file: File | Blob | string, callback: loadImage.LoadImageCallback, options: loadImage.LoadImageOptions):
@@ -149,7 +171,9 @@ interface LoadImage {
     // Replaces the image head of a JPEG blob with the given one
     replaceHead: ReplaceHead;
 
-    writeExifData: (buffer: ArrayBuffer | Uint8Array, data: loadImage.MetaData, id: number | string, value: loadImage.ExifTagValue) => ArrayBuffer | Uint8Array;
+    writeExifData: (buffer: ArrayBuffer | Uint8Array, data: loadImage.WriteExifData, id: number | string, value: loadImage.ExifTagValue) => ArrayBuffer | Uint8Array;
+
+    scale: Scale;
 }
 
 declare const loadImage: LoadImage;
