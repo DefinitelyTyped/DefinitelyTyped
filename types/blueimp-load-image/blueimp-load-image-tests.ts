@@ -75,8 +75,8 @@ loadImage(imageUrlJPEG, (_: Event | HTMLCanvasElement | HTMLImageElement, data?:
 
 // Write Exif data
 loadImage(imageUrlJPEG, (_: Event | HTMLCanvasElement | HTMLImageElement, data?: loadImage.MetaData): void => {
-  if (data?.imageHead) {
-    const newBuffer: ArrayBuffer | Uint8Array = loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
+  if (data?.imageHead && data?.exif && data?.exifOffsets) {
+    const newBuffer: ArrayBuffer | Uint8Array = loadImage.writeExifData(data.imageHead, {exifOffsets: data.exifOffsets, exif: data.exif}, 'Orientation', 1);
     console.log(newBuffer.byteLength);
   }
 }, {});

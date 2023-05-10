@@ -41,7 +41,7 @@ declare namespace loadImage {
     }
 
     interface WriteExifData {
-        exif: Omit<Exif, 'get'>;
+        exif: Pick<Exif, 'map'>;
         exifOffsets: ExifMap;
     }
 
