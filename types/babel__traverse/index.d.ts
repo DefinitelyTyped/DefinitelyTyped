@@ -294,7 +294,6 @@ export class NodePath<T = Node> {
      * to return a truthy value, or `null` if the `callback` never returns a
      * truthy value.
      */
-    findParent<T extends t.Node>(callback: (path: NodePath) => path is NodePath<T>): NodePath<T> | null;
     findParent(callback: (path: NodePath) => boolean): NodePath | null;
 
     /**
@@ -302,7 +301,6 @@ export class NodePath<T = Node> {
      * `NodePath` that causes the provided `callback` to return a truthy value,
      * or `null` if the `callback` never returns a truthy value.
      */
-    find<T extends t.Node>(callback: (path: NodePath) => path is NodePath<T>): NodePath<T> | null;
     find(callback: (path: NodePath) => boolean): NodePath | null;
 
     /** Get the parent function of the current path. */

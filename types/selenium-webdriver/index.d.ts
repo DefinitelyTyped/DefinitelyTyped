@@ -325,21 +325,18 @@ export class Condition<T> {
    *     sentence 'Waiting [...]'
    * @param {function(!WebDriver): OUT} fn The condition function to
    *     evaluate on each iteration of the wait loop.
-   * @constructor
    */
   constructor(message: string, fn: ConditionFn<T>);
 
   /** @return {string} A description of this condition. */
   description(): string;
 
-  /** @type {function(!WebDriver): OUT} */
   fn(webdriver: WebDriver): ConditionFn<T>;
 }
 
 /**
  * Defines a condition that will result in a {@link WebElement}.
  *
- * @extends {Condition<!(WebElement|IThenable<!WebElement>)>}
  */
 export class WebElementCondition extends Condition<WebElement> {
   // add an unused private member so the compiler treats this
@@ -575,7 +572,6 @@ export class Alert {
  *       return alert.dismiss();
  *     });
  *
- * @implements {promise.Thenable.<!Alert>}
  * @final
  */
 export interface AlertPromise extends Promise<Alert> {}
@@ -651,7 +647,6 @@ export class Builder {
   // region Constructors
 
   /**
-   * @constructor
    */
   constructor();
 
@@ -929,7 +924,6 @@ export class EventEmitter {
   // region Constructors
 
   /**
-   * @constructor
    */
   constructor();
 
@@ -961,7 +955,6 @@ export class EventEmitter {
    *     after
    *    the first event is fired.
    * @return {!EventEmitter} A self reference.
-   * @private
    */
   addListener(type: string, fn: Function, opt_scope?: any, opt_oneshot?: boolean): EventEmitter;
 
@@ -1103,7 +1096,6 @@ export interface IWebDriverOptionsCookie {
    * The expiry is always returned in seconds since epoch when
    * {@linkplain Options#getCookies() retrieving cookies} from the browser.
    *
-   * @type {(!Date|number|undefined)}
    */
   expiry?: number|Date | undefined;
 }
@@ -1115,7 +1107,6 @@ export interface IWebDriverCookie extends IWebDriverOptionsCookie {
    * The expiry is always returned in seconds since epoch when
    * {@linkplain Options#getCookies() retrieving cookies} from the browser.
    *
-   * @type {(!number|undefined)}
    */
   expiry?: number | undefined;
 }
@@ -1128,7 +1119,6 @@ export class Options {
 
   /**
    * @param {!WebDriver} driver The parent driver.
-   * @constructor
    */
   constructor(driver: WebDriver);
 
@@ -1218,7 +1208,6 @@ export class Window {
 
   /**
    * @param {!WebDriver} driver The parent driver.
-   * @constructor
    */
   constructor(driver: WebDriver);
 
@@ -1315,7 +1304,6 @@ export class Logs {
 
   /**
    * @param {!WebDriver} driver The parent driver.
-   * @constructor
    */
   constructor(driver: WebDriver);
 
@@ -1357,7 +1345,6 @@ export class TargetLocator {
 
   /**
    * @param {!WebDriver} driver The parent driver.
-   * @constructor
    */
   constructor(driver: WebDriver);
 
@@ -1466,7 +1453,6 @@ export class TargetLocator {
  * [Selenium Server](http://docs.seleniumhq.org/download/).
  */
 export class FileDetector {
-  /** @constructor */
   constructor();
 
   /**
@@ -2024,7 +2010,6 @@ export class WebDriver {
    * @param {!(WebDriver|WebElement)} context The search context.
    * @return {!Promise<!WebElement>} A promise that will resolve to a list of
    *     WebElements.
-   * @private
    */
   findElementInternal_(locatorFn: Function, context: WebDriver | WebElement): Promise<WebElement>;
 
@@ -2033,7 +2018,6 @@ export class WebDriver {
    * @param {!(WebDriver|WebElement)} context The search context.
    * @return {!Promise<!Array<!WebElement>>} A promise that will resolve to an
    *     array of WebElements.
-   * @private
    */
   findElementsInternal_(locatorFn: Function, context: WebDriver | WebElement): Promise<WebElement[]>;
 
@@ -2254,8 +2238,6 @@ export class ChromiumWebDriver extends WebDriver {
  * If the driver instance fails to resolve (e.g. the session cannot be created),
  * every issued command will fail.
  *
- * @extends {webdriver.IWebDriver}
- * @extends {Promise<!webdriver.IWebDriver>}
  * @interface
  */
 export interface ThenableWebDriver extends WebDriver, Promise<WebDriver> {}
@@ -2544,7 +2526,6 @@ export interface IWebElementFinders {
  * Defines an object that can be asynchronously serialized to its WebDriver
  * wire representation.
  *
- * @constructor
  * @template T
  */
 export interface Serializable<T> {
@@ -2581,7 +2562,6 @@ export interface Serializable<T> {
  *       alert('The element was not found, as expected');
  *     });
  *
- * @extends {Serializable.<WebElement.Id>}
  */
 export class WebElement implements Serializable<IWebElementId> {
   /**
@@ -2917,9 +2897,6 @@ export class WebElement implements Serializable<IWebElementId> {
  *     element.
  * @param {!Promise.<!WebElement>} el A promise
  *     that will resolve to the promised element.
- * @constructor
- * @extends {WebElement}
- * @implements {promise.Thenable.<!WebElement>}
  * @final
  */
 export interface WebElementPromise extends Promise<WebElement> {}
@@ -2947,7 +2924,6 @@ export class Session {
    * @param {string} id The session ID.
    * @param {!(Object|Capabilities)} capabilities The session
    *     capabilities.
-   * @constructor
    */
   constructor(id: string, capabilities: Capabilities|{});
 

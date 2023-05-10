@@ -10,7 +10,7 @@
  * @name CSS3 InfoBubble with tabs for Google Maps API V3
  * @version 0.8
  * @author Luke Mahe
- * @fileoverview
+ * @file
  * This library is a CSS Infobubble with tabs. It uses css3 rounded corners and
  * drop shadows and animations. It also allows tabs
  */

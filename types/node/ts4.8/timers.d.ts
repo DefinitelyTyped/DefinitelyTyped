@@ -1,12 +1,12 @@
 /**
  * The `timer` module exposes a global API for scheduling functions to
  * be called at some future period of time. Because the timer functions are
- * globals, there is no need to call `require('timers')` to use the API.
+ * globals, there is no need to call `require('node:timers')` to use the API.
  *
  * The timer functions within Node.js implement a similar API as the timers API
  * provided by Web Browsers but use a different internal implementation that is
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/timers.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/timers.js)
  */
 declare module 'timers' {
     import { Abortable } from 'node:events';
@@ -62,6 +62,13 @@ declare module 'timers' {
                 [Symbol.toPrimitive](): number;
             }
         }
+        /**
+         * Schedules execution of a one-time `callback` after `delay` milliseconds. The `callback` will likely not be invoked in precisely `delay` milliseconds.
+         * Node.js makes no guarantees about the exact timing of when callbacks will fire, nor of their ordering. The callback will be called as close as possible to the time specified.
+         * When `delay` is larger than `2147483647` or less than `1`, the `delay` will be set to `1`. Non-integer delays are truncated to an integer.
+         * If `callback` is not a function, a [TypeError](https://nodejs.org/api/errors.html#class-typeerror) will be thrown.
+         * @since v0.0.1
+         */
         function setTimeout<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return

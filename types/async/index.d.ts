@@ -2,7 +2,6 @@
 // Project: https://github.com/caolan/async, https://caolan.github.io/async
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Arseniy Maximov <https://github.com/kern0>
-//                 Joe Herman <https://github.com/Penryn>
 //                 Angus Fenying <https://github.com/fenying>
 //                 Pascal Martin <https://github.com/pascalmartin>
 //                 Etienne Rossignon <https://github.com/erossignon>

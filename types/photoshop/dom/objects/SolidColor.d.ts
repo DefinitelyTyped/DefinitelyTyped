@@ -10,6 +10,7 @@ import { ColorModel } from '../Constants';
  * For example, to set the foreground color to red:
  *
  * ```javascript
+ * const SolidColor = require("photoshop").app.SolidColor;
  * const red = new SolidColor();
  * red.rgb.red = 255;
  * red.rgb.green = 0;
@@ -22,6 +23,7 @@ import { ColorModel } from '../Constants';
  * please see example below:
  *
  * ```javascript
+ * const SolidColor = require("photoshop").app.SolidColor;
  * const c = new SolidColor();
  * console.log(c.base.typename); // By default, this will be "RGBColor"
  *
@@ -88,15 +90,14 @@ export declare class SolidColor {
      */
     isEqual(color: SolidColor): boolean;
     /**
-     * All colors begin as white color.
+     * All colors default to pure white.
      *
-     * @param model Color model to start with.
-     *
-     * You can access this constructor such as:
      * ```
      * const SolidColor = require("photoshop").app.SolidColor;
      * const color = new SolidColor();
      * ```
+     *
+     * @param model Color model to start.
      * @minVersion 23.0
      */
     constructor(model?: ColorModel);

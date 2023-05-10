@@ -2440,8 +2440,6 @@ declare interface AccountingBook {
  *
  * @classDescription Class definition for business records in the system.
  * @return {nlobjRecord}
- * @constructor
- *
  * @since 2008.2
  */
 declare interface nlobjRecord {
@@ -3174,8 +3172,6 @@ declare interface nlobjRecord {
  *
  * @classDescription Class definition for interacting with setup/configuration pages
  * @return {nlobjConfiguration}
- * @constructor
- *
  * @since 2009.2
  */
 declare interface nlobjConfiguration {
@@ -3361,8 +3357,6 @@ declare interface nlobjConfiguration {
  *
  * @classDescription Encapsulation of files (media items) in the file cabinet.
  * @return {nlobjFile}
- * @constructor
- *
  * @since 2009.1
  */
 declare interface nlobjFile {
@@ -3582,7 +3576,6 @@ declare interface nlobjFile {
  * Return a new instance of nlobjSearchFilter filter objects used to define search criteria.
  *
  * @classDescription search filter
- * @constructor
  * @param {string} name filter name.
  * @param {string} join internal ID for joined search where this filter is defined
  * @param {string} operator operator name (i.e. anyOf, contains, lessThan, etc..)
@@ -3647,7 +3640,6 @@ declare interface nlobjSearchFilter {
  *
  * @classDescription search column.
  * @return {nlobjSearchColumn}
- * @constructor
  * @param {string} name column name.
  * @param {string} join internal ID for joined search where this column is defined
  * @param {string} summary
@@ -3748,7 +3740,6 @@ declare class nlobjSearchColumn {
  *
  * @classDescription Class definition for interacting with the results of a search operation
  * @return {nlobjSearchResult}
- * @constructor
  */
 declare interface nlobjSearchResult {
 
@@ -3829,7 +3820,6 @@ declare interface nlobjSearchResult {
  *
  * @classDescription Utility class providing information about the current user and the script runtime.
  * @return {nlobjContext}
- * @constructor
  */
 declare interface nlobjContext {
 
@@ -4208,7 +4198,6 @@ declare interface nlobjContext {
  *
  * @classDescription Encapsulation of errors thrown during script execution.
  * @return {nlobjError}
- * @constructor
  */
 declare interface nlobjError {
 
@@ -4299,8 +4288,6 @@ declare class nlobjError {
  *
  * @classDescription Contains the results of a server response to an outbound Http(s) call.
  * @return {nlobjServerResponse}
- * @constructor
- *
  * @since 2008.1
  */
 declare interface nlobjServerResponse {
@@ -4403,7 +4390,6 @@ declare interface nlobjServerResponse {
  *
  * @classDescription Accessor to Http response made available to Suitelets.
  * @return {nlobjResponse}
- * @constructor
  */
 declare interface nlobjResponse {
 
@@ -4601,7 +4587,6 @@ declare interface nlobjResponse {
  *
  * @classDescription Accessor to Http request data made available to Suitelets
  * @return {nlobjRequest}
- * @constructor
  */
 declare interface nlobjRequest {
 
@@ -4772,7 +4757,6 @@ declare interface nlobjRequest {
  *
  * @classDescription UI Object used for building portlets that are displayed on dashboard pages
  * @return {nlobjPortlet}
- * @constructor
  */
 declare interface nlobjPortlet {
 
@@ -4897,7 +4881,6 @@ declare interface nlobjPortlet {
  *
  * @classDescription UI Object page type used for building lists
  * @return {nlobjList}
- * @constructor
  */
 declare interface nlobjList {
 
@@ -5018,7 +5001,6 @@ declare interface nlobjList {
  *
  * @classDescription UI Object page type used for building basic data entry forms.
  * @return {nlobjForm}
- * @constructor
  */
 declare interface nlobjForm {
 
@@ -5352,8 +5334,6 @@ declare interface nlobjForm {
  * throughout the user's session up until completion of the assistant.
  *
  * @return {nlobjAssistant}
- * @constructor
- *
  * @since 2009.2
  */
 declare interface nlobjAssistant {
@@ -5789,7 +5769,6 @@ declare interface nlobjAssistant {
  *
  * @classDescription Core descriptor for fields used to define records and also used to build pages and portlets.
  * @return {nlobjField}
- * @constructor
  */
 declare interface nlobjField {
 
@@ -6074,7 +6053,6 @@ declare interface nlobjField {
  *
  * @classDescription high level container for defining sublist (many to one) relationships on a record or multi-line data entry UIs on pages.
  * @return {nlobjSubList}
- * @constructor
  */
 declare interface nlobjSubList {
 
@@ -6255,7 +6233,6 @@ declare interface nlobjSubList {
  *
  * @classDescription Class definition for columns used on lists and list portlets.
  * @return {nlobjColumn}
- * @constructor
  */
 declare interface nlobjColumn {
 
@@ -6316,7 +6293,6 @@ declare interface nlobjColumn {
  *
  * @classDescription high level grouping for fields on a data entry form (nlobjForm).
  * @return {nlobjTab}
- * @constructor
  */
 declare interface nlobjTab {
 
@@ -6356,8 +6332,6 @@ declare interface nlobjTab {
  *
  * @classDescription assistant step definition. Used to define individual steps/pages in multi-step workflows.
  * @return {nlobjAssistantStep}
- * @constructor
- *
  * @since 2009.2
  */
 declare interface nlobjAssistantStep {
@@ -6508,8 +6482,6 @@ declare interface nlobjAssistantStep {
  *
  * @classDescription object used for grouping fields on pages (currently only supported on assistant pages).
  * @return {nlobjFieldGroup}
- * @constructor
- *
  * @since 2009.2
  */
 declare interface nlobjFieldGroup {
@@ -6587,8 +6559,6 @@ declare interface nlobjFieldGroup {
  *
  * @classDescription buttons used for triggering custom behaviors on pages.
  * @return {nlobjButton}
- * @constructor
- *
  * @since 2009.2
  */
 declare interface nlobjButton {
@@ -6635,8 +6605,6 @@ declare interface nlobjButton {
  *
  * @classDescription select|radio option used for building select fields via the UI Object API and for describing select|radio fields.
  * @return {nlobjSelectOption}
- * @constructor
- *
  * @since 2009.2
  */
 declare interface nlobjSelectOption {

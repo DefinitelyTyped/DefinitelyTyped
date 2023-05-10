@@ -1,10 +1,10 @@
 /**
- * The `v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/) built into the Node.js binary. It can be accessed using:
+ * The `node:v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/) built into the Node.js binary. It can be accessed using:
  *
  * ```js
- * const v8 = require('v8');
+ * const v8 = require('node:v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/v8.js)
  */
 declare module 'v8' {
     import { Readable } from 'node:stream';
@@ -29,6 +29,9 @@ declare module 'v8' {
         does_zap_garbage: DoesZapCodeSpaceFlag;
         number_of_native_contexts: number;
         number_of_detached_contexts: number;
+        total_global_handles_size: number;
+        used_global_handles_size: number;
+        external_memory: number;
     }
     interface HeapCodeStatistics {
         code_and_metadata_size: number;
@@ -68,6 +71,15 @@ declare module 'v8' {
      * of contexts that were detached and not yet garbage collected. This number
      * being non-zero indicates a potential memory leak.
      *
+     * `total_global_handles_size` The value of total\_global\_handles\_size is the
+     * total memory size of V8 global handles.
+     *
+     * `used_global_handles_size` The value of used\_global\_handles\_size is the
+     * used memory size of V8 global handles.
+     *
+     * `external_memory` The value of external\_memory is the memory size of array
+     * buffers and external strings.
+     *
      * ```js
      * {
      *   total_heap_size: 7326976,
@@ -80,7 +92,10 @@ declare module 'v8' {
      *   peak_malloced_memory: 1127496,
      *   does_zap_garbage: 0,
      *   number_of_native_contexts: 1,
-     *   number_of_detached_contexts: 0
+     *   number_of_detached_contexts: 0,
+     *   total_global_handles_size: 8192,
+     *   used_global_handles_size: 3296,
+     *   external_memory: 318824
      * }
      * ```
      * @since v1.0.0
@@ -149,7 +164,7 @@ declare module 'v8' {
      *
      * ```js
      * // Print GC events to stdout for one minute.
-     * const v8 = require('v8');
+     * const v8 = require('node:v8');
      * v8.setFlagsFromString('--trace_gc');
      * setTimeout(() => { v8.setFlagsFromString('--notrace_gc'); }, 60e3);
      * ```
@@ -172,12 +187,12 @@ declare module 'v8' {
      *
      * ```js
      * // Print heap snapshot to the console
-     * const v8 = require('v8');
+     * const v8 = require('node:v8');
      * const stream = v8.getHeapSnapshot();
      * stream.pipe(process.stdout);
      * ```
      * @since v11.13.0
-     * @return A Readable Stream containing the V8 heap snapshot
+     * @return A Readable containing the V8 heap snapshot.
      */
     function getHeapSnapshot(): Readable;
     /**
@@ -197,12 +212,12 @@ declare module 'v8' {
      * for a duration depending on the heap size.
      *
      * ```js
-     * const { writeHeapSnapshot } = require('v8');
+     * const { writeHeapSnapshot } = require('node:v8');
      * const {
      *   Worker,
      *   isMainThread,
-     *   parentPort
-     * } = require('worker_threads');
+     *   parentPort,
+     * } = require('node:worker_threads');
      *
      * if (isMainThread) {
      *   const worker = new Worker(__filename);
@@ -233,13 +248,16 @@ declare module 'v8' {
      */
     function writeHeapSnapshot(filename?: string): string;
     /**
-     * Returns an object with the following properties:
+     * Get statistics about code and its metadata in the heap, see
+     * V8[`GetHeapCodeAndMetadataStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#a6079122af17612ef54ef3348ce170866) API. Returns an object with the
+     * following properties:
      *
      * ```js
      * {
      *   code_and_metadata_size: 212208,
      *   bytecode_and_metadata_size: 161368,
-     *   external_script_source_size: 1410794
+     *   external_script_source_size: 1410794,
+     *   cpu_profiler_metadata_size: 0,
      * }
      * ```
      * @since v12.8.0
@@ -289,7 +307,7 @@ declare module 'v8' {
          */
         writeDouble(value: number): void;
         /**
-         * Write raw bytes into the serializer’s internal buffer. The deserializer
+         * Write raw bytes into the serializer's internal buffer. The deserializer
          * will require a way to compute the length of the buffer.
          * For use inside of a custom `serializer._writeHostObject()`.
          */
@@ -345,7 +363,7 @@ declare module 'v8' {
          */
         readDouble(): number;
         /**
-         * Read raw bytes from the deserializer’s internal buffer. The `length` parameter
+         * Read raw bytes from the deserializer's internal buffer. The `length` parameter
          * must correspond to the length of the buffer that was passed to `serializer.writeRawBytes()`.
          * For use inside of a custom `deserializer._readHostObject()`.
          */
@@ -390,17 +408,93 @@ declare module 'v8' {
      * @since v15.1.0, v14.18.0, v12.22.0
      */
     function stopCoverage(): void;
-
     /**
      * This API collects GC data in current thread.
+     * @since v19.6.0, v18.15.0
      */
     class GCProfiler {
         /**
          * Start collecting GC data.
+         * @since v19.6.0, v18.15.0
          */
         start(): void;
         /**
-         * Stop collecting GC data and return a object.
+         * Stop collecting GC data and return an object.The content of object
+         * is as follows.
+         *
+         * ```json
+         * {
+         *   "version": 1,
+         *   "startTime": 1674059033862,
+         *   "statistics": [
+         *     {
+         *       "gcType": "Scavenge",
+         *       "beforeGC": {
+         *         "heapStatistics": {
+         *           "totalHeapSize": 5005312,
+         *           "totalHeapSizeExecutable": 524288,
+         *           "totalPhysicalSize": 5226496,
+         *           "totalAvailableSize": 4341325216,
+         *           "totalGlobalHandlesSize": 8192,
+         *           "usedGlobalHandlesSize": 2112,
+         *           "usedHeapSize": 4883840,
+         *           "heapSizeLimit": 4345298944,
+         *           "mallocedMemory": 254128,
+         *           "externalMemory": 225138,
+         *           "peakMallocedMemory": 181760
+         *         },
+         *         "heapSpaceStatistics": [
+         *           {
+         *             "spaceName": "read_only_space",
+         *             "spaceSize": 0,
+         *             "spaceUsedSize": 0,
+         *             "spaceAvailableSize": 0,
+         *             "physicalSpaceSize": 0
+         *           }
+         *         ]
+         *       },
+         *       "cost": 1574.14,
+         *       "afterGC": {
+         *         "heapStatistics": {
+         *           "totalHeapSize": 6053888,
+         *           "totalHeapSizeExecutable": 524288,
+         *           "totalPhysicalSize": 5500928,
+         *           "totalAvailableSize": 4341101384,
+         *           "totalGlobalHandlesSize": 8192,
+         *           "usedGlobalHandlesSize": 2112,
+         *           "usedHeapSize": 4059096,
+         *           "heapSizeLimit": 4345298944,
+         *           "mallocedMemory": 254128,
+         *           "externalMemory": 225138,
+         *           "peakMallocedMemory": 181760
+         *         },
+         *         "heapSpaceStatistics": [
+         *           {
+         *             "spaceName": "read_only_space",
+         *             "spaceSize": 0,
+         *             "spaceUsedSize": 0,
+         *             "spaceAvailableSize": 0,
+         *             "physicalSpaceSize": 0
+         *           }
+         *         ]
+         *       }
+         *     }
+         *   ],
+         *   "endTime": 1674059036865
+         * }
+         * ```
+         *
+         * Here's an example.
+         *
+         * ```js
+         * const { GCProfiler } = require('v8');
+         * const profiler = new GCProfiler();
+         * profiler.start();
+         * setTimeout(() => {
+         *   console.log(profiler.stop());
+         * }, 1000);
+         * ```
+         * @since v19.6.0, v18.15.0
          */
         stop(): GCProfilerResult;
     }

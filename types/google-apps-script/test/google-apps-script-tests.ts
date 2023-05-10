@@ -755,3 +755,23 @@ const sheetFontColorObjects = () => {
 const utilitiesParseDate = () => {
   Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
 };
+
+// Spreadsheet Cell Image test
+const sheetCellImage = () => {
+    const imageBuilder = SpreadsheetApp.newCellImage();
+    // set methods
+    imageBuilder.setAltTextTitle('Title');
+    imageBuilder.setAltTextDescription('Description');
+    imageBuilder.setSourceUrl('https://hostname/path/image.jpeg');
+    // get methods
+    imageBuilder.getAltTextTitle();
+    imageBuilder.getAltTextDescription();
+    imageBuilder.getContentUrl();
+    imageBuilder.getUrl();
+
+    const cellImage = imageBuilder.build();
+    cellImage.getAltTextTitle();
+    cellImage.getAltTextDescription();
+    cellImage.getContentUrl();
+    cellImage.getUrl();
+};

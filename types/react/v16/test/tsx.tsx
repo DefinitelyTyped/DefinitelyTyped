@@ -442,9 +442,11 @@ const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div';
 
 // @ts-expect-error
 const CustomElement: React.ReactType = 'my-undeclared-element';
+// @ts-expect-error
+<my-undeclared-element />;
 
 // custom elements now need to be declared as intrinsic elements
-declare global {
+declare module 'react' {
     namespace JSX {
         interface IntrinsicElements {
             'my-declared-element': {};
@@ -452,7 +454,21 @@ declare global {
     }
 }
 
-const CustomElement2: React.ReactType = 'my-declared-element';
+// Augmentations of the global namespace flow into the scoped JSX namespace
+// This is deprecated and will be removed in next next major of `@types/react`
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            'my-declared-element-deprecated': {};
+        }
+    }
+}
+
+const CustomElement2: React.ElementType = 'my-declared-element-deprecated';
+<my-declared-element-deprecated />;
+
+const CustomElement3: React.ElementType = 'my-declared-element';
+<my-declared-element />;
 
 interface TestPropTypesProps {
     foo: string;

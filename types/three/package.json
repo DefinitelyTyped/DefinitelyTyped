@@ -12,6 +12,7 @@
         "./nodes": "./examples/jsm/nodes/Nodes.js"
     },
     "dependencies": {
+        "@tweenjs/tween.js": "~18.6.4",
         "fflate": "~0.6.9",
         "lil-gui": "~0.17.0"
     }

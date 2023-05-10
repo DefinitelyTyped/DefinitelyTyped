@@ -1,13 +1,13 @@
 /**
- * The `dgram` module provides an implementation of UDP datagram sockets.
+ * The `node:dgram` module provides an implementation of UDP datagram sockets.
  *
  * ```js
- * import dgram from 'dgram';
+ * import dgram from 'node:dgram';
  *
  * const server = dgram.createSocket('udp4');
  *
  * server.on('error', (err) => {
- *   console.log(`server error:\n${err.stack}`);
+ *   console.error(`server error:\n${err.stack}`);
  *   server.close();
  * });
  *
@@ -23,7 +23,7 @@
  * server.bind(41234);
  * // Prints: server listening 0.0.0.0:41234
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/dgram.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/dgram.js)
  */
 declare module 'dgram' {
     import { AddressInfo } from 'node:net';
@@ -98,8 +98,8 @@ declare module 'dgram' {
          * When sharing a UDP socket across multiple `cluster` workers, the`socket.addMembership()` function must be called only once or an`EADDRINUSE` error will occur:
          *
          * ```js
-         * import cluster from 'cluster';
-         * import dgram from 'dgram';
+         * import cluster from 'node:cluster';
+         * import dgram from 'node:dgram';
          *
          * if (cluster.isPrimary) {
          *   cluster.fork(); // Works ok.
@@ -116,7 +116,7 @@ declare module 'dgram' {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         /**
          * Returns an object containing the address information for a socket.
-         * For UDP sockets, this object will contain `address`, `family` and `port`properties.
+         * For UDP sockets, this object will contain `address`, `family`, and `port`properties.
          *
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.1.99
@@ -142,12 +142,12 @@ declare module 'dgram' {
          * Example of a UDP server listening on port 41234:
          *
          * ```js
-         * import dgram from 'dgram';
+         * import dgram from 'node:dgram';
          *
          * const server = dgram.createSocket('udp4');
          *
          * server.on('error', (err) => {
-         *   console.log(`server error:\n${err.stack}`);
+         *   console.error(`server error:\n${err.stack}`);
          *   server.close();
          * });
          *
@@ -284,8 +284,8 @@ declare module 'dgram' {
          * Example of sending a UDP packet to a port on `localhost`;
          *
          * ```js
-         * import dgram from 'dgram';
-         * import { Buffer } from 'buffer';
+         * import dgram from 'node:dgram';
+         * import { Buffer } from 'node:buffer';
          *
          * const message = Buffer.from('Some bytes');
          * const client = dgram.createSocket('udp4');
@@ -297,8 +297,8 @@ declare module 'dgram' {
          * Example of sending a UDP packet composed of multiple buffers to a port on`127.0.0.1`;
          *
          * ```js
-         * import dgram from 'dgram';
-         * import { Buffer } from 'buffer';
+         * import dgram from 'node:dgram';
+         * import { Buffer } from 'node:buffer';
          *
          * const buf1 = Buffer.from('Some ');
          * const buf2 = Buffer.from('bytes');
@@ -316,8 +316,8 @@ declare module 'dgram' {
          * Example of sending a UDP packet using a socket connected to a port on`localhost`:
          *
          * ```js
-         * import dgram from 'dgram';
-         * import { Buffer } from 'buffer';
+         * import dgram from 'node:dgram';
+         * import { Buffer } from 'node:buffer';
          *
          * const message = Buffer.from('Some bytes');
          * const client = dgram.createSocket('udp4');

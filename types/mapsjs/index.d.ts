@@ -26,7 +26,6 @@ export function clusterPoints(options: {
 
 /**
  * An immutable envelope
- * @class envelope
  */
 export class envelope {
     constructor(minX: number, minY: number, maxX: number, maxY: number);
@@ -215,7 +214,6 @@ export module envelope {
 /**
  * A general geometry which can represent a point, line, polygon,
  * mulitpoint, multilinestring
- * @class geometry
  */
 export class geometry {
     constructor(isPath?: boolean, isClosed?: boolean);
@@ -368,7 +366,6 @@ export module geometry {
     
     /**
      * A polyline object which is an open path geometry with one or more paths.
-     * @class polyline
      */
     class polyline extends geometry {
         constructor(geom: geometry);
@@ -440,7 +437,6 @@ export module geometry {
     
     /**
       * A polyline object which is a closed path geometry with one or more paths.
-      * @class polygon
       */
     class polygon extends geometry {
         constructor(geom: geometry);
@@ -545,7 +541,6 @@ export module geometry {
 
 /**
  * A style specification for geometry objects.
- * @class geometryStyle
  */
 export class geometryStyle {
     constructor(options?: styleObj);
@@ -632,7 +627,6 @@ export var license: string;
 
 /**
  * A simple point class with x and y coordinates.
- * @class point
  */
 export class point {
 
@@ -896,7 +890,6 @@ export module sphericalMercator {
 
 /**
  * A geometry object decorated with a geometry style object
- * @class styledGeometry
  */
 export class styledGeometry {
     constructor(geom: geometry, gStyle?: geometryStyle);
@@ -1105,7 +1098,6 @@ export module tile {
     
     /**
      * A tile layer is a view on the map containing an array of rectangular content.
-     * @class layer
      */
     export class layer {
         constructor(id: string, useBackdrop?: boolean, maxConcurrentRequests?: number);
@@ -1345,7 +1337,6 @@ export module tile {
      * A layerOptions object is a method for constructing a tile layer for 
      * immediate use, for example by passing it to the jQuery widget or
      * in the knockout binding.
-     * @class layerOptions
      */
     export class layerOptions {
         constructor(id: string, options: {
@@ -1387,7 +1378,6 @@ export module tile {
     /**
      * The quad class represents a quad tile within three dimensional
      * coordinate space.
-     * @class quad
      */
     export class quad {
 
@@ -1462,7 +1452,6 @@ export module tile {
     /**
      * A tile renderer handles converting JSON vector content loaded from the
      * MapDotNet REST feature service into a canvas rendering on a tile.
-     * @class renderer
      */
     export class renderer {
         constructor(options? : {
@@ -1506,7 +1495,6 @@ export module tile {
     
     /**
      * An auto-ranging density map renderer.
-     * @class rendererDensityMap
      */
     export class rendererDensityMap {
         
@@ -1575,7 +1563,6 @@ export module tile {
     
     /**
      * This is a base requestor class.
-     * @class requestor
      */
     export class requestor {
         
@@ -1702,7 +1689,6 @@ export module tile {
 
     /**
      * A tile requestor for Microsoft Bing maps.
-     * @class requestorBing
      */
     export class requestorBing extends requestor {
         
@@ -1773,7 +1759,6 @@ export module tile {
 
     /**
      * The bitmap or vector tile requestor using MapDotNet REST services.
-     * @class requestorMDN
      */
     export class requestorMDNRest extends requestor {
         constructor(endpoint: string, options?: {
@@ -1792,7 +1777,6 @@ export module tile {
     /**
      * Creates an instance of a descriptor for describing content from a 
      * MapDotNet UX REST map service.
-     * @class descriptorMDNRestMap
      */
     export class descriptorMDNRestMap {
         constructor(mapId: string, options?: {
@@ -2041,7 +2025,6 @@ export module tile {
     /**
      * Creates an instance of a descriptor for describing content from
      * a MapDotNet REST feature service.
-     * @class descriptorMDNRestFeature
      */
     export class descriptorMDNRestFeature {
         constructor(mapId: string, layerId: string, options?: {
@@ -2146,7 +2129,6 @@ export module tile {
      * This is a generic tile requestor suitable for several third-party
      * tile servers. These include open street map, map quest, cloudmade, 
      * Nokia, etc.
-     * @class requestorOpen
      */
     export class requestorOpen extends requestor {
         constructor(endpoint: string, subdomains: string[], options?: {
@@ -2160,7 +2142,6 @@ export module tile {
      * This is a requestor for local collections of data. These local collections may 
      * originate from inlined code or from datasources other than a MapDotNet REST 
      * feature service.
-     * @class requestorLocal
      */
     export class requestorLocal extends requestor {
         constructor(options?: {
@@ -2201,7 +2182,6 @@ export module tile {
     /**
      * Local descriptor object for describing source data when the source
      * data is fecthed by a local requestor.
-     * @class descriptorLocal
      */
     export class descriptorLocal {
         constructor(options: {

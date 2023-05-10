@@ -363,9 +363,9 @@ async function testPromisify() {
     let buffers: Promise<Buffer[]>;
     let entries: Promise<fs.Dirent[]>;
 
-    names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
-    buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
-    entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
+    names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false, recursive: true });
+    buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false, recursive: true });
+    entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true, recursive: true });
 }
 
 {
@@ -434,16 +434,19 @@ async function testPromisify() {
     const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
         encoding: 'utf8',
         bufferSize: 42,
+        recursive: false,
     });
 
     const dirEntBufferProm: Promise<fs.Dir> = fs.promises.opendir(Buffer.from('test'), {
         encoding: 'utf8',
         bufferSize: 42,
+        recursive: false,
     });
 
     const dirEntUrlProm: Promise<fs.Dir> = fs.promises.opendir(new URL(`file://${__dirname}`), {
         encoding: 'utf8',
         bufferSize: 42,
+        recursive: false,
     });
 }
 

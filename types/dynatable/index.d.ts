@@ -8,7 +8,6 @@
 
 interface JQuery {
     /**
-    * @constructor
     */
     dynatable: JQueryDynatable.Dynatable;
 }

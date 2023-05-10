@@ -1,5 +1,6 @@
-import { Color, ColorRepresentation } from './../math/Color';
+import { Color, ColorRepresentation } from '../math/Color';
 import { MaterialParameters, Material } from './Material';
+import { Texture } from '../textures/Texture';
 
 export interface LineBasicMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -42,6 +43,11 @@ export class LineBasicMaterial extends Material {
      * @default 'round'
      */
     linejoin: string;
+
+    /**
+     * Sets the color of the lines using data from a {@link Texture}.
+     */
+    map: Texture | null;
 
     setValues(parameters: LineBasicMaterialParameters): void;
 }
