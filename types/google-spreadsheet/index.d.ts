@@ -1168,8 +1168,10 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
     /**
      * @description
      * load basic Spreadsheet document properties and child worksheets
+     *
+     * @param includeCells whether to also load grid data.
      */
-    loadInfo(): Promise<void>;
+    loadInfo(includeCells?: boolean): Promise<void>;
 
     /**
      * @description
