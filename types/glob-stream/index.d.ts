@@ -9,10 +9,10 @@
 
 import { PicomatchOptions } from "picomatch";
 
-declare function GlobStream(glob: string | string[]): NodeJS.ReadableStream;
-declare function GlobStream(glob: string | string[], options: GlobStream.Options): NodeJS.ReadableStream;
+declare function globStream(glob: string | string[]): NodeJS.ReadableStream;
+declare function globStream(glob: string | string[], options: globStream.Options): NodeJS.ReadableStream;
 
-declare namespace GlobStream {
+declare namespace globStream {
     export interface Entry {
         cwd: string;
         base: string;
@@ -53,4 +53,4 @@ declare namespace GlobStream {
     }
 }
 
-export = GlobStream;
+export = globStream;
