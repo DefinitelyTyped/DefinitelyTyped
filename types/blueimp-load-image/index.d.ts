@@ -176,9 +176,10 @@ interface LoadImage {
 
     scale: Scale;
 
-    // Internal, undocumented
+    // Internal functions, undocumented
     requiresMetaData: (options: loadImage.LoadImageOptions) => boolean;
     fetchBlob: (url: string, callback: () => void) => void;
+    transform: (img: unknown, options: unknown, callback: () => void, file: unknown, data: unknown) => void;
 }
 
 declare const loadImage: LoadImage;
