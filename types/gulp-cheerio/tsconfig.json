@@ -14,6 +14,9 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "gulp": ["gulp/v3"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

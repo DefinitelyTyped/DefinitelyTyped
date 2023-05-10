@@ -2,10 +2,10 @@
 // Project: https://github.com/wearefractal/glob-stream
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 mrmlnc <https://github.com/mrmlnc>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="glob" />
 
 import glob = require('glob');
 
@@ -22,7 +22,7 @@ declare namespace GlobStream {
     export type UniqueByStringPredicate = 'cwd' | 'base' | 'path';
     export type UniqueByFunctionPredicate = (entry: Entry) => string;
 
-    export interface Options extends glob.IOptions {
+    export interface Options extends glob.GlobOptions {
         /**
          * Whether or not to error upon an empty singular glob.
          */

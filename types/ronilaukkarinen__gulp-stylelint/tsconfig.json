@@ -13,7 +13,8 @@
             "../"
         ],
         "paths": {
-            "@ronilaukkarinen/*": ["ronilaukkarinen__*"]
+            "@ronilaukkarinen/*": ["ronilaukkarinen__*"],
+            "gulp": ["gulp/v3"]
         },
         "types": [],
         "noEmit": true,
