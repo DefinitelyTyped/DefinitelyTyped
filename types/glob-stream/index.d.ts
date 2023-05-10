@@ -8,9 +8,10 @@
 /// <reference types="node" />
 
 import { PicomatchOptions } from "picomatch";
+import { Readable } from "streamx";
 
-declare function globStream(glob: string | string[]): NodeJS.ReadableStream;
-declare function globStream(glob: string | string[], options: globStream.Options): NodeJS.ReadableStream;
+declare function globStream(glob: string | string[]): Readable<globStream.Entry>;
+declare function globStream(glob: string | string[], options: globStream.Options): Readable<globStream.Entry>;
 
 declare namespace globStream {
     export interface Entry {
