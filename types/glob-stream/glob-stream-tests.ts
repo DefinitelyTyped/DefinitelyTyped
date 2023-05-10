@@ -1,7 +1,7 @@
 import gs = require('glob-stream');
-import { Stream } from 'streamx';
+import { Readable } from 'streamx';
 
-var read: Stream<gs.Entry>;
+var read: Readable<gs.Entry>;
 
 // Types
 var strPredicate: gs.UniqueByStringPredicate = 'base';
