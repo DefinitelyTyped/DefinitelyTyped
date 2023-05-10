@@ -140,19 +140,15 @@ interface ParseMetadata {
 }
 
 interface ReplaceHead {
-    (
-        blob: Blob,
-        head: ArrayBuffer | Uint8Array,
-        callback: (blob: Blob|null) => void
-    ): void;
-    (
-        blob: Blob,
-        head: ArrayBuffer | Uint8Array,
-    ): Promise<Blob|null>;
+    (blob: Blob, head: ArrayBuffer | Uint8Array, callback: (blob: Blob | null) => void): void;
+    (blob: Blob, head: ArrayBuffer | Uint8Array): Promise<Blob | null>;
 }
 
 interface Scale {
-    <O extends loadImage.LoadImageOptions>(image: HTMLImageElement | HTMLCanvasElement, options?: O): O extends loadImage.CanvasTrueOptions ? HTMLCanvasElement : HTMLImageElement;
+    <O extends loadImage.LoadImageOptions>(
+        image: HTMLImageElement | HTMLCanvasElement,
+        options?: O,
+    ): O extends loadImage.CanvasTrueOptions ? HTMLCanvasElement : HTMLImageElement;
 }
 
 // loadImage is implemented as a callable object.
@@ -171,7 +167,12 @@ interface LoadImage {
     // Replaces the image head of a JPEG blob with the given one
     replaceHead: ReplaceHead;
 
-    writeExifData: (buffer: ArrayBuffer | Uint8Array, data: loadImage.WriteExifData, id: number | string, value: loadImage.ExifTagValue) => ArrayBuffer | Uint8Array;
+    writeExifData: (
+        buffer: ArrayBuffer | Uint8Array,
+        data: loadImage.WriteExifData,
+        id: number | string,
+        value: loadImage.ExifTagValue,
+    ) => ArrayBuffer | Uint8Array;
 
     scale: Scale;
 }
