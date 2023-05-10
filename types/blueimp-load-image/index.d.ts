@@ -181,6 +181,10 @@ interface LoadImage {
     fetchBlob: (url: string, callback: () => void) => void;
     transform: (img: unknown, options: unknown, callback: () => void, file: unknown, data: unknown) => void;
     global: Window;
+    readFile: unknown;
+    isInstanceOf: unknown;
+    createObjectUrl: (blob: Blob) => string;
+    revokeObjectUrl: (url: string) => void;
 }
 
 declare const loadImage: LoadImage;
