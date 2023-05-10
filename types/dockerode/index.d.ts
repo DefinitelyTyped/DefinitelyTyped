@@ -18,7 +18,8 @@
 import * as stream from 'stream';
 import * as events from 'events';
 import * as DockerModem from 'docker-modem';
-
+import { ConnectConfig } from 'ssh2';
+    
 declare namespace Dockerode {
     class Container {
         constructor(modem: any, id: string);
@@ -33,7 +34,6 @@ declare namespace Dockerode {
         rename(options: {}, callback: Callback<any>): void;
         rename(options: {}): Promise<any>;
 
-        update(options: {}, callback: Callback<any>): void;
         update(options: {}): Promise<any>;
 
         top(options: {}, callback: Callback<any>): void;
@@ -1184,6 +1184,7 @@ declare namespace Dockerode {
         timeout?: number | undefined;
         version?: string | undefined;
         sshAuthAgent?: string | undefined;
+        sshOptions?: ConnectConfig | undefined;
         Promise?: typeof Promise | undefined;
     }
 
