@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import glob = require('glob');
+import { PicomatchOptions } from "picomatch";
 
 declare function GlobStream(glob: string | string[]): NodeJS.ReadableStream;
 declare function GlobStream(glob: string | string[], options: GlobStream.Options): NodeJS.ReadableStream;
@@ -19,21 +19,29 @@ declare namespace GlobStream {
         path: string;
     }
 
-    export type UniqueByStringPredicate = 'cwd' | 'base' | 'path';
+    export type UniqueByStringPredicate = keyof Entry;
     export type UniqueByFunctionPredicate = (entry: Entry) => string;
 
-    export interface Options extends glob.GlobOptions {
+    export interface Options extends PicomatchOptions {
         /**
          * Whether or not to error upon an empty singular glob.
          */
         allowEmpty?: boolean | undefined;
         /**
+         * The current working directory that the glob is resolved against.
+         */
+        cwd?: string | undefined;
+        /**
+         * The root path that the glob is resolved against.
+         */
+        root?: string | undefined;
+        /**
          * The absolute segment of the glob path that isn't a glob. This value is attached
-         * to each globobject and is useful for relative pathing.
+         * to each glob object and is useful for relative pathing.
          */
         base?: string | undefined;
         /**
-         * Whether or not the `cwd` and `base` should be the same.
+         * Whether or not the {@linkcode cwd} and {@linkcode base} should be the same.
          */
         cwdbase?: boolean | undefined;
         /**
