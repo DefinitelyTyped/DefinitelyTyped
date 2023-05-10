@@ -183,8 +183,8 @@ interface LoadImage {
     global: Window;
     readFile: unknown;
     isInstanceOf: unknown;
-    createObjectURL: (blob: Blob) => string;
-    revokeObjectURL: (url: string) => void;
+    createObjectURL: (blob: Blob) => string | false;
+    revokeObjectURL: (url: string) => void | false;
 }
 
 declare const loadImage: LoadImage;
