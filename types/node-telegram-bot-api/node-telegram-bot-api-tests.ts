@@ -14,6 +14,7 @@ MyTelegramBot.logOut();
 MyTelegramBot.close();
 MyTelegramBot.setWebHook('http://typescriptlang.org');
 MyTelegramBot.setWebHook('http://typescriptlang.org', { max_connections: 100 });
+MyTelegramBot.setWebHook('http://typescriptlang.org', { secret_token: 'secret' });
 MyTelegramBot.setWebHook(
     'http://typescriptlang.org',
     { max_connections: 100 },
