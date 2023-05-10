@@ -23,3 +23,6 @@ read = gs(['xx'], { uniqueBy: (entry: gs.Entry) => entry.path });
 // Glob options
 read = gs(['xx'], { root: 'root' });
 read = gs(['xx'], { debug: true });
+
+// Picomatch options
+read = gs(['xx'], { contains: true });
