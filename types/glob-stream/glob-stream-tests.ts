@@ -1,6 +1,7 @@
 import gs = require('glob-stream');
+import { Stream } from 'streamx';
 
-var read: NodeJS.ReadableStream;
+var read: Stream<gs.Entry>;
 
 // Types
 var strPredicate: gs.UniqueByStringPredicate = 'base';
