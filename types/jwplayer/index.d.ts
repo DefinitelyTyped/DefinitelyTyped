@@ -175,6 +175,11 @@ declare namespace jwplayer {
         type: 'error';
     }
 
+    interface FloatParam {
+        floating: boolean;
+        type: 'float';
+    }
+
     interface FullscreenParam {
         fullscreen: boolean;
     }
@@ -387,6 +392,7 @@ declare namespace jwplayer {
         captionsList: CaptionsListParam;
         controls: ControlsParam;
         error: ErrorParam;
+        float: FloatParam;
         fullscreen: FullscreenParam;
         idle: IdleParam;
         levelsChanged: LevelsChangedParam;
@@ -491,7 +497,7 @@ declare namespace jwplayer {
         setCurrentAudioTrack(index: number): void;
         setCurrentCaptions(index: number): void;
         setCurrentQuality(index: number): void;
-        setFloating(shouldFloat: boolean): void;
+        setFloating(shouldFloat?: boolean): void;
         setFullscreen(state: boolean): void;
         setMute(state?: boolean): JWPlayer;
         setPlaybackRate(rate: number): void;
