@@ -432,17 +432,17 @@ declare namespace MapboxDraw {
         // TODO: define a proper type for ctx since is not exposed correctly
         // https://github.com/mapbox/mapbox-gl-draw/issues/1156
 
-        // doubleClickZoom: {
-        //     enable: (ctx: DrawCustomModeThis) => void; // ?? ctx
-        //     disable: (ctx: DrawCustomModeThis) => void; // ?? ctx
-        // };
+        doubleClickZoom: {
+            enable: (ctx: DrawCustomModeThis) => void; // ?? ctx
+            disable: (ctx: DrawCustomModeThis) => void; // ?? ctx
+        };
 
-        // featuresAt: {
-        //     click: (event: MapMouseEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
-        //     touch: (event: MapTouchEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
-        // };
+        featuresAt: {
+            click: (event: MapMouseEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
+            touch: (event: MapTouchEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
+        };
 
-        // getFeatureAtAndSetCursors(event: MapMouseEvent, ctx: DrawCustomModeThis): Feature;
+        getFeatureAtAndSetCursors(event: MapMouseEvent, ctx: DrawCustomModeThis): Feature;
 
         euclideanDistance(a: { x: number; y: number }, b: { x: number; y: number }): number;
 
