@@ -175,6 +175,8 @@ interface LoadImage {
     ) => ArrayBuffer | Uint8Array;
 
     scale: Scale;
+
+    requiresMetaData: (options: loadImage.LoadImageOptions) => boolean;
 }
 
 declare const loadImage: LoadImage;
