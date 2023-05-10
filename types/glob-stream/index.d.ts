@@ -23,6 +23,9 @@ declare namespace globStream {
     export type UniqueByStringPredicate = keyof Entry;
     export type UniqueByFunctionPredicate = (entry: Entry) => string;
 
+    // Here, the settings interface provided by `picomatch` is used rather than the `anymatch` one's.
+    // This is due to the fact that `anymatch` redirects its options to `picomatch`.
+    // Furthermore, `anymatch`s type declaration of the `picomatch` options is hand-written and describes some of the available options incorrectly.
     export interface Options extends PicomatchOptions {
         /**
          * Whether or not to error upon an empty singular glob.
