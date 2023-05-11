@@ -274,19 +274,13 @@ declare module 'async_hooks' {
          * @param fn The function to bind to the current execution context.
          * @param type An optional name to associate with the underlying `AsyncResource`.
          */
-        static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(
-            fn: Func,
-            type?: string,
-            thisArg?: ThisArg
-        ): Func;
+        static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(fn: Func, type?: string, thisArg?: ThisArg): Func;
         /**
          * Binds the given function to execute to this `AsyncResource`'s scope.
          * @since v14.8.0, v12.19.0
          * @param fn The function to bind to the current `AsyncResource`.
          */
-        bind<Func extends (...args: any[]) => any>(
-            fn: Func
-        ): Func;
+        bind<Func extends (...args: any[]) => any>(fn: Func): Func;
         /**
          * Call the provided function with the provided arguments in the execution context
          * of the async resource. This will establish the context, trigger the AsyncHooks
@@ -372,9 +366,7 @@ declare module 'async_hooks' {
          * @param fn The function to bind to the current execution context.
          * @return A new function that calls `fn` within the captured execution context.
          */
-        static bind<Func extends (...args: any[]) => any>(
-            fn: Func
-        ): Func;
+        static bind<Func extends (...args: any[]) => any>(fn: Func): Func;
         /**
          * Captures the current execution context and returns a function that accepts a
          * function as an argument. Whenever the returned function is called, it

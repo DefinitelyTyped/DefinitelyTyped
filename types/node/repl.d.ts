@@ -41,8 +41,8 @@ declare module 'repl' {
          * error with `repl.Recoverable` to indicate the input was incomplete and prompt for
          * additional lines.
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_default_evaluation
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_custom_evaluation_functions
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_default_evaluation
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_custom_evaluation_functions
          */
         eval?: REPLEval | undefined;
         /**
@@ -74,13 +74,13 @@ declare module 'repl' {
          * The function to invoke to format the output of each command before writing to `output`.
          * Default: a wrapper for `util.inspect`.
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_customizing_repl_output
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_customizing_repl_output
          */
         writer?: REPLWriter | undefined;
         /**
          * An optional function used for custom Tab auto completion.
          *
-         * @see https://nodejs.org/dist/latest-v11.x/docs/api/readline.html#readline_use_of_the_completer_function
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/readline.html#readline_use_of_the_completer_function
          */
         completer?: Completer | AsyncCompleter | undefined;
         /**
@@ -162,33 +162,33 @@ declare module 'repl' {
         /**
          * A value indicating whether the REPL is currently in "editor mode".
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_commands_and_special_keys
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_commands_and_special_keys
          */
         readonly editorMode: boolean;
         /**
          * A value indicating whether the `_` variable has been assigned.
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly underscoreAssigned: boolean;
         /**
          * The last evaluation result from the REPL (assigned to the `_` variable inside of the REPL).
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly last: any;
         /**
          * A value indicating whether the `_error` variable has been assigned.
          *
          * @since v9.8.0
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly underscoreErrAssigned: boolean;
         /**
          * The last error raised inside the REPL (assigned to the `_error` variable inside of the REPL).
          *
          * @since v9.8.0
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly lastError: any;
         /**
@@ -240,7 +240,7 @@ declare module 'repl' {
          *
          * `REPLServer` cannot be subclassed due to implementation specifics in NodeJS.
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_class_replserver
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_class_replserver
          */
         private constructor();
         /**
@@ -412,7 +412,7 @@ declare module 'repl' {
     /**
      * Indicates a recoverable error that a `REPLServer` can use to support multi-line input.
      *
-     * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_recoverable_errors
+     * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_recoverable_errors
      */
     class Recoverable extends SyntaxError {
         err: Error;

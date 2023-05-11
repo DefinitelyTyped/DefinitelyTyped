@@ -199,7 +199,7 @@ class TagHelper {
         const tags: JSDocTag[] = [];
         for (const param of sigDoc.params) {
             if (param.desc || param.default) {
-                tags.push(this.createParamTag(param.name.replaceAll('.', ''), param.desc ?? '', param.default));
+                tags.push(this.createParamTag((param.name || '').replaceAll('.', ''), param.desc ?? '', param.default));
             }
         }
         if (sigDoc.return?.desc) {
@@ -303,7 +303,9 @@ export class NodeProcessingContext {
                 };
             }
 
-            properties = classDoc.properties;
+            if (classDoc.properties) {
+                properties = classDoc.properties;
+            }
         }
 
         const propertyDoc = properties?.find(m => {
@@ -520,6 +522,7 @@ export class NodeProcessingContext {
             const newNode = removeCommentsRecursive(node, transformationContext, typeChecker);
             addSyntheticLeadingComment(newNode, SyntaxKind.MultiLineCommentTrivia, jsdoc, true);
         } else {
+            //console.log(node)
             nodeWarning(node, `Could not match doc for symbol`);
         }
     }
