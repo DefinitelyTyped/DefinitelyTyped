@@ -15,10 +15,25 @@ declare module 'assert' {
          * Indicates the failure of an assertion. All errors thrown by the `node:assert`module will be instances of the `AssertionError` class.
          */
         class AssertionError extends Error {
+            /**
+             * Set to the `actual` argument for methods such as {@link assert.strictEqual()}.
+             */
             actual: unknown;
+            /**
+             * Set to the `expected` argument for methods such as {@link assert.strictEqual()}.
+             */
             expected: unknown;
+            /**
+             * Set to the passed in operator value.
+             */
             operator: string;
+            /**
+             * Indicates if the message was auto-generated (`true`) or not.
+             */
             generatedMessage: boolean;
+            /**
+             * Value is always `ERR_ASSERTION` to show that the error is an assertion error.
+             */
             code: 'ERR_ASSERTION';
             constructor(options?: {
                 /** If provided, the error message is set to this value. */
