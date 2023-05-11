@@ -12,7 +12,7 @@ declare const enum LangVariant {
 }
 
 declare namespace sh {
-    export interface Pos {
+    interface Pos {
         After(p: Pos): boolean;
         Col(): number;
         IsValid(): boolean;
@@ -21,29 +21,29 @@ declare namespace sh {
         String(): string;
     }
 
-    export interface Node {
+    interface Node {
         Pos(): Pos;
         End(): Pos;
     }
 
-    export interface Command extends Node {
+    interface Command extends Node {
         OpPos: Pos;
     }
 
-    export type WordPart = Node;
+    type WordPart = Node;
 
-    export interface Word extends Node {
+    interface Word extends Node {
         Parts: WordPart[];
         Lit(): string;
     }
 
-    export interface Lit extends Node {
+    interface Lit extends Node {
         ValuePos: Pos;
         ValueEnd: Pos;
         Value: string;
     }
 
-    export interface Stmt extends Node {
+    interface Stmt extends Node {
         Comments: Comment[];
         Cmd: Command;
         Position: Pos;
@@ -53,30 +53,30 @@ declare namespace sh {
         Coprocess: boolean;
     }
 
-    export interface Comment extends Node {
+    interface Comment extends Node {
         Hash: Pos;
         Text: string;
     }
 
-    export interface File extends Node {
+    interface File extends Node {
         Name: string;
         Stmts?: Stmt[] | undefined;
         Last: Stmt[];
     }
 
-    export type ParserOption = (parser: Parser) => void;
+    type ParserOption = (parser: Parser) => void;
 
-    export type PrinterOption = (printer: Printer) => void;
+    type PrinterOption = (printer: Printer) => void;
 
-    export interface Parser {
+    interface Parser {
         Parse(text: string, path?: string): File;
     }
 
-    export interface Printer {
+    interface Printer {
         Print(node: Node): string;
     }
 
-    export interface ShellScript {
+    interface ShellScript {
         LangVariant: typeof LangVariant;
         syntax: {
             // variant
