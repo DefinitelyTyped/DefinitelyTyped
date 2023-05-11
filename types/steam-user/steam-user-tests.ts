@@ -7,6 +7,10 @@ console.log(SteamUser.formatCurrency(123.45, SteamUser.ECurrencyCode.EUR));
 
 const user = new SteamUser();
 
+user.on('debug', message => {
+    console.log(message);
+});
+
 user.on('loggedOn', () => {
     console.log('logged on');
     user.setPersona(SteamUser.EPersonaState.Snooze);
