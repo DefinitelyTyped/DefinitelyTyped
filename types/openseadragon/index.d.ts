@@ -1102,6 +1102,7 @@ declare namespace OpenSeadragon {
         opacity?: number | undefined;
         preload?: boolean | undefined;
         degrees?: number | undefined;
+        flipped?: boolean | undefined;
         compositeOperation?: string | undefined;
         crossOriginPolicy?: string | undefined;
         ajaxWithCredentials?: boolean | undefined;
