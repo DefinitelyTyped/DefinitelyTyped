@@ -39,7 +39,7 @@ loadImage(
 
 // Promise style
 loadImage(imageUrlJPEG, { canvas: true, orientation: true, maxWidth: 100, maxHeight: 100, crop: true }).then(data => {
-    const canvas = (<any>data.image) as HTMLCanvasElement;
+    const canvas = data.image as any as HTMLCanvasElement;
     console.log(data);
     canvas.toBlob((blob: Blob | null): void => {
         const url = canvas.toDataURL('image/png');
