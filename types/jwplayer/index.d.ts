@@ -159,9 +159,120 @@ declare namespace jwplayer {
         currentTrack: number;
     }
 
-    interface MetadataParam {
+    interface Attribute {
+        name: string;
+        value: any;
+    }
+
+    interface Meta {
+        type: 'meta';
+    }
+
+    interface MetadataCueParsed {
+        type: 'metadataCueParsed';
+    }
+
+    interface MetaDateRange {
+        metadataType: 'date-range';
+        metadataTime: number;
+        metadata: {
+            attributes: Attribute[];
+            content: string;
+            duration: number;
+            end: number;
+            endDate: string;
+            start: number;
+            startDate: string;
+            tag: 'EXT-X-DATERANGE';
+        };
+    }
+
+    interface MetaEMSG {
+        metadataType: 'emsg';
+        metadataTime: number;
+        metadata: {
+            duration: number;
+            end: number;
+            id: number;
+            messageData: any[];
+            metadataType: 'emsg';
+            presentationTimeOffset: number;
+            start: number;
+            schemeIdUri: string;
+            timescale: number;
+        };
+    }
+
+    interface MetaID3 {
+        metadataType: 'id3';
+        metadataTime: number;
         metadata: any;
     }
+
+    interface MetaMedia {
+        metadataType: 'media';
+        duration: number;
+        height: number;
+        seekRange: SeekRange;
+        width: number;
+    }
+
+    interface MetaProgramDateTime {
+        metadataType: 'program-date-time';
+        metadataTime: number;
+        programDateTime: string;
+        metadata: {
+            end: number;
+            programDateTime: string;
+            start: number;
+        };
+    }
+
+    interface MetaSCTE35 {
+        metadataType: 'scte-35';
+        metadataTime: number;
+        metadata: {
+            content: string;
+            end: number;
+            start: number;
+            tag: 'EXT-X-CUE-OUT' | 'EXT-X-CUE-IN';
+        };
+    }
+
+    interface MetaDiscontinuity {
+        metadataType: 'discontinuity';
+        metadataTime: number;
+        metadata: {
+            metadataType: 'discontinuity';
+            discontinuitySequence: number;
+            end: number;
+            PTS: number;
+            start: number;
+            tag: string;
+        }
+    }
+
+    interface MetaUnknown {
+        metadataType: 'unknown';
+    }
+
+    type MetadataParam =
+        | MetaDateRange & Meta
+        | MetaEMSG & Meta
+        | MetaID3 & Meta
+        | MetaMedia & Meta
+        | MetaProgramDateTime & Meta
+        | MetaSCTE35 & Meta
+        | MetaUnknown & Meta
+        | MetaDiscontinuity & MetadataCueParsed;
+
+    type MetadataCueParsedParam =
+        | MetaDateRange & MetadataCueParsed
+        | MetaEMSG & MetadataCueParsed
+        | MetaID3 & MetadataCueParsed
+        | MetaProgramDateTime & MetadataCueParsed
+        | MetaSCTE35 & MetadataCueParsed
+        | MetaDiscontinuity & MetadataCueParsed;
 
     interface ControlsParam {
         controls: boolean;
@@ -382,7 +493,7 @@ declare namespace jwplayer {
         adTime: AdTimeParam;
         cast: CastParam;
         meta: MetadataParam;
-        metadataCueParsed: MetadataParam;
+        metadataCueParsed: MetadataCueParsedParam;
         audioTracks: AudioTracksParam;
         audioTrackChanged: AudioTrackChangedParam;
         firstFrame: FirstFrameParam;
