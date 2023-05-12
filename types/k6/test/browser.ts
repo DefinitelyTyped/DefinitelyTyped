@@ -1,4 +1,4 @@
-import { ElementState, ImageFormat, InputElementState } from 'k6/experimental/browser';
+import { ElementState, ImageFormat, InputElementState, LifecycleEvent } from 'k6/experimental/browser';
 import { Page } from 'k6/experimental/browser/page';
 import { Request } from 'k6/experimental/browser/request';
 import { Response } from 'k6/experimental/browser/response';
@@ -1267,6 +1267,450 @@ elementHandle.waitForSelector("div", { timeout: 10000 });
 elementHandle.waitForSelector("div", { state: "attached" });
 // $ExpectType void
 elementHandle.waitForSelector("div", { strict: true });
+
+//
+// Frame
+//
+
+const frame = page.mainFrame();
+
+// @ts-expect-error
+frame.$();
+// $ExpectType ElementHandle | null
+frame.$("div");
+
+// @ts-expect-error
+frame.$$();
+// $ExpectType ElementHandle[]
+frame.$$("div");
+
+// @ts-expect-error
+frame.check();
+// $ExpectType void
+frame.check("input[type=checkbox]");
+// $ExpectType void
+frame.check("input[type=checkbox]", { force: true });
+// $ExpectType void
+frame.check("input[type=checkbox]", { noWaitAfter: true });
+// $ExpectType void
+frame.check("input[type=checkbox]", { timeout: 10000 });
+// $ExpectType void
+frame.check("input[type=checkbox]", { trial: true });
+// $ExpectType void
+frame.check("input[type=checkbox]", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.check("input[type=checkbox]", { strict: true });
+
+// @ts-expect-error
+frame.uncheck();
+// $ExpectType void
+frame.uncheck("input[type=checkbox]");
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { force: true });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { noWaitAfter: true });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { timeout: 10000 });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { trial: true });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { strict: true });
+
+// @ts-expect-error
+frame.click();
+// $ExpectType Promise<void>
+frame.click("div");
+// $ExpectType Promise<void>
+frame.click("div", { button: "left" });
+// $ExpectType Promise<void>
+frame.click("div", { clickCount: 2 });
+// $ExpectType Promise<void>
+frame.click("div", { delay: 100 });
+// $ExpectType Promise<void>
+frame.click("div", { strict: true });
+
+// @ts-expect-error
+frame.dblclick();
+// $ExpectType void
+frame.dblclick("div");
+// $ExpectType void
+frame.dblclick("div", { delay: 100 });
+// $ExpectType void
+frame.dblclick("div", { timeout: 10000 });
+// $ExpectType void
+frame.dblclick("div", { noWaitAfter: true });
+// $ExpectType void
+frame.dblclick("div", { force: true });
+// $ExpectType void
+frame.dblclick("div", { trial: true });
+// $ExpectType void
+frame.dblclick("div", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.dblclick("div", { modifiers: ["Shift"] });
+// $ExpectType void
+frame.dblclick("div", { strict: true });
+
+// @ts-expect-error
+frame.fill();
+// $ExpectType void
+frame.fill("input", "text");
+// $ExpectType void
+frame.fill("input", "text", { timeout: 10000 });
+// $ExpectType void
+frame.fill("input", "text", { noWaitAfter: true });
+// $ExpectType void
+frame.fill("input", "text", { force: true });
+// $ExpectType void
+frame.fill("input", "text", { strict: true });
+
+// @ts-expect-error
+frame.focus();
+// $ExpectType void
+frame.focus("input");
+// $ExpectType void
+frame.focus("input", { timeout: 10000 });
+// $ExpectType void
+frame.focus("input", { strict: true });
+
+// @ts-expect-error
+frame.hover();
+// $ExpectType void
+frame.hover("div");
+// $ExpectType void
+frame.hover("div", { timeout: 10000 });
+// $ExpectType void
+frame.hover("div", { force: true });
+// $ExpectType void
+frame.hover("div", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.hover("div", { modifiers: ["Shift"] });
+// $ExpectType void
+frame.hover("div", { strict: true });
+// $ExpectType void
+frame.hover("div", { trial: true });
+// $ExpectType void
+frame.hover("div", { noWaitAfter: true });
+
+// @ts-expect-error
+frame.tap();
+// $ExpectType void
+frame.tap("div");
+// $ExpectType void
+frame.tap("div", { timeout: 10000 });
+// $ExpectType void
+frame.tap("div", { force: true });
+// $ExpectType void
+frame.tap("div", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.tap("div", { modifiers: ["Shift"] });
+// $ExpectType void
+frame.tap("div", { strict: true });
+// $ExpectType void
+frame.tap("div", { trial: true });
+// $ExpectType void
+frame.tap("div", { noWaitAfter: true });
+
+// @ts-expect-error
+frame.press();
+// @ts-expect-error
+frame.press("div");
+// $ExpectType void
+frame.press("div", "a");
+// $ExpectType void
+frame.press("div", "a", { delay: 100 });
+// $ExpectType void
+frame.press("div", "a", { timeout: 10000 });
+// $ExpectType void
+frame.press("div", "a", { noWaitAfter: true });
+// $ExpectType void
+frame.press("div", "a", { strict: true });
+
+// @ts-expect-error
+frame.type();
+// @ts-expect-error
+frame.type("input");
+// $ExpectType void
+frame.type("input", "text");
+// $ExpectType void
+frame.type("input", "text", { delay: 100 });
+// $ExpectType void
+frame.type("input", "text", { timeout: 10000 });
+// $ExpectType void
+frame.type("input", "text", { noWaitAfter: true });
+// $ExpectType void
+frame.type("input", "text", { strict: true });
+
+// @ts-expect-error
+frame.selectOption();
+// @ts-expect-error
+frame.selectOption("select");
+// $ExpectType string[]
+frame.selectOption("select", "value");
+// $ExpectType string[]
+frame.selectOption("select", ["value1", "value2"]);
+// $ExpectType string[]
+frame.selectOption("select", new ElementHandle());
+// $ExpectType string[]
+frame.selectOption("select", [new ElementHandle(), new ElementHandle()]);
+// $ExpectType string[]
+frame.selectOption("select", { value: "value", index: 1, label: "label" });
+// $ExpectType string[]
+frame.selectOption("select", [{ value: "value1", index: 1, label: "label1" }, { value: "value2", index: 2, label: "label2" }]);
+// $ExpectType string[]
+frame.selectOption("select", "value", { force: true });
+// $ExpectType string[]
+frame.selectOption("select", "value", { noWaitAfter: true });
+// $ExpectType string[]
+frame.selectOption("select", "value", { timeout: 10000 });
+// $ExpectType string[]
+frame.selectOption("select", "value", { strict: true });
+
+// @ts-expect-error
+frame.dispatchEvent();
+// @ts-expect-error
+frame.dispatchEvent("div");
+// $ExpectType void
+frame.dispatchEvent("div", "click");
+// $ExpectType void
+frame.dispatchEvent("div", "click", { button: "left" });
+// $ExpectType void
+frame.dispatchEvent("div", "click", {}, { timeout: 10000 });
+// $ExpectType void
+frame.dispatchEvent("div", "click", {}, { strict: true });
+
+// @ts-expect-error
+frame.evaluate();
+// @ts-expect-error
+frame.evaluate(1);
+// @ExpectType void
+frame.evaluate("");
+// @ExpectType void
+frame.evaluate(() => {});
+// @ExpectType string
+frame.evaluate(() => { ""; });
+// @ExpectType string
+frame.evaluate((a: string) => { a; }, "");
+// @ExpectType string[]
+frame.evaluate((a: string[]) => a, [""]);
+
+// @ts-expect-error
+frame.evaluateHandle();
+// @ts-expect-error
+frame.evaluateHandle(1);
+// @ExpectType JSHandle
+frame.evaluateHandle("");
+// @ExpectType JSHandle
+frame.evaluateHandle(() => {});
+// @ExpectType JSHandle
+frame.evaluateHandle(() => { ""; });
+// @ExpectType JSHandle
+frame.evaluateHandle((a: string) => { a; }, "");
+// @ExpectType JSHandle
+frame.evaluateHandle((a: string[]) => a, [""]);
+
+// $ExpectType Page
+frame.page();
+
+// $ExpectType Frame | null
+frame.parentFrame();
+
+// $ExpectType Frame[]
+frame.childFrames();
+
+// $ExpectType ElementHandle
+frame.frameElement();
+
+// @ts-expect-error
+frame.goto();
+// $ExpectType Promise<Response | null>
+frame.goto("https://example.com");
+// $ExpectType Promise<Response | null>
+frame.goto("https://example.com", { timeout: 10000 });
+for (const state of ["load", "domcontentloaded", "networkidle"]) {
+    // $ExpectType Promise<Response | null>
+    frame.goto("https://example.com", { waitUntil: state as LifecycleEvent });
+}
+// $ExpectType Promise<Response | null>
+frame.goto("https://example.com", { referer: "https://example.com" });
+
+// @ts-expect-error
+frame.setContent();
+// $ExpectType void
+frame.setContent("<div>content</div>");
+// $ExpectType void
+frame.setContent("<div>content</div>", { timeout: 10000 });
+for (const state of ["load", "domcontentloaded", "networkidle"]) {
+    // $ExpectType void
+    frame.setContent("<div>content</div>", { waitUntil: state as LifecycleEvent });
+}
+
+// $ExpectType string
+frame.name();
+
+// $ExpectType string
+frame.title();
+
+// $ExpectType string
+frame.url();
+
+// $ExpectType string
+frame.content();
+
+// $ExpectType boolean
+frame.isDetached();
+
+// @ts-expect-error
+frame.locator();
+// $ExpectType Locator
+frame.locator("div");
+
+// @ts-expect-error
+frame.innerHTML();
+// $ExpectType string
+frame.innerHTML("div");
+// $ExpectType string
+frame.innerHTML("div", { timeout: 10000 });
+// $ExpectType string
+frame.innerHTML("div", { strict: true });
+
+// @ts-expect-error
+frame.innerText();
+// $ExpectType string
+frame.innerText("div");
+// $ExpectType string
+frame.innerText("div", { timeout: 10000 });
+// $ExpectType string
+frame.innerText("div", { strict: true });
+
+// @ts-expect-error
+frame.textContent();
+// $ExpectType string
+frame.textContent("div");
+// $ExpectType string
+frame.textContent("div", { timeout: 10000 });
+// $ExpectType string
+frame.textContent("div", { strict: true });
+
+// @ts-expect-error
+frame.getAttribute();
+// @ts-expect-error
+frame.getAttribute("div");
+// $ExpectType string
+frame.getAttribute("div", "attr");
+// $ExpectType string
+frame.getAttribute("div", "attr", { timeout: 10000 });
+// $ExpectType string
+frame.getAttribute("div", "attr", { strict: true });
+
+// @ts-expect-error
+frame.inputValue();
+// $ExpectType string
+frame.inputValue("input");
+// $ExpectType string
+frame.inputValue("input", { timeout: 10000 });
+// $ExpectType string
+frame.inputValue("input", { strict: true });
+
+// @ts-expect-error
+frame.isChecked();
+// $ExpectType boolean
+frame.isChecked("input");
+// $ExpectType boolean
+frame.isChecked("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isChecked("input", { strict: true });
+
+// @ts-expect-error
+frame.isDisabled();
+// $ExpectType boolean
+frame.isDisabled("input");
+// $ExpectType boolean
+frame.isDisabled("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isDisabled("input", { strict: true });
+
+// @ts-expect-error
+frame.isEnabled();
+// $ExpectType boolean
+frame.isEnabled("input");
+// $ExpectType boolean
+frame.isEnabled("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isEnabled("input", { strict: true });
+
+// @ts-expect-error
+frame.isEditable();
+// $ExpectType boolean
+frame.isEditable("input");
+// $ExpectType boolean
+frame.isEditable("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isEditable("input", { strict: true });
+
+// @ts-expect-error
+frame.isHidden();
+// $ExpectType boolean
+frame.isHidden("input");
+// $ExpectType boolean
+frame.isHidden("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isHidden("input", { strict: true });
+
+// @ts-expect-error
+frame.isVisible();
+// $ExpectType boolean
+frame.isVisible("input");
+// $ExpectType boolean
+frame.isVisible("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isVisible("input", { strict: true });
+
+// @ts-expect-error
+frame.waitForFunction();
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction(() => true);
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction(() => true, { polling: "raf" });
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction(() => true, { polling: "interval", interval: 10000 });
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction(() => true, { timeout: 10000 });
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction((a: number) => a === 1, {}, 1);
+
+// $ExpectType void
+frame.waitForLoadState();
+for (const state of ["load", "domcontentloaded", "networkidle"]) {
+    // $ExpectType void
+    frame.waitForLoadState(state as LifecycleEvent);
+}
+// $ExpectType void
+frame.waitForLoadState("domcontentloaded", { timeout: 10000 });
+
+// $ExpectType Promise<Response | null>
+frame.waitForNavigation();
+// $ExpectType Promise<Response | null>
+frame.waitForNavigation({ timeout: 10000 });
+// $ExpectType Promise<Response | null>
+frame.waitForNavigation({ waitUntil: "domcontentloaded" });
+
+// @ts-expect-error
+frame.waitForSelector();
+// $ExpectType ElementHandle
+frame.waitForSelector("div");
+// $ExpectType ElementHandle
+frame.waitForSelector("div", { timeout: 10000 });
+for (const state of ["attached", "detached", "visible", "hidden"]) {
+    // $ExpectType ElementHandle
+    frame.waitForSelector("div", { state: state as ElementState });
+}
+
+// @ts-expect-error
+frame.waitForTimeout();
+// $ExpectType void
+frame.waitForTimeout(10000);
 
 //
 // Touchscreen.tap

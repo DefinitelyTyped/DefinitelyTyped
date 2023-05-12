@@ -1,5 +1,6 @@
-import { Frame, SecurityDetailsObject } from './';
+import { SecurityDetailsObject } from './';
 import { Request } from "./request";
+import { Frame } from "./frame";
 
 /**
  * Response class represents responses which are received by page.

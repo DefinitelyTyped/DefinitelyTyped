@@ -11,17 +11,13 @@ import './locator';
 import './js_handle';
 import './keyboard';
 import './element_handle';
+import './frame';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
  * separate pages, cache, and cookies.
  */
 export class BrowserContext {}
-
-/**
- * Frame represents the frame within a page. A page is made up of hierarchy of frames.
- */
-export class Frame {}
 
 /**
  * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
@@ -69,14 +65,11 @@ export interface SelectOptionsObject {
 }
 
 export type ResourceType = "document" | "stylesheet" | "image" | "media" | "font" | "script" | "texttrack" | "xhr" | "fetch" | "eventsource" | "websocket" | "manifest" | "other";
-
 export type MouseButton = "left" | "right" | "middle";
-
 export type KeyboardModifier = "Alt" | "Control" | "Meta" | "Shift";
-
 export type ElementState = "attached" | "detached" | "visible" | "hidden";
-
 export type InputElementState = ElementState | "enabled" | "disabled" | "editable";
+export type LifecycleEvent = "load" | "domcontentloaded" | "networkidle";
 
 export interface TimeoutOptions {
   /**
@@ -179,6 +172,29 @@ export interface MouseDownUpOptions {
    */
   clickCount?: number;
 }
+
+export type ContentLoadOptions = {
+  /**
+   * When to consider operation succeeded, defaults to `load`. Events can be
+   * either:
+   * - `'domcontentloaded'` - consider operation to be finished when the
+   * `DOMContentLoaded` event is fired.
+   * - `'load'` - consider operation to be finished when the `load` event is
+   * fired.
+   * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
+   * when there are no network connections for at least `500` ms. Don't use
+   * this method for testing especially with chatty websites where the event
+   * may never fire, rely on web assertions to assess readiness instead.
+   */
+  waitUntil?: LifecycleEvent;
+} & TimeoutOptions;
+
+export type NavigationOptions = {
+  /**
+   * Referer header value.
+   */
+  referer?: string;
+} & ContentLoadOptions;
 
 export interface ResourceTiming {
   /**
@@ -327,4 +343,33 @@ export interface ScreenshotOptions {
    * @default 100
    */
   quality?: number;
+}
+
+/**
+ * Methods to periodically check for a value.
+ * - `raf` - use `requestAnimationFrame` callback to poll
+ * - `mutation` - use a mutation observer
+ * - `interval` - use a polling interval
+ */
+export type PollingMethod = 'raf' | 'mutation' | 'interval';
+
+export interface PollingOptions {
+  /**
+   * Polling method to use.
+   * @default 'raf'
+   */
+  polling?: 'raf' | 'mutation' | 'interval';
+
+  /**
+   * Polling interval in milliseconds if `polling` is set to `interval`.
+   */
+  interval?: number;
+}
+
+export interface ElementStateFilter {
+  /**
+   * The element state to filter for.
+   * @default 'visible'
+   */
+  state?: ElementState;
 }

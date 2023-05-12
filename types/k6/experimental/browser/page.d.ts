@@ -1,13 +1,13 @@
 import {
     BrowserContext,
     EvaluationArgument,
-    Frame,
     PageFunction,
     SelectOptionsObject,
     KeyboardModifier,
     Worker,
     MouseButton,
-    ScreenshotOptions } from "./";
+    ScreenshotOptions,
+    NavigationOptions } from "./";
 import { Touchscreen } from "./touchscreen";
 import { Response } from "./response";
 import { Locator } from "./locator";
@@ -15,6 +15,7 @@ import { JSHandle } from "./js_handle";
 import { Keyboard } from "./keyboard";
 import { Mouse } from "./mouse";
 import { ElementHandle } from "./element_handle";
+import { Frame } from "./frame";
 
 /**
  * Page provides methods to interact with a single tab in a running web browser
@@ -451,39 +452,7 @@ export class Page {
    * `https://`.
    * @param options
    */
-  goto(url: string, options?: {
-    /**
-     * Referer header value.
-     */
-    referer?: string;
-
-    /**
-     * Maximum operation time in milliseconds. Defaults to `30` seconds. The
-     * default value can be changed via the
-     * browserContext.setDefaultNavigationTimeout(timeout),
-     * browserContext.setDefaultTimeout(timeout),
-     * page.setDefaultNavigationTimeout(timeout) or
-     * page.setDefaultTimeout(timeout) methods.
-     *
-     * Setting the value to `0` will disable the timeout.
-     *
-     */
-    timeout?: number;
-
-    /**
-     * When to consider operation succeeded, defaults to `load`. Events can be
-     * either:
-     * - `'domcontentloaded'` - consider operation to be finished when the
-     * `DOMContentLoaded` event is fired.
-     * - `'load'` - consider operation to be finished when the `load` event is
-     * fired.
-     * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
-     * when there are no network connections for at least `500` ms. Don't use
-     * this method for testing especially with chatty websites where the event
-     * may never fire, rely on web assertions to assess readiness instead.
-     */
-    waitUntil?: "load"|"domcontentloaded"|"networkidle";
-  }): Promise<null|Response>;
+  goto(url: string, options?: NavigationOptions): Promise<null|Response>;
 
   /**
    * **NOTE** Use locator-based locator.hover([options]) instead.

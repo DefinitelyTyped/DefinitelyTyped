@@ -1,6 +1,5 @@
 import {
   Rect,
-  Frame,
   ElementHandlePointerOptions,
   ElementClickOptions,
   KeyboardModifierOptions,
@@ -14,6 +13,7 @@ import {
   ElementState,
   SelectOptionsObject } from "./";
 import { JSHandle } from "./js_handle";
+import { Frame } from "./frame";
 
 /**
  * ElementHandle represents an in-page DOM element.

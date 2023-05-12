@@ -1,5 +1,6 @@
-import { Frame, ResourceType, ResourceTiming } from "./";
+import { ResourceType, ResourceTiming } from "./";
 import { Response } from "./response";
+import { Frame } from "./frame";
 
 /**
  * Request class represents requests which are sent by a page.
