@@ -2,17 +2,5 @@
     "private": true,
     "dependencies": {
         "@react-native/virtualized-lists": "^0.72.4"
-    },
-    "exports": {
-        ".": {
-            "types": {
-                "default": "./index.d.ts"
-            }
-        },
-        "./types/experimental": {
-            "types": {
-                "default": "./experimental.d.ts"
-            }
-        }
     }
 }
