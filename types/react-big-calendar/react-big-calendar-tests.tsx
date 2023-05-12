@@ -525,6 +525,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
             <div>
                 {continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}
             </div>
+            {props.children}
         </div>
     );
 }

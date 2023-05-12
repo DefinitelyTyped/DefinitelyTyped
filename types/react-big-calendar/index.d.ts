@@ -303,6 +303,7 @@ export interface EventWrapperProps<TEvent extends object = Event> {
     label: string;
     continuesEarlier: boolean;
     continuesLater: boolean;
+    children: React.ReactNode;
 }
 
 export interface Messages {
