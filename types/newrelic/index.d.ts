@@ -113,24 +113,20 @@ export function noticeError(error: Error, expected?: boolean): void;
  */
 export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }, expected?: boolean): void;
 
-interface ErrorGroupCallbackFuncParams {
-    customAttributes: { [key: string]: string | number | boolean };
-    'request.uri': string;
-    'http.statusCode': string;
-    'http.method': string;
-    error?: Error;
-    'error.expected': boolean;
-}
-
-type ErrorGroupCallbackFunc = (metadata: ErrorGroupCallbackFuncParams) => string;
-
 /**
  * This method lets you define a custom callback to generate error group names, which will be used by
  * errors inbox to group similar errors together via the error.group.name agent attribute.
  *
  * Calling this function multiple times will replace previously defined versions of this callback function.
  */
-export function setErrorGroupCallback(callback: ErrorGroupCallbackFunc): void;
+export function setErrorGroupCallback(callback: (metadata: {
+    customAttributes: { [key: string]: string | number | boolean };
+    'request.uri': string;
+    'http.statusCode': string;
+    'http.method': string;
+    error?: Error;
+    'error.expected': boolean;
+}) => string): void;
 
 /**
  * Sends an application log message to New Relic. The agent already
