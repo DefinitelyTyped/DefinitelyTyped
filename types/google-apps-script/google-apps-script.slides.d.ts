@@ -1073,6 +1073,7 @@ declare namespace GoogleAppsScript {
       insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
+      isSkipped(): boolean;
       move(index: Integer): void;
       refreshSlide(): void;
       remove(): void;
