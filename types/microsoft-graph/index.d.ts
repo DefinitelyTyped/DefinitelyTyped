@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.29
+// Type definitions for non-npm package microsoft-graph 2.31
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -2450,6 +2450,7 @@ export type AuthenticationMethodSignInState =
     | "unknownFutureValue";
 export type AuthenticationPhoneType = "mobile" | "alternateMobile" | "office" | "unknownFutureValue";
 export type LifecycleEventType = "missed" | "subscriptionRemoved" | "reauthorizationRequired";
+export type BinaryOperator = "or" | "and";
 export type CallRecordingStatus = "success" | "failure" | "initial" | "chunkFinished" | "unknownFutureValue";
 export type ChannelMembershipType = "standard" | "private" | "unknownFutureValue" | "shared";
 export type ChatMessageActions = "reactionAdded" | "reactionRemoved" | "actionUndefined" | "unknownFutureValue";
@@ -2788,10 +2789,8 @@ export interface User extends DirectoryObject {
     /**
      * Get the last signed-in date and request ID of the sign-in for a given user. Read-only.Returned only on $select.
      * Supports $filter (eq, ne, not, ge, le) but not with any other filterable properties. Note: Details for this property
-     * require an Azure AD Premium P1/P2 license and the AuditLog.Read.All permission.When you specify $select=signInActivity
-     * or $filter=signInActivity while listing users, the maximum page size is 120 users. Requests with $top set higher than
-     * 120 will return pages with up to 120 users. This property is not returned for a user who has never signed in or last
-     * signed in before April 2020.
+     * require an Azure AD Premium P1/P2 license and the AuditLog.Read.All permission.This property is not returned for a user
+     * who has never signed in or last signed in before April 2020.
      */
     signInActivity?: NullableOption<SignInActivity>;
     /**
@@ -6953,6 +6952,7 @@ export interface Contract extends DirectoryObject {
     displayName?: NullableOption<string>;
 }
 export interface CrossTenantAccessPolicyConfigurationDefault extends Entity {
+    automaticUserConsentSettings?: NullableOption<InboundOutboundPolicyConfiguration>;
     /**
      * Defines your default configuration for users from other organizations accessing your resources via Azure AD B2B
      * collaboration.
@@ -6982,6 +6982,7 @@ export interface CrossTenantAccessPolicyConfigurationDefault extends Entity {
     isServiceDefault?: NullableOption<boolean>;
 }
 export interface CrossTenantAccessPolicyConfigurationPartner {
+    automaticUserConsentSettings?: NullableOption<InboundOutboundPolicyConfiguration>;
     /**
      * Defines your partner-specific configuration for users from other organizations accessing your resources via Azure AD
      * B2B collaboration.
@@ -7011,6 +7012,12 @@ export interface CrossTenantAccessPolicyConfigurationPartner {
     isServiceProvider?: NullableOption<boolean>;
     // The tenant identifier for the partner Azure AD organization. Read-only. Key.
     tenantId?: string;
+    identitySynchronization?: NullableOption<CrossTenantIdentitySyncPolicyPartner>;
+}
+export interface CrossTenantIdentitySyncPolicyPartner {
+    displayName?: NullableOption<string>;
+    tenantId?: string;
+    userSyncInbound?: NullableOption<CrossTenantUserSyncInbound>;
 }
 export interface CustomSecurityAttributeDefinition extends Entity {
     attributeSet?: string;
@@ -7043,6 +7050,8 @@ export interface Device extends DirectoryObject {
      * Read-only.
      */
     complianceExpirationDateTime?: NullableOption<string>;
+    // User-defined property set by Intune to automatically add devices to groups and simplify managing devices.
+    deviceCategory?: NullableOption<string>;
     /**
      * Unique identifier set by Azure Device Registration Service at the time of registration. This is an alternate key that
      * can be used to reference the device object. Supports $filter (eq, ne, not, startsWith).
@@ -7050,6 +7059,8 @@ export interface Device extends DirectoryObject {
     deviceId?: NullableOption<string>;
     // For internal use only. Set to null.
     deviceMetadata?: NullableOption<string>;
+    // Ownership of the device. This property is set by Intune. Possible values are: unknown, company, personal.
+    deviceOwnership?: NullableOption<string>;
     // For internal use only.
     deviceVersion?: NullableOption<number>;
     /**
@@ -7057,6 +7068,11 @@ export interface Device extends DirectoryObject {
      * values), $search, and $orderBy.
      */
     displayName?: NullableOption<string>;
+    /**
+     * Enrollment profile applied to the device. For example, Apple Device Enrollment Profile, Device enrollment - Corporate
+     * device identifiers, or Windows Autopilot profile name. This property is set by Intune.
+     */
+    enrollmentProfileName?: NullableOption<string>;
     /**
      * true if the device complies with Mobile Device Management (MDM) policies; otherwise, false. Read-only. This can only be
      * updated by Intune for any device OS type or by an approved MDM app for Windows OS devices. Supports $filter (eq, ne,
@@ -7096,6 +7112,11 @@ export interface Device extends DirectoryObject {
     physicalIds?: string[];
     // The profile type of the device. Possible values: RegisteredDevice (default), SecureVM, Printer, Shared, IoT.
     profileType?: NullableOption<string>;
+    /**
+     * Date and time of when the device was registered. The timestamp type represents date and time information using ISO 8601
+     * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
+     */
+    registrationDateTime?: NullableOption<string>;
     // List of labels applied to the device by the system. Supports $filter (/$count eq 0, /$count ne 0).
     systemLabels?: string[];
     /**
@@ -9618,34 +9639,72 @@ export interface OutlookCategory extends Entity {
 // tslint:disable-next-line: no-empty-interface
 export interface ReferenceAttachment extends Attachment {}
 export interface SharepointSettings extends Entity {
+    // Collection of trusted domain GUIDs for the OneDrive sync app.
     allowedDomainGuidsForSyncApp?: NullableOption<string[]>;
+    // Collection of managed paths available for site creation. Read-only.
     availableManagedPathsForSiteCreation?: string[];
+    // The number of days for preserving a deleted user's OneDrive.
     deletedUserPersonalSiteRetentionPeriodInDays?: NullableOption<number>;
+    // Collection of file extensions not uploaded by the OneDrive sync app.
     excludedFileExtensionsForSyncApp?: NullableOption<string[]>;
+    // Specifies the idle session sign-out policies for the tenant.
     idleSessionSignOut?: NullableOption<IdleSessionSignOut>;
+    // Specifies the image tagging option for the tenant. Possible values are: disabled, basic, enhanced.
     imageTaggingOption?: NullableOption<ImageTaggingChoice>;
+    // Indicates whether comments are allowed on modern site pages in SharePoint.
     isCommentingOnSitePagesEnabled?: NullableOption<boolean>;
+    // Indicates whether push notifications are enabled for OneDrive events.
     isFileActivityNotificationEnabled?: NullableOption<boolean>;
+    // Indicates whether legacy authentication protocols are enabled for the tenant.
     isLegacyAuthProtocolsEnabled?: NullableOption<boolean>;
+    // Indicates whether if Fluid Framework is allowed on SharePoint sites.
     isLoopEnabled?: NullableOption<boolean>;
+    // Indicates whether files can be synced using the OneDrive sync app for Mac.
     isMacSyncAppEnabled?: NullableOption<boolean>;
+    // Indicates whether guests must sign in using the same account to which sharing invitations are sent.
     isRequireAcceptingUserToMatchInvitedUserEnabled?: NullableOption<boolean>;
+    // Indicates whether guests are allowed to reshare files, folders, and sites they don't own.
     isResharingByExternalUsersEnabled?: NullableOption<boolean>;
+    // Indicates whether mobile push notifications are enabled for SharePoint.
     isSharePointMobileNotificationEnabled?: NullableOption<boolean>;
+    // Indicates whether the newsfeed is allowed on the modern site pages in SharePoint.
     isSharePointNewsfeedEnabled?: NullableOption<boolean>;
+    // Indicates whether users are allowed to create sites.
     isSiteCreationEnabled?: NullableOption<boolean>;
+    // Indicates whether the UI commands for creating sites are shown.
     isSiteCreationUIEnabled?: NullableOption<boolean>;
+    // Indicates whether creating new modern pages is allowed on SharePoint sites.
     isSitePagesCreationEnabled?: NullableOption<boolean>;
+    // Indicates whether site storage space is automatically managed or if specific storage limits are set per site.
     isSitesStorageLimitAutomatic?: NullableOption<boolean>;
+    // Indicates whether the sync button in OneDrive is hidden.
     isSyncButtonHiddenOnPersonalSite?: NullableOption<boolean>;
+    // Indicates whether users are allowed to sync files only on PCs joined to specific domains.
     isUnmanagedSyncAppForTenantRestricted?: NullableOption<boolean>;
+    /**
+     * The default OneDrive storage limit for all new and existing users who are assigned a qualifying license. Measured in
+     * megabytes (MB).
+     */
     personalSiteDefaultStorageLimitInMB?: NullableOption<number>;
+    // Collection of email domains that are allowed for sharing outside the organization.
     sharingAllowedDomainList?: NullableOption<string[]>;
+    // Collection of email domains that are blocked for sharing outside the organization.
     sharingBlockedDomainList?: NullableOption<string[]>;
+    /**
+     * Sharing capability for the tenant. Possible values are: disabled, externalUserSharingOnly, externalUserAndGuestSharing,
+     * existingExternalUserSharingOnly.
+     */
     sharingCapability?: NullableOption<SharingCapabilities>;
+    // Specifies the external sharing mode for domains. Possible values are: none, allowList, blockList.
     sharingDomainRestrictionMode?: NullableOption<SharingDomainRestrictionMode>;
+    // The value of the team site managed path. This is the path under which new team sites will be created.
     siteCreationDefaultManagedPath?: string;
+    // The default storage quota for a new site upon creation. Measured in megabytes (MB).
     siteCreationDefaultStorageLimitInMB?: NullableOption<number>;
+    /**
+     * The default timezone of a tenant for newly created sites. For a list of possible values, see
+     * SPRegionalSettings.TimeZones property.
+     */
     tenantDefaultTimezone?: NullableOption<string>;
 }
 export interface ColumnLink extends Entity {
@@ -16187,9 +16246,9 @@ export interface AddLargeGalleryViewOperation extends CommsOperation {}
 export interface AttendanceRecord extends Entity {
     // List of time periods between joining and leaving a meeting.
     attendanceIntervals?: NullableOption<AttendanceInterval[]>;
-    // Email address of the user associated with this atttendance record.
+    // Email address of the user associated with this attendance record.
     emailAddress?: NullableOption<string>;
-    // Identity of the user associated with this atttendance record.
+    // Identity of the user associated with this attendance record.
     identity?: NullableOption<Identity>;
     // Role of the attendee. Possible values are: None, Attendee, Presenter, and Organizer.
     role?: NullableOption<string>;
@@ -17104,23 +17163,23 @@ export interface ProvisioningSystem extends Identity {
 export interface SignInActivity {
     /**
      * The last non-interactive sign-in date for a specific user. You can use this field to calculate the last time a client
-     * signed in to the directory on behalf of a user. Because some users may use clients to access tenant resources rather
-     * than signing into your tenant directly, you can use the non-interactive sign-in date to along with lastSignInDateTime
-     * to identify inactive users. The timestamp represents date and time information using ISO 8601 format and is always in
-     * UTC time. For example, midnight UTC on Jan 1, 2014 is: '2014-01-01T00:00:00Z'. Azure AD maintains non-interactive
-     * sign-ins going back to May 2020. For more information about using the value of this property, see Manage inactive user
-     * accounts in Azure AD.
+     * attempted to sign into the directory on behalf of a user. Because some users may use clients to access tenant resources
+     * rather than signing into your tenant directly, you can use the non-interactive sign-in date to along with
+     * lastSignInDateTime to identify inactive users. The timestamp represents date and time information using ISO 8601 format
+     * and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is: '2014-01-01T00:00:00Z'. Azure AD maintains
+     * non-interactive sign-ins going back to May 2020. For more information about using the value of this property, see
+     * Manage inactive user accounts in Azure AD.
      */
     lastNonInteractiveSignInDateTime?: NullableOption<string>;
     // Request identifier of the last non-interactive sign-in performed by this user.
     lastNonInteractiveSignInRequestId?: NullableOption<string>;
     /**
      * The last interactive sign-in date and time for a specific user. You can use this field to calculate the last time a
-     * user signed in to the directory with an interactive authentication method. This field can be used to build reports,
-     * such as inactive users. The timestamp represents date and time information using ISO 8601 format and is always in UTC
-     * time. For example, midnight UTC on Jan 1, 2014 is: '2014-01-01T00:00:00Z'. Azure AD maintains interactive sign-ins
-     * going back to April 2020. For more information about using the value of this property, see Manage inactive user
-     * accounts in Azure AD.
+     * user attempted to sign into the directory with an interactive authentication method. This field can be used to build
+     * reports, such as inactive users. The timestamp represents date and time information using ISO 8601 format and is always
+     * in UTC time. For example, midnight UTC on Jan 1, 2014 is: '2014-01-01T00:00:00Z'. Azure AD maintains interactive
+     * sign-ins going back to April 2020. For more information about using the value of this property, see Manage inactive
+     * user accounts in Azure AD.
      */
     lastSignInDateTime?: NullableOption<string>;
     // Request identifier of the last interactive sign-in performed by this user.
@@ -18360,6 +18419,9 @@ export interface CrossTenantAccessPolicyTarget {
     // The type of resource that you want to target. The possible values are: user, group, application, unknownFutureValue.
     targetType?: NullableOption<CrossTenantAccessPolicyTargetType>;
 }
+export interface CrossTenantUserSyncInbound {
+    isSyncAllowed?: NullableOption<boolean>;
+}
 export interface DefaultUserRolePermissions {
     // Indicates whether the default user role can create applications.
     allowedToCreateApps?: boolean;
@@ -18397,6 +18459,11 @@ export interface ImplicitGrantSettings {
     enableAccessTokenIssuance?: NullableOption<boolean>;
     // Specifies whether this web application can request an ID token using the OAuth 2.0 implicit flow.
     enableIdTokenIssuance?: NullableOption<boolean>;
+}
+// tslint:disable-next-line: interface-name
+export interface InboundOutboundPolicyConfiguration {
+    inboundAllowed?: NullableOption<boolean>;
+    outboundAllowed?: NullableOption<boolean>;
 }
 // tslint:disable-next-line: interface-name
 export interface InstanceResourceAccess {
@@ -19834,8 +19901,11 @@ export interface Website {
 }
 // tslint:disable-next-line: interface-name
 export interface IdleSessionSignOut {
+    // Indicates whether the idle session sign-out policy is enabled.
     isEnabled?: NullableOption<boolean>;
+    // Number of seconds of inactivity after which a user is signed out.
     signOutAfterInSeconds?: NullableOption<number>;
+    // Number of seconds of inactivity after which a user is notified that they'll be signed out.
     warnAfterInSeconds?: NullableOption<number>;
 }
 // tslint:disable-next-line: no-empty-interface
@@ -20413,6 +20483,10 @@ export interface CloudAppSecuritySessionControl extends ConditionalAccessSession
     cloudAppSecurityType?: NullableOption<CloudAppSecuritySessionControlType>;
 }
 export interface ConditionalAccessExternalTenants {
+    /**
+     * The membership kind. Possible values are: all, enumerated, unknownFutureValue. The enumerated member references an
+     * conditionalAccessEnumeratedExternalTenants object.
+     */
     membershipKind?: NullableOption<ConditionalAccessExternalTenantsMembershipKind>;
 }
 // tslint:disable-next-line: no-empty-interface
@@ -20495,6 +20569,7 @@ export interface ConditionalAccessPlatforms {
 export interface ConditionalAccessUsers {
     // Group IDs excluded from scope of policy.
     excludeGroups?: string[];
+    // Internal guests or external users excluded from the policy scope. Optionally populated.
     excludeGuestsOrExternalUsers?: NullableOption<ConditionalAccessGuestsOrExternalUsers>;
     // Role IDs excluded from scope of policy.
     excludeRoles?: string[];
@@ -20502,6 +20577,7 @@ export interface ConditionalAccessUsers {
     excludeUsers?: string[];
     // Group IDs in scope of policy unless explicitly excluded.
     includeGroups?: string[];
+    // Internal guests or external users included in the policy scope. Optionally populated.
     includeGuestsOrExternalUsers?: NullableOption<ConditionalAccessGuestsOrExternalUsers>;
     // Role IDs in scope of policy unless explicitly excluded.
     includeRoles?: string[];
@@ -20518,6 +20594,10 @@ export interface ConditionalAccessFilter {
     rule?: string;
 }
 export interface ConditionalAccessEnumeratedExternalTenants extends ConditionalAccessExternalTenants {
+    /**
+     * A collection of tenant IDs that define the scope of a policy targeting conditional access for guests and external
+     * users.
+     */
     members?: string[];
 }
 export interface ConditionalAccessGrantControls {
@@ -20535,7 +20615,16 @@ export interface ConditionalAccessGrantControls {
     authenticationStrength?: NullableOption<AuthenticationStrengthPolicy>;
 }
 export interface ConditionalAccessGuestsOrExternalUsers {
+    /**
+     * The tenant IDs of the selected types of external users. Either all B2B tenant or a collection of tenant IDs. External
+     * tenants can be specified only when the property guestOrExternalUserTypes is not null or an empty String.
+     */
     externalTenants?: NullableOption<ConditionalAccessExternalTenants>;
+    /**
+     * Indicates internal guests or external user types. This is a multi-valued property. Possible values are: none,
+     * internalGuest, b2bCollaborationGuest, b2bCollaborationMember, b2bDirectConnectUser, otherExternalUser, serviceProvider,
+     * unknownFutureValue.
+     */
     guestOrExternalUserTypes?: ConditionalAccessGuestOrExternalUserTypes;
 }
 export interface ConditionalAccessPolicyDetail {
@@ -20681,19 +20770,19 @@ export interface AccessPackageAssignmentApprovalSettings {
     stages?: NullableOption<AccessPackageApprovalStage[]>;
 }
 export interface AccessPackageAssignmentRequestorSettings {
-    // If false, the requestor is not permitted to include a schedule in their request.
+    // False indicates that the requestor is not permitted to include a schedule in their request.
     allowCustomAssignmentSchedule?: NullableOption<boolean>;
-    // If true, allows on-behalf-of requestors to create a request to add access for another principal.
+    // True allows on-behalf-of requestors to create a request to add access for another principal.
     enableOnBehalfRequestorsToAddAccess?: NullableOption<boolean>;
-    // If true, allows on-behalf-of requestors to create a request to remove access for another principal.
+    // True allows on-behalf-of requestors to create a request to remove access for another principal.
     enableOnBehalfRequestorsToRemoveAccess?: NullableOption<boolean>;
-    // If true, allows on-behalf-of requestors to create a request to update access for another principal.
+    // True allows on-behalf-of requestors to create a request to update access for another principal.
     enableOnBehalfRequestorsToUpdateAccess?: NullableOption<boolean>;
-    // If true, allows requestors to create a request to add access for themselves.
+    // True allows requestors to create a request to add access for themselves.
     enableTargetsToSelfAddAccess?: NullableOption<boolean>;
-    // If true, allows requestors to create a request to remove their access.
+    // True allows requestors to create a request to remove their access.
     enableTargetsToSelfRemoveAccess?: NullableOption<boolean>;
-    // If true, allows requestors to create a request to update their access.
+    // True allows requestors to create a request to update their access.
     enableTargetsToSelfUpdateAccess?: NullableOption<boolean>;
     // The principals who can request on-behalf-of others.
     onBehalfRequestors?: NullableOption<SubjectSet[]>;
@@ -25224,6 +25313,16 @@ export namespace ExternalConnectors {
         | "doubleCollection"
         | "dateTimeCollection"
         | "unknownFutureValue";
+    type RuleOperation =
+        | "null"
+        | "equals"
+        | "notEquals"
+        | "contains"
+        | "notContains"
+        | "lessThan"
+        | "greaterThan"
+        | "startsWith"
+        | "unknownFutureValue";
     interface ConnectionOperation extends microsoftgraph.Entity {
         // If status is failed, provides more information about the error that caused the failure.
         error?: NullableOption<microsoftgraph.PublicError>;
@@ -25237,6 +25336,8 @@ export namespace ExternalConnectors {
         connections?: NullableOption<ExternalConnection[]>;
     }
     interface ExternalConnection extends microsoftgraph.Entity {
+        // Collects configurable settings related to activities involving connector content.
+        activitySettings?: NullableOption<ActivitySettings>;
         /**
          * Specifies additional application IDs that are allowed to manage the connection and to index content in the connection.
          * Optional.
@@ -25249,6 +25350,11 @@ export namespace ExternalConnectors {
          * Required.
          */
         name?: NullableOption<string>;
+        /**
+         * The settings configuring the search experience for content in this connection, such as the display templates for search
+         * results.
+         */
+        searchSettings?: NullableOption<SearchSettings>;
         /**
          * Indicates the current state of the connection. Possible values are: draft, ready, obsolete, limitExceeded,
          * unknownFutureValue.
@@ -25310,12 +25416,59 @@ export namespace ExternalConnectors {
          */
         value?: string;
     }
+    interface ActivitySettings {
+        // Specifies configurations to identify an externalItem based on a shared URL.
+        urlToItemResolvers?: NullableOption<UrlToItemResolverBase[]>;
+    }
+    interface UrlToItemResolverBase {
+        // The priority which defines the sequence in which the urlToItemResolverBase instances are evaluated.
+        priority?: NullableOption<number>;
+    }
     interface Configuration {
         /**
          * A collection of application IDs for registered Azure Active Directory apps that are allowed to manage the
          * externalConnection and to index content in the externalConnection.
          */
         authorizedAppIds?: NullableOption<string[]>;
+    }
+    interface DisplayTemplate {
+        /**
+         * The text identifier for the display template; for example, contosoTickets. Maximum 16 characters. Only alphanumeric
+         * characters allowed.
+         */
+        id?: string;
+        /**
+         * The definition of the content's appearance, represented by an Adaptive Card, which is a JSON-serialized card object
+         * model.
+         */
+        layout?: any;
+        /**
+         * Defines the priority of a display template. A display template with priority 1 is evaluated before a template with
+         * priority 4. Gaps in priority values are supported. Must be positive value.
+         */
+        priority?: number;
+        // Specifies additional rules for selecting this display template based on the item schema. Optional.
+        rules?: NullableOption<PropertyRule[]>;
+    }
+    interface PropertyRule {
+        /**
+         * Specifies the operations to be performed during evaluation of a single propertyRule, where property and a string from
+         * the values collection are the respective operands. Possible values are: null, equals, notEquals, contains, notContains,
+         * lessThan, greaterThan, startsWith. Required.
+         */
+        operation?: RuleOperation;
+        // The property from the externalItem schema. Required.
+        property?: string;
+        /**
+         * A collection with one or many strings. The specified string(s) will be matched with the specified property using the
+         * specified operation. Required.
+         */
+        values?: string[];
+        /**
+         * The join operator for evaluating multiple propertyRules. For example, if and is specified, then all propertyRules must
+         * be true for the propertyRule to be true. Possible values are: or, and. Required.
+         */
+        valuesJoinedBy?: microsoftgraph.BinaryOperator;
     }
     interface ExternalItemContent {
         /**
@@ -25325,6 +25478,27 @@ export namespace ExternalConnectors {
         type?: ExternalItemContentType;
         // The content for the externalItem. Required.
         value?: NullableOption<string>;
+    }
+// tslint:disable-next-line: interface-name
+    interface ItemIdResolver extends UrlToItemResolverBase {
+        /**
+         * Pattern that specifies how to form the ID of the external item that the URL represents. The named groups from the
+         * regular expression in urlPattern within the urlMatchInfo can be referenced by inserting the group name inside curly
+         * brackets.
+         */
+        itemId?: string;
+        // Configurations to match and resolve URL.
+        urlMatchInfo?: NullableOption<UrlMatchInfo>;
+    }
+    interface UrlMatchInfo {
+        // A list of the URL prefixes that must match URLs to be processed by this URL-to-item-resolver.
+        baseUrls?: NullableOption<string[]>;
+        /**
+         * A regular expression that will be matched towards the URL that is processed by this URL-to-item-resolver. The
+         * ECMAScript specification for regular expressions (ECMA-262) is used for the evaluation. The named groups defined by the
+         * regular expression will be used later to extract values from the URL.
+         */
+        urlPattern?: NullableOption<string>;
     }
 // tslint:disable-next-line: no-empty-interface
     interface Properties {}
@@ -25374,6 +25548,13 @@ export namespace ExternalConnectors {
          * int64Collection, doubleCollection, dateTimeCollection, unknownFutureValue.
          */
         type?: PropertyType;
+    }
+    interface SearchSettings {
+        /**
+         * Enables the developer to define the appearance of the content and configure conditions that dictate when the template
+         * should be displayed. Maximum of 2 search result templates per connection.
+         */
+        searchResultTemplates?: NullableOption<DisplayTemplate[]>;
     }
 }
 export namespace SecurityNamespace {
