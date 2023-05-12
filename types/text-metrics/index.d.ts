@@ -3,7 +3,7 @@
 // Definitions by: Wunmi Sogunle <https://github.com/theresasogunle>
 // Definitions: https://github.com/modus-jose/DefinitelyTyped
 
-export type Styles = any;
+export type Styles = Record<string, any>;
 
 export function init(
   htmlElement: Node | Styles | null,
