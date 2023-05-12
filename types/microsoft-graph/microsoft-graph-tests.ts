@@ -257,3 +257,23 @@ const updateAllowedCombinationsResult: MicrosoftGraph.UpdateAllowedCombinationsR
 const chatMessageHistoryItem: MicrosoftGraph.ChatMessageHistoryItem = {};
 
 const chatMessageReaction: MicrosoftGraph.ChatMessageReaction = {};
+
+const crossTenantIdentitySyncPolicyPartner: MicrosoftGraph.CrossTenantIdentitySyncPolicyPartner = {};
+
+const sharepointSettings: MicrosoftGraph.SharepointSettings = {};
+
+const crossTenantUserSyncInbound: MicrosoftGraph.CrossTenantUserSyncInbound = {};
+
+const conditionalAccessExternalTenants: MicrosoftGraph.ConditionalAccessExternalTenants = {};
+
+const ruleOperation: MicrosoftGraph.ExternalConnectors.RuleOperation = "unknownFutureValue";
+
+const displayTemplate: MicrosoftGraph.ExternalConnectors.DisplayTemplate = {};
+
+const propertyRule: MicrosoftGraph.ExternalConnectors.PropertyRule = {};
+
+const itemIdResolver: MicrosoftGraph.ExternalConnectors.ItemIdResolver = {};
+
+const urlMatchInfo: MicrosoftGraph.ExternalConnectors.UrlMatchInfo = {};
+
+const searchSettings: MicrosoftGraph.ExternalConnectors.SearchSettings = {};
