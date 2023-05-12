@@ -12,17 +12,13 @@ import './js_handle';
 import './keyboard';
 import './element_handle';
 import './frame';
+import './worker';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
  * separate pages, cache, and cookies.
  */
 export class BrowserContext {}
-
-/**
- * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
- */
-export class Worker {}
 
 /**
  * Represents event-specific properties. Refer to the events documentation for

@@ -4,7 +4,6 @@ import {
     PageFunction,
     SelectOptionsObject,
     KeyboardModifier,
-    Worker,
     MouseButton,
     ScreenshotOptions,
     NavigationOptions } from "./";
@@ -16,6 +15,7 @@ import { Keyboard } from "./keyboard";
 import { Mouse } from "./mouse";
 import { ElementHandle } from "./element_handle";
 import { Frame } from "./frame";
+import { Worker } from "./worker";
 
 /**
  * Page provides methods to interact with a single tab in a running web browser

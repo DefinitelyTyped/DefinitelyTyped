@@ -1720,3 +1720,12 @@ frame.waitForTimeout(10000);
 page.touchscreen.tap();
 // $ExpectType void
 page.touchscreen.tap(1, 2);
+
+//
+// Worker
+//
+
+const worker = page.workers()[0];
+
+// $ExpectType string
+worker.url();
