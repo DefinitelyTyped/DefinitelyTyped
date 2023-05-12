@@ -30,6 +30,22 @@ newrelic.noticeError(Error('Oh no!')); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: 'bar' }); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: 42 }); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: true }); // $ExpectType void
+newrelic.noticeError(Error('Oh no!'), true); // $ExpectType void
+newrelic.noticeError(Error('Oh no!'), false); // $ExpectType void
+newrelic.noticeError(Error('Oh no!'), { foo: 'bar' }), true; // $ExpectType void
+newrelic.noticeError(Error('Oh no!'), { foo: 42 }, false); // $ExpectType void
+
+newrelic.setErrorGroupCallback((errMetadata) => {
+    let errorGroup;
+
+    if (errMetadata['error.expected'] === true) {
+        errorGroup = 'Expected Error';
+    } else {
+        errorGroup = 'Unexpected Error';
+    }
+
+    return errorGroup;
+}); // $ExpectType void
 
 newrelic.recordLogEvent({ message: '' }); // $ExpectType void
 newrelic.recordLogEvent({ message: '', timestamp: 1 }); // $ExpectType void
@@ -136,3 +152,5 @@ newrelic.setLambdaHandler(() => void 0); // $ExpectType () => undefined
 newrelic.setLambdaHandler((event: unknown, context: unknown) => ({ statusCode: 200, body: "Hello!" })); // $ExpectType (event: unknown, context: unknown) => { statusCode: number; body: string; }
 // @ts-expect-error
 newrelic.setLambdaHandler({some: "object"});
+
+newrelic.obfuscateSql('SELECT * FROM USERS', 'postgres'); // $ExpectType string
