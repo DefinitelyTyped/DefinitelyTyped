@@ -91,7 +91,7 @@ declare namespace OAuth2Strategy {
         scope?: string | string[] | undefined;
         scopeSeparator?: string | undefined;
         sessionKey?: string | undefined;
-        store?: StateStore | undefined;
+        store?: StateStore | boolean | undefined;
         state?: any;
         skipUserProfile?: any;
         pkce?: boolean | undefined;
