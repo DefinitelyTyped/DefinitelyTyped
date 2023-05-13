@@ -302,6 +302,8 @@ export interface IRouter extends RequestHandler {
     trace: IRouterMatcher<this>;
     unlock: IRouterMatcher<this>;
     unsubscribe: IRouterMatcher<this>;
+    link: IRouterMatcher<this>;
+    unlink: IRouterMatcher<this>;
 
     use: IRouterHandler<this> & IRouterMatcher<this>;
 
