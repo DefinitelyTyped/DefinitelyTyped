@@ -91,3 +91,102 @@ const f = async () => {
     process.exit(0);
 };
 f();
+
+const redisCluster = new IORedis.Cluster([{ host: process.env.redisEndpoint, port: 1234 }], {
+    redisOptions: {
+        data: {
+            user_next: '3',
+            emails: {
+                'clark@daily.planet': '1',
+                'bruce@wayne.enterprises': '2',
+            },
+            'user:1': { id: '1', username: 'superman', email: 'clark@daily.planet' },
+            'user:2': { id: '2', username: 'batman', email: 'bruce@wayne.enterprises' },
+        },
+        username: process.env.redisUsername,
+        password: process.env.redisPW,
+    },
+});
+
+// ioredis cluster supports all Redis commands as well:
+redisCluster.set('foo', 'bar');
+
+// ioredis supports the node.js callback style
+redisCluster.get('foo', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result); // Promise resolves to "bar"
+    }
+});
+
+// ioredis cluster supports additional commands
+redisCluster.refreshSlotsCache(err => {
+    if (err) {
+        console.error(err);
+    }
+});
+
+// which either supports node.js callback style
+redisCluster.asking((err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+// or promises
+redisCluster.asking().then(console.log);
+
+redisCluster.readwrite((err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.readwrite().then(console.log);
+
+redisCluster.readonly((err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.readonly().then(console.log);
+
+// Most cluster sub-commands are abstracted into the cluster function
+redisCluster.cluster('FAILOVER', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.cluster('FAILOVER', 'FORCE', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.cluster('FAILOVER', 'TAKEOVER', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.cluster('ADDSLOTSRANGE', '100', 101, '102', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
