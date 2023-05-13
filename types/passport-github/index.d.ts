@@ -37,7 +37,7 @@ declare namespace Strategy {
         scope?: string | string[] | undefined;
         scopeSeparator?: string | undefined;
         sessionKey?: string | undefined;
-        store?: oauth2.StateStore | undefined;
+        store?: oauth2.StateStore | boolean | undefined;
         state?: string | undefined;
         userAgent?: string | undefined;
         userProfileURL?: string | undefined;
