@@ -146,3 +146,11 @@ const providerSpecificVerifyFunctionWithRequest: OAuth2Strategy.VerifyFunctionWi
     results.someProviderResultField;
     profile.someProviderProfileField;
 };
+
+const strategyOptions4: StrategyOptions = {
+    authorizationURL: 'http://www.example.com/auth',
+    clientID: 'dummy',
+    clientSecret: 'secret',
+    tokenURL: 'http://www.example.com/token',
+    store: true,
+};
