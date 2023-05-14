@@ -96,7 +96,7 @@ declare module 'crypto' {
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
     namespace constants {
-        // https://nodejs.org/dist/latest-v10.x/docs/api/crypto.html#crypto_crypto_constants
+        // https://nodejs.org/dist/latest-v20.x/docs/api/crypto.html#crypto-constants
         const OPENSSL_VERSION_NUMBER: number;
         /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
         const SSL_OP_ALL: number;

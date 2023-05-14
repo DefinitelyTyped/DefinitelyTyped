@@ -149,12 +149,38 @@ declare module 'fs' {
     }
     export interface StatsFs extends StatsFsBase<number> {}
     /**
-     * Provides information about a mounted file system
+     * Provides information about a mounted file system.
      *
-     * Objects returned from {@link statfs} and {@link statfsSync} are of this type.
-     * If `bigint` in the `options` passed to those methods is true, the numeric values
-     * will be `bigint` instead of `number`.
-     * @since  v18.15.0
+     * Objects returned from {@link statfs} and its synchronous counterpart are of
+     * this type. If `bigint` in the `options` passed to those methods is `true`, the
+     * numeric values will be `bigint` instead of `number`.
+     *
+     * ```console
+     * StatFs {
+     *   type: 1397114950,
+     *   bsize: 4096,
+     *   blocks: 121938943,
+     *   bfree: 61058895,
+     *   bavail: 61058895,
+     *   files: 999,
+     *   ffree: 1000000
+     * }
+     * ```
+     *
+     * `bigint` version:
+     *
+     * ```console
+     * StatFs {
+     *   type: 1397114950n,
+     *   bsize: 4096n,
+     *   blocks: 121938943n,
+     *   bfree: 61058895n,
+     *   bavail: 61058895n,
+     *   files: 999n,
+     *   ffree: 1000000n
+     * }
+     * ```
+     * @since v19.6.0, v18.15.0
      */
     export class StatsFs {}
     export interface BigIntStatsFs extends StatsFsBase<bigint> {}
@@ -214,6 +240,11 @@ declare module 'fs' {
          * @since v10.10.0
          */
         name: string;
+        /**
+         * The base path that this `fs.Dirent` object refers to.
+         * @since v20.1.0
+         */
+        path: string;
     }
     /**
      * A class representing a directory stream.
@@ -3020,7 +3051,7 @@ declare module 'fs' {
                   bigint?: false | undefined;
               })
             | undefined,
-        listener: (curr: Stats, prev: Stats) => void
+        listener: StatsListener
     ): StatWatcher;
     export function watchFile(
         filename: PathLike,
@@ -3029,13 +3060,13 @@ declare module 'fs' {
                   bigint: true;
               })
             | undefined,
-        listener: (curr: BigIntStats, prev: BigIntStats) => void
+        listener: BigIntStatsListener
     ): StatWatcher;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      */
-    export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): StatWatcher;
+    export function watchFile(filename: PathLike, listener: StatsListener): StatWatcher;
     /**
      * Stop watching for changes on `filename`. If `listener` is specified, only that
      * particular listener is removed. Otherwise, _all_ listeners are removed,
@@ -3048,7 +3079,8 @@ declare module 'fs' {
      * @since v0.1.31
      * @param listener Optional, a listener previously attached using `fs.watchFile()`
      */
-    export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: Stats) => void): void;
+    export function unwatchFile(filename: PathLike, listener?: StatsListener): void;
+    export function unwatchFile(filename: PathLike, listener?: BigIntStatsListener): void;
     export interface WatchOptions extends Abortable {
         encoding?: BufferEncoding | 'buffer' | undefined;
         persistent?: boolean | undefined;
@@ -3056,6 +3088,8 @@ declare module 'fs' {
     }
     export type WatchEventType = 'rename' | 'change';
     export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
+    export type StatsListener = (curr: Stats, prev: Stats) => void;
+    export type BigIntStatsListener = (curr: BigIntStats, prev: BigIntStats) => void;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a
      * directory.

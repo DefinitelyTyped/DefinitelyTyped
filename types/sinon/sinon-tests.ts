@@ -72,6 +72,8 @@ function testSandbox() {
 
     sb.replace(replaceMe, 'prop', 10);
     sb.replace(replaceMe, 'method', sb.spy());
+    const fake = sb.replace(replaceMe, 'method', sb.fake.returns(2));
+    fake.callCount;
     sb.replaceGetter(replaceMe, 'getter', () => 14);
     sb.replaceSetter(replaceMe, 'setter', v => {});
 
