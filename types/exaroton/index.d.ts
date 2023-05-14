@@ -1,15 +1,16 @@
-// Type definitions for exaroton 1.8
+// Type definitions for exaroton 1.9
 // Project: https://github.com/exaroton/node-exaroton-api
 // Definitions by: Maximilian Hofmann <https://github.com/hofmmaxi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
-import { WebSocket } from 'ws';
-import FormData = require('form-data');
-import { ReadableStream, WritableStream } from 'node:stream/web';
+import type { EventEmitter } from 'node:events';
+import type { WebSocket } from 'ws';
 
-// Exported types
-export { Client, Request, Response, Server, Software };
+import type { ReadStream, WriteStream } from 'node:fs';
+import type { Headers, Method, Options, ResponseType } from 'got';
+
+export { Client, Request, Response, Server, ServerStatus, Software };
+
 declare class Client {
     protocol: string | 'https';
 
@@ -175,10 +176,7 @@ declare class Request {
      */
     hasBody(): boolean;
 
-    /**
-     * Get body for request
-     */
-    getBody(): FormData | string | ReadableStream;
+    getBody(): ReadStream | string | null;
 
     /**
      * Create a response object for this request
@@ -475,12 +473,7 @@ declare class Server extends EventEmitter {
      */
     get(): Promise<Server>;
 
-    /**
-     * Start the server
-     *
-     * @throws {RequestError}
-     */
-    start(): Promise<Response>;
+    start(useOwnCredits?: boolean): Promise<Response>;
 
     /**
      * Stop the server
