@@ -9207,11 +9207,21 @@ declare namespace chrome.tabs {
          * @since Chrome 41.
          */
         frameId?: number | undefined;
+        /**
+         * Optional. Open a port to a specific document identified by documentId instead of all frames in the tab.
+         * @since Chrome 106.
+         */
+        documentId?: string;
     }
 
     export interface MessageSendOptions {
         /** Optional. Send a message to a specific frame identified by frameId instead of all frames in the tab. */
         frameId?: number | undefined;
+        /**
+         * Optional. Send a message to a specific document identified by documentId instead of all frames in the tab.
+         * @since Chrome 106.
+         */
+        documentId?: string;
     }
 
     export interface GroupOptions {

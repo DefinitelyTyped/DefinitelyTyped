@@ -1550,6 +1550,9 @@ function testTabsSendMessage() {
     chrome.tabs.sendMessage(3, "Hello World!", console.log);
     chrome.tabs.sendMessage(4, "Hello World!", {}).then(() => { });
     chrome.tabs.sendMessage(5, "Hello World!", {}, console.log);
+    chrome.tabs.sendMessage(6, "Hello World!", {frameId: 1}, console.log);
+    chrome.tabs.sendMessage(7, "Hello World!", {documentId: 'id'}, console.log);
+    chrome.tabs.sendMessage(8, "Hello World!", {documentId: 'id', frameId: 0}, console.log);
     chrome.tabs.sendMessage<string>(6, "Hello World!", console.log);
     chrome.tabs.sendMessage<string, number>(7, "Hello World!", console.log);
     // @ts-expect-error
