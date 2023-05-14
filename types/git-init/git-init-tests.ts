@@ -1,5 +1,4 @@
-// @ts-ignore
-import * as init from './';
+import init = require('git-init');
 
 // $ExpectType void
 init((err: Error | null, stdout: any, stderr: any) => {
