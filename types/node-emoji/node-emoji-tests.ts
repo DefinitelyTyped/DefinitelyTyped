@@ -20,7 +20,7 @@ const unemojified_string: string = emoji.unemojify('I ❤️ 🍕');
 const found_emoji = emoji.find('🍕');
 const found_emoji_string: string | undefined = found_emoji?.emoji;
 
-const hasEmoji: boolean = emoji.hasEmoji('🍕');
+const hasEmoji: boolean = emoji.has('🍕');
 
 const stripped_emoji: string = emoji.strip('⚠️ 〰️ 〰️ low disk space');
 

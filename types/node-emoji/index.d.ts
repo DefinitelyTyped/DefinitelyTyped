@@ -41,7 +41,7 @@ export function get(emoji: string): string | undefined;
 /**
  * Check if this library supports a specific emoji.
  */
-export function hasEmoji(emoji: string): boolean;
+export function has(emoji: string): boolean;
 
 /**
  * Get a random emoji.
