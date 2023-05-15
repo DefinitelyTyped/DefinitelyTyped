@@ -1331,7 +1331,6 @@ function test_tools() {
     };
     buffer = new ckEditor.tools.buffers.throttle(1000, fn2);
     (buffer as CKEDITOR.tools.buffers.throttle).input('the throttle test.');
-
 }
 
 function test_plugins() {
