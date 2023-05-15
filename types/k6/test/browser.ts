@@ -1,8 +1,12 @@
-import { ElementState, ImageFormat, InputElementState, LifecycleEvent } from 'k6/experimental/browser';
-import { Page } from 'k6/experimental/browser/page';
-import { Request } from 'k6/experimental/browser/request';
-import { Response } from 'k6/experimental/browser/response';
-import { ElementHandle } from 'k6/experimental/browser/element_handle';
+import {
+    ElementState,
+    ImageFormat,
+    InputElementState,
+    LifecycleEvent,
+    Page,
+    Request,
+    Response,
+    ElementHandle } from 'k6/experimental/browser';
 
 const url = 'http://example.com';
 const selector = 'a[href="http://example.com"]';

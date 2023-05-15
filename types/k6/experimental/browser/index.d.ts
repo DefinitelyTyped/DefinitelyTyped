@@ -3,16 +3,16 @@
  * test automation to the k6 testing platform.
  */
 
-import './page';
-import './touchscreen';
-import './request';
-import './response';
-import './locator';
-import './js_handle';
-import './keyboard';
-import './element_handle';
-import './frame';
-import './worker';
+export { Page } from './page';
+export { Touchscreen } from './touchscreen';
+export { Request } from './request';
+export { Response } from './response';
+export { Locator } from './locator';
+export { JSHandle } from './js_handle';
+export { Keyboard } from './keyboard';
+export { ElementHandle } from './element_handle';
+export { Frame } from './frame';
+export { Worker } from './worker';
 
 /**
  * `BrowserContexts` provide a way to operate multiple independent sessions, with
