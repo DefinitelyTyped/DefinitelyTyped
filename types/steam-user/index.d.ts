@@ -981,6 +981,7 @@ declare class SteamUser extends EventEmitter {
 
 //#region "Events"
 interface Events {
+    debug: [message: string];
     appLaunched: [appid: number];
     appQuit: [appid: number];
     receivedFromGC: [appid: number, msgType: number, payload: Buffer];

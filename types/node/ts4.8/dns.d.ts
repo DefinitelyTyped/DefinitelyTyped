@@ -633,6 +633,7 @@ declare module 'dns' {
         resolve4: typeof resolve4;
         resolve6: typeof resolve6;
         resolveAny: typeof resolveAny;
+        resolveCaa: typeof resolveCaa;
         resolveCname: typeof resolveCname;
         resolveMx: typeof resolveMx;
         resolveNaptr: typeof resolveNaptr;

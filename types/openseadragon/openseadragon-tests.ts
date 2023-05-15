@@ -69,3 +69,11 @@ const viewer4 = OpenSeadragon({
 const viewer5 = OpenSeadragon({
     mouseNavEnabled: true,
 });
+
+viewer.addTiledImage({
+    tileSource: {
+        type: 'image',
+        url: 'foo.jpg'
+    },
+    flipped: true
+});
