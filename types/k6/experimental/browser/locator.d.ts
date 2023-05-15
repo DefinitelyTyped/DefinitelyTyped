@@ -8,6 +8,8 @@ import {
     ElementHandleOptions,
     EvaluationArgument,
     ElementState,
+    MouseMultiClickOptions,
+    StrictnessOptions,
 } from "./";
 
 /**
@@ -23,128 +25,128 @@ import {
 export class Locator {
   /**
    * Mouse click on the chosen element.
-   * @param options Click options.
+   * @param options Options to use.
    * @returns Promise which resolves when the element is successfully clicked.
    */
-  click(options?: MouseMoveOptions & MouseClickOptions): Promise<void>;
+  click(options?: MouseMoveOptions & MouseMultiClickOptions & StrictnessOptions): Promise<void>;
 
   /**
    * Mouse double click on the chosen element.
-   * @param options Double click options.
+   * @param options Options to use.
    */
-  dblclick(options?: { clickCount?: number } & MouseClickOptions & KeyboardModifierOptions & ElementClickOptions): void;
+  dblclick(options?: MouseMoveOptions & MouseMultiClickOptions & StrictnessOptions): void;
 
   /**
    * Use this method to select an `input type="checkbox"`.
-   * @param options Element click options.
+   * @param options Options to use.
    */
-  check(options?: ElementClickOptions): void;
+  check(options?: ElementClickOptions & StrictnessOptions): void;
 
   /**
    * Use this method to unselect an `input type="checkbox"`.
-   * @param options Element click options.
+   * @param options Options to use.
    */
-  uncheck(options?: ElementClickOptions): void;
+  uncheck(options?: ElementClickOptions & StrictnessOptions): void;
 
   /**
    * Checks to see if the `input type="checkbox"` is selected or not.
-   * @param options timeout options.
+   * @param options Options to use.
    * @returns `true` if the element is checked, `false` otherwise.
    */
-  isChecked(options?: TimeoutOptions): boolean;
+  isChecked(options?: TimeoutOptions & StrictnessOptions): boolean;
 
   /**
    * Checks if the element is editable.
-   * @param options timeout options.
+   * @param options Options to use.
    * @returns `true` if the element is editable, `false` otherwise.
    */
   isEditable(options?: TimeoutOptions): boolean;
 
   /**
    * Checks if the element is `enabled`.
-   * @param options timeout options.
+   * @param options Options to use.
    * @returns `true` if the element is enabled, `false` otherwise.
    */
-  isEnabled(options?: TimeoutOptions): boolean;
+  isEnabled(options?: TimeoutOptions & StrictnessOptions): boolean;
 
   /**
    * Checks if the element is `disabled`.
-   * @param options timeout options.
+   * @param options Options to use.
    * @returns `true` if the element is disabled, `false` otherwise.
    */
-  isDisabled(options?: TimeoutOptions): boolean;
+  isDisabled(options?: TimeoutOptions & StrictnessOptions): boolean;
 
   /**
    * Checks if the element is `visible`.
-   * @param options timeout options.
+   * @param options Options to use.
    * @returns `true` if the element is visible, `false` otherwise.
    */
-  isVisible(options?: TimeoutOptions): boolean;
+  isVisible(options?: TimeoutOptions & StrictnessOptions): boolean;
 
   /**
    * Checks if the element is `hidden`.
-   * @param options timeout options.
+   * @param options Options to use.
    * @returns `true` if the element is hidden, `false` otherwise.
    */
-  isHidden(options?: TimeoutOptions): boolean;
+  isHidden(options?: TimeoutOptions & StrictnessOptions): boolean;
 
   /**
    * Fill an `input`, `textarea` or `contenteditable` element with the provided value.
    * @param value Value to fill for the `input` or `textarea` element.
-   * @param options Element handle options.
+   * @param options Options to use.
    */
-  fill(value: string, options?: ElementHandleOptions): void;
+  fill(value: string, options?: ElementHandleOptions & StrictnessOptions): void;
 
   /**
    * Focuses the element using locator's selector.
-   * @param options Timeout options.
+   * @param options Options to use.
    */
-  focus(options?: TimeoutOptions): void;
+  focus(options?: TimeoutOptions & StrictnessOptions): void;
 
   /**
    * Returns the element attribute value for the given attribute name.
    * @param name Attribute name to retrieve value for.
-   * @param options Timeout options.
+   * @param options Options to use.
    * @returns Attribute value.
    */
-  getAttribute(name: string, options?: TimeoutOptions): string|null;
+  getAttribute(name: string, options?: TimeoutOptions & StrictnessOptions): string|null;
 
   /**
    * Returns the `element.innerHTML`.
-   * @param options Timeout options.
+   * @param options Options to use.
    * @returns Element's innerHTML.
    */
-  innerHTML(options?: TimeoutOptions): string;
+  innerHTML(options?: TimeoutOptions & StrictnessOptions): string;
 
   /**
    * Returns the `element.innerText`.
-   * @param options Timeout options.
+   * @param options Options to use.
    * @returns Element's innerText.
    */
-  innerText(options?: TimeoutOptions): string;
+  innerText(options?: TimeoutOptions & StrictnessOptions): string;
 
   /**
    * Returns the `element.textContent`.
-   * @param options Timeout options.
+   * @param options Options to use.
    * @returns Element's textContent.
    */
-  textContent(options?: TimeoutOptions): string;
+  textContent(options?: TimeoutOptions & StrictnessOptions): string;
 
   /**
    * Returns `input.value` for the selected `input`, `textarea` or `select` element.
-   * @param options Timeout options.
+   * @param options Options to use.
    * @returns The input value of the element.
    */
-  inputValue(options?: TimeoutOptions): string;
+  inputValue(options?: TimeoutOptions & StrictnessOptions): string;
 
   /**
    * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
    * otherwise only the first option matching one of the passed options is selected.
    * @param values Values of options to select.
-   * @param options Element handle options.
+   * @param options Options to use.
    * @returns List of selected options.
    */
-  selectOption(values: string|string[]|{ value?: string; label?: string; index?: number }, options?: ElementHandleOptions): string[];
+  selectOption(values: string|string[]|{ value?: string; label?: string; index?: number }, options?: ElementHandleOptions & StrictnessOptions): string[];
 
   /**
    * Press a single key on the keyboard or a combination of keys.
@@ -163,27 +165,27 @@ export class Locator {
 
   /**
    * Hover over the element.
-   * @param options Mouse move options.
+   * @param options Options to use.
    */
-  hover(options?: MouseMoveOptions): void;
+  hover(options?: MouseMoveOptions & StrictnessOptions): void;
 
   /**
    * Tap on the chosen element.
-   * @param options Tap options.
+   * @param options Options to use.
    */
-  tap(options?: MouseMoveOptions): void;
+  tap(options?: MouseMoveOptions & StrictnessOptions): void;
 
   /**
    * Dispatches HTML DOM event types e.g. `click`.
    * @param type DOM event type.
    * @param eventInit Event-specific properties.
-   * @param options Timeout options.
+   * @param options Options to use.
    */
-  dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions): void;
+  dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions & StrictnessOptions): void;
 
   /**
    * Wait for the element to be in a particular state e.g. `visible`.
    * @param options Wait options.
    */
-  waitFor(options?: TimeoutOptions & { state?: ElementState }): void;
+  waitFor(options?: { state?: ElementState } & TimeoutOptions & StrictnessOptions): void;
 }
