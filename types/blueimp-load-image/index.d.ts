@@ -16,8 +16,11 @@ declare namespace loadImage {
 
     type ExifTagValue = number | string | string[];
 
+    type ExifMap = Record<number, number>;
+
     interface Exif {
         [tag: number]: ExifTagValue;
+        map: Record<string, number>;
         get: (tagName: 'Orientation' | 'Thumbnail' | 'Exif' | 'GPSInfo' | 'Interoperability') => ExifTagValue;
     }
 
@@ -34,6 +37,12 @@ declare namespace loadImage {
         originalHeight?: number | undefined;
         exif?: Exif | undefined;
         iptc?: Iptc | undefined;
+        exifOffsets?: ExifMap;
+    }
+
+    interface WriteExifData {
+        exif: Pick<Exif, 'map'>;
+        exifOffsets: ExifMap;
     }
 
     interface BasicOptions {
@@ -102,6 +111,15 @@ declare namespace loadImage {
 
         // Disables creating the imageHead property.
         disableImageHead?: boolean | undefined;
+
+        disableExif?: boolean | undefined;
+        disableExifOffsets?: boolean | undefined;
+        includeExifTags?: Record<number, boolean> | undefined;
+        excludeExifTags?: Record<number, boolean> | undefined;
+        disableIptc?: boolean | undefined;
+        disableIptcOffsets?: boolean | undefined;
+        includeIptcTags?: Record<number, boolean> | undefined;
+        excludeIptcTags?: Record<number, boolean> | undefined;
     }
 
     type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
@@ -122,15 +140,15 @@ interface ParseMetadata {
 }
 
 interface ReplaceHead {
-    (
-        blob: Blob,
-        head: ArrayBuffer | Uint8Array,
-        callback: (blob: Blob|null) => void
-    ): void;
-    (
-        blob: Blob,
-        head: ArrayBuffer | Uint8Array,
-    ): Promise<Blob|null>;
+    (blob: Blob, head: ArrayBuffer | Uint8Array, callback: (blob: Blob | null) => void): void;
+    (blob: Blob, head: ArrayBuffer | Uint8Array): Promise<Blob | null>;
+}
+
+interface Scale {
+    <O extends loadImage.LoadImageOptions>(
+        image: HTMLImageElement | HTMLCanvasElement,
+        options?: O,
+    ): O extends loadImage.CanvasTrueOptions ? HTMLCanvasElement : HTMLImageElement;
 }
 
 // loadImage is implemented as a callable object.
@@ -149,7 +167,24 @@ interface LoadImage {
     // Replaces the image head of a JPEG blob with the given one
     replaceHead: ReplaceHead;
 
-    writeExifData: (buffer: ArrayBuffer | Uint8Array, data: loadImage.MetaData, id: number | string, value: loadImage.ExifTagValue) => ArrayBuffer | Uint8Array;
+    writeExifData: (
+        buffer: ArrayBuffer | Uint8Array,
+        data: loadImage.WriteExifData,
+        id: number | string,
+        value: loadImage.ExifTagValue,
+    ) => ArrayBuffer | Uint8Array;
+
+    scale: Scale;
+
+    // Internal functions, undocumented
+    requiresMetaData: (options: loadImage.LoadImageOptions) => boolean;
+    fetchBlob: (url: string, callback: () => void) => void;
+    transform: (img: unknown, options: unknown, callback: () => void, file: unknown, data: unknown) => void;
+    global: Window;
+    readFile: unknown;
+    isInstanceOf: unknown;
+    createObjectURL: (blob: Blob) => string | false;
+    revokeObjectURL: (url: string) => void | false;
 }
 
 declare const loadImage: LoadImage;
