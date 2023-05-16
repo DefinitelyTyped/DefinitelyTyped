@@ -249,6 +249,10 @@ export interface ClearSessionParams {
     customScheme?: string;
 }
 
+export interface ClearSessionOptions {
+    skipLegacyListener?: boolean; // Whether to register the event listener necessary for the SDK to work on iOS <11 or not. Defaults to `false`.
+}
+
 export interface Credentials {
     accessToken: string;
     idToken?: string;
@@ -260,7 +264,7 @@ export interface Credentials {
 
 export class WebAuth {
     authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<Credentials>;
-    clearSession(parameters?: ClearSessionParams): Promise<any>;
+    clearSession(parameters?: ClearSessionParams, options?: ClearSessionOptions): Promise<any>;
 }
 
 export interface UsersOptions {
@@ -324,7 +328,7 @@ export class Auth0ContextInterface {
     error: BaseError | null;
     isLoading: boolean;
     authorize(parameters?: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
-    clearSession(): Promise<void>;
+    clearSession(parameters?: ClearSessionParams, options?: ClearSessionOptions): Promise<void>;
     getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
     clearCredentials(): Promise<void>;
     requireLocalAuthentication(
