@@ -37,3 +37,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     const arrayBuffer = new ArrayBuffer(0);
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
 }
+
+{
+    const x = new AbortController().signal;
+    x.reason; // $ExpectType any
+    x.throwIfAborted(); // $ExpectType void
+}
