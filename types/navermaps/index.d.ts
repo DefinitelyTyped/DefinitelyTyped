@@ -1241,7 +1241,7 @@ declare namespace naver.maps {
      */
     class Marker extends OverlayView {
         constructor(options: MarkerOptions);
-        getAnimation(): Animation;
+        getAnimation(): Animation | null;
         getClickable(): boolean;
         getCursor(): string;
         getDraggable(): boolean;
@@ -1253,7 +1253,7 @@ declare namespace naver.maps {
         getTitle(): string;
         getVisible(): boolean;
         getZIndex(): number;
-        setAnimation(animation: Animation): void;
+        setAnimation(animation: Animation | null): void;
         setClickable(clickable: boolean): void;
         setCursor(cursor: string): void;
         setDraggable(draggable: boolean): void;
