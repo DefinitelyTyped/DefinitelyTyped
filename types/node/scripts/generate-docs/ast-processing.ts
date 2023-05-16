@@ -134,6 +134,10 @@ class TagHelper {
         return this.createUnknownTag('deprecated', this.fixupCommentFormatting(text, 'deprecated'));
     }
 
+    createLegacyTag(text: string): JSDocUnknownTag {
+        return this.createUnknownTag('legacy', this.fixupCommentFormatting(text, 'legacy'));
+    }
+
     createSeeLinkTag(url: string, text: string): JSDocSeeTag {
         const { factory } = this.docContext.transformationContext;
         return this.docContext.transformationContext.factory.createJSDocSeeTag(
@@ -185,7 +189,7 @@ class TagHelper {
                 tags.push(this.createExperimentalTag());
                 break;
             case Stability.Legacy:
-                tags.push(this.createDeprecatedTag(stabilityText?.replace('Legacy. ', '') ?? 'Legacy API'));
+                tags.push(this.createLegacyTag(stabilityText?.replace('Legacy: ', '').replace('Legacy. ', '') ?? 'Legacy API'));
                 break;
         }
         return tags;
@@ -388,7 +392,7 @@ export class NodeProcessingContext {
         return {
             status: JSDocMatchResult.Ok,
             data: {
-                text: this.fixupDescriptionFormatting(desc,  moduleDocs.name),
+                text: this.fixupDescriptionFormatting(desc, moduleDocs.name),
                 tags,
             }
         };
@@ -516,9 +520,9 @@ export class NodeProcessingContext {
                 transformationContext.factory.createJSDocComment(processRes.data.text, processRes.data.tags),
                 node.getSourceFile(),
             )
-            .replaceAll('/**', '')
-            .replaceAll('*/', '')
-            .replaceAll(/&lt;(.*?)&gt;/g, '$1');
+                .replaceAll('/**', '')
+                .replaceAll('*/', '')
+                .replaceAll(/&lt;(.*?)&gt;/g, '$1');
             const newNode = removeCommentsRecursive(node, transformationContext, typeChecker);
             addSyntheticLeadingComment(newNode, SyntaxKind.MultiLineCommentTrivia, jsdoc, true);
         } else {
