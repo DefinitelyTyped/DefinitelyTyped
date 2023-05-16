@@ -97,7 +97,7 @@ declare namespace convict {
     };
 
     interface InternalSchema<T> {
-        properties: {
+        _cvtProperties: {
             [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] };
         };
     }

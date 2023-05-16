@@ -194,7 +194,9 @@ conf.has("db.ip");
 
 const schema = conf.getSchema();
 
+// @ts-expect-error The `properties` property was renamed in Convict v6.0.0 to `_cvtProperties`
 const schemaVal = conf.getSchema().properties.db.properties.port.default;
+const schemaValNew = conf.getSchema()._cvtProperties.db._cvtProperties.port.default;
 
 conf.get();
 
