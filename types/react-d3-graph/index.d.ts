@@ -102,7 +102,7 @@ export interface GraphConfiguration<N extends GraphNode, L extends GraphLink> {
     highlightOpacity: number;
     maxZoom: number;
     minZoom: number;
-    initialZoom: number;
+    initialZoom: number | null;
     panAndZoom: boolean;
     staticGraph: boolean;
     staticGraphWithDragAndDrop: boolean;
