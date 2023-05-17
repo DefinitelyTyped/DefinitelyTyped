@@ -2,6 +2,8 @@ import { dispatch, select } from '@wordpress/data';
 import * as e from '@wordpress/editor';
 
 declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
+declare const FILELIST: FileList;
+declare const FILE_ARRAY: File[];
 
 // $ExpectType EditorStoreDescriptor
 e.store;
@@ -404,3 +406,32 @@ select('core/editor').getPostEdits().foo;
 
 // $ExpectType boolean
 select('core/editor').inSomeHistory(state => state.foo === true);
+
+//
+// Utils
+// ============================================================================
+
+// $ExpectType void
+e.mediaUpload({
+    filesList: FILELIST,
+    onFileChange(files) {
+        console.log(files[0].alt, files[0].media_type);
+    },
+});
+
+// $ExpectType void
+e.mediaUpload({
+    additionalData: {
+        foo: 'foo',
+        bar: ['bar', 'baz'],
+    },
+    allowedTypes: ['image/jpeg'],
+    filesList: FILE_ARRAY,
+    maxUploadFileSize: 5000,
+    onError(message) {
+        console.log(message);
+    },
+    onFileChange(files) {
+        console.log(files[0].alt, files[0].media_type);
+    },
+});
