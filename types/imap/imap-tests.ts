@@ -22,6 +22,7 @@ function openInbox(cb : (error : Error, box: IMAP.Box) => void) {
 
 imap.once('ready', function() {
     openInbox(function(err, box) {
+        console.log('Mailbox highestmodseq: ', box.highestmodseq);
         if (err) throw err;
         var f = imap.seq.fetch('1:3', {
             bodies: 'HEADER.FIELDS (FROM TO SUBJECT DATE)',
