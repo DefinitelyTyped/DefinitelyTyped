@@ -1,4 +1,4 @@
-// Type definitions for eslint 8.37
+// Type definitions for eslint 8.40
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -209,6 +209,8 @@ export class SourceCode {
     getCommentsAfter(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
     getCommentsInside(node: ESTree.Node): ESTree.Comment[];
+
+    getScope(node: ESTree.Node): Scope.Scope;
 }
 
 export namespace SourceCode {
@@ -684,19 +686,27 @@ export namespace Rule {
         parserPath: string;
         parserOptions: Linter.ParserOptions;
         parserServices: SourceCode.ParserServices;
+        cwd: string;
+        filename: string;
+        physicalFilename: string;
+        sourceCode: SourceCode;
 
         getAncestors(): ESTree.Node[];
 
         getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
+        /** @deprecated Use property `filename` directly instead */
         getFilename(): string;
 
+        /** @deprecated Use property `physicalFilename` directly instead */
         getPhysicalFilename(): string;
 
+        /** @deprecated Use property `cwd` directly instead */
         getCwd(): string;
 
         getScope(): Scope.Scope;
 
+        /** @deprecated Use property `sourceCode` directly instead */
         getSourceCode(): SourceCode;
 
         markVariableAsUsed(name: string): boolean;
