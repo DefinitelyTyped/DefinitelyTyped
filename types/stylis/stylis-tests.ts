@@ -1,10 +1,15 @@
-import { compile, serialize, stringify, middleware, DECLARATION } from 'stylis';
+import { compile, serialize, stringify, middleware, DECLARATION, LAYER, MEDIA } from 'stylis';
 
 const styles = `
   .class {
     margin-top: 5px;
   }
 `;
+
+// $ExpectType "@layer"
+LAYER;
+// $ExpectType "@media"
+MEDIA;
 
 // $ExpectType Element[]
 const AST = compile(styles);
