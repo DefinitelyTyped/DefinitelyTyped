@@ -277,3 +277,21 @@ const itemIdResolver: MicrosoftGraph.ExternalConnectors.ItemIdResolver = {};
 const urlMatchInfo: MicrosoftGraph.ExternalConnectors.UrlMatchInfo = {};
 
 const searchSettings: MicrosoftGraph.ExternalConnectors.SearchSettings = {};
+
+const meetingAttendanceReport: MicrosoftGraph.MeetingAttendanceReport = {};
+
+const audioConferencing: MicrosoftGraph.AudioConferencing = {};
+
+const broadcastMeetingSettings: MicrosoftGraph.BroadcastMeetingSettings = {};
+
+const chatInfo: MicrosoftGraph.ChatInfo = {};
+
+const joinMeetingIdSettings: MicrosoftGraph.JoinMeetingIdSettings = {};
+
+const meetingParticipants: MicrosoftGraph.MeetingParticipants = {};
+
+const externalActivity: MicrosoftGraph.ExternalConnectors.ExternalActivity = {};
+
+const identity: MicrosoftGraph.ExternalConnectors.Identity = {};
+
+const externalActivityResult: MicrosoftGraph.ExternalConnectors.ExternalActivityResult = {};
