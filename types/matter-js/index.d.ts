@@ -1385,7 +1385,7 @@ declare namespace Matter {
          * Triggers `beforeRemove` and `afterRemove` events on the `composite`.
          * @method remove
          * @param {Composite} composite
-         * @param {any} object
+         * @param object
          * @param {boolean} [deep=false]
          * @returns {Composite} The original composite with the objects removed
          */
