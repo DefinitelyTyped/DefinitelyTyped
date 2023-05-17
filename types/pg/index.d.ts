@@ -1,4 +1,4 @@
-// Type definitions for pg 8.6
+// Type definitions for pg 8.10
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,7 @@ export interface ClientConfig {
     host?: string | undefined;
     connectionString?: string | undefined;
     keepAlive?: boolean | undefined;
-    stream?: stream.Duplex | undefined;
+    stream?: () => stream.Duplex | stream.Duplex | undefined;
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
     query_timeout?: number | undefined;
