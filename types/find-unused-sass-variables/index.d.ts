@@ -1,4 +1,4 @@
-// Type definitions for find-unused-sass-variables 4.0
+// Type definitions for find-unused-sass-variables 4.1
 // Project: https://github.com/XhmikosR/find-unused-sass-variables#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,6 +19,8 @@ declare const _default: {
 export interface Options {
     /** Array of strings of the variables to ignore, e.g. `['$my-var', '$my-second-var']` */
     ignore?: string[] | undefined;
+    /** Array of strings of files to ignore, e.g. `['./file-with-unused-vars.scss', '**\/_variables.scss']`. */
+    ignoreFiles?: string[] | undefined;
     /** Array of file extensions to search for unused variables in. e.g. `['scss']` */
     fileExtensions?: string[] | undefined;
 }
