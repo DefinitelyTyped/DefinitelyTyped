@@ -603,67 +603,67 @@
     // $ExpectType Promise<Calendar[]>
     Calendar.forReminders();
     // @ts-expect-error
-    Calendar.forReminders("foo");
+    Calendar.forReminders('foo');
 
     // $ExpectType Promise<Calendar[]>
     Calendar.forEvents();
     // @ts-expect-error
-    Calendar.forEvents("foo");
+    Calendar.forEvents('foo');
 
     // @ts-expect-error
     Calendar.forRemindersByTitle();
     // @ts-expect-error
     Calendar.forRemindersByTitle(42);
     // $ExpectType Promise<Calendar>
-    const promise = Calendar.forRemindersByTitle("foo");
+    const promise = Calendar.forRemindersByTitle('foo');
 
     // @ts-expect-error
     Calendar.forEventsByTitle();
     // @ts-expect-error
     Calendar.forEventsByTitle(42);
     // $ExpectType Promise<Calendar>
-    Calendar.forEventsByTitle("foo");
-    
+    Calendar.forEventsByTitle('foo');
+
     // @ts-expect-error
     Calendar.createForReminders();
     // @ts-expect-error
     Calendar.createForReminders(42);
     // $ExpectType Promise<Calendar>
-    Calendar.createForReminders("foo");
+    Calendar.createForReminders('foo');
 
     // @ts-expect-error
     Calendar.findOrCreateForReminders();
     // @ts-expect-error
     Calendar.findOrCreateForReminders(42);
     // $ExpectType Promise<Calendar>
-    Calendar.findOrCreateForReminders("foo");
+    Calendar.findOrCreateForReminders('foo');
 
     // $ExpectType Promise<Calendar>
     Calendar.defaultForReminders();
     // @ts-expect-error
-    Calendar.defaultForReminders("foo");
+    Calendar.defaultForReminders('foo');
 
     // $ExpectType Promise<Calendar>
     Calendar.defaultForEvents();
     // @ts-expect-error
-    Calendar.defaultForEvents("foo");
-    
+    Calendar.defaultForEvents('foo');
+
     // $ExpectType Promise<Calendar[]>
     Calendar.presentPicker();
     // @ts-expect-error
-    Calendar.presentPicker("foo");
+    Calendar.presentPicker('foo');
     // $ExpectType Promise<Calendar[]>
     Calendar.presentPicker(false);
     // $ExpectType Promise<Calendar[]>
     Calendar.presentPicker(true);
 
-    promise.then((calendar) => {
+    promise.then(calendar => {
         // $ExpectType string
         calendar.identifier;
-        calendar.identifier = "foo";
+        calendar.identifier = 'foo';
         // $ExpectType string
         calendar.title;
-        calendar.title = "foo";
+        calendar.title = 'foo';
         // $ExpectType boolean
         calendar.isSubscribed;
         calendar.isSubscribed = true;
@@ -672,15 +672,15 @@
         calendar.allowsContentModifications = true;
         // $ExpectType Color
         calendar.color;
-        calendar.color = new Color("000000");
-        
+        calendar.color = new Color('000000');
+
         // @ts-expect-error
         calendar.supportsAvailability();
         // @ts-expect-error
-        calendar.supportsAvailability("foo");
+        calendar.supportsAvailability('foo');
         // $ExpectType boolean
-        calendar.supportsAvailability("busy");
-        
+        calendar.supportsAvailability('busy');
+
         // $ExpectType void
         calendar.save();
         // @ts-expect-error
@@ -690,7 +690,7 @@
         calendar.remove();
         // @ts-expect-error
         calendar.remove(42);
-    })
+    });
 }
 
 {
@@ -743,7 +743,7 @@
 {
     // @ts-expect-error
     new ContactsContainer();
-    
+
     // $ExpectType Promise<ContactsContainer>
     const promise = ContactsContainer.default();
     // $ExpectType Promise<ContactsContainer[]>
@@ -751,12 +751,12 @@
     // @ts-expect-error
     ContactsContainer.withIdentifier();
     // $ExpectType Promise<ContactsContainer>
-    ContactsContainer.withIdentifier("foo");
-    
-    promise.then((container) => {
+    ContactsContainer.withIdentifier('foo');
+
+    promise.then(container => {
         // $ExpectType string
         container.identifier;
         // $ExpectType string
         container.name;
-    })
+    });
 }
