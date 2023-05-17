@@ -283,7 +283,7 @@ declare class Server extends EventEmitter {
 
     getFile(path: string): File;
 
-    hasStatus(status: ServerStatus| ServerStatus[]): boolean;
+    hasStatus(status: ServerStatus| ReadonlyArray<ServerStatus>): boolean;
 
     getWebsocketClient(): WebsocketClient;
 
@@ -358,11 +358,11 @@ declare class PlayerList {
 
     getEntries(): Promise<string[]>;
 
-    addEntries(entries: string[]): Promise<Response>;
+    addEntries(entries: ReadonlyArray<string>): Promise<Response>;
 
     addEntry(entry: string): Promise<Response>;
 
-    deleteEntries(entries: string[]): Promise<Response>;
+    deleteEntries(entries: ReadonlyArray<string>): Promise<Response>;
 
     deleteEntry(entry: string): Promise<Response>;
 }
