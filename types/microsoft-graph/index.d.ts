@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.31
+// Type definitions for non-npm package microsoft-graph 2.32
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -5253,20 +5253,21 @@ export interface ActivityBasedTimeoutPolicy extends StsPolicy {}
 export interface AuthorizationPolicy extends PolicyBase {
     // Indicates whether users can sign up for email based subscriptions.
     allowedToSignUpEmailBasedSubscriptions?: boolean;
-    // Indicates whether the Self-Serve Password Reset feature can be used by users on the tenant.
+    // Indicates whether users can use the Self-Serve Password Reset feature on the tenant.
     allowedToUseSSPR?: boolean;
     // Indicates whether a user can join the tenant by email validation.
     allowEmailVerifiedUsersToJoinOrganization?: boolean;
     /**
      * Indicates who can invite external users to the organization. Possible values are: none, adminsAndGuestInviters,
      * adminsGuestInvitersAndAllMembers, everyone. everyone is the default setting for all cloud environments except US
-     * Government. See more in the table below.
+     * Government. For more details, see allowInvitesFrom values.
      */
     allowInvitesFrom?: NullableOption<AllowInvitesFrom>;
+    // Indicates whether user consent for risky apps is allowed. We recommend to keep this as false. Default value is false.
     allowUserConsentForRiskyApps?: NullableOption<boolean>;
     /**
-     * To disable the use of MSOL PowerShell set this property to true. This will also disable user-based access to the legacy
-     * service endpoint used by MSOL PowerShell. This does not affect Azure AD Connect or Microsoft Graph.
+     * To disable the use of MSOL PowerShell, set this property to true. This also disables user-based access to the legacy
+     * service endpoint used by MSOL PowerShell. This does not affect Azure Active Directory Connect or Microsoft Graph.
      */
     blockMsolPowerShell?: NullableOption<boolean>;
     // Specifies certain customizable permissions for default user role.
@@ -6952,6 +6953,10 @@ export interface Contract extends DirectoryObject {
     displayName?: NullableOption<string>;
 }
 export interface CrossTenantAccessPolicyConfigurationDefault extends Entity {
+    /**
+     * Determines the default configuration for automatic user consent settings. The inboundAllowed and outboundAllowed
+     * properties are always false and cannot be updated in the default configuration. Read-only.
+     */
     automaticUserConsentSettings?: NullableOption<InboundOutboundPolicyConfiguration>;
     /**
      * Defines your default configuration for users from other organizations accessing your resources via Azure AD B2B
@@ -6982,6 +6987,10 @@ export interface CrossTenantAccessPolicyConfigurationDefault extends Entity {
     isServiceDefault?: NullableOption<boolean>;
 }
 export interface CrossTenantAccessPolicyConfigurationPartner {
+    /**
+     * Determines the partner-specific configuration for automatic user consent settings. Unless specifically configured, the
+     * inboundAllowed and outboundAllowed properties are null and inherit from the default settings, which is always false.
+     */
     automaticUserConsentSettings?: NullableOption<InboundOutboundPolicyConfiguration>;
     /**
      * Defines your partner-specific configuration for users from other organizations accessing your resources via Azure AD
@@ -7012,11 +7021,22 @@ export interface CrossTenantAccessPolicyConfigurationPartner {
     isServiceProvider?: NullableOption<boolean>;
     // The tenant identifier for the partner Azure AD organization. Read-only. Key.
     tenantId?: string;
+    /**
+     * Defines the cross-tenant policy for the synchronization of users from a partner tenant. Use this user synchronization
+     * policy to streamline collaboration between users in a multi-tenant organization by automating the creation, update, and
+     * deletion of users from one tenant to another.
+     */
     identitySynchronization?: NullableOption<CrossTenantIdentitySyncPolicyPartner>;
 }
 export interface CrossTenantIdentitySyncPolicyPartner {
+    /**
+     * Display name for the cross-tenant user synchronization policy. Use the name of the partner Azure AD (Azure Active
+     * Directory) tenant to easily identify the policy. Optional.
+     */
     displayName?: NullableOption<string>;
+    // Tenant identifier for the partner Azure AD organization. Read-only.
     tenantId?: string;
+    // Defines whether users can be synchronized from the partner tenant. Key.
     userSyncInbound?: NullableOption<CrossTenantUserSyncInbound>;
 }
 export interface CustomSecurityAttributeDefinition extends Entity {
@@ -7544,23 +7564,85 @@ export interface OrganizationalBranding extends OrganizationalBrandingProperties
 // tslint:disable-next-line: no-empty-interface
 export interface OrganizationalBrandingLocalization extends OrganizationalBrandingProperties {}
 export interface OrgContact extends DirectoryObject {
+    // Postal addresses for this organizational contact. For now a contact can only have one physical address.
     addresses?: NullableOption<PhysicalOfficeAddress[]>;
+    /**
+     * Name of the company that this organizational contact belongs to. Supports $filter (eq, ne, not, ge, le, in, startsWith,
+     * and eq for null values).
+     */
     companyName?: NullableOption<string>;
+    /**
+     * The name for the department in which the contact works. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq
+     * for null values).
+     */
     department?: NullableOption<string>;
+    /**
+     * Display name for this organizational contact. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null
+     * values), $search, and $orderBy.
+     */
     displayName?: NullableOption<string>;
+    /**
+     * First name for this organizational contact. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null
+     * values).
+     */
     givenName?: NullableOption<string>;
+    /**
+     * Job title for this organizational contact. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null
+     * values).
+     */
     jobTitle?: NullableOption<string>;
+    /**
+     * The SMTP address for the contact, for example, 'jeff@contoso.onmicrosoft.com'. Supports $filter (eq, ne, not, ge, le,
+     * in, startsWith, and eq for null values).
+     */
     mail?: NullableOption<string>;
+    /**
+     * Email alias (portion of email address pre-pending the @ symbol) for this organizational contact. Supports $filter (eq,
+     * ne, not, ge, le, in, startsWith, and eq for null values).
+     */
     mailNickname?: NullableOption<string>;
+    /**
+     * Date and time when this organizational contact was last synchronized from on-premises AD. This date and time
+     * information uses ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
+     * 2014-01-01T00:00:00Z. Supports $filter (eq, ne, not, ge, le, in).
+     */
     onPremisesLastSyncDateTime?: NullableOption<string>;
+    /**
+     * List of any synchronization provisioning errors for this organizational contact. Supports $filter (eq, not for category
+     * and propertyCausingError), /$count eq 0, /$count ne 0.
+     */
     onPremisesProvisioningErrors?: NullableOption<OnPremisesProvisioningError[]>;
+    /**
+     * true if this object is synced from an on-premises directory; false if this object was originally synced from an
+     * on-premises directory but is no longer synced and now mastered in Exchange; null if this object has never been synced
+     * from an on-premises directory (default). Supports $filter (eq, ne, not, in, and eq for null values).
+     */
     onPremisesSyncEnabled?: NullableOption<boolean>;
+    /**
+     * List of phones for this organizational contact. Phone types can be mobile, business, and businessFax. Only one of each
+     * type can ever be present in the collection.
+     */
     phones?: NullableOption<Phone[]>;
+    /**
+     * For example: 'SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com'. The any operator is required for filter
+     * expressions on multi-valued properties. Supports $filter (eq, not, ge, le, startsWith, /$count eq 0, /$count ne 0).
+     */
     proxyAddresses?: string[];
+    /**
+     * Last name for this organizational contact. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq for null
+     * values).
+     */
     surname?: NullableOption<string>;
+    /**
+     * The contact's direct reports. (The users and contacts that have their manager property set to this contact.) Read-only.
+     * Nullable. Supports $expand.
+     */
     directReports?: NullableOption<DirectoryObject[]>;
+    // The user or contact that is this contact's manager. Read-only. Supports $expand and $filter (eq) by id.
     manager?: NullableOption<DirectoryObject>;
+    // Groups that this contact is a member of. Read-only. Nullable. Supports $expand.
     memberOf?: NullableOption<DirectoryObject[]>;
+    // Groups that this contact is a member of, including groups that the contact is nested under. Read-only. Nullable.
     transitiveMemberOf?: NullableOption<DirectoryObject[]>;
 }
 export interface PermissionGrantConditionSet extends Entity {
@@ -9783,6 +9865,16 @@ export interface SharedDriveItem extends BaseItem {
     root?: NullableOption<DriveItem>;
     // Used to access the underlying site
     site?: NullableOption<Site>;
+}
+export interface MeetingAttendanceReport extends Entity {
+    // UTC time when the meeting ended. Read-only.
+    meetingEndDateTime?: NullableOption<string>;
+    // UTC time when the meeting started. Read-only.
+    meetingStartDateTime?: NullableOption<string>;
+    // Total number of participants. Read-only.
+    totalParticipantCount?: NullableOption<number>;
+    // List of attendance records of an attendance report. Read-only.
+    attendanceRecords?: NullableOption<AttendanceRecord[]>;
 }
 export interface SchemaExtension extends Entity {
     // Description for the schema extension. Supports $filter (eq).
@@ -16283,16 +16375,6 @@ export interface InviteParticipantsOperation extends CommsOperation {
     // The participants to invite.
     participants?: InvitationParticipantInfo[];
 }
-export interface MeetingAttendanceReport extends Entity {
-    // UTC time when the meeting ended. Read-only.
-    meetingEndDateTime?: NullableOption<string>;
-    // UTC time when the meeting started. Read-only.
-    meetingStartDateTime?: NullableOption<string>;
-    // Total number of participants. Read-only.
-    totalParticipantCount?: NullableOption<number>;
-    // List of attendance records of an attendance report. Read-only.
-    attendanceRecords?: NullableOption<AttendanceRecord[]>;
-}
 // tslint:disable-next-line: no-empty-interface
 export interface MuteParticipantOperation extends CommsOperation {}
 export interface ParticipantJoiningNotification extends Entity {
@@ -18420,12 +18502,20 @@ export interface CrossTenantAccessPolicyTarget {
     targetType?: NullableOption<CrossTenantAccessPolicyTargetType>;
 }
 export interface CrossTenantUserSyncInbound {
+    /**
+     * Defines whether user objects should be synchronized from the partner tenant. false causes any current user
+     * synchronization from the source tenant to the target tenant to stop. This property has no impact on existing users who
+     * have already been synchronized.
+     */
     isSyncAllowed?: NullableOption<boolean>;
 }
 export interface DefaultUserRolePermissions {
     // Indicates whether the default user role can create applications.
     allowedToCreateApps?: boolean;
-    // Indicates whether the default user role can create security groups.
+    /**
+     * Indicates whether the default user role can create security groups. This setting corresponds to the The Users can
+     * create security groups in Azure portals, API or PowerShell setting in the group settings menu in the Azure portal.
+     */
     allowedToCreateSecurityGroups?: boolean;
     // Indicates whether the registered owners of a device can read their own BitLocker recovery keys with default user role.
     allowedToReadBitlockerKeysForOwnedDevice?: NullableOption<boolean>;
@@ -18462,7 +18552,9 @@ export interface ImplicitGrantSettings {
 }
 // tslint:disable-next-line: interface-name
 export interface InboundOutboundPolicyConfiguration {
+    // Defines whether external users coming inbound are allowed.
     inboundAllowed?: NullableOption<boolean>;
+    // Defines whether internal users are allowed to go outbound.
     outboundAllowed?: NullableOption<boolean>;
 }
 // tslint:disable-next-line: interface-name
@@ -18968,7 +19060,13 @@ export interface WorkbookIcon {
     set?: string;
 }
 export interface WorkbookFilterDatetime {
+    // The date in ISO8601 format used to filter data.
     date?: NullableOption<string>;
+    /**
+     * How specific the date should be used to keep data. For example, if the date is 2005-04-02 and the specifity is set to
+     * 'month', the filter operation will keep all rows with a date in the month of april 2009. The possible values are: Year,
+     * Monday, Day, Hour, Minute, Second.
+     */
     specificity?: string;
 }
 export interface WorkbookOperationError {
@@ -20232,6 +20330,52 @@ export interface Thumbnail {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface ThumbnailColumn {}
+export interface AudioConferencing {
+    // The conference id of the online meeting.
+    conferenceId?: NullableOption<string>;
+    // A URL to the externally-accessible web page that contains dial-in information.
+    dialinUrl?: NullableOption<string>;
+    tollFreeNumber?: NullableOption<string>;
+    // List of toll-free numbers that are displayed in the meeting invite.
+    tollFreeNumbers?: NullableOption<string[]>;
+    tollNumber?: NullableOption<string>;
+    // List of toll numbers that are displayed in the meeting invite.
+    tollNumbers?: NullableOption<string[]>;
+}
+export interface BroadcastMeetingSettings {
+    // Defines who can join the Teams live event. Possible values are listed in the following table.
+    allowedAudience?: NullableOption<BroadcastMeetingAudience>;
+    // Caption settings of a Teams live event.
+    captions?: NullableOption<BroadcastMeetingCaptionSettings>;
+    // Indicates whether attendee report is enabled for this Teams live event. Default value is false.
+    isAttendeeReportEnabled?: NullableOption<boolean>;
+    // Indicates whether Q&amp;A is enabled for this Teams live event. Default value is false.
+    isQuestionAndAnswerEnabled?: NullableOption<boolean>;
+    // Indicates whether recording is enabled for this Teams live event. Default value is false.
+    isRecordingEnabled?: NullableOption<boolean>;
+    // Indicates whether video on demand is enabled for this Teams live event. Default value is false.
+    isVideoOnDemandEnabled?: NullableOption<boolean>;
+}
+export interface ChatInfo {
+    // The unique identifier of a message in a Microsoft Teams channel.
+    messageId?: NullableOption<string>;
+    // The ID of the reply message.
+    replyChainMessageId?: NullableOption<string>;
+    // The unique identifier for a thread in Microsoft Teams.
+    threadId?: NullableOption<string>;
+}
+export interface JoinMeetingIdSettings {
+    // Indicates whether a passcode is required to join a meeting when using joinMeetingId. Optional.
+    isPasscodeRequired?: NullableOption<boolean>;
+    // The meeting ID to be used to join a meeting. Optional. Read-only.
+    joinMeetingId?: NullableOption<string>;
+    // The passcode to join a meeting. Optional. Read-only.
+    passcode?: NullableOption<string>;
+}
+export interface MeetingParticipants {
+    attendees?: NullableOption<MeetingParticipantInfo[]>;
+    organizer?: NullableOption<MeetingParticipantInfo>;
+}
 export interface ExtensionSchemaProperty {
     // The name of the strongly-typed property defined as part of a schema extension.
     name?: NullableOption<string>;
@@ -20297,6 +20441,7 @@ export interface AccessReviewInstanceDecisionItemAzureRoleResource extends Acces
     scope?: NullableOption<AccessReviewInstanceDecisionItemResource>;
 }
 export interface AccessReviewInstanceDecisionItemServicePrincipalResource extends AccessReviewInstanceDecisionItemResource {
+    // The globally unique identifier of the application to which access has been granted.
     appId?: NullableOption<string>;
 }
 export interface AccessReviewNotificationRecipientItem {
@@ -23712,18 +23857,6 @@ export interface AttendanceInterval {
     // The time the attendee left in UTC.
     leaveDateTime?: NullableOption<string>;
 }
-export interface AudioConferencing {
-    // The conference id of the online meeting.
-    conferenceId?: NullableOption<string>;
-    // A URL to the externally-accessible web page that contains dial-in information.
-    dialinUrl?: NullableOption<string>;
-    tollFreeNumber?: NullableOption<string>;
-    // List of toll-free numbers that are displayed in the meeting invite.
-    tollFreeNumbers?: NullableOption<string[]>;
-    tollNumber?: NullableOption<string>;
-    // List of toll numbers that are displayed in the meeting invite.
-    tollNumbers?: NullableOption<string[]>;
-}
 export interface BroadcastMeetingCaptionSettings {
     // Indicates whether captions are enabled for this Teams live event.
     isCaptionEnabled?: NullableOption<boolean>;
@@ -23731,20 +23864,6 @@ export interface BroadcastMeetingCaptionSettings {
     spokenLanguage?: NullableOption<string>;
     // The translation languages (choose up to 6).
     translationLanguages?: NullableOption<string[]>;
-}
-export interface BroadcastMeetingSettings {
-    // Defines who can join the Teams live event. Possible values are listed in the following table.
-    allowedAudience?: NullableOption<BroadcastMeetingAudience>;
-    // Caption settings of a Teams live event.
-    captions?: NullableOption<BroadcastMeetingCaptionSettings>;
-    // Indicates whether attendee report is enabled for this Teams live event. Default value is false.
-    isAttendeeReportEnabled?: NullableOption<boolean>;
-    // Indicates whether Q&amp;A is enabled for this Teams live event. Default value is false.
-    isQuestionAndAnswerEnabled?: NullableOption<boolean>;
-    // Indicates whether recording is enabled for this Teams live event. Default value is false.
-    isRecordingEnabled?: NullableOption<boolean>;
-    // Indicates whether video on demand is enabled for this Teams live event. Default value is false.
-    isVideoOnDemandEnabled?: NullableOption<boolean>;
 }
 export interface CallMediaState {
     // The audio media state. Possible values are: active, inactive, unknownFutureValue.
@@ -23769,14 +23888,6 @@ export interface CallTranscriptionInfo {
     lastModifiedDateTime?: NullableOption<string>;
     // Possible values are: notStarted, active, inactive.
     state?: CallTranscriptionState;
-}
-export interface ChatInfo {
-    // The unique identifier of a message in a Microsoft Teams channel.
-    messageId?: NullableOption<string>;
-    // The ID of the reply message.
-    replyChainMessageId?: NullableOption<string>;
-    // The unique identifier for a thread in Microsoft Teams.
-    threadId?: NullableOption<string>;
 }
 export interface CommsNotification {
     // Possible values are: created, updated, deleted.
@@ -23830,14 +23941,6 @@ export interface JoinMeetingIdMeetingInfo extends MeetingInfo {
     // The passcode used to join the meeting. Optional.
     passcode?: NullableOption<string>;
 }
-export interface JoinMeetingIdSettings {
-    // Indicates whether a passcode is required to join a meeting when using joinMeetingId. Optional.
-    isPasscodeRequired?: NullableOption<boolean>;
-    // The meeting ID to be used to join a meeting. Optional. Read-only.
-    joinMeetingId?: NullableOption<string>;
-    // The passcode to join a meeting. Optional. Read-only.
-    passcode?: NullableOption<string>;
-}
 export interface MediaInfo {
     /**
      * Optional. Used to uniquely identity the resource. If passed in, the prompt uri will be cached against this resourceId
@@ -23875,10 +23978,6 @@ export interface MeetingParticipantInfo {
     role?: NullableOption<OnlineMeetingRole>;
     // User principal name of the participant.
     upn?: NullableOption<string>;
-}
-export interface MeetingParticipants {
-    attendees?: NullableOption<MeetingParticipantInfo[]>;
-    organizer?: NullableOption<MeetingParticipantInfo>;
 }
 export interface OrganizerMeetingInfo extends MeetingInfo {
     // The organizer Azure Active Directory identity.
@@ -25289,6 +25388,7 @@ export namespace ExternalConnectors {
     type AclType = "user" | "group" | "everyone" | "everyoneExceptGuests" | "externalGroup" | "unknownFutureValue";
     type ConnectionOperationStatus = "unspecified" | "inprogress" | "completed" | "failed" | "unknownFutureValue";
     type ConnectionState = "draft" | "ready" | "obsolete" | "limitExceeded" | "unknownFutureValue";
+    type ExternalActivityType = "viewed" | "modified" | "created" | "commented" | "unknownFutureValue";
     type ExternalItemContentType = "text" | "html" | "unknownFutureValue";
     type IdentityType = "user" | "group" | "externalGroup" | "unknownFutureValue";
     type Label =
@@ -25365,6 +25465,29 @@ export namespace ExternalConnectors {
         operations?: NullableOption<ConnectionOperation[]>;
         schema?: NullableOption<Schema>;
     }
+    interface ExternalActivity extends microsoftgraph.Entity {
+        /**
+         * The date and time when the particular activity occurred. The DateTimeOffset type represents date and time information
+         * using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+         */
+        startDateTime?: string;
+        // The type of activity performed. The possible values are: viewed, modified, created, commented, unknownFutureValue.
+        type?: ExternalActivityType;
+        // Represents an identity used to identify who is responsible for the activity.
+        performedBy?: NullableOption<Identity>;
+    }
+// tslint:disable-next-line: interface-name
+    interface Identity extends microsoftgraph.Entity {
+        /**
+         * The type of identity. Possible values are: user or group for Azure AD identities and externalgroup for groups in an
+         * external system.
+         */
+        type?: NullableOption<IdentityType>;
+    }
+    interface ExternalActivityResult extends ExternalActivity {
+        // Error information that explains the failure to process an external activity.
+        error?: NullableOption<microsoftgraph.PublicError>;
+    }
     interface ExternalGroup extends microsoftgraph.Entity {
         // The description of the external group. Optional.
         description?: NullableOption<string>;
@@ -25386,20 +25509,14 @@ export namespace ExternalConnectors {
          * externalConnection. Required.
          */
         properties?: NullableOption<Properties>;
+        // Returns a list of activities performed on the item. Write-only.
+        activities?: NullableOption<ExternalActivity[]>;
     }
     interface Schema extends microsoftgraph.Entity {
         // Must be set to microsoft.graph.externalConnector.externalItem. Required.
         baseType?: string;
         // The properties defined for the items in the connection. The minimum number of properties is one, the maximum is 128.
         properties?: NullableOption<Property[]>;
-    }
-// tslint:disable-next-line: interface-name
-    interface Identity extends microsoftgraph.Entity {
-        /**
-         * The type of identity. Possible values are: user or group for Azure AD identities and externalgroup for groups in an
-         * external system.
-         */
-        type?: NullableOption<IdentityType>;
     }
     interface Acl {
         // The access granted to the identity. Possible values are: grant, deny, unknownFutureValue.
