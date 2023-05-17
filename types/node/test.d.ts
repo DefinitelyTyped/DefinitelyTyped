@@ -150,6 +150,13 @@ declare module 'node:test' {
         function todo(name?: string, fn?: SuiteFn): void;
         function todo(options?: TestOptions, fn?: SuiteFn): void;
         function todo(fn?: SuiteFn): void;
+        /**
+         * Shorthand for marking a suite as `TODO`, same as `test([name], { only: true }[, fn])`.
+         */
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
     /**
      * The `describe()` function imported from the `node:test` module. Each
@@ -180,6 +187,13 @@ declare module 'node:test' {
         function todo(name?: string, fn?: SuiteFn): void;
         function todo(options?: TestOptions, fn?: SuiteFn): void;
         function todo(fn?: SuiteFn): void;
+        /**
+         * Shorthand for marking a suite as `TODO`, same as `describe([name], { only: true }[, fn])`.
+         */
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
     /**
      * Shorthand for `test()`.
@@ -202,6 +216,13 @@ declare module 'node:test' {
         function todo(name?: string, fn?: TestFn): void;
         function todo(options?: TestOptions, fn?: TestFn): void;
         function todo(fn?: TestFn): void;
+        /**
+         * Shorthand for marking a suite as `TODO`, same as `it([name], { only: true }[, fn])`.
+         */
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
     /**
      * The type of a function under test. The first argument to this function is a
