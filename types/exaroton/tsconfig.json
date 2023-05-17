@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "ws": ["../ws"]
+            "ws": ["ws"]
         },
         "types": [],
         "noEmit": true,
