@@ -151,7 +151,7 @@ test.skip('skip shorthand', {
     timeout: Infinity,
 });
 
-describe.todo('test shorthand', {
+describe.todo('todo shorthand', {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
@@ -164,6 +164,24 @@ it.todo('todo shorthand', {
     timeout: Infinity,
 });
 test.todo('todo shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.only('only shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.only('only shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+test.only('only shorthand', {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
