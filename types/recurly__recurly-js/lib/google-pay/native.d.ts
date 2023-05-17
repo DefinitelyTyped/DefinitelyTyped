@@ -177,8 +177,8 @@ export type GooglePayShippingOptionParameters = {
   shippingOptions: GooglePaySelectionOption[];
 
   /**
-   * An identifier to the default selected shipping option.
-   * If this field isn't provided, the first option is the default option.
+   *  An identifier to the default selected shipping option.
+   *  If this field isn't provided, the first option is the default option.
    */
   defaultSelectedOptionId?: string;
 };
