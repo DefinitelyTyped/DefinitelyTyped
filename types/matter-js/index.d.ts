@@ -1389,7 +1389,16 @@ declare namespace Matter {
          * @param {boolean} [deep=false]
          * @returns {Composite} The original composite with the objects removed
          */
-        static remove(composite: Composite, object: Body | Composite | Constraint, deep?: boolean): Composite;
+         static remove(
+            composite: Composite, 
+            object:
+                | Body
+                | Composite
+                | Constraint
+                | MouseConstraint
+                | Array<Body | Composite | Constraint | MouseConstraint>, 
+            deep?: boolean,
+        ): Composite;
 
         /**
          * Translates all children in the composite by a given vector relative to their current positions,
