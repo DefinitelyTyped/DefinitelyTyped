@@ -135,6 +135,22 @@ declare module 'node:test' {
     function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
+    namespace test {
+        /**
+         * Shorthand for skipping a suite, same as `test([name], { skip: true }[, fn])`.
+         */
+        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function skip(name?: string, fn?: SuiteFn): void;
+        function skip(options?: TestOptions, fn?: SuiteFn): void;
+        function skip(fn?: SuiteFn): void;
+        /**
+         * Shorthand for marking a suite as `TODO`, same as `test([name], { todo: true }[, fn])`.
+         */
+        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function todo(name?: string, fn?: SuiteFn): void;
+        function todo(options?: TestOptions, fn?: SuiteFn): void;
+        function todo(fn?: SuiteFn): void;
+    }
     /**
      * The `describe()` function imported from the `node:test` module. Each
      * invocation of this function results in the creation of a Subtest.
