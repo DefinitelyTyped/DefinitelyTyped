@@ -344,6 +344,49 @@ declare module 'dns/promises' {
      * @param order must be `'ipv4first'` or `'verbatim'`.
      */
     function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
+    /**
+     * An independent resolver for DNS requests.
+     *
+     * Creating a new resolver uses the default server settings. Setting
+     * the servers used for a resolver using `resolver.setServers()` does not affect
+     * other resolvers:
+     *
+     * ```js
+     * const { Resolver } = require('node:dns').promises;
+     * const resolver = new Resolver();
+     * resolver.setServers(['4.4.4.4']);
+     *
+     * // This request will use the server at 4.4.4.4, independent of global settings.
+     * resolver.resolve4('example.org').then((addresses) => {
+     *   // ...
+     * });
+     *
+     * // Alternatively, the same code can be written using async-await style.
+     * (async function() {
+     *   const addresses = await resolver.resolve4('example.org');
+     * })();
+     * ```
+     *
+     * The following methods from the `dnsPromises` API are available:
+     *
+     * * `resolver.getServers()`
+     * * `resolver.resolve()`
+     * * `resolver.resolve4()`
+     * * `resolver.resolve6()`
+     * * `resolver.resolveAny()`
+     * * `resolver.resolveCaa()`
+     * * `resolver.resolveCname()`
+     * * `resolver.resolveMx()`
+     * * `resolver.resolveNaptr()`
+     * * `resolver.resolveNs()`
+     * * `resolver.resolvePtr()`
+     * * `resolver.resolveSoa()`
+     * * `resolver.resolveSrv()`
+     * * `resolver.resolveTxt()`
+     * * `resolver.reverse()`
+     * * `resolver.setServers()`
+     * @since v10.6.0
+     */
     class Resolver {
         constructor(options?: ResolverOptions);
         cancel(): void;
@@ -352,6 +395,7 @@ declare module 'dns/promises' {
         resolve4: typeof resolve4;
         resolve6: typeof resolve6;
         resolveAny: typeof resolveAny;
+        resolveCaa: typeof resolveCaa;
         resolveCname: typeof resolveCname;
         resolveMx: typeof resolveMx;
         resolveNaptr: typeof resolveNaptr;

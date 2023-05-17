@@ -34,6 +34,7 @@ declare module 'mongoose' {
         pagination?: boolean | undefined;
         allowDiskUse?: boolean | undefined;
         countQuery?: object | undefined;
+        useFacet?: boolean | undefined;
     }
 
     interface QueryPopulateOptions {

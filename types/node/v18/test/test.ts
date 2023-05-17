@@ -164,7 +164,9 @@ describe(cb => {
 });
 
 // Test callback mode
-it(cb => {
+it((t, cb) => {
+    // $ExpectType TestContext
+    t;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
