@@ -13,6 +13,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "ws": ["../ws"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
