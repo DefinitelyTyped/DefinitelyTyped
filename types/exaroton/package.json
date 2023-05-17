@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/ws": "^7.4.5",
         "got": "^11.8.2",
         "ws": "^7.4.5"
     }

@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "ES6",
         "lib": [
-            "ESNext"
+            "ES6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
