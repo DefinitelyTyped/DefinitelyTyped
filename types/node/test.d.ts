@@ -136,27 +136,20 @@ declare module 'node:test' {
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
     namespace test {
-        /**
-         * Shorthand for skipping a suite, same as `test([name], { skip: true }[, fn])`.
-         */
-        function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function skip(name?: string, fn?: TestFn): void;
-        function skip(options?: TestOptions, fn?: TestFn): void;
-        function skip(fn?: TestFn): void;
-        /**
-         * Shorthand for marking a suite as `TODO`, same as `test([name], { todo: true }[, fn])`.
-         */
-        function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function todo(name?: string, fn?: TestFn): void;
-        function todo(options?: TestOptions, fn?: TestFn): void;
-        function todo(fn?: TestFn): void;
-        /**
-         * Shorthand for marking a suite as `TODO`, same as `test([name], { only: true }[, fn])`.
-         */
-        function only(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function only(name?: string, fn?: TestFn): void;
-        function only(options?: TestOptions, fn?: TestFn): void;
-        function only(fn?: TestFn): void;
+        export {
+            after,
+            afterEach,
+            before,
+            beforeEach,
+            describe,
+            it,
+            run,
+            mock,
+            test,
+            skip,
+            todo,
+            only
+        };
     }
     /**
      * The `describe()` function imported from the `node:test` module. Each
@@ -188,7 +181,8 @@ declare module 'node:test' {
         function todo(options?: TestOptions, fn?: SuiteFn): void;
         function todo(fn?: SuiteFn): void;
         /**
-         * Shorthand for marking a suite as `TODO`, same as `describe([name], { only: true }[, fn])`.
+         * Shorthand for marking a suite as `only`, same as `describe([name], { only: true }[, fn])`.
+         * @since v18.15.0
          */
         function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
         function only(name?: string, fn?: SuiteFn): void;
@@ -217,13 +211,38 @@ declare module 'node:test' {
         function todo(options?: TestOptions, fn?: TestFn): void;
         function todo(fn?: TestFn): void;
         /**
-         * Shorthand for marking a suite as `TODO`, same as `it([name], { only: true }[, fn])`.
+         * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
+         * @since v18.15.0
          */
         function only(name?: string, options?: TestOptions, fn?: TestFn): void;
         function only(name?: string, fn?: TestFn): void;
         function only(options?: TestOptions, fn?: TestFn): void;
         function only(fn?: TestFn): void;
     }
+    /**
+     * Shorthand for skipping a test, same as `test([name], { skip: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function skip(name?: string, fn?: TestFn): void;
+    function skip(options?: TestOptions, fn?: TestFn): void;
+    function skip(fn?: TestFn): void;
+    /**
+     * Shorthand for marking a test as `TODO`, same as `test([name], { todo: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function todo(name?: string, fn?: TestFn): void;
+    function todo(options?: TestOptions, fn?: TestFn): void;
+    function todo(fn?: TestFn): void;
+    /**
+     * Shorthand for marking a test as `only`, same as `test([name], { only: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function only(name?: string, fn?: TestFn): void;
+    function only(options?: TestOptions, fn?: TestFn): void;
+    function only(fn?: TestFn): void;
     /**
      * The type of a function under test. The first argument to this function is a
      * {@link TestContext} object. If the test uses callbacks, the callback function is passed as
@@ -1025,5 +1044,5 @@ declare module 'node:test' {
          */
         restore(): void;
     }
-    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock };
+    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
 }
