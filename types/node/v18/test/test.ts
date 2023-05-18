@@ -95,6 +95,21 @@ test(t => {
 // @ts-expect-error
 test(1, () => {});
 
+test.after(() => {});
+test.afterEach(() => {});
+test.before(() => {});
+test.beforeEach(() => {});
+test.describe('describe', () => {});
+test.it('it', () => {});
+// $ExpectType MockTracker
+test.mock;
+// $ExpectType typeof test
+test.test;
+test.test.test('chained self ref', (t) => {
+    // $ExpectType typeof test
+    t.test;
+});
+
 describe('foo', () => {
     it('it', () => {});
 });
@@ -131,24 +146,37 @@ it('options with booleans', {
 
 describe.skip('skip shorthand', {
     concurrency: 1,
-    only: true,
+    skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.skip('todo shorthand', {
+it.skip('skip shorthand', {
     concurrency: 1,
-    only: true,
+    skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
 
-describe.todo('skip shorthand', {
+describe.todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+
+describe.only('only shorthand', {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.todo('todo shorthand', {
+it.only('only shorthand', {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
