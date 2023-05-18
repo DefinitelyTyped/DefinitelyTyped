@@ -168,6 +168,8 @@ declare namespace SMTPConnection {
         /** connected socket to use instead of creating and connecting a new one. If secure option is true, then socket is upgraded from plaintext to ciphertext */
         connection?: net.Socket | undefined;
         customAuth?: CustomAuthenticationHandlers | undefined;
+        /** if true, uses LMTP instead of SMTP protocol */
+        lmtp?: boolean | undefined;
     }
 }
 
