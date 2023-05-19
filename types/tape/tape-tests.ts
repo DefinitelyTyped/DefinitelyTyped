@@ -16,6 +16,10 @@ tape(name, (test: tape.Test) => {
     t = test;
 });
 
+tape(name, async (test: tape.Test) => {
+    t = test;
+});
+
 tape.skip(cb);
 tape.skip(name, cb);
 tape.skip(topts, cb);
