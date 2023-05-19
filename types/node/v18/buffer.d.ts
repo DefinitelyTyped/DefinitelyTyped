@@ -97,7 +97,7 @@ declare module 'buffer' {
      * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
      */
     export function resolveObjectURL(id: string): Blob | undefined;
-    export { Buffer };
+    export { Buffer, BufferEncoding, BufferConstructor };
     /**
      * @experimental
      */
