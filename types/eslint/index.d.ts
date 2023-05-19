@@ -435,6 +435,7 @@ export namespace Rule {
     interface RuleModule {
         create(context: RuleContext): RuleListener;
         meta?: RuleMetaData | undefined;
+        schema?: RuleMetaData["schema"];
     }
 
     type NodeTypes = ESTree.Node["type"];
