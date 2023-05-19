@@ -54,7 +54,7 @@ declare namespace TagsInput {
         currentValue?: string | undefined;
         inputValue?: string | undefined;
         onlyUnique?: boolean | undefined;
-        validate: ((tag: Tag) => boolean) | undefined;
+        validate?: ((tag: Tag) => boolean) | undefined;
         validationRegex?: RegExp | undefined;
         onValidationReject?: ((tags: string[]) => void) | undefined;
         disabled?: boolean | undefined;
