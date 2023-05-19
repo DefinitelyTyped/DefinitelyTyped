@@ -320,6 +320,7 @@ interface TradeOfferManagerOptions {
     savePollData?: boolean;
 }
 
+export = TradeOffer;
 /**
  * TradeOffer is a class which represents an individual trade offer sent or received by your account. It cannot be instantiated directly, it must be created using
  * TradeOfferManager#createOffer, TradeOfferManager#getOffer, or TradeOfferManager#getOffers.
