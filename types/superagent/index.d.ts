@@ -89,8 +89,9 @@ declare namespace request {
     }
 
     interface ResponseError extends Error {
-        status?: number | undefined;
-        response?: Response | undefined;
+        status?: number;
+        response?: Response;
+        timeout?: boolean;
     }
 
     interface HTTPError extends Error {
