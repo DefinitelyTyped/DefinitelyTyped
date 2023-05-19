@@ -18,3 +18,21 @@ class Example extends React.Component<{}, StateI> {
         );
     }
 }
+
+class ValidationExample extends React.Component<{}, StateI> {
+    state = {tags: []};
+
+    handleChange(tags: string[]) {
+        this.setState({tags});
+    }
+
+    render() {
+        return (
+            <TagsInput
+                value={this.state.tags}
+                onChange={this.handleChange}
+                validate={(tag) => tag.length > 0}
+            />
+        );
+    }
+}
