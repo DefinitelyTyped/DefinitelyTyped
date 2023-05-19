@@ -1,4 +1,4 @@
-// Type definitions for react-tagsinput 3.20.1
+// Type definitions for react-tagsinput 3.20
 // Project: https://github.com/olahol/react-tagsinput
 // Definitions by: Michael Macnair <https://github.com/mykter>
 //                 Richard Tan <https://github.com/chardos>
