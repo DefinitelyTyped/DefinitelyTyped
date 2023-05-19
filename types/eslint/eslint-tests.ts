@@ -308,6 +308,31 @@ reference.isReadWrite();
 
 //#region Rule
 
+let mixedRule: Rule.OldStyleRule | Rule.RuleModule;
+
+mixedRule = {
+    create(context) {
+        return {};
+    },
+};
+
+mixedRule = (context) => ({});
+
+let oldStyleRule: Rule.OldStyleRule;
+
+oldStyleRule = (context) => ({});
+
+// @ts-expect-error
+oldStyleRule.schema = [];
+// @ts-expect-error
+oldStyleRule.schema = {};
+
+// @ts-expect-error
+oldStyleRule.meta = {};
+
+// @ts-expect-error
+oldStyleRule.create = (context) => ({});
+
 let rule: Rule.RuleModule;
 
 rule = {

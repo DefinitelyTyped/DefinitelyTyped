@@ -432,6 +432,8 @@ export namespace SourceCode {
 //#endregion
 
 export namespace Rule {
+    type OldStyleRule = RuleModule["create"];
+
     interface RuleModule {
         create(context: RuleContext): RuleListener;
         meta?: RuleMetaData | undefined;
@@ -1049,7 +1051,7 @@ export namespace ESLint {
         configs?: Record<string, ConfigData> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
-        rules?: Record<string, ((...args: any[]) => any) | Rule.RuleModule> | undefined;
+        rules?: Record<string, Rule.OldStyleRule | Rule.RuleModule> | undefined;
     }
 
     interface Options {
