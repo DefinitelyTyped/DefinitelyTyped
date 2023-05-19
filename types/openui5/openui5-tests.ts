@@ -196,5 +196,5 @@ const scs: SingleControlSelector = {
     id: "myControlId"
 };
 
-// 1.114: more details in APIs
+// 1.114: more details in the APIs
 Mobile.setIcons({precomposed: false});
