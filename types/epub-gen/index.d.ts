@@ -3,7 +3,7 @@
 // Definitions by: Sam Tyler <https://github.com/styler3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Chapter {
+interface Chapter {
     /** Chapter title */
     title?: string | undefined;
     /** Author of the chapter */
@@ -18,7 +18,7 @@ export interface Chapter {
     filename?: string | undefined;
 }
 
-export interface Options {
+interface Options {
     /** Title of the book */
     title: string;
     /** Name of the Author/Authors of the book */
@@ -53,7 +53,9 @@ export interface Options {
     verbose?: boolean | undefined;
 }
 
-export default class Epub {
+declare class Epub {
     constructor(options: Options, output?: string);
     promise: Promise<void>;
 }
+
+export = Epub;
