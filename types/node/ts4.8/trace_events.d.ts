@@ -94,7 +94,7 @@
  *
  * The features from this module are not available in `Worker` threads.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/trace_events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/trace_events.js)
  */
 declare module 'trace_events' {
     /**
