@@ -121,11 +121,11 @@ export interface QueryParse {
 type ValueMapper = (param: any, index: number) => any;
 
 export interface BindConfig {
-    portal?: string;
-    statement?: string;
-    binary?: string;
+    portal?: string | undefined;
+    statement?: string | undefined;
+    binary?: string | undefined;
     values?: Array<Buffer | null | undefined | string>;
-    valueMapper?: ValueMapper;
+    valueMapper?: ValueMapper | undefined;
 }
 
 export interface ExecuteConfig {
