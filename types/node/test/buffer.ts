@@ -2,7 +2,6 @@
 import {
     Blob as NodeBlob,
     Buffer as ImportedBuffer,
-    BufferConstructor as ImportedBufferConstructor,
     BufferEncoding as ImportedBufferEncoding,
     File,
     constants,
@@ -268,13 +267,6 @@ b.fill('a').fill('b');
     const b = new ImportedBuffer('123');
     b.writeUInt8(0, 6);
     const sb = new ImportedSlowBuffer(43);
-    b.writeUInt8(0, 6);
-}
-
-// Imported BufferConstructor from buffer module works properly
-{
-    const ctor: ImportedBufferConstructor = ImportedBuffer;
-    const b = new ctor('123');
     b.writeUInt8(0, 6);
 }
 
