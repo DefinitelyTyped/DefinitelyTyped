@@ -1,6 +1,7 @@
 import GeoJSONValidation = require("geojson-validation");
 
-GeoJSONValidation.define("Point", () => {}); // $ExpectType boolean
+GeoJSONValidation.allTypes.Feature; // $ExpectType GeoJSONValidator
+GeoJSONValidation.define("Feature", () => {}); // $ExpectType boolean
 GeoJSONValidation.isBbox(null); // $ExpectType string[]
 GeoJSONValidation.isFeature(null); // $ExpectType string[]
 GeoJSONValidation.isFeatureCollection(null); // $ExpectType string[]
