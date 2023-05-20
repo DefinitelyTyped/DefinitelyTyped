@@ -124,7 +124,7 @@ export interface BindConfig {
     portal?: string | undefined;
     statement?: string | undefined;
     binary?: string | undefined;
-    values?: Array<Buffer | null | undefined | string>;
+    values?: Array<Buffer | null | undefined | string> | undefined;
     valueMapper?: ValueMapper | undefined;
 }
 
