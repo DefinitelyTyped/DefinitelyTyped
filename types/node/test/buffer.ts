@@ -2,7 +2,6 @@
 import {
     Blob as NodeBlob,
     Buffer as ImportedBuffer,
-    BufferEncoding as ImportedBufferEncoding,
     File,
     constants,
     isUtf8,
@@ -270,9 +269,9 @@ b.fill('a').fill('b');
     b.writeUInt8(0, 6);
 }
 
-// Imported BufferEncoding from buffer module works properly
+// NodeJS.BufferEncoding works properly
 {
-    const encoding: ImportedBufferEncoding = 'ascii';
+    const encoding: NodeJS.BufferEncoding = 'ascii';
     const b = new ImportedBuffer('123', encoding);
     b.writeUInt8(0, 6);
 }

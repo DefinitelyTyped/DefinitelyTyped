@@ -113,7 +113,7 @@ declare module 'buffer' {
      * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
      */
     export function resolveObjectURL(id: string): Blob | undefined;
-    export { Buffer, BufferEncoding };
+    export { Buffer };
     /**
      * @experimental
      */
@@ -216,6 +216,9 @@ declare module 'buffer' {
     // the copy below in a Node environment.
     type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
     global {
+        namespace NodeJS {
+            export { BufferEncoding };
+        }
         // Buffer class
         type BufferEncoding =
             | 'ascii'
