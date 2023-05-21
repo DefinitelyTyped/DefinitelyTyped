@@ -269,6 +269,13 @@ b.fill('a').fill('b');
     b.writeUInt8(0, 6);
 }
 
+// NodeJS.BufferEncoding works properly
+{
+    const encoding: NodeJS.BufferEncoding = 'ascii';
+    const b = new ImportedBuffer('123', encoding);
+    b.writeUInt8(0, 6);
+}
+
 // Buffer has Uint8Array's buffer field (an ArrayBuffer).
 {
     const buffer = new Buffer('123');
