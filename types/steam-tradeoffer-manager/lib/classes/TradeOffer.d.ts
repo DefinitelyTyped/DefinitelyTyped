@@ -1,9 +1,8 @@
 import TradeOfferManager = require("../../index");
 import SteamID = require('steamid');
 import CEconItem = require('steamcommunity/classes/CEconItem');
-import type { InventoryCallback, EResultError } from '../../common';
 
-export = TradeOffer
+export = TradeOffer;
 
 interface UserDetails {
     personaName: string;
@@ -66,13 +65,13 @@ declare class TradeOffer {
      * loadPartnerInventory as there is between TradeOfferManager#getInventoryContents and TradeOfferManager#loadInventory.
      * See that documentation for more information.
      */
-    getPartnerInventoryContents(appid: number, contextid: number, callback: InventoryCallback): void;
+    getPartnerInventoryContents(appid: number, contextid: number, callback: TradeOfferManager.InventoryCallback): void;
 
     /**
      * Gets the contents of your trading partner's inventory for a particular app and context.
      * @deprecated Use getPartnerInventoryContents instead.
      */
-    loadPartnerInventory(appid: number, contextid: number, callback: InventoryCallback): void;
+    loadPartnerInventory(appid: number, contextid: number, callback: TradeOfferManager.InventoryCallback): void;
 
     /**
      * Adds a given item to a new trade offer. The item object should be in the same format as is returned by the Steam inventory.
@@ -168,12 +167,12 @@ declare class TradeOffer {
     /**
      * If this trade offer was sent by us, cancels it. If it was sent to us, declines it. As of v1.1.0, on failure, the err object may contain an eresult property.
      */
-    cancel(callback: (err: EResultError | null) => void): void;
+    cancel(callback: (err: TradeOfferManager.EResultError | null) => void): void;
 
     /**
      * Alias of cancel
      */
-    decline(callback: (err: EResultError | null) => void): void;
+    decline(callback: (err: TradeOfferManager.EResultError | null) => void): void;
 
     /**
      * Accepts an offer that was sent to us. Once the callback fires, you can call getReceivedItems to get details about the items you received,
@@ -190,7 +189,7 @@ declare class TradeOffer {
      */
     accept(
         skipStateUpdate?: boolean,
-        callback?: (err: (EResultError & { cause?: 'TradeBan' | 'NewDevice' | 'TargetCannotTrade'; }) | null, status: 'pending' | 'accepted' | 'escrow') => void,
+        callback?: (err: (TradeOfferManager.EResultError & { cause?: 'TradeBan' | 'NewDevice' | 'TargetCannotTrade'; }) | null, status: 'pending' | 'accepted' | 'escrow') => void,
     ): void;
 
     /**

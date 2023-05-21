@@ -11,7 +11,6 @@ import SteamCommunity = require('steamcommunity');
 import CEconItem = require('steamcommunity/classes/CEconItem');
 import FileManager = require('file-manager');
 import TradeOffer = require('./lib/classes/TradeOffer');
-import type { InventoryCallback, EResultError } from './common';
 
 export = TradeOfferManager;
 
@@ -75,7 +74,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param id The ID of the trade offer, as a string or number
      * @param callback Called on completion with an Error on failure (null on success) and the TradeOffer object for the requested offer.
      */
-    getOffer(id: number | string, callback: (err: EResultError | null, offer: TradeOffer) => void): void;
+    getOffer(id: number | string, callback: (err: TradeOfferManager.EResultError | null, offer: TradeOffer) => void): void;
 
     /**
      * Retrieves a list of trade offers matching specific criteria. As of v1.1.0, on failure, the err object may contain an eresult property.
@@ -84,7 +83,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers sent by you matching the filter, and an array of
      * TradeOffer objects for offers received by you matching the filter.
      */
-    getOffers(filter: number, callback: (err: EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
+    getOffers(filter: number, callback: (err: TradeOfferManager.EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
 
     /**
      * Retrieves a list of trade offers matching specific criteria. As of v1.1.0, on failure, the err object may contain an eresult property.
@@ -95,7 +94,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers sent by you matching the filter, and an array of TradeOffer
      * objects for offers received by you matching the filter.
      */
-    getOffers(filter: number, historicalCutoff: Date | null, callback: (err: EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
+    getOffers(filter: number, historicalCutoff: Date | null, callback: (err: TradeOfferManager.EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
 
     /**
      * Gets the contents of your own inventory. This method uses the newer /inventory/SteamID endpoint, which is less rate-limited than the older, deprecated /profiles/SteamID/inventory/json
@@ -108,7 +107,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Invoked when data is ready, includes an Error on failure (null on success), an array of the user's inventory items as CEconItem objects,
      * and an array of the user's currency items as CEconItem objects
      */
-    getInventoryContents(appid: number, contextid: number, tradableOnly: boolean, callback: InventoryCallback): void;
+    getInventoryContents(appid: number, contextid: number, tradableOnly: boolean, callback: TradeOfferManager.InventoryCallback): void;
 
     /**
      * Same as getInventoryContents, but can retrieve another user's inventory.
@@ -120,7 +119,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Invoked when data is ready, includes an Error on failure (null on success), an array of the user's inventory items as CEconItem objects,
      * and an array of the user's currency items as CEconItem objects
      */
-    getUserInventoryContents(steamID: SteamID | string, appid: number, contextid: number, tradableOnly: boolean, callback: InventoryCallback): void;
+    getUserInventoryContents(steamID: SteamID | string, appid: number, contextid: number, tradableOnly: boolean, callback: TradeOfferManager.InventoryCallback): void;
 
     /**
      * THIS METHOD IS DEPRECATED AS OF v2.5.0; USE getInventoryContents INSTEAD.
@@ -133,7 +132,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Invoked when data is ready, includes an Error on failure (null on success), an array of the user's inventory items as CEconItem objects,
      * and an array of the user's currency items as CEconItem objects
      */
-    loadInventory(appid: number, contextid: number, tradableOnly: boolean, callback: InventoryCallback): void;
+    loadInventory(appid: number, contextid: number, tradableOnly: boolean, callback: TradeOfferManager.InventoryCallback): void;
 
     /**
      * HIS METHOD IS DEPRECATED AS OF v2.5.0; USE getUserInventoryContents INSTEAD.
@@ -147,7 +146,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Invoked when data is ready, includes an Error on failure (null on success), an array of the user's inventory items as CEconItem objects,
      * and an array of the user's currency items as CEconItem objects
      */
-    loadUserInventory(steamID: SteamID | string, appid: number, contextid: number, tradableOnly: boolean, callback: InventoryCallback): void;
+    loadUserInventory(steamID: SteamID | string, appid: number, contextid: number, tradableOnly: boolean, callback: TradeOfferManager.InventoryCallback): void;
 
     /**
      * Retrieves the token part of your account's trade URL.
@@ -195,7 +194,7 @@ declare class TradeOfferManager extends EventEmitter {
 }
 
 type OfferCallback = (
-    err: EResultError | null,
+    err: TradeOfferManager.EResultError | null,
     sent: TradeOffer[],
     received: TradeOffer[]
 ) => void;
@@ -652,4 +651,12 @@ declare namespace TradeOfferManager {
         '10': string;
         '11': string;
     }
+
+    type EResultError = Error & { eresult?: TradeOfferManager.EResult; };
+
+    type InventoryCallback = (
+        err: Error | null,
+        inventory: CEconItem[],
+        currencies: CEconItem[]
+    ) => void;
 }
