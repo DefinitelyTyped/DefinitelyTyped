@@ -14,7 +14,7 @@
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';

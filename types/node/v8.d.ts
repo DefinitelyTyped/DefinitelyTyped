@@ -4,7 +4,7 @@
  * ```js
  * const v8 = require('node:v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/v8.js)
  */
 declare module 'v8' {
     import { Readable } from 'node:stream';
