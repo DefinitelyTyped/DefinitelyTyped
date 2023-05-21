@@ -652,7 +652,7 @@ declare namespace TradeOfferManager {
         '11': string;
     }
 
-    type EResultError = Error & { eresult?: TradeOfferManager.EResult; };
+    type EResultError = Error & { eresult?: EResult; };
 
     type InventoryCallback = (
         err: Error | null,
