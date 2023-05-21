@@ -27,7 +27,7 @@ type ExchangeDetailsCallback = (
  * TradeOfferManager#createOffer, TradeOfferManager#getOffer, or TradeOfferManager#getOffers.
  */
 declare class TradeOffer {
-    private constructor(manager: TradeOfferManager, partner: SteamID, token: string);
+    constructor(manager: TradeOfferManager, partner: SteamID, token: string);
     readonly manager: TradeOfferManager;
     readonly id?: string;
     readonly partner: SteamID;
