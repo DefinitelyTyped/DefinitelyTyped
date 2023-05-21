@@ -19,6 +19,8 @@
 *.log
 .DS_Store
 
+# Output Files
+
 _Resharper.DefinitelyTyped
 bin
 obj
