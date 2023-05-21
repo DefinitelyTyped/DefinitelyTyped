@@ -1,12 +1,12 @@
 /**
- * The `http2` module provides an implementation of the [HTTP/2](https://tools.ietf.org/html/rfc7540) protocol. It
- * can be accessed using:
+ * The `node:http2` module provides an implementation of the [HTTP/2](https://tools.ietf.org/html/rfc7540) protocol.
+ * It can be accessed using:
  *
  * ```js
- * const http2 = require('http2');
+ * const http2 = require('node:http2');
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/http2.js)
  */
 declare module 'http2' {
     import EventEmitter = require('node:events');
@@ -151,7 +151,7 @@ declare module 'http2' {
         priority(options: StreamPriorityOptions): void;
         /**
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const client = http2.connect('http://example.org:8000');
          * const { NGHTTP2_CANCEL } = http2.constants;
          * const req = client.request({ ':path': '/' });
@@ -171,7 +171,7 @@ declare module 'http2' {
          * trailers can be sent.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respond(undefined, { waitForTrailers: true });
@@ -332,7 +332,7 @@ declare module 'http2' {
          * Initiates a push stream. The callback is invoked with the new `Http2Stream`instance created for the push stream passed as the second argument, or an`Error` passed as the first argument.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respond({ ':status': 200 });
@@ -357,7 +357,7 @@ declare module 'http2' {
         pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
         /**
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respond({ ':status': 200 });
@@ -365,16 +365,15 @@ declare module 'http2' {
          * });
          * ```
          *
-         * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
-         * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
-         * header fields to the peer.
+         * Initiates a response. When the `options.waitForTrailers` option is set, the`'wantTrailers'` event will be emitted immediately after queuing the last chunk
+         * of payload data to be sent. The `http2stream.sendTrailers()` method can then be
+         * used to sent trailing header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
          * close when the final `DATA` frame is transmitted. User code must call either`http2stream.sendTrailers()` or `http2stream.close()` to close the`Http2Stream`.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respond({ ':status': 200 }, { waitForTrailers: true });
@@ -397,8 +396,8 @@ declare module 'http2' {
          * automatically.
          *
          * ```js
-         * const http2 = require('http2');
-         * const fs = require('fs');
+         * const http2 = require('node:http2');
+         * const fs = require('node:fs');
          *
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
@@ -408,7 +407,7 @@ declare module 'http2' {
          *   const headers = {
          *     'content-length': stat.size,
          *     'last-modified': stat.mtime.toUTCString(),
-         *     'content-type': 'text/plain; charset=utf-8'
+         *     'content-type': 'text/plain; charset=utf-8',
          *   };
          *   stream.respondWithFD(fd, headers);
          *   stream.on('close', () => fs.closeSync(fd));
@@ -439,8 +438,8 @@ declare module 'http2' {
          * close when the final `DATA` frame is transmitted. User code _must_ call either`http2stream.sendTrailers()` or `http2stream.close()` to close the`Http2Stream`.
          *
          * ```js
-         * const http2 = require('http2');
-         * const fs = require('fs');
+         * const http2 = require('node:http2');
+         * const fs = require('node:fs');
          *
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
@@ -450,7 +449,7 @@ declare module 'http2' {
          *   const headers = {
          *     'content-length': stat.size,
          *     'last-modified': stat.mtime.toUTCString(),
-         *     'content-type': 'text/plain; charset=utf-8'
+         *     'content-type': 'text/plain; charset=utf-8',
          *   };
          *   stream.respondWithFD(fd, headers, { waitForTrailers: true });
          *   stream.on('wantTrailers', () => {
@@ -482,7 +481,7 @@ declare module 'http2' {
          * Example using a file path:
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   function statCheck(stat, headers) {
@@ -500,7 +499,7 @@ declare module 'http2' {
          *       }
          *     } catch (err) {
          *       // Perform actual error handling.
-         *       console.log(err);
+         *       console.error(err);
          *     }
          *     stream.end();
          *   }
@@ -516,7 +515,7 @@ declare module 'http2' {
          * results to determine if the file has been modified to return an appropriate`304` response:
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   function statCheck(stat, headers) {
@@ -549,7 +548,7 @@ declare module 'http2' {
          * close when the final `DATA` frame is transmitted. User code must call either`http2stream.sendTrailers()` or `http2stream.close()` to close the`Http2Stream`.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respondWithFile('/some/file',
@@ -748,7 +747,7 @@ declare module 'http2' {
          * the delta.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          *
          * const server = http2.createServer();
          * const expectedWindowSize = 2 ** 20;
@@ -854,11 +853,11 @@ declare module 'http2' {
          * This method is only available if `http2session.type` is equal to`http2.constants.NGHTTP2_SESSION_CLIENT`.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const clientSession = http2.connect('https://localhost:1234');
          * const {
          *   HTTP2_HEADER_PATH,
-         *   HTTP2_HEADER_STATUS
+         *   HTTP2_HEADER_STATUS,
          * } = http2.constants;
          *
          * const req = clientSession.request({ [HTTP2_HEADER_PATH]: '/' });
@@ -928,7 +927,7 @@ declare module 'http2' {
          * Submits an `ALTSVC` frame (as defined by [RFC 7838](https://tools.ietf.org/html/rfc7838)) to the connected client.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          *
          * const server = http2.createServer();
          * server.on('session', (session) => {
@@ -969,7 +968,7 @@ declare module 'http2' {
          * authoritative responses.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const options = getSecureOptionsSomehow();
          * const server = http2.createSecureServer(options);
          * server.on('stream', (stream) => {
@@ -995,7 +994,7 @@ declare module 'http2' {
          * server using the `http2.createSecureServer()` method:
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const options = getSecureOptionsSomehow();
          * options.origins = ['https://example.com', 'https://example.org'];
          * const server = http2.createSecureServer(options);
@@ -1436,7 +1435,7 @@ declare module 'http2' {
          */
         readonly headersSent: boolean;
         /**
-         * A reference to the original HTTP2 request object.
+         * A reference to the original HTTP2 `request` object.
          * @since v15.7.0
          */
         readonly req: Http2ServerRequest;
@@ -1457,7 +1456,7 @@ declare module 'http2' {
          * All other interactions will be routed directly to the socket.
          *
          * ```js
-         * const http2 = require('http2');
+         * const http2 = require('node:http2');
          * const server = http2.createServer((req, res) => {
          *   const ip = req.socket.remoteAddress;
          *   const port = req.socket.remotePort;
@@ -1640,7 +1639,7 @@ declare module 'http2' {
          * This sends a chunk of the response body. This method may
          * be called multiple times to provide successive parts of the body.
          *
-         * In the `http` module, the response body is omitted when the
+         * In the `node:http` module, the response body is omitted when the
          * request is a HEAD request. Similarly, the `204` and `304` responses _must not_ include a message body.
          *
          * `chunk` can be a string or a buffer. If `chunk` is a string,
@@ -1675,7 +1674,7 @@ declare module 'http2' {
          * The `hints` is an object containing the values of headers to be sent with
          * early hints message.
          *
-         * Example:
+         * **Example**
          *
          * ```js
          * const earlyHintsLink = '</styles.css>; rel=preload; as=style';
@@ -1689,12 +1688,9 @@ declare module 'http2' {
          * ];
          * response.writeEarlyHints({
          *   'link': earlyHintsLinks,
-         *   'x-trace-id': 'id for diagnostics'
          * });
          * ```
-         *
          * @since v18.11.0
-         * @param hints An object containing the values of headers
          */
         writeEarlyHints(hints: Record<string, string | string[]>): void;
         /**
@@ -2027,7 +2023,7 @@ declare module 'http2' {
      * for use with the `HTTP2-Settings` header field.
      *
      * ```js
-     * const http2 = require('http2');
+     * const http2 = require('node:http2');
      *
      * const packed = http2.getPackedSettings({ enablePush: false });
      *
@@ -2052,7 +2048,7 @@ declare module 'http2' {
      * with browser clients.
      *
      * ```js
-     * const http2 = require('http2');
+     * const http2 = require('node:http2');
      *
      * // Create an unencrypted HTTP/2 server.
      * // Since there are no browsers known that support
@@ -2063,12 +2059,12 @@ declare module 'http2' {
      * server.on('stream', (stream, headers) => {
      *   stream.respond({
      *     'content-type': 'text/html; charset=utf-8',
-     *     ':status': 200
+     *     ':status': 200,
      *   });
      *   stream.end('<h1>Hello World</h1>');
      * });
      *
-     * server.listen(80);
+     * server.listen(8000);
      * ```
      * @since v8.4.0
      * @param onRequestHandler See `Compatibility API`
@@ -2079,12 +2075,12 @@ declare module 'http2' {
      * Returns a `tls.Server` instance that creates and manages `Http2Session`instances.
      *
      * ```js
-     * const http2 = require('http2');
-     * const fs = require('fs');
+     * const http2 = require('node:http2');
+     * const fs = require('node:fs');
      *
      * const options = {
      *   key: fs.readFileSync('server-key.pem'),
-     *   cert: fs.readFileSync('server-cert.pem')
+     *   cert: fs.readFileSync('server-cert.pem'),
      * };
      *
      * // Create a secure HTTP/2 server
@@ -2093,12 +2089,12 @@ declare module 'http2' {
      * server.on('stream', (stream, headers) => {
      *   stream.respond({
      *     'content-type': 'text/html; charset=utf-8',
-     *     ':status': 200
+     *     ':status': 200,
      *   });
      *   stream.end('<h1>Hello World</h1>');
      * });
      *
-     * server.listen(80);
+     * server.listen(8443);
      * ```
      * @since v8.4.0
      * @param onRequestHandler See `Compatibility API`
@@ -2109,7 +2105,7 @@ declare module 'http2' {
      * Returns a `ClientHttp2Session` instance.
      *
      * ```js
-     * const http2 = require('http2');
+     * const http2 = require('node:http2');
      * const client = http2.connect('https://localhost:1234');
      *
      * // Use the client

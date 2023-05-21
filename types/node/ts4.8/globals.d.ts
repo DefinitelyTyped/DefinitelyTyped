@@ -45,42 +45,43 @@ declare var gc: undefined | (() => void);
 // from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
 /** A controller object that allows you to abort one or more DOM requests as and when desired. */
 interface AbortController {
-  /**
-   * Returns the AbortSignal object associated with this object.
-   */
+    /**
+     * Returns the AbortSignal object associated with this object.
+     */
 
-  readonly signal: AbortSignal;
-  /**
-   * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
-   */
-  abort(reason?: any): void;
+    readonly signal: AbortSignal;
+    /**
+     * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(reason?: any): void;
 }
 
 /** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
 interface AbortSignal extends EventTarget {
-  /**
-   * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
-   */
-  readonly aborted: boolean;
-  readonly reason: any;
-  onabort: null | ((this: AbortSignal, event: Event) => any);
+    /**
+     * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
+     */
+    readonly aborted: boolean;
+    readonly reason: any;
+    onabort: null | ((this: AbortSignal, event: Event) => any);
+    throwIfAborted(): void;
 }
 
 declare var AbortController: typeof globalThis extends {onmessage: any; AbortController: infer T}
-  ? T
-  : {
-      prototype: AbortController;
-      new(): AbortController;
-  };
+    ? T
+    : {
+        prototype: AbortController;
+        new(): AbortController;
+    };
 
 declare var AbortSignal: typeof globalThis extends {onmessage: any; AbortSignal: infer T}
-  ? T
-  : {
-      prototype: AbortSignal;
-      new(): AbortSignal;
-      abort(reason?: any): AbortSignal;
-      timeout(milliseconds: number): AbortSignal;
-  };
+    ? T
+    : {
+        prototype: AbortSignal;
+        new(): AbortSignal;
+        abort(reason?: any): AbortSignal;
+        timeout(milliseconds: number): AbortSignal;
+    };
 //#endregion borrowed
 
 //#region ArrayLike.at()
@@ -94,6 +95,7 @@ interface RelativeIndexable<T> {
 }
 interface String extends RelativeIndexable<string> {}
 interface Array<T> extends RelativeIndexable<T> {}
+interface ReadonlyArray<T> extends RelativeIndexable<T> {}
 interface Int8Array extends RelativeIndexable<number> {}
 interface Uint8Array extends RelativeIndexable<number> {}
 interface Uint8ClampedArray extends RelativeIndexable<number> {}
@@ -158,7 +160,7 @@ declare namespace NodeJS {
         /**
          * Name of the script [if this function was defined in a script]
          */
-        getFileName(): string | null;
+        getFileName(): string | undefined;
 
         /**
          * Current line number [if this function was defined in a script]

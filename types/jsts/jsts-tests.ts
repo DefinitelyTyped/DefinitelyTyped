@@ -401,3 +401,9 @@ al = polygonizer.getPolygons();
 hs = polygonizer.getDangles();
 al = polygonizer.getCutEdges();
 al = polygonizer.getInvalidRingLines();
+
+var lineMerger = new jsts.operation.linemerge.LineMerger();
+lineMerger.add(g);
+var geomJavaCollection = new java.utils.Collection<jsts.geom.Geometry>();
+lineMerger.add(geomJavaCollection);
+geomJavaCollection = lineMerger.getMergedLineStrings();

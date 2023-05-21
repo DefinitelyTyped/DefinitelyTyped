@@ -1,24 +1,24 @@
 /**
  * A stream is an abstract interface for working with streaming data in Node.js.
- * The `stream` module provides an API for implementing the stream interface.
+ * The `node:stream` module provides an API for implementing the stream interface.
  *
  * There are many stream objects provided by Node.js. For instance, a `request to an HTTP server` and `process.stdout` are both stream instances.
  *
  * Streams can be readable, writable, or both. All streams are instances of `EventEmitter`.
  *
- * To access the `stream` module:
+ * To access the `node:stream` module:
  *
  * ```js
- * const stream = require('stream');
+ * const stream = require('node:stream');
  * ```
  *
- * The `stream` module is useful for creating new types of stream instances. It is
- * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/stream.js)
+ * The `node:stream` module is useful for creating new types of stream instances.
+ * It is usually not necessary to use the `node:stream` module to consume streams.
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
-    import { Blob as NodeBlob } from "node:buffer";
+    import { Blob as NodeBlob } from 'node:buffer';
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
     import * as streamWeb from 'node:stream/web';
@@ -128,7 +128,7 @@ declare module 'stream' {
              */
             destroyed: boolean;
             /**
-             * Is true after 'close' has been emitted.
+             * Is `true` after `'close'` has been emitted.
              * @since v18.0.0
              */
             readonly closed: boolean;
@@ -310,7 +310,7 @@ declare module 'stream' {
              * the method does nothing.
              *
              * ```js
-             * const fs = require('fs');
+             * const fs = require('node:fs');
              * const readable = getReadableStreamSomehow();
              * const writable = fs.createWriteStream('file.txt');
              * // All the data from readable goes into 'file.txt',
@@ -348,7 +348,7 @@ declare module 'stream' {
              * // Pull off a header delimited by \n\n.
              * // Use unshift() if we get too much.
              * // Call the callback with (error, header, stream).
-             * const { StringDecoder } = require('string_decoder');
+             * const { StringDecoder } = require('node:string_decoder');
              * function parseHeader(stream, callback) {
              *   stream.on('error', callback);
              *   stream.on('readable', onReadable);
@@ -388,14 +388,14 @@ declare module 'stream' {
              * however it is best to simply avoid calling `readable.unshift()` while in the
              * process of performing a read.
              * @since v0.9.11
-             * @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must be a string, `Buffer`, `Uint8Array` or `null`. For object mode
+             * @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must be a string, `Buffer`, `Uint8Array`, or `null`. For object mode
              * streams, `chunk` may be any JavaScript value.
              * @param encoding Encoding of string chunks. Must be a valid `Buffer` encoding, such as `'utf8'` or `'ascii'`.
              */
             unshift(chunk: any, encoding?: BufferEncoding): void;
             /**
-             * Prior to Node.js 0.10, streams did not implement the entire `stream` module API
-             * as it is currently defined. (See `Compatibility` for more information.)
+             * Prior to Node.js 0.10, streams did not implement the entire `node:stream`module API as it is currently defined. (See `Compatibility` for more
+             * information.)
              *
              * When using an older Node.js library that emits `'data'` events and has a {@link pause} method that is advisory only, the`readable.wrap()` method can be used to create a `Readable`
              * stream that uses
@@ -407,7 +407,7 @@ declare module 'stream' {
              *
              * ```js
              * const { OldReader } = require('./old-api-module.js');
-             * const { Readable } = require('stream');
+             * const { Readable } = require('node:stream');
              * const oreader = new OldReader();
              * const myReader = new Readable().wrap(oreader);
              *
@@ -534,7 +534,7 @@ declare module 'stream' {
             static toWeb(streamWritable: Writable): streamWeb.WritableStream;
             /**
              * Is `true` if it is safe to call `writable.write()`, which means
-             * the stream has not been destroyed, errored or ended.
+             * the stream has not been destroyed, errored, or ended.
              * @since v11.4.0
              */
             readonly writable: boolean;
@@ -578,7 +578,7 @@ declare module 'stream' {
              */
             destroyed: boolean;
             /**
-             * Is true after 'close' has been emitted.
+             * Is `true` after `'close'` has been emitted.
              * @since v18.0.0
              */
             readonly closed: boolean;
@@ -588,7 +588,7 @@ declare module 'stream' {
              */
             readonly errored: Error | null;
             /**
-             * Is `true` if the stream's buffer has been full and stream will emit 'drain'.
+             * Is `true` if the stream's buffer has been full and stream will emit `'drain'`.
              * @since v15.2.0, v14.17.0
              */
             readonly writableNeedDrain: boolean;
@@ -678,7 +678,7 @@ declare module 'stream' {
              *
              * ```js
              * // Write 'hello, ' and then end with 'world!'.
-             * const fs = require('fs');
+             * const fs = require('node:fs');
              * const file = fs.createWriteStream('example.txt');
              * file.write('hello, ');
              * file.end('world!');
@@ -864,7 +864,7 @@ declare module 'stream' {
             /**
              * If `false` then the stream will automatically end the writable side when the
              * readable side ends. Set initially by the `allowHalfOpen` constructor option,
-             * which defaults to `false`.
+             * which defaults to `true`.
              *
              * This can be changed manually to change the half-open behavior of an existing`Duplex` stream instance, but must be changed before the `'end'` event is
              * emitted.
@@ -1052,18 +1052,21 @@ declare module 'stream' {
          */
         class PassThrough extends Transform {}
         /**
+         * A stream to attach a signal to.
+         *
          * Attaches an AbortSignal to a readable or writeable stream. This lets code
          * control stream destruction using an `AbortController`.
          *
-         * Calling `abort` on the `AbortController` corresponding to the passed`AbortSignal` will behave the same way as calling `.destroy(new AbortError())`on the stream.
+         * Calling `abort` on the `AbortController` corresponding to the passed`AbortSignal` will behave the same way as calling `.destroy(new AbortError())`on the stream, and `controller.error(new
+         * AbortError())` for webstreams.
          *
          * ```js
-         * const fs = require('fs');
+         * const fs = require('node:fs');
          *
          * const controller = new AbortController();
          * const read = addAbortSignal(
          *   controller.signal,
-         *   fs.createReadStream(('object.json'))
+         *   fs.createReadStream(('object.json')),
          * );
          * // Later, abort the operation closing the stream
          * controller.abort();
@@ -1076,7 +1079,7 @@ declare module 'stream' {
          * setTimeout(() => controller.abort(), 10_000); // set a timeout
          * const stream = addAbortSignal(
          *   controller.signal,
-         *   fs.createReadStream(('object.json'))
+         *   fs.createReadStream(('object.json')),
          * );
          * (async () => {
          *   try {
@@ -1092,22 +1095,70 @@ declare module 'stream' {
          *   }
          * })();
          * ```
+         *
+         * Or using an `AbortSignal` with a ReadableStream:
+         *
+         * ```js
+         * const controller = new AbortController();
+         * const rs = new ReadableStream({
+         *   start(controller) {
+         *     controller.enqueue('hello');
+         *     controller.enqueue('world');
+         *     controller.close();
+         *   },
+         * });
+         *
+         * addAbortSignal(controller.signal, rs);
+         *
+         * finished(rs, (err) => {
+         *   if (err) {
+         *     if (err.name === 'AbortError') {
+         *       // The operation was cancelled
+         *     }
+         *   }
+         * });
+         *
+         * const reader = rs.getReader();
+         *
+         * reader.read().then(({ value, done }) => {
+         *   console.log(value); // hello
+         *   console.log(done); // false
+         *   controller.abort();
+         * });
+         * ```
          * @since v15.4.0
          * @param signal A signal representing possible cancellation
          * @param stream a stream to attach a signal to
          */
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
+        /**
+         * Returns the default highWaterMark used by streams.
+         * Defaults to `16384` (16 KiB), or `16` for `objectMode`.
+         * @since v19.9.0
+         * @param objectMode
+         */
+        function getDefaultHighWaterMark(objectMode: boolean): number;
+        /**
+         * Sets the default highWaterMark used by streams.
+         * @since v19.9.0
+         * @param objectMode
+         * @param value highWaterMark value
+         */
+        function setDefaultHighWaterMark(objectMode: boolean, value: number): void;
         interface FinishedOptions extends Abortable {
             error?: boolean | undefined;
             readable?: boolean | undefined;
             writable?: boolean | undefined;
         }
         /**
+         * A readable and/or writable stream/webstream.
+         *
          * A function to get notified when a stream is no longer readable, writable
          * or has experienced an error or a premature close event.
          *
          * ```js
-         * const { finished } = require('stream');
+         * const { finished } = require('node:stream');
+         * const fs = require('node:fs');
          *
          * const rs = fs.createReadStream('archive.tar');
          *
@@ -1125,21 +1176,7 @@ declare module 'stream' {
          * Especially useful in error handling scenarios where a stream is destroyed
          * prematurely (like an aborted HTTP request), and will not emit `'end'`or `'finish'`.
          *
-         * The `finished` API provides promise version:
-         *
-         * ```js
-         * const { finished } = require('stream/promises');
-         *
-         * const rs = fs.createReadStream('archive.tar');
-         *
-         * async function run() {
-         *   await finished(rs);
-         *   console.log('Stream is done reading.');
-         * }
-         *
-         * run().catch(console.error);
-         * rs.resume(); // Drain the stream.
-         * ```
+         * The `finished` API provides `promise version`.
          *
          * `stream.finished()` leaves dangling event listeners (in particular`'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
          * invoked. The reason for this is so that unexpected `'error'` events (due to
@@ -1187,9 +1224,9 @@ declare module 'stream' {
          * properly cleaning up and provide a callback when the pipeline is complete.
          *
          * ```js
-         * const { pipeline } = require('stream');
-         * const fs = require('fs');
-         * const zlib = require('zlib');
+         * const { pipeline } = require('node:stream');
+         * const fs = require('node:fs');
+         * const zlib = require('node:zlib');
          *
          * // Use the pipeline API to easily pipe a series of streams
          * // together and get notified when the pipeline is fully done.
@@ -1206,95 +1243,11 @@ declare module 'stream' {
          *     } else {
          *       console.log('Pipeline succeeded.');
          *     }
-         *   }
+         *   },
          * );
          * ```
          *
-         * The `pipeline` API provides a promise version, which can also
-         * receive an options argument as the last parameter with a`signal` `AbortSignal` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
-         * an`AbortError`.
-         *
-         * ```js
-         * const { pipeline } = require('stream/promises');
-         *
-         * async function run() {
-         *   await pipeline(
-         *     fs.createReadStream('archive.tar'),
-         *     zlib.createGzip(),
-         *     fs.createWriteStream('archive.tar.gz')
-         *   );
-         *   console.log('Pipeline succeeded.');
-         * }
-         *
-         * run().catch(console.error);
-         * ```
-         *
-         * To use an `AbortSignal`, pass it inside an options object,
-         * as the last argument:
-         *
-         * ```js
-         * const { pipeline } = require('stream/promises');
-         *
-         * async function run() {
-         *   const ac = new AbortController();
-         *   const signal = ac.signal;
-         *
-         *   setTimeout(() => ac.abort(), 1);
-         *   await pipeline(
-         *     fs.createReadStream('archive.tar'),
-         *     zlib.createGzip(),
-         *     fs.createWriteStream('archive.tar.gz'),
-         *     { signal },
-         *   );
-         * }
-         *
-         * run().catch(console.error); // AbortError
-         * ```
-         *
-         * The `pipeline` API also supports async generators:
-         *
-         * ```js
-         * const { pipeline } = require('stream/promises');
-         * const fs = require('fs');
-         *
-         * async function run() {
-         *   await pipeline(
-         *     fs.createReadStream('lowercase.txt'),
-         *     async function* (source, { signal }) {
-         *       source.setEncoding('utf8');  // Work with strings rather than `Buffer`s.
-         *       for await (const chunk of source) {
-         *         yield await processChunk(chunk, { signal });
-         *       }
-         *     },
-         *     fs.createWriteStream('uppercase.txt')
-         *   );
-         *   console.log('Pipeline succeeded.');
-         * }
-         *
-         * run().catch(console.error);
-         * ```
-         *
-         * Remember to handle the `signal` argument passed into the async generator.
-         * Especially in the case where the async generator is the source for the
-         * pipeline (i.e. first argument) or the pipeline will never complete.
-         *
-         * ```js
-         * const { pipeline } = require('stream/promises');
-         * const fs = require('fs');
-         *
-         * async function run() {
-         *   await pipeline(
-         *     async function* ({ signal }) {
-         *       await someLongRunningfn({ signal });
-         *       yield 'asd';
-         *     },
-         *     fs.createWriteStream('uppercase.txt')
-         *   );
-         *   console.log('Pipeline succeeded.');
-         * }
-         *
-         * run().catch(console.error);
-         * ```
+         * The `pipeline` API provides a `promise version`.
          *
          * `stream.pipeline()` will call `stream.destroy(err)` on all streams except:
          *
@@ -1313,9 +1266,9 @@ declare module 'stream' {
          * See the example below:
          *
          * ```js
-         * const fs = require('fs');
-         * const http = require('http');
-         * const { pipeline } = require('stream');
+         * const fs = require('node:fs');
+         * const http = require('node:http');
+         * const { pipeline } = require('node:stream');
          *
          * const server = http.createServer((req, res) => {
          *   const fileStream = fs.createReadStream('./fileNotExist.txt');
@@ -1416,19 +1369,18 @@ declare module 'stream' {
             ref(): void;
             unref(): void;
         }
-
         /**
          * Returns whether the stream has encountered an error.
-         * @since v17.3.0
+         * @since v17.3.0, v16.14.0
+         * @experimental
          */
         function isErrored(stream: Readable | Writable | NodeJS.ReadableStream | NodeJS.WritableStream): boolean;
-
         /**
          * Returns whether the stream is readable.
-         * @since v17.4.0
+         * @since v17.4.0, v16.14.0
+         * @experimental
          */
         function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
-
         const promises: typeof streamPromises;
         const consumers: typeof streamConsumers;
     }

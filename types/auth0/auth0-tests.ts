@@ -1017,6 +1017,10 @@ management.getLogs(
     logs => console.log(logs),
 );
 
+// Log streams
+management.getLogStreams().then(logStreams => console.log(logStreams));
+management.getLogStreams((err, logStreams) => console.log(logStreams));
+
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
 });

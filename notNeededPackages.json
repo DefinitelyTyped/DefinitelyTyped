@@ -3289,6 +3289,42 @@
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
         },
+        "metro": {
+            "libraryName": "metro",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-babel-transformer": {
+            "libraryName": "metro-babel-transformer",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-cache": {
+            "libraryName": "metro-cache",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-config": {
+            "libraryName": "metro-config",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-core": {
+            "libraryName": "metro-core",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-file-map": {
+            "libraryName": "metro-file-map",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-resolver": {
+            "libraryName": "metro-resolver",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-source-map": {
+            "libraryName": "metro-source-map",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-transform-worker": {
+            "libraryName": "metro-transform-worker",
+            "asOfVersion": "0.76.3"
+        },
         "micro": {
             "libraryName": "micro",
             "asOfVersion": "10.0.0"

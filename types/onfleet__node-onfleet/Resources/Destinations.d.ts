@@ -12,11 +12,11 @@ declare namespace Destination {
     type Location = [Longitude, Latitude];
 
     /**
-     * @prop { string } [apartment] - The suite or apartment number, or any additional relevant information.
-     * @prop { string } city - The name of the municipality.
-     * @prop { string } country - The name of the country.
-     * @prop { string } [name] - A name associated with this address, for example, "Transamerica Pyramid".
-     * @prop { string } number - The number component of this address, it may also contain letters.
+     * [apartment] - The suite or apartment number, or any additional relevant information.
+     * city - The name of the municipality.
+     * country - The name of the country.
+     * [name] - A name associated with this address, for example, "Transamerica Pyramid".
+     * number - The number component of this address, it may also contain letters.
      * @prop { string } [postalCode] - The postal or zip code.
      * @prop { string } [state] - The name of the state, province or jurisdiction.
      * @prop { string } street - The name of the street.

@@ -214,7 +214,7 @@ export class OrbitControls {
     /**
      * Used internally by the .saveState and .reset methods.
      */
-    zoomO: number;
+    zoom0: number;
 
     /**
      * Update the controls. Must be called after any manual changes
@@ -275,8 +275,4 @@ export class OrbitControls {
     removeEventListener(type: string, listener: (event: any) => void): void;
 
     dispatchEvent(event: { type: string; target: any }): void;
-}
-
-export class MapControls extends OrbitControls {
-    constructor(object: Camera, domElement?: HTMLElement);
 }

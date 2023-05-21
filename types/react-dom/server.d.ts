@@ -39,8 +39,10 @@ export interface RenderToPipeableStreamOptions {
 }
 
 export interface PipeableStream {
-    abort(): void;
-    pipe<Writable extends NodeJS.WritableStream>(destination: Writable): Writable;
+    // tslint:disable-next-line:void-return
+    abort(this: void): void;
+    // tslint:disable-next-line:void-return
+    pipe<Writable extends NodeJS.WritableStream>(this: void, destination: Writable): Writable;
 }
 
 /**

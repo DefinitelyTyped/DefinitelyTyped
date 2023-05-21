@@ -927,6 +927,7 @@ declare namespace JQueryUI {
     }
 
     interface TooltipUIParams {
+        tooltip: JQuery;
     }
 
     interface TooltipEvent {

@@ -75,7 +75,7 @@ Formidable.DEFAULT_OPTIONS;
 defaultOptions;
 defaultOptions.enabledPlugins; // $ExpectType EnabledPlugins
 
-options.fileWriteStreamHandler; // $ExpectType (() => Writable) | undefined
+options.fileWriteStreamHandler; // $ExpectType ((file?: VolatileFile | undefined) => Writable) | undefined
 
 // $ExpectType EnabledPlugins
 enabledPlugins;
@@ -83,7 +83,7 @@ enabledPlugins;
 // $ExpectType EnabledPlugins
 plugins;
 
-// $ExpectType PersistentFile
+// $ExpectType VolatileFile
 new VolatileFile(file);
 
 // $ExpectType PersistentFile

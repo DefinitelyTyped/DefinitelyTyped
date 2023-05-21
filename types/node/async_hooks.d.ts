@@ -1,17 +1,24 @@
 /**
- * The `async_hooks` module provides an API to track asynchronous resources. It
- * can be accessed using:
+ * We strongly discourage the use of the `async_hooks` API.
+ * Other APIs that can cover most of its use cases include:
+ *
+ * * `AsyncLocalStorage` tracks async context
+ * * `process.getActiveResourcesInfo()` tracks active resources
+ *
+ * The `node:async_hooks` module provides an API to track asynchronous resources.
+ * It can be accessed using:
  *
  * ```js
- * import async_hooks from 'async_hooks';
+ * import async_hooks from 'node:async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/async_hooks.js)
  */
 declare module 'async_hooks' {
     /**
      * ```js
-     * import { executionAsyncId } from 'async_hooks';
+     * import { executionAsyncId } from 'node:async_hooks';
+     * import fs from 'node:fs';
      *
      * console.log(executionAsyncId());  // 1 - bootstrap
      * fs.open(path, 'r', (err, fd) => {
@@ -51,8 +58,8 @@ declare module 'async_hooks' {
      * but having an object representing the top-level can be helpful.
      *
      * ```js
-     * import { open } from 'fs';
-     * import { executionAsyncId, executionAsyncResource } from 'async_hooks';
+     * import { open } from 'node:fs';
+     * import { executionAsyncId, executionAsyncResource } from 'node:async_hooks';
      *
      * console.log(executionAsyncId(), executionAsyncResource());  // 1 {}
      * open(new URL(import.meta.url), 'r', (err, fd) => {
@@ -64,11 +71,11 @@ declare module 'async_hooks' {
      * use of a tracking `Map` to store the metadata:
      *
      * ```js
-     * import { createServer } from 'http';
+     * import { createServer } from 'node:http';
      * import {
      *   executionAsyncId,
      *   executionAsyncResource,
-     *   createHook
+     *   createHook,
      * } from 'async_hooks';
      * const sym = Symbol('state'); // Private symbol to avoid pollution
      *
@@ -78,7 +85,7 @@ declare module 'async_hooks' {
      *     if (cr) {
      *       resource[sym] = cr[sym];
      *     }
-     *   }
+     *   },
      * }).enable();
      *
      * const server = createServer((req, res) => {
@@ -167,11 +174,11 @@ declare module 'async_hooks' {
      * specifics of all functions that can be passed to `callbacks` is in the `Hook Callbacks` section.
      *
      * ```js
-     * import { createHook } from 'async_hooks';
+     * import { createHook } from 'node:async_hooks';
      *
      * const asyncHook = createHook({
      *   init(asyncId, type, triggerAsyncId, resource) { },
-     *   destroy(asyncId) { }
+     *   destroy(asyncId) { },
      * });
      * ```
      *
@@ -223,13 +230,13 @@ declare module 'async_hooks' {
      * The following is an overview of the `AsyncResource` API.
      *
      * ```js
-     * import { AsyncResource, executionAsyncId } from 'async_hooks';
+     * import { AsyncResource, executionAsyncId } from 'node:async_hooks';
      *
      * // AsyncResource() is meant to be extended. Instantiating a
      * // new AsyncResource() also triggers init. If triggerAsyncId is omitted then
      * // async_hook.executionAsyncId() is used.
      * const asyncResource = new AsyncResource(
-     *   type, { triggerAsyncId: executionAsyncId(), requireManualDestroy: false }
+     *   type, { triggerAsyncId: executionAsyncId(), requireManualDestroy: false },
      * );
      *
      * // Run a function in the execution context of the resource. This will
@@ -263,33 +270,17 @@ declare module 'async_hooks' {
         constructor(type: string, triggerAsyncId?: number | AsyncResourceOptions);
         /**
          * Binds the given function to the current execution context.
-         *
-         * The returned function will have an `asyncResource` property referencing
-         * the `AsyncResource` to which the function is bound.
          * @since v14.8.0, v12.19.0
          * @param fn The function to bind to the current execution context.
          * @param type An optional name to associate with the underlying `AsyncResource`.
          */
-        static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(
-            fn: Func,
-            type?: string,
-            thisArg?: ThisArg
-        ): Func & {
-            asyncResource: AsyncResource;
-        };
+        static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(fn: Func, type?: string, thisArg?: ThisArg): Func;
         /**
          * Binds the given function to execute to this `AsyncResource`'s scope.
-         *
-         * The returned function will have an `asyncResource` property referencing
-         * the `AsyncResource` to which the function is bound.
          * @since v14.8.0, v12.19.0
          * @param fn The function to bind to the current `AsyncResource`.
          */
-        bind<Func extends (...args: any[]) => any>(
-            fn: Func
-        ): Func & {
-            asyncResource: AsyncResource;
-        };
+        bind<Func extends (...args: any[]) => any>(fn: Func): Func;
         /**
          * Call the provided function with the provided arguments in the execution context
          * of the async resource. This will establish the context, trigger the AsyncHooks
@@ -322,17 +313,17 @@ declare module 'async_hooks' {
     /**
      * This class creates stores that stay coherent through asynchronous operations.
      *
-     * While you can create your own implementation on top of the `async_hooks` module,`AsyncLocalStorage` should be preferred as it is a performant and memory safe
-     * implementation that involves significant optimizations that are non-obvious to
-     * implement.
+     * While you can create your own implementation on top of the `node:async_hooks`module, `AsyncLocalStorage` should be preferred as it is a performant and memory
+     * safe implementation that involves significant optimizations that are non-obvious
+     * to implement.
      *
      * The following example uses `AsyncLocalStorage` to build a simple logger
      * that assigns IDs to incoming HTTP requests and includes them in messages
      * logged within each request.
      *
      * ```js
-     * import http from 'http';
-     * import { AsyncLocalStorage } from 'async_hooks';
+     * import http from 'node:http';
+     * import { AsyncLocalStorage } from 'node:async_hooks';
      *
      * const asyncLocalStorage = new AsyncLocalStorage();
      *
@@ -370,21 +361,42 @@ declare module 'async_hooks' {
     class AsyncLocalStorage<T> {
         /**
          * Binds the given function to the current execution context.
-         * @since v18.16.0
+         * @since v19.8.0
+         * @experimental
          * @param fn The function to bind to the current execution context.
-         * @returns A new function that calls `fn` within the captured execution context.
+         * @return A new function that calls `fn` within the captured execution context.
          */
-        static bind<Func extends (...args: any[]) => any>(fn: Func): Func & {
-            asyncResource: AsyncResource;
-        };
+        static bind<Func extends (...args: any[]) => any>(fn: Func): Func;
         /**
-         * Captures the current execution context and returns a function that accepts a function as an argument.
-         * Whenever the returned function is called, it calls the function passed to it within the captured context.
-         * @since v18.16.0
+         * Captures the current execution context and returns a function that accepts a
+         * function as an argument. Whenever the returned function is called, it
+         * calls the function passed to it within the captured context.
+         *
+         * ```js
+         * const asyncLocalStorage = new AsyncLocalStorage();
+         * const runInAsyncScope = asyncLocalStorage.run(123, () => AsyncLocalStorage.snapshot());
+         * const result = asyncLocalStorage.run(321, () => runInAsyncScope(() => asyncLocalStorage.getStore()));
+         * console.log(result);  // returns 123
+         * ```
+         *
+         * AsyncLocalStorage.snapshot() can replace the use of AsyncResource for simple
+         * async context tracking purposes, for example:
+         *
+         * ```js
+         * class Foo {
+         *   #runInAsyncScope = AsyncLocalStorage.snapshot();
+         *
+         *   get() { return this.#runInAsyncScope(() => asyncLocalStorage.getStore()); }
+         * }
+         *
+         * const foo = asyncLocalStorage.run(123, () => new Foo());
+         * console.log(asyncLocalStorage.run(321, () => foo.get())); // returns 123
+         * ```
+         * @since v19.8.0
+         * @experimental
+         * @return A new function with the signature `(fn: (...args) : R, ...args) : R`.
          */
-        static snapshot(): (<R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R) & {
-            asyncResource: AsyncResource;
-        };
+        static snapshot(): <R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R;
         /**
          * Disables the instance of `AsyncLocalStorage`. All subsequent calls
          * to `asyncLocalStorage.getStore()` will return `undefined` until`asyncLocalStorage.run()` or `asyncLocalStorage.enterWith()` is called again.

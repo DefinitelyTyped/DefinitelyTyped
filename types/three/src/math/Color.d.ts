@@ -1,7 +1,9 @@
 import { ColorSpace } from '../constants';
+import { Matrix3 } from './Matrix3';
+import { Vector3 } from './Vector3';
 
-import { BufferAttribute } from './../core/BufferAttribute';
-import { InterleavedBufferAttribute } from './../core/InterleavedBufferAttribute';
+import { BufferAttribute } from '../core/BufferAttribute';
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute';
 
 export { SRGBToLinear } from './ColorManagement';
 
@@ -203,6 +205,13 @@ export class Color {
     b: number;
 
     set(color: ColorRepresentation): Color;
+
+    /**
+     * Sets this color's {@link r}, {@link g} and {@link b} components from the x, y, and z components of the specified
+     * {@link Vector3 | vector}.
+     */
+    setFromVector3(vector: Vector3): this;
+
     setScalar(scalar: number): Color;
     setHex(hex: number, colorSpace?: ColorSpace): Color;
 
@@ -295,6 +304,12 @@ export class Color {
     add(color: Color): this;
     addColors(color1: Color, color2: Color): this;
     addScalar(s: number): this;
+
+    /**
+     * Applies the transform {@link Matrix3 | m} to this color's RGB components.
+     */
+    applyMatrix3(m: Matrix3): this;
+
     sub(color: Color): this;
     multiply(color: Color): this;
     multiplyScalar(s: number): this;
@@ -325,6 +340,12 @@ export class Color {
      * @return The provided array-like.
      */
     toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
+
+    /**
+     * This method defines the serialization result of Color.
+     * @return The color as a hexadecimal value.
+     */
+    toJSON(): number;
 
     fromBufferAttribute(attribute: BufferAttribute | InterleavedBufferAttribute, index: number): this;
 

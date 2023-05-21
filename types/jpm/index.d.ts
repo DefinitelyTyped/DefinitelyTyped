@@ -117,13 +117,12 @@ declare module "sdk/context-menu" {
   }
   /**
    * A menu item
-   * @constructor
    */
   export function Item(options: {label: string, image?: string | undefined, accessKey?: string | undefined, context?: Context | Context[] | undefined,
     contentScript?: string | undefined, contentScriptFile?: string | undefined,  data?: any, onMessage?: ((message?: any) => any) | undefined}): Item;
   
   /**
-   * @constructor
+   * 
    * A menu separator
    */
   export function Separator(): Separator;
@@ -221,7 +220,6 @@ declare module "sdk/notifications" {
  */
 declare module "sdk/page-mod" {
   /**
-   * @constructor
    * @param options.include
    * @param options.contentStyle Lists stylesheets to attach, supplied as strings
    * @param options.contentStyleFile Lists stylesheets to attach, supplied in separate files
@@ -256,7 +254,6 @@ declare module "sdk/page-mod" {
 declare module "sdk/page-worker" {
 
   /**
-   * @constructor
    * @param options.contentURL The URL of the content to load in the worker
    * @param options.contentScript A string or an array of strings containing the texts of content scripts to load.
    *                              Content scripts specified by this option are loaded after those specified by the
@@ -300,7 +297,6 @@ declare module "sdk/page-worker" {
  */
 declare module "sdk/panel" {
   /**
-   * @constructor
    * @param options.contentURL The URL of the content to load in the panel. That is, they can't refer to remote scripts
    * @param options.width The width of the panel in pixels
    * @param options.height The height of the panel in pixels
@@ -452,7 +448,6 @@ declare module "sdk/request" {
    *                                 Content-Type header. You can use this to treat the content as a different MIME type,
    *                                 or to force text to be interpreted using a specific character
    * @param [options.anonymous=false] If true, the request will be sent without cookies or authentication headers
-   * @constructor
    */
   export function Request(options: {url?: string | FFAddonSDK.SDKURL | undefined, onComplete?: ((response: Response) => any) | undefined,
                           headers?: Object | undefined, content?: string | Object | undefined, contentType?: string | undefined, anonymous?: boolean | undefined,
@@ -776,7 +771,6 @@ declare module "sdk/timers" {
 declare module "sdk/ui/button/action" {
   /**
    * Creates an action button
-   * @constructor
    * @param options.id The button's ID. This is used internally to keep track of this button
    *                   The ID must be unique within your add-on
    * @param options.label The button's human-readable label. When the button is in the toolbar,
@@ -797,7 +791,6 @@ declare module "sdk/ui/button/action" {
 declare module "sdk/ui/button/toggle" {
   /**
    * Creates a toggle button
-   * @constructor
    * @param options.id The button's ID. This is used internally to keep track of this button
    *                   The ID must be unique within your add-on
    * @param options.label The button's human-readable label. When the button is in the toolbar,
@@ -838,7 +831,6 @@ declare module "sdk/ui/frame" {
    * @param options.onDetach This event is emitted when a frame instance is unloaded: for example, when the user
    *        closes a browser window, if that window has a toolbar containing this frame.
    *        After receiving this message, you ahould not attempt to communicate with the frame scripts
-   * @constructor
    */
   export function Frame(options: {url: string, name?: string | undefined, onMessage?: ((message: FFAddonSDK.FrameEvent) => any) | undefined,
                         onReady?: ((event: FFAddonSDK.FrameEvent) => any) | undefined, onLoad?: ((event: FFAddonSDK.FrameEvent) => any) | undefined,
@@ -851,7 +843,6 @@ declare module "sdk/ui/frame" {
  */
 declare module "sdk/ui/toolbar" {
   /**
-   * @constructor
    * @param options.title The toolbar's title. This appears as the name of the toolbar in the Firefox "Toolbars" menu
    *        It must be unique
    * @param options.title An array of items to appear in the toolbar. Each item in items must be an action button,
@@ -887,7 +878,6 @@ declare module "sdk/ui/toolbar" {
 declare module "sdk/ui/sidebar" {
 
   /**
-   * @constructor
    * @param options.id The id of the sidebar. This is used to identify this sidebar in its chrome window. It must be unique
    */
   export function Sidebar(options: {id?: string | undefined, title: string, url: string, onShow?: (() => any) | undefined, onHide?: (() => any) | undefined,
@@ -918,7 +908,6 @@ declare module "sdk/url" {
   /**
    * The URL constructor creates an object that represents a URL, verifying that the provided string is a valid URL in the process.
    * Any API in the SDK which has a URL parameter will accept URL objects, not raw strings, unless otherwise noted
-   * @constructor
    * @param source A string to be converted into a URL. If source is not a valid URI, this constructor will throw an exception
    * @param base Used to resolve relative source URLs into absolute ones
    */
@@ -927,7 +916,6 @@ declare module "sdk/url" {
   /**
    * The DataURL constructor creates an object that represents a data: URL,
    * verifying that the provided string is a valid data: URL in the process
-   * @constructor
    * @param uri A string to be parsed as Data URL. If is not a valid URI, this constructor will throw an exception
    */
   export function DataURL(uri: string): DataURL;
