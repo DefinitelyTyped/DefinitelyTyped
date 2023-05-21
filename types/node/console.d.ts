@@ -53,7 +53,7 @@
  * myConsole.warn(`Danger ${name}! Danger!`);
  * // Prints: Danger Will Robinson! Danger!, to err
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/console.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/console.js)
  */
 declare module 'console' {
     import console = require('node:console');

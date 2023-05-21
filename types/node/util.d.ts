@@ -6,7 +6,7 @@
  * ```js
  * const util = require('node:util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';

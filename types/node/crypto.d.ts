@@ -14,7 +14,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/crypto.js)
  */
 declare module 'crypto' {
     import * as stream from 'node:stream';

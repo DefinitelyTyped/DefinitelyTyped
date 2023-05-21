@@ -62,7 +62,7 @@
  * $ wat2wasm demo.wat
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/wasi.js)
  */
 declare module 'wasi' {
     interface WASIOptions {

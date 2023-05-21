@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -1246,7 +1246,8 @@ declare module 'fs' {
      * It can be set to `'dir'`, `'file'`, or `'junction'`. If the `type` argument is
      * not a string, Node.js will autodetect `target` type and use `'file'` or `'dir'`.
      * If the `target` does not exist, `'file'` will be used. Windows junction points
-     * require the destination path to be absolute. When using `'junction'`, the`target` argument will automatically be normalized to absolute path.
+     * require the destination path to be absolute. When using `'junction'`, the`target` argument will automatically be normalized to absolute path. Junction
+     * points on NTFS volumes can only point to directories.
      *
      * Relative targets are relative to the link's parent directory.
      *

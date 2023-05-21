@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/events.js)
  */
 declare module 'events' {
     // NOTE: This class is in the docs but is **not actually exported** by Node.

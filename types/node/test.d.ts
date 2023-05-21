@@ -76,7 +76,7 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test.js)
  */
 declare module 'node:test' {
     import { Readable } from 'node:stream';
@@ -200,12 +200,16 @@ declare module 'node:test' {
     function it(options?: TestOptions, fn?: TestFn): void;
     function it(fn?: TestFn): void;
     namespace it {
-        // Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
+        /**
+         * Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
+         */
         function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
         function skip(name?: string, fn?: TestFn): void;
         function skip(options?: TestOptions, fn?: TestFn): void;
         function skip(fn?: TestFn): void;
-        // Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
+        /**
+         * Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
+         */
         function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
         function todo(name?: string, fn?: TestFn): void;
         function todo(options?: TestOptions, fn?: TestFn): void;
