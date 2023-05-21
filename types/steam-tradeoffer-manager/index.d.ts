@@ -10,8 +10,8 @@ import SteamUser = require('steam-user');
 import SteamCommunity = require('steamcommunity');
 import CEconItem = require('steamcommunity/classes/CEconItem');
 import FileManager = require('file-manager');
-
 import TradeOffer = require('./lib/classes/TradeOffer');
+import type { InventoryCallback, EResultError } from './common';
 
 export = TradeOfferManager;
 
@@ -193,8 +193,6 @@ declare class TradeOfferManager extends EventEmitter {
     static readonly ETradeStatus: TradeOfferManager.ETradeStatus;
     static readonly SteamID: typeof SteamID;
 }
-
-type EResultError = Error & { eresult?: TradeOfferManager.EResult; };
 
 type OfferCallback = (
     err: EResultError | null,

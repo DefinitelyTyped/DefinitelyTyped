@@ -1,14 +1,9 @@
 import TradeOfferManager = require("../../index");
 import SteamID = require('steamid');
 import CEconItem = require('steamcommunity/classes/CEconItem');
+import type { InventoryCallback, EResultError } from '../../common';
 
 export = TradeOffer
-
-type InventoryCallback = (
-    err: Error | null,
-    inventory: CEconItem[],
-    currencies: CEconItem[]
-) => void;
 
 interface UserDetails {
     personaName: string;
@@ -27,8 +22,6 @@ type ExchangeDetailsCallback = (
     receivedItems: TradeOfferManager.MEconItemExchange[],
     sentItems: TradeOfferManager.MEconItemExchange[],
 ) => void;
-
-type EResultError = Error & { eresult?: TradeOfferManager.EResult; };
 
 /**
  * TradeOffer is a class which represents an individual trade offer sent or received by your account. It cannot be instantiated directly, it must be created using
