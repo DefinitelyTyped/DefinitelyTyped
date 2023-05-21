@@ -4,6 +4,7 @@ import SteamCommunity = require('steamcommunity');
 import SteamTotp = require('steam-totp');
 import FS = require('fs');
 import { SteamClient } from 'steam';
+import TradeOffer = require("steam-tradeoffer-manager/lib/classes/TradeOffer");
 
 const community = new SteamCommunity();
 const client = new SteamUser();
@@ -153,6 +154,6 @@ manager.on('realTimeTradeConfirmationRequired', offer => {
     }
 });
 
-const tradeOffer = manager.createOffer("12345678");
+const tradeOffer: TradeOffer = manager.createOffer("12345678");
 
 console.log(tradeOffer.state);
