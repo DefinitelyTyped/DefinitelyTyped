@@ -328,7 +328,10 @@ function widgetTypedInputTests() {
         hasValue: false,
         icon: 'icon',
         label: 'label',
-        options: [{ value: 'val1', label: 'label1' }, { value: 'val2', label: 'label2' }],
+        options: [
+            { value: 'val1', label: 'label1' },
+            { value: 'val2', label: 'label2' },
+        ],
     };
     const wrongTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
         // @ts-expect-error
