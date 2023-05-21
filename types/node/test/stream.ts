@@ -602,6 +602,28 @@ addAbortSignal(new AbortSignal(), new Readable());
     Writable.fromWeb(web, { write: true });
 }
 
+{
+    const duplex = new Duplex();
+    // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
+    Duplex.toWeb(duplex);
+}
+
+{
+    const readable = new ReadableStream();
+    const writable = new WritableStream();
+
+    // $ExpectType Duplex
+    Duplex.fromWeb({ readable, writable });
+
+    // Handles subset of DuplexOptions param
+    // $ExpectType Duplex
+    Duplex.fromWeb({ readable, writable }, { objectMode: true });
+
+    // When the param includes unsupported DuplexOptions
+    // @ts-expect-error
+    Duplex.fromWeb({ readable, writable }, { emitClose: true });
+}
+
 async function testReadableStream() {
     const SECOND = 1000;
 
