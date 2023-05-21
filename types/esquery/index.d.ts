@@ -27,7 +27,7 @@ declare namespace query {
     /** From a JS AST and a selector AST, collect all JS AST nodes that match the selector. */
     function match(ast: Node, selector: Selector, options?: ESQueryOptions): Node[];
     /** Given a `node` and its ancestors, determine if `node` is matched by `selector`. */
-    function matches(node: Node, selector: Selector, ancestry?: Node[] | null, options?: ESQueryOptions): boolean;
+    function matches(node: Node, selector: Selector, ancestry?: Node[], options?: ESQueryOptions): boolean;
     /** Query the code AST using the selector string. */
     function query(ast: Node, selector: string, options?: ESQueryOptions): Node[];
 
