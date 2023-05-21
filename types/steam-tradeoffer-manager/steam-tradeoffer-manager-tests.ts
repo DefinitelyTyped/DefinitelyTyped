@@ -152,3 +152,7 @@ manager.on('realTimeTradeConfirmationRequired', offer => {
         console.log(`Offer #${offer.id} requires confirmation`);
     }
 });
+
+const tradeOffer = manager.createOffer("12345678");
+
+console.log(tradeOffer.state);
