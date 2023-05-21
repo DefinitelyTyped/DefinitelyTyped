@@ -37,7 +37,7 @@ declare namespace query {
         selector: string,
         visitor: (node: Node, parent: Node, ancestry: Node[]) => void,
         options?: ESQueryOptions,
-    ): Node[];
+    ): void
 
     //
     // Unions
