@@ -45,6 +45,13 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement<any, any> | null)
+        | ((
+              props: P,
+              /**
+               * @deprecated https://legacy.react/ts5.0js.org/docs/legacy-context.html#referencing-context-in-stateless-function-components
+               */
+              deprecatedLegacyContext: any,
+          ) => ReactElement<any, any> | null)
         | (new (props: P) => Component<any, any>);
 
     interface RefObject<T> {

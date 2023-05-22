@@ -684,6 +684,15 @@ function elementTypeTests() {
         }
     }
 
+    const ReturnWithLegacyContext = (props: { foo: string }, context: { bar: number }) => {
+        return (
+            <div>
+                foo: {props.foo}, bar: {context.bar}
+            </div>
+        );
+    };
+    const FCWithLegacyContext: React.FC<{ foo: string }> = ReturnWithLegacyContext;
+
     // Desired behavior.
     // @ts-expect-error
     <ReturnVoid />;
@@ -764,6 +773,9 @@ function elementTypeTests() {
     <RenderPromise />;
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(RenderPromise);
+
+    <ReturnWithLegacyContext foo="one" />;
+    React.createElement(ReturnWithLegacyContext, {foo: 'one'});
 }
 
 function managingRefs() {
