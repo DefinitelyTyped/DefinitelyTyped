@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "pg-types": "^2.2.0",
+        "pg-types": "^4.0.1",
         "pg-protocol": "*"
     }
 }
