@@ -154,8 +154,4 @@ manager.on('realTimeTradeConfirmationRequired', offer => {
     }
 });
 
-class ExtendedTradeOffer extends TradeOffer {}
-
-const tradeOffer: ExtendedTradeOffer = manager.createOffer("12345678");
-
-console.log(tradeOffer.state);
+class PromisifiedTradeOffer extends TradeOffer {}
