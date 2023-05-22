@@ -37,13 +37,14 @@
  *   'Host', 'example.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
-    import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
     import { LookupOptions } from 'node:dns';
+    import { EventEmitter } from 'node:events';
+    import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -1310,9 +1311,9 @@ declare module 'http' {
      * ```
      * @since v0.3.4
      */
-    class Agent {
+    class Agent extends EventEmitter {
         /**
-         * By default set to 256\. For agents with `keepAlive` enabled, this
+         * By default set to 256. For agents with `keepAlive` enabled, this
          * sets the maximum number of sockets that will be left open in the free
          * state.
          * @since v0.11.7

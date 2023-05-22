@@ -202,6 +202,9 @@ declare module 'buffer' {
     // the copy below in a Node environment.
     type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
     global {
+        namespace NodeJS {
+            export { BufferEncoding };
+        }
         // Buffer class
         type BufferEncoding =
             | 'ascii'

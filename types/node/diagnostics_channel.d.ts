@@ -20,7 +20,7 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @since v15.1.0, v14.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/diagnostics_channel.js)
  */
 declare module 'diagnostics_channel' {
     /**
