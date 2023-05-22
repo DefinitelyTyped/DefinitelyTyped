@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "steam-tradeoffer-manager-tests.ts",
-        "lib/**/*.d.ts"
+        "steam-tradeoffer-manager-tests.ts"
     ]
 }
