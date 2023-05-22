@@ -6,10 +6,10 @@
 /// <reference types="node"/>
 
 interface Options {
-    inlineImports?: boolean;
-    rebaseUrls?: boolean;
-    includePaths?: string[];
-    commonBase?: string;
+    inlineImports?: boolean | undefined;
+    rebaseUrls?: boolean | undefined;
+    includePaths?: string[] | undefined;
+    commonBase?: string | undefined;
 }
 
 interface Concat {
