@@ -15,7 +15,7 @@ import TradeOffer = require('./lib/classes/TradeOffer');
 export = TradeOfferManager;
 
 declare class TradeOfferManager extends EventEmitter {
-    constructor(options: TradeOfferManagerOptions);
+    constructor(options: TradeOfferManager.TradeOfferManagerOptions);
 
     pollInterval: number;
     cancelTime: number | null;
@@ -164,7 +164,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers you sent which contain the item(s),
      * and an array of TradeOffer objects for offers you received which contain the item(s)
      */
-    getOffersContainingItem(items: CEconItem | CEconItem[], includeInactive: boolean, callback: OfferCallback): void;
+    getOffersContainingItem(items: CEconItem | CEconItem[], includeInactive: boolean, callback: TradeOfferManager.OfferCallback): void;
 
     /**
      * Finds offers which contain the given item(s). Any offer which contains at least one item you passed in will be returned. Might be useful to avoid sending duplicate offers,
@@ -174,7 +174,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers you sent which contain the item(s),
      * and an array of TradeOffer objects for offers you received which contain the item(s)
      */
-    getOffersContainingItem(items: CEconItem | CEconItem[], callback: OfferCallback): void;
+    getOffersContainingItem(items: CEconItem | CEconItem[], callback: TradeOfferManager.OfferCallback): void;
 
     /**
      * Immediately performs a poll. Can be used even if timed polling is disabled to poll on your own schedule. Don't worry about spamming this method,
@@ -182,7 +182,7 @@ declare class TradeOfferManager extends EventEmitter {
      */
     doPoll(): void;
 
-    on<T extends keyof TradeOfferManagerEvents>(eventType: T, callback: TradeOfferManagerEvents[T]): this;
+    on<T extends keyof TradeOfferManager.TradeOfferManagerEvents>(eventType: T, callback: TradeOfferManager.TradeOfferManagerEvents[T]): this;
 
     // Static constants
     static readonly ETradeOfferState: TradeOfferManager.ETradeOfferState;
@@ -191,126 +191,6 @@ declare class TradeOfferManager extends EventEmitter {
     static readonly EConfirmationMethod: TradeOfferManager.EConfirmationMethod;
     static readonly ETradeStatus: TradeOfferManager.ETradeStatus;
     static readonly SteamID: typeof SteamID;
-}
-
-type OfferCallback = (
-    err: TradeOfferManager.EResultError | null,
-    sent: TradeOffer[],
-    received: TradeOffer[]
-) => void;
-
-interface TradeOfferManagerEvents {
-    /**
-     * Emitted when polling detects a new trade offer sent to us. Only emitted if polling is enabled.
-     *
-     * @param offer A TradeOffer object for the newly-received offer
-     */
-    newOffer: (offer: TradeOffer) => void;
-
-    /**
-     * Emitted when an offer we sent changes state. This might mean that it was accepted/declined by the other party, that we cancelled it, or that we confirmed a pending offer via email.
-     * Only emitted if polling is enabled.
-     *
-     * @param offer A TradeOffer object for the changed offer
-     * @param oldState The previous known ETradeOfferState of the offer
-     */
-    sentOfferChanged: (offer: TradeOffer, oldState: number) => void;
-
-    /**
-     * Emitted when the manager automatically cancels an offer due to either your cancelTime constructor option or your cancelOfferCount constructor option. sentOfferChanged will also be
-     * emitted on next poll.
-     *
-     * @param offer TradeOffer object for the canceled offer
-     * @param reason A string containing the reason why it was canceled ("cancelTime" - The cancelTime timeout was reached, "cancelOfferCount" - The cancelOfferCount limit was reached)
-     */
-    sentOfferCanceled: (offer: TradeOffer, reason: 'cancelTime' | 'cancelOfferCount') => void;
-
-    /**
-     * Emitted when the manager automatically cancels an offer due to your pendingCancelTime constructor option. sentOfferChanged will also be emitted on next poll.
-     *
-     * @param offer A TradeOffer object for the canceled offer
-     */
-    sentPendingOfferCanceled: (offer: TradeOffer) => void;
-
-    /**
-     * Emitted when the manager finds a trade offer that was sent by us, but that wasn't sent via node-steam-tradeoffer-manager (i.e. it's not in the poll data, so this will emit for
-     * all sent offers on every startup if you don't restore poll data).
-     *
-     * You could use this to cancel offers that error when you call send() but actually go through later, because of how awful Steam is.
-     *
-     * @param offer A TradeOffer object for the offer that was sent
-     */
-    unknownOfferSent: (offer: TradeOffer) => void;
-
-    /**
-     * Emitted when an offer we received changes state. This might mean that it was cancelled by the other party, or that we accepted/declined it. Only emitted if polling is enabled.
-     *
-     * @param offer A TradeOffer object for the changed offer
-     * @param oldState The previous known ETradeOfferState of the offer
-     */
-    receivedOfferChanged: (offer: TradeOffer, oldState: number) => void;
-
-    /**
-     * Emitted when polling reveals that we have a new trade offer that was created from a real-time trade session that requires confirmation. See real-time trades for more information.
-     *
-     * @param offer A TradeOffer object for the offer that needs to be confirmed
-     */
-    realTimeTradeConfirmationRequired: (offer: TradeOffer) => void;
-
-    /**
-     * Emitted when polling reveals that a trade offer that was created from a real-time trade is now Accepted, meaning that the trade has completed. See real-time trades for more information.
-     *
-     * @param offer A TradeOffer object for the offer that has completed
-     */
-    realTimeTradeCompleted: (offer: TradeOffer) => void;
-
-    /**
-     * Emitted when there's a problem polling the API. You can use this to alert users that Steam is currently down or acting up, if you wish.
-     *
-     * @param err An Error object
-     */
-    pollFailure: (err: Error) => void;
-
-    /**
-     * Emitted when a poll succeeds.
-     */
-    pollSuccess: () => void;
-
-    /**
-     * Emitted when new poll data is available.
-     *
-     * @param data The new poll data
-     */
-    pollData: (data: any) => void;
-
-    /**
-     * Emitted whenever a getOffers call succeeds, regardless of the source of the call. Note that if filter is EOfferFilter.ActiveOnly then there may have been a historical
-     * cutoff provided so there may also be some historical offers present in the output.
-     *
-     * @param filter The EOfferFilter value that was used to get this list
-     * @param sent An array of TradeOffer objects for offers we sent
-     * @param received An array of TradeOffer objects for offers we received
-     */
-    offerList: (filter: number, sent: TradeOffer[], received: TradeOffer[]) => void;
-}
-
-interface TradeOfferManagerOptions {
-    steam?: Steam.SteamClient | SteamUser;
-    community?: SteamCommunity;
-    domain?: string;
-    language?: string;
-    pollInterval?: number;
-    cancelTime?: number;
-    pendingCancelTime?: number;
-    cancelOfferCount?: number;
-    cancelOfferCountMinAge?: number;
-    globalAssetCache?: boolean;
-    assetCacheMaxItems?: number;
-    assetCacheGcInterval?: number;
-    pollData?: any;
-    dataDirectory?: string | null;
-    gzipData?: boolean;
-    savePollData?: boolean;
 }
 
 declare namespace TradeOfferManager {
@@ -659,4 +539,124 @@ declare namespace TradeOfferManager {
         inventory: CEconItem[],
         currencies: CEconItem[]
     ) => void;
+
+    type OfferCallback = (
+        err: TradeOfferManager.EResultError | null,
+        sent: TradeOffer[],
+        received: TradeOffer[]
+    ) => void;
+
+    interface TradeOfferManagerEvents {
+        /**
+         * Emitted when polling detects a new trade offer sent to us. Only emitted if polling is enabled.
+         *
+         * @param offer A TradeOffer object for the newly-received offer
+         */
+        newOffer: (offer: TradeOffer) => void;
+
+        /**
+         * Emitted when an offer we sent changes state. This might mean that it was accepted/declined by the other party, that we cancelled it, or that we confirmed a pending offer via email.
+         * Only emitted if polling is enabled.
+         *
+         * @param offer A TradeOffer object for the changed offer
+         * @param oldState The previous known ETradeOfferState of the offer
+         */
+        sentOfferChanged: (offer: TradeOffer, oldState: number) => void;
+
+        /**
+         * Emitted when the manager automatically cancels an offer due to either your cancelTime constructor option or your cancelOfferCount constructor option. sentOfferChanged will also be
+         * emitted on next poll.
+         *
+         * @param offer TradeOffer object for the canceled offer
+         * @param reason A string containing the reason why it was canceled ("cancelTime" - The cancelTime timeout was reached, "cancelOfferCount" - The cancelOfferCount limit was reached)
+         */
+        sentOfferCanceled: (offer: TradeOffer, reason: 'cancelTime' | 'cancelOfferCount') => void;
+
+        /**
+         * Emitted when the manager automatically cancels an offer due to your pendingCancelTime constructor option. sentOfferChanged will also be emitted on next poll.
+         *
+         * @param offer A TradeOffer object for the canceled offer
+         */
+        sentPendingOfferCanceled: (offer: TradeOffer) => void;
+
+        /**
+         * Emitted when the manager finds a trade offer that was sent by us, but that wasn't sent via node-steam-tradeoffer-manager (i.e. it's not in the poll data, so this will emit for
+         * all sent offers on every startup if you don't restore poll data).
+         *
+         * You could use this to cancel offers that error when you call send() but actually go through later, because of how awful Steam is.
+         *
+         * @param offer A TradeOffer object for the offer that was sent
+         */
+        unknownOfferSent: (offer: TradeOffer) => void;
+
+        /**
+         * Emitted when an offer we received changes state. This might mean that it was cancelled by the other party, or that we accepted/declined it. Only emitted if polling is enabled.
+         *
+         * @param offer A TradeOffer object for the changed offer
+         * @param oldState The previous known ETradeOfferState of the offer
+         */
+        receivedOfferChanged: (offer: TradeOffer, oldState: number) => void;
+
+        /**
+         * Emitted when polling reveals that we have a new trade offer that was created from a real-time trade session that requires confirmation. See real-time trades for more information.
+         *
+         * @param offer A TradeOffer object for the offer that needs to be confirmed
+         */
+        realTimeTradeConfirmationRequired: (offer: TradeOffer) => void;
+
+        /**
+         * Emitted when polling reveals that a trade offer that was created from a real-time trade is now Accepted, meaning that the trade has completed. See real-time trades for more information.
+         *
+         * @param offer A TradeOffer object for the offer that has completed
+         */
+        realTimeTradeCompleted: (offer: TradeOffer) => void;
+
+        /**
+         * Emitted when there's a problem polling the API. You can use this to alert users that Steam is currently down or acting up, if you wish.
+         *
+         * @param err An Error object
+         */
+        pollFailure: (err: Error) => void;
+
+        /**
+         * Emitted when a poll succeeds.
+         */
+        pollSuccess: () => void;
+
+        /**
+         * Emitted when new poll data is available.
+         *
+         * @param data The new poll data
+         */
+        pollData: (data: any) => void;
+
+        /**
+         * Emitted whenever a getOffers call succeeds, regardless of the source of the call. Note that if filter is EOfferFilter.ActiveOnly then there may have been a historical
+         * cutoff provided so there may also be some historical offers present in the output.
+         *
+         * @param filter The EOfferFilter value that was used to get this list
+         * @param sent An array of TradeOffer objects for offers we sent
+         * @param received An array of TradeOffer objects for offers we received
+         */
+        offerList: (filter: number, sent: TradeOffer[], received: TradeOffer[]) => void;
+    }
+
+    interface TradeOfferManagerOptions {
+        steam?: Steam.SteamClient | SteamUser;
+        community?: SteamCommunity;
+        domain?: string;
+        language?: string;
+        pollInterval?: number;
+        cancelTime?: number;
+        pendingCancelTime?: number;
+        cancelOfferCount?: number;
+        cancelOfferCountMinAge?: number;
+        globalAssetCache?: boolean;
+        assetCacheMaxItems?: number;
+        assetCacheGcInterval?: number;
+        pollData?: any;
+        dataDirectory?: string | null;
+        gzipData?: boolean;
+        savePollData?: boolean;
+    }
 }

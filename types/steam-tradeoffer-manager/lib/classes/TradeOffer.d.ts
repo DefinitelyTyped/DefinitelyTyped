@@ -4,24 +4,6 @@ import CEconItem = require('steamcommunity/classes/CEconItem');
 
 export = TradeOffer;
 
-interface UserDetails {
-    personaName: string;
-    contexts: any;
-    escrowDays: number;
-    probation?: boolean;
-    avatarIcon: string;
-    avatarMedium: string;
-    avatarFull: string;
-}
-
-type ExchangeDetailsCallback = (
-    err: Error | null,
-    status: TradeOfferManager.ETradeStatus,
-    tradeInitTime: Date,
-    receivedItems: TradeOfferManager.MEconItemExchange[],
-    sentItems: TradeOfferManager.MEconItemExchange[],
-) => void;
-
 /**
  * TradeOffer is a class which represents an individual trade offer sent or received by your account. It cannot be instantiated directly, it must be created using
  * TradeOfferManager#createOffer, TradeOfferManager#getOffer, or TradeOfferManager#getOffers.
@@ -148,7 +130,7 @@ declare class TradeOffer {
      *
      * @param callback Contains an Error on failure (null on success), an object containing your user data, and an object containing the user oither's data
      */
-    getUserDetails(callback: (err: Error | null, me: UserDetails, them: UserDetails) => void): void;
+    getUserDetails(callback: (err: Error | null, me: TradeOffer.UserDetails, them: TradeOffer.UserDetails) => void): void;
 
     /**
      * Sends a newly-created offer. Only works if this is an offer created with TradeOfferManager#createOffer which hasn't been
@@ -224,6 +206,27 @@ declare class TradeOffer {
      * If you pass true to getDetailsIfFailed, it is vitally important that you check the status to be sure that the
      * trade hasn't failed or been rolled back before processing the trade as having completed.
      */
-    getExchangeDetails(callback: ExchangeDetailsCallback): void;
-    getExchangeDetails(getDetailsIfFailed: boolean, callback: ExchangeDetailsCallback): void;
+    getExchangeDetails(callback: TradeOffer.ExchangeDetailsCallback): void;
+    getExchangeDetails(getDetailsIfFailed: boolean, callback: TradeOffer.ExchangeDetailsCallback): void;
+}
+
+declare namespace TradeOffer {
+
+    interface UserDetails {
+        personaName: string;
+        contexts: any;
+        escrowDays: number;
+        probation?: boolean;
+        avatarIcon: string;
+        avatarMedium: string;
+        avatarFull: string;
+    }
+
+    type ExchangeDetailsCallback = (
+        err: Error | null,
+        status: TradeOfferManager.ETradeStatus,
+        tradeInitTime: Date,
+        receivedItems: TradeOfferManager.MEconItemExchange[],
+        sentItems: TradeOfferManager.MEconItemExchange[],
+    ) => void;
 }
