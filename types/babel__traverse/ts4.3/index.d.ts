@@ -60,8 +60,8 @@ export namespace visitors {
 }
 
 export namespace cache {
-    let path: WeakMap<object, any>;
-    let scope: WeakMap<object, any>;
+    let path: WeakMap<t.Node, Map<t.Node, NodePath>>;
+    let scope: WeakMap<t.Node, Scope>;
     function clear(): void;
     function clearPath(): void;
     function clearScope(): void;
@@ -75,6 +75,7 @@ export type TraverseOptions<S = Node> = {
     denylist?: NodeType[];
     /** @deprecated will be removed in Babel 8 */
     blacklist?: NodeType[];
+    shouldSkip?: (node: NodePath) => boolean;
 } & Visitor<S>;
 
 export class Scope {
@@ -86,7 +87,7 @@ export class Scope {
     uid: number;
     path: NodePath;
     block: Node;
-    labels: Map<any, any>;
+    labels: Map<string, NodePath<t.LabeledStatement>>;
     parentBlock: Node;
     parent: Scope;
     hub: HubInterface;
@@ -145,7 +146,7 @@ export class Scope {
 
     hasLabel(name: string): boolean;
 
-    getLabel(name: string): any;
+    getLabel(name: string): NodePath<t.LabeledStatement> | undefined;
 
     registerLabel(path: NodePath<t.LabeledStatement>): void;
 
@@ -341,8 +342,8 @@ export class NodePath<T = Node> {
     scope: Scope;
     contexts: TraversalContext[];
     state: any;
-    opts: any;
-    skipKeys: any;
+    opts: any; // exploded TraverseOptions
+    skipKeys: Record<string, boolean> | null;
     parentPath: T extends t.Program ? null : NodePath;
     container: Node | Node[] | null;
     listKey: string | null;
@@ -479,7 +480,7 @@ export class NodePath<T = Node> {
      * transforming ASTs is an antipattern and SHOULD NOT be encouraged. Even if it's
      * easier to use, your transforms will be extremely brittle.
      */
-    replaceWithSourceString(replacement: any): [NodePath];
+    replaceWithSourceString(replacement: string): [NodePath];
 
     /** Replace the current node with another. */
     replaceWith<R extends Node>(replacementPath: R | NodePath<R>): [NodePath<R>];
@@ -490,9 +491,7 @@ export class NodePath<T = Node> {
      * into expressions. This method retains completion records which is
      * extremely important to retain original semantics.
      */
-    replaceExpressionWithStatements<Nodes extends readonly t.Statement[]>(
-        nodes: Nodes,
-    ): NodePaths<t.Expression | t.Statement>;
+    replaceExpressionWithStatements(nodes: t.Statement[]): NodePaths<t.Expression | t.Statement>;
 
     replaceInline<Nodes extends Node | readonly Node[] | [Node, ...Node[]]>(nodes: Nodes): NodePaths<Nodes>;
     //#endregion
@@ -616,6 +615,7 @@ export class NodePath<T = Node> {
 
     isDenylisted(): boolean;
 
+    /** @deprecated will be removed in Babel 8 */
     isBlacklisted(): boolean;
 
     visit(): boolean;
