@@ -1102,7 +1102,7 @@
 /types/cookie-session/                                    @borislavjivkov
 /types/cookie-signature/                                  @Rokt33r
 /types/cookie_js/                                         @slawiko
-/types/cookiebot-sdk/                                     @LiamMartens
+/types/cookiebot-sdk/                                     @LiamMartens @patric-eberle
 /types/cookieclicker/                                     @TheGLander
 /types/cookieconsent/                                     @klittlepage
 /types/cookiejar/                                         @paroxp @demurgos
@@ -1859,6 +1859,7 @@
 /types/epiceditor/                                        @borisyankov
 /types/epilogue/                                          @micksatana
 /types/epub/                                              @julien-c
+/types/epub-gen/                                          @styler3
 /types/eq.js/                                             @stephenlautier
 /types/eris-sharder/                                      @mathletedev
 /types/err/                                               @jimmycuadra
@@ -2844,6 +2845,7 @@
 /types/git-diff/                                          @DefinitelyTyped
 /types/git-diff-parser/                                   @qfox
 /types/git-http-backend/                                  @DefinitelyTyped
+/types/git-init/                                          @santi100a
 /types/git-raw-commits/                                   @JasonHK
 /types/git-repo-name/                                     @BendingBender
 /types/git-rev-sync/                                      @khoi-fish @pkuczynski
@@ -3023,6 +3025,7 @@
 /types/gulp-coffeeify/                                    @tkQubo
 /types/gulp-coffeelint/                                   @tkQubo
 /types/gulp-concat/                                       @k-kagurazaka
+/types/gulp-concat-css/                                   @snakeego
 /types/gulp-cond/                                         @martin-badin
 /types/gulp-connect/                                      @andrewiggins
 /types/gulp-connect-php/                                  @MysteryBlokHed
@@ -4796,6 +4799,7 @@
 /types/markdown-navbar/                                   @drpsyko101
 /types/markdown-pdf/                                      @MonsieurMan
 /types/marked/                                            @worr @BendingBender @CrossR @mwickett @htkzhtm @ezracelli @scandinave @sarunint @UziTech @Toliak @jfcere @MykSto
+/types/marked/v4/                                         @worr @BendingBender @CrossR @mwickett @htkzhtm @ezracelli @scandinave @sarunint @UziTech @Toliak @jfcere @MykSto
 /types/marked/v3/                                         @worr @BendingBender @CrossR @mwickett @htkzhtm @ezracelli @scandinave @sarunint @UziTech @Toliak
 /types/marked-terminal/                                   @bkendall
 /types/markedjs__html-differ/                             @peterblazejewicz
@@ -6796,7 +6800,7 @@
 /types/react-tag-autocomplete/v5/                         @jlismore @Rahul-Sagore @MaxCilauro
 /types/react-tag-input/                                   @Ogglas @jankarres @matthewberryman @visionsofparadise
 /types/react-tagcloud/                                    @wassname
-/types/react-tagsinput/                                   @mykter @chardos
+/types/react-tagsinput/                                   @mykter @chardos @Prakhargoel8c
 /types/react-tap-event-plugin/                            @mxl
 /types/react-test-renderer/                               @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia @maddhruv @eps1lon
 /types/react-test-renderer/v17/                           @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia @maddhruv
@@ -7480,6 +7484,7 @@
 /types/simple-xml/                                        @notVitaliy
 /types/simplecrawler/                                     @MutterPedro
 /types/simpleddp/                                         @SPWizard01
+/types/simpleheat/                                        @tristangbn
 /types/simplemde/                                         @Scalesoft
 /types/simplesmtp/                                        @rogierschouten
 /types/simplestorage.js/                                  @axelcostaspena @mxl @peterblazejewicz
