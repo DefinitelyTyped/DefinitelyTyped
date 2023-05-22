@@ -1,10 +1,11 @@
-// Type definitions for minio 7.0
+// Type definitions for minio 7.1
 // Project: https://github.com/minio/minio-js#readme
 // Definitions by: Barin Britva <https://github.com/barinbritva>
 //                 Lubomir Kaplan <https://github.com/castorw>
 //                 Panagiotis Kapros <https://github.com/loremaps>
 //                 Ben Watkins <https://github.com/OutdatedVersion>
 //                 Seohyun Yoon <https://github.com/seohyun0120>
+//                 Trim21 <https://github.com/trim21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
