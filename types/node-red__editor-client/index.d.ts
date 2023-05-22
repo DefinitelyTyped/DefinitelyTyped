@@ -1680,7 +1680,7 @@ declare namespace editorClient {
         /** An icon to display in the type menu */
         icon?: string | undefined;
         /** If the type has a fixed set of values, this is an array of string options for the value. For example, ["true","false"] for the boolean type. */
-        options?: string[] | undefined;
+        options?: string[] | Array<{ value: string; label: string }> | undefined;
         /** Set to false if there is no value associated with the type. */
         hasValue?: boolean | undefined;
         /** A function to validate the value for the type. */

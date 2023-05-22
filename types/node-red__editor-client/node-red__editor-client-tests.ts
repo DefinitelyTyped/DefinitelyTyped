@@ -323,12 +323,22 @@ function widgetTypedInputTests() {
         label: 'label',
         options: ['opt1', 'opt2'],
     };
+    const goodTypeListOptionsDef: editorClient.WidgetTypedInputTypeDefinition = {
+        value: 'mytype',
+        hasValue: false,
+        icon: 'icon',
+        label: 'label',
+        options: [
+            { value: 'val1', label: 'label1' },
+            { value: 'val2', label: 'label2' },
+        ],
+    };
     const wrongTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
         // @ts-expect-error
         wrongKey: 'value',
     };
     $('#inputId').typedInput({
-        types: [goodType, wrongType, goodTypeDef, wrongTypeDef],
+        types: [goodType, wrongType, goodTypeDef, wrongTypeDef, goodTypeListOptionsDef],
     });
     $('#inputId').typedInput({
         types: ['msg', 'flow', 'global', 'str', 'num', 'bool', 'json', 'bin', 're', 'date', 'jsonata', 'env'],
