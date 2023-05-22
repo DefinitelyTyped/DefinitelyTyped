@@ -8,7 +8,6 @@ declare module "memwatch-next" {
 
     /**
      * Compare the state of your heap between two points in time, telling you what has been allocated, and what has been released.
-     * @class
      */
     export class HeapDiff {
         /**
@@ -39,25 +38,21 @@ declare module "memwatch-next" {
     export interface LeakInformation {
         /**
          * End date.
-         * @type {Date}
          */
         end: Date,
 
         /**
          * Growth.
-         * @type {number}
          */
         growth: number;
 
         /**
          * Reason leak.
-         * @type {string}
          */
         reason: string;
 
         /**
          * Start date.
-         * @type {Date}
          */
         start: Date;
     }

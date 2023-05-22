@@ -2,7 +2,7 @@ import type * as React from 'react';
 import type {
   ListRenderItemInfo,
   VirtualizedListWithoutRenderItemProps,
-} from './VirtualizedList';
+} from '@react-native/virtualized-lists';
 import type {
   ScrollView,
   ScrollViewProps,
@@ -52,48 +52,6 @@ export type SectionListRenderItem<ItemT, SectionT = DefaultSectionT> = (
 
 export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
   extends VirtualizedListWithoutRenderItemProps<ItemT> {
-  /**
-   * Rendered in between adjacent Items within each section.
-   */
-  ItemSeparatorComponent?: React.ComponentType<any> | null | undefined;
-
-  /**
-   * Rendered when the list is empty.
-   */
-  ListEmptyComponent?:
-    | React.ComponentType<any>
-    | React.ReactElement<unknown>
-    | null
-    | undefined;
-
-  /**
-   * Rendered at the very end of the list.
-   */
-  ListFooterComponent?:
-    | React.ComponentType<any>
-    | React.ReactElement<unknown>
-    | null
-    | undefined;
-
-  /**
-   * Styling for internal View for ListFooterComponent
-   */
-  ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined | null;
-
-  /**
-   * Rendered at the very beginning of the list.
-   */
-  ListHeaderComponent?:
-    | React.ComponentType<any>
-    | React.ReactElement<unknown>
-    | null
-    | undefined;
-
-  /**
-   * Styling for internal View for ListHeaderComponent
-   */
-  ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined | null;
-
   /**
    * Rendered in between each section.
    */
@@ -243,10 +201,9 @@ export interface SectionListScrollParams {
   viewPosition?: number | undefined;
 }
 
-export class SectionList<
-  ItemT = any,
-  SectionT = DefaultSectionT,
-> extends React.Component<SectionListProps<ItemT, SectionT>> {
+export abstract class SectionListComponent<
+  Props,
+> extends React.Component<Props> {
   /**
    * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
    * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -278,6 +235,11 @@ export class SectionList<
    */
   getScrollableNode(): NodeHandle | undefined;
 }
+
+export class SectionList<
+  ItemT = any,
+  SectionT = DefaultSectionT,
+> extends SectionListComponent<SectionListProps<ItemT, SectionT>> {}
 
 /* This definition is deprecated because it extends the wrong base type */
 export interface SectionListStatic<ItemT, SectionT = DefaultSectionT>

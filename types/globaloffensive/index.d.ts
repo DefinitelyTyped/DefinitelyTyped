@@ -196,6 +196,7 @@ declare class GlobalOffensive extends EventEmitter {
 type ValueOf<T> = T[keyof T];
 
 interface GlobalOffensiveEvents {
+    debug: [message: string];
     connectedToGC: [];
     disconnectedFromGC: [reason: ValueOf<typeof GCConnectionStatus>];
     accountData: [accountData: GlobalOffensive.AccountData];

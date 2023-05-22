@@ -6,6 +6,10 @@ const user = new SteamUser();
 
 type x = keyof typeof GlobalOffensive.GCConnectionStatus;
 
+user.on('debug', message => {
+    console.log(message);
+});
+
 user.on('loggedOn', () => {
     console.log('logged on');
     user.setPersona(SteamUser.EPersonaState.Online);

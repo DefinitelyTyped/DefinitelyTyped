@@ -87,6 +87,7 @@ export declare class Photoshop {
      */
     set validation(enable: boolean);
     /**
+     * @ignore
      * Exposes SolidColor class for constructing objects
      */
     SolidColor: typeof SolidColor;
@@ -135,10 +136,7 @@ export declare class Photoshop {
      */
     get documents(): Documents;
     /**
-     * The foreground color (used to paint, fill, and stroke selections).
-     *
-     * **Fixes in Photoshop 24.2:**
-     * - *Color was broken when it was not picked as RGB color*
+     * The foreground color (used to paint, fill, and stroke selections). [(24.2)](/ps_reference/changelog#other-fixes)
      *
      * @minVersion 23.0
      */
@@ -167,11 +165,7 @@ export declare class Photoshop {
      */
     convertUnits(fromValue: number, fromUnits: Constants.Units, toUnits: Constants.Units, resolution?: number): number;
     /**
-     * The background color and color style for documents.
-     *
-     * **Fixes in Photoshop 24.2:**
-     * - *Now it is possible to set background color*
-     * - *Color was broken when it was not picked as RGB color*
+     * The background color and color style for documents. [(24.2)](/ps_reference/changelog#other-fixes)
      *
      * @minVersion 23.0
      */
@@ -203,7 +197,7 @@ export declare class Photoshop {
      * Opens the specified document and returns the model
      *
      * > *Note that this API requires a
-     * [UXPFileEntry](../../../uxp/reference-js/Modules/uxp/Persistent%20File%20Storage/File/)
+     * [UXPFileEntry](../../../uxp-api/reference-js/Modules/uxp/Persistent%20File%20Storage/File/)
      * object as its argument.
      *
      * ```javascript

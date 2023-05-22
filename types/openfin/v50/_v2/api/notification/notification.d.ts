@@ -20,7 +20,6 @@ export interface NotificationCallback {
  * A notification is typically used to alert the user of some important event which
  * requires his or her attention. Notifications are a child or your application that
  * are controlled by the runtime.
- * @class
  * @alias Notification
  * @hideconstructor
  */

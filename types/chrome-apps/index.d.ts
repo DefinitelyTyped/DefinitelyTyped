@@ -341,17 +341,14 @@ declare namespace chrome {
      * and can shut down the app at anytime.
      */
     namespace app.runtime {
-        /** @enum */
         const PlayStoreStatus: {
             ENABLED: 'enabled',
             AVAILABLE: 'available',
             UNKNOWN: 'unknown'
         }
-        /** @enum */
         const ActionType: {
             NEW_NOTE: 'new_note'
         }
-        /** @enum */
         const LaunchSource: {
             ABOUT_PAGE: 'about_page',
             APP_LAUNCHER: 'app_launcher',
@@ -469,9 +466,7 @@ declare namespace chrome {
         }
 
         /**
-         * @enum
          * @internal
-         * @private
          */
         const _State: {
             NORMAL: 'normal',
@@ -817,7 +812,6 @@ declare namespace chrome {
 
         interface ChromeAppWindow extends AppWindow {
             /**
-             * @enum
              * Window state enum
              */
             readonly State: typeof _State;
@@ -1931,7 +1925,6 @@ declare namespace chrome {
 
         /**
          * The type of code being requested by the extension with requestPin function.
-         * @enum
          */
         const PinRequestType: {
             'PIN': 'PIN',
@@ -1939,7 +1932,6 @@ declare namespace chrome {
         };
         /**
          * The types of errors that can be presented to the user through the requestPin function.
-         * @enum
          */
         const PinRequestErrorType: {
             'INVALID_PIN': 'INVALID_PIN',
@@ -2073,7 +2065,6 @@ declare namespace chrome {
     namespace clipboard {
         /** Image type */
         type ImageType = 'png' | 'jpeg';
-        /** @enum */
         const DataItemType: {
             TEXT_PLAIN: 'textPlain',
             TEXT_HTML: 'textHtml'
@@ -2496,7 +2487,6 @@ declare namespace chrome {
      */
     namespace displaySource {
         /**
-         * @enum
          * @description
          * **'connection_error'**
          * The connection with sink cannot be established or has dropped unexpectedly.
@@ -2524,7 +2514,6 @@ declare namespace chrome {
             UNKNOWN_ERROR: 'unknown_error'
         };
         /**
-         * @enum
          * @description
          * **'connected'**
          * Connected using this Display Source (i.e., there is an active session)
@@ -2541,7 +2530,6 @@ declare namespace chrome {
             DISCONNECTED: 'Disconnected'
         };
         /**
-         * @enum
          * @description
          *
          * **'PBC'**
@@ -3169,7 +3157,6 @@ declare namespace chrome {
             'user';
         /**
          * Internal interfaces, not to be used directly
-         * @private
          * @internal
          */
         namespace _internal_ {
@@ -3301,7 +3288,6 @@ declare namespace chrome {
      *   {'fileSystem': ['write', 'retainEntries', 'directory']}
      */
     namespace fileSystem {
-        /** @enum */
         const ChildChangeType: {
             CREATED: 'created',
             REMOVED: 'removed',
@@ -3326,7 +3312,6 @@ declare namespace chrome {
          *    permission under 'fileSystem'. If the application has the 'write' permission under
          *    'fileSystem', the returned DirectoryEntry will be writable; otherwise it will be read-only.
          *    New in Chrome 31.
-         * @enum
          */
         const ChooseEntryType: {
             OPEN_FILE: 'openFile',
@@ -3421,7 +3406,6 @@ declare namespace chrome {
             writable?: boolean | undefined;
         }
 
-        /** @private */
         type FileEntryCallback<
             T extends ChooseEntryOptions,
             E = T extends ChooseFileEntryOptions ? FileEntry :
@@ -6351,11 +6335,10 @@ declare namespace chrome {
      */
     namespace notifications {
         /**
-         * @enum
-         * @prop BASIC - icon, title, message, expandedMessage, up to two buttons.
-         * @prop IMAGE - icon, title, message, expandedMessage, image, up to two buttons.
-         * @prop LIST - icon, title, message, items, up to two buttons. Users on Mac OS X only see the first item.
-         * @prop PROGRESS - icon, title, message, progress, up to two buttons.
+         * BASIC - icon, title, message, expandedMessage, up to two buttons.
+         * IMAGE - icon, title, message, expandedMessage, image, up to two buttons.
+         * LIST - icon, title, message, items, up to two buttons. Users on Mac OS X only see the first item.
+         * PROGRESS - icon, title, message, progress, up to two buttons.
          */
         const TemplateType: {
             BASIC: 'basic',
@@ -6364,9 +6347,8 @@ declare namespace chrome {
             PROGRESS: 'progress'
         }
         /**
-         * @enum
-         * @property GRANTED - User has elected to show notifications from the app . This is the default at install time.
-         * @property DENIED - User has elected not to show notifications from the app.
+         * GRANTED - User has elected to show notifications from the app . This is the default at install time.
+         * DENIED - User has elected not to show notifications from the app.
          */
         const PermissionLevel: {
             GRANTED: 'granted',
@@ -6622,7 +6604,6 @@ declare namespace chrome {
      */
     namespace platformKeys {
         /**
-         * @enum
          */
         const ClientCertificateType: {
             'RSA_SIGN': 'rsaSign',
@@ -6792,9 +6773,8 @@ declare namespace chrome {
      */
     namespace power {
         /**
-         * @enum
-         * @property SYSTEM - Prevent the system from sleeping in response to user inactivity.
-         * @property DISPLAY - Prevent the display from being turned off or dimmed or the system from sleeping in response to user inactivity.
+         * SYSTEM - Prevent the system from sleeping in response to user inactivity.
+         * DISPLAY - Prevent the display from being turned off or dimmed or the system from sleeping in response to user inactivity.
         */
         const Level: {
             SYSTEM: 'system',
@@ -7329,7 +7309,6 @@ declare namespace chrome {
         }
         interface FileSystemPermission {
             /**
-             * @enum {string}
              * @requires(CrOS) 'requestFileSystem' is only for ChromeOS
              */
             fileSystem: Array<'write' | 'retainEntries' | 'directory' | 'requestFileSystem'>;
@@ -9129,7 +9108,6 @@ declare namespace chrome {
      */
     namespace syncFileSystem {
         /**
-         * @enum
          * 'initializing'
          *  - The sync service is being initialized (e.g. restoring data from the database, checking connectivity and authenticating to the service etc).
          * 'running'
@@ -9150,7 +9128,6 @@ declare namespace chrome {
         };
 
         /**
-         * @enum
          * 'synced'
          *  - Not conflicting and has no pending local changes.
          * 'pending'
@@ -10772,7 +10749,6 @@ declare namespace chrome {
          * The extension is not guaranteed to receive this event prior to suspending.
          * **'resume'**
          * The OS has resumed and the user has logged back in, so the VPN should try to reconnect.
-         * @enum
          */
         const PlatformMessage: {
             CONNECTED: 'connected',
@@ -10792,7 +10768,6 @@ declare namespace chrome {
          * VPN connection was successful.
          * **'failure'**
          * VPN connection failed.
-         * @enum
          */
         const VpnConnectionState: {
             CONNECTED: 'connected',
@@ -10805,7 +10780,6 @@ declare namespace chrome {
          * Request the VPN client to show add configuration dialog to the user.
          * **'showConfigureDialog'**
          * Request the VPN client to show configuration settings dialog to the user.
-         * @enum
          */
         const UIEvent: {
             SHOW_ADD_DIALOG: 'showAddDialog',
@@ -11561,7 +11535,6 @@ declare namespace chrome {
 
     /**
      * New Chrome Event
-     * @constructor
      */
     const Event: {
         new <T extends Function>(): chrome.events.Event<T>;

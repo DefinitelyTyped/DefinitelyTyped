@@ -17,12 +17,7 @@ import { SolidColor } from "./objects/SolidColor";
 import { NoColor } from "./objects/Colors";
 import { BitmapConversionOptions, IndexedConversionOptions } from "./objects/ConversionOptions";
 import { PhotoshopSaveOptions, BMPSaveOptions, GIFSaveOptions, JPEGSaveOptions, PNGSaveOptions } from "./Objects";
-/** @ignore */
-export declare function validateDocument(d: Document): void;
-/**
- * @ignore
- */
-export declare function PSDocument(id: number): Document;
+import { CalculationsOptions } from "./types/CalculationsTypes";
 /**
  * Execution Context with the Document injected for modal execution within Document.suspendHistory
  * @ignore
@@ -80,7 +75,7 @@ export declare class Document {
     get name(): string;
     /**
      * A histogram containing the number of pixels at each color
-     * intensity level for the composite channel. The array contains 256
+     * intensity level for the component channel. The array contains 256
      * members.
      *
      * Valid only when [[mode]] = `DocumentMode.{RGB,CMYK,INDEXEDCOLOR}`
@@ -624,12 +619,55 @@ export declare class Document {
         y: number;
     }): Promise<NoColor | SolidColor>;
     /**
+     * The Calculations command lets you blend two individual channels from one or more source images. You can then
+     * apply the results to a new image or to a new channel or selection in the active image.
+     *
+     * Performs Image > Calculations on the document. See the [[CalculationsOptions]]
+     * object for more info and examples.
+     *
+     * ```javascript
+     * const doc = app.activeDocument;
+     * const options = {
+     *     source1: {
+     *         document: doc,
+     *         layer: doc.layers[0],
+     *         channel: CalculationsChannel.GRAY
+     *         invert: true
+     *     },
+     *     source2: {
+     *         document: doc,
+     *         layer: CalculationsLayer.MERGED,
+     *         channel: doc.channels[2]
+     *     },
+     *     blending: CalculationsBlendMode.DARKEN,
+     *     opacity: 50,
+     *     result: CalculationsResult.NEWCHANNEL
+     * };
+     * doc.calculations(options);
+     *
+     * ```
+     *
+     * Known issue: currently calculations requires having exactly one unlocked pixel layer being selected otherwise
+     * it won't work. In future there should not be any layer requirements since this cannot output into layer.
+     * @param calculationsOptions Option object for the calculations.
+     * @async
+     * @minVersion 24.5
+     */
+    calculations(calculationsOptions: CalculationsOptions): Promise<Document | Channel | void>;
+    /**
      * All channels in the document.
      * @minVersion 23.0
      */
     get channels(): Channels;
     /**
-     * Composite channels in the document.
+     * Component channels in the document.
+     * @minVersion 24.5
+     */
+    get componentChannels(): Channel[];
+    /**
+     * Deprecated since these channels are component not composite.
+     * Use `compositeChannels` above.
+     * @deprecated
      * @minVersion 23.0
      */
     get compositeChannels(): Channel[];

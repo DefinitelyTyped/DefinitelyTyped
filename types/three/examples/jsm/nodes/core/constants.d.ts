@@ -9,6 +9,7 @@ export const NodeShaderStage: {
 export const NodeUpdateType: {
     NONE: 'none';
     FRAME: 'frame';
+    RENDER: 'render';
     OBJECT: 'object';
 };
 

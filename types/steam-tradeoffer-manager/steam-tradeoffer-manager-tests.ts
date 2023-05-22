@@ -4,6 +4,7 @@ import SteamCommunity = require('steamcommunity');
 import SteamTotp = require('steam-totp');
 import FS = require('fs');
 import { SteamClient } from 'steam';
+import TradeOffer = require("steam-tradeoffer-manager/lib/classes/TradeOffer");
 
 const community = new SteamCommunity();
 const client = new SteamUser();
@@ -152,3 +153,5 @@ manager.on('realTimeTradeConfirmationRequired', offer => {
         console.log(`Offer #${offer.id} requires confirmation`);
     }
 });
+
+class PromisifiedTradeOffer extends TradeOffer {}

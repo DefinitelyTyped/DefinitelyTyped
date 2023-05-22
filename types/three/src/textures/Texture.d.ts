@@ -13,6 +13,7 @@ import {
     MinificationTextureFilter,
     AnyPixelFormat,
     AnyMapping,
+    ColorSpace,
 } from '../constants';
 
 /** Shim for OffscreenCanvas. */
@@ -49,7 +50,7 @@ export class Texture extends EventDispatcher {
      * @param format See {@link Texture.format | .format}. Default {@link THREE.RGBAFormat}
      * @param type See {@link Texture.type | .type}. Default {@link THREE.UnsignedByteType}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
-     * @param encoding See {@link Texture.encoding | .encoding}. Default {@link THREE.LinearEncoding}
+     * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link THREE.NoColorSpace}
      */
     constructor(
         image?: TexImageSource | OffscreenCanvas,
@@ -61,7 +62,23 @@ export class Texture extends EventDispatcher {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        encoding?: TextureEncoding,
+        colorSpace?: ColorSpace,
+    );
+
+    /**
+     * @deprecated
+     */
+    constructor(
+        image: TexImageSource | OffscreenCanvas,
+        mapping: Mapping,
+        wrapS: Wrapping,
+        wrapT: Wrapping,
+        magFilter: MagnificationTextureFilter,
+        minFilter: MinificationTextureFilter,
+        format: PixelFormat,
+        type: TextureDataType,
+        anisotropy: number,
+        encoding: TextureEncoding,
     );
 
     /**
@@ -124,7 +141,8 @@ export class Texture extends EventDispatcher {
     mapping: AnyMapping;
 
     /**
-     * Lets you select the uv attribute to map the texture to. `0` for `uv` and `1` for `uv2`.
+     * Lets you select the uv attribute to map the texture to. `0` for `uv`, `1` for `uv1`, `2` for `uv2` and `3` for
+     * `uv3`.
      */
     channel: number;
 
@@ -315,8 +333,20 @@ export class Texture extends EventDispatcher {
      * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
      * @see {@link THREE.TextureDataType}
      * @defaultValue {@link THREE.LinearEncoding}
+     * @deprecated Use {@link Texture.colorSpace .colorSpace} in three.js r152+.
      */
     encoding: TextureEncoding;
+
+    /**
+     * The {@link Textures | {@link Texture} constants} page for details of other color spaces.
+     * @remarks
+     * Textures containing color data should be annotated with {@link SRGBColorSpace THREE.SRGBColorSpace} or
+     * {@link LinearSRGBColorSpace THREE.LinearSRGBColorSpace}.
+     * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
+     * @see {@link THREE.TextureDataType}
+     * @defaultValue {@link THREE.NoColorSpace}
+     */
+    colorSpace: ColorSpace;
 
     /**
      * Indicates whether a texture belongs to a render target or not

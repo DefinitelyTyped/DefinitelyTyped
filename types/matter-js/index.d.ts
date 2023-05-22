@@ -1851,7 +1851,7 @@ declare namespace Matter {
          * @type body
          * @default null
          */
-        bodyA: Body;
+        bodyA: Body | null;
 
         /**
          * The second possible `Body` that this constraint is attached to.
@@ -1860,7 +1860,7 @@ declare namespace Matter {
          * @type body
          * @default null
          */
-        bodyB: Body;
+        bodyB: Body | null;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
