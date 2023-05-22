@@ -12,11 +12,11 @@ declare class MultiFileStore {
 
     import(stream: Stream, opt?: { truncate?: boolean }): EventEmitter;
 
-    remove(stream: Stream): Promise<void>;
+    remove(stream: Stream): EventEmitter;
 
     removeMatches(subject?: Term | null, predicate?: Term| null, object?: Term | null, graph?: Term | null): EventEmitter;
 
-    deleteGraph(graph: Quad_Graph): Promise<void>;
+    deleteGraph(graph: Quad_Graph): EventEmitter;
 }
 
 export = MultiFileStore;

@@ -35,7 +35,7 @@ multiStore = new StoreFs.MultiFileStore({ resolver, factory: $rdf });
 
 function store_match() {
     const term: Term = <any> {};
-    // $ExpectType Store<Quad>
+    // $ExpectType Stream<Quad>
     let stream = flatStore.match();
     stream = flatStore.match(term);
     stream = flatStore.match(term, term);
@@ -80,7 +80,7 @@ async function resolver_graphs() {
 }
 
 async function resolver_resolve() {
-    // $ExpectType Set<Quad_Graph>
     const graph: Quad_Graph = <any> {};
+    // $ExpectType Promise<string>
     const path = await resolver.resolve(graph);
 }
