@@ -1,7 +1,8 @@
-// Type definitions for esquery 1.0
+// Type definitions for esquery 1.5
 // Project: https://github.com/jrfeenst/esquery
 // Definitions by: cherryblossom000 <https://github.com/cherryblossom000>
 //                 Brad Zacher <https://github.com/bradzacher>
+//                 Brett Zamir <https://github.com/brettz9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Node } from 'estree';
@@ -14,19 +15,35 @@ export = query;
 declare function query(ast: Node, selector: string): Node[];
 
 declare namespace query {
+    interface ESQueryOptions {
+        nodeTypeKey?: string;
+        visitorKeys?: { [nodeType: string]: readonly string[] };
+        fallback?: (node: Node) => string[];
+        matchClass?: (className: string, node: Node, ancestry: Node[]) => boolean;
+    }
+
     /** Parse a selector and return its AST. */
     function parse(selector: string): Selector;
     /** From a JS AST and a selector AST, collect all JS AST nodes that match the selector. */
-    function match(ast: Node, selector: Selector): Node[];
+    function match(ast: Node, selector: Selector, options?: ESQueryOptions): Node[];
     /** Given a `node` and its ancestors, determine if `node` is matched by `selector`. */
-    function matches(node: Node, selector: Selector, ancestry: Node[]): boolean;
+    function matches(node: Node, selector: Selector, ancestry?: Node[], options?: ESQueryOptions): boolean;
     /** Query the code AST using the selector string. */
-    function query(ast: Node, selector: string): Node[];
+    function query(ast: Node, selector: string, options?: ESQueryOptions): Node[];
+
+    /** From a JS AST and a selector AST, collect all JS AST nodes that match the selector. */
+    function traverse(
+        ast: Node,
+        selector: string,
+        visitor: (node: Node, parent: Node, ancestry: Node[]) => void,
+        options?: ESQueryOptions,
+    ): void;
 
     //
     // Unions
     //
-    type Selector =  Field
+    type Selector =
+        | Field
         | Type
         | Sequence
         | Identifier
@@ -42,24 +59,11 @@ declare namespace query {
         | Matches
         | Has
         | Class;
-    type MultiSelector = Sequence
-        | Negation
-        | Matches
-        | Has;
-    type BinarySelector = Descendant
-        | Child
-        | Sibling
-        | Adjacent;
-    type NthSelector = NthChild
-        | NthLastChild;
-    type SubjectSelector = NthSelector
-        | BinarySelector
-        | MultiSelector
-        | Identifier
-        | Wildcard
-        | Attribute;
-    type Literal = StringLiteral
-        | NumericLiteral;
+    type MultiSelector = Sequence | Negation | Matches | Has;
+    type BinarySelector = Descendant | Child | Sibling | Adjacent;
+    type NthSelector = NthChild | NthLastChild;
+    type SubjectSelector = NthSelector | BinarySelector | MultiSelector | Identifier | Wildcard | Attribute;
+    type Literal = StringLiteral | NumericLiteral;
 
     //
     // Base Atoms
