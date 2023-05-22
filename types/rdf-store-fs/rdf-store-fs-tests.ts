@@ -82,5 +82,5 @@ async function resolver_graphs() {
 async function resolver_resolve() {
     const graph: Quad_Graph = <any> {};
     // $ExpectType Promise<string>
-    const path = await resolver.resolve(graph);
+    const path = resolver.resolve(graph);
 }
