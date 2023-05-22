@@ -194,7 +194,7 @@ Composite.add(composite1, mouseConstraint);
 // $ExpectType Composite
 Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 // $ExpectType Composite
-Composite.remove(composite3, [box1, composite2, constraint1, mouseContraint]);
+Composite.remove(composite3, [box1, composite2, constraint1, mouseConstraint]);
 
 // Pairs
 // $ExpectType Pairs
