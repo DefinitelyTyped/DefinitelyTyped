@@ -211,7 +211,6 @@ declare class TradeOffer {
 }
 
 declare namespace TradeOffer {
-
     interface UserDetails {
         personaName: string;
         contexts: any;

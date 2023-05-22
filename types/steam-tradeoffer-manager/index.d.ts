@@ -541,7 +541,7 @@ declare namespace TradeOfferManager {
     ) => void;
 
     type OfferCallback = (
-        err: TradeOfferManager.EResultError | null,
+        err: EResultError | null,
         sent: TradeOffer[],
         received: TradeOffer[]
     ) => void;
