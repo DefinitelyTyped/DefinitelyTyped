@@ -1390,13 +1390,13 @@ declare namespace Matter {
          * @returns {Composite} The original composite with the objects removed
          */
          static remove(
-            composite: Composite, 
+            composite: Composite,
             object:
                 | Body
                 | Composite
                 | Constraint
                 | MouseConstraint
-                | Array<Body | Composite | Constraint | MouseConstraint>, 
+                | Array<Body | Composite | Constraint | MouseConstraint>,
             deep?: boolean,
         ): Composite;
 
