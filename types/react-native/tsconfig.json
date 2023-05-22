@@ -18,6 +18,7 @@
     "files": [
         "index.d.ts",
         "test/animated.tsx",
+        "test/experimental.tsx",
         "test/fabric-component-sample.ts",
         "test/globals.tsx",
         "test/index.tsx",
