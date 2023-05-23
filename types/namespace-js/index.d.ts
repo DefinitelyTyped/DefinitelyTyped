@@ -1,4 +1,4 @@
-// Type definitions for namespace-js 0.0.2
+// Type definitions for namespace-js 0.0
 // Project: https://github.com/hirokidaichi/namespace-js
 // Definitions by: kuromoka <https://github.com/kuromoka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
