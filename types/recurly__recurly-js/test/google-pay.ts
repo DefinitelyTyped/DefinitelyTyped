@@ -3,8 +3,8 @@ import {
   GooglePayPaymentAuthorizationResult,
 } from '@recurly/recurly-js';
 
-export default function googlePay() {
-  const googlePaySimple = recurly.GooglePay({
+export default function googlePay () {
+  window.recurly.GooglePay({
     currency: 'USD',
     country: 'US',
     total: '1.00',
@@ -14,7 +14,7 @@ export default function googlePay() {
     requireBillingAddress: true,
   });
 
-  const googlePay = recurly.GooglePay({
+  window.recurly.GooglePay({
     currency: 'USD',
     country: 'US',
     total: '1.00',

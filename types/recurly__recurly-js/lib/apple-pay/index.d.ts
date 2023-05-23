@@ -8,6 +8,7 @@ import {
   ApplePayPaymentMethodSelectedEvent,
   ApplePayShippingContactSelectedEvent,
   ApplePayShippingMethodSelectedEvent,
+  ApplePayCouponCodeChangedEvent,
   ApplePayPaymentAuthorizedEvent,
 } from './native';
 
@@ -79,6 +80,7 @@ export type ApplePayConfig = {
     onPaymentMethodSelected?: (event: ApplePayPaymentMethodSelectedEvent) => Promise<ApplePaySelectionUpdate> | ApplePaySelectionUpdate | void,
     onShippingContactSelected?: (event: ApplePayShippingContactSelectedEvent) => Promise<ApplePaySelectionUpdate> | ApplePaySelectionUpdate | void,
     onShippingMethodSelected?: (event: ApplePayShippingMethodSelectedEvent) => Promise<ApplePaySelectionUpdate> | ApplePaySelectionUpdate | void,
+    onCouponCodeChanged?: (event: ApplePayCouponCodeChangedEvent) => Promise<ApplePaySelectionUpdate> | ApplePaySelectionUpdate | void,
     onPaymentAuthorized?: (event: ApplePayPaymentAuthorizedEvent) => Promise<ApplePayErrorUpdate> | ApplePayErrorUpdate | void,
   };
 
