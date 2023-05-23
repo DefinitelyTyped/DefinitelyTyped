@@ -9,7 +9,9 @@
  */
 export as namespace Namespace;
 
-type UserObject = { [key: string]: any };
+export interface UserObject {
+    [key: string]: any;
+}
 /*~ If this module has methods, declare them as functions like so.
  */
 export function use(syntax: string): NamespaceObject & typeof Namespace;
