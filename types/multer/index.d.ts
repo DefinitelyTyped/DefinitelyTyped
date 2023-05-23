@@ -218,6 +218,9 @@ declare namespace multer {
         } | undefined;
         /** Preserve the full path of the original filename rather than the basename. (Default: false) */
         preservePath?: boolean | undefined;
+        /** For multipart forms, the default character set to use for values of part header parameters (e.g. filename)
+         * that are not extended parameters (that contain an explicit charset). (Default: latin1) */
+        defParamCharset?: string | undefined;
         /**
          * Optional function to control which files are uploaded. This is called
          * for every file that is processed.
