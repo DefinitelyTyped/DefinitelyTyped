@@ -1,5 +1,5 @@
-import Blackjack from "simply-blackjack";
-import Card from "simply-blackjack/cards";
+import Blackjack from 'simply-blackjack';
+import Card from 'simply-blackjack/cards';
 
 const game = new Blackjack({
     decks: 1,
@@ -9,7 +9,7 @@ const game = new Blackjack({
     },
 });
 
-game.on("end", (table) => {
+game.on('end', table => {
     console.log(table);
 });
 
