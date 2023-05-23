@@ -49,7 +49,19 @@ declare module 'node:test' {
     function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
-
+    namespace test {
+        export {
+            after,
+            afterEach,
+            before,
+            beforeEach,
+            describe,
+            it,
+            run,
+            mock,
+            test
+        };
+    }
     /**
      * @since v18.6.0
      * @param name The name of the suite, which is displayed when reporting suite results.
@@ -73,6 +85,15 @@ declare module 'node:test' {
         function todo(name?: string, fn?: SuiteFn): void;
         function todo(options?: TestOptions, fn?: SuiteFn): void;
         function todo(fn?: SuiteFn): void;
+
+        /**
+         * Shorthand for marking a suite as `only`, same as `describe([name], { only: true }[, fn])`.
+         * @since v18.15.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
 
     /**
@@ -99,6 +120,15 @@ declare module 'node:test' {
         function todo(name?: string, fn?: TestFn): void;
         function todo(options?: TestOptions, fn?: TestFn): void;
         function todo(fn?: TestFn): void;
+
+        /**
+         * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
+         * @since v18.15.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function only(name?: string, fn?: TestFn): void;
+        function only(options?: TestOptions, fn?: TestFn): void;
+        function only(fn?: TestFn): void;
     }
 
     /**

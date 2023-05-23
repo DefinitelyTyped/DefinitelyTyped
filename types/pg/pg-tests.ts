@@ -1,3 +1,4 @@
+import { connect } from 'net';
 import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError } from 'pg';
 import TypeOverrides = require('pg/lib/type-overrides');
 import { NoticeMessage } from 'pg-protocol/dist/messages';
@@ -245,7 +246,28 @@ pool.connect().then(client => {
 });
 
 pool.on('error', (err, client) => {
+    // $ExpectType PoolClient
+    client;
     console.error('idle client error', err.message, err.stack);
+});
+pool.on('connect', (client) => {
+        // $ExpectType PoolClient
+        client;
+});
+pool.on('acquire', (client) => {
+    // $ExpectType PoolClient
+    client;
+});
+pool.on('release', (err, client) => {
+    // $ExpectType PoolClient
+    client;
+    if (err) {
+        console.error('connection released to pool: ', err.message);
+    }
+});
+pool.on('remove', (client) => {
+    // $ExpectType PoolClient
+    client;
 });
 
 (async () => {
@@ -303,6 +325,14 @@ c = new Client('connectionString'); // connection string allowed
 c = new Client({
     connectionString: 'connectionString',
     connectionTimeoutMillis: 1000, // connection timeout optionally specified
+});
+
+// using custom socket factory method
+c = new Client({
+    stream: () => connect({
+        host: 'my.database-server.com',
+        port: 5334,
+    }),
 });
 
 const dynamicPasswordSync = new Client({

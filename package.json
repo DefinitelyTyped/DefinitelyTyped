@@ -25,7 +25,7 @@
     },
     "devDependencies": {
         "@definitelytyped/definitions-parser": "latest",
-        "@definitelytyped/dtslint": "^0.0.159",
+        "@definitelytyped/dtslint": "latest",
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/header-parser": "latest",
         "@definitelytyped/utils": "latest",

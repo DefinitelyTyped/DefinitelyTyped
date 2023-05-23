@@ -76,7 +76,7 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test.js)
  */
 declare module 'node:test' {
     import { Readable } from 'node:stream';
@@ -135,6 +135,22 @@ declare module 'node:test' {
     function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
+    namespace test {
+        export {
+            after,
+            afterEach,
+            before,
+            beforeEach,
+            describe,
+            it,
+            run,
+            mock,
+            test,
+            skip,
+            todo,
+            only
+        };
+    }
     /**
      * The `describe()` function imported from the `node:test` module. Each
      * invocation of this function results in the creation of a Subtest.
@@ -164,6 +180,14 @@ declare module 'node:test' {
         function todo(name?: string, fn?: SuiteFn): void;
         function todo(options?: TestOptions, fn?: SuiteFn): void;
         function todo(fn?: SuiteFn): void;
+        /**
+         * Shorthand for marking a suite as `only`, same as `describe([name], { only: true }[, fn])`.
+         * @since v18.15.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
     /**
      * Shorthand for `test()`.
@@ -176,17 +200,53 @@ declare module 'node:test' {
     function it(options?: TestOptions, fn?: TestFn): void;
     function it(fn?: TestFn): void;
     namespace it {
-        // Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
+        /**
+         * Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
+         */
         function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
         function skip(name?: string, fn?: TestFn): void;
         function skip(options?: TestOptions, fn?: TestFn): void;
         function skip(fn?: TestFn): void;
-        // Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
+        /**
+         * Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
+         */
         function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
         function todo(name?: string, fn?: TestFn): void;
         function todo(options?: TestOptions, fn?: TestFn): void;
         function todo(fn?: TestFn): void;
+        /**
+         * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
+         * @since v18.15.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function only(name?: string, fn?: TestFn): void;
+        function only(options?: TestOptions, fn?: TestFn): void;
+        function only(fn?: TestFn): void;
     }
+    /**
+     * Shorthand for skipping a test, same as `test([name], { skip: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function skip(name?: string, fn?: TestFn): void;
+    function skip(options?: TestOptions, fn?: TestFn): void;
+    function skip(fn?: TestFn): void;
+    /**
+     * Shorthand for marking a test as `TODO`, same as `test([name], { todo: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function todo(name?: string, fn?: TestFn): void;
+    function todo(options?: TestOptions, fn?: TestFn): void;
+    function todo(fn?: TestFn): void;
+    /**
+     * Shorthand for marking a test as `only`, same as `test([name], { only: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function only(name?: string, fn?: TestFn): void;
+    function only(options?: TestOptions, fn?: TestFn): void;
+    function only(fn?: TestFn): void;
     /**
      * The type of a function under test. The first argument to this function is a
      * {@link TestContext} object. If the test uses callbacks, the callback function is passed as
@@ -988,5 +1048,5 @@ declare module 'node:test' {
          */
         restore(): void;
     }
-    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock };
+    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
 }

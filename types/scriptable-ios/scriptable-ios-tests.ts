@@ -596,3 +596,167 @@
     // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present([42]);
 }
+
+{
+    // @ts-expect-error
+    const cError = new Calendar();
+    // $ExpectType Promise<Calendar[]>
+    Calendar.forReminders();
+    // @ts-expect-error
+    Calendar.forReminders('foo');
+
+    // $ExpectType Promise<Calendar[]>
+    Calendar.forEvents();
+    // @ts-expect-error
+    Calendar.forEvents('foo');
+
+    // @ts-expect-error
+    Calendar.forRemindersByTitle();
+    // @ts-expect-error
+    Calendar.forRemindersByTitle(42);
+    // $ExpectType Promise<Calendar>
+    const promise = Calendar.forRemindersByTitle('foo');
+
+    // @ts-expect-error
+    Calendar.forEventsByTitle();
+    // @ts-expect-error
+    Calendar.forEventsByTitle(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.forEventsByTitle('foo');
+
+    // @ts-expect-error
+    Calendar.createForReminders();
+    // @ts-expect-error
+    Calendar.createForReminders(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.createForReminders('foo');
+
+    // @ts-expect-error
+    Calendar.findOrCreateForReminders();
+    // @ts-expect-error
+    Calendar.findOrCreateForReminders(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.findOrCreateForReminders('foo');
+
+    // $ExpectType Promise<Calendar>
+    Calendar.defaultForReminders();
+    // @ts-expect-error
+    Calendar.defaultForReminders('foo');
+
+    // $ExpectType Promise<Calendar>
+    Calendar.defaultForEvents();
+    // @ts-expect-error
+    Calendar.defaultForEvents('foo');
+
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker();
+    // @ts-expect-error
+    Calendar.presentPicker('foo');
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker(false);
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker(true);
+
+    promise.then(calendar => {
+        // $ExpectType string
+        calendar.identifier;
+        calendar.identifier = 'foo';
+        // $ExpectType string
+        calendar.title;
+        calendar.title = 'foo';
+        // $ExpectType boolean
+        calendar.isSubscribed;
+        calendar.isSubscribed = true;
+        // $ExpectType boolean
+        calendar.allowsContentModifications;
+        calendar.allowsContentModifications = true;
+        // $ExpectType Color
+        calendar.color;
+        calendar.color = new Color('000000');
+
+        // @ts-expect-error
+        calendar.supportsAvailability();
+        // @ts-expect-error
+        calendar.supportsAvailability('foo');
+        // $ExpectType boolean
+        calendar.supportsAvailability('busy');
+
+        // $ExpectType void
+        calendar.save();
+        // @ts-expect-error
+        calendar.save(42);
+
+        // $ExpectType void
+        calendar.remove();
+        // @ts-expect-error
+        calendar.remove(42);
+    });
+}
+
+{
+    const r = new Reminder();
+    // $ExpectType Calendar
+    r.calendar;
+    // $ExpectType Date | null
+    r.completionDate;
+    // $ExpectType Date | null
+    r.creationDate;
+    // $ExpectType Date | null
+    r.dueDate;
+    // $ExpectType boolean
+    r.dueDateIncludesTime;
+    // $ExpectType string
+    r.identifier;
+    // $ExpectType boolean
+    r.isCompleted;
+    // $ExpectType boolean
+    r.isOverdue;
+    // $ExpectType string | undefined
+    r.notes;
+    delete r.notes;
+    // $ExpectType number
+    r.priority;
+    // $ExpectType string
+    r.title;
+
+    // $ExpectType void
+    r.remove();
+    // @ts-expect-error
+    r.remove('foo');
+    // $ExpectType void
+    r.removeAllRecurrenceRules();
+    // @ts-expect-error
+    r.removeAllRecurrenceRules('foo');
+    // $ExpectType void
+    r.save();
+    // @ts-expect-error
+    r.save('foo');
+
+    // @ts-expect-error
+    const noRule = new RecurrenceRule();
+    const rule = RecurrenceRule.daily(1);
+    r.addRecurrenceRule(rule);
+    // @ts-expect-error
+    r.addRecurrenceRule('foo');
+}
+
+{
+    // @ts-expect-error
+    new ContactsContainer();
+
+    // $ExpectType Promise<ContactsContainer>
+    const promise = ContactsContainer.default();
+    // $ExpectType Promise<ContactsContainer[]>
+    ContactsContainer.all();
+    // @ts-expect-error
+    ContactsContainer.withIdentifier();
+    // $ExpectType Promise<ContactsContainer>
+    ContactsContainer.withIdentifier('foo');
+
+    promise.then(container => {
+        // $ExpectType string
+        container.identifier;
+        // $ExpectType string
+        container.name;
+    });
+}
