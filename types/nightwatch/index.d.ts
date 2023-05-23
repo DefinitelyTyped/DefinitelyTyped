@@ -1056,7 +1056,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given attribute of an element contains the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.attributeContains('#someElement', 'href', 'google.com');
      *    };
      * ```
@@ -1069,7 +1069,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given attribute of an element has the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.attributeEquals('body', 'data-attr', 'some value');
      *    };
      * ```
@@ -1101,7 +1101,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the specified css property of a given element has the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.cssProperty('#main', 'display', 'block');
      *    };
      * ```
@@ -1164,7 +1164,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given element exists in the DOM.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.elementPresent("#main");
      *    };
      * ```
@@ -1206,7 +1206,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given element has the specified CSS class.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.cssClassPresent('#main', 'container');
      *    };
      * ```
@@ -1280,7 +1280,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given element contains the specified text.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.containsText('#main', 'The Night Watch');
      *    };
      * ```
@@ -1342,7 +1342,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the page title equals the given value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.title("Nightwatch.js");
      *    };
      * ```
@@ -1355,7 +1355,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the page title equals the given value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.title("Nightwatch.js");
      *    };
      * ```
@@ -1366,7 +1366,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the page title equals the given value.
      * @since 2.0
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.titleEquals("Nightwatch.js");
      *    };
      * ```
@@ -1379,7 +1379,7 @@ export interface NightwatchCommonAssertions {
      * @example
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.titleMatches('^Nightwatch');
      *    };
      * ```
@@ -1391,7 +1391,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the current URL contains the given value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.urlContains('google');
      *    };
      * ```
@@ -1402,7 +1402,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the current url equals the given value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.urlEquals('https://www.google.com');
      *    };
      * ```
@@ -1414,7 +1414,7 @@ export interface NightwatchCommonAssertions {
      *
      * @example
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.urlMatches('^https');
      *    };
      * ```
@@ -1426,7 +1426,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given form element's value equals the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.value("form.login input[type=text]", "username");
      *    };
      * ```
@@ -1439,7 +1439,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given form element's value contains the expected value.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.valueContains("form.login input[type=text]", "username");
      *    };
      * ```
@@ -1479,7 +1479,7 @@ export interface NightwatchCommonAssertions {
      * Checks if the given element is visible on the page.
      *
      * ```
-     *    this.demoTest = function (client) {
+     *    this.demoTest = function (browser) {
      *      browser.assert.visible(".should_be_visible");
      *    };
      * ```
