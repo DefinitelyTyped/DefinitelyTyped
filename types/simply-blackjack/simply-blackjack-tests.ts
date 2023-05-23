@@ -1,5 +1,4 @@
-import Blackjack from 'simply-blackjack';
-import Card from 'simply-blackjack/cards';
+import Blackjack = require('simply-blackjack');
 
 const game = new Blackjack({
     decks: 1,

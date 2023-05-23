@@ -54,7 +54,7 @@ interface Table {
 }
 
 interface BlackjackEvents {
-    end: (table: { state: string; bet: number; winnings: number; player: Player; dealer: Player }) => void;
+    end: (result: { state: string; bet: number; winnings: number; player: Player; dealer: Player }) => void;
 }
 
 interface Card {
