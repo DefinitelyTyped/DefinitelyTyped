@@ -1608,29 +1608,29 @@ export interface NightwatchLogEntry {
     /**
      * The time stamp of log entry in seconds.
      */
-    opt_timestamp: number;
+    timestamp: number;
 
     /**
-     * The log type, if known.
+     * The log type.
      */
-    opt_type?: string;
+    type: string;
 
     /**
      * Severity level
      */
-    level: 'ALL' | 'DEBUG' | 'FINE' | 'FINER' | 'FINEST' | 'INFO' | 'OFF' | 'SEVERE' | 'WARNING' | Level | number;
+    level: Level;
 }
 
 export interface Level {
     /**
      * the level's name.
      */
-    name: string;
+    name: 'ALL' | 'DEBUG' | 'FINE' | 'FINER' | 'FINEST' | 'INFO' | 'OFF' | 'SEVERE' | 'WARNING';
 
     /**
      * the level's numeric value.
      */
-    level: number;
+    value: number;
 }
 
 export interface NightwatchKeys {
