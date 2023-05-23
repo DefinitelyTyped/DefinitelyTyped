@@ -8,7 +8,7 @@ export class CryptoLD {
 
     use(keyPairLib: LDKeyPair): void;
 
-    generate({ type, controller }: { type: string; controller: string }): Promise<LDKeyPair>;
+    generate(options?: { type: string; controller?: string }): Promise<LDKeyPair>;
 
     from(serialized: object): Promise<LDKeyPair>;
 
@@ -33,10 +33,6 @@ export class CryptoLD {
         checkContext: boolean;
         checkRevoked: boolean;
     }): Promise<LDKeyPair>;
-
-    _installed({ type }: { type: string }): boolean;
-
-    _suiteForType({ type }: { type: string }): object;
 }
 
 export class LDKeyPair {

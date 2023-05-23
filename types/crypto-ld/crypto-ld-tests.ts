@@ -4,8 +4,6 @@ const lDKeyPairTests = new LDKeyPair();
 
 cryptoLdTests.from({}).then(); // $ExpectType Promise<LDKeyPair>
 cryptoLdTests.use(lDKeyPairTests); // $ExpectType void
-cryptoLdTests._installed({ type: '' }); // $ExpectType boolean
-cryptoLdTests._suiteForType({ type: '' }); // $ExpectType object
 cryptoLdTests.generate({ type: '', controller: '' }).then(); // $ExpectType Promise<LDKeyPair>
 cryptoLdTests.fromKeyDocument({ document: {}, checkContext: false, checkRevoked: false }).then(); // $ExpectType Promise<LDKeyPair>
 
