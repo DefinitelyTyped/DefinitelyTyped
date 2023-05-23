@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class CryptoLD {
-    constructor(params?: { suites: any });
+    constructor(params?: { suites: Map<string, unknown> });
 
     use(keyPairLib: LDKeyPair): void;
 
-    generate(options: object): Promise<LDKeyPair>;
+    generate({ type, controller }: { type: string; controller: string }): Promise<LDKeyPair>;
 
     from(serialized: object): Promise<LDKeyPair>;
 
@@ -36,7 +36,7 @@ export class CryptoLD {
 
     _installed({ type }: { type: string }): boolean;
 
-    _suiteForType(document: object): object;
+    _suiteForType({ type }: { type: string }): object;
 }
 
 export class LDKeyPair {
