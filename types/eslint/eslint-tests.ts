@@ -386,11 +386,19 @@ rule = {
 
         context.getDeclaredVariables(AST);
 
+        context.filename;
+
         context.getFilename();
+
+        context.physicalFilename;
 
         context.getPhysicalFilename();
 
+        context.cwd;
+
         context.getCwd();
+
+        context.sourceCode;
 
         context.getSourceCode();
 
