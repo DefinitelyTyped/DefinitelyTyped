@@ -490,3 +490,13 @@ node.remove((err, response) => {
 node.remove({}).then(response => {
     // NOOP;
 });
+
+docker.run(
+    'ubuntu',
+    ['bash', '-c', 'uname -a'],
+    process.stdout,
+    { name: 'foo', platform: 'linux/amd64' },
+    (err, data) => {
+        console.log(data.StatusCode);
+    },
+);
