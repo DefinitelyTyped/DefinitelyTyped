@@ -1,4 +1,4 @@
-import { Cookie, NightwatchLogEntry } from 'nightwatch';
+import { Cookie, NightwatchElement, NightwatchLogEntry } from 'nightwatch';
 
 import { isNightwatchAPI, isNightwatchCallbackResult, isType } from './utils';
 
@@ -475,5 +475,33 @@ describe('axeInject test', function() {
         const result = await browser.axeInject();
         isType<null>(result);
     });
+    after(browser => browser.end());
+});
+
+//
+// .injectScript
+//
+describe('injectScript command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.injectScript('<script-url>', function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<NightwatchElement>(result);
+        });
+        browser.injectScript('<script-url>', 'id', function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<NightwatchElement>(result);
+        });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.injectScript('<script-url>');
+        isType<NightwatchElement>(result);
+
+        const result2 = await browser.injectScript('<script-url>', 'id');
+        isType<NightwatchElement>(result2);
+    });
+
     after(browser => browser.end());
 });
