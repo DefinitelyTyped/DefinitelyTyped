@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.32
+// Type definitions for non-npm package microsoft-graph 2.33
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -509,6 +509,127 @@ export type StagedFeatureName =
     | "unknownFutureValue"
     | "certificateBasedAuthentication"
     | "multiFactorAuthentication";
+export type AttributeDefinitionMetadata =
+    | "BaseAttributeName"
+    | "ComplexObjectDefinition"
+    | "IsContainer"
+    | "IsCustomerDefined"
+    | "IsDomainQualified"
+    | "LinkPropertyNames"
+    | "LinkTypeName"
+    | "MaximumLength"
+    | "ReferencedProperty";
+export type AttributeFlowBehavior = "FlowWhenChanged" | "FlowAlways";
+export type AttributeFlowType = "Always" | "ObjectAddOnly" | "MultiValueAddOnly" | "ValueAddOnly" | "AttributeAddOnly";
+export type AttributeMappingSourceType = "Attribute" | "Constant" | "Function";
+export type AttributeType = "String" | "Integer" | "Reference" | "Binary" | "Boolean" | "DateTime";
+export type DirectoryDefinitionDiscoverabilities =
+    | "None"
+    | "AttributeNames"
+    | "AttributeDataTypes"
+    | "AttributeReadOnly"
+    | "ReferenceAttributes"
+    | "UnknownFutureValue";
+export type EntryExportStatus = "Noop" | "Success" | "RetryableError" | "PermanentError" | "Error";
+export type EntrySyncOperation = "None" | "Add" | "Delete" | "Update";
+export type EscrowBehavior = "Default" | "IgnoreLookupReferenceResolutionFailure";
+export type Mutability = "ReadWrite" | "ReadOnly" | "Immutable" | "WriteOnly";
+export type ObjectDefinitionMetadata =
+    | "PropertyNameAccountEnabled"
+    | "PropertyNameSoftDeleted"
+    | "IsSoftDeletionSupported"
+    | "IsSynchronizeAllSupported"
+    | "ConnectorDataStorageRequired"
+    | "Extensions"
+    | "BaseObjectName";
+export type ObjectFlowTypes = "None" | "Add" | "Update" | "Delete";
+export type ObjectMappingMetadata =
+    | "EscrowBehavior"
+    | "DisableMonitoringForChanges"
+    | "OriginalJoiningProperty"
+    | "Disposition"
+    | "IsCustomerDefined"
+    | "ExcludeFromReporting"
+    | "Unsynchronized";
+export type QuarantineReason =
+    | "EncounteredBaseEscrowThreshold"
+    | "EncounteredTotalEscrowThreshold"
+    | "EncounteredEscrowProportionThreshold"
+    | "EncounteredQuarantineException"
+    | "Unknown"
+    | "QuarantinedOnDemand"
+    | "TooManyDeletes"
+    | "IngestionInterrupted";
+export type ScopeOperatorMultiValuedComparisonType = "All" | "Any";
+export type ScopeOperatorType = "Binary" | "Unary";
+export type SynchronizationDisposition = "Normal" | "Discard" | "Escrow";
+export type SynchronizationJobRestartScope =
+    | "None"
+    | "ConnectorDataStore"
+    | "Escrows"
+    | "Watermark"
+    | "QuarantineState"
+    | "Full"
+    | "ForceDeletes";
+export type SynchronizationMetadata =
+    | "GalleryApplicationIdentifier"
+    | "GalleryApplicationKey"
+    | "IsOAuthEnabled"
+    | "IsSynchronizationAgentAssignmentRequired"
+    | "IsSynchronizationAgentRequired"
+    | "IsSynchronizationInPreview"
+    | "OAuthSettings"
+    | "SynchronizationLearnMoreIbizaFwLink"
+    | "ConfigurationFields";
+export type SynchronizationScheduleState = "Active" | "Disabled" | "Paused";
+export type SynchronizationSecret =
+    | "None"
+    | "UserName"
+    | "Password"
+    | "SecretToken"
+    | "AppKey"
+    | "BaseAddress"
+    | "ClientIdentifier"
+    | "ClientSecret"
+    | "SingleSignOnType"
+    | "Sandbox"
+    | "Url"
+    | "Domain"
+    | "ConsumerKey"
+    | "ConsumerSecret"
+    | "TokenKey"
+    | "TokenExpiration"
+    | "Oauth2AccessToken"
+    | "Oauth2AccessTokenCreationTime"
+    | "Oauth2RefreshToken"
+    | "SyncAll"
+    | "InstanceName"
+    | "Oauth2ClientId"
+    | "Oauth2ClientSecret"
+    | "CompanyId"
+    | "UpdateKeyOnSoftDelete"
+    | "SynchronizationSchedule"
+    | "SystemOfRecord"
+    | "SandboxName"
+    | "EnforceDomain"
+    | "SyncNotificationSettings"
+    | "SkipOutOfScopeDeletions"
+    | "Oauth2AuthorizationCode"
+    | "Oauth2RedirectUri"
+    | "ApplicationTemplateIdentifier"
+    | "Oauth2TokenExchangeUri"
+    | "Oauth2AuthorizationUri"
+    | "AuthenticationType"
+    | "Server"
+    | "PerformInboundEntitlementGrants"
+    | "HardDeletesEnabled"
+    | "SyncAgentCompatibilityKey"
+    | "SyncAgentADContainer"
+    | "ValidateDomain"
+    | "TestReferences"
+    | "ConnectionString";
+export type SynchronizationStatusCode = "NotConfigured" | "NotRun" | "Active" | "Paused" | "Quarantine";
+export type SynchronizationTaskExecutionResult = "Succeeded" | "Failed" | "EntryLevelErrors";
 export type AccessReviewHistoryDecisionFilter =
     | "approve"
     | "deny"
@@ -1309,6 +1430,8 @@ export type EntityType =
     | "listItem"
     | "drive"
     | "unknownFutureValue"
+    | "acronym"
+    | "bookmark"
     | "chatMessage"
     | "person";
 export type SearchAlterationType = "suggestion" | "modification" | "unknownFutureValue";
@@ -2414,7 +2537,9 @@ export type EndpointType =
 export type MediaDirection = "inactive" | "sendOnly" | "receiveOnly" | "sendReceive";
 export type MediaState = "active" | "inactive" | "unknownFutureValue";
 export type Modality = "audio" | "video" | "videoBasedScreenSharing" | "data" | "unknownFutureValue";
+export type OnlineMeetingContentSharingDisabledReason = "watermarkProtection" | "unknownFutureValue";
 export type OnlineMeetingRole = "attendee" | "presenter" | "unknownFutureValue" | "producer" | "coorganizer";
+export type OnlineMeetingVideoDisabledReason = "watermarkProtection" | "unknownFutureValue";
 export type RecordingStatus = "unknown" | "notRecording" | "recording" | "failed" | "unknownFutureValue";
 export type RejectReason = "none" | "busy" | "forbidden" | "unknownFutureValue";
 export type RoutingMode = "oneToOne" | "multicast" | "unknownFutureValue";
@@ -4607,6 +4732,7 @@ export interface Application extends DirectoryObject {
     owners?: NullableOption<DirectoryObject[]>;
     tokenIssuancePolicies?: NullableOption<TokenIssuancePolicy[]>;
     tokenLifetimePolicies?: NullableOption<TokenLifetimePolicy[]>;
+    synchronization?: NullableOption<Synchronization>;
 }
 export interface ServicePrincipal extends DirectoryObject {
     /**
@@ -4826,6 +4952,7 @@ export interface ServicePrincipal extends DirectoryObject {
     // The tokenLifetimePolicies assigned to this service principal.
     tokenLifetimePolicies?: NullableOption<TokenLifetimePolicy[]>;
     transitiveMemberOf?: NullableOption<DirectoryObject[]>;
+    synchronization?: NullableOption<Synchronization>;
 }
 export interface PolicyBase extends DirectoryObject {
     // Description for this policy. Required.
@@ -4909,6 +5036,11 @@ export interface HomeRealmDiscoveryPolicy extends StsPolicy {}
 export interface TokenIssuancePolicy extends StsPolicy {}
 // tslint:disable-next-line: no-empty-interface
 export interface TokenLifetimePolicy extends StsPolicy {}
+export interface Synchronization extends Entity {
+    secrets?: NullableOption<SynchronizationSecretKeyStringValuePair[]>;
+    jobs?: NullableOption<SynchronizationJob[]>;
+    templates?: NullableOption<SynchronizationTemplate[]>;
+}
 export interface ApplicationTemplate extends Entity {
     /**
      * The list of categories for the application. Supported values can be: Collaboration, Business Management, Consumer,
@@ -5885,10 +6017,10 @@ export interface Group extends DirectoryObject {
      */
     displayName?: NullableOption<string>;
     /**
-     * Timestamp of when the group is set to expire. The value cannot be modified and is automatically populated when the
-     * group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC
-     * time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne,
-     * not, ge, le, in). Read-only.
+     * Timestamp of when the group is set to expire. Is null for security groups but for Microsoft 365 groups, it represents
+     * when the group is set to expire as defined in the groupLifecyclePolicy. The Timestamp type represents date and time
+     * information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
+     * 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne, not, ge, le, in). Read-only.
      */
     expirationDateTime?: NullableOption<string>;
     /**
@@ -8093,6 +8225,8 @@ export interface SamlOrWsFedExternalDomainFederation extends SamlOrWsFedProvider
     domains?: NullableOption<ExternalDomainName[]>;
 }
 export interface SubscribedSku extends Entity {
+    accountId?: NullableOption<string>;
+    accountName?: NullableOption<string>;
     // For example, 'User' or 'Company'.
     appliesTo?: NullableOption<string>;
     /**
@@ -8113,6 +8247,7 @@ export interface SubscribedSku extends Entity {
      * organization has acquired, see List subscribedSkus.
      */
     skuPartNumber?: NullableOption<string>;
+    subscriptionIds?: NullableOption<string[]>;
 }
 export interface UnifiedRbacResourceAction extends Entity {
     actionVerb?: NullableOption<string>;
@@ -9708,8 +9843,8 @@ export interface OpenTypeExtension extends Extension {
 }
 export interface OutlookCategory extends Entity {
     /**
-     * A pre-set color constant that characterizes a category, and that is mapped to one of 25 predefined colors. See the note
-     * below.
+     * A pre-set color constant that characterizes a category, and that is mapped to one of 25 predefined colors. For more
+     * details, see the following note.
      */
     color?: NullableOption<CategoryColor>;
     /**
@@ -9903,6 +10038,43 @@ export interface SchemaExtension extends Entity {
      * administrativeUnit, contact, device, event, group, message, organization, post, todoTask, todoTaskList, or user.
      */
     targetTypes?: string[];
+}
+export interface AttributeMappingFunctionSchema extends Entity {
+    parameters?: NullableOption<AttributeMappingParameterSchema[]>;
+}
+export interface DirectoryDefinition extends Entity {
+    discoverabilities?: DirectoryDefinitionDiscoverabilities;
+    discoveryDateTime?: NullableOption<string>;
+    name?: NullableOption<string>;
+    objects?: NullableOption<ObjectDefinition[]>;
+    readOnly?: boolean;
+    version?: NullableOption<string>;
+}
+export interface FilterOperatorSchema extends Entity {
+    arity?: ScopeOperatorType;
+    multivaluedComparisonType?: ScopeOperatorMultiValuedComparisonType;
+    supportedAttributeTypes?: AttributeType[];
+}
+export interface SynchronizationJob extends Entity {
+    schedule?: NullableOption<SynchronizationSchedule>;
+    status?: NullableOption<SynchronizationStatus>;
+    synchronizationJobSettings?: NullableOption<KeyValuePair[]>;
+    templateId?: NullableOption<string>;
+    schema?: NullableOption<SynchronizationSchema>;
+}
+export interface SynchronizationTemplate extends Entity {
+    applicationId?: string;
+    default?: boolean;
+    description?: NullableOption<string>;
+    discoverable?: boolean;
+    factoryTag?: NullableOption<string>;
+    metadata?: NullableOption<SynchronizationMetadataEntry[]>;
+    schema?: NullableOption<SynchronizationSchema>;
+}
+export interface SynchronizationSchema extends Entity {
+    synchronizationRules?: NullableOption<SynchronizationRule[]>;
+    version?: NullableOption<string>;
+    directories?: NullableOption<DirectoryDefinition[]>;
 }
 export interface CloudCommunications {
     callRecords?: NullableOption<CallRecords.CallRecord[]>;
@@ -15898,7 +16070,7 @@ export interface DelegatedAdminServiceManagementDetail extends Entity {
 }
 export interface DelegatedAdminRelationship extends Entity {
     /**
-     * The access details containing the identifiers of the administrative roles that the partner admin is requesting in the
+     * The access details that contain the identifiers of the administrative roles that the partner admin is requesting in the
      * customer tenant.
      */
     accessDetails?: DelegatedAdminAccessDetails;
@@ -16367,6 +16539,8 @@ export interface Participant extends Entity {
     metadata?: NullableOption<string>;
     // Information about whether the participant has recording capability.
     recordingInfo?: NullableOption<RecordingInfo>;
+    // Indicates the reason or reasons media content from this participant is restricted.
+    restrictedExperience?: NullableOption<OnlineMeetingRestricted>;
 }
 // tslint:disable-next-line: no-empty-interface
 export interface CancelMediaProcessingOperation extends CommsOperation {}
@@ -16596,6 +16770,10 @@ export interface ChatMessage extends Entity {
     locale?: string;
     // List of entities mentioned in the chat message. Supported entities are: user, bot, team, and channel.
     mentions?: NullableOption<ChatMessageMention[]>;
+    /**
+     * List of activity history of a message item, including modification time and actions, such as reactionAdded,
+     * reactionRemoved, or reaction changes, on the message.
+     */
     messageHistory?: NullableOption<ChatMessageHistoryItem[]>;
     /**
      * The type of chat message. The possible values are: message, chatEvent, typing, unknownFutureValue, systemEventMessage.
@@ -18517,6 +18695,8 @@ export interface DefaultUserRolePermissions {
      * create security groups in Azure portals, API or PowerShell setting in the group settings menu in the Azure portal.
      */
     allowedToCreateSecurityGroups?: boolean;
+    // Indicates whether the default user role can create tenants.
+    allowedToCreateTenants?: NullableOption<boolean>;
     // Indicates whether the registered owners of a device can read their own BitLocker recovery keys with default user role.
     allowedToReadBitlockerKeysForOwnedDevice?: NullableOption<boolean>;
     // Indicates whether the default user role can read other users.
@@ -20384,6 +20564,216 @@ export interface ExtensionSchemaProperty {
      * Integer or String. See the table below for more details.
      */
     type?: NullableOption<string>;
+}
+export interface AttributeDefinition {
+    anchor?: boolean;
+    apiExpressions?: NullableOption<StringKeyStringValuePair[]>;
+    caseExact?: boolean;
+    defaultValue?: NullableOption<string>;
+    flowNullValues?: boolean;
+    metadata?: NullableOption<AttributeDefinitionMetadataEntry[]>;
+    multivalued?: boolean;
+    mutability?: Mutability;
+    name?: NullableOption<string>;
+    referencedObjects?: NullableOption<ReferencedObject[]>;
+    required?: boolean;
+    type?: AttributeType;
+}
+export interface StringKeyStringValuePair {
+    key?: NullableOption<string>;
+    value?: NullableOption<string>;
+}
+export interface AttributeDefinitionMetadataEntry {
+    key?: NullableOption<AttributeDefinitionMetadata>;
+    value?: NullableOption<string>;
+}
+export interface ReferencedObject {
+    referencedObjectName?: NullableOption<string>;
+    referencedProperty?: NullableOption<string>;
+}
+export interface AttributeMapping {
+    defaultValue?: NullableOption<string>;
+    exportMissingReferences?: boolean;
+    flowBehavior?: AttributeFlowBehavior;
+    flowType?: AttributeFlowType;
+    matchingPriority?: number;
+    source?: NullableOption<AttributeMappingSource>;
+    targetAttributeName?: NullableOption<string>;
+}
+export interface AttributeMappingSource {
+    expression?: NullableOption<string>;
+    name?: NullableOption<string>;
+    parameters?: NullableOption<StringKeyAttributeMappingSourceValuePair[]>;
+    type?: AttributeMappingSourceType;
+}
+export interface AttributeMappingParameterSchema {
+    allowMultipleOccurrences?: boolean;
+    name?: NullableOption<string>;
+    required?: boolean;
+    type?: AttributeType;
+}
+export interface StringKeyAttributeMappingSourceValuePair {
+    key?: NullableOption<string>;
+    value?: NullableOption<AttributeMappingSource>;
+}
+export interface ContainerFilter {
+    includedContainers?: NullableOption<string[]>;
+}
+export interface ExpressionInputObject {
+    definition?: NullableOption<ObjectDefinition>;
+    properties?: NullableOption<StringKeyObjectValuePair[]>;
+}
+export interface ObjectDefinition {
+    attributes?: NullableOption<AttributeDefinition[]>;
+    metadata?: NullableOption<ObjectDefinitionMetadataEntry[]>;
+    name?: NullableOption<string>;
+    supportedApis?: NullableOption<string[]>;
+}
+export interface StringKeyObjectValuePair {
+    key?: NullableOption<string>;
+}
+export interface Filter {
+    categoryFilterGroups?: NullableOption<FilterGroup[]>;
+    groups?: NullableOption<FilterGroup[]>;
+    inputFilterGroups?: NullableOption<FilterGroup[]>;
+}
+export interface FilterGroup {
+    clauses?: NullableOption<FilterClause[]>;
+    name?: NullableOption<string>;
+}
+export interface FilterClause {
+    operatorName?: NullableOption<string>;
+    sourceOperandName?: NullableOption<string>;
+    targetOperand?: NullableOption<FilterOperand>;
+}
+export interface FilterOperand {
+    values?: NullableOption<string[]>;
+}
+export interface GroupFilter {
+    includedGroups?: NullableOption<string[]>;
+}
+export interface ObjectDefinitionMetadataEntry {
+    key?: NullableOption<ObjectDefinitionMetadata>;
+    value?: NullableOption<string>;
+}
+export interface ObjectMapping {
+    attributeMappings?: NullableOption<AttributeMapping[]>;
+    enabled?: boolean;
+    flowTypes?: ObjectFlowTypes;
+    metadata?: NullableOption<ObjectMappingMetadataEntry[]>;
+    name?: NullableOption<string>;
+    scope?: NullableOption<Filter>;
+    sourceObjectName?: NullableOption<string>;
+    targetObjectName?: NullableOption<string>;
+}
+export interface ObjectMappingMetadataEntry {
+    key?: NullableOption<ObjectMappingMetadata>;
+    value?: NullableOption<string>;
+}
+export interface ParseExpressionResponse {
+    error?: NullableOption<PublicError>;
+    evaluationResult?: NullableOption<string[]>;
+    evaluationSucceeded?: boolean;
+    parsedExpression?: NullableOption<AttributeMappingSource>;
+    parsingSucceeded?: boolean;
+}
+export interface PublicErrorResponse {
+    error?: NullableOption<PublicError>;
+}
+export interface StringKeyLongValuePair {
+    key?: NullableOption<string>;
+    value?: number;
+}
+export interface SynchronizationError {
+    code?: NullableOption<string>;
+    message?: NullableOption<string>;
+    tenantActionable?: boolean;
+}
+export interface SynchronizationJobApplicationParameters {
+    ruleId?: NullableOption<string>;
+    subjects?: NullableOption<SynchronizationJobSubject[]>;
+}
+export interface SynchronizationJobSubject {
+    links?: NullableOption<SynchronizationLinkedObjects>;
+    objectId?: NullableOption<string>;
+    objectTypeName?: NullableOption<string>;
+}
+export interface SynchronizationJobRestartCriteria {
+    resetScope?: NullableOption<SynchronizationJobRestartScope>;
+}
+export interface SynchronizationLinkedObjects {
+    manager?: NullableOption<SynchronizationJobSubject>;
+    members?: NullableOption<SynchronizationJobSubject[]>;
+    owners?: NullableOption<SynchronizationJobSubject[]>;
+}
+export interface SynchronizationMetadataEntry {
+    key?: NullableOption<SynchronizationMetadata>;
+    value?: NullableOption<string>;
+}
+export interface SynchronizationProgress {
+    completedUnits?: number;
+    progressObservationDateTime?: string;
+    totalUnits?: number;
+    units?: NullableOption<string>;
+}
+export interface SynchronizationQuarantine {
+    currentBegan?: string;
+    error?: NullableOption<SynchronizationError>;
+    nextAttempt?: string;
+    reason?: QuarantineReason;
+    seriesBegan?: string;
+    seriesCount?: number;
+}
+export interface SynchronizationRule {
+    containerFilter?: NullableOption<ContainerFilter>;
+    editable?: boolean;
+    groupFilter?: NullableOption<GroupFilter>;
+    id?: NullableOption<string>;
+    metadata?: NullableOption<StringKeyStringValuePair[]>;
+    name?: NullableOption<string>;
+    objectMappings?: NullableOption<ObjectMapping[]>;
+    priority?: number;
+    sourceDirectoryName?: NullableOption<string>;
+    targetDirectoryName?: NullableOption<string>;
+}
+export interface SynchronizationSchedule {
+    expiration?: NullableOption<string>;
+    interval?: string;
+    state?: SynchronizationScheduleState;
+}
+export interface SynchronizationSecretKeyStringValuePair {
+    key?: SynchronizationSecret;
+    value?: NullableOption<string>;
+}
+export interface SynchronizationStatus {
+    code?: SynchronizationStatusCode;
+    countSuccessiveCompleteFailures?: number;
+    escrowsPruned?: boolean;
+    lastExecution?: NullableOption<SynchronizationTaskExecution>;
+    lastSuccessfulExecution?: NullableOption<SynchronizationTaskExecution>;
+    lastSuccessfulExecutionWithExports?: NullableOption<SynchronizationTaskExecution>;
+    progress?: NullableOption<SynchronizationProgress[]>;
+    quarantine?: NullableOption<SynchronizationQuarantine>;
+    steadyStateFirstAchievedTime?: string;
+    steadyStateLastAchievedTime?: string;
+    synchronizedEntryCountByType?: NullableOption<StringKeyLongValuePair[]>;
+    troubleshootingUrl?: NullableOption<string>;
+}
+export interface SynchronizationTaskExecution {
+    activityIdentifier?: NullableOption<string>;
+    countEntitled?: number;
+    countEntitledForProvisioning?: number;
+    countEscrowed?: number;
+    countEscrowedRaw?: number;
+    countExported?: number;
+    countExports?: number;
+    countImported?: number;
+    countImportedDeltas?: number;
+    countImportedReferenceDeltas?: number;
+    error?: NullableOption<SynchronizationError>;
+    state?: SynchronizationTaskExecutionResult;
+    timeBegan?: string;
+    timeEnded?: string;
 }
 // tslint:disable-next-line: no-empty-interface
 export interface AccessReviewApplyAction {}
@@ -22527,6 +22917,10 @@ export interface BucketAggregationRange {
      */
     to?: string;
 }
+export interface CollapseProperty {
+    fields?: string[];
+    limit?: number;
+}
 export interface ResultTemplate {
     // JSON schema of the result template.
     body?: NullableOption<any>;
@@ -22586,6 +22980,7 @@ export interface SearchHit {
      * hitId format.
      */
     hitId?: NullableOption<string>;
+    isCollapsed?: NullableOption<boolean>;
     // The rank or the order of the result.
     rank?: NullableOption<number>;
     /**
@@ -22621,6 +23016,7 @@ export interface SearchQuery {
 export interface SearchRequest {
     aggregationFilters?: NullableOption<string[]>;
     aggregations?: NullableOption<AggregationOption[]>;
+    collapseProperties?: NullableOption<CollapseProperty[]>;
     contentSources?: NullableOption<string[]>;
     enableTopResults?: NullableOption<boolean>;
     entityTypes?: NullableOption<EntityType[]>;
@@ -23979,6 +24375,18 @@ export interface MeetingParticipantInfo {
     // User principal name of the participant.
     upn?: NullableOption<string>;
 }
+export interface OnlineMeetingRestricted {
+    /**
+     * Specifies the reason shared content from this participant is disabled. Possible values are: watermarkProtection,
+     * unknownFutureValue.
+     */
+    contentSharingDisabled?: NullableOption<OnlineMeetingContentSharingDisabledReason>;
+    /**
+     * Specifies the reason video from this participant is disabled. Possible values are: watermarkProtection,
+     * unknownFutureValue.
+     */
+    videoDisabled?: NullableOption<OnlineMeetingVideoDisabledReason>;
+}
 export interface OrganizerMeetingInfo extends MeetingInfo {
     // The organizer Azure Active Directory identity.
     organizer?: IdentitySet;
@@ -24364,8 +24772,14 @@ export interface ChatMessageAttachment {
 // tslint:disable-next-line: no-empty-interface
 export interface ChatMessageFromIdentitySet extends IdentitySet {}
 export interface ChatMessageHistoryItem {
+    /**
+     * The modification actions of a message item.The possible values are: reactionAdded, reactionRemoved, actionUndefined,
+     * unknownFutureValue.
+     */
     actions?: ChatMessageActions;
+    // The date and time when the message was modified.
     modifiedDateTime?: string;
+    // The reaction in the modified message.
     reaction?: NullableOption<ChatMessageReaction>;
 }
 export interface ChatMessageReaction {
