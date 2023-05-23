@@ -18,7 +18,7 @@ export interface SnackbarComponentProps {
     right?: number | undefined;
     bottom?: number | undefined;
     position?: string | undefined;
-    textMessage?: string | undefined;
+    textMessage?: string | JSX.Element | undefined;
     autoHidingTime?: number | undefined;
     visible?: boolean | undefined;
 }
