@@ -2941,9 +2941,13 @@ export interface ClientCommands extends ChromiumClientCommands {
      */
     injectScript(
         scriptUrl: string,
-        id?: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<HTMLScriptElement>) => void,
-    ): Awaitable<this, HTMLScriptElement>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void,
+    ): Awaitable<this, WebElement>;
+    injectScript(
+        scriptUrl: string,
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void,
+    ): Awaitable<this, WebElement>;
 
     /**
      * Utility command to test if the log type is available.
