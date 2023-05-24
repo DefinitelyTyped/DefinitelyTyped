@@ -2893,7 +2893,7 @@ declare module 'azdata' {
          * @param title The title shown in the editor tab
          * @param options Options to configure the editor
          * @param name The name used to identify the editor in telemetry
-        */
+         */
         export function createModelViewEditor(title: string, options?: ModelViewEditorOptions, name?: string): ModelViewEditor;
 
         export interface ModelViewEditor extends window.ModelViewPanel {
@@ -4775,7 +4775,7 @@ declare module 'azdata' {
          * @deprecated please use the method createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth) instead.
          * Create a dialog with the given title
          * @param title The title of the dialog, displayed at the top
-         * @param dialogName Name of the dialog.
+         * @param dialogName Non-localized name of the dialog for identifying in telemetry events.
          * @param isWide Indicates whether the dialog is wide or normal
          */
         export function createModelViewDialog(title: string, dialogName?: string, isWide?: boolean): Dialog;
@@ -4783,7 +4783,7 @@ declare module 'azdata' {
         /**
          * Create a dialog with the given title
          * @param title Title of the dialog, displayed at the top.
-         * @param dialogName Name of the dialog.
+         * @param dialogName Non-localized name of the dialog for identifying in telemetry events.
          * @param width Width of the dialog, default is 'narrow'.
          */
         export function createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth): Dialog;
@@ -4791,7 +4791,7 @@ declare module 'azdata' {
         /**
          * Create a dialog with the given title
          * @param title Title of the dialog, displayed at the top.
-         * @param dialogName Name of the dialog.
+         * @param dialogName Non-localized name of the dialog for identifying in telemetry events.
          * @param width Width of the dialog, default is 'narrow'.
          * @param dialogStyle Defines the dialog style, default is 'flyout'.
          * @param dialogPosition Defines the dialog position, default is undefined
@@ -5007,8 +5007,7 @@ declare module 'azdata' {
             message?: DialogMessage;
 
             /**
-             * Set the dialog name when opening
-             * the dialog for telemetry
+             * Non-localized name of the dialog for identifying in telemetry events.
              */
             dialogName?: string | undefined;
 
@@ -5406,7 +5405,6 @@ declare module 'azdata' {
          */
         export function getQueryDocument(fileUri: string): Thenable<QueryDocument>;
 
-        /* eslint-disable */
         /**
          * Opens an untitled text document. The editor will prompt the user for a file
          * path when the document is to be saved. The `options` parameter allows to
@@ -5417,7 +5415,6 @@ declare module 'azdata' {
          * @return A promise that resolves to a {@link QueryDocument}.
          */
         export function openQueryDocument(options?: { content?: string; }, providerId?: string): Thenable<QueryDocument>;
-        /* eslint-enable */
     }
 
     /**
@@ -5672,7 +5669,6 @@ declare module 'azdata' {
          */
         export const onDidChangeActiveNotebookEditor: vscode.Event<NotebookEditor>;
 
-        /* eslint-disable */
         /**
          * Show the given document in a notebook editor. A {@link vscode.ViewColumn} can be provided
          * to control where the editor is being shown. Might change the {@link nb.activeNotebookEditor}.
@@ -5692,7 +5688,6 @@ declare module 'azdata' {
          * @return A promise that resolves to a {@link NotebookEditor}.
          */
         export function showNotebookDocument(uri: vscode.Uri, showOptions?: NotebookShowOptions): Thenable<NotebookEditor>;
-        /* eslint-enable */
 
         export interface NotebookDocument {
             /**
