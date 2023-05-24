@@ -12,21 +12,21 @@ import {
   NativeTouchEvent,
   TargetedEvent,
 } from '../../Types/CoreEventTypes';
-import {EventEmitter} from '../../vendor/emitter/EventEmitter';
+import EventEmitter from '../../vendor/emitter/EventEmitter';
 import {AccessibilityProps} from '../View/ViewAccessibility';
 import {ViewProps} from '../View/ViewPropTypes';
 
 export type KeyboardType =
   | 'default'
-  | 'email-address'
-  | 'numeric'
-  | 'phone-pad'
   | 'number-pad'
-  | 'decimal-pad';
+  | 'decimal-pad'
+  | 'numeric'
+  | 'email-address'
+  | 'phone-pad'
+  | 'url';
 export type KeyboardTypeIOS =
   | 'ascii-capable'
   | 'numbers-and-punctuation'
-  | 'url'
   | 'name-phone-pad'
   | 'twitter'
   | 'web-search';
@@ -114,6 +114,7 @@ export interface DocumentSelectionState extends EventEmitter {
  */
 export interface TextInputIOSProps {
   /**
+   * enum('never', 'while-editing', 'unless-editing', 'always')
    * When the clear button should appear on the right side of the text view
    */
   clearButtonMode?:
@@ -262,6 +263,16 @@ export interface TextInputIOSProps {
    * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
    */
   scrollEnabled?: boolean | undefined;
+
+  /**
+   * Set line break strategy on iOS.
+   */
+  lineBreakStrategyIOS?:
+    | 'none'
+    | 'standard'
+    | 'hangul-word'
+    | 'push-out'
+    | undefined;
 }
 
 /**
@@ -269,6 +280,92 @@ export interface TextInputIOSProps {
  * @see https://reactnative.dev/docs/textinput#props
  */
 export interface TextInputAndroidProps {
+  /**
+   * Specifies autocomplete hints for the system, so it can provide autofill. On Android, the system will always attempt to offer autofill by using heuristics to identify the type of content.
+   * To disable autocomplete, set `autoComplete` to `off`.
+   *
+   * *Android Only*
+   *
+   * Possible values for `autoComplete` are:
+   *
+   * - `birthdate-day`
+   * - `birthdate-full`
+   * - `birthdate-month`
+   * - `birthdate-year`
+   * - `cc-csc`
+   * - `cc-exp`
+   * - `cc-exp-day`
+   * - `cc-exp-month`
+   * - `cc-exp-year`
+   * - `cc-number`
+   * - `email`
+   * - `gender`
+   * - `name`
+   * - `name-family`
+   * - `name-given`
+   * - `name-middle`
+   * - `name-middle-initial`
+   * - `name-prefix`
+   * - `name-suffix`
+   * - `password`
+   * - `password-new`
+   * - `postal-address`
+   * - `postal-address-country`
+   * - `postal-address-extended`
+   * - `postal-address-extended-postal-code`
+   * - `postal-address-locality`
+   * - `postal-address-region`
+   * - `postal-code`
+   * - `street-address`
+   * - `sms-otp`
+   * - `tel`
+   * - `tel-country-code`
+   * - `tel-national`
+   * - `tel-device`
+   * - `username`
+   * - `username-new`
+   * - `off`
+   */
+  autoComplete?:
+    | 'birthdate-day'
+    | 'birthdate-full'
+    | 'birthdate-month'
+    | 'birthdate-year'
+    | 'cc-csc'
+    | 'cc-exp'
+    | 'cc-exp-day'
+    | 'cc-exp-month'
+    | 'cc-exp-year'
+    | 'cc-number'
+    | 'email'
+    | 'gender'
+    | 'name'
+    | 'name-family'
+    | 'name-given'
+    | 'name-middle'
+    | 'name-middle-initial'
+    | 'name-prefix'
+    | 'name-suffix'
+    | 'password'
+    | 'password-new'
+    | 'postal-address'
+    | 'postal-address-country'
+    | 'postal-address-extended'
+    | 'postal-address-extended-postal-code'
+    | 'postal-address-locality'
+    | 'postal-address-region'
+    | 'postal-code'
+    | 'street-address'
+    | 'sms-otp'
+    | 'tel'
+    | 'tel-country-code'
+    | 'tel-national'
+    | 'tel-device'
+    | 'username'
+    | 'username-new'
+    | 'off'
+    | undefined;
+
   /**
    * When provided it will set the color of the cursor (or "caret") in the component.
    * Unlike the behavior of `selectionColor` the cursor color will be set independently
@@ -453,127 +550,6 @@ export interface TextInputProps
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
 
   /**
-   * Specifies autocomplete hints for the system, so it can provide autofill.
-   * On Android, the system will always attempt to offer autofill by using heuristics to identify the type of content.
-   * To disable autocomplete, set autoComplete to off.
-   *
-   * The following values work across platforms:
-   *
-   * - `additional-name`
-   * - `address-line1`
-   * - `address-line2`
-   * - `cc-number`
-   * - `country`
-   * - `current-password`
-   * - `email`
-   * - `family-name`
-   * - `given-name`
-   * - `honorific-prefix`
-   * - `honorific-suffix`
-   * - `name`
-   * - `new-password`
-   * - `off`
-   * - `one-time-code`
-   * - `postal-code`
-   * - `street-address`
-   * - `tel`
-   * - `username`
-   *
-   * The following values work on iOS only:
-   *
-   * - `nickname`
-   * - `organization`
-   * - `organization-title`
-   * - `url`
-   *
-   * The following values work on Android only:
-   *
-   * - `birthdate-day`
-   * - `birthdate-full`
-   * - `birthdate-month`
-   * - `birthdate-year`
-   * - `cc-csc`
-   * - `cc-exp`
-   * - `cc-exp-day`
-   * - `cc-exp-month`
-   * - `cc-exp-year`
-   * - `gender`
-   * - `name-family`
-   * - `name-given`
-   * - `name-middle`
-   * - `name-middle-initial`
-   * - `name-prefix`
-   * - `name-suffix`
-   * - `password`
-   * - `password-new`
-   * - `postal-address`
-   * - `postal-address-country`
-   * - `postal-address-extended`
-   * - `postal-address-extended-postal-code`
-   * - `postal-address-locality`
-   * - `postal-address-region`
-   * - `sms-otp`
-   * - `tel-country-code`
-   * - `tel-national`
-   * - `tel-device`
-   * - `username-new`
-   */
-  autoComplete?:
-    | 'additional-name'
-    | 'address-line1'
-    | 'address-line2'
-    | 'birthdate-day'
-    | 'birthdate-full'
-    | 'birthdate-month'
-    | 'birthdate-year'
-    | 'cc-csc'
-    | 'cc-exp'
-    | 'cc-exp-day'
-    | 'cc-exp-month'
-    | 'cc-exp-year'
-    | 'cc-number'
-    | 'country'
-    | 'current-password'
-    | 'email'
-    | 'family-name'
-    | 'gender'
-    | 'given-name'
-    | 'honorific-prefix'
-    | 'honorific-suffix'
-    | 'name'
-    | 'name-family'
-    | 'name-given'
-    | 'name-middle'
-    | 'name-middle-initial'
-    | 'name-prefix'
-    | 'name-suffix'
-    | 'new-password'
-    | 'nickname'
-    | 'one-time-code'
-    | 'organization'
-    | 'organization-title'
-    | 'password'
-    | 'password-new'
-    | 'postal-address'
-    | 'postal-address-country'
-    | 'postal-address-extended'
-    | 'postal-address-extended-postal-code'
-    | 'postal-address-locality'
-    | 'postal-address-region'
-    | 'postal-code'
-    | 'street-address'
-    | 'sms-otp'
-    | 'tel'
-    | 'tel-country-code'
-    | 'tel-national'
-    | 'tel-device'
-    | 'url'
-    | 'username'
-    | 'username-new'
-    | 'off'
-    | undefined;
-
-  /**
    * If false, disables auto-correct.
    * The default value is true.
    */
@@ -614,6 +590,8 @@ export interface TextInputProps
   editable?: boolean | undefined;
 
   /**
+   * enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad',
+   * 'decimal-pad', 'twitter', 'web-search', 'visible-password')
    * Determines which keyboard to open, e.g.numeric.
    * The following values work across platforms: - default - numeric - email-address - phone-pad
    * The following values work on iOS: - ascii-capable - numbers-and-punctuation - url - number-pad - name-phone-pad - decimal-pad - twitter - web-search
@@ -752,6 +730,7 @@ export interface TextInputProps
   placeholderTextColor?: ColorValue | undefined;
 
   /**
+   * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
    * Determines how the return key should look.
    */
   returnKeyType?: ReturnKeyTypeOptions | undefined;

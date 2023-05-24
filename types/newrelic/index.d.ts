@@ -1,4 +1,4 @@
-// Type definitions for newrelic 9.13
+// Type definitions for newrelic 9.14
 // Project: https://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
@@ -101,10 +101,32 @@ export function addCustomSpanAttributes(atts: { [key: string]: string | number |
  * Send errors to New Relic that you've already handled yourself.
  *
  * NOTE: Errors that are recorded using this method do _not_ obey the `ignore_status_codes` configuration.
+ */
+export function noticeError(error: Error, expected?: boolean): void;
+
+/**
+ * Send errors to New Relic that you've already handled yourself.
+ *
+ * NOTE: Errors that are recorded using this method do _not_ obey the `ignore_status_codes` configuration.
  *
  *  Optional. Any custom attributes to be displayed in the New Relic UI.
  */
-export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }): void;
+export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }, expected?: boolean): void;
+
+/**
+ * This method lets you define a custom callback to generate error group names, which will be used by
+ * errors inbox to group similar errors together via the error.group.name agent attribute.
+ *
+ * Calling this function multiple times will replace previously defined versions of this callback function.
+ */
+export function setErrorGroupCallback(callback: (metadata: {
+    customAttributes: { [key: string]: string | number | boolean };
+    'request.uri': string;
+    'http.statusCode': string;
+    'http.method': string;
+    error?: Error;
+    'error.expected': boolean;
+}) => string): void;
 
 /**
  * Sends an application log message to New Relic. The agent already
@@ -399,6 +421,11 @@ export function getTraceMetadata(): TraceMetadata;
  * Returns a function with identical signature to the provided handler function.
  */
 export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T): T;
+
+/**
+ * Obfuscates SQL for a given database engine.
+ */
+export function obfuscateSql(sql: string, dialect?: 'mysql' | 'postgres' | 'cassandra' | 'oracle'): string;
 
 export interface Instrument {
     (opts: { moduleName: string; onRequire: () => void; onError?: ((err: Error) => void) | undefined }): void;

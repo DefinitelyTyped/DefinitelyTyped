@@ -1,4 +1,4 @@
-import { describe, it, run, test, before, beforeEach, after, afterEach } from 'node:test';
+import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
 
 // run without options
 // $ExpectType TestsStream
@@ -18,6 +18,7 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
+    testNamePatterns: ['executed'],
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -52,6 +53,8 @@ test('options with booleans', {
 
 // Test callback mode
 test((t, cb) => {
+    // $ExpectedType TestContext
+    t;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
@@ -78,6 +81,8 @@ test(undefined, undefined, t => {
     t.afterEach(() => {});
     // $ExpectType void
     t.beforeEach(() => {});
+    // $ExpectType void
+    t.before(() => {});
 });
 
 // Test the subtest approach.
@@ -94,6 +99,24 @@ test(t => {
 
 // @ts-expect-error
 test(1, () => {});
+
+test.after(() => {});
+test.afterEach(() => {});
+test.before(() => {});
+test.beforeEach(() => {});
+test.describe('describe', () => {});
+test.it('it', () => {});
+// $ExpectType MockTracker
+test.mock;
+// $ExpectType typeof test
+test.test;
+test.test.test('chained self ref', (t) => {
+    // $ExpectType typeof test
+    t.test;
+});
+test.skip('skip', () => {});
+test.todo('todo', () => {});
+test.only('only', () => {});
 
 describe('foo', () => {
     it('it', () => {});
@@ -129,26 +152,99 @@ it('options with booleans', {
     todo: false,
 });
 
-describe.skip('skip shorthand', {
+skip('skip shorthand', {
     concurrency: 1,
-    only: true,
+    skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.skip('todo shorthand', {
+skip((t, cb) => {
+    // $ExpectType TestContext
+    t;
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+test.skip('skip shorthand', {
     concurrency: 1,
-    only: true,
+    skip: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.skip('skip shorthand', {
+    concurrency: 1,
+    skip: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.skip('skip shorthand', {
+    concurrency: 1,
+    skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
 
-describe.todo('skip shorthand', {
+todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+todo((t, cb) => {
+    // $ExpectType TestContext
+    t;
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+test.todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+
+only('todo shorthand', {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.todo('todo shorthand', {
+only((t, cb) => {
+    // $ExpectType TestContext
+    t;
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+test.only('only shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.only('only shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.only('only shorthand', {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
@@ -164,7 +260,9 @@ describe(cb => {
 });
 
 // Test callback mode
-it(cb => {
+it((t, cb) => {
+    // $ExpectType TestContext
+    t;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void

@@ -16,6 +16,7 @@ declare namespace GorillaEngine.UI {
         cornerRadius: number;
         padding: ComboBoxPadding | number;
         checkmarkPadding: ComboBoxPadding;
+        textAlign: string;
     }
 
     interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font {

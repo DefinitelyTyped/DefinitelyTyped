@@ -8,6 +8,7 @@ import {
     TextureEncoding,
     MinificationTextureFilter,
     MagnificationTextureFilter,
+    ColorSpace,
 } from '../constants';
 
 export interface WebGLRenderTargetOptions {
@@ -22,7 +23,9 @@ export interface WebGLRenderTargetOptions {
     stencilBuffer?: boolean | undefined; // false;
     generateMipmaps?: boolean | undefined; // true;
     depthTexture?: DepthTexture | undefined;
+    /** @deprecated Use 'colorSpace' in three.js r152+. */
     encoding?: TextureEncoding | undefined;
+    colorSpace?: ColorSpace | undefined;
 
     /**
      * Defines the count of MSAA samples. Can only be used with WebGL 2. Default is **0**.

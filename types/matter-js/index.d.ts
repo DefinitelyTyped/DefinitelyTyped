@@ -1385,11 +1385,20 @@ declare namespace Matter {
          * Triggers `beforeRemove` and `afterRemove` events on the `composite`.
          * @method remove
          * @param {Composite} composite
-         * @param {any} object
+         * @param {Body | Composite | Constraint | MouseConstraint | Array<Body | Composite | Constraint | MouseConstraint>} object
          * @param {boolean} [deep=false]
          * @returns {Composite} The original composite with the objects removed
          */
-        static remove(composite: Composite, object: Body | Composite | Constraint, deep?: boolean): Composite;
+         static remove(
+            composite: Composite,
+            object:
+                | Body
+                | Composite
+                | Constraint
+                | MouseConstraint
+                | Array<Body | Composite | Constraint | MouseConstraint>,
+            deep?: boolean,
+        ): Composite;
 
         /**
          * Translates all children in the composite by a given vector relative to their current positions,
@@ -1851,7 +1860,7 @@ declare namespace Matter {
          * @type body
          * @default null
          */
-        bodyA: Body;
+        bodyA: Body | null;
 
         /**
          * The second possible `Body` that this constraint is attached to.
@@ -1860,7 +1869,7 @@ declare namespace Matter {
          * @type body
          * @default null
          */
-        bodyB: Body;
+        bodyB: Body | null;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.

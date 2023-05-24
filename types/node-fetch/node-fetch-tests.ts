@@ -69,6 +69,7 @@ function test_fetchUrlWithRequestObject() {
 
             dispatchEvent: (event: any) => false,
             onabort: null,
+            throwIfAborted: () => {},
         }
     };
     const request: Request = new Request(
@@ -122,6 +123,7 @@ function test_fetchUrlObjectWithRequestObject() {
 
             dispatchEvent: (event: any) => false,
             onabort: null,
+            throwIfAborted: () => {},
         }
     };
     const request: Request = new Request(
@@ -242,6 +244,7 @@ function test_AbortSignal() {
 
         dispatchEvent: (event: any) => false,
         onabort: (event: any) => "something",
+        throwIfAborted: () => {},
     };
     abortSignal = requestOptions.signal;
 
@@ -260,6 +263,7 @@ function test_AbortSignal() {
 
         dispatchEvent: (event: any) => true,
         onabort: (event: any) => false,
+        throwIfAborted: () => {},
     };
     abortSignal = requestOptions.signal;
 
@@ -278,6 +282,7 @@ function test_AbortSignal() {
 
         dispatchEvent: (event: any) => false,
         onabort: null,
+        throwIfAborted: () => {},
     };
     abortSignal = requestOptions.signal;
 }

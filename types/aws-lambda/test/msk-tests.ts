@@ -9,6 +9,7 @@ const handler: MSKHandler = (_event, context, callback) => {
     const event: MSKEvent = _event;
     str = event.eventSource;
     str = event.eventSourceArn;
+    str = event.bootstrapServers;
 
     const record: MSKRecord = event.records[str][num];
     str = record.topic;

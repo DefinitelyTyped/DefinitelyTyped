@@ -83,6 +83,7 @@ export interface SpanProps {
 export const Span: FunctionComponent<SpanProps>;
 
 export function configStyleValidator(config: {
+    platforms?: string[] | undefined;
     strict?: boolean | undefined;
     warn?: boolean | undefined;
 }): void;
