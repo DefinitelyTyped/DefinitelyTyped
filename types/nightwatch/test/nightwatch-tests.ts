@@ -293,15 +293,15 @@ const wikipediaAppTest: NightwatchTests = {
         }, 50000)
         .perform(async function() {
             // switch to webview context
-            const contexts = await client.contexts();
-            const setContextResult = await client.setContext(contexts[1], function(result) {
+            const contexts = await this.contexts();
+            const setContextResult = await this.setContext(contexts[1], function(result) {
                 if (result.status === 0) {
                     isType<null>(result.value);
                 }
                 isNightwatchAPI(this);
             });
 
-            const currContext = await client.currentContext(function(result) {
+            const currContext = await this.currentContext(function(result) {
                 if (result.status === 0) {
                     isType<string | null>(result.value);
                 }

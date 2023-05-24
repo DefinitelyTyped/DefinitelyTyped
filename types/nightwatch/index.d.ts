@@ -3031,45 +3031,70 @@ export interface ClientCommands extends ChromiumClientCommands {
      *  - two parameters: allows for asynchronous execution with the Nightwatch `api` object passed in as the first argument, followed by the done callback.
      *
      * @example
-     * this.demoTest = function () {
+     * describe('perform example', function() {
      *   var elementValue;
-     *   browser
-     *     .getValue('.some-element', function(result) {
-     *       elementValue = result.value;
-     *     })
-     *     // other stuff going on ...
-     *     //
-     *     // self-completing callback
-     *     .perform(function() {
-     *       console.log('elementValue', elementValue);
-     *       // without any defined parameters, perform
-     *       // completes immediately (synchronously)
-     *     })
-     *     //
-     *     // asynchronous completion
-     *     .perform(function(done) {
-     *       console.log('elementValue', elementValue);
-     *       // potentially other async stuff going on
-     *       // on finished, call the done callback
-     *       done();
-     *     })
-     *     //
-     *     // asynchronous completion including api (client)
-     *     .perform(function(done) {
-     *       console.log('elementValue', elementValue);
-     *       // similar to before, but now with client
-     *       // potentially other async stuff going on
-     *       // on finished, call the done callback
-     *       done();
+     *
+     *   it('basic perform', function(browser) {
+     *     browser
+     *       .getValue('.some-element', function(result) {
+     *         elementValue = result.value;
+     *       })
+     *       // other stuff going on ...
+     *
+     *       // self-completing callback
+     *       .perform(function() {
+     *         console.log('elementValue', elementValue);
+     *         // without any defined parameters, perform
+     *         // completes immediately (synchronously)
+     *       })
+     *
+     *       // returning a Promise
+     *       .perform(async function() {
+     *         // `this` can be used to directly access Nightwatch API
+     *         const sessionId = await this.sessionId;
+     *         console.log('session id', sessionId);
+     *       })
+     *
+     *       // DEPRECATED: asynchronous completion using done
+     *       .perform(function(done: (result: string) => void) {
+     *         // potentially some async stuff going on
+     *         // `this` can be used to directly access Nightwatch API
+     *         this.getTitle((result) => {
+     *           // when finished, call the done callback
+     *           done(result.value);
+     *         });
+     *       })
+     *
+     *       // DEPRECATED: asynchronous completion including api (client)
+     *       .perform(function(client: NightwatchAPI, done: () => void) {
+     *         this.navigateTo('https://google.com/', () => {
+     *           done();
+     *         });
+     *       });
+     *   });
+     *
+     *   it('perform with async', function(browser) {
+     *     const result = await browser.perform(async function() {
+     *       // `this` can be used to directly access Nightwatch API
+     *       const pageTitle = await this.getTitle();
+     *
+     *       return 100;
      *     });
+     *     console.log('result:', result); // 100
+     *   })
      * };
      */
-    perform(
-        callback:
-            | (() => undefined | Promise<any>)
-            | ((done: () => void) => void)
-            | ((client: NightwatchAPI, done: () => void) => void),
-    ): Awaitable<this, undefined | Error>;
+    perform<ReturnValue>(
+        callback: ((this: NightwatchAPI) => ReturnValue | Promise<ReturnValue>)
+    ): Awaitable<this, ReturnValue>;
+    perform<ReturnValue>(
+        // tslint:disable-next-line unified-signatures
+        callback: ((this: NightwatchAPI, client: NightwatchAPI, done: (result?: ReturnValue) => void) => void)
+    ): Awaitable<this, ReturnValue>;
+    perform<ReturnValue>(
+        // tslint:disable-next-line unified-signatures
+        callback: ((this: NightwatchAPI, done: (result?: ReturnValue) => void) => void),
+    ): Awaitable<this, ReturnValue>;
 
     /**
      * Waits for a condition to evaluate to a "truthy" value. The condition may be specified by any function which
