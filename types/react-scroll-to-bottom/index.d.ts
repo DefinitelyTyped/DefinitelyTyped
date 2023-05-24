@@ -217,5 +217,5 @@ export interface ScrollOption {
      * Note: if not set behavior to smooth, `react-scroll-to-bottom` will warn
      * reference: https://github.com/compulim/react-scroll-to-bottom/blob/main/packages/component/src/ScrollToBottom/Composer.js#L188
      */
-    behavior?: 'smooth' | 'auto'
+    behavior?: 'smooth' | 'auto';
 }
