@@ -812,6 +812,12 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     Wrapper = (props: ExactProps) => null;
     Wrapper = class Wider extends React.Component<WiderProps> {};
     Wrapper = (props: WiderProps) => null;
+    Wrapper = (props, legacyContext) => {
+        // $ExpectType any
+        legacyContext;
+        return null;
+    };
+    Wrapper = (props, legacyContext: { foo: number }) => null;
 
     React.createElement(Wrapper, { value: 'A' });
     React.createElement(Wrapper, { value: 'B' });
