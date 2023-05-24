@@ -92,7 +92,7 @@ const sampleCode2 = () => {
                     ut reprehenderit sit adipisicing proident culpa veniam sint veniam consectetur fugiat Lorem. Sint
                     dolor proident commodo proident non cupidatat labore.
                 </p>
-                {!sticky && <button onClick={() => { scrollToBottom() }}>Click me to scroll to bottom</button>}
+                {!sticky && <button onClick={() => { scrollToBottom(); }}>Click me to scroll to bottom</button>}
             </React.Fragment>
         );
     };
@@ -126,7 +126,7 @@ const sampleCode3 = () => {
                     ut reprehenderit sit adipisicing proident culpa veniam sint veniam consectetur fugiat Lorem. Sint
                     dolor proident commodo proident non cupidatat labore.
                 </p>
-                {!sticky && <button onClick={() => { scrollToBottom() }}>Click me to scroll to bottom</button>}
+                {!sticky && <button onClick={() => { scrollToBottom(); }}>Click me to scroll to bottom</button>}
             </React.Fragment>
         );
     };
