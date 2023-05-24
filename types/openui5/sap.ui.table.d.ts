@@ -1,4 +1,4 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.114.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -532,9 +532,9 @@ declare module "sap/ui/table/AnalyticalTable" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     *   https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
-     *   {@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
-     *   {@link fiori:/analytical-table-alv/ Analytical Table}
+     * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     * 	{@link topic:08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
+     * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
     constructor(
       /**
@@ -3133,6 +3133,8 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
   /**
    * @SINCE 1.64
    * @EXPERIMENTAL (since 1.64)
@@ -3261,9 +3263,41 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
        */
       mParameters?: object
     ): this;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
   }
 
   export interface $SelectionPluginSettings extends $ElementSettings {
+    /**
+     * Indicates whether this plugin is enabled.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
     /**
      * This event is fired when the selection is changed.
      */
