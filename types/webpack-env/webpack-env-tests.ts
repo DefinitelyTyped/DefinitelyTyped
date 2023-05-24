@@ -13,7 +13,7 @@ otherModule.otherMethod();
 let context = require.context('./somePath', true);
 let contextModule = context<SomeModule>('./someModule');
 
-const contextId: string = require.context('./somePath').id;
+const contextId: string | number = require.context('./somePath').id;
 
 require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule: any) => {
 
@@ -145,5 +145,5 @@ if (importMeta.webpack >= 5 && importMeta.webpackContext) {
     let context = importMeta.webpackContext('./somePath', { recursive: true, regExp: /some/, include: /someModule/, exclude: /noNeedModuel/, preload: true, prefetch: true, chunkName: "[request]", exports: "default", mode: "weak" });
     let contextModule = context<SomeModule>('./someModule');
 
-    const contextId: string = importMeta.webpackContext('./somePath').id;
+    const contextId: string | number = importMeta.webpackContext('./somePath').id;
 }
