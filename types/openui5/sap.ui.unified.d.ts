@@ -1,4 +1,4 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.114.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -315,6 +315,8 @@ declare module "sap/ui/unified/Calendar" {
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
   import Event from "sap/ui/base/Event";
+
+  import UI5Date from "sap/ui/core/date/UI5Date";
 
   import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
 
@@ -756,9 +758,9 @@ declare module "sap/ui/unified/Calendar" {
      */
     displayDate(
       /**
-       * JavaScript date object for focused date
+       * date instance for focused date
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
@@ -833,9 +835,9 @@ declare module "sap/ui/unified/Calendar" {
      */
     focusDate(
       /**
-       * A JavaScript date object for focused date
+       * A date instance for focused date
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @SINCE 1.28.0
@@ -887,7 +889,8 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Gets current value of property {@link #getInitialFocusedDate initialFocusedDate}.
      *
-     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     * Holds a reference to a UI5Date or JavaScript Date object to define the initially navigated date in the
+     * calendar.
      *
      * @returns Value of property `initialFocusedDate`
      */
@@ -913,7 +916,8 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Gets current value of property {@link #getMaxDate maxDate}.
      *
-     * Maximum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Maximum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** if the date is inside of a month the complete month is displayed, but dates outside the valid
      * range can not be selected.
@@ -929,7 +933,8 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Gets current value of property {@link #getMinDate minDate}.
      *
-     * Minimum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Minimum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** if the date is inside of a month the complete month is displayed, but dates outside the valid
      * range can not be selected.
@@ -1047,9 +1052,9 @@ declare module "sap/ui/unified/Calendar" {
      *
      * There might be some days of the previous month shown, but they can not be focused.
      *
-     * @returns JavaScript date object for start date
+     * @returns date instance for start date
      */
-    getStartDate(): Date;
+    getStartDate(): Date | UI5Date;
     /**
      * @SINCE 1.38.0
      *
@@ -1289,7 +1294,8 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Sets a new value for property {@link #getInitialFocusedDate initialFocusedDate}.
      *
-     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     * Holds a reference to a UI5Date or JavaScript Date object to define the initially navigated date in the
+     * calendar.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1339,9 +1345,9 @@ declare module "sap/ui/unified/Calendar" {
      */
     setMaxDate(
       /**
-       * a JavaScript date
+       * a date instance
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * Sets a minimum date for the calendar.
@@ -1350,9 +1356,9 @@ declare module "sap/ui/unified/Calendar" {
      */
     setMinDate(
       /**
-       * a JavaScript date
+       * a date instance
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @SINCE 1.28.0
@@ -1583,7 +1589,8 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * @SINCE 1.38.0
      *
-     * Minimum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Minimum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** if the date is inside of a month the complete month is displayed, but dates outside the valid
      * range can not be selected.
@@ -1596,7 +1603,8 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * @SINCE 1.38.0
      *
-     * Maximum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Maximum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** if the date is inside of a month the complete month is displayed, but dates outside the valid
      * range can not be selected.
@@ -1638,7 +1646,8 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * @SINCE 1.111
      *
-     * Holds a reference to a JavaScript Date Object to define the initially navigated date in the calendar.
+     * Holds a reference to a UI5Date or JavaScript Date object to define the initially navigated date in the
+     * calendar.
      */
     initialFocusedDate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -1742,6 +1751,8 @@ declare module "sap/ui/unified/calendar/DatesRow" {
     $MonthSettings,
   } from "sap/ui/unified/calendar/Month";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -1826,9 +1837,9 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      */
     displayDate(
       /**
-       * JavaScript date object for focused date.
+       * date instance for focused date.
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @SINCE 1.110.0
@@ -1908,9 +1919,9 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      */
     setDate(
       /**
-       * JavaScript date object for start date.
+       * date instance for start date.
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * Sets a new value for property {@link #getDays days}.
@@ -1956,9 +1967,9 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      */
     setStartDate(
       /**
-       * A JavaScript date
+       * A date instance
        */
-      oStartDate: Date
+      oStartDate: Date | UI5Date
     ): this;
   }
 
@@ -3091,6 +3102,8 @@ declare module "sap/ui/unified/calendar/Month" {
 
   import Event from "sap/ui/base/Event";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -3377,9 +3390,9 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     checkDateFocusable(
       /**
-       * JavaScript date object for focused date
+       * date instance for focused date
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): boolean;
     /**
      * @SINCE 1.38.0
@@ -3462,9 +3475,9 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     displayDate(
       /**
-       * JavaScript date object for focused date
+       * date instance for focused date
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
@@ -3554,8 +3567,8 @@ declare module "sap/ui/unified/calendar/Month" {
     /**
      * Gets current value of property {@link #getDate date}.
      *
-     * A date as JavaScript Date object. The month including this date is rendered and this date is focused
-     * initially (if no other focus is set).
+     * A date as UI5Date or JavaScript Date object. The month including this date is rendered and this date
+     * is focused initially (if no other focus is set).
      *
      * @returns Value of property `date`
      */
@@ -3888,9 +3901,9 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     setDate(
       /**
-       * a JavaScript date
+       * a date instance
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @SINCE 1.28.9
@@ -4075,8 +4088,8 @@ declare module "sap/ui/unified/calendar/Month" {
 
   export interface $MonthSettings extends $ControlSettings {
     /**
-     * A date as JavaScript Date object. The month including this date is rendered and this date is focused
-     * initially (if no other focus is set).
+     * A date as UI5Date or JavaScript Date object. The month including this date is rendered and this date
+     * is focused initially (if no other focus is set).
      */
     date?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -4909,6 +4922,8 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
 
   import Event from "sap/ui/base/Event";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
@@ -4928,8 +4943,9 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
    * the properties and aggregation are directly taken from the parent (to not duplicate and synchronize DateRanges
    * and so on...).
    *
-   * The MontsRow works with JavaScript Date objects, but only the month and the year are used to display
-   * and interact. As representation for a month, the 1st of the month will always be returned in the API.
+   * The MontsRow works with UI5Date or JavaScript Date objects, but only the month and the year are used
+   * to display and interact. As representation for a month, the 1st of the month will always be returned
+   * in the API.
    */
   export default class MonthsRow extends Control {
     /**
@@ -5127,9 +5143,9 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     checkDateFocusable(
       /**
-       * JavaScript Date object for focused date.
+       * date instance for focused date.
        */
-      oDateTime: Date
+      oDateTime: Date | UI5Date
     ): boolean;
     /**
      * Destroys all the selectedDates in the aggregation {@link #getSelectedDates selectedDates}.
@@ -5184,9 +5200,9 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     displayDate(
       /**
-       * JavaScript Date object for focused date.
+       * date instance for focused date.
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
@@ -5201,7 +5217,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        */
       mParameters?: {
         /**
-         * First date, as JavaScript Date object, of the month that is focused.
+         * First date, as UI5Date or JavaScript Date object, of the month that is focused.
          */
         date?: object;
         /**
@@ -5231,10 +5247,10 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     /**
      * Gets current value of property {@link #getDate date}.
      *
-     * A date as JavaScript Date object. The month including this date is rendered and this date is focused
-     * initially (if no other focus is set). If the date property is not in the range `startDate` + `months`
-     * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
-     * be set to be in the visible range.
+     * A date as UI5Date or JavaScript Date object. The month including this date is rendered and this date
+     * is focused initially (if no other focus is set). If the date property is not in the range `startDate`
+     * + `months` in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the
+     * date should be set to be in the visible range.
      *
      * @returns Value of property `date`
      */
@@ -5330,8 +5346,8 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     /**
      * Gets current value of property {@link #getStartDate startDate}.
      *
-     * Start date, as JavaScript Date object, of the row. The month of this date is the first month of the displayed
-     * row.
+     * Start date, as UI5Date or JavaScript Date object, of the row. The month of this date is the first month
+     * of the displayed row.
      *
      * @returns Value of property `startDate`
      */
@@ -5456,9 +5472,9 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     setDate(
       /**
-       * a JavaScript date
+       * a date instance
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
@@ -5587,24 +5603,24 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     setStartDate(
       /**
-       * A JavaScript date
+       * A date instance
        */
-      oStartDate: Date
+      oStartDate: Date | UI5Date
     ): this;
   }
 
   export interface $MonthsRowSettings extends $ControlSettings {
     /**
-     * A date as JavaScript Date object. The month including this date is rendered and this date is focused
-     * initially (if no other focus is set). If the date property is not in the range `startDate` + `months`
-     * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
-     * be set to be in the visible range.
+     * A date as UI5Date or JavaScript Date object. The month including this date is rendered and this date
+     * is focused initially (if no other focus is set). If the date property is not in the range `startDate`
+     * + `months` in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the
+     * date should be set to be in the visible range.
      */
     date?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Start date, as JavaScript Date object, of the row. The month of this date is the first month of the displayed
-     * row.
+     * Start date, as UI5Date or JavaScript Date object, of the row. The month of this date is the first month
+     * of the displayed row.
      */
     startDate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -5713,6 +5729,8 @@ declare module "sap/ui/unified/calendar/TimesRow" {
 
   import Event from "sap/ui/base/Event";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
@@ -5732,7 +5750,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
    * the properties and aggregation are directly taken from the parent (to not duplicate and synchronize DateRanges
    * and so on...).
    *
-   * The TimesRow works with JavaScript Date objects.
+   * The TimesRow works with UI5Date or JavaScript Date objects.
    */
   export default class TimesRow extends Control {
     /**
@@ -5930,9 +5948,9 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      */
     checkDateFocusable(
       /**
-       * JavaScript Date object for focused date.
+       * date instance for focused date.
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): boolean;
     /**
      * Destroys all the selectedDates in the aggregation {@link #getSelectedDates selectedDates}.
@@ -5987,9 +6005,9 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      */
     displayDate(
       /**
-       * A JavaScript Date
+       * A date instance
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
@@ -6004,7 +6022,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        */
       mParameters?: {
         /**
-         * date, as JavaScript Date object, of the focused time.
+         * date, as UI5Date or JavaScript Date object, of the focused time.
          */
         date?: object;
         /**
@@ -6034,10 +6052,10 @@ declare module "sap/ui/unified/calendar/TimesRow" {
     /**
      * Gets current value of property {@link #getDate date}.
      *
-     * A date as JavaScript Date object. The month including this date is rendered and this date is focused
-     * initially (if no other focus is set). If the date property is not in the range `startDate` + `items`
-     * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
-     * be set to be in the visible range.
+     * A date as UI5Date or JavaScript Date object. The month including this date is rendered and this date
+     * is focused initially (if no other focus is set). If the date property is not in the range `startDate`
+     * + `items` in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the
+     * date should be set to be in the visible range.
      *
      * @returns Value of property `date`
      */
@@ -6144,7 +6162,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
     /**
      * Gets current value of property {@link #getStartDate startDate}.
      *
-     * Start date, as JavaScript Date object, of the row.
+     * Start date, as UI5Date or JavaScript Date object, of the row.
      *
      * @returns Value of property `startDate`
      */
@@ -6269,9 +6287,9 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      */
     setDate(
       /**
-       * A JavaScript Date
+       * A date instance
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * Sets a new value for property {@link #getIntervalMinutes intervalMinutes}.
@@ -6417,29 +6435,29 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       bSingleSelection?: boolean
     ): this;
     /**
-     * Sets start date, as JavaScript Date object, of the row.
+     * Sets start date, as UI5Date or JavaScript Date object, of the row.
      *
      * @returns Reference to `this` for method chaining
      */
     setStartDate(
       /**
-       * A JavaScript Date
+       * A date instance
        */
-      oStartDate: Date
+      oStartDate: Date | UI5Date
     ): this;
   }
 
   export interface $TimesRowSettings extends $ControlSettings {
     /**
-     * A date as JavaScript Date object. The month including this date is rendered and this date is focused
-     * initially (if no other focus is set). If the date property is not in the range `startDate` + `items`
-     * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
-     * be set to be in the visible range.
+     * A date as UI5Date or JavaScript Date object. The month including this date is rendered and this date
+     * is focused initially (if no other focus is set). If the date property is not in the range `startDate`
+     * + `items` in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the
+     * date should be set to be in the visible range.
      */
     date?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Start date, as JavaScript Date object, of the row.
+     * Start date, as UI5Date or JavaScript Date object, of the row.
      */
     startDate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -6549,6 +6567,8 @@ declare module "sap/ui/unified/calendar/YearPicker" {
   import DateRange from "sap/ui/unified/DateRange";
 
   import Event from "sap/ui/base/Event";
+
+  import UI5Date from "sap/ui/core/date/UI5Date";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -6826,8 +6846,8 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      *
      * Gets current value of property {@link #getDate date}.
      *
-     * Date as JavaScript Date object. For this date a `YearPicker` is rendered. If a Year is selected the date
-     * is updated with the start date of the selected year (depending on the calendar type).
+     * Date as UI5Date or JavaScript Date object. For this date a `YearPicker` is rendered. If a Year is selected
+     * the date is updated with the start date of the selected year (depending on the calendar type).
      *
      * @returns Value of property `date`
      */
@@ -6838,9 +6858,9 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      * Return the first date of the first rendered year **Note:** If the YearPicker is not rendered no date
      * is returned
      *
-     * @returns A JavaScript Date
+     * @returns A date instance
      */
-    getFirstRenderedDate(): Date;
+    getFirstRenderedDate(): Date | UI5Date;
     /**
      * @SINCE 1.74
      *
@@ -7001,9 +7021,9 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      */
     setDate(
       /**
-       * a JavaScript date
+       * a date instance
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @SINCE 1.74
@@ -7132,8 +7152,8 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     /**
      * @SINCE 1.34.0
      *
-     * Date as JavaScript Date object. For this date a `YearPicker` is rendered. If a Year is selected the date
-     * is updated with the start date of the selected year (depending on the calendar type).
+     * Date as UI5Date or JavaScript Date object. For this date a `YearPicker` is rendered. If a Year is selected
+     * the date is updated with the start date of the selected year (depending on the calendar type).
      */
     date?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -7666,6 +7686,8 @@ declare module "sap/ui/unified/CalendarDateInterval" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
@@ -7783,9 +7805,9 @@ declare module "sap/ui/unified/CalendarDateInterval" {
      *
      * Start date of the Interval
      *
-     * @returns JavaScript date object for property `startDate`
+     * @returns date instance for property `startDate`
      */
-    getStartDate(): Date;
+    getStartDate(): Date | UI5Date;
     /**
      * Sets a new value for property {@link #getDays days}.
      *
@@ -7879,9 +7901,9 @@ declare module "sap/ui/unified/CalendarDateInterval" {
      */
     setStartDate(
       /**
-       * A JavaScript Date
+       * A date instance
        */
-      oStartDate: Date
+      oStartDate: Date | UI5Date
     ): this;
   }
 
@@ -8370,6 +8392,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
 
   import Event from "sap/ui/base/Event";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import Calendar from "sap/ui/unified/Calendar";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -8386,9 +8410,9 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
    *
    * Calendar with granularity of months displayed in one line.
    *
-   * **Note:** JavaScript Date objects are used to set and return the months, mark them as selected or as
-   * a special type. But the date part of the Date object is not used. If a Date object is returned the date
-   * will be set to the 1st of the corresponding month.
+   * **Note:** UI5Date or JavaScript Date objects are used to set and return the months, mark them as selected
+   * or as a special type. But the date part of the Date object is not used. If a Date object is returned
+   * the date will be set to the 1st of the corresponding month.
    */
   export default class CalendarMonthInterval extends Control {
     /**
@@ -8704,9 +8728,9 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      */
     displayDate(
       /**
-       * JavaScript date object for displayed date. (The month of this date will be displayed.)
+       * date instance for displayed date. (The month of this date will be displayed.)
        */
-      oDatetime: Date
+      oDatetime: Date | UI5Date
     ): this;
     /**
      * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
@@ -8755,9 +8779,9 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      */
     focusDate(
       /**
-       * JavaScript date object for focused date. (The month of this date will be focused.)
+       * date instance for focused date. (The month of this date will be focused.)
        */
-      oDatetime: Date
+      oDatetime: Date | UI5Date
     ): Calendar;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
@@ -8785,7 +8809,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      *
      * Gets current value of property {@link #getMaxDate maxDate}.
      *
-     * Maximum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Maximum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
@@ -8798,7 +8823,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      *
      * Gets current value of property {@link #getMinDate minDate}.
      *
-     * Minimum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Minimum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
@@ -8865,8 +8891,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     /**
      * Gets current value of property {@link #getStartDate startDate}.
      *
-     * Start date of the Interval as JavaScript Date object. The month of this Date will be the first month
-     * in the displayed row.
+     * Start date of the Interval as UI5Date or JavaScript Date object. The month of this Date will be the first
+     * month in the displayed row.
      *
      * @returns Value of property `startDate`
      */
@@ -9030,9 +9056,9 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      */
     setMaxDate(
       /**
-       * A JavaScript Date
+       * A date instance
        */
-      oDate?: Date
+      oDate?: Date | UI5Date
     ): this;
     /**
      * Sets a minimum date for the calendar.
@@ -9041,9 +9067,9 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      */
     setMinDate(
       /**
-       * A JavaScript Date
+       * A date instance
        */
-      oDate?: Date
+      oDate?: Date | UI5Date
     ): this;
     /**
      * Sets a new value for property {@link #getMonths months}.
@@ -9109,9 +9135,9 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      */
     setStartDate(
       /**
-       * A JavaScript date
+       * A date instance
        */
-      oStartDate: Date
+      oStartDate: Date | UI5Date
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -9137,8 +9163,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Start date of the Interval as JavaScript Date object. The month of this Date will be the first month
-     * in the displayed row.
+     * Start date of the Interval as UI5Date or JavaScript Date object. The month of this Date will be the first
+     * month in the displayed row.
      */
     startDate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -9171,7 +9197,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     /**
      * @SINCE 1.38.0
      *
-     * Minimum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Minimum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
@@ -9181,7 +9208,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     /**
      * @SINCE 1.38.0
      *
-     * Maximum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Maximum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
@@ -9255,6 +9283,8 @@ declare module "sap/ui/unified/CalendarRow" {
   import { ID, CSSSize } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
+
+  import UI5Date from "sap/ui/core/date/UI5Date";
 
   import {
     CalendarAppointmentHeight,
@@ -9660,11 +9690,11 @@ declare module "sap/ui/unified/CalendarRow" {
        */
       mParameters?: {
         /**
-         * Interval start date as JavaScript date object
+         * Interval start date as UI5Date or JavaScript Date object
          */
         startDate?: object;
         /**
-         * Interval end date as JavaScript date object
+         * Interval end date as UI5Date or JavaScript Date object
          */
         endDate?: object;
         /**
@@ -9753,9 +9783,9 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     focusNearestAppointment(
       /**
-       * Javascript Date object.
+       * date instance.
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @SINCE 1.81.0
@@ -10015,7 +10045,7 @@ declare module "sap/ui/unified/CalendarRow" {
     /**
      * Gets current value of property {@link #getStartDate startDate}.
      *
-     * Start date, as JavaScript Date object, of the row. As default, the current date is used.
+     * Start date, as UI5Date or JavaScript Date object, of the row. As default, the current date is used.
      *
      * @returns Value of property `startDate`
      */
@@ -10516,9 +10546,9 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     setStartDate(
       /**
-       * Start date, as JavaScript Date object, of the row
+       * Start date, as date instance, of the row
        */
-      oStartDate?: Date
+      oStartDate?: Date | UI5Date
     ): this;
     /**
      * Sets a new value for property {@link #getUpdateCurrentTime updateCurrentTime}.
@@ -10571,7 +10601,7 @@ declare module "sap/ui/unified/CalendarRow" {
 
   export interface $CalendarRowSettings extends $ControlSettings {
     /**
-     * Start date, as JavaScript Date object, of the row. As default, the current date is used.
+     * Start date, as UI5Date or JavaScript Date object, of the row. As default, the current date is used.
      */
     startDate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -10820,6 +10850,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
   import Event from "sap/ui/base/Event";
+
+  import UI5Date from "sap/ui/core/date/UI5Date";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -11149,9 +11181,9 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      */
     displayDate(
       /**
-       * JavaScript date object for displayed item.
+       * date instance for displayed item.
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
@@ -11200,9 +11232,9 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      */
     focusDate(
       /**
-       * JavaScript date object for focused item
+       * date instance for focused item
        */
-      oDate: Date
+      oDate: Date | UI5Date
     ): this;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
@@ -11258,7 +11290,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      *
      * Gets current value of property {@link #getMaxDate maxDate}.
      *
-     * Maximum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Maximum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
@@ -11271,7 +11304,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      *
      * Gets current value of property {@link #getMinDate minDate}.
      *
-     * Minimum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Minimum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
@@ -11321,8 +11355,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     /**
      * Gets current value of property {@link #getStartDate startDate}.
      *
-     * Start date of the Interval as JavaScript Date object. The time interval corresponding to this Date and
-     * `items` and `intervalMinutes` will be the first time in the displayed row.
+     * Start date of the Interval as UI5Date or JavaScript Date object. The time interval corresponding to this
+     * Date and `items` and `intervalMinutes` will be the first time in the displayed row.
      *
      * @returns Value of property `startDate`
      */
@@ -11588,9 +11622,9 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      */
     setStartDate(
       /**
-       * A JavaScript date
+       * A date instance
        */
-      oStartDate: Date
+      oStartDate: Date | UI5Date
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -11616,8 +11650,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Start date of the Interval as JavaScript Date object. The time interval corresponding to this Date and
-     * `items` and `intervalMinutes` will be the first time in the displayed row.
+     * Start date of the Interval as UI5Date or JavaScript Date object. The time interval corresponding to this
+     * Date and `items` and `intervalMinutes` will be the first time in the displayed row.
      */
     startDate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -11661,7 +11695,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     /**
      * @SINCE 1.38.0
      *
-     * Minimum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Minimum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
@@ -11671,7 +11706,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     /**
      * @SINCE 1.38.0
      *
-     * Maximum date that can be shown and selected in the Calendar. This must be a JavaScript date object.
+     * Maximum date that can be shown and selected in the Calendar. This must be a UI5Date or JavaScript Date
+     * object.
      *
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
@@ -13351,6 +13387,8 @@ declare module "sap/ui/unified/DateRange" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
@@ -13423,7 +13461,7 @@ declare module "sap/ui/unified/DateRange" {
      * Gets current value of property {@link #getEndDate endDate}.
      *
      * End date for a date range. If empty only a single date is presented by this DateRange element. This must
-     * be a JavaScript date object.
+     * be a UI5Date or JavaScript Date object.
      *
      * @returns Value of property `endDate`
      */
@@ -13431,7 +13469,7 @@ declare module "sap/ui/unified/DateRange" {
     /**
      * Gets current value of property {@link #getStartDate startDate}.
      *
-     * Start date for a date range. This must be a JavaScript date object.
+     * Start date for a date range. This must be a UI5Date or JavaScript Date object.
      *
      * @returns Value of property `startDate`
      */
@@ -13443,9 +13481,9 @@ declare module "sap/ui/unified/DateRange" {
      */
     setEndDate(
       /**
-       * A JavaScript date
+       * A date instance
        */
-      oDate?: Date,
+      oDate?: Date | UI5Date,
       /**
        * If true, `endDate` is not marked as changed
        */
@@ -13458,9 +13496,9 @@ declare module "sap/ui/unified/DateRange" {
      */
     setStartDate(
       /**
-       * A JavaScript date
+       * A date instance
        */
-      oDate?: Date,
+      oDate?: Date | UI5Date,
       /**
        * If true, `startDate` is not marked as changed
        */
@@ -13470,13 +13508,13 @@ declare module "sap/ui/unified/DateRange" {
 
   export interface $DateRangeSettings extends $ElementSettings {
     /**
-     * Start date for a date range. This must be a JavaScript date object.
+     * Start date for a date range. This must be a UI5Date or JavaScript Date object.
      */
     startDate?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
      * End date for a date range. If empty only a single date is presented by this DateRange element. This must
-     * be a JavaScript date object.
+     * be a UI5Date or JavaScript Date object.
      */
     endDate?: object | PropertyBindingInfo | `{${string}}`;
   }
