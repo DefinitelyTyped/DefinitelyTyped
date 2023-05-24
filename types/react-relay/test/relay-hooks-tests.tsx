@@ -9,6 +9,7 @@ import {
     JSResourceReference,
     loadEntryPoint,
     loadQuery,
+    PreloadedEntryPoint,
     PreloadedQuery,
     RelayEnvironmentProvider,
     useEntryPointLoader,
@@ -1031,6 +1032,8 @@ function EntryPointTests() {
         const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
             route: 'b',
         });
+
+        const nestedEntryPointReference: PreloadedEntryPoint<typeof RootEntryPointComponent> | undefined = entrypointReference.entryPoints.mainPanelB;
 
         return <EntryPointContainer entryPointReference={entrypointReference} props={{}} />;
     }
