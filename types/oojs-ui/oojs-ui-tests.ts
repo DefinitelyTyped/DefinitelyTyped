@@ -2256,6 +2256,7 @@
 
     const instance = new OO.ui.MenuTagMultiselectWidget({
         inputPosition: 'outline',
+        placeholder: 'I am placeholder text!',
         options: [
             { data: 'option1', label: 'Option 1', icon: 'tag' },
             { data: 'option2', label: 'Option 2' },
