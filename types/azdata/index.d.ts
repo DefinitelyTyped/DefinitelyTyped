@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.43
+// Type definitions for Azure Data Studio 1.44
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.43 Extension API
+ * Type Definition for Azure Data Studio 1.44 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -4775,6 +4775,7 @@ declare module 'azdata' {
          * @deprecated please use the method createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth) instead.
          * Create a dialog with the given title
          * @param title The title of the dialog, displayed at the top
+         * @param dialogName Non-localized name of the dialog for identifying in telemetry events.
          * @param isWide Indicates whether the dialog is wide or normal
          */
         export function createModelViewDialog(title: string, dialogName?: string, isWide?: boolean): Dialog;
@@ -4782,7 +4783,7 @@ declare module 'azdata' {
         /**
          * Create a dialog with the given title
          * @param title Title of the dialog, displayed at the top.
-         * @param dialogName Name of the dialog.
+         * @param dialogName Non-localized name of the dialog for identifying in telemetry events.
          * @param width Width of the dialog, default is 'narrow'.
          */
         export function createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth): Dialog;
@@ -4790,7 +4791,7 @@ declare module 'azdata' {
         /**
          * Create a dialog with the given title
          * @param title Title of the dialog, displayed at the top.
-         * @param dialogName Name of the dialog.
+         * @param dialogName Non-localized name of the dialog for identifying in telemetry events.
          * @param width Width of the dialog, default is 'narrow'.
          * @param dialogStyle Defines the dialog style, default is 'flyout'.
          * @param dialogPosition Defines the dialog position, default is undefined
@@ -5006,8 +5007,7 @@ declare module 'azdata' {
             message?: DialogMessage;
 
             /**
-             * Set the dialog name when opening
-             * the dialog for telemetry
+             * Non-localized name of the dialog for identifying in telemetry events.
              */
             dialogName?: string | undefined;
 
