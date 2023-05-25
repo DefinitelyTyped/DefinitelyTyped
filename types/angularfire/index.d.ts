@@ -12,7 +12,7 @@ interface AngularFireService {
 }
 
 /**
- * @deprecated. Not possible with AngularFire 1.0+
+ * @deprecated Not possible with AngularFire 1.0+
  */
 interface AngularFire {
     $asArray(): AngularFireArray;

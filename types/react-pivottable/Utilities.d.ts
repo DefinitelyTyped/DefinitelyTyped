@@ -89,7 +89,7 @@ interface Pivot {
     colOrder?: TQuerySort;
 
     /**
-     * @Link original PivotTable.js documentation)
+     * @see original PivotTable.js documentation
      */
     derivedAttributes?: { [k: string]: (p: string) => string };
 }

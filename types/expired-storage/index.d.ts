@@ -21,7 +21,7 @@ declare class ExpiredStorage {
   /**
    * Get item.
    * @param key: Item key to get (string).
-   * @return: Stored value, or undefined if not set / expired.
+   * @return Stored value, or undefined if not set / expired.
    */
   getItem(key: string): string | null;
   /**
@@ -48,8 +48,8 @@ declare class ExpiredStorage {
   setItem(key: string, value: string, expiration?: number): any;
   /**
    * Get all keys in storage, not including internal keys used to store expiration.
-   * @param: includeExpired: if true, will also include expired keys.
-   * @return: Array with keys.
+   * @param includeExpired: if true, will also include expired keys.
+   * @return Array with keys.
    */
   keys(includeExpired: boolean): string[] | null;
   /**
@@ -82,7 +82,7 @@ declare class ExpiredStorage {
    * Update expiration time for an item (note: doesn't validate that the item is set).
    * @param key: Item key to update expiration for (string).
    * @param expiration: New expiration time in seconds to set.
-   * @return: Storage.setItem() return code for setting new expiration.
+   * @return Storage.setItem() return code for setting new expiration.
    */
   updateExpiration(key: string, expiration: number): any;
 }

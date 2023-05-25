@@ -45,7 +45,6 @@ declare class Class_HeapGraphNode extends Class__object {
      * - profiler.Node_SimdValue,      堆中排好序的SIMD值(ES7)
      *
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -57,8 +56,6 @@ declare class Class_HeapGraphNode extends Class__object {
      *
      * @brief 节点名称
      *
-     * @readonly
-     *
      */
 
     name: string
@@ -68,8 +65,6 @@ declare class Class_HeapGraphNode extends Class__object {
      *
      *
      * @brief 节点的描述
-     *
-     * @readonly
      *
      */
 
@@ -81,7 +76,6 @@ declare class Class_HeapGraphNode extends Class__object {
      *
      * @brief 节点ID
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -93,7 +87,6 @@ declare class Class_HeapGraphNode extends Class__object {
      *
      * @brief 节点大小，单位为字节
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -105,8 +98,6 @@ declare class Class_HeapGraphNode extends Class__object {
      *
      * @brief 子节点列表，由HeapGraphEdge类型对象组成
      *
-     * @readonly
-     * @type NArray
      */
 
     childs: any[]

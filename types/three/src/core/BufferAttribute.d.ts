@@ -161,7 +161,7 @@ export class BufferAttribute {
 
     /**
      * Copy the array given here (which can be a normal array or `TypedArray`) into {@link BufferAttribute.array | array}.
-     * @See {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set | TypedArray.set} for notes on requirements if copying a `TypedArray`.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set | TypedArray.set} for notes on requirements if copying a `TypedArray`.
      */
     copyArray(array: ArrayLike<number>): this;
 

@@ -660,7 +660,7 @@ interface JSTreeStaticDefaultsDragNDrop {
     /**
      * controls whether use HTML5 dnd api instead of classical.
      * That will allow better integration of dnd events with other HTML5 controls.
-     * @reference http://caniuse.com/#feat=dragndrop
+     * @see http://caniuse.com/#feat=dragndrop
      * @name $.jstree.defaults.dnd.use_html5
      * @plugin dnd
      */

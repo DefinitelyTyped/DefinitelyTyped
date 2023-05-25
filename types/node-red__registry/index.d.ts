@@ -226,7 +226,7 @@ declare namespace registry {
         updateWires(wires: Array<[]>): void;
         /**
          * Get the context object for this node.
-         * @returnsthe context object
+         * @returns the context object
          */
         context(): NodeContext;
         /**

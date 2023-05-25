@@ -2,8 +2,6 @@ declare namespace Xrm.Page
 {
     /**
      * Interface for Parature's knowledge base search control.
-     *
-     * @sa  Control
      */
     export interface KbSearchControl extends Xrm.Page.Control
     {

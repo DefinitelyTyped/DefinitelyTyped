@@ -42,8 +42,6 @@ declare class Class_Message extends Class__object {
      *
      * @brief 消息的基本参数
      *
-     * @readonly
-     * @type NArray
      */
 
     params: any[]
@@ -66,8 +64,6 @@ declare class Class_Message extends Class__object {
      *
      * @brief 查询消息的数据
      *
-     * @readonly
-     * @type Value
      */
 
     data: any
@@ -79,7 +75,6 @@ declare class Class_Message extends Class__object {
      * @brief 包含消息数据部分的流对象
      *
      *
-     * @type SeekableStream
      */
 
     body: Class_SeekableStream
@@ -90,7 +85,6 @@ declare class Class_Message extends Class__object {
      *
      * @brief 消息数据部分的长度
      *
-     * @readonly
      * @note Assumed to be a long number.
      */
 
@@ -102,7 +96,6 @@ declare class Class_Message extends Class__object {
      *
      * @brief 查询消息 readFrom 时的流对象
      *
-     * @readonly
      */
 
     stream: Class_Stream

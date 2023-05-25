@@ -42,8 +42,6 @@ declare class Class_SslHandler extends Class_Handler {
      *
      * @brief 客户端证书验证证书链
      *
-     * @readonly
-     * @type X509Cert
      */
 
     ca: Class_X509Cert
@@ -55,7 +53,6 @@ declare class Class_SslHandler extends Class_Handler {
      * @brief ssl 协议转换处理器当前事件处理接口对象
      *
      *
-     * @type Handler
      */
 
     handler: Class_Handler

@@ -6899,7 +6899,7 @@ export class SwipeableListView extends React.Component<SwipeableListViewProps> {
 //////////////////////////////////////////////////////////////////////////
 
 /**
- * @see: https://reactnative.dev/docs/actionsheetios#content
+ * @see https://reactnative.dev/docs/actionsheetios#content
  */
 export interface ActionSheetIOSOptions {
     title?: string;
@@ -7429,7 +7429,7 @@ export interface CameraRollStatic {
     /**
      * Saves the image to the camera roll / gallery.
      *
-     * @tag On Android, this is a local URI, such as "file:///sdcard/img.png".
+     * @param tag On Android, this is a local URI, such as "file:///sdcard/img.png".
      * On iOS, the tag can be one of the following:
      *      local URI
      *      assets-library tag

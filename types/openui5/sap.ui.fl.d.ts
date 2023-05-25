@@ -6,8 +6,8 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
   import ManagedObject from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.67
-   * @EXPERIMENTAL (since 1.67)
+   * @since 1.67
+   * @experimental (since 1.67)
    *
    * Provides an API for applications to work with control variants. See also {@link sap.ui.fl.variants.VariantManagement}.
    */
@@ -202,7 +202,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.56
+   * @since 1.56
    *
    * Can be used to manage variants. You can use this control in most controls that are enabled for key
    * user adaptation.
@@ -615,7 +615,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
@@ -628,7 +628,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:initialized initialized} to attached listeners.
      *
@@ -641,7 +641,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:manage manage} to attached listeners.
      *
@@ -672,7 +672,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:save save} to attached listeners.
      *
@@ -716,7 +716,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -777,7 +777,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getFor(): ID[];
     /**
-     * @SINCE 1.104
+     * @since 1.104
      *
      * Gets current value of property {@link #getHeaderLevel headerLevel}.
      *
@@ -811,7 +811,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getManualVariantKey(): boolean;
     /**
-     * @SINCE 1.109
+     * @since 1.109
      *
      * Gets current value of property {@link #getMaxWidth maxWidth}.
      *
@@ -839,7 +839,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getModified(): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Required by the {@link sap.m.IOverflowToolbarContent} interface. Registers invalidations event which
      * is fired when width of the control is changed.
@@ -874,7 +874,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getShowSetAsDefault(): boolean;
     /**
-     * @SINCE 1.109
+     * @since 1.109
      *
      * Gets current value of property {@link #getTitleStyle titleStyle}.
      *
@@ -983,7 +983,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bExecuteOnSelectionForStandardDefault?: boolean
     ): this;
     /**
-     * @SINCE 1.104
+     * @since 1.104
      *
      * Sets a new value for property {@link #getHeaderLevel headerLevel}.
      *
@@ -1038,7 +1038,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bManualVariantKey?: boolean
     ): this;
     /**
-     * @SINCE 1.109
+     * @since 1.109
      *
      * Sets a new value for property {@link #getMaxWidth maxWidth}.
      *
@@ -1110,7 +1110,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bShowSetAsDefault?: boolean
     ): this;
     /**
-     * @SINCE 1.109
+     * @since 1.109
      *
      * Sets a new value for property {@link #getTitleStyle titleStyle}.
      *
@@ -1209,7 +1209,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.104
+     * @since 1.104
      *
      * Semantic level of the header. For more information, see {@link sap.m.Title#setLevel}.
      */
@@ -1219,7 +1219,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.109
+     * @since 1.109
      *
      * Defines the style of the title. For more information, see {@link sap.m.Title#setTitleStyle}.
      */
@@ -1229,7 +1229,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.109
+     * @since 1.109
      *
      * Sets the maximum width of the control.
      */
@@ -1272,7 +1272,7 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVa
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * @SINCE 1.87
+   * @since 1.87
    *
    * Abstraction providing an API to handle an ABAP extension variant. Serves also as base class and dummy
    * implementation.
@@ -1316,7 +1316,7 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExte
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * @SINCE 1.87
+   * @since 1.87
    *
    * Extension variant for ABAP multi tenant environments (via so called Predefined Fields)
    */
@@ -1359,7 +1359,7 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExt
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * @SINCE 1.87
+   * @since 1.87
    *
    * Extension variant for ABAP single tenant environnments (via so called Custom Fields)
    */
@@ -1400,7 +1400,7 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExt
 
 declare module "sap/ui/fl/write/api/FeaturesAPI" {
   /**
-   * @SINCE 1.70
+   * @since 1.70
    *
    * Provides an API to determine which features are available for flexibility.
    */

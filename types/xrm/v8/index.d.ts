@@ -281,7 +281,7 @@ declare namespace Xrm {
         /**
          * Gets an attribute matching attributeName.
          *
-         * @tparam  T   An Attribute type.
+         * @typeParam  T   An Attribute type.
          * @param       attributeName   Name of the attribute.
          *
          * @return  The attribute.
@@ -325,7 +325,7 @@ declare namespace Xrm {
         /**
          * Gets a control matching controlName.
          *
-         * @tparam  T   A Control type
+         * @typeParam  T   A Control type
          * @param       controlName    Name of the control.
          *
          * @return  The control.
@@ -344,7 +344,7 @@ declare namespace Xrm {
         /**
          * Gets a control by index.
          *
-         * @tparam  T   A Control type
+         * @typeParam  T   A Control type
          * @param       index   The control index.
          *
          * @return  The control.
@@ -785,8 +785,8 @@ declare namespace Xrm {
         /**
          * Interface for asynchronous promises used in Xrm.Page.data and Xrm.Utility.openQuickCreate.
          *
-         * @tparam  TSuccessCallback   Generic success callback parameter.
-         * @tparam  TErrorCallback     Generic error callback parameter.
+         * @typeParam  TSuccessCallback   Generic success callback parameter.
+         * @typeParam  TErrorCallback     Generic error callback parameter.
          */
         interface XrmPromise<TSuccessCallback, TErrorCallback> {
             /**
@@ -824,7 +824,7 @@ declare namespace Xrm {
         /**
          * Interface for an item collection.
          *
-         * @tparam  T   Generic type parameter.
+         * @typeParam  T   Generic type parameter.
          */
         interface ItemCollection<T> {
             /**
@@ -1107,7 +1107,7 @@ declare namespace Xrm {
             /**
              * Gets the shared variable with the specified key.
              *
-             * @tparam  T   Generic type parameter.
+             * @typeParam  T   Generic type parameter.
              * @param       key The key.
              *
              * @return  The shared variable.
@@ -1131,7 +1131,7 @@ declare namespace Xrm {
             /**
              * Sets a shared variable.
              *
-             * @tparam  T   Generic type parameter.
+             * @typeParam  T   Generic type parameter.
              * @param       key The key.
              * @param    value       The value.
              *
@@ -1541,8 +1541,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a Number attribute.
-         *
-         * @sa  Attribute
          */
         interface NumberAttribute extends Attribute {
             /**
@@ -1600,8 +1598,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a String attribute.
-         *
-         * @sa  Attribute
          */
         interface StringAttribute extends Attribute {
             /**
@@ -1653,8 +1649,6 @@ declare namespace Xrm {
 
         /**
          * Common interface for enumeration attributes (OptionSet and Boolean).
-         *
-         * @sa  Attribute
          */
         interface EnumAttribute extends Attribute {
             /**
@@ -1669,8 +1663,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a Boolean attribute.
-         *
-         * @sa  EnumAttribute
          */
         interface BooleanAttribute extends EnumAttribute {
             /**
@@ -1701,8 +1693,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a Date attribute.
-         *
-         * @sa  Attribute
          */
         interface DateAttribute extends Attribute {
             /**
@@ -1739,8 +1729,6 @@ declare namespace Xrm {
 
         /**
          * Interface an OptionSet attribute.
-         *
-         * @sa  EnumAttribute
          */
         interface OptionSetAttribute extends EnumAttribute {
             /**
@@ -1828,8 +1816,6 @@ declare namespace Xrm {
 
         /**
          * Interface a Lookup attribute.
-         *
-         * @sa  Attribute
          */
         interface LookupAttribute extends Attribute {
             /**
@@ -2275,8 +2261,6 @@ declare namespace Xrm {
 
         /**
          * Interface for Xrm.Page.ui controls.
-         *
-         * @sa  UiElement
          */
         interface Control extends UiLabelElement, UiCanGetVisibleElement {
             /**
@@ -2327,8 +2311,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a standard control.
-         *
-         * @sa  Control
          */
         interface StandardControl extends Control, UiStandardElement, UiFocusable {
             /**
@@ -2372,7 +2354,7 @@ declare namespace Xrm {
             /**
              * Gets the control's bound attribute.
              *
-             * @tparam  T   An Attribute type.
+             * @typeParam  T   An Attribute type.
              *
              * @return  The attribute.
              */
@@ -2391,8 +2373,6 @@ declare namespace Xrm {
          * This is not an Entity Lookup, but a control that supports AutoComplete / KeyPress Events (Text or Number)
          *
          * @remarks This interface is not supported for CRM mobile clients (phones or tablets) and the interactive service hub.  It is only available for Updated entities.
-         *
-         * @sa  StandardControl
          */
         interface AutoLookupControl extends StandardControl, UiKeyPressable {
             /**
@@ -2417,8 +2397,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a String control.
-         *
-         * @sa  StandardControl
          */
         interface StringControl extends AutoLookupControl {
             /**
@@ -2431,8 +2409,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a Number control.
-         *
-         * @sa  StandardControl
          */
         interface NumberControl extends AutoLookupControl {
             /**
@@ -2445,8 +2421,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a Date control.
-         *
-         * @sa  StandardControl
          */
         interface DateControl extends StandardControl {
             /**
@@ -2473,8 +2447,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a Lookup control.
-         *
-         * @sa  StandardControl
          */
         interface LookupControl extends StandardControl {
             /**
@@ -2487,8 +2459,6 @@ declare namespace Xrm {
             /**
              * Adds an additional custom filter to the lookup, with the "AND" filter operator.
              * Can only be used within a "pre search" event handler
-             *
-             * @sa addPreSearch
              *
              * @param       filter              Specifies the filter, as a serialized FetchXML
              *                                          "filter" node.
@@ -2555,8 +2525,6 @@ declare namespace Xrm {
 
         /**
          * Interface for an OptionSet control.
-         *
-         * @sa  StandardControl
          */
         interface OptionSetControl extends StandardControl {
             /**
@@ -2592,8 +2560,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a CRM grid control.
-         *
-         * @sa  Control
          */
         interface GridControl extends Control {
             /**
@@ -2649,8 +2615,6 @@ declare namespace Xrm {
         /**
          * Interface for a framed control, which is either a Web Resource or an Iframe.
          *
-         * @sa  Control
-         *
          * @remarks     An Iframe control provides additional methods, so use {@link IframeControl} where
          *              appropriate.  Silverlight controls should use {@link SilverlightControl}.
          */
@@ -2685,8 +2649,6 @@ declare namespace Xrm {
 
         /**
          * Interface for an Iframe control.
-         *
-         * @sa  FramedControl
          */
         interface IframeControl extends FramedControl, UiCanSetVisibleElement {
             /**
@@ -2701,8 +2663,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a Silverlight control.
-         *
-         * @sa  Control
          */
         interface SilverlightControl extends Control {
             /**
@@ -2735,9 +2695,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a form tab.
-         *
-         * @sa  UiElement
-         * @sa  UiFocusable
          */
         interface Tab extends UiStandardElement, UiFocusable {
             /**
@@ -2776,8 +2733,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a form section.
-         *
-         * @sa  UiElement
          */
         interface Section extends UiStandardElement {
             /**
@@ -2980,7 +2935,7 @@ declare namespace Xrm {
                 /**
                  * Gets the constituent controls in a quick view control.
                  *
-                 * @tparam  T   A Control type
+                 * @typeParam  T   A Control type
                  * @param       controlName    Name of the control.
                  *
                  * @return  The control.
@@ -3003,7 +2958,7 @@ declare namespace Xrm {
                 /**
                  * Gets a control by index.
                  *
-                 * @tparam  T   A Control type
+                 * @typeParam  T   A Control type
                  * @param       index   The control index.
                  *
                  * @return  The control.
@@ -3051,9 +3006,6 @@ declare namespace Xrm {
 
         /**
          * Interface for a navigation item.
-         *
-         * @sa  UiElement
-         * @sa  UiFocusable
          */
         interface NavigationItem extends UiStandardElement, UiFocusable {
             /**

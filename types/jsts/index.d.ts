@@ -2534,9 +2534,6 @@ declare namespace jsts {
         }
 
         export class MultiLineString extends GeometryCollection {
-            /**
-             * @construtor
-             */
             constructor(lineStrings: LineString[], factory: GeometryFactory);
             /**
              * @deprecated Use GeometryFactory instead

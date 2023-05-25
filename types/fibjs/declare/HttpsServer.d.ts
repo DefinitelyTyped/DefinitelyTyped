@@ -42,8 +42,6 @@ declare class Class_HttpsServer extends Class_HttpServer {
      *
      * @brief 客户端证书验证 ca
      *
-     * @readonly
-     * @type X509Cert
      */
 
     ca: Class_X509Cert

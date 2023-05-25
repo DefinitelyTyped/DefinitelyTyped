@@ -30,7 +30,6 @@ declare class Class_LruCache extends Class_EventEmitter {
      *
      * @brief 查询容器内数值个数
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -55,7 +54,6 @@ declare class Class_LruCache extends Class_EventEmitter {
      * @brief 查询和绑定数据超时事件，相当于 on("expire", func);
      *
      *
-     * @type Function
      */
 
     onexpire: Function

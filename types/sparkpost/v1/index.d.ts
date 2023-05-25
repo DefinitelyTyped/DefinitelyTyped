@@ -568,16 +568,12 @@ declare namespace SparkPost {
          * Address information for a recipient.
          * At a minimum, address or multichannel_addresses is required.
          * If both address and multichannel_addresses are specified only multichannel_addresses will be used.
-         *
-         * @memberOf RecipientWithMultichannelAddresses
          */
         address?: Address | string | undefined;
         /**
          * Array of Multichannel Address objects for a recipient.
          * At a minimum, address or multichannel_addresses is required.
          * If both address and multichannel_addresses are specified only multichannel_addresses will be used.
-         *
-         * @memberOf RecipientWithMultichannelAddresses
          */
         multichannel_addresses: MultichannelAddress[];
     }
@@ -820,8 +816,6 @@ declare namespace SparkPost {
         /**
          * Address “from” : "deals@company.com" or JSON object composed of the “name” and “email” fields
          * “from” : { “name” : “My Company”, “email” : "deals@company.com" } used to compose the email’s “From” header.
-         *
-         * @memberOf CreateTemplateContent
          */
         from: Address | string;
         /** Email address used to compose the email’s “Reply-To” header. */
@@ -840,8 +834,6 @@ declare namespace SparkPost {
         /**
          * Address “from” : "deals@company.com" or JSON object composed of the “name” and “email” fields
          * “from” : { “name” : “My Company”, “email” : "deals@company.com" } used to compose the email’s “From” header.
-         *
-         * @memberOf CreateTemplateContent
          */
         from: Address | string;
         /** Email address used to compose the email’s “Reply-To” header. */
@@ -867,7 +859,6 @@ declare namespace SparkPost {
          * At a minimum, id or name is required upon creation. It is auto generated if not provided.
          * After a template has been created, this property cannot be changed. Maximum length - 64 bytes
          *
-         * @memberOf CreateTemplate
          */
         id: string;
         /** Content that will be used to construct a message  yes  For a full description, see the Content Attributes. Maximum length - 20 MBs */
@@ -892,7 +883,6 @@ declare namespace SparkPost {
          * At a minimum, id or name is required upon creation. It is auto generated if not provided.
          * After a template has been created, this property cannot be changed. Maximum length - 64 bytes
          *
-         * @memberOf CreateTemplate
          */
         id?: string | undefined;
         /** Content that will be used to construct a message  yes  For a full description, see the Content Attributes. Maximum length - 20 MBs */
@@ -1049,8 +1039,6 @@ declare namespace SparkPost {
          * The MIME type of the attachment; e.g., “text/plain”, “image/jpeg”, “audio/mp3”, “video/mp4”, “application/msword”, “application/pdf”, etc.,
          * including the “charset” parameter (text/html; charset=“UTF-8”) if needed.
          * The value will apply “as-is” to the “Content-Type” header of the generated MIME part for the attachment.
-         *
-         * @memberOf Attachment
          */
         type: string;
         /**   The filename of the attachment (for example, “document.pdf”). This is inserted into the filename parameter of the Content-Disposition header. */
@@ -1059,8 +1047,6 @@ declare namespace SparkPost {
          * The content of the attachment as a Base64 encoded string.
          * The string should not contain \r\n line breaks.
          * The SparkPost systems will add line breaks as necessary to ensure the Base64 encoded lines contain no more than 76 characters each.
-         *
-         * @memberOf Attachment
          */
         data: string;
     }

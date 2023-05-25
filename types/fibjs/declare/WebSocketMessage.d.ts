@@ -33,7 +33,6 @@ declare class Class_WebSocketMessage extends Class_Message {
      * @brief 查询和读取 websocket 掩码标记，缺省为 true
      *
      *
-     * @type Boolean
      */
 
     masked: boolean
@@ -45,7 +44,6 @@ declare class Class_WebSocketMessage extends Class_Message {
      * @brief 查询和读取 websocket 压缩状态，缺省为 false
      *
      *
-     * @type Boolean
      */
 
     compress: boolean

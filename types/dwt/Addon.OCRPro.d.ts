@@ -182,7 +182,7 @@ export interface Page {
     GetLetterCount(): number;
     /**
      * Return the content of the specified letter.
-     * @index Specify the letter.
+     * @param index Specify the letter.
      */
     GetLetterContent(index: number): Letter;
     /**
@@ -191,7 +191,7 @@ export interface Page {
     GetZoneCount(): number;
     /**
      * Return the base64-encoded content of the specified rectangle.
-     * @index Specify the line.
+     * @param index Specify the line.
      */
     GetZoneContent(index: number): string;
 }

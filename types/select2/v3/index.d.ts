@@ -98,8 +98,8 @@ interface Select2Plugin {
     (method: 'val'): any;
     /**
      * Set the id value of the current selection
-     * @params value Value to set the id to
-     * @params triggerChange Should a change event be triggered
+     * @param value Value to set the id to
+     * @param triggerChange Should a change event be triggered
      */
     (method: 'val', value: any, triggerChange?: boolean): any;
     /**
@@ -108,8 +108,8 @@ interface Select2Plugin {
     (method: 'data'): any;
     /**
      * Set the data of the current selection
-     * @params value Object to set the data to
-     * @params triggerChange Should a change event be triggered
+     * @param value Object to set the data to
+     * @param triggerChange Should a change event be triggered
      */
     (method: 'data', value: any, triggerChange?: boolean): any;
     /**

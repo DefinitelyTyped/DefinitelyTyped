@@ -30,8 +30,6 @@ declare class Class_DbConnection extends Class__object {
      *
      * @brief 查询当前连接数据库类型
      *
-     * @readonly
-     *
      */
 
     type: string

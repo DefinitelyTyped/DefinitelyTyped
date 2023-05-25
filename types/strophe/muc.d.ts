@@ -57,7 +57,7 @@ declare namespace Strophe {
             /**
              * Send a message to a room.
              *
-             * @param) room - The multi-user chat room name.
+             * @param room - The multi-user chat room name.
              * @param nick - The nick name used in the chat room.
              * @param message - The plaintext message to send to the room.
              * @param html_message - The message to send to the room with html markup.

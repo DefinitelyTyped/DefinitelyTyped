@@ -259,7 +259,7 @@ declare namespace OO.ui {
              * methods of OO.ui.Process.
              *
              * @param data Window opening data
-             * @return} Ready process
+             * @return Ready process
              */
             getReadyProcess(data?: any): Process;
 

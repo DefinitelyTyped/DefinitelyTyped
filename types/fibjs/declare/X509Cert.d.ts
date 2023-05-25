@@ -30,7 +30,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书的版本
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -42,8 +41,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书的序列号
      *
-     * @readonly
-     *
      */
 
     serial: string
@@ -53,8 +50,6 @@ declare class Class_X509Cert extends Class__object {
      *
      *
      * @brief 获取证书颁发者的可分辨名称
-     *
-     * @readonly
      *
      */
 
@@ -66,8 +61,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书的主题可分辨名称
      *
-     * @readonly
-     *
      */
 
     subject: string
@@ -78,8 +71,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书的生效时间
      *
-     * @readonly
-     * @type Date
      */
 
     notBefore: Date
@@ -90,8 +81,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书的到期时间
      *
-     * @readonly
-     * @type Date
      */
 
     notAfter: Date
@@ -102,8 +91,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书是否是 ca 证书
      *
-     * @readonly
-     * @type Boolean
      */
 
     ca: boolean
@@ -114,7 +101,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书的 pathlen
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -129,8 +115,6 @@ declare class Class_X509Cert extends Class__object {
      * 结果为全部或部分以下内容：digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign
      *
      *
-     * @readonly
-     *
      */
 
     usage: string
@@ -144,8 +128,6 @@ declare class Class_X509Cert extends Class__object {
      * 结果为全部或部分以下内容：client, server, email, objsign, reserved, sslCA, emailCA, objCA
      *
      *
-     * @readonly
-     *
      */
 
     type: string
@@ -156,8 +138,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书的公钥
      *
-     * @readonly
-     * @type PKey
      */
 
     publicKey: Class_PKey
@@ -168,8 +148,6 @@ declare class Class_X509Cert extends Class__object {
      *
      * @brief 获取证书链中得下一个证书
      *
-     * @readonly
-     * @type X509Cert
      */
 
     next: Class_X509Cert

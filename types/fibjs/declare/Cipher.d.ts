@@ -30,8 +30,6 @@ declare class Class_Cipher extends Class__object {
      *
      * @brief 返回当前算法名称
      *
-     * @readonly
-     *
      */
 
     name: string
@@ -42,7 +40,6 @@ declare class Class_Cipher extends Class__object {
      *
      * @brief 返回当前算法密码长度，以位为单位
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -54,7 +51,6 @@ declare class Class_Cipher extends Class__object {
      *
      * @brief 返回当前算法初始向量长度，以字节为单位
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -66,7 +62,6 @@ declare class Class_Cipher extends Class__object {
      *
      * @brief 返回当前算法数据块长度，以字节为单位
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 

@@ -8430,7 +8430,7 @@ declare namespace chrome.system.display {
          * This is only valid for the primary display.
          * If provided, mirroringSourceId must not be provided and other properties may not apply.
          * This is has no effect if not provided.
-         * @see(See `enableUnifiedDesktop` for details).
+         * @see `enableUnifiedDesktop` for details
          * @since Chrome 59
          */
         isUnified?: boolean | undefined;
@@ -8483,7 +8483,7 @@ declare namespace chrome.system.display {
 
         /**
          * If set, updates the display's logical bounds origin along y-axis.
-         * @see[See documentation for boundsOriginX parameter.]
+         * @see boundsOriginX
          */
         boundsOriginY?: number | undefined;
 
@@ -8511,7 +8511,7 @@ declare namespace chrome.system.display {
     export interface DisplayInfoFlags {
         /**
          * If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode.
-         * @see[enableUnifiedDesktop]
+         * @see enableUnifiedDesktop
          * @default false
          */
         singleUnified?: boolean | undefined;

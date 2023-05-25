@@ -50,7 +50,7 @@ export function getColorModeInitScriptElement(options?: { target: string }): Rea
 export function getColorModeInitScriptTag(options?: { target: string }): string;
 
 /**
- * @xstyled/system provide default breakpoints
+ * `@xstyled/system`-provided default breakpoints
  *
  * https://xstyled.dev/docs/responsive/#default-breakpoints
  * https://github.com/smooth-code/xstyled/blob/master/packages/system/src/media.js#L4-L10

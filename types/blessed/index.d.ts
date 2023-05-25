@@ -2530,7 +2530,7 @@ export namespace Widgets {
 
         /**
          * Set rows in table. Array of arrays of strings.
-         * @example:
+         * @example
          *
          * table.setData([
          *      [ 'Animals',  'Foods'  ],
@@ -2542,7 +2542,7 @@ export namespace Widgets {
 
         /**
          * Set rows in table. Array of arrays of strings.
-         * @example:
+         * @example
          *
          * table.setData([
          *      [ 'Animals',  'Foods'  ],

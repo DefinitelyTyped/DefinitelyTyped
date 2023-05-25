@@ -909,7 +909,7 @@ declare namespace Slick {
 
         /**
         * Unregisters a current selection model and registers a new one. See the definition of SelectionModel for more information.
-        * @selectionModel A SelectionModel.
+        * @param selectionModel A SelectionModel.
         **/
         public setSelectionModel(selectionModel: SelectionModel<T, any>): void;        // todo: don't know the type of the event data type
 

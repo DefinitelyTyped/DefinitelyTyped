@@ -58,7 +58,6 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type Boolean
      */
 
     slashes: boolean
@@ -188,7 +187,6 @@ declare class Class_UrlObject extends Class__object {
      *
      *
      *
-     * @type Value
      */
 
     query: any

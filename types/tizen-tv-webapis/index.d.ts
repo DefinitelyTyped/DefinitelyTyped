@@ -75,7 +75,7 @@ export interface AdInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/adinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @version 1.0
      *
@@ -102,9 +102,9 @@ export interface AdInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/adinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, If the application call this method when the PSID is a null value.
+     * @throws WebAPIException with error type InvalidStateError, If the application call this method when the PSID is a null value.
      *
      * @version 1.0
      *
@@ -123,7 +123,7 @@ export interface AdInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/adinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @version 1.0
      *
@@ -193,7 +193,7 @@ export interface AppCommonManager {
      *
      * @returns DOMString Plugin version
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @since 2.3
      *
@@ -213,9 +213,9 @@ export interface AppCommonManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -292,7 +292,7 @@ export interface AvInfoManager {
      *
      * @returns return value of plugin's version
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method
      *
      * @since 2.3
      *
@@ -306,7 +306,7 @@ export interface AvInfoManager {
      *
      * @returns dolby digital component mode
      *
-     * @throw WebAPIException with error type NotSupportedError, this feature doesn't be supported since 2016
+     * @throws WebAPIException with error type NotSupportedError, this feature doesn't be supported since 2016
      *
      * @since 2.3
      *
@@ -324,7 +324,7 @@ export interface AvInfoManager {
      * - true is support
      * - false is not support
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method
      *
      * @since 2.3
      *
@@ -354,7 +354,7 @@ export interface AVPlayStoreManager {
      *
      * @privilegeName None
      *
-     * @throw WebAPIException with error type QUOTA_EXCEEDED_ERR (Max player count reached) if there is insufficient memory to create the instance, or the number of player instances exceeds 4.
+     * @throws WebAPIException with error type QUOTA_EXCEEDED_ERR (Max player count reached) if there is insufficient memory to create the instance, or the number of player instances exceeds 4.
      *
      * @version 1.0
      *
@@ -602,9 +602,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -620,9 +620,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -636,9 +636,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -653,9 +653,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -669,9 +669,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -688,9 +688,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -705,9 +705,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -724,9 +724,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -747,9 +747,9 @@ export interface AVPlayPlaybackCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -831,15 +831,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -854,9 +854,9 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -871,15 +871,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if given URL through open() is invalid. e.g., webapis.avplay.open("InvalidURL").
+     * @throws WebAPIException with error type InvalidValuesError, if given URL through open() is invalid. e.g., webapis.avplay.open("InvalidURL").
      *
-     * @throw WebAPIException with error type InvalidAccessError, if given URL through open() is valid, but not exist or Network Issue. e.g., webapis.avplay.open("http://abc").
+     * @throws WebAPIException with error type InvalidAccessError, if given URL through open() is valid, but not exist or Network Issue. e.g., webapis.avplay.open("http://abc").
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -910,7 +910,7 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @version 1.0
      *
@@ -937,15 +937,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -965,11 +965,11 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -993,15 +993,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1022,9 +1022,9 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 3.0
      *
@@ -1039,9 +1039,9 @@ export interface AVPlayManager {
      *
      * @returns AVPlayPlayerState "NONE", "IDLE", "READY", "PLAYING", "PAUSED".
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1056,13 +1056,13 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type InvalidAccessError, if this API couldn't operate at the moment. (E.g. During the async operation such as seekTo, etc.)
+     * @throws WebAPIException with error type InvalidAccessError, if this API couldn't operate at the moment. (E.g. During the async operation such as seekTo, etc.)
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1085,15 +1085,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1120,15 +1120,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1148,9 +1148,9 @@ export interface AVPlayManager {
      *
      * @returns unsigned long number Duration, in milliseconds
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1165,9 +1165,9 @@ export interface AVPlayManager {
      *
      * @returns unsigned long number Current playback time, in milliseconds.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1185,15 +1185,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1217,15 +1217,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 4.0
      *
@@ -1249,15 +1249,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1276,13 +1276,13 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1310,17 +1310,17 @@ export interface AVPlayManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/drmplay
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      * Examples of exception scenarios include an invalid DRM session, or failure to create the underlying DRM module or configuration. In these scenarios, an exception is thrown and the method call returns FALSE.
      *
      *
@@ -1353,17 +1353,17 @@ export interface AVPlayManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/drmplay
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 4.0
      *
@@ -1380,15 +1380,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1407,11 +1407,11 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1434,15 +1434,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1459,15 +1459,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1484,15 +1484,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1509,15 +1509,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 4.0
      *
@@ -1536,15 +1536,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 4.0
      *
@@ -1561,11 +1561,11 @@ export interface AVPlayManager {
      *
      * @returns AVPlayStreamInfo structure containing tracktype, extraInfo and index for the current stream
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1590,11 +1590,11 @@ export interface AVPlayManager {
      * "{"track_num":"%d","track_lang":"%s","subtitle_type":"%d","fourCC":"%s"}"
      * Some of them are not constant value(E.g. Video:Width, Height, and Bit_rate,Audio:channels, sample_rate, and bit_rate) for adaptive streaming such as HLS, DASH and SmoothStreaming.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1616,15 +1616,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 4.0
      *
@@ -1644,15 +1644,15 @@ export interface AVPlayManager {
      *
      * @returns DOMString Property value
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1669,9 +1669,9 @@ export interface AVPlayManager {
      *
      * @returns DOMString string current version
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 3.0
      *
@@ -1687,11 +1687,11 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1717,15 +1717,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 1.0
      *
@@ -1761,15 +1761,15 @@ export interface AVPlayManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if it is called in an invalid state.
+     * @throws WebAPIException with error type InvalidStateError, if it is called in an invalid state.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @version 4.0
      *
@@ -2295,7 +2295,7 @@ export interface BillingBuyDataSuccessCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2317,7 +2317,7 @@ export interface BillingProductsListCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2339,7 +2339,7 @@ export interface BillingApplyInvoiceCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2361,7 +2361,7 @@ export interface BillingVerifyInvoiceCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2383,7 +2383,7 @@ export interface BillingGetUserPurchaseListCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2405,7 +2405,7 @@ export interface BillingGetServiceCountryAvailabilityCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 5.5
      *
@@ -2427,7 +2427,7 @@ export interface BillingCancelSubscriptionCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2449,7 +2449,7 @@ export interface BillingShowRegisterPromotionalCodeCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2471,7 +2471,7 @@ export interface BillingShowRegisterCreditCardCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2493,7 +2493,7 @@ export interface BillingShowPurchaseHistoryCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2515,7 +2515,7 @@ export interface BillingIsServiceAvailableCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @version 3.0
      *
@@ -2559,9 +2559,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
+     * @throws WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
      *
-     * @throw WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
+     * @throws WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
      *
      * @since 2.4
      *
@@ -2612,9 +2612,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
+     * @throws WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
      *
-     * @throw WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
+     * @throws WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
      *
      * @since 4.0
      *
@@ -2663,9 +2663,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
+     * @throws WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
      *
-     * @throw WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
+     * @throws WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
      *
      * @since 4.0
      *
@@ -2713,9 +2713,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
+     * @throws WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
      *
-     * @throw WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
+     * @throws WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
      *
      * @since 4.0
      *
@@ -2764,9 +2764,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
+     * @throws WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
      *
-     * @throw WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
+     * @throws WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
      *
      * @since 5.5
      *
@@ -2819,9 +2819,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
+     * @throws WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
      *
-     * @throw WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
+     * @throws WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
      *
      * @since 4.0
      *
@@ -2870,9 +2870,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
+     * @throws WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
      *
-     * @throw WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
+     * @throws WebAPIException with error type InvalidValuesError, if serverType contains an invalid value
      *
      * @since 4.0
      *
@@ -2910,9 +2910,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
+     * @throws WebAPIException with error type TypeMismatchError, if any of input parameter is not compatible with its expected type
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
      * @since 4.0
      *
@@ -2938,9 +2938,9 @@ export interface BillingManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/billing
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @since 4.0
      *
@@ -3178,9 +3178,9 @@ export interface NetworkStateChangedCallback {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
      * @since 3.0
      *
@@ -3494,7 +3494,7 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -3516,7 +3516,7 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -3542,7 +3542,7 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -3563,9 +3563,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3587,9 +3587,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3610,9 +3610,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3633,9 +3633,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3656,9 +3656,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3680,10 +3680,10 @@ export interface NetworkManager {
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
      * @since 4.0
      *
@@ -3707,7 +3707,7 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -3727,9 +3727,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @since 2.3
      *
@@ -3755,11 +3755,11 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the listenerId value is not the same as the value generated by addNetworkStateChangeListener. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidValuesError, if the listenerId value is not the same as the value generated by addNetworkStateChangeListener. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3780,9 +3780,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a Wi-Fi connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a Wi-Fi connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3807,9 +3807,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a Wi-Fi connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a Wi-Fi connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3835,9 +3835,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a Wi-Fi connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a Wi-Fi connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3863,9 +3863,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a Wi-Fi connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a Wi-Fi connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3886,9 +3886,9 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3910,13 +3910,13 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.dhcpoption60
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type InvalidStateError, if the active connection type is Wi-Fi. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if the active connection type is Wi-Fi. (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type. (Since plugin version 3.0)
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3938,11 +3938,11 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.dhcpoption60
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type InvalidStateError, if the active connection type is Wi-Fi. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if the active connection type is Wi-Fi. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3963,11 +3963,11 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.dhcpoption60
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type InvalidStateError, if the active connection type is Wi-Fi. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if the active connection type is Wi-Fi. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -3988,11 +3988,11 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.dhcpoption60
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type InvalidStateError, if the active connection type is Wi-Fi. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidStateError, if the active connection type is Wi-Fi. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -4090,7 +4090,7 @@ export interface ProductInfoConfigChangeCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @since 2.3
      *
@@ -4214,7 +4214,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4232,7 +4232,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4250,7 +4250,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4268,7 +4268,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4286,7 +4286,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4304,7 +4304,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4322,7 +4322,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4340,9 +4340,9 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type NotSupportedError, if the device is a BD device.
+     * @throws WebAPIException with error type NotSupportedError, if the device is a BD device.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4362,9 +4362,9 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type NotSupportedError, if the device is a BD device.
+     * @throws WebAPIException with error type NotSupportedError, if the device is a BD device.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4384,7 +4384,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4404,7 +4404,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4424,7 +4424,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 4.0
      *
@@ -4442,7 +4442,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4462,7 +4462,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 5.0
      *
@@ -4480,9 +4480,9 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type NotSupportedError, if the device is a BD device.
+     * @throws WebAPIException with error type NotSupportedError, if the device is a BD device.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4500,7 +4500,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4520,11 +4520,11 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value. (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4553,14 +4553,14 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
      * If only setSystemConfig can set CONFIG_KEY_DATA_SERVICE or CONFIG_KEY_ACTIVE_CATEGORY (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type NotSupportedError, if 'CONFIG_KEY_SERVICE_COUNTRY' is readonly (Deprecated since plugin version 3.0)
+     * @throws WebAPIException with error type NotSupportedError, if 'CONFIG_KEY_SERVICE_COUNTRY' is readonly (Deprecated since plugin version 3.0)
      *
-     * @throw WebAPIException with error type NotSupportedError, if 'CONFIG_KEY_SHOPLOGO' is readonly (Deprecated since plugin version 3.0)
+     * @throws WebAPIException with error type NotSupportedError, if 'CONFIG_KEY_SHOPLOGO' is readonly (Deprecated since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -4589,11 +4589,11 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value. (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4618,11 +4618,11 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value. (Since plugin version 3.0)
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -4642,7 +4642,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 3.0
      *
@@ -4660,7 +4660,7 @@ export interface ProductInfoManager {
      *
      * @privilegeName N
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @since 5.5
      *
@@ -4829,13 +4829,13 @@ export interface SsoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/sso.partner
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @since 2.3
      *
@@ -4857,15 +4857,15 @@ export interface SsoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/sso.partner
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @since 2.3
      *
@@ -4887,17 +4887,17 @@ export interface SsoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/sso.partner
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type InvalidStateError, if the user is not signed in.
+     * @throws WebAPIException with error type InvalidStateError, if the user is not signed in.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @since 2.3
      *
@@ -4915,15 +4915,15 @@ export interface SsoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/sso.partner
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @since 2.3
      *
@@ -4946,13 +4946,13 @@ export interface SsoManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/sso.partner
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
      *
-     * @throw WebAPIException with error type UnknownError, for any other error.
+     * @throws WebAPIException with error type UnknownError, for any other error.
      *
      * @since 2.3
      *
@@ -5010,7 +5010,7 @@ export interface SystemInfoManager {
      *
      * @returns value of plugin's version
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @since 6.0
      *
@@ -5042,7 +5042,7 @@ export interface SystemInfoManager {
      * - true: supported
      * - false: unsupported
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @since 6.0
      *
@@ -5083,7 +5083,7 @@ export interface SystemInfoManager {
      * true: supported
      * false: unsupported
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @since 6.0
      *
@@ -6478,7 +6478,7 @@ export interface TvInfoCaptionChangeCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @since 2.3
      *
@@ -6501,7 +6501,7 @@ export interface TvInfoChangeCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @since 2.3
      *
@@ -8254,7 +8254,7 @@ export interface TvInfoManager {
      *
      * @returns Plugin version
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @since 2.3
      *
@@ -8270,9 +8270,9 @@ export interface TvInfoManager {
      *
      * @returns Key value
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -8292,9 +8292,9 @@ export interface TvInfoManager {
      *
      * @returns Listener ID
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -8315,9 +8315,9 @@ export interface TvInfoManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value. (Since plugin version 3.0)
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value. (Since plugin version 3.0)
      *
      * @since 2.3
      *
@@ -8335,7 +8335,7 @@ export interface TvInfoManager {
      * - true: Yes
      * - false: No
      *
-     * @throw WebAPIException with error type NotSupportedError, if the device is a BD device.
+     * @throws WebAPIException with error type NotSupportedError, if the device is a BD device.
      *
      * @since 2.3
      *
@@ -8354,7 +8354,7 @@ export interface TvInfoManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @since 2.3
      *
@@ -8373,7 +8373,7 @@ export interface TvInfoManager {
      *
      * @returns void
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @since 2.3
      *
@@ -8601,7 +8601,7 @@ export interface SuccessCallback {
      *
      * @returns void
      *
-     * @throw None N/A
+     * @throws None N/A
      *
      * @since 2.3
      *
@@ -8646,7 +8646,7 @@ export interface WidgetDataManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/widgetdata
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @since 2.3
      *
@@ -8671,7 +8671,7 @@ export interface WidgetDataManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/widgetdata
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @since 4.0
      *
@@ -8700,7 +8700,7 @@ export interface WidgetDataManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/widgetdata
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @since 4.0
      *
@@ -8731,7 +8731,7 @@ export interface WidgetDataManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/widgetdata
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with its expected type.
      *
      * @since 4.0
      *

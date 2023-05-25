@@ -2,7 +2,7 @@
 
 declare module "sap/ui/support/library" {
   /**
-   * @SINCE 1.50
+   * @since 1.50
    *
    * Defines the Audiences.
    */
@@ -21,7 +21,7 @@ declare module "sap/ui/support/library" {
     Internal = "Internal",
   }
   /**
-   * @SINCE 1.50
+   * @since 1.50
    *
    * Issue Categories.
    */
@@ -43,7 +43,7 @@ declare module "sap/ui/support/library" {
      */
     DataModel = "DataModel",
     /**
-     * @SINCE 1.58
+     * @since 1.58
      *
      * Fiori Guidelines issue category.
      */
@@ -57,7 +57,7 @@ declare module "sap/ui/support/library" {
      */
     Memory = "Memory",
     /**
-     * @SINCE 1.60
+     * @since 1.60
      *
      * Modularization issue category.
      */
@@ -80,7 +80,7 @@ declare module "sap/ui/support/library" {
     Usage = "Usage",
   }
   /**
-   * @SINCE 1.58
+   * @since 1.58
    *
    * Analysis history formats.
    */
@@ -120,7 +120,7 @@ declare module "sap/ui/support/library" {
   };
 
   /**
-   * @SINCE 1.50
+   * @since 1.50
    *
    * Defines severity types.
    */
@@ -139,7 +139,7 @@ declare module "sap/ui/support/library" {
     Medium = "Medium",
   }
   /**
-   * @SINCE 1.60
+   * @since 1.60
    *
    * Contains the available system presets.
    */
@@ -189,7 +189,7 @@ declare module "sap/ui/support/supportRules/History" {
 
 declare module "sap/ui/support/supportRules/ExecutionScope" {
   /**
-   * @SINCE 1.48
+   * @since 1.48
    *
    * Allows to select the scope of analysis on an application.
    *
@@ -290,7 +290,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
    */
   interface RuleAnalyzer {
     /**
-     * @SINCE 1.60
+     * @since 1.60
      *
      * Adds new temporary rule when in silent mode
      *
@@ -374,7 +374,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
 declare namespace sap {
   namespace ui {
     /**
-     * @SINCE 1.50
+     * @since 1.50
      *
      * UI5 library: sap.ui.support. A library for the Support Assistant tool. Overview: The library provides
      * the Support Assistant tool. It enables application developers to check whether their applications are

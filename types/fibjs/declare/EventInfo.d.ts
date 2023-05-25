@@ -30,7 +30,6 @@ declare class Class_EventInfo extends Class__object {
      *
      * 查询事件错误编码
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -42,8 +41,6 @@ declare class Class_EventInfo extends Class__object {
      *
      * 查询事件错误信息
      *
-     * @readonly
-     *
      */
 
     reason: string
@@ -53,8 +50,6 @@ declare class Class_EventInfo extends Class__object {
      *
      *
      * 查询事件类型
-     *
-     * @readonly
      *
      */
 
@@ -66,7 +61,6 @@ declare class Class_EventInfo extends Class__object {
      *
      * 查询触发事件的对象
      *
-     * @readonly
      */
 
     target: object

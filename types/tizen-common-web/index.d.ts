@@ -853,10 +853,10 @@ export class Account {
      *
      * @param successCallback Callback method that is invoked when an asynchronous call completes successfully.
      * @param errorCallback Callback method that is invoked when an error occurs.
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type NotFoundError, if account ID is null.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type NotFoundError, if account ID is null.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getExtendedData(key: string): string;
     getExtendedData(successCallback: AccountExtendedDataArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
@@ -871,8 +871,8 @@ export class Account {
      * @param key Key of the extended data.
      * @param value Value of the extended data.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type NotFoundError, if account ID is null.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type NotFoundError, if account ID is null.
      */
     setExtendedData(key: string, value: string): void;
 }
@@ -915,9 +915,9 @@ export interface AccountManager {
      * @privilegeName http://tizen.org/privilege/account.write
      *
      * @param account Account object to be added.
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     add(account: Account): void;
     /**
@@ -929,9 +929,9 @@ export interface AccountManager {
      * @param callback Callback method that is invoked for the events about accounts such as adding or removing an account.
      * @returns Identifier to clear the watch subscription for account changes.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addAccountListener(callback: AccountChangeCallback): number;
     /**
@@ -943,8 +943,8 @@ export interface AccountManager {
      * @param accountId Account identifier.
      * @returns Object with the given identifier or null.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getAccount(accountId: AccountId): Account | null;
     /**
@@ -958,9 +958,9 @@ export interface AccountManager {
      * @param errorCallback Callback method that is invoked when an error occurs.
      * @param applicationId ApplicationId of the provider application.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getAccounts(successCallback: AccountArraySuccessCallback, errorCallback?: ErrorCallback | null, applicationId?: string | null): void;
     /**
@@ -976,8 +976,8 @@ export interface AccountManager {
      * @param applicationId Identifier of the account provider application.
      * @returns Object with the given applicationId or null.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getProvider(applicationId: ApplicationId): AccountProvider | null;
     /**
@@ -991,9 +991,9 @@ export interface AccountManager {
      * @param errorCallback Callback method that is invoked when an error occurs.
      * @param capability Predefined capability or the vendor-specific capability in IRI format.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getProviders(successCallback: AccountProviderArraySuccessCallback, errorCallback?: ErrorCallback | null, capability?: string | null): void;
     /**
@@ -1009,8 +1009,8 @@ export interface AccountManager {
      *
      * @param accountId Identifier of the account to remove.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     remove(accountId: AccountId): void;
     /**
@@ -1023,8 +1023,8 @@ export interface AccountManager {
      *
      * @param accountListenerId Identifier of the listener for the account changes.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     removeAccountListener(accountListenerId: number): void;
     /**
@@ -1036,9 +1036,9 @@ export interface AccountManager {
      * @privilegeName http://tizen.org/privilege/account.write
      *
      * @param account Account object to update.
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     update(account: Account): void;
 }
@@ -1129,7 +1129,7 @@ export class AlarmAbsolute extends Alarm {
      *
      * @returns The date/time of the next alarm trigger.
      *
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
     getNextScheduledDate(): Date | null;
 }
@@ -1157,10 +1157,10 @@ export interface AlarmManager {
      * @param applicationId The application ID to run when the alarm is triggered.
      * @param appControl The data structure describing application control details.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     add(alarm: Alarm, applicationId: ApplicationId, appControl?: ApplicationControl | null): void;
     /**
@@ -1170,9 +1170,9 @@ export interface AlarmManager {
      *
      * @returns An alarm object with the specified ID.
      *
-     * @throw WebAPIException with error type NotFoundError, if this alarm identifier cannot be found in the storage.
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
+     * @throws WebAPIException with error type NotFoundError, if this alarm identifier cannot be found in the storage.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
     get(id: AlarmId): Alarm;
     /**
@@ -1182,7 +1182,7 @@ export interface AlarmManager {
      *
      * @returns All Alarm objects.
      *
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
     getAll(): ReadonlyArray<Alarm>;
     /**
@@ -1195,10 +1195,10 @@ export interface AlarmManager {
      *
      * @param id The ID of the alarm to remove.
      *
-     * @throw WebAPIException with error type NotFoundError, if this alarm identifier cannot be found in the storage.
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
+     * @throws WebAPIException with error type NotFoundError, if this alarm identifier cannot be found in the storage.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
     remove(id: AlarmId): void;
     /**
@@ -1209,8 +1209,8 @@ export interface AlarmManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/alarm
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
     removeAll(): void;
     /**
@@ -1267,7 +1267,7 @@ export class AlarmRelative extends Alarm {
      *
      * @returns The duration before the next alarm is triggered.
      *
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
     getRemainingSeconds(): number | null;
 }
@@ -1302,8 +1302,8 @@ export interface Application {
      *
      * @returns Listener identifier.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     addEventListener(event: EventInfo, callback: EventCallback): number;
     /**
@@ -1316,8 +1316,8 @@ export interface Application {
      * @param event Event to broadcast.
      * @param data User defined event data to broadcast.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     broadcastEvent(event: EventInfo, data: UserEventData): void;
     /**
@@ -1330,8 +1330,8 @@ export interface Application {
      * @param event Trusted event to broadcast.
      * @param data User defined trusted event data to broadcast.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     broadcastTrustedEvent(event: EventInfo, data: UserEventData): void;
     /**
@@ -1339,7 +1339,7 @@ export interface Application {
      *
      * @remark This method is not supported by Web Widget.
      *
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     exit(): void;
     /**
@@ -1358,7 +1358,7 @@ export interface Application {
      *
      * @returns The details of a requested application control.
      *
-     * @throw WebAPIException with error type UnknownError, if the application control cannot be retrieved because of an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the application control cannot be retrieved because of an unknown error.
      */
     getRequestedAppControl(): RequestedApplicationControl;
     /**
@@ -1366,7 +1366,7 @@ export interface Application {
      *
      * @remark This method is not supported by Web Widget.
      *
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     hide(): void;
     /**
@@ -1378,7 +1378,7 @@ export interface Application {
      *
      * @param watchId Listener identifier.
      *
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     removeEventListener(watchId: number): void;
 }
@@ -1540,7 +1540,7 @@ export interface ApplicationInformation {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/application.info
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly size: number;
     /**
@@ -1580,8 +1580,8 @@ export interface ApplicationManager {
      *
      * @returns ID of the listener that can be used to remove the listener later.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if it fails to add a listener because of an unknown error.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if it fails to add a listener because of an unknown error.
      */
     addAppInfoEventListener(eventCallback: ApplicationInformationEventCallback): number;
     /**
@@ -1594,9 +1594,9 @@ export interface ApplicationManager {
      *
      * @returns Listener id that can be used to remove the listener later.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if the application id parameter is an empty string.
-     * @throw WebAPIException with error type AbortError, if it fails to add a listener.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if the application id parameter is an empty string.
+     * @throws WebAPIException with error type AbortError, if it fails to add a listener.
      */
     addAppStatusChangeListener(eventCallback: StatusEventCallback, appId?: ApplicationId | null): number;
     /**
@@ -1614,7 +1614,7 @@ export interface ApplicationManager {
      * @param successCallback The method to call that returns a list of application information.
      * @param errorCallback The method to call when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
     findAppControl(appControl: ApplicationControl, successCallback: FindAppControlSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -1643,9 +1643,9 @@ export interface ApplicationManager {
      *
      * @returns Array of certificate information of a specified application.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type NotFoundError, if the application is not found with the specified ID.
-     * @throw WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type NotFoundError, if the application is not found with the specified ID.
+     * @throws WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
      */
     getAppCerts(id?: ApplicationId | null): ApplicationCertificate[];
     /**
@@ -1658,8 +1658,8 @@ export interface ApplicationManager {
      *
      * @returns A data structure that lists running application details.
      *
-     * @throw WebAPIException with error type NotFoundError, if the application context is not found with the specified ID.
-     * @throw WebAPIException with error type UnknownError, if the application context cannot be retrieved because of an unknown error.
+     * @throws WebAPIException with error type NotFoundError, if the application context is not found with the specified ID.
+     * @throws WebAPIException with error type UnknownError, if the application context cannot be retrieved because of an unknown error.
      */
     getAppContext(contextId?: ApplicationContextId | null): ApplicationContext;
     /**
@@ -1673,8 +1673,8 @@ export interface ApplicationManager {
      *
      * @returns The information of an application.
      *
-     * @throw WebAPIException with error type NotFoundError, if the application is not found with the specified ID.
-     * @throw WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
+     * @throws WebAPIException with error type NotFoundError, if the application is not found with the specified ID.
+     * @throws WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
      */
     getAppInfo(id?: ApplicationId | null): ApplicationInformation;
     /**
@@ -1692,9 +1692,9 @@ export interface ApplicationManager {
      * @returns Array of meta data of a specified application. If there are no meta data for a specified application,
      * an empty array is returned
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type NotFoundError, if the application is not found with the specified ID.
-     * @throw WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type NotFoundError, if the application is not found with the specified ID.
+     * @throws WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
      */
     getAppMetaData(id?: ApplicationId | null): ApplicationMetaData[];
     /**
@@ -1714,8 +1714,8 @@ export interface ApplicationManager {
      *
      * @returns The shared directory URI of an application.
      *
-     * @throw WebAPIException with error type NotFoundError, if the application is not found with the specified ID.
-     * @throw WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
+     * @throws WebAPIException with error type NotFoundError, if the application is not found with the specified ID.
+     * @throws WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
      */
     getAppSharedURI(id?: ApplicationId | null): string;
     /**
@@ -1730,7 +1730,7 @@ export interface ApplicationManager {
      * @param successCallback The method to call when the invocation ends successfully.
      * @param errorCallback The method to call when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
     getAppsContext(successCallback: ApplicationContextArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -1745,7 +1745,7 @@ export interface ApplicationManager {
      * @param successCallback The method to call when the invocation ends successfully.
      * @param errorCallback The method to call when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
     getAppsInfo(successCallback: ApplicationInformationArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -1755,7 +1755,7 @@ export interface ApplicationManager {
      *
      * @returns The data structure that defines the current application.
      *
-     * @throw WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the application cannot be retrieved because of an unknown error.
      */
     getCurrentApplication(): Application;
     /**
@@ -1776,8 +1776,8 @@ export interface ApplicationManager {
      * @param successCallback The method to invoke when an application is killed successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     kill(contextId: ApplicationContextId, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -1799,8 +1799,8 @@ export interface ApplicationManager {
      * @param successCallback The method to call when the invocation ends successfully.
      * @param errorCallback The method to call when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     launch(id: ApplicationId, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -1842,8 +1842,8 @@ export interface ApplicationManager {
      * @param errorCallback The method to invoke when an error occurs.
      * @param replyCallback The method to invoke when the application gets back results from the launched application.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     launchAppControl(appControl: ApplicationControl, id?: ApplicationId | null, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null, replyCallback?: ApplicationControlDataArrayReplyCallback | null): void;
     /**
@@ -1853,8 +1853,8 @@ export interface ApplicationManager {
      *
      * @param watchId An ID that identifies the listener
      *
-     * @throw WebAPIException with error type NotFoundError, if the listener is not found with the specified ID.
-     * @throw WebAPIException with error type UnknownError, if it fails to remove a listener because of an unknown error.
+     * @throws WebAPIException with error type NotFoundError, if the listener is not found with the specified ID.
+     * @throws WebAPIException with error type UnknownError, if it fails to remove a listener because of an unknown error.
      */
     removeAppInfoEventListener(watchId: number): void;
     /**
@@ -1866,7 +1866,7 @@ export interface ApplicationManager {
      *
      * @param watchId An ID that identifies the listener.
      *
-     * @throw WebAPIException with error type AbortError, if it fails to remove listener.
+     * @throws WebAPIException with error type AbortError, if it fails to remove listener.
      */
     removeAppStatusChangeListener(watchId: number): void;
 }
@@ -1961,10 +1961,10 @@ export class ArchiveFile {
      *
      * @returns Task ID which can be used to cancel the operation with abort().
      *
-     * @throw WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
-     * @throw WebAPIException with error type InvalidStateError, if ArchiveFile is not open.
-     * @throw WebAPIException with error type InvalidAccessError, if the file mode is "r".
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
+     * @throws WebAPIException with error type InvalidStateError, if ArchiveFile is not open.
+     * @throws WebAPIException with error type InvalidAccessError, if the file mode is "r".
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     add(sourceFile: FileReference, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null, onprogress?: ArchiveFileProgressCallback | null, options?: ArchiveFileEntryOptions | null): number;
     /**
@@ -1973,7 +1973,7 @@ export class ArchiveFile {
      * Call this method when the archive file is not used any more. Once you call this method, the archive file object will not be available and any further operation attempt results in an _InvalidStateError_.
      * Calling _close()_ on an archive file object which is already closed does not raise any exception.
      *
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     close(): void;
     /**
@@ -2006,10 +2006,10 @@ export class ArchiveFile {
      *
      * @returns Task ID which can be used to cancel the operation with abort().
      *
-     * @throw WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
-     * @throw WebAPIException with error type InvalidStateError, if ArchiveFile is not open.
-     * @throw WebAPIException with error type InvalidAccessError, if the file mode is "w" or "a".
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
+     * @throws WebAPIException with error type InvalidStateError, if ArchiveFile is not open.
+     * @throws WebAPIException with error type InvalidAccessError, if the file mode is "w" or "a".
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     extractAll(destinationDirectory: FileReference, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null, onprogress?: ArchiveFileProgressCallback | null, overwrite?: boolean | null): number;
     /**
@@ -2028,10 +2028,10 @@ export class ArchiveFile {
      *
      * @returns Task ID which can be used to cancel the operation with abort().
      *
-     * @throw WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
-     * @throw WebAPIException with error type InvalidStateError, if ArchiveFile is not open.
-     * @throw WebAPIException with error type InvalidAccessError, if the file mode is "w" or "a".
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
+     * @throws WebAPIException with error type InvalidStateError, if ArchiveFile is not open.
+     * @throws WebAPIException with error type InvalidAccessError, if the file mode is "w" or "a".
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     getEntries(onsuccess: ArchiveFileEntryArraySuccessCallback, onerror?: ErrorCallback | null): number;
     /**
@@ -2052,10 +2052,10 @@ export class ArchiveFile {
      *
      * @returns Task ID which can be used to cancel the operation with abort().
      *
-     * @throw WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
-     * @throw WebAPIException with error type InvalidStateError, if ArchiveFile is not opened.
-     * @throw WebAPIException with error type InvalidAccessError, if the file mode is "w" or "a".
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
+     * @throws WebAPIException with error type InvalidStateError, if ArchiveFile is not opened.
+     * @throws WebAPIException with error type InvalidAccessError, if the file mode is "w" or "a".
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     getEntryByName(name: string, onsuccess: ArchiveFileEntrySuccessCallback, onerror?: ErrorCallback | null): number;
 }
@@ -2119,9 +2119,9 @@ export class ArchiveFileEntry {
      *
      * @returns Task ID which can be used to cancel the operation with abort().
      *
-     * @throw WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
-     * @throw WebAPIException with error type InvalidValuesError, if directory parameter does not represent a directory.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if parameter is of the wrong type.
+     * @throws WebAPIException with error type InvalidValuesError, if directory parameter does not represent a directory.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     extract(destinationDirectory: FileReference, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null, onprogress?: ArchiveFileProgressCallback | null, stripName?: boolean | null, overwrite?: boolean | null): number;
 }
@@ -2138,7 +2138,7 @@ export interface ArchiveManager {
      *
      * @param operationIdentifier Task ID returned by an asynchronous function from this module.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     abort(operationIdentifier: number): void;
     /**
@@ -2173,8 +2173,8 @@ export interface ArchiveManager {
      *
      * @returns Task ID which can be used to cancel the operation with abort().
      *
-     * @throw WebAPIException with error type TypeMismatchError, if parameter type does not match.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if parameter type does not match.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     open(file: FileReference, mode: FileMode, onsuccess: ArchiveFileSuccessCallback, onerror?: ErrorCallback | null, options?: ArchiveFileOptions | null): number;
 }
@@ -2290,7 +2290,7 @@ export interface AudioContent extends Content {
     /**
      * The lyrics of a song in an audio file.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     readonly lyrics: AudioContentLyrics | null;
     /**
@@ -2328,9 +2328,9 @@ export interface AudioControlManager {
      *
      * @returns AudioOutputMode The current audio output mode
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2342,9 +2342,9 @@ export interface AudioControlManager {
      *
      * @returns unsigned short The current volume (the volume range is 0 ~ 100)
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2356,9 +2356,9 @@ export interface AudioControlManager {
      *
      * @returns boolean The current mute state
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2370,10 +2370,10 @@ export interface AudioControlManager {
      *
      * @param type The beep type to play
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2389,9 +2389,9 @@ export interface AudioControlManager {
      * are used, then mute is disabled.
      *
      * @param mute The mute state (true = turn on the silent mode, false = turn off the silent mode)
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @warning 5.0 http://tizen.org/privilege/tv.audio (public level) has been deprecated since 5.0.
      * @privilegeLevel 5.0 public
@@ -2405,10 +2405,10 @@ export interface AudioControlManager {
      *
      * @param volume The volume (the available volume range is 0 ~100)
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2421,10 +2421,10 @@ export interface AudioControlManager {
      * Note that this method overwrites the previously registered listener.
      * @param callback The method to invoke when the volume has been changed. It will not be triggered when the silent mode is changed.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2438,9 +2438,9 @@ export interface AudioControlManager {
      * ignored because the minimum volume level is 0. If mute is enabled,
      * then execution of this functions will disable it.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2453,9 +2453,9 @@ export interface AudioControlManager {
      * because the maximum volume level is 100. If mute is enabled,
      * then execution of this functions will disable it.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2467,9 +2467,9 @@ export interface AudioControlManager {
      *
      * Calling this function has no effect if listener is not set.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.audio
@@ -2507,7 +2507,7 @@ export class Bundle {
      *
      * @returns Bundle entry value for a given key.
      *
-     * @throw WebAPIException with error type NotFoundError, if the key could not be found.
+     * @throws WebAPIException with error type NotFoundError, if the key could not be found.
      */
     get(key: string): any;
     /**
@@ -2533,7 +2533,7 @@ export class Bundle {
      *
      * @returns Entry value type.
      *
-     * @throw WebAPIException with error type NotFoundError, if the key could not be found.
+     * @throws WebAPIException with error type NotFoundError, if the key could not be found.
      *
      * @remark If the value for the given key is an empty array this function returns STRING\_ARRAY.
      */
@@ -2560,9 +2560,9 @@ export interface Client {
      * @param successCallback The method to invoked when a presence event is received.
      *
      * @returns The watchID which can be used to remove the listener.
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     addPresenceEventListener(hostAddress: string | null, resourceType: ResourceType | null, connectivityType: ConnectivityType, successCallback: PresenceEventCallback): number;
     /**
@@ -2585,9 +2585,9 @@ export interface Client {
      * @param successCallback The method to invoked when device information is found.
      * @param errorCallback The method to invoke on failure of getting device information.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     findDeviceInfo(hostAddress: string | null, query: Query | null, connectivityType: ConnectivityType, successCallback: FoundDeviceInfoSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -2610,9 +2610,9 @@ export interface Client {
      * @param successCallback The method to invoked when platform information is found.
      * @param errorCallback The method to invoke on failure of getting platform information.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     findPlatformInfo(hostAddress: string | null, query: Query | null, connectivityType: ConnectivityType, successCallback: FoundPlatformInfoSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -2635,9 +2635,9 @@ export interface Client {
      * @param successCallback The method to invoked when a resource is found.
      * @param errorCallback The method to invoke on failure of finding resource.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     findResource(hostAddress: string | null, query: Query | null, connectivityType: ConnectivityType, successCallback: FoundResourceSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -2650,9 +2650,9 @@ export interface Client {
      *
      * @param watchId The watchID identifier returned by the addPresenceEventListener() method.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped or listener for given watchId was not found.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped or listener for given watchId was not found.
      */
     removePresenceEventListener(watchId: number): void;
 }
@@ -2790,8 +2790,8 @@ export interface ContentManager {
      * @param changeCallback Callback to be invoked when a content change is detected.
      * @returns Identifier of the newly added listener.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     addChangeListener(changeCallback: ContentChangeCallback): number;
     /**
@@ -2806,10 +2806,10 @@ export interface ContentManager {
      *
      * @param contentDirURI URI of a content directory with a scan process running which is canceled.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters
      * contain an invalid value (e.g. given _contentDirURI_ is an empty string).
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     cancelScanDirectory(contentDirURI: string): void;
     /**
@@ -2831,8 +2831,8 @@ export interface ContentManager {
      * @param errorCallback Callback method to be invoked when an error occurs.
      * @param sourcePlaylist Optional existing playlist to clone.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     createPlaylist(name: string, successCallback: PlaylistSuccessCallback, errorCallback?: ErrorCallback | null, sourcePlaylist?: Playlist | null): void;
     /**
@@ -2853,8 +2853,8 @@ export interface ContentManager {
      * @param successCallback Callback method to be invoked when the thumbnail is created.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     createThumbnail(content: Content, successCallback: ThumbnailSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -2885,9 +2885,9 @@ export interface ContentManager {
      * @param count Maximum amount of content to return. If _count_ is negative, InvalidValuesError is reported through the errorCallback.
      * @param offset Offset of the result set. If _offset_ is a negative number, InvalidValuesError is reported through the errorCallback.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     find(successCallback: ContentArraySuccessCallback, errorCallback?: ErrorCallback | null, directoryId?: ContentDirectoryId | null, filter?: AbstractFilter | null, sortMode?: SortMode | null, count?: number | null, offset?: number | null): void;
     /**
@@ -2904,7 +2904,7 @@ export interface ContentManager {
      * @param successCallback Callback method to be invoked when content directories have been retrieved successfully.
      * @param errorCallback Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
      */
     getDirectories(successCallback: ContentDirectoryArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
@@ -2924,8 +2924,8 @@ export interface ContentManager {
      * @param successCallback Callback method to be invoked when retrieving a list of all playlists completes.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     getPlaylists(successCallback: PlaylistArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -2938,7 +2938,7 @@ export interface ContentManager {
      * @param listenerId Identifier of the listener to be removed. It is returned by.
      * [addChangeListener()](./content.html#ContentManager::addChangeListener) when a listener is successfully added.
      *
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     removeChangeListener(listenerId: number): void;
     /**
@@ -2958,8 +2958,8 @@ export interface ContentManager {
      * @param successCallback Callback method to be invoked when removing a playlist completes.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     removePlaylist(id: PlaylistId, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -2985,12 +2985,12 @@ export interface ContentManager {
      * @param successCallback Callback method to be invoked when scanning has been completed.
      * @param errorCallback Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters
      * contain an invalid value (e.g. given _contentDirURI_ is an empty string).
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     scanDirectory(contentDirURI: string, recursive: boolean, successCallback?: ContentScanSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -3014,11 +3014,11 @@ export interface ContentManager {
      * @param successCallback Callback method to be invoked when scanning has been completed.
      * @param errorCallback Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters
      * contain an invalid value (e.g. given _contentURI_ is an empty string).
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     scanFile(contentURI: string, successCallback?: ContentScanSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -3034,10 +3034,10 @@ export interface ContentManager {
      *
      * @param changeCallback A callback to be invoked for receiving a content change notification.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     setChangeListener(changeCallback: ContentChangeCallback): void;
     /**
@@ -3052,8 +3052,8 @@ export interface ContentManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.read
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     unsetChangeListener(): void;
     /**
@@ -3071,12 +3071,12 @@ export interface ContentManager {
      *
      * @param content The content to update.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters
      * contain an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, in any other error case.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, in any other error case.
      */
     update(content: Content): void;
     /**
@@ -3102,9 +3102,9 @@ export interface ContentManager {
      * @param successCallback Callback method to be invoked when attributes have been changed.
      * @param errorCallback Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     updateBatch(contents: Content[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
 }
@@ -3148,10 +3148,10 @@ export interface DataControlConsumerObject {
      *
      * @returns An identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type ServiceNotAvailableError, if the application could not connect with the provider.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type ServiceNotAvailableError, if the application could not connect with the provider.
      */
     addChangeListener(dataChangeCallback: DataControlChangeCallback, errorCallback?: ErrorCallback | null): number;
     /**
@@ -3170,8 +3170,8 @@ export interface DataControlConsumerObject {
      *
      * @param watchId Subscription identifier.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
      */
     removeChangeListener(watchId: number): void;
 }
@@ -3191,9 +3191,9 @@ export interface DataControlManager {
      *
      * @returns The local _DataControlConsumerObject_.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getDataControlConsumer(providerId: string, dataId: string, type: DataType): DataControlConsumerObject;
 }
@@ -3227,10 +3227,10 @@ export interface DisplayControlManager {
      *
      * @returns Display3DEffectMode The current mode of 3D effect.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.display
@@ -3243,10 +3243,10 @@ export interface DisplayControlManager {
      * @param successCallback The method to invoke when a list of supported 3D modes is retrieved successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.display
@@ -3258,10 +3258,10 @@ export interface DisplayControlManager {
      *
      * @returns Display3DModeState The current state to display 3D contents.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * This type of error is deprecated since Tizen 5.0.
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type UnknownError in an unspecified error case.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type UnknownError in an unspecified error case.
      *
      * @privilegeLevel 5.0 public
      * @privilegeName 5.0 http://tizen.org/privilege/tv.display
@@ -3284,8 +3284,8 @@ export interface DownloadManager {
      *
      * @param downloadId The ID of the ongoing download operation to abandon.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     abandon(downloadId: number): void;
     /**
@@ -3294,8 +3294,8 @@ export interface DownloadManager {
      *
      * @param downloadId The ID of the ongoing download operation to stop.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     cancel(downloadId: number): void;
     /**
@@ -3305,13 +3305,13 @@ export interface DownloadManager {
      *
      * @returns The download request information of the given ID.
      *
-     * @throw WebAPIException with error type NotFoundError, if the identifier does not match
+     * @throws WebAPIException with error type NotFoundError, if the identifier does not match
      * any download operation in progress.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not
      * compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input
      * parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, in any other error case.
+     * @throws WebAPIException with error type UnknownError, in any other error case.
      */
     getDownloadRequest(downloadId: number): DownloadRequest;
     /**
@@ -3324,13 +3324,13 @@ export interface DownloadManager {
      *
      * @returns The MIME type of the downloaded file.
      *
-     * @throw WebAPIException with error type NotFoundError, if the identifier does not match
+     * @throws WebAPIException with error type NotFoundError, if the identifier does not match
      * any download operation in progress.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not
      * compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input
      * parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, in any other error case.
+     * @throws WebAPIException with error type UnknownError, in any other error case.
      */
     getMIMEType(downloadId: number): string;
     /**
@@ -3340,10 +3340,10 @@ export interface DownloadManager {
      *
      * @returns The current download state of the specified ID.
      *
-     * @throw WebAPIException with error type NotFoundError, if the identifier does not match any download operation in progress.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type NotFoundError, if the identifier does not match any download operation in progress.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getState(downloadId: number): DownloadState;
     /**
@@ -3354,8 +3354,8 @@ export interface DownloadManager {
      *
      * @param downloadId The ID of the ongoing download operation to pause.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     pause(downloadId: number): void;
     /**
@@ -3366,8 +3366,8 @@ export interface DownloadManager {
      *
      * @param downloadId The ID of the paused download operation to resume.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value or in case of an attempt to resume abandoned download operation.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value or in case of an attempt to resume abandoned download operation.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     resume(downloadId: number): void;
     /**
@@ -3377,13 +3377,13 @@ export interface DownloadManager {
      * @param downloadId The ID to set the download callback.
      * @param downloadCallback The method to invoke when the download state changes or an error occurs.
      *
-     * @throw WebAPIException with error type NotFoundError, if the identifier does not match
+     * @throws WebAPIException with error type NotFoundError, if the identifier does not match
      * any download operation in progress.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not
      * compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input
      * parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, in any other error case.
+     * @throws WebAPIException with error type UnknownError, in any other error case.
      */
     setListener(downloadId: number, downloadCallback: DownloadCallback): void;
     /**
@@ -3401,11 +3401,11 @@ export interface DownloadManager {
      * @returns An identifier for each download operation.
      * If the network is not available for downloading, the return value is -1 since Tizen 2.3.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type NotSupportedError, if the _networkType_ of the given DownloadRequest is not supported on a device.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type NotSupportedError, if the _networkType_ of the given DownloadRequest is not supported on a device.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     start(downloadRequest: DownloadRequest, downloadCallback?: DownloadCallback | null): number;
 }
@@ -3595,8 +3595,8 @@ export interface ExifManager {
      * @param successCallback Callback method to be invoked when Exif information has been retrieved successfully.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     getExifInfo(uri: string, successCallback: ExifInformationSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -3618,8 +3618,8 @@ export interface ExifManager {
      * @param successCallback Callback method to be invoked when thumbnail data has been retrieved successfully.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     getThumbnail(uri: string, successCallback: ExifThumbnailSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -3636,8 +3636,8 @@ export interface ExifManager {
      * @param successCallback Callback method to be invoked when Exif data has been saved successfully.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     saveExifInfo(exifInfo: ExifInformation, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
 }
@@ -3842,8 +3842,8 @@ export interface File {
      * @param onsuccess Callback method to be invoked when the file has been copied.
      * @param onerror Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     copyTo(originFilePath: string, destinationFilePath: string, overwrite: boolean, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -3870,11 +3870,11 @@ export interface File {
      * @returns File handle of the new directory.
      * The new _File_ object has "rw" access rights, as it inherits this from the _File_ object on which the createDirectory() method is called.
      *
-     * @throw WebAPIException with error type IOError, if the dirPath already exists, if the file in which the createDirectory() method is invoked is a file (and not a directory).
-     * @throw WebAPIException with error type InvalidValuesError, if the dirPath does not contain a valid path.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type IOError, if the dirPath already exists, if the file in which the createDirectory() method is invoked is a file (and not a directory).
+     * @throws WebAPIException with error type InvalidValuesError, if the dirPath does not contain a valid path.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     createDirectory(dirPath: string): File;
     /**
@@ -3897,11 +3897,11 @@ export interface File {
      * The new _File_ object has "rw" access rights, as it inherits this from the _File_ object on which the createFile() method is
      * called.
      *
-     * @throw WebAPIException with error type IOError, if relativeFilePath already exists, if the _File_ in which the createFile() method is invoked is a file (not a directory).
-     * @throw WebAPIException with error type InvalidValuesError, if relativeFilePath contains an invalid value.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type IOError, if relativeFilePath already exists, if the _File_ in which the createFile() method is invoked is a file (not a directory).
+     * @throws WebAPIException with error type InvalidValuesError, if relativeFilePath contains an invalid value.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     createFile(relativeFilePath: string): File;
     /**
@@ -3934,8 +3934,8 @@ export interface File {
      * @param onsuccess Callback method to be invoked when a directory is successfully deleted.
      * @param onerror Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     deleteDirectory(directoryPath: string, recursive: boolean, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -3961,8 +3961,8 @@ export interface File {
      * @param onsuccess Callback method to be invoked when the file is successfully deleted.
      * @param onerror Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     deleteFile(filePath: string, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -3990,8 +3990,8 @@ export interface File {
      * @param onerror Callback method to be invoked when an error has occurred.
      * @param filter Criteria to restrict the listed files.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     listFiles(onsuccess: FileArraySuccessCallback, onerror?: ErrorCallback | null, filter?: FileFilter | null): void;
     /**
@@ -4024,8 +4024,8 @@ export interface File {
      * @param onsuccess Callback method to be invoked when the file has been moved.
      * @param onerror Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     moveTo(originFilePath: string, destinationFilePath: string, overwrite: boolean, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -4057,8 +4057,8 @@ export interface File {
      * "[ISO-8859-1](http://en.wikipedia.org/wiki/ISO/IEC_8859-1)" latin1 encoding
      * If no encoding is passed by the developer, then the default platform encoding must be used.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     openStream(mode: FileMode, onsuccess: FileStreamSuccessCallback, onerror?: ErrorCallback | null, encoding?: string | null): void;
     /**
@@ -4085,8 +4085,8 @@ export interface File {
      * "[ISO-8859-1](http://en.wikipedia.org/wiki/ISO/IEC_8859-1)" latin1 encoding
      * If no encoding is passed by the developer, then the default platform encoding must be used.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     readAsText(onsuccess: FileStringSuccessCallback, onerror?: ErrorCallback | null, encoding?: string | null): void;
     /**
@@ -4106,12 +4106,12 @@ export interface File {
      * @returns File handle of the file.
      * The new _File_ object inherits its access rights from the _File_ object on which this resolve() method is called.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if the file path contains an invalid value.
-     * @throw WebAPIException with error type IOError, if the method is executed in a _File_ object that does not represent a directory (that is, _isDirectory_ attribute is false).
-     * @throw WebAPIException with error type NotFoundError, if a file does not exist for the passed file path.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if the file path contains an invalid value.
+     * @throws WebAPIException with error type IOError, if the method is executed in a _File_ object that does not represent a directory (that is, _isDirectory_ attribute is false).
+     * @throws WebAPIException with error type NotFoundError, if a file does not exist for the passed file path.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     resolve(filePath: string): File;
     /**
@@ -4133,8 +4133,8 @@ export interface File {
      *
      * @returns URI that identifies the file or null if an error occurs.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type UnknownError, if any other error occurred.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type UnknownError, if any other error occurred.
      */
     toURI(): string;
 }
@@ -4162,7 +4162,7 @@ export interface FileHandle {
      * @remark This method is synchronous. If any asynchronous method was called before close, close will block further instructions until all background jobs finish execution.
      * Note, that if file handle functions are put into any callbacks and this callback was not yet called, synchronous close will wait only for already ordered background jobs to finish, preventing successful execution of any further operations on closed file handle.
      *
-     * @throw WebAPIException with error type IOError, if close fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type IOError, if close fails or any error related to file handle occurs.
      */
     close(): void;
     /**
@@ -4182,7 +4182,7 @@ export interface FileHandle {
      * @param onsuccess Callback function to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     closeNonBlocking(onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -4193,7 +4193,7 @@ export interface FileHandle {
      * Flush does not ensure that data is written on storage device, it only synchronizes RAM with file descriptor.
      * To ensure storage synchronization use _sync_, _close_ or their asynchronous equivalent methods, which guarantee such synchronization.
      *
-     * @throw WebAPIException with error type IOError, if flush fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type IOError, if flush fails or any error related to file handle occurs.
      */
     flush(): void;
     /**
@@ -4216,7 +4216,7 @@ export interface FileHandle {
      * @param onsuccess Callback function to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     flushNonBlocking(onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -4228,8 +4228,8 @@ export interface FileHandle {
      *
      * @returns Blob object with file content.
      *
-     * @throw WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
-     * @throw WebAPIException with error type IOError, if read fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
+     * @throws WebAPIException with error type IOError, if read fails or any error related to file handle occurs.
      */
     readBlob(size?: number): Blob;
     /**
@@ -4249,8 +4249,8 @@ export interface FileHandle {
      * @param onerror Callback function to be invoked when an error occurs.
      * @param size Size in bytes of data to read from file. If none is given, method attempts to read whole file.
      *
-     * @throw WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     readBlobNonBlocking(onsuccess?: ReadBlobSuccessCallback | null, onerror?: ErrorCallback | null, size?: number | null): void;
     /**
@@ -4263,8 +4263,8 @@ export interface FileHandle {
      *
      * @returns Read data as Uint8Array.
      *
-     * @throw WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
-     * @throw WebAPIException with error type IOError, if read fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
+     * @throws WebAPIException with error type IOError, if read fails or any error related to file handle occurs.
      */
     readData(size?: number): Uint8Array;
     /**
@@ -4285,8 +4285,8 @@ export interface FileHandle {
      * @param onerror Callback function to be invoked when an error occurs.
      * @param size Size in bytes of data to read from file. If none is given, method attempts to read whole file.
      *
-     * @throw WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     readDataNonBlocking(onsuccess?: ReadDataSuccessCallback | null, onerror?: ErrorCallback | null, size?: number | null): void;
     /**
@@ -4304,10 +4304,10 @@ export interface FileHandle {
      *
      * @returns String with data read from file.
      *
-     * @throw WebAPIException with error type InvalidValuesError if given _count_ exceeds maximum value supported by the device.
-     * @throw WebAPIException with error type IOError, if read fails or any error related to file handle occurs.
-     * @throw WebAPIException with error type NotSupportedError, if the given encoding is not supported.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError if given _count_ exceeds maximum value supported by the device.
+     * @throws WebAPIException with error type IOError, if read fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type NotSupportedError, if the given encoding is not supported.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     readString(count?: number | null, inputEncoding?: string): string;
     /**
@@ -4331,9 +4331,9 @@ export interface FileHandle {
      * "[UTF-8](http://www.ietf.org/rfc/rfc2279.txt)" default encoding
      * "[ISO-8859-1](http://en.wikipedia.org/wiki/ISO/IEC_8859-1)" Latin-1 encoding
      *
-     * @throw WebAPIException with error type InvalidValuesError if given _count_ exceeds maximum value supported by the device.
-     * @throw WebAPIException with error type NotSupportedError, if the given encoding is not supported.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError if given _count_ exceeds maximum value supported by the device.
+     * @throws WebAPIException with error type NotSupportedError, if the given encoding is not supported.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     readStringNonBlocking(onsuccess?: ReadStringSuccessCallback | null, onerror?: ErrorCallback | null, count?: number, inputEncoding?: string): void;
     /**
@@ -4346,8 +4346,8 @@ export interface FileHandle {
      *
      * @returns File position indicator.
      *
-     * @throw WebAPIException with error type IOError, if seek fails or any error related to file handle occurs.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if seek fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     seek(offset: number, whence?: BaseSeekPosition): number;
     /**
@@ -4368,7 +4368,7 @@ export interface FileHandle {
      * @param onerror Callback function to be invoked when an error occurs.
      * @param whence Determines position in file stream to which offset is added. Default value: "BEGIN".
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     seekNonBlocking(offset: number, onsuccess?: SeekSuccessCallback | null, onerror?: ErrorCallback | null, whence?: BaseSeekPosition): void;
     /**
@@ -4376,7 +4376,7 @@ export interface FileHandle {
      *
      * The sync function is intended to force a physical write of data from the buffer cache and to assure that after a system crash or other failure that all data up to the time of the sync() call is recorded on the disk.
      *
-     * @throw WebAPIException with error type IOError, if sync fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type IOError, if sync fails or any error related to file handle occurs.
      */
     sync(): void;
     /**
@@ -4396,7 +4396,7 @@ export interface FileHandle {
      * @param onsuccess Callback function to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     syncNonBlocking(onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -4406,8 +4406,8 @@ export interface FileHandle {
      *
      * @param blob Object of type Blob, which content will be written to a file.
      *
-     * @throw WebAPIException with error type IOError, if write fails or any error related to file handle occurs.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if write fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     writeBlob(blob: Blob): void;
     /**
@@ -4427,7 +4427,7 @@ export interface FileHandle {
      * @param onsuccess Callback function to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     writeBlobNonBlocking(blob: Blob, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -4438,8 +4438,8 @@ export interface FileHandle {
      *
      * @param data An array of type Uint8Array, which content will be written to file as binary data.
      *
-     * @throw WebAPIException with error type IOError, if write fails or any error related to file handle occurs.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if write fails or any error related to file handle occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     writeData(data: Uint8Array): void;
     /**
@@ -4460,7 +4460,7 @@ export interface FileHandle {
      * @param onsuccess Callback function to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     writeDataNonBlocking(data: Uint8Array, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
     /**
@@ -4475,8 +4475,8 @@ export interface FileHandle {
      *
      * @returns Number of bytes written (can be more than _inputString_ length for multibyte encodings and will never be less)
      *
-     * @throw WebAPIException with error type IOError, if input/output error occurs.
-     * @throw WebAPIException with error type NotSupportedError, if the given encoding is not supported.
+     * @throws WebAPIException with error type IOError, if input/output error occurs.
+     * @throws WebAPIException with error type NotSupportedError, if the given encoding is not supported.
      */
     writeString(inputString: string, outputEncoding?: string): number;
     /**
@@ -4499,8 +4499,8 @@ export interface FileHandle {
      * "[UTF-8](http://www.ietf.org/rfc/rfc2279.txt)" default encoding
      * "[ISO-8859-1](http://en.wikipedia.org/wiki/ISO/IEC_8859-1)" Latin-1 encoding
      *
-     * @throw WebAPIException with error type NotSupportedError, if the given encoding is not supported.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type NotSupportedError, if the given encoding is not supported.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
     writeStringNonBlocking(inputString: string, onsuccess?: WriteStringSuccessCallback | null, onerror?: ErrorCallback | null, outputEncoding?: string): void;
 }
@@ -4571,10 +4571,10 @@ export interface FileStream {
      *
      * @returns Array of read characters as a string.
      *
-     * @throw WebAPIException with error type IOError, if a read error occurs, such as the bytes in the stream cannot be decoded with the encoding in use.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type IOError, if a read error occurs, such as the bytes in the stream cannot be decoded with the encoding in use.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     read(charCount: number): string;
     /**
@@ -4589,10 +4589,10 @@ export interface FileStream {
      *
      * @returns Array of read characters as base64 encoding string.
      *
-     * @throw WebAPIException with error type IOError, if a read error occurs.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type IOError, if a read error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     readBase64(byteCount: number): string;
     /**
@@ -4607,10 +4607,10 @@ export interface FileStream {
      *
      * @returns Result of read bytes as a byte (or number) array.
      *
-     * @throw WebAPIException with error type IOError, if a read error occurs.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type IOError, if a read error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     readBytes(byteCount: number): number[];
     /**
@@ -4622,9 +4622,9 @@ export interface FileStream {
      *
      * @param stringData Actual string to write.
      *
-     * @throw WebAPIException with error type IOError, if a write error occurs.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type IOError, if a write error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     write(stringData: string): void;
     /**
@@ -4637,10 +4637,10 @@ export interface FileStream {
      *
      * @param base64Data The base64 data to written.
      *
-     * @throw WebAPIException with error type IOError, if an error occurs during writeBase64.
-     * @throw WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value
+     * @throws WebAPIException with error type IOError, if an error occurs during writeBase64.
+     * @throws WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value
      * (e.g. the base64Data input parameter is not a valid Base64 sequence).
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     writeBase64(base64Data: string): void;
     /**
@@ -4653,9 +4653,9 @@ export interface FileStream {
      *
      * @param byteData Byte data array being written.
      *
-     * @throw WebAPIException with error type IOError, if a write error occurs.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type IOError, if a write error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     writeBytes(byteData: number[]): void;
 }
@@ -4693,9 +4693,9 @@ export interface FileSystemManager {
      *
      * @returns Subscription identifier.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addStorageStateChangeListener(onsuccess: FileSystemStorageSuccessCallback, onerror?: ErrorCallback | null): number;
     /**
@@ -4726,9 +4726,9 @@ export interface FileSystemManager {
      * @param successCallback Callback function to be invoked on success.
      * @param errorCallback Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _sourcePath_ or the _destinationPath_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _sourcePath_ or the _destinationPath_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     copyDirectory(sourcePath: Path, destinationPath: Path, overwrite?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -4756,9 +4756,9 @@ export interface FileSystemManager {
      * @param successCallback Callback function to be invoked on success.
      * @param errorCallback Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _sourcePath_ or the _destinationPath_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _sourcePath_ or the _destinationPath_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     copyFile(sourcePath: Path, destinationPath: Path, overwrite?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -4785,9 +4785,9 @@ export interface FileSystemManager {
      * @param successCallback Callback function to be invoked on success.
      * @param errorCallback Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     createDirectory(path: Path, makeParents?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -4813,9 +4813,9 @@ export interface FileSystemManager {
      * @param successCallback Callback function to be invoked on success.
      * @param errorCallback Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     deleteDirectory(path: Path, recursive?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -4838,9 +4838,9 @@ export interface FileSystemManager {
      * @param successCallback Callback function to be invoked on success.
      * @param errorCallback Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     deleteFile(path: Path, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -4877,8 +4877,8 @@ export interface FileSystemManager {
      * @param onsuccess Callback method to be invoked when the list of storages is available, passing the storage list to the callback.
      * @param onerror Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     getStorage(label: string, onsuccess: FileSystemStorageSuccessCallback, onerror?: ErrorCallback | null): void;
     /**
@@ -4893,10 +4893,10 @@ export interface FileSystemManager {
      *
      * @returns true if _path_ points to a directory, false otherwise.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
-     * @throw WebAPIException with error type IOError, if any of the input/output error occurs.
-     * @throw WebAPIException with error type NotFoundError, if the _path_ does not point to an existing file or directory.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
+     * @throws WebAPIException with error type IOError, if any of the input/output error occurs.
+     * @throws WebAPIException with error type NotFoundError, if the _path_ does not point to an existing file or directory.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     isDirectory(path: Path): boolean;
     /**
@@ -4911,10 +4911,10 @@ export interface FileSystemManager {
      *
      * @returns true if _path_ points to a file, false otherwise.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
-     * @throw WebAPIException with error type IOError, if any of the input/output error occurs.
-     * @throw WebAPIException with error type NotFoundError, if the _path_ does not point to an existing file or directory.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
+     * @throws WebAPIException with error type IOError, if any of the input/output error occurs.
+     * @throws WebAPIException with error type NotFoundError, if the _path_ does not point to an existing file or directory.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     isFile(path: Path): boolean;
     /**
@@ -4943,9 +4943,9 @@ export interface FileSystemManager {
      * @param errorCallback Callback function to be invoked when an error occurs.
      * @param filter Filter to restrict the listed files.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _path_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _path_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     listDirectory(path: Path, successCallback: ListDirectorySuccessCallback, errorCallback?: ErrorCallback | null, filter?: FileFilter | null): void;
     /**
@@ -4970,8 +4970,8 @@ export interface FileSystemManager {
      * @param onsuccess Callback method to be invoked when a list of storage is available and passing the storage list to the callback.
      * @param onerror Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
      */
     listStorages(onsuccess: FileSystemStorageArraySuccessCallback, onerror?: ErrorCallback | null): void;
     /**
@@ -5001,9 +5001,9 @@ export interface FileSystemManager {
      * @param successCallback Callback function to be invoked on success.
      * @param errorCallback Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _sourcePath_ or the _destinationPath_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _sourcePath_ or the _destinationPath_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     moveDirectory(sourcePath: Path, destinationPath: Path, overwrite?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -5031,9 +5031,9 @@ export interface FileSystemManager {
      * @param successCallback Callback function to be invoked on success.
      * @param errorCallback Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _sourcePath_ or the _destinationPath_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value. For example, the _sourcePath_ or the _destinationPath_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     moveFile(sourcePath: Path, destinationPath: Path, overwrite?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -5067,10 +5067,10 @@ export interface FileSystemManager {
      *
      * @returns Object representing open file.
      *
-     * @throw WebAPIException with error type IOError, if a file is not available for open or any other IO error occurs.
-     * @throw WebAPIException with error type NotFoundError, if the _path_ does not point to an existing file.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a file is not available for open or any other IO error occurs.
+     * @throws WebAPIException with error type NotFoundError, if the _path_ does not point to an existing file.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     openFile(path: Path, openMode: FileMode, makeParents?: boolean): FileHandle;
     /**
@@ -5085,9 +5085,9 @@ export interface FileSystemManager {
      *
      * @returns true if _path_ points to a existing element, false otherwise.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
-     * @throw WebAPIException with error type IOError, if input/output error occurs.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
+     * @throws WebAPIException with error type IOError, if input/output error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     pathExists(path: Path): boolean;
     /**
@@ -5101,8 +5101,8 @@ export interface FileSystemManager {
      *
      * @param watchId Subscription identifier.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     removeStorageStateChangeListener(watchId: number): void;
     /**
@@ -5126,9 +5126,9 @@ export interface FileSystemManager {
      * @param successCallback Callback function to be invoked on success.
      * @param errorCallback Callback function to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the _path_ or _newName_ is invalid.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if the _path_ or _newName_ is invalid.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     rename(path: Path, newName: string, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -5175,9 +5175,9 @@ export interface FileSystemManager {
      * @param mode Optional value to indicate the file access mode on all files and directories that can be reached from the _File_ object passed to onsuccess.
      * Default value of this parameter is rw if absent or null.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported (e.g. in the case of "camera" virtual path if the device does not support camera), or if mode has been set to "rwo", which was introduced in tizen version 5.0
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported (e.g. in the case of "camera" virtual path if the device does not support camera), or if mode has been set to "rwo", which was introduced in tizen version 5.0
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
     resolve(location: string, onsuccess: FileSuccessCallback, onerror?: ErrorCallback | null, mode?: FileMode | null): void;
     /**
@@ -5191,7 +5191,7 @@ export interface FileSystemManager {
      *
      * @returns [File URI](https://tools.ietf.org/html/rfc8089) for given path.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
+     * @throws WebAPIException with error type InvalidValuesError, if the _path_ is invalid.
      */
     toURI(path: Path): string;
 }
@@ -5278,8 +5278,8 @@ export interface Iotcon {
      * @param successCallback The method to be invoked when random pin is generated.
      *
      * @returns The watchID which can be used to remove the listener.
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     addGeneratedPinListener(successCallback: GeneratedPinCallback): number;
     /**
@@ -5331,8 +5331,8 @@ export interface Iotcon {
      *
      * @param filePath The CBOR(Concise Binary Object Representation) file path for handling secure virtual resources.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     initialize(filePath: string): void;
     /**
@@ -5342,7 +5342,7 @@ export interface Iotcon {
      *
      * @param watchId The watchId identifier returned by the addGeneratedPinListener() method.
      *
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped or there is no listener with given watchId.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped or there is no listener with given watchId.
      */
     removeGeneratedPinListener(watchId: number): void;
     /**
@@ -5369,7 +5369,7 @@ export interface Iotcon {
      *
      * @param timeout Timeout value in seconds (value must range between 1 and 3600 inclusive). The default value is 30.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
      */
     setTimeout(timeout: number): void;
 }
@@ -5411,10 +5411,10 @@ export interface KeyManager {
      *
      * @returns Data.
      *
-     * @throw WebAPIException with error type NotFoundError, if the dataAlias cannot be found.
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type VerificationError, if the method cannot be completed because an incorrect password is used.
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of a database access failure or any other unknown error.
+     * @throws WebAPIException with error type NotFoundError, if the dataAlias cannot be found.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type VerificationError, if the method cannot be completed because an incorrect password is used.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of a database access failure or any other unknown error.
      */
     getData(dataAlias: KeyManagerAlias, password?: string | null): RawData;
     /**
@@ -5424,7 +5424,7 @@ export interface KeyManager {
      *
      * @returns Array of aliases.
      *
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
     getDataAliasList(): KeyManagerAlias[];
     /**
@@ -5438,9 +5438,9 @@ export interface KeyManager {
      *
      * @param dataAlias Alias of the data to remove.
      *
-     * @throw WebAPIException with error type NotFoundError, if the dataAlias cannot be found.
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error
+     * @throws WebAPIException with error type NotFoundError, if the dataAlias cannot be found.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error
      */
     removeData(dataAlias: KeyManagerAlias): void;
     /**
@@ -5461,7 +5461,7 @@ export interface KeyManager {
      * @param successCallback Callback function that is called when data is successfully saved.
      * @param errorCallback Callback function that is called when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
     saveData(name: string, rawData: RawData, password?: string | null, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -5483,7 +5483,7 @@ export interface KeyManager {
      * @param successCallback Callback function that is called when permission is successfully set.
      * @param errorCallback Callback function that is called when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
     setPermission(dataAlias: KeyManagerAlias, packageId: PackageId, permissionType: PermissionType, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
 }
@@ -5506,9 +5506,9 @@ export interface LocalMessagePort {
      *
      * @returns ID of the listener that is later used to remove the listener.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addMessagePortListener(listener: MessagePortCallback): number;
     /**
@@ -5516,10 +5516,10 @@ export interface LocalMessagePort {
      *
      * @param watchId ID to identify the listener.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value.
-     * @throw WebAPIException with error type NotFoundError, if the watch ID has not been found.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value.
+     * @throws WebAPIException with error type NotFoundError, if the watch ID has not been found.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     removeMessagePortListener(watchId: number): void;
 }
@@ -5540,10 +5540,10 @@ export interface MappedDataControlConsumer extends DataControlConsumerObject {
      * @param successCallback The method to invoke when the asynchronous call completes successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addValue(reqId: number, key: string, value: string, successCallback?: DataControlSuccessCallback | null, errorCallback?: DataControlErrorCallback | null): void;
     /**
@@ -5558,11 +5558,11 @@ export interface MappedDataControlConsumer extends DataControlConsumerObject {
      * @param successCallback The method to invoke when the asynchronous call completes successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
-     * @throw WebAPIException with error type NotFoundError, if the key cannot be found.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type NotFoundError, if the key cannot be found.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getValue(reqId: number, key: string, successCallback: DataControlGetValueSuccessCallback, errorCallback?: DataControlErrorCallback | null): void;
     /**
@@ -5578,11 +5578,11 @@ export interface MappedDataControlConsumer extends DataControlConsumerObject {
      * @param successCallback The method to invoke when the asynchronous call completes successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
-     * @throw WebAPIException with error type NotFoundError, if the key cannot be found.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type NotFoundError, if the key cannot be found.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     removeValue(reqId: number, key: string, value: string, successCallback: DataControlSuccessCallback, errorCallback?: DataControlErrorCallback | null): void;
     /**
@@ -5599,11 +5599,11 @@ export interface MappedDataControlConsumer extends DataControlConsumerObject {
      * @param successCallback The method to invoke when the asynchronous call completes successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
-     * @throw WebAPIException with error type NotFoundError, if the key cannot be found.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type NotFoundError, if the key cannot be found.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     updateValue(reqId: number, key: string, oldValue: string, newValue: string, successCallback: DataControlSuccessCallback, errorCallback?: DataControlErrorCallback | null): void;
 }
@@ -5618,9 +5618,9 @@ export interface MediaControllerAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     clientCustom: MediaControllerAbilitySupport;
     /**
@@ -5636,9 +5636,9 @@ export interface MediaControllerAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     mode360: MediaControllerAbilitySupport;
     /**
@@ -5650,9 +5650,9 @@ export interface MediaControllerAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     playbackPosition: MediaControllerAbilitySupport;
     /**
@@ -5660,9 +5660,9 @@ export interface MediaControllerAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     playlist: MediaControllerAbilitySupport;
     /**
@@ -5670,9 +5670,9 @@ export interface MediaControllerAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     repeat: MediaControllerAbilitySupport;
     /**
@@ -5680,9 +5680,9 @@ export interface MediaControllerAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     search: MediaControllerAbilitySupport;
     /**
@@ -5690,9 +5690,9 @@ export interface MediaControllerAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     shuffle: MediaControllerAbilitySupport;
     /**
@@ -5700,9 +5700,9 @@ export interface MediaControllerAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     subtitles: MediaControllerAbilitySupport;
 }
@@ -5715,7 +5715,7 @@ export interface MediaControllerAbilitiesInfo {
     /**
      * Represents server's ability to receive custom commands from media controller client.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly clientCustom: MediaControllerAbilitySupport;
     /**
@@ -5729,7 +5729,7 @@ export interface MediaControllerAbilitiesInfo {
     /**
      * Represents server's ability to receive requests for spherical (360°) mode change from media controller client.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly mode360: MediaControllerAbilitySupport;
     /**
@@ -5739,37 +5739,37 @@ export interface MediaControllerAbilitiesInfo {
     /**
      * Represents server's ability to change playback position.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly playbackPosition: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to add/change/remove playlists.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly playlist: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to change repeat state.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly repeat: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to receive search requests from media controller client.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly search: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to change shuffle mode.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly shuffle: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to receive requests for subtitles mode change from media controller client.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly subtitles: MediaControllerAbilitySupport;
     /**
@@ -5778,14 +5778,14 @@ export interface MediaControllerAbilitiesInfo {
      * @remark Function [addAbilityChangeListener()](#MediaControllerClient::addAbilityChangeListener) must be called before current method.
      * For code example see [unsubscribe()](#MediaControllerAbilitiesInfo::unsubscribe).
      *
-     * @throw WebAPIException with error type InvalidStateError, if [addAbilityChangeListener()](#MediaControllerClient::addAbilityChangeListener) is not set.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidStateError, if [addAbilityChangeListener()](#MediaControllerClient::addAbilityChangeListener) is not set.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     subscribe(): void;
     /**
      * Removes a subscription for monitoring status of all abilities of server represented by this object.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     unsubscribe(): void;
 }
@@ -5806,8 +5806,8 @@ export interface MediaControllerClient {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addAbilityChangeListener(listener: MediaControllerAbilityChangeCallback): number;
     /**
@@ -5816,8 +5816,8 @@ export interface MediaControllerClient {
      * @param successCallback The method to invoke when all of the registered media controller servers have been found.
      * @param errorCallback The method to invoke on failure of retrieving servers list.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     findServers(successCallback: MediaControllerServerInfoArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -5833,8 +5833,8 @@ export interface MediaControllerClient {
      * @param successCallback The method to invoke when all of subscribed media controller servers have been found.
      * @param errorCallback The method to invoke on failure of retrieving servers list.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     findSubscribedServers(successCallback: MediaControllerServerInfoArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -5844,7 +5844,7 @@ export interface MediaControllerClient {
      *
      * @returns Server info or null.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     getLatestServerInfo(): MediaControllerServerInfo | null;
     /**
@@ -5856,7 +5856,7 @@ export interface MediaControllerClient {
      *
      * @param watchId Subscription identifier returned by [addAbilityChangeListener()](#MediaControllerClient::addAbilityChangeListener).
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeAbilityChangeListener(watchId: number): void;
     /**
@@ -5868,8 +5868,8 @@ export interface MediaControllerClient {
      *
      * @param listener Event handling function.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of the arguments has invalid types.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any of the arguments has invalid types.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     setCustomEventListener(listener: MediaControllerReceiveCommandCallback): void;
     /**
@@ -5879,7 +5879,7 @@ export interface MediaControllerClient {
      *
      * @since 5.5
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     unsetCustomEventListener(): void;
 }
@@ -5900,8 +5900,8 @@ export interface MediaControllerClientInfo {
      * @param data Additional event data.
      * @param successCallback Reply handling function.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any argument has invalid type.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any argument has invalid type.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendEvent(eventName: string, data: Bundle | null, successCallback: MediaControllerSendCommandSuccessCallback): void;
 }
@@ -5914,8 +5914,8 @@ export interface MediaControllerDisplayMode {
     /**
      * Type of display mode on the server. Default value for a newly created server is "FULL\_SCREEN".
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     type: MediaControllerDisplayModeType;
     /**
@@ -5928,8 +5928,8 @@ export interface MediaControllerDisplayMode {
      *
      * @returns The identifier used to remove the listener.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addChangeRequestListener(listener: MediaControllerDisplayModeChangeRequestCallback): number;
     /**
@@ -5939,7 +5939,7 @@ export interface MediaControllerDisplayMode {
      *
      * @param watchId Watcher identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeChangeRequestListener(watchId: number): void;
 }
@@ -5954,9 +5954,9 @@ export interface MediaControllerDisplayModeAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     croppedFull: MediaControllerAbilitySupport;
     /**
@@ -5964,9 +5964,9 @@ export interface MediaControllerDisplayModeAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     fullScreen: MediaControllerAbilitySupport;
     /**
@@ -5974,9 +5974,9 @@ export interface MediaControllerDisplayModeAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     letterBox: MediaControllerAbilitySupport;
     /**
@@ -5984,9 +5984,9 @@ export interface MediaControllerDisplayModeAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     originSize: MediaControllerAbilitySupport;
 }
@@ -6001,7 +6001,7 @@ export interface MediaControllerDisplayModeAbilitiesInfo {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     readonly croppedFull: MediaControllerAbilitySupport;
     /**
@@ -6009,7 +6009,7 @@ export interface MediaControllerDisplayModeAbilitiesInfo {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     readonly fullScreen: MediaControllerAbilitySupport;
     /**
@@ -6017,7 +6017,7 @@ export interface MediaControllerDisplayModeAbilitiesInfo {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     readonly letterBox: MediaControllerAbilitySupport;
     /**
@@ -6025,7 +6025,7 @@ export interface MediaControllerDisplayModeAbilitiesInfo {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     readonly originSize: MediaControllerAbilitySupport;
 }
@@ -6038,7 +6038,7 @@ export interface MediaControllerDisplayModeInfo {
     /**
      * Type of display mode on the server represented by this object.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly type: MediaControllerDisplayModeType;
     /**
@@ -6048,8 +6048,8 @@ export interface MediaControllerDisplayModeInfo {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addModeChangeListener(listener: MediaControllerDisplayModeChangeCallback): number;
     /**
@@ -6059,7 +6059,7 @@ export interface MediaControllerDisplayModeInfo {
      *
      * @param watchId Watcher identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeModeChangeListener(watchId: number): void;
     /**
@@ -6071,9 +6071,9 @@ export interface MediaControllerDisplayModeInfo {
      * @param type Type of display mode, which is requested by a media controller client.
      * @param replyCallback The method to invoke when server responded to change request.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type NotSupportedError, if related ability is not supported by the media controller server.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type NotSupportedError, if related ability is not supported by the media controller server.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendRequest(type: MediaControllerDisplayModeType, replyCallback: MediaControllerSendCommandSuccessCallback): void;
 }
@@ -6086,8 +6086,8 @@ export interface MediaControllerDisplayRotation {
     /**
      * State of display rotation on the server. Default value for a newly created server is "ROTATION\_NONE".
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     displayRotation: MediaControllerDisplayRotationType;
     /**
@@ -6100,8 +6100,8 @@ export interface MediaControllerDisplayRotation {
      *
      * @returns The identifier used to remove the listener.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addChangeRequestListener(listener: MediaControllerDisplayRotationChangeRequestCallback): number;
     /**
@@ -6111,7 +6111,7 @@ export interface MediaControllerDisplayRotation {
      *
      * @param watchId Watcher identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeChangeRequestListener(watchId: number): void;
 }
@@ -6127,9 +6127,9 @@ export interface MediaControllerDisplayRotationAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     rotation180: MediaControllerAbilitySupport;
     /**
@@ -6137,9 +6137,9 @@ export interface MediaControllerDisplayRotationAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     rotation270: MediaControllerAbilitySupport;
     /**
@@ -6147,9 +6147,9 @@ export interface MediaControllerDisplayRotationAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     rotation90: MediaControllerAbilitySupport;
     /**
@@ -6157,9 +6157,9 @@ export interface MediaControllerDisplayRotationAbilities {
      *
      * Default value is NO.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     rotationNone: MediaControllerAbilitySupport;
 }
@@ -6173,25 +6173,25 @@ export interface MediaControllerDisplayRotationAbilitiesInfo {
     /**
      * Represents the server's ability to set 180° display orientation.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly rotation180: MediaControllerAbilitySupport;
     /**
      * Represents the server's ability to set 270° display orientation.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly rotation270: MediaControllerAbilitySupport;
     /**
      * Represents the server's ability to set 90° display orientation.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly rotation90: MediaControllerAbilitySupport;
     /**
      * Represents the server's ability to set 0° display orientation.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly rotationNone: MediaControllerAbilitySupport;
 }
@@ -6204,7 +6204,7 @@ export interface MediaControllerDisplayRotationInfo {
     /**
      * State of display rotation on the server represented by this object.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly displayRotation: MediaControllerDisplayRotationType;
     /**
@@ -6214,8 +6214,8 @@ export interface MediaControllerDisplayRotationInfo {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addDisplayRotationChangeListener(listener: MediaControllerDisplayRotationChangeCallback): number;
     /**
@@ -6225,7 +6225,7 @@ export interface MediaControllerDisplayRotationInfo {
      *
      * @param watchId Watcher identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeDisplayRotationChangeListener(watchId: number): void;
     /**
@@ -6237,9 +6237,9 @@ export interface MediaControllerDisplayRotationInfo {
      * @param displayRotation Display rotation, which is requested by client.
      * @param replyCallback The method to invoke when server responded to change request.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type NotSupportedError, if related ability is not supported by server.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type NotSupportedError, if related ability is not supported by server.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendRequest(displayRotation: MediaControllerDisplayRotationType, replyCallback: MediaControllerSendCommandSuccessCallback): void;
 }
@@ -6256,9 +6256,9 @@ export interface MediaControllerManager {
      *
      * @returns The _MediaController Server_ object.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     createServer(): MediaControllerServer;
     /**
@@ -6269,9 +6269,9 @@ export interface MediaControllerManager {
      *
      * @returns The _MediaController Client_ object.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getClient(): MediaControllerClient;
 }
@@ -6369,7 +6369,7 @@ export interface MediaControllerMode360 {
     /**
      * State of spherical (360°) mode on the server. Default value for a newly created server is false.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     enabled: boolean;
     /**
@@ -6382,8 +6382,8 @@ export interface MediaControllerMode360 {
      *
      * @returns The identifier used to remove the listener.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addChangeRequestListener(listener: MediaControllerEnabledChangeRequestCallback): number;
     /**
@@ -6393,7 +6393,7 @@ export interface MediaControllerMode360 {
      *
      * @param watchId Watcher identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeChangeRequestListener(watchId: number): void;
 }
@@ -6406,7 +6406,7 @@ export interface MediaControllerMode360Info {
     /**
      * State of spherical (360°) mode on the server represented by this object.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly enabled: boolean;
     /**
@@ -6416,8 +6416,8 @@ export interface MediaControllerMode360Info {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addModeChangeListener(listener: MediaControllerEnabledChangeCallback): number;
     /**
@@ -6427,7 +6427,7 @@ export interface MediaControllerMode360Info {
      *
      * @param watchId Watcher identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeModeChangeListener(watchId: number): void;
     /**
@@ -6439,9 +6439,9 @@ export interface MediaControllerMode360Info {
      * @param enabled State which is requested by a media controller client.
      * @param replyCallback The method to invoke when server responded to change request.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type NotSupportedError, if related ability is not supported by the media controller server.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type NotSupportedError, if related ability is not supported by the media controller server.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendRequest(enabled: boolean, replyCallback: MediaControllerSendCommandSuccessCallback): void;
 }
@@ -6459,9 +6459,9 @@ export interface MediaControllerPlaybackAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     forward: MediaControllerAbilitySupport;
     /**
@@ -6469,9 +6469,9 @@ export interface MediaControllerPlaybackAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     next: MediaControllerAbilitySupport;
     /**
@@ -6479,9 +6479,9 @@ export interface MediaControllerPlaybackAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     pause: MediaControllerAbilitySupport;
     /**
@@ -6489,9 +6489,9 @@ export interface MediaControllerPlaybackAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     play: MediaControllerAbilitySupport;
     /**
@@ -6499,9 +6499,9 @@ export interface MediaControllerPlaybackAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     prev: MediaControllerAbilitySupport;
     /**
@@ -6509,9 +6509,9 @@ export interface MediaControllerPlaybackAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     rewind: MediaControllerAbilitySupport;
     /**
@@ -6519,9 +6519,9 @@ export interface MediaControllerPlaybackAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     stop: MediaControllerAbilitySupport;
     /**
@@ -6529,9 +6529,9 @@ export interface MediaControllerPlaybackAbilities {
      *
      * Default value is UNDECIDED.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
-     * @throw WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if set value will not be compatible with MediaControllerAbilitySupport enum.
+     * @throws WebAPIException with error type InvalidValuesError, if set value will be "UNDECIDED".
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     togglePlayPause: MediaControllerAbilitySupport;
     /**
@@ -6540,7 +6540,7 @@ export interface MediaControllerPlaybackAbilities {
      * @remark Using this function is required to save changes of playback abilities into database, otherwise changes
      * will have no effect on the device and clients will not be notified about an update.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     saveAbilities(): void;
 }
@@ -6553,49 +6553,49 @@ export interface MediaControllerPlaybackAbilitiesInfo {
     /**
      * Represents server's ability to perform FORWARD action.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly forward: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to perform NEXT action.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly next: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to perform PAUSE action.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly pause: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to perform PLAY action.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly play: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to perform PREV action.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly prev: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to perform REWIND action.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly rewind: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to perform STOP action.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly stop: MediaControllerAbilitySupport;
     /**
      * Represents server's ability to perform TOGGLE\_PLAY\_PAUSE action.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly togglePlayPause: MediaControllerAbilitySupport;
 }
@@ -6687,8 +6687,8 @@ export interface MediaControllerPlaylist {
      * @param index Index for new item, should be unique within playlist.
      * @param metadata Metadata to be associated with new item.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addItem(index: string, metadata: MediaControllerMetadataInit): void;
     /**
@@ -6704,8 +6704,8 @@ export interface MediaControllerPlaylist {
      * @param successCallback Function to be called when _getItems_ is finished without error.
      * @param errorCallback Function to be called when _getItems_ fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getItems(successCallback: MediaControllerGetItemsSuccessCallback, errorCallback?: ErrorCallback | null): void;
 }
@@ -6782,8 +6782,8 @@ export interface MediaControllerServer {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addChangeRequestPlaybackInfoListener(listener: MediaControllerChangeRequestPlaybackInfoCallback): number;
     /**
@@ -6794,8 +6794,8 @@ export interface MediaControllerServer {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addCommandListener(listener: MediaControllerReceiveCommandCallback): number;
     /**
@@ -6809,8 +6809,8 @@ export interface MediaControllerServer {
      *
      * @returns New empty _MediaControllerPlaylist_ object with given name.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if playlist with given name already exists.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidValuesError, if playlist with given name already exists.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     createPlaylist(name: string): MediaControllerPlaylist;
     /**
@@ -6828,8 +6828,8 @@ export interface MediaControllerServer {
      * @param successCallback Function to be called when _deletePlaylist_ is finished without error.
      * @param errorCallback Function to be called when _deletePlaylist_ fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     deletePlaylist(playlistName: string, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -6839,7 +6839,7 @@ export interface MediaControllerServer {
      *
      * @returns All existing clients info.
      *
-     * @throw WebAPIException with error type UnknownError, if any platform error occurs.
+     * @throws WebAPIException with error type UnknownError, if any platform error occurs.
      *
      * @remark Code example available at [sendEvent()](#MediaControllerClientInfo::sendEvent) method documentation.
      */
@@ -6857,8 +6857,8 @@ export interface MediaControllerServer {
      * @param successCallback Function to be called on _getAllPlaylists_ success.
      * @param errorCallback Function to be called when _getAllPlaylists_ fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any parameter has invalid type.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any parameter has invalid type.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getAllPlaylists(successCallback: MediaControllerGetAllPlaylistsSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -6868,7 +6868,7 @@ export interface MediaControllerServer {
      *
      * @param watchId Subscription identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeChangeRequestPlaybackInfoListener(watchId: number): void;
     /**
@@ -6878,7 +6878,7 @@ export interface MediaControllerServer {
      *
      * @param watchId Subscription identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeCommandListener(watchId: number): void;
     /**
@@ -6898,8 +6898,8 @@ export interface MediaControllerServer {
      * @param successCallback Function to be called when _savePlaylist_ is finished without error.
      * @param errorCallback Function to be called when _savePlaylist_ fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     savePlaylist(playlist: MediaControllerPlaylist, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -6909,8 +6909,8 @@ export interface MediaControllerServer {
      *
      * @param listener Function to be called for each search command received.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any of the arguments has invalid type.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any of the arguments has invalid type.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     setSearchRequestListener(listener: MediaControllerSearchRequestCallback): void;
     /**
@@ -6920,7 +6920,7 @@ export interface MediaControllerServer {
      *
      * @since 5.5
      *
-     * @throw WebAPIException with error type UnknownError, if unknown error occurs.
+     * @throws WebAPIException with error type UnknownError, if unknown error occurs.
      */
     unsetSearchRequestListener(): void;
     /**
@@ -6930,7 +6930,7 @@ export interface MediaControllerServer {
      *
      * @param iconURI URI of the icon to be set.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     updateIconURI(iconURI: string | null): void;
     /**
@@ -6938,8 +6938,8 @@ export interface MediaControllerServer {
      *
      * @param metadata Metadata object.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     updateMetadata(metadata: MediaControllerMetadata): void;
     /**
@@ -6949,8 +6949,8 @@ export interface MediaControllerServer {
      *
      * @param rating New age rating for current playback item.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     updatePlaybackAgeRating(rating: MediaControllerContentAgeRating): void;
     /**
@@ -6960,8 +6960,8 @@ export interface MediaControllerServer {
      *
      * @param type New content type for the current playback item.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     updatePlaybackContentType(type: MediaControllerContentType): void;
     /**
@@ -6972,7 +6972,7 @@ export interface MediaControllerServer {
      * @param playlistName Name of playlist to be set.
      * @param index Index of item on playlist _playlistName_ to be set.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     updatePlaybackItem(playlistName: string, index: string): void;
     /**
@@ -6980,8 +6980,8 @@ export interface MediaControllerServer {
      *
      * @param position Playback position.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     updatePlaybackPosition(position: number): void;
     /**
@@ -6991,8 +6991,8 @@ export interface MediaControllerServer {
      *
      * @param state Playback state.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     updatePlaybackState(state: MediaControllerPlaybackState): void;
     /**
@@ -7002,7 +7002,7 @@ export interface MediaControllerServer {
      *
      * @param mode Repeat mode.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     updateRepeatMode(mode: boolean): void;
     /**
@@ -7012,8 +7012,8 @@ export interface MediaControllerServer {
      *
      * @param state Repeat state to be set.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     updateRepeatState(state: MediaControllerRepeatState): void;
     /**
@@ -7021,7 +7021,7 @@ export interface MediaControllerServer {
      *
      * @param mode Shuffle mode.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     updateShuffleMode(mode: boolean): void;
 }
@@ -7053,7 +7053,7 @@ export interface MediaControllerServerInfo {
      *
      * @since 5.5
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly iconURI: string | null;
     /**
@@ -7069,7 +7069,7 @@ export interface MediaControllerServerInfo {
     /**
      * Current playback info.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly playbackInfo: MediaControllerPlaybackInfo;
     /**
@@ -7089,8 +7089,8 @@ export interface MediaControllerServerInfo {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addPlaybackInfoChangeListener(listener: MediaControllerPlaybackInfoChangeCallback): number;
     /**
@@ -7102,8 +7102,8 @@ export interface MediaControllerServerInfo {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addPlaylistUpdatedListener(listener: MediaControllerPlaylistUpdatedCallback): number;
     /**
@@ -7113,8 +7113,8 @@ export interface MediaControllerServerInfo {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addServerStatusChangeListener(listener: MediaControllerServerStatusChangeCallback): number;
     /**
@@ -7130,8 +7130,8 @@ export interface MediaControllerServerInfo {
      * @param successCallback Function to be called upon success.
      * @param errorCallback Function to be called upon failure.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any parameter has invalid type.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any parameter has invalid type.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getAllPlaylists(successCallback: MediaControllerGetAllPlaylistsSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7141,7 +7141,7 @@ export interface MediaControllerServerInfo {
      *
      * @param watchId Subscription identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removePlaybackInfoChangeListener(watchId: number): void;
     /**
@@ -7153,7 +7153,7 @@ export interface MediaControllerServerInfo {
      *
      * @param listenerId Listener ID returned by _addPlaylistUpdatedListener_.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removePlaylistUpdatedListener(listenerId: number): void;
     /**
@@ -7163,7 +7163,7 @@ export interface MediaControllerServerInfo {
      *
      * @param watchId Subscription identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeServerStatusChangeListener(watchId: number): void;
     /**
@@ -7177,8 +7177,8 @@ export interface MediaControllerServerInfo {
      * @param successCallback The method to invoke when server responded to custom command.
      * @param errorCallback The method to invoke on operation failure.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendCommand(command: string, data: Bundle | null, successCallback: MediaControllerSendCommandSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7193,7 +7193,7 @@ export interface MediaControllerServerInfo {
      * @param state Playback state.
      * @param position Playback position.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     sendPlaybackItem(playlistName: string, index: string, state: MediaControllerPlaybackState, position: number): void;
     /**
@@ -7203,9 +7203,9 @@ export interface MediaControllerServerInfo {
      * @param successCallback The method to invoke when playback position was changed.
      * @param errorCallback The method to invoke on operation failure.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendPlaybackPosition(position: number, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7215,8 +7215,8 @@ export interface MediaControllerServerInfo {
      * @param successCallback The method to invoke when playback state was changed.
      * @param errorCallback The method to invoke on operation failure.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendPlaybackState(state: MediaControllerPlaybackState, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7228,8 +7228,8 @@ export interface MediaControllerServerInfo {
      * @param successCallback The method to invoke when repeat mode was changed.
      * @param errorCallback The method to invoke on operation failure.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendRepeatMode(mode: boolean, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7241,8 +7241,8 @@ export interface MediaControllerServerInfo {
      * @param successCallback The method to invoke when repeat state was changed.
      * @param errorCallback The method to invoke on operation failure.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendRepeatState(state: MediaControllerRepeatState, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7262,9 +7262,9 @@ export interface MediaControllerServerInfo {
      * @param replyCallback Function to be invoked when server reply is received.
      * @param errorCallback Function to be invoked if server reports failure.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if request has invalid number of filters.
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type InvalidValuesError, if request has invalid number of filters.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendSearchRequest(request: SearchFilter[], replyCallback: MediaControllerSearchRequestReplyCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7274,8 +7274,8 @@ export interface MediaControllerServerInfo {
      * @param successCallback The method to invoke when shuffle mode was changed.
      * @param errorCallback The method to invoke on operation failure.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendShuffleMode(mode: boolean, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
 }
@@ -7288,7 +7288,7 @@ export interface MediaControllerSubtitles {
     /**
      * State of subtitles mode on the server. Default value for a newly created server is false.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     enabled: boolean;
     /**
@@ -7301,8 +7301,8 @@ export interface MediaControllerSubtitles {
      *
      * @returns The identifier used to remove the listener.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addChangeRequestListener(listener: MediaControllerEnabledChangeRequestCallback): number;
     /**
@@ -7312,7 +7312,7 @@ export interface MediaControllerSubtitles {
      *
      * @param watchId Watcher identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeChangeRequestListener(watchId: number): void;
 }
@@ -7325,7 +7325,7 @@ export interface MediaControllerSubtitlesInfo {
     /**
      * State of subtitles mode on the server represented by this object.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     readonly enabled: boolean;
     /**
@@ -7335,8 +7335,8 @@ export interface MediaControllerSubtitlesInfo {
      *
      * @returns The identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     addModeChangeListener(listener: MediaControllerEnabledChangeCallback): number;
     /**
@@ -7346,7 +7346,7 @@ export interface MediaControllerSubtitlesInfo {
      *
      * @param watchId Watcher identifier.
      *
-     * @throw WebAPIException with error type UnknownError, if any error occurs.
+     * @throws WebAPIException with error type UnknownError, if any error occurs.
      */
     removeModeChangeListener(watchId: number): void;
     /**
@@ -7358,9 +7358,9 @@ export interface MediaControllerSubtitlesInfo {
      * @param enabled State which is requested by a media controller client.
      * @param replyCallback The method to invoke when server responded to change request.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type NotSupportedError, if related ability is not supported by the media controller server.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type NotSupportedError, if related ability is not supported by the media controller server.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendRequest(enabled: boolean, replyCallback: MediaControllerSendCommandSuccessCallback): void;
 }
@@ -7376,9 +7376,9 @@ export interface MessagePortManager {
      *
      * @returns LocalMessagePort instance.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     requestLocalMessagePort(localMessagePortName: string): LocalMessagePort;
     /**
@@ -7391,8 +7391,8 @@ export interface MessagePortManager {
      *
      * @returns RemoteMessagePort instance.
      *
-     * @throw WebAPIException with error type NotFoundError, if the port of the target application is not found.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type NotFoundError, if the port of the target application is not found.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     requestRemoteMessagePort(appId: ApplicationId, remoteMessagePortName: string): RemoteMessagePort;
     /**
@@ -7405,9 +7405,9 @@ export interface MessagePortManager {
      *
      * @returns Trusted LocalMessagePort instance.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type InvalidValuesError, if the input parameter contains an invalid value.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     requestTrustedLocalMessagePort(localMessagePortName: string): LocalMessagePort;
     /**
@@ -7421,9 +7421,9 @@ export interface MessagePortManager {
      *
      * @returns Trusted RemoteMessagePort instance.
      *
-     * @throw WebAPIException with error type NotFoundError, if the port of the target application is not found.
-     * @throw WebAPIException with error type InvalidAccessError, if the target application is not signed with the same certification.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs
+     * @throws WebAPIException with error type NotFoundError, if the port of the target application is not found.
+     * @throws WebAPIException with error type InvalidAccessError, if the target application is not signed with the same certification.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs
      */
     requestTrustedRemoteMessagePort(appId: ApplicationId, remoteMessagePortName: string): RemoteMessagePort;
 }
@@ -7497,10 +7497,10 @@ export interface PackageManager {
      *
      * @returns The information of a package.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type NotFoundError, if the package with the specified ID is not found.
-     * @throw WebAPIException with error type UnknownError, if the package information cannot be retrieved because of a platform error.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type NotFoundError, if the package with the specified ID is not found.
+     * @throws WebAPIException with error type UnknownError, if the package information cannot be retrieved because of a platform error.
      */
     getPackageInfo(id?: PackageId | null): PackageInformation;
     /**
@@ -7519,8 +7519,8 @@ export interface PackageManager {
      * @param successCallback The method to call when an invocation ends successfully.
      * @param errorCallback The method to call when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     getPackagesInfo(successCallback: PackageInformationArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7543,8 +7543,8 @@ export interface PackageManager {
      * @param progressCallback The method to invoke when the installation is in progress or has been completed.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     install(packageFileURI: string, progressCallback: PackageProgressCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7559,9 +7559,9 @@ export interface PackageManager {
      *
      * @param eventCallback The method to be called when any change is made to the list of installed packages.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if the package list change event cannot be generated because of a platform error.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if the package list change event cannot be generated because of a platform error.
      */
     setPackageInfoEventListener(eventCallback: PackageInformationEventCallback): void;
     /**
@@ -7584,8 +7584,8 @@ export interface PackageManager {
      * @param progressCallback The method to invoke when uninstallation is in progress or has been completed.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     uninstall(id: PackageId, progressCallback: PackageProgressCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7596,8 +7596,8 @@ export interface PackageManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/package.info
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if the listener removal request fails because of a platform error.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if the listener removal request fails because of a platform error.
      */
     unsetPackageInfoEventListener(): void;
 }
@@ -7668,8 +7668,8 @@ export interface Playlist {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.write
      *
-     * @throw WebAPIException with error type InvalidValuesError, when assigning an invalid value (e.g. playlist of the same name already exists).
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to change this attribute.
+     * @throws WebAPIException with error type InvalidValuesError, when assigning an invalid value (e.g. playlist of the same name already exists).
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to change this attribute.
      */
     name: string;
     /**
@@ -7685,8 +7685,8 @@ export interface Playlist {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.write
      *
-     * @throw WebAPIException with error type InvalidValuesError, when assigning an invalid value (e.g. if the URI does not start with "file:///").
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to change this attribute or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
+     * @throws WebAPIException with error type InvalidValuesError, when assigning an invalid value (e.g. if the URI does not start with "file:///").
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to change this attribute or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
     thumbnailURI: string | null;
     /**
@@ -7699,9 +7699,9 @@ export interface Playlist {
      *
      * @param item Content to add.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     add(item: Content): void;
     /**
@@ -7719,8 +7719,8 @@ export interface Playlist {
      * @param successCallback Callback method to be invoked when adding a list of content items to a playlist completes successfully.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     addBatch(items: Content[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7743,8 +7743,8 @@ export interface Playlist {
      * The default value is 0
      * It means no offset.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     get(successCallback: PlaylistItemArraySuccessCallback, errorCallback?: ErrorCallback | null, count?: number | null, offset?: number | null): void;
     /**
@@ -7770,8 +7770,8 @@ export interface Playlist {
      * @param successCallback Callback method to be invoked when the playlist item has successfully been moved.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     move(item: PlaylistItem, delta: number, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7782,9 +7782,9 @@ export interface Playlist {
      *
      * @param item Playlist item to remove.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     remove(item: PlaylistItem): void;
     /**
@@ -7803,8 +7803,8 @@ export interface Playlist {
      * @param successCallback Callback method to be invoked when removing a list of content items from a playlist completes successfully.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     removeBatch(items: PlaylistItem[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7825,8 +7825,8 @@ export interface Playlist {
      * @param successCallback Callback method to be invoked when changing the positions of items in the playlist is successfully completed.
      * @param errorCallback Callback method to be invoked when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
     setOrder(items: PlaylistItem[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
 }
@@ -7888,9 +7888,9 @@ export interface PushManager {
      * @param notificationCallback The callback to be called when the notification message arrives.
      * @param errorCallback The callback to be called when the connect request fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     connect(stateChangeCallback: PushRegistrationStateChangeCallback, notificationCallback: PushNotificationCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -7901,8 +7901,8 @@ export interface PushManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/push
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     disconnect(): void;
     /**
@@ -7919,8 +7919,8 @@ export interface PushManager {
      * @privilegeName http://tizen.org/privilege/push
      *
      * @returns The last message delivered from the push service or null.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     getPushMessage(): PushMessage | null;
     /**
@@ -7930,8 +7930,8 @@ export interface PushManager {
      * @privilegeName http://tizen.org/privilege/push
      *
      * @returns ID assigned by push service.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getRegistrationId(): PushRegistrationId;
     /**
@@ -7952,9 +7952,9 @@ export interface PushManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/push
      *
-     * @throw WebAPIException with error type ServiceNotAvailableError, if the network is unreachable for some reason(e.g disconnected to the Tizen push server)
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type ServiceNotAvailableError, if the network is unreachable for some reason(e.g disconnected to the Tizen push server)
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getUnreadNotifications(): void;
     /**
@@ -7978,10 +7978,10 @@ export interface PushManager {
      * @param successCallback The callback to be called when the registration request succeeds.
      * @param errorCallback The callback to be called when the registration request fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type InvalidStateError, if the application is not connected to the push service.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type InvalidStateError, if the application is not connected to the push service.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     register(successCallback: PushRegisterSuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -8001,10 +8001,10 @@ export interface PushManager {
      * @param successCallback The callback to be called when the unregistration request succeeds.
      * @param errorCallback The callback to be called when the unregistration request fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type InvalidStateError, if the application is not connected to the push service.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type InvalidStateError, if the application is not connected to the push service.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     unregister(successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
 }
@@ -8078,10 +8078,10 @@ export interface RemoteMessagePort {
      * The order of items in this array is not guaranteed to be preserved during data transfer, and values of _key_ within this
      * array must not be duplicated or empty.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type InvalidValuesError, if an input parameter contains an invalid value.
-     * @throw WebAPIException with error type QuotaExceededError, if the size of message has exceeded the maximum limit.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type InvalidValuesError, if an input parameter contains an invalid value.
+     * @throws WebAPIException with error type QuotaExceededError, if the size of message has exceeded the maximum limit.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     sendMessage(data: MessagePortDataItem[], localMessagePort?: LocalMessagePort | null): void;
 }
@@ -8171,9 +8171,9 @@ export class RemoteResource {
      * @param responseCallback The method to invoked when a client receive get response.
      * @param errorCallback The method to invoke on failure of getting response.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     methodDelete(responseCallback: RemoteResourceResponseCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -8192,9 +8192,9 @@ export class RemoteResource {
      * @param query The query to send to server. The resource request handler should handle this value.
      * @param errorCallback The method to invoke on failure of getting response.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     methodGet(responseCallback: RemoteResourceResponseCallback, query?: Query | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -8214,9 +8214,9 @@ export class RemoteResource {
      * @param query The query to send to server. The resource request handler should handle this value.
      * @param errorCallback The method to invoke on failure of getting response.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     methodPost(representation: Representation, responseCallback: RemoteResourceResponseCallback, query?: Query | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -8236,9 +8236,9 @@ export class RemoteResource {
      * @param query The query to send to server. The resource request handler should handle this value.
      * @param errorCallback The method to invoke on failure of getting response.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     methodPut(representation: Representation, responseCallback: RemoteResourceResponseCallback, query?: Query | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -8249,9 +8249,9 @@ export class RemoteResource {
      *
      * @param successCallback The method to invoked when remote resource's state is changed, registered callbacks will be called in turn. Internally, it checks the state of resource, periodically. Thus, it may not receive the state, immediately.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     setResourceStateChangeListener(successCallback: ResourceStateChangeCallback): void;
     /**
@@ -8262,9 +8262,9 @@ export class RemoteResource {
      *
      * @param updatedCallback The method to invoked when the remote resource is changed.
      *
-     * @throw WebAPIException with error type InvalidStateError, this error occur when already started.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type InvalidStateError, this error occur when already started.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     startCaching(updatedCallback?: CacheUpdatedCallback | null): void;
     /**
@@ -8277,9 +8277,9 @@ export class RemoteResource {
      * @param successCallback The method to invoked when the resource receive notification message.
      * @param query The query to send to server. The resource request handler should handle this value.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     startObserving(observePolicy: ObservePolicy, successCallback: RemoteResourceResponseCallback, query?: Query | null): void;
     /**
@@ -8290,8 +8290,8 @@ export class RemoteResource {
      *
      * @remark Example of using can be find at [startCaching](iotcon.html#RemoteResource::startCaching) code example.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped
      */
     stopCaching(): void;
     /**
@@ -8302,8 +8302,8 @@ export class RemoteResource {
      *
      * @remark Example of using can be find at [startObserving](iotcon.html#RemoteResource::startObserving) code example.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     stopObserving(): void;
     /**
@@ -8316,8 +8316,8 @@ export class RemoteResource {
      *
      * @remark Example of using can be find at [setResourceStateChangeListener](iotcon.html#RemoteResource::setResourceStateChangeListener) code example.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     unsetResourceStateChangeListener(): void;
 }
@@ -8444,8 +8444,8 @@ export interface RequestedApplicationControl {
      * Notifies the calling application that the application failed
      * to perform the requested action.
      *
-     * @throw WebAPIException with error type NotFoundError, if the caller app is not alive or there is no response from the caller app.
-     * @throw WebAPIException with error type UnknownError, if the reply request fails because of an unknown error.
+     * @throws WebAPIException with error type NotFoundError, if the caller app is not alive or there is no response from the caller app.
+     * @throws WebAPIException with error type UnknownError, if the reply request fails because of an unknown error.
      */
     replyFailure(): void;
     /**
@@ -8453,9 +8453,9 @@ export interface RequestedApplicationControl {
      *
      * @param data An array of ApplicationControlData objects.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type NotFoundError, if the caller app is not alive or there is no response from the caller app.
-     * @throw WebAPIException with error type UnknownError, if the reply request fails because of an unknown error.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type NotFoundError, if the caller app is not alive or there is no response from the caller app.
+     * @throws WebAPIException with error type UnknownError, if the reply request fails because of an unknown error.
      */
     replyResult(data?: ApplicationControlData[] | null): void;
 }
@@ -8519,9 +8519,9 @@ export interface Resource {
      *
      * @param resource The child resource to be added to the parent resource.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     addChildResource(resource: Resource): void;
     /**
@@ -8532,9 +8532,9 @@ export interface Resource {
      *
      * @param interface The interface to be added to resource.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     addResourceInterface(interface: ResourceInterface): void;
     /**
@@ -8545,9 +8545,9 @@ export interface Resource {
      *
      * @param types An array of types to be added to resource.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     addResourceTypes(types: ResourceType[]): void;
     /**
@@ -8559,10 +8559,10 @@ export interface Resource {
      * @param qosLevel The quality of service level.
      * @param observerIds A list of observer id.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter does not contain a valid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     notify(qosLevel: QosLevel, observerIds?: number[] | null): void;
     /**
@@ -8573,10 +8573,10 @@ export interface Resource {
      *
      * @param resource The child resource to be removed from the parent resource.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if the resource does not have the input child resource.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type InvalidValuesError, if the resource does not have the input child resource.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     removeChildResource(resource: Resource): void;
     /**
@@ -8584,7 +8584,7 @@ export interface Resource {
      *
      * @param listener Request listener to set.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
     setRequestListener(listener: RequestCallback): void;
     /**
@@ -8625,8 +8625,8 @@ export class Response {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/internet
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, If the operation has been stopped.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
     send(): void;
 }
@@ -8650,10 +8650,10 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
      * @param successCallback The method to invoke when the asynchronous call completes successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     insert(reqId: number, insertionData: RowData, successCallback?: DataControlInsertSuccessCallback | null, errorCallback?: DataControlErrorCallback | null): void;
     /**
@@ -8669,10 +8669,10 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
      * @param successCallback The method to invoke when the asynchronous call completes successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     remove(reqId: number, where: string, successCallback?: DataControlSuccessCallback | null, errorCallback?: DataControlErrorCallback | null): void;
     /**
@@ -8697,10 +8697,10 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
      * @param order The sorting order of the selected rows.
      * It is an SQL ORDER BY clause excluding the ORDER BY itself such as column1, column2 ASC. If it is set to null, the order in which the rows are returned is undefined.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     select(reqId: number, columns: string[], where: string, successCallback: DataControlSelectSuccessCallback, errorCallback?: DataControlErrorCallback | null, page?: number | null, maxNumberPerPage?: number | null, order?: string | null): void;
     /**
@@ -8717,10 +8717,10 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
      * @param successCallback The method to invoke when the asynchronous call completes successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type IOError, if a DB operation has failed.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if the parameter type is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type IOError, if a DB operation has failed.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     update(reqId: number, updateData: RowData, where: string, successCallback?: DataControlSuccessCallback | null, errorCallback?: DataControlErrorCallback | null): void;
 }
@@ -8737,14 +8737,14 @@ export class SearchFilter {
     /**
      * Specifies filter's search category parameter.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type InvalidValuesError, if keyword is null and new category value is not NO\_CATEGORY.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type InvalidValuesError, if keyword is null and new category value is not NO\_CATEGORY.
      */
     category: MediaControllerSearchCategory;
     /**
      * Specifies filter's content type parameter.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
      */
     contentType: MediaControllerContentType;
     /**
@@ -8756,7 +8756,7 @@ export class SearchFilter {
      *
      * @remark Keyword can only be null or empty if the category is set to NO\_CATEGORY.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if the category is not NO\_CATEGORY and the keyword is null.
+     * @throws WebAPIException with error type InvalidValuesError, if the category is not NO\_CATEGORY and the keyword is null.
      */
     keyword: string | null;
 }
@@ -8785,9 +8785,9 @@ export interface Server {
      *
      * @returns Instance of _Resource_ object.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     createResource(uriPath: string, resourceTypes: ResourceType[], resourceInterfaces: ResourceInterface[], listener: RequestCallback, policy?: ResourcePolicy): Resource;
     /**
@@ -8795,7 +8795,7 @@ export interface Server {
      *
      * @returns Array of _Resource_ objects registered on server.
      *
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     getResources(): Resource[];
     /**
@@ -8806,9 +8806,9 @@ export interface Server {
      *
      * @param resource The resource object to delete.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     removeResource(resource: Resource): void;
     /**
@@ -8823,8 +8823,8 @@ export interface Server {
      *
      * @param timeToLive The interval of announcing presence in seconds(value must range between 1 and 60 \* 60 \* 24 inclusive). default value is 60 seconds.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     startPresence(timeToLive: number): void;
     /**
@@ -8835,8 +8835,8 @@ export interface Server {
      *
      * @remark Example of using can be find at [startPresence](iotcon.html#Server::startPresence) code example.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation has been stopped.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
     stopPresence(): void;
 }
@@ -8934,10 +8934,10 @@ export interface SystemInfo {
      *
      * @returns An identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value (e.g. the invalid value for _options_).
-     * @throw WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value (e.g. the invalid value for _options_).
+     * @throws WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     addPropertyValueArrayChangeListener(property: SystemInfoPropertyId, successCallback: SystemInfoPropertyArraySuccessCallback, options?: SystemInfoOptions | null, errorCallback?: ErrorCallback | null): number;
     /**
@@ -8973,10 +8973,10 @@ export interface SystemInfo {
      *
      * @returns An identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value (e.g. the invalid value for _options_).
-     * @throw WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value (e.g. the invalid value for _options_).
+     * @throws WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     addPropertyValueChangeListener(property: SystemInfoPropertyId, successCallback: SystemInfoPropertySuccessCallback, options?: SystemInfoOptions | null, errorCallback?: ErrorCallback | null): number;
     /**
@@ -8986,7 +8986,7 @@ export interface SystemInfo {
      *
      * @returns Not used memory in bytes.
      *
-     * @throw WebAPIException with error type UnknownError in any error case.
+     * @throws WebAPIException with error type UnknownError in any error case.
      */
     getAvailableMemory(): number;
     /**
@@ -9000,7 +9000,7 @@ export interface SystemInfo {
      *
      * @returns Capabilities of the device.
      *
-     * @throw WebAPIException with error type UnknownError in any error case.
+     * @throws WebAPIException with error type UnknownError in any error case.
      */
     getCapabilities(): SystemInfoDeviceCapability;
     /**
@@ -9015,7 +9015,7 @@ export interface SystemInfo {
      *
      * @returns The value of the specified device capability.
      *
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     getCapability(key: string): any;
     /**
@@ -9029,7 +9029,7 @@ export interface SystemInfo {
      *
      * @returns The number of property values for the given property. If the property is not supported, 0 is returned.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
      */
     getCount(property: SystemInfoPropertyId): number;
     /**
@@ -9051,9 +9051,9 @@ export interface SystemInfo {
      * @param successCallback Callback function called when the properties are successfully retrieved.
      * @param errorCallback Callback function called when an error occurs while retrieving the properties.
      *
-     * @throw WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     getPropertyValue(property: SystemInfoPropertyId, successCallback: SystemInfoPropertySuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -9078,8 +9078,8 @@ export interface SystemInfo {
      * @param successCallback Callback function called when the properties are successfully retrieved.
      * @param errorCallback Callback function called when an error occurs while retrieving the properties.
      *
-     * @throw WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
      */
     getPropertyValueArray(property: SystemInfoPropertyId, successCallback: SystemInfoPropertyArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
     /**
@@ -9089,7 +9089,7 @@ export interface SystemInfo {
      *
      * @returns Total system memory.
      *
-     * @throw WebAPIException with error type UnknownError in any error case.
+     * @throws WebAPIException with error type UnknownError in any error case.
      */
     getTotalMemory(): number;
     /**
@@ -9102,9 +9102,9 @@ export interface SystemInfo {
      * @param listenerId An identifier of the subscription returned by the [addPropertyValueChangeListener()](#SystemInfo::addPropertyValueChangeListener) or
      * [addPropertyValueArrayChangeListener()](#SystemInfo::addPropertyValueArrayChangeListener) method.
      *
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     removePropertyValueChangeListener(listenerId: number): void;
 }
@@ -9206,7 +9206,7 @@ export interface SystemInfoCameraFlash extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/led
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly brightness: number;
     /**
@@ -9234,7 +9234,7 @@ export interface SystemInfoCameraFlash extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/led
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly levels: number;
     /**
@@ -9248,9 +9248,9 @@ export interface SystemInfoCameraFlash extends SystemInfoProperty {
      * @privilegeName http://tizen.org/privilege/led
      *
      * @param brightness The brightness value of LED (0~1).
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contains an invalid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
     setBrightness(brightness: number): void;
 }
@@ -9300,7 +9300,7 @@ export interface SystemInfoCellularNetwork extends SystemInfoProperty {
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/telephony
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      *
      * @warning 2.3.1 _http://tizen.org/privilege/systemmanager_ _(partner level)_ has been deprecated since 2.3.1. Instead, use _http://tizen.org/privilege/telephony_.
      */
@@ -9515,7 +9515,7 @@ export interface SystemInfoDeviceCapability {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly nativeApiVersion: string;
     /**
@@ -9596,7 +9596,7 @@ export interface SystemInfoDeviceCapability {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly platformVersion: string;
     /**
@@ -9749,7 +9749,7 @@ export interface SystemInfoDeviceCapability {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly webApiVersion: string;
     /**
@@ -9979,7 +9979,7 @@ export interface SystemInfoSIM extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly iccid: string;
     /**
@@ -9988,7 +9988,7 @@ export interface SystemInfoSIM extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly mcc: number;
     /**
@@ -9997,7 +9997,7 @@ export interface SystemInfoSIM extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly mnc: number;
     /**
@@ -10006,7 +10006,7 @@ export interface SystemInfoSIM extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/telephony
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      * @warning 2.4 The partner level privilege, _http://tizen.org/privilege/systemmanager_, has been deprecated. From Tizen 2.4, the public level privilege, _http://tizen.org/privilege/telephony_, is required.
      */
     readonly msin: string;
@@ -10016,7 +10016,7 @@ export interface SystemInfoSIM extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/telephony
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      *
      * @warning 2.4 The partner level privilege, _http://tizen.org/privilege/systemmanager_, has been deprecated. From Tizen 2.4, the public level privilege, _http://tizen.org/privilege/telephony_, is required.
      */
@@ -10027,7 +10027,7 @@ export interface SystemInfoSIM extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly operatorName: string;
     /**
@@ -10036,7 +10036,7 @@ export interface SystemInfoSIM extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly spn: string;
     /**
@@ -10047,7 +10047,7 @@ export interface SystemInfoSIM extends SystemInfoProperty {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/system
      *
-     * @throw WebAPIException with error type SecurityError, if this attribute is not allowed.
+     * @throws WebAPIException with error type SecurityError, if this attribute is not allowed.
      */
     readonly state: SystemInfoSimState;
 }
@@ -10257,9 +10257,9 @@ export interface TVInfoManager {
      *
      * @returns long Subscription identifier
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     addCaptionValueChangeListener(key: CaptionInfoKey, callback: CaptionValueChangeCallback): number;
     /**
@@ -10267,8 +10267,8 @@ export interface TVInfoManager {
      *
      * @returns CaptionValue value for given caption menu key
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     getCaptionValue(key: CaptionInfoKey): CaptionValue;
     /**
@@ -10278,7 +10278,7 @@ export interface TVInfoManager {
      *
      * @param watchId Identifier of the subscription returned by addCaptionValueChangeListener()
      *
-     * @throw WebAPIException with error type UnknownError, in any other error case.
+     * @throws WebAPIException with error type UnknownError, in any other error case.
      */
     removeCaptionValueChangeListener(watchId: number): void;
 }
@@ -10293,9 +10293,9 @@ export interface TVInputDeviceManager {
      *
      * @returns InputDeviceKey InputDeviceKey object for the given key name, or null if the key is not supported.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type InvalidValuesError if the given keyName is invalid (e.g. name is empty string).
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type InvalidValuesError if the given keyName is invalid (e.g. name is empty string).
+     * @throws WebAPIException with error type UnknownError in any other error case.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.inputdevice
@@ -10306,8 +10306,8 @@ export interface TVInputDeviceManager {
      *
      * Mandatory keys will not be retrieved by this method.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError in case of any error.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError in case of any error.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.inputdevice
@@ -10322,9 +10322,9 @@ export interface TVInputDeviceManager {
      *
      * @param keyName The name of the key which should generate DOM key events when pressed.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type InvalidValuesError, if the given keyName is invalid or not supported (e.g. name is empty string).
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type InvalidValuesError, if the given keyName is invalid or not supported (e.g. name is empty string).
+     * @throws WebAPIException with error type UnknownError in any other error case.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.inputdevice
@@ -10352,10 +10352,10 @@ export interface TVInputDeviceManager {
      * @param successCallback Callback method to be invoked when keys are registered.
      * @param errorCallback Callback method to be invoked when an error has occurred.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the given keyNames is invalid or not supported (e.g. name is empty string).
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the given keyNames is invalid or not supported (e.g. name is empty string).
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      */
     registerKeyBatch(keyNames: InputDeviceKeyName[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
     /**
@@ -10363,9 +10363,9 @@ export interface TVInputDeviceManager {
      *
      * @param keyName The name of the key which should not be monitored any longer.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type InvalidValuesError, if the given keyName is invalid or not supported (e.g. name is empty string).
-     * @throw WebAPIException with error type UnknownError in any error case.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type InvalidValuesError, if the given keyName is invalid or not supported (e.g. name is empty string).
+     * @throws WebAPIException with error type UnknownError in any error case.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.inputdevice
@@ -10389,10 +10389,10 @@ export interface TVInputDeviceManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.inputdevice
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the given keyNames is invalid or not supported (e.g. name is empty string).
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError in any error case.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the given keyNames is invalid or not supported (e.g. name is empty string).
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError in any error case.
      */
     unregisterKeyBatch(keyNames: InputDeviceKeyName[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
 }
@@ -10408,9 +10408,9 @@ export interface TVWindowManager {
      *
      * @returns long The identifier of the resolution change listener.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError, if it fails to register a listener.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError, if it fails to register a listener.
      *
      * @since 2.4
      *
@@ -10424,8 +10424,8 @@ export interface TVWindowManager {
      * @param successCallback The method to invoke when a list of the available windows is retrieved successfully.
      * @param errorCallback The method to invoke when an error occurs.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
@@ -10446,9 +10446,9 @@ export interface TVWindowManager {
      * @param unit The measurement unit for specifying the display area - by default, this attribute is set to _"px"_.
      * @param type The window type - by default, this attribute is set to MAIN.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError if any other error occurs.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
@@ -10461,9 +10461,9 @@ export interface TVWindowManager {
      *
      * @returns The information about the current video source. Returned object will have the _signal_ property, stating whether there is signal provided or not on the source, this property value will be filled only when the window was shown using [show()](./tvwindow.html#TVWindowManager::show) function.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError if any other error occurs.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
@@ -10472,9 +10472,9 @@ export interface TVWindowManager {
     /**
      * Gets video resolution information.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError if any other error occurs.
      *
      * @param type The window type - by default, this attribute is set to MAIN.
      *
@@ -10493,9 +10493,9 @@ export interface TVWindowManager {
      * @param errorCallback The method to invoke when an error occurs.
      * @param type The window type - by default, this attribute is set to MAIN.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError if any other error occurs.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
@@ -10508,8 +10508,8 @@ export interface TVWindowManager {
      *
      * @param listenerId The identifier of the listener for resolution changes.
      *
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError in any other error case.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError in any other error case.
      *
      * @since 2.4
      *
@@ -10527,9 +10527,9 @@ export interface TVWindowManager {
      * @param errorCallback The method to invoke when an error occurs.
      * @param type The window type - by default, this attribute is set to MAIN.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError if any other error occurs.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
@@ -10567,10 +10567,10 @@ export interface TVWindowManager {
      * By default, this parameter is set to FRONT.
      * If this parameter is set to null or FRONT, this method behaves in the same way as it did before Tizen 2.4.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type UnknownError if any other error occurs.
+     * @throws WebAPIException with error type TypeMismatchError, if any input attribute is not compatible with the expected type for this attribute.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input parameters contain an invalid value.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type UnknownError if any other error occurs.
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
@@ -10596,9 +10596,9 @@ export class TZDate {
      *
      * @returns The new TZDate by adding a duration.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     addDuration(duration: TimeDuration): TZDate;
     /**
@@ -10621,9 +10621,9 @@ export class TZDate {
      * @returns The duration in milliseconds between the two date/time objects
      * (or in days for comparison between dates with no time component).
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     difference(other: TZDate): TimeDuration;
     /**
@@ -10635,9 +10635,9 @@ export class TZDate {
      *
      * @returns true, if the Date/Time is earlier than the one passed in argument.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     earlierThan(other: TZDate): boolean;
     /**
@@ -10650,9 +10650,9 @@ export class TZDate {
      *
      * @returns true if the 2 date/times are the same.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     equalsTo(other: TZDate): boolean;
     /**
@@ -10706,7 +10706,7 @@ export class TZDate {
      *
      * @returns The date of the next daylight saving transition (after the instant identified by the TZDate).
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     getNextDSTTransition(): TZDate | null;
     /**
@@ -10714,7 +10714,7 @@ export class TZDate {
      *
      * @returns The date of the previous daylight saving transition (before the instant identified by the TZDate).
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     getPreviousDSTTransition(): TZDate | null;
     /**
@@ -10746,7 +10746,7 @@ export class TZDate {
      * @returns DOMString The abbreviation of the time zone (such as "EST")
      * If TZDate is invalid, it will return 'Invalid Date'.
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     getTimezoneAbbreviation(): string;
     /**
@@ -10809,7 +10809,7 @@ export class TZDate {
      *
      * @returns The flag indicating whether the daylight saving are in effect.
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     isDST(): boolean;
     /**
@@ -10821,9 +10821,9 @@ export class TZDate {
      *
      * @returns true, if the Date/Time is later than the one passed in argument.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     laterThan(other: TZDate): boolean;
     /**
@@ -10834,7 +10834,7 @@ export class TZDate {
      *
      * @returns The offset from UTC in seconds.
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     secondsFromUTC(): number;
     /**
@@ -10968,7 +10968,7 @@ export class TZDate {
      *
      * @returns The new TZDate in local Timezone.
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     toLocalTimezone(): TZDate;
     /**
@@ -11002,11 +11002,11 @@ export class TZDate {
      *
      * @returns The new TZDate in given Timezone.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if the provided TZID
+     * @throws WebAPIException with error type InvalidValuesError, if the provided TZID
      * is not recognized as a valid timezone identifier.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     toTimezone(tzid: string): TZDate;
     /**
@@ -11014,7 +11014,7 @@ export class TZDate {
      *
      * @returns The Date/Time in UTC.
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     toUTC(): TZDate;
 }
@@ -11053,9 +11053,9 @@ export class TimeDuration {
      *
      * @returns New TimeDuration object corresponding to the result of _this_ - _other_.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     difference(other: TimeDuration): TimeDuration;
     /**
@@ -11068,9 +11068,9 @@ export class TimeDuration {
      *
      * @returns true if the two TimeDuration object represent the same duration.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     equalsTo(other: TimeDuration): boolean;
     /**
@@ -11082,9 +11082,9 @@ export class TimeDuration {
      *
      * @returns true if the TimeDuration is greater than _other_.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     greaterThan(other: TimeDuration): boolean;
     /**
@@ -11096,8 +11096,8 @@ export class TimeDuration {
      *
      * @returns true if the TimeDuration is less than _other_.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     lessThan(other: TimeDuration): boolean;
 }
@@ -11124,14 +11124,14 @@ export interface TimeUtil {
      *
      * @returns Array of time zone identifiers.
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     getAvailableTimezones(): string[];
     /**
      * Gets the current date/time.
      *
      * @returns The current TZDate object.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     getCurrentDateTime(): TZDate;
     /**
@@ -11154,14 +11154,14 @@ export interface TimeUtil {
      *
      * @returns The date format according to the system's locale settings.
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     getDateFormat(shortformat?: boolean | null): string;
     /**
      * Gets the identifier of the local system timezone.
      *
      * @returns The local timezone.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     getLocalTimezone(): string;
     /**
@@ -11178,7 +11178,7 @@ export interface TimeUtil {
      * Examples of string formats include: "h:m:s ap", "h:m:s".
      *
      * @returns The time format according to the system's locale settings.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     getTimeFormat(): string;
     /**
@@ -11188,11 +11188,11 @@ export interface TimeUtil {
      *
      * @returns true, if the year is a leap year.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input
      * parameters contain an invalid value.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     isLeapYear(year: number): boolean;
     /**
@@ -11205,8 +11205,8 @@ export interface TimeUtil {
      * @param changeCallback Callback method to be invoked when device time was set
      * It is not invoked when time passes naturally.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     setDateTimeChangeListener(changeCallback: SuccessCallback): void;
     /**
@@ -11218,9 +11218,9 @@ export interface TimeUtil {
      *
      * @param changeCallback Callback method that is invoked when the time zone has changed.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter
      * is not compatible with the expected type for that parameter.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     setTimezoneChangeListener(changeCallback: SuccessCallback): void;
     /**
@@ -11230,7 +11230,7 @@ export interface TimeUtil {
      *
      * @since 2.3
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     unsetDateTimeChangeListener(): void;
     /**
@@ -11240,7 +11240,7 @@ export interface TimeUtil {
      *
      * @since 2.3
      *
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
+     * @throws WebAPIException with error type UnknownError, if the call failed due to an unknown error.
      */
     unsetTimezoneChangeListener(): void;
 }
@@ -11896,10 +11896,10 @@ export interface VoiceControlClient {
      *
      * @returns Identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not
      * compatible with the expected type.
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     addLanguageChangeListener(listener: VoiceControlLanguageChangeCallback): number;
     /**
@@ -11909,10 +11909,10 @@ export interface VoiceControlClient {
      *
      * @returns Identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not
      * compatible with the expected type.
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     addResultListener(listener: VoiceControlResultCallback): number;
     /**
@@ -11923,8 +11923,8 @@ export interface VoiceControlClient {
      *
      * @returns Currently set language.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     getCurrentLanguage(): string;
     /**
@@ -11936,7 +11936,7 @@ export interface VoiceControlClient {
      *
      * @remark If you call this method, all other VoiceControlClient objects are also released.
      *
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     release(): void;
     /**
@@ -11946,8 +11946,8 @@ export interface VoiceControlClient {
      *
      * @param id Identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     removeLanguageChangeListener(id: number): void;
     /**
@@ -11957,8 +11957,8 @@ export interface VoiceControlClient {
      *
      * @param id Identifier used to clear the watch subscription.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     removeResultListener(id: number): void;
     /**
@@ -11970,13 +11970,13 @@ export interface VoiceControlClient {
      * @param list Command list handle.
      * @param type Type of registered commands. The default value is "FOREGROUND"
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not
      * compatible with the expected type.
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type InvalidValuesError, if any of the input
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type InvalidValuesError, if any of the input
      * parameters contain an invalid value.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     setCommandList(list: VoiceControlCommand[], type?: VoiceControlCommandType | null): void;
     /**
@@ -11987,11 +11987,11 @@ export interface VoiceControlClient {
      *
      * @param type Type of commands that should be unset. The default value is "FOREGROUND"
      *
-     * @throw WebAPIException with error type TypeMismatchError, if the input parameter is not
+     * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not
      * compatible with the expected type.
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     unsetCommandList(type?: VoiceControlCommandType | null): void;
 }
@@ -12010,9 +12010,9 @@ export interface VoiceControlClientManager {
      *
      * @returns The object to manage voice control.
      *
-     * @throw WebAPIException with error type NotSupportedError, if this feature is not supported.
-     * @throw WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * @throw WebAPIException with error type AbortError, if the operation cannot be finished properly.
+     * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
+     * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
+     * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
     getVoiceControlClient(): VoiceControlClient;
 }
@@ -12333,7 +12333,7 @@ export interface WebSettingManager {
      * @param successCallback To be invoked if the requested delete operation succeeds.
      * @param errorCallback To be invoked if the requested delete operation fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      *
      * @warning http://tizen.org/privilege/websetting(public level privilege) **MUST NOT** be declared to use this API since 2.4.
      */
@@ -12354,7 +12354,7 @@ export interface WebSettingManager {
      * @param successCallback To be invoked if the requested setting operation succeeds.
      * @param errorCallback To be invoked if the requested setting operation fails.
      *
-     * @throw WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
     setUserAgentString(userAgent: string, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
 }

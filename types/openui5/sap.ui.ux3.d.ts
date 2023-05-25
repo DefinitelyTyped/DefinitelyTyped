@@ -3,7 +3,7 @@
 declare module "sap/ui/ux3/library" {
   /**
    * @deprecated (since 1.38)
-   * @EXPERIMENTAL (since 1.2) - API is not yet finished and might change completely
+   * @experimental (since 1.2) - API is not yet finished and might change completely
    *
    * Enumeration of available standard actions for 'sap.ui.ux3.ActionBar'. To be used as parameters for function
    * 'sap.ui.ux3.ActionBar.getSocialAction'.
@@ -40,7 +40,7 @@ declare module "sap/ui/ux3/library" {
   }
 
   /**
-   * @SINCE 1.7.1
+   * @since 1.7.1
    * @deprecated (since 1.38)
    *
    * Defines the order of the sub lists of a list in the ExactBrowser.
@@ -57,7 +57,7 @@ declare module "sap/ui/ux3/library" {
   }
   /**
    * @deprecated (since 1.38)
-   * @EXPERIMENTAL (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    *
@@ -120,7 +120,7 @@ declare module "sap/ui/ux3/library" {
     None = "None",
   }
   /**
-   * @SINCE 1.12.0
+   * @since 1.12.0
    * @deprecated (since 1.38)
    *
    * Available shell design types.
@@ -164,7 +164,7 @@ declare module "sap/ui/ux3/library" {
     Standard = "Standard",
   }
   /**
-   * @SINCE 1.16.3
+   * @since 1.16.3
    * @deprecated (since 1.38)
    *
    * Available ThingViewer header display types.
@@ -201,7 +201,7 @@ declare module "sap/ui/ux3/library" {
 declare module "sap/ui/ux3/ShellPersonalization" {
   /**
    * @deprecated (since 1.36) - This class was never released for productive use and will never be.
-   * @EXPERIMENTAL (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
+   * @experimental (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
    * experimental work and might change or disappear in future versions.
    *
    * Experimental implementation of visual Ux3 Shell personalization / branding.
@@ -453,7 +453,7 @@ declare module "sap/ui/ux3/ActionBar" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -480,7 +480,7 @@ declare module "sap/ui/ux3/ActionBar" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -629,7 +629,7 @@ declare module "sap/ui/ux3/ActionBar" {
       oBusinessAction: ThingAction
     ): int;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Checks whether the control is still valid (is in the DOM). ActionBar instance is rendered if and only
      * if 'isActive' returns 'true'. This check is called implicitely by the rendere, MUST not be removed.
@@ -947,7 +947,7 @@ declare module "sap/ui/ux3/Collection" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.9.0
+   * @since 1.9.0
    * @deprecated (since 1.38)
    *
    * Collection
@@ -1172,7 +1172,7 @@ declare module "sap/ui/ux3/Collection" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:propertyChanged propertyChanged} to attached listeners.
      *
@@ -1185,7 +1185,7 @@ declare module "sap/ui/ux3/Collection" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -1405,7 +1405,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.9.0
+   * @since 1.9.0
    * @deprecated (since 1.38)
    *
    * CollectionInspector
@@ -1705,7 +1705,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:collectionSelected collectionSelected} to attached listeners.
      *
@@ -1718,7 +1718,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:editCollection editCollection} to attached listeners.
      *
@@ -1731,7 +1731,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemSelectionChanged itemSelectionChanged} to attached listeners.
      *
@@ -2064,13 +2064,13 @@ declare module "sap/ui/ux3/DataSet" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Rerendering of the FilterArea
      */
     _rerenderFilter(): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Rerendering of the Toolbar
      */
@@ -2228,7 +2228,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     clearSelection(): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Creates a view switch button
      *
@@ -2298,7 +2298,7 @@ declare module "sap/ui/ux3/DataSet" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -2316,7 +2316,7 @@ declare module "sap/ui/ux3/DataSet" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -2350,7 +2350,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     getItems(): DataSetItem[];
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Returns the LeadSelection index
      *
@@ -2376,7 +2376,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     getSelectedIndices(): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Returns id of selected Item from given index
      *
@@ -2517,7 +2517,7 @@ declare module "sap/ui/ux3/DataSet" {
       iIndex: int
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Returns true if iIndex is selected
      *
@@ -2591,7 +2591,7 @@ declare module "sap/ui/ux3/DataSet" {
       vView: int | string | DataSetView
     ): DataSetView | null;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Set the LeadSelection index
      */
@@ -2882,7 +2882,7 @@ declare module "sap/ui/ux3/DataSetItem" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selected selected} to attached listeners.
      *
@@ -3124,7 +3124,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     destroyTemplate(): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * View finalization: Called when leaving the view
      */
@@ -3141,7 +3141,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getFloating(): boolean;
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * Gets current value of property {@link #getHeight height}.
      *
@@ -3176,7 +3176,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getIconSelected(): URI;
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * Gets current value of property {@link #getInitialItemCount initialItemCount}.
      *
@@ -3190,7 +3190,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getInitialItemCount(): int;
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * Gets current value of property {@link #getItemMinWidth itemMinWidth}.
      *
@@ -3213,7 +3213,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getName(): string;
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * Gets current value of property {@link #getReloadItemCount reloadItemCount}.
      *
@@ -3225,7 +3225,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getReloadItemCount(): int;
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * Gets current value of property {@link #getResponsive responsive}.
      *
@@ -3238,7 +3238,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getResponsive(): boolean;
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * Gets current value of property {@link #getScrollArea scrollArea}.
      *
@@ -3254,7 +3254,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getTemplate(): Control;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Eventhandler for the selection of an Item
      */
@@ -3265,7 +3265,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       oEvent: Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * View Initialization: Called when selecting the view
      */
@@ -3276,7 +3276,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       aItems: any[]
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Check if Item `oItem` is selected
      */
@@ -3305,7 +3305,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       bFloating?: boolean
     ): this;
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * Sets a new value for property {@link #getHeight height}.
      *
@@ -3368,7 +3368,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       sIconSelected?: URI
     ): this;
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * Sets a new value for property {@link #getInitialItemCount initialItemCount}.
      *
@@ -3389,7 +3389,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       iInitialItemCount?: int
     ): this;
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * Sets a new value for property {@link #getItemMinWidth itemMinWidth}.
      *
@@ -3426,7 +3426,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       sName?: string
     ): this;
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * Sets a new value for property {@link #getReloadItemCount reloadItemCount}.
      *
@@ -3445,7 +3445,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       iReloadItemCount?: int
     ): this;
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * Sets a new value for property {@link #getResponsive responsive}.
      *
@@ -3482,7 +3482,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       oTemplate: Control
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * View update: Called when pagination adds items
      */
@@ -3522,7 +3522,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     iconSelected?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * When true and the property floating is true the DatSet items are floating containers filling the whole
      * space of a row.
@@ -3530,7 +3530,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     responsive?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * When itemMinWidth>0 and the property floating is true the given minimum width in pixels is set to DatSet
      * items. A minimum width must be given when the property responsive is set.
@@ -3538,7 +3538,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     itemMinWidth?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * If this value is greater zero only this amount of items is loaded in the first place. New items are loaded
      * automatically when the user scrolls down. The number of items which are reloaded can be defined with
@@ -3547,21 +3547,21 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     initialItemCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * This number defines the item count which is reloaded on scroll if initialItemCount is enabled.
      */
     reloadItemCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * ID of the DOM Element or jQuery reference to the dom which holds the scrollbar for the dataset
      */
     scrollArea?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.0
+     * @since 1.13.0
      *
      * If the pagination feature is used without specifying a scroll area, a height for the dataset must be
      * defined.
@@ -3597,7 +3597,7 @@ declare module "sap/ui/ux3/Exact" {
 
   /**
    * @deprecated (since 1.38)
-   * @EXPERIMENTAL (since 1.2) - API is not yet finished and might change completely
+   * @experimental (since 1.2) - API is not yet finished and might change completely
    *
    * A comprehensive UI design approach with graphical and functional elements for searching data, exploring
    * data, and acting on the data ("Explore and Act (Exact) Pattern").
@@ -3811,7 +3811,7 @@ declare module "sap/ui/ux3/Exact" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:refineSearch refineSearch} to attached listeners.
      *
@@ -3837,7 +3837,7 @@ declare module "sap/ui/ux3/Exact" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -4004,7 +4004,7 @@ declare module "sap/ui/ux3/ExactArea" {
 
   /**
    * @deprecated (since 1.38)
-   * @EXPERIMENTAL (since 1.6) - API is not yet finished and might change completely
+   * @experimental (since 1.6) - API is not yet finished and might change completely
    *
    * Consists of two sections: A tool bar and a content area where arbitrary controls can be added. The ExactArea
    * is intended to be used for the Exact design approach but alternatively also in a stand alone version.
@@ -4432,7 +4432,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:supplyAttributes supplyAttributes} to attached listeners.
      *
@@ -4475,7 +4475,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      */
     getAutoActivateSupply(): boolean;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Gets current value of property {@link #getListOrder listOrder}.
      *
@@ -4535,7 +4535,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      */
     getText(): string;
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Gets current value of property {@link #getWidth width}.
      *
@@ -4638,7 +4638,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       bAutoActivateSupply?: boolean
     ): this;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Sets a new value for property {@link #getListOrder listOrder}.
      *
@@ -4657,7 +4657,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       sListOrder?: ExactOrder | keyof typeof ExactOrder
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * See:
      * 	sap.ui.base.ManagedObject.prototype.setProperty
@@ -4751,7 +4751,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      */
     setTooltip(oTooltip: string | TooltipBase): this;
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Sets a new value for property {@link #getWidth width}.
      *
@@ -4783,14 +4783,14 @@ declare module "sap/ui/ux3/ExactAttribute" {
     selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Specifies the width of the corresponding list in pixels. The value must be between 70 and 500.
      */
     width?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * The order how the sublists of this attribute should be displayed.
      */
@@ -5087,7 +5087,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
@@ -5109,7 +5109,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:save save} to attached listeners.
      *
@@ -5148,7 +5148,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      */
     getEnableReset(): boolean;
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * Gets current value of property {@link #getEnableSave enableSave}.
      *
@@ -5199,7 +5199,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      */
     getShowHeader(): boolean;
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Gets current value of property {@link #getShowTopList showTopList}.
      *
@@ -5221,7 +5221,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      */
     getTitle(): string;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Gets current value of property {@link #getTopListOrder topListOrder}.
      *
@@ -5233,7 +5233,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      */
     getTopListOrder(): ExactOrder | keyof typeof ExactOrder;
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Gets current value of property {@link #getTopListWidth topListWidth}.
      *
@@ -5331,7 +5331,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       bEnableReset?: boolean
     ): this;
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * Sets a new value for property {@link #getEnableSave enableSave}.
      *
@@ -5422,7 +5422,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       bShowHeader?: boolean
     ): this;
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Sets a new value for property {@link #getShowTopList showTopList}.
      *
@@ -5458,7 +5458,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       sTitle?: string
     ): this;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Sets a new value for property {@link #getTopListOrder topListOrder}.
      *
@@ -5477,7 +5477,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       sTopListOrder?: ExactOrder | keyof typeof ExactOrder
     ): this;
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Sets a new value for property {@link #getTopListWidth topListWidth}.
      *
@@ -5510,7 +5510,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
     headerTitle?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * The order how the sublists of the top level list should be displayed.
      */
@@ -5535,7 +5535,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Whether the top list of the ExactBrowser should be shown. When the property is set to false the application
      * must ensure to select top level attributes appropriately.
@@ -5548,14 +5548,14 @@ declare module "sap/ui/ux3/ExactBrowser" {
     enableReset?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.2
+     * @since 1.9.2
      *
      * Whether the save button should be available in the header area.
      */
     enableSave?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Specifies the width of the top list in pixels. The value must be between 70 and 500.
      */
@@ -5759,7 +5759,7 @@ declare module "sap/ui/ux3/ExactList" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
@@ -6331,7 +6331,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -6362,7 +6362,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       }
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getDisplaySecondaryValues displaySecondaryValues}.
      *
@@ -6465,7 +6465,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       vItem: int | string | ListItem
     ): ListItem | null;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getDisplaySecondaryValues displaySecondaryValues}.
      *
@@ -6562,7 +6562,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
     multiSelect?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Specifies whether the text values from the additionalText property (see sap.ui.core.ListItems) shall
      * be displayed.
@@ -6615,7 +6615,7 @@ declare module "sap/ui/ux3/Feed" {
 
   /**
    * @deprecated (since 1.38) - Instead, use **any** `sap.ui.layout` container control.
-   * @EXPERIMENTAL (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    *
@@ -7089,7 +7089,7 @@ declare module "sap/ui/ux3/Feed" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:chunkAdded chunkAdded} to attached listeners.
      *
@@ -7107,7 +7107,7 @@ declare module "sap/ui/ux3/Feed" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:filterChange filterChange} to attached listeners.
      *
@@ -7125,7 +7125,7 @@ declare module "sap/ui/ux3/Feed" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -7143,7 +7143,7 @@ declare module "sap/ui/ux3/Feed" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:toggleLive toggleLive} to attached listeners.
      *
@@ -7161,7 +7161,7 @@ declare module "sap/ui/ux3/Feed" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:toolsItemSelected toolsItemSelected} to attached listeners.
      *
@@ -7551,7 +7551,7 @@ declare module "sap/ui/ux3/FeedChunk" {
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.FeedListItem` control.
-   * @EXPERIMENTAL (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    *
@@ -8254,7 +8254,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:actionItemSelected actionItemSelected} to attached listeners.
      *
@@ -8276,7 +8276,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:commentAdded commentAdded} to attached listeners.
      *
@@ -8294,7 +8294,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:deleted deleted} to attached listeners.
      *
@@ -8307,7 +8307,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:inspect inspect} to attached listeners.
      *
@@ -8320,7 +8320,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:referenceClicked referenceClicked} to attached listeners.
      *
@@ -8338,7 +8338,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:senderClicked senderClicked} to attached listeners.
      *
@@ -8351,7 +8351,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:toggleFavorite toggleFavorite} to attached listeners.
      *
@@ -8369,7 +8369,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:toggleFlagged toggleFlagged} to attached listeners.
      *
@@ -8387,7 +8387,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:toggleShared toggleShared} to attached listeners.
      *
@@ -9115,7 +9115,7 @@ declare module "sap/ui/ux3/Feeder" {
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.FeedInput` control.
-   * @EXPERIMENTAL (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    *
@@ -9247,7 +9247,7 @@ declare module "sap/ui/ux3/Feeder" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:submit submit} to attached listeners.
      *
@@ -9577,7 +9577,7 @@ declare module "sap/ui/ux3/NavigationBar" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -9615,7 +9615,7 @@ declare module "sap/ui/ux3/NavigationBar" {
      */
     getItems(): NavigationItem[];
     /**
-     * @SINCE 1.36
+     * @since 1.36
      *
      * Gets current value of property {@link #getOverflowItemsToUpperCase overflowItemsToUpperCase}.
      *
@@ -9721,7 +9721,7 @@ declare module "sap/ui/ux3/NavigationBar" {
       aItems: NavigationItem[]
     ): this;
     /**
-     * @SINCE 1.36
+     * @since 1.36
      *
      * Sets a new value for property {@link #getOverflowItemsToUpperCase overflowItemsToUpperCase}.
      *
@@ -9777,7 +9777,7 @@ declare module "sap/ui/ux3/NavigationBar" {
     toplevelVariant?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.36
+     * @since 1.36
      *
      * Sets the appearance of the menu items in the overflow menu to uppercase
      */
@@ -9928,7 +9928,7 @@ declare module "sap/ui/ux3/NavigationItem" {
      */
     getSubItems(): NavigationItem[];
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -10010,7 +10010,7 @@ declare module "sap/ui/ux3/NavigationItem" {
       sHref?: URI
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getVisible visible}.
      *
@@ -10034,7 +10034,7 @@ declare module "sap/ui/ux3/NavigationItem" {
 
   export interface $NavigationItemSettings extends $ItemSettings {
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Whether the NavigationItem is currently visible. When making NavigationItems invisible at runtime it
      * is the application's responsibility to make sure it is not the currently selected one - or to select
@@ -10080,7 +10080,7 @@ declare module "sap/ui/ux3/NotificationBar" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.7.0
+   * @since 1.7.0
    * @deprecated (since 1.38) - Instead, use the `sap.m.MessagePopover` control.
    *
    * A NotificationBar is a "toolbar" that can be added to a page to show messages and notifications from
@@ -10209,7 +10209,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.2
+     * @since 1.12.2
      *
      * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.ux3.NotificationBar`.
      *
@@ -10238,7 +10238,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.2
+     * @since 1.12.2
      *
      * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.ux3.NotificationBar`.
      *
@@ -10291,7 +10291,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.2
+     * @since 1.12.2
      *
      * Detaches event handler `fnFunction` from the {@link #event:resize resize} event of this `sap.ui.ux3.NotificationBar`.
      *
@@ -10310,7 +10310,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:display display} to attached listeners.
      *
@@ -10328,8 +10328,8 @@ declare module "sap/ui/ux3/NotificationBar" {
       }
     ): this;
     /**
-     * @SINCE 1.12.2
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @since 1.12.2
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
@@ -10348,7 +10348,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       }
     ): this;
     /**
-     * @SINCE 1.24.5
+     * @since 1.24.5
      *
      * Gets current value of property {@link #getAlwaysShowToggler alwaysShowToggler}.
      *
@@ -10447,7 +10447,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       vNotifier: int | string | UI5Element
     ): UI5Element | null;
     /**
-     * @SINCE 1.22.11
+     * @since 1.22.11
      */
     setAlwaysShowToggler(
       /**
@@ -10519,7 +10519,7 @@ declare module "sap/ui/ux3/NotificationBar" {
     resizeEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.24.5
+     * @since 1.24.5
      *
      * This property defines if the toggler should be displayed the whole time when the NotificationBar is shown.
      */
@@ -10546,7 +10546,7 @@ declare module "sap/ui/ux3/NotificationBar" {
     display?: (oEvent: Event) => void;
 
     /**
-     * @SINCE 1.12.2
+     * @since 1.12.2
      *
      * This event is thrown when the bar was resized (to the different valid states: Min, Max, Default, None).
      * The event itself can be used from SAPUI5-version 1.12.2 since there was a bug in the previous versions
@@ -10721,7 +10721,7 @@ declare module "sap/ui/ux3/Notifier" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:messageSelected messageSelected} to attached listeners.
      *
@@ -11202,7 +11202,7 @@ declare module "sap/ui/ux3/Overlay" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -11223,7 +11223,7 @@ declare module "sap/ui/ux3/Overlay" {
       }
     ): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -11244,7 +11244,7 @@ declare module "sap/ui/ux3/Overlay" {
       }
     ): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -11262,7 +11262,7 @@ declare module "sap/ui/ux3/Overlay" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:openNew openNew} to attached listeners.
      *
@@ -12071,7 +12071,7 @@ declare module "sap/ui/ux3/QuickView" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -12098,7 +12098,7 @@ declare module "sap/ui/ux3/QuickView" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -12116,7 +12116,7 @@ declare module "sap/ui/ux3/QuickView" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:navigate navigate} to attached listeners.
      *
@@ -13072,7 +13072,7 @@ declare module "sap/ui/ux3/Shell" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:paneClosed paneClosed} event of this `sap.ui.ux3.Shell`.
      *
@@ -13100,7 +13100,7 @@ declare module "sap/ui/ux3/Shell" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:paneClosed paneClosed} event of this `sap.ui.ux3.Shell`.
      *
@@ -13239,7 +13239,7 @@ declare module "sap/ui/ux3/Shell" {
      */
     destroyHeaderItems(): this;
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Destroys the notificationBar in the aggregation {@link #getNotificationBar notificationBar}.
      *
@@ -13323,7 +13323,7 @@ declare module "sap/ui/ux3/Shell" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Detaches event handler `fnFunction` from the {@link #event:paneClosed paneClosed} event of this `sap.ui.ux3.Shell`.
      *
@@ -13377,7 +13377,7 @@ declare module "sap/ui/ux3/Shell" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -13390,7 +13390,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:logout logout} to attached listeners.
      *
@@ -13403,7 +13403,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:paneBarItemSelected paneBarItemSelected} to attached listeners.
      *
@@ -13429,8 +13429,8 @@ declare module "sap/ui/ux3/Shell" {
       }
     ): this;
     /**
-     * @SINCE 1.12.0
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @since 1.12.0
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:paneClosed paneClosed} to attached listeners.
      *
@@ -13448,7 +13448,7 @@ declare module "sap/ui/ux3/Shell" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -13461,7 +13461,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:worksetItemSelected worksetItemSelected} to attached listeners.
      *
@@ -13491,7 +13491,7 @@ declare module "sap/ui/ux3/Shell" {
       }
     ): boolean;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Gets current value of property {@link #getAllowOverlayHeaderAccess allowOverlayHeaderAccess}.
      *
@@ -13523,7 +13523,7 @@ declare module "sap/ui/ux3/Shell" {
      */
     getAppIconTooltip(): string;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getApplyContentPadding applyContentPadding}.
      *
@@ -13551,7 +13551,7 @@ declare module "sap/ui/ux3/Shell" {
      */
     getContent(): Control[];
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Gets current value of property {@link #getDesignType designType}.
      *
@@ -13563,7 +13563,7 @@ declare module "sap/ui/ux3/Shell" {
      */
     getDesignType(): ShellDesignType | keyof typeof ShellDesignType;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getFullHeightContent fullHeightContent}.
      *
@@ -13595,7 +13595,7 @@ declare module "sap/ui/ux3/Shell" {
      */
     getHeaderType(): ShellHeaderType | keyof typeof ShellHeaderType;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getLogoutButtonTooltip logoutButtonTooltip}.
      *
@@ -13606,7 +13606,7 @@ declare module "sap/ui/ux3/Shell" {
      */
     getLogoutButtonTooltip(): string;
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * Gets content of aggregation {@link #getNotificationBar notificationBar}.
      *
@@ -14047,7 +14047,7 @@ declare module "sap/ui/ux3/Shell" {
       vWorksetItem: int | string | NavigationItem
     ): NavigationItem | null;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Sets a new value for property {@link #getAllowOverlayHeaderAccess allowOverlayHeaderAccess}.
      *
@@ -14100,7 +14100,7 @@ declare module "sap/ui/ux3/Shell" {
       sAppIconTooltip?: string
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getApplyContentPadding applyContentPadding}.
      *
@@ -14156,7 +14156,7 @@ declare module "sap/ui/ux3/Shell" {
       bDestroyOldContent: boolean
     ): Control[];
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Sets a new value for property {@link #getDesignType designType}.
      *
@@ -14175,7 +14175,7 @@ declare module "sap/ui/ux3/Shell" {
       sDesignType?: ShellDesignType | keyof typeof ShellDesignType
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getFullHeightContent fullHeightContent}.
      *
@@ -14214,7 +14214,7 @@ declare module "sap/ui/ux3/Shell" {
       sHeaderType?: ShellHeaderType | keyof typeof ShellHeaderType
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getLogoutButtonTooltip logoutButtonTooltip}.
      *
@@ -14232,8 +14232,8 @@ declare module "sap/ui/ux3/Shell" {
       sLogoutButtonTooltip?: string
     ): this;
     /**
-     * @SINCE 1.7.0
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @since 1.7.0
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Moves the complete Shell away from the right window border by the given number of pixels (left border
      * in RTL case).
@@ -14443,7 +14443,7 @@ declare module "sap/ui/ux3/Shell" {
     showLogoutButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * The tooltip to be displayed for the Logout Button of the Shell. If not set, a text meaning "Logout" in
      * the current language will be displayed.
@@ -14489,7 +14489,7 @@ declare module "sap/ui/ux3/Shell" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Defines which design type is to be used.
      */
@@ -14505,14 +14505,14 @@ declare module "sap/ui/ux3/Shell" {
     paneWidth?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Whether the Shell content area should have a theme-dependent padding or not.
      */
     applyContentPadding?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * If set to true, the content area has a defined height. This means that any content put inside can use
      * "100%" height in CSS and will then consume all available space. However, if content is larger, scrollbars
@@ -14521,7 +14521,7 @@ declare module "sap/ui/ux3/Shell" {
     fullHeightContent?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Whether the Shell header (Title Area + Header Items) can be accessed when an Overlay, OverlayContainer
      * or ThingInspector is open.
@@ -14569,7 +14569,7 @@ declare module "sap/ui/ux3/Shell" {
     headerItems?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.0
+     * @since 1.7.0
      *
      * The NotificationBar which should be integrated into the Shell.
      */
@@ -14614,7 +14614,7 @@ declare module "sap/ui/ux3/Shell" {
     feedSubmit?: (oEvent: Event) => void;
 
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling
      * setShowPane(false), if and only if the pane was opened before.
@@ -14761,7 +14761,7 @@ declare module "sap/ui/ux3/ThingAction" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -15508,7 +15508,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -15530,7 +15530,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
      *
@@ -15559,7 +15559,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       }
     ): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -15675,7 +15675,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      */
     getHeaderContent(): ThingGroup[];
     /**
-     * @SINCE 1.16.3
+     * @since 1.16.3
      *
      * Gets current value of property {@link #getHeaderType headerType}.
      *
@@ -16050,7 +16050,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       sFollowState?: FollowActionState | keyof typeof FollowActionState
     ): this;
     /**
-     * @SINCE 1.16.3
+     * @since 1.16.3
      *
      * Sets a new value for property {@link #getHeaderType headerType}.
      *
@@ -16204,7 +16204,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     flagActionEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.16.3
+     * @since 1.16.3
      *
      * Defines which header type should be used.
      */
@@ -16300,7 +16300,7 @@ declare module "sap/ui/ux3/ThingViewer" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.38) - There is not an exact replacement.
    *
    * ThingViewer: Same as ThingInspector but decoupled from the Overlay and the ActionBar. The control can
@@ -16491,7 +16491,7 @@ declare module "sap/ui/ux3/ThingViewer" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
      *
@@ -16544,7 +16544,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      */
     getHeaderContent(): ThingGroup[];
     /**
-     * @SINCE 1.16.3
+     * @since 1.16.3
      *
      * Gets current value of property {@link #getHeaderType headerType}.
      *
@@ -16768,7 +16768,7 @@ declare module "sap/ui/ux3/ThingViewer" {
       oActionBar: ActionBar
     ): this;
     /**
-     * @SINCE 1.16.3
+     * @since 1.16.3
      *
      * Sets a new value for property {@link #getHeaderType headerType}.
      *
@@ -16926,7 +16926,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.16.3
+     * @since 1.16.3
      *
      * Defines which header type should be used.
      */
@@ -17089,7 +17089,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       oContent: Control
     ): this;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Adds an ID to the Popup that should be focusable as well when using `autoclose`. Chaining is only possible
      * if a valid type (string) is given.
@@ -17332,7 +17332,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.ux3.ToolPopup`.
      *
@@ -17359,7 +17359,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.ux3.ToolPopup`.
      *
@@ -17490,7 +17490,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Detaches event handler `fnFunction` from the {@link #event:opened opened} event of this `sap.ui.ux3.ToolPopup`.
      *
@@ -17509,7 +17509,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -17525,7 +17525,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -17538,7 +17538,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:enter enter} to attached listeners.
      *
@@ -17560,7 +17560,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:iconChanged iconChanged} to attached listeners.
      *
@@ -17573,7 +17573,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -17586,8 +17586,8 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * @SINCE 1.19.0
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @since 1.19.0
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -17600,7 +17600,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * @SINCE 1.13.2
+     * @since 1.13.2
      *
      * Gets current value of property {@link #getAutoClose autoClose}.
      *
@@ -17620,7 +17620,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      */
     getButtons(): Control[];
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Gets current value of property {@link #getCloseDuration closeDuration}.
      *
@@ -17638,14 +17638,14 @@ declare module "sap/ui/ux3/ToolPopup" {
      */
     getContent(): Control[];
     /**
-     * @SINCE 1.20.1
+     * @since 1.20.1
      *
      * ID of the element which is the current target of the association {@link #getDefaultButton defaultButton},
      * or `null`.
      */
     getDefaultButton(): ID;
     /**
-     * @SINCE 1.13.1
+     * @since 1.13.1
      *
      * Indicates whether the ToolPopup is currently enabled or not.
      *
@@ -17691,7 +17691,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      */
     getInitialFocus(): ID;
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Gets current value of property {@link #getInverted inverted}.
      *
@@ -17704,7 +17704,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      */
     getInverted(): boolean;
     /**
-     * @SINCE 1.13.2
+     * @since 1.13.2
      *
      * Gets current value of property {@link #getMaxHeight maxHeight}.
      *
@@ -17715,7 +17715,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      */
     getMaxHeight(): CSSSize;
     /**
-     * @SINCE 1.15.0
+     * @since 1.15.0
      *
      * Gets current value of property {@link #getMaxWidth maxWidth}.
      *
@@ -17738,7 +17738,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      */
     getModal(): boolean;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Gets current value of property {@link #getOpenDuration openDuration}.
      *
@@ -17880,7 +17880,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       vContent: int | string | Control
     ): Control | null;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Removes an ID to the Popup that should be focusable as well when using `autoclose`. Chaining is only
      * possible if a valid type (string) is given.
@@ -17892,7 +17892,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       sID?: string
     ): void;
     /**
-     * @SINCE 1.13.2
+     * @since 1.13.2
      *
      * Sets a new value for property {@link #getAutoClose autoClose}.
      *
@@ -17913,13 +17913,13 @@ declare module "sap/ui/ux3/ToolPopup" {
       bAutoClose?: boolean
     ): this;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * This is just a forward to the Popup's function (sap.ui.core.Popup.setAutoCloseAreas) with the same functionality.
      */
     setAutoCloseAreas(aAutoCloseAreas: Element[]): void;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Sets a new value for property {@link #getCloseDuration closeDuration}.
      *
@@ -17938,7 +17938,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       iCloseDuration?: int
     ): this;
     /**
-     * @SINCE 1.20.1
+     * @since 1.20.1
      *
      * Sets the associated {@link #getDefaultButton defaultButton}.
      *
@@ -17964,7 +17964,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       oInitialFocus: ID | Control
     ): this;
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Sets a new value for property {@link #getInverted inverted}.
      *
@@ -17984,7 +17984,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       bInverted?: boolean
     ): this;
     /**
-     * @SINCE 1.13.2
+     * @since 1.13.2
      *
      * Sets a new value for property {@link #getMaxHeight maxHeight}.
      *
@@ -18022,7 +18022,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       bModal?: boolean
     ): this;
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Sets a new value for property {@link #getOpenDuration openDuration}.
      *
@@ -18107,7 +18107,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     modal?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Specifies whether the ToolPopup has a dark or bright background. If set to true the background and borders
      * will be dark. If false they will be bright. This property only has an effect for the GoldReflection-theme.
@@ -18115,7 +18115,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     inverted?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.2
+     * @since 1.13.2
      *
      * Determines whether the ToolPopup will auto close when it loses focus. If the user e.g. clicks outside
      * of the ToolPopup it will be closed. Please don't use "modal" and "autoclose" at the same time. In this
@@ -18124,7 +18124,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     autoClose?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.2
+     * @since 1.13.2
      *
      * Forces a maximum height of the ToolPopup in pixels. If the ToolPopup content is higher than the ToolPopup,
      * the content will be scrollable.
@@ -18132,21 +18132,21 @@ declare module "sap/ui/ux3/ToolPopup" {
     maxHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.15.0
+     * @since 1.15.0
      *
      * Forces a maximum width of the ToolPopup in pixels.
      */
     maxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Time in milliseconds for the open animation.
      */
     openDuration?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Time in milliseconds for the close animation.
      */
@@ -18175,7 +18175,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     opener?: Control | string;
 
     /**
-     * @SINCE 1.20.1
+     * @since 1.20.1
      *
      * Defines one of the buttons that have been provided via button aggregation to be the default button. This
      * default button is initially selected, if no control is set via the initialFocus association explicitly.
@@ -18213,7 +18213,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     closed?: (oEvent: Event) => void;
 
     /**
-     * @SINCE 1.19.0
+     * @since 1.19.0
      *
      * Event is being fired after the ToolPopup has been opened.
      */

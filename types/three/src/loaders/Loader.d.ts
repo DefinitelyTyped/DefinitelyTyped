@@ -12,7 +12,7 @@ export class Loader {
     crossOrigin: string;
 
     /**
-     * @default: false
+     * @default false
      */
     withCredentials: boolean;
 

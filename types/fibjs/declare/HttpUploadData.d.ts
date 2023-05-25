@@ -30,8 +30,6 @@ declare class Class_HttpUploadData extends Class__object {
      *
      * @brief 包含本条目数据的文件名
      *
-     * @readonly
-     *
      */
 
     fileName: string
@@ -41,8 +39,6 @@ declare class Class_HttpUploadData extends Class__object {
      *
      *
      * @brief 包含本条目数据的类型
-     *
-     * @readonly
      *
      */
 
@@ -54,8 +50,6 @@ declare class Class_HttpUploadData extends Class__object {
      *
      * @brief 包含本条目数据的传输编码类型
      *
-     * @readonly
-     *
      */
 
     contentTransferEncoding: string
@@ -66,8 +60,6 @@ declare class Class_HttpUploadData extends Class__object {
      *
      * @brief 包含本条目数据部分的流对象
      *
-     * @readonly
-     * @type SeekableStream
      */
 
     body: Class_SeekableStream

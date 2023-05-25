@@ -31,8 +31,6 @@ declare class Class_XmlDocument extends Class_XmlNode {
      * @brief 返回用于文档的编码（在解析时）
      *
      *
-     * @readonly
-     *
      */
 
     inputEncoding: string
@@ -45,7 +43,6 @@ declare class Class_XmlDocument extends Class_XmlNode {
      *
      *
      *
-     * @type Boolean
      */
 
     xmlStandalone: boolean
@@ -72,8 +69,6 @@ declare class Class_XmlDocument extends Class_XmlNode {
      * 对于没有 DTD 的 XML 文档，则返回 null。此属性可提供对 XmlDocumentType 对象（ XmlDocument 的一个子节点）的直接访问。
      *
      *
-     * @readonly
-     * @type XmlDocumentType
      */
 
     doctype: Class_XmlDocumentType
@@ -85,8 +80,6 @@ declare class Class_XmlDocument extends Class_XmlNode {
      * @brief 返回文档的根节点
      *
      *
-     * @readonly
-     * @type XmlElement
      */
 
     documentElement: Class_XmlElement
@@ -98,8 +91,6 @@ declare class Class_XmlDocument extends Class_XmlNode {
      * @brief 返回 HTML 文档的 head 节点，仅在 html 模式有效
      *
      *
-     * @readonly
-     * @type XmlElement
      */
 
     head: Class_XmlElement
@@ -110,8 +101,6 @@ declare class Class_XmlDocument extends Class_XmlNode {
      *
      * @brief 返回 HTML 文档的 title 节点的内容，仅在 html 模式有效
      *
-     *
-     * @readonly
      *
      */
 
@@ -124,8 +113,6 @@ declare class Class_XmlDocument extends Class_XmlNode {
      * @brief 返回 HTML 文档的 body 节点，仅在 html 模式有效
      *
      *
-     * @readonly
-     * @type XmlElement
      */
 
     body: Class_XmlElement

@@ -30,8 +30,6 @@ declare class Class_File extends Class_SeekableStream {
      *
      * @brief 查询当前文件名
      *
-     * @readonly
-     *
      */
 
     name: string
@@ -42,7 +40,6 @@ declare class Class_File extends Class_SeekableStream {
      *
      * @brief 查询当前文件描述符
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 

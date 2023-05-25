@@ -261,34 +261,29 @@ declare namespace Siesta {
             }
 
             /**
-             * @class
              */
             interface Click extends IAction, Role.IHasTarget {
                 options?: any;
             }
 
             /**
-             * @class
              */
             interface Done extends IAction {
                 delay?: number | undefined;
             }
 
             /**
-             * @class
              */
             interface DoubleClick extends IAction, Role.IHasTarget {
                 options?: any;
             }
 
             /**
-             * @class
              */
             interface DoubleTap extends IAction, Role.IHasTarget {
             }
 
             /**
-             * @class
              */
             interface Drag extends IAction {
                 by?: any;
@@ -303,34 +298,29 @@ declare namespace Siesta {
             }
 
             /**
-             * @class
              */
             interface Eval extends IAction {
                 options?: any;
             }
 
             /**
-             * @class
              */
             interface LongPress extends IAction, Role.IHasTarget {
             }
 
             /**
-             * @class
              */
             interface MouseDown extends IAction, Role.IHasTarget {
                 options?: any;
             }
 
             /**
-             * @class
              */
             interface MouseUp extends IAction, Role.IHasTarget {
                 options?: any;
             }
 
             /**
-             * @class
              */
             interface MoveCursor extends IAction, Role.IHasTarget {
                 by?: any;
@@ -339,27 +329,23 @@ declare namespace Siesta {
             }
 
             /**
-             * @class
              */
             interface MoveCursorTo extends IAction, Role.IHasTarget {
             }
 
             /**
-             * @class
              */
             interface RightClick extends IAction, Role.IHasTarget {
                 options?: any;
             }
 
             /**
-             * @class
              */
             interface Swipe extends IAction, Role.IHasTarget {
                 direction?: string | undefined;
             }
 
             /**
-             * @class
              */
             interface Tap extends IAction, Role.IHasTarget {
                 options?: any;
@@ -368,13 +354,11 @@ declare namespace Siesta {
             }
 
             /**
-             * @class
              */
             interface Type extends IAction, Role.IHasTarget {
             }
 
             /**
-             * @class
              */
             interface Wait extends IAction {
                 args?: any[] | undefined;
@@ -410,7 +394,6 @@ declare namespace Siesta {
 
         namespace BDD {
             /**
-             @class
              */
             interface Expectation {
                 not: Expectation;
@@ -578,7 +561,6 @@ declare namespace Siesta {
         }
 
         /**
-         * @class
          */
         interface ExtJS extends Browser, IExtJSAjax, IExtJSComponent, IExtJSDataView, IExtJSElement, IExtJSFormField, IExtJSGrid, IExtJSObservable, IExtJSStore, IExtJSCore {
             assertMaxNumberOfGlobalExtOverrides(maxNumber: number, description?): void;
@@ -769,7 +751,6 @@ declare namespace Siesta {
         }
 
         /**
-         * @class
          */
         interface Browser extends ITest, Simulate.IEvent, Simulate.IKeyboard, Simulate.IMouse, IElement, ITextSelection {
             clearTimeout(timeoutId: number): void;
@@ -948,7 +929,6 @@ declare namespace Siesta {
         }
 
         /**
-         * @class
          */
         interface jQuery extends Browser {
             get$(): any;
@@ -1039,7 +1019,6 @@ declare namespace Siesta {
         }
 
         /**
-         * @class
          */
         interface SenchaTouch extends Browser, IExtJSComponent, IExtJSElement, IExtJSFormField, IExtJSObservable, IExtJSStore, IExtJSCore {
             doubleTap(target: any, callback?: Function, scope?: any, offset?: number[]): void;

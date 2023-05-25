@@ -44,7 +44,6 @@ declare class Class_XmlCharacterData extends Class_XmlNode {
      * @brief 该节点包含的字符数
      *
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 

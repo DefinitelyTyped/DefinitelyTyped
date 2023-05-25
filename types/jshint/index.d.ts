@@ -62,15 +62,15 @@ export interface ExtensionAPI {
 /**
  * @param source The input JavaScript source code.
  * Type: string or an array of strings (each element is interpreted as a newline)
- * @example: `JSHINT(["'use strict';", "console.log('hello, world!');"]);`
+ * @example `JSHINT(["'use strict';", "console.log('hello, world!');"]);`
  *
  * @param options The linting options to use when analyzing the source code.
  * Type: an object whose property names are the desired options to use and whose property values are the configuration values for those properties.
- * @example: `JSHINT(mySource, { undef: true });`
+ * @example `JSHINT(mySource, { undef: true });`
  *
  * @param predef variables defined outside of the current file; the behavior of this argument is identical to the globals linting option.
  * Type: an object whose property names are the global variable identifiers and whose property values control whether each variable should be considered read-only
- * @example: `JSHINT(mySource, myOptions, { jQuery: false });`
+ * @example `JSHINT(mySource, myOptions, { jQuery: false });`
  */
 export function JSHINT(source: string | string[], options?: LintOptions, predef?: Record<string, boolean>): boolean;
 

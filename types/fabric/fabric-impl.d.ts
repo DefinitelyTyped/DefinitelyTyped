@@ -352,7 +352,6 @@ interface IObservable<T> {
 
     /**
      * Fires event with an optional options object
-     * @memberOf fabric.Observable
      * @param {String} eventName Event name to fire
      * @param {Object} [options] Options object
      * @return {Self} thisArg
@@ -570,21 +569,18 @@ export class Color {
      * Regex matching color in HEX format (ex: #FF5544CC, #FF5555, 010155, aff)
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reHex: RegExp;
     /**
      * Regex matching color in HSL or HSLA formats (ex: hsl(200, 80%, 10%), hsla(300, 50%, 80%, 0.5), hsla( 300 , 50% , 80% , 0.5 ))
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reHSLa: RegExp;
     /**
      * Regex matching color in RGB or RGBA formats (ex: rgb(0, 0, 0), rgba(255, 100, 10, 0.5), rgba( 255 , 100 , 10 , 0.5 ), rgb(1,1,1), rgba(100%, 60%, 10%, 0.5))
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reRGBa: RegExp;
 }
@@ -685,7 +681,6 @@ export class Gradient {
     /**
      * Returns {@link fabric.Gradient} instance from an SVG element
      * @static
-     * @memberOf fabric.Gradient
      * @param {SVGGradientElement} el SVG gradient element
      * @param {fabric.Object} instance
      * @return {fabric.Gradient} Gradient instance
@@ -1031,7 +1026,6 @@ export class Shadow {
      * Regex matching shadow offsetX, offsetY and blur (ex: "2px 2px 10px rgba(0,0,0,0.2)", "rgb(0,255,0) 2px 2px")
      * @static
      * @field
-     * @memberOf fabric.Shadow
      */
     static reOffsetsAndBlur: RegExp;
 }
@@ -1149,7 +1143,6 @@ interface IStaticCanvasOptions {
      * if canvas is viewportTransformed you those points indicate the extension
      * of canvas element in plain untrasformed coordinates
      * The coordinates get updated with @method calcViewportBoundaries.
-     * @memberOf fabric.StaticCanvas.prototype
      */
     vptCoords?: {
         tl: { x: number; y: number };
@@ -1163,7 +1156,6 @@ interface IStaticCanvasOptions {
      * May greatly help in applications with crowded canvas and use of zoom/pan
      * If One of the corner of the bounding box of the object is on the canvas
      * the objects get rendered.
-     * @memberOf fabric.StaticCanvas.prototype
      */
     skipOffscreen?: boolean | undefined;
     /**
@@ -2435,7 +2427,6 @@ export class ActiveSelection {
     toGroup(): Group;
     /**
      * Returns {@link fabric.ActiveSelection} instance from an object representation
-     * @memberOf fabric.ActiveSelection
      * @param object Object to create a group from
      * @param [callback] Callback to invoke when an ActiveSelection instance is created
      */
@@ -2609,7 +2600,6 @@ export class Line {
     /**
      * Returns fabric.Line instance from an SVG element
      * @static
-     * @memberOf fabric.Line
      * @param {SVGElement} element Element to parse
      * @param {Object} [options] Options object
      * @param {Function} [callback] callback function invoked after parsing
@@ -3068,7 +3058,6 @@ interface IObjectOptions {
      * skewX, skewY, angle, strokeWidth, viewportTransform, top, left, padding.
      * The coordinates get updated with @method setCoords.
      * You can calculate them without updating with @method calcCoords;
-     * @memberOf fabric.Object.prototype
      */
     oCoords?: { tl: Point; mt: Point; tr: Point; ml: Point; mr: Point; bl: Point; mb: Point; br: Point; mtr: Point } | undefined;
     /**
@@ -3081,7 +3070,6 @@ interface IObjectOptions {
      * with oCoords but they do not need to be updated when zoom or panning change.
      * The coordinates get updated with @method setCoords.
      * You can calculate them without updating with @method calcCoords(true);
-     * @memberOf fabric.Object.prototype
      */
     aCoords?: { bl: Point; br: Point; tl: Point; tr: Point } | undefined;
     /**
@@ -4325,7 +4313,6 @@ export class Text extends Object {
     /**
      * Returns fabric.Text instance from an SVG element (<b>not yet implemented</b>)
      * @static
-     * @memberOf fabric.Text
      * @param {SVGElement} element Element to parse
      * @param {Function} callback callback function invoked after parsing
      * @param {Object} [options] Options object
@@ -4335,7 +4322,6 @@ export class Text extends Object {
     /**
      * Returns fabric.Text instance from an object representation
      * @static
-     * @memberOf fabric.Text
      * @param {Object} object Object to create an instance from
      * @param {Function} [callback] Callback to invoke when an fabric.Text instance is created
      */
@@ -4747,7 +4733,6 @@ export class IText extends Text {
     /**
      * Returns fabric.IText instance from an object representation
      * @static
-     * @memberOf fabric.IText
      * @param {Object} object Object to create an instance from
      * @param {function} [callback] invoked with new instance as argument
      */
@@ -5176,7 +5161,6 @@ export class Textbox extends IText {
     /**
      * Returns fabric.Textbox instance from an object representation
      * @static
-     * @memberOf fabric.Textbox
      * @param {Object} object Object to create an instance from
      * @param {Function} [callback] Callback to invoke when an fabric.Textbox instance is created
      */
@@ -6212,7 +6196,6 @@ interface IUtilMisc {
      * measurement and so wrong bounding boxes.
      * After the font cache is cleared, either change the textObject text content or call
      * initDimensions() to trigger a recalculation
-     * @memberOf fabric.util
      * @param {String} [fontFamily] font family to clear
      */
     clearFabricFontCache(fontFamily?: string): void;
@@ -6308,7 +6291,6 @@ interface IUtilMisc {
      * the one returned from qrDecompose, useful also if you want to calculate some
      * transformations from an object that is not enlived yet
      * @static
-     * @memberOf fabric.util
      * @param  {Object} options
      * @param  {Number} [options.angle]
      * @param  {Number} [options.scaleX]
@@ -6352,7 +6334,6 @@ interface IUtilMisc {
     /**
      * reset an object transform state to neutral. Top and left are not accounted for
      * @static
-     * @memberOf fabric.util
      * @param  {fabric.Object} target object to transform
      */
     resetObjectTransform(target: Object): void;

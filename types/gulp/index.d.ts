@@ -47,9 +47,9 @@ declare namespace GulpClient {
         /**
          * Takes a path string, an array of path strings, a glob string or an array of glob strings as globs to watch on the filesystem.
          * Also optionally takes options to configure the watcher and a fn to execute when a file changes.
-         * @globs A path string, an array of path strings, a glob string or an array of glob strings that indicate which files to watch for changes.
-         * @opts Options that are passed to chokidar.
-         * @fn Once async completion is signalled, if another run is queued, it will be executed.
+         * @param globs A path string, an array of path strings, a glob string or an array of glob strings that indicate which files to watch for changes.
+         * @param opts Options that are passed to chokidar.
+         * @param fn Once async completion is signalled, if another run is queued, it will be executed.
          */
         watch: WatchMethod;
     }

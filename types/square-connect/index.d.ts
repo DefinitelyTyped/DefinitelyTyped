@@ -13018,7 +13018,7 @@ export class TransactionsApi {
      * @deprecated recommend using [RefundPayment](#endpoint-refunds-refundpayment) You must issue a refund within 120
      * days of the associated payment. See [this article](https://squareup.com/help/us/en/article/5060) for more
      * information on refund behavior.
-     * @note: Card-present transactions with Interac credit cards **cannot be refunded using the Connect API**.
+     * @note Card-present transactions with Interac credit cards **cannot be refunded using the Connect API**.
      * Interac transactions must refunded in-person (e.g., dipping the card using POS app).
      */
     createRefund(locationId: string, transactionId: string, body: CreateRefundRequest): Promise<CreateRefundResponse>;

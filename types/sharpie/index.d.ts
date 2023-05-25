@@ -50,7 +50,7 @@ declare namespace sharpie {
         im?: string | undefined;
         /**
          * the sizes of the favicon in ico format, separated by a comma
-         * @defautl '64,32,16'
+         * @default '64,32,16'
          */
         sizes?: string | undefined;
         signs?: {

@@ -56,7 +56,7 @@ export class IFCManager {
      * Example if web-ifc.wasm is in dist/wasmDir:
      * `ifcLoader.setWasmPath("dist/wasmDir/");`
      *
-     * @path Relative path to web-ifc.wasm.
+     * @param path Relative path to web-ifc.wasm.
      */
     setWasmPath(path: string): void;
 
@@ -75,8 +75,8 @@ export class IFCManager {
 
     /**
      * Adds the properties of a model as JSON data.
-     * @modelID ID of the IFC model.
-     * @data: data as an object where the keys are the expressIDs and the values the properties.
+     * @param modelID ID of the IFC model.
+     * @param data data as an object where the keys are the expressIDs and the values the properties.
      */
     addModelJSONData(
         modelID: number,
@@ -102,16 +102,16 @@ export class IFCManager {
 
     /**
      * Closes the specified model and deletes it from the [scene](https://threejs.org/docs/#api/en/scenes/Scene).
-     * @modelID ID of the IFC model.
-     * @scene Scene where the model is (if it's located in a scene).
+     * @param modelID ID of the IFC model.
+     * @param scene Scene where the model is (if it's located in a scene).
      */
     close(modelID: number, scene?: Scene): void;
 
     /**
      * Gets the **Express ID** to which the given face belongs.
      * This ID uniquely identifies this entity within this IFC file.
-     * @geometry The geometry of the IFC model.
-     * @faceIndex The index of the face of a geometry.You can easily get this index using the [Raycaster](https://threejs.org/docs/#api/en/core/Raycaster).
+     * @param geometry The geometry of the IFC model.
+     * @param faceIndex The index of the face of a geometry.You can easily get this index using the [Raycaster](https://threejs.org/docs/#api/en/core/Raycaster).
      */
     getExpressId(geometry: BufferGeometry, faceIndex: number): number | undefined;
 
@@ -124,26 +124,26 @@ export class IFCManager {
      * import { IFCWALLSTANDARDCASE } from 'web-ifc';
      * const walls = ifcLoader.getAllItemsOfType(IFCWALLSTANDARDCASE);
      * ```
-     * @modelID ID of the IFC model.
-     * @ifcType type of IFC items to get.
-     * @verbose If false (default), this only gets IDs. If true, this also gets the native properties of all the fetched items.
+     * @param modelID ID of the IFC model.
+     * @param ifcType type of IFC items to get.
+     * @param verbose If false (default), this only gets IDs. If true, this also gets the native properties of all the fetched items.
      */
     getAllItemsOfType(modelID: number, type: number, verbose: boolean): any[];
 
     /**
      * Gets the native properties of the given element.
-     * @modelID ID of the IFC model.
-     * @id Express ID of the element.
-     * @recursive Wether you want to get the information of the referenced elements recursively.
+     * @param modelID ID of the IFC model.
+     * @param id Express ID of the element.
+     * @param recursive Wether you want to get the information of the referenced elements recursively.
      */
     getItemProperties(modelID: number, id: number, recursive?: boolean): any;
 
     /**
      * Gets the [property sets](https://standards.buildingsmart.org/IFC/DEV/IFC4_2/FINAL/HTML/schema/ifckernel/lexical/ifcpropertyset.htm)
      * assigned to the given element.
-     * @modelID ID of the IFC model.
-     * @id Express ID of the element.
-     * @recursive If true, this gets the native properties of the referenced elements recursively.
+     * @param modelID ID of the IFC model.
+     * @param id Express ID of the element.
+     * @param recursive If true, this gets the native properties of the referenced elements recursively.
      */
     getPropertySets(modelID: number, id: number, recursive?: boolean): any[];
 
@@ -151,24 +151,24 @@ export class IFCManager {
      * Gets the properties of the type assigned to the element.
      * For example, if applied to a wall (IfcWall), this would get back the information
      * contained in the IfcWallType assigned to it, if any.
-     * @modelID ID of the IFC model.
-     * @id Express ID of the element.
-     * @recursive If true, this gets the native properties of the referenced elements recursively.
+     * @param modelID ID of the IFC model.
+     * @param id Express ID of the element.
+     * @param recursive If true, this gets the native properties of the referenced elements recursively.
      */
     getTypeProperties(modelID: number, id: number, recursive?: boolean): any[];
 
     /**
      * Gets the materials assigned to the given element.
-     * @modelID ID of the IFC model.
-     * @id Express ID of the element.
-     * @recursive If true, this gets the native properties of the referenced elements recursively.
+     * @param modelID ID of the IFC model.
+     * @param id Express ID of the element.
+     * @param recursive If true, this gets the native properties of the referenced elements recursively.
      */
     getMaterialsProperties(modelID: number, id: number, recursive?: boolean): any[];
 
     /**
      * Gets the ifc type of the specified item.
-     * @modelID ID of the IFC model.
-     * @id Express ID of the element.
+     * @param modelID ID of the IFC model.
+     * @param id Express ID of the element.
      */
     getIfcType(modelID: number, id: number): string;
 
@@ -180,7 +180,7 @@ export class IFCManager {
      * one IfcProject that contains one or more IfcSites, that contain one or more
      * IfcBuildings, that contain one or more IfcBuildingStoreys, that contain
      * one or more IfcSpaces.
-     * @modelID ID of the IFC model.
+     * @param modelID ID of the IFC model.
      */
     getSpatialStructure(modelID: number): {
         expressID: number;
@@ -191,22 +191,22 @@ export class IFCManager {
     /**
      * Gets the mesh of the subset with the specified [material](https://threejs.org/docs/#api/en/materials/Material).
      * If no material is given, this returns the subset with the original materials.
-     * @modelID ID of the IFC model.
-     * @material Material assigned to the subset (if any).
+     * @param modelID ID of the IFC model.
+     * @param material Material assigned to the subset (if any).
      */
     getSubset(modelID: number, material?: Material): Mesh | null;
 
     /**
      * Removes the specified subset.
-     * @modelID ID of the IFC model.
+     * @param modelID ID of the IFC model.
      * @parent The parent where the subset is (can be any `THREE.Object3D`).
-     * @material Material assigned to the subset, if any.
+     * @param material Material assigned to the subset, if any.
      */
     removeSubset(modelID: number, parent?: Object3D, material?: Material): void;
 
     /**
      * Creates a new geometric subset.
-     * @config A configuration object with the following options:
+     * @param config A configuration object with the following options:
      * - **scene**: `THREE.Object3D` where the model is located.
      * - **modelID**: ID of the model.
      * - **ids**: Express IDs of the items of the model that will conform the subset.
@@ -217,36 +217,36 @@ export class IFCManager {
 
     /**
      * Hides the selected items in the specified model
-     * @modelID ID of the IFC model.
-     * @ids Express ID of the elements.
+     * @param modelID ID of the IFC model.
+     * @param ids Express ID of the elements.
      */
     hideItems(modelID: number, ids: number[]): void;
 
     /**
      * Hides all the items of the specified model
-     * @modelID ID of the IFC model.
+     * @param modelID ID of the IFC model.
      */
     hideAllItems(modelID: number): void;
 
     /**
      * Shows all the items of the specified model
-     * @modelID ID of the IFC model.
-     * @ids Express ID of the elements.
+     * @param modelID ID of the IFC model.
+     * @param ids Express ID of the elements.
      */
     showItems(modelID: number, ids: number[]): void;
 
     /**
      * Shows all the items of the specified model
-     * @modelID ID of the IFC model.
+     * @param modelID ID of the IFC model.
      */
     showAllItems(modelID: number): void;
 }
 
 /**
  * Represents an IFC model. This object is returned by the `IFCLoader` after loading an IFC.
- * @geometry `THREE.Buffergeometry`, see Three.js documentation.
- * @materials `THREE.Material[]`, see Three.js documentation.
- * @manager contains all the logic to work with IFC.
+ * @param geometry `THREE.Buffergeometry`, see Three.js documentation.
+ * @param materials `THREE.Material[]`, see Three.js documentation.
+ * @param manager contains all the logic to work with IFC.
  */
 export class IFCModel extends Mesh {
     modelID: number;
@@ -272,7 +272,7 @@ export class IFCModel extends Mesh {
      * Example if web-ifc.wasm is in dist/wasmDir:
      * `ifcLoader.setWasmPath("dist/wasmDir/");`
      *
-     * @path Relative path to web-ifc.wasm.
+     * @param path Relative path to web-ifc.wasm.
      */
     setWasmPath(path: string): void;
 
@@ -280,7 +280,7 @@ export class IFCModel extends Mesh {
      * @deprecated Use `IfcModel.ifcManager.close` instead.
      *
      * Closes the specified model and deletes it from the [scene](https://threejs.org/docs/#api/en/scenes/Scene).
-     * @scene Scene where the model is (if it's located in a scene).
+     * @param scene Scene where the model is (if it's located in a scene).
      */
     close(scene?: Scene): void;
 
@@ -289,8 +289,8 @@ export class IFCModel extends Mesh {
      *
      * Gets the **Express ID** to which the given face belongs.
      * This ID uniquely identifies this entity within this IFC file.
-     * @geometry The geometry of the IFC model.
-     * @faceIndex The index of the face of a geometry.You can easily get this index using the [Raycaster](https://threejs.org/docs/#api/en/core/Raycaster).
+     * @param geometry The geometry of the IFC model.
+     * @param faceIndex The index of the face of a geometry.You can easily get this index using the [Raycaster](https://threejs.org/docs/#api/en/core/Raycaster).
      */
     getExpressId(geometry: BufferGeometry, faceIndex: number): number | undefined;
 
@@ -305,8 +305,8 @@ export class IFCModel extends Mesh {
      * import { IFCWALLSTANDARDCASE } from 'web-ifc';
      * const walls = ifcLoader.getAllItemsOfType(IFCWALLSTANDARDCASE);
      * ```
-     * @ifcType The type of IFC items to get.
-     * @verbose If false (default), this only gets IDs. If true, this also gets the native properties of all the fetched items.
+     * @param ifcType The type of IFC items to get.
+     * @param verbose If false (default), this only gets IDs. If true, this also gets the native properties of all the fetched items.
      */
     getAllItemsOfType(type: number, verbose: boolean): any[];
 
@@ -314,8 +314,8 @@ export class IFCModel extends Mesh {
      * @deprecated Use `IfcModel.ifcManager.getItemProperties` instead.
      *
      * Gets the native properties of the given element.
-     * @id Express ID of the element.
-     * @recursive Wether you want to get the information of the referenced elements recursively.
+     * @param id Express ID of the element.
+     * @param recursive Wether you want to get the information of the referenced elements recursively.
      */
     getItemProperties(id: number, recursive?: boolean): any;
 
@@ -324,8 +324,8 @@ export class IFCModel extends Mesh {
      *
      * Gets the [property sets](https://standards.buildingsmart.org/IFC/DEV/IFC4_2/FINAL/HTML/schema/ifckernel/lexical/ifcpropertyset.htm)
      * assigned to the given element.
-     * @id Express ID of the element.
-     * @recursive If true, this gets the native properties of the referenced elements recursively.
+     * @param id Express ID of the element.
+     * @param recursive If true, this gets the native properties of the referenced elements recursively.
      */
     getPropertySets(id: number, recursive?: boolean): any[];
 
@@ -335,8 +335,8 @@ export class IFCModel extends Mesh {
      * Gets the properties of the type assigned to the element.
      * For example, if applied to a wall (IfcWall), this would get back the information
      * contained in the IfcWallType assigned to it, if any.
-     * @id Express ID of the element.
-     * @recursive If true, this gets the native properties of the referenced elements recursively.
+     * @param id Express ID of the element.
+     * @param recursive If true, this gets the native properties of the referenced elements recursively.
      */
     getTypeProperties(id: number, recursive?: boolean): any[];
 
@@ -344,7 +344,7 @@ export class IFCModel extends Mesh {
      * @deprecated Use `IfcModel.ifcManager.getIfcType` instead.
      *
      * Gets the ifc type of the specified item.
-     * @id Express ID of the element.
+     * @param id Express ID of the element.
      */
     getIfcType(id: number): string;
 
@@ -370,7 +370,7 @@ export class IFCModel extends Mesh {
      *
      * Gets the mesh of the subset with the specified [material](https://threejs.org/docs/#api/en/materials/Material).
      * If no material is given, this returns the subset with the original materials.
-     * @material Material assigned to the subset, if any.
+     * @param material Material assigned to the subset, if any.
      */
     getSubset(material?: Material): Mesh | null;
 
@@ -379,7 +379,7 @@ export class IFCModel extends Mesh {
      *
      * Removes the specified subset.
      * @parent The parent where the subset is (can be any `THREE.Object3D`).
-     * @material Material assigned to the subset, if any.
+     * @param material Material assigned to the subset, if any.
      */
     removeSubset(parent?: Object3D, material?: Material): void;
 
@@ -387,7 +387,7 @@ export class IFCModel extends Mesh {
      * @deprecated Use `IfcModel.ifcManager.createSubset` instead.
      *
      * Creates a new geometric subset.
-     * @config A configuration object with the following options:
+     * @param config A configuration object with the following options:
      * - **scene**: `THREE.Object3D` where the model is located.
      * - **ids**: Express IDs of the items of the model that will conform the subset.
      * - **removePrevious**: Wether to remove the previous subset of this model with this material.
@@ -399,7 +399,7 @@ export class IFCModel extends Mesh {
      * @deprecated Use `IfcModel.ifcManager.hideItems` instead.
      *
      * Hides the selected items in the specified model
-     * @ids Express ID of the elements.
+     * @param ids Express ID of the elements.
      */
     hideItems(ids: number[]): void;
 
@@ -414,7 +414,7 @@ export class IFCModel extends Mesh {
      * @deprecated Use `IfcModel.ifcManager.showItems` instead.
      *
      * Hides all the items of the specified model
-     * @ids Express ID of the elements.
+     * @param ids Express ID of the elements.
      */
     showItems(ids: number[]): void;
 
@@ -601,14 +601,14 @@ export class IfcAPI {
 
     /**
      * Opens a model and returns a modelID number
-     * @data Buffer containing IFC data (bytes)
-     * @data Settings settings for loading the model
+     * @param data Buffer containing IFC data (bytes)
+     * @param settings Settings settings for loading the model
      */
     OpenModel(data: string | Uint8Array, settings?: LoaderSettings): number;
 
     /**
      * Creates a new model and returns a modelID number
-     * @data Settings settings for generating data the model
+     * @param settings Settings settings for generating data the model
      */
     CreateModel(settings?: LoaderSettings): number;
 
@@ -616,8 +616,8 @@ export class IfcAPI {
 
     /**
      * Opens a model and returns a modelID number
-     * @modelID Model handle retrieved by OpenModel, model must not be closed
-     * @data Buffer containing IFC data (bytes)
+     * @param modelID Model handle retrieved by OpenModel, model must not be closed
+     * @param data Buffer containing IFC data (bytes)
      */
     GetGeometry(modelID: number, geometryExpressID: number): IfcGeometry;
 
@@ -645,7 +645,7 @@ export class IfcAPI {
 
     /**
      * Closes a model and frees all related memory
-     * @modelID Model handle retrieved by OpenModel, model must not be closed
+     * @param modelID Model handle retrieved by OpenModel, model must not be closed
      */
     CloseModel(modelID: number): void;
 
@@ -653,19 +653,19 @@ export class IfcAPI {
 
     /**
      * Checks if a specific model ID is open or closed
-     * @modelID Model handle retrieved by OpenModel
+     * @param modelID Model handle retrieved by OpenModel
      */
     IsModelOpen(modelID: number): boolean;
 
     /**
      * Load all geometry in a model
-     * @modelID Model handle retrieved by OpenModel
+     * @param modelID Model handle retrieved by OpenModel
      */
     LoadAllGeometry(modelID: number): Vector<FlatMesh>;
 
     /**
      * Load geometry for a single element
-     * @modelID Model handle retrieved by OpenModel
+     * @param modelID Model handle retrieved by OpenModel
      */
     GetFlatMesh(modelID: number, expressID: number): FlatMesh;
 

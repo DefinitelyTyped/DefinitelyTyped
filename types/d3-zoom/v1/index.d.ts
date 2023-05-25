@@ -271,7 +271,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * SVG provides no programmatic method for retrieving the initial viewport size. Alternatively, consider using element.getBoundingClientRect.
      * (In Firefox, element.clientWidth and element.clientHeight is zero for SVG elements!)
      *
-     * @extent An extent accessor function which is evaluated for each selected element,
+     * @param extent An extent accessor function which is evaluated for each selected element,
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the extent array.
      */

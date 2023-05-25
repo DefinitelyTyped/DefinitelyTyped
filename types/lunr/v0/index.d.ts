@@ -484,7 +484,7 @@ declare namespace lunr {
          * This should only be changed before adding documents to the index, changing the ref property
          * without resetting the index can lead to unexpected results.
          *
-         * @refName  The property to use to uniquely identify the
+         * @param refName  The property to use to uniquely identify the
          */
         ref(refName: string): Index;
 

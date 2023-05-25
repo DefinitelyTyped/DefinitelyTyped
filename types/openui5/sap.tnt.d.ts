@@ -2,7 +2,7 @@
 
 declare module "sap/tnt/library" {
   /**
-   * @SINCE 1.68
+   * @since 1.68
    *
    * Interface for controls suitable for the `header` aggregation of {@link sap.tnt.ToolPage}.
    */
@@ -42,7 +42,7 @@ declare module "sap/tnt/InfoLabel" {
   import { RenderMode } from "sap/tnt/library";
 
   /**
-   * @SINCE 1.54
+   * @since 1.54
    *
    * The `InfoLabel` is a small non-interactive control which contains text information and non-semantic color
    * chosen from a list of predefined color schemes. It serves the purpose to attract the user attention to
@@ -167,7 +167,7 @@ declare module "sap/tnt/InfoLabel" {
      */
     getDisplayOnly(): boolean;
     /**
-     * @SINCE 1.74
+     * @since 1.74
      *
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -259,7 +259,7 @@ declare module "sap/tnt/InfoLabel" {
       bDisplayOnly?: boolean
     ): this;
     /**
-     * @SINCE 1.74
+     * @since 1.74
      *
      * Sets a new value for property {@link #getIcon icon}.
      *
@@ -400,7 +400,7 @@ declare module "sap/tnt/InfoLabel" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.74
+     * @since 1.74
      *
      * Defines the icon to be displayed as graphical element within the `InfoLabel`. It can be an icon from
      * the icon font.
@@ -428,7 +428,7 @@ declare module "sap/tnt/NavigationList" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.34
+   * @since 1.34
    *
    * The NavigationList control is an interactive control, which provides a choice of different items, ordered
    * as a list.
@@ -596,7 +596,7 @@ declare module "sap/tnt/NavigationList" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -646,7 +646,7 @@ declare module "sap/tnt/NavigationList" {
      */
     getSelectedItem(): NavigationListItem | null;
     /**
-     * @SINCE 1.62.0
+     * @since 1.62.0
      *
      * Gets current value of property {@link #getSelectedKey selectedKey}.
      *
@@ -813,7 +813,7 @@ declare module "sap/tnt/NavigationList" {
     expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.62.0
+     * @since 1.62.0
      *
      * Specifies the currently selected key.
      */
@@ -839,7 +839,7 @@ declare module "sap/tnt/NavigationList" {
     ariaLabelledBy?: Array<Control | string>;
 
     /**
-     * @SINCE 1.52.0
+     * @since 1.52.0
      *
      * The currently selected `NavigationListItem`.
      */
@@ -867,7 +867,7 @@ declare module "sap/tnt/NavigationListItem" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.34
+   * @since 1.34
    *
    * The NavigationListItem control represents an action, which can be selected by the user. It can provide
    * sub items.
@@ -1013,7 +1013,7 @@ declare module "sap/tnt/NavigationListItem" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -1088,7 +1088,7 @@ declare module "sap/tnt/NavigationListItem" {
      */
     getTarget(): string;
     /**
-     * @SINCE 1.52
+     * @since 1.52
      *
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -1234,7 +1234,7 @@ declare module "sap/tnt/NavigationListItem" {
       sTarget?: string
     ): this;
     /**
-     * @SINCE 1.52
+     * @since 1.52
      *
      * Sets a new value for property {@link #getVisible visible}.
      *
@@ -1271,7 +1271,7 @@ declare module "sap/tnt/NavigationListItem" {
     hasExpander?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.52
+     * @since 1.52
      *
      * Specifies if the item should be shown.
      */
@@ -1329,7 +1329,7 @@ declare module "sap/tnt/SideNavigation" {
   import NavigationListItem from "sap/tnt/NavigationListItem";
 
   /**
-   * @SINCE 1.34
+   * @since 1.34
    *
    * The SideNavigation control is a container, which consists of flexible and fixed parts on top of each
    * other. Responsive Behavior:
@@ -1497,7 +1497,7 @@ declare module "sap/tnt/SideNavigation" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -1515,7 +1515,7 @@ declare module "sap/tnt/SideNavigation" {
       }
     ): this;
     /**
-     * @SINCE 1.98
+     * @since 1.98
      *
      * Gets current value of property {@link #getAriaLabel ariaLabel}.
      *
@@ -1553,14 +1553,14 @@ declare module "sap/tnt/SideNavigation" {
      */
     getItem(): NavigationList;
     /**
-     * @SINCE 1.52.0
+     * @since 1.52.0
      *
      * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
      * or `null`.
      */
     getSelectedItem(): ID;
     /**
-     * @SINCE 1.62.0
+     * @since 1.62.0
      *
      * Gets current value of property {@link #getSelectedKey selectedKey}.
      *
@@ -1570,7 +1570,7 @@ declare module "sap/tnt/SideNavigation" {
      */
     getSelectedKey(): string;
     /**
-     * @SINCE 1.98
+     * @since 1.98
      *
      * Sets a new value for property {@link #getAriaLabel ariaLabel}.
      *
@@ -1667,14 +1667,14 @@ declare module "sap/tnt/SideNavigation" {
     expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.62.0
+     * @since 1.62.0
      *
      * Specifies the currently selected key.
      */
     selectedKey?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.98
+     * @since 1.98
      *
      * Specifies an optional aria-label that can be used by the screen readers.
      */
@@ -1696,7 +1696,7 @@ declare module "sap/tnt/SideNavigation" {
     footer?: NavigationList;
 
     /**
-     * @SINCE 1.52.0
+     * @since 1.52.0
      *
      * The selected `NavigationListItem`.
      */
@@ -1720,7 +1720,7 @@ declare module "sap/tnt/ToolHeader" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.34
+   * @since 1.34
    *
    * The ToolHeader control is a horizontal container that is most commonly used to display buttons, labels,
    * and other various input controls. Overview: The ToolHeader control is based on {@link sap.m.OverflowToolbar}.
@@ -1839,7 +1839,7 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.16
+   * @since 1.16
    *
    * The ToolHeaderUtilitySeparator control is used in the sap.tnt.ToolHeader control to specify where the
    * overflow button is placed.
@@ -1932,7 +1932,7 @@ declare module "sap/tnt/ToolPage" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.34
+   * @since 1.34
    *
    * The ToolPage is a layout control, used to create a basic tools app that has a header, side navigation
    * and contents area. Overview: The control has three main areas - a header on top, navigation to the side
@@ -2031,7 +2031,7 @@ declare module "sap/tnt/ToolPage" {
      */
     destroySideContent(): this;
     /**
-     * @SINCE 1.93
+     * @since 1.93
      *
      * Destroys the subHeader in the aggregation {@link #getSubHeader subHeader}.
      *
@@ -2067,7 +2067,7 @@ declare module "sap/tnt/ToolPage" {
      */
     getSideExpanded(): boolean;
     /**
-     * @SINCE 1.93
+     * @since 1.93
      *
      * Gets content of aggregation {@link #getSubHeader subHeader}.
      *
@@ -2156,7 +2156,7 @@ declare module "sap/tnt/ToolPage" {
       bSideExpanded: boolean
     ): this;
     /**
-     * @SINCE 1.93
+     * @since 1.93
      *
      * Sets the aggregated {@link #getSubHeader subHeader}.
      *
@@ -2188,7 +2188,7 @@ declare module "sap/tnt/ToolPage" {
     header?: IToolHeader;
 
     /**
-     * @SINCE 1.93
+     * @since 1.93
      *
      * The control to appear in the subheader area.
      */

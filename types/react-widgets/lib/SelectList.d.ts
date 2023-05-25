@@ -110,7 +110,7 @@ declare namespace SelectList {
     }
     interface SelectListMessages {
         /**
-         * @default: "There are no items in this list"
+         * @default "There are no items in this list"
          */
         emptyList?: string | ((props: SelectListProps) => string) | undefined;
     }

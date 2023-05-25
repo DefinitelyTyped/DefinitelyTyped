@@ -42,7 +42,6 @@ declare class Class_Smtp extends Class__object {
      *
      * @brief 查询 Smtp 对象当前连接的 Socket
      *
-     * @readonly
      */
 
     socket: Class_Stream

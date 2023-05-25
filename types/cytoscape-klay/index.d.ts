@@ -19,7 +19,7 @@ declare namespace cytoscapeKlay {
         name: 'klay';
         /**
          * Boolean which changes whether label dimensions are included when calculating node dimensions
-         * @default: false
+         * @default false
          */
         nodeDimensionsIncludeLabels?: boolean;
 
@@ -37,7 +37,7 @@ declare namespace cytoscapeKlay {
 
         /**
          * Whether to transition the node positions
-         * @default: false
+         * @default false
          */
         animate?: boolean;
 
@@ -221,13 +221,13 @@ declare namespace cytoscapeKlay {
 
         /**
          * Seed used for pseudo-random number generators to control the layout algorithm; 0 means a new seed is generated
-         * @default: 1
+         * @default 1
          */
         randomizationSeed?: number;
 
         /**
          * Whether a self-loop is routed around or inside its node.
-         * @default: false
+         * @default false
          */
         routeSelfLoopInside?: boolean;
 

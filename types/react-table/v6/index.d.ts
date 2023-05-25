@@ -92,7 +92,7 @@ export interface TableProps<D = any, ResolvedData = D> extends
     /**
      * Default: undefined
      * Otherwise take value from 'pageSize' if defined
-     * @TODO: add minRows to react-table defaultProps even if undefined
+     * @todo add minRows to react-table defaultProps even if undefined
      */
     minRows: number | undefined;
 
@@ -554,7 +554,7 @@ export interface Column<D = any> extends
     Partial<Column.HeaderProps> {
     /**
      * Property name as string or Accessor
-     * @example: 'myProperty'
+     * @example 'myProperty'
      * @example ["a.b", "c"]
      * @example ["a", "b", "c"]
      * @example {"a": {"b": {"c": $}}}

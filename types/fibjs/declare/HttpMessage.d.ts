@@ -42,8 +42,6 @@ declare class Class_HttpMessage extends Class_Message {
      *
      * @brief 包含消息中 http 消息头的容器，只读属性
      *
-     * @readonly
-     * @type HttpCollection
      */
 
     headers: Class_HttpCollection
@@ -55,7 +53,6 @@ declare class Class_HttpMessage extends Class_Message {
      * @brief 查询和设定是否保持连接
      *
      *
-     * @type Boolean
      */
 
     keepAlive: boolean
@@ -67,7 +64,6 @@ declare class Class_HttpMessage extends Class_Message {
      * @brief 查询和设定是否是升级协议
      *
      *
-     * @type Boolean
      */
 
     upgrade: boolean
@@ -102,7 +98,6 @@ declare class Class_HttpMessage extends Class_Message {
      *
      * @brief 查询当前对象的来源 socket
      *
-     * @readonly
      */
 
     socket: Class_Stream

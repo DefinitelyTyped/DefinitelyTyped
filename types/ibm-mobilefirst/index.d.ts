@@ -108,7 +108,7 @@ declare namespace WL.App {
     }
     function addActionReceiver(id: string, callback: ActionReceiverCallback): void;
     /**
-     * @deprecate Deprecated.
+     * @deprecated Deprecated.
      */
     function close(): void;
     function copyToClipboard(stringToCopy: string, callback?: Callback): void;
@@ -199,7 +199,7 @@ declare namespace WL.Client {
         authenticator?: Object | undefined;
         heartBeatIntervalInSecs?: number | undefined;
         /**
-         * @deprecated. If you would like your application to connect to the Worklight Server, use WL.Client.connect().
+         * @deprecated If you would like your application to connect to the Worklight Server, use WL.Client.connect().
          */
         connectOnStartup?: boolean | undefined;
         onConnectionFailure?: ((response: WL.FailureResponse) => void) | undefined;
@@ -399,7 +399,7 @@ declare namespace WL.JSONStore {
     function commitTransaction(): JQueryDeferred<number>;
     /**
      * Completely wipes data for all users, destroys the internal storage, and clears security artifacts.
-     * @parameters options is @deprecated
+     * @param options is @deprecated
      */
     function destroy(username: string, options?: WL.Options): JQueryDeferred<number>;
     /**
