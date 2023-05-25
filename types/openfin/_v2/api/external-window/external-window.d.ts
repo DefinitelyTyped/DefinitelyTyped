@@ -30,6 +30,7 @@ export default class ExternalWindowModule extends Base {
  * They are also compatible with OpenFin's Layouts service to facilitate
  * complete positional control over all running applications.<br>
  * External Windows has the ability to listen for <a href="tutorial-ExternalWindow.EventEmitter.html"> external window-specific events</a>.
+ * @class
  * @alias ExternalWindow
  * @hideconstructor
  */
@@ -60,7 +61,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
     /**
      * Gives focus to the external window.
      * @return {Promise.<void>}
-     * @fires ExternalWindow#focused
+     * @emits ExternalWindow#focused
      * @experimental
      * @tutorial Window.focus
      */
@@ -214,6 +215,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
     setAsForeground(): Promise<void>;
     /**
      * Sets the external window's size and position.
+     * @property { Bounds } bounds
      * @return {Promise.<void>}
      * @experimental
      * @tutorial Window.setBounds

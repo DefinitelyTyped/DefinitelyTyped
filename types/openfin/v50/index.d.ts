@@ -1636,6 +1636,7 @@ declare namespace fin {
          * applications you have created.
          * @param { string } code JavaScript code to be executed on the view.
          * @function executeJavaScript
+         * @memberOf View
          * @instance
          * @return {Promise.<void>}
          * @tutorial View.executeJavaScript
@@ -1653,6 +1654,7 @@ declare namespace fin {
         /**
         * Returns the zoom level of the view.
         * @function getZoomLevel
+        * @memberOf View
         * @instance
         * @return {Promise.<number>}
         * @tutorial View.getZoomLevel
@@ -1661,6 +1663,7 @@ declare namespace fin {
          * Sets the zoom level of the view.
          * @param { number } level The zoom level
          * @function setZoomLevel
+         * @memberOf View
          * @instance
          * @return {Promise.<void>}
          * @tutorial View.setZoomLevel
@@ -1670,6 +1673,7 @@ declare namespace fin {
          * @param { string } searchTerm Term to find in page
          * @param { FindInPageOptions } options Search options
          * @function findInPage
+         * @memberOf View
          * @instance
          * @return {Promise.<number>}
          * @tutorial View.findInPage
@@ -1682,6 +1686,7 @@ declare namespace fin {
          * "keepSelection" - Translate the selection into a normal selection.<br>
          * "activateSelection" - Focus and click the selection node.<br>
          * @function stopFindInPage
+         * @memberOf View
          * @instance
          * @return {Promise.<void>}
          * @tutorial View.stopFindInPage
@@ -1699,6 +1704,7 @@ declare namespace fin {
         /**
          * Navigates the view back one page.
          * @function navigateBack
+         * @memberOf View
          * @instance
          * @return {Promise.<void>}
          * @tutorial View.navigateBack
@@ -1706,6 +1712,7 @@ declare namespace fin {
         /**
          * Navigates the view forward one page.
          * @function navigateForward
+         * @memberOf View
          * @instance
          * @return {Promise.<void>}
          * @tutorial View.navigateForward
@@ -1713,6 +1720,7 @@ declare namespace fin {
         /**
          * Stops any current navigation the view is performing.
          * @function stopNavigation
+         * @memberOf View
          * @instance
          * @return {Promise.<void>}
          * @tutorial View.stopNavigation
@@ -1720,6 +1728,7 @@ declare namespace fin {
         /**
         * Reloads the view current page
         * @function reload
+        * @memberOf View
         * @instance
         * @return {Promise.<void>}
         * @tutorial View.reload
@@ -1728,6 +1737,7 @@ declare namespace fin {
         * Prints the view's web page
         * @param { PrintOptions } [options] Printer Options
         * @function print
+        * @memberOf View
         * @instance
         * @return {Promise.<void>}
         * @tutorial View.print
@@ -1735,6 +1745,7 @@ declare namespace fin {
         /**
         * Returns an array with all system printers
         * @function getPrinters
+        * @memberOf View
         * @instance
         * @return { Promise.Array.<PrinterInfo> }
         * @tutorial View.getPrinters
@@ -1742,6 +1753,7 @@ declare namespace fin {
         /**
         * Shows the Chromium Developer Tools
         * @function showDeveloperTools
+        * @memberOf View
         * @instance
         * @return {Promise.<void>}
         * @tutorial View.showDeveloperTools

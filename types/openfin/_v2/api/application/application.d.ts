@@ -96,16 +96,16 @@ export interface RvmLaunchOptions {
  * [spellCheck=false]
  * Enable spell check at the application level.
  *
- * [url="about:blank"]
+ * @property {string} [url="about:blank"]
  * The url to the application (specifically the application's main window).
  *
- * uuid
+ * @property {string} uuid
  * The _Unique Universal Identifier_ (UUID) of the application, unique within the set of all other applications
  *  running in the OpenFin Runtime.
  *
  * Note that `name` and `uuid` must match.
  *
- * [webSecurity=true]
+ * @property {boolean} [webSecurity=true]
  * When set to `false` it will disable the same-origin policy for the app.
  */
 /**
