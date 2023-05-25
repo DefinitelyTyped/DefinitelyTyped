@@ -1,15 +1,3 @@
-// Type definitions for @babel/traverse 7.20
-// Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
-//                 Ryan Petrich <https://github.com/rpetrich>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Dean L. <https://github.com/dlgrit>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Daniel Tschinder <https://github.com/danez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as t from '@babel/types';
 export import Node = t.Node;
 export import RemovePropertiesOptions = t.RemovePropertiesOptions;
@@ -314,11 +302,6 @@ export type Visitor<S = unknown> = VisitNodeObject<S, Node> & {
     [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
 } & {
     [K in keyof VirtualTypeAliases]?: VisitNode<S, VirtualTypeAliases[K]>;
-} & {
-    // Babel supports `NodeTypesWithoutComment | NodeTypesWithoutComment | ... ` but it is
-    // too complex for TS. So we type it as a general visitor only if the key contains `|`
-    // this is good enough for non-visitor traverse options e.g. `noScope`
-    [k: `${string}|${string}`]: VisitNode<S, Node>;
 };
 
 export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
