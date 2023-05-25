@@ -1036,7 +1036,14 @@ declare namespace OracleDB {
          */
         getStatementInfo(sql: string): Promise<StatementInfo>;
         getStatementInfo(sql: string, callback: (error: DBError, info: StatementInfo) => void): void;
-
+        /**
+         * This synchronous function returns a boolean indicating the health status of a connection.
+         * Connections may become unusable in several cases, such as if the network socket is broken, if an Oracle error indicates the connection is unusable or after receiving a planned down notification from the database.
+         * This function is best used before starting a new database request on an existing standalone connection. Pooled connections internally perform this check before returning a connection to the application.
+         * If this function returns false, the connection should be closed by the application and a new connection should be established instead.
+         * This function performs a local check. To fully check a connection’s health, use connection.ping() which performs a round-trip to the database.
+         */
+        isHealthy(): boolean;
         /**
          * This method checks that a connection is currently usable and the network to the database is valid.
          * This call can be useful for system health checks. A ping only confirms that a single connection
