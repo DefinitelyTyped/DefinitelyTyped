@@ -1571,6 +1571,13 @@ declare namespace OracleDB {
          * @default false
          */
         resultSet?: boolean | undefined;
+        /**
+         * When keepInStmtCache is true, and statement caching is enabled, then the statement will be added to the cache if it is not already present. This helps the performance of re-executed statements. See Statement Caching.
+         * The default value is true.
+         * New in version 5.3.
+         * In earlier versions, statements were always added to the statement cache, if caching was enabled.
+         */
+        keepInStmtCache?: boolean | undefined;
     }
 
     /**
@@ -1620,6 +1627,13 @@ declare namespace OracleDB {
          * @default false
          */
         dmlRowCounts?: boolean | undefined;
+        /**
+         * When keepInStmtCache is true, and statement caching is enabled, then the statement will be added to the cache if it is not already present. This helps the performance of re-executed statements. See Statement Caching.
+         * The default value is true.
+         * New in version 5.3.
+         * In earlier versions, statements were always added to the statement cache, if caching was enabled.
+         */
+        keepInStmtCache?: boolean | undefined;
     }
 
     /**
