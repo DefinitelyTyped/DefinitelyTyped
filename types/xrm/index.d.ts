@@ -3346,7 +3346,7 @@ declare namespace Xrm {
 
             /**
              * Returns a dictionary of the output properties of the control.
-             * @returns: A dictionary for the output parameters from the control.
+             * @returns A dictionary for the output parameters from the control.
              *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
              */
             getOutputs(): { [index: string]: FieldControlOutput };
@@ -4264,7 +4264,7 @@ declare namespace Xrm {
 
             /**
              * Sets the visibility of the footer section.
-             * @arg bool Specify true to show the footer section; false to hide the footer section.
+             * @param bool Specify true to show the footer section; false to hide the footer section.
              * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
              * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
              */
@@ -4295,7 +4295,7 @@ declare namespace Xrm {
 
             /**
              * Sets the header's body visibility.
-             * @arg bool Specify true to show the body; false to hide the body.
+             * @param bool Specify true to show the body; false to hide the body.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/setbodyvisible External Link: setBodyVisible (Client API reference)}
              */
@@ -4303,7 +4303,7 @@ declare namespace Xrm {
 
             /**
              * Sets the command bar visibility.
-             * @arg bool Specify true to show the command bar; false to hide the command bar.
+             * @param bool Specify true to show the command bar; false to hide the command bar.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/setcommandbarvisible External Link: setCommandBarVisible (Client API reference)}
              */
@@ -4311,7 +4311,7 @@ declare namespace Xrm {
 
             /**
              * Sets the tab navigator visibility.
-             * @arg bool Specify true to show the tab navigator; false to hide the tab navigator.
+             * @param bool Specify true to show the tab navigator; false to hide the tab navigator.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/settabnavigatorvisible External Link: setTabNavigatorVisible (Client API reference)}
              */

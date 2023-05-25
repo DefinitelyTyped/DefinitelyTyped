@@ -145,9 +145,9 @@ export interface NdArray<T = number> extends BaseNdArray<Data<T>> {
     /**
      * Returns the discrete, linear convolution of the array using the given filter.
      *
-     * @note: Arrays must have the same dimensions and `filter` must be smaller than the array.
-     * @note: The convolution product is only given for points where the signals overlap completely. Values outside the signal boundary have no effect. This behaviour is known as the 'valid' mode.
-     * @note: Use optimized code for 3x3, 3x3x1, 5x5, 5x5x1 filters, FFT otherwise.
+     * @note Arrays must have the same dimensions and `filter` must be smaller than the array.
+     * @note The convolution product is only given for points where the signals overlap completely. Values outside the signal boundary have no effect. This behaviour is known as the 'valid' mode.
+     * @note Use optimized code for 3x3, 3x3x1, 5x5, 5x5x1 filters, FFT otherwise.
      */
     convolve(filter: NjArray<T>): NdArray<T>;
 

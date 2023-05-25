@@ -2,7 +2,7 @@
 
 declare module "sap/ui/mdc/enum/FilterBarValidationStatus" {
   /**
-   * @SINCE 1.110
+   * @since 1.110
    *
    * Enumeration of the possible validation types.
    */
@@ -99,15 +99,15 @@ declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * @SINCE 1.84.0
-   * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @since 1.84.0
+   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The FilterContainer is a IFilterContainer implementation for `AlignedFlowLayout`
    */
   export default class FilterContainer
     /* was: sap.ui.mdc.filterbar.IFilterContainer */ extends Object {
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Constructor for a new filterBar/vh/FilterContainer.
      *
@@ -123,7 +123,7 @@ declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
     );
 
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.mdc.filterbar.vh.FilterContainer with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -148,7 +148,7 @@ declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.mdc.filterbar.vh.FilterContainer.
      *
@@ -183,8 +183,8 @@ declare module "sap/ui/mdc/p13n/panels/FilterPanel" {
   };
 
   /**
-   * @SINCE 1.107
-   * @EXPERIMENTAL (since 1.107)
+   * @since 1.107
+   * @experimental (since 1.107)
    *
    * This control can be used to customize personalization content for filtering for an associated control
    * instance.

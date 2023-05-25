@@ -8338,7 +8338,7 @@ declare namespace go {
 
         /**
         * Compute the new angle given a point.
-        * @param{Point} newPoint
+        * @param {Point} newPoint
         */
         computeRotate(newPoint: Point): number;
 

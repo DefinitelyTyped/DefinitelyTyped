@@ -170,7 +170,7 @@ declare global {
          * Removes all of the members at the given indices from the array and returns a new array containing the removed
          *  members.
          * @param indices The indices of the members to remove.
-         * @sine SugarCube 2.5.0
+         * @since SugarCube 2.5.0
          * @example
          * // Given: $fruits = ["Apples", "Oranges", "Plums", "Oranges"]
          * $fruits.deleteAt(2)     → Returns ["Plums"]; $fruits ["Apples", "Oranges", "Oranges"]

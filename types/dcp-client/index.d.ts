@@ -238,16 +238,16 @@ export namespace wallet {
 export namespace worker {
     class Worker {
         /**
-         * @start - Emitted when the worker is started.
-         * @stop - Emitted when the worker is stopped.
-         * @fetchStart - Emitted when the worker submits a result. Contains the value of DCC earned.
-         * @fetchEnd - Emitted when the worker’s slice fetch request is finished, on both success and error. If it was emmitted due to an error, the callback argument will be the error instance.
-         * @fetch - Emitted when the worker successfully fetches slices from the scheduler.
-         * @fetchError - Emitted when the worker’s slice fetch request returns an error. The callback argument is the error instance.
-         * @submitStart - Emitted when the worker starts a request to submit a result to the scheduler.
-         * @submitEnd - Emitted when the worker’s result submit request is finished, on both success and error. If it was emitted due to an error, the callback argument wil be the error instance.
-         * @submit - Emitted when the worker successfully submits a result to the scheduler.
-         * @submitError - Emitted when the worker successfully submits a result to the scheduler.
+         * start - Emitted when the worker is started.
+         * stop - Emitted when the worker is stopped.
+         * fetchStart - Emitted when the worker submits a result. Contains the value of DCC earned.
+         * fetchEnd - Emitted when the worker’s slice fetch request is finished, on both success and error. If it was emmitted due to an error, the callback argument will be the error instance.
+         * fetch - Emitted when the worker successfully fetches slices from the scheduler.
+         * fetchError - Emitted when the worker’s slice fetch request returns an error. The callback argument is the error instance.
+         * submitStart - Emitted when the worker starts a request to submit a result to the scheduler.
+         * submitEnd - Emitted when the worker’s result submit request is finished, on both success and error. If it was emitted due to an error, the callback argument wil be the error instance.
+         * submit - Emitted when the worker successfully submits a result to the scheduler.
+         * submitError - Emitted when the worker successfully submits a result to the scheduler.
          */
         on(
             event:
@@ -369,9 +369,9 @@ export class Sandbox {
     addEventListener(event: 'sliceFinish', listener: (result: any) => void): void;
 
     /**
-     * @sliceError - Emitted when the slice the sandbox was working on throws an error. The first argument is the same payload from sliceStart, the second argument is the error instance.
-     * @sliceEnd - Emitted when the slice either finishes or throws an error. The callback argument is the payload from sliceStart.
-     * @terminate - Emitted when the sandbox environment is terminated. The sandbox will not be used after this event is emitted.
+     * sliceError - Emitted when the slice the sandbox was working on throws an error. The first argument is the same payload from sliceStart, the second argument is the error instance.
+     * sliceEnd - Emitted when the slice either finishes or throws an error. The callback argument is the payload from sliceStart.
+     * terminate - Emitted when the sandbox environment is terminated. The sandbox will not be used after this event is emitted.
      */
     addEventListener(event: 'sliceError' | 'sliceEnd' | 'terminate', listener: () => void): void;
 

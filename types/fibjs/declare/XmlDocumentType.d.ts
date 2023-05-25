@@ -31,8 +31,6 @@ declare class Class_XmlDocumentType extends Class_XmlNode {
      * @brief 返回 DTD 的名称
      *
      *
-     * @readonly
-     *
      */
 
     name: string
@@ -44,8 +42,6 @@ declare class Class_XmlDocumentType extends Class_XmlNode {
      * @brief 可返回外部 DTD 的公共识别符
      *
      *
-     * @readonly
-     *
      */
 
     publicId: string
@@ -56,8 +52,6 @@ declare class Class_XmlDocumentType extends Class_XmlNode {
      *
      * @brief 可返回外部 DTD 的系统识别符
      *
-     *
-     * @readonly
      *
      */
 
