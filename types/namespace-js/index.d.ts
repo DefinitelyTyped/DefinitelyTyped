@@ -6,25 +6,47 @@
 export as namespace Namespace;
 
 export namespace NamespaceJs {
-    interface Definition<T extends object> {
+    type UserObject = object;
+    type Fqn = string;
+    type ImportName = string;
+    // if you don't attach anything in use() function, ns is this type.
+    type DotUserObject<Fqn, UserObject> = Fqn extends `${infer Fqn1}.${infer Fqn2}`
+        ? {
+              [P in Fqn1]: DotUserObject<Fqn2, UserObject>;
+          }
+        : {
+              [P in Extract<Fqn, string>]: {
+                  [P in keyof UserObject]: UserObject[P];
+              };
+          };
+
+    interface Definition<T extends UserObject> {
         define(
             callback: (
                 ns: T & {
-                    provide: <U extends object>(obj: U) => void;
+                    // eslint-disable-next-line no-unnecessary-generics
+                    provide: <U extends UserObject>(obj: U) => void;
                 },
             ) => void,
         ): void;
     }
 
-    interface Object<T extends object> {
-        use<U extends object>(syntax: string): Object<T & U>;
+    interface Application<T extends UserObject> {
+        use<U extends UserObject, Syntax>(
+            syntax: Syntax,
+        ): Syntax extends `${Fqn} ${ImportName}`
+            ? Application<T & U>
+            : Syntax extends string
+            ? Application<DotUserObject<Syntax, T & U>>
+            : never;
         apply(callback: (ns: T) => void): void;
     }
 }
 
 declare global {
-    function Namespace<T extends object>(fqn: string): NamespaceJs.Definition<T>;
+    // eslint-disable-next-line no-unnecessary-generics
+    function Namespace<T extends NamespaceJs.UserObject>(fqn: NamespaceJs.Fqn): NamespaceJs.Definition<T>;
 }
 
-export const use: NamespaceJs.Object<{}>['use'];
-export const apply: NamespaceJs.Object<{}>['apply'];
+export const use: NamespaceJs.Application<{}>['use'];
+export const apply: NamespaceJs.Application<{}>['apply'];

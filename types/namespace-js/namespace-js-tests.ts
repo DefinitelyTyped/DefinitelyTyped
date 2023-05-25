@@ -1,4 +1,4 @@
-import * as NamespaceJs from 'namespace-js';
+import * as Namespace from 'namespace-js';
 
 interface UserObject1 {
     foo: () => string;
@@ -9,7 +9,7 @@ interface UserObject2 {
     baz: () => string;
 }
 
-NamespaceJs('com.example.application').define(ns => {
+Namespace('com.example.application').define(ns => {
     ns.provide<UserObject1>({
         foo() {
             return 'foo';
@@ -20,7 +20,7 @@ NamespaceJs('com.example.application').define(ns => {
     });
 });
 
-NamespaceJs<UserObject1>('com.example.application').define(ns => {
+Namespace<UserObject1>('com.example.application').define(ns => {
     // $ExpectType string
     ns.bar();
     // $ExpectType string
@@ -32,8 +32,8 @@ NamespaceJs<UserObject1>('com.example.application').define(ns => {
     });
 });
 
-NamespaceJs.use<UserObject1>('com.example.application foo,bar')
-    .use<UserObject2>('com.example.application baz')
+Namespace.use<UserObject1, 'com.example.application foo,bar'>('com.example.application foo,bar')
+    .use<UserObject2, 'com.example.application baz'>('com.example.application baz')
     .apply(ns => {
         // $ExpectType UserObject1 & UserObject2
         ns;
@@ -41,6 +41,19 @@ NamespaceJs.use<UserObject1>('com.example.application foo,bar')
         ns.foo();
         // $ExpectType string
         ns.bar();
+        // $ExpectType string
+        ns.baz();
+        // @ts-expect-error
+        ns.qux();
+    });
+
+Namespace.use<UserObject1, 'com.example.application'>('com.example.application')
+    .use<UserObject2, 'com.example.application baz'>('com.example.application baz')
+    .apply(ns => {
+        // $ExpectType string
+        ns.com.example.application.foo();
+        // $ExpectType string
+        ns.com.example.application.bar();
         // $ExpectType string
         ns.baz();
         // @ts-expect-error
