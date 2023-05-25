@@ -186,13 +186,6 @@ export interface RuntimeStats {
     completedSplits: number;
 }
 
-// https://github.com/tagomoris/presto-client-node/blob/42a7ca05220a8b6476c68dbecb1a510ed1be5139/lib/presto-client/index.js#LL235C17-L235C31
-export interface PrestoRequestError extends Error {
-    // This will be set in the case of recasting an error
-    error?: Error;
-    code?: number;
-}
-
 // https://github.com/prestodb/presto/blob/bf9df7ef991a77e529d268f5d20ae7a8dc6aebc6/presto-client/src/main/java/com/facebook/presto/client/ErrorLocation.java
 interface ErrorLocation {
     lineNumber: number;
@@ -218,6 +211,13 @@ export interface PrestoQueryError extends Error {
     failureInfo?: FailureInfo;
     sqlState?: string;
     retriable?: boolean;
+}
+
+// https://github.com/tagomoris/presto-client-node/blob/42a7ca05220a8b6476c68dbecb1a510ed1be5139/lib/presto-client/index.js#LL235C17-L235C31
+export interface PrestoRequestError extends Error {
+    // This will be set in the case of recasting an error
+    error?: PrestoQueryError;
+    code?: number;
 }
 
 export type PrestoError = PrestoRequestError | PrestoQueryError;
