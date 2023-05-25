@@ -39,7 +39,7 @@ export interface Message {
 
 export class ImapSimple extends EventEmitter {
     constructor(imap: Imap);
-    
+
     /** Access underlying `node-imap` instance */
     imap: Imap; // https://github.com/chadxz/imap-simple/blob/master/lib/imapSimple.js#L22
 
