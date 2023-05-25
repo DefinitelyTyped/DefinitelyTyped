@@ -188,36 +188,38 @@ export interface RuntimeStats {
 
 // https://github.com/prestodb/presto/blob/bf9df7ef991a77e529d268f5d20ae7a8dc6aebc6/presto-client/src/main/java/com/facebook/presto/client/ErrorLocation.java
 export interface ErrorLocation {
-    lineNumber: number;
     columnNumber: number;
+    lineNumber: number;
 }
 
 // https://github.com/prestodb/presto/blob/bf9df7ef991a77e529d268f5d20ae7a8dc6aebc6/presto-client/src/main/java/com/facebook/presto/client/FailureInfo.java
 export interface FailureInfo {
     cause?: FailureInfo;
-    type: string;
-    message?: string;
-    suppressed: FailureInfo[];
-    stack: string;
     errorLocation?: ErrorLocation;
+    message?: string;
+    stack: string[];
+    suppressed: FailureInfo[];
+    type: string;
 }
 
 // https://github.com/prestodb/presto/blob/bf9df7ef991a77e529d268f5d20ae7a8dc6aebc6/presto-client/src/main/java/com/facebook/presto/client/QueryError.java
-export interface PrestoQueryError extends Error {
+export interface PrestoQueryError {
+    boolean?: boolean;
     errorCode?: number;
+    errorLocation?: ErrorLocation;
     errorName?: string;
     errorType?: string;
-    errorLocation?: ErrorLocation;
     failureInfo?: FailureInfo;
+    message: string;
     sqlState?: string;
-    retriable?: boolean;
 }
 
 // https://github.com/tagomoris/presto-client-node/blob/42a7ca05220a8b6476c68dbecb1a510ed1be5139/lib/presto-client/index.js#LL235C17-L235C31
-export interface PrestoRequestError extends Error {
+export interface PrestoRequestError {
+    code: number;
     // This will be set in the case of recasting an error
-    error?: PrestoQueryError;
-    code?: number;
+    error: PrestoQueryError | undefined;
+    message: string;
 }
 
 export type PrestoError = PrestoRequestError | PrestoQueryError;
