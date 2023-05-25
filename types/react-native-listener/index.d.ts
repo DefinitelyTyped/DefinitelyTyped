@@ -69,8 +69,7 @@ export type NativeListenerProps =
   | NativeListenerStopProps;
 
 export default class NativeListener extends Component<
-  NativeListenerProps & { children: ReactElement },
-  {}
+  NativeListenerProps & { children: ReactElement }
 > {}
 
 export {};
