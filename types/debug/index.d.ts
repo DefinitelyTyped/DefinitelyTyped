@@ -30,6 +30,13 @@ declare namespace debug {
         skips: RegExp[];
 
         formatters: Formatters;
+
+        inspectOpts?: {
+            hideDate?: boolean | number | null;
+            colors?: boolean | number | null;
+            depth?: boolean | number | null;
+            showHidden?: boolean | number | null;
+        };
     }
 
     type IDebug = Debug;

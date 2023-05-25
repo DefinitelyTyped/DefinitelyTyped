@@ -1,7 +1,8 @@
-// Type definitions for react-tagsinput 3.19
+// Type definitions for react-tagsinput 3.20
 // Project: https://github.com/olahol/react-tagsinput
 // Definitions by: Michael Macnair <https://github.com/mykter>
 //                 Richard Tan <https://github.com/chardos>
+//                 Prakhar Goel <https://github.com/Prakhargoel8c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -53,6 +54,7 @@ declare namespace TagsInput {
         currentValue?: string | undefined;
         inputValue?: string | undefined;
         onlyUnique?: boolean | undefined;
+        validate?: ((tag: Tag) => boolean) | undefined;
         validationRegex?: RegExp | undefined;
         onValidationReject?: ((tags: string[]) => void) | undefined;
         disabled?: boolean | undefined;

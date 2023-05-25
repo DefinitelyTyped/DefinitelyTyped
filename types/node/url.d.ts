@@ -5,7 +5,7 @@
  * ```js
  * import url from 'node:url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/url.js)
  */
 declare module 'url' {
     import { Blob as NodeBlob } from 'node:buffer';
@@ -129,7 +129,7 @@ declare module 'url' {
      * string, an `Error` is thrown.
      * * `result` is returned.
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
     function format(urlObject: URL, options?: URLFormatOptions): string;
@@ -193,7 +193,7 @@ declare module 'url' {
      * string, an `Error` is thrown.
      * * `result` is returned.
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
     function format(urlObject: UrlObject | string): string;
@@ -226,7 +226,7 @@ declare module 'url' {
      * resolve('http://example.com/one', '/two'); // 'http://example.com/two'
      * ```
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
      * @param from The base URL to use if `to` is a relative URL.
      * @param to The target URL to resolve.
      */
@@ -748,9 +748,12 @@ declare module 'url' {
          */
         append(name: string, value: string): void;
         /**
-         * Remove all name-value pairs whose name is `name`.
+         * If `value` is provided, removes all name-value pairs
+         * where name is `name` and value is `value`..
+         *
+         * If `value` is not provided, removes all name-value pairs whose name is `name`.
          */
-        delete(name: string): void;
+        delete(name: string, value?: string): void;
         /**
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
          * Each item of the iterator is a JavaScript `Array`. The first item of the `Array`is the `name`, the second item of the `Array` is the `value`.
@@ -786,9 +789,15 @@ declare module 'url' {
          */
         getAll(name: string): string[];
         /**
-         * Returns `true` if there is at least one name-value pair whose name is `name`.
+         * Checks if the `URLSearchParams` object contains key-value pair(s) based on`name` and an optional `value` argument.
+         *
+         * If `value` is provided, returns `true` when name-value pair with
+         * same `name` and `value` exists.
+         *
+         * If `value` is not provided, returns `true` if there is at least one name-value
+         * pair whose name is `name`.
          */
-        has(name: string): boolean;
+        has(name: string, value?: string): boolean;
         /**
          * Returns an ES6 `Iterator` over the names of each name-value pair.
          *

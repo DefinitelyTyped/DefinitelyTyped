@@ -6,7 +6,7 @@
  * ```js
  * const util = require('node:util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
@@ -575,7 +575,7 @@ declare module 'util' {
      * stream.write('With ES6');
      * ```
      * @since v0.3.0
-     * @deprecated Legacy: Use ES2015 class syntax and `extends` keyword instead.
+     * @legacy Use ES2015 class syntax and `extends` keyword instead.
      */
     export function inherits(constructor: unknown, superConstructor: unknown): void;
     export type DebugLoggerFunction = (msg: string, ...param: unknown[]) => void;

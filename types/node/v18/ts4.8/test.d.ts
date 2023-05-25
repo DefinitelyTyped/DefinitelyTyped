@@ -49,7 +49,19 @@ declare module 'node:test' {
     function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
-
+    namespace test {
+        export {
+            after,
+            afterEach,
+            before,
+            beforeEach,
+            describe,
+            it,
+            run,
+            mock,
+            test
+        };
+    }
     /**
      * @since v18.6.0
      * @param name The name of the suite, which is displayed when reporting suite results.
@@ -73,6 +85,15 @@ declare module 'node:test' {
         function todo(name?: string, fn?: SuiteFn): void;
         function todo(options?: TestOptions, fn?: SuiteFn): void;
         function todo(fn?: SuiteFn): void;
+
+        /**
+         * Shorthand for marking a suite as `only`, same as `describe([name], { only: true }[, fn])`.
+         * @since v18.15.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
 
     /**
@@ -83,22 +104,31 @@ declare module 'node:test' {
      * @param fn The function under test. If the test uses callbacks, the callback function is
      *    passed as the second argument. Default: A no-op function.
      */
-    function it(name?: string, options?: TestOptions, fn?: ItFn): void;
-    function it(name?: string, fn?: ItFn): void;
-    function it(options?: TestOptions, fn?: ItFn): void;
-    function it(fn?: ItFn): void;
+    function it(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function it(name?: string, fn?: TestFn): void;
+    function it(options?: TestOptions, fn?: TestFn): void;
+    function it(fn?: TestFn): void;
     namespace it {
         // Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
-        function skip(name?: string, options?: TestOptions, fn?: ItFn): void;
-        function skip(name?: string, fn?: ItFn): void;
-        function skip(options?: TestOptions, fn?: ItFn): void;
-        function skip(fn?: ItFn): void;
+        function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function skip(name?: string, fn?: TestFn): void;
+        function skip(options?: TestOptions, fn?: TestFn): void;
+        function skip(fn?: TestFn): void;
 
         // Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
-        function todo(name?: string, options?: TestOptions, fn?: ItFn): void;
-        function todo(name?: string, fn?: ItFn): void;
-        function todo(options?: TestOptions, fn?: ItFn): void;
-        function todo(fn?: ItFn): void;
+        function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function todo(name?: string, fn?: TestFn): void;
+        function todo(options?: TestOptions, fn?: TestFn): void;
+        function todo(fn?: TestFn): void;
+
+        /**
+         * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
+         * @since v18.15.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function only(name?: string, fn?: TestFn): void;
+        function only(options?: TestOptions, fn?: TestFn): void;
+        function only(fn?: TestFn): void;
     }
 
     /**
@@ -113,12 +143,6 @@ declare module 'node:test' {
      * If the test uses callbacks, the callback function is passed as an argument
      */
     type SuiteFn = (done: (result?: any) => void) => void;
-
-    /**
-     * The type of a function under test.
-     * If the test uses callbacks, the callback function is passed as an argument
-     */
-    type ItFn = (done: (result?: any) => void) => any;
 
     interface RunOptions {
         /**

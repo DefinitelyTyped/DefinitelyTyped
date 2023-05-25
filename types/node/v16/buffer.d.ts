@@ -167,6 +167,9 @@ declare module 'buffer' {
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
     global {
+        namespace NodeJS {
+            export { BufferEncoding };
+        }
         // Buffer class
         type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
         type WithImplicitCoercion<T> =
@@ -2206,7 +2209,7 @@ declare module 'buffer' {
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
          * @since v15.13.0
-         * @deprecated Use `Buffer.from(data, 'base64')` instead.
+         * @legacy Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
          */
         function atob(data: string): string;
@@ -2222,7 +2225,7 @@ declare module 'buffer' {
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
          * @since v15.13.0
-         * @deprecated Use `buf.toString('base64')` instead.
+         * @legacy Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.
          */
         function btoa(data: string): string;

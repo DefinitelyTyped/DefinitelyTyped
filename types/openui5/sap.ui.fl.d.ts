@@ -1,4 +1,4 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.114.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1531,8 +1531,6 @@ declare namespace sap {
     "sap/ui/fl/descriptorRelated/api/DescriptorVariantFactory": undefined;
 
     "sap/ui/fl/FlexControllerFactory": undefined;
-
-    "sap/ui/fl/initial/_internal/changeHandlers/ChangeRegistryItem": undefined;
 
     "sap/ui/fl/initial/_internal/connectors/BackendConnector": undefined;
 

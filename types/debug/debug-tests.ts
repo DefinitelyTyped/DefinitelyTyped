@@ -53,3 +53,7 @@ debug2.log = function(this: debug1.Debugger, ...args) {
         diff,
     });
 };
+
+if (debug2.inspectOpts) {
+    debug2.inspectOpts.depth = 12;
+}

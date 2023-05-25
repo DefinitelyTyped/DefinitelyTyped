@@ -63,7 +63,7 @@
  * For certain use cases, such as automating shell scripts, the `synchronous counterparts` may be more convenient. In many cases, however,
  * the synchronous methods can have significant impact on performance due to
  * stalling the event loop while spawned processes complete.
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/child_process.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/child_process.js)
  */
 declare module 'child_process' {
     import { ObjectEncodingOptions } from 'node:fs';
@@ -1310,7 +1310,7 @@ declare module 'child_process' {
     interface CommonExecOptions extends CommonOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
         /**
-         * Can be set to 'pipe', 'inherit', 'overlapped', or 'ignore', or an array of these strings.
+         * Can be set to 'pipe', 'inherit, or 'ignore', or an array of these strings.
          * If passed as an array, the first element is used for `stdin`, the second for
          * `stdout`, and the third for `stderr`. A fourth element can be used to
          * specify the `stdio` behavior beyond the standard streams. See

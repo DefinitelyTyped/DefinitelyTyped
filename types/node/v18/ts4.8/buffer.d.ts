@@ -202,6 +202,9 @@ declare module 'buffer' {
     // the copy below in a Node environment.
     type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
     global {
+        namespace NodeJS {
+            export { BufferEncoding };
+        }
         // Buffer class
         type BufferEncoding =
             | 'ascii'
@@ -2280,7 +2283,7 @@ declare module 'buffer' {
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
-         * @deprecated Use `Buffer.from(data, 'base64')` instead.
+         * @legacy Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
          */
         function atob(data: string): string;
@@ -2296,7 +2299,7 @@ declare module 'buffer' {
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
-         * @deprecated Use `buf.toString('base64')` instead.
+         * @legacy Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.
          */
         function btoa(data: string): string;

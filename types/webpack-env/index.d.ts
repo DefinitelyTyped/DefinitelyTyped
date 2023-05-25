@@ -10,8 +10,10 @@
  */
 
 declare namespace __WebpackModuleApi {
+    type ModuleId = string|number;
+
     interface RequireResolve {
-        (id: string): string | number;
+        (id: string): ModuleId;
     }
 
     interface RequireContext {
@@ -20,7 +22,7 @@ declare namespace __WebpackModuleApi {
         <T>(id: string): T;
         resolve(id: string): string;
         /** The module id of the context module. This may be useful for module.hot.accept. */
-        id: string;
+        id: ModuleId;
     }
 
     interface RequireFunction {
@@ -50,7 +52,7 @@ declare namespace __WebpackModuleApi {
         /**
          * Like require.resolve, but doesn’t include the module into the bundle. It’s a weak dependency.
          */
-        resolveWeak(path: string): number | string;
+        resolveWeak(path: string): ModuleId;
         /**
          * Ensures that the dependency is available, but don’t execute it. This can be use for optimizing the position of a module in the chunks.
          */
@@ -65,14 +67,13 @@ declare namespace __WebpackModuleApi {
 
     interface Module {
         exports: any;
-        id: string;
+        id: ModuleId;
         filename: string;
         loaded: boolean;
         parent: NodeModule | null | undefined;
         children: NodeModule[];
         hot?: Hot | undefined;
     }
-    type ModuleId = string|number;
 
     interface HotNotifierInfo {
         type:

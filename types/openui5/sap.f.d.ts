@@ -1,4 +1,4 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.114.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -312,6 +312,21 @@ declare module "sap/f/library" {
      * The direction is up.
      */
     Up = "Up",
+  }
+  /**
+   * @SINCE 1.104
+   *
+   * Enumeration for different SidePanel position.
+   */
+  export enum SidePanelPosition {
+    /**
+     * The position is left.
+     */
+    Left = "Left",
+    /**
+     * The position is right.
+     */
+    Right = "Right",
   }
 
   export namespace cards {
@@ -19036,6 +19051,8 @@ declare module "sap/f/SidePanel" {
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
+  import { SidePanelPosition } from "sap/f/library";
+
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
@@ -19386,6 +19403,16 @@ declare module "sap/f/SidePanel" {
      */
     getSidePanelMinWidth(): CSSSize;
     /**
+     * Gets current value of property {@link #getSidePanelPosition sidePanelPosition}.
+     *
+     * Defines where to place the side panel position.
+     *
+     * Default value is `Right`.
+     *
+     * @returns Value of property `sidePanelPosition`
+     */
+    getSidePanelPosition(): SidePanelPosition | keyof typeof SidePanelPosition;
+    /**
      * Gets current value of property {@link #getSidePanelResizable sidePanelResizable}.
      *
      * Determines whether the side panel is resizable or fixed. **Note:** setting this property only affects
@@ -19609,6 +19636,23 @@ declare module "sap/f/SidePanel" {
       sSidePanelMinWidth?: CSSSize
     ): this;
     /**
+     * Sets a new value for property {@link #getSidePanelPosition sidePanelPosition}.
+     *
+     * Defines where to place the side panel position.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Right`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelPosition(
+      /**
+       * New value for property `sidePanelPosition`
+       */
+      sSidePanelPosition?: SidePanelPosition | keyof typeof SidePanelPosition
+    ): this;
+    /**
      * Sets a new value for property {@link #getSidePanelResizable sidePanelResizable}.
      *
      * Determines whether the side panel is resizable or fixed. **Note:** setting this property only affects
@@ -19729,6 +19773,14 @@ declare module "sap/f/SidePanel" {
      * the resize splitter is focused.
      */
     sidePanelResizeLargerStep?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines where to place the side panel position.
+     */
+    sidePanelPosition?:
+      | (SidePanelPosition | keyof typeof SidePanelPosition)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The list of controls for the main content.

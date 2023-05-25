@@ -49,4 +49,5 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 {
     const x = new AbortController().signal;
     x.reason; // $ExpectType any
+    x.throwIfAborted(); // $ExpectType void
 }

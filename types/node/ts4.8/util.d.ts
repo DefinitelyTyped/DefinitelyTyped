@@ -6,7 +6,7 @@
  * ```js
  * const util = require('node:util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
@@ -575,7 +575,7 @@ declare module 'util' {
      * stream.write('With ES6');
      * ```
      * @since v0.3.0
-     * @deprecated Legacy: Use ES2015 class syntax and `extends` keyword instead.
+     * @legacy Use ES2015 class syntax and `extends` keyword instead.
      */
     export function inherits(constructor: unknown, superConstructor: unknown): void;
     export type DebugLoggerFunction = (msg: string, ...param: unknown[]) => void;
@@ -1195,7 +1195,6 @@ declare module 'util' {
          */
         encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
     }
-
     import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from 'util';
     global {
         /**
@@ -1382,15 +1381,19 @@ declare module 'util' {
             ? PreciseTokenForOptions<K & string, T['options'][K]>
             : OptionToken
         : never;
+
     type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T['strict'], TokenForOptions<T>, OptionToken>;
+
     type ParsedPositionalToken<T extends ParseArgsConfig> = IfDefaultsTrue<
         T['strict'],
         IfDefaultsFalse<T['allowPositionals'], { kind: 'positional'; index: number; value: string }, never>,
         IfDefaultsTrue<T['allowPositionals'], { kind: 'positional'; index: number; value: string }, never>
     >;
+
     type ParsedTokens<T extends ParseArgsConfig> = Array<
         ParsedOptionToken<T> | ParsedPositionalToken<T> | { kind: 'option-terminator'; index: number }
     >;
+
     type PreciseParsedResults<T extends ParseArgsConfig> = IfDefaultsFalse<
         T['tokens'],
         {
@@ -1403,6 +1406,7 @@ declare module 'util' {
             positionals: ParsedPositionals<T>;
         }
     >;
+
     type OptionToken =
         | { kind: 'option'; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
         | {
@@ -1413,6 +1417,7 @@ declare module 'util' {
               value: undefined;
               inlineValue: undefined;
           };
+
     type Token =
         | OptionToken
         | { kind: 'positional'; index: number; value: string }
@@ -1422,11 +1427,14 @@ declare module 'util' {
     // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
     type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T
         ? {
-              values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
+              values: {
+                  [longOption: string]: undefined | string | boolean | Array<string | boolean>;
+              };
               positionals: string[];
               tokens?: Token[];
           }
         : PreciseParsedResults<T>;
+
     /**
      * An implementation of [the MIMEType class](https://bmeck.github.io/node-proposal-mime-api/).
      *
