@@ -1805,6 +1805,10 @@ declare namespace OracleDB {
         threadPoolSize: number;
     }
 
+    interface PoolStatistics {
+        logStatistics(): void;
+    }
+
     /**
      * Contains a pool of connections to the database.
      */
