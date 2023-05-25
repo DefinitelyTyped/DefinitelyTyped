@@ -232,8 +232,7 @@ export interface RunResult extends RunResultOptions {
      * @example
      * result.assertFile('templates/user.hbs');
      *
-     */
-    /**
+     * @also
      *
      * Assert that each files in the array exists
      * @param paths    - an array of paths to files
@@ -248,8 +247,7 @@ export interface RunResult extends RunResultOptions {
      * @example
      * result.assertNoFile('templates/user.hbs');
      *
-     */
-    /**
+     * @also
      *
      * Assert that each of an array of files doesn't exist
      * @param pairs    - an array of paths to files
@@ -266,8 +264,7 @@ export interface RunResult extends RunResultOptions {
      * result.assertFileContent('models/user.js', /App\.User = DS\.Model\.extend/);
      * result.assertFileContent('models/user.js', 'App.User = DS.Model.extend');
      *
-     */
-    /**
+     * @also
      *
      * Assert that each file in an array of file-regex pairs matches its corresponding regex
      * @param pairs    - an array of arrays, where each subarray is a [String, RegExp] pair
@@ -291,8 +288,7 @@ export interface RunResult extends RunResultOptions {
      *   'const greeting = "Hello";\nexport default { greeting }'
      * );
      *
-     */
-    /**
+     * @also
      *
      * Assert that each file in an array of file-string pairs equals its corresponding string
      * @param pairs           - an array of arrays, where each subarray is a [String, String] pair
@@ -313,8 +309,7 @@ export interface RunResult extends RunResultOptions {
      * result.assertNoFileContent('models/user.js', /App\.User = DS\.Model\.extend/);
      * result.assertNoFileContent('models/user.js', 'App.User = DS.Model.extend');
      *
-     */
-    /**
+     * @also
      *
      * Assert that each file in an array of file-regex pairs does not match its corresponding regex
      * @param pairs    - an array of arrays, where each subarray is a [String, RegExp] pair
