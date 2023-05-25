@@ -3106,7 +3106,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      * describe('waitUntil Example', function() {
      *   it('demo Test', function(browser) {
      *     browser
-     *       .url('https://nightwatchjs.org)
+     *       .url('https://nightwatchjs.org')
      *       .waitUntil(async function() {
      *         const title = await this.execute(function() {
      *           return document.title;
@@ -3115,16 +3115,29 @@ export interface ClientCommands extends ChromiumClientCommands {
      *         return title === 'Nightwatch.js';
      *       }, 1000);
      *   });
-     * }
+     * });
      *
      */
     waitUntil(
-        conditionFn:
-            | ((this: NightwatchAPI) => undefined | Promise<any>)
-            | ((this: NightwatchAPI, done: () => void) => void)
-            | ((this: NightwatchAPI, client: NightwatchAPI, done: () => void) => void),
-        waitTimeMs?: number,
-        retryInterval?: number,
+        conditionFn: (this: NightwatchAPI) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    waitUntil(
+        conditionFn: (this: NightwatchAPI) => void,
+        waitTimeMs: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    waitUntil(
+        conditionFn: (this: NightwatchAPI) => void,
+        waitTimeMs: number,
+        retryInterval: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    waitUntil(
+        conditionFn: (this: NightwatchAPI) => void,
+        waitTimeMs: number,
+        retryInterval: number,
+        message: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
 

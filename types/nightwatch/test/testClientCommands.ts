@@ -452,18 +452,33 @@ describe('waitUntil command demo', function() {
 
     test('demo test', function() {
         browser.waitUntil(async function() {
+            isNightwatchAPI(this);
             return true;
         }, 5000, 5000, function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<null>(result);
         });
     });
+
+    it('demo Test 2', function(browser) {
+        browser
+            .url('https://nightwatchjs.org')
+            .waitUntil(async function() {
+                const title = await this.execute(function() {
+                    return document.title;
+                });
+
+                return title === 'Nightwatch.js';
+            }, 1000, 100, 'some message');
+    });
+
     test('async demo test', async function(browser) {
         const result = await browser.waitUntil(async function() {
             return true;
         });
         isType<null>(result);
     });
+
     after(browser => browser.end());
 });
 

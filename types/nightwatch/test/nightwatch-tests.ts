@@ -282,14 +282,14 @@ const wikipediaAppTest: NightwatchTests = {
         .click('//XCUIElementTypeStaticText[@name="BrowserStack"]')
         .waitUntil(async function() {
             // wait for webview context to be available
-            const contexts = await client.contexts(function(result) {
+            const contexts = await this.appium.getContexts(function(result) {
                 if (result.status === 0) {
                     isType<string[]>(result.value);
                 }
                 isNightwatchAPI(this);
             });
 
-          return contexts.length > 1;
+            return contexts.length > 1;
         }, 50000)
         .perform(async function() {
             // switch to webview context
