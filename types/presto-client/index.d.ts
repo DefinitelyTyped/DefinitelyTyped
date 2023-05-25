@@ -187,13 +187,13 @@ export interface RuntimeStats {
 }
 
 // https://github.com/prestodb/presto/blob/bf9df7ef991a77e529d268f5d20ae7a8dc6aebc6/presto-client/src/main/java/com/facebook/presto/client/ErrorLocation.java
-interface ErrorLocation {
+export interface ErrorLocation {
     lineNumber: number;
     columnNumber: number;
 }
 
 // https://github.com/prestodb/presto/blob/bf9df7ef991a77e529d268f5d20ae7a8dc6aebc6/presto-client/src/main/java/com/facebook/presto/client/FailureInfo.java
-interface FailureInfo {
+export interface FailureInfo {
     cause?: FailureInfo;
     type: string;
     message?: string;
