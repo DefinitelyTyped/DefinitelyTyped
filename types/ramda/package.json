@@ -1,3 +1,6 @@
 {
-    "private": true
+    "private": true,
+    "dependencies": {
+        "types-ramda": "^0.29.3"
+    }
 }
