@@ -124,8 +124,9 @@ export interface ClientOptions {
 
 export interface Column {
     name: string;
-    type: // boolean
-    | 'boolean'
+    type:
+        // boolean
+        | 'boolean'
         // integer
         | 'tinyint'
         | 'smallint'
