@@ -53,7 +53,7 @@ export interface ConfigOptions {
 
 export function config(options: ConfigOptions): ConfigOptions;
 
-export interface ValidateOptions extends ConfigOptions {
+export type ValidateOptions = Partial<ConfigOptions> & {
     receipt: string;
 }
 
