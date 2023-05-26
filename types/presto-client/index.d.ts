@@ -204,6 +204,8 @@ export interface FailureInfo {
 
 // https://github.com/prestodb/presto/blob/bf9df7ef991a77e529d268f5d20ae7a8dc6aebc6/presto-client/src/main/java/com/facebook/presto/client/QueryError.java
 export interface PrestoQueryError {
+    // This property is meant to be named `retriable`, but is serialized incorrectly as `boolean`
+    // see https://github.com/prestodb/presto/pull/19741
     boolean?: boolean;
     errorCode?: number;
     errorLocation?: ErrorLocation;
@@ -214,11 +216,14 @@ export interface PrestoQueryError {
     sqlState?: string;
 }
 
-// https://github.com/tagomoris/presto-client-node/blob/42a7ca05220a8b6476c68dbecb1a510ed1be5139/lib/presto-client/index.js#LL235C17-L235C31
+// https://github.com/tagomoris/presto-client-node/blob/42a7ca05220a8b6476c68dbecb1a510ed1be5139/lib/presto-client/index.js#L235
+// https://github.com/tagomoris/presto-client-node/blob/42a7ca05220a8b6476c68dbecb1a510ed1be5139/lib/presto-client/index.js#L327
 export interface PrestoRequestError {
-    code: number;
+    code?: number;
+    // https://github.com/tagomoris/presto-client-node/blob/42a7ca05220a8b6476c68dbecb1a510ed1be5139/lib/presto-client/index.js#L268
+    data?: any;
     // This will be set in the case of recasting an error
-    error: PrestoQueryError | undefined;
+    error?: PrestoQueryError | undefined;
     message: string;
 }
 
@@ -249,22 +254,22 @@ export interface QueryOptions {
      * Called when query stats changed
      */
     state?: (
-        error: PrestoError | null,
+        error: null,
         query_id: string,
         stats: RuntimeStats
     ) => void;
     /**
      * Called once when columns and its types are found in results
      */
-    columns?: (error: PrestoError | null, data: Column[]) => void;
+    columns?: (error: null, data: Column[]) => void;
     /**
      * Called per fetch of query results (may be called 2 or more)
      */
-    data?: (error: PrestoError | null, data: any[][], columns: Column[], stats: RuntimeStats) => void;
+    data?: (error:  null, data: any[][], columns: Column[], stats: RuntimeStats) => void;
     /**
      * Called once when all results are fetched
      */
-    success?: (error: PrestoError | null, stats: RuntimeStats, info: any) => void;
+    success?: (error: null, stats: RuntimeStats, info: any) => void;
     /**
      * Callback for errors of query execution
      */
@@ -286,19 +291,19 @@ export class Client {
     /**
      * Get query current status.
      */
-    query(query_id: string, callback: (error: PrestoError | null, data: any) => void): void;
+    query(query_id: string, callback: (error: PrestoRequestError | null, data: any) => void): void;
     /**
      * Stop query immediately.
      */
-    kill(query_id: string, callback: (error: PrestoError | null) => void): void;
+    kill(query_id: string, callback: (error: PrestoRequestError | null) => void): void;
     nodes(
-        callback: (error: PrestoError | null, data: any[]) => void
+        callback: (error: PrestoRequestError | null, data: any[]) => void
     ): void;
     /**
      * Get node list of presto cluster and return it.
      */
     nodes(
         opts: null | Record<string, never>,
-        callback: (error: PrestoError | null, data: any[]) => void
+        callback: (error: PrestoRequestError | null, data: any[]) => void
     ): void;
 }
