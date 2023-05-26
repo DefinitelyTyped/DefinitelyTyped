@@ -124,9 +124,8 @@ export interface ClientOptions {
 
 export interface Column {
     name: string;
-    type:
-        // boolean
-        | 'boolean'
+    type: // boolean
+    | 'boolean'
         // integer
         | 'tinyint'
         | 'smallint'
@@ -253,11 +252,7 @@ export interface QueryOptions {
     /**
      * Called when query stats changed
      */
-    state?: (
-        error: null,
-        query_id: string,
-        stats: RuntimeStats
-    ) => void;
+    state?: (error: null, query_id: string, stats: RuntimeStats) => void;
     /**
      * Called once when columns and its types are found in results
      */
@@ -265,7 +260,7 @@ export interface QueryOptions {
     /**
      * Called per fetch of query results (may be called 2 or more)
      */
-    data?: (error:  null, data: any[][], columns: Column[], stats: RuntimeStats) => void;
+    data?: (error: null, data: any[][], columns: Column[], stats: RuntimeStats) => void;
     /**
      * Called once when all results are fetched
      */
@@ -296,14 +291,9 @@ export class Client {
      * Stop query immediately.
      */
     kill(query_id: string, callback: (error: PrestoRequestError | null) => void): void;
-    nodes(
-        callback: (error: PrestoRequestError | null, data: any[]) => void
-    ): void;
+    nodes(callback: (error: PrestoRequestError | null, data: any[]) => void): void;
     /**
      * Get node list of presto cluster and return it.
      */
-    nodes(
-        opts: null | Record<string, never>,
-        callback: (error: PrestoRequestError | null, data: any[]) => void
-    ): void;
+    nodes(opts: null | Record<string, never>, callback: (error: PrestoRequestError | null, data: any[]) => void): void;
 }
