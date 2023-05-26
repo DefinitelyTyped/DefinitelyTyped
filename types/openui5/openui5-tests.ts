@@ -29,6 +29,7 @@ import WebSocket from "sap/ui/core/ws/WebSocket";
 import QUnit from "sap/ui/thirdparty/qunit-2";
 import IllustratedMessage from "sap/m/IllustratedMessage";
 import { SingleControlSelector } from "sap/ui/test/Opa5";
+import Mobile from "sap/ui/util/Mobile";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -194,3 +195,6 @@ QUnit.config.autostart = false;
 const scs: SingleControlSelector = {
     id: "myControlId"
 };
+
+// 1.114: more details in the APIs
+Mobile.setIcons({precomposed: false});

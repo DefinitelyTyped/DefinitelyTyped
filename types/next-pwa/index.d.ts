@@ -17,7 +17,7 @@ declare global {
     /**
      * PopStateEvent is an event handler for the popstate event on the window.
      *
-     * @virtual Re-declare type to allow tsconfig `lib: ["es6", "webworker"]` to work.
+     * Re-declare type to allow tsconfig `lib: ["es6", "webworker"]` to work.
      * @see [DOM and WebWorker Should not be mutually exclusive](https://github.com/microsoft/TypeScript/issues/20595)
      */
     interface PopStateEvent extends Event {

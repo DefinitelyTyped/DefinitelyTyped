@@ -1,6 +1,10 @@
 {
     "private": true,
     "dependencies": {
-        "@babel/types": "^7.3.0"
+        "@babel/types": "^7.20.7"
+    },
+    "types": "index",
+    "typesVersions": {
+        "<=4.3": { "*": ["ts4.3/*"] }
     }
 }

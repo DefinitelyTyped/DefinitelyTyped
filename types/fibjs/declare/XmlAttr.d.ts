@@ -31,8 +31,6 @@ declare class Class_XmlAttr extends Class__object {
      * @brief 查询元素的本地名称。如果选定的节点无命名空间，则该属性等同于 nodeName
      *
      *
-     * @readonly
-     *
      */
 
     localName: string
@@ -57,8 +55,6 @@ declare class Class_XmlAttr extends Class__object {
      * @brief 属性的名称
      *
      *
-     * @readonly
-     *
      */
 
     name: string
@@ -69,8 +65,6 @@ declare class Class_XmlAttr extends Class__object {
      *
      * @brief 查询元素的命名空间的 URI。如果选定的节点无命名空间，则该属性返回 NULL
      *
-     *
-     * @readonly
      *
      */
 
@@ -95,8 +89,6 @@ declare class Class_XmlAttr extends Class__object {
      *
      * @brief 属性的名称，为兼容的目的
      *
-     *
-     * @readonly
      *
      */
 

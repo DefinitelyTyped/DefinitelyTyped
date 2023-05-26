@@ -11,7 +11,7 @@ declare namespace dottie {
     type DottiePath = string | string[];
 
     /**
-     * @example:
+     * @example
      * {
      *  'foo.bar.baz': 'baz',
      *  'foo.baz': 'baz',

@@ -2399,7 +2399,6 @@ declare module 'leadfoot/Session' {
          * The Server that the session runs on.
          *
          * @member {module:leadfoot/Server} server
-         * @memberOf module:leadfoot/Session#
          */
         server: Server;
 

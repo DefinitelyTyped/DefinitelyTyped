@@ -87,7 +87,7 @@ export class Image {
      * If the images are monochrome, dispatches to Leptonica's pixSubtract and is equivalent to a.and(b.invert()).
      * For grayscale images, returns the pixelwise subtraction of b from a, clipped at zero.
      * For color, the entire RGB value is subtracted instead of doing channelwise subtraction (ask Leptonica why).
-     * @example:
+     * @example
      * redness = colorImage.toGray(1, 0, 0).subtract(colorImage.toGray(0, 0.5, 0.5))
      */
     subtract(otherImage: Image): Image;
