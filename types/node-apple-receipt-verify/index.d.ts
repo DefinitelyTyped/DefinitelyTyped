@@ -53,7 +53,7 @@ export interface ConfigOptions {
 
 export function config(options: ConfigOptions): ConfigOptions;
 
-export interface ValidateOptions {
+export interface ValidateOptions extends ConfigOptions {
     receipt: string;
     device?: string | undefined;
 }
