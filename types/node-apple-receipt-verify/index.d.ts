@@ -1,4 +1,4 @@
-// Type definitions for node-apple-receipt-verify 1.12.1
+// Type definitions for node-apple-receipt-verify 1.12
 // Project: https://github.com/ladeiko/node-apple-receipt-verify
 // Definitions by: serinuntius <https://github.com/serinuntius>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
