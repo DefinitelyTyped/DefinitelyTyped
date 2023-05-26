@@ -55,7 +55,6 @@ export function config(options: ConfigOptions): ConfigOptions;
 
 export interface ValidateOptions extends ConfigOptions {
     receipt: string;
-    device?: string | undefined;
 }
 
 export interface PurchasedProducts {
@@ -65,6 +64,9 @@ export interface PurchasedProducts {
     purchaseDate: number;
     quantity: number;
     expirationDate?: number | undefined;
+    preorderDate?: number | undefined;
+    promotionalOfferId: string | undefined;
+    webOrderLineItemId?: string | undefined;
     isTrialPeriod?: boolean | undefined; // only for subscriptions and if extended = true
     isInIntroOfferPeriod?: boolean | undefined; // only for subscriptions and if extended = true; since v1.5.1
     environment?: string | undefined; // only if extended = true
@@ -78,7 +80,10 @@ export interface ValidationError extends Error {
     appleStatus: number;
 }
 
-export function EmptyError(): void;
+export interface EmptyError extends Error {
+    applicationVersion?: string | undefined;
+    originalApplicationVersion?: string | undefined;
+}
 
 export function ServiceUnavailableError(): void;
 
