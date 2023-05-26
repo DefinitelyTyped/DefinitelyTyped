@@ -43,7 +43,7 @@ declare module 'fs/promises' {
     import { Interface as ReadlineInterface } from 'node:readline';
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
-        filename: T;
+        filename: T | null;
     }
     interface FlagAndOpenMode {
         mode?: Mode | undefined;
