@@ -1,4 +1,4 @@
-// Type definitions for apicache 1.6
+// Type definitions for apicache 1.6.3
 // Project: https://github.com/kwhitley/apicache
 // Definitions by: Daniel Sogl <https://github.com/danielsogl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
