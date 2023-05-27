@@ -133,5 +133,5 @@ carbone.render('./template.odf', data, (err, result: Buffer | string, reportName
 carbone.renderXML('<xml>', data, renderXMLOptions, (err, result: Buffer | string) => {});
 carbone.renderXML('<xml>', data, (err, result: Buffer | string) => {});
 
-carbone.convert(buffer, 'pdf', {}, (err, result: Buffer) => {});
-carbone.convert(buffer, 'pdf', (err, result: Buffer) => {});
+carbone.convert(buffer, {convertTo, extension: 'docx'}, (err, result: Buffer) => {});
+carbone.convert(buffer, {extension: 'docx'}, (err, result: Buffer) => {});
