@@ -1,4 +1,4 @@
-// Type definitions for non-npm package nova-editor-node 4.1
+// Type definitions for non-npm package nova-editor-node 5.0
 // Project: https://docs.nova.app/api-reference/
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,7 +31,7 @@ interface AssistantsRegistry {
         object: IssueAssistant,
         options?: { event: 'onChange' | 'onSave' },
     ): Disposable;
-    registerTaskAssistant(object: TaskAssistant, options?: { identifer: string; name: string }): Disposable;
+    registerTaskAssistant(object: TaskAssistant, options?: { identifier: string; name: string }): Disposable;
 }
 
 type AssistantArray<T> = ReadonlyArray<T> | Promise<ReadonlyArray<T>>;

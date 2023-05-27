@@ -475,3 +475,9 @@ nova.config.observe('apexskier.testConfig', (newValue: string, oldValue: string)
     // $ExpectType undefined
     this;
 });
+
+const tasks: TaskAssistant = { provideTasks: () => [] };
+nova.assistants.registerTaskAssistant(tasks, {
+    identifier: 'com.my-command',
+    name: 'My command',
+});
