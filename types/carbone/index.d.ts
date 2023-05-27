@@ -101,7 +101,7 @@ export interface DecodedFilenameResult {
     reportName: string;
     extension: string;
 }
-export function decodeRenderedFilename(pathOrFilename: string, prefixLength: int = 0): DecodedFilenameResult;
+export function decodeRenderedFilename(pathOrFilename: string, prefixLength: number): DecodedFilenameResult;
 
 export type GetFileExtensionCallback = (err: NodeJS.ErrnoException | null, extension: string) => void;
-export function getFileExtension(filePath: string, callback: GetFileExtensionCallback);
+export function getFileExtension(filePath: string, callback: GetFileExtensionCallback): void;

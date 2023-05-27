@@ -141,4 +141,4 @@ carbone.decodeRenderedFilename("./0000000000000000000000template.odf");
 // This is with prefix length of 2
 carbone.decodeRenderedFilename("./ab0000000000000000000000template.odf", 2);
 
-carbone.getFileExtension("./template.odf", (err, extension) => {})
+carbone.getFileExtension("./template.odf", (err, extension) => {});
