@@ -95,5 +95,5 @@ export function render(templatePath: string, data: object, options: RenderOption
 export function render(templatePath: string, data: object, callback: RenderCallback): void;
 
 export type ConvertCallback = (err: NodeJS.ErrnoException | null, result: Buffer) => void;
-export function convert(data: Buffer, convertTo: string, options: object, callback: ConvertCallback): void;
-export function convert(data: Buffer, convertTo: string, callback: ConvertCallback): void;
+export function convert(data: Buffer, callback: ConvertCallback): void;
+export function convert(data: Buffer, options: RenderOptions & { extension: string }, callback: ConvertCallback): void;
