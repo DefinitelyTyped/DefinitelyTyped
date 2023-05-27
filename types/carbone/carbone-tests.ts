@@ -135,3 +135,10 @@ carbone.renderXML('<xml>', data, (err, result: Buffer | string) => {});
 
 carbone.convert(buffer, {convertTo, extension: 'docx'}, (err, result: Buffer) => {});
 carbone.convert(buffer, {extension: 'docx'}, (err, result: Buffer) => {});
+
+// Encoded filenames are <prefix><22-random-chars><encodedReportName.extension>
+carbone.decodeRenderedFilename("./0000000000000000000000template.odf");
+// This is with prefix length of 2
+carbone.decodeRenderedFilename("./ab0000000000000000000000template.odf", 2);
+
+carbone.getFileExtension("./template.odf", (err, extension) => {})

@@ -96,3 +96,12 @@ export function render(templatePath: string, data: object, callback: RenderCallb
 
 export type ConvertCallback = (err: NodeJS.ErrnoException | null, result: Buffer) => void;
 export function convert(data: Buffer, options: RenderOptions & { extension: string }, callback: ConvertCallback): void;
+
+export interface DecodedFilenameResult {
+    reportName: string;
+    extension: string;
+}
+export function decodeRenderedFilename(pathOrFilename: string, prefixLength: int = 0): DecodedFilenameResult;
+
+export type GetFileExtensionCallback = (err: NodeJS.ErrnoException | null, extension: string) => void;
+export function getFileExtension(filePath: string, callback: GetFileExtensionCallback);
