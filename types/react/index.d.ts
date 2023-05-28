@@ -1637,12 +1637,12 @@ declare namespace React {
          * Defines a string value that labels the current element, which is intended to be converted into Braille.
          * @see aria-label.
          */
-        'aria-braillelabel'?: string
+        'aria-braillelabel'?: string | undefined;
         /**
          * Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille.
          * @see aria-roledescription.
          */
-        'aria-brailleroledescription'?: string
+        'aria-brailleroledescription'?: string | undefined;
         'aria-busy'?: Booleanish | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
