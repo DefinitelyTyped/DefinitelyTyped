@@ -1,6 +1,6 @@
-// Type definitions for sendsay-api
-// Project: https://github.com/sendsay-ru/sendsay-api-js#readme
-// Definitions by: Dmitry_The_Fucker_LV https://github.com/T0R0NT0T0KY0
+// Type definitions for sendsay-api 2.4
+// Project: https://github.com/sendsay-ru/sendsay-api-js
+// Definitions by: Dmitry_The_Fucker_LV <https://github.com/T0R0NT0T0KY0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import type { SendsayOptionsApiKey, SendsayOptionsAuth } from "./constructor.type";
@@ -9,9 +9,7 @@ import type { SendsayResponse } from "./respnse";
 import { SendsayRequestOptions } from "./request-options";
 
 declare class Sendsay {
-    constructor(options: SendsayOptionsApiKey);
-
-    constructor(options: SendsayOptionsAuth);
+    constructor(options: SendsayOptionsApiKey | SendsayOptionsAuth);
 
     login(): Promise<void>;
 
