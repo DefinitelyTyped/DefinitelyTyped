@@ -1660,6 +1660,11 @@ declare namespace React {
          */
         'aria-colindex'?: number | undefined;
         /**
+         * Defines a human readable text alternative of aria-colindex.
+         * @see aria-rowindextext.
+         */
+        'aria-colindextext'?: string | undefined;
+        /**
          * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-colindex @see aria-rowspan.
          */
@@ -1676,6 +1681,11 @@ declare namespace React {
          * @see aria-labelledby
          */
         'aria-describedby'?: string | undefined;
+        /**
+         * Defines a string value that describes or annotates the current element.
+         * @see related aria-describedby.
+         */
+        'aria-description'?: string | undefined;
         /**
          * Identifies the element that provides a detailed, extended description for the object.
          * @see aria-describedby.
@@ -1789,6 +1799,11 @@ declare namespace React {
          * @see aria-rowcount @see aria-rowspan.
          */
         'aria-rowindex'?: number | undefined;
+        /**
+         * Defines a human readable text alternative of aria-rowindex.
+         * @see aria-colindextext.
+         */
+        'aria-rowindextext'?: string | undefined;
         /**
          * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-rowindex @see aria-colspan.
