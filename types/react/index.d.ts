@@ -1633,6 +1633,16 @@ declare namespace React {
          */
         'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both' | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
+        /**
+         * Defines a string value that labels the current element, which is intended to be converted into Braille.
+         * @see aria-label.
+         */
+        'aria-braillelabel'?: string
+        /**
+         * Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille.
+         * @see aria-roledescription.
+         */
+        'aria-brailleroledescription'?: string
         'aria-busy'?: Booleanish | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
