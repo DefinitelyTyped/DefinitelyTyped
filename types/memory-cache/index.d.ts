@@ -9,7 +9,7 @@
 export class CacheClass<K, V> {
     put(key: K, value: V, time?: number, timeoutCallback?: (key: K, value: V) => void): V;
     get(key: K): V | null;
-    del(key: K): void;
+    del(key: K): boolean;
     clear(): void;
 
     size(): number;
@@ -35,7 +35,7 @@ export const Cache: typeof CacheClass;
 
 export function put<V>(key: any, value: V, time?: number, timeoutCallback?: (key: any, value: any) => void): V;
 export function get(key: any): any;
-export function del(key: any): void;
+export function del(key: any): boolean;
 export function clear(): void;
 
 export function size(): number;
