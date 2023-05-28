@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "zwlog-tests.ts"]
+    "files": ["index.d.ts", "zwlog-browser-tests.ts"]
 }
