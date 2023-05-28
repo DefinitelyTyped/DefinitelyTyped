@@ -18,5 +18,5 @@ export function copyImg(img: Buffer | string): Promise<[ExecException | null, st
 export function isWayland(): boolean;
 
 export const ErrorCodes: {
-    COMMAND_NOT_FOUND: number;
+    COMMAND_NOT_FOUND: 127;
 };
