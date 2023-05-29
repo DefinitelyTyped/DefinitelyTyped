@@ -1,6 +1,7 @@
-// Type definitions for non-npm package cookieclicker 2.048
+// Type definitions for non-npm package cookieclicker 2.052
 // Project: https://orteil.dashnet.org/cookieclicker/
 // Definitions by: Lubomir <https://github.com/TheGLander>
+//                 Static Variable James <https://github.com/staticvariablejames>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
@@ -437,6 +438,10 @@ declare class Loader {
      * An internal callback function
      */
     onLoad: (e: Event) => void;
+    /*
+     * Waits for all assets to load (checking once every 200ms) and then calls the callback
+     */
+    waitForLoad: (assets: string[], callback: () => void) => void;
     /**
      * Returns the progress of loading all assets
      */
@@ -472,6 +477,15 @@ declare namespace Game {
     export let version: number;
     export let loadedFromVersion: number;
     export let beta: PseudoBoolean;
+    /**
+     * True if the game is running locally
+     * (either on Steam, or if the hostname is 'localhost' or '127.0.0.1')
+     */
+    export let local: boolean;
+    /**
+     * '' if on Steam, '//cdn.dashnet.org/cookieclicker/' (or similar) on web.
+     */
+    export let resPath: string;
     export let https: boolean;
     export let visible: boolean;
     export let wrapper: HTMLElement;
@@ -491,9 +505,10 @@ declare namespace Game {
      */
     export let ready: PseudoBoolean;
     /**
-     * Callback for `window.onload`, loads an empty 8x8 image via `Game.Loader`, and adds `Game.Init` on the load callback (Connectivity test)
+     * Part of the launching sequence.
+     * The callback is assigned to Game.Loader.loaded.
      */
-    export function Load(): void;
+    export function Load(callback: typeof Loader.loaded): void;
     /**
      * Sets the error of `#javascriptError` to a message about the game being in an iframe. (Doesn't change display style, so is invisible after load)
      */
@@ -657,6 +672,17 @@ declare namespace Game {
      * Sets the default options
      */
     export function DefaultPrefs(): void;
+
+    /**
+     * Number of cookies that were gifted (with the button in the Options menu).
+     */
+    export let cookiesSent: number;
+
+    /**
+     * Number of cookies received (from the button in the Options menu).
+     */
+    export let cookiesReceived: number;
+
     /**
      * Toggles mobile mode
      */
@@ -2533,6 +2559,93 @@ declare namespace Game {
 
     export function magicCpS(what: unknown): number;
     export let SpecialGrandmaUnlock: number;
+
+    type YouCustomizerAddonGeneId = 'face' | 'head' | 'hair' | 'acc1' | 'acc2';
+    type YouCustomizerColorGeneId = 'skinCol' | 'hairCol';
+    type YouCustomizerGeneId = YouCustomizerAddonGeneId | YouCustomizerColorGeneId;
+
+    class YouCustomizerAddonGene {
+        id: YouCustomizerAddonGeneId;
+        isList: true;
+        /**
+         * Default value.
+         */
+        def: number;
+        /**
+         * List of possible choices.
+         * Each choice is an offset in 'youAddons.png', similar to an icon.
+         */
+        choices: Array<[number, number]>;
+        /**
+         * Index of the gene in Game.YouCustomizer.genes.
+         */
+        n: number;
+    }
+    class YouCustomizerColorGene {
+        id: YouCustomizerAddonGeneId;
+        isList: true;
+        def: number;
+        choices: number[];
+    }
+
+    export let YouCustomizer: {
+        render: () => void;
+        genes: Array<YouCustomizerAddonGene | YouCustomizerColorGene>;
+        /**
+         * Returns a string representation of the YouCustomizer.
+         */
+        save: () => string;
+        /**
+         * Calls Game.YouCustomizer.resetGenes() if noReset is not true,
+         * then loads Game.YouCustomizer by parsing the given string.
+         */
+        load(genes: string, noReset?: boolean): boolean;
+
+        // There's probably a better way of doing this
+        genesById: Record<YouCustomizerGeneId, YouCustomizerAddonGene | YouCustomizerColorGene>;
+
+        /**
+         * currentGenes[i] is an index to genes[i].choices
+         */
+        currentGenes: number[];
+        getGeneValue(id: YouCustomizerGeneId): number;
+
+        resetGenes(): void;
+
+        /**
+         * Adds the offset `off` to currentGenes[i], where i = genesById[gene].n.
+         * Also may award the achievement 'In her likeness'.
+         */
+        offsetGene(gene: YouCustomizerGeneId, off: -1 | 0 | 1): void;
+
+        /**
+         * Changes the genes uniformly at random.
+         * Does not award 'In her likeness'.
+         */
+        randomize(): void;
+
+        /**
+         * Renders the clone preview in the "Customize your clones" prompt.
+         */
+        renderPortrait(): void;
+
+        /**
+         * Opens the prompt for exporting the current gene configuration.
+         */
+        export(): void;
+
+        /**
+         * Opens the prompt for importing the current gene configuration.
+         * `def` is the default string for the prompt; unused.
+         */
+        import(def?: string): void;
+
+        /**
+         * Opens the prompt for customizing the clones.
+         */
+        prompt(): void;
+    };
+
     export let foolObjects: Record<string, FoolBuilding>;
 
     export function ClickProduct(what: GameObject): void;
@@ -3293,6 +3406,7 @@ declare namespace Game {
 
     export function UpdateGrandmapocalypse(): void;
     export let wrinklerHP: number;
+    export let wrinklerLimit: number;
 
     export interface Wrinkler {
         id: number;
@@ -3304,6 +3418,7 @@ declare namespace Game {
         r: number;
         hurt: number;
         hp: number;
+        clicks: number;
         selected: PseudoBoolean;
         type: number;
     }
@@ -3453,6 +3568,8 @@ declare namespace Game {
 
     export function OpenSesame(): void;
 
+    export function loadAscendCalibrator(): void;
+
     export function EditAscend(): void;
 
     export let debuggedUpgradeCpS: number[];
@@ -3528,6 +3645,11 @@ declare namespace Game {
      */
     export let promptOptionFocus: number;
     /**
+     * If `true`, disallows the prompt to be closed.
+     * Set to `true` by Game.Prompt if the content contains the substring "<noClose>".
+     */
+    export let promptNoClose: boolean;
+    /**
      *
      * @param dir The direction to go in
      * @param tryN If false, tries to attempt selection again if the first attempt couldn't find a button
@@ -3542,7 +3664,7 @@ declare namespace Game {
      * Unused
      */
     export function setWubMusic(what: number): void;
-    export function showLangSelection(): void;
+    export function showLangSelection(firstLaunch?: boolean): void;
     /**
      * The treshold when the game considers itself to be too narrow
      */
@@ -3576,6 +3698,15 @@ declare namespace Game {
         musicScrub(time: number): void;
     }
     export let jukebox: Jukebox;
+
+    /**
+     * Icon indices for the design of the gift box.
+     * Note that the icons are [number, number], rather than Game.Icon.
+     */
+    export let giftBoxDesigns: Array<[number, number]>;
+    export function promptGiftRedeem(): void;
+    export function promptGiftSend(): void;
+
     export function getVeilDefense(): number;
     export function getVeilBoost(): number;
     export let showedScriptLoadError: boolean;

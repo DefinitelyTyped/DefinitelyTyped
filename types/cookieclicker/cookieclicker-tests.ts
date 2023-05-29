@@ -219,3 +219,17 @@ Game.jukebox.musicScrub(5);
 if (Music) {
     Music.pause();
 }
+
+Game.Loader.waitForLoad([Game.resPath + 'img/goldCookie.png'], () => {});
+
+if (Game.cookiesSent > Game.cookiesReceived) {
+}
+
+Game.YouCustomizer.currentGenes[0] = 9;
+Game.YouCustomizer.offsetGene('acc2', -1);
+let currentGenes = Game.YouCustomizer.save();
+Game.YouCustomizer.load(currentGenes);
+
+// offsetGene cannot handle numbers except -1, 0, 1
+// @ts-expect-error
+Game.YouCustomizer.offsetGene('acc2', 2);
