@@ -316,6 +316,7 @@ task.setAction(
     new TaskProcessAction('/usr/bin/say', {
         args: ["I'm Building!"],
         env: {},
+        shell: true,
     }),
 );
 
