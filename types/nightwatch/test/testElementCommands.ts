@@ -473,7 +473,7 @@ describe('waitForElementVisible command demo', function() {
 
     test('async demo test', async function(browser) {
         const result = await browser.waitForElementVisible('input[type=text]', undefined, undefined, true);
-        isType<boolean>(result);
+        isType<true | Error>(result);
     });
 
     after(browser => browser.end());
@@ -489,13 +489,13 @@ describe('waitForElementPresent command demo', function() {
         browser
             .waitForElementPresent('input[type=text]', undefined, undefined, undefined, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<ElementResult[]>(result);
+                isNightwatchCallbackResult<ElementResult[] | null>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.waitForElementPresent('input[type=text]');
-        isType<ElementResult[]>(result);
+        isType<ElementResult[] | Error>(result);
     });
 
     after(browser => browser.end());
