@@ -1319,6 +1319,20 @@ declare module "crypto" {
         ): Promise<ArrayBuffer>;
 
         /**
+         * Sign generates a digital signature.
+         * @param algorithm A string or object that specifies the signature algorithm to use and its parameters
+         * @param key A CryptoKey object containing the key to be used for signing
+         * @param data An ArrayBuffer, a TypedArray or a DataView object containing the data to be signed
+         *
+         * @returns A Promise that fulfills with an ArrayBuffer containing the signature
+         */
+        sign(
+            algorithm: string | object,
+            key: CryptoKey,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+
+        /**
          * Verify a digital signature
          * @param algorithm A string or object specifying the algorithm to be used
          * @param key A CryptoKey containing the key that will be used to verify the signature
