@@ -1458,6 +1458,7 @@ describe('', () => {
         expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
         expect({ bar: 'baz' }).toEqual(expect.not.objectContaining({ foo: 'bar' }));
         expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha'] as const));
 
         /* Miscellaneous */
 
