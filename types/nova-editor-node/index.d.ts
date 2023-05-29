@@ -822,6 +822,7 @@ declare class Task {
 
 interface TaskActionResolveContext<T extends Transferrable> {
     action: TaskName;
+    config: Configuration;
     readonly data?: T;
 }
 
