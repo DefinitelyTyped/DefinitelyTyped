@@ -1,34 +1,34 @@
-// Type definitions for react-side-effect v1.0.2
+// Type definitions for react-side-effect 2.2
 // Project: https://github.com/digidem/leaflet-side-by-side
 // Definitions by: Remo H. Jansen <https://github.com/OliverBiel/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/index.d.ts"/>
+// Minimum TypeScript Version: 5.0
 
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
     namespace control {
       function sideBySide(
-        leftLayers: L.Layer[] | L.Layer,
-        rightLayers: L.Layer[] | L.Layer,
+        leftLayers: Layer[] | Layer,
+        rightLayers: Layer[] | Layer,
         options?: Control.SideBySideOptions
       ): Control.SideBySide;
     }
-  
+
     namespace Control {
-      interface SideBySideOptions extends L.ControlOptions {
+      interface SideBySideOptions extends ControlOptions {
         thumbSize?: number;
         padding?: number;
       }
-  
-      interface SideBySide extends L.Control {
+
+      interface SideBySide extends Control {
         options: SideBySideOptions;
-        setLeftLayers(leftLayers:L.Layer[] |L.Layer): this;
-        setRightLayers(rightLayers:L.Layer[] |L.Layer): this;
+        setLeftLayers(leftLayers: Layer[] | Layer): this;
+        setRightLayers(rightLayers: Layer[] | Layer): this;
         getPosition(): any;
         setPosition(): this;
-        addTo(map: L.Map): this;
+        addTo(map: Map): this;
         remove(): this;
       }
     }
