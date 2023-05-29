@@ -1,4 +1,4 @@
-// Type definitions for non-npm package nova-editor-node 5.0
+// Type definitions for non-npm package nova-editor-node 5.1
 // Project: https://docs.nova.app/api-reference/
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -822,6 +822,7 @@ declare class Task {
 
 interface TaskActionResolveContext<T extends Transferrable> {
     action: TaskName;
+    config: Configuration;
     readonly data?: T;
 }
 
@@ -845,6 +846,7 @@ declare class TaskProcessAction {
             cwd?: string;
             stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
             matchers?: ReadonlyArray<string>;
+            shell?: boolean | string;
         },
     );
 }
