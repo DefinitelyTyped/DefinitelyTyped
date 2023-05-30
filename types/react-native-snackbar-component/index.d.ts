@@ -5,7 +5,6 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { TextStyle } from 'react-native';
 
 export interface SnackbarComponentProps {
     accentColor?: string | undefined;
