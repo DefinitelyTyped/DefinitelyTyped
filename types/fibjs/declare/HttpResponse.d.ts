@@ -54,8 +54,6 @@ declare class Class_HttpResponse extends Class_HttpMessage {
      *
      * @brief 返回当前消息的 HttpCookie 对象列表
      *
-     * @readonly
-     * @type NArray
      */
 
     cookies: any[]

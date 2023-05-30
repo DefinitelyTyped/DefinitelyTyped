@@ -23,6 +23,7 @@ import {
     Plan,
     BatchJob,
     WhitePaper,
+    DataCategorical,
 } from "@carbon/icons-react";
 
 <UserAccess />; // $ExpectType Element
@@ -53,3 +54,4 @@ import {
 <Plan />; // $ExpectType Element
 <BatchJob />; // $ExpectType Element
 <WhitePaper />; // $ExpectType Element
+<DataCategorical />; // $ExpectType Element

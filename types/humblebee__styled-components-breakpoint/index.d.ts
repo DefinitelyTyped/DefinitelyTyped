@@ -35,13 +35,13 @@ declare module "@humblebee/styled-components-breakpoint" {
         /**
          * Will return a media query with a min-width of the defined breakpoint
          * @example "@media only screen and (min-width: ____px)"
-         * @widthKey min width
+         * @param widthKey min width
          */
         up: (widthKey: string) => (first: TemplateStringsArray | CSSObject, ...interpolations: SimpleInterpolation[]) => import("styled-components").FlattenSimpleInterpolation;
         /**
          * Will return a media query with a max-width of the defined breakpoint
          * @example "@media only screen and (max-width: ____px)"
-         * @widthKey max width
+         * @param widthKey max width
          */
         down: (widthKey: string) => (first: TemplateStringsArray | CSSObject, ...interpolations: SimpleInterpolation[]) => import("styled-components").FlattenSimpleInterpolation;
 
@@ -54,8 +54,8 @@ declare module "@humblebee/styled-components-breakpoint" {
          * Will return a range media query between "widthKey" and "boundKey"
          * @example "@media only screen and (min-width: ____px) and (max-width: _next_upper_px)"
          *
-         * @widthKey min width
-         * @boundKey max width, optional (if missing, next higher than min width)
+         * @param widthKey min width
+         * @param boundKey max width, optional (if missing, next higher than min width)
          */
         only: (widthKey: string, boundKey?: string)
             => (first: TemplateStringsArray | CSSObject, ...interpolations: SimpleInterpolation[])

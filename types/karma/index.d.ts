@@ -162,7 +162,7 @@ export interface ProxyOptions {
     target: string;
     /**
      * Whether or not the proxy should override the Host header using the host from the target
-     * @defult false
+     * @default false
      */
     changeOrigin?: boolean | undefined;
 }

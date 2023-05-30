@@ -73,7 +73,7 @@ declare namespace ZC {
     /**
      * Focus/"activate" the provided element by moving the Flash SWF object in front of it.
      * @param {Element} element
-     * @deprecated: The preferred method to use is focus but the alias activate is available for backward compatibility's sake.
+     * @deprecated The preferred method to use is focus but the alias activate is available for backward compatibility's sake.
      */
     activate(element: Element): void;
     /**
@@ -83,7 +83,7 @@ declare namespace ZC {
     blur(): void;
     /**
      * Blur/"deactivate" the currently focused/"activated" element, moving the Flash SWF object off the screen.
-     * @deprecated: The preferred method to use is blur but the alias deactivate is available for backward compatibility's sake.
+     * @deprecated The preferred method to use is blur but the alias deactivate is available for backward compatibility's sake.
      */
     deactivate(): void;
     /**

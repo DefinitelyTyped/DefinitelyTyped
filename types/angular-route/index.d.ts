@@ -217,7 +217,7 @@ declare module 'angular' {
             /**
              * Sets route definition that will be used on route change when no other route definition is matched.
              *
-             * @params Mapping information to be assigned to $route.current.
+             * @param params Mapping information to be assigned to $route.current.
              */
             otherwise(params: IRoute | string): IRouteProvider;
             /**

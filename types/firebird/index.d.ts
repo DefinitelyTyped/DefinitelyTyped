@@ -67,7 +67,9 @@ declare module 'firebird' {
          *
          * @description
          * You may set callback for event with
-         * @code connection.on('fbevent', function(name, count){ <your code>));.
+         * ```js
+         * connection.on('fbevent', function(name, count){ <your code>));.
+         * ```
          * Where name is event name, and count is number of times event were posted.
          *
          * @param name Firebird Event Name.
@@ -438,7 +440,9 @@ declare module 'firebird' {
      *
      * @description
      * Create BLOB stream using
-     * @code var strm = new fb.Stream(FBblob);.
+     * ```js
+     * var strm = new fb.Stream(FBblob);.
+     * ```
      *
      * You may pipe strm to/from NodeJS Stream objects (fs or socket).
      * You may also look at [NodeJS Streams reference](https://nodejs.org/api/stream.html).
