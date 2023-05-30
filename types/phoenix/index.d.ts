@@ -1,4 +1,4 @@
-// Type definitions for phoenix 1.5
+// Type definitions for phoenix 1.6
 // Project: https://github.com/phoenixframework/phoenix
 // Definitions by: Mirosław Ciastek <https://github.com/mciastek>
 //                 John Goff <https://github.com/John-Goff>
