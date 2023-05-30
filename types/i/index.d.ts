@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Inflections {
-    plurals: Array<[RegExp | string, string]>;
-    singulars: Array<[RegExp | string, string]>;
-    uncountables: string[];
-    humans: Array<[RegExp | string, string]> | [];
+    readonly plurals: Array<[RegExp | string, string]>;
+    readonly singulars: Array<[RegExp | string, string]>;
+    readonly uncountables: string[];
+    readonly humans: Array<[RegExp | string, string]> | [];
 
     /**
      * Specifies a new pluralization rule and its replacement. The rule can either be a string or a regular expression.
@@ -65,7 +65,7 @@ export interface Inflections {
 }
 
 export interface I {
-    inflections: Inflections;
+    readonly inflections: Inflections;
 
     /**
      * By default, _camelize_ converts strings to UpperCamelCase. If the argument to _camelize_
@@ -241,7 +241,7 @@ declare global {
          *
          *     "SSLError".underscore.camelize // => "SslError"
          */
-        camelize?: string;
+        readonly camelize?: string;
 
         /**
          * Makes an underscored, lowercase form from the expression in the string.
@@ -256,14 +256,14 @@ declare global {
          *
          *     "SSLError".underscore().camelize() // => "SslError"
          */
-        underscore?: string;
+        readonly underscore?: string;
 
         /**
          * Replaces underscores with dashes in the string.
          *
          *     "puni_puni".dasherize()   // => "puni-puni"
          */
-        dasherize?: string;
+        readonly dasherize?: string;
 
         /**
          * Removes the module part from the expression in the string.
@@ -271,7 +271,7 @@ declare global {
          *     "BulletRecord.String.Inflections".demodulize() // => "Inflections"
          *     "Inflections".demodulize()                     // => "Inflections"
          */
-        demodulize?: string;
+        readonly demodulize?: string;
 
         /**
          * Creates a foreign key name from a class name.
@@ -282,7 +282,7 @@ declare global {
          *     "Message".foreign_key(false) // => "messageid"
          *     "Admin::Post".foreign_key()  // => "post_id"
          */
-        foreign_key?: string;
+        readonly foreign_key?: string;
 
         /**
          * Turns a number into an ordinal string used to denote the position in an
@@ -295,7 +295,7 @@ declare global {
          *     ordinalize(-11)   // => "-11th"
          *     ordinalize(-1021) // => "-1021st"
          */
-        ordinalize?: string;
+        readonly ordinalize?: string;
 
         /**
          * Checks a given word for uncountability
@@ -303,7 +303,7 @@ declare global {
          *     "money".uncountability()     // => true
          *     "my money".uncountability()  // => true
          */
-        uncountability?: boolean;
+        readonly uncountability?: boolean;
 
         /**
          * Returns the plural form of the word in the string.
@@ -314,7 +314,7 @@ declare global {
          *     "words".pluralize()            // => "words"
          *     "CamelOctopus".pluralize()     // => "CamelOctopi"
          */
-        pluralize?: string;
+        readonly pluralize?: string;
 
         /**
          * The reverse of _pluralize_, returns the singular form of a word in a string.
@@ -325,7 +325,7 @@ declare global {
          *     "word".singularize()             // => "word"
          *     "CamelOctopi".singularize()      // => "CamelOctopus"
          */
-        singularize?: string;
+        readonly singularize?: string;
 
         /**
          * Capitalizes the first word and turns underscores into spaces and strips a
@@ -334,7 +334,7 @@ declare global {
          *     "employee_salary".humanize()   // => "Employee salary"
          *     "author_id".humanize()         // => "Author"
          */
-        humanize?: string;
+        readonly humanize?: string;
 
         /**
          * Capitalizes all the words and replaces some characters in the string to create
@@ -345,7 +345,7 @@ declare global {
          *     "man from the boondocks".titleize()   // => "Man From The Boondocks"
          *     "x-men: the last stand".titleize()    // => "X Men: The Last Stand"
          */
-        titleize?: string;
+        readonly titleize?: string;
 
         /**
          * Create the name of a table like Bullet does for models to table names. This method
@@ -355,7 +355,7 @@ declare global {
          *    "egg_and_ham".tableize()       // => "egg_and_hams"
          *     "fancyCategory".tableize()     // => "fancy_categories"
          */
-        tableize?: string;
+        readonly tableize?: string;
 
         /**
          * Create a class name from a plural table name like Bullet does for table names to models.
@@ -368,6 +368,6 @@ declare global {
          *
          *     "business".classify()       // => "Busines"
          */
-        classify?: string;
+        readonly classify?: string;
     }
 }
