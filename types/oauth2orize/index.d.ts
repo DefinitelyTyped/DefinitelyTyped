@@ -1,4 +1,4 @@
-// Type definitions for oauth2orize 1.8
+// Type definitions for oauth2orize 1.11
 // Project: https://github.com/jaredhanson/oauth2orize/
 // Definitions by: Wonshik Kim <https://github.com/wokim>, Kei Son <https://github.com/heycalmdown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,7 +29,7 @@ export interface OAuth2 {
 export interface OAuth2Req {
   clientID: string;
   redirectURI: string;
-  scope: string;
+  scope: string[];
   state: string;
   type: string;
   transactionID: string;
@@ -128,7 +128,11 @@ export type MiddlewareErrorFunction = (err: Error, req: MiddlewareRequest, res: 
 
 export type MiddlewareNextFunction = (err?: Error) => void;
 
-export type ValidateFunction = (clientId: string, redirectURI: string, validated: (err: Error | null, client?: any, redirectURI?: string) => void) => void;
+export type ValidateDoneFunction = (err: Error | null, client?: any, redirectURI?: string) => void;
+export type ValidateFunctionArity5 = (clientId: string, redirectURI: string, scope: string[], type: string, validated: ValidateDoneFunction) => void;
+export type ValidateFunctionArity4 = (clientId: string, redirectURI: string, scope: string[], validated: ValidateDoneFunction) => void;
+export type ValidateFunction = (clientId: string, redirectURI: string, validated: ValidateDoneFunction) => void;
+export type ValidateFunctionArity2 = (areq: OAuth2Req, validated: ValidateDoneFunction) => void;
 
 export type ImmediateFunction = (client: any, user: any, scope: string[], type: string, areq: any, done: (err: Error | null, allow: boolean, info: any, locals: any) => void) => void;
 
@@ -140,10 +144,17 @@ export type SerializeClientDoneFunction = (err: Error | null, id: string) => voi
 export type DeserializeClientFunction = (id: string, done: DeserializeClientDoneFunction) => void;
 export type DeserializeClientDoneFunction = (err: Error | null, client?: any | boolean) => void;
 
-export type IssueGrantCodeFunction = (client: any, redirectUri: string, user: any, res: any, issued: (err: Error | null, code?: string) => void) => void;
+export type IssueGrantCodeDoneFunction = (err: Error | null, code?: string) => void;
+
+export type IssueGrantCodeFunctionArity7 = (client: any, redirectUri: string, user: any, res: any, req: OAuth2Req, locals: any, issued: IssueGrantCodeDoneFunction) => void;
+export type IssueGrantCodeFunctionArity6 = (client: any, redirectUri: string, user: any, res: any, req: OAuth2Req, issued: IssueGrantCodeDoneFunction) => void;
+export type IssueGrantCodeFunction = (client: any, redirectUri: string, user: any, res: any, issued: IssueGrantCodeDoneFunction) => void;
+export type IssueGrantCodeFunctionArity4 = (client: any, redirectUri: string, user: any, issued: IssueGrantCodeDoneFunction) => void;
 
 export type IssueGrantTokenFunction = (client: any, user: any, ares: any, issued: (err: Error | null, code?: string, params?: any) => void) => void;
 
+export type IssueExchangeCodeFunctionArity6 = (client: any, code: string, redirectURI: string, body: Record<string, unknown>, authInfo: any, issued: ExchangeDoneFunction) => void;
+export type IssueExchangeCodeFunctionArity5 = (client: any, code: string, redirectURI: string, body: Record<string, unknown>, issued: ExchangeDoneFunction) => void;
 export type IssueExchangeCodeFunction = (client: any, code: string, redirectURI: string, issued: ExchangeDoneFunction) => void;
 
 export type ExchangeDoneFunction = (err: Error | null, accessToken?: string | boolean, refreshToken?: string, params?: any) => void;
@@ -155,11 +166,16 @@ export class OAuth2Server {
   exchange(type: string, fn: MiddlewareFunction): OAuth2Server;
   exchange(fn: MiddlewareFunction): OAuth2Server;
 
-  authorize(options: AuthorizeOptions, validate: ValidateFunction): MiddlewareFunction;
-  authorize(validate: ValidateFunction): MiddlewareFunction;
+  authorize(options: AuthorizeOptions, validate: ValidateFunctionArity5, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(options: AuthorizeOptions, validate: ValidateFunctionArity4, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(options: AuthorizeOptions, validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(options: AuthorizeOptions, validate: ValidateFunctionArity2, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(validate: ValidateFunctionArity5, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(validate: ValidateFunctionArity4, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorize(validate: ValidateFunctionArity2, immediate?: ImmediateFunction): MiddlewareFunction;
 
-  authorization(options: AuthorizeOptions, validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
-  authorization(validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
+  authorization: OAuth2Server["authorize"];
 
   decision(options: DecisionOptions, parse: DecisionParseFunction): MiddlewareFunction;
   decision(parse: DecisionParseFunction): MiddlewareFunction;
@@ -178,7 +194,10 @@ export class OAuth2Server {
 
 export namespace grant {
   interface Options {
-    // For maximum flexibility, multiple scope spearators can optionally be
+    modes?: {
+      query?: (txn: OAuth2, res: ServerResponse, params: Record<string, unknown>) => void;
+    };
+    // For maximum flexibility, multiple scope separators can optionally be
     // allowed.  This allows the server to accept clients that separate scope
     // with either space or comma (' ', ',').  This violates the specification,
     // but achieves compatibility with existing client libraries that are already
@@ -186,8 +205,14 @@ export namespace grant {
     scopeSeparator?: string | undefined;
   }
 
+  function code(options: Options, issue: IssueGrantCodeFunctionArity7): MiddlewareFunction;
+  function code(options: Options, issue: IssueGrantCodeFunctionArity6): MiddlewareFunction;
   function code(options: Options, issue: IssueGrantCodeFunction): MiddlewareFunction;
+  function code(options: Options, issue: IssueGrantCodeFunctionArity4): MiddlewareFunction;
+  function code(issue: IssueGrantCodeFunctionArity7): MiddlewareFunction;
+  function code(issue: IssueGrantCodeFunctionArity6): MiddlewareFunction;
   function code(issue: IssueGrantCodeFunction): MiddlewareFunction;
+  function code(issue: IssueGrantCodeFunctionArity4): MiddlewareFunction;
 
   function token(options: Options, issue: IssueGrantTokenFunction): MiddlewareFunction;
   function token(issue: IssueGrantTokenFunction): MiddlewareFunction;
@@ -199,7 +224,7 @@ export namespace exchange {
     // of the token endpoint, the property will contain the OAuth 2.0 client.
     userProperty?: string | undefined;
 
-    // For maximum flexibility, multiple scope spearators can optionally be
+    // For maximum flexibility, multiple scope separators can optionally be
     // allowed.  This allows the server to accept clients that separate scope
     // with either space or comma (' ', ',').  This violates the specification,
     // but achieves compatibility with existing client libraries that are already
@@ -207,11 +232,14 @@ export namespace exchange {
     scopeSeparator?: string | undefined;
   }
 
+  function authorizationCode(options: Options, issue: IssueExchangeCodeFunctionArity6): MiddlewareFunction;
+  function authorizationCode(options: Options, issue: IssueExchangeCodeFunctionArity5): MiddlewareFunction;
   function authorizationCode(options: Options, issue: IssueExchangeCodeFunction): MiddlewareFunction;
+  function authorizationCode(issue: IssueExchangeCodeFunctionArity6): MiddlewareFunction;
+  function authorizationCode(issue: IssueExchangeCodeFunctionArity5): MiddlewareFunction;
   function authorizationCode(issue: IssueExchangeCodeFunction): MiddlewareFunction;
 
-  function code(options: Options, issue: IssueExchangeCodeFunction): MiddlewareFunction;
-  function code(issue: IssueExchangeCodeFunction): MiddlewareFunction;
+  const code: typeof authorizationCode;
 
   // arity == 5; issue(client, scope, req.body, req.authInfo, issued);
   function clientCredentials(options: Options, issue: (client: any, scope: string[], body: any, authInfo: any, issued: ExchangeDoneFunction) => void): MiddlewareFunction;

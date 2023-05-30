@@ -30,7 +30,6 @@ declare class Class_Digest extends Class__object {
      *
      * @brief 查询当前信息摘要算法的摘要字节数
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 

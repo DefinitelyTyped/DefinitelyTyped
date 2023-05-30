@@ -1,7 +1,21 @@
-/**
- * This module provides an experimental implementation that brings browser
- * test automation to the k6 testing platform.
- */
+import {
+    BrowserContext,
+    EvaluationArgument,
+    PageFunction,
+    SelectOptionsObject,
+    KeyboardModifier,
+    MouseButton,
+    ScreenshotOptions,
+    NavigationOptions } from "./";
+import { Touchscreen } from "./touchscreen";
+import { Response } from "./response";
+import { Locator } from "./locator";
+import { JSHandle } from "./js_handle";
+import { Keyboard } from "./keyboard";
+import { Mouse } from "./mouse";
+import { ElementHandle } from "./element_handle";
+import { Frame } from "./frame";
+import { Worker } from "./worker";
 
 /**
  * Page provides methods to interact with a single tab in a running web browser
@@ -82,7 +96,7 @@ export class Page {
      * The mouse button (`left`, `middle` or `right`) to use during the action.
      * Defaults to `left`.
      */
-    button?: "left"|"right"|"middle";
+    button?: MouseButton;
 
     /**
      * The number of times the action is performed. Defaults to `1`.
@@ -105,7 +119,7 @@ export class Page {
      * action. If not specified, currently pressed modifiers are used,
      * otherwise defaults to `null`.
      */
-    modifiers?: Array<"Alt"|"Control"|"Meta"|"Shift">;
+    modifiers?: KeyboardModifier[];
 
     /**
      * If set to `true` and a navigation occurs from performing this action, it
@@ -175,7 +189,7 @@ export class Page {
      * The mouse button (`left`, `middle` or `right`) to use during the action.
      * Defaults to `left`.
      */
-    button?: "left"|"right"|"middle";
+    button?: MouseButton;
 
     /**
      * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
@@ -193,7 +207,7 @@ export class Page {
      * action. If not specified, currently pressed modifiers are used,
      * otherwise defaults to `null`.
      */
-    modifiers?: Array<"Alt"|"Control"|"Meta"|"Shift">;
+    modifiers?: KeyboardModifier[];
 
     /**
      * If set to `true` and a navigation occurs from performing this action, it
@@ -438,39 +452,7 @@ export class Page {
    * `https://`.
    * @param options
    */
-  goto(url: string, options?: {
-    /**
-     * Referer header value.
-     */
-    referer?: string;
-
-    /**
-     * Maximum operation time in milliseconds. Defaults to `30` seconds. The
-     * default value can be changed via the
-     * browserContext.setDefaultNavigationTimeout(timeout),
-     * browserContext.setDefaultTimeout(timeout),
-     * page.setDefaultNavigationTimeout(timeout) or
-     * page.setDefaultTimeout(timeout) methods.
-     *
-     * Setting the value to `0` will disable the timeout.
-     *
-     */
-    timeout?: number;
-
-    /**
-     * When to consider operation succeeded, defaults to `load`. Events can be
-     * either:
-     * - `'domcontentloaded'` - consider operation to be finished when the
-     * `DOMContentLoaded` event is fired.
-     * - `'load'` - consider operation to be finished when the `load` event is
-     * fired.
-     * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
-     * when there are no network connections for at least `500` ms. Don't use
-     * this method for testing especially with chatty websites where the event
-     * may never fire, rely on web assertions to assess readiness instead.
-     */
-    waitUntil?: "load"|"domcontentloaded"|"networkidle";
-  }): Promise<null|Response>;
+  goto(url: string, options?: NavigationOptions): Promise<null|Response>;
 
   /**
    * **NOTE** Use locator-based locator.hover([options]) instead.
@@ -493,7 +475,7 @@ export class Page {
      * action. If not specified, currently pressed modifiers are used,
      * otherwise defaults to `null`.
      */
-    modifiers?: Array<"Alt"|"Control"|"Meta"|"Shift">;
+    modifiers?: KeyboardModifier[];
 
     /**
      * If set to `true` and a navigation occurs from performing this action, it
@@ -942,31 +924,7 @@ export class Page {
      * the currently visible viewport. Defaults to `false`.
      */
     fullPage?: boolean;
-
-    /**
-     * Hides default white background and allows capturing screenshots with
-     * transparency. Not applicable to `jpeg` images. Defaults to `false`.
-     */
-    omitBackground?: boolean;
-
-    /**
-     * The file path to save the image to. The screenshot type will be inferred
-     * from file extension. If `path` is a relative path, then it is resolved
-     * relative to the current working directory. If no path is provided, the
-     * image won't be saved to the disk.
-     */
-    path?: string;
-
-    /**
-     * The quality of the image, between 0-100; `jpeg` only.
-     */
-    quality?: number;
-
-    /**
-     * Specify screenshot type, defaults to `png`.
-     */
-    type?: "png"|"jpeg";
-   }): ArrayBuffer;
+   } & ScreenshotOptions): ArrayBuffer;
 
   /**
    * **NOTE** Use locator-based locator.selectOption(values[, options]) instead.
@@ -1113,7 +1071,7 @@ export class Page {
      * action. If not specified, currently pressed modifiers are used,
      * otherwise defaults to `null`.
      */
-    modifiers?: Array<"Alt"|"Control"|"Meta"|"Shift">;
+    modifiers?: KeyboardModifier[];
 
     /**
      * If set to `true` and a navigation occurs from performing this action, it
@@ -1472,102 +1430,3 @@ export class Page {
    */
   $$(selector: string): ElementHandle[];
 }
-
-/**
- * `BrowserContexts` provide a way to operate multiple independent sessions, with
- * separate pages, cache, and cookies.
- */
-export class BrowserContext {}
-
-/**
- * JSHandle represents an in-page JavaScript object.
- */
-export class JSHandle<T = any> {}
-
-/**
- * Frame represents the frame within a page. A page is made up of hierarchy of frames.
- */
-export class Frame {}
-
-/**
- * Response class represents responses which are received by page.
- */
-export class Response {}
-
-/**
- * Keyboard provides an api for managing a virtual keyboard.
- */
-export class Keyboard {}
-
-/**
- * Mouse provides an api for managing a virtual mouse.
- */
-export class Mouse {}
-
-/**
- * The Locator API makes it easier to work with dynamically changing elements.
- * Some of the benefits of using it over existing ways to locate an element
- * (e.g. Page.$()) include:
- *
- * - Helps with writing robust tests by finding an element even if the
- * underlying frame navigates.
- * - Makes it easier to work with dynamic web pages and SPAs built with Svelte,
- * React, Vue, etc.
- */
-export class Locator {}
-
-/**
- * ElementHandle represents an in-page DOM element.
- */
-export class ElementHandle {}
-
-/**
- * Touchscreen provides an api for interacting with a virtual touchscreen. It
- * in main-frame CSS pixels relative to the top-left corner of the viewport.
- */
-export class Touchscreen {}
-
-/**
- * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
- */
-export class Worker {}
-
-/**
- * Represents event-specific properties. Refer to the events documentation for
- * the lists of initial properties:
- * - [DragEvent](https://developer.mozilla.org/en-US/docs/Web/API/DragEvent/DragEvent)
- * - [FocusEvent](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/FocusEvent)
- * - [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/KeyboardEvent)
- * - [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent)
- * - [PointerEvent](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/PointerEvent)
- * - [TouchEvent](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/TouchEvent)
- * - [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
- */
-export type EvaluationArgument = object;
-
-export type PageFunction<Arg, R> = string | ((arg: Unboxed<Arg>) => R);
-
-export type Unboxed<Arg> =
-  Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unboxed<A1>] :
-  Arg extends [infer A0, infer A1, infer A2] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>] :
-  Arg extends [infer A0, infer A1, infer A2, infer A3] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>, Unboxed<A3>] :
-  Arg extends Array<infer T> ? Array<Unboxed<T>> :
-  Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> } :
-  Arg;
-
-  export interface SelectOptionsObject {
-    /**
-     * Matches by `option.value`.
-     */
-    value?: string;
-
-    /**
-     * Matches by `option.label`.
-     */
-    label?: string;
-
-    /**
-     * Matches by the index.
-     */
-    index?: number;
-  }

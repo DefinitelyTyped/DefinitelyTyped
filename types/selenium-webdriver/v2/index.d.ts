@@ -291,47 +291,47 @@ export namespace logging {
 
         /**
          * Indicates no log messages should be recorded.
-         * @const
+         * @constant
          */
         static OFF: Level;
         /**
          * Log messages with a level of `1000` or higher.
-         * @const
+         * @constant
          */
         static SEVERE: Level;
         /**
          * Log messages with a level of `900` or higher.
-         * @const
+         * @constant
          */
         static WARNING: Level;
         /**
          * Log messages with a level of `800` or higher.
-         * @const
+         * @constant
          */
         static INFO: Level;
         /**
          * Log messages with a level of `700` or higher.
-         * @const
+         * @constant
          */
         static DEBUG: Level;
         /**
          * Log messages with a level of `500` or higher.
-         * @const
+         * @constant
          */
         static FINE: Level;
         /**
          * Log messages with a level of `400` or higher.
-         * @const
+         * @constant
          */
         static FINER: Level;
         /**
          * Log messages with a level of `300` or higher.
-         * @const
+         * @constant
          */
         static FINEST: Level;
         /**
          * Indicates all log messages should be recorded.
-         * @const
+         * @constant
          */
         static ALL: Level;
     }

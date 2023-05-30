@@ -2862,7 +2862,7 @@ declare module 'fs' {
         recursive?: boolean | undefined;
     }
     export type WatchEventType = 'rename' | 'change';
-    export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
+    export type WatchListener<T> = (event: WatchEventType, filename: T | null) => void;
     export type StatsListener = (curr: Stats, prev: Stats) => void;
     export type BigIntStatsListener = (curr: BigIntStats, prev: BigIntStats) => void;
     /**

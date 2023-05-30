@@ -459,7 +459,6 @@ declare namespace l {
 
       /**
        * Define and reference `Models` and `anys`
-       * @clas
        */
 
       class Registry {
@@ -2371,7 +2370,6 @@ declare namespace l {
        * settings Extends the `Model.settings` object.
        * settings.accessTokenIdLength Length of the base64-encoded string access token. Default value is 64.
        * Increase the length for a more secure access token
-       * @inherits {PersistedModel}
        */
       class AccessToken extends PersistedModel {
             /** Generated token ID */
@@ -2444,7 +2442,6 @@ declare namespace l {
        * settings Extends the `Model.settings` object.
        * settings.defaultPermission Default permission setting: ALLOW, DENY, ALARM, or AUDIT. Default is ALLOW.
        * Set to DENY to prohibit all API access by default
-       * @inherits PersistedMode
        */
       class ACL extends PersistedModel {
             /** model Name of the model. */
@@ -2556,34 +2553,30 @@ declare namespace l {
        * url OAuth 2.0  application URL.
        * []} callbackUrls The OAuth 2.0 code/token callback URL.
        * status Status of the application; Either `production`, `sandbox` (default), or `disabled`.
-       * @property {Date} created Date Application object was created.  Default: current date.
-       * @property {Date} modified Date Application object was modified.  Default: current date
-       * @property {any} pushSettings.apns APNS configuration, see the options
+       * created Date Application object was created.  Default: current date.
+       * modified Date Application object was modified.  Default: current date
+       * pushSettings.apns APNS configuration, see the options
        *   below and also
        *   github.com/argon/node-apn/blob/master/doc/apn.markdown
-       * @property {boolean} pushSettings.apns.production Whether to use production Apple Push Notification Service (APNS) servers to send push notifications.
+       * pushSettings.apns.production Whether to use production Apple Push Notification Service (APNS) servers to send push notifications.
        * If true, uses `gateway.push.apple.com:2195` and `feedback.push.apple.com:2196`.
        * If false, uses `gateway.sandbox.push.apple.com:2195` and `feedback.sandbox.push.apple.com:2196`
-       * @property {string} pushSettings.apns.certData The certificate data loaded from the cert.pem file (APNS).
-       * @property {string} pushSettings.apns.keyData The key data loaded from the key.pem file (APNS).
-       * @property {string} pushSettings.apns.pushOptions.gateway (APNS).
-       * @property {number} pushSettings.apns.pushOptions.port (APNS).
-       * @property {string} pushSettings.apns.feedbackOptions.gateway  (APNS).
-       * @property {number} pushSettings.apns.feedbackOptions.port (APNS).
-       * @property {boolean} pushSettings.apns.feedbackOptions.batchFeedback (APNS).
-       * @property {number} pushSettings.apns.feedbackOptions.interval (APNS).
-       * @property {string} pushSettings.gcm.serverApiKey: Google Cloud Messaging API key
-       * @property {boolean} authenticationEnabled
-       * @property {boolean} anonymousAllowed
-       * @property {Array} authenticationSchemes List of authentication schemes
+       * pushSettings.apns.certData The certificate data loaded from the cert.pem file (APNS).
+       * pushSettings.apns.keyData The key data loaded from the key.pem file (APNS).
+       * pushSettings.apns.pushOptions.gateway (APNS).
+       * pushSettings.apns.pushOptions.port (APNS).
+       * pushSettings.apns.feedbackOptions.gateway  (APNS).
+       * pushSettings.apns.feedbackOptions.port (APNS).
+       * pushSettings.apns.feedbackOptions.batchFeedback (APNS).
+       * pushSettings.apns.feedbackOptions.interval (APNS).
+       * pushSettings.gcm.serverApiKey: Google Cloud Messaging API key
+       * authenticationSchemes List of authentication schemes
        *  (see below).
-       * @property {string} authenticationSchemes.scheme Scheme name.
+       * authenticationSchemes.scheme Scheme name.
        *   Supported values: `local`, `facebook`, `google`,
        *   `twitter`, `linkedin`, `github`.
-       * @property {any} authenticationSchemes.credential
+       * authenticationSchemes.credential
        *   Scheme-specific credentials
-       * @class Application
-       * @inherits {PersistedModel}
        */
       class Application extends PersistedModel {
             /** Generated ID. */
@@ -2718,7 +2711,6 @@ declare namespace l {
        * to [crypto.createHash](nodejs.org/api/crypto.html#crypto_crypto_createhash_algorithm).  Default is sha1.
        * settings.ignoreErrors By default, when changes are rectified, an error will throw an exception.
        * However, if this setting is true, then errors will not throw exceptions.
-       * @inherits {PersistedModel}
        */
       class Change extends PersistedModel {
             /** Hash of the modelName and ID. */
@@ -2978,7 +2970,6 @@ declare namespace l {
        * subject Email subject string.  Required.
        * text Text body of email.
        * html HTML body of email
-       * @inherits {Model}
        */
       class Email extends Model {
             /** Email addressee.  Required. */
@@ -3158,7 +3149,6 @@ declare namespace l {
 
       /**
        * The Role model
-       * @inherits {PersistedModel}
        * @header Role objec
        */
       class Role extends PersistedModel {
@@ -3213,7 +3203,6 @@ declare namespace l {
        * id Generated ID.
        * name Name of the role.
        * Description Text description.
-       * @inherits {PersistedModel}
        */
       class RoleMapping extends PersistedModel {
             /** Generated ID. */
@@ -3288,20 +3277,18 @@ declare namespace l {
        * lastUpdated The property is not used by LoopBack, you are free to use it for your own purposes.
        * status The property is not used by LoopBack, you are free to use it for your own purposes.
        * settings Extends the `Model.settings` object.
-       * @property {boolean} settings.emailVerificationRequired Require the email verification
+       * settings.emailVerificationRequired Require the email verification
        * process before allowing a login.
-       * @property {number} settings.ttl Default time to live (in seconds) for the `AccessToken` created by `User.login() / user.createAccessToken()`.
+       * settings.ttl Default time to live (in seconds) for the `AccessToken` created by `User.login() / user.createAccessToken()`.
        * Default is `1209600` (2 weeks)
-       * @property {number} settings.maxTTL The max value a user can request a token to be alive / valid for.
+       * settings.maxTTL The max value a user can request a token to be alive / valid for.
        * Default is `31556926` (1 year)
-       * @property {boolean} settings.realmRequired Require a realm when logging in a user.
-       * @property {string} settings.realmDelimiter When set a realm is required.
-       * @property {number} settings.resetPasswordTokenTTL Time to live for password reset `AccessToken`. Default is `900` (15 minutes).
-       * @property {number} settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
-       * @property {boolean} settings.caseSensitiveEmail Enable case sensitive email.
+       * settings.realmRequired Require a realm when logging in a user.
+       * settings.realmDelimiter When set a realm is required.
+       * settings.resetPasswordTokenTTL Time to live for password reset `AccessToken`. Default is `900` (15 minutes).
+       * settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
+       * settings.caseSensitiveEmail Enable case sensitive email.
        *
-       * @class User
-       * @inherits {PersistedModel}
        */
       class User extends PersistedModel {
             /** Must be unique. */
