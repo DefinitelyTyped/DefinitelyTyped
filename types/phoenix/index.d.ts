@@ -68,6 +68,7 @@ export class Socket {
   disconnect(callback?: () => void | Promise<void>, code?: number, reason?: string): void;
   connectionState(): ConnectionState;
   isConnected(): boolean;
+  replaceTransport(transport: new (endpoint: string) => object): void;
 
   remove(channel: Channel): void;
   channel(topic: string, chanParams?: object): Channel;
