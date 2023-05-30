@@ -1,13 +1,21 @@
-import browser from 'k6/experimental/browser';
+import {
+    ElementState,
+    ImageFormat,
+    InputElementState,
+    LifecycleEvent,
+    Page,
+    Request,
+    Response,
+    ElementHandle } from 'k6/experimental/browser';
 
 const url = 'http://example.com';
 const selector = 'a[href="http://example.com"]';
-const elementHandle: browser.ElementHandle = new browser.ElementHandle();
+const elementHandle = new ElementHandle();
 
 //
 // Create a page
 //
-const page = new browser.Page();
+const page = new Page();
 
 // $ExpectType void
 page.bringToFront();
@@ -376,10 +384,10 @@ page.screenshot({ omitBackground: true });
 page.screenshot({ path: "image.jpeg" });
 // $ExpectType ArrayBuffer
 page.screenshot({ quality: 50 });
-// $ExpectType ArrayBuffer
-page.screenshot({ type: "jpeg" });
-// $ExpectType ArrayBuffer
-page.screenshot({ type: "png" });
+for (const format of ["png", "jpeg"]) {
+    // $ExpectType ArrayBuffer
+    page.screenshot({ type: format as ImageFormat });
+}
 
 // @ts-expect-error
 page.selectOption();
@@ -394,7 +402,7 @@ page.selectOption(selector, { value: "" });
 // $ExpectType string[]
 page.selectOption(selector, { label: "" });
 // $ExpectType string[]
-page.selectOption(selector, { index: "" });
+page.selectOption(selector, { index: 0 });
 // $ExpectType string[]
 page.selectOption(selector, ["option", "option2"]);
 // $ExpectType string[]
@@ -580,3 +588,1182 @@ page.$(selector);
 page.$$();
 // $ExpectType ElementHandle[]
 page.$$(selector);
+
+//
+// Keyboard
+//
+const keyboard = page.keyboard;
+
+// @ts-expect-error
+keyboard.down();
+// $ExpectType void
+keyboard.down("a");
+
+// @ts-expect-error
+keyboard.insertText();
+// $ExpectType void
+keyboard.insertText("a");
+
+// @ts-expect-error
+keyboard.press();
+// $ExpectType void
+keyboard.press("a");
+// $ExpectType void
+keyboard.press("a", { delay: 1000 });
+
+// @ts-expect-error
+keyboard.type();
+// $ExpectType void
+keyboard.type("a");
+// $ExpectType void
+keyboard.type("a", { delay: 1000 });
+
+// @ts-expect-error
+keyboard.up();
+// $ExpectType void
+keyboard.up("a");
+
+//
+// Mouse
+//
+
+const mouse = page.mouse;
+
+// @ts-expect-error
+mouse.click();
+// @ts-expect-error
+mouse.click(0);
+// $ExpectType void
+mouse.click(0, 0);
+// $ExpectType void
+mouse.click(0, 0, { button: 'right' });
+// $ExpectType void
+mouse.click(0, 0, { clickCount: 2 });
+// $ExpectType void
+mouse.click(0, 0, { delay: 1000 });
+
+// @ts-expect-error
+mouse.dblclick();
+// @ts-expect-error
+mouse.dblclick(0);
+// $ExpectType void
+mouse.dblclick(0, 0);
+// $ExpectType void
+mouse.dblclick(0, 0, { button: 'right' });
+// $ExpectType void
+mouse.dblclick(0, 0, { delay: 1000 });
+
+// $ExpectType void
+mouse.down();
+// $ExpectType void
+mouse.down({ button: 'right' });
+// $ExpectType void
+mouse.down({ clickCount: 2 });
+
+// @ts-expect-error
+mouse.move();
+// @ts-expect-error
+mouse.move(0);
+// $ExpectType void
+mouse.move(0, 0);
+// $ExpectType void
+mouse.move(0, 0, { steps: 10 });
+
+// $ExpectType void
+mouse.up();
+// $ExpectType void
+mouse.up({ button: 'right' });
+// $ExpectType void
+mouse.up({ clickCount: 2 });
+
+//
+// Locator
+//
+const locator = page.locator(selector);
+
+// $ExpectType Promise<void>
+locator.click();
+// $ExpectType Promise<void>
+locator.click({ button: 'right' });
+// @ts-expect-error
+locator.click({ button: 'top' });
+// $ExpectType Promise<void>
+locator.click({ delay: 1000 });
+// $ExpectType Promise<void>
+locator.click({ clickCount: 2 });
+// $ExpectType Promise<void>
+locator.click({ force: true });
+// $ExpectType Promise<void>
+locator.click({ modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+// $ExpectType Promise<void>
+locator.click({ noWaitAfter: true });
+// $ExpectType Promise<void>
+locator.click({ position: { x: 0, y: 0 } });
+// $ExpectType Promise<void>
+locator.click({ timeout: 10000 });
+// $ExpectType Promise<void>
+locator.click({ trial: true });
+// $ExpectType Promise<void>
+locator.click({ strict: true });
+
+// $ExpectType void
+locator.dblclick();
+// $ExpectType void
+locator.dblclick({ button: 'right' });
+// @ts-expect-error
+locator.dblclick({ button: 'top' });
+// $ExpectType void
+locator.dblclick({ delay: 1000 });
+// $ExpectType void
+locator.dblclick({ force: true });
+// $ExpectType void
+locator.dblclick({ modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+// @ts-expect-error
+locator.dblclick({ modifiers: ['Esc'] });
+// $ExpectType void
+locator.dblclick({ noWaitAfter: true });
+// $ExpectType void
+locator.dblclick({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.dblclick({ timeout: 10000 });
+// $ExpectType void
+locator.dblclick({ trial: true });
+// $ExpectType void
+locator.dblclick({ strict: true });
+
+// $ExpectType void
+locator.check();
+// $ExpectType void
+locator.check({ force: true });
+// $ExpectType void
+locator.check({ noWaitAfter: true });
+// $ExpectType void
+locator.check({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.check({ timeout: 10000 });
+// $ExpectType void
+locator.check({ trial: true });
+// $ExpectType void
+locator.check({ strict: true });
+
+// $ExpectType void
+locator.uncheck();
+// $ExpectType void
+locator.uncheck({ force: true });
+// $ExpectType void
+locator.uncheck({ noWaitAfter: true });
+// $ExpectType void
+locator.uncheck({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.uncheck({ timeout: 10000 });
+// $ExpectType void
+locator.uncheck({ trial: true });
+// $ExpectType void
+locator.uncheck({ strict: true });
+
+// $ExpectType boolean
+locator.isChecked();
+// $ExpectType boolean
+locator.isChecked({ timeout: 10000 });
+// $ExpectType boolean
+locator.isChecked({ strict: true });
+
+// $ExpectType boolean
+locator.isEnabled();
+// $ExpectType boolean
+locator.isEnabled({ timeout: 10000 });
+// $ExpectType boolean
+locator.isEnabled({ strict: true });
+
+// $ExpectType boolean
+locator.isDisabled();
+// $ExpectType boolean
+locator.isDisabled({ timeout: 10000 });
+// $ExpectType boolean
+locator.isDisabled({ strict: true });
+
+// $ExpectType boolean
+locator.isVisible();
+// $ExpectType boolean
+locator.isVisible({ timeout: 10000 });
+// $ExpectType boolean
+locator.isVisible({ strict: true });
+
+// $ExpectType boolean
+locator.isHidden();
+// $ExpectType boolean
+locator.isHidden({ timeout: 10000 });
+// $ExpectType boolean
+locator.isHidden({ strict: true });
+
+// @ts-expect-error
+locator.fill();
+// $ExpectType void
+locator.fill("text");
+// $ExpectType void
+locator.fill("text", { force: true });
+// $ExpectType void
+locator.fill("text", { noWaitAfter: true });
+// $ExpectType void
+locator.fill("text", { timeout: 10000 });
+// $ExpectType void
+locator.fill("text", { strict: true });
+
+// $ExpectType void
+locator.focus();
+// $ExpectType void
+locator.focus({ timeout: 10000 });
+// $ExpectType void
+locator.focus({ strict: true });
+
+// @ts-expect-error
+locator.getAttribute();
+// $ExpectType string | null
+locator.getAttribute("attr");
+// $ExpectType string | null
+locator.getAttribute("attr", { timeout: 10000 });
+// $ExpectType string | null
+locator.getAttribute("attr", { strict: true });
+
+// $ExpectType string
+locator.innerHTML();
+// $ExpectType string
+locator.innerHTML({ timeout: 10000 });
+// $ExpectType string
+locator.innerHTML({ strict: true });
+
+// $ExpectType string
+locator.innerText();
+// $ExpectType string
+locator.innerText({ timeout: 10000 });
+// $ExpectType string
+locator.innerText({ strict: true });
+
+// $ExpectType string
+locator.textContent();
+// $ExpectType string
+locator.textContent({ timeout: 10000 });
+// $ExpectType string
+locator.textContent({ strict: true });
+
+// $ExpectType string
+locator.inputValue();
+// $ExpectType string
+locator.inputValue({ timeout: 10000 });
+// $ExpectType string
+locator.inputValue({ strict: true });
+
+// @ts-expect-error
+locator.selectOption();
+// @ts-expect-error
+locator.selectOption({ timeout: 10000 });
+// $ExpectType string[]
+locator.selectOption("value");
+// $ExpectType string[]
+locator.selectOption(["value1", "value2"]);
+// $ExpectType string[]
+locator.selectOption({ value: "value" });
+// $ExpectType string[]
+locator.selectOption({ label: "label" });
+// $ExpectType string[]
+locator.selectOption({ index: 1 });
+// $ExpectType string[]
+locator.selectOption("value", { force: true });
+// $ExpectType string[]
+locator.selectOption("value", { noWaitAfter: true });
+// $ExpectType string[]
+locator.selectOption("value", { timeout: 10000 });
+// $ExpectType string[]
+locator.selectOption("value", { strict: true });
+
+// @ts-expect-error
+locator.type();
+// @ts-expect-error
+locator.type({ timeout: 10000 });
+// $ExpectType void
+locator.type("text");
+// $ExpectType void
+locator.type("text", { delay: 1000 });
+// @ts-expect-error
+locator.type("text", { force: true });
+// $ExpectType void
+locator.type("text", { noWaitAfter: true });
+// $ExpectType void
+locator.type("text", { timeout: 10000 });
+// @ts-expect-error
+locator.type("text", { trial: true });
+
+// $ExpectType void
+locator.hover();
+// $ExpectType void
+locator.hover({ force: true });
+// $ExpectType void
+locator.hover({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.hover({ timeout: 10000 });
+// $ExpectType void
+locator.hover({ trial: true });
+// $ExpectType void
+locator.hover({ strict: true });
+
+// $ExpectType void
+locator.tap();
+// $ExpectType void
+locator.tap({ force: true });
+// $ExpectType void
+locator.tap({ noWaitAfter: true });
+// $ExpectType void
+locator.tap({ position: { x: 0, y: 0 } });
+// $ExpectType void
+locator.tap({ timeout: 10000 });
+// $ExpectType void
+locator.tap({ trial: true });
+// $ExpectType void
+locator.tap({ strict: true });
+
+// @ts-expect-error
+locator.dispatchEvent();
+// $ExpectType void
+locator.dispatchEvent("click");
+// $ExpectType void
+locator.dispatchEvent("click", { buttons: 2 & 4 });
+// $ExpectType void
+locator.dispatchEvent("click", { buttons: 2 & 4 }, { timeout: 10000 });
+// $ExpectType void
+locator.dispatchEvent("click", { buttons: 2 & 4 }, { strict: true });
+
+// $ExpectType void
+locator.waitFor();
+for (const state of ["attached", "detached", "visible", "hidden"]) {
+    // $ExpectType void
+    locator.waitFor({ state: state as ElementState });
+}
+// $ExpectType void
+locator.waitFor({ timeout: 10000 });
+// $ExpectType void
+locator.waitFor({ strict: true });
+
+//
+// JSHandle
+//
+const jsHandle = page.evaluateHandle(() => null);
+
+// $ExpectType ElementHandle | null
+jsHandle.asElement();
+
+// $ExpectType void
+jsHandle.dispose();
+
+// @ts-expect-error
+jsHandle.evaluate();
+// @ts-expect-error
+jsHandle.evaluate(1);
+// @ExpectType void
+jsHandle.evaluate("");
+// @ExpectType void
+jsHandle.evaluate(() => {});
+// @ExpectType string
+jsHandle.evaluate(() => { ""; });
+// @ExpectType string
+jsHandle.evaluate((a: string) => { a; }, "");
+// @ExpectType string[]
+jsHandle.evaluate((a: string[]) => a, [""]);
+
+// @ts-expect-error
+jsHandle.evaluateHandle();
+// @ts-expect-error
+jsHandle.evaluateHandle(1);
+// @ExpectType JSHandle
+jsHandle.evaluateHandle("");
+// @ExpectType JSHandle
+jsHandle.evaluateHandle(() => {});
+// @ExpectType JSHandle
+jsHandle.evaluateHandle(() => { ""; });
+// @ExpectType JSHandle
+jsHandle.evaluateHandle((a: string) => { a; }, "");
+// @ExpectType JSHandle
+jsHandle.evaluateHandle((a: string[]) => a, [""]);
+
+// $ExpectType Map<string, JSHandle<any>>
+jsHandle.getProperties();
+
+// $ExpectType any
+jsHandle.jsonValue();
+
+//
+// Request
+//
+const request = new Request();
+
+// $ExpectType Record<string, string>
+request.allHeaders();
+
+// $ExpectType Frame
+request.frame();
+
+// $ExpectType Record<string, string>
+request.headers();
+
+// $ExpectType { name: string; value: string; }[]
+request.headersArray();
+
+// @ts-expect-error
+request.headerValue();
+// $ExpectType string | null
+request.headerValue("content-type");
+
+// $ExpectType boolean
+request.isNavigationRequest();
+
+// $ExpectType string
+request.method();
+
+// $ExpectType string
+request.postData();
+
+// $ExpectType ArrayBuffer | null
+request.postDataBuffer();
+
+// $ExpectType ResourceType
+request.resourceType();
+
+// $ExpectType Response | null
+request.response();
+
+// $ExpectType { body: number; headers: number; }
+request.size();
+
+// $ExpectType ResourceTiming
+request.timing();
+
+//
+// Response
+//
+const response = new Response();
+
+// $ExpectType Record<string, string>
+response.allHeaders();
+
+// $ExpectType ArrayBuffer
+response.body();
+
+// $ExpectType Frame
+response.frame();
+
+// $ExpectType Record<string, string>
+response.headers();
+
+// $ExpectType { name: string; value: string; }[]
+response.headersArray();
+
+// @ts-expect-error
+response.headerValue();
+// $ExpectType string | null
+response.headerValue("content-type");
+
+// @ts-expect-error
+response.headerValues();
+// $ExpectType string[]
+response.headerValues("content-type");
+
+// $ExpectType any
+response.json();
+
+// $ExpectType boolean
+response.ok();
+
+// $ExpectType Request
+response.request();
+
+// $ExpectType SecurityDetailsObject | null
+response.securityDetails();
+
+// $ExpectType { ipAddress: string; port: number; } | null
+response.serverAddr();
+
+// $ExpectType number
+response.status();
+
+// $ExpectType string
+response.statusText();
+
+// $ExpectType { body: number; headers: number; }
+response.size();
+
+// $ExpectType string
+response.url();
+
+//
+// ElementHandle
+//
+
+// @ts-expect-error
+elementHandle.$();
+// $ExpectType ElementHandle | null
+elementHandle.$("div");
+
+// @ts-expect-error
+elementHandle.$$();
+// $ExpectType ElementHandle[]
+elementHandle.$$("div");
+
+// $ExpectType Rect
+elementHandle.boundingBox();
+
+// $ExpectType Frame
+elementHandle.contentFrame();
+
+// @ts-expect-error
+elementHandle.fill();
+// $ExpectType void
+elementHandle.fill("text");
+// $ExpectType void
+elementHandle.fill("text", { force: true });
+// $ExpectType void
+elementHandle.fill("text", { noWaitAfter: true });
+// $ExpectType void
+elementHandle.fill("text", { timeout: 10000 });
+
+// $ExpectType void
+elementHandle.focus();
+
+// @ts-expect-error
+elementHandle.getAttribute();
+// $ExpectType string | null
+elementHandle.getAttribute("foo");
+
+// $ExpectType void
+elementHandle.hover();
+// $ExpectType void
+elementHandle.hover({ force: true });
+// $ExpectType void
+elementHandle.hover({ timeout: 10000 });
+// $ExpectType void
+elementHandle.hover({ trial: true });
+// $ExpectType void
+elementHandle.hover({ position: { x: 0, y: 0 } });
+// $ExpectType void
+elementHandle.hover({ modifiers: ["Shift"] });
+
+// $ExpectType string
+elementHandle.innerHTML();
+
+// $ExpectType string
+elementHandle.innerText();
+
+// $ExpectType string
+elementHandle.inputValue();
+// $ExpectType string
+elementHandle.inputValue({ timeout: 10000 });
+
+// $ExpectType boolean
+elementHandle.isChecked();
+
+// $ExpectType boolean
+elementHandle.isDisabled();
+
+// $ExpectType boolean
+elementHandle.isEditable();
+
+// $ExpectType boolean
+elementHandle.isEnabled();
+
+// $ExpectType boolean
+elementHandle.isHidden();
+
+// $ExpectType boolean
+elementHandle.isVisible();
+
+// $ExpectType Frame
+elementHandle.ownerFrame();
+
+// @ts-expect-error
+elementHandle.press();
+// $ExpectType void
+elementHandle.press("Enter");
+// $ExpectType void
+elementHandle.press("Enter", { noWaitAfter: true });
+// $ExpectType void
+elementHandle.press("Enter", { delay: 100 });
+// $ExpectType void
+elementHandle.press("Enter", { timeout: 10000 });
+
+// $ExpectType ArrayBuffer
+elementHandle.screenshot();
+// $ExpectType ArrayBuffer
+elementHandle.screenshot({ timeout: 10000 });
+// $ExpectType ArrayBuffer
+elementHandle.screenshot({ omitBackground: true });
+// $ExpectType ArrayBuffer
+elementHandle.screenshot({ quality: 100 });
+for (const format of ["png", "jpeg"]) {
+    // $ExpectType ArrayBuffer
+    elementHandle.screenshot({ type: format as ImageFormat });
+}
+
+// $ExpectType void
+elementHandle.scrollIntoViewIfNeeded();
+// $ExpectType void
+elementHandle.scrollIntoViewIfNeeded({ timeout: 10000 });
+// $ExpectType void
+elementHandle.scrollIntoViewIfNeeded({ force: true });
+// $ExpectType void
+elementHandle.scrollIntoViewIfNeeded({ noWaitAfter: true });
+
+// @ts-expect-error
+elementHandle.selectOption();
+// @ts-expect-error
+elementHandle.selectOption({ timeout: 10000 });
+// $ExpectType string[]
+elementHandle.selectOption("foo");
+// $ExpectType string[]
+elementHandle.selectOption(["foo", "bar"]);
+// $ExpectType string[]
+elementHandle.selectOption(elementHandle);
+// $ExpectType string[]
+elementHandle.selectOption({ value: "foo" });
+// $ExpectType string[]
+elementHandle.selectOption({ label: "bar" });
+// $ExpectType string[]
+elementHandle.selectOption({ index: 1 });
+// $ExpectType string[]
+elementHandle.selectOption("foo", { timeout: 10000 });
+// $ExpectType string[]
+elementHandle.selectOption("foo", { force: true });
+// $ExpectType string[]
+elementHandle.selectOption("foo", { noWaitAfter: true });
+
+// $ExpectType void
+elementHandle.selectText();
+// $ExpectType void
+elementHandle.selectText({ timeout: 10000 });
+// $ExpectType void
+elementHandle.selectText({ force: true });
+// $ExpectType void
+elementHandle.selectText({ noWaitAfter: true });
+
+// $ExpectType void
+elementHandle.tap();
+// $ExpectType void
+elementHandle.tap({ timeout: 10000 });
+// $ExpectType void
+elementHandle.tap({ force: true });
+// $ExpectType void
+elementHandle.tap({ noWaitAfter: true });
+// $ExpectType void
+elementHandle.tap({ position: { x: 0, y: 0 } });
+// $ExpectType void
+elementHandle.tap({ modifiers: ["Shift"] });
+// $ExpectType void
+elementHandle.tap({ trial: true });
+
+// $ExpectType string
+elementHandle.textContent();
+
+// @ts-expect-error
+elementHandle.type();
+// $ExpectType void
+elementHandle.type("text");
+// $ExpectType void
+elementHandle.type("text", { delay: 100 });
+// $ExpectType void
+elementHandle.type("text", { timeout: 10000 });
+// $ExpectType void
+elementHandle.type("text", { noWaitAfter: true });
+
+// $ExpectType void
+elementHandle.uncheck();
+// $ExpectType void
+elementHandle.uncheck({ force: true });
+// $ExpectType void
+elementHandle.uncheck({ noWaitAfter: true });
+// $ExpectType void
+elementHandle.uncheck({ timeout: 10000 });
+// $ExpectType void
+elementHandle.uncheck({ trial: true });
+// $ExpectType void
+elementHandle.uncheck({ position: { x: 0, y: 0 } });
+// $ExpectType void
+elementHandle.uncheck({ strict: true });
+
+// @ts-expect-error
+elementHandle.waitForElementState();
+for (const state of ["visible", "hidden", "stable", "enabled", "disabled", "editable", "disabled"]) {
+    // $ExpectType void
+    elementHandle.waitForElementState(state as InputElementState);
+}
+// $ExpectType void
+elementHandle.waitForElementState("visible", { timeout: 10000 });
+
+// @ts-expect-error
+elementHandle.waitForSelector();
+// $ExpectType void
+elementHandle.waitForSelector("div");
+// $ExpectType void
+elementHandle.waitForSelector("div", { timeout: 10000 });
+// $ExpectType void
+elementHandle.waitForSelector("div", { state: "attached" });
+// $ExpectType void
+elementHandle.waitForSelector("div", { strict: true });
+
+//
+// Frame
+//
+
+const frame = page.mainFrame();
+
+// @ts-expect-error
+frame.$();
+// $ExpectType ElementHandle | null
+frame.$("div");
+
+// @ts-expect-error
+frame.$$();
+// $ExpectType ElementHandle[]
+frame.$$("div");
+
+// @ts-expect-error
+frame.check();
+// $ExpectType void
+frame.check("input[type=checkbox]");
+// $ExpectType void
+frame.check("input[type=checkbox]", { force: true });
+// $ExpectType void
+frame.check("input[type=checkbox]", { noWaitAfter: true });
+// $ExpectType void
+frame.check("input[type=checkbox]", { timeout: 10000 });
+// $ExpectType void
+frame.check("input[type=checkbox]", { trial: true });
+// $ExpectType void
+frame.check("input[type=checkbox]", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.check("input[type=checkbox]", { strict: true });
+
+// @ts-expect-error
+frame.uncheck();
+// $ExpectType void
+frame.uncheck("input[type=checkbox]");
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { force: true });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { noWaitAfter: true });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { timeout: 10000 });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { trial: true });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.uncheck("input[type=checkbox]", { strict: true });
+
+// @ts-expect-error
+frame.click();
+// $ExpectType Promise<void>
+frame.click("div");
+// $ExpectType Promise<void>
+frame.click("div", { button: "left" });
+// $ExpectType Promise<void>
+frame.click("div", { clickCount: 2 });
+// $ExpectType Promise<void>
+frame.click("div", { delay: 100 });
+// $ExpectType Promise<void>
+frame.click("div", { strict: true });
+
+// @ts-expect-error
+frame.dblclick();
+// $ExpectType void
+frame.dblclick("div");
+// $ExpectType void
+frame.dblclick("div", { delay: 100 });
+// $ExpectType void
+frame.dblclick("div", { timeout: 10000 });
+// $ExpectType void
+frame.dblclick("div", { noWaitAfter: true });
+// $ExpectType void
+frame.dblclick("div", { force: true });
+// $ExpectType void
+frame.dblclick("div", { trial: true });
+// $ExpectType void
+frame.dblclick("div", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.dblclick("div", { modifiers: ["Shift"] });
+// $ExpectType void
+frame.dblclick("div", { strict: true });
+
+// @ts-expect-error
+frame.fill();
+// $ExpectType void
+frame.fill("input", "text");
+// $ExpectType void
+frame.fill("input", "text", { timeout: 10000 });
+// $ExpectType void
+frame.fill("input", "text", { noWaitAfter: true });
+// $ExpectType void
+frame.fill("input", "text", { force: true });
+// $ExpectType void
+frame.fill("input", "text", { strict: true });
+
+// @ts-expect-error
+frame.focus();
+// $ExpectType void
+frame.focus("input");
+// $ExpectType void
+frame.focus("input", { timeout: 10000 });
+// $ExpectType void
+frame.focus("input", { strict: true });
+
+// @ts-expect-error
+frame.hover();
+// $ExpectType void
+frame.hover("div");
+// $ExpectType void
+frame.hover("div", { timeout: 10000 });
+// $ExpectType void
+frame.hover("div", { force: true });
+// $ExpectType void
+frame.hover("div", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.hover("div", { modifiers: ["Shift"] });
+// $ExpectType void
+frame.hover("div", { strict: true });
+// $ExpectType void
+frame.hover("div", { trial: true });
+// $ExpectType void
+frame.hover("div", { noWaitAfter: true });
+
+// @ts-expect-error
+frame.tap();
+// $ExpectType void
+frame.tap("div");
+// $ExpectType void
+frame.tap("div", { timeout: 10000 });
+// $ExpectType void
+frame.tap("div", { force: true });
+// $ExpectType void
+frame.tap("div", { position: { x: 0, y: 0 } });
+// $ExpectType void
+frame.tap("div", { modifiers: ["Shift"] });
+// $ExpectType void
+frame.tap("div", { strict: true });
+// $ExpectType void
+frame.tap("div", { trial: true });
+// $ExpectType void
+frame.tap("div", { noWaitAfter: true });
+
+// @ts-expect-error
+frame.press();
+// @ts-expect-error
+frame.press("div");
+// $ExpectType void
+frame.press("div", "a");
+// $ExpectType void
+frame.press("div", "a", { delay: 100 });
+// $ExpectType void
+frame.press("div", "a", { timeout: 10000 });
+// $ExpectType void
+frame.press("div", "a", { noWaitAfter: true });
+// $ExpectType void
+frame.press("div", "a", { strict: true });
+
+// @ts-expect-error
+frame.type();
+// @ts-expect-error
+frame.type("input");
+// $ExpectType void
+frame.type("input", "text");
+// $ExpectType void
+frame.type("input", "text", { delay: 100 });
+// $ExpectType void
+frame.type("input", "text", { timeout: 10000 });
+// $ExpectType void
+frame.type("input", "text", { noWaitAfter: true });
+// $ExpectType void
+frame.type("input", "text", { strict: true });
+
+// @ts-expect-error
+frame.selectOption();
+// @ts-expect-error
+frame.selectOption("select");
+// $ExpectType string[]
+frame.selectOption("select", "value");
+// $ExpectType string[]
+frame.selectOption("select", ["value1", "value2"]);
+// $ExpectType string[]
+frame.selectOption("select", new ElementHandle());
+// $ExpectType string[]
+frame.selectOption("select", [new ElementHandle(), new ElementHandle()]);
+// $ExpectType string[]
+frame.selectOption("select", { value: "value", index: 1, label: "label" });
+// $ExpectType string[]
+frame.selectOption("select", [{ value: "value1", index: 1, label: "label1" }, { value: "value2", index: 2, label: "label2" }]);
+// $ExpectType string[]
+frame.selectOption("select", "value", { force: true });
+// $ExpectType string[]
+frame.selectOption("select", "value", { noWaitAfter: true });
+// $ExpectType string[]
+frame.selectOption("select", "value", { timeout: 10000 });
+// $ExpectType string[]
+frame.selectOption("select", "value", { strict: true });
+
+// @ts-expect-error
+frame.dispatchEvent();
+// @ts-expect-error
+frame.dispatchEvent("div");
+// $ExpectType void
+frame.dispatchEvent("div", "click");
+// $ExpectType void
+frame.dispatchEvent("div", "click", { button: "left" });
+// $ExpectType void
+frame.dispatchEvent("div", "click", {}, { timeout: 10000 });
+// $ExpectType void
+frame.dispatchEvent("div", "click", {}, { strict: true });
+
+// @ts-expect-error
+frame.evaluate();
+// @ts-expect-error
+frame.evaluate(1);
+// @ExpectType void
+frame.evaluate("");
+// @ExpectType void
+frame.evaluate(() => {});
+// @ExpectType string
+frame.evaluate(() => { ""; });
+// @ExpectType string
+frame.evaluate((a: string) => { a; }, "");
+// @ExpectType string[]
+frame.evaluate((a: string[]) => a, [""]);
+
+// @ts-expect-error
+frame.evaluateHandle();
+// @ts-expect-error
+frame.evaluateHandle(1);
+// @ExpectType JSHandle
+frame.evaluateHandle("");
+// @ExpectType JSHandle
+frame.evaluateHandle(() => {});
+// @ExpectType JSHandle
+frame.evaluateHandle(() => { ""; });
+// @ExpectType JSHandle
+frame.evaluateHandle((a: string) => { a; }, "");
+// @ExpectType JSHandle
+frame.evaluateHandle((a: string[]) => a, [""]);
+
+// $ExpectType Page
+frame.page();
+
+// $ExpectType Frame | null
+frame.parentFrame();
+
+// $ExpectType Frame[]
+frame.childFrames();
+
+// $ExpectType ElementHandle
+frame.frameElement();
+
+// @ts-expect-error
+frame.goto();
+// $ExpectType Promise<Response | null>
+frame.goto("https://example.com");
+// $ExpectType Promise<Response | null>
+frame.goto("https://example.com", { timeout: 10000 });
+for (const state of ["load", "domcontentloaded", "networkidle"]) {
+    // $ExpectType Promise<Response | null>
+    frame.goto("https://example.com", { waitUntil: state as LifecycleEvent });
+}
+// $ExpectType Promise<Response | null>
+frame.goto("https://example.com", { referer: "https://example.com" });
+
+// @ts-expect-error
+frame.setContent();
+// $ExpectType void
+frame.setContent("<div>content</div>");
+// $ExpectType void
+frame.setContent("<div>content</div>", { timeout: 10000 });
+for (const state of ["load", "domcontentloaded", "networkidle"]) {
+    // $ExpectType void
+    frame.setContent("<div>content</div>", { waitUntil: state as LifecycleEvent });
+}
+
+// $ExpectType string
+frame.name();
+
+// $ExpectType string
+frame.title();
+
+// $ExpectType string
+frame.url();
+
+// $ExpectType string
+frame.content();
+
+// $ExpectType boolean
+frame.isDetached();
+
+// @ts-expect-error
+frame.locator();
+// $ExpectType Locator
+frame.locator("div");
+
+// @ts-expect-error
+frame.innerHTML();
+// $ExpectType string
+frame.innerHTML("div");
+// $ExpectType string
+frame.innerHTML("div", { timeout: 10000 });
+// $ExpectType string
+frame.innerHTML("div", { strict: true });
+
+// @ts-expect-error
+frame.innerText();
+// $ExpectType string
+frame.innerText("div");
+// $ExpectType string
+frame.innerText("div", { timeout: 10000 });
+// $ExpectType string
+frame.innerText("div", { strict: true });
+
+// @ts-expect-error
+frame.textContent();
+// $ExpectType string
+frame.textContent("div");
+// $ExpectType string
+frame.textContent("div", { timeout: 10000 });
+// $ExpectType string
+frame.textContent("div", { strict: true });
+
+// @ts-expect-error
+frame.getAttribute();
+// @ts-expect-error
+frame.getAttribute("div");
+// $ExpectType string
+frame.getAttribute("div", "attr");
+// $ExpectType string
+frame.getAttribute("div", "attr", { timeout: 10000 });
+// $ExpectType string
+frame.getAttribute("div", "attr", { strict: true });
+
+// @ts-expect-error
+frame.inputValue();
+// $ExpectType string
+frame.inputValue("input");
+// $ExpectType string
+frame.inputValue("input", { timeout: 10000 });
+// $ExpectType string
+frame.inputValue("input", { strict: true });
+
+// @ts-expect-error
+frame.isChecked();
+// $ExpectType boolean
+frame.isChecked("input");
+// $ExpectType boolean
+frame.isChecked("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isChecked("input", { strict: true });
+
+// @ts-expect-error
+frame.isDisabled();
+// $ExpectType boolean
+frame.isDisabled("input");
+// $ExpectType boolean
+frame.isDisabled("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isDisabled("input", { strict: true });
+
+// @ts-expect-error
+frame.isEnabled();
+// $ExpectType boolean
+frame.isEnabled("input");
+// $ExpectType boolean
+frame.isEnabled("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isEnabled("input", { strict: true });
+
+// @ts-expect-error
+frame.isEditable();
+// $ExpectType boolean
+frame.isEditable("input");
+// $ExpectType boolean
+frame.isEditable("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isEditable("input", { strict: true });
+
+// @ts-expect-error
+frame.isHidden();
+// $ExpectType boolean
+frame.isHidden("input");
+// $ExpectType boolean
+frame.isHidden("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isHidden("input", { strict: true });
+
+// @ts-expect-error
+frame.isVisible();
+// $ExpectType boolean
+frame.isVisible("input");
+// $ExpectType boolean
+frame.isVisible("input", { timeout: 10000 });
+// $ExpectType boolean
+frame.isVisible("input", { strict: true });
+
+// @ts-expect-error
+frame.waitForFunction();
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction(() => true);
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction(() => true, { polling: "raf" });
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction(() => true, { polling: "interval", interval: 10000 });
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction(() => true, { timeout: 10000 });
+// $ExpectType Promise<JSHandle<boolean>>
+frame.waitForFunction((a: number) => a === 1, {}, 1);
+
+// $ExpectType void
+frame.waitForLoadState();
+for (const state of ["load", "domcontentloaded", "networkidle"]) {
+    // $ExpectType void
+    frame.waitForLoadState(state as LifecycleEvent);
+}
+// $ExpectType void
+frame.waitForLoadState("domcontentloaded", { timeout: 10000 });
+
+// $ExpectType Promise<Response | null>
+frame.waitForNavigation();
+// $ExpectType Promise<Response | null>
+frame.waitForNavigation({ timeout: 10000 });
+// $ExpectType Promise<Response | null>
+frame.waitForNavigation({ waitUntil: "domcontentloaded" });
+
+// @ts-expect-error
+frame.waitForSelector();
+// $ExpectType ElementHandle
+frame.waitForSelector("div");
+// $ExpectType ElementHandle
+frame.waitForSelector("div", { timeout: 10000 });
+for (const state of ["attached", "detached", "visible", "hidden"]) {
+    // $ExpectType ElementHandle
+    frame.waitForSelector("div", { state: state as ElementState });
+}
+
+// @ts-expect-error
+frame.waitForTimeout();
+// $ExpectType void
+frame.waitForTimeout(10000);
+
+//
+// Touchscreen.tap
+//
+
+// @ts-expect-error
+page.touchscreen.tap();
+// $ExpectType void
+page.touchscreen.tap(1, 2);
+
+//
+// Worker
+//
+
+const worker = page.workers()[0];
+
+// $ExpectType string
+worker.url();
