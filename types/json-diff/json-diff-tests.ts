@@ -7,6 +7,7 @@ const options: DiffOptions = {
     full: true,
     sort: true,
     outputKeys: ["Hello"],
+    excludeKeys: [],
     keepUnchangedValues: true,
     outputNewOnly: true,
     maxElisions: 1,
