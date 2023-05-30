@@ -1581,6 +1581,7 @@ export interface NightwatchTypedCallbackResult<T> {
     value: T;
     error: Error;
 }
+
 export interface NightwatchCallbackResultError {
     status: 1; // we cannot use `number` so giving it a "symbolic" value allows to disjoint the union
     value: {
@@ -3836,7 +3837,7 @@ export interface ElementCommands {
     ): Awaitable<this, NightwatchSizeAndPosition>;
 
     /**
-     * Determine an element's location on the screen once it has been scrolled into view. Uses `elementIdLocationInView` protocol command.
+     * Determine an element's location on the screen once it has been scrolled into view.
      *
      * @example
      * this.demoTest = function () {
@@ -3849,6 +3850,8 @@ export interface ElementCommands {
      * };
      *
      * @see https://nightwatchjs.org/api/getLocationInView.html
+     *
+     * @deprecated This is a JSON Wire Protocol command and is no longer supported.
      */
     getLocationInView(
         selector: Definition,
@@ -6482,7 +6485,7 @@ export interface WebDriverProtocolElementLocation {
      *
      * @see https://nightwatchjs.org/api/elementIdLocationInView.html#apimethod-container
      *
-     * @deprecated
+     * @deprecated This is a JSON Wire Protocol command and is no longer supported.
      */
     elementIdLocationInView(
         id: string,
