@@ -10,7 +10,7 @@
 // disable automatic export
 export {};
 
-// Uses ArrayLike to admit Unit8 and co.
+// Uses ArrayLike to admit Uint8 and co.
 type OutputBuffer = ArrayLike<number>;
 type InputBuffer = ArrayLike<number>;
 
