@@ -1,7 +1,7 @@
-import { NanoStream } from 'nanoplayer';
+import * as Nano from 'nanoplayer';
 
-const player = new NanoStream.NanoPlayer('div-id');
-const config: NanoStream.NanoPlayerConfig = {
+const player = new Nano.NanoPlayer('div-id');
+const config: Nano.NanoPlayerConfig = {
     source: {
         group: {
             id: 'xxxxxxxx-zzzz-yyy-aaaa-aaabbbcccddd',
