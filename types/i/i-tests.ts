@@ -1,6 +1,6 @@
-import i from 'i';
+import i = require('i');
 
-// $ExpectType I
+// $ExpectType Iinterface
 const inflect = i();
 
 // $ExpectType Inflections

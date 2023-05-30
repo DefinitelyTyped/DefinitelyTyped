@@ -3,7 +3,7 @@
 // Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Inflections {
+interface Inflections {
     readonly plurals: Array<[RegExp | string, string]>;
     readonly singulars: Array<[RegExp | string, string]>;
     readonly uncountables: string[];
@@ -64,7 +64,7 @@ export interface Inflections {
     default(): Inflections;
 }
 
-export interface I {
+interface Iinterface {
     readonly inflections: Inflections;
 
     /**
@@ -221,7 +221,9 @@ export interface I {
 /**
  * @param attach if set to true all function can be called directly on a string otherwise they will return undefined
  */
-export default function(attach?: boolean): I;
+declare function I(attach?: boolean): Iinterface;
+
+export = I;
 
 declare global {
     interface String {
