@@ -26,7 +26,7 @@ interface RngOptions {
 interface V1BaseOptions {
     /** RFC "node" field as an `Array[6]` of byte values (per 4.1.6) */
     node?: InputBuffer | undefined;
-    /** RFC "clock sequence" as a Number between 0 - 0x3fff */
+    /** RFC "clock sequence" as a `Number` between 0 - 0x3fff */
     clockseq?: number | undefined;
     /** RFC "timestamp" field (`Number` of milliseconds, unix epoch) */
     msecs?: number | Date | undefined;
