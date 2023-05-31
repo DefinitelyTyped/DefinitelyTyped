@@ -11,6 +11,8 @@ import {
     PageObjectModel,
     ELEMENT_KEY,
     JSON_WEB_OBJECT,
+    NightwatchClientObject,
+    NightwatchClient,
 } from 'nightwatch';
 
 import { isNightwatchAPI, isType } from './utils';
@@ -407,7 +409,7 @@ const googlePage: PageObjectModel = {
 
 // export = googlePage;
 
-const iFrame: PageObjectModel = {
+const iFrame = {
     elements: {
         iframe: '#mce_0_ifr',
         textbox: 'body#tinymce p',
@@ -420,13 +422,13 @@ const iFrame: PageObjectModel = {
         },
     ],
 };
-
-// export = iFrame
+const _: PageObjectModel = iFrame;
 
 interface GooglePage
     extends EnhancedPageObject<typeof googleCommands, typeof googlePage.elements, { menu: MenuSection }> {}
 
-interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
+interface iFramePage
+    extends EnhancedPageObject<typeof iFrame.commands, typeof iFrame.elements> {}
 
 declare module 'nightwatch' {
     interface NightwatchCustomPageObjects {
@@ -439,6 +441,9 @@ const testPage = {
     'Test commands': () => {
         const google = browser.page.google();
         google.setValue('@searchBar', 'nightwatch').submit();
+
+        isType<NightwatchAPI>(google.api);
+        isType<NightwatchClient>(google.client);
 
         browser.end();
     },
@@ -671,6 +676,8 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
         });
         return this;
     };
+
+    isType<NightwatchClientObject>(this.client);
 }
 
 // exports.assertion = text;

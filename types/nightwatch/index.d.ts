@@ -17,7 +17,7 @@
 // TypeScript Version: 4.5
 // Nightwatch Version: 2.3.0
 
-import { WebElement, By, RelativeBy, Actions } from 'selenium-webdriver';
+import { WebElement, By, RelativeBy, Actions, Capabilities } from 'selenium-webdriver';
 import { Protocol } from 'devtools-protocol';
 import { Expect } from './expect';
 
@@ -1581,7 +1581,6 @@ export interface NightwatchTypedCallbackResult<T> {
     value: T;
     error: Error;
 }
-
 export interface NightwatchCallbackResultError {
     status: 1; // we cannot use `number` so giving it a "symbolic" value allows to disjoint the union
     value: {
@@ -2147,39 +2146,63 @@ export interface NightwatchAssertion<T, U = any> {
     command(callback: (result: U) => void): this;
     failure?(result: U): boolean;
     api: NightwatchAPI;
-    client: NightwatchClient;
+    client: NightwatchClientObject;
 }
 
-export interface NightwatchClient extends Nightwatch {
+export interface NightwatchClient extends NightwatchClientObject {
+    argv: {[key: string]: any};
+    client: NightwatchClientObject;
+    configLocateStrategy: "css selector" | "xpath";
+    // TODO: Add missing properties, like:
+    // elementLocator
+    // httpOpts
+    // initialCapabilities
+    // queue
+    // reporter
+    unitTestingMode: boolean;
+    usingCucumber: boolean;
+}
+
+export interface NightwatchClientObject {
     api: NightwatchAPI;
-    locateStrategy: LocateStrategy;
     options: NightwatchOptions;
-    // TODO: Add reporter
-    // reporter: reporte
-    sessionID: string;
     settings: NightwatchOptions;
+    locateStrategy: LocateStrategy;
+    // TODO: Add missing properties, like:
+    // reporter: reporter
+    // elementLocator
+    sessionId: string | null;
 }
 
 export interface CreateClientParams {
-    browserName: string | null;
+    browserName?: string | null;
     headless?: boolean;
     silent?: boolean;
     output?: boolean;
     useAsync?: boolean;
-    env?: string;
-    timeout?: number;
+    env?: string | null;
+    timeout?: number | null;
     parallel?: boolean;
-    reporter?: null;
-    globals?: any;
+    reporter?: any;
+    globals?: Partial<NightwatchGlobals>;
     devtools?: boolean;
     debug?: boolean;
     enable_global_apis?: boolean;
     config?: string;
+    test_settings?: any;
 }
 
 export interface Nightwatch {
-    cli(callback: any): this;
-    client(settings: NightwatchOptions, reporter?: any, argv?: {}): this;
+    cli(callback: () => void): void;
+    client(settings: NightwatchOptions, reporter?: any, argv?: {}, skipInt?: boolean): this;
+    CliRunner(argv?: {}): this; // TODO: return type is `CliRunner` instance.
+    initClient(opts?: {}): this;
+    runner(argv?: {}, done?: () => void, settings?: {}): Promise<void>;
+    runTests(testSource: string | string[], settings?: any, ...args: any[]): Promise<void>;
+
+    /**
+     * Creates a new Nightwatch client that can be used to create WebDriver sessions.
+     */
     createClient({
         headless,
         silent,
@@ -2195,17 +2218,34 @@ export interface Nightwatch {
         debug,
         enable_global_apis,
         config,
-    }: CreateClientParams): this;
-    CliRunner(argv?: {}): this;
-    initClient(opts: any): this;
-    runner(argv?: {}, done?: () => void, settings?: {}): this;
-    runTests(testSource: string | string[], settings?: any, ...args: any[]): any;
-    api: NightwatchAPI;
-    assert: Assert;
-    expect: Expect;
-    verify: Assert;
-    updateCapabilities(...args: any): this;
-    launchBrowser(): NightwatchAPI | Promise<NightwatchAPI>;
+        test_settings
+    }?: CreateClientParams): NightwatchProgrammaticAPIClient;
+
+    // TODO: add the following missing properties
+    // Logger
+    // element (only available after createClient is called)
+
+    browser: NightwatchAPI;
+    app: NightwatchAPI;
+    by: typeof By;
+    Capabilities: typeof Capabilities;
+    Key: NightwatchKeys;
+}
+
+export interface NightwatchProgrammaticAPIClient {
+    /**
+     * Create a new browser session.
+     */
+    launchBrowser(): Promise<NightwatchAPI>;
+
+    /**
+     * Update the initially specified capabilities.
+     */
+    updateCapabilities(value: {} | (() => {})): void;
+
+    nightwatch_client: NightwatchClient;
+    settings: NightwatchOptions;
+    // TODO: 'transport' property missing
 }
 
 export type LocateStrategy =
@@ -2278,8 +2318,7 @@ export type EnhancedPageObject<
     Commands = {},
     Elements = {},
     Sections extends EnhancedPageObjectSections = {},
-> = Nightwatch &
-    SharedCommands &
+> = SharedCommands &
     NightwatchCustomCommands &
     Commands & {
         /**
@@ -2303,6 +2342,25 @@ export type EnhancedPageObject<
          * Uses `url` protocol command.
          */
         navigate(url?: string, callback?: () => void): EnhancedPageObject<Commands, Elements, Sections>;
+
+        // TODO: `props` property missing.
+        url: string | undefined;
+
+        /**
+         * Nightwatch API.
+         */
+        api: NightwatchAPI;
+
+        /**
+         * Nightwatch Client.
+         */
+        client: NightwatchClient;
+
+        assert: Assert;
+        verify: Assert;
+        // TODO: revisit this, some additional properties/methods are also available on
+        // expect when using VSCode Debugger, like active, attribute, etc.
+        expect: Expect;
     };
 
 export interface Cookie {
