@@ -3,9 +3,9 @@ import { Handler } from '../handler';
 // tslint:disable-next-line:void-return
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, KinesisStreamBatchResponse | void>;
 
-// tslint:disable-next-line:void-return
 export type KinesisStreamTumblingWindowHandler = Handler<
     KinesisStreamTumblingWindowEvent,
+    // tslint:disable-next-line:void-return
     KinesisStreamStateResponse | void
 >;
 
