@@ -110,9 +110,16 @@ declare namespace jwplayer {
         tag: string;
     }
 
+    interface AutostartNotAllowedParam {
+        code: number;
+        error: Error;
+        reason: string;
+        type: 'autostartNotAllowed';
+    }
+
     interface BufferParam {
         newstate: 'buffering';
-        oldstate: 'playing' | 'idle';
+        oldstate: PlayState;
         reason: 'loading' | 'complete' | 'stalled' | 'error';
         type: 'buffer';
     }
@@ -274,6 +281,10 @@ declare namespace jwplayer {
         | MetaSCTE35 & MetadataCueParsed
         | MetaDiscontinuity & MetadataCueParsed;
 
+    interface CompleteParam {
+        type: 'complete';
+    }
+
     interface ControlsParam {
         controls: boolean;
         type: 'controls';
@@ -296,7 +307,10 @@ declare namespace jwplayer {
     }
 
     interface IdleParam {
-        oldstate: 'buffering' | 'playing' | 'paused';
+        newstate: 'idle';
+        oldstate: PlayState;
+        reason: 'complete' | 'idle';
+        type: 'idle';
     }
 
     interface LevelsChangedParam {
@@ -315,9 +329,45 @@ declare namespace jwplayer {
         type: 'volume';
     }
 
-    interface PlayParam {
-        oldstate: 'buffering' | 'playing';
+    type PlayReason =
+        | 'autostart'
+        | 'external'
+        | 'interaction'
+        | 'playlist'
+        | 'related-auto'
+        | 'viewable';
+
+    type PlayState =
+        | 'buffering'
+        | 'idle'
+        | 'paused'
+        | 'playing';
+
+    interface PauseParam {
+        newstate: PlayState;
+        oldstate: PlayState;
+        pauseReason: PlayReason;
+        reason: string;
         viewable: 0 | 1;
+        type: 'pause';
+    }
+
+    interface PlayParam {
+        newstate: PlayState;
+        oldstate: PlayState;
+        playReason: PlayReason;
+        reason: string;
+        viewable: 0 | 1;
+        type: 'play';
+    }
+
+    interface PlayAttemptFailedParam {
+        code: number;
+        error: Error;
+        item: PlaylistItem;
+        playReason: PlayReason;
+        sourceError: object | null;
+        type: 'playAttemptFailed';
     }
 
     interface PlaylistParam {
@@ -345,7 +395,8 @@ declare namespace jwplayer {
 
     interface PlaybackRateChangedParam {
         playbackRate: number;
-        position: number;
+        position: number | undefined;
+        type: 'playbackRateChanged';
     }
 
     interface LevelsParam {
@@ -379,7 +430,7 @@ declare namespace jwplayer {
 
     interface FirstFrameParam {
         loadTime: number;
-        viewable: 0 | 1;
+        type: 'firstFrame';
     }
 
     type EventCallback<T> = (param: T) => void;
@@ -473,7 +524,7 @@ declare namespace jwplayer {
 
     interface WarningParam {
         code: number;
-        message: string;
+        key: string;
         sourceError: object | null;
         type: 'warning';
     }
@@ -491,7 +542,9 @@ declare namespace jwplayer {
         adPlay: AdPlayParam;
         adPause: AdPlayParam;
         adTime: AdTimeParam;
+        autostartNotAllowed: AutostartNotAllowedParam;
         cast: CastParam;
+        complete: CompleteParam;
         meta: MetadataParam;
         metadataCueParsed: MetadataCueParsedParam;
         audioTracks: AudioTracksParam;
@@ -509,7 +562,7 @@ declare namespace jwplayer {
         levelsChanged: LevelsChangedParam;
         mute: MuteParam;
         volume: VolumeParam;
-        pause: PlayParam;
+        pause: PauseParam;
         play: PlayParam;
         playlist: PlaylistParam;
         playlistItem: PlaylistItemParam;
@@ -528,7 +581,6 @@ declare namespace jwplayer {
         | 'adBlock'
         | 'beforeComplete'
         | 'beforePlay'
-        | 'complete'
         | 'displayClick'
         | 'nextClick'
         | 'playlistComplete'
@@ -574,7 +626,7 @@ declare namespace jwplayer {
         getQualityLevels(): QualityLevel[];
         getRenderingMode(): string;
         getSafeRegion(): Region;
-        getState(): string;
+        getState(): PlayState;
         getViewable(): 0 | 1;
         getVisualQuality(): VisualQuality | undefined;
         getVolume(): number;
@@ -611,7 +663,7 @@ declare namespace jwplayer {
         setFloating(shouldFloat?: boolean): void;
         setFullscreen(state: boolean): void;
         setMute(state?: boolean): JWPlayer;
-        setPlaybackRate(rate: number): void;
+        setPlaybackRate(rate?: number): JWPlayer;
         setPlaylistItemCallback(
             callback: null | ((item: PlaylistItem, index: number) => void | Promise<PlaylistItem>),
         ): void;
