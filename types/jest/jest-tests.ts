@@ -1290,6 +1290,8 @@ describe('', () => {
         expect({}).toHaveProperty(['property'], {});
         expect({}).toHaveProperty(['property', 'deep']);
         expect({}).toHaveProperty(['property', 'deep'], {});
+        expect({}).toHaveProperty(['property', 'deep'] as const);
+        expect({}).toHaveProperty(['property', 'deep'] as const, {});
 
         expect(jest.fn()).toHaveReturned();
 
@@ -1432,6 +1434,9 @@ describe('', () => {
         expect({}).toBe(expect.arrayContaining(['a', 'b']));
         expect(['abc']).toBe(expect.arrayContaining(['a', 'b']));
 
+        expect({}).toBe(expect.arrayContaining(['a', 'b'] as const));
+        expect(['abc']).toBe(expect.arrayContaining(['a', 'b'] as const));
+
         expect.objectContaining({});
         expect.stringMatching('foo');
         expect.stringMatching(/foo/);
@@ -1453,6 +1458,7 @@ describe('', () => {
         expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
         expect({ bar: 'baz' }).toEqual(expect.not.objectContaining({ foo: 'bar' }));
         expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha'] as const));
 
         /* Miscellaneous */
 
@@ -1599,6 +1605,9 @@ expect(7).toBe(jasmine.any(Number));
 
 expect({}).toBe(jasmine.arrayContaining(['a', 'b']));
 expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b']));
+
+expect({}).toBe(jasmine.arrayContaining(['a', 'b'] as const));
+expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b'] as const));
 
 jasmine.arrayContaining([]);
 new (jasmine.arrayContaining([]))([]);
