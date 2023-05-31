@@ -827,6 +827,30 @@ chrome.runtime.onInstalled.addListener((details) => {
     details.reason = 'not-real-reason';
 })
 
+function testRuntimeOnMessageAddListener() {
+    // @ts-expect-error
+    chrome.runtime.onMessage.addListener();
+    // @ts-expect-error
+    chrome.runtime.onMessage.addListener((_1, _2, _3, _4) => {});
+
+    chrome.runtime.onMessage.addListener((_, sender) => {
+        console.log(
+            sender.documentId,
+            sender.documentLifecycle,
+            sender.frameId,
+            sender.id,
+            sender.nativeApplication,
+            sender.origin,
+            sender.tab,
+            sender.tlsChannelId,
+            sender.url,
+        );
+
+        // @ts-expect-error
+        console.log(sender.documentLifecycle === 'invalid_value');
+    });
+}
+
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
     request; // $ExpectType Request
     console.log('request: ', request);
