@@ -1,4 +1,4 @@
-// Type definitions for phoenix 1.5
+// Type definitions for phoenix 1.6
 // Project: https://github.com/phoenixframework/phoenix
 // Definitions by: Mirosław Ciastek <https://github.com/mciastek>
 //                 John Goff <https://github.com/John-Goff>
@@ -68,6 +68,7 @@ export class Socket {
   disconnect(callback?: () => void | Promise<void>, code?: number, reason?: string): void;
   connectionState(): ConnectionState;
   isConnected(): boolean;
+  replaceTransport(transport: new (endpoint: string) => object): void;
 
   remove(channel: Channel): void;
   channel(topic: string, chanParams?: object): Channel;
@@ -76,10 +77,10 @@ export class Socket {
   log(kind: string, message: string, data: any): void;
   hasLogger(): boolean;
 
-  onOpen(callback: (cb: any) => void | Promise<void>): MessageRef;
-  onClose(callback: (cb: any) => void | Promise<void>): MessageRef;
-  onError(callback: (cb: any) => void | Promise<void>): MessageRef;
-  onMessage(callback: (cb: any) => void | Promise<void>): MessageRef;
+  onOpen(callback: () => void | Promise<void>): MessageRef;
+  onClose(callback: (event: CloseEvent) => void | Promise<void>): MessageRef;
+  onError(callback: (error: Event | string | number, transport: new (endpoint: string) => object, establishedConnections: number) => void | Promise<void>): MessageRef;
+  onMessage(callback: (message: object) => void | Promise<void>): MessageRef;
 
   makeRef(): MessageRef;
   off(refs: MessageRef[]): void;
