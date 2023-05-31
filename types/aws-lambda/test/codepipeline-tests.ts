@@ -1,4 +1,4 @@
-import { CodePipelineCloudWatchEvent, CodePipelineEvent } from "aws-lambda";
+import { CodePipelineCloudWatchEvent, CodePipelineEvent } from 'aws-lambda';
 
 // TODO
 

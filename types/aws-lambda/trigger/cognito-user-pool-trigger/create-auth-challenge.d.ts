@@ -5,18 +5,18 @@ import { BaseTriggerEvent, StringMap, ChallengeResult, CustomChallengeResult } f
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-create-auth-challenge.html
  */
 export interface CreateAuthChallengeTriggerEvent extends BaseTriggerEvent<'CreateAuthChallenge_Authentication'> {
-  request: {
-      userAttributes: StringMap;
-      challengeName: string;
-      session: Array<ChallengeResult | CustomChallengeResult>;
-      clientMetadata?: StringMap | undefined;
-      userNotFound?: boolean | undefined;
-  };
-  response: {
-      publicChallengeParameters: StringMap;
-      privateChallengeParameters: StringMap;
-      challengeMetadata: string;
-  };
+    request: {
+        userAttributes: StringMap;
+        challengeName: string;
+        session: Array<ChallengeResult | CustomChallengeResult>;
+        clientMetadata?: StringMap | undefined;
+        userNotFound?: boolean | undefined;
+    };
+    response: {
+        publicChallengeParameters: StringMap;
+        privateChallengeParameters: StringMap;
+        challengeMetadata: string;
+    };
 }
 
 export type CreateAuthChallengeTriggerHandler = Handler<CreateAuthChallengeTriggerEvent>;
