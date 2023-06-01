@@ -2,6 +2,5 @@
     "private": true,
     "dependencies": {
         "@babel/types": "^7.20.7"
-    },
-    "types": "index"
+    }
 }
