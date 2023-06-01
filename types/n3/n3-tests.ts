@@ -153,10 +153,9 @@ function test_doc_rdf_stream_to_triples_1() {
 }
 
 function test_doc_rdf_stream_to_triples_2() {
+    const parser: N3.Parser = new N3.Parser({ factory: N3.DataFactory });
     const rdfStream = fs.createReadStream('cartoons.ttl');
-    const result = parser.parse(rdfStream);
-
-    result.forEach((s) => console.log(s));
+    const result = parser.parse(rdfStream, () => {});
 }
 
 function test_doc_from_triples_to_string() {
