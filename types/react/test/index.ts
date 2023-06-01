@@ -218,14 +218,6 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 
-// allows null as props
-const FunctionComponent4: React.FunctionComponent = props => null;
-
-// undesired: Rejects `false` because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
-// leaving here to document limitation and inspect error message
-// @ts-expect-error
-const FunctionComponent5: React.FunctionComponent = () => false;
-
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
@@ -250,7 +242,7 @@ const element: React.CElement<Props, ModernComponent> = React.createElement(Mode
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
 const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
-const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
+const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent2, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });

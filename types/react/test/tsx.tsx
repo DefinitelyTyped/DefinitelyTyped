@@ -612,12 +612,15 @@ function reactNodeTests() {
 
 function elementTypeTests() {
     const ReturnVoid = () => {};
+    // @ts-expect-error
+    const FCVoid: React.FC = ReturnVoid;
     class RenderVoid extends React.Component {
         // @ts-expect-error
         render() {}
     }
 
     const ReturnUndefined = () => undefined;
+    const FCUndefined: React.FC = ReturnUndefined;
     class RenderUndefined extends React.Component {
         render() {
           return undefined;
@@ -625,6 +628,7 @@ function elementTypeTests() {
     }
 
     const ReturnNull = () => null;
+    const FCNull: React.FC = ReturnNull;
     class RenderNull extends React.Component {
         render() {
           return null;
@@ -632,6 +636,7 @@ function elementTypeTests() {
     }
 
     const ReturnNumber = () => 0xeac1;
+    const FCNumber: React.FC = ReturnNumber;
     class RenderNumber extends React.Component {
         render() {
           return 0xeac1;
@@ -639,6 +644,7 @@ function elementTypeTests() {
     }
 
     const ReturnString = () => 'Hello, Dave!';
+    const FCString: React.FC = ReturnString;
     class RenderString extends React.Component {
         render() {
           return 'Hello, Dave!';
@@ -646,6 +652,8 @@ function elementTypeTests() {
     }
 
     const ReturnSymbol = () => Symbol.for('react');
+    // @ts-expect-error
+    const FCSymbol: React.FC = ReturnSymbol;
     class RenderSymbol extends React.Component {
         // @ts-expect-error
         render() {
@@ -654,6 +662,7 @@ function elementTypeTests() {
     }
 
     const ReturnArray = () => [<div key="one" />];
+    const FCVArray: React.FC = ReturnArray;
     class RenderArray extends React.Component {
         render() {
           return [<div key="one" />];
@@ -661,6 +670,7 @@ function elementTypeTests() {
     }
 
     const ReturnElement = () => <div />;
+    const FCElement: React.FC = ReturnElement;
     class RenderElement extends React.Component {
         render() {
           return <div />;
@@ -668,6 +678,7 @@ function elementTypeTests() {
     }
 
     const ReturnReactNode = ({children}: {children?: React.ReactNode}) => children;
+    const FCReactNode: React.FC = ReturnReactNode;
     class RenderReactNode extends React.Component<{children?: React.ReactNode}> {
         render() {
           return this.props.children;
@@ -675,7 +686,7 @@ function elementTypeTests() {
     }
 
     const ReturnPromise = () => Promise.resolve('React');
-    // @ts-expect-error experimental release channel only
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
         // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
@@ -703,10 +714,8 @@ function elementTypeTests() {
     // @ts-expect-error
     React.createElement(RenderVoid);
 
-    // Undesired behavior. Returning `undefined` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnUndefined />;
-    // @ts-expect-error
     React.createElement(ReturnUndefined);
     <RenderUndefined />;
     React.createElement(RenderUndefined);
@@ -717,18 +726,14 @@ function elementTypeTests() {
     <RenderNull />;
     React.createElement(RenderNull);
 
-    // Undesired behavior. Returning `number` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnNumber />;
-    // @ts-expect-error
     React.createElement(ReturnNumber);
     <RenderNumber />;
     React.createElement(RenderNumber);
 
-    // Undesired behavior. Returning `string` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnString />;
-    // @ts-expect-error
     React.createElement(ReturnString);
     <RenderString />;
     React.createElement(RenderString);
@@ -743,10 +748,7 @@ function elementTypeTests() {
     // @ts-expect-error
     React.createElement(RenderSymbol);
 
-    // Undesired behavior. Returning `Array` should be accepted in all forms.
-    // @ts-expect-error
     <ReturnArray />;
-    // @ts-expect-error
     React.createElement(ReturnArray);
     <RenderArray />;
     React.createElement(RenderArray);
@@ -757,17 +759,15 @@ function elementTypeTests() {
     <RenderElement />;
     React.createElement(RenderElement);
 
-    // Undesired behavior. Returning `ReactNode` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnReactNode />;
-    // @ts-expect-error
     React.createElement(ReturnReactNode);
     <RenderReactNode />;
     React.createElement(RenderReactNode);
 
-    // @ts-expect-error Only available in experimental release channel
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <ReturnPromise />;
-    // @ts-expect-error Only available in experimental release channel
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(ReturnPromise);
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <RenderPromise />;
