@@ -7,7 +7,7 @@ const o1 = Observable('hello');
 const o2 = Observable('world');
 const o3 = Observable(false);
 
-const test = computed([o1, o2, o3], (o1, o2, o3) => o1 + ' ' + o2);
+const test = computed([o1, o2, o3], (o1, o2, o3) => `${o1} ${o2}`);
 
 const removeListener = test(value => {
     // do something

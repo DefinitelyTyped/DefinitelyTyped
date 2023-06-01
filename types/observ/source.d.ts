@@ -1,5 +1,5 @@
 import { ObservableValue } from './';
 
-declare function GeneratorSource<T, I>(generator: (setter: (value: I) => void) => void, initial: I): ObservableValue<I>;
+declare function GeneratorSource<T>(generator: (setter: (value: T) => void) => void, initial: T): ObservableValue<T>;
 
 export = GeneratorSource;
