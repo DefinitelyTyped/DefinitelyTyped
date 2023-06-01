@@ -2560,12 +2560,8 @@ declare namespace Game {
     export function magicCpS(what: unknown): number;
     export let SpecialGrandmaUnlock: number;
 
-    type YouCustomizerAddonGeneId = 'face' | 'head' | 'hair' | 'acc1' | 'acc2';
-    type YouCustomizerColorGeneId = 'skinCol' | 'hairCol';
-    type YouCustomizerGeneId = YouCustomizerAddonGeneId | YouCustomizerColorGeneId;
-
-    class YouCustomizerAddonGene {
-        id: YouCustomizerAddonGeneId;
+    export interface YouCustomizerGene<T> {
+        id: string;
         isList: true;
         /**
          * Default value.
@@ -2573,42 +2569,47 @@ declare namespace Game {
         def: number;
         /**
          * List of possible choices.
-         * Each choice is an offset in 'youAddons.png', similar to an icon.
+         *
+         * For T = [number, number], each choice is an offset in 'youAddons.png',
+         * similar to an icon.
          */
-        choices: Array<[number, number]>;
+        choices: T[];
         /**
          * Index of the gene in Game.YouCustomizer.genes.
          */
         n: number;
     }
-    class YouCustomizerColorGene {
-        id: YouCustomizerAddonGeneId;
-        isList: true;
-        def: number;
-        choices: number[];
-    }
+    export type YouCustomizerAddonGeneId = 'face' | 'head' | 'hair' | 'acc1' | 'acc2';
+    export type YouCustomizerColorGeneId = 'skinCol' | 'hairCol';
 
-    export let YouCustomizer: {
-        render: () => void;
-        genes: Array<YouCustomizerAddonGene | YouCustomizerColorGene>;
+    export let YouCustomizer: YouCustomizerT;
+    export interface YouCustomizerT {
+        render(): void;
+        genes: Array<YouCustomizerGene<number> | YouCustomizerGene<[number, number]>>;
         /**
          * Returns a string representation of the YouCustomizer.
          */
-        save: () => string;
+        save(): string;
         /**
          * Calls Game.YouCustomizer.resetGenes() if noReset is not true,
          * then loads Game.YouCustomizer by parsing the given string.
          */
         load(genes: string, noReset?: boolean): boolean;
 
-        // There's probably a better way of doing this
-        genesById: Record<YouCustomizerGeneId, YouCustomizerAddonGene | YouCustomizerColorGene>;
+        /**
+         * Maps the ID of the gene to the gene itself.
+         * The last line is there to support modded genes.
+         */
+        genesById:
+            Record<YouCustomizerAddonGeneId, YouCustomizerGene<[number, number]>> &
+            Record<YouCustomizerColorGeneId, YouCustomizerGene<number>> &
+            Record<string, YouCustomizerGene<number> | YouCustomizerGene<[number, number]>>;
 
         /**
          * currentGenes[i] is an index to genes[i].choices
          */
         currentGenes: number[];
-        getGeneValue(id: YouCustomizerGeneId): number;
+        getGeneValue(id: string): number;
 
         resetGenes(): void;
 
@@ -2616,7 +2617,7 @@ declare namespace Game {
          * Adds the offset `off` to currentGenes[i], where i = genesById[gene].n.
          * Also may award the achievement 'In her likeness'.
          */
-        offsetGene(gene: YouCustomizerGeneId, off: -1 | 0 | 1): void;
+        offsetGene(gene: string, off: -1 | 0 | 1): void;
 
         /**
          * Changes the genes uniformly at random.
@@ -2644,7 +2645,7 @@ declare namespace Game {
          * Opens the prompt for customizing the clones.
          */
         prompt(): void;
-    };
+    }
 
     export let foolObjects: Record<string, FoolBuilding>;
 
