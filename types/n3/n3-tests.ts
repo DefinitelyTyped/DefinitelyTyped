@@ -153,15 +153,6 @@ function test_doc_rdf_stream_to_triples_1() {
 }
 
 function test_doc_rdf_stream_to_triples_2() {
-    interface QuadBnode extends N3.BaseQuad {
-        subject: N3.BlankNode;
-        predicate: N3.BlankNode;
-        object: N3.BlankNode;
-        graph: N3.BlankNode;
-    }
-    const parser: N3.Parser<QuadBnode> = new N3.Parser<QuadBnode>({ factory: N3.DataFactory });
-    parser.parse('abc', console.log);
-
     const rdfStream = fs.createReadStream('cartoons.ttl');
     const result = parser.parse(rdfStream);
 
