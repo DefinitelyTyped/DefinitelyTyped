@@ -191,8 +191,7 @@ export type PrefixCallback = (prefix: string, prefixNode: RDF.NamedNode) => void
 
 export class Parser<Q extends BaseQuad = Quad> {
     constructor(options?: ParserOptions);
-    parse(input: string | EventEmitter): Q[];
-    parse(input: string | EventEmitter, callback: null | undefined, prefixCallback: PrefixCallback): Q[];
+    parse(input: string, callback?: null | undefined, prefixCallback?: PrefixCallback): Q[];
     parse(input: string | EventEmitter, callback: ParseCallback<Q>, prefixCallback?: PrefixCallback): void;
 }
 
