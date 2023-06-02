@@ -156,6 +156,11 @@ declare namespace bricks {
     backUrls?: StatusBrickBackUrls;
   }
 
+  interface StatusBrickAdditionalData {
+    externalResourceUrl: string;
+    creq: string;
+  }
+
   interface BrickInitialization {
     amount?: number;
     payer?: Payer;
@@ -163,6 +168,7 @@ declare namespace bricks {
     paymentId?: number;
     externalReference?: string;
     redirectMode?: WalletButtonRedirectMode;
+    additionalData?: StatusBrickAdditionalData;
   }
 
   interface BrickSettings {
@@ -234,6 +240,7 @@ declare namespace bricks {
     address?: PayerAddressAPI;
     first_name?: string;
     last_name?: string;
+    entity_type?: 'individual' | 'association';
   }
 
   enum PaymentType {
@@ -275,10 +282,21 @@ declare namespace bricks {
     payer: SavedCardPayer;
   }
 
+  interface Metadata {
+    payment_point: string;
+    payment_mode: string;
+  }
+
+  interface TransactionDetails {
+    financial_institution: string;
+  }
+
   interface TicketFormData {
     transaction_amount: number;
     payment_method_id: string;
     payer: PayerAPI;
+    metadata?: Metadata;
+    transaction_details?: TransactionDetails
   }
 
   interface AdditionalSavedCardFormData {
