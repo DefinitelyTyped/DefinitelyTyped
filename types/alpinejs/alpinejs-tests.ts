@@ -471,8 +471,15 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     }));
 
     // $ExpectType void
-    Alpine.data('dropdown', (initialOpenState = false) => ({
+    Alpine.data('dropdown', (initialOpenState: boolean = false) => ({
+        // $ExpectType boolean
         open: initialOpenState
+    }));
+
+    // $ExpectType void
+    Alpine.data('dropdown', (options: { open: boolean }) => ({
+        // $ExpectType boolean
+        open: options.open
     }));
 
     // $ExpectType void

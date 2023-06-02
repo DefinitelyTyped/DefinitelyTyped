@@ -269,7 +269,8 @@ export interface Alpine {
      * @param name the id of the x-data context
      * @param callback the initializer of the x-data context
      */
-    data(name: string, callback: (...initialStateArgs: unknown[]) => AlpineComponent): void;
+    // eslint-disable-next-line no-unnecessary-generics
+    data<TInitialStateArgs extends unknown[]>(name: string, callback: (...initialStateArgs: TInitialStateArgs) => AlpineComponent): void;
 }
 
 declare const AlpineInstance: Alpine;
