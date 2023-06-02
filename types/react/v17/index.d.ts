@@ -28,7 +28,7 @@
 //                 Priyanshu Rav <https://github.com/priyanshurav>
 //                 Costa Alexoglou <https://github.com/konsalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 
 /// <reference path="global.d.ts" />
 
