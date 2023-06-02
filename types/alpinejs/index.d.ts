@@ -35,8 +35,8 @@ type XData = XDataContext | string | number | boolean;
 
 export interface DirectiveUtilities {
     Alpine: Alpine;
-    effect: () => void;
-    cleanup: () => void;
+    effect: (cb: () => void) => void;
+    cleanup: (cb: () => void) => void;
     evaluate: (expression: string) => unknown;
     evaluateLater: (expression: string) => (result: unknown) => void;
 }
