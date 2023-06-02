@@ -299,7 +299,7 @@ declare namespace bricks {
     payment_method_id: string;
     payer: PayerAPI;
     metadata?: Metadata;
-    transaction_details?: TransactionDetails
+    transaction_details?: TransactionDetails;
   }
 
   interface AdditionalSavedCardFormData {
