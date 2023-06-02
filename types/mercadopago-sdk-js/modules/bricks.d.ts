@@ -25,6 +25,8 @@ declare namespace bricks {
     complement?: string;
   }
 
+  type EntityType = 'individual' | 'association';
+
   interface Payer {
     email?: string;
     identification?: PayerIdentification;
@@ -33,6 +35,7 @@ declare namespace bricks {
     address?: PayerAddress;
     firstName?: string;
     lastName?: string;
+    entityType?: EntityType;
   }
 
   interface CustomizableTexts {
@@ -240,7 +243,7 @@ declare namespace bricks {
     address?: PayerAddressAPI;
     first_name?: string;
     last_name?: string;
-    entity_type?: 'individual' | 'association';
+    entity_type?: EntityType;
   }
 
   enum PaymentType {
