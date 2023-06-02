@@ -3285,6 +3285,10 @@
             "libraryName": "mermaid",
             "asOfVersion": "9.2.0"
         },
+        "metalsmith": {
+            "libraryName": "metalsmith",
+            "asOfVersion": "2.6.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
