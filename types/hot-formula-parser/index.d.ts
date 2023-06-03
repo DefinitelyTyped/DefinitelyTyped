@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * The class to be instantiated and perform formula parsing.
+ * The class used to perform the formula parsing.
  *
  * {@link https://www.npmjs.com/package/hot-formula-parser | See the docs.}
  */
@@ -15,7 +15,7 @@ export class Parser {
      * @param expression - to parse.
      * @returns Returns an object with two properties `error` and `result`.
      */
-    parse(value: string): { result: string | number | boolean | null; error: FormulaError | null };
+    parse(value: string): { result: string | number | boolean | null; error: FormulaErrorId | null };
 
     /**
      * Hook that listens to reference calls by the {@link parse} method and allows for side effects on that event.
@@ -136,7 +136,33 @@ export function rowIndexToLabel(row: number): string;
  */
 export function rowLabelToIndex(label: string): number;
 
-export type FormulaError = '#ERROR!' | '#DIV/0!' | '#NAME?' | '#N/A' | 'NUM!' | '#VALUE!';
+export const ERROR: 'ERROR';
+export const ERROR_DIV_ZERO: 'DIV/0';
+export const ERROR_NAME: 'NAME';
+export const ERROR_NOT_AVAILABLE: 'N/A';
+export const ERROR_NULL: 'NULL';
+export const ERROR_NUM: 'NUM';
+export const ERROR_REF: 'REF';
+export const ERROR_VALUE: 'VALUE';
+
+export type FormulaErrorId = '#ERROR!' | '#DIV/0!' | '#NAME?' | '#N/A' | '#NULL!' | 'NUM!' | '#VALUE!';
+export type FormulaErrorType =
+    | typeof ERROR
+    | typeof ERROR_DIV_ZERO
+    | typeof ERROR_NAME
+    | typeof ERROR_NOT_AVAILABLE
+    | typeof ERROR_NULL
+    | typeof ERROR_NUM
+    | typeof ERROR_REF
+    | typeof ERROR_VALUE;
+
+/**
+ * Return the error id based, given the error type or id.
+ *
+ * @param error - error type or error id.
+ * @returns corresponding error id, `null` if not found.
+ */
+export function error(error: FormulaErrorType | FormulaErrorId): FormulaErrorId | null;
 
 export const SUPPORTED_FORMULAS: readonly [
     'ABS',

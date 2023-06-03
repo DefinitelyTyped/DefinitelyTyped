@@ -2,6 +2,7 @@ import {
     Parser,
     columnIndexToLabel,
     columnLabelToIndex,
+    error,
     extractLabel,
     rowIndexToLabel,
     rowLabelToIndex,
@@ -11,7 +12,7 @@ import {
 // $ExpectType Parser
 const parser = new Parser();
 
-// $ExpectType { result: string | number | boolean | null; error: FormulaError | null; }
+// $ExpectType { result: string | number | boolean | null; error: FormulaErrorId | null; }
 parser.parse('SUM(1, 2)');
 
 // $ExpectType [Coordinate, Coordinate]
@@ -31,3 +32,9 @@ rowIndexToLabel(1);
 
 // $ExpectType number
 rowLabelToIndex('2');
+
+// $ExpectType FormulaErrorId | null
+error('#DIV/0!');
+
+// $ExpectType FormulaErrorId | null
+error('DIV/0');
