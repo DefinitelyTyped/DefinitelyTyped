@@ -12337,6 +12337,7 @@ declare namespace chrome.declarativeNetRequest {
 ////////////////////
 /**
  * Availability: @since Chrome 114. Manifest v3.
+ * https://developer.chrome.com/docs/extensions/reference/sidePanel/
  * Permissions: "sidePanel"
  */
 declare namespace chrome.sidePanel {
