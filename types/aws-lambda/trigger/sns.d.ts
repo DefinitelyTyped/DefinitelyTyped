@@ -23,7 +23,7 @@ export interface SNSMessage {
     Type: string;
     UnsubscribeURL: string;
     TopicArn: string;
-    Subject?: string;
+    Subject: string;
     Token?: string;
 }
 

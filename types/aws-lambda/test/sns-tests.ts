@@ -18,7 +18,7 @@ const handler: SNSHandler = async (event, context, callback) => {
     str = message.Type;
     str = message.UnsubscribeURL;
     str = message.TopicArn;
-    strOrUndefined = message.Subject;
+    str = message.Subject;
     strOrUndefined = message.Token;
 
     const attribute: SNSMessageAttribute = attributes[str];
