@@ -3,7 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
-//                 Lucas Motta <https://github.com/lucasmotta>
 //                 Tom Xu <https://github.com/hengkx>
 //                 Leo Toneff <https://github.com/bragle>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
@@ -184,29 +183,6 @@ export namespace utils {
             NO_CONNECTION = 6,
             CONNECTION_LOST = 7,
             OP_UNSUPPORTED = 8,
-            INVALID_HANDLE = 9,
-            NO_SUCH_PATH = 10,
-            FILE_ALREADY_EXISTS = 11,
-            WRITE_PROTECT = 12,
-            NO_MEDIA = 13,
-            NO_SPACE_ON_FILESYSTEM = 14,
-            QUOTA_EXCEEDED = 15,
-            UNKNOWN_PRINCIPAL = 16,
-            LOCK_CONFLICT = 17,
-            DIR_NOT_EMPTY = 18,
-            NOT_A_DIRECTORY = 19,
-            INVALID_FILENAME = 20,
-            LINK_LOOP = 21,
-            CANNOT_DELETE = 22,
-            INVALID_PARAMETER = 23,
-            FILE_IS_A_DIRECTORY = 24,
-            BYTE_RANGE_LOCK_CONFLICT = 25,
-            BYTE_RANGE_LOCK_REFUSED = 26,
-            DELETE_PENDING = 27,
-            FILE_CORRUPT = 28,
-            OWNER_INVALID = 29,
-            GROUP_INVALID = 30,
-            NO_MATCHING_BYTE_RANGE_LOCK = 31,
         }
 
         function stringToFlags(str: OpenMode): number | null;
@@ -1780,6 +1756,16 @@ export interface SFTPWrapper extends EventEmitter {
      * Sends an attrs response for the request identified by id.
      */
     attrs(reqId: number, attrs: Attributes): void;
+
+    /**
+     * Closes the channel.
+     */
+    end(): void;
+
+    /**
+     * Closes the channel.
+     */
+    destroy(): void;
 }
 
 export interface PublicKeyEntry {
@@ -1821,7 +1807,7 @@ export interface AgentInboundRequest {
 }
 
 export interface SigningRequestOptions {
-    hash: 'sha256' | 'sha512';
+    hash?: 'sha1' | 'sha256' | 'sha512';
 }
 
 export class AgentProtocol extends Duplex {

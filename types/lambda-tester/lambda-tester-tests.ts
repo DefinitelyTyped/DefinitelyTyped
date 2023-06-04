@@ -15,6 +15,8 @@ interface TResult {
 }
 
 const handler: Handler<any, TResult> = () => Promise.resolve({ data: '123' });
+const handlerReject: Handler<any, TResult> = () => Promise.reject({ data: '123' });
+
 const context: Context = {} as any;
 const clientContext: ClientContext = {} as any;
 
@@ -24,6 +26,10 @@ interface TError {
 
 function lambdaTesterInstance() {
     return lambdaTester(handler).event({ test: '123' });
+}
+
+function lambdaTesterInstanceReject() {
+    return lambdaTester(handlerReject).event({ test: '123' });
 }
 
 lambdaTesterInstance()
@@ -43,7 +49,7 @@ lambdaTesterInstance().expectResolve((result: TResult) => {
     const t: string = result.data;
 });
 
-lambdaTesterInstance().expectReject((error: TError) => {
+lambdaTesterInstanceReject().expectReject((error: TError) => {
     const t: string = error.message;
 });
 
@@ -51,7 +57,7 @@ lambdaTesterInstance().expectResult((result: TResult) => {
     const t: string = result.data;
 });
 
-lambdaTesterInstance().expectError((error: TError) => {
+lambdaTesterInstanceReject().expectError((error: TError) => {
     const t: string = error.message;
 });
 

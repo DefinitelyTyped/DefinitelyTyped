@@ -259,8 +259,8 @@ declare namespace H {
         /**
          * It defines the number of lower and higher zoom levels, where cached content of the base map is rendered while content of the current zoom level is still loading.
          * Example: if range was set to {lower: 3, higher: 2} and current level is 10 then rendering engine will try to display cached tiles from lower zoom levels 7, 8, 9 and higher levels 11 and 12.
-         * @property lower {number} - The number of lower zoom levels to take into account, default is 0
-         * @property higher {number} - The number of higher zoom levels to take into account, default is 0
+         * lower {number} - The number of lower zoom levels to take into account, default is 0
+         * higher {number} - The number of higher zoom levels to take into account, default is 0
          */
         interface BackgroundRange {
             lower: number;
@@ -277,21 +277,21 @@ declare namespace H {
 
         /**
          * This type defines options which can be used to initialize the map.
-         * @property center {H.geo.IPoint=} - The initial center of the map, default is {lat:0, lng: 0}
-         * @property zoom {number=} - The initial zoom level of the map, default is 0 respectively the minimal zoom level of the base map
-         * @property bounds {H.geo.Rect=} - The view bounds to be displayed on the map. If provided, it takes precedence over center and zoom. and zoom if provided)
-         * @property layers {Array<H.map.layer.Layer>=} - A list of layers to render on top of the base map
-         * @property engineType: {H.Map.EngineType=} - The initial engine type to use, default is P2D
-         * @property pixelRatio {number} - The pixelRatio to use for over-sampling in cases of high-resolution displays, default is 1
-         * @property imprint {H.map.Imprint.Options=} - The imprint options or null to suppress the imprint
-         * @property renderBaseBackground {H.Map.BackgroundRange=} - Object describes how many cached zoom levels should be used as a base map background while base map tiles are loading.
+         * center {H.geo.IPoint=} - The initial center of the map, default is {lat:0, lng: 0}
+         * zoom {number=} - The initial zoom level of the map, default is 0 respectively the minimal zoom level of the base map
+         * bounds {H.geo.Rect=} - The view bounds to be displayed on the map. If provided, it takes precedence over center and zoom. and zoom if provided)
+         * layers {Array<H.map.layer.Layer>=} - A list of layers to render on top of the base map
+         * engineType: {H.Map.EngineType=} - The initial engine type to use, default is P2D
+         * pixelRatio {number} - The pixelRatio to use for over-sampling in cases of high-resolution displays, default is 1
+         * imprint {H.map.Imprint.Options=} - The imprint options or null to suppress the imprint
+         * renderBaseBackground {H.Map.BackgroundRange=} - Object describes how many cached zoom levels should be used as a base map background while base map tiles are loading.
          * Example: {lower: 3, higher: 2}
-         * @property autoColor {boolean=} - Indicates whether the UI's colors should automatically adjusted to the base layer, default is true. Up to now only the copyright style will be adjusted.
+         * autoColor {boolean=} - Indicates whether the UI's colors should automatically adjusted to the base layer, default is true. Up to now only the copyright style will be adjusted.
          * See H.map.layer.Layer.Options#dark
-         * @property margin {number=} - The size in pixel of the supplemental area to render for each side of the map
-         * @property padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
-         * @property fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or padding has been changed, default is true
-         * @property noWrap {boolean=} - Indicates whether to wrap the world on longitude axes. When set to true, only one world will be rendered. Default is false, multiple worlds are rendered.
+         * margin {number=} - The size in pixel of the supplemental area to render for each side of the map
+         * padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
+         * fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or padding has been changed, default is true
+         * noWrap {boolean=} - Indicates whether to wrap the world on longitude axes. When set to true, only one world will be rendered. Default is false, multiple worlds are rendered.
          */
         interface Options {
             center?: H.geo.IPoint | undefined;
@@ -314,10 +314,10 @@ declare namespace H {
     namespace clustering {
         /**
          * This class represents the input data structure for data points to be clustered.
-         * @property lat {H.geo.Latitude} - The latitude coordinate of the data point's position
-         * @property lng {H.geo.Longitude} - The longitude coordinate of the data point's position
-         * @property wt {number} - The weight of the data point
-         * @property data {*} - Data associated with this data point
+         * lat {H.geo.Latitude} - The latitude coordinate of the data point's position
+         * lng {H.geo.Longitude} - The longitude coordinate of the data point's position
+         * wt {number} - The weight of the data point
+         * data {*} - Data associated with this data point
          */
         class DataPoint implements H.geo.IPoint {
             /**
@@ -477,8 +477,8 @@ declare namespace H {
         /**
          * The clustering provider serves clusters and noise point representation for the map depending on the provided data set.
          * Levels for clustering as well as custom cluster representation can be set via Options.
-         * @property min {number} - Minimum zoom level at which provider can cluster data
-         * @property max {number} - Maximum zoom level at which provider can cluster data
+         * min {number} - Minimum zoom level at which provider can cluster data
+         * max {number} - Maximum zoom level at which provider can cluster data
          */
         class Provider extends H.util.EventTarget {
             /**
@@ -619,11 +619,11 @@ declare namespace H {
         namespace Provider {
             /**
              * Options which are used within cluster calculations.
-             * @property eps {number=} - epsilon parameter for cluster calculation. For the FASTGRID strategy it must not exceed 256 and must take values that are power of 2.
+             * eps {number=} - epsilon parameter for cluster calculation. For the FASTGRID strategy it must not exceed 256 and must take values that are power of 2.
              * For the GRID and DYNAMICGRID strategies it can take values from 10 to 127. Default is 32.
-             * @property minWeight {number=} - the minimum points weight sum to form a cluster, default is 2
-             * @property projection {H.geo.IProjection=} - projection to use for clustering, default is H.geo.mercator
-             * @property strategy {H.clustering.Provider.Strategy=} - clustering stretegy, defaults to H.clustering.Provider.Strategy.FASTGRID
+             * minWeight {number=} - the minimum points weight sum to form a cluster, default is 2
+             * projection {H.geo.IProjection=} - projection to use for clustering, default is H.geo.mercator
+             * strategy {H.clustering.Provider.Strategy=} - clustering stretegy, defaults to H.clustering.Provider.Strategy.FASTGRID
              */
             interface ClusteringOptions {
                 eps?: number | undefined;
@@ -634,10 +634,10 @@ declare namespace H {
 
             /**
              * Options which are used to initialize the clustering Provider
-             * @property min {number=} - The minimal supported zoom level, default is 0
-             * @property max {number=} - The maximal supported zoom level, default is 22
-             * @property clusteringOptions {H.clustering.Provider.ClusteringOptions=} - options for clustering algorithm
-             * @property theme {H.clustering.ITheme=} - cluster and noise point graphical representation
+             * min {number=} - The minimal supported zoom level, default is 0
+             * max {number=} - The maximal supported zoom level, default is 22
+             * clusteringOptions {H.clustering.Provider.ClusteringOptions=} - options for clustering algorithm
+             * theme {H.clustering.ITheme=} - cluster and noise point graphical representation
              */
             interface Options {
                 min?: number | undefined;
@@ -767,8 +767,8 @@ declare namespace H {
             namespace Reader {
                 /**
                  * This type encapsulates configuration (initialization) properties for a H.data.geojson.Reader.
-                 * @property style {Function=} - The optional URL of the data file.
-                 * @property disableLegacyMode {boolean=} - An object providing additional reader configuration parameters.
+                 * style {Function=} - The optional URL of the data file.
+                 * disableLegacyMode {boolean=} - An object providing additional reader configuration parameters.
                  */
                 interface Options {
                     style?: ((mapObject: H.map.Object) => void) | undefined;
@@ -838,10 +838,10 @@ declare namespace H {
 
         /**
          * An interface to represent a geographic point. Every point in geo space is represented by three coordinates latitude, longitude and optional altitude.
-         * @property lat {H.geo.Latitude} - The latitude coordinate.
-         * @property lng {H.geo.Longitude} - The longitude coordinate.
-         * @property alt {H.geo.Altitude=} - The altitude coordinate.
-         * @property ctx {H.geo.AltitudeContext=} - The altitude context.
+         * lat {H.geo.Latitude} - The latitude coordinate.
+         * lng {H.geo.Longitude} - The longitude coordinate.
+         * alt {H.geo.Altitude=} - The altitude coordinate.
+         * ctx {H.geo.AltitudeContext=} - The altitude context.
          */
         interface IPoint {
             lat: H.geo.Latitude;
@@ -1153,11 +1153,11 @@ declare namespace H {
         /**
          * PixelProjection transforms pixel world coordinates at a certain scale (zoom level) to geographical coordinates and vice versa.
          * By default, it uses the Mercator projection to transform geographic points into the 2d plane map points, which are adjusted to the current scale.
-         * @property projection {H.geo.IProjection} - This property indicates the geographical projection that underlies the given PixelProjection.
-         * @property x {number} - This property holds the x-offset in the projection relative to the top-left corner of the screen.
-         * @property y {number} - This property holds the y-offset in the projection relative to the top-left corner of the screen.
-         * @property w {number} - This property holds a value indicating the width of the world in pixels.
-         * @property h {number} - This property holds a value indicating the height of the world in pixels.
+         * projection {H.geo.IProjection} - This property indicates the geographical projection that underlies the given PixelProjection.
+         * x {number} - This property holds the x-offset in the projection relative to the top-left corner of the screen.
+         * y {number} - This property holds the y-offset in the projection relative to the top-left corner of the screen.
+         * w {number} - This property holds a value indicating the width of the world in pixels.
+         * h {number} - This property holds a value indicating the height of the world in pixels.
          */
         class PixelProjection {
             /**
@@ -1230,18 +1230,18 @@ declare namespace H {
 
         /**
          * Class represents a geographical point, which is defined by the latitude, longitude and optional altitude.
-         * @property lat {H.geo.Latitude} - The latitude coordinate.
-         * @property lng {H.geo.Longitude} - The longitude coordinate.
-         * @property alt {H.geo.Altitude} - The altitude coordinate.
-         * @property ctx {H.geo.AltitudeContext} - The altitude context.
+         * lat {H.geo.Latitude} - The latitude coordinate.
+         * lng {H.geo.Longitude} - The longitude coordinate.
+         * alt {H.geo.Altitude} - The altitude coordinate.
+         * ctx {H.geo.AltitudeContext} - The altitude context.
          */
         class Point extends H.geo.AbstractGeometry implements IPoint {
             /**
              * Constructor
-             * @property lat {H.geo.Latitude} - The latitude coordinate.
-             * @property lng {H.geo.Longitude} - The longitude coordinate.
-             * @property opt_alt {H.geo.Altitude=} - The altitude coordinate.
-             * @property opt_ctx {H.geo.AltitudeContext=} - The altitude context.
+             * lat {H.geo.Latitude} - The latitude coordinate.
+             * lng {H.geo.Longitude} - The longitude coordinate.
+             * opt_alt {H.geo.Altitude=} - The altitude coordinate.
+             * opt_ctx {H.geo.AltitudeContext=} - The altitude context.
              */
             constructor(lat: H.geo.Latitude, lng: Longitude, opt_alt?: H.geo.Altitude, opt_ctx?: H.geo.AltitudeContext);
 
@@ -1623,7 +1623,6 @@ declare namespace H {
             setIcon(icon: (H.map.Icon | H.map.DomIcon)): H.map.AbstractMarker;
 
             /**
-             * @property draggable
              * @description This property ensure that the marker can receive drag events.
              */
             draggable?: boolean | undefined;
@@ -1632,14 +1631,14 @@ declare namespace H {
         namespace AbstractMarker {
             /**
              * Options used to initialize a AbstractMarker
-             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-             * @property visibility {boolean=} - Indicates whether the map object is visible at all, default is true.
-             * @property zIndex {number=} - The z-index value of the map object, default is 0
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object.
+             * min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * visibility {boolean=} - Indicates whether the map object is visible at all, default is true.
+             * zIndex {number=} - The z-index value of the map object, default is 0
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object.
              * This property is only needed if a customized Implementation of ObjectProvider wants to instantiate an object.
-             * @property icon {(H.map.Icon | H.map.DomIcon)=} - The icon to use for the visual representation, if omitted a default icon is used.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
+             * icon {(H.map.Icon | H.map.DomIcon)=} - The icon to use for the visual representation, if omitted a default icon is used.
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
                 min?: number | undefined;
@@ -1673,12 +1672,12 @@ declare namespace H {
         namespace ArrowStyle {
             /**
              * An object type to specify the style of arrows to render along a polyline
-             * @property fillColor {string=} - The CSS color value used to fill the arrow shapes. If omitted or the value evaluates to false it defaults to "rgba(255, 255, 255, 0.75)"
-             * @property width {number=} - The width of the arrow shape. The value is taken as a factor of the width of the line, where the arrow description is applied.
+             * fillColor {string=} - The CSS color value used to fill the arrow shapes. If omitted or the value evaluates to false it defaults to "rgba(255, 255, 255, 0.75)"
+             * width {number=} - The width of the arrow shape. The value is taken as a factor of the width of the line, where the arrow description is applied.
              * If omitted or the value is <= 0 it defaults to 1.2
-             * @property length {number=} - The length of the arrow shapes. The value is taken as a factor of the width of the line at the end of which the arrow is drawn.
+             * length {number=} - The length of the arrow shapes. The value is taken as a factor of the width of the line at the end of which the arrow is drawn.
              * If omitted or the value is <= 0 it defaults to 1.6
-             * @property frequency {number=} - The frequency of arrow shapes. The value is taken as factor of the length of the arrow. A value of 1 results in gapless arrows.
+             * frequency {number=} - The frequency of arrow shapes. The value is taken as factor of the length of the arrow. A value of 1 results in gapless arrows.
              * If omitted or the value is false it defaults to 5
              */
             interface Options {
@@ -1741,19 +1740,19 @@ declare namespace H {
 
         namespace Circle {
             /**
-             * @property style {H.map.SpatialStyle=} - the style to be used when tracing the polyline
-             * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
-             * @property precision {number=} - The precision of a circle as a number of segments to be used when rendering the circle.
+             * style {H.map.SpatialStyle=} - the style to be used when tracing the polyline
+             * visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
+             * precision {number=} - The precision of a circle as a number of segments to be used when rendering the circle.
              * The value is clamped to the range between [4 ... 360], where 60 is
              * the default. Note that the lower the value the more angular and the less circle-like the shape appears and, conversely, the higher the value the smoother and more rounded the result.
              * Thus, starting at the extreme low end of the possible values, 4 produces a square, 6 a hexagon, while 30 results in a circle-like shape, although it appears increasingly angular as
              * the zoom level increases (as you zoom in), and finally 360 produces a smooth circle.
-             * @property zIndex {number=} - The z-index value of the circle, default is 0
-             * @property min {number=} - The minimum zoom level for which the circle is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the circle is visible, default is Infinity
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object.
+             * zIndex {number=} - The z-index value of the circle, default is 0
+             * min {number=} - The minimum zoom level for which the circle is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the circle is visible, default is Infinity
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object.
              * This property is only needed if a customized Implementation of ObjectProvider wants to instantiate an object.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
              */
             interface Options {
                 style?: H.map.SpatialStyle | H.map.SpatialStyle.Options | undefined;
@@ -1794,9 +1793,9 @@ declare namespace H {
         namespace DomIcon {
             /**
              * Options used to initialize a DomIcon
-             * @property onAttach {function(Element, H.map.DomIcon, H.map.DomMarker)=} - A callback which is invoked before a clone of the icon's element is appended and displayed on the map.
+             * onAttach {function(Element, H.map.DomIcon, H.map.DomMarker)=} - A callback which is invoked before a clone of the icon's element is appended and displayed on the map.
              * This callback can be used to setup the clone.
-             * @property onDetach {function(Element, H.map.DomIcon, H.map.DomMarker)=} - A callback which is invoked after a clone of the icon's element is removed from the map.
+             * onDetach {function(Element, H.map.DomIcon, H.map.DomMarker)=} - A callback which is invoked after a clone of the icon's element is removed from the map.
              * This callback can be used to clean up the clone.
              */
             interface Options {
@@ -1822,14 +1821,14 @@ declare namespace H {
         namespace DomMarker {
             /**
              * Options used to initialize a DomMarker
-             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-             * @property visibility {boolean=} - Indicates whether the map object is visible at all, default is true.
-             * @property zIndex {number=} - The z-index value of the map object, default is 0
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to
+             * min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * visibility {boolean=} - Indicates whether the map object is visible at all, default is true.
+             * zIndex {number=} - The z-index value of the map object, default is 0
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to
              * instantiate an object.
-             * @property icon {H.map.DomIcon=} - The icon to use for the visual representation, if omitted a default icon is used.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
+             * icon {H.map.DomIcon=} - The icon to use for the visual representation, if omitted a default icon is used.
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
              */
             interface Options {
                 min?: number | undefined;
@@ -1926,14 +1925,14 @@ declare namespace H {
         namespace Group {
             /**
              * Options used to initialize a group
-             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-             * @property visibility {boolean=} - Indicates whether the map object is visible, default is true
-             * @property zIndex {number=} - The z-index value of the map object, default is 0
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
+             * min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * visibility {boolean=} - Indicates whether the map object is visible, default is true
+             * zIndex {number=} - The z-index value of the map object, default is 0
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
              * an object.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
-             * @property objects {Array<H.map.Object>=} - A list of map objects to add initially to this group.
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
+             * objects {Array<H.map.Object>=} - A list of map objects to add initially to this group.
              */
             interface Options {
                 min?: number | undefined;
@@ -2008,8 +2007,8 @@ declare namespace H {
 
         /**
          * An interface to specify a copyright note
-         * @property label {string} - A short textual representation of the copyright note, e.g. "DigitalGlobe 2009"
-         * @property alt {string} - A detailed textual representation of the copyright note, e.g. "copyright 2009 DigitalGlobe, Inc."
+         * label {string} - A short textual representation of the copyright note, e.g. "DigitalGlobe 2009"
+         * alt {string} - A detailed textual representation of the copyright note, e.g. "copyright 2009 DigitalGlobe, Inc."
          */
         interface ICopyright {
             label: string;
@@ -2136,12 +2135,12 @@ declare namespace H {
 
             /**
              * Options used to initialize a Icon
-             * @property size {H.math.ISize=} - The icon's size in pixel, default is the bitmap's natural size
-             * @property anchor {H.math.IPoint=} - The anchorage point in pixel, default is bottom-center
-             * @property hitArea {H.map.HitArea=} - The area to use for hit detection, default is the whole rectangular area
-             * @property asCanvas {H.map.HitArea=} - Indicates whether a non canvas bitmap is converted into a canvas, default is true. The conversion improves the rendering performance but it could
+             * size {H.math.ISize=} - The icon's size in pixel, default is the bitmap's natural size
+             * anchor {H.math.IPoint=} - The anchorage point in pixel, default is bottom-center
+             * hitArea {H.map.HitArea=} - The area to use for hit detection, default is the whole rectangular area
+             * asCanvas {H.map.HitArea=} - Indicates whether a non canvas bitmap is converted into a canvas, default is true. The conversion improves the rendering performance but it could
              * also cause a higher memory consumption.
-             * @property crossOrigin {boolean} - Specifies whether to use anonynous Cross-Origin Resource Sharing (CORS) when fetching an image to prevent resulting canvas from tainting, default is
+             * crossOrigin {boolean} - Specifies whether to use anonynous Cross-Origin Resource Sharing (CORS) when fetching an image to prevent resulting canvas from tainting, default is
              * false. The option is ignored by IE9-10.
              */
             interface Options {
@@ -2202,9 +2201,9 @@ declare namespace H {
         namespace Imprint {
             /**
              * Options to style an imprint
-             * @property invert {boolean=} - Indicates whether the logo is inverted. If omitted the current value remains, default is false.
-             * @property font {string=} - The font of the text. If omitted the current value remains, default is &quot;11px Arial,sans-serif&quot;.
-             * @property href {string=} - The URL of the &quot;Terms of use&quot; link. If omitted the current value remains, default is &quot;http://here.com/terms&quot;.
+             * invert {boolean=} - Indicates whether the logo is inverted. If omitted the current value remains, default is false.
+             * font {string=} - The font of the text. If omitted the current value remains, default is &quot;11px Arial,sans-serif&quot;.
+             * href {string=} - The URL of the &quot;Terms of use&quot; link. If omitted the current value remains, default is &quot;http://here.com/terms&quot;.
              */
             interface Options {
                 invert?: boolean | undefined;
@@ -2228,14 +2227,14 @@ declare namespace H {
         namespace Marker {
             /**
              * Options used to initialize a Marker
-             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-             * @property visibility {boolean=} - Indicates whether the map object is visible at all, default is true.
-             * @property zIndex {number=} - The z-index value of the map object, default is 0
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
+             * min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * visibility {boolean=} - Indicates whether the map object is visible at all, default is true.
+             * zIndex {number=} - The z-index value of the map object, default is 0
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
              * an object.
-             * @property icon {H.map.Icon=} - The icon to use for the visual representation, if omitted a default icon is used.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
+             * icon {H.map.Icon=} - The icon to use for the visual representation, if omitted a default icon is used.
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
                 min?: number | undefined;
@@ -2372,13 +2371,13 @@ declare namespace H {
         namespace Object {
             /**
              * Options used to initialize a map object
-             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-             * @property visibility {boolean=} - Indicates whether the map object is visible at all, default is true
-             * @property zIndex {number=} - The z-index value of the map object, default is 0
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
+             * min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * visibility {boolean=} - Indicates whether the map object is visible at all, default is true
+             * zIndex {number=} - The z-index value of the map object, default is 0
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
              * an object.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
                 min?: number | undefined;
@@ -2463,14 +2462,14 @@ declare namespace H {
         namespace Overlay {
             /**
              * Options used to initialize an Overlay
-             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-             * @property opacity {number=} - The opacity of the object in range from 0 (transparent) to 1 (opaque), default is 1.
-             * @property visibility {boolean=} - Indicates whether the map object is visible at all, default is true.
-             * @property zIndex {number=} - The z-index value of the map object, default is 0
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
+             * min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * opacity {number=} - The opacity of the object in range from 0 (transparent) to 1 (opaque), default is 1.
+             * visibility {boolean=} - Indicates whether the map object is visible at all, default is true.
+             * zIndex {number=} - The z-index value of the map object, default is 0
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
              * an object.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
                 min?: number | undefined;
@@ -2525,9 +2524,9 @@ declare namespace H {
 
         namespace Polygon {
             /**
-             * @property style {H.map.SpatialStyle | H.map.SpatialStyle.Options} - The style to be used when tracing the spatial object.
-             * @property arrows {H.map.ArrowStyle | H.map.ArrowStyle.Options} - The arrows style to be used when rendering the spatial object.
-             * @property visibility {boolean}
+             * style {H.map.SpatialStyle | H.map.SpatialStyle.Options} - The style to be used when tracing the spatial object.
+             * arrows {H.map.ArrowStyle | H.map.ArrowStyle.Options} - The arrows style to be used when rendering the spatial object.
+             * visibility {boolean}
              * Indicates whether the map object is visible, the default is true A map object is only treated as visible, if it self and all of its nesting parent groups are visible.
              */
             interface Options {
@@ -2751,15 +2750,15 @@ declare namespace H {
         namespace Polyline {
             /**
              * Options which are used to initialize a polyline
-             * @property style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - the style to be used when tracing the polyline
-             * @property arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrows style to be used when rendering the polyline.
-             * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
-             * @property zIndex {number=} - The z-index value of the map object, default is 0
-             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
+             * style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - the style to be used when tracing the polyline
+             * arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrows style to be used when rendering the polyline.
+             * visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
+             * zIndex {number=} - The z-index value of the map object, default is 0
+             * min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
              * an object.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
              */
             interface Options {
                 style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options) | undefined;
@@ -2840,13 +2839,13 @@ declare namespace H {
         namespace Spatial {
             /**
              * Data to used as rendering hint for a label
-             * @property x {number} - The X coordinate of the first line's starting point
-             * @property y {number} - The Y coordinate of the first line's base line
-             * @property angle {number} - The clockwise rotation angle in radians
-             * @property font {string} - The CSS font-family
-             * @property size {number} - The CSS font-size
-             * @property color {string} - The CSS color
-             * @property text {string} - The text content, new line characters (\u000A) are interpreted as line breaks
+             * x {number} - The X coordinate of the first line's starting point
+             * y {number} - The Y coordinate of the first line's base line
+             * angle {number} - The clockwise rotation angle in radians
+             * font {string} - The CSS font-family
+             * size {number} - The CSS font-size
+             * color {string} - The CSS color
+             * text {string} - The text content, new line characters (\u000A) are interpreted as line breaks
              */
             interface Label {
                 x: number;
@@ -2860,15 +2859,15 @@ declare namespace H {
 
             /**
              * Options which are used to initialize spatial object object
-             * @property style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - the style to be used when tracing the spatial object
-             * @property arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrows style to be used when rendering the spatial.
-             * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
-             * @property zIndex {number=} - The z-index value of the map object, default is 0
-             * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
-             * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
-             * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
+             * style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - the style to be used when tracing the spatial object
+             * arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrows style to be used when rendering the spatial.
+             * visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
+             * zIndex {number=} - The z-index value of the map object, default is 0
+             * min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+             * max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+             * provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate
              * an object.
-             * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
+             * data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
                 style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options) | undefined;
@@ -2885,16 +2884,16 @@ declare namespace H {
         /**
          * The SpatialStyle class represents a style with which spatial objects like polylines and polygons are drawn. A SpatialStyle instance is always treated as immutable to avoid inconstiencies
          * and must not modified.
-         * @property strokeColor {string} - The color of the stroke in CSS syntax, default is 'rgba(0, 85, 170, 0.6)'.
-         * @property fillColor {string} - The filling color in CSS syntax, default is 'rgba(0, 85, 170, 0.4)'.
-         * @property lineWidth {number} - The width of the line in pixels, default is 2.
-         * @property lineCap {H.map.SpatialStyle.LineCap} - The style of the end caps for a line, default is 'round'.
-         * @property lineJoin {H.map.SpatialStyle.LineJoin} - The type of corner created, when two lines meet, default is 'miter'.
-         * @property miterLimit {number} - The miter length is the distance between the inner corner and the outer corner where two lines meet. The default is 10.
-         * @property lineDash {Array<number>} - The line dash pattern as an even numbered list of distances to alternately produce a line and a space. The default is [].
-         * @property lineDashOffset {number} - The phase offset of the line dash pattern The default is 0.
-         * @property MAX_LINE_WIDTH {number} - This constant represents the maximum line width which can be used for rendering.
-         * @property DEFAULT_STYLE {H.map.SpatialStyle} - This static member defines the default style for spatial objects on the map. It's value is
+         * strokeColor {string} - The color of the stroke in CSS syntax, default is 'rgba(0, 85, 170, 0.6)'.
+         * fillColor {string} - The filling color in CSS syntax, default is 'rgba(0, 85, 170, 0.4)'.
+         * lineWidth {number} - The width of the line in pixels, default is 2.
+         * lineCap {H.map.SpatialStyle.LineCap} - The style of the end caps for a line, default is 'round'.
+         * lineJoin {H.map.SpatialStyle.LineJoin} - The type of corner created, when two lines meet, default is 'miter'.
+         * miterLimit {number} - The miter length is the distance between the inner corner and the outer corner where two lines meet. The default is 10.
+         * lineDash {Array<number>} - The line dash pattern as an even numbered list of distances to alternately produce a line and a space. The default is [].
+         * lineDashOffset {number} - The phase offset of the line dash pattern The default is 0.
+         * MAX_LINE_WIDTH {number} - This constant represents the maximum line width which can be used for rendering.
+         * DEFAULT_STYLE {H.map.SpatialStyle} - This static member defines the default style for spatial objects on the map. It's value is
          * { strokeColor: '#05A', fillColor: 'rgba(0, 85, 170, 0.4)', lineWidth: 1, lineCap: 'round', lineJoin: 'miter', miterLimit: 10, lineDash: [], lineDashOffset: 0 }
          */
         class SpatialStyle {
@@ -2945,15 +2944,15 @@ declare namespace H {
 
             /**
              * Options used to initialize a style. If a property is not set, the default value from H.map.SpatialStyle is taken.
-             * @property strokeColor {string=} - The color of the stroke in CSS syntax.
-             * @property fillColor {string=} - The color of the stroke in CSS syntax.
-             * @property lineWidth {number=} - The width of the line in pixels, default is 2. The maximum supported line width is 100.
-             * @property lineCap {H.map.SpatialStyle.LineCap=} - The style of the end caps for a line.
-             * @property lineJoin {H.map.SpatialStyle.LineJoin=} - The type of corner created, when two lines meet.
-             * @property miterLimit {number=} - The miter limit in pixel, default is 10. The maximum supported miter limit is 100
-             * @property lineDash {Array<number>} - The line dash pattern as an even numbered list of distances to alternately produce a line and a space. If the browser doesn't support this feature
+             * strokeColor {string=} - The color of the stroke in CSS syntax.
+             * fillColor {string=} - The color of the stroke in CSS syntax.
+             * lineWidth {number=} - The width of the line in pixels, default is 2. The maximum supported line width is 100.
+             * lineCap {H.map.SpatialStyle.LineCap=} - The style of the end caps for a line.
+             * lineJoin {H.map.SpatialStyle.LineJoin=} - The type of corner created, when two lines meet.
+             * miterLimit {number=} - The miter limit in pixel, default is 10. The maximum supported miter limit is 100
+             * lineDash {Array<number>} - The line dash pattern as an even numbered list of distances to alternately produce a line and a space. If the browser doesn't support this feature
              * this style property is ignored.
-             * @property lineDashOffset {number=} - The phase offset of the line dash pattern
+             * lineDashOffset {number=} - The phase offset of the line dash pattern
              */
             interface Options {
                 strokeColor?: string | undefined;
@@ -3061,10 +3060,10 @@ declare namespace H {
             /**
              * Update event is fired whenever view model data is changed. It contains property which hold currently requested data
              * @fixme find documentation and update constructor typings
-             * @property target {*} - Object which triggered the event
-             * @property currentTarget {*} - Object which has listener attached
-             * @property type {string} - Name of the dispatched event
-             * @property defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
+             * target {*} - Object which triggered the event
+             * currentTarget {*} - Object which has listener attached
+             * type {string} - Name of the dispatched event
+             * defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
              */
             class UpdateEvent extends H.util.Event {
                 /**
@@ -3093,12 +3092,12 @@ declare namespace H {
         /**
          * ViewPort object holds information about the HTML element where the map is rendered. It contains information regarding the element (view port) size and triggers events when the element size
          * is changed.
-         * @property element {Element} - This property holds the HTML element, which defines the viewport.
-         * @property width {number} - This property holds this viewport&#x27;s current width
-         * @property height {number} - This property holds this viewport&#x27;s current height
-         * @property margin {number} - This property holds this viewport&#x27;s current margin value
-         * @property padding {H.map.ViewPort.Padding} - This property holds this viewport&#x27;s current padding
-         * @property center {H.math.Point} - This property holds this viewport&#x27;s current center point
+         * element {Element} - This property holds the HTML element, which defines the viewport.
+         * width {number} - This property holds this viewport&#x27;s current width
+         * height {number} - This property holds this viewport&#x27;s current height
+         * margin {number} - This property holds this viewport&#x27;s current margin value
+         * padding {H.map.ViewPort.Padding} - This property holds this viewport&#x27;s current padding
+         * center {H.math.Point} - This property holds this viewport&#x27;s current center point
          */
         class ViewPort extends H.util.EventTarget implements H.map.IInteraction {
             /**
@@ -3180,9 +3179,9 @@ declare namespace H {
         namespace ViewPort {
             /**
              * Options which may be used to initialize new ViewPort instance
-             * @property margin {number=} - The size in pixel of the supplemental area to render for each side of the map
-             * @property padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
-             * @property fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or or padding has been changed, default is true
+             * margin {number=} - The size in pixel of the supplemental area to render for each side of the map
+             * padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
+             * fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or or padding has been changed, default is true
              */
             interface Options {
                 margin?: number | undefined;
@@ -3192,10 +3191,10 @@ declare namespace H {
 
             /**
              * Represents viewport padding definition.
-             * @property top {number} - the padding on the top edge (in pixels)
-             * @property right {number} - the padding on the right edge (in pixels)
-             * @property bottom {number} - the padding on the bottom edge (in pixels)
-             * @property left {number} - the padding on the left edge (in pixels)
+             * top {number} - the padding on the top edge (in pixels)
+             * right {number} - the padding on the right edge (in pixels)
+             * bottom {number} - the padding on the bottom edge (in pixels)
+             * left {number} - the padding on the left edge (in pixels)
              */
             interface Padding {
                 top: number;
@@ -3300,8 +3299,8 @@ declare namespace H {
             namespace IMarkerLayer {
                 /**
                  * This type represents a response object returned by the H.map.layer.IMarkerLayer#requestMarkers function.
-                 * @property total {number} - The total number of markers, inclusive markers with not ready icons
-                 * @property markers {Array<H.map.AbstractMarker>} - The marker objects for the bounding rectangle (only ready)
+                 * total {number} - The total number of markers, inclusive markers with not ready icons
+                 * markers {Array<H.map.AbstractMarker>} - The marker objects for the bounding rectangle (only ready)
                  */
                 interface Response {
                     total: number;
@@ -3310,9 +3309,9 @@ declare namespace H {
 
                 /**
                  * This type represents a response object returned by the H.map.layer.IMarkerLayer#requestMarkers function.
-                 * @property number {number} - of returned tiles
-                 * @property requested {number} - number of requested tiles
-                 * @property objects {Array<H.map.AbstractMarker>} - the marker objects within requested tiled area
+                 * number {number} - of returned tiles
+                 * requested {number} - number of requested tiles
+                 * objects {Array<H.map.AbstractMarker>} - the marker objects within requested tiled area
                  */
                 interface TiledResponse {
                     number: number;
@@ -3358,8 +3357,8 @@ declare namespace H {
             namespace ITileLayer {
                 /**
                  * Options which are used to initialize a TileLayer object.
-                 * @property projection {H.geo.IProjection=} - an optional projection to be used for this layer, default is H.geo.mercator
-                 * @property opacity {number=} - tile layer opacity, default is 1
+                 * projection {H.geo.IProjection=} - an optional projection to be used for this layer, default is H.geo.mercator
+                 * opacity {number=} - tile layer opacity, default is 1
                  */
                 interface Options {
                     projection?: H.geo.IProjection | undefined;
@@ -3368,8 +3367,8 @@ declare namespace H {
 
                 /**
                  * A response object for a tile request. Contains total number of elements requested and an array of currently available Tiles
-                 * @property total {number} - the total number of requested tiles
-                 * @property tiles {Array<H.map.provider.Tile>} - the tiles which this provider can currently return synchronously
+                 * total {number} - the total number of requested tiles
+                 * tiles {Array<H.map.provider.Tile>} - the tiles which this provider can currently return synchronously
                  */
                 interface Response {
                     total: number;
@@ -3439,11 +3438,11 @@ declare namespace H {
             namespace Layer {
                 /**
                  * Options which can be used when creating new layer object.
-                 * @property min {number=} - The minimum zoom level for which the layer can provide data, default is 0
-                 * @property max {number=} - The maximum zoom level for which the layer can provide data, default is 22
-                 * @property dark {boolean=} - Indicates whether the content of this layer is mainly dark, default is false See also H.Map.Options#autoColor
-                 * @property projection {H.geo.IProjection=} - The projection to be used for this layer, default is H.geo.mercator
-                 * @property minWorldSize {number=} - The minimal world size at zoom level 0, default is 256
+                 * min {number=} - The minimum zoom level for which the layer can provide data, default is 0
+                 * max {number=} - The maximum zoom level for which the layer can provide data, default is 22
+                 * dark {boolean=} - Indicates whether the content of this layer is mainly dark, default is false See also H.Map.Options#autoColor
+                 * projection {H.geo.IProjection=} - The projection to be used for this layer, default is H.geo.mercator
+                 * minWorldSize {number=} - The minimal world size at zoom level 0, default is 256
                  */
                 interface Options {
                     min?: number | undefined;
@@ -3568,10 +3567,10 @@ declare namespace H {
             namespace ObjectLayer {
                 /**
                  * Configuration object which can be use to initialize the ObjectLayer.
-                 * @property tileSize {number=} - the size of the tiles rendered by this layer for polylines and polygons (must be power of 2, default is 256)
-                 * @property tileCacheSize {number=} - the number of fully rendered spatial tiles that are cached for immediate reuse, default is 32
-                 * @property dataCacheSize {number=} - the number of tiles to cache which have render data only, default is 512
-                 * @property pixelRatio {number=} - The pixelRatio to use for over-sampling in cases of high-resolution displays
+                 * tileSize {number=} - the size of the tiles rendered by this layer for polylines and polygons (must be power of 2, default is 256)
+                 * tileCacheSize {number=} - the number of fully rendered spatial tiles that are cached for immediate reuse, default is 32
+                 * dataCacheSize {number=} - the number of tiles to cache which have render data only, default is 512
+                 * pixelRatio {number=} - The pixelRatio to use for over-sampling in cases of high-resolution displays
                  */
                 interface Options {
                     tileSize?: number | undefined;
@@ -3582,8 +3581,8 @@ declare namespace H {
 
                 /**
                  * A response object returned by the H.map.layer.ObjectLayer#requestOverlays function.
-                 * @property total {number} - The total number of overlays within the requested bounds, inclusive overlays which are not ready loaded yet
-                 * @property overlays {Array<H.map.Overlay>} - A list all overlays which are ready to render
+                 * total {number} - The total number of overlays within the requested bounds, inclusive overlays which are not ready loaded yet
+                 * overlays {Array<H.map.Overlay>} - A list all overlays which are ready to render
                  */
                 interface OverlaysResponse {
                     total: number;
@@ -3620,7 +3619,7 @@ declare namespace H {
         namespace provider {
             /**
              * An ImageTileProvider uses network service to provide bitmap images as tiles.
-             * @property tileSize {number} - Size of a tile image supported by the provider
+             * tileSize {number} - Size of a tile image supported by the provider
              */
             class ImageTileProvider extends H.map.provider.RemoteTileProvider {
                 /**
@@ -3635,14 +3634,14 @@ declare namespace H {
             namespace ImageTileProvider {
                 /**
                  * Options to initialize an ImageTileProvider instance
-                 * @property uri {string=} - The provider's unique resource identifier which must not contain an underscore "_". If omitted an auto-generated unique Session ID is used. If a cross
+                 * uri {string=} - The provider's unique resource identifier which must not contain an underscore "_". If omitted an auto-generated unique Session ID is used. If a cross
                  * sessions consistent IDs is needed (e.g. for storing provider data) this property must be specified.
-                 * @property min {number=} - The minimal supported zoom level, default is 0
-                 * @property max {number=} - The maximal supported zoom level, default is 22
-                 * @property getCopyrights {(function(H.geo.Rect, number): ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
-                 * @property tileSize {number=} - The size of a tile as edge length in pixels. It must be 2^n where n is in range [0 ... 30], default is 256
-                 * @property getURL {function(number, number, number)} - The function to create an URL for the specified tile. If it returns a falsy the tile is not requested.
-                 * @property crossOrigin {(string | boolean=)} - The CORS settings to use for the crossOrigin attribute for the image, if omitted or if the value evaluates to false no CORS settings
+                 * min {number=} - The minimal supported zoom level, default is 0
+                 * max {number=} - The maximal supported zoom level, default is 22
+                 * getCopyrights {(function(H.geo.Rect, number): ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
+                 * tileSize {number=} - The size of a tile as edge length in pixels. It must be 2^n where n is in range [0 ... 30], default is 256
+                 * getURL {function(number, number, number)} - The function to create an URL for the specified tile. If it returns a falsy the tile is not requested.
+                 * crossOrigin {(string | boolean=)} - The CORS settings to use for the crossOrigin attribute for the image, if omitted or if the value evaluates to false no CORS settings
                  * are used.
                  */
                 interface Options {
@@ -3662,7 +3661,7 @@ declare namespace H {
 
             /**
              * This class represents invalidation states of a renderable object. A renderer can optimize its rendering strategies based on the information in this object.
-             * @property MARK_INITIAL {H.map.provider.Invalidations.Mark} - This constant represents the initial invalidation mark an invalidations object has.
+             * MARK_INITIAL {H.map.provider.Invalidations.Mark} - This constant represents the initial invalidation mark an invalidations object has.
              */
             class Invalidations {
                 /**
@@ -3744,13 +3743,13 @@ declare namespace H {
 
             /**
              * A MarkerTileProvider uses network service to provide markers on tile basis.
-             * @property requestTile {} - Request data on a tile basis
-             * @property cancelTile {} - Cancels tile from being requested using x, y, z coordinates (column, row, zoom)
-             * @property cancelTileByKey {} - Cancels tile from being requested using a tile-key
-             * @property uri {string} - This provider's unique resource identifier, if not provided at construction time it defaults to provider's uid
-             * @property min {number} - Minimum zoom level at which provider can serve data, set at construction time
-             * @property max {number} - Maximum zoom level at which provider can server data, set at construction time
-             * @property uid {string} - Provider instance unique identifier, generated at construction time
+             * requestTile {} - Request data on a tile basis
+             * cancelTile {} - Cancels tile from being requested using x, y, z coordinates (column, row, zoom)
+             * cancelTileByKey {} - Cancels tile from being requested using a tile-key
+             * uri {string} - This provider's unique resource identifier, if not provided at construction time it defaults to provider's uid
+             * min {number} - Minimum zoom level at which provider can serve data, set at construction time
+             * max {number} - Maximum zoom level at which provider can server data, set at construction time
+             * uid {string} - Provider instance unique identifier, generated at construction time
              */
             class MarkerTileProvider extends H.map.provider.RemoteTileProvider {
                 /**
@@ -3776,11 +3775,11 @@ declare namespace H {
             namespace MarkerTileProvider {
                 /**
                  * Options which are used to initialize the MarkerTileProvider object.
-                 * @property min {number=} - The minimal supported zoom level, default is 0
-                 * @property max {number=} - The maximal supported zoom level, default is 22
-                 * @property requestData {function(number, number, number, function(Array<H.map.AbstractMarker>), Function): H.util.ICancelable} - function that fetches marker data and creates array
+                 * min {number=} - The minimal supported zoom level, default is 0
+                 * max {number=} - The maximal supported zoom level, default is 22
+                 * requestData {function(number, number, number, function(Array<H.map.AbstractMarker>), Function): H.util.ICancelable} - function that fetches marker data and creates array
                  * of H.map.AbstractMarker that is passed success callback, if function fails to fetch data onError callback must be called
-                 * @property providesDomMarkers {boolean=} - indicates if markers provided are of type H.map.DomMarker or H.map.Marker, default is H.map.Marker
+                 * providesDomMarkers {boolean=} - indicates if markers provided are of type H.map.DomMarker or H.map.Marker, default is H.map.Marker
                  */
                 interface Options {
                     min?: number | undefined;
@@ -3909,10 +3908,10 @@ declare namespace H {
             /**
              * A Provider defines an object which works as a database for the map. Providers can exists in different forms they can implement client side object storage or they can request data from
              * the remote service.
-             * @property uri {string} - This provider's unique resource identifier, if not provided at construction time it defaults to provider's uid
-             * @property min {number} - Minimum zoom level at which provider can serve data, set at construction time
-             * @property max {number} - Maximum zoom level at which provider can server data, set at construction time
-             * @property uid {string} - Provider instance unique identifier, generated at construction time
+             * uri {string} - This provider's unique resource identifier, if not provided at construction time it defaults to provider's uid
+             * min {number} - Minimum zoom level at which provider can serve data, set at construction time
+             * max {number} - Maximum zoom level at which provider can server data, set at construction time
+             * uid {string} - Provider instance unique identifier, generated at construction time
              */
             class Provider extends H.util.EventTarget {
                 /**
@@ -3956,11 +3955,11 @@ declare namespace H {
             namespace Provider {
                 /**
                  * Options to initialize a Provider instance
-                 * @property uri {string=} - The provider's unique resource identifier which must not contain an underscore "_". If omitted an auto-generated unique Session ID is used. If a cross
+                 * uri {string=} - The provider's unique resource identifier which must not contain an underscore "_". If omitted an auto-generated unique Session ID is used. If a cross
                  * sessions consistent IDs is needed (e.g. for storing provider data) this property must be specified.
-                 * @property min {number=} - The minimal supported zoom level, default is 0
-                 * @property max {number=} - The maximal supported zoom level, default is 22
-                 * @property getCopyrights {(function(H.geo.Rect, number): ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
+                 * min {number=} - The minimal supported zoom level, default is 0
+                 * max {number=} - The maximal supported zoom level, default is 22
+                 * getCopyrights {(function(H.geo.Rect, number): ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
                  */
                 interface Options {
                     uri?: string | undefined;
@@ -4020,12 +4019,12 @@ declare namespace H {
             /**
              * Generic Tile object which represents a part of the world fiting into the Tile area represented by the Tiel coordinates (x - row, y - column) and the zoom level (z). Number of tiles
              * at particular zoom level (which means number of areas into world is being splitted) is defined as following: numberOfRows &#x3D; numberOfColumns &#x3D; 2^zoomlevel
-             * @property key {string} - Unique tile key generated by provider
-             * @property data {*} - Tile data (an image for example)
-             * @property valid {boolean} - This property holds a boolean flag indicating whether this tile is still valid (true) or whether it should be re-fetched (false)
-             * @property x {number} - Tile column
-             * @property y {number} - Tile row
-             * @property z {number} - Tile zoom level
+             * key {string} - Unique tile key generated by provider
+             * data {*} - Tile data (an image for example)
+             * valid {boolean} - This property holds a boolean flag indicating whether this tile is still valid (true) or whether it should be re-fetched (false)
+             * x {number} - Tile column
+             * y {number} - Tile row
+             * z {number} - Tile zoom level
              */
             class Tile {
                 /**
@@ -4048,13 +4047,13 @@ declare namespace H {
 
             /**
              * TileProvider is an abstract class to provide data on a tile basis
-             * @property requestTile {} - Request data on a tile basis
-             * @property cancelTile {} - Cancels tile from being requested using x, y, z coordinates (column, row, zoom)
-             * @property cancelTileByKey {} - Cancels tile from being requested using a tile-key
-             * @property uri {string} - This provider&#x27;s unique resource identifier, if not provided at construction time it defaults to provider&#x27;s uid
-             * @property min {number} - Minimum zoom level at which provider can serve data, set at construction time
-             * @property max {number} - Maximum zoom level at which provider can server data, set at construction time
-             * @property uid {string} - Provider instance unique identifier, generated at construction time
+             * requestTile {} - Request data on a tile basis
+             * cancelTile {} - Cancels tile from being requested using x, y, z coordinates (column, row, zoom)
+             * cancelTileByKey {} - Cancels tile from being requested using a tile-key
+             * uri {string} - This provider&#x27;s unique resource identifier, if not provided at construction time it defaults to provider&#x27;s uid
+             * min {number} - Minimum zoom level at which provider can serve data, set at construction time
+             * max {number} - Maximum zoom level at which provider can server data, set at construction time
+             * uid {string} - Provider instance unique identifier, generated at construction time
              */
             class TileProvider extends H.map.provider.Provider {
                 /**
@@ -4094,12 +4093,12 @@ declare namespace H {
 
             namespace TileProvider {
                 /**
-                 * @property uri {string=} - The provider&#x27;s unique resource identifier which must not contain an underscore &quot;_&quot;. If omitted an auto-generated unique Session ID is used.
+                 * uri {string=} - The provider&#x27;s unique resource identifier which must not contain an underscore &quot;_&quot;. If omitted an auto-generated unique Session ID is used.
                  * If a cross sessions consistent IDs is needed (e.g. for storing provider data) this property must be specified.
-                 * @property min {number=} - The minimal supported zoom level, default is 0
-                 * @property max {number=} - The maximal supported zoom level, default is 22
-                 * @property getCopyrights {(function(H.geo.Rect, number): Array<H.map.ICopyright>)=} - A function to replace the default implememtation of H.map.provider.Provider#getCopyrights
-                 * @property tileSize {number=} - The size of a tile as edge length in pixels. It must be 2^n where n is in range [0 ... 30], default is 256
+                 * min {number=} - The minimal supported zoom level, default is 0
+                 * max {number=} - The maximal supported zoom level, default is 22
+                 * getCopyrights {(function(H.geo.Rect, number): Array<H.map.ICopyright>)=} - A function to replace the default implememtation of H.map.provider.Provider#getCopyrights
+                 * tileSize {number=} - The size of a tile as edge length in pixels. It must be 2^n where n is in range [0 ... 30], default is 256
                  */
                 interface Options {
                     uri?: string | undefined;
@@ -4216,51 +4215,43 @@ declare namespace H {
                 /**
                  * The geographical area to render. Note that it is not the same as visible viewport. Specified bounds also include H.Map.Options#margin and
                  * optionally an additional margin in case of DOM node rendering for a better rendering experience.
-                 * @type {H.geo.Rect}
                  */
                 bounds: H.geo.Rect;
 
                 /**
                  * The zoom level to render the data for.
-                 * @type {number}
                  */
                 zoom: number;
 
                 /**
                  * The coordinates of the screen center in CSS pixels.
-                 * @type {H.math.Point}
                  */
                 screenCenter: H.math.Point;
 
                 /**
                  * The coordinates relative to the screen center where the rendering has the highest priority. If the layer has to request and/or process data
                  * asynchronously, it's recommended to prioritize the rendering close to this center.
-                 * @type {H.math.Point}
                  */
                 priorityCenter: H.math.Point;
 
                 /**
                  * The pixel projection to use to project geographical coordinates into screen coordinates and vice versa.
-                 * @type {H.geo.PixelProjection}
                  */
                 projection: H.geo.PixelProjection;
 
                 /**
                  * Indicates whether only cached data should be considered.
-                 * @type {boolean}
                  */
                 cacheOnly: boolean;
 
                 /**
                  * The size of the area to render.
-                 * @type {H.math.Size}
                  */
                 size: H.math.Size;
 
                 /**
                  * The pixelRatio to use for over-sampling in cases of high-resolution displays.
                  * See https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio.
-                 * @type {number}
                  */
                 pixelRatio: number;
             }
@@ -4373,9 +4364,9 @@ declare namespace H {
     namespace mapevents {
         /**
          * Behavior class uses map events and adds behavior functionality to the map. This allows map panning and zooming via using mouse wheel
-         * @property DRAGGING {number} - Map responds to user dragging via mouse or touch
-         * @property WHEELZOOM {number} - Map zooms in or out in respond to mouse wheel events
-         * @property DBLTAPZOOM {number} - Map zooms in or out in response to double click or double tap. For double tap if more that one touches are on the screen map will zoom out.
+         * DRAGGING {number} - Map responds to user dragging via mouse or touch
+         * WHEELZOOM {number} - Map zooms in or out in respond to mouse wheel events
+         * DBLTAPZOOM {number} - Map zooms in or out in response to double click or double tap. For double tap if more that one touches are on the screen map will zoom out.
          */
         class Behavior extends H.util.Disposable {
             /**
@@ -4418,8 +4409,8 @@ declare namespace H {
         namespace Behavior {
             /**
              * Options which are used to initialize the Behavior class.
-             * @property kinetics {H.util.kinetics.IKinetics=} - The parameters for the kinetic movement.
-             * @property enable {number=} - The bitmask of behaviors to enable like H.mapevents.Behavior.DRAGGING. All are enabled by default.
+             * kinetics {H.util.kinetics.IKinetics=} - The parameters for the kinetic movement.
+             * enable {number=} - The bitmask of behaviors to enable like H.mapevents.Behavior.DRAGGING. All are enabled by default.
              */
             interface Options {
                 kinetics?: H.util.kinetics.IKinetics | undefined;
@@ -4429,13 +4420,13 @@ declare namespace H {
 
         /**
          * ContextMenuEvent should be fired, when a user right-clicks or longpresses on a map object.
-         * @property viewportX {Array<H.util.ContextItem>} - Contains ContextItems, that will be used to create context menu entries. Should be filled by listeners of the "contextmenu" event
-         * @property viewportY {number} - Map viewport y position
-         * @property target {(H.map.Object | H.Map)} - Target for the event
-         * @property originalEvent {Event} - Original event
-         * @property currentTarget {(H.map.Object | H.Map)} - Object which has listener attached
-         * @property type {string} - Name of the dispatched event
-         * @property defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
+         * viewportX {Array<H.util.ContextItem>} - Contains ContextItems, that will be used to create context menu entries. Should be filled by listeners of the "contextmenu" event
+         * viewportY {number} - Map viewport y position
+         * target {(H.map.Object | H.Map)} - Target for the event
+         * originalEvent {Event} - Original event
+         * currentTarget {(H.map.Object | H.Map)} - Object which has listener attached
+         * type {string} - Name of the dispatched event
+         * defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
          */
         class ContextMenuEvent extends H.util.Event {
             /**
@@ -4454,15 +4445,15 @@ declare namespace H {
 
         /**
          * Custom map event. Contains list of pointers on the map, list of changed pointers and original event. Inherits from H.util.Event.
-         * @property pointers {Array<H.mapevents.Pointer>} - Pointers which are currently on the screen
-         * @property changedPointers {Array<H.mapevents.Pointer>} - Pointers which has changed in course of event
-         * @property targetPointers {Array<H.mapevents.Pointer>} - Pointers which are on same target as the current pointer
-         * @property currentPointer {H.mapevents.Pointer} - Current pointer
-         * @property originalEvent {Event} - Original event fired by the browser
-         * @property target {(H.map.Object | H.Map)} - Object which triggered event. Can be the map object (i.e marker or polyline) or the map itself
-         * @property currentTarget {(H.map.Object | H.Map)} - Object which has listener attached
-         * @property type {string} - Name of the dispatched event
-         * @property defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
+         * pointers {Array<H.mapevents.Pointer>} - Pointers which are currently on the screen
+         * changedPointers {Array<H.mapevents.Pointer>} - Pointers which has changed in course of event
+         * targetPointers {Array<H.mapevents.Pointer>} - Pointers which are on same target as the current pointer
+         * currentPointer {H.mapevents.Pointer} - Current pointer
+         * originalEvent {Event} - Original event fired by the browser
+         * target {(H.map.Object | H.Map)} - Object which triggered event. Can be the map object (i.e marker or polyline) or the map itself
+         * currentTarget {(H.map.Object | H.Map)} - Object which has listener attached
+         * type {string} - Name of the dispatched event
+         * defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
          */
         class Event extends H.util.Event {
             /**
@@ -4526,13 +4517,13 @@ declare namespace H {
 
         /**
          * Class representing pointer on the map surface. A pointer in platform specific definition would mean either mouse, touch, pen or any pointing device which can trigger browser events.
-         * @property viewportX {number} - X coordinate on the map's viewport
-         * @property viewportY {number} - Y coordinate on the map's viewport
-         * @property target {(H.map.Object | H.Map)} - Map object directly under the pointer. Can be null if if pointer is out of the map viewport
-         * @property id {number} - Pointer unique identifier.
-         * @property type {string} - Pointer type can be: 'mouse', 'touch' or 'pen'
-         * @property dragTarget {(H.map.Object | H.Map)} - Object which is currently dragged by the pointer
-         * @property button {H.mapevents.Pointer.Button} - Indicates which pointer device button has changed.
+         * viewportX {number} - X coordinate on the map's viewport
+         * viewportY {number} - Y coordinate on the map's viewport
+         * target {(H.map.Object | H.Map)} - Map object directly under the pointer. Can be null if if pointer is out of the map viewport
+         * id {number} - Pointer unique identifier.
+         * type {string} - Pointer type can be: 'mouse', 'touch' or 'pen'
+         * dragTarget {(H.map.Object | H.Map)} - Object which is currently dragged by the pointer
+         * button {H.mapevents.Pointer.Button} - Indicates which pointer device button has changed.
          */
         class Pointer {
             /**
@@ -4584,14 +4575,14 @@ declare namespace H {
 
         /**
          * WheelEvent is fired when the mouse wheel is used over the map. It contains information about cursor position and the map object which resides directly under the cursor.
-         * @property delta {number} - Wheel move delta
-         * @property viewportX {number} - Map viewport x position
-         * @property viewportY {number} - Map viewport y position
-         * @property target {(H.map.Object | H.Map)} - Target for the event
-         * @property originalEvent {Event} - Original mouse wheel event
-         * @property currentTarget {(H.map.Object | H.Map)} - Object which has listener attached
-         * @property type {string} - Name of the dispatched event
-         * @property defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
+         * delta {number} - Wheel move delta
+         * viewportX {number} - Map viewport x position
+         * viewportY {number} - Map viewport y position
+         * target {(H.map.Object | H.Map)} - Target for the event
+         * originalEvent {Event} - Original mouse wheel event
+         * currentTarget {(H.map.Object | H.Map)} - Object which has listener attached
+         * type {string} - Name of the dispatched event
+         * defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
          */
         class WheelEvent extends H.util.Event {
             /**
@@ -4620,8 +4611,8 @@ declare namespace H {
 
         /**
          * An interface for a 2-dimensional point consisting a x and y coordinate.
-         * @property x {number} - The point's coordinate on X-axis.
-         * @property y {number} - The point's coordinate on Y-axis.
+         * x {number} - The point's coordinate on X-axis.
+         * y {number} - The point's coordinate on Y-axis.
          */
         interface IPoint {
             x: number;
@@ -4630,8 +4621,8 @@ declare namespace H {
 
         /**
          * An interface for a 2-dimensional size consisting a with and a height.
-         * @property w {number} - The size's width.
-         * @property h {number} - The size's height.
+         * w {number} - The size's width.
+         * h {number} - The size's height.
          */
         interface ISize {
             w: number;
@@ -4640,8 +4631,8 @@ declare namespace H {
 
         /**
          * Class represents a 2-dimensional point, defined by x and y coordinates.
-         * @property x {number} - The point's coordinate on X-axis.
-         * @property y {number} - The point's coordinate on Y-axis.
+         * x {number} - The point's coordinate on X-axis.
+         * y {number} - The point's coordinate on Y-axis.
          */
         class Point implements IPoint {
             /**
@@ -4797,8 +4788,8 @@ declare namespace H {
 
         /**
          * Class for representing sizes consisting of a width and height.
-         * @property w {number} - The size's width value
-         * @property h {number} - The size's height value
+         * w {number} - The size's width value
+         * h {number} - The size's height value
          */
         class Size {
             /**
@@ -4912,9 +4903,9 @@ declare namespace H {
 
         namespace EnterpriseRoutingService {
             /**
-             * @property subDomain {string=} - The sub-domain of the routing service relative to the platform's base URL (default is 'route')
-             * @property path {string=} - The path of the map tile service, default is "routing/7.2"
-             * @property baseUrl {H.service.Url=} - The base URL of the service, defaults to the the platform's base URL if instance was created using H.service.Platform#getEnterpriseRoutingService
+             * subDomain {string=} - The sub-domain of the routing service relative to the platform's base URL (default is 'route')
+             * path {string=} - The path of the map tile service, default is "routing/7.2"
+             * baseUrl {H.service.Url=} - The base URL of the service, defaults to the the platform's base URL if instance was created using H.service.Platform#getEnterpriseRoutingService
              * method.
              */
             interface Options {
@@ -4967,8 +4958,8 @@ declare namespace H {
 
         namespace GeocodingService {
             /**
-             * @property subDomain {string=} - the sub-domain of the geo-coding service relative to the platform's base URL, default is 'geocoder'
-             * @property path {string=} - the path of the Geocoding service, default is '6.2'
+             * subDomain {string=} - the sub-domain of the geo-coding service relative to the platform's base URL, default is 'geocoder'
+             * path {string=} - the path of the Geocoding service, default is '6.2'
              */
             interface Options {
                 subDomain?: string | undefined;
@@ -4994,8 +4985,8 @@ declare namespace H {
         }
 
         /**
-         * @property id {number} - the ID associated internally with this request
-         * @property cancel {function()} - this function cancels the request and invokes the errback function
+         * id {number} - the ID associated internally with this request
+         * cancel {function()} - this function cancels the request and invokes the errback function
          */
         interface JsonpRequestHandle {
             id: number;
@@ -5074,12 +5065,12 @@ declare namespace H {
 
         namespace MapTileService {
             /**
-             * @property maps {Object<string, Object>} -
-             * @property schemes {Object<string, Object>} -
-             * @property tiletypes {Object<string, Object>} -
-             * @property formats {Object<string, Object>} -
-             * @property resolutions {Object<string, Object>} -
-             * @property languages {Object<string, Object>} -
+             * maps {Object<string, Object>} -
+             * schemes {Object<string, Object>} -
+             * tiletypes {Object<string, Object>} -
+             * formats {Object<string, Object>} -
+             * resolutions {Object<string, Object>} -
+             * languages {Object<string, Object>} -
              */
             interface Info {
                 maps: { [key: string]: any };
@@ -5091,10 +5082,10 @@ declare namespace H {
             }
 
             /**
-             * @property type {string=} - the type of the map tile service to communicate with, e.g. 'base' (default), 'aerial', etc. (refer to the Map Tile REST API documentation for available types)
-             * @property version {string=} - the map version hash to use for retrieving tiles, default is newest and will be automatically updated
-             * @property subDomain {string=} - the sub-domain of the map tile service relative to the platform's base URL, default is 'maps'
-             * @property path {string=} - the path of the map tile service, default is 'maptile/2.1'
+             * type {string=} - the type of the map tile service to communicate with, e.g. 'base' (default), 'aerial', etc. (refer to the Map Tile REST API documentation for available types)
+             * version {string=} - the map version hash to use for retrieving tiles, default is newest and will be automatically updated
+             * subDomain {string=} - the sub-domain of the map tile service relative to the platform's base URL, default is 'maps'
+             * path {string=} - the path of the map tile service, default is 'maptile/2.1'
              */
             interface Options {
                 type?: string | undefined;
@@ -5108,15 +5099,15 @@ declare namespace H {
          * A map type is an object holding tile layers corresponding to a map type (e.g. 'normal', 'satellite' or 'terrain'). A map type contains at least a map property which defines the basic
          * map layer for a given map type. In addition it can hold other map layers with the given style, e.g. base, xbase, traffic etc.
          * {@link https://developer.here.com/documentation/maps/content/api_reference/H.service.html#.MapType}
-         * @property map {H.map.layer.TileLayer} - the basic map tiles with all features and labels
-         * @property mapnight {H.map.layer.TileLayer} - the basic map tiles with all features and labels (night mode)
-         * @property xbase {H.map.layer.TileLayer=} - map tiles without features and labels
-         * @property xbasenight {H.map.layer.TileLayer=} - map tiles without features and labels (night mode)
-         * @property base {H.map.layer.TileLayer=} - map tiles without labels
-         * @property basenight {H.map.layer.TileLayer=} - map tiles without labels (night mode)
-         * @property trafficincidents {H.map.layer.TileLayer=} - map tiles with traffic flow highlighting
-         * @property transit {H.map.layer.TileLayer=} - map tiles with public transit lines highlighted
-         * @property labels {H.map.layer.TileLayer=} - transparent map tiles with labels only
+         * map {H.map.layer.TileLayer} - the basic map tiles with all features and labels
+         * mapnight {H.map.layer.TileLayer} - the basic map tiles with all features and labels (night mode)
+         * xbase {H.map.layer.TileLayer=} - map tiles without features and labels
+         * xbasenight {H.map.layer.TileLayer=} - map tiles without features and labels (night mode)
+         * base {H.map.layer.TileLayer=} - map tiles without labels
+         * basenight {H.map.layer.TileLayer=} - map tiles without labels (night mode)
+         * trafficincidents {H.map.layer.TileLayer=} - map tiles with traffic flow highlighting
+         * transit {H.map.layer.TileLayer=} - map tiles with public transit lines highlighted
+         * labels {H.map.layer.TileLayer=} - transparent map tiles with labels only
          */
         interface MapType {
             map: H.map.layer.TileLayer;
@@ -5231,9 +5222,9 @@ declare namespace H {
             }
 
             /**
-             * @property subDomain {string=} - the sub-domain of the places service relative to the platform's base URL, default is 'places'
-             * @property path {string=} - the path of the places service, default is 'places/v1'
-             * @property baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
+             * subDomain {string=} - the sub-domain of the places service relative to the platform's base URL, default is 'places'
+             * path {string=} - the path of the places service, default is 'places/v1'
+             * baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
              */
             interface Options {
                 subDomain?: string | undefined;
@@ -5360,13 +5351,13 @@ declare namespace H {
         namespace Platform {
             /**
              * Options used to create default layers
-             * @property tileSize {number=} - tile size to be queried from the HERE Map Tile API, default is 256
-             * @property ppi {number=} - 'ppi' parameter to use when querying tiles, default is not specified
-             * @property lg {string=} - optional primary language parameter, default is not specified
-             * @property lg2 {string=} - optional secondary language parameter, default is not specified
-             * @property style {string=} - optional 'style' parameter to use when querying map tiles, default is not specified
-             * @property pois {boolean=} - indicates if pois are displayed on the map
-             * @property crossOrigin {(string | boolean=)} - indicates if CORS headers should be used for default layers, if false is specified, CORS headers are not set, defaults to 'anonymous'.
+             * tileSize {number=} - tile size to be queried from the HERE Map Tile API, default is 256
+             * ppi {number=} - 'ppi' parameter to use when querying tiles, default is not specified
+             * lg {string=} - optional primary language parameter, default is not specified
+             * lg2 {string=} - optional secondary language parameter, default is not specified
+             * style {string=} - optional 'style' parameter to use when querying map tiles, default is not specified
+             * pois {boolean=} - indicates if pois are displayed on the map
+             * crossOrigin {(string | boolean=)} - indicates if CORS headers should be used for default layers, if false is specified, CORS headers are not set, defaults to 'anonymous'.
              * Be aware that storing of content is not possible if crossOrigin is not set to true (see H.Map#storeContent).
              */
             interface DefaultLayersOptions {
@@ -5380,11 +5371,11 @@ declare namespace H {
             }
 
             /**
-             * @property app_id {string} - The application ID to identify the client against the platform (mandatory to provide)
-             * @property app_code {string} - The application code to identify the client against the platform (mandatory to provide)
-             * @property baseUrl {H.service.Url=} - The base URL of the platform, default is http://api.here.com
-             * @property useCIT {boolean=} - Indicates whether the Customer Integration Testing should be used, default is false
-             * @property useHTTPS {boolean=} - Indicates whether secure communication should be used, default is false
+             * app_id {string} - The application ID to identify the client against the platform (mandatory to provide)
+             * app_code {string} - The application code to identify the client against the platform (mandatory to provide)
+             * baseUrl {H.service.Url=} - The base URL of the platform, default is http://api.here.com
+             * useCIT {boolean=} - Indicates whether the Customer Integration Testing should be used, default is false
+             * useHTTPS {boolean=} - Indicates whether secure communication should be used, default is false
              */
             interface Options {
                 apikey: string;
@@ -5428,9 +5419,9 @@ declare namespace H {
 
         namespace RoutingService {
             /**
-             * @property subDomain {string=} - the sub-domain of the routing service relative to the platform's base URL, default is 'route'
-             * @property path {string=} - the path of the map tile service, default is 'routing/7.2'
-             * @property baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
+             * subDomain {string=} - the sub-domain of the routing service relative to the platform's base URL, default is 'route'
+             * path {string=} - the path of the map tile service, default is 'routing/7.2'
+             * baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
              */
             interface Options {
                 subDomain?: string | undefined;
@@ -5628,7 +5619,7 @@ declare namespace H {
 
         /**
          * Options which are used to initialize the tile provider.
-         * @property crossOrigin {boolean=} - The string to be set for the crossOrigin attribute for loaded images
+         * crossOrigin {boolean=} - The string to be set for the crossOrigin attribute for loaded images
          */
         interface TileProviderOptions {
             crossOrigin?: boolean | undefined;
@@ -5671,9 +5662,9 @@ declare namespace H {
 
             namespace Service {
                 /**
-                 * @property subDomain {string=} - the sub-domain of the traffic incidents service relative to the platform's base URL, default is 'traffic'
-                 * @property path {string=} - the path of the traffic incidents service, default is 'traffic/6.1'
-                 * @property baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
+                 * subDomain {string=} - the sub-domain of the traffic incidents service relative to the platform's base URL, default is 'traffic'
+                 * path {string=} - the path of the traffic incidents service, default is 'traffic/6.1'
+                 * baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
                  */
                 interface Options {
                     subDomain?: string | undefined;
@@ -5898,12 +5889,12 @@ declare namespace H {
 
             namespace Service {
                 /**
-                 * @property maps {Object<string, Object>} -
-                 * @property schemes {Object<string, Object>} -
-                 * @property tiletypes {Object<string, Object>} -
-                 * @property formats {Object<string, Object>} -
-                 * @property resolutions {Object<string, Object>} -
-                 * @property languages {Object<string, Object>} -
+                 * maps {Object<string, Object>} -
+                 * schemes {Object<string, Object>} -
+                 * tiletypes {Object<string, Object>} -
+                 * formats {Object<string, Object>} -
+                 * resolutions {Object<string, Object>} -
+                 * languages {Object<string, Object>} -
                  */
                 interface Info {
                     maps: { [key: string]: any };
@@ -5915,10 +5906,10 @@ declare namespace H {
                 }
 
                 /**
-                 * @property type {string=} - the type of the map tile service to communicate with, e.g. 'base' (default), 'aerial', etc. (refer to the Map Tile REST API documentation for
+                 * type {string=} - the type of the map tile service to communicate with, e.g. 'base' (default), 'aerial', etc. (refer to the Map Tile REST API documentation for
                  * available types)
-                 * @property version {string=} - the map version hash to use for retrieving tiles, default is newest and will be automatically updated
-                 * @property subDomain {string=} - the sub-domain of the map tile service relative to the platform's base URL, default is 'maps'
+                 * version {string=} - the map version hash to use for retrieving tiles, default is newest and will be automatically updated
+                 * subDomain {string=} - the sub-domain of the map tile service relative to the platform's base URL, default is 'maps'
                  */
                 interface Options {
                     type?: string | undefined;
@@ -5943,12 +5934,12 @@ declare namespace H {
             namespace TileProvider {
                 /**
                  * Configuration object which can be used to initialize the TileProvider.
-                 * @property tileType {string=} - The tile type for which to request meta info
-                 * @property scheme {string=} - The map scheme for which to request meta info
-                 * @property tileCacheSize {number=} - The number of fully rendered spatial tiles that are cached for immediate reuse, default is 32
-                 * @property tileSize {number=} - The size of the tiles rendered by this provider (must be power of 2, default is 256)
-                 * @property pixelRatio {number=} - The pixel ratio to use for over-sampling in cases of high-resolution displays
-                 * @property categoryFilter {Array<string>=} - A list of meta-info category names which should be suppressed. See Metainfo Tile for valid category names.
+                 * tileType {string=} - The tile type for which to request meta info
+                 * scheme {string=} - The map scheme for which to request meta info
+                 * tileCacheSize {number=} - The number of fully rendered spatial tiles that are cached for immediate reuse, default is 32
+                 * tileSize {number=} - The size of the tiles rendered by this provider (must be power of 2, default is 256)
+                 * pixelRatio {number=} - The pixel ratio to use for over-sampling in cases of high-resolution displays
+                 * categoryFilter {Array<string>=} - A list of meta-info category names which should be suppressed. See Metainfo Tile for valid category names.
                  */
                 interface Options {
                     tileType?: string | undefined;
@@ -6101,8 +6092,8 @@ declare namespace H {
 
             namespace Service {
                 /**
-                 * @property subDomain {string=} - the sub-domain of the Venue Maps service relative to the platform's base URL, default is 'venue.maps'
-                 * @property path {string=} - the path to append after host name when making requests to the Venue Maps API, default is empty
+                 * subDomain {string=} - the sub-domain of the Venue Maps service relative to the platform's base URL, default is 'venue.maps'
+                 * path {string=} - the path to append after host name when making requests to the Venue Maps API, default is empty
                  */
                 interface Options {
                     subDomain?: string | undefined;
@@ -6186,9 +6177,9 @@ declare namespace H {
             namespace TileProvider {
                 /**
                  * Configuration object which can be used to initialize the TileProvider.
-                 * @property tileCacheSize {number=} - The number of fully rendered spatial tiles that are cached for immediate reuse, default is 32
-                 * @property pixelRatio {number=} - The pixel ratio to use for over-sampling in cases of high-resolution displays
-                 * @property onSpaceCreated {function(H.service.venues.Space)=} - A callback function that is called on every created space (see H.service.venues.Space) object. The function can be
+                 * tileCacheSize {number=} - The number of fully rendered spatial tiles that are cached for immediate reuse, default is 32
+                 * pixelRatio {number=} - The pixel ratio to use for over-sampling in cases of high-resolution displays
+                 * onSpaceCreated {function(H.service.venues.Space)=} - A callback function that is called on every created space (see H.service.venues.Space) object. The function can be
                  * used for space object styling.
                  */
                 interface Options {
@@ -6285,13 +6276,13 @@ declare namespace H {
 
         namespace DistanceMeasurement {
             /**
-             * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.RIGHT_BOTTOM
-             * @property startIcon {H.map.Icon=} - the icon to use for the first measurement point
-             * @property stopoverIcon {H.map.Icon=} - the icon to use for the intermediate measurement points
-             * @property endIcon {H.map.Icon=} - the icon to use for the last measurement point
-             * @property splitIcon {H.map.Icon=} - the icon to use for indicating position under pointer over the line where new point will be created once user clicks
-             * @property lineStyle {(H.map.SpatialStyle | H.map.SpatialStyle.Options)} - the style to use for connecting lines of the measurement points
-             * @property distanceFormatter {function(number)=} - Optional function used for formatting a distance. By default distance measurement tool will do the formatting according to the
+             * alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.RIGHT_BOTTOM
+             * startIcon {H.map.Icon=} - the icon to use for the first measurement point
+             * stopoverIcon {H.map.Icon=} - the icon to use for the intermediate measurement points
+             * endIcon {H.map.Icon=} - the icon to use for the last measurement point
+             * splitIcon {H.map.Icon=} - the icon to use for indicating position under pointer over the line where new point will be created once user clicks
+             * lineStyle {(H.map.SpatialStyle | H.map.SpatialStyle.Options)} - the style to use for connecting lines of the measurement points
+             * distanceFormatter {function(number)=} - Optional function used for formatting a distance. By default distance measurement tool will do the formatting according to the
              * specified measurement unit (see H.ui.UI.Options#unitSystem)
              */
             interface Options {
@@ -6424,8 +6415,8 @@ declare namespace H {
         namespace MapSettingsControl {
             /**
              * The map type entry is an object containing a display name and a map type object to which it refers.
-             * @property name {string} - label which describes the map type
-             * @property mapType {H.service.MapType} - reference to map type
+             * name {string} - label which describes the map type
+             * mapType {H.service.MapType} - reference to map type
              */
             interface Entry {
                 name: string;
@@ -6434,9 +6425,9 @@ declare namespace H {
 
             /**
              * {@link https://developer.here.com/documentation/maps/api_reference/H.ui.MapSettingsControl.html#.Options}
-             * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
-             * @property entries {Array<H.ui.MapSettingsControl.MapTypeEntry>=} - the map type entries to be shown in this map settings control
-             * @property incidents {H.map.layer.Layer} - the traffic incidents layer to be activated by the map settings control
+             * alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
+             * entries {Array<H.ui.MapSettingsControl.MapTypeEntry>=} - the map type entries to be shown in this map settings control
+             * incidents {H.map.layer.Layer} - the traffic incidents layer to be activated by the map settings control
              */
             interface Options {
                 alignment?: H.ui.LayoutAlignment | undefined;
@@ -6458,8 +6449,8 @@ declare namespace H {
 
         namespace Pano {
             /**
-             * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.RIGHT_BOTTOM
-             * @property mapTypes {H.service.MapTypes} - The map types to use
+             * alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.RIGHT_BOTTOM
+             * mapTypes {H.service.MapTypes} - The map types to use
              */
             interface Options {
                 alignment?: H.ui.LayoutAlignment | undefined;
@@ -6480,7 +6471,7 @@ declare namespace H {
 
         namespace ScaleBar {
             /**
-             * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
+             * alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
              */
             interface Options {
                 alignment?: H.ui.LayoutAlignment | undefined;
@@ -6601,12 +6592,10 @@ declare namespace H {
             capture(canvas: HTMLCanvasElement, pixelRation: number, callback: (canvas?: HTMLCanvasElement) => void, opt_errback?: (error: string) => void): void;
 
             /**
-             * @callback ICapturable~captureCallback
              * @param canvas {HTMLCanvasElement=}
              */
 
             /**
-             * @callback ICapturable~errorCallback
              * @param error {string}
              */
         }
@@ -6614,14 +6603,14 @@ declare namespace H {
         namespace UI {
             /**
              * Optional parameters to be passed to the UI constructor.
-             * @property unitSystem {H.ui.UnitSystem=} - An optional unit system to be used by the UI, default is H.ui.UnitSystem.METRIC
-             * @property zoom {(H.ui.ZoomControl.Options | boolean)=} -
-             * @property zoomrectangle {(H.ui.ZoomRectangle.Options | boolean)=} -
-             * @property mapsettings {(H.ui.MapSettingsControl.Options | boolean)=} -
-             * @property scalebar {(H.ui.ScaleBar.Options | boolean)=} -
-             * @property panorama {(H.ui.Pano.Options | boolean)=} -
-             * @property distancemeasurement {(H.ui.DistanceMeasurement.Options | boolean)=} -
-             * @property locale {(H.ui.i18n.Localization | string)=} - defines language in which UI can be rendered. It can be predefined H.ui.i18n.Localization object with custom translation map,
+             * unitSystem {H.ui.UnitSystem=} - An optional unit system to be used by the UI, default is H.ui.UnitSystem.METRIC
+             * zoom {(H.ui.ZoomControl.Options | boolean)=} -
+             * zoomrectangle {(H.ui.ZoomRectangle.Options | boolean)=} -
+             * mapsettings {(H.ui.MapSettingsControl.Options | boolean)=} -
+             * scalebar {(H.ui.ScaleBar.Options | boolean)=} -
+             * panorama {(H.ui.Pano.Options | boolean)=} -
+             * distancemeasurement {(H.ui.DistanceMeasurement.Options | boolean)=} -
+             * locale {(H.ui.i18n.Localization | string)=} - defines language in which UI can be rendered. It can be predefined H.ui.i18n.Localization object with custom translation map,
              * or a string one of following 'en-US', 'de-DE', 'es-ES', 'fi-FI', 'fr-FR', 'it-IT', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'tr-TR', 'zh-CN'. If not defined ui will use 'en-US'
              * by default
              */
@@ -6666,10 +6655,10 @@ declare namespace H {
 
         namespace ZoomControl {
             /**
-             * @property zoomSpeed {number=} - the speed if zooming in and out in levels per millisecond, defaults to 0.05
-             * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, defaults to H.ui.LayoutAlignment.RIGHT_MIDDLE
-             * @property slider {boolean=} - flag whether to show the slider (true) or not, defaults to false
-             * @property sliderSnaps {boolean=} - flag whether slider should snap to the integer values or not, defaults to false. This option has effect only if slider is enabled.
+             * zoomSpeed {number=} - the speed if zooming in and out in levels per millisecond, defaults to 0.05
+             * alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, defaults to H.ui.LayoutAlignment.RIGHT_MIDDLE
+             * slider {boolean=} - flag whether to show the slider (true) or not, defaults to false
+             * sliderSnaps {boolean=} - flag whether slider should snap to the integer values or not, defaults to false. This option has effect only if slider is enabled.
              */
             interface Options {
                 zoomSpeed?: number | undefined;
@@ -6692,8 +6681,8 @@ declare namespace H {
 
         namespace ZoomRectangle {
             /**
-             * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
-             * @property adjustZoom {function(number, H.Map): number=} - optional function that defines how zoom level should be changed, by default zoom level is picked to fit the
+             * alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
+             * adjustZoom {function(number, H.Map): number=} - optional function that defines how zoom level should be changed, by default zoom level is picked to fit the
              * bounding rectangle into the view port.
              */
             interface Options {
@@ -7010,10 +6999,10 @@ declare namespace H {
 
         /**
          * This event indicates a change. It contains the old and the new value.
-         * @property target {*} - Object which triggered the event
-         * @property currentTarget {*} - Object which has listener attached
-         * @property type {string} - Name of the dispatched event
-         * @property defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
+         * target {*} - Object which triggered the event
+         * currentTarget {*} - Object which has listener attached
+         * type {string} - Name of the dispatched event
+         * defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
          */
         class ChangeEvent extends H.util.Event {
             /**
@@ -7042,7 +7031,7 @@ declare namespace H {
 
         /**
          * This class represents a contextual information/action.
-         * @property SEPARATOR {H.util.ContextItem} - Separator for the context items
+         * SEPARATOR {H.util.ContextItem} - Separator for the context items
          */
         class ContextItem extends H.util.EventTarget {
             /**
@@ -7101,9 +7090,9 @@ declare namespace H {
         namespace ContextItem {
             /**
              * This type defines options which can be used to initialize the context item.
-             * @property label {string=} - the label of the context item
-             * @property disabled {boolean=} - flag indicatting whether context item is disabled or no, by default false
-             * @property callback {function(H.util.Event)=} - Optional callback function to call once context item is selected
+             * label {string=} - the label of the context item
+             * disabled {boolean=} - flag indicatting whether context item is disabled or no, by default false
+             * callback {function(H.util.Event)=} - Optional callback function to call once context item is selected
              */
             interface Options {
                 label?: string | undefined;
@@ -7132,10 +7121,10 @@ declare namespace H {
 
         /**
          * Base Event class which is used for all events dispatched by any EventTarget within the api.
-         * @property target {*} - Object which triggered the event
-         * @property currentTarget {*} - Object which has listener attached
-         * @property type {string} - Name of the dispatched event
-         * @property defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
+         * target {*} - Object which triggered the event
+         * currentTarget {*} - Object which has listener attached
+         * type {string} - Name of the dispatched event
+         * defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
          */
         class Event {
             /**
@@ -7281,12 +7270,10 @@ declare namespace H {
             capture(canvas: HTMLCanvasElement, pixelRation: number, callback: (canvas?: HTMLCanvasElement) => void, opt_errback?: (error: string) => void): void;
 
             /**
-             * @callback ICapturable~captureCallback
              * @param canvas {HTMLCanvasElement=}
              */
 
             /**
-             * @callback ICapturable~errorCallback
              * @param error {string}
              */
         }
@@ -7382,10 +7369,10 @@ declare namespace H {
         namespace OList {
             /**
              * The event class for events that are dispatched by OList
-             * @property target {*} - Object which triggered the event
-             * @property currentTarget {*} - Object which has listener attached
-             * @property type {string} - Name of the dispatched event
-             * @property defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
+             * target {*} - Object which triggered the event
+             * currentTarget {*} - Object which has listener attached
+             * type {string} - Name of the dispatched event
+             * defaultPrevented {boolean} - Indicates if preventDefault was called on the current event
              */
             class Event extends H.util.Event {
                 /**
@@ -7510,8 +7497,8 @@ declare namespace H {
         namespace kinetics {
             /**
              * This interface defines kinetic move parameters used by map for kinetic drag.
-             * @property power {number} - Power multiplier. Multiplier is used to increase the speed of the kinetic move. By default map uses 1.
-             * @property duration {number} - Defines duration of the kinetic move.
+             * power {number} - Power multiplier. Multiplier is used to increase the speed of the kinetic move. By default map uses 1.
+             * duration {number} - Defines duration of the kinetic move.
              */
             interface IKinetics {
                 /**

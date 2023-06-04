@@ -37,7 +37,7 @@ declare module 'fs/promises' {
     } from 'node:fs';
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
-        filename: T;
+        filename: T | null;
     }
     interface FlagAndOpenMode {
         mode?: Mode | undefined;

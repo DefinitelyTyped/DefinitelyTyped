@@ -584,7 +584,7 @@ declare global {
          *
          * `QUnit.begin()` is called once before running any tests.
          *
-         * @callback callback Callback to execute.
+         * callback Callback to execute.
          */
         begin(callback: (details: QUnit.BeginDetails) => void | Promise<void>): void;
 

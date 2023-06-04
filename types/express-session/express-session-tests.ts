@@ -60,6 +60,17 @@ app.use(
     }),
 );
 
+// When constructed without arguments, `expires` and `originalMaxAge` are null.
+const emptyCookie: SessionData['cookie'] = { expires: null, originalMaxAge: null };
+
+app.use(
+    session({
+        cookie: emptyCookie,
+        secret: 'keyboard cat',
+        unset: 'keep',
+    }),
+);
+
 // Example of adding additional properties to SessionData using declaration merging
 declare module 'express-session' {
     interface SessionData {
@@ -114,6 +125,14 @@ class MyStore extends Store {
         if (callback) callback();
     }
 
+    length = (callback?: (err?: any, length?: number) => void) => {
+        if (this.sessions == null && callback) {
+            callback(new Error('error to show that length is optional'));
+        }
+
+        if (callback) callback(null, Object.keys(this.sessions).length);
+    }
+
     destroy = (sid: string, callback?: (err?: any) => void): void => {
         this.sessions[sid] = undefined;
         this.sessions = JSON.parse(JSON.stringify(this.sessions));
@@ -131,11 +150,11 @@ app.use(
 app.use((req, res, next) => {
     let sess = req.session;
     const store = req.sessionStore;
-    store.get(sess.id, (err, session) => { });
-    store.set(sess.id, { views: 0, cookie: sess.cookie }, (err) => { });
+    store.get(sess.id, (err, session) => {});
+    store.set(sess.id, { views: 0, cookie: sess.cookie }, err => {});
     sess = store.createSession(req, { views: 0, cookie: sess.cookie });
-    store.destroy(sess.id, (err) => { });
+    store.destroy(sess.id, err => {});
     store.generate(req);
-    store.regenerate(req, (err) => { });
+    store.regenerate(req, err => {});
     res.end();
 });

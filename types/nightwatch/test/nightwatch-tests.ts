@@ -61,9 +61,11 @@ const testGeneral: NightwatchTests = {
     },
 
     'Demo Nightwatch API commands': () => {
-        browser.isChrome();
-        browser.isAndroid();
-        browser.isMobile();
+        isType<boolean>(browser.isChrome());
+        isType<boolean>(browser.isAndroid());
+        isType<boolean>(browser.isMobile());
+        isType<boolean>(browser.isAppiumClient());
+
         const element_id = browser.WEBDRIVER_ELEMENT_ID;
         console.log(element_id);
         const browserName = browser.browserName;
@@ -524,7 +526,35 @@ const testSpecificCommands: NightwatchTests = {
         );
 
         browser.executeAsync(
-            (arg1, arg2, done) => {
+            (arg1: number, arg2: string, done: (result: true) => void) => {
+                setTimeout(() => {
+                    done(true);
+                }, 500);
+            },
+            [1, '2'],
+            result => {
+                browser.assert.equal(result.value, true);
+            },
+        );
+
+        browser.end();
+    },
+
+    executeAsyncScript: () => {
+        browser.executeAsyncScript(
+            done => {
+                setTimeout(() => {
+                    done(true);
+                }, 500);
+            },
+            [],
+            result => {
+                browser.assert.equal(result.value, true);
+            },
+        );
+
+        browser.executeAsyncScript(
+            (arg1: number, arg2: number, done: (result: boolean) => void) => {
                 setTimeout(() => {
                     done(true);
                 }, 500);

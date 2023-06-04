@@ -642,6 +642,20 @@ namespace MeteorTests {
     Accounts.user({ fields: { _id: 1 } });
     Accounts.user({ fields: { profile: 0 } });
 
+    (async () => {
+        await Meteor.userAsync();
+        await Meteor.userAsync({});
+        await Meteor.userAsync({ fields: {} });
+        await Meteor.userAsync({ fields: { _id: 1 } });
+        await Meteor.userAsync({ fields: { profile: 0 } });
+
+        await Accounts.userAsync();
+        await Accounts.userAsync({});
+        await Accounts.userAsync({ fields: {} });
+        await Accounts.userAsync({ fields: { _id: 1 } });
+        await Accounts.userAsync({ fields: { profile: 0 } });
+    })();
+
     /**
      * Fixes this discussion https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/55173
      */
@@ -1120,14 +1134,14 @@ namespace MeteorTests {
         Accounts.registerLoginHandler('impersonate', (options: { targetUserId: string }) => {
             const currentUser = Meteor.userId();
             if (!currentUser) {
-                return { error: 'No user was logged in' };
+                return { error: new Error('No user was logged in') };
             }
 
             const isSuperUser = (userId: string) => true;
 
             if (!isSuperUser(currentUser)) {
                 const errMsg = `User ${currentUser} tried to impersonate but is not allowed`;
-                return { error: errMsg };
+                return { error: new Error(errMsg) };
             }
             // By returning an object with userId, the session will now be logged in as that user
             return { userId: options.targetUserId };

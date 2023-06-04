@@ -405,6 +405,8 @@ indy.createRevocationState(
     'credRevId',
 );
 
+indy.listMyDidsWithMeta(10);
+
 // TODO
 // cache + payment
 // indy.updateRevocationState(blobReaderHandle, revState, revocRegDef, revDelta, timestamp, revId)
@@ -431,7 +433,6 @@ indy.createRevocationState(
 // indy.cryptoAuthCrypt(10, 'stewardVerkey', 'trusteeVerkey', Buffer.from('message'))
 // indy.cryptoAuthDecrypt(10, 'trusteeVerkey', Buffer.from('encrypted'))
 // indy.cryptoAnonDecrypt(10, 'trusteeVerkey', Buffer.from('encrypted'))
-// indy.listMyDidsWithMeta(10)
 // indy.keyForDid(10, 10, 'did')
 // indy.replaceKeysStart(10, 'did', {})
 // indy.replaceKeysApply(10, 'did')
@@ -450,7 +451,6 @@ indy.createRevocationState(
 // indy.buildPoolRestartRequest(myDid, 'start', '0')
 // indy.buildPoolUpgradeRequest(myDid, 'some upgrade action', '2.0.0', 'cancel', 'abc12345', -1, null, null, false, false, null)
 // indy.buildGetDdoRequest(myDid, trusteeDid)
-// indy.buildGetTxnRequest(myDid, null, data[1].seqNo)
 // indy.buildNodeRequest(myDid, myDid, {
 //     node_ip: '10.0.0.100',
 //     node_port: 9710,
@@ -461,6 +461,7 @@ indy.createRevocationState(
 //     blskey: 'CnEDk9HrMnmiHXEV1WFgbVCRteYnPqsJwrTdcZaNhFVW'
 //   })
 // indy.issuerCreateAndStoreRevocReg(wh, myDid, null, 'tag1', credDefId, { max_cred_num: 5 }, writerH)
+indy.buildGetTxnRequest('myDid', 'DOMAIN', 10);
 indy.buildRevocRegDefRequest('myDid', revRegDef);
 indy.buildGetRevocRegDefRequest('myDid', 'revRegDefId');
 indy.parseGetRevocRegDefResponse(ledgerRejectResponse);

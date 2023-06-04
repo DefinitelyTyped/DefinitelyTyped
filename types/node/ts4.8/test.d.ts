@@ -1,28 +1,112 @@
 /**
- * The `node:test` module provides a standalone testing module.
- * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/test.js)
+ * The `node:test` module facilitates the creation of JavaScript tests.
+ * To access it:
+ *
+ * ```js
+ * import test from 'node:test';
+ * ```
+ *
+ * This module is only available under the `node:` scheme. The following will not
+ * work:
+ *
+ * ```js
+ * import test from 'test';
+ * ```
+ *
+ * Tests created via the `test` module consist of a single function that is
+ * processed in one of three ways:
+ *
+ * 1. A synchronous function that is considered failing if it throws an exception,
+ * and is considered passing otherwise.
+ * 2. A function that returns a `Promise` that is considered failing if the`Promise` rejects, and is considered passing if the `Promise` resolves.
+ * 3. A function that receives a callback function. If the callback receives any
+ * truthy value as its first argument, the test is considered failing. If a
+ * falsy value is passed as the first argument to the callback, the test is
+ * considered passing. If the test function receives a callback function and
+ * also returns a `Promise`, the test will fail.
+ *
+ * The following example illustrates how tests are written using the`test` module.
+ *
+ * ```js
+ * test('synchronous passing test', (t) => {
+ *   // This test passes because it does not throw an exception.
+ *   assert.strictEqual(1, 1);
+ * });
+ *
+ * test('synchronous failing test', (t) => {
+ *   // This test fails because it throws an exception.
+ *   assert.strictEqual(1, 2);
+ * });
+ *
+ * test('asynchronous passing test', async (t) => {
+ *   // This test passes because the Promise returned by the async
+ *   // function is not rejected.
+ *   assert.strictEqual(1, 1);
+ * });
+ *
+ * test('asynchronous failing test', async (t) => {
+ *   // This test fails because the Promise returned by the async
+ *   // function is rejected.
+ *   assert.strictEqual(1, 2);
+ * });
+ *
+ * test('failing test using Promises', (t) => {
+ *   // Promises can be used directly as well.
+ *   return new Promise((resolve, reject) => {
+ *     setImmediate(() => {
+ *       reject(new Error('this will cause the test to fail'));
+ *     });
+ *   });
+ * });
+ *
+ * test('callback passing test', (t, done) => {
+ *   // done() is the callback function. When the setImmediate() runs, it invokes
+ *   // done() with no arguments.
+ *   setImmediate(done);
+ * });
+ *
+ * test('callback failing test', (t, done) => {
+ *   // When the setImmediate() runs, done() is invoked with an Error object and
+ *   // the test fails.
+ *   setImmediate(() => {
+ *     done(new Error('callback failure'));
+ *   });
+ * });
+ * ```
+ *
+ * If any tests fail, the process exit code is set to `1`.
+ * @since v18.0.0, v16.17.0
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test.js)
  */
 declare module 'node:test' {
+    import { Readable } from 'node:stream';
     /**
-     * Programmatically start the test runner.
-     * @since v18.9.0
-     * @param options Configuration options for running tests.
-     * @returns A {@link TapStream} that emits events about the test execution.
+     * ```js
+     * import { tap } from 'node:test/reporters';
+     * import process from 'node:process';
+     *
+     * run({ files: [path.resolve('./tests/test.js')] })
+     *   .compose(tap)
+     *   .pipe(process.stdout);
+     * ```
+     * @since v18.9.0, v16.19.0
+     * @param options Configuration options for running tests. The following properties are supported:
      */
-    function run(options?: RunOptions): TapStream;
-
+    function run(options?: RunOptions): TestsStream;
     /**
-     * The `test()` function is the value imported from the test module. Each invocation of this
-     * function results in the creation of a test point in the TAP output.
+     * The `test()` function is the value imported from the `test` module. Each
+     * invocation of this function results in reporting the test to the `TestsStream`.
      *
-     * The {@link TestContext} object passed to the fn argument can be used to perform actions
-     * related to the current test. Examples include skipping the test, adding additional TAP
-     * diagnostic information, or creating subtests.
+     * The `TestContext` object passed to the `fn` argument can be used to perform
+     * actions related to the current test. Examples include skipping the test, adding
+     * additional diagnostic information, or creating subtests.
      *
-     * `test()` returns a {@link Promise} that resolves once the test completes. The return value
-     * can usually be discarded for top level tests. However, the return value from subtests should
-     * be used to prevent the parent test from finishing first and cancelling the subtest as shown
-     * in the following example.
+     * `test()` returns a `Promise` that resolves once the test completes.
+     * if `test()` is called within a `describe()` block, it resolve immediately.
+     * The return value can usually be discarded for top level tests.
+     * However, the return value from subtests should be used to prevent the parent
+     * test from finishing first and cancelling the subtest
+     * as shown in the following example.
      *
      * ```js
      * test('top level test', async (t) => {
@@ -36,90 +120,144 @@ declare module 'node:test' {
      *   });
      * });
      * ```
-     * @since v18.0.0
-     * @param name The name of the test, which is displayed when reporting test results.
-     *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
-     * @param options Configuration options for the test
-     * @param fn The function under test. The first argument to this function is a
-     *    {@link TestContext} object. If the test uses callbacks, the callback function is
-     *    passed as the second argument. Default: A no-op function.
-     * @returns A {@link Promise} resolved with `undefined` once the test completes.
+     *
+     * The `timeout` option can be used to fail the test if it takes longer than`timeout` milliseconds to complete. However, it is not a reliable mechanism for
+     * canceling tests because a running test might block the application thread and
+     * thus prevent the scheduled cancellation.
+     * @since v18.0.0, v16.17.0
+     * @param [name='The name'] The name of the test, which is displayed when reporting test results.
+     * @param options Configuration options for the test. The following properties are supported:
+     * @param [fn='A no-op function'] The function under test. The first argument to this function is a {@link TestContext} object. If the test uses callbacks, the callback function is passed as the
+     * second argument.
+     * @return Resolved with `undefined` once the test completes, or immediately if the test runs within {@link describe}.
      */
     function test(name?: string, fn?: TestFn): Promise<void>;
     function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
-
+    namespace test {
+        export {
+            after,
+            afterEach,
+            before,
+            beforeEach,
+            describe,
+            it,
+            run,
+            mock,
+            test,
+            skip,
+            todo,
+            only
+        };
+    }
     /**
-     * @since v18.6.0
-     * @param name The name of the suite, which is displayed when reporting suite results.
-     *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
-     * @param options Configuration options for the suite
-     * @param fn The function under suite. Default: A no-op function.
+     * The `describe()` function imported from the `node:test` module. Each
+     * invocation of this function results in the creation of a Subtest.
+     * After invocation of top level `describe` functions,
+     * all top level tests and suites will execute.
+     * @param [name='The name'] The name of the suite, which is displayed when reporting test results.
+     * @param options Configuration options for the suite. supports the same options as `test([name][, options][, fn])`.
+     * @param [fn='A no-op function'] The function under suite declaring all subtests and subsuites. The first argument to this function is a {@link SuiteContext} object.
+     * @return `undefined`.
      */
     function describe(name?: string, options?: TestOptions, fn?: SuiteFn): void;
     function describe(name?: string, fn?: SuiteFn): void;
     function describe(options?: TestOptions, fn?: SuiteFn): void;
     function describe(fn?: SuiteFn): void;
     namespace describe {
-        // Shorthand for skipping a suite, same as `describe([name], { skip: true }[, fn])`.
+        /**
+         * Shorthand for skipping a suite, same as `describe([name], { skip: true }[, fn])`.
+         */
         function skip(name?: string, options?: TestOptions, fn?: SuiteFn): void;
         function skip(name?: string, fn?: SuiteFn): void;
         function skip(options?: TestOptions, fn?: SuiteFn): void;
         function skip(fn?: SuiteFn): void;
-
-        // Shorthand for marking a suite as `TODO`, same as `describe([name], { todo: true }[, fn])`.
+        /**
+         * Shorthand for marking a suite as `TODO`, same as `describe([name], { todo: true }[, fn])`.
+         */
         function todo(name?: string, options?: TestOptions, fn?: SuiteFn): void;
         function todo(name?: string, fn?: SuiteFn): void;
         function todo(options?: TestOptions, fn?: SuiteFn): void;
         function todo(fn?: SuiteFn): void;
+        /**
+         * Shorthand for marking a suite as `only`, same as `describe([name], { only: true }[, fn])`.
+         * @since v18.15.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
-
     /**
-     * @since v18.6.0
-     * @param name The name of the test, which is displayed when reporting test results.
-     *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
-     * @param options Configuration options for the test
-     * @param fn The function under test. If the test uses callbacks, the callback function is
-     *    passed as the second argument. Default: A no-op function.
+     * Shorthand for `test()`.
+     *
+     * The `it()` function is imported from the `node:test` module.
+     * @since v18.6.0, v16.17.0
      */
-    function it(name?: string, options?: TestOptions, fn?: ItFn): void;
-    function it(name?: string, fn?: ItFn): void;
-    function it(options?: TestOptions, fn?: ItFn): void;
-    function it(fn?: ItFn): void;
+    function it(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function it(name?: string, fn?: TestFn): void;
+    function it(options?: TestOptions, fn?: TestFn): void;
+    function it(fn?: TestFn): void;
     namespace it {
-        // Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
-        function skip(name?: string, options?: TestOptions, fn?: ItFn): void;
-        function skip(name?: string, fn?: ItFn): void;
-        function skip(options?: TestOptions, fn?: ItFn): void;
-        function skip(fn?: ItFn): void;
-
-        // Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
-        function todo(name?: string, options?: TestOptions, fn?: ItFn): void;
-        function todo(name?: string, fn?: ItFn): void;
-        function todo(options?: TestOptions, fn?: ItFn): void;
-        function todo(fn?: ItFn): void;
+        /**
+         * Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
+         */
+        function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function skip(name?: string, fn?: TestFn): void;
+        function skip(options?: TestOptions, fn?: TestFn): void;
+        function skip(fn?: TestFn): void;
+        /**
+         * Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
+         */
+        function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function todo(name?: string, fn?: TestFn): void;
+        function todo(options?: TestOptions, fn?: TestFn): void;
+        function todo(fn?: TestFn): void;
+        /**
+         * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
+         * @since v18.15.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function only(name?: string, fn?: TestFn): void;
+        function only(options?: TestOptions, fn?: TestFn): void;
+        function only(fn?: TestFn): void;
     }
-
+    /**
+     * Shorthand for skipping a test, same as `test([name], { skip: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function skip(name?: string, fn?: TestFn): void;
+    function skip(options?: TestOptions, fn?: TestFn): void;
+    function skip(fn?: TestFn): void;
+    /**
+     * Shorthand for marking a test as `TODO`, same as `test([name], { todo: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function todo(name?: string, fn?: TestFn): void;
+    function todo(options?: TestOptions, fn?: TestFn): void;
+    function todo(fn?: TestFn): void;
+    /**
+     * Shorthand for marking a test as `only`, same as `test([name], { only: true }[, fn])`.
+     * @since v20.2.0
+     */
+    function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function only(name?: string, fn?: TestFn): void;
+    function only(options?: TestOptions, fn?: TestFn): void;
+    function only(fn?: TestFn): void;
     /**
      * The type of a function under test. The first argument to this function is a
      * {@link TestContext} object. If the test uses callbacks, the callback function is passed as
      * the second argument.
      */
     type TestFn = (t: TestContext, done: (result?: any) => void) => any;
-
     /**
      * The type of a function under Suite.
      * If the test uses callbacks, the callback function is passed as an argument
      */
     type SuiteFn = (done: (result?: any) => void) => void;
-
-    /**
-     * The type of a function under test.
-     * If the test uses callbacks, the callback function is passed as an argument
-     */
-    type ItFn = (done: (result?: any) => void) => any;
-
     interface RunOptions {
         /**
          * If a number is provided, then that many files would run in parallel.
@@ -129,132 +267,189 @@ declare module 'node:test' {
          * @default true
          */
         concurrency?: number | boolean | undefined;
-
         /**
          * An array containing the list of files to run.
          * If unspecified, the test runner execution model will be used.
          */
         files?: readonly string[] | undefined;
-
         /**
          * Allows aborting an in-progress test execution.
          * @default undefined
          */
         signal?: AbortSignal | undefined;
-
         /**
          * A number of milliseconds the test will fail after.
          * If unspecified, subtests inherit this value from their parent.
          * @default Infinity
          */
         timeout?: number | undefined;
-
         /**
          * Sets inspector port of test child process.
          * If a nullish value is provided, each process gets its own port,
          * incremented from the primary's `process.debugPort`.
          */
         inspectPort?: number | (() => number) | undefined;
+        /**
+         * That can be used to only run tests whose name matches the provided pattern.
+         * Test name patterns are interpreted as JavaScript regular expressions.
+         * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
+         */
+        testNamePatterns?: string | RegExp | string[] | RegExp[];
     }
-
     /**
-     * A successful call of the `run()` method will return a new `TapStream` object,
-     * streaming a [TAP](https://testanything.org/) output.
-     * `TapStream` will emit events in the order of the tests' definitions.
-     * @since v18.9.0
+     * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.`TestsStream` will emit events, in the
+     * order of the tests definition
+     * @since v18.9.0, v16.19.0
      */
-    interface TapStream extends NodeJS.ReadableStream {
-        addListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+    class TestsStream extends Readable implements NodeJS.ReadableStream {
+        addListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         addListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         addListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        addListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        addListener(event: 'test:start', listener: (data: TestStart) => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
-        emit(event: 'test:diagnostic', message: string): boolean;
+        emit(event: 'test:diagnostic', data: DiagnosticData): boolean;
         emit(event: 'test:fail', data: TestFail): boolean;
         emit(event: 'test:pass', data: TestPass): boolean;
+        emit(event: 'test:plan', data: TestPlan): boolean;
+        emit(event: 'test:start', data: TestStart): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: 'test:diagnostic', listener: (message: string) => void): this;
+        on(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         on(event: 'test:fail', listener: (data: TestFail) => void): this;
         on(event: 'test:pass', listener: (data: TestPass) => void): this;
+        on(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        on(event: 'test:start', listener: (data: TestStart) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'test:diagnostic', listener: (message: string) => void): this;
+        once(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         once(event: 'test:fail', listener: (data: TestFail) => void): this;
         once(event: 'test:pass', listener: (data: TestPass) => void): this;
+        once(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        once(event: 'test:start', listener: (data: TestStart) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+        prependListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         prependListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         prependListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        prependListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        prependListener(event: 'test:start', listener: (data: TestStart) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+        prependOnceListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         prependOnceListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         prependOnceListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        prependOnceListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
+        prependOnceListener(event: 'test:start', listener: (data: TestStart) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     }
-
+    interface DiagnosticData {
+        /**
+         * The diagnostic message.
+         */
+        message: string;
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
+    }
     interface TestFail {
         /**
-         * The test duration.
+         * Additional execution metadata.
          */
-        duration: number;
-
-        /**
-         * The failure casing test to fail.
-         */
-        error: Error;
-
+        details: {
+            /**
+             * The duration of the test in milliseconds.
+             */
+            duration: number;
+            /**
+             * The error thrown by the test.
+             */
+            error: Error;
+        };
         /**
          * The test name.
          */
         name: string;
-
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
         /**
          * The ordinal number of the test.
          */
         testNumber: number;
-
         /**
          * Present if `context.todo` is called.
          */
-        todo?: string;
-
+        todo?: string | boolean;
         /**
          * Present if `context.skip` is called.
          */
-        skip?: string;
+        skip?: string | boolean;
     }
-
     interface TestPass {
         /**
-         * The test duration.
+         * Additional execution metadata.
          */
-        duration: number;
-
+        details: {
+            /**
+             * The duration of the test in milliseconds.
+             */
+            duration: number;
+        };
         /**
          * The test name.
          */
         name: string;
-
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
         /**
          * The ordinal number of the test.
          */
         testNumber: number;
-
         /**
          * Present if `context.todo` is called.
          */
-        todo?: string;
-
+        todo?: string | boolean;
         /**
          * Present if `context.skip` is called.
          */
-        skip?: string;
+        skip?: string | boolean;
     }
-
+    interface TestPlan {
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
+        /**
+         * The number of subtests that have ran.
+         */
+        count: number;
+    }
+    interface TestStart {
+        /**
+         * The test name.
+         */
+        name: string;
+        /**
+         * The nesting level of the test.
+         */
+        nesting: number;
+    }
     /**
-     * An instance of `TestContext` is passed to each test function in order to interact with the
-     * test runner. However, the `TestContext` constructor is not exposed as part of the API.
-     * @since v18.0.0
+     * An instance of `TestContext` is passed to each test function in order to
+     * interact with the test runner. However, the `TestContext` constructor is not
+     * exposed as part of the API.
+     * @since v18.0.0, v16.17.0
      */
-    interface TestContext {
+    class TestContext {
+        /**
+         * This function is used to create a hook running before subtest of the current test.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+         *    the second argument. Default: A no-op function.
+         * @param options Configuration options for the hook.
+         * @since v20.1.0
+         */
+        before: typeof before;
         /**
          * This function is used to create a hook running before each subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
@@ -263,7 +458,14 @@ declare module 'node:test' {
          * @since v18.8.0
          */
         beforeEach: typeof beforeEach;
-
+        /**
+         * This function is used to create a hook that runs after the current test finishes.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+         *    the second argument. Default: A no-op function.
+         * @param options Configuration options for the hook.
+         * @since v18.13.0
+         */
+        after: typeof after;
         /**
          * This function is used to create a hook running after each subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
@@ -272,54 +474,84 @@ declare module 'node:test' {
          * @since v18.8.0
          */
         afterEach: typeof afterEach;
-
         /**
-         * This function is used to write TAP diagnostics to the output. Any diagnostic information is
-         * included at the end of the test's results. This function does not return a value.
-         * @param message Message to be displayed as a TAP diagnostic.
-         * @since v18.0.0
+         * This function is used to write diagnostics to the output. Any diagnostic
+         * information is included at the end of the test's results. This function does
+         * not return a value.
+         *
+         * ```js
+         * test('top level test', (t) => {
+         *   t.diagnostic('A diagnostic message');
+         * });
+         * ```
+         * @since v18.0.0, v16.17.0
+         * @param message Message to be reported.
          */
         diagnostic(message: string): void;
-
         /**
          * The name of the test.
-         * @since v18.8.0
+         * @since v18.8.0, v16.18.0
          */
         readonly name: string;
-
         /**
-         * If `shouldRunOnlyTests` is truthy, the test context will only run tests that have the `only`
-         * option set. Otherwise, all tests are run. If Node.js was not started with the `--test-only`
-         * command-line option, this function is a no-op.
+         * If `shouldRunOnlyTests` is truthy, the test context will only run tests that
+         * have the `only` option set. Otherwise, all tests are run. If Node.js was not
+         * started with the `--test-only` command-line option, this function is a
+         * no-op.
+         *
+         * ```js
+         * test('top level test', (t) => {
+         *   // The test context can be set to run subtests with the 'only' option.
+         *   t.runOnly(true);
+         *   return Promise.all([
+         *     t.test('this subtest is now skipped'),
+         *     t.test('this subtest is run', { only: true }),
+         *   ]);
+         * });
+         * ```
+         * @since v18.0.0, v16.17.0
          * @param shouldRunOnlyTests Whether or not to run `only` tests.
-         * @since v18.0.0
          */
         runOnly(shouldRunOnlyTests: boolean): void;
-
         /**
-         * Can be used to abort test subtasks when the test has been aborted.
-         * @since v18.7.0
+         * ```js
+         * test('top level test', async (t) => {
+         *   await fetch('some/uri', { signal: t.signal });
+         * });
+         * ```
+         * @since v18.7.0, v16.17.0
          */
         readonly signal: AbortSignal;
-
         /**
-         * This function causes the test's output to indicate the test as skipped. If `message` is
-         * provided, it is included in the TAP output. Calling `skip()` does not terminate execution of
-         * the test function. This function does not return a value.
-         * @param message Optional skip message to be displayed in TAP output.
-         * @since v18.0.0
+         * This function causes the test's output to indicate the test as skipped. If`message` is provided, it is included in the output. Calling `skip()` does
+         * not terminate execution of the test function. This function does not return a
+         * value.
+         *
+         * ```js
+         * test('top level test', (t) => {
+         *   // Make sure to return here as well if the test contains additional logic.
+         *   t.skip('this is skipped');
+         * });
+         * ```
+         * @since v18.0.0, v16.17.0
+         * @param message Optional skip message.
          */
         skip(message?: string): void;
-
         /**
-         * This function adds a `TODO` directive to the test's output. If `message` is provided, it is
-         * included in the TAP output. Calling `todo()` does not terminate execution of the test
-         * function. This function does not return a value.
-         * @param message Optional `TODO` message to be displayed in TAP output.
-         * @since v18.0.0
+         * This function adds a `TODO` directive to the test's output. If `message` is
+         * provided, it is included in the output. Calling `todo()` does not terminate
+         * execution of the test function. This function does not return a value.
+         *
+         * ```js
+         * test('top level test', (t) => {
+         *   // This test is marked as `TODO`
+         *   t.todo('this is a todo');
+         * });
+         * ```
+         * @since v18.0.0, v16.17.0
+         * @param message Optional `TODO` message.
          */
         todo(message?: string): void;
-
         /**
          * This function is used to create subtests under the current test. This function behaves in
          * the same fashion as the top level {@link test} function.
@@ -333,8 +565,11 @@ declare module 'node:test' {
          * @returns A {@link Promise} resolved with `undefined` once the test completes.
          */
         test: typeof test;
+        /**
+         * Each test provides its own MockTracker instance.
+         */
+        readonly mock: MockTracker;
     }
-
     interface TestOptions {
         /**
          * If a number is provided, then that many tests would run in parallel.
@@ -345,27 +580,23 @@ declare module 'node:test' {
          * @default false
          */
         concurrency?: number | boolean | undefined;
-
         /**
          * If truthy, and the test context is configured to run `only` tests, then this test will be
          * run. Otherwise, the test is skipped.
          * @default false
          */
         only?: boolean | undefined;
-
         /**
          * Allows aborting an in-progress test.
          * @since v18.8.0
          */
         signal?: AbortSignal | undefined;
-
         /**
          * If truthy, the test is skipped. If a string is provided, that string is displayed in the
          * test results as the reason for skipping the test.
          * @default false
          */
         skip?: boolean | string | undefined;
-
         /**
          * A number of milliseconds the test will fail after. If unspecified, subtests inherit this
          * value from their parent.
@@ -373,7 +604,6 @@ declare module 'node:test' {
          * @since v18.7.0
          */
         timeout?: number | undefined;
-
         /**
          * If truthy, the test marked as `TODO`. If a string is provided, that string is displayed in
          * the test results as the reason why the test is `TODO`.
@@ -381,49 +611,77 @@ declare module 'node:test' {
          */
         todo?: boolean | string | undefined;
     }
-
     /**
      * This function is used to create a hook running before running a suite.
-     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-     *    the second argument. Default: A no-op function.
-     * @param options Configuration options for the hook.
-     * @since v18.8.0
+     *
+     * ```js
+     * describe('tests', async () => {
+     *   before(() => console.log('about to run some test'));
+     *   it('is a subtest', () => {
+     *     assert.ok('some relevant assertion here');
+     *   });
+     * });
+     * ```
+     * @since v18.8.0, v16.18.0
+     * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+     * @param options Configuration options for the hook. The following properties are supported:
      */
     function before(fn?: HookFn, options?: HookOptions): void;
-
     /**
-     * This function is used to create a hook running after running a suite.
-     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-     *    the second argument. Default: A no-op function.
-     * @param options Configuration options for the hook.
-     * @since v18.8.0
+     * This function is used to create a hook running after  running a suite.
+     *
+     * ```js
+     * describe('tests', async () => {
+     *   after(() => console.log('finished running tests'));
+     *   it('is a subtest', () => {
+     *     assert.ok('some relevant assertion here');
+     *   });
+     * });
+     * ```
+     * @since v18.8.0, v16.18.0
+     * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+     * @param options Configuration options for the hook. The following properties are supported:
      */
     function after(fn?: HookFn, options?: HookOptions): void;
-
     /**
-     * This function is used to create a hook running before each subtest of the current suite.
-     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-     *    the second argument. Default: A no-op function.
-     * @param options Configuration options for the hook.
-     * @since v18.8.0
+     * This function is used to create a hook running
+     * before each subtest of the current suite.
+     *
+     * ```js
+     * describe('tests', async () => {
+     *   beforeEach(() => console.log('about to run a test'));
+     *   it('is a subtest', () => {
+     *     assert.ok('some relevant assertion here');
+     *   });
+     * });
+     * ```
+     * @since v18.8.0, v16.18.0
+     * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+     * @param options Configuration options for the hook. The following properties are supported:
      */
     function beforeEach(fn?: HookFn, options?: HookOptions): void;
-
     /**
-     * This function is used to create a hook running after each subtest of the current test.
-     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-     *    the second argument. Default: A no-op function.
-     * @param options Configuration options for the hook.
-     * @since v18.8.0
+     * This function is used to create a hook running
+     * after each subtest of the current test.
+     *
+     * ```js
+     * describe('tests', async () => {
+     *   afterEach(() => console.log('finished running a test'));
+     *   it('is a subtest', () => {
+     *     assert.ok('some relevant assertion here');
+     *   });
+     * });
+     * ```
+     * @since v18.8.0, v16.18.0
+     * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+     * @param options Configuration options for the hook. The following properties are supported:
      */
     function afterEach(fn?: HookFn, options?: HookOptions): void;
-
     /**
      * The hook function. If the hook uses callbacks, the callback function is passed as the
      * second argument.
      */
     type HookFn = (done: (result?: any) => void) => any;
-
     /**
      * Configuration options for hooks.
      * @since v18.8.0
@@ -433,7 +691,6 @@ declare module 'node:test' {
          * Allows aborting an in-progress hook.
          */
         signal?: AbortSignal | undefined;
-
         /**
          * A number of milliseconds the hook will fail after. If unspecified, subtests inherit this
          * value from their parent.
@@ -441,6 +698,355 @@ declare module 'node:test' {
          */
         timeout?: number | undefined;
     }
+    interface MockFunctionOptions {
+        /**
+         * The number of times that the mock will use the behavior of `implementation`.
+         * Once the mock function has been called `times` times,
+         * it will automatically restore the behavior of `original`.
+         * This value must be an integer greater than zero.
+         * @default Infinity
+         */
+        times?: number | undefined;
+    }
+    interface MockMethodOptions extends MockFunctionOptions {
+        /**
+         * If `true`, `object[methodName]` is treated as a getter.
+         * This option cannot be used with the `setter` option.
+         */
+        getter?: boolean | undefined;
+        /**
+         * If `true`, `object[methodName]` is treated as a setter.
+         * This option cannot be used with the `getter` option.
+         */
+        setter?: boolean | undefined;
+    }
+    type Mock<F extends Function> = F & {
+        mock: MockFunctionContext<F>;
+    };
+    type NoOpFunction = (...args: any[]) => undefined;
+    type FunctionPropertyNames<T> = {
+        [K in keyof T]: T[K] extends Function ? K : never;
+    }[keyof T];
+    /**
+     * The `MockTracker` class is used to manage mocking functionality. The test runner
+     * module provides a top level `mock` export which is a `MockTracker` instance.
+     * Each test also provides its own `MockTracker` instance via the test context's`mock` property.
+     * @since v19.1.0, v18.13.0
+     */
+    class MockTracker {
+        /**
+         * This function is used to create a mock function.
+         *
+         * The following example creates a mock function that increments a counter by one
+         * on each invocation. The `times` option is used to modify the mock behavior such
+         * that the first two invocations add two to the counter instead of one.
+         *
+         * ```js
+         * test('mocks a counting function', (t) => {
+         *   let cnt = 0;
+         *
+         *   function addOne() {
+         *     cnt++;
+         *     return cnt;
+         *   }
+         *
+         *   function addTwo() {
+         *     cnt += 2;
+         *     return cnt;
+         *   }
+         *
+         *   const fn = t.mock.fn(addOne, addTwo, { times: 2 });
+         *
+         *   assert.strictEqual(fn(), 2);
+         *   assert.strictEqual(fn(), 4);
+         *   assert.strictEqual(fn(), 5);
+         *   assert.strictEqual(fn(), 6);
+         * });
+         * ```
+         * @since v19.1.0, v18.13.0
+         * @param [original='A no-op function'] An optional function to create a mock on.
+         * @param implementation An optional function used as the mock implementation for `original`. This is useful for creating mocks that exhibit one behavior for a specified number of calls and
+         * then restore the behavior of `original`.
+         * @param options Optional configuration options for the mock function. The following properties are supported:
+         * @return The mocked function. The mocked function contains a special `mock` property, which is an instance of {@link MockFunctionContext}, and can be used for inspecting and changing the
+         * behavior of the mocked function.
+         */
+        fn<F extends Function = NoOpFunction>(original?: F, options?: MockFunctionOptions): Mock<F>;
+        fn<F extends Function = NoOpFunction, Implementation extends Function = F>(original?: F, implementation?: Implementation, options?: MockFunctionOptions): Mock<F | Implementation>;
+        /**
+         * This function is used to create a mock on an existing object method. The
+         * following example demonstrates how a mock is created on an existing object
+         * method.
+         *
+         * ```js
+         * test('spies on an object method', (t) => {
+         *   const number = {
+         *     value: 5,
+         *     subtract(a) {
+         *       return this.value - a;
+         *     },
+         *   };
+         *
+         *   t.mock.method(number, 'subtract');
+         *   assert.strictEqual(number.subtract.mock.calls.length, 0);
+         *   assert.strictEqual(number.subtract(3), 2);
+         *   assert.strictEqual(number.subtract.mock.calls.length, 1);
+         *
+         *   const call = number.subtract.mock.calls[0];
+         *
+         *   assert.deepStrictEqual(call.arguments, [3]);
+         *   assert.strictEqual(call.result, 2);
+         *   assert.strictEqual(call.error, undefined);
+         *   assert.strictEqual(call.target, undefined);
+         *   assert.strictEqual(call.this, number);
+         * });
+         * ```
+         * @since v19.1.0, v18.13.0
+         * @param object The object whose method is being mocked.
+         * @param methodName The identifier of the method on `object` to mock. If `object[methodName]` is not a function, an error is thrown.
+         * @param implementation An optional function used as the mock implementation for `object[methodName]`.
+         * @param options Optional configuration options for the mock method. The following properties are supported:
+         * @return The mocked method. The mocked method contains a special `mock` property, which is an instance of {@link MockFunctionContext}, and can be used for inspecting and changing the
+         * behavior of the mocked method.
+         */
+        method<
+            MockedObject extends object,
+            MethodName extends FunctionPropertyNames<MockedObject>,
+        >(
+            object: MockedObject,
+            methodName: MethodName,
+            options?: MockFunctionOptions,
+        ): MockedObject[MethodName] extends Function
+            ? Mock<MockedObject[MethodName]>
+            : never;
+        method<
+            MockedObject extends object,
+            MethodName extends FunctionPropertyNames<MockedObject>,
+            Implementation extends Function,
+        >(
+            object: MockedObject,
+            methodName: MethodName,
+            implementation: Implementation,
+            options?: MockFunctionOptions,
+        ): MockedObject[MethodName] extends Function
+            ? Mock<MockedObject[MethodName] | Implementation>
+            : never;
+        method<MockedObject extends object>(
+            object: MockedObject,
+            methodName: keyof MockedObject,
+            options: MockMethodOptions,
+        ): Mock<Function>;
+        method<MockedObject extends object>(
+            object: MockedObject,
+            methodName: keyof MockedObject,
+            implementation: Function,
+            options: MockMethodOptions,
+        ): Mock<Function>;
 
-    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach };
+        /**
+         * This function is syntax sugar for `MockTracker.method` with `options.getter`set to `true`.
+         * @since v19.3.0, v18.13.0
+         */
+        getter<
+            MockedObject extends object,
+            MethodName extends keyof MockedObject,
+        >(
+            object: MockedObject,
+            methodName: MethodName,
+            options?: MockFunctionOptions,
+        ): Mock<() => MockedObject[MethodName]>;
+        getter<
+            MockedObject extends object,
+            MethodName extends keyof MockedObject,
+            Implementation extends Function,
+        >(
+            object: MockedObject,
+            methodName: MethodName,
+            implementation?: Implementation,
+            options?: MockFunctionOptions,
+        ): Mock<(() => MockedObject[MethodName]) | Implementation>;
+        /**
+         * This function is syntax sugar for `MockTracker.method` with `options.setter`set to `true`.
+         * @since v19.3.0, v18.13.0
+         */
+        setter<
+            MockedObject extends object,
+            MethodName extends keyof MockedObject,
+        >(
+            object: MockedObject,
+            methodName: MethodName,
+            options?: MockFunctionOptions,
+        ): Mock<(value: MockedObject[MethodName]) => void>;
+        setter<
+            MockedObject extends object,
+            MethodName extends keyof MockedObject,
+            Implementation extends Function,
+        >(
+            object: MockedObject,
+            methodName: MethodName,
+            implementation?: Implementation,
+            options?: MockFunctionOptions,
+        ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
+        /**
+         * This function restores the default behavior of all mocks that were previously
+         * created by this `MockTracker` and disassociates the mocks from the`MockTracker` instance. Once disassociated, the mocks can still be used, but the`MockTracker` instance can no longer be
+         * used to reset their behavior or
+         * otherwise interact with them.
+         *
+         * After each test completes, this function is called on the test context's`MockTracker`. If the global `MockTracker` is used extensively, calling this
+         * function manually is recommended.
+         * @since v19.1.0, v18.13.0
+         */
+        reset(): void;
+        /**
+         * This function restores the default behavior of all mocks that were previously
+         * created by this `MockTracker`. Unlike `mock.reset()`, `mock.restoreAll()` does
+         * not disassociate the mocks from the `MockTracker` instance.
+         * @since v19.1.0, v18.13.0
+         */
+        restoreAll(): void;
+    }
+    const mock: MockTracker;
+    interface MockFunctionCall<
+        F extends Function,
+        ReturnType = F extends (...args: any) => infer T
+            ? T
+            : F extends abstract new (...args: any) => infer T
+                ? T
+                : unknown,
+        Args = F extends (...args: infer Y) => any
+            ? Y
+            : F extends abstract new (...args: infer Y) => any
+                ? Y
+                : unknown[],
+    > {
+        /**
+         * An array of the arguments passed to the mock function.
+         */
+        arguments: Args;
+        /**
+         * If the mocked function threw then this property contains the thrown value.
+         */
+        error: unknown | undefined;
+        /**
+         * The value returned by the mocked function.
+         *
+         * If the mocked function threw, it will be `undefined`.
+         */
+        result: ReturnType | undefined;
+        /**
+         * An `Error` object whose stack can be used to determine the callsite of the mocked function invocation.
+         */
+        stack: Error;
+        /**
+         * If the mocked function is a constructor, this field contains the class being constructed.
+         * Otherwise this will be `undefined`.
+         */
+        target: F extends abstract new (...args: any) => any ? F : undefined;
+        /**
+         * The mocked function's `this` value.
+         */
+        this: unknown;
+    }
+    /**
+     * The `MockFunctionContext` class is used to inspect or manipulate the behavior of
+     * mocks created via the `MockTracker` APIs.
+     * @since v19.1.0, v18.13.0
+     */
+    class MockFunctionContext<F extends Function> {
+        /**
+         * A getter that returns a copy of the internal array used to track calls to the
+         * mock. Each entry in the array is an object with the following properties.
+         * @since v19.1.0, v18.13.0
+         */
+        readonly calls: Array<MockFunctionCall<F>>;
+        /**
+         * This function returns the number of times that this mock has been invoked. This
+         * function is more efficient than checking `ctx.calls.length` because `ctx.calls`is a getter that creates a copy of the internal call tracking array.
+         * @since v19.1.0, v18.13.0
+         * @return The number of times that this mock has been invoked.
+         */
+        callCount(): number;
+        /**
+         * This function is used to change the behavior of an existing mock.
+         *
+         * The following example creates a mock function using `t.mock.fn()`, calls the
+         * mock function, and then changes the mock implementation to a different function.
+         *
+         * ```js
+         * test('changes a mock behavior', (t) => {
+         *   let cnt = 0;
+         *
+         *   function addOne() {
+         *     cnt++;
+         *     return cnt;
+         *   }
+         *
+         *   function addTwo() {
+         *     cnt += 2;
+         *     return cnt;
+         *   }
+         *
+         *   const fn = t.mock.fn(addOne);
+         *
+         *   assert.strictEqual(fn(), 1);
+         *   fn.mock.mockImplementation(addTwo);
+         *   assert.strictEqual(fn(), 3);
+         *   assert.strictEqual(fn(), 5);
+         * });
+         * ```
+         * @since v19.1.0, v18.13.0
+         * @param implementation The function to be used as the mock's new implementation.
+         */
+        mockImplementation(implementation: Function): void;
+        /**
+         * This function is used to change the behavior of an existing mock for a single
+         * invocation. Once invocation `onCall` has occurred, the mock will revert to
+         * whatever behavior it would have used had `mockImplementationOnce()` not been
+         * called.
+         *
+         * The following example creates a mock function using `t.mock.fn()`, calls the
+         * mock function, changes the mock implementation to a different function for the
+         * next invocation, and then resumes its previous behavior.
+         *
+         * ```js
+         * test('changes a mock behavior once', (t) => {
+         *   let cnt = 0;
+         *
+         *   function addOne() {
+         *     cnt++;
+         *     return cnt;
+         *   }
+         *
+         *   function addTwo() {
+         *     cnt += 2;
+         *     return cnt;
+         *   }
+         *
+         *   const fn = t.mock.fn(addOne);
+         *
+         *   assert.strictEqual(fn(), 1);
+         *   fn.mock.mockImplementationOnce(addTwo);
+         *   assert.strictEqual(fn(), 3);
+         *   assert.strictEqual(fn(), 4);
+         * });
+         * ```
+         * @since v19.1.0, v18.13.0
+         * @param implementation The function to be used as the mock's implementation for the invocation number specified by `onCall`.
+         * @param onCall The invocation number that will use `implementation`. If the specified invocation has already occurred then an exception is thrown.
+         */
+        mockImplementationOnce(implementation: Function, onCall?: number): void;
+        /**
+         * Resets the call history of the mock function.
+         * @since v19.3.0, v18.13.0
+         */
+        resetCalls(): void;
+        /**
+         * Resets the implementation of the mock function to its original behavior. The
+         * mock can still be used after calling this function.
+         * @since v19.1.0, v18.13.0
+         */
+        restore(): void;
+    }
+    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
 }

@@ -192,3 +192,14 @@ const TestDayOfWeekStyles = () => {
 const TestCustomComponents = () => {
     return <CalendarPicker nextComponent={<View></View>} previousComponent={[<TextInput />]} />;
 };
+
+const TestInitialViewValues = () => {
+    return (
+        <>
+            <CalendarPicker initialView={"days"} />
+            <CalendarPicker initialView={"months"} />
+            <CalendarPicker initialView={"years"} />
+            <CalendarPicker initialView={undefined} />
+        </>
+    );
+};

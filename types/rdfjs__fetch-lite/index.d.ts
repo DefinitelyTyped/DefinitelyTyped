@@ -1,9 +1,10 @@
 // Type definitions for @rdfjs/fetch-lite 3.0
 // Project: https://github.com/rdfjs-base/fetch-lite
 // Definitions by: tpluscode <https://github.com/tpluscode>
+//                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DatasetCoreFactory, DatasetCore, Quad, Stream, BaseQuad } from 'rdf-js';
+import { DatasetCoreFactory, DatasetCore, Quad, Stream, BaseQuad } from '@rdfjs/types';
 import * as formats from '@rdfjs/formats-common';
 
 export interface FormatsInit extends RequestInit {

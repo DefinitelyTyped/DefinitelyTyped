@@ -23,10 +23,10 @@ declare namespace Team {
     }
 
     /**
-     * @prop managers - An array of managing administrator IDs.
-     * @prop name - A unique name for the team.
-     * @prop workers - An array of worker IDs.
-     * @prop hub - Optional. The ID of the team's hub.
+     * managers - An array of managing administrator IDs.
+     * name - A unique name for the team.
+     * workers - An array of worker IDs.
+     * hub - Optional. The ID of the team's hub.
      */
     interface CreateTeamProps {
         managers: string[];

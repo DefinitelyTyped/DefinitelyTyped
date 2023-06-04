@@ -31,7 +31,7 @@ declare class DataSourceColumn {
     private getBackDepth;
     private setBackDepth;
     private getSource_;
-    formatDimension(value: any): string;
+    formatDimension(value: any): any;
     private updateDimensionDataType_;
     private updatePrefix_;
     private prefix_;

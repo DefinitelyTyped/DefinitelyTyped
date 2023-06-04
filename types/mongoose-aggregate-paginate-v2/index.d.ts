@@ -34,6 +34,7 @@ declare module 'mongoose' {
         pagination?: boolean | undefined;
         allowDiskUse?: boolean | undefined;
         countQuery?: object | undefined;
+        useFacet?: boolean | undefined;
     }
 
     interface QueryPopulateOptions {
@@ -66,8 +67,8 @@ declare module 'mongoose' {
         [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
-    interface AggregatePaginateModel<T extends Document> extends Model<T> {
-        aggregatePaginate(
+    interface AggregatePaginateModel<D> extends Model<D> {
+        aggregatePaginate<T>(
             query?: Aggregate<T[]>,
             options?: PaginateOptions,
             callback?: (err: any, result: AggregatePaginateResult<T>) => void,

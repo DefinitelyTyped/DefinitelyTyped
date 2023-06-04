@@ -4,7 +4,7 @@
 
 Также посетите веб-сайт [definitelytyped.org](https://definitelytyped.org), хотя информация в этом README более свежая.
 
-_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md)._
+_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md)._
 
 <!-- For translators: add link to README.ja.md above! -->
 
@@ -377,8 +377,8 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 Если в Definitely Typed есть другие пакеты, несовместимые с новой версией, вам нужно будет добавить сопоставления путей к старой версии. Вам также нужно будет сделать это для пакетов в зависимости от пакетов в зависимости от старой версии.
 
-Например, `react-router` зависит от `history@2`, поэтому [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) есть сопоставление пути с `"history": [ "history/v2" ]`;
-транзитивно `react-router-bootstrap` (который зависит от `react-router`) также добавляет отображение пути в свой [`tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
+Например, `browser-sync` зависит от `micromatch@2`, поэтому [browser-sync `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) есть сопоставление пути с `"micromatch": [ "micromatch/v2" ]`;
+транзитивно `browser-sync-webpack-plugin` (который зависит от `browser-sync`) также добавляет отображение пути в свой [`tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync-webpack-plugin/tsconfig.json).
 
 Также, `/// <reference types=".." />` не будет работать с отображением пути, поэтому зависимости должны использовать `import`.
 

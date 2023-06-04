@@ -7,7 +7,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/** 
+/**
  * @author Richard <richardo2016@gmail.com>
  *
  */
@@ -19,61 +19,54 @@
 /** module Or Internal Object */
 /**
     * @brief 事件信息对象，用于在事件中传递信息
-    * @detail 
+    * @detail
     */
 
 declare class Class_EventInfo extends Class__object {
-    
+
     /**
-     * class prop 
+     * class prop
      *
-     * 
+     *
      * 查询事件错误编码
-     * 
-     * @readonly
-     * @type Integer
+     *
+     * @note Assumed to be an integer.
      */
-    
+
     code: number
-    
+
     /**
-     * class prop 
+     * class prop
      *
-     * 
+     *
      * 查询事件错误信息
-     * 
-     * @readonly
-     * @type String
+     *
      */
-    
+
     reason: string
-    
+
     /**
-     * class prop 
+     * class prop
      *
-     * 
+     *
      * 查询事件类型
-     * 
-     * @readonly
-     * @type String
-     */
-    
-    type: string
-    
-    /**
-     * class prop 
      *
-     * 
-     * 查询触发事件的对象
-     * 
-     * @readonly
-     * @type Object
      */
-    
+
+    type: string
+
+    /**
+     * class prop
+     *
+     *
+     * 查询触发事件的对象
+     *
+     */
+
     target: object
-    
-    
-    
+
+
+
 } /** endof class */
 
 /** endof `module Or Internal Object` */

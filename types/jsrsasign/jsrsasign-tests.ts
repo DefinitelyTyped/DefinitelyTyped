@@ -27,6 +27,14 @@ new KJUR.asn1.x509.AuthorityKeyIdentifier({
 
 KEYUTIL.getKey('pemPKCS1PrivateKey');
 
+KEYUTIL.generateKeypair('RSA', 2048); // $ExpectType { prvKeyObj: RSAKey; pubKeyObj: RSAKey; }
+KEYUTIL.generateKeypair('EC', 'secp256r1'); // $ExpectType { prvKeyObj: ECDSA; pubKeyObj: ECDSA; }
+
+const key = new RSAKey();
+const sig = key.signWithMessageHash('1234', 'sha256');
+
+key.verifyWithMessageHash('1234', sig); // $ExpectType boolean
+
 b64toBA('ZXhhbXBsZQ=='); // $ExpectType number[]
 b64tohex('ZXhhbXBsZQ=='); // $ExpectType string
 
@@ -70,7 +78,7 @@ R5M5azDV1CIhIeOTiPA/mq5fL1UrgVbB+IATIsUAQfuWivDyoeu96LB/QswyHAWG
 KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', undefined, { utf8: '123abc' });
 KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', undefined, '123abc');
 KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', pemPublicKey, '123abc');
-KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', { b64: 'ZXhhbXBsZQ==' },  '123abc');
+KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', { b64: 'ZXhhbXBsZQ==' }, '123abc');
 
 KJUR.jws.JWS.verifyJWT('', new RSAKey(), {});
 KJUR.jws.JWS.verifyJWT('', '', {});
@@ -113,6 +121,13 @@ const tbscert = new KJUR.asn1.x509.TBSCertificate({
             names: ['digitalSignature', 'keyEncipherment'],
         },
         {
+            extname: 'authorityKeyIdentifier',
+            critical: true,
+            kid: { hex: '01020304' },
+            issuer: { str: '/C=US/CN=TEST' },
+            sn: { hex: '01020304' },
+        },
+        {
             extname: 'cRLDistributionPoints',
             array: [{ dpname: { full: [{ uri: 'http://example.com/a1.crl' }] } }],
         },
@@ -123,6 +138,7 @@ new KJUR.asn1.x509.Certificate({ tbsobj: tbscert, sigalg: 'SHA256withRSA', cakey
 // ASN1HEX
 ASN1HEX.checkStrictDER('0203012345');
 ASN1HEX.oidname('551d25');
+ASN1HEX.getString('01020304', 0);
 
 // X509CRL
 const x509crl = new X509CRL(`-----BEGIN X509 CRL-----

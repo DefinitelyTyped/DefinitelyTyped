@@ -106,7 +106,6 @@ export interface IKey {
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
  *
- * @enum {string}
  */
 export const Key: IKey;
 

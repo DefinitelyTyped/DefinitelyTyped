@@ -2,7 +2,7 @@
 // Project: https://github.com/shadowwalker/next-pwa#readme
 // Definitions by: Nivaldo Farias <https://github.com/NivaldoFarias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
+// Minimum TypeScript Version: 5.1
 
 /// <reference types="react"/>
 
@@ -17,7 +17,7 @@ declare global {
     /**
      * PopStateEvent is an event handler for the popstate event on the window.
      *
-     * @virtual Re-declare type to allow tsconfig `lib: ["es6", "webworker"]` to work.
+     * Re-declare type to allow tsconfig `lib: ["es6", "webworker"]` to work.
      * @see [DOM and WebWorker Should not be mutually exclusive](https://github.com/microsoft/TypeScript/issues/20595)
      */
     interface PopStateEvent extends Event {

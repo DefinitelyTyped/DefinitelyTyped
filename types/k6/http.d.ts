@@ -124,6 +124,26 @@ export function request<RT extends ResponseType | undefined>(
 ): RefinedResponse<RT>;
 
 /**
+ * Make async request.
+ * https://k6.io/docs/javascript-api/k6-http/asyncrequest/
+ * @param method - HTTP method.
+ * @param url - Request URL.
+ * @param body - Request body. Object form encoded.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ * @example
+ * let formData = {name: 'k6'};
+ * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+ * http.asyncRequest('POST', url, formData, { headers: headers });
+ */
+export function asyncRequest<RT extends ResponseType | undefined>(
+    method: string,
+    url: string | HttpURL,
+    body?: RequestBody | null,
+    params?: RefinedParams<RT> | null
+): Promise<RefinedResponse<RT>>;
+
+/**
  * Batch multiple HTTP requests together,
  * to issue them in parallel over multiple TCP connections.
  * https://k6.io/docs/javascript-api/k6-http/batch-requests
@@ -605,7 +625,7 @@ export type ResponseBody = string | bytes | null;
 /**
  * Refined response body.
  * Best possible type given `responseType` from request parameters.
- * @typeParam RT - `Params.responseType` value.
+ * @template RT - `Params.responseType` value.
  * @privateRemarks Default type is a union due to depending on program options.
  */
 export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends 'binary'
@@ -902,6 +922,26 @@ declare namespace http {
         body?: RequestBody | null,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
+
+    /**
+     * Make async request.
+     * https://k6.io/docs/javascript-api/k6-http/asyncrequest/
+     * @param method - HTTP method.
+     * @param url - Request URL.
+     * @param body - Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @example
+     * let formData = {name: 'k6'};
+     * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+     * http.asyncRequest('POST', url, formData, { headers: headers });
+     */
+    function asyncRequest<RT extends ResponseType | undefined>(
+        method: string,
+        url: string | HttpURL,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): Promise<RefinedResponse<RT>>;
 
     /**
      * Creates a URL with set name tag.

@@ -2,6 +2,7 @@
     "rules": {
         "dt-header": "off",
         "trim-file": "off",
-        "no-unnecessary-generics": "off"
+        "no-unnecessary-generics": "off",
+        "no-single-element-tuple-type": "off"
     }
 }

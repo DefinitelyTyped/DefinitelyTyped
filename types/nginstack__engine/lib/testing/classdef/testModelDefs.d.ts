@@ -1,10 +1,2 @@
-declare function _exports(
-    opt_options?:
-        | Record<any, any>
-        | {
-              baseClass: number;
-              products: number[];
-              forceStrictMode: boolean;
-          }
-): number;
+declare function _exports(opt_options?: any): number;
 export = _exports;

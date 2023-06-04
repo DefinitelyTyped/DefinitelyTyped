@@ -173,7 +173,7 @@ declare namespace formidable {
          *
          * @default null
          */
-        fileWriteStreamHandler?: (() => Writable) | undefined;
+        fileWriteStreamHandler?: ((file?: VolatileFile) => Writable) | undefined;
 
         /**
          * when you call the .parse method, the files argument (of the callback) will contain arrays of
@@ -213,7 +213,7 @@ declare namespace formidable {
     /**
      * @link https://github.com/node-formidable/formidable#file
      */
-    interface FileJSON extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash"> {
+    interface FileJSON extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash" | "newFilename"> {
         length: number;
         mimetype: string | null;
         mtime: Date | null;

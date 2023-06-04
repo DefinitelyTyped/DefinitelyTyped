@@ -3,7 +3,7 @@ import { Component, ReactNode } from 'react';
 type RefHandler<
     RefElement extends undefined | HTMLElement,
     ImplicitRefHandler extends (node: HTMLElement, ...args: any[]) => void,
-    ExplicitRefHandler extends (...args: any[]) => void
+    ExplicitRefHandler extends (...args: any[]) => void,
 > = {
     implicit: ImplicitRefHandler;
     explicit: ExplicitRefHandler;
@@ -135,7 +135,9 @@ interface BaseTransitionProps<RefElement extends undefined | HTMLElement> {
 }
 
 export type TransitionStatus = typeof ENTERING | typeof ENTERED | typeof EXITING | typeof EXITED | typeof UNMOUNTED;
-export type TransitionChildren = ReactNode | ((status: TransitionStatus) => ReactNode);
+export type TransitionChildren =
+    | ReactNode
+    | ((status: TransitionStatus, childProps?: Record<string, unknown>) => ReactNode);
 
 export interface TimeoutProps<RefElement extends undefined | HTMLElement> extends BaseTransitionProps<RefElement> {
     /**
@@ -187,7 +189,10 @@ export interface EndListenerProps<Ref extends undefined | HTMLElement> extends B
      * - enter defaults to `0`
      * - exit defaults to `0`
      */
-    timeout?: number | { appear?: number | undefined; enter?: number | undefined; exit?: number | undefined } | undefined;
+    timeout?:
+        | number
+        | { appear?: number | undefined; enter?: number | undefined; exit?: number | undefined }
+        | undefined;
     /**
      * Add a custom transition end trigger. Called with the transitioning DOM
      * node and a done callback. Allows for more fine grained transition end

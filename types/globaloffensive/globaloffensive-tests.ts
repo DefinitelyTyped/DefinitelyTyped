@@ -6,6 +6,10 @@ const user = new SteamUser();
 
 type x = keyof typeof GlobalOffensive.GCConnectionStatus;
 
+user.on('debug', message => {
+    console.log(message);
+});
+
 user.on('loggedOn', () => {
     console.log('logged on');
     user.setPersona(SteamUser.EPersonaState.Online);
@@ -45,6 +49,7 @@ csgo.on('connectedToGC', () => {
     csgo.getCasketContents('21889083408', (err, items) => {
         if (!err) console.log(items);
     });
+    csgo.craft([123, 456, 789], 3);
 });
 
 // LISTENERS
@@ -92,6 +97,11 @@ csgo.on('itemCustomizationNotification', (itemIds, notificationType) => {
     if (notificationType === GlobalOffensive.ItemCustomizationNotification.CasketInvFull) {
         console.log(`Storage unit ${itemIds[0]} is full`);
     }
+});
+
+csgo.on('craftingComplete', (recipe, itemsGained) => {
+    recipe; // $ExpectType number
+    itemsGained; // $ExpectType string[]
 });
 
 csgo.on('playersProfile', console.log);

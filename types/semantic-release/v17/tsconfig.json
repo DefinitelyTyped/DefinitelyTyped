@@ -15,6 +15,9 @@
         "paths": {
             "semantic-release": [
                 "semantic-release/v17"
+            ],
+            "semantic-release/*": [
+                "semantic-release/v17/*"
             ]
         },
         "types": [],

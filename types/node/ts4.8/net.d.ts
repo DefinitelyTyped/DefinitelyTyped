@@ -1,16 +1,16 @@
 /**
  * > Stability: 2 - Stable
  *
- * The `net` module provides an asynchronous network API for creating stream-based
+ * The `node:net` module provides an asynchronous network API for creating stream-based
  * TCP or `IPC` servers ({@link createServer}) and clients
  * ({@link createConnection}).
  *
  * It can be accessed using:
  *
  * ```js
- * const net = require('net');
+ * const net = require('node:net');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/net.js)
  */
 declare module 'net' {
     import * as stream from 'node:stream';
@@ -57,6 +57,14 @@ declare module 'net' {
         noDelay?: boolean | undefined;
         keepAlive?: boolean | undefined;
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamily?: boolean | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamilyAttemptTimeout?: number | undefined;
     }
     interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;
@@ -133,13 +141,10 @@ declare module 'net' {
         pause(): this;
         /**
          * Close the TCP connection by sending an RST packet and destroy the stream.
-         * If this TCP socket is in connecting status, it will send an RST packet
-         * and destroy this TCP socket once it is connected. Otherwise, it will call
-         * `socket.destroy` with an `ERR_SOCKET_CLOSED` Error. If this is not a TCP socket
-         * (for example, a pipe), calling this method will immediately throw
-         * an `ERR_INVALID_HANDLE_TYPE` Error.
-         * @since v18.3.0
-         * @return The socket itself.
+         * If this TCP socket is in connecting status, it will send an RST packet and destroy this TCP socket once it is connected.
+         * Otherwise, it will call `socket.destroy` with an `ERR_SOCKET_CLOSED` Error.
+         * If this is not a TCP socket (for example, a pipe), calling this method will immediately throw an `ERR_INVALID_HANDLE_TYPE` Error.
+         * @since v18.3.0, v16.17.0
          */
         resetAndDestroy(): this;
         /**
@@ -262,6 +267,12 @@ declare module 'net' {
          */
         readonly connecting: boolean;
         /**
+         * This is `true` if the socket is not connected yet, either because `.connect()`has not yet been called or because it is still in the process of connecting
+         * (see `socket.connecting`).
+         * @since v11.2.0, v10.16.0
+         */
+        readonly pending: boolean;
+        /**
          * See `writable.destroyed` for further details.
          */
         readonly destroyed: boolean;
@@ -279,12 +290,16 @@ declare module 'net' {
         readonly localPort?: number;
         /**
          * The string representation of the local IP family. `'IPv4'` or `'IPv6'`.
-         * @since v18.8.0
+         * @since v18.8.0, v16.18.0
          */
-         readonly localFamily?: string;
+        readonly localFamily?: string;
         /**
          * This property represents the state of the connection as a string.
-         * @see {https://nodejs.org/api/net.html#socketreadystate}
+         *
+         * * If the stream is connecting `socket.readyState` is `opening`.
+         * * If the stream is readable and writable, it is `open`.
+         * * If the stream is readable and not writable, it is `readOnly`.
+         * * If the stream is not readable and writable, it is `writeOnly`.
          * @since v0.5.0
          */
         readonly readyState: SocketReadyState;
@@ -305,7 +320,8 @@ declare module 'net' {
          */
         readonly remotePort?: number | undefined;
         /**
-         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * The socket timeout in milliseconds as set by `socket.setTimeout()`.
+         * It is `undefined` if a timeout has not been set.
          * @since v10.7.0
          */
         readonly timeout?: number | undefined;
@@ -486,7 +502,7 @@ declare module 'net' {
          * ```js
          * server.on('error', (e) => {
          *   if (e.code === 'EADDRINUSE') {
-         *     console.log('Address in use, retrying...');
+         *     console.error('Address in use, retrying...');
          *     setTimeout(() => {
          *       server.close();
          *       server.listen(PORT, HOST);
@@ -708,7 +724,7 @@ declare module 'net' {
      * on port 8124:
      *
      * ```js
-     * const net = require('net');
+     * const net = require('node:net');
      * const server = net.createServer((c) => {
      *   // 'connection' listener.
      *   console.log('client connected');
@@ -846,6 +862,7 @@ declare module 'net' {
     class SocketAddress {
         constructor(options: SocketAddressInitOptions);
         /**
+         * Either \`'ipv4'\` or \`'ipv6'\`.
          * @since v15.14.0, v14.18.0
          */
         readonly address: string;

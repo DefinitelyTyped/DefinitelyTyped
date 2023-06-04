@@ -134,6 +134,10 @@ class TagHelper {
         return this.createUnknownTag('deprecated', this.fixupCommentFormatting(text, 'deprecated'));
     }
 
+    createLegacyTag(text: string): JSDocUnknownTag {
+        return this.createUnknownTag('legacy', this.fixupCommentFormatting(text, 'legacy'));
+    }
+
     createSeeLinkTag(url: string, text: string): JSDocSeeTag {
         const { factory } = this.docContext.transformationContext;
         return this.docContext.transformationContext.factory.createJSDocSeeTag(
@@ -185,7 +189,7 @@ class TagHelper {
                 tags.push(this.createExperimentalTag());
                 break;
             case Stability.Legacy:
-                tags.push(this.createDeprecatedTag(stabilityText?.replace('Legacy. ', '') ?? 'Legacy API'));
+                tags.push(this.createLegacyTag(stabilityText?.replace('Legacy: ', '').replace('Legacy. ', '') ?? 'Legacy API'));
                 break;
         }
         return tags;
@@ -199,7 +203,7 @@ class TagHelper {
         const tags: JSDocTag[] = [];
         for (const param of sigDoc.params) {
             if (param.desc || param.default) {
-                tags.push(this.createParamTag(param.name.replaceAll('.', ''), param.desc ?? '', param.default));
+                tags.push(this.createParamTag((param.name || '').replaceAll('.', ''), param.desc ?? '', param.default));
             }
         }
         if (sigDoc.return?.desc) {
@@ -303,7 +307,9 @@ export class NodeProcessingContext {
                 };
             }
 
-            properties = classDoc.properties;
+            if (classDoc.properties) {
+                properties = classDoc.properties;
+            }
         }
 
         const propertyDoc = properties?.find(m => {
@@ -386,7 +392,7 @@ export class NodeProcessingContext {
         return {
             status: JSDocMatchResult.Ok,
             data: {
-                text: this.fixupDescriptionFormatting(desc,  moduleDocs.name),
+                text: this.fixupDescriptionFormatting(desc, moduleDocs.name),
                 tags,
             }
         };
@@ -486,7 +492,9 @@ export class NodeProcessingContext {
         this.context.indent = getIndent(node);
         if (isFunctionDeclaration(node)) {
             processRes = this.processFunctionDeclaration(node);
-        } else if (isNamedModuleDeclaration(node) && !node.name.text.startsWith('node:')) { // apparently everything is a module
+        } else if (isNamedModuleDeclaration(node)
+            && !(node.name.text.startsWith('node:') && node.name.text !== 'node:test') // apparently everything is a module
+        ) {
             processRes = this.handleModuleDeclaration();
         } else if (isClassDeclaration(node)) {
             processRes = this.handleClassDeclaration(node);
@@ -512,12 +520,13 @@ export class NodeProcessingContext {
                 transformationContext.factory.createJSDocComment(processRes.data.text, processRes.data.tags),
                 node.getSourceFile(),
             )
-            .replaceAll('/**', '')
-            .replaceAll('*/', '')
-            .replaceAll(/&lt;(.*?)&gt;/g, '$1');
+                .replaceAll('/**', '')
+                .replaceAll('*/', '')
+                .replaceAll(/&lt;(.*?)&gt;/g, '$1');
             const newNode = removeCommentsRecursive(node, transformationContext, typeChecker);
             addSyntheticLeadingComment(newNode, SyntaxKind.MultiLineCommentTrivia, jsdoc, true);
         } else {
+            //console.log(node)
             nodeWarning(node, `Could not match doc for symbol`);
         }
     }

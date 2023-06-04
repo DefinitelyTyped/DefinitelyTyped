@@ -45,6 +45,7 @@ declare module '../../../index' {
          *   Note that smooth() is active by default in 2D
          *   mode, so it is necessary to call noSmooth() to
          *   disable smoothing of geometry, images, and fonts.
+         *
          *   In 3D mode, noSmooth() is enabled by default, so
          *   it is necessary to call smooth() if you would like
          *   smooth (antialiased) edges on your geometry.
@@ -66,7 +67,7 @@ declare module '../../../index' {
          *   and the third and fourth parameters as the
          *   location of the diagonally opposite corner. Note,
          *   the rectangle is drawn between the coordinates, so
-         *   it is not neccesary that the first corner be the
+         *   it is not necessary that the first corner be the
          *   upper left corner.
          *
          *   rectMode(CENTER) interprets the first two
@@ -95,6 +96,7 @@ declare module '../../../index' {
          *   resized images. Note that smooth() is active by
          *   default in 2D mode; noSmooth() can be used to
          *   disable smoothing of geometry, images, and fonts.
+         *
          *   In 3D mode, noSmooth() is enabled by default, so
          *   it is necessary to call smooth() if you would like
          *   smooth (antialiased) edges on your geometry.
@@ -104,35 +106,36 @@ declare module '../../../index' {
 
         /**
          *   Sets the style for rendering line endings. These
-         *   ends are either rounded, squared or extended, each
-         *   of which specified with the corresponding
-         *   parameters: ROUND, SQUARE and PROJECT. The default
+         *   ends are either rounded, squared, or extended,
+         *   each of which specified with the corresponding
+         *   parameters: ROUND, SQUARE, or PROJECT. The default
          *   cap is ROUND. The parameter to this method must be
          *   written in ALL CAPS because they are predefined as
          *   constants in ALL CAPS and Javascript is a
          *   case-sensitive language.
-         *   @param cap either ROUND, SQUARE or PROJECT
+         *   @param cap either ROUND, SQUARE, or PROJECT
          *   @chainable
          */
         strokeCap(cap: STROKE_CAP): p5;
 
         /**
          *   Sets the style of the joints which connect line
-         *   segments. These joints are either mitered, beveled
-         *   or rounded and specified with the corresponding
-         *   parameters MITER, BEVEL and ROUND. The default
-         *   joint is MITER. The parameter to this method must
-         *   be written in ALL CAPS because they are predefined
-         *   as constants in ALL CAPS and Javascript is a
+         *   segments. These joints are either mitered,
+         *   beveled, or rounded and specified with the
+         *   corresponding parameters: MITER, BEVEL, or ROUND.
+         *   The default joint is MITER in 2D mode and ROUND in
+         *   WebGL mode. The parameter to this method must be
+         *   written in ALL CAPS because they are predefined as
+         *   constants in ALL CAPS and Javascript is a
          *   case-sensitive language.
-         *   @param join either MITER, BEVEL, ROUND
+         *   @param join either MITER, BEVEL, or ROUND
          *   @chainable
          */
         strokeJoin(join: STROKE_JOIN): p5;
 
         /**
          *   Sets the width of the stroke used for lines,
-         *   points and the border around shapes. All widths
+         *   points, and the border around shapes. All widths
          *   are set in units of pixels. Note that it is
          *   affected by any transformation or scaling that has
          *   been applied previously.

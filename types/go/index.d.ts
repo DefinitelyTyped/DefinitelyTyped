@@ -205,7 +205,6 @@ declare namespace go {
         /**
         * This predicate controls whether or not the user can invoke the scrollToPart command.
         * This returns false if there is no argument Part and there are no selected Parts.
-        * @this {CommandHandler}
         * @param {Part=} part This defaults to the first selected Part of Diagram.selection
         * @return {boolean}
         * This returns true if Diagram.allowHorizontalScroll and Diagram.allowVerticalScroll are true.
@@ -361,7 +360,6 @@ declare namespace go {
         * This is normally invoked by the <code>Space</code> keyboard shortcut.
         * If there is no argument and there is no highlighted or selected Part, this command does nothing.
         * @expose
-        * @this {CommandHandler}
         * @param {Part=} part This defaults to the first highlighted Part of Diagram.highlighteds,
         *                     or, if there are no highlighted Parts, the first selected Part.
         */
@@ -8340,7 +8338,7 @@ declare namespace go {
 
         /**
         * Compute the new angle given a point.
-        * @param{Point} newPoint
+        * @param {Point} newPoint
         */
         computeRotate(newPoint: Point): number;
 

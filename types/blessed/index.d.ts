@@ -448,8 +448,18 @@ export namespace Widgets {
 
         type TMouseAction = "mousedown" | "mouseup" | "mousemove";
 
+        interface TStyleBorder  {
+            bg?: string | undefined;
+            fg?: string | undefined;
+        }
+
+        interface Effects {
+            bg?: string;
+            fg?: string;
+            border?: TStyleBorder | undefined;
+        }
+
         interface TStyle {
-            type?: string | undefined;
             bg?: string | undefined;
             fg?: string | undefined;
             ch?: string | undefined;
@@ -459,9 +469,9 @@ export namespace Widgets {
             inverse?: boolean | undefined;
             invisible?: boolean | undefined;
             transparent?: boolean | undefined;
-            border?: "line" | "bg" | TBorder | undefined;
-            hover?: boolean | undefined;
-            focus?: boolean | undefined;
+            border?: TStyleBorder;
+            hover?: Effects | undefined;
+            focus?: Effects | undefined;
             label?: string | undefined;
             track?: { bg?: string | undefined; fg?: string | undefined } | undefined;
             scrollbar?: { bg?: string | undefined; fg?: string | undefined } | undefined;
@@ -2270,10 +2280,10 @@ export namespace Widgets {
         options: BigTextOptions;
     }
 
-    interface ListElementStyle {
+    type ListElementStyle = {
         selected?: any;
         item?: any;
-    }
+    } & Types.TStyle;
 
     interface ListOptions<TStyle extends ListElementStyle> extends BoxOptions {
         /**
@@ -2386,7 +2396,7 @@ export namespace Widgets {
         /**
          * Sets the list items to multiple strings.
          */
-        setItems(items: BlessedElement[]): void;
+        setItems(items: BlessedElement[] | string[]): void;
 
         /**
          * Returns the item index from the list. Child can be an element, index, or string.
@@ -2520,7 +2530,7 @@ export namespace Widgets {
 
         /**
          * Set rows in table. Array of arrays of strings.
-         * @example:
+         * @example
          *
          * table.setData([
          *      [ 'Animals',  'Foods'  ],
@@ -2532,7 +2542,7 @@ export namespace Widgets {
 
         /**
          * Set rows in table. Array of arrays of strings.
-         * @example:
+         * @example
          *
          * table.setData([
          *      [ 'Animals',  'Foods'  ],
