@@ -1,7 +1,7 @@
 import Content from "@hapi/content";
 import Pez from '@hapi/pez';
 
-let contentType = Content.type("application/json; charset=utf-8");
+const contentType = Content.type("application/json; charset=utf-8");
 
 const minDispenser = new Pez.Dispenser({ boundary: 'AaB03x' });
 const maxBytesDispenser = new Pez.Dispenser({
