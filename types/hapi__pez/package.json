@@ -1,7 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "@hapi/content": "^4.1.0",
-    "@hapi/pez": "^6.1.0"
+    "@hapi/content": "^4.1.0"
   }
 }
