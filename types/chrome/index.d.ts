@@ -12341,29 +12341,29 @@ declare namespace chrome.declarativeNetRequest {
  * Permissions: "sidePanel"
  */
 declare namespace chrome.sidePanel {
-    interface GetPanelOptions {
+    export interface GetPanelOptions {
         tabId?: number;
     }
 
-    interface PanelBehavior {
+    export interface PanelBehavior {
         openPanelOnActionClick?: boolean;
     }
 
-    interface PanelOptions {
+    export interface PanelOptions {
         enabled?: boolean;
         path?: string;
         tabId?: number;
     }
 
-    interface SidePanel {
+    export interface SidePanel {
         default_path: string;
     }
 
-    function getOptions(options: GetPanelOptions, callback?: (options: PanelOptions) => void): Promise<PanelOptions>;
+    export function getOptions(options: GetPanelOptions, callback?: (options: PanelOptions) => void): Promise<PanelOptions>;
 
-    function getPanelBehavior(callback?: (behavior: PanelBehavior) => void): Promise<PanelBehavior>;
+    export function getPanelBehavior(callback?: (behavior: PanelBehavior) => void): Promise<PanelBehavior>;
 
-    function setOptions(options: PanelOptions, callback?: () => void): Promise<void>;
+    export function setOptions(options: PanelOptions, callback?: () => void): Promise<void>;
 
-    function setPanelBehavior(behavior: PanelBehavior, callback?: () => void): Promise<void>;
+    export function setPanelBehavior(behavior: PanelBehavior, callback?: () => void): Promise<void>;
 }
