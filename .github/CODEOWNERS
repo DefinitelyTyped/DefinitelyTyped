@@ -1103,7 +1103,7 @@
 /types/cookie-signature/                                  @Rokt33r
 /types/cookie_js/                                         @slawiko
 /types/cookiebot-sdk/                                     @LiamMartens @patric-eberle
-/types/cookieclicker/                                     @TheGLander
+/types/cookieclicker/                                     @TheGLander @staticvariablejames
 /types/cookieconsent/                                     @klittlepage
 /types/cookiejar/                                         @paroxp @demurgos
 /types/cookies/                                           @WangZishi @jkeylu @BendingBender
@@ -4890,7 +4890,6 @@
 /types/mess/                                              @Nemo157
 /types/messenger/                                         @derekcicerone
 /types/metaget/                                           @ffflorian
-/types/metalsmith/                                        @brian-lagerman @webketje
 /types/metascraper/                                       @ffflorian
 /types/metascraper-address/                               @ffflorian
 /types/metascraper-amazon/                                @ffflorian
@@ -5514,6 +5513,7 @@
 /types/oblo-util/                                         @Oblosys
 /types/oboe/                                              @optical
 /types/obs-studio/                                        @VodBox
+/types/observ/                                            @beno-coviu
 /types/observe-js/                                        @herrmanno
 /types/obsolete-web/                                      @peterblazejewicz
 /types/oclazyload/                                        @rolandzwaga
@@ -5987,7 +5987,7 @@
 /types/prepper/                                           @teunmooij
 /types/preq/                                              @diskdance
 /types/presto-client/                                     @MasterOdin
-/types/prettier/                                          @ikatyang @ifiokjr @ffflorian @sosukesuzuki @Shinigami92 @thorn0 @JounQin @shian15810
+/types/prettier/                                          @ikatyang @ifiokjr @ffflorian @sosukesuzuki @Shinigami92 @thorn0 @JounQin @shian15810 @marcgibbons
 /types/prettier-linter-helpers/                           @JounQin
 /types/pretty/                                            @DefinitelyTyped
 /types/pretty-data/                                       @ziishaned
@@ -7493,6 +7493,7 @@
 /types/simplemde/                                         @Scalesoft
 /types/simplesmtp/                                        @rogierschouten
 /types/simplestorage.js/                                  @axelcostaspena @mxl @peterblazejewicz
+/types/simply-blackjack/                                  @melosh101
 /types/simulant/                                          @ecraig12345
 /types/single-line-log/                                   @ffflorian
 /types/single-trailing-newline/                           @peterjuras
