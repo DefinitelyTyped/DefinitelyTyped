@@ -106,9 +106,9 @@ export function getCurrentPost(): Page | Post;
  *
  * @param attributeName - Post attribute name.
  */
-export function getCurrentPostAttribute<T extends keyof (Page | Post)>(
+export function getCurrentPostAttribute<T extends keyof (Page & Post)>(
     attributeName: T
-): (Page | Post)[T] | undefined;
+): (Page & Post)[T] | undefined;
 
 /**
  * Returns the ID of the post currently being edited.
@@ -137,9 +137,9 @@ export function getCurrentPostType(): string;
  *
  * @param attributeName - Post attribute name.
  */
-export function getEditedPostAttribute<T extends keyof (Page | Post)>(
+export function getEditedPostAttribute<T extends keyof (Page & Post)>(
     attributeName: T
-): (Page | Post)[T] | undefined;
+): (Page & Post)[T] | undefined;
 
 /**
  * Returns the content of the post being edited, preferring raw string edit before falling back to
