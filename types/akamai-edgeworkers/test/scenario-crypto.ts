@@ -1,4 +1,4 @@
-import { crypto, pem2ab } from 'crypto';
+import {crypto, pem2ab} from 'crypto';
 
 export async function onClientRequest(request: EW.IngressClientRequest) {
     const raw_key = new Uint8Array([93, 210, 19, 203, 234, 199, 254, 16, 118, 129, 214, 61, 229, 117, 91, 33]);
@@ -177,7 +177,11 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns A promise that fulfills with a boolean value: true if the signature is valid, false otherwise
      */
-    await crypto.subtle.verify("HMAC", hmac_imported_key, sig, data);
+    await crypto.subtle.verify("HMAC", hmac_imported_key, sig, data).then((isVerified) => {
+        request.respondWith(200, {}, "Verified: " + isVerified);
+    }).catch(e => {
+        request.respondWith(501, {}, 'failure: ' + e);
+    });
 
     /**
      * Imports the key
@@ -198,21 +202,21 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
             iv: {iv},
             tagLength: 96,
         },
-        raw_imported_key, aes_gcm_encrypted).then(() => {
+        raw_imported_key, aes_gcm_encrypted
+    ).then(() => {
         request.respondWith(200, {}, 'pass');
-    })
-        .catch(e => {
-            request.respondWith(501, {}, 'failure: ' + e);
-        });
+    }).catch(e => {
+        request.respondWith(501, {}, 'failure: ' + e);
+    });
 
-/**
- * A function that allows you to get cryptographically strong random values
- * @param typeArray: An integer-based TypedArray
- *
- * @returns The same array passed as typedArray but with its contents replaced with the newly generated random numbers
- */
-crypto.getRandomValues(array);
-request.addHeader("X-Random-Number", array[0].toString());
+    /**
+     * A function that allows you to get cryptographically strong random values
+     * @param typeArray: An integer-based TypedArray
+     *
+     * @returns The same array passed as typedArray but with its contents replaced with the newly generated random numbers
+     */
+    crypto.getRandomValues(array);
+    request.addHeader("X-Random-Number", array[0].toString());
 }
 
 function bytesToHex(bytes: number[]) {
