@@ -249,7 +249,7 @@ declare namespace WPAPI {
          * Browser) to attach to the request
          * @param name An (optional) filename to use for the file
          */
-        file(file: string | File, name?: string): WPRequest;
+        file(file: string | File | Buffer, name?: string): WPRequest;
 
         /**
          * Get the headers for the specified resource
