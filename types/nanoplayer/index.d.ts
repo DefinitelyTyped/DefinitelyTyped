@@ -1,6 +1,8 @@
 // Type definitions for non-npm package nanoplayer 4.20
 // Project: https://github.com/nanostream/nanoplayer
-// Definitions by: Can Taşdemir <https://github.com/cantsdmr>
+// Definitions by: Can Taşdemir <ctasdemir@nanocosmos.net>
+//                 Thomas Niedergesäß <tn@nanocosmos.de>
+//                 Luiza Sadowska <ls@nanocosmos.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export namespace Constants {
