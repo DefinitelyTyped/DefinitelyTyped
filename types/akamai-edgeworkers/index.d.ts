@@ -816,7 +816,7 @@ declare module "cookies" {
  * callback in a promise.
  */
 declare module "create-response" {
-    import {ReadableStream} from "streams";
+    import { ReadableStream } from "streams";
 
     /**
      * Specifies headers for createResponse(). Keys are treated as header
@@ -857,7 +857,7 @@ declare module "create-response" {
 }
 
 declare module "http-request" {
-    import {ReadableStream} from "streams";
+    import { ReadableStream } from "streams";
 
     /**
      * A request body, either in the form of a static string or a readable stream.
@@ -1011,7 +1011,7 @@ declare module "streams" {
 }
 
 declare module "text-encode-transform" {
-    import {ReadableStream, WritableStream} from "streams";
+    import { ReadableStream, WritableStream } from "streams";
 
     interface TextEncoderCommon {
         /**
@@ -1084,7 +1084,7 @@ declare module "text-encode-transform" {
         new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
 
-    export {TextEncoderStream, TextDecoderStream};
+    export { TextEncoderStream, TextDecoderStream };
 }
 
 /**
@@ -1119,7 +1119,7 @@ declare module "log" {
 
     const logger: Logger;
 
-    export {logger};
+    export { logger };
 }
 
 /**
@@ -1312,7 +1312,7 @@ declare module "encoding" {
         readonly encoding: string;
     }
 
-    export {base64, base64url, base16, TextEncoder, TextDecoder};
+    export { base64, base64url, base16, TextEncoder, TextDecoder };
 }
 
 /**
@@ -1461,7 +1461,7 @@ declare module "crypto" {
 
     const crypto: Crypto;
 
-    export {crypto};
+    export { crypto };
 }
 
 /**
@@ -1471,7 +1471,7 @@ declare module "crypto" {
  * of tag attributes, insertion of new content around the element, or removal of the element.
  */
 declare module "html-rewriter" {
-    import {ReadableStream, WritableStream} from "streams";
+    import { ReadableStream, WritableStream } from "streams";
 
     class HtmlRewritingStream implements GenericHtmlRewritingStream {
         readonly writable: WritableStream;
@@ -1583,5 +1583,5 @@ declare module "html-rewriter" {
         readonly quote: string;
     }
 
-    export {HtmlRewritingStream};
+    export { HtmlRewritingStream };
 }

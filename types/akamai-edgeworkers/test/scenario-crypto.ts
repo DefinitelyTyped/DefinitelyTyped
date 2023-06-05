@@ -1,4 +1,4 @@
-import {crypto, pem2ab} from 'crypto';
+import { crypto, pem2ab } from 'crypto';
 
 export async function onClientRequest(request: EW.IngressClientRequest) {
     const raw_key = new Uint8Array([93, 210, 19, 203, 234, 199, 254, 16, 118, 129, 214, 61, 229, 117, 91, 33]);
