@@ -85,7 +85,7 @@ window.intlTelInput(input, {
 
 window.intlTelInput(input, {
     allowDropdown: false,
-    autoHideDialCode: false,
+    autoInsertDialCode: false,
     autoPlaceholder: 'aggressive',
     dropdownContainer: document.body,
     excludeCountries: ['us', 'uk'],
