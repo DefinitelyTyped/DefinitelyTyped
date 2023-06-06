@@ -4899,6 +4899,10 @@
             "libraryName": "react-owl-carousel",
             "asOfVersion": "2.3.0"
         },
+        "react-pdf": {
+            "libraryName": "react-pdf",
+            "asOfVersion": "7.0.0"
+        },
         "react-plaid-link": {
             "libraryName": "react-plaid-link",
             "asOfVersion": "2.0.0"
