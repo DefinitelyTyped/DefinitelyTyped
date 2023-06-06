@@ -1,7 +1,8 @@
 import i = require('i');
+import "i/globals";
 
 // $ExpectType Iinterface
-const inflect = i();
+const inflect = i(true);
 
 // $ExpectType Inflections
 inflect.inflections;
@@ -59,43 +60,43 @@ inflect.inflections.clear('humans');
 // $ExpectType Inflections
 inflect.inflections.default();
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".camelize;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".underscore;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".dasherize;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".demodulize;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".foreign_key;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".ordinalize;
 
-// $ExpectType boolean | undefined
+// $ExpectType boolean
 "test".uncountability;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".pluralize;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".singularize;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".humanize;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".titleize;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".tableize;
 
-// $ExpectType string | undefined
+// $ExpectType string
 "test".classify;
 
 // $ExpectType string
