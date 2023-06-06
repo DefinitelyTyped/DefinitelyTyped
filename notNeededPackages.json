@@ -1765,6 +1765,10 @@
             "libraryName": "filter-console",
             "asOfVersion": "0.1.1"
         },
+        "filter-invalid-dom-props": {
+            "libraryName": "filter-invalid-dom-props",
+            "asOfVersion": "3.0.0"
+        },
         "find-java-home": {
             "libraryName": "find-java-home",
             "asOfVersion": "1.0.0"
