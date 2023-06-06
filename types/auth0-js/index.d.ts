@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 9.14
+// Type definitions for Auth0.js 9.21
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
@@ -8,7 +8,9 @@
 //                 Tyler Lindell <https://github.com/tylerlindell>
 //                 Henri Kinnunen <https://github.com/hequ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference lib="dom" />
+
 export as namespace auth0;
 
 export class Authentication {
@@ -547,6 +549,13 @@ export interface AuthOptions {
     redirectUri?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    /**
+     * The domain the cookie is accessible from.
+     * If not set, the cookie is scoped to the current domain, including the subdomain.
+     * To keep a user logged in across multiple subdomains set this to your top-level domain
+     * and prefixed with a `.` (eg: `.example.com`)
+     */
+    cookieDomain?: string | undefined;
     /**
      * maximum elapsed time in seconds since the last time the user
      * was actively authenticated by the authorization server.
