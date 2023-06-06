@@ -5199,13 +5199,13 @@ export interface ElementCommands {
      */
     getShadowRoot(
         selector: Definition | WebElement | By,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Element | null>) => void,
-    ): Awaitable<this, Element | null>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementGlobal | null>) => void,
+    ): Awaitable<this, ElementGlobal | null>;
     getShadowRoot(
         using: LocateStrategy,
         selector: Definition | WebElement | By,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Element | null>) => void,
-    ): Awaitable<this, Element | null>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementGlobal | null>) => void,
+    ): Awaitable<this, ElementGlobal | null>;
 
     /**
      * Search for an elements on the page, starting from the document root. The located element will be returned as web element JSON object (with an added .getId() convenience method).
