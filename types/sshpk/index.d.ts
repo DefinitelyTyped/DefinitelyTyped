@@ -103,7 +103,22 @@ declare namespace SshPK {
         ca?: boolean;
     }
 
-    type CertificateFormat = 'openssh' | 'pem' | 'x509';
+    type CertificateFormats = 'openssh' | 'pem' | 'x509';
+
+    interface CertificateFormat extends Format {
+        verify(cert: Certificate, key: Key): boolean;
+        sign(cert: Certificate, key: Key): boolean;
+    }
+
+    interface x509Format extends CertificateFormat {
+        signAsync(cert: Certificate, signer: SignerFunction, done: (err: Error | undefined) => void): void;
+    }
+
+    interface OpenSSHCertificateFormat extends CertificateFormat {
+        signAsync(cert: Certificate, signer: SignerFunction, done: (err: Error | undefined) => void): void;
+        fromBuffer(data: Buffer, algo?: AlgorithmType, partial?: SSHBuffer): Certificate;
+        toBuffer(cert: Certificate, noSig: boolean): Buffer;
+    }
 
     class Certificate {
         subjects: Identity[];
@@ -116,13 +131,13 @@ declare namespace SshPK {
         validUntil: Date;
         purposes?: string[];
 
-        static formats: { [key in CertificateFormat]: Format };
+        static formats: { openssh: OpenSSHCertificateFormat; pem: CertificateFormat; x509: x509Format };
 
         constructor(opts: CertificateOptions);
 
-        toBuffer(format: CertificateFormat, options?: Format.WriteOptions): Buffer;
+        toBuffer(format: CertificateFormats, options?: Format.WriteOptions): Buffer;
 
-        toString(format: CertificateFormat, options?: Format.WriteOptions): string;
+        toString(format: CertificateFormats, options?: Format.WriteOptions): string;
 
         fingerprint(algo?: AlgorithmHashType): Fingerprint;
 
@@ -154,14 +169,18 @@ declare namespace SshPK {
             options?: CertificateCreateOptions,
         ): Certificate;
 
-        static parse(data: string | Buffer, format: CertificateFormat, options?: string | KeyParseOptions): Certificate;
+        static parse(
+            data: string | Buffer,
+            format: CertificateFormats,
+            options?: string | KeyParseOptions,
+        ): Certificate;
 
         static isCertificate(data: string | Buffer, ver: Version): boolean;
     }
 
     function parseCertificate(
         data: string | Buffer,
-        format: CertificateFormat,
+        format: CertificateFormats,
         options?: string | KeyParseOptions,
     ): Certificate;
 
@@ -205,6 +224,8 @@ declare namespace SshPK {
 
         verify(signature: Signature): boolean;
     }
+
+    type SignerFunction = (blob: Buffer, done: (err: Error | undefined, signature: Signature) => void) => void;
 
     class Signer extends Writable {
         private constructor();
@@ -358,11 +379,7 @@ declare namespace SshPK {
             read(buf: string | Buffer): Certificate;
             verify(): false;
             sign(cert: Certificate, key: PrivateKey): boolean;
-            signAsync(
-                cert: Certificate,
-                signer: (blob: Buffer, done: (err: Error | undefined, signature: Signature) => void) => void,
-                done: (err?: Error) => void,
-            ): void;
+            signAsync(cert: Certificate, signer: SignerFunction, done: (err?: Error) => void): void;
             write(cert: Certificate, options?: { comment?: string }): Buffer;
         }
 
@@ -487,11 +504,7 @@ declare namespace SshPK {
             read(buf: string | Buffer): Certificate;
             verify(cert: Certificate, key: Key): boolean;
             sign(cert: Certificate, key: PrivateKey): boolean;
-            signAsync(
-                cert: Certificate,
-                signer: (blob: Buffer, done: (err: Error | undefined, signature: Signature) => void) => void,
-                done: (err?: Error) => void,
-            ): void;
+            signAsync(cert: Certificate, signer: SignerFunction, done: (err?: Error) => void): void;
             write(cert: Certificate): Buffer;
         }
     }

@@ -295,7 +295,12 @@ const cert = sshpk.parseCertificate('', 'pem');
 // $ExpectType Certificate
 sshpk.parseCertificate(Buffer.alloc(0), 'x509', 'filename');
 // $ExpectType Certificate
-sshpk.parseCertificate('', 'openssh', { filename: '' });
+const sshCert = sshpk.parseCertificate('', 'openssh', { filename: '' });
+
+// $ExpectType Buffer
+const certBuffer = sshpk.Certificate.formats.openssh.toBuffer(sshCert, false);
+// $ExpectType Certificate
+sshpk.Certificate.formats.openssh.fromBuffer(certBuffer);
 
 // $ExpectType Buffer
 cert.toBuffer('pem');
