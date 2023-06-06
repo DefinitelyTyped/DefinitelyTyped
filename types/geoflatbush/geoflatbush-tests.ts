@@ -1,4 +1,4 @@
-import Flatbush = require('flatbush');
+import Flatbush from 'flatbush';
 import { around } from 'geoflatbush';
 
 const index = new Flatbush(1);

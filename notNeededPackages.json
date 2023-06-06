@@ -1805,6 +1805,10 @@
             "libraryName": "fkill",
             "asOfVersion": "6.0.0"
         },
+        "flatbush": {
+            "libraryName": "flatbush",
+            "asOfVersion": "4.2.0"
+        },
         "flatpickr": {
             "libraryName": "flatpickr",
             "asOfVersion": "3.1.2"
