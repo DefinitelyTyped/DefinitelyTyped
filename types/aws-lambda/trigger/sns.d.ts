@@ -1,4 +1,4 @@
-import { Handler } from "../handler";
+import { Handler } from '../handler';
 
 export type SNSHandler = Handler<SNSEvent, void>;
 
@@ -23,7 +23,7 @@ export interface SNSMessage {
     Type: string;
     UnsubscribeUrl: string;
     TopicArn: string;
-    Subject: string;
+    Subject?: string;
     Token?: string;
 }
 
