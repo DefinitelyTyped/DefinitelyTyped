@@ -3353,6 +3353,10 @@
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
         },
+        "minio": {
+            "libraryName": "minio",
+            "asOfVersion": "7.1.1"
+        },
         "minipass": {
             "libraryName": "minipass",
             "asOfVersion": "3.3.5"
