@@ -1,12 +1,28 @@
 // Internal helper types
 
-// tslint:disable-next-line: strict-export-declare-modifiers
-type FunctionComponent<Props> = (props: Props) => JSX.Element | null;
-// tslint:disable-next-line: strict-export-declare-modifiers
-type ClassComponent<Props> = new (props: Props) => JSX.ElementClass;
-// tslint:disable-next-line: strict-export-declare-modifiers
-type Component<Props> = FunctionComponent<Props> | ClassComponent<Props> | keyof JSX.IntrinsicElements;
-// tslint:disable-next-line: strict-export-declare-modifiers
+// @ts-ignore
+type ElementType = any extends JSX.ElementType ? never : JSX.ElementType;
+
+type FunctionElementType = Extract<ElementType, (props: Record<string, any>) => any>;
+
+type ClassElementType = Extract<ElementType, new (props: Record<string, any>) => any>;
+
+type StringComponent = Extract<keyof JSX.IntrinsicElements, ElementType extends never ? string : ElementType>;
+
+type FunctionComponent<Props> = ElementType extends never
+    ? (props: Props) => JSX.Element | null
+    : FunctionElementType extends never
+    ? never
+    : (props: Props) => ReturnType<FunctionElementType>;
+
+type ClassComponent<Props> = ElementType extends never
+    ? new (props: Props) => JSX.ElementClass
+    : ClassElementType extends never
+    ? never
+    : new (props: Props) => InstanceType<ClassElementType>;
+
+type Component<Props> = FunctionComponent<Props> | ClassComponent<Props> | StringComponent;
+
 interface NestedMDXComponents {
     [key: string]: NestedMDXComponents | Component<any>;
 }
@@ -19,7 +35,7 @@ interface NestedMDXComponents {
  * The key is the name of the element to override. The value is the component to render instead.
  */
 export type MDXComponents = NestedMDXComponents & {
-    [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]>;
+    [Key in StringComponent]?: Component<JSX.IntrinsicElements[Key]>;
 } & {
     /**
      * If a wrapper component is defined, the MDX content will be wrapped inside of it.
@@ -62,3 +78,5 @@ export interface MDXModule {
      */
     default: MDXContent;
 }
+
+export {};

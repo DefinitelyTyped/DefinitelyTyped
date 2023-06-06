@@ -47,6 +47,18 @@ declare function jsx(): TestElementType;
 // A JSX test implementation type
 declare global {
     namespace JSX {
+        // The addition and changes in ElementType change what is valid JSX.
+        // This should also be reflected by the MDX types.
+        // type ElementType =
+        //     | 'a'
+        //     | 'div'
+        //     | 'h1'
+        //     | 'img'
+        //     | 'span'
+        //     | 'video'
+        //     | ((props: Record<string, any>) => Element | null)
+        //     | (new (props: Record<string, any>) => ElementClass);
+
         type Element = TestElementType;
 
         interface IntrinsicElements {
