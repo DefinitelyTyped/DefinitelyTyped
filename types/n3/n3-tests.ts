@@ -116,6 +116,14 @@ function test_doc_rdf_sync_to_triples_1() {
     result.forEach((s) => console.log(s));
 }
 
+function test_doc_rdf_sync_to_triples_with_undefined_callback() {
+    const parser: N3.Parser = new N3.Parser();
+    parser.parse(`@prefix c: <http://example.org/cartoons#>.
+      c:Tom a c:Cat.
+      c:Jerry a c:Mouse;
+      c:smarterThan c:Tom.`, undefined);
+}
+
 function test_doc_rdf_sync_to_triples_and_prefixes() {
     const parser: N3.Parser = new N3.Parser();
     const result = parser.parse(`@prefix c: <http://example.org/cartoons#>.
@@ -156,6 +164,12 @@ function test_doc_rdf_stream_to_triples_2() {
     const parser: N3.Parser = new N3.Parser({ factory: N3.DataFactory });
     const rdfStream = fs.createReadStream('cartoons.ttl');
     parser.parse(rdfStream, console.log);
+}
+
+function test_doc_rdf_stream_to_triples_with_undefined_prefix_callback() {
+    const parser: N3.Parser = new N3.Parser({ factory: N3.DataFactory });
+    const rdfStream = fs.createReadStream('cartoons.ttl');
+    parser.parse(rdfStream, console.log, undefined);
 }
 
 function test_doc_from_triples_to_string() {
