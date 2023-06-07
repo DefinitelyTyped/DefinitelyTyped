@@ -7,22 +7,7 @@
 //                 Do Nam <https://github.com/namdien177>
 //                 Lyubin Pavel <https://github.com/pafik13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
-
-export enum CredentialsEncodingMode {
-    STRICT = 'strict',
-    LOOSE = 'loose',
-}
-
-export enum AuthorizationMethod {
-    HEADER = 'header',
-    BODY = 'body',
-  }
-
-export enum BodyFormat {
-    FORM = 'form',
-    JSON = 'json',
-}
+// TypeScript Version: 4.2
 
 export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
@@ -90,7 +75,7 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
         /**
          * JSON response parsing mode. Defaults to strict
          */
-        json?: true | "strict" | "force" | undefined;
+        json?: boolean | "strict" | "force" | undefined;
      } | undefined;
     options?: {
         /** Scope separator character. Some providers may require a different separator. Defaults to empty space */
@@ -100,15 +85,15 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
          * Use loose if your provider doesn't conform to the OAuth 2.0 specification.
          * Defaults to strict
          */
-        credentialsEncodingMode?: CredentialsEncodingMode | undefined;
+        credentialsEncodingMode?: 'strict' | 'loose' | undefined;
         /** Format of data sent in the request body. Defaults to form. */
-        bodyFormat?: BodyFormat | undefined;
+        bodyFormat?: 'form' | 'json' | undefined;
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
          * Defaults to header
          */
-        authorizationMethod?: AuthorizationMethod | undefined;
+        authorizationMethod?: 'header' | 'body' | undefined;
     } | undefined;
 }
 

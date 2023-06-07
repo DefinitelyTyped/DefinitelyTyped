@@ -1,12 +1,12 @@
 /**
- * The `tls` module provides an implementation of the Transport Layer Security
+ * The `node:tls` module provides an implementation of the Transport Layer Security
  * (TLS) and Secure Socket Layer (SSL) protocols that is built on top of OpenSSL.
  * The module can be accessed using:
  *
  * ```js
- * const tls = require('tls');
+ * const tls = require('node:tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
@@ -212,7 +212,7 @@ declare module 'tls' {
      *
      * Instances of `tls.TLSSocket` implement the duplex `Stream` interface.
      *
-     * Methods that return TLS connection metadata (e.g.{@link TLSSocket.getPeerCertificate} will only return data while the
+     * Methods that return TLS connection metadata (e.g.{@link TLSSocket.getPeerCertificate}) will only return data while the
      * connection is open.
      * @since v0.11.4
      */
@@ -259,13 +259,13 @@ declare module 'tls' {
         /**
          * Returns an object containing information on the negotiated cipher suite.
          *
-         * For example:
+         * For example, a TLSv1.2 protocol with AES256-SHA cipher:
          *
          * ```json
          * {
-         *     "name": "AES128-SHA256",
-         *     "standardName": "TLS_RSA_WITH_AES_128_CBC_SHA256",
-         *     "version": "TLSv1.2"
+         *     "name": "AES256-SHA",
+         *     "standardName": "TLS_RSA_WITH_AES_256_CBC_SHA",
+         *     "version": "SSLv3"
          * }
          * ```
          *
@@ -637,7 +637,8 @@ declare module 'tls' {
          * used.
          * @since v0.5.3
          * @param hostname A SNI host name or wildcard (e.g. `'*'`)
-         * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
+         * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc), or a TLS context object created
+         * with {@link createSecureContext} itself.
          */
         addContext(hostname: string, context: SecureContextOptions): void;
         /**
@@ -768,12 +769,9 @@ declare module 'tls' {
          */
         crl?: string | Buffer | Array<string | Buffer> | undefined;
         /**
-         * Diffie Hellman parameters, required for Perfect Forward Secrecy. Use
-         * openssl dhparam to create the parameters. The key length must be
-         * greater than or equal to 1024 bits or else an error will be thrown.
-         * Although 1024 bits is permissible, use 2048 bits or larger for
-         * stronger security. If omitted or invalid, the parameters are
-         * silently discarded and DHE ciphers will not be available.
+         * `'auto'` or custom Diffie-Hellman parameters, required for non-ECDHE perfect forward secrecy.
+         * If omitted or invalid, the parameters are silently discarded and DHE ciphers will not be available.
+         * ECDHE-based perfect forward secrecy will still be available.
          */
         dhparam?: string | Buffer | undefined;
         /**
@@ -915,14 +913,14 @@ declare module 'tls' {
      * Creates a new {@link Server}. The `secureConnectionListener`, if provided, is
      * automatically set as a listener for the `'secureConnection'` event.
      *
-     * The `ticketKeys` options is automatically shared between `cluster` module
+     * The `ticketKeys` options is automatically shared between `node:cluster` module
      * workers.
      *
      * The following illustrates a simple echo server:
      *
      * ```js
-     * const tls = require('tls');
-     * const fs = require('fs');
+     * const tls = require('node:tls');
+     * const fs = require('node:fs');
      *
      * const options = {
      *   key: fs.readFileSync('server-key.pem'),
@@ -932,7 +930,7 @@ declare module 'tls' {
      *   requestCert: true,
      *
      *   // This is necessary only if the client uses a self-signed certificate.
-     *   ca: [ fs.readFileSync('client-cert.pem') ]
+     *   ca: [ fs.readFileSync('client-cert.pem') ],
      * };
      *
      * const server = tls.createServer(options, (socket) => {
@@ -967,8 +965,8 @@ declare module 'tls' {
      *
      * ```js
      * // Assumes an echo server that is listening on port 8000.
-     * const tls = require('tls');
-     * const fs = require('fs');
+     * const tls = require('node:tls');
+     * const fs = require('node:fs');
      *
      * const options = {
      *   // Necessary only if the server requires client certificate authentication.
@@ -1044,12 +1042,19 @@ declare module 'tls' {
      * APIs that create secure contexts have no default value.
      *
      * The `tls.createSecureContext()` method creates a `SecureContext` object. It is
-     * usable as an argument to several `tls` APIs, such as {@link createServer} and `server.addContext()`, but has no public methods.
+     * usable as an argument to several `tls` APIs, such as `server.addContext()`,
+     * but has no public methods. The {@link Server} constructor and the {@link createServer} method do not support the `secureContext` option.
      *
      * A key is _required_ for ciphers that use certificates. Either `key` or`pfx` can be used to provide it.
      *
      * If the `ca` option is not given, then Node.js will default to using [Mozilla's publicly trusted list of
      * CAs](https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt).
+     *
+     * Custom DHE parameters are discouraged in favor of the new `dhparam: 'auto'`option. When set to `'auto'`, well-known DHE parameters of sufficient strength
+     * will be selected automatically. Otherwise, if necessary, `openssl dhparam` can
+     * be used to create custom parameters. The key length must be greater than or
+     * equal to 1024 bits or else an error will be thrown. Although 1024 bits is
+     * permissible, use 2048 bits or larger for stronger security.
      * @since v0.11.13
      */
     function createSecureContext(options?: SecureContextOptions): SecureContext;
@@ -1095,6 +1100,13 @@ declare module 'tls' {
      * are provided, the lowest minimum is used.
      */
     let DEFAULT_MIN_VERSION: SecureVersion;
+    /**
+     * The default value of the ciphers option of tls.createSecureContext().
+     * It can be assigned any of the supported OpenSSL ciphers.
+     * Defaults to the content of crypto.constants.defaultCoreCipherList, unless
+     * changed using CLI options using --tls-default-ciphers.
+     */
+    let DEFAULT_CIPHERS: string;
     /**
      * An immutable array of strings representing the root certificates (in PEM
      * format) used for verifying peer certificates. This is the default value

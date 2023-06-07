@@ -567,7 +567,6 @@ declare module 'leadfoot/Command' {
     */
     class Command<T> implements Thenable<T> {
         /**
-         * @constructor module:leadfoot/Command
          * @param {module:leadfoot/Command|module:leadfoot/Session} parent
          * The parent command that this command is chained to, or a {@link module:leadfoot/Session} object if this is the
          * first command in a command chain.
@@ -591,14 +590,12 @@ declare module 'leadfoot/Command' {
         /**
          * The parent Command of the Command, if one exists.
          *
-         * @readonly
          */
         parent: Command<any>;
 
         /**
          * The parent Session of the Command.
          *
-         * @readonly
          */
         session: Session;
 
@@ -612,14 +609,12 @@ declare module 'leadfoot/Command' {
          * - depth (number): The depth of the context within the command chain. This is used to prevent traversal into
          *   higher filtering levels by {@link module:leadfoot/Command#end}.
          *
-         * @readonly
          */
         context: Command.Context;
 
         /**
          * The underlying Promise for the Command.
          *
-         * @readonly
          */
         promise: Promise<T>;
 
@@ -1685,14 +1680,12 @@ declare module 'leadfoot/Element' {
 
         /**
          * The opaque, remote-provided ID of the element.
-         * @readonly
          */
         elementId: string;
 
         /**
          * The session that the element belongs to.
          *
-         * @readonly
          */
         session: Session;
 
@@ -2393,14 +2386,12 @@ declare module 'leadfoot/Session' {
         /**
          * Information about the available features and bugs in the remote environment.
          *
-         * @readonly
          */
         capabilities: leadfoot.Capabilities;
 
         /**
          * The current session ID.
          *
-         * @readonly
          */
         sessionId: string;
 
@@ -2408,8 +2399,6 @@ declare module 'leadfoot/Session' {
          * The Server that the session runs on.
          *
          * @member {module:leadfoot/Server} server
-         * @memberOf module:leadfoot/Session#
-         * @readonly
          */
         server: Server;
 

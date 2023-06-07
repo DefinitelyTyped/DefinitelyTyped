@@ -10,21 +10,18 @@ interface SimplePaginationOptions {
     /**
      * Total number of items that will be used to calculate the pages.
      * 
-     * @type {number}
      * @memberof SimplePaginationOptions
      */
     items?: number | undefined;
     /**
      * Number of items displayed on each page.
      * 
-     * @type {number}
      * @memberof SimplePaginationOptions
      */
     itemsOnPage?: number | undefined;
     /**
      *     If specified, items and itemsOnPage will not be used to calculate the number of pages.
      * 
-     * @type {number}
      * @memberof SimplePaginationOptions
      */
     pages?: number | undefined;
@@ -32,63 +29,54 @@ interface SimplePaginationOptions {
      * How many page numbers should be visible while navigating.
      * Minimum allowed: 3 (previous, current & next)
      * 
-     * @type {number}
      * @memberof SimplePaginationOptions
      */
     displayedPages?: number | undefined;
     /**
      * How many page numbers are visible at the beginning/ending of the pagination.
      * 
-     * @type {number}
      * @memberof SimplePaginationOptions
      */
     edges?: number | undefined;
     /**
      * Which page will be selected immediately after init.
      * 
-     * @type {number}
      * @memberof SimplePaginationOptions
      */
     currentPage?: number | undefined;
     /**
      * A string used to build the href attribute, added before the page number.
      * 
-     * @type {string}
      * @memberof SimplePaginationOptions
      */
     hrefTextPrefix?: string | undefined;
     /**
      * Another string used to build the href attribute, added after the page number.
      * 
-     * @type {string}
      * @memberof SimplePaginationOptions
      */
     hrefTextSuffix?: string | undefined;
     /**
      * Text to be display on the previous button.
      * 
-     * @type {string}
      * @memberof SimplePaginationOptions
      */
     prevText?: string | undefined;
     /**
      * Text to be display on the next button.
      * 
-     * @type {string}
      * @memberof SimplePaginationOptions
      */
     nextText?: string | undefined;
     /**
      * The class of the CSS theme.
      * 
-     * @type {string}
      * @memberof SimplePaginationOptions
      */
     cssStyle?: string | undefined;
     /**
      * Set to false if you don't want to select the page immediately after click.
      * 
-     * @type {boolean}
      * @memberof SimplePaginationOptions
      */
     selectOnClick?: boolean | undefined;
@@ -99,7 +87,6 @@ interface SimplePaginationOptions {
      * clicking on the ellipse will replace the ellipse
      * with a number type input in which you can manually set the resulting page.
      * 
-     * @type {boolean}
      * @memberof SimplePaginationOptions
      */
     ellipsePageSet?: boolean | undefined;
@@ -107,7 +94,6 @@ interface SimplePaginationOptions {
     /**
      * A collection of labels that will be used to render the pagination items, replacing the numbers.
      * 
-     * @type {any[]}
      * @memberof SimplePaginationOptions
      */
     labelMap?: any[] | undefined;

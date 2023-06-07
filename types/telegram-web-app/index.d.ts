@@ -1,6 +1,8 @@
-// Type definitions for non-npm package telegram-web-app 6.4
+// Type definitions for non-npm package telegram-web-app 6.7
 // Project: https://telegram.org/js/telegram-web-app.js
-// Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>, MKRhere <https://github.com/MKRhere>
+// Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>
+//                 MKRhere <https://github.com/MKRhere>
+//                 deptyped <https://github.com/deptyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Telegram: Telegram;
@@ -168,6 +170,15 @@ interface WebApp {
      * This method is only available for Web Apps launched via a Keyboard button.
      */
     sendData(data: string): void;
+    /**
+     * A method that inserts the bot's username and the specified inline query in the current chat's input field.
+     * Query may be empty, in which case only the bot's username will be inserted.
+     * If an optional choose_chat_types parameter was passed, the client prompts the user to choose a specific chat,
+     * then opens that chat and inserts the bot's username and the specified inline query in the input field.
+     * You can specify which types of chats the user will be able to choose from.
+     * It can be one or more of the following types: users, bots, groups, channels.
+     */
+    switchInlineQuery(query: string, choose_chat_types?: Array<'users' | 'bots' | 'groups' | 'channels'>): void;
     /**
      * A method that opens a link in an external browser.
      * The Web App will not be closed.
@@ -507,6 +518,18 @@ interface WebAppInitData {
      * only for Web Apps launched via the attachment menu.
      */
     chat?: WebAppChat;
+    /**
+     * Type of the chat from which the Web App was opened.
+     * Can be either “sender” for a private chat with the user opening the link,
+     * “private”, “group”, “supergroup”, or “channel”.
+     * Returned only for Web Apps launched from direct links.
+     */
+    chat_type?: 'sender' | 'private' | 'group' | 'supergroup' | 'channel';
+    /**
+     * Global identifier, uniquely corresponding to the chat from which the Web App was opened.
+     * Returned only for Web Apps launched from a direct link.
+     */
+    chat_instance?: string;
     /**
      * The value of the startattach parameter, passed via link. Only returned for
      * Web Apps when launched from the attachment menu via link. The value of the

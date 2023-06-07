@@ -57,14 +57,6 @@ declare module '../../index' {
          *   by another vector. See examples for more context.
          *   @param v1 The dividend p5.Vector
          *   @param v2 The divisor p5.Vector
-         */
-        static rem(v1: Vector, v2: Vector): void;
-
-        /**
-         *   Gives the remainder of a vector when it is divided
-         *   by another vector. See examples for more context.
-         *   @param v1 The dividend p5.Vector
-         *   @param v2 The divisor p5.Vector
          *   @return The resulting p5.Vector
          */
         static rem(v1: Vector, v2: Vector): Vector;
@@ -101,38 +93,12 @@ declare module '../../index' {
          *   Additionally, you may provide arguments to this
          *   function as an array. See the examples for more
          *   context.
-         *   @param x The number to multiply with the x
-         *   component of the vector
-         *   @param y The number to multiply with the y
-         *   component of the vector
-         *   @param [z] The number to multiply with the z
-         *   component of the vector
-         *   @return The resulting new p5.Vector
-         */
-        static mult(x: number, y: number, z?: number): Vector;
-
-        /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
          *   @param v The vector to multiply with the
          *   components of the original vector
          *   @param n The number to multiply with the vector
          *   @param [target] the vector to receive the result
          */
-        static mult(v: Vector, n: number, target?: Vector): void;
+        static mult(v: Vector, n: number, target?: Vector): Vector;
 
         /**
          *   Multiplies the vector by a scalar, multiplies the
@@ -152,7 +118,7 @@ declare module '../../index' {
          *   context.
          *   @param [target] the vector to receive the result
          */
-        static mult(v0: Vector, v1: Vector, target?: Vector): void;
+        static mult(v0: Vector, v1: Vector, target?: Vector): Vector;
 
         /**
          *   Multiplies the vector by a scalar, multiplies the
@@ -174,34 +140,7 @@ declare module '../../index' {
          *   components of the vector
          *   @param [target] the vector to receive the result
          */
-        static mult(v0: Vector, arr: number[], target?: Vector): void;
-
-        /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) The static
-         *   version of this method creates a new p5.Vector
-         *   while the non-static version acts on the vector
-         *   directly. Additionally, you may provide arguments
-         *   to this method as an array. See the examples for
-         *   more context.
-         *   @param x The number to divide with the x component
-         *   of the vector
-         *   @param y The number to divide with the y component
-         *   of the vector
-         *   @param [z] The number to divide with the z
-         *   component of the vector
-         *   @return The resulting new p5.Vector
-         */
-        static div(x: number, y: number, z?: number): Vector;
+        static mult(v0: Vector, arr: number[], target?: Vector): Vector;
 
         /**
          *   Divides the vector by a scalar, divides a vector
@@ -225,7 +164,7 @@ declare module '../../index' {
          *   @param n The number to divide the vector by
          *   @param [target] The vector to receive the result
          */
-        static div(v: Vector, n: number, target?: Vector): void;
+        static div(v: Vector, n: number, target?: Vector): Vector;
 
         /**
          *   Divides the vector by a scalar, divides a vector
@@ -246,7 +185,7 @@ declare module '../../index' {
          *   more context.
          *   @param [target] The vector to receive the result
          */
-        static div(v0: Vector, v1: Vector, target?: Vector): void;
+        static div(v0: Vector, v1: Vector, target?: Vector): Vector;
 
         /**
          *   Divides the vector by a scalar, divides a vector
@@ -269,7 +208,7 @@ declare module '../../index' {
          *   the vector by
          *   @param [target] The vector to receive the result
          */
-        static div(v0: Vector, arr: number[], target?: Vector): void;
+        static div(v0: Vector, arr: number[], target?: Vector): Vector;
 
         /**
          *   Calculates the magnitude (length) of the vector
@@ -328,7 +267,7 @@ declare module '../../index' {
          *   @param angle The angle of rotation
          *   @param [target] The vector to receive the result
          */
-        static rotate(v: Vector, angle: number, target?: Vector): void;
+        static rotate(v: Vector, angle: number, target?: Vector): Vector;
 
         /**
          *   Linear interpolate the vector to another vector.
@@ -596,12 +535,16 @@ declare module '../../index' {
          *   treated as the dividend, and the x, y, z
          *   components of the argument is treated as the
          *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) The static
-         *   version of this method creates a new p5.Vector
-         *   while the non-static version acts on the vector
-         *   directly. Additionally, you may provide arguments
-         *   to this method as an array. See the examples for
-         *   more context.
+         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
+         *   of the second vector is 0, a division by 0 error
+         *   will be logged, unless both two vectors have 0 in
+         *   their z components, in which case only the x and y
+         *   components will be divided. The static version of
+         *   this method creates a new p5.Vector while the
+         *   non-static version acts on the vector directly.
+         *   Additionally, you may provide arguments to this
+         *   method as an array. See the examples for more
+         *   context.
          *   @param n The number to divide the vector by
          *   @chainable
          */
@@ -618,12 +561,16 @@ declare module '../../index' {
          *   treated as the dividend, and the x, y, z
          *   components of the argument is treated as the
          *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) The static
-         *   version of this method creates a new p5.Vector
-         *   while the non-static version acts on the vector
-         *   directly. Additionally, you may provide arguments
-         *   to this method as an array. See the examples for
-         *   more context.
+         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
+         *   of the second vector is 0, a division by 0 error
+         *   will be logged, unless both two vectors have 0 in
+         *   their z components, in which case only the x and y
+         *   components will be divided. The static version of
+         *   this method creates a new p5.Vector while the
+         *   non-static version acts on the vector directly.
+         *   Additionally, you may provide arguments to this
+         *   method as an array. See the examples for more
+         *   context.
          *   @param x The number to divide with the x component
          *   of the vector
          *   @param y The number to divide with the y component
@@ -645,12 +592,16 @@ declare module '../../index' {
          *   treated as the dividend, and the x, y, z
          *   components of the argument is treated as the
          *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) The static
-         *   version of this method creates a new p5.Vector
-         *   while the non-static version acts on the vector
-         *   directly. Additionally, you may provide arguments
-         *   to this method as an array. See the examples for
-         *   more context.
+         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
+         *   of the second vector is 0, a division by 0 error
+         *   will be logged, unless both two vectors have 0 in
+         *   their z components, in which case only the x and y
+         *   components will be divided. The static version of
+         *   this method creates a new p5.Vector while the
+         *   non-static version acts on the vector directly.
+         *   Additionally, you may provide arguments to this
+         *   method as an array. See the examples for more
+         *   context.
          *   @param arr The array to divide the components of
          *   the vector by
          *   @chainable
@@ -668,12 +619,16 @@ declare module '../../index' {
          *   treated as the dividend, and the x, y, z
          *   components of the argument is treated as the
          *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) The static
-         *   version of this method creates a new p5.Vector
-         *   while the non-static version acts on the vector
-         *   directly. Additionally, you may provide arguments
-         *   to this method as an array. See the examples for
-         *   more context.
+         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
+         *   of the second vector is 0, a division by 0 error
+         *   will be logged, unless both two vectors have 0 in
+         *   their z components, in which case only the x and y
+         *   components will be divided. The static version of
+         *   this method creates a new p5.Vector while the
+         *   non-static version acts on the vector directly.
+         *   Additionally, you may provide arguments to this
+         *   method as an array. See the examples for more
+         *   context.
          *   @param v The vector to divide the components of
          *   the original vector by
          *   @chainable
@@ -769,7 +724,7 @@ declare module '../../index' {
          *   (only 2D vectors). p5.Vectors created using
          *   createVector() will take the current angleMode()
          *   into consideration, and give the angle in radians
-         *   or degree accordingly.
+         *   or degrees accordingly.
          *   @return The angle of rotation
          */
         heading(): number;
@@ -794,10 +749,10 @@ declare module '../../index' {
          *   Calculates and returns the angle between two
          *   vectors. This method will take the current
          *   angleMode into consideration, and give the angle
-         *   in radians or degree accordingly.
+         *   in radians or degrees accordingly.
          *   @param value The x, y, and z components of a
          *   p5.Vector
-         *   @return The angle between (in radians)
+         *   @return The angle between
          */
         angleBetween(value: Vector): number;
 
@@ -826,11 +781,10 @@ declare module '../../index' {
         lerp(v: Vector, amt: number): Vector;
 
         /**
-         *   Reflect the incoming vector about a normal to a
-         *   line in 2D, or about a normal to a plane in 3D.
-         *   This method acts on the vector directly.
-         *   @param surfaceNormal The p5.Vector to reflect
-         *   about; will be normalized by this method.
+         *   Reflect a vector about a normal to a line in 2D,
+         *   or about a normal to a plane in 3D.
+         *   @param surfaceNormal the p5.Vector to reflect
+         *   about.
          *   @chainable
          */
         reflect(surfaceNormal: Vector): Vector;
@@ -840,7 +794,7 @@ declare module '../../index' {
          *   array. This is only for temporary use. If used in
          *   any other fashion, the contents should be copied
          *   by using the p5.Vector.copy() method to copy into
-         *   your own array.
+         *   your own vector.
          *   @return An Array with the 3 values
          */
         array(): number[];

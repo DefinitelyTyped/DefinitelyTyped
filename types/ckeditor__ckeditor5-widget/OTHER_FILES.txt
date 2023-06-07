@@ -1,2 +1,0 @@
-src/verticalnavigation.d.ts
-src/widgettypearound/utils.d.ts

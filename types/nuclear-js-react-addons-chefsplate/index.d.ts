@@ -76,6 +76,7 @@ declare const nuclearMixin: any;
  *   });
  *
  * Also supports the decorator pattern:
+ * ```ts
  *   @provideReactor({
  *     foo: React.PropTypes.string
  *   })
@@ -84,6 +85,7 @@ declare const nuclearMixin: any;
  *       return <div/>;
  *     }
  *   }
+ * ```
  *
  * @param [Component] Component to wrap
  * @param [additionalContextTypes] Additional contextTypes to add

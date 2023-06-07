@@ -6,20 +6,20 @@
   },
   "exports": {
     "./package.json": "./package.json",
-    "./GraphQLUpload.js": {
-      "types": "./GraphQLUpload.d.ts"
+    "./GraphQLUpload.mjs": {
+      "types": "./GraphQLUpload.d.mts"
     },
-    "./Upload.js": {
-      "types": "./Upload.d.ts"
+    "./Upload.mjs": {
+      "types": "./Upload.d.mts"
     },
-    "./graphqlUploadExpress.js": {
-      "types": "./graphqlUploadExpress.d.ts"
+    "./graphqlUploadExpress.mjs": {
+      "types": "./graphqlUploadExpress.d.mts"
     },
-    "./graphqlUploadKoa.js": {
-      "types": "./graphqlUploadKoa.d.ts"
+    "./graphqlUploadKoa.mjs": {
+      "types": "./graphqlUploadKoa.d.mts"
     },
-    "./processRequest.js": {
-      "types": "./processRequest.d.ts"
+    "./processRequest.mjs": {
+      "types": "./processRequest.d.mts"
     }
   }
 }

@@ -708,7 +708,7 @@ export interface Response extends http.ServerResponse {
      * @param      code the status code
      * @param      url to redirect to
      * @param    next fn
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(code: number, url: string, next: Next): void;
 
@@ -718,7 +718,7 @@ export interface Response extends http.ServerResponse {
      * `next` is mandatory, to complete the response and trigger audit logger.
      * @param      options the options or url to redirect to
      * @param    next fn
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(options: object | string, next: Next): void;
 

@@ -366,9 +366,16 @@ jest.autoMockOff()
 // $ExpectType void
 jest.advanceTimersByTime(9001);
 
+// $ExpectType Promise<void>
+jest.advanceTimersByTimeAsync(9001);
+
 // $ExpectType void
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
+
+// $ExpectType Promise<void>
+jest.advanceTimersToNextTimerAsync();
+jest.advanceTimersToNextTimerAsync(2);
 
 // $ExpectType void
 jest.clearAllTimers();
@@ -390,8 +397,14 @@ jest.runAllTicks();
 // $ExpectType void
 jest.runAllTimers();
 
+// $ExpectType Promise<void>
+jest.runAllTimersAsync();
+
 // $ExpectType void
 jest.runOnlyPendingTimers();
+
+// $ExpectType Promise<void>
+jest.runOnlyPendingTimersAsync();
 
 // https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers();
@@ -425,6 +438,67 @@ const realSystemTime2: number = jest.getRealSystemTime('foo');
 const seed1: number = jest.getSeed();
 // @ts-expect-error
 const seed2: number = jest.getSeed('foo');
+
+/* Replace property */
+// https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value
+
+const replaceObjectA = {
+    method: () => {},
+    property: 1,
+};
+
+// $ExpectType ReplaceProperty<number>
+jest.replaceProperty(replaceObjectA, 'property', 2);
+
+// $ExpectType ReplaceProperty<() => void>
+jest.replaceProperty(replaceObjectA, 'method', () => {});
+
+let replaced: jest.ReplaceProperty<number>;
+replaced = jest.replaceProperty(replaceObjectA, 'property', 2);
+
+// $ExpectType void
+jest.replaceProperty(replaceObjectA, 'property', 2).replaceValue(3).restore();
+
+// @ts-expect-error: nullish target object
+jest.replaceProperty(null, 'invalid', 1);
+// @ts-expect-error: primitive cannot have properties replaced
+jest.replaceProperty(true, 'valueOf', () => 'false');
+// @ts-expect-error: primitive cannot have properties replaced
+jest.replaceProperty(123, 'toFixed', () => '123');
+// @ts-expect-error: property does not exist
+jest.replaceProperty(replaceObjectA, 'invalid', 1);
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceObjectA, 'property', 'some text');
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceObjectA, 'property', 1).replaceValue('some text');
+
+interface ReplaceComplexObject {
+    numberOrUndefined: number | undefined;
+    optionalString?: string;
+    multipleTypes: number | string | { foo: number } | null;
+}
+declare const replaceComplexObject: ReplaceComplexObject;
+
+// $ExpectType ReplaceProperty<number | undefined>
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', undefined);
+
+// $ExpectType ReplaceProperty<number | undefined>
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 1);
+
+// @ts-expect-error: wrong type of the value
+jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 'some string');
+
+// $ExpectType ReplaceProperty<string | undefined>
+jest.replaceProperty(replaceComplexObject, 'optionalString', 'foo');
+
+// $ExpectType ReplaceProperty<string | undefined>
+jest.replaceProperty(replaceComplexObject, 'optionalString', undefined);
+
+// $ExpectType ReplaceProperty<string | number | { foo: number; } | null>
+jest.replaceProperty(replaceComplexObject, 'multipleTypes', 1)
+    .replaceValue('foo')
+    .replaceValue({ foo: 1 })
+    .replaceValue(null);
 
 // $ExpectType number
 jest.now();
@@ -1216,6 +1290,8 @@ describe('', () => {
         expect({}).toHaveProperty(['property'], {});
         expect({}).toHaveProperty(['property', 'deep']);
         expect({}).toHaveProperty(['property', 'deep'], {});
+        expect({}).toHaveProperty(['property', 'deep'] as const);
+        expect({}).toHaveProperty(['property', 'deep'] as const, {});
 
         expect(jest.fn()).toHaveReturned();
 
@@ -1358,6 +1434,9 @@ describe('', () => {
         expect({}).toBe(expect.arrayContaining(['a', 'b']));
         expect(['abc']).toBe(expect.arrayContaining(['a', 'b']));
 
+        expect({}).toBe(expect.arrayContaining(['a', 'b'] as const));
+        expect(['abc']).toBe(expect.arrayContaining(['a', 'b'] as const));
+
         expect.objectContaining({});
         expect.stringMatching('foo');
         expect.stringMatching(/foo/);
@@ -1379,6 +1458,7 @@ describe('', () => {
         expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
         expect({ bar: 'baz' }).toEqual(expect.not.objectContaining({ foo: 'bar' }));
         expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha'] as const));
 
         /* Miscellaneous */
 
@@ -1525,6 +1605,9 @@ expect(7).toBe(jasmine.any(Number));
 
 expect({}).toBe(jasmine.arrayContaining(['a', 'b']));
 expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b']));
+
+expect({}).toBe(jasmine.arrayContaining(['a', 'b'] as const));
+expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b'] as const));
 
 jasmine.arrayContaining([]);
 new (jasmine.arrayContaining([]))([]);
@@ -1675,6 +1758,17 @@ describe.each([
     });
 });
 
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34617
+
+it.each<number>([1, 2, 3])('dummy: %d', (num, done) => {
+    done();
+});
+
+const casesReadonlyArray = [[1, 2, 3] as ReadonlyArray<number>] as ReadonlyArray<ReadonlyArray<number>>;
+it.each(casesReadonlyArray)('%d', (a, b, c) => {
+    expect(a + b).toBe(c);
+});
+
 interface Case {
     a: number;
     b: number;
@@ -1686,9 +1780,10 @@ describe.each`
     ${1} | ${1} | ${2}
     ${1} | ${2} | ${3}
     ${2} | ${1} | ${3}
-`('$a + $b', ({ a, b, expected }: Case) => {
+`('$a + $b', ({ a, b, expected }: Case, done) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
+        done();
     });
 });
 
@@ -1754,11 +1849,27 @@ test.each([
     5000,
 );
 
+test.each([
+    [
+        { prop1: true, prop2: true },
+        { prop1: true, prop2: true },
+    ],
+    [{ prop1: true }, { prop1: true, prop2: false }],
+])('%j -> %j', (input, output) => {
+    console.log(input, output);
+});
+
 declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
 test.each(constCases)('%s + %s', (...args) => {
     // following assertion is skipped because of flaky testing
     // _$ExpectType ["a", "b", "ab"] | ["d", 2, "d2"]
     args;
+});
+test.each(constCases)('%s + %s', (a, b, c) => {
+    a; // $ExpectType "a" | "d"
+    // following assertion is skipped because of flaky testing
+    b; // _$ExpectType "b" | 2
+    c; // $ExpectType "ab" | "d2"
 });
 
 declare const constCasesWithMoreThanTen: [
@@ -1800,6 +1911,15 @@ test.each([
 ])('', (a, b) => {
     a; // $ExpectType number
     b; // $ExpectType string
+});
+
+test.each([
+    [1, '1'],
+    [2, '2'],
+] as const)('', (a, b) => {
+    // following assertion is skipped because of flaky testing
+    a; // _$ExpectType 1 | 2
+    b; // $ExpectType "1" | "2"
 });
 
 test.only.each([

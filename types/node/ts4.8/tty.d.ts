@@ -1,10 +1,9 @@
 /**
- * The `tty` module provides the `tty.ReadStream` and `tty.WriteStream` classes.
- * In most cases, it will not be necessary or possible to use this module directly.
- * However, it can be accessed using:
+ * The `node:tty` module provides the `tty.ReadStream` and `tty.WriteStream`classes. In most cases, it will not be necessary or possible to use this module
+ * directly. However, it can be accessed using:
  *
  * ```js
- * const tty = require('tty');
+ * const tty = require('node:tty');
  * ```
  *
  * When Node.js detects that it is being run with a text terminal ("TTY")
@@ -22,7 +21,7 @@
  *
  * In most cases, there should be little to no reason for an application to
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tty.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/tty.js)
  */
 declare module 'tty' {
     import * as net from 'node:net';

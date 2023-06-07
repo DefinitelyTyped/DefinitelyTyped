@@ -1,19 +1,6 @@
 import which = require('which');
 
-which('cat', (err, path) => {
-    path; // $ExpectType string | undefined
-});
-
 const path = which.sync('cat'); // $ExpectType string
-
-which('cat', { all: true }, (err, paths) => {
-    if (err) return;
-    if (paths) {
-        for (const path of paths) {
-            path; // $ExpectType string
-        }
-    }
-});
 
 const promise: Promise<string> = which('cat');
 const promise1: Promise<string> = which('cat', { all: false });
@@ -43,7 +30,4 @@ if (paths2 !== null) {
 }
 
 const path2 = which.sync('cat', { path: 'replacement path', pathExt: 'replacement pathext' });
-which('cat', { path: 'replacement path', pathExt: 'replacement pathext' }, (err, path) => {
-    const a: string = path!;
-});
 which.sync('cat'); // $ExpectType string

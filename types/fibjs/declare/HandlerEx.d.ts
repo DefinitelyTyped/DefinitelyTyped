@@ -31,7 +31,6 @@ declare class Class_HandlerEx extends Class_Handler {
      * @brief WebSocket 协议转换处理器当前事件处理接口对象
      * 
      * 
-     * @type Handler
      */
     
     handler: Class_Handler
@@ -54,8 +53,6 @@ declare class Class_HandlerEx extends Class_Handler {
      * ```
      * 
      * 
-     * @readonly
-     * @type Stats
      */
     
     stats: Class_Stats

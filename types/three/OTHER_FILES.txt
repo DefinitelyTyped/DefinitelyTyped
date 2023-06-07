@@ -1,5 +1,11 @@
+build/three.d.cts
+build/three.d.ts
+build/three.min.d.ts
+build/three.module.d.ts
+build/three.module.min.d.ts
 examples/jsm/animation/AnimationClipCreator.d.ts
 examples/jsm/csm/CSMShader.d.ts
+examples/jsm/controls/MapControls.d.ts
 examples/jsm/curves/NURBSCurve.d.ts
 examples/jsm/curves/NURBSSurface.d.ts
 examples/jsm/curves/NURBSUtils.d.ts
@@ -32,7 +38,6 @@ examples/jsm/helpers/VertexNormalsHelper.d.ts
 examples/jsm/helpers/VertexTangentsHelper.d.ts
 examples/jsm/interactive/HTMLMesh.d.ts
 examples/jsm/interactive/InteractiveGroup.d.ts
-examples/jsm/libs/stats.module.d.ts
 examples/jsm/lights/LightProbeGenerator.d.ts
 examples/jsm/lines/Wireframe.d.ts
 examples/jsm/lines/WireframeGeometry2.d.ts
@@ -55,7 +60,6 @@ examples/jsm/loaders/LWOLoader.d.ts
 examples/jsm/loaders/MD2Loader.d.ts
 examples/jsm/loaders/MDDLoader.d.ts
 examples/jsm/loaders/NRRDLoader.d.ts
-examples/jsm/loaders/PCDLoader.d.ts
 examples/jsm/loaders/PDBLoader.d.ts
 examples/jsm/loaders/PLYLoader.d.ts
 examples/jsm/loaders/PRWMLoader.d.ts
@@ -67,11 +71,13 @@ examples/jsm/loaders/TiltLoader.d.ts
 examples/jsm/loaders/VRMLLoader.d.ts
 examples/jsm/loaders/VTKLoader.d.ts
 examples/jsm/loaders/XYZLoader.d.ts
+examples/jsm/math/Capsule.d.ts
 examples/jsm/math/ColorConverter.d.ts
 examples/jsm/math/ConvexHull.d.ts
 examples/jsm/math/Lut.d.ts
 examples/jsm/math/MeshSurfaceSampler.d.ts
 examples/jsm/math/OBB.d.ts
+examples/jsm/math/Octree.d.ts
 examples/jsm/misc/ConvexObjectBreaker.d.ts
 examples/jsm/misc/Gyroscope.d.ts
 examples/jsm/misc/MD2Character.d.ts
@@ -116,7 +122,6 @@ examples/jsm/postprocessing/TAARenderPass.d.ts
 examples/jsm/postprocessing/TexturePass.d.ts
 examples/jsm/postprocessing/UnrealBloomPass.d.ts
 examples/jsm/renderers/CSS2DRenderer.d.ts
-examples/jsm/renderers/CSS3DRenderer.d.ts
 examples/jsm/renderers/Projector.d.ts
 examples/jsm/renderers/SVGRenderer.d.ts
 examples/jsm/shaders/AfterimageShader.d.ts

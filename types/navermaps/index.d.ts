@@ -487,7 +487,7 @@ declare namespace naver.maps {
      */
     interface PolygonOptions {
         map?: Map;
-        paths: ArrayOfCoords[] | KVOArrayOfCoords[] | ArrayOfCoordsLiteral[];
+        paths: ArrayOfCoords[] | KVOArray<KVOArrayOfCoords> | ArrayOfCoordsLiteral[];
         strokeWeight?: number;
         strokeOpacity?: number;
         strokeColor?: string;
@@ -1241,7 +1241,7 @@ declare namespace naver.maps {
      */
     class Marker extends OverlayView {
         constructor(options: MarkerOptions);
-        getAnimation(): Animation;
+        getAnimation(): Animation | null;
         getClickable(): boolean;
         getCursor(): string;
         getDraggable(): boolean;
@@ -1253,7 +1253,7 @@ declare namespace naver.maps {
         getTitle(): string;
         getVisible(): boolean;
         getZIndex(): number;
-        setAnimation(animation: Animation): void;
+        setAnimation(animation: Animation | null): void;
         setClickable(clickable: boolean): void;
         setCursor(cursor: string): void;
         setDraggable(draggable: boolean): void;
@@ -1275,11 +1275,13 @@ declare namespace naver.maps {
         getBounds(): Bounds;
         getDrawingRect(): Bounds;
         getPath(): ArrayOfCoords | KVOArrayOfCoords;
-        getPaths(): ArrayOfCoords[] | KVOArrayOfCoords[];
-        setOptions(key: string, value: any): void;
+        getPaths(): ArrayOfCoords[] | KVOArray<KVOArrayOfCoords>;
+        getOptions<K extends keyof PolygonOptions>(key: K): PolygonOptions[K];
+        getOptions(): PolygonOptions;
+        setOptions<K extends keyof PolygonOptions>(key: K , value: PolygonOptions[K]): void;
         setOptions(options: PolygonOptions): void;
         setPath(path: ArrayOfCoords | KVOArrayOfCoords | ArrayOfCoordsLiteral): void;
-        setPaths(paths: ArrayOfCoords[] | KVOArrayOfCoords[] | ArrayOfCoordsLiteral[]): void;
+        setPaths(paths: ArrayOfCoords[] | KVOArray<KVOArrayOfCoords> | ArrayOfCoordsLiteral[]): void;
         setStyles(key: string, value: any): void;
         setStyles(options: PolygonOptions): void;
     }

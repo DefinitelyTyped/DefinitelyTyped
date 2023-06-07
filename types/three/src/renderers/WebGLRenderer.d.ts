@@ -9,12 +9,12 @@ import { WebGLRenderLists } from './webgl/WebGLRenderLists';
 import { WebGLState } from './webgl/WebGLState';
 import { Vector2 } from './../math/Vector2';
 import { Vector4 } from './../math/Vector4';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { WebGLRenderTarget } from './WebGLRenderTarget';
 import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
 import { Object3D } from './../core/Object3D';
 import { Material } from './../materials/Material';
-import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
+import { ToneMapping, ShadowMapType, CullFace, TextureEncoding, ColorSpace } from '../constants';
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { BufferGeometry } from './../core/BufferGeometry';
 import { OffscreenCanvas, Texture } from '../textures/Texture';
@@ -22,7 +22,7 @@ import { Data3DTexture } from '../textures/Data3DTexture';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
 import { DataArrayTexture } from '../textures/DataArrayTexture';
-import { ColorRepresentation } from '../utils';
+import { WebGLProgram } from './webgl/WebGLProgram';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -100,6 +100,21 @@ export interface WebGLDebug {
      * Enables error checking and reporting when shader programs are being compiled.
      */
     checkShaderErrors: boolean;
+
+    /**
+     * A callback function that can be used for custom error reporting. The callback receives the WebGL context, an
+     * instance of WebGLProgram as well two instances of WebGLShader representing the vertex and fragment shader.
+     * Assigning a custom function disables the default error reporting.
+     * @default `null`
+     */
+    onShaderError:
+        | ((
+              gl: WebGLRenderingContext,
+              program: WebGLProgram,
+              glVertexShader: WebGLShader,
+              glFragmentShader: WebGLShader,
+          ) => void)
+        | null;
 }
 
 /**
@@ -174,13 +189,21 @@ export class WebGLRenderer implements Renderer {
     /**
      * Default is LinearEncoding.
      * @default THREE.LinearEncoding
+     * @deprecated Use {@link WebGLRenderer.outputColorSpace .outputColorSpace} in three.js r152+.
      */
     outputEncoding: TextureEncoding;
 
     /**
-     * @default false
+     * Color space used for output to HTMLCanvasElement. Supported values are
+     * {@link SRGBColorSpace} and {@link LinearSRGBColorSpace}.
+     * @default THREE.SRGBColorSpace.
      */
-    physicallyCorrectLights: boolean;
+    outputColorSpace: ColorSpace;
+
+    /**
+     * @default true
+     */
+    useLegacyLights: boolean;
 
     /**
      * @default THREE.NoToneMapping

@@ -70,6 +70,7 @@ export interface CalendarPickerProps {
     monthTitleStyle?: StyleProp<TextStyle> | undefined;
     yearTitleStyle?: StyleProp<TextStyle> | undefined;
     customDayHeaderStyles?: CustomDayHeaderStylesFunc | undefined;
+    initialView?: 'years' | 'months' | 'days' | undefined;
 }
 
 export type DayOfWeekStyle = {

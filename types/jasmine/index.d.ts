@@ -123,22 +123,22 @@ declare function afterAll(action: jasmine.ImplementationCallback, timeout?: numb
 
 /**
  * Create an expectation for a spec.
- * @checkReturnValue see https://tsetse.info/check-return-value
  * @param spy
+ * @see see https://tsetse.info/check-return-value
  */
 declare function expect<T extends jasmine.Func>(spy: T | jasmine.Spy<T>): jasmine.FunctionMatchers<T>;
 
 /**
  * Create an expectation for a spec.
- * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual
+ * @see see https://tsetse.info/check-return-value
  */
 declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
 
 /**
  * Create an expectation for a spec.
- * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual Actual computed value to test expectations against.
+ * @see see https://tsetse.info/check-return-value
  */
 declare function expect<T>(actual: T): jasmine.Matchers<T>;
 
@@ -152,8 +152,8 @@ declare function expect(): jasmine.NothingMatcher;
  * that are provided by an asynchronous expectation all return promises
  * which must be either returned from the spec or waited for using `await`
  * in order for Jasmine to associate them with the correct spec.
- * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual Actual computed value to test expectations against.
+ * @see see https://tsetse.info/check-return-value
  */
 declare function expectAsync<T, U>(actual: T | PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
@@ -731,7 +731,7 @@ declare namespace jasmine {
         /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails
-         * @checkReturnValue see https://tsetse.info/check-return-value
+         * @see see https://tsetse.info/check-return-value
          */
         withContext(message: string): Matchers<T>;
 
@@ -779,7 +779,7 @@ declare namespace jasmine {
         /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails.
-         * @checkReturnValue see https://tsetse.info/check-return-value
+         * @see see https://tsetse.info/check-return-value
          */
         withContext(message: string): ArrayLikeMatchers<T>;
 
@@ -807,7 +807,7 @@ declare namespace jasmine {
         /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails.
-         * @checkReturnValue see https://tsetse.info/check-return-value
+         * @see see https://tsetse.info/check-return-value
          */
         withContext(message: string): FunctionMatchers<Fn>;
 
@@ -880,7 +880,7 @@ declare namespace jasmine {
         /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails.
-         * @checkReturnValue see https://tsetse.info/check-return-value
+         * @see see https://tsetse.info/check-return-value
          */
         withContext(message: string): AsyncMatchers<T, U>;
 

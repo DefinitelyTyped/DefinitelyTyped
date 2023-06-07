@@ -1,8 +1,9 @@
-// Type definitions for @node-red/editor-client 1.1
+// Type definitions for @node-red/editor-client 1.3
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/editor-client, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
+//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.7
 
 /// <reference lib="dom" />
 /// <reference types="ace" />
@@ -10,6 +11,7 @@
 
 import { LocalSettings as RuntimeLocalSettings } from '@node-red/runtime';
 import { I18nTFunction } from '@node-red/util';
+import * as registry from '@node-red/registry';
 
 declare const editorClient: editorClient.EditorClientModule;
 
@@ -38,9 +40,7 @@ declare namespace editorClient {
      * Read more: https://nodered.org/docs/creating-nodes/properties
      */
     type NodePropertiesDef<TProps extends NodeProperties, TInstProps extends TProps = TProps> = {
-        [K in keyof TProps]: K extends NodeReservedProperties
-            ? never
-            : NodePropertyDef<TProps[K], TInstProps>;
+        [K in keyof TProps]: K extends NodeReservedProperties ? never : NodePropertyDef<TProps[K], TInstProps>;
     };
 
     /**
@@ -94,8 +94,7 @@ declare namespace editorClient {
         | 'y'
         | 'z';
 
-    type NodeInstance<TProps extends NodeProperties = NodeProperties> =
-        Omit<TProps, NodeReservedProperties> &
+    type NodeInstance<TProps extends NodeProperties = NodeProperties> = Omit<TProps, NodeReservedProperties> &
         Readonly<{
             _: I18nTFunction;
             id: string;
@@ -165,7 +164,8 @@ declare namespace editorClient {
             | 'node_label'
             | 'node_label_italic'
             | string
-            | ((this: NodeInstance<TInstProps>) => 'node_label' | 'node_label_italic' | string) | undefined;
+            | ((this: NodeInstance<TInstProps>) => 'node_label' | 'node_label_italic' | string)
+            | undefined;
         /**
          * Optional label to add on hover to the input port of a node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
@@ -175,7 +175,11 @@ declare namespace editorClient {
          * Optional labels to add on hover to the output ports of a node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
          */
-        outputLabels?: string | string[] | ((this: NodeInstance<TInstProps>, idx: number) => string | undefined) | undefined;
+        outputLabels?:
+            | string
+            | string[]
+            | ((this: NodeInstance<TInstProps>, idx: number) => string | undefined)
+            | undefined;
         /**
          * The icon to use.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#icon
@@ -190,14 +194,16 @@ declare namespace editorClient {
          * Adds a button to the edge of the node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#buttons
          */
-        button?: {
-            /** Called when the button is clicked */
-            onclick: (this: NodeInstance<TInstProps>) => void;
-            /** Function to dynamically enable and disable the button based on the node’s current configuration. */
-            enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
-            /** Function to determine whether the button should be shown at all. */
-            visible?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
-        } | undefined;
+        button?:
+            | {
+                  /** Called when the button is clicked */
+                  onclick: (this: NodeInstance<TInstProps>) => void;
+                  /** Function to dynamically enable and disable the button based on the node’s current configuration. */
+                  enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
+                  /** Function to determine whether the button should be shown at all. */
+                  visible?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
+              }
+            | undefined;
         /**
          * Called when the edit dialog is being built.
          * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
@@ -521,6 +527,24 @@ declare namespace editorClient {
         typedInput(ptypeName: string, isConfig?: boolean): (v: any) => boolean;
     }
 
+    interface Plugins {
+        registerPlugin: PluginsRegistry['registerPluginType'];
+    }
+    interface PluginsRegistry {
+        /**
+         * Registers a plugin with the editor.     *
+         * @param pt The plugin type is used throughout the editor to identify the plugin. It must
+         * match the value used by the call to RED.plugins.registerPlugin in the corresponding runtime
+         * script.
+         * @param def The plugin definition contains all of the information about the plugin
+         * needed by the editor.
+         */
+        registerPluginType(pt: string, def: PluginDef): void;
+    }
+    interface PluginDef {
+        onadd?: (() => void) | undefined;
+    }
+
     interface TextBidi {
         /**
          * Sets the text direction preference
@@ -555,7 +579,13 @@ declare namespace editorClient {
          * @param isRtl - indicates if the GUI is mirrored
          * @param locale - the browser locale
          */
-        getHtml(text: string, type: string, args: { dir?: string | undefined } | null, isRtl: boolean, locale: string): string;
+        getHtml(
+            text: string,
+            type: string,
+            args: { dir?: string | undefined } | null,
+            isRtl: boolean,
+            locale: string,
+        ): string;
 
         /*
          * Handle Structured text correct display for a given HTML element.
@@ -608,7 +638,11 @@ declare namespace editorClient {
          *      label: the text to display - default: "Deploy"
          *      icon : the icon to use. Null removes the icon. default: "red/images/deploy-full-o.svg"
          */
-        init(options?: { type?: 'default' | 'simple' | undefined; label?: string | undefined; icon?: string | undefined }): void;
+        init(options?: {
+            type?: 'default' | 'simple' | undefined;
+            label?: string | undefined;
+            icon?: string | undefined;
+        }): void;
         setDeployInflight(state: boolean): void;
     }
 
@@ -632,22 +666,14 @@ declare namespace editorClient {
          * @param prefix - the input prefix of the parent property
          */
         editConfig(name: string, type: string, id: string, prefix: string): void;
-        editSubflow(subflow: object): void;
-        editGroup(group: object): void;
-        editJavaScript(options: object): void;
-        editExpression(options: object): void;
-        editJSON(options: object): void;
-        editMarkdown(options: object): void;
-        editText(options: {
-            value?: string | undefined;
-            complete: (value: string, cursor: { row: number; column: number }) => void;
-            title?: string | undefined;
-            width: string;
-            mode?: string | undefined;
-            cursor?: { row: number; column: number } | undefined;
-            onclose?: (() => void) | undefined;
-        }): void;
-        editBuffer(options: object): void;
+        editSubflow(subflow: object, defaultTab?: any): void;
+        editGroup(group: object, defaultTab?: any): void;
+        editJavaScript(options: JavaScriptTypeEditorShowOptions): void;
+        editExpression(options: ExpressionTypeEditorShowOptions): void;
+        editJSON(options: JSONTypeEditorShowOptions): void;
+        editMarkdown(options: MarkdownTypeEditorShowOptions): void;
+        editText(options: TextTypeEditorShowOptions): void;
+        editBuffer(options: BufferTypeEditorShowOptions): void;
         buildEditForm(container: JQuery, formId: string, type: string, ns: string, node: unknown): JQuery;
         /**
          * Validate a node
@@ -677,14 +703,14 @@ declare namespace editorClient {
          * @param type - the type to display
          * @param options - options for the editor
          */
-        showTypeEditor(type: string, options: object): void;
+        showTypeEditor(type: string, options: TypeEditorShowOptions): void;
 
         /**
          * Register a type editor.
          * @param type - the type name
          * @param definition - the editor definition
          */
-        registerTypeEditor(type: string, definition: object): void;
+        registerTypeEditor(type: string, definition: TypeEditorDefinition): void;
 
         /**
          * Create a editor ui component
@@ -700,6 +726,73 @@ declare namespace editorClient {
             value?: string | undefined;
             globals?: object | undefined;
         }): AceAjax.Editor;
+    }
+
+    interface TypeEditorDefinition {
+        show(options: any): void;
+        buildToolbar?: (container: JQuery, editor: AceAjax.Editor) => void;
+    }
+
+    interface TypeEditorShowOptions {
+        title?: string;
+        parent?: JQuery;
+        onclose?: () => void;
+    }
+
+    interface JavaScriptTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: any;
+        width: number | 'Infinite';
+        stateId: string;
+        mode: string;
+        focus: boolean;
+        cancel: () => void;
+        complete: (value: any, cursor?: any) => void;
+        extraLibs: any[];
+    }
+
+    interface ExpressionTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: string;
+        stateId: string;
+        focus: boolean;
+        complete: (value: any) => void;
+    }
+
+    interface JSONTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: string;
+        stateId?: string;
+        focus?: boolean;
+        complete?: (value: any) => void;
+        title?: string;
+        requireValid?: boolean;
+        readOnly?: boolean;
+        toolbarButtons?: TrayButton[];
+    }
+
+    interface MarkdownTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: string;
+        width?: number | 'Infinite';
+        stateId: string;
+        focus?: boolean;
+        cancel?: () => void;
+        complete?: (value: string, cursor?: any) => void;
+        title?: string;
+        header?: JQuery;
+    }
+
+    interface TextTypeEditorShowOptions extends TypeEditorShowOptions {
+        mode: string;
+        value: string;
+        stateId: string;
+        width: number | 'Infinite';
+        focus: boolean;
+        complete?: (value: string, cursor?: any) => void;
+    }
+
+    interface BufferTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: any;
+        stateId: string;
+        focus: boolean;
+        complete: (value: any) => void;
     }
 
     interface EventLog {
@@ -762,7 +855,7 @@ declare namespace editorClient {
         loadLibraryFolder(library: string, type: string, root: string, done: (items: object[]) => void): void;
     }
 
-    type NotificationType = 'warning' | 'compact' | 'success' | 'warning' | 'error';
+    type NotificationType = 'warning' | 'compact' | 'success' | 'error';
 
     interface Notifications {
         init(): void;
@@ -775,12 +868,14 @@ declare namespace editorClient {
                 id?: string | undefined;
                 modal?: boolean | undefined;
                 width?: number | undefined;
-                buttons?: Array<{
-                    id?: string | undefined;
-                    class?: string | undefined;
-                    text: string;
-                    click: (event: JQuery.Event) => void;
-                }> | undefined;
+                buttons?:
+                    | Array<{
+                          id?: string | undefined;
+                          class?: string | undefined;
+                          text: string;
+                          click: (event: JQuery.Event) => void;
+                      }>
+                    | undefined;
             },
         ): HTMLDivElement;
         notify(msg: string | JQuery, type?: NotificationType, fixed?: boolean, timeout?: number): HTMLDivElement;
@@ -861,10 +956,13 @@ declare namespace editorClient {
         addTab(options: {
             enableOnEdit?: boolean | undefined;
             toolbar?: HTMLElement | undefined;
+            content?: HTMLElement | undefined;
             id: string;
             name: string;
+            label?: string;
             iconClass?: string | undefined;
             visible?: boolean | undefined;
+            action?: string;
         }): void;
         removeTab(id: string): void;
         show(id: string): void;
@@ -896,10 +994,40 @@ declare namespace editorClient {
 
     interface Tray {
         init(): void;
-        show(options?: object): void;
+        show(options?: TrayShowOptions): void;
         hide(): void;
         resize(): void;
         close(done?: () => void): void;
+    }
+
+    interface TrayShowOptions {
+        buttons?: TrayButton[];
+
+        close?: () => void;
+        open?: (tray: any, done?: () => void) => void;
+        resize?: (options: TrayResizeOptions) => void;
+        show?: () => void;
+
+        title?: string;
+
+        maximized?: boolean;
+        width?: number;
+
+        overlay?: boolean;
+
+        focusElement?: any;
+    }
+
+    interface TrayResizeOptions {
+        width: number;
+        height?: number;
+    }
+
+    interface TrayButton {
+        class?: string;
+        click?: (event: any) => void;
+        id?: string;
+        text?: string;
     }
 
     interface TypeSearch {
@@ -919,11 +1047,9 @@ declare namespace editorClient {
         createObjectElement(obj: any, options?: object): JQuery;
         getMessageProperty(msg: object, expr: string | string[]): any;
         setMessageProperty(msg: object, prop: string, value: any, createMissing?: boolean): null | undefined;
-        normalisePropertyExpression(str: string): Array<string | number>;
+        normalisePropertyExpression(str: string, msg?: registry.NodeMessage): Array<string | number>;
         validatePropertyExpression(str: string): boolean;
-        separateIconPath(
-            icon?: string,
-        ): {
+        separateIconPath(icon?: string): {
             module: string;
             file: string;
         };
@@ -1143,9 +1269,11 @@ declare namespace editorClient {
             style?: 'compact' | undefined;
             disposeOnClose?: boolean | undefined;
             onclose?: ((v: boolean) => void) | undefined;
-            options?: Array<{
-                onselect?: (() => void) | undefined;
-            }> | undefined;
+            options?:
+                | Array<{
+                      onselect?: (() => void) | undefined;
+                  }>
+                | undefined;
         }): {
             show(opts: {
                 target: JQuery;
@@ -1155,9 +1283,7 @@ declare namespace editorClient {
             }): void;
             hide(cancelled?: boolean): void;
         };
-        panel(
-            content: JQuery,
-        ): {
+        panel(content: JQuery): {
             container: JQuery;
             show(options: {
                 onclose: () => void;
@@ -1189,7 +1315,11 @@ declare namespace editorClient {
         resize(): void;
     }
     interface Stack {
-        create(options: { container: JQuery; fill?: boolean | undefined; singleExpanded?: boolean | undefined }): StackInstance;
+        create(options: {
+            container: JQuery;
+            fill?: boolean | undefined;
+            singleExpanded?: boolean | undefined;
+        }): StackInstance;
     }
 
     interface TabsInstance {
@@ -1246,6 +1376,7 @@ declare namespace editorClient {
         settings: SettingsWithData;
         user: User;
         validators: Validators;
+        plugins: Plugins;
 
         // assigned in i18n.js (on init)
         _: I18nTFunction;
@@ -1549,7 +1680,7 @@ declare namespace editorClient {
         /** An icon to display in the type menu */
         icon?: string | undefined;
         /** If the type has a fixed set of values, this is an array of string options for the value. For example, ["true","false"] for the boolean type. */
-        options?: string[] | undefined;
+        options?: string[] | Array<{ value: string; label: string }> | undefined;
         /** Set to false if there is no value associated with the type. */
         hasValue?: boolean | undefined;
         /** A function to validate the value for the type. */

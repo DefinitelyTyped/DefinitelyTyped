@@ -852,6 +852,19 @@ import { promisify } from 'node:util';
 }
 
 {
+    crypto.createPrivateKey({
+        key: 'abc123',
+        format: 'der',
+        encoding: 'hex'
+    });
+    crypto.createPublicKey({
+        key: 'abc123',
+        format: 'der',
+        encoding: 'hex'
+    });
+}
+
+{
     const keyObject = crypto.createSecretKey(Buffer.from('asdf')); // $ExpectType KeyObject
     keyObject instanceof crypto.KeyObject;
     assert.equal(keyObject.symmetricKeySize, 4);
@@ -939,15 +952,7 @@ import { promisify } from 'node:util';
     num = crypto.constants.SSL_OP_COOKIE_EXCHANGE;
     num = crypto.constants.SSL_OP_CRYPTOPRO_TLSEXT_BUG;
     num = crypto.constants.SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
-    num = crypto.constants.SSL_OP_EPHEMERAL_RSA;
     num = crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT;
-    num = crypto.constants.SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER;
-    num = crypto.constants.SSL_OP_MICROSOFT_SESS_ID_BUG;
-    num = crypto.constants.SSL_OP_MSIE_SSLV2_RSA_PADDING;
-    num = crypto.constants.SSL_OP_NETSCAPE_CA_DN_BUG;
-    num = crypto.constants.SSL_OP_NETSCAPE_CHALLENGE_BUG;
-    num = crypto.constants.SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG;
-    num = crypto.constants.SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG;
     num = crypto.constants.SSL_OP_NO_COMPRESSION;
     num = crypto.constants.SSL_OP_NO_QUERY_MTU;
     num = crypto.constants.SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION;
@@ -957,14 +962,6 @@ import { promisify } from 'node:util';
     num = crypto.constants.SSL_OP_NO_TLSv1;
     num = crypto.constants.SSL_OP_NO_TLSv1_1;
     num = crypto.constants.SSL_OP_NO_TLSv1_2;
-    num = crypto.constants.SSL_OP_PKCS1_CHECK_1;
-    num = crypto.constants.SSL_OP_PKCS1_CHECK_2;
-    num = crypto.constants.SSL_OP_SINGLE_DH_USE;
-    num = crypto.constants.SSL_OP_SINGLE_ECDH_USE;
-    num = crypto.constants.SSL_OP_SSLEAY_080_CLIENT_DH_BUG;
-    num = crypto.constants.SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG;
-    num = crypto.constants.SSL_OP_TLS_BLOCK_PADDING_BUG;
-    num = crypto.constants.SSL_OP_TLS_D5_BUG;
     num = crypto.constants.SSL_OP_TLS_ROLLBACK_BUG;
     num = crypto.constants.ENGINE_METHOD_RSA;
     num = crypto.constants.ENGINE_METHOD_DSA;
@@ -981,7 +978,6 @@ import { promisify } from 'node:util';
     num = crypto.constants.DH_CHECK_P_NOT_PRIME;
     num = crypto.constants.DH_UNABLE_TO_CHECK_GENERATOR;
     num = crypto.constants.DH_NOT_SUITABLE_GENERATOR;
-    num = crypto.constants.ALPN_ENABLED;
     num = crypto.constants.RSA_PKCS1_PADDING;
     num = crypto.constants.RSA_SSLV23_PADDING;
     num = crypto.constants.RSA_NO_PADDING;
@@ -1418,7 +1414,7 @@ import { promisify } from 'node:util';
     let b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
     b = crypto.subtle;
 
-    crypto.webcrypto.randomUUID(); // $ExpectType string
+    crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
     crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
     // @ts-expect-error

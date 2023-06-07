@@ -805,7 +805,7 @@ declare namespace Xrm {
              * @param T Generic type parameter.
              * @param key The key.
              * @returns The shared variable.
-             * @desc Gets the shared variable with the specified key.
+             * @description Gets the shared variable with the specified key.
              * Used to pass values between handlers of an event.
              */
             getSharedVariable<T>(key: string): T;
@@ -815,7 +815,7 @@ declare namespace Xrm {
              * @param T Generic type parameter.
              * @param key The key.
              * @param value The value.
-             * @desc Sets the shared variable with the specified key.
+             * @description Sets the shared variable with the specified key.
              * Used to pass values between handlers of an event.
              */
             setSharedVariable<T>(key: string, value: T): void;
@@ -2715,7 +2715,7 @@ declare namespace Xrm {
              * A collection of all the controls on the form that interface with this attribute.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            controls: Collection.ItemCollection<Controls.Control>;
+            controls: Collection.ItemCollection<Controls.StandardControl>;
 
             /**
              * Gets the value.
@@ -3346,7 +3346,7 @@ declare namespace Xrm {
 
             /**
              * Returns a dictionary of the output properties of the control.
-             * @returns: A dictionary for the output parameters from the control.
+             * @returns A dictionary for the output parameters from the control.
              *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
              */
             getOutputs(): { [index: string]: FieldControlOutput };
@@ -3633,36 +3633,58 @@ declare namespace Xrm {
         interface GridControl extends Control, UiCanSetVisibleElement {
             /**
              * Use this method to add event handlers to the GridControl's OnLoad event.
-             *
              * @param handler The event handler.
              */
             addOnLoad(handler: Events.GridControl.LoadEventHandler): void;
 
             /**
              * This method returns context information about the GridControl.
-             *
              * @returns The context type.
              */
             getContextType(): XrmEnum.GridControlContext;
 
             /**
-             * Use this method to get the logical name of the entity data displayed in the grid.
-             *
-             * @returns The entity name.
+             * Gets the logical name of the table data displayed in the grid.
+             * @returns The logical name of the table data displayed in the grid.
              */
             getEntityName(): string;
 
             /**
-             * Use this method to get access to the Grid available in the GridControl.
-             * @returns The grid.
+             * Gets the FetchXML query that represents the current data, including filtered and sorted data, in the grid control.
+             * @returns The FetchXML query.
+             */
+            getFetchXml(): string;
+
+            /**
+             * Get access to the Grid available in the GridControl (gridContext).
+             * @returns The Grid object.
              */
             getGrid(): Grid;
+
+            /**
+             * Gets information about the relationship used to filter the subgrid.
+             * @returns A relationship object.
+             */
+            getRelationship(): GridRelationship;
+
+            /**
+             * Gets the URL of the current grid control.
+             * @param client Indicates the client type.
+             * @returns Gets the URL of the current grid control.
+             */
+            getUrl(client?: XrmEnum.GridClient): string;
 
             /**
              * Use this method to get access to the ViewSelector available for the GridControl when it is configured to display views.
              * @returns The view selector.
              */
             getViewSelector(): ViewSelector;
+
+            /**
+             * Displays the associated grid for the grid.
+             * @remarks This method does nothing if the grid is not filtered based on a relationship.
+             */
+            openRelatedGrid(): void;
 
             /**
              * Refreshes the sub grid.
@@ -3707,6 +3729,36 @@ declare namespace Xrm {
              * @returns The total record count.
              */
             getTotalRecordCount(): number;
+        }
+
+        /**
+             * Object containing information about the relationship used to filter the subgrid.
+             */
+        interface GridRelationship {
+            /**
+             * Name of the column
+             */
+            attributeName: string;
+
+            /**
+             * Name of the relationship
+             */
+            name: string;
+
+            /**
+             * Name of the navigation property for this relationship.
+             */
+            navigationPropertyName: string;
+
+            /**
+             * Returns one of the following values to indicate the relationship type.
+             */
+            relationshipType: XrmEnum.RelationshipType;
+
+            /**
+             * Returns one of the following values to indicate the role type of relationship
+             */
+            roleType: XrmEnum.RoleType;
         }
 
         namespace Grid {
@@ -4212,7 +4264,7 @@ declare namespace Xrm {
 
             /**
              * Sets the visibility of the footer section.
-             * @arg bool Specify true to show the footer section; false to hide the footer section.
+             * @param bool Specify true to show the footer section; false to hide the footer section.
              * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
              * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
              */
@@ -4243,7 +4295,7 @@ declare namespace Xrm {
 
             /**
              * Sets the header's body visibility.
-             * @arg bool Specify true to show the body; false to hide the body.
+             * @param bool Specify true to show the body; false to hide the body.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/setbodyvisible External Link: setBodyVisible (Client API reference)}
              */
@@ -4251,7 +4303,7 @@ declare namespace Xrm {
 
             /**
              * Sets the command bar visibility.
-             * @arg bool Specify true to show the command bar; false to hide the command bar.
+             * @param bool Specify true to show the command bar; false to hide the command bar.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/setcommandbarvisible External Link: setCommandBarVisible (Client API reference)}
              */
@@ -4259,7 +4311,7 @@ declare namespace Xrm {
 
             /**
              * Sets the tab navigator visibility.
-             * @arg bool Specify true to show the tab navigator; false to hide the tab navigator.
+             * @param bool Specify true to show the tab navigator; false to hide the tab navigator.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/settabnavigatorvisible External Link: setTabNavigatorVisible (Client API reference)}
              */
@@ -6085,7 +6137,7 @@ declare namespace Xrm {
          * Defines the notification object for Xrm.App.addGlobalNotification
          * @see {@link Xmr.App.addGlobalNotification}
          */
-        interface Notifcation {
+        interface Notification {
             /**
              * @see {@link Xrm.App.Action}
              */
@@ -6093,7 +6145,7 @@ declare namespace Xrm {
             /**
              * Defines the level of notification.
              */
-            level: number;
+            level: XrmEnum.AppNotificationLevel;
             /**
              * The message to display in the notification.
              */
@@ -6194,7 +6246,7 @@ declare namespace Xrm {
          * @param notification The notification to add.
          * @returns On success, returns a promise object containing a GUID value to uniquely identify the notification as described earlier in the description of the successCallback parameter.
          */
-        addGlobalNotification(notification: App.Notifcation): Async.PromiseLike<string>;
+        addGlobalNotification(notification: App.Notification): Async.PromiseLike<string>;
 
         /**
          * Clears a notification in the app.
@@ -6313,6 +6365,14 @@ declare namespace XrmEnum {
         RibbonContextListing = 2,
         FormContextUnrelated = 3,
         FormContextRelated = 4,
+    }
+
+    /**
+     * Enumeration of grid client type
+     */
+    const enum GridClient {
+        Browser = 0,
+        MobileApplication = 1
     }
 
     /**
@@ -6448,6 +6508,17 @@ declare namespace XrmEnum {
         Error = "ERROR",
         Info = "INFO",
         Warning = "WARNING",
+    }
+
+    /**
+     * Constant Enum: App Notification Levels for {@link App.addGlobalNotification Xrm.App.addGlobalNotification()}.
+     * @see {@link Xrm.AppNotificationLevel}
+     */
+    const enum AppNotificationLevel {
+      Success = 1,
+      Error = 2,
+      Warning = 3,
+      Information = 4,
     }
 
     /**

@@ -48,7 +48,6 @@ interface SassOptions {
  * The interface includes the node-ruby-sass only options.
  * Attention: sourcemap option type differs from the same SassOption's type.
  * @interface Options
- * @extends SassOptions
  */
 interface Options extends SassOptions {
     verbose?: boolean | undefined;

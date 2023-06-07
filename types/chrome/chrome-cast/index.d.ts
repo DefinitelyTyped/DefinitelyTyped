@@ -1,9 +1,3 @@
-// Type definitions for Chrome Cast application development
-// Project: https://developers.google.com/cast/
-// Definitions by: Thomas Stig Jacobsen <https://github.com/eXeDK>
-//                 Stefan Ullinger <https://github.com/stefanullinger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 ////////////////////
 // Cast
 // @see https://code.google.com/p/chromium/codesearch#chromium/src/ui/file_manager/externs/chrome_cast.js
@@ -99,7 +93,6 @@ declare namespace chrome.cast {
     }
 
     /**
-     * @const {!Array<number>}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.VERSION
      */
     export var VERSION: Array<number>;
@@ -739,11 +732,11 @@ declare namespace chrome.cast.media {
         images: Array<chrome.cast.Image>;
         metadataType: chrome.cast.media.MetadataType;
         releaseDate: string;
-        /** @deprecated. Use releaseDate instead. */
+        /** @deprecated Use releaseDate instead. */
         releaseYear: number;
         subtitle: string;
         title: string;
-        /** @deprecated. Use metadataType instead. */
+        /** @deprecated Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
     }
 
@@ -756,12 +749,12 @@ declare namespace chrome.cast.media {
         images: Array<chrome.cast.Image>;
         metadataType: chrome.cast.media.MetadataType;
         releaseDate: string;
-        /** @deprecated. Use releaseDate instead. */
+        /** @deprecated Use releaseDate instead. */
         releaseYear: number;
         subtitle: string;
         title: string;
         studio: string;
-        /** @deprecated. Use metadataType instead. */
+        /** @deprecated Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
     }
 
@@ -779,15 +772,15 @@ declare namespace chrome.cast.media {
         images: Array<chrome.cast.Image>;
         originalAirdate: string;
 
-        /** @deprecated. Use metadataType instead. */
+        /** @deprecated Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
-        /** @deprecated. Use title instead. */
+        /** @deprecated Use title instead. */
         episodeTitle: string;
-        /** @deprecated. Use season instead. */
+        /** @deprecated Use season instead. */
         seasonNumber: number;
-        /** @deprecated. Use episode instead. */
+        /** @deprecated Use episode instead. */
         episodeNumber: number;
-        /** @deprecated. Use originalAirdate instead. */
+        /** @deprecated Use originalAirdate instead. */
         releaseYear: number;
     }
 
@@ -809,11 +802,11 @@ declare namespace chrome.cast.media {
         images: Array<chrome.cast.Image>;
         releaseDate: string;
 
-        /** @deprecated. Use metadataType instead. */
+        /** @deprecated Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
-        /** @deprecated. Use artist instead. */
+        /** @deprecated Use artist instead. */
         artistName: string;
-        /** @deprecated. Use releaseDate instead. */
+        /** @deprecated Use releaseDate instead. */
         releaseYear: number;
     }
 
@@ -834,7 +827,7 @@ declare namespace chrome.cast.media {
         height: number;
         creationDateTime: string;
 
-        /** @deprecated. Use metadataType instead. */
+        /** @deprecated Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
     }
 
@@ -881,7 +874,7 @@ declare namespace chrome.cast.media {
         supportedMediaCommands: Array<chrome.cast.media.MediaCommand>;
         volume: chrome.cast.Volume;
 
-        /** @deprecated. Use getEstimatedTime instead */
+        /** @deprecated Use getEstimatedTime instead */
         currentTime: number;
 
         /**

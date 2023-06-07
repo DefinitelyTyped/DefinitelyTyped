@@ -142,7 +142,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
     sortFunc?: ColumnSortFunc<T> | undefined;
     sortCaret?: ColumnSortCaret<T, E> | undefined;
     searchable?: boolean | undefined;
-    align?: CellAlignment | undefined;
+    align?: CellAlignment | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => CellAlignment) | undefined;
     headerStyle?: React.CSSProperties | (() => React.CSSProperties) | undefined;
 
     tooltipDataField?: string | undefined;

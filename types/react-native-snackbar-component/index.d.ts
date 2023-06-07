@@ -5,7 +5,6 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { TextStyle } from 'react-native';
 
 export interface SnackbarComponentProps {
     accentColor?: string | undefined;
@@ -18,7 +17,7 @@ export interface SnackbarComponentProps {
     right?: number | undefined;
     bottom?: number | undefined;
     position?: string | undefined;
-    textMessage?: string | undefined;
+    textMessage?: string | JSX.Element | undefined;
     autoHidingTime?: number | undefined;
     visible?: boolean | undefined;
 }

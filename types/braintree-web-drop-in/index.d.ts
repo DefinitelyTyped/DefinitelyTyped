@@ -1,7 +1,6 @@
 // Type definitions for braintree-web-drop-in 1.34
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
-//                 Ricard Solé Casas <https://github.com/iamricard>
 //                 Mathias Mikosch <https://github.com/elmikosch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
@@ -287,12 +286,11 @@ export function create(options: Options, callback: (error: object | null, dropin
 export function create(options: Options): Promise<Dropin>;
 
 // Global
-
 declare global {
-    const braintree: {
-        dropin: {
+    namespace braintree {
+        const dropin: {
             create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
             create(options: Options): Promise<Dropin>;
         };
-    };
+    }
 }
