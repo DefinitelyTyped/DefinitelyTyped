@@ -2760,8 +2760,7 @@ declare namespace kendo.ui {
         weekColumnHeader?: string | undefined;
         navigateTo?: string | undefined;
         parentViews?: CalendarMessagesParentViews;
-		    today?: string | undefined;
-
+		today?: string | undefined;
     }
 
     interface CalendarMonth {
