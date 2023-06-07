@@ -29,3 +29,5 @@ interface SubsetFontOptions {
 declare function subsetFont(buffer: Buffer, text: string, options?: SubsetFontOptions): Promise<Buffer>;
 
 export = subsetFont;
+
+// (temporary touch for CI)

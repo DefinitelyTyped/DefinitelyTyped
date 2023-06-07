@@ -21,3 +21,5 @@ export const Skeleton: StatelessComponent<{ children: InkNode }>;
 declare const Table: StatelessComponent<TableProps>;
 
 export default Table;
+
+// (temporary touch for CI)

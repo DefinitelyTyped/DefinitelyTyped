@@ -390,3 +390,5 @@ declare module 'htmlbars-inline-precompile' {
     }
     export default function hbs(tagged: TemplateStringsArray): TemplateFactory;
 }
+
+// (temporary touch for CI)
