@@ -1,5 +1,6 @@
 {
     "rules": {
+        "jsdoc/check-tag-names": "off",
         "no-const-enum": "off",
         "prefer-declare-function": "off",
         "no-single-element-tuple-type": "off"

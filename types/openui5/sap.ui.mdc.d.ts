@@ -29,7 +29,7 @@ declare module "sap/ui/mdc/filterbar/PropertyHelper" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * @SINCE 1.95
+   * @since 1.95
    *
    * Filter bar property helper provide a consistent and standardized view on properties and their attributes.
    * Validates the given properties, sets default values, and provides utilities to work with these properties.
@@ -82,7 +82,7 @@ declare module "sap/ui/mdc/filterbar/PropertyHelper" {
      */
     static getMetadata(): Metadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Applies default values and resolves property references.
      */
