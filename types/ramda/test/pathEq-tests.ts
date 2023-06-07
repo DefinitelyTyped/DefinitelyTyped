@@ -9,8 +9,8 @@ import * as R from 'ramda';
         ],
     };
 
-    R.pathEq(testPath, 2, testObj); // => true
-    R.pathEq(testPath, 2)(testObj); // => true
-    R.pathEq(testPath)(2)(testObj); // => true
-    R.pathEq(testPath)(2, testObj); // => true
+    R.pathEq(2, testPath, testObj); // => true
+    R.pathEq(2, testPath)(testObj); // => true
+    R.pathEq(2)(testPath)(testObj); // => true
+    R.pathEq(2)(testPath, testObj); // => true
 };

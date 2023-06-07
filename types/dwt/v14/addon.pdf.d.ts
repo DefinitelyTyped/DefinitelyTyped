@@ -17,7 +17,6 @@ declare enum EnumDWT_ConverMode {
 }
 
 /**
- * @class
  */
 interface PDF {
     /**

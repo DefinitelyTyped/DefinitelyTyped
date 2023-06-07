@@ -224,7 +224,7 @@ interface appFrameworkStatic {
      var obj=$.parseJSON("{\"bar\":\"bar\"}");
      ```
 
-     * @params {String} string
+     * @param {String} string
      * @return {Object}
      * @title $.parseJSON(string)
      */

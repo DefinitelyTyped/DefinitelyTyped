@@ -4,7 +4,7 @@ import {GestureResponderEvent} from '../../Types/CoreEventTypes';
 
 /**
  * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
- * @see React.DOMAtributes
+ * @see React.DOMAttributes
  */
 export interface Touchable {
   onTouchStart?: ((event: GestureResponderEvent) => void) | undefined;

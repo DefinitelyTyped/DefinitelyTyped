@@ -70,8 +70,8 @@ export type DeveloperMetadataLocationType = 'ROW' | 'COLUMN' | 'SHEET' | 'SPREAD
 // #region OPTIONS / CONFIG
 
 export interface PaginationOptions {
-    limit: number;
-    offset: number;
+    limit?: number | undefined;
+    offset?: number | undefined;
 }
 
 export interface WorksheetGridRange {
@@ -1168,8 +1168,10 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
     /**
      * @description
      * load basic Spreadsheet document properties and child worksheets
+     *
+     * @param includeCells whether to also load grid data.
      */
-    loadInfo(): Promise<void>;
+    loadInfo(includeCells?: boolean): Promise<void>;
 
     /**
      * @description

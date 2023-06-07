@@ -114,6 +114,7 @@ const graphDiv = '#test';
         width: [2],
         xhoverformat: ',.0f',
         yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
@@ -123,6 +124,7 @@ const graphDiv = '#test';
         type: 'histogram',
         xhoverformat: ',.0f',
         yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
@@ -1016,4 +1018,76 @@ function rand() {
         autosize: true,
     };
     Plotly.newPlot('myDiv', data, layout);
+})();
+
+(() => {
+    // Test creation of plotly updatemenu
+    const button1: Partial<Plotly.UpdateMenuButton> = {
+        args: ['visible', [true, false]],
+        label: 'Trace 1',
+        method: 'restyle'
+    };
+
+    const button2: Partial<Plotly.UpdateMenuButton> = {
+        args: ['visible', [true, false]],
+        label: 'Trace 1',
+        method: 'restyle'
+    };
+
+    const layout: Partial<Plotly.Layout> = {
+        updatemenus: [{
+            buttons: [button1, button2],
+            direction: 'down',
+            pad: { r: 10, t: 10 },
+            showactive: true,
+            type: 'dropdown',
+            x: 0.1,
+            xanchor: 'left',
+            y: 1.1,
+            yanchor: 'top'
+        }],
+    };
+
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: ['2005-01', '2005-02', '2005-03', '2005-04', '2005-05', '2005-06', '2005-07'],
+            y: [-20, 10, -5, 0, 5, -10, 20],
+            type: 'scatter',
+        },
+    ];
+
+    newPlot('myDiv', data, layout);
+})();
+
+//////////////////////////////////////////////////////////////////////
+// PlotlyIcons
+(() => {
+    const icon = Plotly.Icons.home;
+    const icon2 = Plotly.Icons.undo;
+});
+
+//////////////////////////////////////////////////////////////////////
+// Mapbox plot
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "scattermapbox",
+            text: ['A', 'B', 'C'],
+            lon: [0, 1, 2],
+            lat: [0, 1, 2],
+            marker: { color: "fuchsia", size: 4 }
+        }
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "zoom",
+        mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
+        margin: { r: 0, t: 0, b: 0, l: 0 }
+    };
+
+    const config: Partial<Config> = {
+        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox']
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
 })();

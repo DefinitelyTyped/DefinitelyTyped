@@ -150,7 +150,7 @@ declare namespace yargs {
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
             middlewares?: Array<MiddlewareFunction<U>>,
             deprecated?: boolean | string,
-        ): Argv<U>;
+        ): Argv<T>;
         command<O extends { [key: string]: Options }>(
             command: string | ReadonlyArray<string>,
             description: string,
@@ -159,7 +159,7 @@ declare namespace yargs {
             middlewares?: Array<MiddlewareFunction<O>>,
             deprecated?: boolean | string,
         ): Argv<T>;
-        command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
+        command(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, any>): Argv<T>;
         command<U = T>(
             command: string | ReadonlyArray<string>,
             showInHelp: false,
@@ -174,8 +174,9 @@ declare namespace yargs {
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
-        command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
-        command<U>(module: CommandModule<T, U>): Argv<U>;
+        command(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, any>): Argv<T>;
+        command(module: CommandModule<T, any>): Argv<T>;
+        command(modules: Array<CommandModule<T, any>>): Argv<T>;
 
         // Advanced API
         /** Apply command modules from a directory relative to the module calling this method. */
@@ -442,9 +443,9 @@ declare namespace yargs {
          * This method can be used to make yargs aware of options that could exist.
          * You can also pass an opt object which can hold further customization, like `.alias()`, `.demandOption()` etc. for that option.
          */
-        option<K extends keyof T, O extends Options>(key: K, options: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
-        option<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
-        option<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
+        option<K extends keyof T, O extends Options>(key: K, options: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> } & Alias<O>>;
+        option<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> } & Alias<O>>;
+        option<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O> & Alias<O>>;
 
         /**
          * This method can be used to make yargs aware of options that could exist.
@@ -856,6 +857,9 @@ declare namespace yargs {
             | { default: infer D }
         ) ? Exclude<D, undefined> : unknown;
 
+    type Alias<O extends Options | PositionalOptions> =
+        O extends { alias: infer T } ? T extends Exclude<string, T> ? { [key in T]: InferredOptionType<O> } : {} : {};
+
     // prettier-ignore
     type IsRequiredOrHasDefault<O extends Options | PositionalOptions> =
         O extends (
@@ -875,9 +879,13 @@ declare namespace yargs {
 
     // prettier-ignore
     type InferredOptionTypePrimitive<O extends Options | PositionalOptions> =
-        O extends { default: infer D } ? InferredOptionTypeInner<O> | D :
-        IsRequiredOrHasDefault<O> extends true ? InferredOptionTypeInner<O> :
-        InferredOptionTypeInner<O> | undefined;
+        O extends { default: infer D } ?
+            IsRequiredOrHasDefault<O> extends true ?
+                InferredOptionTypeInner<O> | Exclude<D, undefined> :
+                InferredOptionTypeInner<O> | D  :
+            IsRequiredOrHasDefault<O> extends true ?
+                InferredOptionTypeInner<O> :
+                InferredOptionTypeInner<O> | undefined;
 
     // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =

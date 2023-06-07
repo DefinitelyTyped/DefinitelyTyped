@@ -340,7 +340,7 @@ declare module 'crypto' {
 
     interface SigningOptions {
         /**
-         * @See crypto.constants.RSA_PKCS1_PADDING
+         * @see crypto.constants.RSA_PKCS1_PADDING
          */
         padding?: number | undefined;
         saltLength?: number | undefined;
@@ -518,8 +518,8 @@ declare module 'crypto' {
          */
         disableEntropyCache?: boolean | undefined;
     }
-
-    function randomUUID(options?: RandomUUIDOptions): string;
+    type UUID = `${string}-${string}-${string}-${string}-${string}`;
+    function randomUUID(options?: RandomUUIDOptions): UUID;
 
     interface ScryptOptions {
         cost?: number | undefined;

@@ -22,7 +22,7 @@ declare class Link {
     paramsFieldNames: any[];
     autoSanitize: boolean;
     parameters: string[];
-    params: Record<string, string | number | boolean | Date | null>;
+    params: Record<string, any>;
     private getProcessedParameters;
     private toString;
     private getClientFunction_;

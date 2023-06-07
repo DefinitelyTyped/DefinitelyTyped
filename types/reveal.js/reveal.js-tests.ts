@@ -25,6 +25,12 @@ new Reveal({
     plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealSearch, RevealMath, RevealZoom],
 });
 
+// math sub-plugins
+// $ExpectType Api
+new Reveal({
+    plugins: [RevealMath.KaTeX, RevealMath.MathJax2, RevealMath.MathJax3],
+});
+
 // with options
 // $ExpectType Api
 new Reveal({ width: 960, height: 700 });
@@ -357,7 +363,7 @@ deck.initialize({
         sanitizer: () => {},
         silent: true,
         smartLists: true,
-        smartpants: true,
+        smartypants: true,
         tokenizer: { key: 'value' },
         walkTokens: () => {},
         xhtml: true,
@@ -568,12 +574,10 @@ Reveal.on('slidetransitionend', event => {
     console.log(event);
 });
 
-
 // $ExpectType void
 deck.off('click', el.click, false);
 // $ExpectType void
 Reveal.off('click', el.click, false);
-
 
 // $ExpectType void
 deck.addEventListener('click', el.click);
@@ -810,7 +814,7 @@ deck.getConfig();
 
 // Helper method, retrieves query string as a key:value map
 
-// $ExpectType any
+// $ExpectType Record<string, string>
 deck.getQueryHash();
 
 // Returns the path to the current slide as represented in the URL
@@ -820,16 +824,16 @@ deck.getSlidePath(el);
 
 // Returns reveal.js DOM elements
 
-// $ExpectType Element
+// $ExpectType Element | null
 deck.getRevealElement();
 
-// $ExpectType Element
+// $ExpectType Element | null
 deck.getSlidesElement();
 
 // $ExpectType HTMLElement | null
 deck.getViewportElement();
 
-// $ExpectType HTMLDivElement
+// $ExpectType HTMLDivElement | undefined
 deck.getBackgroundsElement();
 
 // API for registering and retrieving plugins

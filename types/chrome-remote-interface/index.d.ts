@@ -3,7 +3,7 @@
 // Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
 //                 Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
+// Minimum TypeScript Version: 4.0
 
 import type ProtocolProxyApi from 'devtools-protocol/types/protocol-proxy-api';
 import type ProtocolMappingApi from 'devtools-protocol/types/protocol-mapping';
@@ -167,7 +167,7 @@ declare namespace CDP {
         [event in GetEvent<D>]:
             (listener: (params: GetReturnType<D, event>, sessionId?: string) => void) => () => Client
     };
-    type DoEventObj<D> = D extends string ? DoEventPromises<D> & DoEventListeners<D> : Record<keyof any, never>;
+    type DoEventObj<D> = D extends string ? DoEventPromises<D> & DoEventListeners<D> : {};
 
     type IsNullableObj<T> = Record<keyof T, undefined> extends T ? true : false;
     /**
@@ -182,7 +182,15 @@ declare namespace CDP {
             T[key]
     };
 
-    type ImproveAPI<T> = {[key in keyof T]: DoEventObj<key> & OptIfParamNullable<T[key]>};
+    type AddOptParams<T> = {
+        [key in keyof T]: key extends 'on' ?
+            T[key] :
+            T[key] extends (...args: infer P) => infer R ?
+                (...args: [...curArgs: P, sessionId?: string]) => R :
+                T[key];
+    };
+
+    type ImproveAPI<T> = {[key in keyof T]: DoEventObj<key> & AddOptParams<OptIfParamNullable<T[key]>>};
     interface StableDomains {
         Browser: ProtocolProxyApi.BrowserApi;
         Debugger: ProtocolProxyApi.DebuggerApi;

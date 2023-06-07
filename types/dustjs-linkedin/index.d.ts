@@ -105,7 +105,7 @@ export declare function register(name: string, tmpl: Template): void;
 * compile a template body into a string of JavaScript source code
 * @param source the template string
 * @param name the name used to register the compiled template into the internal cache. See render().
-* @strip strip whitespaces from the output. Defaults to false.
+* @param strip strip whitespaces from the output. Defaults to false.
 */
 export declare function compile(source: string, name: string, strip?: boolean): string;
 

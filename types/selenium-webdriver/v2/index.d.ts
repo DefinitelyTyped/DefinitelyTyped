@@ -242,7 +242,6 @@ export namespace error {
 export namespace logging {
     /**
      * A hash describing log preferences.
-     * @typedef {Object.<logging.Type, logging.LevelName>}
      */
     class Preferences {
         setLevel(type: string, level: Level | string | number): void;
@@ -264,7 +263,6 @@ export namespace logging {
 
     /**
      * Common log types.
-     * @enum {string}
      */
     var Type: IType;
 
@@ -293,47 +291,47 @@ export namespace logging {
 
         /**
          * Indicates no log messages should be recorded.
-         * @const
+         * @constant
          */
         static OFF: Level;
         /**
          * Log messages with a level of `1000` or higher.
-         * @const
+         * @constant
          */
         static SEVERE: Level;
         /**
          * Log messages with a level of `900` or higher.
-         * @const
+         * @constant
          */
         static WARNING: Level;
         /**
          * Log messages with a level of `800` or higher.
-         * @const
+         * @constant
          */
         static INFO: Level;
         /**
          * Log messages with a level of `700` or higher.
-         * @const
+         * @constant
          */
         static DEBUG: Level;
         /**
          * Log messages with a level of `500` or higher.
-         * @const
+         * @constant
          */
         static FINE: Level;
         /**
          * Log messages with a level of `400` or higher.
-         * @const
+         * @constant
          */
         static FINER: Level;
         /**
          * Log messages with a level of `300` or higher.
-         * @const
+         * @constant
          */
         static FINEST: Level;
         /**
          * Indicates all log messages should be recorded.
-         * @const
+         * @constant
          */
         static ALL: Level;
     }
@@ -366,20 +364,15 @@ export namespace logging {
          *     milliseconds since 0:00:00, January 1, 1970 UTC. If omitted, the
          *     current time will be used.
          * @param {string=} opt_type The log type, if known.
-         * @constructor
          */
         constructor(level: Level | string | number, message: string, opt_timestamp?: number, opt_type?: string | IType);
 
-        /** @type {!logging.Level} */
         level: Level;
 
-        /** @type {string} */
         message: string;
 
-        /** @type {number} */
         timestamp: number;
 
-        /** @type {string} */
         type: string;
 
         /**
@@ -412,13 +405,9 @@ export namespace logging {
          */
         constructor(name: string, opt_level?: Level);
 
-        /** @private {string} */
         name_: string;
-        /** @private {Level} */
         level_: Level;
-        /** @private {Logger} */
         parent_: Logger;
-        /** @private {Set<function(!Entry)>} */
         handlers_: any;
 
         /** @return {string} the name of this logger. */
@@ -546,7 +535,6 @@ export namespace logging {
          * @param {string} name the logger's name.
          * @param {!Logger} parent the logger's parent.
          * @return {!Logger} the new logger.
-         * @private
          */
         createLogger_(name: string, parent: Logger): Logger;
     }
@@ -1008,7 +996,6 @@ export namespace promise {
      * fulfilled or rejected state, at which point the promise is considered
      * resolved.
      *
-     * @implements {promise.Thenable<T>}
      * @template T
      * @see http://promises-aplus.github.io/promises-spec/
      */
@@ -1167,7 +1154,6 @@ export namespace promise {
      * the Deferred's canceller function (if provided). The canceller may return a
      * truth-y value to override the reason provided for rejection.
      *
-     * @extends {promise.Promise}
      */
     class Deferred<T> extends Promise<T> {
         // region Constructors
@@ -1177,7 +1163,6 @@ export namespace promise {
          * @param {promise.ControlFlow=} opt_flow The control flow
          *     this instance was created under. This should only be provided during
          *     unit tests.
-         * @constructor
          */
         constructor(opt_flow?: ControlFlow);
 
@@ -1195,7 +1180,6 @@ export namespace promise {
         /**
          * The consumer promise for this instance. Provides protected access to the
          * callback registering functions.
-         * @type {!promise.Promise}
          */
         promise: Promise<T>;
 
@@ -1281,18 +1265,15 @@ export namespace promise {
      * UNCAUGHT_EXCEPTION} event. If there are no listeners registered with the
      * flow, the error will be rethrown to the global error handler.
      *
-     * @extends {EventEmitter}
      * @final
      */
     class ControlFlow extends EventEmitter {
         /**
-         * @constructor
          */
         constructor();
 
         /**
          * Events that may be emitted by an {@link promise.ControlFlow}.
-         * @enum {string}
          */
         static EventType: IEventType;
 
@@ -1398,14 +1379,12 @@ export namespace until {
          *     sentence 'Waiting [...]'
          * @param {function(!WebDriver): OUT} fn The condition function to
          *     evaluate on each iteration of the wait loop.
-         * @constructor
          */
         constructor(message: string, fn: (webdriver: WebDriver) => any);
 
         /** @return {string} A description of this condition. */
         description(): string;
 
-        /** @type {function(!WebDriver): OUT} */
         fn(webdriver: WebDriver): any;
     }
 
@@ -1611,7 +1590,6 @@ interface IButton {
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
  *
- * @enum {string}
  */
 export var Button: IButton;
 
@@ -1700,7 +1678,6 @@ interface IKey {
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
  *
- * @enum {string}
  */
 export var Key: IKey;
 
@@ -1724,7 +1701,6 @@ export class ActionSequence {
 
     /**
      * @param {!WebDriver} driver The driver instance to use.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -2090,7 +2066,6 @@ export class Alert {
  *       return alert.dismiss();
  *     });
  *
- * @implements {promise.Thenable.<!Alert>}
  * @final
  */
 export class AlertPromise extends Alert implements promise.IThenable<Alert> {
@@ -2229,7 +2204,6 @@ export class UnhandledAlertError extends error.UnexpectedAlertOpenError {}
 
 /**
  * Recognized browser names.
- * @enum {string}
  */
 interface IBrowser {
     ANDROID: string;
@@ -2300,7 +2274,6 @@ export class Builder {
     // region Constructors
 
     /**
-     * @constructor
      */
     constructor();
 
@@ -2652,16 +2625,6 @@ export class By {
  * Closure compiler), as locator hashes will always be parsed using
  * the un-obfuscated properties listed.
  *
- * @typedef {(
- *     {className: string}|
- *     {css: string}|
- *     {id: string}|
- *     {js: string}|
- *     {linkText: string}|
- *     {name: string}|
- *     {partialLinkText: string}|
- *     {tagName: string}|
- *     {xpath: string})}
  */
 type ByHash =
     | { className: string }
@@ -2676,7 +2639,6 @@ type ByHash =
 
 /**
  * Common webdriver capability keys.
- * @enum {string}
  */
 interface ICapability {
     /**
@@ -2774,7 +2736,6 @@ export class Capabilities {
     /**
      * @param {(Capabilities|Object)=} opt_other Another set of
      *     capabilities to merge into this instance.
-     * @constructor
      */
     constructor(opt_other?: Capabilities | Object);
 
@@ -3057,14 +3018,12 @@ export var CommandName: ICommandName;
 /**
  * Describes a command to be executed by the WebDriverJS framework.
  * @param {!CommandName} name The name of this command.
- * @constructor
  */
 export class Command {
     // region Constructors
 
     /**
      * @param {!CommandName} name The name of this command.
-     * @constructor
      */
     constructor(name: string);
 
@@ -3128,7 +3087,6 @@ export class Executor {
 /**
  * Wraps a promised {@link Executor}, ensuring no commands are executed until
  * the wrapped executor has been fully resolved.
- * @implements {Executor}
  */
 export class DeferredExecutor {
     /**
@@ -3160,7 +3118,6 @@ export class EventEmitter {
     // region Constructors
 
     /**
-     * @constructor
      */
     constructor();
 
@@ -3191,7 +3148,6 @@ export class EventEmitter {
      * @param {boolean=} opt_oneshot Whether the listener should b (e removed after
      *    the first event is fired.
      * @return {!EventEmitter} A self reference.
-     * @private
      */
     addListener(type: string, fn: Function, opt_scope?: any, opt_oneshot?: boolean): EventEmitter;
 
@@ -3304,7 +3260,6 @@ export class Options {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3401,7 +3356,6 @@ export class Timeouts {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3463,7 +3417,6 @@ export class Window {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3525,7 +3478,6 @@ export class Logs {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3567,7 +3519,6 @@ export class TargetLocator {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3654,7 +3605,6 @@ export class TargetLocator {
  * [Selenium Server](http://docs.seleniumhq.org/download/).
  */
 export class FileDetector {
-    /** @constructor */
     constructor();
 
     /**
@@ -4472,7 +4422,6 @@ interface IWebElementFinders {
  * Defines an object that can be asynchronously serialized to its WebDriver
  * wire representation.
  *
- * @constructor
  * @template T
  */
 interface Serializable<T> {
@@ -4509,7 +4458,6 @@ interface Serializable<T> {
  *       alert('The element was not found, as expected');
  *     });
  *
- * @extends {Serializable.<WebElement.Id>}
  */
 export class WebElement implements Serializable<IWebElementId> {
     /**
@@ -4863,9 +4811,6 @@ export class WebElement implements Serializable<IWebElementId> {
  *     element.
  * @param {!promise.Promise.<!WebElement>} el A promise
  *     that will resolve to the promised element.
- * @constructor
- * @extends {WebElement}
- * @implements {promise.Thenable.<!WebElement>}
  * @final
  */
 export class WebElementPromise extends WebElement implements promise.IThenable<WebElement> {
@@ -5022,7 +4967,6 @@ export class Session {
      * @param {string} id The session ID.
      * @param {!(Object|Capabilities)} capabilities The session
      *     capabilities.
-     * @constructor
      */
     constructor(id: string, capabilities: Capabilities | Object);
 

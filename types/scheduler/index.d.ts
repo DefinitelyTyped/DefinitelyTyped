@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export type FrameCallbackType = () => FrameCallbackType | void;
+export type FrameCallbackType = (didTimeout: boolean) => FrameCallbackType | void;
 export interface CallbackNode {
   callback: FrameCallbackType;
   priorityLevel: number;

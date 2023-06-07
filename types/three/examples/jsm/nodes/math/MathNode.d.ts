@@ -24,7 +24,7 @@ export type MathNodeMethod1 =
     | typeof MathNode.SIGN
     | typeof MathNode.LENGTH
     | typeof MathNode.NEGATE
-    | typeof MathNode.INVERT
+    | typeof MathNode.ONE_MINUS
     | typeof MathNode.DFDX
     | typeof MathNode.DFDY
     | typeof MathNode.ROUND;
@@ -76,7 +76,7 @@ export default class MathNode extends TempNode {
     static SIGN: 'sign';
     static LENGTH: 'length';
     static NEGATE: 'negate';
-    static INVERT: 'invert';
+    static ONE_MINUS: 'oneMinus';
     static DFDX: 'dFdx';
     static DFDY: 'dFdy';
     static ROUND: 'round';

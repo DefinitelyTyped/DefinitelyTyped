@@ -8,14 +8,21 @@
 // tslint:disable:max-line-length
 
 /**
- * The `inspector` module provides an API for interacting with the V8 inspector.
+ * The `node:inspector` module provides an API for interacting with the V8
+ * inspector.
  *
  * It can be accessed using:
  *
  * ```js
- * const inspector = require('inspector');
+ * import * as inspector from 'node:inspector/promises';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/inspector.js)
+ *
+ * or
+ *
+ * ```js
+ * import * as inspector from 'node:inspector';
+ * ```
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');

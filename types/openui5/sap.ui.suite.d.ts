@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -40,7 +40,7 @@ declare module "sap/ui/suite/TaskCircle" {
   /**
    * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
    * known
-   * @EXPERIMENTAL (since 1.2) - The API may change. Use with care.
+   * @experimental (since 1.2) - The API may change. Use with care.
    *
    * This control shows a circle which radius and color depends on the given parameters
    */
@@ -190,6 +190,8 @@ declare module "sap/ui/suite/TaskCircle" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -416,7 +418,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
   /**
    * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
    * known
-   * @EXPERIMENTAL (since 1.2) - The API may change. Use with care.
+   * @experimental (since 1.2) - The API may change. Use with care.
    *
    * This control shows a vertical progress bar in dependency of the given percentage. Only values between
    * 0 and 100 are valid.
@@ -569,6 +571,8 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining

@@ -1,4 +1,4 @@
-// Type definitions for react-native-sqlite-storage 5.0
+// Type definitions for react-native-sqlite-storage 6.0
 // Project: https://github.com/andpor/react-native-sqlite-storage
 // Definitions by: Sergei Dryganets <https://github.com/dryganets>
 //                 Deividi Cavarzan <https://github.com/cavarzan>
@@ -85,13 +85,15 @@ export type TransactionCallback = (transaction: Transaction) => void;
 export type TransactionErrorCallback = (error: SQLError) => void;
 
 export interface SQLiteDatabase {
+    dbName: string;
+
     transaction(scope: (tx: Transaction) => void): Promise<Transaction>;
     transaction(
         scope: (tx: Transaction) => void,
         error?: TransactionErrorCallback,
         success?: TransactionCallback,
     ): void;
-    readTransaction(scope: (tx: Transaction) => void): Promise<TransactionCallback>;
+    readTransaction(scope: (tx: Transaction) => void): Promise<Transaction>;
     readTransaction(
         scope: (tx: Transaction) => void,
         error?: TransactionErrorCallback,
@@ -105,6 +107,6 @@ export interface SQLiteDatabase {
     attach(nameToAttach: string, alias: string): Promise<void>;
     attach(nameToAttach: string, alias: string, success?: () => void, error?: (err: SQLError) => void): void;
 
-    dettach(alias: string): Promise<void>;
-    dettach(alias: string, success?: () => void, error?: (err: SQLError) => void): void;
+    detach(alias: string): Promise<void>;
+    detach(alias: string, success?: () => void, error?: (err: SQLError) => void): void;
 }

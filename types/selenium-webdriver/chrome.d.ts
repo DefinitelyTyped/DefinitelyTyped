@@ -5,7 +5,6 @@ import * as remote from './remote';
 /**
  * Creates a new WebDriver client for Chrome.
  *
- * @extends {webdriver.WebDriver}
  */
 export class Driver extends webdriver.ChromiumWebDriver {
   /**
@@ -47,7 +46,6 @@ export interface IPerfLoggingPrefs {
  */
 export class Options extends webdriver.Capabilities {
   /**
-   * @constructor
    */
   constructor();
 
@@ -307,7 +305,6 @@ export class ServiceBuilder extends remote.DriverService.Builder {
    *     PATH.
    * @throws {Error} If provided executable does not exist, or the chromedriver
    *     cannot be found on the PATH.
-   * @constructor
    */
   constructor(opt_exe?: string);
 

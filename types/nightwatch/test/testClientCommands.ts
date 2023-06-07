@@ -35,7 +35,7 @@ describe('openNewWindow demo', function() {
       isNightwatchCallbackResult<null>(result);
     });
 
-  // open a new window
+    // open a new window
     browser.openNewWindow('window', function(result) {
       isNightwatchAPI(this);
       isNightwatchCallbackResult<null>(result);
@@ -294,6 +294,31 @@ describe('resizeWindow command demo', function() {
     test('async demo test', async function(browser) {
         const result = await browser.resizeWindow(1000, 800);
         isType<null>(result);
+    });
+});
+
+//
+// .screenshot
+//
+describe('screenshot command demo', function() {
+    test('demo test', function(browser) {
+        browser
+            .screenshot(function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<string>(result);
+            })
+            .screenshot(true, function(result) {
+                isNightwatchAPI(this);
+                isNightwatchCallbackResult<string>(result);
+            });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.screenshot();
+        isType<string>(result);
+
+        const result2 = await browser.screenshot(true);
+        isType<string>(result2);
     });
 });
 

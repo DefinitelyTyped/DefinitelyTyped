@@ -137,7 +137,7 @@ export class ContentTag extends React.Component<ContentTagProps, any> {}
 
 export class CurrentPage extends React.Component<{}, any> {}
 
-interface ImageTagProps extends React.HTMLAttributes<HTMLImageElement> {
+interface ImageTagProps extends Omit<React.HTMLAttributes<HTMLImageElement>, 'content'> {
     attribute?: string | undefined;
     content: Binary | Obj | Widget;
     alt?: string | undefined;

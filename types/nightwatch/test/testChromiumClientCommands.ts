@@ -363,6 +363,7 @@ describe('catch browser exceptions', function() {
 
     const searchBoxElement = await browser.findElement('input[name=q]');
     await browser.executeScript(function(_searchBoxElement) {
+      // @ts-expect-error
       _searchBoxElement.setAttribute('onclick', 'throw new Error("Hello world!")');
     }, [searchBoxElement]);
 

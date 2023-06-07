@@ -1,0 +1,5 @@
+{
+    "rules": {
+      "no-outside-dependencies": "off"
+    }
+}

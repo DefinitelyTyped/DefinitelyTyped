@@ -15,6 +15,12 @@ declare function hexdump(target: ArrayBuffer | NativePointerValue, options?: Hex
 
 interface HexdumpOptions {
     /**
+     * Specifies base address of data being dumped. Defaults to the address of
+     * the `target` argument, if it has an address, and 0 otherwise.
+     */
+    address?: NativePointer;
+
+    /**
      * Specifies byte offset of where to start dumping. Defaults to 0.
      */
     offset?: number | undefined;
@@ -4875,7 +4881,7 @@ declare namespace Java {
      * @param className Name of class to enumerate instances of.
      * @param callbacks Object with callbacks.
      */
-    function choose(className: string, callbacks: ChooseCallbacks): void;
+    function choose<T extends Members<T> = {}>(className: string, callbacks: ChooseCallbacks<T>): void;
 
     /**
      * Duplicates a JavaScript wrapper for later use outside replacement method.
@@ -5463,7 +5469,7 @@ declare namespace Java {
          * @param className Name of class to enumerate instances of.
          * @param callbacks Object with callbacks.
          */
-        choose(className: string, callbacks: ChooseCallbacks): void;
+        choose<T extends Members<T> = {}>(className: string, callbacks: ChooseCallbacks<T>): void;
 
         /**
          * Duplicates a JavaScript wrapper for later use outside replacement method.

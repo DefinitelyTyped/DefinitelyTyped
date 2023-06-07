@@ -9,7 +9,7 @@
 declare class zumly {
     /**
      * Creates a Zumly instance
-     * @params options
+     * @param options
      * @example
      *  new Zumly({
      *  mount: '.mount',

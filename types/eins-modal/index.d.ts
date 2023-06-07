@@ -65,12 +65,12 @@ interface EinsModalOptions {
     openTransition?: openTransition;
     /**
      * Duration it takes to open the modal in milliseconds
-     * @default: 400
+     * @default 400
      */
     openDuration?: number;
     /**
      * Animation when closing modal
-     * @default: 'expandOut'
+     * @default 'expandOut'
      */
     closeTransition?: closeTransition;
     /**

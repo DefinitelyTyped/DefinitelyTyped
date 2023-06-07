@@ -21,7 +21,7 @@ export interface Element {
 
 /**
  * An array of objects that you want to pass to the lightbox
- * @see{@link https://github.com/michelecocuccio/simple-react-lightbox#using-the-lightbox-with-props}
+ * @see https://github.com/michelecocuccio/simple-react-lightbox#using-the-lightbox-with-props
  * @example
  * ```js
  * const elements = [
@@ -211,7 +211,7 @@ export default function SimpleReactLightbox({ children }: { children: ReactNode 
  * The hook function containing two methods, openLightbox and closeLightbox.
  * `openLightbox` opens the lightbox and you can pass an argument which is the index of the slide you want to open (starting from 0).
  * If you don't provide any argument to the function, the lightbox will just open it from the first image. The second one is closeLightbox and you can use it to close the lightbox.
- * @use {@link https://github.com/michelecocuccio/simple-react-lightbox#hooks}
+ * @see https://github.com/michelecocuccio/simple-react-lightbox#hooks
  *
  */
 
@@ -272,9 +272,9 @@ export type SRLWrapperProps = (WrapperWithElements | WrapperWithChildren) & {
  * @param callbacks Callbacks provided by the lightbox
  * @see {@link https://github.com/michelecocuccio/simple-react-lightbox#callbacks}]
  * @param elements An array of objects that you want to pass to the lightbox for rendering the elements
- * @see{@link https://github.com/michelecocuccio/simple-react-lightbox#using-the-lightbox-with-props}
+ * @see https://github.com/michelecocuccio/simple-react-lightbox#using-the-lightbox-with-props
  * @param children React children to render elements
- * @see{@link https://github.com/michelecocuccio/simple-react-lightbox#using-the-lightbox-with-props}
+ * @see https://github.com/michelecocuccio/simple-react-lightbox#using-the-lightbox-with-props
  */
 
 export function SRLWrapper({ options, callbacks, elements, children }: SRLWrapperProps): JSX.Element;

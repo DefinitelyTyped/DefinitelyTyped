@@ -5,7 +5,10 @@ import { isNightwatchAPI, isType } from "./utils";
 // orientation
 //
 describe('orientation commands', function() {
-  it('tests orientation commands', function(app: NightwatchAPI) {
+  it('tests orientation commands', function() {
+    isNightwatchAPI(app);
+    isType<boolean>(app.isAppiumClient());
+
     app
       .appium.getOrientation(function(result) {
         isNightwatchAPI(this);
@@ -21,7 +24,10 @@ describe('orientation commands', function() {
       });
   });
 
-  it('tests orientation commands with async/await', async function(app: NightwatchAPI) {
+  it('tests orientation commands with async/await', async function() {
+    isNightwatchAPI(app);
+    isType<boolean>(app.isAppiumClient());
+
     const orientation = await app.appium.getOrientation();
     isType<'LANDSCAPE' | 'PORTRAIT'>(orientation);
 
@@ -35,6 +41,8 @@ describe('orientation commands', function() {
 //
 describe('context commands', function() {
   it('tests context commands', function(app: NightwatchAPI) {
+    isType<boolean>(app.isAppiumClient());
+
     app
       .appium.getContexts(function(result) {
         isNightwatchAPI(this);
@@ -57,6 +65,8 @@ describe('context commands', function() {
   });
 
   it('tests context commands with async/await', async function(app: NightwatchAPI) {
+    isType<boolean>(app.isAppiumClient());
+
     const contexts = await app.appium.getContexts();
     isType<string[]>(contexts);
 

@@ -1,4 +1,4 @@
-// Type definitions for Marked 4.0
+// Type definitions for Marked 5.0
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -193,7 +193,7 @@ export namespace marked {
         options: MarkedOptions;
         code(this: Renderer | RendererThis, code: string, language: string | undefined, isEscaped: boolean): string | T;
         blockquote(this: Renderer | RendererThis, quote: string): string | T;
-        html(this: Renderer | RendererThis, html: string): string | T;
+        html(this: Renderer | RendererThis, html: string, block: boolean): string | T;
         heading(
             this: Renderer | RendererThis,
             text: string,
@@ -395,6 +395,7 @@ export namespace marked {
             type: 'html';
             raw: string;
             pre: boolean;
+            block: true;
             text: string;
         }
 
@@ -424,6 +425,7 @@ export namespace marked {
             raw: string;
             inLink: boolean;
             inRawBlock: boolean;
+            block: false;
             text: string;
         }
 
@@ -515,6 +517,8 @@ export namespace marked {
 
         /**
          * A prefix URL for any relative link.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-base-url extension instead
          */
         baseUrl?: string | undefined;
 
@@ -537,11 +541,15 @@ export namespace marked {
 
         /**
          * Include an id attribute when emitting headings.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-gfm-heading-id extension instead
          */
         headerIds?: boolean | undefined;
 
         /**
          * Set the prefix for header tag ids.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-gfm-heading-id extension instead
          */
         headerPrefix?: string | undefined;
 
@@ -550,16 +558,32 @@ export namespace marked {
          * synchronous (returning a string) or asynchronous (callback invoked
          * with an error if any occurred during highlighting and a string
          * if highlighting was successful)
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-highlight extension instead
          */
         highlight?(code: string, lang: string, callback?: (error: any, code?: string) => void): string | void;
 
         /**
+         * Hooks are methods that hook into some part of marked.
+         * preprocess is called to process markdown before sending it to marked.
+         * postprocess is called to process html after marked has finished parsing.
+         */
+        hooks?: {
+            preprocess?: (markdown: string) => string,
+            postprocess?: (html: string) => string,
+        };
+
+        /**
          * Set the prefix for code block classes.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-highlight extension instead
          */
         langPrefix?: string | undefined;
 
         /**
          * Mangle autolinks (<email@domain.com>).
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-mangle extension instead
          */
         mangle?: boolean | undefined;
 
@@ -577,11 +601,15 @@ export namespace marked {
 
         /**
          * Sanitize the output. Ignore any HTML that has been input.
+         *
+         * @deprecated use an HTML sanitizer on the output instead
          */
         sanitize?: boolean | undefined;
 
         /**
          * Optionally sanitize found HTML with a sanitizer function.
+         *
+         * @deprecated use an HTML sanitizer on the output instead
          */
         sanitizer?(html: string): string;
 
@@ -591,12 +619,9 @@ export namespace marked {
         silent?: boolean | undefined;
 
         /**
-         * Use smarter list behavior than the original markdown. May eventually be default with the old behavior moved into pedantic.
-         */
-        smartLists?: boolean | undefined;
-
-        /**
          * Use "smart" typograhic punctuation for things like quotes and dashes.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-smartypants extension instead
          */
         smartypants?: boolean | undefined;
 
@@ -614,6 +639,8 @@ export namespace marked {
         walkTokens?: ((token: Token) => void) | undefined;
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-xhtml extension instead
          */
         xhtml?: boolean | undefined;
     }

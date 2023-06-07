@@ -99,7 +99,7 @@ declare namespace serverTimingMiddleware {
          * Set start time for metric
          * @param name — metric name
          * @param [description] — description of the metric
-         * @throw {Error} throw an error if name is not valid
+         * @throws {Error} throw an error if name is not valid
          * @example <caption>You may define only start time for metric</caption>
          * import express = require('express');
          * import serverTimingMiddleware = require('server-timing-header');
@@ -120,7 +120,7 @@ declare namespace serverTimingMiddleware {
          * Set end time for metric
          * @param name — metric name
          * @param [description] — description of the metric
-         * @throw {Error} — throw an error if name is not valid
+         * @throws {Error} — throw an error if name is not valid
          * @example <caption>You may define only end time for metric</caption>
          * import express = require('express');
          * import serverTimingMiddleware = require('server-timing-header');
@@ -141,7 +141,7 @@ declare namespace serverTimingMiddleware {
          * Add description to specific metric
          * @param name — metric name
          * @param description — description of the metric
-         * @throw {Error} — throw an error if name is not valid
+         * @throws {Error} — throw an error if name is not valid
          */
         description(name: string, description: string): void;
 
@@ -149,7 +149,7 @@ declare namespace serverTimingMiddleware {
          * Add duration to specific metric
          * @param name — metric name
          * @param duration — duration of the metric
-         * @throw {Error} — throw an error if name is not valid
+         * @throws {Error} — throw an error if name is not valid
          */
         duration(name: string, duration: number): void;
 
@@ -158,7 +158,7 @@ declare namespace serverTimingMiddleware {
          * @param name - metric name
          * @param description — metric description
          * @param duration — metric duration
-         * @throw {Error} — throw an error if name contains invalid characters
+         * @throws {Error} — throw an error if name contains invalid characters
          * @example <caption>Add metric</caption>
          * import express = require('express');
          * import serverTimingMiddleware = require('server-timing-header');

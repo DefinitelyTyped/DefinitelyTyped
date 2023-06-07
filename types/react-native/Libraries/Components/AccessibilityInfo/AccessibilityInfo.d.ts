@@ -28,7 +28,7 @@ type AccessibilityAnnouncementFinishedEventHandler = (
   event: AccessibilityAnnouncementFinishedEvent,
 ) => void;
 
-type AccessibilityEventTypes = 'click' | 'focus';
+type AccessibilityEventTypes = 'click' | 'focus' | 'viewHoverEnter';
 
 /**
  * @see https://reactnative.dev/docs/accessibilityinfo
@@ -61,6 +61,14 @@ export interface AccessibilityInfoStatic {
   isReduceMotionEnabled: () => Promise<boolean>;
 
   /**
+   * Query whether reduce motion and prefer cross-fade transitions settings are currently enabled.
+   *
+   * Returns a promise which resolves to a boolean.
+   * The result is `true` when  prefer cross-fade transitions is enabled and `false` otherwise.
+   */
+  prefersCrossFadeTransitions(): Promise<boolean>;
+
+  /**
    * Query whether reduce transparency is currently enabled.
    *
    * @platform ios
@@ -71,6 +79,16 @@ export interface AccessibilityInfoStatic {
    * Query whether a screen reader is currently enabled.
    */
   isScreenReaderEnabled: () => Promise<boolean>;
+
+  /**
+   * Query whether Accessibility Service is currently enabled.
+   *
+   * Returns a promise which resolves to a boolean.
+   * The result is `true` when any service is enabled and `false` otherwise.
+   *
+   * @platform android
+   */
+  isAccessibilityServiceEnabled(): Promise<boolean>;
 
   /**
    * Add an event handler. Supported events:
@@ -101,6 +119,17 @@ export interface AccessibilityInfoStatic {
    * Post a string to be announced by the screen reader.
    */
   announceForAccessibility: (announcement: string) => void;
+
+  /**
+   * Post a string to be announced by the screen reader.
+   * - `announcement`: The string announced by the screen reader.
+   * - `options`: An object that configures the reading options.
+   *   - `queue`: The announcement will be queued behind existing announcements. iOS only.
+   */
+  announceForAccessibilityWithOptions(
+    announcement: string,
+    options: {queue?: boolean | undefined},
+  ): void;
 
   /**
    * Gets the timeout in millisecond that the user needs.

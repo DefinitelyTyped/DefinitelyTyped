@@ -1,5 +1,3 @@
-/// <reference types="./index"/>
-
 describe('test suite', () => {
   it('tests toEqualJSX method', () => {
     const component = (

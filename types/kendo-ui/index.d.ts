@@ -2760,7 +2760,8 @@ declare namespace kendo.ui {
         weekColumnHeader?: string | undefined;
         navigateTo?: string | undefined;
         parentViews?: CalendarMessagesParentViews;
-		today?: string | undefined;
+		    today?: string | undefined;
+
     }
 
     interface CalendarMonth {
@@ -26581,6 +26582,10 @@ interface JQuery {
     kendoSvgIcon(): JQuery;
     kendoSvgIcon(options: kendo.ui.SvgIconOptions): JQuery;
     data(key: "kendoSvgIcon"): kendo.ui.SvgIcon | undefined;
+}
+
+declare namespace KendoLicensing {
+    function setScriptKey(key: string): void;
 }
 
 declare namespace KendoLicensing {

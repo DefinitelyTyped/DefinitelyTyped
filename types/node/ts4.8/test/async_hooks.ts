@@ -81,3 +81,16 @@ import {
     }, 1);
     ctx.enterWith('test');
 }
+
+{
+    const fn = AsyncLocalStorage.bind(() => 123);
+    fn(); // $ExpectType number
+}
+
+{
+    const asyncLocalStorage = new AsyncLocalStorage<number>();
+    const runInAsyncScope = asyncLocalStorage.run(123, () => AsyncLocalStorage.snapshot());
+    const result = asyncLocalStorage.run(321, () => {  // $ExpectType number | undefined
+        return runInAsyncScope(() => asyncLocalStorage.getStore());
+    });
+}
