@@ -41,8 +41,8 @@ client.search('o=example', opts, (err, res): void => {
 
     res.on('searchEntry', entry => {
         entry.json.objectName;
-        entry.object.dn;
-        entry.raw.dn;
+        entry.pojo.dn;
+        entry.pojo.attributes;
     });
 
     res.on('page', function (result, cb) {
