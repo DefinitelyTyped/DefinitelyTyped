@@ -43,8 +43,9 @@ export class Parser {
      *
      * @param name - the function name.
      * @param handler - the callback to produce the side effect.
+     * @returns This instance of {@link Parser}
      */
-    setFunction(name: string, handler: (params: unknown) => unknown): void;
+    setFunction(name: string, handler: (params: unknown) => unknown): Parser;
 
     /**
      * Retrieves the defined function.
@@ -55,12 +56,14 @@ export class Parser {
     getFunction(name: string): (params: unknown) => unknown;
 
     /**
-     * Allows for the definition of new variables. If the name given to the new variable is one of the {@link BUILT_IN_VARIABLES}, the latter will be overwritten.
+     * Allows for the definition of new variables. If new definitions variables have the same name as old ones, the latter will be overwritten.
+     * Built-in variables are `TRUE`, `FALSE` and `NULL`.
      *
      * @param name - the variable name.
      * @param value - the value given to the variable.
+     * @returns This instance of {@link Parser}
      */
-    setVariable(name: string, value: unknown): void;
+    setVariable(name: string, value: unknown): Parser;
 
     /**
      * Retrieves the defined variable.
@@ -551,5 +554,3 @@ export const SUPPORTED_FORMULAS: readonly [
     'YEAR',
     'YEARFRAC',
 ];
-
-export const BUILT_IN_VARIABLES: readonly ['TRUE', 'FALSE', 'NULL'];
