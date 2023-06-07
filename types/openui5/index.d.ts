@@ -50,5 +50,3 @@
 /// <reference path="./sap.ui.webc.fiori.d.ts"/>
 /// <reference path="./sap.ui.webc.main.d.ts"/>
 /// <reference path="./sap.uxap.d.ts"/>
-
-// (temporary touch for CI)

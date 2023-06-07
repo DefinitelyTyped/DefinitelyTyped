@@ -16,5 +16,3 @@ export interface RenderResponse {
 }
 export function cleanup(): void;
 export function render(tree: InkElement): RenderResponse;
-
-// (temporary touch for CI)

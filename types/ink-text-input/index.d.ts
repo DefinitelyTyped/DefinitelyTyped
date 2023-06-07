@@ -17,5 +17,3 @@ interface TextInputProps {
 declare class TextInput extends Component<TextInputProps> { }
 
 export = TextInput;
-
-// (temporary touch for CI)

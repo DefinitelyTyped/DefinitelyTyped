@@ -2267,5 +2267,3 @@ declare namespace fin {
         'user-movement-disabled' |
         'user-movement-enabled';
 }
-
-// (temporary touch for CI)

@@ -109,5 +109,3 @@ export function deprecate(
         since: Partial<Record<'available' | 'enabled', string>>;
     },
 ): void;
-
-// (temporary touch for CI)

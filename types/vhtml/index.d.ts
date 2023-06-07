@@ -1488,5 +1488,3 @@ declare namespace vhtml {
         }
     }
 }
-
-// (temporary touch for CI)
