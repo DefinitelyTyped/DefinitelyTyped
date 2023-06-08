@@ -933,19 +933,22 @@ export namespace Linter {
         preprocess?(text: string, filename: string): T[];
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
     }
+
+    type FlatConfigFileSpec = string | ((filePath: string) => boolean);
+
     interface FlatConfig {
       /**
        * An array of glob patterns indicating the files that the configuration
        * object should apply to. If not specified, the configuration object applies
        * to all files
        */
-      files?: string | string[];
+      files?: Array<FlatConfigFileSpec | FlatConfigFileSpec[]>;
       /**
        * An array of glob patterns indicating the files that the configuration
        * object should not apply to. If not specified, the configuration object
        * applies to all files matched by files
        */
-      ignores?: string | string[];
+      ignores?: FlatConfigFileSpec[];
       /**
        * An object containing settings related to how JavaScript is configured for
        * linting.
