@@ -409,7 +409,7 @@ export const RGIntegerFormat: 1031;
  */
 export const RGBAIntegerFormat: 1033;
 
-export const _SRGBAFormat = 1035; // fallback for WebGL 1
+export const _SRGBAFormat: 1035; // fallback for WebGL 1
 
 /**
  * Texture Pixel Formats Modes. Compatible only with {@link WebGLRenderingContext | WebGL 1 Rendering Context}.
