@@ -1007,4 +1007,32 @@ ruleTester.run('simple-valid-test', rule, {
     }
 });
 
+(): Linter.FlatConfig => ({ files: ["abc"] });
+(): Linter.FlatConfig => ({ files: [(path) => false] });
+(): Linter.FlatConfig => ({ files: [["abc"]]});
+(): Linter.FlatConfig => ({ files: [[(path) => false]] });
+(): Linter.FlatConfig => ({ files: [["abc", (path) => false]] });
+(): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] });
+
+// @ts-expect-error // Second level of nesting is not allowed
+(): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false], [["abc"], [(path) => false]]] });
+
+(): Linter.FlatConfig => ({ ignores: ["abc"] });
+(): Linter.FlatConfig => ({ ignores: [(path) => false] });
+(): Linter.FlatConfig => ({ ignores: ["abc", (path) => false] });
+
+// @ts-expect-error // No nesting
+(): Linter.FlatConfig => ({ ignores: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] });
+
+// @ts-expect-error // Must be an array
+(): Linter.FlatConfig => ({ files: "abc" });
+
+// @ts-expect-error // Must be an array
+(): Linter.FlatConfig => ({ ignores: "abc" });
+
+// The following _should_ be an error, but we can't enforce on consumers
+// as it requires exactOptionalPropertyTypes: true
+// (): Linter.FlatConfig => ({ files: undefined });
+// (): Linter.FlatConfig => ({ ignores: undefined });
+
 //#endregion
