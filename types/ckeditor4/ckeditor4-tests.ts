@@ -1309,6 +1309,28 @@ function test_tools() {
     ckEditor.tools.tryThese(console.log, console.warn);
     str = ckEditor.tools.writeCssText(obj);
     str = ckEditor.tools.writeCssText(obj, true);
+
+    let rect: CKEDITOR.dom.rect = {
+        bottom: 1,
+        height: 1,
+        left: 1,
+        right: 1,
+        top: 1,
+        width: 1,
+        x: 1,
+        y: 1,
+    };
+
+    rect = ckEditor.tools.getAbsoluteRectPosition(new ckEditor.dom.window(window), rect);
+
+    let buffer = new ckEditor.tools.buffers.event(1000, fn);
+    buffer.input();
+    buffer.reset();
+    const fn2 = (test: string) => {
+        console.log('I was deferred by ' + test);
+    };
+    buffer = new ckEditor.tools.buffers.throttle(1000, fn2);
+    (buffer as CKEDITOR.tools.buffers.throttle).input('the throttle test.');
 }
 
 function test_plugins() {
