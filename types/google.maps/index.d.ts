@@ -5690,7 +5690,7 @@ declare namespace google.maps {
     /**
      * Returns the StreetViewLocation of the current panorama.
      */
-    getLocation(): google.maps.StreetViewLocation|null;
+    getLocation(): google.maps.StreetViewLocation;
     /**
      * Returns the state of motion tracker. If <code>true</code> when the user
      * physically moves the device and the browser supports it, the Street View
