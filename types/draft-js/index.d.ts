@@ -1150,6 +1150,7 @@ import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 import EditorCommand = Draft.Component.Base.EditorCommand;
 
+import DraftDecoratorComponentProps = Draft.Model.Decorators.DraftDecoratorComponentProps;
 import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
@@ -1208,6 +1209,7 @@ export {
     EditorState,
     EditorChangeType,
     EditorCommand,
+    DraftDecoratorComponentProps,
     DraftDecoratorType,
     DraftDecorator,
     CompositeDecorator,
