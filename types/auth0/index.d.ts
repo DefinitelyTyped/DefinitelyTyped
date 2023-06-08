@@ -1255,6 +1255,7 @@ export interface CreateOrganization {
           }
         | undefined;
     metadata?: any;
+    enabled_connections?: AddOrganizationEnabledConnection[] | undefined;
 }
 
 export interface UpdateOrganization {
