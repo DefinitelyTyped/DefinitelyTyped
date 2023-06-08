@@ -37,6 +37,6 @@ export function toMiles(kilos: number): number;
 
 export function toKilometers(miles: number): number;
 
-export function lookupByCoords(lat: number, lon: number): string | null;
+export function lookupByCoords(lat: number, lon: number): ZipCode | null;
 
 export function random(): ZipCode;
