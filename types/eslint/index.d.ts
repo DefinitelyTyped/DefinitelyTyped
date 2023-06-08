@@ -780,13 +780,13 @@ export class Linter {
 
     version: string;
 
-    constructor(options?: { cwd?: string | undefined });
+    constructor(options?: { cwd?: string | undefined, configType?: 'flat' });
 
-    verify(code: SourceCode | string, config: Linter.Config, filename?: string): Linter.LintMessage[];
-    verify(code: SourceCode | string, config: Linter.Config, options: Linter.LintOptions): Linter.LintMessage[];
+    verify(code: SourceCode | string, config: Linter.Config | Linter.FlatConfig[], filename?: string): Linter.LintMessage[];
+    verify(code: SourceCode | string, config: Linter.Config | Linter.FlatConfig[], options: Linter.LintOptions): Linter.LintMessage[];
 
-    verifyAndFix(code: string, config: Linter.Config, filename?: string): Linter.FixReport;
-    verifyAndFix(code: string, config: Linter.Config, options: Linter.FixOptions): Linter.FixReport;
+    verifyAndFix(code: string, config: Linter.Config | Linter.FlatConfig[], filename?: string): Linter.FixReport;
+    verifyAndFix(code: string, config: Linter.Config | Linter.FlatConfig[], options: Linter.FixOptions): Linter.FixReport;
 
     getSourceCode(): SourceCode;
 

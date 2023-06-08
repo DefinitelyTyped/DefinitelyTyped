@@ -692,6 +692,57 @@ const _processor: Linter.Processor = {
     },
 };
 
+//#region Linter with flat config
+
+const linterWithFlatConfig = new Linter({ configType: 'flat' });
+
+linterWithFlatConfig.version;
+
+linterWithFlatConfig.verify(SOURCE, [{}]);
+linterWithFlatConfig.verify(new SourceCode(SOURCE, AST), [{}]);
+
+linterWithFlatConfig.verify(SOURCE, [{}], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{}], {});
+linterWithFlatConfig.verify(SOURCE, [{}], { filename: 'test.js' });
+linterWithFlatConfig.verify(SOURCE, [{}], { allowInlineConfig: false });
+linterWithFlatConfig.verify(SOURCE, [{}], { reportUnusedDisableDirectives: true });
+linterWithFlatConfig.verify(SOURCE, [{}], { preprocess: input => input.split(' ') });
+linterWithFlatConfig.verify(SOURCE, [{}], { postprocess: problemList => problemList[0] });
+
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2021 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2022 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 'latest' } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 6 } }], 'test.js');
+linterWithFlatConfig.verify(
+    SOURCE,
+    [{ languageOptions: { ecmaVersion: 6 } }],
+    'test.js',
+);
+
+linterWithFlatConfig.verify(SOURCE, [{ rules: {} }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { quotes: 2 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { quotes: [2, 'double'] } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-unused-vars': [2, { vars: 'all' }] } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 1 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 0 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'error' } }], 'test.js');
+linterWithFlatConfig.verify(
+    SOURCE,
+    [{
+        rules: { 'no-console': 'error' },
+    }, {
+        files: ['*-test.js', '*.spec.js'],
+        rules: {
+            'no-unused-expressions': 'off',
+        },
+    }],
+    'test.js',
+);
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'warn' } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'off' } }], 'test.js');
+
+//#endregion
+
 //#endregion
 
 //#region ESLint
