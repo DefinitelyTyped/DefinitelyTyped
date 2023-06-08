@@ -709,7 +709,7 @@ export type NormalMapTypes = typeof TangentSpaceNormalMap | typeof ObjectSpaceNo
 export const NoColorSpace: '';
 export const SRGBColorSpace: 'srgb';
 export const LinearSRGBColorSpace: 'srgb-linear';
-export const DisplayP3ColorSpace = 'display-p3';
+export const DisplayP3ColorSpace: 'display-p3';
 export type ColorSpace =
     | typeof NoColorSpace
     | typeof SRGBColorSpace
