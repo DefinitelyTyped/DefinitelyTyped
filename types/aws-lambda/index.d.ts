@@ -41,6 +41,7 @@
 //                 James Lakin <https://github.com/jamesorlakin>
 //                 Ross Gerbasi <https://github.com/aphex>
 //                 Joey Kilpatrick <https://github.com/joeykilpatrick>
+//                 Luciano Manerich Junior <https://github.com/lmanerich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

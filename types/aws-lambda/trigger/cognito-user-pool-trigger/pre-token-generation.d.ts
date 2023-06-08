@@ -11,7 +11,6 @@ export interface BasePreTokenGenerationTriggerEvent<T extends string> extends Ba
   request: {
       userAttributes: StringMap;
       groupConfiguration: GroupOverrideDetails;
-      clientMetadata?: StringMap | undefined;
   };
   response: {
       claimsOverrideDetails: {
