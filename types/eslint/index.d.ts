@@ -432,9 +432,16 @@ export namespace SourceCode {
 //#endregion
 
 export namespace Rule {
+    /**
+     * TODO: Old style rules are planned to be removed in v9, remove this type then (https://github.com/eslint/rfcs/blob/main/designs/2021-schema-object-rules/README.md)
+     * @deprecated Use `RuleModule` instead.
+     */
+    type OldStyleRule = RuleModule["create"];
+
     interface RuleModule {
         create(context: RuleContext): RuleListener;
         meta?: RuleMetaData | undefined;
+        schema?: RuleMetaData["schema"];
     }
 
     type NodeTypes = ESTree.Node["type"];
@@ -655,6 +662,7 @@ export namespace Rule {
         /**
          * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
          * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
+         * TODO: schema is potentially planned to be no longer be optional in v9 (https://github.com/eslint/rfcs/blob/main/designs/2021-schema-object-rules/README.md)
          */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
 
@@ -1048,7 +1056,7 @@ export namespace ESLint {
         configs?: Record<string, ConfigData> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
-        rules?: Record<string, ((...args: any[]) => any) | Rule.RuleModule> | undefined;
+        rules?: Record<string, Rule.OldStyleRule | Rule.RuleModule> | undefined;
     }
 
     interface Options {
