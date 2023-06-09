@@ -140,6 +140,13 @@ export interface Timer {
 
 export interface Schedule {
     /**
+     * Returns true if d is a valid occurrence of the current schedule.
+     *
+     * @param d: The date to check
+     */
+    isValid(d: Date): boolean;
+
+    /**
      * Finds the next valid instance or instances of the current schedule,
      * optionally between a specified start and end date. Start date is
      * Date.now() by default, end date is unspecified. Start date must be
