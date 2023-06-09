@@ -2,6 +2,7 @@
 // Project: https://github.com/handsontable/formula-parser
 // Definitions by: João Nascimento <https://github.com/joao-mbn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.5
 
 /**
  * The class used to perform the formula parsing.
@@ -27,13 +28,13 @@ export class Parser {
     on(hook: 'callFunction', handler: (name: string, params: unknown, done: DoneCallback) => void): void;
     on(
         hook: 'callCellValue',
-        handler: (cellCoord: { row: Coordinate; column: Coordinate }, done: DoneCallback) => void,
+        handler: (cellCoord: { row: Coordinate; label: string; column: Coordinate }, done: DoneCallback) => void,
     ): void;
     on(
         hook: 'callRangeValue',
         handler: (
-            startCellCoord: { row: Coordinate; column: Coordinate },
-            endCellCoord: { row: Coordinate; column: Coordinate },
+            startCellCoord: { row: Coordinate; label: string; column: Coordinate },
+            endCellCoord: { row: Coordinate; label: string; column: Coordinate },
             done: DoneCallback,
         ) => void,
     ): void;
@@ -148,7 +149,7 @@ export const ERROR_NUM: 'NUM';
 export const ERROR_REF: 'REF';
 export const ERROR_VALUE: 'VALUE';
 
-export type FormulaErrorId = '#ERROR!' | '#DIV/0!' | '#NAME?' | '#N/A' | '#NULL!' | 'NUM!' | '#VALUE!';
+export type FormulaErrorId = '#ERROR!' | '#DIV/0!' | '#NAME?' | '#N/A' | '#NULL!' | '#NUM!' | '#REF!' | '#VALUE!';
 export type FormulaErrorType =
     | typeof ERROR
     | typeof ERROR_DIV_ZERO

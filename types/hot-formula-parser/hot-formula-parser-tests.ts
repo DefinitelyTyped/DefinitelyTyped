@@ -7,7 +7,7 @@ import {
     rowIndexToLabel,
     rowLabelToIndex,
     toLabel,
-} from 'hot-formula-parser';
+} from 'hot-formula-parser/index.mjs';
 
 import p = require('hot-formula-parser');
 
