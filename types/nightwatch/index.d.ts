@@ -32,7 +32,7 @@ export interface JSON_WEB_OBJECT extends ElementResult {
     getId: () => string;
 }
 
-export type Definition = string | ElementProperties | Element | RelativeBy;
+export type Definition = string | ElementProperties | Element | By | RelativeBy;
 
 export type Awaitable<T, V> = Omit<T, "then"> & PromiseLike<V>;
 
@@ -1907,12 +1907,12 @@ export interface ElementGlobal extends Element {
      * instance for this element.
      */
     findElement: (
-        selector?: Definition | By,
+        selector?: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void
     ) => Awaitable<NightwatchAPI, WebElement>;
 
     find: (
-        selector: Definition | By,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementGlobal | null>) => void
     ) => Awaitable<NightwatchAPI, ElementGlobal | null>;
     get: ElementGlobal['find'];
@@ -1922,12 +1922,12 @@ export interface ElementGlobal extends Element {
      * Locates all of the descendants of this element that match the given search criteria.
      */
     findElements: (
-        selector: Definition | By,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement[]>) => void
     ) => Awaitable<NightwatchAPI, WebElement[]>;
 
     findAll: (
-        selector: Definition | By,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementGlobal[]>) => void
     ) => Awaitable<NightwatchAPI, ElementGlobal[]>;
 
@@ -2122,7 +2122,7 @@ export interface ElementGlobal extends Element {
 }
 
 export function globalElement(
-    locator: Definition | By | WebElement,
+    locator: Definition | WebElement,
     options?: {
         isComponent?: boolean;
         type: string;
@@ -5198,12 +5198,12 @@ export interface ElementCommands {
      * @see https://nightwatchjs.org/api/getShadowRoot.html
      */
     getShadowRoot(
-        selector: Definition | WebElement | By,
+        selector: Definition | WebElement,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementGlobal | null>) => void,
     ): Awaitable<this, ElementGlobal | null>;
     getShadowRoot(
         using: LocateStrategy,
-        selector: Definition | WebElement | By,
+        selector: Definition | WebElement,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementGlobal | null>) => void,
     ): Awaitable<this, ElementGlobal | null>;
 
