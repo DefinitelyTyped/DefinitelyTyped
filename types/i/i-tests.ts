@@ -1,5 +1,6 @@
+/// <reference types="./globals" />
+
 import i = require('i');
-import "i/globals";
 
 // $ExpectType Iinterface
 const inflect = i(true);
