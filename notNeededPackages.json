@@ -1765,6 +1765,10 @@
             "libraryName": "filter-console",
             "asOfVersion": "0.1.1"
         },
+        "filter-invalid-dom-props": {
+            "libraryName": "filter-invalid-dom-props",
+            "asOfVersion": "3.0.0"
+        },
         "find-java-home": {
             "libraryName": "find-java-home",
             "asOfVersion": "1.0.0"
@@ -1800,6 +1804,10 @@
         "fkill": {
             "libraryName": "fkill",
             "asOfVersion": "6.0.0"
+        },
+        "flatbush": {
+            "libraryName": "flatbush",
+            "asOfVersion": "4.2.0"
         },
         "flatpickr": {
             "libraryName": "flatpickr",
@@ -3344,6 +3352,10 @@
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
+        },
+        "minio": {
+            "libraryName": "minio",
+            "asOfVersion": "7.1.1"
         },
         "minipass": {
             "libraryName": "minipass",
@@ -4890,6 +4902,10 @@
         "react-owl-carousel": {
             "libraryName": "react-owl-carousel",
             "asOfVersion": "2.3.0"
+        },
+        "react-pdf": {
+            "libraryName": "react-pdf",
+            "asOfVersion": "7.0.0"
         },
         "react-plaid-link": {
             "libraryName": "react-plaid-link",
