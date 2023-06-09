@@ -397,6 +397,9 @@ declare namespace jwplayer {
     }
 
     interface VisualQualityParam extends VisualQuality {
+        level: Level;
+        mode: 'auto' | 'manual';
+        reason: 'api' | 'auto' | 'initial choice';
         type: 'visualQuality';
     }
 
@@ -479,11 +482,11 @@ declare namespace jwplayer {
     }
 
     interface QualityLevel {
-        bitrate: number;
-        height: number;
+        bitrate?: number;
+        height?: number;
         index?: number;
         label: string;
-        width: number;
+        width?: number;
     }
 
     interface VisualQuality {
