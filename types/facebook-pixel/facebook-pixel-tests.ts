@@ -66,3 +66,18 @@ fbq('track', 'Purchase',
     content_type: 'product'
   }
 );
+
+// Any event can contain an eventID parameter to deduplicate events sent
+// https://developers.facebook.com/docs/marketing-api/conversions-api/deduplicate-pixel-and-server-events
+fbq('track', 'PageView', {}, {eventID: 'my-event-id'});
+
+fbq('track', 'ViewContent', {
+    content_name: 'The Avengers Trailer',
+    content_category: 'Entertainment',
+    value: 1.50,
+    currency: 'USD',
+}, {eventID: 'my-event-id'});
+
+fbq('trackSingle', '<FB_PIXEL_ID>', 'ViewContent', viewContentParam, {eventID: 'my-event-id'});
+
+fbq('trackCustom', 'MyCustomEvent', custom_params, {eventID: 'my-event-id'});

@@ -11,34 +11,36 @@ declare module facebook.Pixel {
     interface Event {
         (eventType:string, InitialAppId:string):void;
         (eventType:string, InitialAppId:string, eventName:string,
-            parameters:
-            facebook.Pixel.ViewContentParameters |
-            ViewContentParameters |
-            SearchParameters |
-            AddToCartParameters |
-            AddToWishlistParameters |
-            InitiateCheckoutParameters |
-            AddPaymentInfoParameters |
-            PurchaseParameters |
-            LeadParameters |
-            CompleteRegistrationParameters
-            ):void;
-        (eventType:string, eventName:string):void;
-        (eventType:string, eventName:string, parameters:facebook.Pixel.ViewContentParameters):void;
-        (eventType:string, eventName:string, parameters:ViewContentParameters):void;
-        (eventType:string, eventName:string, parameters:SearchParameters):void;
-        (eventType:string, eventName:string, parameters:AddToCartParameters):void;
-        (eventType:string, eventName:string, parameters:AddToWishlistParameters):void;
-        (eventType:string, eventName:string, parameters:InitiateCheckoutParameters):void;
-        (eventType:string, eventName:string, parameters:AddPaymentInfoParameters):void;
-        (eventType:string, eventName:string, parameters:PurchaseParameters):void;
-        (eventType:string, eventName:string, parameters:LeadParameters):void;
-        (eventType:string, eventName:string, parameters:CompleteRegistrationParameters):void;
-        (eventType:string, eventName:string, parameters:CustomParameters):void;
+         parameters:
+             facebook.Pixel.ViewContentParameters |
+             ViewContentParameters |
+             SearchParameters |
+             AddToCartParameters |
+             AddToWishlistParameters |
+             InitiateCheckoutParameters |
+             AddPaymentInfoParameters |
+             PurchaseParameters |
+             LeadParameters |
+             CompleteRegistrationParameters |
+             CustomParameters,
+         option?: EventIDOptions):void;
 
-        (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.AddToCartParameters):void;
-        (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.PurchaseParameters):void;
-        (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.ViewContentParameters):void;
+        (eventType:string, eventName:string):void;
+        (eventType:string, eventName:string, parameters:facebook.Pixel.ViewContentParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:ViewContentParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:SearchParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:AddToCartParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:AddToWishlistParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:InitiateCheckoutParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:AddPaymentInfoParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:PurchaseParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:LeadParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:CompleteRegistrationParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:CustomParameters, option?: EventIDOptions):void;
+
+        (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.AddToCartParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.PurchaseParameters, option?: EventIDOptions):void;
+        (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.ViewContentParameters, option?: EventIDOptions):void;
     }
 
 
@@ -120,6 +122,10 @@ declare module facebook.Pixel {
     }
 
     type CustomParameters = Record<string,any>;
+
+    interface EventIDOptions {
+        eventID:string;
+    }
 }
 
 // For Facebook Tag API using Dynamic Product Ads
