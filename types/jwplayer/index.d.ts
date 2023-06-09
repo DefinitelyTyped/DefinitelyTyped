@@ -256,7 +256,7 @@ declare namespace jwplayer {
             PTS: number;
             start: number;
             tag: string;
-        }
+        };
     }
 
     interface MetaUnknown {
@@ -264,22 +264,22 @@ declare namespace jwplayer {
     }
 
     type MetadataParam =
-        | MetaDateRange & Meta
-        | MetaEMSG & Meta
-        | MetaID3 & Meta
-        | MetaMedia & Meta
-        | MetaProgramDateTime & Meta
-        | MetaSCTE35 & Meta
-        | MetaUnknown & Meta
-        | MetaDiscontinuity & MetadataCueParsed;
+        | (MetaDateRange & Meta)
+        | (MetaEMSG & Meta)
+        | (MetaID3 & Meta)
+        | (MetaMedia & Meta)
+        | (MetaProgramDateTime & Meta)
+        | (MetaSCTE35 & Meta)
+        | (MetaUnknown & Meta)
+        | (MetaDiscontinuity & MetadataCueParsed);
 
     type MetadataCueParsedParam =
-        | MetaDateRange & MetadataCueParsed
-        | MetaEMSG & MetadataCueParsed
-        | MetaID3 & MetadataCueParsed
-        | MetaProgramDateTime & MetadataCueParsed
-        | MetaSCTE35 & MetadataCueParsed
-        | MetaDiscontinuity & MetadataCueParsed;
+        | (MetaDateRange & MetadataCueParsed)
+        | (MetaEMSG & MetadataCueParsed)
+        | (MetaID3 & MetadataCueParsed)
+        | (MetaProgramDateTime & MetadataCueParsed)
+        | (MetaSCTE35 & MetadataCueParsed)
+        | (MetaDiscontinuity & MetadataCueParsed);
 
     interface CompleteParam {
         type: 'complete';
@@ -324,24 +324,24 @@ declare namespace jwplayer {
         type: 'mute';
     }
 
+    interface NextClickParam {
+        feedData: object;
+        feedShownId: string;
+        itemsShown: PlaylistItem[];
+        mode: string;
+        target: PlaylistItem;
+        ui: string;
+        type: 'nextClick';
+    }
+
     interface VolumeParam {
         volume: number;
         type: 'volume';
     }
 
-    type PlayReason =
-        | 'autostart'
-        | 'external'
-        | 'interaction'
-        | 'playlist'
-        | 'related-auto'
-        | 'viewable';
+    type PlayReason = 'autostart' | 'external' | 'interaction' | 'playlist' | 'related-auto' | 'viewable';
 
-    type PlayState =
-        | 'buffering'
-        | 'idle'
-        | 'paused'
-        | 'playing';
+    type PlayState = 'buffering' | 'idle' | 'paused' | 'playing';
 
     interface PauseParam {
         newstate: PlayState;
@@ -371,12 +371,19 @@ declare namespace jwplayer {
     }
 
     interface PlaylistParam {
+        feedData: object;
         playlist: PlaylistItem[];
+        type: 'playlist';
+    }
+
+    interface PlaylistCompleteParam {
+        type: 'playlistComplete';
     }
 
     interface PlaylistItemParam {
         index: number;
         item: PlaylistItem;
+        type: 'playlistItem';
     }
 
     interface ReadyParam {
@@ -524,7 +531,7 @@ declare namespace jwplayer {
 
     interface WarningParam {
         code: number;
-        key: string;
+        key?: string;
         sourceError: object | null;
         type: 'warning';
     }
@@ -582,8 +589,6 @@ declare namespace jwplayer {
         | 'beforeComplete'
         | 'beforePlay'
         | 'displayClick'
-        | 'nextClick'
-        | 'playlistComplete'
         | 'remove'
         | 'seeked'
         | 'userActive'
