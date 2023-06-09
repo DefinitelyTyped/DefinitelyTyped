@@ -1896,9 +1896,9 @@ export interface ElementGlobal extends Element {
     /**
      * Get the server-assigned opaque ID assigned to this element.
      */
-    getId: (
+    getId(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ) => Awaitable<NightwatchAPI, string>;
+    ): Awaitable<NightwatchAPI, string>;
 
     /**
      * Locates the descendants of this element that match the given search criteria, and returns the first one.
@@ -1906,30 +1906,38 @@ export interface ElementGlobal extends Element {
      * If no `selector` is passed, returns the[WebElement](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html)
      * instance for this element.
      */
-    findElement: (
+    findElement(
         selector?: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement>) => void
-    ) => Awaitable<NightwatchAPI, WebElement>;
+    ): Awaitable<NightwatchAPI, WebElement>;
 
-    find: (
+    /**
+     * Locates and wraps the first element, that match the given search criteria in the descendants of this element, in global element() api object.
+     *
+     * If no `selector` is passed, returns the[WebElement](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html)
+     * instance for this element.
+     */
+    find(): Awaitable<NightwatchAPI, WebElement>;
+    find(
         selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementGlobal | null>) => void
-    ) => Awaitable<NightwatchAPI, ElementGlobal | null>;
+    ): Awaitable<NightwatchAPI, ElementGlobal | null>;
+
     get: ElementGlobal['find'];
     element: ElementGlobal['find'];
 
     /**
      * Locates all of the descendants of this element that match the given search criteria.
      */
-    findElements: (
+    findElements(
         selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WebElement[]>) => void
-    ) => Awaitable<NightwatchAPI, WebElement[]>;
+    ): Awaitable<NightwatchAPI, WebElement[]>;
 
-    findAll: (
+    findAll(
         selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementGlobal[]>) => void
-    ) => Awaitable<NightwatchAPI, ElementGlobal[]>;
+    ): Awaitable<NightwatchAPI, ElementGlobal[]>;
 
     /**
      * Clear the `value` of this element. This command has no effect if the underlying DOM element
@@ -1937,25 +1945,25 @@ export interface ElementGlobal extends Element {
      *
      * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#clear
      */
-    clear: (
+    clear(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ) => Awaitable<NightwatchAPI, null>;
+    ): Awaitable<NightwatchAPI, null>;
 
     /**
      * Clicks on this element.
      *
      * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#click
      */
-    click: (
+    click(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ) => Awaitable<NightwatchAPI, null>;
+    ): Awaitable<NightwatchAPI, null>;
 
     /**
      * Get the computed WAI-ARIA label of element.
      */
-    getAccessibleName: (
+    getAccessibleName(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ) => Awaitable<NightwatchAPI, string>;
+    ): Awaitable<NightwatchAPI, string>;
     /**
      * Get the computed WAI-ARIA label of element.
      */
@@ -1964,9 +1972,9 @@ export interface ElementGlobal extends Element {
     /**
      * Get the computed WAI-ARIA role of element.
      */
-    getAriaRole: (
+    getAriaRole(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ) => Awaitable<NightwatchAPI, string>;
+    ): Awaitable<NightwatchAPI, string>;
     /**
      * Get the computed WAI-ARIA role of element.
      */
@@ -1977,10 +1985,10 @@ export interface ElementGlobal extends Element {
      *
      * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#getAttribute
      */
-    getAttribute: (
+    getAttribute(
         attributeName: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void
-    ) => Awaitable<NightwatchAPI, string | null>;
+    ): Awaitable<NightwatchAPI, string | null>;
     /**
      * Retrieves the current value of the given attribute of this element.
      *
@@ -1999,10 +2007,10 @@ export interface ElementGlobal extends Element {
      *
      * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#getCssValue
      */
-    getCssValue: (
+    getCssValue(
         cssStyleProperty: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ) => Awaitable<NightwatchAPI, string>;
+    ): Awaitable<NightwatchAPI, string>;
     /**
      * Retrieves the value of a computed style property for this instance.
      *
@@ -2013,10 +2021,10 @@ export interface ElementGlobal extends Element {
     /**
      * Retrieves the value of the given property of this element.
      */
-    getProperty: (
+    getProperty(
         propertyName: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void
-    ) => Awaitable<NightwatchAPI, string | null>;
+    ): Awaitable<NightwatchAPI, string | null>;
     /**
      * Retrieves the value of the given property of this element.
      */
@@ -2029,9 +2037,9 @@ export interface ElementGlobal extends Element {
     /**
      * Returns an object describing an element's location, in pixels relative to the document element, and the element's size in pixels.
      */
-    getRect: (
+    getRect(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchSizeAndPosition>) => void
-    ) => Awaitable<NightwatchAPI, NightwatchSizeAndPosition>;
+    ): Awaitable<NightwatchAPI, NightwatchSizeAndPosition>;
     /**
      * Returns an object describing an element's location, in pixels relative to the document element, and the element's size in pixels.
      */
@@ -2040,9 +2048,9 @@ export interface ElementGlobal extends Element {
     /**
      * Retrieves the element's tag name.
      */
-    getTagName: (
+    getTagName(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ) => Awaitable<NightwatchAPI, string>;
+    ): Awaitable<NightwatchAPI, string>;
     /**
      * Retrieves the element's tag name.
      */
@@ -2051,9 +2059,9 @@ export interface ElementGlobal extends Element {
     /**
      * Get the visible (i.e. not hidden by CSS) innerText of this element, including sub-elements, without any leading or trailing whitespace.
      */
-    getText: (
+    getText(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ) => Awaitable<NightwatchAPI, string>;
+    ): Awaitable<NightwatchAPI, string>;
     /**
      * Get the visible (i.e. not hidden by CSS) innerText of this element, including sub-elements, without any leading or trailing whitespace.
      */
@@ -2067,9 +2075,9 @@ export interface ElementGlobal extends Element {
      *
      * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#sendKeys
      */
-    sendKeys: (
+    sendKeys(
         ...args: Array<string | number | PromiseLike<string> | PromiseLike<number>>
-    ) => Awaitable<NightwatchAPI, null>;
+    ): Awaitable<NightwatchAPI, null>;
 
     /**
      * Submits the form containing this element (or this element if it is itself a FORM element).
@@ -2077,16 +2085,16 @@ export interface ElementGlobal extends Element {
      *
      * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#submit
      */
-    submit: (
+    submit(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
-    ) => Awaitable<NightwatchAPI, null>;
+    ): Awaitable<NightwatchAPI, null>;
 
     /**
      * Take a screenshot of the visible region encompassed by this element's bounding rectangle.
      */
-    takeScreenshot: (
+    takeScreenshot(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
-    ) => Awaitable<NightwatchAPI, string>;
+    ): Awaitable<NightwatchAPI, string>;
     /**
      * Take a screenshot of the visible region encompassed by this element's bounding rectangle.
      */
@@ -2095,28 +2103,28 @@ export interface ElementGlobal extends Element {
     /**
      * Test whether this element is currently displayed.
      */
-    isDisplayed: (
+    isDisplayed(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void
-    ) => Awaitable<NightwatchAPI, boolean>;
+    ): Awaitable<NightwatchAPI, boolean>;
 
     /**
      * Tests whether this element is enabled, as dictated by the `disabled` attribute.
      */
-    isEnabled: (
+    isEnabled(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void
-    ) => Awaitable<NightwatchAPI, boolean>;
+    ): Awaitable<NightwatchAPI, boolean>;
 
     /**
      * Tests whether this element is selected.
      */
-    isSelected: (
+    isSelected(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void
-    ) => Awaitable<NightwatchAPI, boolean>;
+    ): Awaitable<NightwatchAPI, boolean>;
 
     /**
      * Get the [WebElement](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html) instance for this element.
      */
-    getWebElement: () => Awaitable<NightwatchAPI, WebElement>;
+    getWebElement(): Awaitable<NightwatchAPI, WebElement>;
 
     isComponent?: boolean;
 }

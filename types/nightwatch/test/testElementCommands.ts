@@ -1,4 +1,4 @@
-import { JSON_WEB_OBJECT, NightwatchSizeAndPosition, ElementResult } from 'nightwatch';
+import { JSON_WEB_OBJECT, NightwatchSizeAndPosition, ElementResult, ElementGlobal } from 'nightwatch';
 
 import { isNightwatchAPI, isType, isNightwatchCallbackResult } from './utils';
 
@@ -199,6 +199,26 @@ describe('getValue command demo', function() {
     });
 
     after(browser => browser.end());
+});
+
+//
+// .getShadowRoot
+//
+describe('getShadowRoot command demo', function() {
+    test('demo test', function() {
+        browser.getShadowRoot('input[type=text]', function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<ElementGlobal | null>(result);
+        });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.getShadowRoot('input[type=text]');
+        isType<ElementGlobal | null>(result);
+
+        const result2 = await browser.getShadowRoot(await element('selector').getWebElement());
+        isType<ElementGlobal | null>(result2);
+    });
 });
 
 //

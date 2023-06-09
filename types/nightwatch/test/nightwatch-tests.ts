@@ -260,7 +260,7 @@ describe('duckduckgo example', function() {
 //
 const wikipediaAppTest: NightwatchTests = {
     before: (client: NightwatchAPI) => {
-      client.click('xpath', '//XCUIElementTypeButton[@name="Skip"]');
+      client.click(by.xpath('//XCUIElementTypeButton[@name="Skip"]'));
     },
 
     'Search for BrowserStack': async (client: NightwatchAPI) => {
