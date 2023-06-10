@@ -691,7 +691,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the elements via a generic.
          */
         // eslint-disable-next-line no-unnecessary-generics
-        arrayContaining<E = any>(arr: E[]): any;
+        arrayContaining<E = any>(arr: readonly E[]): any;
         /**
          * `expect.not.objectContaining(object)` matches any received object
          * that does not recursively match the expected properties. That is, the
@@ -769,7 +769,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the elements via a generic.
          */
         // eslint-disable-next-line no-unnecessary-generics
-        arrayContaining<E = any>(arr: E[]): any;
+        arrayContaining<E = any>(arr: readonly E[]): any;
         /**
          * Verifies that a certain number of assertions are called during a test.
          * This is often useful when testing asynchronous code, in order to
@@ -1059,7 +1059,7 @@ declare namespace jest {
          * expect(houseForSale).toHaveProperty('kitchen.area', 20);
          */
         // eslint-disable-next-line no-unnecessary-generics
-        toHaveProperty<E = any>(propertyPath: string | any[], value?: E): R;
+        toHaveProperty<E = any>(propertyPath: string | readonly any[], value?: E): R;
         /**
          * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
          */
@@ -1590,7 +1590,7 @@ declare namespace jasmine {
     function clock(): Clock;
     function any(aclass: any): Any;
     function anything(): Any;
-    function arrayContaining(sample: any[]): ArrayContaining;
+    function arrayContaining(sample: readonly any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name?: string, originalFn?: (...args: any[]) => any): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
@@ -1618,7 +1618,7 @@ declare namespace jasmine {
     }
 
     interface ArrayContaining {
-        new (sample: any[]): any;
+        new (sample: readonly any[]): any;
         asymmetricMatch(other: any): boolean;
         jasmineToString(): string;
     }

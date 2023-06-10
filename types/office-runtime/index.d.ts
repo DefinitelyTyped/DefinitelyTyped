@@ -43,8 +43,9 @@ declare namespace OfficeRuntime {
    * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
    * for Outlook.
    *
-   * **Important**: In Outlook, support is only available with
-   * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+   * **Important**: In Outlook, support is only available with the
+   * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+   * This interface isn't supported in Outlook on Mac or on the web.
    *
    * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
    */
@@ -62,8 +63,9 @@ declare namespace OfficeRuntime {
      * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
      * for Outlook.
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param key Key of item to be retrieved. Must be a string.
      */
@@ -81,8 +83,9 @@ declare namespace OfficeRuntime {
      * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
      * for Outlook.
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param key Key of item to be set. Must be a string.
      * @param value Must be a string.
@@ -101,8 +104,9 @@ declare namespace OfficeRuntime {
      * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
      * for Outlook.
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param key Key of item to be removed. Must be a string.
      */
@@ -120,8 +124,9 @@ declare namespace OfficeRuntime {
      * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
      * for Outlook.
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -139,8 +144,9 @@ declare namespace OfficeRuntime {
      * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
      * for Outlook.
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param keyValues Key-value pairs to be set. Must be strings.
      */
@@ -158,8 +164,9 @@ declare namespace OfficeRuntime {
      * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
      * for Outlook.
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -177,8 +184,9 @@ declare namespace OfficeRuntime {
      * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
      * for Outlook.
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      */
     getKeys(): Promise<string[]>;
   }
@@ -341,11 +349,15 @@ declare namespace OfficeRuntime {
      * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational
      * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
      *
-     * **Important**: In Outlook, this API isn't supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
-     *
      * @remarks
      *
      * **Applications**: Excel, Outlook, PowerPoint, Word
+     *
+     * **Important**: In Outlook, this API isn't supported in the following scenarios.
+     *
+     * - If the add-in is loaded in an Outlook.com or Gmail mailbox.
+     *
+     * - If the add-in is loaded in Outlook on the web in the Safari browser. This results in error 13001 ("The user is not signed into Office").
      *
      * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
      * @returns Promise to the access token.
