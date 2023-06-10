@@ -199,7 +199,7 @@ declare module 'cluster' {
     function addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
     function addListener(event: "fork", listener: (worker: Worker) => void): Cluster;
     function addListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
+    // the handle is a net.Socket or net.Server object, or undefined.
     function addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
     function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
     function addListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
@@ -243,7 +243,7 @@ declare module 'cluster' {
     function prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
     function prependListener(event: "fork", listener: (worker: Worker) => void): Cluster;
     function prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
+    // the handle is a net.Socket or net.Server object, or undefined.
     function prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
     function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
     function prependListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
@@ -253,7 +253,7 @@ declare module 'cluster' {
     function prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
     function prependOnceListener(event: "fork", listener: (worker: Worker) => void): Cluster;
     function prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
+    // the handle is a net.Socket or net.Server object, or undefined.
     function prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
     function prependOnceListener(event: "online", listener: (worker: Worker) => void): Cluster;
     function prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
@@ -261,5 +261,6 @@ declare module 'cluster' {
     function eventNames(): string[];
 }
 declare module 'node:cluster' {
-    export * from 'cluster';
+    import cluster = require('cluster');
+    export = cluster;
 }
