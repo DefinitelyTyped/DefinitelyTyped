@@ -36,6 +36,7 @@ declare module '.' {
     interface PreloadOptions {
         as: PreloadAs;
         crossOrigin?: string | undefined;
+        fetchPriority?: 'high' | 'low' | 'auto';
         integrity?: string | undefined;
     }
     function preload(href: string, options?: PreloadOptions): void;
@@ -44,9 +45,10 @@ declare module '.' {
     interface PreinitOptions {
         as: PreinitAs;
         crossOrigin?: string | undefined;
-        precedence?: string | undefined;
+        fetchPriority?: 'high' | 'low' | 'auto';
         integrity?: string | undefined;
         nonce?: string | undefined;
+        precedence?: string | undefined;
     }
     function preinit(href: string, options?: PreinitOptions): void;
 }

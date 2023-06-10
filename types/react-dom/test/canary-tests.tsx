@@ -14,6 +14,14 @@ function preloadTest() {
             // @ts-expect-error -- Only allowed in preinit
             nonce: '0xeac1',
         });
+        ReactDOM.preload('foo', { as: 'style', fetchPriority: 'auto' });
+        ReactDOM.preload('foo', { as: 'style', fetchPriority: 'high' });
+        ReactDOM.preload('foo', { as: 'style', fetchPriority: 'low' });
+        ReactDOM.preload('foo', {
+            as: 'style',
+            // @ts-expect-error
+            fetchPriority: 'unknown',
+        });
 
         ReactDOM.preinit('foo', {
             as: 'style',
@@ -35,6 +43,14 @@ function preloadTest() {
         ReactDOM.preinit('baz', {
             as: 'script',
             nonce: '0xeac1',
+        });
+        ReactDOM.preinit('foo', { as: 'style', fetchPriority: 'auto' });
+        ReactDOM.preinit('foo', { as: 'style', fetchPriority: 'high' });
+        ReactDOM.preinit('foo', { as: 'style', fetchPriority: 'low' });
+        ReactDOM.preinit('foo', {
+            as: 'style',
+            // @ts-expect-error
+            fetchPriority: 'unknown',
         });
     }
 }
