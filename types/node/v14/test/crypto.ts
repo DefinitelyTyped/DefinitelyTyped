@@ -731,7 +731,7 @@ import { promisify } from 'node:util';
         namedCurve: 'sect239k1',
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.write('some data to sign');
     sign.end();
     const signature: string = sign.sign(privateKey, 'hex');
@@ -743,7 +743,7 @@ import { promisify } from 'node:util';
 
     // ensure that instanceof works
     verify instanceof crypto.Verify;
-    sign instanceof crypto.Signer;
+    sign instanceof crypto.Sign;
 }
 
 {
@@ -751,7 +751,7 @@ import { promisify } from 'node:util';
         modulusLength: 2048,
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.update('some data to sign');
     sign.end();
     const signature: Buffer = sign.sign(privateKey);
