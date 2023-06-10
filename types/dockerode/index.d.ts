@@ -1326,6 +1326,19 @@ declare namespace Dockerode {
         Options?: string[] | undefined;
     }
 
+    interface ConfigReference {
+        File?:
+            | {
+            Name?: string | undefined;
+            UID?: string | undefined;
+            GID?: string | undefined;
+            Mode: number | undefined;
+        }
+            | undefined;
+        ConfigID?: string | undefined;
+        ConfigName?: string | undefined;
+    }
+
     interface SecretReference {
         File?:
             | {
@@ -1366,6 +1379,7 @@ declare namespace Dockerode {
         HealthCheck?: HealthConfig | undefined;
         Hosts?: string[] | undefined;
         DNSConfig?: DNSConfig | undefined;
+        Configs?: ConfigReference[] | undefined;
         Secrets?: SecretReference[] | undefined;
         Isolation?: string | undefined;
         Sysctls?: { [key: string]: string } | undefined;

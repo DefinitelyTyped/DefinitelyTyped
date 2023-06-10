@@ -316,6 +316,7 @@ task.setAction(
     new TaskProcessAction('/usr/bin/say', {
         args: ["I'm Building!"],
         env: {},
+        shell: true,
     }),
 );
 
@@ -481,3 +482,16 @@ nova.assistants.registerTaskAssistant(tasks, {
     identifier: 'com.my-command',
     name: 'My command',
 });
+
+// Unable to cleanly create a TaskName directly to it need to be built
+// implicitly with `any` to add the `__type` property then coerced into
+// `taskName`
+const tmpTaskName: any = "MyTask";
+tmpTaskName.__type = "TaskName";
+const taskName: TaskName = tmpTaskName;
+
+const taskActionResolveContext: TaskActionResolveContext<any> = {
+    config: nova.config,
+    action: taskName,
+};
+taskActionResolveContext.config;
