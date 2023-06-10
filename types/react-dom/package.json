@@ -11,9 +11,9 @@
         "default": "./client.d.ts"
       }
     },
-    "./next": {
+    "./canary": {
       "types": {
-        "default": "./next.d.ts"
+        "default": "./canary.d.ts"
       }
     },
     "./server": {
