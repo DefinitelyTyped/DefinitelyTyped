@@ -359,7 +359,7 @@ class LegacyContext extends React.Component {
 
 class LegacyContextAnnotated extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
-    context: { foo: React.ReactNode } = { foo: {} as React.ReactNode };
+    context: { foo: React.Node } = { foo: {} as React.Node };
 
     render() {
         // $ExpectType ReactNode
@@ -552,7 +552,7 @@ type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
 function CustomSelect(props: {
     children: ReadonlyArray<
-      React.ReactElement<
+      React.Element<
         React.ComponentPropsWithoutRef<typeof CustomSelectOption>
       >
     >;
@@ -573,7 +573,7 @@ function CustomSelect(props: {
 }
 function CustomSelectOption(props: {
     value: string;
-    children: React.ReactNode;
+    children: React.Node;
 }): JSX.Element {
     return <li data-value={props.value}>{props.children}</li>;
 }
@@ -677,9 +677,9 @@ function elementTypeTests() {
         }
     }
 
-    const ReturnReactNode = ({children}: {children?: React.ReactNode}) => children;
+    const ReturnReactNode = ({children}: {children?: React.Node}) => children;
     const FCReactNode: React.FC = ReturnReactNode;
-    class RenderReactNode extends React.Component<{children?: React.ReactNode}> {
+    class RenderReactNode extends React.Component<{children?: React.Node}> {
         render() {
           return this.props.children;
         }

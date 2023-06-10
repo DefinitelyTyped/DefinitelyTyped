@@ -40,6 +40,7 @@ import * as CSS from 'csstype';
 import * as PropTypes from 'prop-types';
 import { Interaction as SchedulerInteraction } from 'scheduler/tracing';
 
+// lib.dom.d.ts aliases so that we can declare e.g. React.Element or React.Node
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
@@ -52,6 +53,10 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type NativeElement = Element;
+type NativeHTMLElement = HTMLElement;
+type NativeSVGElement = SVGElement;
+type NativeNode = Node;
 type Booleanish = boolean | 'true' | 'false';
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
@@ -82,7 +87,7 @@ declare namespace React {
                * @deprecated https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-stateless-function-components
                */
               deprecatedLegacyContext?: any,
-          ) => ReactNode)
+          ) => Node)
         | (new (props: P) => Component<any, any>);
 
     interface RefObject<T> {
@@ -113,7 +118,7 @@ declare namespace React {
         C extends
             | ForwardRefExoticComponent<any>
             | { new (props: any): Component<any> }
-            | ((props: any, context?: any) => ReactNode)
+            | ((props: any, context?: any) => Node)
             | keyof JSX.IntrinsicElements
     > =
         // need to check first if `ref` is a valid prop for ts@3.0
@@ -154,80 +159,98 @@ declare namespace React {
         ref?: LegacyRef<T> | undefined;
     }
 
-    interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
+    interface Element<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
         type: T;
         props: P;
         key: Key | null;
     }
+    /**
+     * @deprecated Uuse `React.Element` instead.
+     */
+    interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>>
+        extends Element<P, T> {}
 
     interface ReactComponentElement<
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
-    > extends ReactElement<P, Exclude<T, number>> { }
+    > extends Element<P, Exclude<T, number>> { }
 
-    interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
+    interface FunctionComponentElement<P> extends Element<P, FunctionComponent<P>> {
         ref?: ('ref' extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never) | undefined;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
-    interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P, ComponentClass<P>> {
+    interface ComponentElement<P, T extends Component<P, ComponentState>> extends Element<P, ComponentClass<P>> {
         ref?: LegacyRef<T> | undefined;
     }
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     // string fallback for custom web-components
-    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P, string> {
+    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends NativeElement> extends Element<P, string> {
         ref: LegacyRef<T>;
     }
 
-    // ReactHTML for ReactHTMLElement
-    interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
+    interface HTMLElement<T extends NativeHTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
+    /**
+     * @deprecated Use `React.HTMLElement` instead.
+     */
+    interface ReactHTMLElement<T extends NativeHTMLElement> extends HTMLElement<T> { }
 
-    interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
+    interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends NativeHTMLElement> extends DOMElement<P, T> {
         type: keyof ReactHTML;
     }
 
-    // ReactSVG for ReactSVGElement
-    interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
+    interface SVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
         type: keyof ReactSVG;
     }
+    /**
+     * @deprecated Use `React.SVGElement` instead.
+     */
+    interface ReactSVGElement extends SVGElement { }
 
-    interface ReactPortal extends ReactElement {
+
+
+    interface Portal extends Element {
         key: Key | null;
-        children: ReactNode;
+        children: Node;
     }
+    /**
+     * @deprecated Use `React.Portal` instead.
+     */
+    interface ReactPortal extends Portal {}
+
 
     //
     // Factories
     // ----------------------------------------------------------------------
 
-    type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
+    type Factory<P> = (props?: Attributes & P, ...children: Node[]) => Element<P>;
 
     /**
      * @deprecated Please use `FunctionComponentFactory`
      */
     type SFCFactory<P> = FunctionComponentFactory<P>;
 
-    type FunctionComponentFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => FunctionComponentElement<P>;
+    type FunctionComponentFactory<P> = (props?: Attributes & P, ...children: Node[]) => FunctionComponentElement<P>;
 
     type ComponentFactory<P, T extends Component<P, ComponentState>> =
-        (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
+        (props?: ClassAttributes<T> & P, ...children: Node[]) => CElement<P, T>;
 
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
-    type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
+    type DOMFactory<P extends DOMAttributes<T>, T extends NativeElement> =
+        (props?: ClassAttributes<T> & P | null, ...children: Node[]) => DOMElement<P, T>;
 
-    interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
+    interface HTMLFactory<T extends NativeHTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
-    interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+    interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends NativeHTMLElement> extends DOMFactory<P, T> {
+        (props?: ClassAttributes<T> & P | null, ...children: Node[]): DetailedReactHTMLElement<P, T>;
     }
 
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
-        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
+        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: Node[]): SVGElement;
     }
 
     /**
@@ -237,13 +260,16 @@ declare namespace React {
     /**
      * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
      */
-    type ReactChild = ReactElement | string | number;
+    type ReactChild = Element | string | number;
 
     /**
      * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
      */
-    interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
-    type ReactFragment = Iterable<ReactNode>;
+    interface ReactNodeArray extends ReadonlyArray<Node> {}
+    /**
+     * @deprecated This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
+    type ReactFragment = Iterable<Node>;
 
     /**
      * For internal usage only.
@@ -251,27 +277,31 @@ declare namespace React {
      * App or library types should never augment this interface.
      */
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {}
-    type ReactNode =
-        | ReactElement
+    type Node =
+        | Element
         | string
         | number
-        | ReactFragment
-        | ReactPortal
+        | Iterable<Node>
+        | Portal
         | boolean
         | null
         | undefined
         | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES];
+    /**
+     * @deprecated Use `React.Node` instead.
+     */
+    type ReactNode = Node
 
     //
     // Top Level API
     // ----------------------------------------------------------------------
 
     // DOM Elements
-    function createFactory<T extends HTMLElement>(
+    function createFactory<T extends NativeHTMLElement>(
         type: keyof ReactHTML): HTMLFactory<T>;
     function createFactory(
         type: keyof ReactSVG): SVGFactory;
-    function createFactory<P extends DOMAttributes<T>, T extends Element>(
+    function createFactory<P extends DOMAttributes<T>, T extends NativeElement>(
         type: string): DOMFactory<P, T>;
 
     // Custom components
@@ -287,83 +317,83 @@ declare namespace React {
     function createElement(
         type: "input",
         props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-    function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
+        ...children: Node[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+    function createElement<P extends HTMLAttributes<T>, T extends NativeHTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        ...children: Node[]): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
         type: keyof ReactSVG,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): ReactSVGElement;
-    function createElement<P extends DOMAttributes<T>, T extends Element>(
+        ...children: Node[]): SVGElement;
+    function createElement<P extends DOMAttributes<T>, T extends NativeElement>(
         type: string,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: Node[]): DOMElement<P, T>;
 
     // Custom components
 
     function createElement<P extends {}>(
         type: FunctionComponent<P>,
         props?: Attributes & P | null,
-        ...children: ReactNode[]): FunctionComponentElement<P>;
+        ...children: Node[]): FunctionComponentElement<P>;
     function createElement<P extends {}>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
         props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
-        ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
+        ...children: Node[]): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P extends {}, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): CElement<P, T>;
+        ...children: Node[]): CElement<P, T>;
     function createElement<P extends {}>(
         type: FunctionComponent<P> | ComponentClass<P> | string,
         props?: Attributes & P | null,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: Node[]): Element<P>;
 
     // DOM Elements
     // ReactHTMLElement
-    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
+    function cloneElement<P extends HTMLAttributes<T>, T extends NativeHTMLElement>(
         element: DetailedReactHTMLElement<P, T>,
         props?: P,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        ...children: Node[]): DetailedReactHTMLElement<P, T>;
     // ReactHTMLElement, less specific
-    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        element: ReactHTMLElement<T>,
+    function cloneElement<P extends HTMLAttributes<T>, T extends NativeHTMLElement>(
+        element: HTMLElement<T>,
         props?: P,
-        ...children: ReactNode[]): ReactHTMLElement<T>;
+        ...children: Node[]): HTMLElement<T>;
     // SVGElement
     function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
-        element: ReactSVGElement,
+        element: SVGElement,
         props?: P,
-        ...children: ReactNode[]): ReactSVGElement;
-    // DOM Element (has to be the last, because type checking stops at first overload that fits)
-    function cloneElement<P extends DOMAttributes<T>, T extends Element>(
+        ...children: Node[]): SVGElement;
+    // DOM LibDOMElement (has to be the last, because type checking stops at first overload that fits)
+    function cloneElement<P extends DOMAttributes<T>, T extends NativeElement>(
         element: DOMElement<P, T>,
         props?: DOMAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: Node[]): DOMElement<P, T>;
 
     // Custom components
     function cloneElement<P>(
         element: FunctionComponentElement<P>,
         props?: Partial<P> & Attributes,
-        ...children: ReactNode[]): FunctionComponentElement<P>;
+        ...children: Node[]): FunctionComponentElement<P>;
     function cloneElement<P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         props?: Partial<P> & ClassAttributes<T>,
-        ...children: ReactNode[]): CElement<P, T>;
+        ...children: Node[]): CElement<P, T>;
     function cloneElement<P>(
-        element: ReactElement<P>,
+        element: Element<P>,
         props?: Partial<P> & Attributes,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: Node[]): Element<P>;
 
     // Context via RenderProps
     interface ProviderProps<T> {
         value: T;
-        children?: ReactNode | undefined;
+        children?: Node | undefined;
     }
 
     interface ConsumerProps<T> {
-        children: (value: T) => ReactNode;
+        children: (value: T) => Node;
     }
 
     // TODO: similar to how Fragment is actually a symbol, the values returned from createContext,
@@ -380,7 +410,7 @@ declare namespace React {
         /**
          * **NOTE**: Exotic components are not callable.
          */
-        (props: P): ReactNode;
+        (props: P): Node;
         readonly $$typeof: symbol;
     }
 
@@ -409,7 +439,7 @@ declare namespace React {
         defaultValue: T,
     ): Context<T>;
 
-    function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
+    function isValidElement<P>(object: {} | null | undefined): object is Element<P>;
 
     // Sync with `ReactChildren` until `ReactChildren` is removed.
     const Children: {
@@ -418,16 +448,16 @@ declare namespace React {
         forEach<C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
-        toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
+        toArray(children: Node | Node[]): Array<Exclude<Node, boolean | null | undefined>>;
     };
-    const Fragment: ExoticComponent<{ children?: ReactNode | undefined }>;
-    const StrictMode: ExoticComponent<{ children?: ReactNode | undefined }>;
+    const Fragment: ExoticComponent<{ children?: Node | undefined }>;
+    const StrictMode: ExoticComponent<{ children?: Node | undefined }>;
 
     interface SuspenseProps {
-        children?: ReactNode | undefined;
+        children?: Node | undefined;
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
-        fallback?: ReactNode;
+        fallback?: Node;
     }
 
     const Suspense: ExoticComponent<SuspenseProps>;
@@ -446,7 +476,7 @@ declare namespace React {
         interactions: Set<SchedulerInteraction>,
     ) => void;
     interface ProfilerProps {
-        children?: ReactNode | undefined;
+        children?: Node | undefined;
         id: string;
         onRender: ProfilerOnRenderCallback;
     }
@@ -457,7 +487,7 @@ declare namespace React {
     // Component API
     // ----------------------------------------------------------------------
 
-    type ReactInstance = Component<any> | Element;
+    type ReactInstance = Component<any> | NativeElement;
 
     // Base component for plain JS classes
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
@@ -518,7 +548,7 @@ declare namespace React {
         ): void;
 
         forceUpdate(callback?: () => void): void;
-        render(): ReactNode;
+        render(): Node;
 
         readonly props: Readonly<P>;
         state: Readonly<S>;
@@ -550,7 +580,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: P, context?: any): ReactNode;
+        (props: P, context?: any): Node;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
         defaultProps?: Partial<P> | undefined;
@@ -566,7 +596,7 @@ declare namespace React {
      * @deprecated - Equivalent with `React.FunctionComponent`.
      */
     interface VoidFunctionComponent<P = {}> {
-        (props: P, context?: any): ReactNode;
+        (props: P, context?: any): Node;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
         defaultProps?: Partial<P> | undefined;
@@ -576,7 +606,7 @@ declare namespace React {
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: P, ref: ForwardedRef<T>): ReactNode;
+        (props: P, ref: ForwardedRef<T>): Node;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -796,7 +826,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactNode;
+        render(): Node;
 
         [propertyName: string]: any;
     }
@@ -829,7 +859,7 @@ declare namespace React {
                 : P
             : P;
 
-    type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
+    type PropsWithChildren<P = unknown> = P & { children?: Node | undefined };
 
     /**
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
@@ -1239,21 +1269,21 @@ declare namespace React {
      * This might be a child element to the element on which the event listener is registered.
      * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682
      */
-    interface SyntheticEvent<T = Element, E = Event> extends BaseSyntheticEvent<E, EventTarget & T, EventTarget> {}
+    interface SyntheticEvent<T = NativeElement, E = Event> extends BaseSyntheticEvent<E, EventTarget & T, EventTarget> {}
 
-    interface ClipboardEvent<T = Element> extends SyntheticEvent<T, NativeClipboardEvent> {
+    interface ClipboardEvent<T = NativeElement> extends SyntheticEvent<T, NativeClipboardEvent> {
         clipboardData: DataTransfer;
     }
 
-    interface CompositionEvent<T = Element> extends SyntheticEvent<T, NativeCompositionEvent> {
+    interface CompositionEvent<T = NativeElement> extends SyntheticEvent<T, NativeCompositionEvent> {
         data: string;
     }
 
-    interface DragEvent<T = Element> extends MouseEvent<T, NativeDragEvent> {
+    interface DragEvent<T = NativeElement> extends MouseEvent<T, NativeDragEvent> {
         dataTransfer: DataTransfer;
     }
 
-    interface PointerEvent<T = Element> extends MouseEvent<T, NativePointerEvent> {
+    interface PointerEvent<T = NativeElement> extends MouseEvent<T, NativePointerEvent> {
         pointerId: number;
         pressure: number;
         tangentialPressure: number;
@@ -1266,25 +1296,25 @@ declare namespace React {
         isPrimary: boolean;
     }
 
-    interface FocusEvent<Target = Element, RelatedTarget = Element> extends SyntheticEvent<Target, NativeFocusEvent> {
+    interface FocusEvent<Target = NativeElement, RelatedTarget = NativeElement> extends SyntheticEvent<Target, NativeFocusEvent> {
         relatedTarget: (EventTarget & RelatedTarget) | null;
         target: EventTarget & Target;
     }
 
-    interface FormEvent<T = Element> extends SyntheticEvent<T> {
+    interface FormEvent<T = NativeElement> extends SyntheticEvent<T> {
     }
 
-    interface InvalidEvent<T = Element> extends SyntheticEvent<T> {
+    interface InvalidEvent<T = NativeElement> extends SyntheticEvent<T> {
         target: EventTarget & T;
     }
 
-    interface ChangeEvent<T = Element> extends SyntheticEvent<T> {
+    interface ChangeEvent<T = NativeElement> extends SyntheticEvent<T> {
         target: EventTarget & T;
     }
 
     export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
 
-    interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
+    interface KeyboardEvent<T = NativeElement> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
         charCode: number;
@@ -1309,7 +1339,7 @@ declare namespace React {
         which: number;
     }
 
-    interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
+    interface MouseEvent<T = NativeElement, E = NativeMouseEvent> extends UIEvent<T, E> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -1331,7 +1361,7 @@ declare namespace React {
         shiftKey: boolean;
     }
 
-    interface TouchEvent<T = Element> extends UIEvent<T, NativeTouchEvent> {
+    interface TouchEvent<T = NativeElement> extends UIEvent<T, NativeTouchEvent> {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
@@ -1345,25 +1375,25 @@ declare namespace React {
         touches: TouchList;
     }
 
-    interface UIEvent<T = Element, E = NativeUIEvent> extends SyntheticEvent<T, E> {
+    interface UIEvent<T = NativeElement, E = NativeUIEvent> extends SyntheticEvent<T, E> {
         detail: number;
         view: AbstractView;
     }
 
-    interface WheelEvent<T = Element> extends MouseEvent<T, NativeWheelEvent> {
+    interface WheelEvent<T = NativeElement> extends MouseEvent<T, NativeWheelEvent> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
     }
 
-    interface AnimationEvent<T = Element> extends SyntheticEvent<T, NativeAnimationEvent> {
+    interface AnimationEvent<T = NativeElement> extends SyntheticEvent<T, NativeAnimationEvent> {
         animationName: string;
         elapsedTime: number;
         pseudoElement: string;
     }
 
-    interface TransitionEvent<T = Element> extends SyntheticEvent<T, NativeTransitionEvent> {
+    interface TransitionEvent<T = NativeElement> extends SyntheticEvent<T, NativeTransitionEvent> {
         elapsedTime: number;
         propertyName: string;
         pseudoElement: string;
@@ -1375,22 +1405,22 @@ declare namespace React {
 
     type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
-    type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
+    type ReactEventHandler<T = NativeElement> = EventHandler<SyntheticEvent<T>>;
 
-    type ClipboardEventHandler<T = Element> = EventHandler<ClipboardEvent<T>>;
-    type CompositionEventHandler<T = Element> = EventHandler<CompositionEvent<T>>;
-    type DragEventHandler<T = Element> = EventHandler<DragEvent<T>>;
-    type FocusEventHandler<T = Element> = EventHandler<FocusEvent<T>>;
-    type FormEventHandler<T = Element> = EventHandler<FormEvent<T>>;
-    type ChangeEventHandler<T = Element> = EventHandler<ChangeEvent<T>>;
-    type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
-    type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
-    type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
-    type PointerEventHandler<T = Element> = EventHandler<PointerEvent<T>>;
-    type UIEventHandler<T = Element> = EventHandler<UIEvent<T>>;
-    type WheelEventHandler<T = Element> = EventHandler<WheelEvent<T>>;
-    type AnimationEventHandler<T = Element> = EventHandler<AnimationEvent<T>>;
-    type TransitionEventHandler<T = Element> = EventHandler<TransitionEvent<T>>;
+    type ClipboardEventHandler<T = NativeElement> = EventHandler<ClipboardEvent<T>>;
+    type CompositionEventHandler<T = NativeElement> = EventHandler<CompositionEvent<T>>;
+    type DragEventHandler<T = NativeElement> = EventHandler<DragEvent<T>>;
+    type FocusEventHandler<T = NativeElement> = EventHandler<FocusEvent<T>>;
+    type FormEventHandler<T = NativeElement> = EventHandler<FormEvent<T>>;
+    type ChangeEventHandler<T = NativeElement> = EventHandler<ChangeEvent<T>>;
+    type KeyboardEventHandler<T = NativeElement> = EventHandler<KeyboardEvent<T>>;
+    type MouseEventHandler<T = NativeElement> = EventHandler<MouseEvent<T>>;
+    type TouchEventHandler<T = NativeElement> = EventHandler<TouchEvent<T>>;
+    type PointerEventHandler<T = NativeElement> = EventHandler<PointerEvent<T>>;
+    type UIEventHandler<T = NativeElement> = EventHandler<UIEvent<T>>;
+    type WheelEventHandler<T = NativeElement> = EventHandler<WheelEvent<T>>;
+    type AnimationEventHandler<T = NativeElement> = EventHandler<AnimationEvent<T>>;
+    type TransitionEventHandler<T = NativeElement> = EventHandler<TransitionEvent<T>>;
 
     //
     // Props / DOM Attributes
@@ -1408,7 +1438,7 @@ declare namespace React {
     interface SVGTextElementAttributes<T> extends SVGProps<T> {}
 
     interface DOMAttributes<T> {
-        children?: ReactNode | undefined;
+        children?: Node | undefined;
         dangerouslySetInnerHTML?: {
             // Should be InnerHTML['innerHTML'].
             // But unfortunately we're mixing renderer-specific type declarations.
@@ -2881,44 +2911,44 @@ declare namespace React {
 
     interface ReactHTML {
         a: DetailedHTMLFactory<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-        abbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        address: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        abbr: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        address: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         area: DetailedHTMLFactory<AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
-        article: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        aside: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        article: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        aside: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         audio: DetailedHTMLFactory<AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
-        b: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        b: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         base: DetailedHTMLFactory<BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
-        bdi: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        bdo: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        big: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        bdi: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        bdo: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        big: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         blockquote: DetailedHTMLFactory<BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
         body: DetailedHTMLFactory<HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
         br: DetailedHTMLFactory<HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
         button: DetailedHTMLFactory<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
         canvas: DetailedHTMLFactory<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
-        caption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        center: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        cite: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        caption: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        center: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        cite: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        code: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
         colgroup: DetailedHTMLFactory<ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
         data: DetailedHTMLFactory<DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
         datalist: DetailedHTMLFactory<HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
-        dd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        dd: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         del: DetailedHTMLFactory<DelHTMLAttributes<HTMLModElement>, HTMLModElement>;
         details: DetailedHTMLFactory<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>;
-        dfn: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        dfn: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         dialog: DetailedHTMLFactory<DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
         div: DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
         dl: DetailedHTMLFactory<HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
-        dt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        em: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        dt: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        em: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         embed: DetailedHTMLFactory<EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
         fieldset: DetailedHTMLFactory<FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
-        figcaption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        figure: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        footer: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        figcaption: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        figure: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        footer: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         form: DetailedHTMLFactory<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
         h1: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
         h2: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
@@ -2926,31 +2956,31 @@ declare namespace React {
         h4: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
         h5: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
         h6: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        head: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLHeadElement>;
-        header: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        hgroup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        head: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, HTMLHeadElement>;
+        header: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        hgroup: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         hr: DetailedHTMLFactory<HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
         html: DetailedHTMLFactory<HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
-        i: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        i: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         iframe: DetailedHTMLFactory<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
         img: DetailedHTMLFactory<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
         input: DetailedHTMLFactory<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
         ins: DetailedHTMLFactory<InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
-        kbd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        keygen: DetailedHTMLFactory<KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
+        kbd: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        keygen: DetailedHTMLFactory<KeygenHTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         label: DetailedHTMLFactory<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
         legend: DetailedHTMLFactory<HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
         li: DetailedHTMLFactory<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
         link: DetailedHTMLFactory<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
-        main: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        main: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         map: DetailedHTMLFactory<MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
-        mark: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        menu: DetailedHTMLFactory<MenuHTMLAttributes<HTMLElement>, HTMLElement>;
-        menuitem: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        mark: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        menu: DetailedHTMLFactory<MenuHTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        menuitem: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         meta: DetailedHTMLFactory<MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
         meter: DetailedHTMLFactory<MeterHTMLAttributes<HTMLMeterElement>, HTMLMeterElement>;
-        nav: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        noscript: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        nav: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        noscript: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         object: DetailedHTMLFactory<ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
         ol: DetailedHTMLFactory<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
         optgroup: DetailedHTMLFactory<OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
@@ -2958,27 +2988,27 @@ declare namespace React {
         output: DetailedHTMLFactory<OutputHTMLAttributes<HTMLOutputElement>, HTMLOutputElement>;
         p: DetailedHTMLFactory<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
         param: DetailedHTMLFactory<ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
-        picture: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        picture: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         pre: DetailedHTMLFactory<HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
         progress: DetailedHTMLFactory<ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
         q: DetailedHTMLFactory<QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-        rp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        rt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        rp: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        rt: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        ruby: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        s: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        samp: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         slot: DetailedHTMLFactory<SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
         script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
-        section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        section: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         select: DetailedHTMLFactory<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
-        small: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        small: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         source: DetailedHTMLFactory<SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
         span: DetailedHTMLFactory<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
-        strong: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        strong: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         style: DetailedHTMLFactory<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
-        sub: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        summary: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        sup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        sub: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        summary: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+        sup: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         table: DetailedHTMLFactory<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
         template: DetailedHTMLFactory<HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
         tbody: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
@@ -2991,11 +3021,11 @@ declare namespace React {
         title: DetailedHTMLFactory<HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
         tr: DetailedHTMLFactory<HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
         track: DetailedHTMLFactory<TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
-        u: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        u: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         ul: DetailedHTMLFactory<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-        "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        "var": DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
-        wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        wbr: DetailedHTMLFactory<HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
         webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
     }
 
@@ -3110,7 +3140,7 @@ declare namespace React {
         forEach<C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
-        toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
+        toArray(children: Node | Node[]): Array<Exclude<Node, boolean | null | undefined>>;
     }
 
     //
@@ -3154,7 +3184,7 @@ declare namespace React {
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
         type ElementType = GlobalJSXElementType;
-        interface Element extends GlobalJSXElement {}
+        interface LibDOMElement extends GlobalJSXElement {}
         interface ElementClass extends GlobalJSXElementClass {}
         interface ElementAttributesProperty extends GlobalJSXElementAttributesProperty {}
         interface ElementChildrenAttribute extends GlobalJSXElementChildrenAttribute {}
@@ -3228,9 +3258,9 @@ declare global {
         //  reduce the work of the type-checker.
         // TODO: Check impact of making React.ElementType<P = any> = React.JSXElementConstructor<P>
         type ElementType = string | React.JSXElementConstructor<any>;
-        interface Element extends React.ReactElement<any, any> { }
+        interface Element extends React.Element<any, any> { }
         interface ElementClass extends React.Component<any> {
-            render(): React.ReactNode;
+            render(): React.Node;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
@@ -3249,44 +3279,44 @@ declare global {
         interface IntrinsicElements {
             // HTML
             a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-            abbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            address: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            abbr: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            address: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             area: React.DetailedHTMLProps<React.AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
-            article: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            aside: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            article: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            aside: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             audio: React.DetailedHTMLProps<React.AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
-            b: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            b: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             base: React.DetailedHTMLProps<React.BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
-            bdi: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            bdo: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            big: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            bdi: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            bdo: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            big: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             blockquote: React.DetailedHTMLProps<React.BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
             body: React.DetailedHTMLProps<React.HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
             br: React.DetailedHTMLProps<React.HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
             button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
             canvas: React.DetailedHTMLProps<React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
-            caption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            center: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            cite: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            caption: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            center: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            cite: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            code: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
             colgroup: React.DetailedHTMLProps<React.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
             data: React.DetailedHTMLProps<React.DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
             datalist: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
-            dd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            dd: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLModElement>, HTMLModElement>;
             details: React.DetailedHTMLProps<React.DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>;
-            dfn: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            dfn: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             dialog: React.DetailedHTMLProps<React.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
             div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
             dl: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
-            dt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            em: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            dt: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            em: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             embed: React.DetailedHTMLProps<React.EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
             fieldset: React.DetailedHTMLProps<React.FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
-            figcaption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            figure: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            footer: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            figcaption: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            figure: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            footer: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             form: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
             h1: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
             h2: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
@@ -3295,31 +3325,31 @@ declare global {
             h5: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
             h6: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
             head: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadElement>, HTMLHeadElement>;
-            header: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            hgroup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            header: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            hgroup: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             hr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
             html: React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
-            i: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            i: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             iframe: React.DetailedHTMLProps<React.IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
             img: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
             input: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
             ins: React.DetailedHTMLProps<React.InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
-            kbd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            keygen: React.DetailedHTMLProps<React.KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
+            kbd: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            keygen: React.DetailedHTMLProps<React.KeygenHTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             label: React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
             legend: React.DetailedHTMLProps<React.HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
             li: React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
             link: React.DetailedHTMLProps<React.LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
-            main: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            main: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             map: React.DetailedHTMLProps<React.MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
-            mark: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            menu: React.DetailedHTMLProps<React.MenuHTMLAttributes<HTMLElement>, HTMLElement>;
-            menuitem: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            mark: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            menu: React.DetailedHTMLProps<React.MenuHTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            menuitem: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             meta: React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
             meter: React.DetailedHTMLProps<React.MeterHTMLAttributes<HTMLMeterElement>, HTMLMeterElement>;
-            nav: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            noindex: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            noscript: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            nav: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            noindex: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            noscript: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             object: React.DetailedHTMLProps<React.ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
             ol: React.DetailedHTMLProps<React.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
             optgroup: React.DetailedHTMLProps<React.OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
@@ -3327,27 +3357,27 @@ declare global {
             output: React.DetailedHTMLProps<React.OutputHTMLAttributes<HTMLOutputElement>, HTMLOutputElement>;
             p: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
             param: React.DetailedHTMLProps<React.ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
-            picture: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            picture: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             pre: React.DetailedHTMLProps<React.HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
             progress: React.DetailedHTMLProps<React.ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
             q: React.DetailedHTMLProps<React.QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-            rp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            rt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            rp: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            rt: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            ruby: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            s: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            samp: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             slot: React.DetailedHTMLProps<React.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
             script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
-            section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            section: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             select: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
-            small: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            small: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             source: React.DetailedHTMLProps<React.SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
             span: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
-            strong: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            strong: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             style: React.DetailedHTMLProps<React.StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
-            sub: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            summary: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            sup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            sub: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            summary: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
+            sup: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             table: React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
             template: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
             tbody: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
@@ -3360,11 +3390,11 @@ declare global {
             title: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
             tr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
             track: React.DetailedHTMLProps<React.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
-            u: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            u: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             ul: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-            "var": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            "var": React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
-            wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            wbr: React.DetailedHTMLProps<React.HTMLAttributes<NativeHTMLElement>, NativeHTMLElement>;
             webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
 
             // SVG

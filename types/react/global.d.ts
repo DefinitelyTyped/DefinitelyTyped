@@ -22,6 +22,7 @@ interface UIEvent extends Event { }
 interface WheelEvent extends Event { }
 
 interface EventTarget { }
+interface Node {}
 interface Document { }
 interface DataTransfer { }
 interface StyleMedia { }

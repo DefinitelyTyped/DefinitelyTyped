@@ -8,4 +8,4 @@ import * as React from 'react';
 
 export = createFragment;
 
-declare function createFragment(object: { [key: string]: React.ReactNode }): React.ReactFragment;
+declare function createFragment(object: { [key: string]: React.Node }): React.ReactFragment;

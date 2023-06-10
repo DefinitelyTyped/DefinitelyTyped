@@ -27,7 +27,7 @@ export interface ErrorInfo {
 }
 
 export interface Root {
-    render(children: React.ReactNode): void;
+    render(children: React.Node): void;
     unmount(): void;
 }
 
@@ -53,6 +53,6 @@ export function createRoot(container: Element | DocumentFragment, options?: Root
  */
 export function hydrateRoot(
     container: Element | Document,
-    initialChildren: React.ReactNode,
+    initialChildren: React.Node,
     options?: HydrationOptions,
 ): Root;
