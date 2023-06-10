@@ -1,4 +1,4 @@
-/// <reference types="../next"/>
+/// <reference types="../canary"/>
 
 const contextUsers = React.createContext(['HAL']);
 const promisedUsers = Promise.resolve(['Dave']);
