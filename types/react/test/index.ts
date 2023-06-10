@@ -249,8 +249,8 @@ const htmlElement = React.createElement("input", { type: "text" });
 const inputElementNullProps: React.DOMElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> = React.createElement("input", null);
 const svgElement = React.createElement("svg", { accentHeight: 12 });
 const svgElementNullProps = React.createElement("svg", null);
-const fragmentElement: React.ReactElement<{}> = React.createElement(React.Fragment, {}, [React.createElement("div"), React.createElement("div")]);
-const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(React.Fragment, null, [React.createElement("div"), React.createElement("div")]);
+const fragmentElement: React.Element<{}> = React.createElement(React.Fragment, {}, [React.createElement("div"), React.createElement("div")]);
+const fragmentElementNullProps: React.Element<{}> = React.createElement(React.Fragment, null, [React.createElement("div"), React.createElement("div")]);
 
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
@@ -286,12 +286,12 @@ const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, H
         className: "clonedDOMElement"
     });
 // Clone ReactHTMLElement
-const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> =
+const clonedHtmlElement: React.HTMLElement<HTMLInputElement> =
     React.cloneElement(htmlElement, {
         className: "clonedHTMLElement"
     });
 // Clone ReactSVGElement
-const clonedSvgElement: React.ReactSVGElement =
+const clonedSvgElement: React.SVGElement =
     React.cloneElement(svgElement, {
         className: "clonedVGElement"
     });
@@ -537,17 +537,17 @@ DOM.span(trustedTypesHTMLAttr);
 
 const mappedChildrenArray: number[] =
     React.Children.map(children, (child: any) => 42);
-const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
+const childrenArray: Array<React.Element<{ p: number }>> = children;
 const mappedChildrenArrayWithKnownChildren: number[] =
     React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
-let onlyChild: React.ReactElement = React.Children.only(DOM.div()); // ok
+let onlyChild: React.Element = React.Children.only(DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
-const childrenToArray: Array<Exclude<React.ReactNode, boolean | null | undefined>> = React.Children.toArray(children);
+const childrenToArray: Array<Exclude<React.Node, boolean | null | undefined>> = React.Children.toArray(children);
 
 declare const numberChildren: number[];
-declare const nodeChildren: React.ReactNode;
+declare const nodeChildren: React.Node;
 declare const elementChildren: JSX.Element[];
 declare const mixedChildren: Array<JSX.Element | string>;
 declare const singlePluralChildren: JSX.Element | JSX.Element[];
@@ -711,7 +711,7 @@ declare var x: React.DOMElement<{
 }, Element>;
 
 // React 16 should be able to render its children directly
-class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
+class RenderChildren extends React.Component<{ children?: React.Node }> {
     render() {
         const { children } = this.props;
         return children !== undefined ? children : null;
@@ -721,7 +721,7 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
 // ReactNode tests
 {
     // Mix of empty return and some return results in `(undefined | JSX.Element)[]`
-    const mixedEmptyReturn: React.ReactNode = ['a', 'b', null].map(label => {
+    const mixedEmptyReturn: React.Node = ['a', 'b', null].map(label => {
         if (!label) {
             return;
         }
@@ -729,27 +729,27 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     });
     // But just an empty return results in `void`.
     // @ts-expect-error
-    const emptyReturn: React.ReactNode = ['a', 'b'].map(label => {
+    const emptyReturn: React.Node = ['a', 'b'].map(label => {
         return;
     });
     // Mix of no return and some return results in `(undefined | JSX.Element)[]`
-    const mixedNoReturn: React.ReactNode = ['a', 'b', null].map(label => {
+    const mixedNoReturn: React.Node = ['a', 'b', null].map(label => {
         if (label) {
             return label;
         }
     });
     // But no return results in `void`.
     // @ts-expect-error
-    const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
+    const noReturn: React.Node = ['a', 'b'].map(label => {});
 
     // @ts-expect-error
-    const render: React.ReactNode = () => React.createElement('div');
+    const render: React.Node = () => React.createElement('div');
     // @ts-expect-error
-    const emptyObject: React.ReactNode = { };
+    const emptyObject: React.Node = { };
     // @ts-expect-error
-    const plainObject: React.ReactNode = { dave: true };
+    const plainObject: React.Node = { dave: true };
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
-    const promise: React.ReactNode = Promise.resolve('React');
+    const promise: React.Node = Promise.resolve('React');
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });

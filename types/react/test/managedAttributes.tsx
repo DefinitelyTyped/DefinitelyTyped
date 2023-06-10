@@ -4,9 +4,9 @@ import * as PropTypes from 'prop-types';
 interface Props {
     bool?: boolean;
     fnc: () => any;
-    node?: React.ReactNode;
+    node?: React.Node;
     num?: number;
-    reqNode: NonNullable<React.ReactNode>;
+    reqNode: NonNullable<React.Node>;
     str: string;
 }
 
@@ -23,7 +23,7 @@ const propTypes = {
 const defaultProps = {
     fnc: (() => 'abc') as () => any,
     extraBool: false,
-    reqNode: 'text_node' as NonNullable<React.ReactNode>
+    reqNode: 'text_node' as NonNullable<React.Node>
 };
 
 class AnnotatedPropTypesAndDefaultProps extends React.Component<Props> {

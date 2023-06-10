@@ -43,7 +43,7 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module '.' {
     // Need an interface to not cause ReactNode to be a self-referential type.
-    interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
+    interface PromiseLikeOfReactNode extends PromiseLike<Node> {}
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
         promises: PromiseLikeOfReactNode;
     }
@@ -68,7 +68,7 @@ declare module '.' {
          * It does, however, allow those children to be wrapped inside a single
          * level of `<React.Fragment>`.
          */
-        children: ReactElement | Iterable<ReactElement>;
+        children: Element | Iterable<Element>;
     }
 
     interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
