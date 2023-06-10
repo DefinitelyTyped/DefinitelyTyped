@@ -58,8 +58,8 @@
  *
  * Use [wabt](https://github.com/WebAssembly/wabt) to compile `.wat` to `.wasm`
  *
- * ```console
- * $ wat2wasm demo.wat
+ * ```bash
+ * wat2wasm demo.wat
  * ```
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/wasi.js)
