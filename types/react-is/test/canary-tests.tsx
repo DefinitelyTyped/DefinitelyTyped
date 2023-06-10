@@ -1,7 +1,7 @@
 /// <reference types="../../react/experimental"/>
 import * as React from 'react';
 import * as ReactIs from 'react-is';
-import 'react-is/next';
+import 'react-is/canary';
 
 // Suspense
 ReactIs.isSuspenseList(<React.SuspenseList children={<div />} />); // true
