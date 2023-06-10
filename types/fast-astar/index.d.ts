@@ -5,14 +5,14 @@
 
 export class Grid {
     constructor(grid: { col: number; row: number });
-    set(coords: [number, number], value: 'value', passable: 0 | 1): void;
+    set(coords: [x: number, y: number], value: 'value', passable: 0 | 1): void;
 }
 
 export class Astar {
     constructor(grid: Grid);
     search(
-        originCoords: [number, number],
-        destinationCoords: [number, number],
-        options: { rightAngle: boolean }
-    ): undefined | Array<[number, number]>;
+        originCoords: [x: number, y: number],
+        destinationCoords: [x: number, y: number],
+        options: { rightAngle: boolean, optimalResult: boolean }
+    ): undefined | Array<[x: number, y: number]>;
 }
