@@ -34,7 +34,7 @@
 //
 // Suspense-related handling can be found in ReactFiberThrow.js.
 
-import React = require('./next');
+import React = require('./canary');
 
 export {};
 

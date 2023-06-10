@@ -13,12 +13,12 @@
         "default": "./index.d.ts"
       }
     },
-    "./next": {
+    "./canary": {
       "types@<=5.0": {
-        "default": "./ts5.0/next.d.ts"
+        "default": "./ts5.0/canary.d.ts"
       },
       "types": {
-        "default": "./next.d.ts"
+        "default": "./canary.d.ts"
       }
     },
     "./experimental": {
