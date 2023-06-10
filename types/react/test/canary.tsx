@@ -85,3 +85,11 @@ function useCacheTest() {
         refresh(() => 'refresh');
     }
 }
+
+function newAttributes() {
+    <link
+        // Should be displayed as deprecated
+        fetchpriority="auto"
+        fetchPriority="auto"
+    />;
+}

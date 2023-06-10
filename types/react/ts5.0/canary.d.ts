@@ -83,4 +83,12 @@ declare module '.' {
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
     export function unstable_useCacheRefresh(): () => void;
+
+    interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        /**
+         * @deprecated Use the camelCase equivalent, `fetchPriority`, instead.
+         */
+        fetchpriority?: 'high' | 'low' | 'auto';
+        fetchPriority?: 'high' | 'low' | 'auto';
+    }
 }
