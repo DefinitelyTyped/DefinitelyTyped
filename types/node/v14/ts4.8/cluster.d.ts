@@ -4,6 +4,7 @@ declare module 'cluster' {
     import * as net from 'net';
 
     // interfaces
+    type SerializationType = 'json' | 'advanced';
     interface ClusterSettings {
         execArgv?: string[] | undefined; // default: process.execArgv
         exec?: string | undefined;
@@ -13,6 +14,7 @@ declare module 'cluster' {
         uid?: number | undefined;
         gid?: number | undefined;
         inspectPort?: number | (() => number) | undefined;
+        serialization?: SerializationType | undefined;
     }
 
     interface Address {
