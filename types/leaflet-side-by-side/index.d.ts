@@ -1,6 +1,6 @@
-// Type definitions for react-side-effect 2.2
+// Type definitions for leaflet-side-by-side 2.2
 // Project: https://github.com/digidem/leaflet-side-by-side
-// Definitions by: Remo H. Jansen <https://github.com/OliverBiel/>
+// Definitions by: Gabriel O. Martins <https://github.com/OliverBiel/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Minimum TypeScript Version: 5.0
