@@ -6,6 +6,13 @@ grid.set([10, 10], 'value', 0);
 
 const astar = new Astar(grid);
 
+astar.search([0, 0], [9, 9]);
+
 astar.search([0, 0], [9, 9], {
     rightAngle: false
+});
+
+astar.search([0, 0], [9, 9], {
+    rightAngle: false,
+    optimalResult: false
 });

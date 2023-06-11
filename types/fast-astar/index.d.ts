@@ -13,6 +13,6 @@ export class Astar {
     search(
         originCoords: [x: number, y: number],
         destinationCoords: [x: number, y: number],
-        options: { rightAngle: boolean, optimalResult: boolean }
+        options?: { rightAngle: boolean, optimalResult?: boolean }
     ): undefined | Array<[x: number, y: number]>;
 }
