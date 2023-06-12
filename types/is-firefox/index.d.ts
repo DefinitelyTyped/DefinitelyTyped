@@ -3,6 +3,6 @@
 // Definitions by: David Reed <https://github.com/e9x>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function isFirefox(): boolean;
+declare const isFirefox: boolean;
 
 export = isFirefox;
