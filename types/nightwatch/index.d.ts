@@ -1250,7 +1250,7 @@ export interface NightwatchCommonAssertions {
      */
     hasAttribute(
         selector: Definition, expectedAttribute: string, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string[]>>;
+    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the given element is enabled (as indicated by the 'disabled' attribute).

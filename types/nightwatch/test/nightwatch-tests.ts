@@ -219,7 +219,7 @@ const testGeneral: NightwatchTests = {
 
         const hasAttributeResult = browser.assert.hasAttribute('input[name=q]', 'placeholder');
         isNightwatchAPI(hasAttributeResult);
-        isNightwatchAssertionsResult<string[]>(await hasAttributeResult);
+        isNightwatchAssertionsResult<string>(await hasAttributeResult);
 
         const selectedResult = browser.assert.selected('input[name=q]');
         isNightwatchAPI(selectedResult);
