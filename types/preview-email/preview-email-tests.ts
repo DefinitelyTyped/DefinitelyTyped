@@ -33,6 +33,8 @@ const options: Options = {
     template: './dir/template.pug',
     urlTransform: path => `./dir/${path}`,
     openSimulator: true,
+    simpleParser: {},
+    returnHtml: true,
 };
 
 // async/await

@@ -8,7 +8,6 @@ export interface DefineAuthChallengeTriggerEvent extends BaseTriggerEvent<'Defin
   request: {
       userAttributes: StringMap;
       session: Array<ChallengeResult | CustomChallengeResult>;
-      clientMetadata?: StringMap | undefined;
       userNotFound?: boolean | undefined;
   };
   response: {
