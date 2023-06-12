@@ -33,6 +33,7 @@
         "test/metrics.ts",
         "test/options.ts",
         "test/redis.ts",
+        "test/sql.ts",
         "test/timers.ts",
         "test/tracing.ts",
         "test/webcrypto.ts",

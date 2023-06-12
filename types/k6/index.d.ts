@@ -50,6 +50,7 @@ import './experimental/webcrypto';
 import './experimental/websockets';
 import './ws';
 import './net/grpc';
+import './x/sql';
 
 // === Main ===
 // ------------
