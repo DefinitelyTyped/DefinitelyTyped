@@ -723,8 +723,8 @@ export interface BankingAccountDetailV2 extends BankingAccount {
 }
 
 /* This structure is used in the BankingAccountDetailV3.features property */
-interface accV3DetailFeatureObj extends BankingProductFeatureV2 {
-   isActivated?: boolean
+export interface accV3DetailFeatureObj extends BankingProductFeatureV2 {
+   isActivated?: boolean;
 }
 
 export interface BankingAccountDetailV3 extends BankingAccountV2 {
@@ -758,7 +758,7 @@ export interface BankingAccountDetailV3 extends BankingAccountV2 {
   /**
    * Fully described deposit rates for this account based on the equivalent structure in Product Reference
    */
-  depositRates?:BankingProductDepositRate[];
+  depositRates?: BankingProductDepositRate[];
   /**
    * Fully described deposit rates for this account based on the equivalent structure in Product Reference
    */
@@ -774,7 +774,8 @@ export interface BankingAccountDetailV3 extends BankingAccountV2 {
   /**
    * The addresses for the account to be used for correspondence
    */
-  addresses?:CommonPhysicalAddress[];
+  addresses?: CommonPhysicalAddress[];
+
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -930,8 +931,8 @@ export interface BankingBillerPayee {
    */
   billerName: string;
   /**
-     * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type. 
-  */
+   * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+   */
   crn?: string | null;
   [k: string]: unknown;
 }
@@ -1254,7 +1255,7 @@ export interface BankingPayeeDetailV2 extends BankingPayeeV2 {
      */
     billerName: string;
     /**
-         * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+     * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
      */
     crn?: string | null;
     [k: string]: unknown;
@@ -2917,7 +2918,7 @@ export interface BankingScheduledPayment {
          */
         billerName: string;
         /**
-             * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+         * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
          */
         crn?: string | null;
         [k: string]: unknown;
@@ -3393,7 +3394,7 @@ export interface BankingScheduledPaymentSet {
        */
       billerName: string;
       /**
-           * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+       * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
        */
       crn?: string | null;
       [k: string]: unknown;
@@ -3546,7 +3547,7 @@ export interface BankingScheduledPaymentTo {
      */
     billerName: string;
     /**
-         * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+     * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
      */
     crn?: string | null;
     [k: string]: unknown;
@@ -5445,7 +5446,7 @@ export interface ResponseBankingPayeeByIdV2 {
        */
       billerName: string;
       /**
-           * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+       * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
        */
       crn?: string | null;
       [k: string]: unknown;
@@ -6617,7 +6618,7 @@ export interface ResponseBankingScheduledPaymentsList {
              */
             billerName: string;
             /**
-                 * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+             * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
              */
             crn?: string | null;
             [k: string]: unknown;
