@@ -18,7 +18,7 @@ https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-
 */
 
 import { ApplePayPaymentRequest } from 'braintree-web/modules/apple-pay';
-import { HostedFieldsField } from 'braintree-web/modules/hosted-fields';
+import { HostedFieldsField, HostedFieldsState } from 'braintree-web/modules/hosted-fields';
 import { ThreeDSecureInfo } from 'braintree-web/modules/three-d-secure';
 import { ButtonStyle } from 'paypal-checkout-components';
 
@@ -133,6 +133,14 @@ export interface Dropin {
     on(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     on(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
     on(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
+    on(event: 'card:binAvailable', handler: (event: HostedFieldsState) => void): void;
+    on(event: 'card:blur', handler: (event: HostedFieldsState) => void): void;
+    on(event: 'card:cardTypeChange', handler: (event: HostedFieldsState) => void): void;
+    on(event: 'card:empty', handler: (event: HostedFieldsState) => void): void;
+    on(event: 'card:focus', handler: (event: HostedFieldsState) => void): void;
+    on(event: 'card:inputSubmitRequest', handler: (event: HostedFieldsState) => void): void;
+    on(event: 'card:notEmpty', handler: (event: HostedFieldsState) => void): void;
+    on(event: 'card:validityChange', handler: (event: HostedFieldsState) => void): void;
     off(event: 'noPaymentMethodRequestable', handler: () => void): void;
     off(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     off(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
