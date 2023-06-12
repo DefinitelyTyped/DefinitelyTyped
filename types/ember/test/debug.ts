@@ -11,7 +11,7 @@ const {
 const assert: typeof Ember.assert = Ember.assert;
 
 /**
- * @ember/debug tests
+ * `@ember/debug` tests
  */
 // @ts-expect-error
 runInDebug();

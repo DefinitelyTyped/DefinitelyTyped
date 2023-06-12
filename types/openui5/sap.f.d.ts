@@ -314,7 +314,7 @@ declare module "sap/f/library" {
     Up = "Up",
   }
   /**
-   * @SINCE 1.104
+   * @since 1.104
    *
    * Enumeration for different SidePanel position.
    */
