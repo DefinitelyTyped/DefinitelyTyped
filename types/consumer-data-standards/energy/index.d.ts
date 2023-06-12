@@ -3221,6 +3221,13 @@ export interface EnergyAccountDetailResponseV2 {
   meta: Meta;
   [k: string]: unknown;
 }
+
+export interface EnergyAccountDetailResponseV3 {
+  data: EnergyAccountDetailV3;
+  links: Links;
+  meta: Meta;
+  [k: string]: unknown;
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
@@ -4606,6 +4613,116 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
         variation?: string | null;
         [k: string]: unknown;
       };
+      [k: string]: unknown;
+    };
+    /**
+     * An array of additional contacts that are authorised to act on this account
+     */
+    authorisedContacts?: {
+      /**
+       * For people with single names this field need not be present. The single name should be in the lastName field
+       */
+      firstName?: string;
+      /**
+       * For people with single names the single name should be in this field
+       */
+      lastName: string;
+      /**
+       * Field is mandatory but array may be empty
+       */
+      middleNames?: string[];
+      /**
+       * Also known as title or salutation. The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
+       */
+      prefix?: string;
+      /**
+       * Used for a trailing suffix to the name (e.g. Jr)
+       */
+      suffix?: string;
+      [k: string]: unknown;
+    }[];
+    [k: string]: unknown;
+  }[];
+  [k: string]: unknown;
+}
+
+export interface EnergyAccountDetailV3 extends EnergyAccountBaseV2 {
+  /**
+   * The array of plans containing service points and associated plan details
+   */
+  plans: {
+    /**
+     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+     */
+    nickname?: string;
+    /**
+     * An array of servicePointIds, representing NMIs, that this account is linked to
+     */
+    servicePointIds: string[];
+    /**
+     * Mandatory if openStatus is OPEN
+     */
+    planOverview?: {
+      /**
+       * The name of the plan if one exists
+       */
+      displayName?: string;
+      /**
+       * The start date of the applicability of this plan
+       */
+      startDate: string;
+      /**
+       * The end date of the applicability of this plan
+       */
+      endDate?: string;
+      [k: string]: unknown;
+    };
+    /**
+     * Detail on the plan applicable to this account. Mandatory if openStatus is OPEN
+     */
+    planDetail?: {
+      /**
+       * The fuel types covered by the plan
+       */
+      fuelType: "ELECTRICITY" | "GAS" | "DUAL";
+      /**
+       * Flag that indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up). Has no meaning if the plan has a fuelType of DUAL. If absent the value is assumed to be false
+       */
+      isContingentPlan?: boolean;
+      /**
+       * Charges for metering included in the plan
+       */
+      meteringCharges?: {
+        /**
+         * Display name of the charge
+         */
+        displayName: string;
+        /**
+         * Description of the charge
+         */
+        description?: string;
+        /**
+         * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
+         */
+        minimumValue: string;
+        /**
+         * The upper limit of the charge if the charge could occur in a range
+         */
+        maximumValue?: string;
+        /**
+         * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+         */
+        period?: string;
+        [k: string]: unknown;
+      }[];
+      /**
+       * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
+       */
+      gasContract?: EnergyPlanContractV2
+      /**
+       * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to ELECTRICITY or DUAL
+       */
+      electricityContract?: EnergyPlanContractV2
       [k: string]: unknown;
     };
     /**
