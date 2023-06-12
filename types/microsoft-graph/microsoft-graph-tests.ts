@@ -429,3 +429,34 @@ const synchronizationStatus: MicrosoftGraph.SynchronizationStatus = {};
 const synchronizationTaskExecution: MicrosoftGraph.SynchronizationTaskExecution = {};
 
 const onlineMeetingRestricted: MicrosoftGraph.OnlineMeetingRestricted = {};
+
+const loginPageLayoutConfiguration: MicrosoftGraph.LoginPageLayoutConfiguration = {};
+
+const loginPageTextVisibilitySettings: MicrosoftGraph.LoginPageTextVisibilitySettings = {};
+
+const azureResourceEvidence: MicrosoftGraph.SecurityNamespace.AzureResourceEvidence = {};
+
+const layoutTemplateType: MicrosoftGraph.LayoutTemplateType = "verticalSplit";
+
+const googleCloudResourceEvidence: MicrosoftGraph.SecurityNamespace.GoogleCloudResourceEvidence = {};
+
+const organizationalBrandingProperties: MicrosoftGraph.OrganizationalBrandingProperties = {
+    customAccountResetCredentialsUrl: "",
+    customCannotAccessYourAccountText: "",
+    customCannotAccessYourAccountUrl: "",
+    customCSS: "",
+    customCSSRelativeUrl: "",
+    customForgotMyPasswordText: "",
+    customPrivacyAndCookiesText: "",
+    customPrivacyAndCookiesUrl: "",
+    customResetItNowText: "",
+    customTermsOfUseText: "",
+    customTermsOfUseUrl: "",
+    favicon: "",
+    faviconRelativeUrl: "",
+    headerBackgroundColor: "",
+    headerLogo: "",
+    headerLogoRelativeUrl: "",
+    loginPageLayoutConfiguration: {},
+    loginPageTextVisibilitySettings: {}
+};
