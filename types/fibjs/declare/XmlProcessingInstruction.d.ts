@@ -31,8 +31,6 @@ declare class Class_XmlProcessingInstruction extends Class_XmlNode {
      * @brief 返回此处理指令的目标
      *
      *
-     * @readonly
-     *
      */
 
     target: string

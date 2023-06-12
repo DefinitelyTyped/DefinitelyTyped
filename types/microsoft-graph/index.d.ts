@@ -26071,7 +26071,7 @@ export namespace ExternalConnectors {
         /**
          * The name of the property. Maximum 32 characters. Only alphanumeric characters allowed. For example, each string may not
          * contain control characters, whitespace, or any of the following: :, ;, ,, (, ), [, ], {, }, %, $, +, !, *, =, &amp;, ?,
-         * @, #, /, ~, ', ', &amp;lt;, &amp;gt;, `, ^. Required.
+         * \@, #, /, ~, ', ', &amp;lt;, &amp;gt;, `, ^. Required.
          */
         name?: string;
         /**

@@ -176,7 +176,6 @@ function Optimistic() {
 
 function elementTypeTests() {
     const ReturnPromise = () => Promise.resolve('React');
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
         render() {
@@ -184,9 +183,7 @@ function elementTypeTests() {
         }
     }
 
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     <ReturnPromise />;
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     React.createElement(ReturnPromise);
     <RenderPromise />;
     React.createElement(RenderPromise);

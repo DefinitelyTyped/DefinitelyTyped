@@ -9,6 +9,10 @@ declare namespace CKEDITOR {
                 readonly parse: tools.style.parse;
                 readonly border: tools.style.borderConstructor;
             };
+            readonly buffers: {
+                readonly event: { new (minInterval: number, output: (...args: any[]) => void, contextObj?: object): tools.buffers.event }
+                readonly throttle: { new (minInterval: number, output: (...args: any[]) => void, contextObj?: object): tools.buffers.throttle }
+            };
         } & tools;
     }
     interface tools {
@@ -16,10 +20,58 @@ declare namespace CKEDITOR {
 
         arrayCompare(arrayA: unknown[], arrayB: unknown[]): boolean;
 
+        bind(func: (...args: any[]) => void, obj: object, args: unknown[]): (...args: any[]) => void;
+
+        buildStyleHtml(css: string | string[]): string;
+
+        buildTableMap(
+            table: dom.element,
+            startRow?: number,
+            startCell?: number,
+            endRow?: number,
+            endCell?: number,
+        ): void;
+
+        callFunction(ref: number, params?: unknown[]): unknown;
+
+        capitalize(str: string, keepCase?: boolean): string;
+
+        /**
+         * @version 4.4.0
+         */
+        checkIfAnyArrayItemMatches(arr: unknown[], regexp: RegExp): boolean;
+
+        /**
+         * @version 4.4.0
+         */
+        checkIfAnyObjectPropertyMatches(obj: object, regexp: RegExp): boolean;
+
         clone(source: { [key: string]: unknown }): {
             [key: string]: unknown;
         };
 
+        /**
+         * @version 4.1.0
+         */
+        convertArrayToObject(arr: unknown[], fillwith?: unknown): object;
+
+        /**
+         * @version 4.8.0
+         */
+        convertBytesToBase64(bytesArray: number[]): string;
+
+        /**
+         * @version 4.8.0
+         */
+        convertHexStringToBytes(hexString: string): number[];
+
+        convertRgbToHex(styleText: string): string;
+
+        convertToPx(cssLength: string): number | string;
+
+        /**
+         * @version 4.1.0
+         */
         copy(source: { [key: string]: unknown }): {
             [key: string]: unknown;
         };
@@ -36,12 +88,23 @@ declare namespace CKEDITOR {
 
         cssVendorPrefix(property: string, value: string, asString?: boolean): { [cssClass: string]: string | number };
 
-        defer(fn: () => void): void;
+        debounce(func: () => unknown, milliseconds?: number): () => unknown;
 
+        defer(fn: () => unknown): () => void;
+
+        /**
+         * @version 4.3.0
+         */
         enableHtml5Elements(doc: Document | DocumentFragment, withAppend?: boolean): void;
 
+        /**
+         * @version 4.5.10
+         */
         escapeCss(selector: string): string;
 
+        /**
+         * @version 4.2.1
+         */
         eventsBuffer(
             minInterval: number,
             output: () => void,
@@ -55,21 +118,46 @@ declare namespace CKEDITOR {
             properties: { [key: string]: unknown },
         ): { [key: string]: unknown };
 
+        /**
+         * @version 4.1.2
+         */
         fixDomain(): boolean;
 
         genKey(subKey: string): string;
 
+        /**
+         * @version 4.10.0
+         */
+        getAbsoluteRectPosition(window: dom.window, rect: dom.rect): dom.rect;
+
+        /**
+         * @version 4.5.6
+         */
         getCookie(name: string): string;
 
+        /**
+         * @version 4.5.6
+         */
         getCsrfToken(): string;
 
+        /**
+         * @version 4.5.0
+         */
         getIndex<T>(array: T[], compareFunction: (element: T) => boolean): number;
 
+        /**
+         * @version 4.7.3
+         */
         getMouseButton(evt: dom.event<Event | EventTarget>): boolean;
 
         getNextId(): string;
 
         getNextNumber(): number;
+
+        /**
+         * @version 4.15.0
+         */
+        getStyledSpans(property: string, source: dom.element): dom.element[];
 
         getUniqueId(): string;
 
@@ -87,18 +175,38 @@ declare namespace CKEDITOR {
 
         isEmpty(object: { [key: string]: unknown }): boolean;
 
+        /**
+         * @version 4.8.0
+         */
         keystrokeToArray(lang: { [key: string]: unknown }, keystroke: number): { display: string[]; aria: string[] };
 
+        /**
+         * @version 4.8.0
+         */
         keystrokeToString(lang: { [key: string]: unknown }, keystroke: number): { display: string; aria: string };
 
         ltrim(str: string): string;
 
         normalizeCssText(styleText: string, nativeNormalize: boolean): string;
 
+        /**
+         * @deprecated 4.16.0
+         */
         normalizeHex(styleText: string): string;
 
+        /**
+         * @version 4.13.0
+         */
+        normalizeMouseButton(button: number, reverse?: boolean): number;
+
+        /**
+         * @version 4.1.0
+         */
         objectCompare(left: { [key: string]: unknown }, right: { [key: string]: unknown }, onlyLef?: boolean): boolean;
 
+        /**
+         * @deprecated 4.12.0
+         */
         objectKeys(obj: { [key: string]: unknown }): string[];
 
         override<T extends (...args: any[]) => any>(
@@ -120,6 +228,11 @@ declare namespace CKEDITOR {
 
         search<T>(array: T[], value: T | ((element: T) => boolean)): T;
 
+        /**
+         * @version 4.5.6
+         * @param name
+         * @param value
+         */
         setCookie(name: string, value: string): void;
 
         setTimeout(
@@ -130,12 +243,23 @@ declare namespace CKEDITOR {
             ownerWindow?: Window,
         ): number;
 
-        transformPlainTextToHtml(text: string, etnerMode: number): string;
+        /**
+         * @version 4.10.0
+         */
+        throttle(minInterval: number, output: () => void, contextObject?: unknown): tools.buffers.throttle;
+
+        /**
+         * @version: 4.5.0
+         */
+        transformPlainTextToHtml(text: string, enterMode: number): string;
 
         trim(str: string): string;
 
         tryThese(...fn: Array<(...args: unknown[]) => unknown>): unknown;
 
+        /**
+         * @version 4.1.0
+         */
         writeCssText(styles: { [key: string]: unknown }, sort?: boolean): string;
     }
 
@@ -251,6 +375,17 @@ declare namespace CKEDITOR {
                 color: string;
                 style: string;
                 width: string;
+            }
+        }
+
+        namespace buffers {
+            interface event {
+                input(): void;
+                reset(): void;
+            }
+
+            interface throttle extends event {
+                input(...args: any[]): void;
             }
         }
     }

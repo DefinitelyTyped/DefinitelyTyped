@@ -31,8 +31,6 @@ declare class Class_XmlElement extends Class_XmlNode {
      * @brief 查询元素的命名空间的 URI。如果选定的节点无命名空间，则该属性返回 NULL
      *
      *
-     * @readonly
-     *
      */
 
     namespaceURI: string
@@ -57,8 +55,6 @@ declare class Class_XmlElement extends Class_XmlNode {
      * @brief 查询元素的本地名称。如果选定的节点无命名空间，则该属性等同于 nodeName
      *
      *
-     * @readonly
-     *
      */
 
     localName: string
@@ -69,8 +65,6 @@ declare class Class_XmlElement extends Class_XmlNode {
      *
      * @brief 返回元素的标签名
      *
-     *
-     * @readonly
      *
      */
 
@@ -135,8 +129,6 @@ declare class Class_XmlElement extends Class_XmlNode {
      * @brief 返回包含被选节点属性的 NamedNodeMap。如果被选节点不是元素，则该属性返回 NULL。
      *
      *
-     * @readonly
-     * @type XmlNamedNodeMap
      */
 
     attributes: Class_XmlNamedNodeMap

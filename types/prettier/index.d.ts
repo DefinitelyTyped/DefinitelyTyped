@@ -9,6 +9,7 @@
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 JounQin <https://github.com/JounQin>
 //                 Chuah Chee Shian <https://github.com/shian15810>
+//                 Marc Gibbons <https://github.com/marcgibbons>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 
@@ -383,6 +384,7 @@ export interface Printer<T = any> {
               options: ParserOptions<T>,
           ) => Doc | null)
         | undefined;
+    preprocess?: ((ast: AST, options: ParserOptions<T>) => AST) | undefined;
     insertPragma?: ((text: string) => string) | undefined;
     /**
      * @returns `null` if you want to remove this node

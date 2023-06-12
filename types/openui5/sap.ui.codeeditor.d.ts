@@ -14,7 +14,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.46
+   * @since 1.46
    *
    * Allows to visualize source code of various types with syntax highlighting, line numbers in editable and
    * read only mode. Use this control in scenarios where the user should be able to inspect and edit source
@@ -82,7 +82,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.52
+     * @since 1.52
      *
      * Defines custom completer - object implementing a getCompletions method. The method has two parameters
      * - fnCallback method and context object. Context object provides details about oPos and sPrefix as provided
@@ -221,7 +221,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -243,7 +243,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       }
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -330,7 +330,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      */
     getLineNumbers(): boolean;
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Gets current value of property {@link #getMaxLines maxLines}.
      *
@@ -408,7 +408,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      */
     getWidth(): CSSSize;
     /**
-     * @SINCE 1.54.1
+     * @since 1.54.1
      *
      * Pretty-prints the content of the editor
      */
@@ -477,7 +477,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       bLineNumbers?: boolean
     ): this;
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Sets a new value for property {@link #getMaxLines maxLines}.
      *
@@ -648,7 +648,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     valueSelection?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Sets whether the editor height should auto expand to a maximum number of lines. After reaching the maximum
      * number of lines specified, the content of the `CodeEditor` will become scrollable.

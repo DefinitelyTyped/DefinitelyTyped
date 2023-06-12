@@ -8,8 +8,8 @@ declare module "sap/ui/webc/common/WebComponent" {
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0) - The API might change. It is not intended for productive usage yet!
+   * @since 1.92.0
+   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    *
    * Base Class for Web Components. Web Components are agnostic UI elements which can be integrated into the
    * UI5 programming model by using this wrapper control. This wrapper control takes care to propagate the
@@ -64,8 +64,8 @@ declare module "sap/ui/webc/common/WebComponentMetadata" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0) - The API might change. It is not intended for productive usage yet!
+   * @since 1.92.0
+   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    */
   export default class WebComponentMetadata extends ElementMetadata {
     /**

@@ -32,7 +32,6 @@ declare class Class_Socket extends Class_Stream {
      *
      * @brief 查询当前 Socket 对象的地址集
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -44,7 +43,6 @@ declare class Class_Socket extends Class_Stream {
      *
      * @brief 查询当前 Socket 对象的协议族
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -56,8 +54,6 @@ declare class Class_Socket extends Class_Stream {
      *
      * @brief 查询当前连接的对方地址
      *
-     * @readonly
-     *
      */
 
     remoteAddress: string
@@ -68,7 +64,6 @@ declare class Class_Socket extends Class_Stream {
      *
      * @brief 查询当前连接的对方端口
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -80,8 +75,6 @@ declare class Class_Socket extends Class_Stream {
      *
      * @brief 查询当前连接的本地地址
      *
-     * @readonly
-     *
      */
 
     localAddress: string
@@ -92,7 +85,6 @@ declare class Class_Socket extends Class_Stream {
      *
      * @brief 查询当前连接的本地端口
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
