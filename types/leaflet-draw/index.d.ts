@@ -4,6 +4,7 @@
 //                 Ryan Blace <https://github.com/reblace>
 //                 Yun Shi <https://github.com/YunS-Stacy>
 //                 Kevin Richter <https://github.com/beschoenen>
+//                 Antonio Vida <https://github.com/antoniovlx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -358,7 +359,7 @@ declare module 'leaflet' {
             nautic?: boolean | undefined;
         }
 
-        interface CircleMarkerOptions {
+        interface CircleMarkerOptions extends MarkerOptions {
             /**
              * Whether to draw stroke around the circle marker.
              *
