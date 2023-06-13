@@ -26,8 +26,8 @@
 //                 Victor Magalhães <https://github.com/vhfmag>
 //                 Dale Tan <https://github.com/hellatan>
 //                 Priyanshu Rav <https://github.com/priyanshurav>
+//                 Costa Alexoglou <https://github.com/konsalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 /// <reference path="global.d.ts" />
 
@@ -803,10 +803,10 @@ declare namespace React {
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
-        // Pick would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
+        // Omit would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
         // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        P extends any ? ('ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>> : P) : P;
+        P extends any ? ('ref' extends keyof P ? Omit<P, 'ref'> : P) : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
