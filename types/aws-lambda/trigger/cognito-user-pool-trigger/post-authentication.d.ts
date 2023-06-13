@@ -8,6 +8,7 @@ export interface PostAuthenticationTriggerEvent extends BaseTriggerEvent<'PostAu
   request: {
       userAttributes: StringMap;
       newDeviceUsed: boolean;
+      clientMetadata?: StringMap | undefined;
   };
 }
 
