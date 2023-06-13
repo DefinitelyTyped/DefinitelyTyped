@@ -2,7 +2,7 @@
 // Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fapplication
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
@@ -53,7 +53,11 @@ export default class Application extends Engine {
      * @param fullName type:name (e.g., 'model:user')
      * @param factory (e.g., App.Person)
      */
-    register(fullName: string, factory: any, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): void;
+    register(
+        fullName: string,
+        factory: any,
+        options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined },
+    ): void;
     /**
      * This removes all helpers that have been registered, and resets and functions
      * that were overridden by the helpers.
