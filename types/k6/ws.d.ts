@@ -248,7 +248,7 @@ export interface MessageEventHandler {
 /**
  * BinaryMessage event handler.
  */
- export interface BinaryMessageEventHandler {
+export interface BinaryMessageEventHandler {
     /** @param message - Message. */
     (message: ArrayBuffer): void;
 }

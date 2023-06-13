@@ -20,16 +20,28 @@ response = connect(address, executor);
 connect(address, 5, executor);
 response = connect(address, null, executor);
 response = connect(address, {}, executor);
-response = connect(address, {
-    headers: { 'User-Agent': 'ITS' },
-    tags: { user: 'zbt' }
-}, executor);
-response = connect(address, {
-    compression: 'deflate'
-}, executor);
-response = connect(address, {
-    jar: new CookieJar()
-}, executor);
+response = connect(
+    address,
+    {
+        headers: { 'User-Agent': 'ITS' },
+        tags: { user: 'zbt' },
+    },
+    executor,
+);
+response = connect(
+    address,
+    {
+        compression: 'deflate',
+    },
+    executor,
+);
+response = connect(
+    address,
+    {
+        jar: new CookieJar(),
+    },
+    executor,
+);
 // @ts-expect-error
 connect(address, executor, 5);
 // @ts-expect-error

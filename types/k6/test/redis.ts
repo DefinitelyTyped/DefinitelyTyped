@@ -168,7 +168,7 @@ redisClient.lpsuh();
 // @ts-expect-error
 redisClient.lpsuh(5);
 // @ts-expect-error
-redisClient.lpsuh('key', { name: 'value'});
+redisClient.lpsuh('key', { name: 'value' });
 
 //
 // Client.rpush
@@ -394,7 +394,7 @@ redisClient.sadd();
 // @ts-expect-error
 redisClient.sadd(5);
 // @ts-expect-error
-redisClient.sadd('key', { name: 'value'});
+redisClient.sadd('key', { name: 'value' });
 
 //
 // Client.srem
@@ -405,7 +405,7 @@ redisClient.srem();
 // @ts-expect-error
 redisClient.srem(5);
 // @ts-expect-error
-redisClient.srem('key', { name: 'value'});
+redisClient.srem('key', { name: 'value' });
 
 //
 // Client.sismember

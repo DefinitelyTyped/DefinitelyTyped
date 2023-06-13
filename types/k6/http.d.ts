@@ -12,7 +12,7 @@ import { Selection } from './html';
 export function del<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -24,9 +24,9 @@ export function del<RT extends ResponseType | undefined>(
  * @example
  * http.head('https://test.k6.io')
  */
- export function head<RT extends ResponseType | undefined>(
+export function head<RT extends ResponseType | undefined>(
     url: string | HttpURL,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -40,7 +40,7 @@ export function del<RT extends ResponseType | undefined>(
  */
 export function get<RT extends ResponseType | undefined>(
     url: string | HttpURL,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -54,7 +54,7 @@ export function get<RT extends ResponseType | undefined>(
 export function options<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -68,7 +68,7 @@ export function options<RT extends ResponseType | undefined>(
 export function patch<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -86,7 +86,7 @@ export function patch<RT extends ResponseType | undefined>(
 export function post<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -100,7 +100,7 @@ export function post<RT extends ResponseType | undefined>(
 export function put<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -120,7 +120,7 @@ export function request<RT extends ResponseType | undefined>(
     method: string,
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -140,7 +140,7 @@ export function asyncRequest<RT extends ResponseType | undefined>(
     method: string,
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): Promise<RefinedResponse<RT>>;
 
 /**
@@ -346,7 +346,7 @@ export type BatchRequest = string | HttpURL | ArrayBatchRequest | ObjectBatchReq
 /**
  * Array form batch request specification.
  */
-export type ArrayBatchRequest = [ string, string | HttpURL, (RequestBody | null)?, (Params | null)? ];
+export type ArrayBatchRequest = [string, string | HttpURL, (RequestBody | null)?, (Params | null)?];
 
 /**
  * Object form batch request specification.
@@ -388,9 +388,9 @@ export type RefinedBatchRequest<RT extends ResponseType | undefined> =
  */
 export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
     string,
-    string | HttpURL ,
+    string | HttpURL,
     (RequestBody | null)?,
-    (RefinedParams<RT> | null)?
+    (RefinedParams<RT> | null)?,
 ];
 
 /**
@@ -792,8 +792,8 @@ export interface ExpectedStatusesObject {
 /**
  * Returned value from http.url method.
  */
- interface HttpURL {
-  __brand: "http-url";
+interface HttpURL {
+    __brand: 'http-url';
 }
 
 /**
@@ -812,7 +812,7 @@ declare namespace http {
     function del<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -826,7 +826,7 @@ declare namespace http {
      */
     function head<RT extends ResponseType | undefined>(
         url: string | HttpURL,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -840,7 +840,7 @@ declare namespace http {
      */
     function get<RT extends ResponseType | undefined>(
         url: string | HttpURL,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -854,7 +854,7 @@ declare namespace http {
     function options<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -868,7 +868,7 @@ declare namespace http {
     function patch<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -886,7 +886,7 @@ declare namespace http {
     function post<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -900,7 +900,7 @@ declare namespace http {
     function put<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -920,7 +920,7 @@ declare namespace http {
         method: string,
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -940,7 +940,7 @@ declare namespace http {
         method: string,
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): Promise<RefinedResponse<RT>>;
 
     /**
@@ -952,7 +952,7 @@ declare namespace http {
      * @example
      * http.get(http.url`http://example.com/posts/${id}`) // tags.name="http://example.com/posts/${}",
      */
-     function url(strings: TemplateStringsArray, ...args: Array<string | number | boolean>): HttpURL;
+    function url(strings: TemplateStringsArray, ...args: Array<string | number | boolean>): HttpURL;
 
     /**
      * Batch multiple HTTP requests together,

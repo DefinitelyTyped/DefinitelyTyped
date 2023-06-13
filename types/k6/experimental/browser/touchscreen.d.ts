@@ -4,10 +4,10 @@
  * viewport.
  */
 export class Touchscreen {
-  /**
-   * Taps on the specified position (`x`,`y`), which internally dispatches a `touchstart` and `touchend` event.
-   * @param x The x position.
-   * @param y The y position.
-   */
-  tap(x: number, y: number): void;
+    /**
+     * Taps on the specified position (`x`,`y`), which internally dispatches a `touchstart` and `touchend` event.
+     * @param x The x position.
+     * @param y The y position.
+     */
+    tap(x: number, y: number): void;
 }
