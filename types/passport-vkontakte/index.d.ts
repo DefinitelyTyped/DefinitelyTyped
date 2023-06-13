@@ -57,5 +57,5 @@ export class Strategy implements passport.Strategy {
     );
 
     name: string;
-    authenticate(req: express.Request, options?: any) void;
+    authenticate(req: express.Request, options?: any): void;
 }
