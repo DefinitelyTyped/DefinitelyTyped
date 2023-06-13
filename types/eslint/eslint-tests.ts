@@ -1035,4 +1035,31 @@ ruleTester.run('simple-valid-test', rule, {
 // (): Linter.FlatConfig => ({ files: undefined });
 // (): Linter.FlatConfig => ({ ignores: undefined });
 
+(): ESLint.Plugin => ({
+    configs: {
+        'old-style': {
+            parser: "foo-parser"
+        },
+
+        // @ts-expect-error
+        'old-style-array': [{ parser: "foo-parser" }],
+
+        'new-style': {
+            languageOptions: {
+                parser: {
+                    parseForESLint: () => ({ ast: AST })
+                }
+            }
+        },
+
+        'new-style-array': [{
+            languageOptions: {
+                parser: {
+                    parseForESLint: () => ({ ast: AST })
+                }
+            }
+        }]
+    }
+});
+
 //#endregion
