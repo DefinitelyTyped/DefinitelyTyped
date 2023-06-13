@@ -197,7 +197,7 @@ declare module 'opentok' {
       videoType: 'camera' | 'screen' | 'custom';
     }
 
-    export type Env = {
+    export interface Env {
       apiUrl?: string;
       uaAddendum?: string;
       timeout?: number;
