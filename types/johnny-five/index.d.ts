@@ -919,15 +919,15 @@ export class Relays {
     [index: number]: Relay;
 
     /**
-     * Open the circuit.
+     * Open the circuits.
      */
     open(): void;
     /**
-     * Close the circuit.
+     * Close the circuits.
      */
     close(): void;
     /**
-     * Toggle the circuit open/close.
+     * Toggle the circuits open/close.
      */
     toggle(): void;
 }

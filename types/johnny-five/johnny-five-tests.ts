@@ -8,7 +8,6 @@ board
     .on('ready', () => {
         board.pinMode(13, five.Pin.OUTPUT);
         board.pinMode(13, 0);
-        board.pinMode(13, 0);
         const pin = new five.Pin(13);
         pin.mode = five.PinMode.OUTPUT;
         pin.mode = five.Pin.OUTPUT;
