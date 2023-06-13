@@ -1,7 +1,7 @@
 // Type definitions for @ember-data/store 4.0
 // Project: https://github.com/emberjs/data
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Chris Thoburn <https://github.com/runspired>
 //                 Peter Wagenet <https://github.com/wagenet>

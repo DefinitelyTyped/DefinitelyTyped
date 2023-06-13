@@ -1,7 +1,7 @@
 // Type definitions for non-npm package @ember/component 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fcomponent
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -119,7 +119,7 @@ export function setComponentManager<T>(managerFactory: (owner: unknown) => Compo
  * @param object the component object
  * @return the template factory of the given component
  */
- export function getComponentTemplate(obj: object): TemplateFactory | undefined;
+export function getComponentTemplate(obj: object): TemplateFactory | undefined;
 
 export function setComponentTemplate<T>(factory: TemplateFactory, obj: T): T;
 
