@@ -942,6 +942,7 @@ export interface SensorOption {
     freq?: number | undefined;
     threshold?: number | undefined;
     enabled?: boolean | undefined;
+    type?: 'digital' | 'analog';
 }
 
 export class Sensor {
