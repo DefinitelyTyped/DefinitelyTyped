@@ -19,12 +19,6 @@ declare module 'leaflet' {
         sync(map: Map, options?: SyncMapOptions): this;
         unsync(map: Map): this;
         isSynced(otherMap?: Map): boolean;
-        _cursorSyncMove(e: LeafletMouseEvent): void;
-        _cursorSyncOut(e: LeafletMouseEvent): void;
-        _selfSetView(e: LeafletEvent): void;
-        _syncOnMoveend(e: LeafletEvent): void;
-        _syncOnDragend(e: LeafletEvent): void;
-        _initSync(): void;
     }
 
     interface Sync {
