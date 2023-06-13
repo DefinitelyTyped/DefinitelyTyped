@@ -117,6 +117,7 @@ imaps.connect(config).then(connection => {
 
 imaps.connect(config).then(function (connection) {
     connection.openBox('INBOX').then(function () {
+        console.log("Connection state:", connection.imap.state);
         const searchCriteria = ['ALL'];
         const fetchOptions = { bodies: ['TEXT'], struct: true };
         return connection.search(searchCriteria, fetchOptions);
