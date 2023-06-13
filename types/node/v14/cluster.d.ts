@@ -15,6 +15,8 @@ declare module 'cluster' {
         gid?: number | undefined;
         inspectPort?: number | (() => number) | undefined;
         serialization?: SerializationType | undefined;
+        cwd?: string | undefined;
+        windowsHide?: boolean | undefined;
     }
 
     interface Address {
