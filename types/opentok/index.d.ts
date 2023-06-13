@@ -205,7 +205,7 @@ declare module 'opentok' {
   }
 
   class OpenTok {
-    constructor(apiKey: string, apiSecret: string, env: OpenTok.Env | string);
+    constructor(apiKey: string, apiSecret: string, env?: OpenTok.Env | string);
 
     public createSession(
       options: OpenTok.SessionOptions,
