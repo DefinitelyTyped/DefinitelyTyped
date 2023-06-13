@@ -196,10 +196,16 @@ declare module 'opentok' {
       layoutClassList: string[];
       videoType: 'camera' | 'screen' | 'custom';
     }
+
+    export interface Env {
+      apiUrl?: string;
+      uaAddendum?: string;
+      timeout?: number;
+    }
   }
 
   class OpenTok {
-    constructor(apiKey: string, apiSecret: string);
+    constructor(apiKey: string, apiSecret: string, env?: OpenTok.Env);
 
     public createSession(
       options: OpenTok.SessionOptions,
