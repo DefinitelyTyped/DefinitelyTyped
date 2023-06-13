@@ -1056,7 +1056,7 @@ export namespace ESLint {
     }
 
     interface Plugin {
-        configs?: Record<string, ConfigData> | undefined;
+        configs?: Record<string, ConfigData | Linter.FlatConfig | Linter.FlatConfig[]> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
         rules?: Record<string, Rule.OldStyleRule | Rule.RuleModule> | undefined;
