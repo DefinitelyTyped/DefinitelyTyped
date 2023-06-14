@@ -49,7 +49,7 @@ export interface OutTrackingOptions extends ClearOptOutInOutOptions {
 }
 
 export interface RegisterOptions {
-	persistent: boolean;
+    persistent: boolean;
 }
 
 export interface Config {
@@ -204,7 +204,11 @@ export function opt_in_tracking(options?: Partial<InTrackingOptions>): void;
 export function opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
 export function push(item: PushItem): void;
 export function register(props: Dict, days_or_options?: number | Partial<RegisterOptions>): void;
-export function register_once(props: Dict, default_value?: any, days_or_options?: number | Partial<RegisterOptions>): void;
+export function register_once(
+    props: Dict,
+    default_value?: any,
+    days_or_options?: number | Partial<RegisterOptions>,
+): void;
 export function remove_group(
     group_key: string,
     group_ids: string | string[] | number | number[],
