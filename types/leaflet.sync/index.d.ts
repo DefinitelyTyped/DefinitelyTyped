@@ -3,7 +3,6 @@
 // Definitions by: Gabriel O. Martins <https://github.com/OliverBiel/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
