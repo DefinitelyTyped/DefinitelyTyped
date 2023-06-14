@@ -1,4 +1,4 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.115.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -1033,9 +1033,9 @@ declare module "sap/ui/webc/main/Avatar" {
    *
    * 	 - [SPACE, ENTER, RETURN] - Fires the `click` event if the `interactive` property is set to true.
    * 	 - [SHIFT] - If [SPACE] is pressed, pressing [SHIFT] releases the component without triggering the click
-   * 			event.
+   *     event.
    */
-  export default class Avatar extends WebComponent implements IAvatar {
+  class Avatar extends WebComponent implements IAvatar {
     __implements__sap_ui_webc_main_IAvatar: boolean;
     /**
      * Constructor for a new `Avatar`.
@@ -1166,7 +1166,7 @@ declare module "sap/ui/webc/main/Avatar" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -1461,6 +1461,7 @@ declare module "sap/ui/webc/main/Avatar" {
       sSize?: AvatarSize | keyof typeof AvatarSize
     ): this;
   }
+  export default Avatar;
 
   export interface $AvatarSettings extends $WebComponentSettings {
     /**
@@ -1557,6 +1558,8 @@ declare module "sap/ui/webc/main/Avatar" {
      */
     click?: (oEvent: Event) => void;
   }
+
+  export interface $AvatarClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/AvatarGroup" {
@@ -1591,7 +1594,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
    *
    * The `AvatarGroup` component has two group types:
    * 	 - `Group` type: The avatars are displayed as partially overlapped on top of each other and the entire
-   * 			group has one click/tap area.
+   *     group has one click/tap area.
    * 	 - `Individual` type: The avatars are displayed side-by-side and each avatar has its own click/tap area.
    *
    *
@@ -1631,7 +1634,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
    * 	 - [TAB] - Move focus to the next interactive element after the component
    * 	 - [SPACE],[ENTER],[RETURN] - Trigger `ui5-click` event
    */
-  export default class AvatarGroup extends WebComponent {
+  class AvatarGroup extends WebComponent {
     /**
      * Constructor for a new `AvatarGroup`.
      *
@@ -1722,7 +1725,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$AvatarGroupClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.AvatarGroup` itself
        */
@@ -1742,7 +1745,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$AvatarGroupClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.AvatarGroup` itself
        */
@@ -1816,7 +1819,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$AvatarGroupClickEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1840,7 +1843,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -1850,19 +1853,10 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The DOM ref of the clicked item.
-         */
-        targetRef?: HTMLElement;
-        /**
-         * indicates if the overflow button is clicked
-         */
-        overflowButtonClicked?: boolean;
-      }
+      mParameters?: $AvatarGroupClickEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:overflow overflow} to attached listeners.
      *
@@ -1997,6 +1991,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       sType?: AvatarGroupType | keyof typeof AvatarGroupType
     ): this;
   }
+  export default AvatarGroup;
 
   export interface $AvatarGroupSettings extends $WebComponentSettings {
     /**
@@ -2031,13 +2026,27 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     /**
      * Fired when the component is activated either with a click/tap or by using the Enter or Space key.
      */
-    click?: (oEvent: Event) => void;
+    click?: (oEvent: Event<$AvatarGroupClickEventParameters>) => void;
 
     /**
      * Fired when the count of visible `sap.ui.webc.main.Avatar` elements in the component has changed
      */
     overflow?: (oEvent: Event) => void;
   }
+
+  export interface $AvatarGroupClickEventParameters {
+    /**
+     * The DOM ref of the clicked item.
+     */
+    targetRef?: HTMLElement;
+
+    /**
+     * indicates if the overflow button is clicked
+     */
+    overflowButtonClicked?: boolean;
+  }
+
+  export interface $AvatarGroupOverflowEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Badge" {
@@ -2065,11 +2074,11 @@ declare module "sap/ui/webc/main/Badge" {
    * Usage Guidelines:
    * 	 - If the text is longer than the width of the component, it doesn’t wrap, it shows ellipsis.
    * 	 - When truncated, the full text is not visible, therefore, it’s recommended to make more space for
-   * 			longer texts to be fully displayed.
+   *     longer texts to be fully displayed.
    * 	 - Colors are not semantic and have no visual representation in High Contrast Black (sap_belize_hcb)
-   * 			theme.
+   *     theme.
    */
-  export default class Badge extends WebComponent {
+  class Badge extends WebComponent {
     /**
      * Constructor for a new `Badge`.
      *
@@ -2216,6 +2225,7 @@ declare module "sap/ui/webc/main/Badge" {
       sText?: string
     ): this;
   }
+  export default Badge;
 
   export interface $BadgeSettings extends $WebComponentSettings {
     /**
@@ -2288,7 +2298,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
    * 	 - [HOME] - Navigates to the first item.
    * 	 - [END] - Navigates to the last item.
    */
-  export default class Breadcrumbs extends WebComponent {
+  class Breadcrumbs extends WebComponent {
     /**
      * Constructor for a new `Breadcrumbs`.
      *
@@ -2380,7 +2390,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$BreadcrumbsItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Breadcrumbs` itself
        */
@@ -2401,7 +2411,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$BreadcrumbsItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Breadcrumbs` itself
        */
@@ -2424,14 +2434,14 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$BreadcrumbsItemClickEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -2444,28 +2454,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The clicked item.
-         */
-        item?: HTMLElement;
-        /**
-         * Returns whether the "ALT" key was pressed when the event was triggered.
-         */
-        altKey?: boolean;
-        /**
-         * Returns whether the "CTRL" key was pressed when the event was triggered.
-         */
-        ctrlKey?: boolean;
-        /**
-         * Returns whether the "META" key was pressed when the event was triggered.
-         */
-        metaKey?: boolean;
-        /**
-         * Returns whether the "SHIFT" key was pressed when the event was triggered.
-         */
-        shiftKey?: boolean;
-      }
+      mParameters?: $BreadcrumbsItemClickEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getDesign design}.
@@ -2612,6 +2601,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
         | keyof typeof BreadcrumbsSeparatorStyle
     ): this;
   }
+  export default Breadcrumbs;
 
   export interface $BreadcrumbsSettings extends $WebComponentSettings {
     /**
@@ -2661,7 +2651,34 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      * Fires when a `BreadcrumbsItem` is clicked. **Note:** You can prevent browser location change by calling
      * `event.preventDefault()`.
      */
-    itemClick?: (oEvent: Event) => void;
+    itemClick?: (oEvent: Event<$BreadcrumbsItemClickEventParameters>) => void;
+  }
+
+  export interface $BreadcrumbsItemClickEventParameters {
+    /**
+     * The clicked item.
+     */
+    item?: HTMLElement;
+
+    /**
+     * Returns whether the "ALT" key was pressed when the event was triggered.
+     */
+    altKey?: boolean;
+
+    /**
+     * Returns whether the "CTRL" key was pressed when the event was triggered.
+     */
+    ctrlKey?: boolean;
+
+    /**
+     * Returns whether the "META" key was pressed when the event was triggered.
+     */
+    metaKey?: boolean;
+
+    /**
+     * Returns whether the "SHIFT" key was pressed when the event was triggered.
+     */
+    shiftKey?: boolean;
   }
 }
 
@@ -2685,9 +2702,7 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
    *
    * The `sap.ui.webc.main.BreadcrumbsItem` component defines the content of an item in `ui5-breadcumbs`.
    */
-  export default class BreadcrumbsItem
-    extends WebComponent
-    implements IBreadcrumbsItem {
+  class BreadcrumbsItem extends WebComponent implements IBreadcrumbsItem {
     __implements__sap_ui_webc_main_IBreadcrumbsItem: boolean;
     /**
      * Constructor for a new `BreadcrumbsItem`.
@@ -2880,6 +2895,7 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
       sText?: string
     ): this;
   }
+  export default BreadcrumbsItem;
 
   export interface $BreadcrumbsItemSettings extends $WebComponentSettings {
     /**
@@ -2962,7 +2978,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
    * 	 - You need to block the screen and prevent the user from starting another activity.
    * 	 - Do not show multiple busy indicators at once.
    */
-  export default class BusyIndicator extends WebComponent {
+  class BusyIndicator extends WebComponent {
     /**
      * Constructor for a new `BusyIndicator`.
      *
@@ -3271,6 +3287,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
       sWidth: CSSSize
     ): this;
   }
+  export default BusyIndicator;
 
   export interface $BusyIndicatorSettings extends $WebComponentSettings {
     /**
@@ -3375,9 +3392,7 @@ declare module "sap/ui/webc/main/Button" {
    *  The `sap.ui.webc.main.Button` exposes the following CSS Shadow Parts:
    * 	 - button - Used to style the native button element
    */
-  export default class Button
-    extends WebComponent
-    implements IButton, IFormContent {
+  class Button extends WebComponent implements IButton, IFormContent {
     __implements__sap_ui_webc_main_IButton: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
     /**
@@ -3518,7 +3533,7 @@ declare module "sap/ui/webc/main/Button" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -3540,18 +3555,18 @@ declare module "sap/ui/webc/main/Button" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      *
      * Default value is `{}`.
      *
@@ -3567,8 +3582,7 @@ declare module "sap/ui/webc/main/Button" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -3612,8 +3626,7 @@ declare module "sap/ui/webc/main/Button" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -3694,18 +3707,18 @@ declare module "sap/ui/webc/main/Button" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3789,8 +3802,7 @@ declare module "sap/ui/webc/main/Button" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3887,6 +3899,7 @@ declare module "sap/ui/webc/main/Button" {
       sWidth: CSSSize
     ): this;
   }
+  export default Button;
 
   export interface $ButtonSettings extends $WebComponentSettings {
     /**
@@ -3897,18 +3910,18 @@ declare module "sap/ui/webc/main/Button" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      */
     accessibilityAttributes?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -3949,8 +3962,7 @@ declare module "sap/ui/webc/main/Button" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -3992,6 +4004,8 @@ declare module "sap/ui/webc/main/Button" {
      */
     click?: (oEvent: Event) => void;
   }
+
+  export interface $ButtonClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Calendar" {
@@ -4098,7 +4112,7 @@ declare module "sap/ui/webc/main/Calendar" {
    *  ` <script data-id="sap-ui-config" type="application/json"> { "calendarType": "Japanese" } </script>
    * `
    */
-  export default class Calendar extends WebComponent {
+  class Calendar extends WebComponent {
     /**
      * Constructor for a new `Calendar`.
      *
@@ -4192,7 +4206,9 @@ declare module "sap/ui/webc/main/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$CalendarSelectedDatesChangeEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Calendar` itself
        */
@@ -4215,7 +4231,9 @@ declare module "sap/ui/webc/main/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$CalendarSelectedDatesChangeEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Calendar` itself
        */
@@ -4239,14 +4257,16 @@ declare module "sap/ui/webc/main/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$CalendarSelectedDatesChangeEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectedDatesChange selectedDatesChange} to attached listeners.
      *
@@ -4259,16 +4279,7 @@ declare module "sap/ui/webc/main/Calendar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The selected dates
-         */
-        values?: any[];
-        /**
-         * The selected dates as UTC timestamps
-         */
-        dates?: any[];
-      }
+      mParameters?: $CalendarSelectedDatesChangeEventParameters
     ): boolean;
     /**
      * Gets content of aggregation {@link #getDates dates}.
@@ -4537,6 +4548,7 @@ declare module "sap/ui/webc/main/Calendar" {
         | keyof typeof CalendarSelectionMode
     ): this;
   }
+  export default Calendar;
 
   export interface $CalendarSettings extends $WebComponentSettings {
     /**
@@ -4609,7 +4621,21 @@ declare module "sap/ui/webc/main/Calendar" {
      * will not create instances of `sap.ui.webc.main.CalendarDate` for the newly selected dates. In that case
      * you should do this manually.
      */
-    selectedDatesChange?: (oEvent: Event) => void;
+    selectedDatesChange?: (
+      oEvent: Event<$CalendarSelectedDatesChangeEventParameters>
+    ) => void;
+  }
+
+  export interface $CalendarSelectedDatesChangeEventParameters {
+    /**
+     * The selected dates
+     */
+    values?: any[];
+
+    /**
+     * The selected dates as UTC timestamps
+     */
+    dates?: any[];
   }
 }
 
@@ -4633,9 +4659,7 @@ declare module "sap/ui/webc/main/CalendarDate" {
    *
    * The `sap.ui.webc.main.CalendarDate` component defines a calendar date to be used inside `sap.ui.webc.main.Calendar`
    */
-  export default class CalendarDate
-    extends WebComponent
-    implements ICalendarDate {
+  class CalendarDate extends WebComponent implements ICalendarDate {
     __implements__sap_ui_webc_main_ICalendarDate: boolean;
     /**
      * Constructor for a new `CalendarDate`.
@@ -4723,6 +4747,7 @@ declare module "sap/ui/webc/main/CalendarDate" {
       sValue: string
     ): this;
   }
+  export default CalendarDate;
 
   export interface $CalendarDateSettings extends $WebComponentSettings {
     /**
@@ -4769,7 +4794,7 @@ declare module "sap/ui/webc/main/Card" {
    * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
    * style elements inside the Shadow DOM.
    */
-  export default class Card extends WebComponent {
+  class Card extends WebComponent {
     /**
      * Constructor for a new `Card`.
      *
@@ -4887,8 +4912,7 @@ declare module "sap/ui/webc/main/Card" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -5083,6 +5107,7 @@ declare module "sap/ui/webc/main/Card" {
       sWidth: CSSSize
     ): this;
   }
+  export default Card;
 
   export interface $CardSettings extends $WebComponentSettings {
     /**
@@ -5159,7 +5184,7 @@ declare module "sap/ui/webc/main/CardHeader" {
    * 	 - subtitle - Used to style the subtitle of the CardHeader
    * 	 - status - Used to style the status of the CardHeader
    */
-  export default class CardHeader extends WebComponent {
+  class CardHeader extends WebComponent {
     /**
      * Constructor for a new `CardHeader`.
      *
@@ -5321,7 +5346,7 @@ declare module "sap/ui/webc/main/CardHeader" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -5552,6 +5577,7 @@ declare module "sap/ui/webc/main/CardHeader" {
       sTitleText?: string
     ): this;
   }
+  export default CardHeader;
 
   export interface $CardHeaderSettings extends $WebComponentSettings {
     /**
@@ -5592,6 +5618,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      */
     click?: (oEvent: Event) => void;
   }
+
+  export interface $CardHeaderClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Carousel" {
@@ -5647,7 +5675,7 @@ declare module "sap/ui/webc/main/Carousel" {
    * 	 - [UP/DOWN] - Navigates to previous and next item
    * 	 - [LEFT/RIGHT] - Navigates to previous and next item
    */
-  export default class Carousel extends WebComponent {
+  class Carousel extends WebComponent {
     /**
      * Constructor for a new `Carousel`.
      *
@@ -5739,7 +5767,7 @@ declare module "sap/ui/webc/main/Carousel" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CarouselNavigateEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Carousel` itself
        */
@@ -5760,7 +5788,7 @@ declare module "sap/ui/webc/main/Carousel" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CarouselNavigateEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Carousel` itself
        */
@@ -5783,14 +5811,14 @@ declare module "sap/ui/webc/main/Carousel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CarouselNavigateEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:navigate navigate} to attached listeners.
      *
@@ -5800,12 +5828,7 @@ declare module "sap/ui/webc/main/Carousel" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the current selected index
-         */
-        selectedIndex?: int;
-      }
+      mParameters?: $CarouselNavigateEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getArrowsPlacement arrowsPlacement}.
@@ -6088,6 +6111,7 @@ declare module "sap/ui/webc/main/Carousel" {
       iItemsPerPageS?: int
     ): this;
   }
+  export default Carousel;
 
   export interface $CarouselSettings extends $WebComponentSettings {
     /**
@@ -6149,7 +6173,14 @@ declare module "sap/ui/webc/main/Carousel" {
      * Fired whenever the page changes due to user interaction, when the user clicks on the navigation arrows
      * or while resizing, based on the `items-per-page-l`, `items-per-page-m` and `items-per-page-s` properties.
      */
-    navigate?: (oEvent: Event) => void;
+    navigate?: (oEvent: Event<$CarouselNavigateEventParameters>) => void;
+  }
+
+  export interface $CarouselNavigateEventParameters {
+    /**
+     * the current selected index
+     */
+    selectedIndex?: int;
   }
 }
 
@@ -6203,7 +6234,7 @@ declare module "sap/ui/webc/main/CheckBox" {
    *
    * 	 - [SPACE, ENTER] - Toggles between different states: checked, not checked.
    */
-  export default class CheckBox extends WebComponent implements IFormContent {
+  class CheckBox extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `CheckBox`.
@@ -6339,7 +6370,7 @@ declare module "sap/ui/webc/main/CheckBox" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -6362,8 +6393,7 @@ declare module "sap/ui/webc/main/CheckBox" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -6733,6 +6763,7 @@ declare module "sap/ui/webc/main/CheckBox" {
       sWrappingType?: WrappingType | keyof typeof WrappingType
     ): this;
   }
+  export default CheckBox;
 
   export interface $CheckBoxSettings extends $WebComponentSettings {
     /**
@@ -6839,6 +6870,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      */
     change?: (oEvent: Event) => void;
   }
+
+  export interface $CheckBoxChangeEventParameters {}
 }
 
 declare module "sap/ui/webc/main/ColorPalette" {
@@ -6868,7 +6901,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
    * set. To define the colors, use the `sap.ui.webc.main.ColorPaletteItem` component inside the default slot
    * of the `sap.ui.webc.main.ColorPalette`.
    */
-  export default class ColorPalette extends WebComponent {
+  class ColorPalette extends WebComponent {
     /**
      * Constructor for a new `ColorPalette`.
      *
@@ -6959,7 +6992,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ColorPaletteItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.ColorPalette` itself
        */
@@ -6979,7 +7012,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ColorPaletteItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.ColorPalette` itself
        */
@@ -7002,14 +7035,14 @@ declare module "sap/ui/webc/main/ColorPalette" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ColorPaletteItemClickEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -7019,12 +7052,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the selected color
-         */
-        color?: string;
-      }
+      mParameters?: $ColorPaletteItemClickEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getColors colors}.
@@ -7081,6 +7109,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
       vColor: int | string | IColorPaletteItem
     ): IColorPaletteItem | null;
   }
+  export default ColorPalette;
 
   export interface $ColorPaletteSettings extends $WebComponentSettings {
     /**
@@ -7095,7 +7124,14 @@ declare module "sap/ui/webc/main/ColorPalette" {
     /**
      * Fired when the user selects a color.
      */
-    itemClick?: (oEvent: Event) => void;
+    itemClick?: (oEvent: Event<$ColorPaletteItemClickEventParameters>) => void;
+  }
+
+  export interface $ColorPaletteItemClickEventParameters {
+    /**
+     * the selected color
+     */
+    color?: string;
   }
 }
 
@@ -7121,9 +7157,7 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
    *
    * The `sap.ui.webc.main.ColorPaletteItem` component represents a color in the the `sap.ui.webc.main.ColorPalette`.
    */
-  export default class ColorPaletteItem
-    extends WebComponent
-    implements IColorPaletteItem {
+  class ColorPaletteItem extends WebComponent implements IColorPaletteItem {
     __implements__sap_ui_webc_main_IColorPaletteItem: boolean;
     /**
      * Constructor for a new `ColorPaletteItem`.
@@ -7213,6 +7247,7 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
       sValue: CSSColor
     ): this;
   }
+  export default ColorPaletteItem;
 
   export interface $ColorPaletteItemSettings extends $WebComponentSettings {
     /**
@@ -7261,7 +7296,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
    * The palette is intended for users, who don't want to check and remember the different values of the colors
    * and spend large amount of time to configure the right color through the color picker.
    */
-  export default class ColorPalettePopover extends WebComponent {
+  class ColorPalettePopover extends WebComponent {
     /**
      * Constructor for a new `ColorPalettePopover`.
      *
@@ -7352,7 +7387,9 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$ColorPalettePopoverItemClickEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.ColorPalettePopover`
        * itself
@@ -7373,7 +7410,9 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$ColorPalettePopoverItemClickEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.ColorPalettePopover`
        * itself
@@ -7397,14 +7436,16 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$ColorPalettePopoverItemClickEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -7414,12 +7455,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the selected color
-         */
-        color?: string;
-      }
+      mParameters?: $ColorPalettePopoverItemClickEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getColors colors}.
@@ -7603,6 +7639,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       opener: HTMLElement
     ): void;
   }
+  export default ColorPalettePopover;
 
   export interface $ColorPalettePopoverSettings extends $WebComponentSettings {
     /**
@@ -7639,7 +7676,16 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
     /**
      * Fired when the user selects a color.
      */
-    itemClick?: (oEvent: Event) => void;
+    itemClick?: (
+      oEvent: Event<$ColorPalettePopoverItemClickEventParameters>
+    ) => void;
+  }
+
+  export interface $ColorPalettePopoverItemClickEventParameters {
+    /**
+     * the selected color
+     */
+    color?: string;
   }
 }
 
@@ -7672,7 +7718,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
    * When not to use::
    * 	 -  Users need to select one color from a predefined set of colors. Use the ColorPalette component instead.
    */
-  export default class ColorPicker extends WebComponent {
+  class ColorPicker extends WebComponent {
     /**
      * Constructor for a new `ColorPicker`.
      *
@@ -7796,7 +7842,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -7836,6 +7882,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
       sColor: CSSColor
     ): this;
   }
+  export default ColorPicker;
 
   export interface $ColorPickerSettings extends $WebComponentSettings {
     /**
@@ -7850,6 +7897,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
      */
     change?: (oEvent: Event) => void;
   }
+
+  export interface $ColorPickerChangeEventParameters {}
 }
 
 declare module "sap/ui/webc/main/ComboBox" {
@@ -7886,7 +7935,7 @@ declare module "sap/ui/webc/main/ComboBox" {
    *
    * Structure: The `sap.ui.webc.main.ComboBox` consists of the following elements:
    * 	 -  Input field - displays the selected option or a custom user entry. Users can type to narrow down
-   * 			the list or enter their own value.  Drop-down arrow - expands\collapses the option list.
+   *     the list or enter their own value.  Drop-down arrow - expands\collapses the option list.
    * 	 -  Option list - the list of available options.
    *
    * Keyboard Handling:
@@ -7903,11 +7952,11 @@ declare module "sap/ui/webc/main/ComboBox" {
    * 	 - [PAGEDOWN] - Moves selection down by page size (10 items by default).
    * 	 - [PAGEUP] - Moves selection up by page size (10 items by default).
    * 	 - [HOME] - If focus is in the ComboBox, moves cursor at the beginning of text. If focus is in the picker,
-   * 			selects the first item.
+   *     selects the first item.
    * 	 - [END] - If focus is in the ComboBox, moves cursor at the end of text. If focus is in the picker,
-   * 			selects the last item.
+   *     selects the last item.
    */
-  export default class ComboBox extends WebComponent implements IFormContent {
+  class ComboBox extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `ComboBox`.
@@ -8105,7 +8154,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ComboBoxSelectionChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.ComboBox` itself
        */
@@ -8126,7 +8175,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ComboBoxSelectionChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.ComboBox` itself
        */
@@ -8190,14 +8239,14 @@ declare module "sap/ui/webc/main/ComboBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ComboBoxSelectionChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -8210,7 +8259,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -8223,7 +8272,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -8233,12 +8282,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * item to be selected.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $ComboBoxSelectionChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -8249,8 +8293,7 @@ declare module "sap/ui/webc/main/ComboBox" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -8653,6 +8696,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       sWidth: CSSSize
     ): this;
   }
+  export default ComboBox;
 
   export interface $ComboBoxSettings extends $WebComponentSettings {
     /**
@@ -8762,7 +8806,20 @@ declare module "sap/ui/webc/main/ComboBox" {
     /**
      * Fired when selection is changed by user interaction
      */
-    selectionChange?: (oEvent: Event) => void;
+    selectionChange?: (
+      oEvent: Event<$ComboBoxSelectionChangeEventParameters>
+    ) => void;
+  }
+
+  export interface $ComboBoxChangeEventParameters {}
+
+  export interface $ComboBoxInputEventParameters {}
+
+  export interface $ComboBoxSelectionChangeEventParameters {
+    /**
+     * item to be selected.
+     */
+    item?: HTMLElement;
   }
 }
 
@@ -8785,9 +8842,7 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
    * The `sap.ui.webc.main.ComboBoxGroupItem` is type of suggestion item, that can be used to split the `sap.ui.webc.main.ComboBox`
    * suggestions into groups.
    */
-  export default class ComboBoxGroupItem
-    extends WebComponent
-    implements IComboBoxItem {
+  class ComboBoxGroupItem extends WebComponent implements IComboBoxItem {
     __implements__sap_ui_webc_main_IComboBoxItem: boolean;
     /**
      * Constructor for a new `ComboBoxGroupItem`.
@@ -8877,6 +8932,7 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
       sText?: string
     ): this;
   }
+  export default ComboBoxGroupItem;
 
   export interface $ComboBoxGroupItemSettings extends $WebComponentSettings {
     /**
@@ -8904,9 +8960,7 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
    *
    * The `sap.ui.webc.main.ComboBoxItem` represents the item for a `sap.ui.webc.main.ComboBox`.
    */
-  export default class ComboBoxItem
-    extends WebComponent
-    implements IComboBoxItem {
+  class ComboBoxItem extends WebComponent implements IComboBoxItem {
     __implements__sap_ui_webc_main_IComboBoxItem: boolean;
     /**
      * Constructor for a new `ComboBoxItem`.
@@ -9023,6 +9077,7 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
       sText?: string
     ): this;
   }
+  export default ComboBoxItem;
 
   export interface $ComboBoxItemSettings extends $WebComponentSettings {
     /**
@@ -9065,9 +9120,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
    *
    * The component accepts arbitrary HTML content to allow full customization.
    */
-  export default class CustomListItem
-    extends WebComponent
-    implements IListItem {
+  class CustomListItem extends WebComponent implements IListItem {
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
      * Constructor for a new `CustomListItem`.
@@ -9209,7 +9262,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
      *
@@ -9367,6 +9420,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
       sType?: ListItemType | keyof typeof ListItemType
     ): this;
   }
+  export default CustomListItem;
 
   export interface $CustomListItemSettings extends $WebComponentSettings {
     /**
@@ -9402,6 +9456,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      */
     detailClick?: (oEvent: Event) => void;
   }
+
+  export interface $CustomListItemDetailClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/DatePicker" {
@@ -9446,8 +9502,8 @@ declare module "sap/ui/webc/main/DatePicker" {
    * If a date is entered by typing it into the input field, it must fit to the used date format.
    *
    *  Supported format options are pattern-based on Unicode LDML Date Format notation. For more information,
-   * see {@link http://unicode.org/reports/tr35/#Date_Field_Symbol_Table UTS #35: Unicode Locale Data Markup
-   * Language}.
+   * see {@link http://unicode.org/reports/tr35/#Date_Field_Symbol_Table UTS #35: Unicode Locale Data Markup Language}.
+   *
    *
    *  For example, if the `format-pattern` is "yyyy-MM-dd", a valid value string is "2015-07-30" and the same
    * is displayed in the input.
@@ -9488,7 +9544,7 @@ declare module "sap/ui/webc/main/DatePicker" {
    * }
    * </script>```
    */
-  export default class DatePicker extends WebComponent implements IFormContent {
+  class DatePicker extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `DatePicker`.
@@ -9580,7 +9636,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DatePickerChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DatePicker` itself
        */
@@ -9600,7 +9656,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DatePickerChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DatePicker` itself
        */
@@ -9625,7 +9681,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DatePickerInputEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DatePicker` itself
        */
@@ -9645,7 +9701,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DatePickerInputEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DatePicker` itself
        */
@@ -9666,7 +9722,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DatePickerChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9683,14 +9739,14 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DatePickerInputEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -9703,19 +9759,10 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The submitted value.
-         */
-        value?: string;
-        /**
-         * Indicator if the value is in correct format pattern and in valid range.
-         */
-        valid?: boolean;
-      }
+      mParameters?: $DatePickerChangeEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -9728,16 +9775,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The submitted value.
-         */
-        value?: string;
-        /**
-         * Indicator if the value is in correct format pattern and in valid range.
-         */
-        valid?: boolean;
-      }
+      mParameters?: $DatePickerInputEventParameters
     ): boolean;
     /**
      * Formats a Java Script date object into a string representing a locale date according to the `formatPattern`
@@ -9758,8 +9796,7 @@ declare module "sap/ui/webc/main/DatePicker" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -10278,6 +10315,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       sWidth: CSSSize
     ): this;
   }
+  export default DatePicker;
 
   export interface $DatePickerSettings extends $WebComponentSettings {
     /**
@@ -10405,12 +10443,36 @@ declare module "sap/ui/webc/main/DatePicker" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Event<$DatePickerChangeEventParameters>) => void;
 
     /**
      * Fired when the value of the component is changed at each key stroke.
      */
-    input?: (oEvent: Event) => void;
+    input?: (oEvent: Event<$DatePickerInputEventParameters>) => void;
+  }
+
+  export interface $DatePickerChangeEventParameters {
+    /**
+     * The submitted value.
+     */
+    value?: string;
+
+    /**
+     * Indicator if the value is in correct format pattern and in valid range.
+     */
+    valid?: boolean;
+  }
+
+  export interface $DatePickerInputEventParameters {
+    /**
+     * The submitted value.
+     */
+    value?: string;
+
+    /**
+     * Indicator if the value is in correct format pattern and in valid range.
+     */
+    valid?: boolean;
   }
 }
 
@@ -10455,9 +10517,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
    * 	 - [SHIFT] + [PAGEUP] - Increments the corresponding month by one
    * 	 - [SHIFT] + [CTRL] + [PAGEUP] - Increments the corresponding year by one
    */
-  export default class DateRangePicker
-    extends WebComponent
-    implements IFormContent {
+  class DateRangePicker extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `DateRangePicker`.
@@ -10549,7 +10609,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateRangePickerChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DateRangePicker` itself
        */
@@ -10569,7 +10629,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateRangePickerChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DateRangePicker` itself
        */
@@ -10594,7 +10654,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateRangePickerInputEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DateRangePicker` itself
        */
@@ -10614,7 +10674,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateRangePickerInputEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DateRangePicker` itself
        */
@@ -10635,7 +10695,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateRangePickerChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10652,14 +10712,14 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateRangePickerInputEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -10672,19 +10732,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The submitted value.
-         */
-        value?: string;
-        /**
-         * Indicator if the value is in correct format pattern and in valid range.
-         */
-        valid?: boolean;
-      }
+      mParameters?: $DateRangePickerChangeEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -10697,16 +10748,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The submitted value.
-         */
-        value?: string;
-        /**
-         * Indicator if the value is in correct format pattern and in valid range.
-         */
-        valid?: boolean;
-      }
+      mParameters?: $DateRangePickerInputEventParameters
     ): boolean;
     /**
      * Formats a Java Script date object into a string representing a locale date according to the `formatPattern`
@@ -10727,8 +10769,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -11286,6 +11327,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       sWidth: CSSSize
     ): this;
   }
+  export default DateRangePicker;
 
   export interface $DateRangePickerSettings extends $WebComponentSettings {
     /**
@@ -11419,12 +11461,36 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Event<$DateRangePickerChangeEventParameters>) => void;
 
     /**
      * Fired when the value of the component is changed at each key stroke.
      */
-    input?: (oEvent: Event) => void;
+    input?: (oEvent: Event<$DateRangePickerInputEventParameters>) => void;
+  }
+
+  export interface $DateRangePickerChangeEventParameters {
+    /**
+     * The submitted value.
+     */
+    value?: string;
+
+    /**
+     * Indicator if the value is in correct format pattern and in valid range.
+     */
+    valid?: boolean;
+  }
+
+  export interface $DateRangePickerInputEventParameters {
+    /**
+     * The submitted value.
+     */
+    value?: string;
+
+    /**
+     * Indicator if the value is in correct format pattern and in valid range.
+     */
+    valid?: boolean;
   }
 }
 
@@ -11470,8 +11536,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
    * The value entered by typing into the input field must fit to the used date/time format.
    *
    *  Supported format options are pattern-based on Unicode LDML Date Format notation. For more information,
-   * see {@link https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table UTS #35: Unicode
-   * Locale Data Markup Language}.
+   * see {@link https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table UTS #35: Unicode Locale Data Markup Language}.
+   *
    *
    *  **Example:** the following format `dd/MM/yyyy, hh:mm:ss aa` corresponds the `13/04/2020, 03:16:16 AM`
    * value.
@@ -11504,9 +11570,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
    * The `DateTimePicker` is responsive and fully adapts to all devices. For larger screens, such as tablet
    * or desktop, it is displayed as a popover, while on phone devices, it is displayed full screen.
    */
-  export default class DateTimePicker
-    extends WebComponent
-    implements IFormContent {
+  class DateTimePicker extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `DateTimePicker`.
@@ -11598,7 +11662,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateTimePickerChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DateTimePicker` itself
        */
@@ -11618,7 +11682,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateTimePickerChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DateTimePicker` itself
        */
@@ -11643,7 +11707,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateTimePickerInputEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DateTimePicker` itself
        */
@@ -11663,7 +11727,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateTimePickerInputEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.DateTimePicker` itself
        */
@@ -11684,7 +11748,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateTimePickerChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11701,14 +11765,14 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DateTimePickerInputEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -11721,19 +11785,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The submitted value.
-         */
-        value?: string;
-        /**
-         * Indicator if the value is in correct format pattern and in valid range.
-         */
-        valid?: boolean;
-      }
+      mParameters?: $DateTimePickerChangeEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -11746,16 +11801,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The submitted value.
-         */
-        value?: string;
-        /**
-         * Indicator if the value is in correct format pattern and in valid range.
-         */
-        valid?: boolean;
-      }
+      mParameters?: $DateTimePickerInputEventParameters
     ): boolean;
     /**
      * Formats a Java Script date object into a string representing a locale date according to the `formatPattern`
@@ -11776,8 +11822,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -12296,6 +12341,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       sWidth: CSSSize
     ): this;
   }
+  export default DateTimePicker;
 
   export interface $DateTimePickerSettings extends $WebComponentSettings {
     /**
@@ -12423,12 +12469,36 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Event<$DateTimePickerChangeEventParameters>) => void;
 
     /**
      * Fired when the value of the component is changed at each key stroke.
      */
-    input?: (oEvent: Event) => void;
+    input?: (oEvent: Event<$DateTimePickerInputEventParameters>) => void;
+  }
+
+  export interface $DateTimePickerChangeEventParameters {
+    /**
+     * The submitted value.
+     */
+    value?: string;
+
+    /**
+     * Indicator if the value is in correct format pattern and in valid range.
+     */
+    valid?: boolean;
+  }
+
+  export interface $DateTimePickerInputEventParameters {
+    /**
+     * The submitted value.
+     */
+    value?: string;
+
+    /**
+     * Indicator if the value is in correct format pattern and in valid range.
+     */
+    valid?: boolean;
   }
 }
 
@@ -12488,7 +12558,7 @@ declare module "sap/ui/webc/main/Dialog" {
    * **Note:** We don't recommend nesting popup-like components (`sap.ui.webc.main.Dialog`, `sap.ui.webc.main.Popover`)
    * inside other components containing z-index. This might break z-index management.
    */
-  export default class Dialog extends WebComponent {
+  class Dialog extends WebComponent {
     /**
      * Constructor for a new `Dialog`.
      *
@@ -12707,7 +12777,7 @@ declare module "sap/ui/webc/main/Dialog" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DialogBeforeCloseEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Dialog` itself
        */
@@ -12728,7 +12798,7 @@ declare module "sap/ui/webc/main/Dialog" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DialogBeforeCloseEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Dialog` itself
        */
@@ -12848,7 +12918,7 @@ declare module "sap/ui/webc/main/Dialog" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$DialogBeforeCloseEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12872,7 +12942,7 @@ declare module "sap/ui/webc/main/Dialog" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      *
@@ -12885,7 +12955,7 @@ declare module "sap/ui/webc/main/Dialog" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
      *
@@ -12898,7 +12968,7 @@ declare module "sap/ui/webc/main/Dialog" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:beforeClose beforeClose} to attached listeners.
      *
@@ -12911,15 +12981,10 @@ declare module "sap/ui/webc/main/Dialog" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Indicates that `ESC` key has triggered the event.
-         */
-        escPressed?: boolean;
-      }
+      mParameters?: $DialogBeforeCloseEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -12945,8 +13010,7 @@ declare module "sap/ui/webc/main/Dialog" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -13411,6 +13475,7 @@ declare module "sap/ui/webc/main/Dialog" {
       preventInitialFocus: boolean
     ): void;
   }
+  export default Dialog;
 
   export interface $DialogSettings extends $WebComponentSettings {
     /**
@@ -13512,7 +13577,7 @@ declare module "sap/ui/webc/main/Dialog" {
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
      */
-    beforeClose?: (oEvent: Event) => void;
+    beforeClose?: (oEvent: Event<$DialogBeforeCloseEventParameters>) => void;
 
     /**
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
@@ -13520,6 +13585,19 @@ declare module "sap/ui/webc/main/Dialog" {
      */
     beforeOpen?: (oEvent: Event) => void;
   }
+
+  export interface $DialogAfterCloseEventParameters {}
+
+  export interface $DialogAfterOpenEventParameters {}
+
+  export interface $DialogBeforeCloseEventParameters {
+    /**
+     * Indicates that `ESC` key has triggered the event.
+     */
+    escPressed?: boolean;
+  }
+
+  export interface $DialogBeforeOpenEventParameters {}
 }
 
 declare module "sap/ui/webc/main/FileUploader" {
@@ -13556,9 +13634,7 @@ declare module "sap/ui/webc/main/FileUploader" {
    *  And, similar to all input based components, the FileUploader supports "valueState", "placeholder", "name",
    * and "disabled" properties.
    */
-  export default class FileUploader
-    extends WebComponent
-    implements IFormContent {
+  class FileUploader extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `FileUploader`.
@@ -13652,7 +13728,7 @@ declare module "sap/ui/webc/main/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$FileUploaderChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.FileUploader` itself
        */
@@ -13674,7 +13750,7 @@ declare module "sap/ui/webc/main/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$FileUploaderChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.FileUploader` itself
        */
@@ -13697,14 +13773,14 @@ declare module "sap/ui/webc/main/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$FileUploaderChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -13714,12 +13790,7 @@ declare module "sap/ui/webc/main/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current files.
-         */
-        files?: FileList;
-      }
+      mParameters?: $FileUploaderChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccept accept}.
@@ -14089,6 +14160,7 @@ declare module "sap/ui/webc/main/FileUploader" {
       sWidth: CSSSize
     ): this;
   }
+  export default FileUploader;
 
   export interface $FileUploaderSettings extends $WebComponentSettings {
     /**
@@ -14176,7 +14248,14 @@ declare module "sap/ui/webc/main/FileUploader" {
      * of the HTML input element of type file, the event is also fired in Chrome browser when the Cancel button
      * of the uploads window is pressed.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Event<$FileUploaderChangeEventParameters>) => void;
+  }
+
+  export interface $FileUploaderChangeEventParameters {
+    /**
+     * The current files.
+     */
+    files?: FileList;
   }
 }
 
@@ -14199,9 +14278,7 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
    * The `sap.ui.webc.main.GroupHeaderListItem` is a special list item, used only to separate other list items
    * into logical groups.
    */
-  export default class GroupHeaderListItem
-    extends WebComponent
-    implements IListItem {
+  class GroupHeaderListItem extends WebComponent implements IListItem {
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
      * Constructor for a new `GroupHeaderListItem`.
@@ -14347,6 +14424,7 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
       sText?: string
     ): this;
   }
+  export default GroupHeaderListItem;
 
   export interface $GroupHeaderListItemSettings extends $WebComponentSettings {
     /**
@@ -14403,14 +14481,14 @@ declare module "sap/ui/webc/main/Icon" {
    *
    *
    * 	 -  {@link https://www.npmjs.com/package/@ui5/webcomponents-icons @ui5/webcomponents-icons} represents
-   * 			the "SAP-icons" collection and includes the following {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons
-   * 			icons}.
-   * 	 -  {@link https://www.npmjs.com/package/@ui5/webcomponents-icons-tnt @ui5/webcomponents-icons-tnt}
-   * 			represents the "tnt" collection and includes the following {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT
-   * 			icons}.
-   * 	 -  {@link https://www.npmjs.com/package/@ui5/webcomponents-icons-business-suite @ui5/webcomponents-icons-icons-business-suite}
-   * 			represents the "business-suite" collection and includes the following {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols
-   * 			icons}.
+   *     the "SAP-icons" collection and includes the following {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons icons}.
+   *
+   * 	 -  {@link https://www.npmjs.com/package/@ui5/webcomponents-icons-tnt @ui5/webcomponents-icons-tnt }
+   *     represents the "tnt" collection and includes the following {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT icons}.
+   *
+   * 	 -  {@link https://www.npmjs.com/package/@ui5/webcomponents-icons-business-suite @ui5/webcomponents-icons-icons-business-suite }
+   *     represents the "business-suite" collection and includes the following {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols icons}.
+   *
    *
    * 2. **After exploring the icons collections, add one or more of the packages as dependencies to your project.**
    *
@@ -14439,9 +14517,9 @@ declare module "sap/ui/webc/main/Icon" {
    *
    * 	 - [SPACE, ENTER, RETURN] - Fires the `click` event if the `interactive` property is set to true.
    * 	 - [SHIFT] - If [SPACE] or [ENTER],[RETURN] is pressed, pressing [SHIFT] releases the ui5-icon without
-   * 			triggering the click event.
+   *     triggering the click event.
    */
-  export default class Icon extends WebComponent implements IIcon {
+  class Icon extends WebComponent implements IIcon {
     __implements__sap_ui_webc_main_IIcon: boolean;
     /**
      * Constructor for a new `Icon`.
@@ -14566,7 +14644,7 @@ declare module "sap/ui/webc/main/Icon" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -14866,6 +14944,7 @@ declare module "sap/ui/webc/main/Icon" {
       sWidth: CSSSize
     ): this;
   }
+  export default Icon;
 
   export interface $IconSettings extends $WebComponentSettings {
     /**
@@ -14948,6 +15027,8 @@ declare module "sap/ui/webc/main/Icon" {
      */
     click?: (oEvent: Event) => void;
   }
+
+  export interface $IconClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Input" {
@@ -15001,23 +15082,21 @@ declare module "sap/ui/webc/main/Input" {
    *
    *
    * 	 - [ESC] - Closes the suggestion list, if open. If closed or not enabled, cancels changes and reverts
-   * 			to the value which the Input field had when it got the focus.
+   *     to the value which the Input field had when it got the focus.
    * 	 - [ENTER] or [RETURN] - If suggestion list is open takes over the current matching item and closes
-   * 			it. If value state or group header is focused, does nothing.
+   *     it. If value state or group header is focused, does nothing.
    * 	 - [DOWN] - Focuses the next matching item in the suggestion list.
    * 	 - [UP] - Focuses the previous matching item in the suggestion list.
    * 	 - [HOME] - If focus is in the text input, moves caret before the first character. If focus is in the
-   * 			list, highlights the first item and updates the input accordingly.
+   *     list, highlights the first item and updates the input accordingly.
    * 	 - [END] - If focus is in the text input, moves caret after the last character. If focus is in the list,
-   * 			highlights the last item and updates the input accordingly.
+   *     highlights the last item and updates the input accordingly.
    * 	 - [PAGEUP] - If focus is in the list, moves highlight up by page size (10 items by default). If focus
-   * 			is in the input, does nothing.
+   *     is in the input, does nothing.
    * 	 - [PAGEDOWN] - If focus is in the list, moves highlight down by page size (10 items by default). If
-   * 			focus is in the input, does nothing.
+   *     focus is in the input, does nothing.
    */
-  export default class Input
-    extends WebComponent
-    implements IInput, IFormContent {
+  class Input extends WebComponent implements IInput, IFormContent {
     __implements__sap_ui_webc_main_IInput: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
     /**
@@ -15206,7 +15285,7 @@ declare module "sap/ui/webc/main/Input" {
       oListener?: object
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggestionItemPreview suggestionItemPreview}
+     * Attaches event handler `fnFunction` to the {@link #event:suggestionItemPreview suggestionItemPreview }
      * event of this `sap.ui.webc.main.Input`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -15226,14 +15305,16 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$InputSuggestionItemPreviewEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Input` itself
        */
       oListener?: object
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggestionItemPreview suggestionItemPreview}
+     * Attaches event handler `fnFunction` to the {@link #event:suggestionItemPreview suggestionItemPreview }
      * event of this `sap.ui.webc.main.Input`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -15248,7 +15329,9 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$InputSuggestionItemPreviewEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Input` itself
        */
@@ -15274,7 +15357,9 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$InputSuggestionItemSelectEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Input` itself
        */
@@ -15295,7 +15380,9 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$InputSuggestionItemSelectEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Input` itself
        */
@@ -15348,7 +15435,7 @@ declare module "sap/ui/webc/main/Input" {
       oListener?: object
     ): this;
     /**
-     * Detaches event handler `fnFunction` from the {@link #event:suggestionItemPreview suggestionItemPreview}
+     * Detaches event handler `fnFunction` from the {@link #event:suggestionItemPreview suggestionItemPreview }
      * event of this `sap.ui.webc.main.Input`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -15359,14 +15446,16 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$InputSuggestionItemPreviewEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Detaches event handler `fnFunction` from the {@link #event:suggestionItemSelect suggestionItemSelect}
+     * Detaches event handler `fnFunction` from the {@link #event:suggestionItemSelect suggestionItemSelect }
      * event of this `sap.ui.webc.main.Input`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -15377,14 +15466,16 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$InputSuggestionItemSelectEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -15397,7 +15488,7 @@ declare module "sap/ui/webc/main/Input" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -15410,7 +15501,7 @@ declare module "sap/ui/webc/main/Input" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:suggestionItemPreview suggestionItemPreview} to attached listeners.
      *
@@ -15420,19 +15511,10 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The previewed suggestion item.
-         */
-        item?: HTMLElement;
-        /**
-         * The DOM ref of the suggestion item.
-         */
-        targetRef?: HTMLElement;
-      }
+      mParameters?: $InputSuggestionItemPreviewEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:suggestionItemSelect suggestionItemSelect} to attached listeners.
      *
@@ -15442,12 +15524,7 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The selected item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $InputSuggestionItemSelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -15458,8 +15535,7 @@ declare module "sap/ui/webc/main/Input" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -15586,9 +15662,9 @@ declare module "sap/ui/webc/main/Input" {
      *
      *  **Notes:**
      * 	 - The particular effect of this property differs depending on the browser and the current language
-     * 			settings, especially for type `Number`.
+     *     settings, especially for type `Number`.
      * 	 - The property is mostly intended to be used with touch devices that use different soft keyboard layouts
-     * 			depending on the given input type.
+     *     depending on the given input type.
      *
      * Default value is `Text`.
      *
@@ -15659,8 +15735,8 @@ declare module "sap/ui/webc/main/Input" {
       oIcon: IIcon
     ): int;
     /**
-     * Checks for the provided `sap.ui.webc.main.IInputSuggestionItem` in the aggregation {@link #getSuggestionItems
-     * suggestionItems}. and returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.webc.main.IInputSuggestionItem` in the aggregation {@link #getSuggestionItems suggestionItems}.
+     * and returns its index if found or -1 otherwise.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -15952,9 +16028,9 @@ declare module "sap/ui/webc/main/Input" {
      *
      *  **Notes:**
      * 	 - The particular effect of this property differs depending on the browser and the current language
-     * 			settings, especially for type `Number`.
+     *     settings, especially for type `Number`.
      * 	 - The property is mostly intended to be used with touch devices that use different soft keyboard layouts
-     * 			depending on the given input type.
+     *     depending on the given input type.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -16048,6 +16124,7 @@ declare module "sap/ui/webc/main/Input" {
       sWidth: CSSSize
     ): this;
   }
+  export default Input;
 
   export interface $InputSettings extends $WebComponentSettings {
     /**
@@ -16120,9 +16197,9 @@ declare module "sap/ui/webc/main/Input" {
      *
      *  **Notes:**
      * 	 - The particular effect of this property differs depending on the browser and the current language
-     * 			settings, especially for type `Number`.
+     *     settings, especially for type `Number`.
      * 	 - The property is mostly intended to be used with touch devices that use different soft keyboard layouts
-     * 			depending on the given input type.
+     *     depending on the given input type.
      */
     type?:
       | (InputType | keyof typeof InputType)
@@ -16196,12 +16273,39 @@ declare module "sap/ui/webc/main/Input" {
      * Fired when the user navigates to a suggestion item via the ARROW keys, as a preview, before the final
      * selection.
      */
-    suggestionItemPreview?: (oEvent: Event) => void;
+    suggestionItemPreview?: (
+      oEvent: Event<$InputSuggestionItemPreviewEventParameters>
+    ) => void;
 
     /**
      * Fired when a suggestion item, that is displayed in the suggestion popup, is selected.
      */
-    suggestionItemSelect?: (oEvent: Event) => void;
+    suggestionItemSelect?: (
+      oEvent: Event<$InputSuggestionItemSelectEventParameters>
+    ) => void;
+  }
+
+  export interface $InputChangeEventParameters {}
+
+  export interface $InputInputEventParameters {}
+
+  export interface $InputSuggestionItemPreviewEventParameters {
+    /**
+     * The previewed suggestion item.
+     */
+    item?: HTMLElement;
+
+    /**
+     * The DOM ref of the suggestion item.
+     */
+    targetRef?: HTMLElement;
+  }
+
+  export interface $InputSuggestionItemSelectEventParameters {
+    /**
+     * The selected item.
+     */
+    item?: HTMLElement;
   }
 }
 
@@ -16235,7 +16339,7 @@ declare module "sap/ui/webc/main/Label" {
    * The appearance of the Label can be configured in a limited way by using the design property. For a broader
    * choice of designs, you can use custom styles.
    */
-  export default class Label extends WebComponent implements Label1 {
+  class Label extends WebComponent implements Label1 {
     __implements__sap_ui_core_Label: boolean;
     /**
      * Constructor for a new `Label`.
@@ -16459,6 +16563,7 @@ declare module "sap/ui/webc/main/Label" {
       sWrappingType?: WrappingType | keyof typeof WrappingType
     ): this;
   }
+  export default Label;
 
   export interface $LabelSettings extends $WebComponentSettings {
     /**
@@ -16550,7 +16655,7 @@ declare module "sap/ui/webc/main/Link" {
    * If there is not enough space, the text of the `sap.ui.webc.main.Link` becomes truncated. If the `wrappingType`
    * property is set to `"Normal"`, the text is displayed on several lines instead of being truncated.
    */
-  export default class Link extends WebComponent {
+  class Link extends WebComponent {
     /**
      * Constructor for a new `Link`.
      *
@@ -16641,7 +16746,7 @@ declare module "sap/ui/webc/main/Link" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$LinkClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Link` itself
        */
@@ -16661,7 +16766,7 @@ declare module "sap/ui/webc/main/Link" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$LinkClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Link` itself
        */
@@ -16678,14 +16783,14 @@ declare module "sap/ui/webc/main/Link" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$LinkClickEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -16698,24 +16803,7 @@ declare module "sap/ui/webc/main/Link" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Returns whether the "ALT" key was pressed when the event was triggered.
-         */
-        altKey?: boolean;
-        /**
-         * Returns whether the "CTRL" key was pressed when the event was triggered.
-         */
-        ctrlKey?: boolean;
-        /**
-         * Returns whether the "META" key was pressed when the event was triggered.
-         */
-        metaKey?: boolean;
-        /**
-         * Returns whether the "SHIFT" key was pressed when the event was triggered.
-         */
-        shiftKey?: boolean;
-      }
+      mParameters?: $LinkClickEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getAccessibilityAttributes accessibilityAttributes}.
@@ -16727,11 +16815,11 @@ declare module "sap/ui/webc/main/Link" {
      *
      *
      * 	 - `expanded`: Indicates whether the anchor element, or another grouping element it controls, is currently
-     * 			expanded or collapsed. Accepts the following string values:
+     *     expanded or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the anchor element. Accepts the following string values:
+     *     that can be triggered by the anchor element. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
@@ -16754,8 +16842,7 @@ declare module "sap/ui/webc/main/Link" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -16864,11 +16951,11 @@ declare module "sap/ui/webc/main/Link" {
      *
      *
      * 	 - `expanded`: Indicates whether the anchor element, or another grouping element it controls, is currently
-     * 			expanded or collapsed. Accepts the following string values:
+     *     expanded or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the anchor element. Accepts the following string values:
+     *     that can be triggered by the anchor element. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
@@ -17026,6 +17113,7 @@ declare module "sap/ui/webc/main/Link" {
       sWrappingType?: WrappingType | keyof typeof WrappingType
     ): this;
   }
+  export default Link;
 
   export interface $LinkSettings extends $WebComponentSettings {
     /**
@@ -17036,11 +17124,11 @@ declare module "sap/ui/webc/main/Link" {
      *
      *
      * 	 - `expanded`: Indicates whether the anchor element, or another grouping element it controls, is currently
-     * 			expanded or collapsed. Accepts the following string values:
+     *     expanded or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the anchor element. Accepts the following string values:
+     *     that can be triggered by the anchor element. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
@@ -17117,7 +17205,29 @@ declare module "sap/ui/webc/main/Link" {
     /**
      * Fired when the component is triggered either with a mouse/tap or by using the Enter key.
      */
-    click?: (oEvent: Event) => void;
+    click?: (oEvent: Event<$LinkClickEventParameters>) => void;
+  }
+
+  export interface $LinkClickEventParameters {
+    /**
+     * Returns whether the "ALT" key was pressed when the event was triggered.
+     */
+    altKey?: boolean;
+
+    /**
+     * Returns whether the "CTRL" key was pressed when the event was triggered.
+     */
+    ctrlKey?: boolean;
+
+    /**
+     * Returns whether the "META" key was pressed when the event was triggered.
+     */
+    metaKey?: boolean;
+
+    /**
+     * Returns whether the "SHIFT" key was pressed when the event was triggered.
+     */
+    shiftKey?: boolean;
   }
 }
 
@@ -17185,7 +17295,7 @@ declare module "sap/ui/webc/main/List" {
    * 	 - [SPACE] - Select an item (if `type` is 'Active') when `mode` is selection
    * 	 - [DELETE] - Delete an item if `mode` property is `Delete`
    */
-  export default class List extends WebComponent {
+  class List extends WebComponent {
     /**
      * Constructor for a new `List`.
      *
@@ -17298,7 +17408,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17318,7 +17428,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17346,7 +17456,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemCloseEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17369,7 +17479,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemCloseEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17396,7 +17506,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemDeleteEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17418,7 +17528,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemDeleteEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17446,7 +17556,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemToggleEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17469,7 +17579,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemToggleEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17545,7 +17655,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListSelectionChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17567,7 +17677,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListSelectionChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.List` itself
        */
@@ -17596,7 +17706,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemClickEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17613,7 +17723,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemCloseEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17630,7 +17740,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemDeleteEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17647,7 +17757,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListItemToggleEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17682,14 +17792,14 @@ declare module "sap/ui/webc/main/List" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$ListSelectionChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -17702,15 +17812,10 @@ declare module "sap/ui/webc/main/List" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The clicked item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $ListItemClickEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemClose itemClose} to attached listeners.
      *
@@ -17720,15 +17825,10 @@ declare module "sap/ui/webc/main/List" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the item about to be closed.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $ListItemCloseEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemDelete itemDelete} to attached listeners.
      *
@@ -17738,15 +17838,10 @@ declare module "sap/ui/webc/main/List" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the deleted item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $ListItemDeleteEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemToggle itemToggle} to attached listeners.
      *
@@ -17756,15 +17851,10 @@ declare module "sap/ui/webc/main/List" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the toggled item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $ListItemToggleEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:loadMore loadMore} to attached listeners.
      *
@@ -17777,7 +17867,7 @@ declare module "sap/ui/webc/main/List" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -17787,16 +17877,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * An array of the selected items.
-         */
-        selectedItems?: any[];
-        /**
-         * An array of the previously selected items.
-         */
-        previouslySelectedItems?: any[];
-      }
+      mParameters?: $ListSelectionChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -17821,8 +17902,7 @@ declare module "sap/ui/webc/main/List" {
      */
     getAccessibleRole(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -17959,7 +18039,7 @@ declare module "sap/ui/webc/main/List" {
      * 	 - Avalaible options are `All`, `Inner`, and `None`.
      * 	 - When set to `None`, none of the items are separated by horizontal lines.
      * 	 - When set to `Inner`, the first item doesn't have a top separator and the last item doesn't have a
-     * 			bottom separator.
+     *     bottom separator.
      *
      * Default value is `All`.
      *
@@ -18303,7 +18383,7 @@ declare module "sap/ui/webc/main/List" {
      * 	 - Avalaible options are `All`, `Inner`, and `None`.
      * 	 - When set to `None`, none of the items are separated by horizontal lines.
      * 	 - When set to `Inner`, the first item doesn't have a top separator and the last item doesn't have a
-     * 			bottom separator.
+     *     bottom separator.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -18333,6 +18413,7 @@ declare module "sap/ui/webc/main/List" {
       sWidth: CSSSize
     ): this;
   }
+  export default List;
 
   export interface $ListSettings extends $WebComponentSettings {
     /**
@@ -18423,7 +18504,7 @@ declare module "sap/ui/webc/main/List" {
      * 	 - Avalaible options are `All`, `Inner`, and `None`.
      * 	 - When set to `None`, none of the items are separated by horizontal lines.
      * 	 - When set to `Inner`, the first item doesn't have a top separator and the last item doesn't have a
-     * 			bottom separator.
+     *     bottom separator.
      */
     separators?:
       | (ListSeparators | keyof typeof ListSeparators)
@@ -18458,7 +18539,7 @@ declare module "sap/ui/webc/main/List" {
     /**
      * Fired when an item is activated, unless the item's `type` property is set to `Inactive`.
      */
-    itemClick?: (oEvent: Event) => void;
+    itemClick?: (oEvent: Event<$ListItemClickEventParameters>) => void;
 
     /**
      * Fired when the `Close` button of any item is clicked
@@ -18466,14 +18547,14 @@ declare module "sap/ui/webc/main/List" {
      *  **Note:** This event is only applicable to list items that can be closed (such as notification list
      * items), not to be confused with `item-delete`.
      */
-    itemClose?: (oEvent: Event) => void;
+    itemClose?: (oEvent: Event<$ListItemCloseEventParameters>) => void;
 
     /**
      * Fired when the Delete button of any item is pressed.
      *
      *  **Note:** A Delete button is displayed on each item, when the component `mode` property is set to `Delete`.
      */
-    itemDelete?: (oEvent: Event) => void;
+    itemDelete?: (oEvent: Event<$ListItemDeleteEventParameters>) => void;
 
     /**
      * Fired when the `Toggle` button of any item is clicked.
@@ -18481,7 +18562,7 @@ declare module "sap/ui/webc/main/List" {
      *  **Note:** This event is only applicable to list items that can be toggled (such as notification group
      * list items).
      */
-    itemToggle?: (oEvent: Event) => void;
+    itemToggle?: (oEvent: Event<$ListItemToggleEventParameters>) => void;
 
     /**
      * Fired when the user scrolls to the bottom of the list.
@@ -18494,7 +18575,51 @@ declare module "sap/ui/webc/main/List" {
      * Fired when selection is changed by user interaction in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`
      * and `MultiSelect` modes.
      */
-    selectionChange?: (oEvent: Event) => void;
+    selectionChange?: (
+      oEvent: Event<$ListSelectionChangeEventParameters>
+    ) => void;
+  }
+
+  export interface $ListItemClickEventParameters {
+    /**
+     * The clicked item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $ListItemCloseEventParameters {
+    /**
+     * the item about to be closed.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $ListItemDeleteEventParameters {
+    /**
+     * the deleted item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $ListItemToggleEventParameters {
+    /**
+     * the toggled item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $ListLoadMoreEventParameters {}
+
+  export interface $ListSelectionChangeEventParameters {
+    /**
+     * An array of the selected items.
+     */
+    selectedItems?: any[];
+
+    /**
+     * An array of the previously selected items.
+     */
+    previouslySelectedItems?: any[];
   }
 }
 
@@ -18534,11 +18659,11 @@ declare module "sap/ui/webc/main/Menu" {
    * shortcuts in order to navigate trough the tree:
    * 	 - `Arrow Up` / `Arrow Down` - Navigates up and down the menu items that are currently visible.
    * 	 - `Arrow Right`, `Space` or `Enter` - Opens a sub-menu if there are menu items nested in the currently
-   * 			clicked menu item.
+   *     clicked menu item.
    * 	 - `Arrow Left` or `Escape` - Closes the currently opened sub-menu.  Note: if the text ditrection
-   * 			is set to Right-to-left (RTL), `Arrow Right` and `Arrow Left` functionality is swapped.
+   *     is set to Right-to-left (RTL), `Arrow Right` and `Arrow Left` functionality is swapped.
    */
-  export default class Menu extends WebComponent {
+  class Menu extends WebComponent {
     /**
      * Constructor for a new `Menu`.
      *
@@ -18629,7 +18754,7 @@ declare module "sap/ui/webc/main/Menu" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$MenuItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Menu` itself
        */
@@ -18649,7 +18774,7 @@ declare module "sap/ui/webc/main/Menu" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$MenuItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Menu` itself
        */
@@ -18676,14 +18801,14 @@ declare module "sap/ui/webc/main/Menu" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$MenuItemClickEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -18693,16 +18818,7 @@ declare module "sap/ui/webc/main/Menu" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The currently clicked menu item.
-         */
-        item?: object;
-        /**
-         * The text of the currently clicked menu item.
-         */
-        text?: string;
-      }
+      mParameters?: $MenuItemClickEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getHeaderText headerText}.
@@ -18795,6 +18911,7 @@ declare module "sap/ui/webc/main/Menu" {
       opener: HTMLElement
     ): void;
   }
+  export default Menu;
 
   export interface $MenuSettings extends $WebComponentSettings {
     /**
@@ -18810,7 +18927,19 @@ declare module "sap/ui/webc/main/Menu" {
     /**
      * Fired when an item is being clicked.
      */
-    itemClick?: (oEvent: Event) => void;
+    itemClick?: (oEvent: Event<$MenuItemClickEventParameters>) => void;
+  }
+
+  export interface $MenuItemClickEventParameters {
+    /**
+     * The currently clicked menu item.
+     */
+    item?: object;
+
+    /**
+     * The text of the currently clicked menu item.
+     */
+    text?: string;
   }
 }
 
@@ -18846,7 +18975,7 @@ declare module "sap/ui/webc/main/MenuItem" {
    * directly in your apps. The `sap.ui.webc.main.StandardListItem` list item is internal for the list, and
    * not intended for public use.
    */
-  export default class MenuItem extends WebComponent implements IMenuItem {
+  class MenuItem extends WebComponent implements IMenuItem {
     __implements__sap_ui_webc_main_IMenuItem: boolean;
     /**
      * Constructor for a new `MenuItem`.
@@ -18942,8 +19071,7 @@ declare module "sap/ui/webc/main/MenuItem" {
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
      * numerous options.
      *
-     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
-     * Icon Explorer}.
+     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -19048,8 +19176,7 @@ declare module "sap/ui/webc/main/MenuItem" {
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
      * numerous options.
      *
-     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
-     * Icon Explorer}.
+     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -19098,6 +19225,7 @@ declare module "sap/ui/webc/main/MenuItem" {
       sText?: string
     ): this;
   }
+  export default MenuItem;
 
   export interface $MenuItemSettings extends $WebComponentSettings {
     /**
@@ -19110,8 +19238,7 @@ declare module "sap/ui/webc/main/MenuItem" {
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
      * numerous options.
      *
-     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
-     * Icon Explorer}.
+     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -19165,7 +19292,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
    *
    * Keyboard Handling:
    */
-  export default class MessageStrip extends WebComponent {
+  class MessageStrip extends WebComponent {
     /**
      * Constructor for a new `MessageStrip`.
      *
@@ -19295,7 +19422,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -19492,6 +19619,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
       sWidth: CSSSize
     ): this;
   }
+  export default MessageStrip;
 
   export interface $MessageStripSettings extends $WebComponentSettings {
     /**
@@ -19547,6 +19675,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      */
     close?: (oEvent: Event) => void;
   }
+
+  export interface $MessageStripCloseEventParameters {}
 }
 
 declare module "sap/ui/webc/main/MultiComboBox" {
@@ -19585,7 +19715,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
    * that permit multi-selection. Entered values are displayed as tokens. Structure: The `sap.ui.webc.main.MultiComboBox`
    * consists of the following elements:
    * 	 -  Tokenizer - a list of tokens with selected options.  Input field - displays the selected option/s
-   * 			as token/s. Users can type to filter the list.  Drop-down arrow - expands\collapses the option list.
+   *     as token/s. Users can type to filter the list.  Drop-down arrow - expands\collapses the option list.
    *
    * 	 -  Option list - the list of available options.  Keyboard Handling:
    *
@@ -19599,7 +19729,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
    *
    * Tokens:
    * 	 -  Left/Right arrow keys - moves the focus selection form the currently focused token to the previous/next
-   * 			one (if available).
+   *     one (if available).
    * 	 -  Delete - deletes the token and focuses the previous token.
    * 	 -  Backspace - deletes the token and focus the next token.
    *
@@ -19610,9 +19740,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
    *  The `sap.ui.webc.main.MultiComboBox` exposes the following CSS Shadow Parts:
    * 	 - token-{index} - Used to style each token(where `token-0` corresponds to the first item)
    */
-  export default class MultiComboBox
-    extends WebComponent
-    implements IFormContent {
+  class MultiComboBox extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `MultiComboBox`.
@@ -19851,7 +19979,9 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiComboBoxSelectionChangeEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.MultiComboBox` itself
        */
@@ -19872,7 +20002,9 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiComboBoxSelectionChangeEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.MultiComboBox` itself
        */
@@ -19953,14 +20085,16 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiComboBoxSelectionChangeEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -19973,7 +20107,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -19986,7 +20120,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:openChange openChange} to attached listeners.
      *
@@ -19999,7 +20133,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -20009,12 +20143,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * an array of the selected items.
-         */
-        items?: any[];
-      }
+      mParameters?: $MultiComboBoxSelectionChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -20035,8 +20164,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      */
     getAllowCustomValues(): boolean;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -20464,6 +20592,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       sWidth: CSSSize
     ): this;
   }
+  export default MultiComboBox;
 
   export interface $MultiComboBoxSettings extends $WebComponentSettings {
     /**
@@ -20583,7 +20712,22 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     /**
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
      */
-    selectionChange?: (oEvent: Event) => void;
+    selectionChange?: (
+      oEvent: Event<$MultiComboBoxSelectionChangeEventParameters>
+    ) => void;
+  }
+
+  export interface $MultiComboBoxChangeEventParameters {}
+
+  export interface $MultiComboBoxInputEventParameters {}
+
+  export interface $MultiComboBoxOpenChangeEventParameters {}
+
+  export interface $MultiComboBoxSelectionChangeEventParameters {
+    /**
+     * an array of the selected items.
+     */
+    items?: any[];
   }
 }
 
@@ -20606,7 +20750,7 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
    * The `sap.ui.webc.main.MultiComboBoxGroupItem` is type of suggestion item, that can be used to split the
    * `sap.ui.webc.main.MultiComboBox` suggestions into groups.
    */
-  export default class MultiComboBoxGroupItem
+  class MultiComboBoxGroupItem
     extends WebComponent
     implements IMultiComboBoxItem {
     __implements__sap_ui_webc_main_IMultiComboBoxItem: boolean;
@@ -20698,6 +20842,7 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
       sText?: string
     ): this;
   }
+  export default MultiComboBoxGroupItem;
 
   export interface $MultiComboBoxGroupItemSettings
     extends $WebComponentSettings {
@@ -20726,9 +20871,7 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
    *
    * The `sap.ui.webc.main.MultiComboBoxItem` represents the item for a `sap.ui.webc.main.MultiComboBox`.
    */
-  export default class MultiComboBoxItem
-    extends WebComponent
-    implements IMultiComboBoxItem {
+  class MultiComboBoxItem extends WebComponent implements IMultiComboBoxItem {
     __implements__sap_ui_webc_main_IMultiComboBoxItem: boolean;
     /**
      * Constructor for a new `MultiComboBoxItem`.
@@ -20872,6 +21015,7 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
       sText?: string
     ): this;
   }
+  export default MultiComboBoxItem;
 
   export interface $MultiComboBoxItemSettings extends $WebComponentSettings {
     /**
@@ -20933,9 +21077,9 @@ declare module "sap/ui/webc/main/MultiInput" {
    * User can choose interaction for creating tokens. Fiori Guidelines say that user should create tokens
    * when:
    * 	 - Type a value in the input and press enter or focus out the input field (`change` event is fired)
-   * 			Select a value from the suggestion list (`suggestion-item-select` event is fired)
+   *     Select a value from the suggestion list (`suggestion-item-select` event is fired)
    */
-  export default class MultiInput
+  class MultiInput
     extends WebComponent
     implements IFormContent, ISemanticFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -21137,7 +21281,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       oListener?: object
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggestionItemPreview suggestionItemPreview}
+     * Attaches event handler `fnFunction` to the {@link #event:suggestionItemPreview suggestionItemPreview }
      * event of this `sap.ui.webc.main.MultiInput`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -21157,14 +21301,16 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiInputSuggestionItemPreviewEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.MultiInput` itself
        */
       oListener?: object
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggestionItemPreview suggestionItemPreview}
+     * Attaches event handler `fnFunction` to the {@link #event:suggestionItemPreview suggestionItemPreview }
      * event of this `sap.ui.webc.main.MultiInput`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -21179,7 +21325,9 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiInputSuggestionItemPreviewEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.MultiInput` itself
        */
@@ -21205,7 +21353,9 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiInputSuggestionItemSelectEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.MultiInput` itself
        */
@@ -21226,7 +21376,9 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiInputSuggestionItemSelectEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.MultiInput` itself
        */
@@ -21251,7 +21403,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$MultiInputTokenDeleteEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.MultiInput` itself
        */
@@ -21271,7 +21423,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$MultiInputTokenDeleteEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.MultiInput` itself
        */
@@ -21379,7 +21531,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       oListener?: object
     ): this;
     /**
-     * Detaches event handler `fnFunction` from the {@link #event:suggestionItemPreview suggestionItemPreview}
+     * Detaches event handler `fnFunction` from the {@link #event:suggestionItemPreview suggestionItemPreview }
      * event of this `sap.ui.webc.main.MultiInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -21390,14 +21542,16 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiInputSuggestionItemPreviewEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Detaches event handler `fnFunction` from the {@link #event:suggestionItemSelect suggestionItemSelect}
+     * Detaches event handler `fnFunction` from the {@link #event:suggestionItemSelect suggestionItemSelect }
      * event of this `sap.ui.webc.main.MultiInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -21408,7 +21562,9 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$MultiInputSuggestionItemSelectEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -21425,7 +21581,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$MultiInputTokenDeleteEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -21450,7 +21606,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -21463,7 +21619,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -21476,7 +21632,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:suggestionItemPreview suggestionItemPreview} to attached listeners.
      *
@@ -21486,19 +21642,10 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The previewed suggestion item.
-         */
-        item?: HTMLElement;
-        /**
-         * The DOM ref of the suggestion item.
-         */
-        targetRef?: HTMLElement;
-      }
+      mParameters?: $MultiInputSuggestionItemPreviewEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:suggestionItemSelect suggestionItemSelect} to attached listeners.
      *
@@ -21508,15 +21655,10 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The selected item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $MultiInputSuggestionItemSelectEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:tokenDelete tokenDelete} to attached listeners.
      *
@@ -21526,15 +21668,10 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * deleted token.
-         */
-        token?: HTMLElement;
-      }
+      mParameters?: $MultiInputTokenDeleteEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:valueHelpTrigger valueHelpTrigger} to attached listeners.
      *
@@ -21555,8 +21692,7 @@ declare module "sap/ui/webc/main/MultiInput" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -21700,9 +21836,9 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      *  **Notes:**
      * 	 - The particular effect of this property differs depending on the browser and the current language
-     * 			settings, especially for type `Number`.
+     *     settings, especially for type `Number`.
      * 	 - The property is mostly intended to be used with touch devices that use different soft keyboard layouts
-     * 			depending on the given input type.
+     *     depending on the given input type.
      *
      * Default value is `Text`.
      *
@@ -21773,8 +21909,8 @@ declare module "sap/ui/webc/main/MultiInput" {
       oIcon: IIcon
     ): int;
     /**
-     * Checks for the provided `sap.ui.webc.main.IInputSuggestionItem` in the aggregation {@link #getSuggestionItems
-     * suggestionItems}. and returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.webc.main.IInputSuggestionItem` in the aggregation {@link #getSuggestionItems suggestionItems}.
+     * and returns its index if found or -1 otherwise.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -22132,9 +22268,9 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      *  **Notes:**
      * 	 - The particular effect of this property differs depending on the browser and the current language
-     * 			settings, especially for type `Number`.
+     *     settings, especially for type `Number`.
      * 	 - The property is mostly intended to be used with touch devices that use different soft keyboard layouts
-     * 			depending on the given input type.
+     *     depending on the given input type.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -22228,6 +22364,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       sWidth: CSSSize
     ): this;
   }
+  export default MultiInput;
 
   export interface $MultiInputSettings extends $WebComponentSettings {
     /**
@@ -22306,9 +22443,9 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      *  **Notes:**
      * 	 - The particular effect of this property differs depending on the browser and the current language
-     * 			settings, especially for type `Number`.
+     *     settings, especially for type `Number`.
      * 	 - The property is mostly intended to be used with touch devices that use different soft keyboard layouts
-     * 			depending on the given input type.
+     *     depending on the given input type.
      */
     type?:
       | (InputType | keyof typeof InputType)
@@ -22387,17 +22524,23 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Fired when the user navigates to a suggestion item via the ARROW keys, as a preview, before the final
      * selection.
      */
-    suggestionItemPreview?: (oEvent: Event) => void;
+    suggestionItemPreview?: (
+      oEvent: Event<$MultiInputSuggestionItemPreviewEventParameters>
+    ) => void;
 
     /**
      * Fired when a suggestion item, that is displayed in the suggestion popup, is selected.
      */
-    suggestionItemSelect?: (oEvent: Event) => void;
+    suggestionItemSelect?: (
+      oEvent: Event<$MultiInputSuggestionItemSelectEventParameters>
+    ) => void;
 
     /**
      * Fired when a token is about to be deleted.
      */
-    tokenDelete?: (oEvent: Event) => void;
+    tokenDelete?: (
+      oEvent: Event<$MultiInputTokenDeleteEventParameters>
+    ) => void;
 
     /**
      * Fired when the value help icon is pressed and F4 or ALT/OPTION + ARROW_UP/ARROW_DOWN keyboard keys are
@@ -22405,6 +22548,38 @@ declare module "sap/ui/webc/main/MultiInput" {
      */
     valueHelpTrigger?: (oEvent: Event) => void;
   }
+
+  export interface $MultiInputChangeEventParameters {}
+
+  export interface $MultiInputInputEventParameters {}
+
+  export interface $MultiInputSuggestionItemPreviewEventParameters {
+    /**
+     * The previewed suggestion item.
+     */
+    item?: HTMLElement;
+
+    /**
+     * The DOM ref of the suggestion item.
+     */
+    targetRef?: HTMLElement;
+  }
+
+  export interface $MultiInputSuggestionItemSelectEventParameters {
+    /**
+     * The selected item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $MultiInputTokenDeleteEventParameters {
+    /**
+     * deleted token.
+     */
+    token?: HTMLElement;
+  }
+
+  export interface $MultiInputValueHelpTriggerEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Option" {
@@ -22427,7 +22602,7 @@ declare module "sap/ui/webc/main/Option" {
    *
    * The `sap.ui.webc.main.Option` component defines the content of an option in the `sap.ui.webc.main.Select`.
    */
-  export default class Option extends WebComponent implements ISelectOption {
+  class Option extends WebComponent implements ISelectOption {
     __implements__sap_ui_webc_main_ISelectOption: boolean;
     /**
      * Constructor for a new `Option`.
@@ -22650,6 +22825,7 @@ declare module "sap/ui/webc/main/Option" {
       sValue: string
     ): this;
   }
+  export default Option;
 
   export interface $OptionSettings extends $WebComponentSettings {
     /**
@@ -22734,12 +22910,12 @@ declare module "sap/ui/webc/main/Panel" {
    *
    * Responsive Behavior:
    * 	 - If the width of the panel is set to 100% (default), the panel and its children are resized responsively,
-   * 			depending on its parent container.
+   *     depending on its parent container.
    * 	 - If the panel has a fixed height, it will take up the space even if the panel is collapsed.
    * 	 - When the panel is expandable (the `fixed` property is set to `false`), an arrow icon (pointing to
-   * 			the right) appears in front of the header.
+   *     the right) appears in front of the header.
    * 	 - When the animation is activated, expand/collapse uses a smooth animation to open or close the content
-   * 			area.
+   *     area.
    * 	 - When the panel expands/collapses, the arrow icon rotates 90 degrees clockwise/counter-clockwise.
    *
    *
@@ -22753,7 +22929,7 @@ declare module "sap/ui/webc/main/Panel" {
    *
    * Keyboard Handling:
    */
-  export default class Panel extends WebComponent {
+  class Panel extends WebComponent {
     /**
      * Constructor for a new `Panel`.
      *
@@ -22911,7 +23087,7 @@ declare module "sap/ui/webc/main/Panel" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:toggle toggle} to attached listeners.
      *
@@ -23283,6 +23459,7 @@ declare module "sap/ui/webc/main/Panel" {
       sWidth: CSSSize
     ): this;
   }
+  export default Panel;
 
   export interface $PanelSettings extends $WebComponentSettings {
     /**
@@ -23360,6 +23537,8 @@ declare module "sap/ui/webc/main/Panel" {
      */
     toggle?: (oEvent: Event) => void;
   }
+
+  export interface $PanelToggleEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Popover" {
@@ -23416,7 +23595,7 @@ declare module "sap/ui/webc/main/Popover" {
    * 	 - content - Used to style the content of the component
    * 	 - footer - Used to style the footer of the component
    */
-  export default class Popover extends WebComponent {
+  class Popover extends WebComponent {
     /**
      * Constructor for a new `Popover`.
      *
@@ -23635,7 +23814,7 @@ declare module "sap/ui/webc/main/Popover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$PopoverBeforeCloseEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Popover` itself
        */
@@ -23656,7 +23835,7 @@ declare module "sap/ui/webc/main/Popover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$PopoverBeforeCloseEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Popover` itself
        */
@@ -23776,7 +23955,7 @@ declare module "sap/ui/webc/main/Popover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$PopoverBeforeCloseEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -23800,7 +23979,7 @@ declare module "sap/ui/webc/main/Popover" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      *
@@ -23813,7 +23992,7 @@ declare module "sap/ui/webc/main/Popover" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
      *
@@ -23826,7 +24005,7 @@ declare module "sap/ui/webc/main/Popover" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:beforeClose beforeClose} to attached listeners.
      *
@@ -23839,15 +24018,10 @@ declare module "sap/ui/webc/main/Popover" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Indicates that `ESC` key has triggered the event.
-         */
-        escPressed?: boolean;
-      }
+      mParameters?: $PopoverBeforeCloseEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -23883,8 +24057,7 @@ declare module "sap/ui/webc/main/Popover" {
      */
     getAllowTargetOverlap(): boolean;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -24490,6 +24663,7 @@ declare module "sap/ui/webc/main/Popover" {
       preventInitialFocus: boolean
     ): void;
   }
+  export default Popover;
 
   export interface $PopoverSettings extends $WebComponentSettings {
     /**
@@ -24631,7 +24805,7 @@ declare module "sap/ui/webc/main/Popover" {
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
      */
-    beforeClose?: (oEvent: Event) => void;
+    beforeClose?: (oEvent: Event<$PopoverBeforeCloseEventParameters>) => void;
 
     /**
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
@@ -24639,6 +24813,19 @@ declare module "sap/ui/webc/main/Popover" {
      */
     beforeOpen?: (oEvent: Event) => void;
   }
+
+  export interface $PopoverAfterCloseEventParameters {}
+
+  export interface $PopoverAfterOpenEventParameters {}
+
+  export interface $PopoverBeforeCloseEventParameters {
+    /**
+     * Indicates that `ESC` key has triggered the event.
+     */
+    escPressed?: boolean;
+  }
+
+  export interface $PopoverBeforeOpenEventParameters {}
 }
 
 declare module "sap/ui/webc/main/ProgressIndicator" {
@@ -24663,9 +24850,7 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
    * Responsive Behavior: You can change the size of the Progress Indicator by changing its `width` or `height`
    * CSS properties.
    */
-  export default class ProgressIndicator
-    extends WebComponent
-    implements IFormContent {
+  class ProgressIndicator extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `ProgressIndicator`.
@@ -24914,6 +25099,7 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
       sWidth: CSSSize
     ): this;
   }
+  export default ProgressIndicator;
 
   export interface $ProgressIndicatorSettings extends $WebComponentSettings {
     /**
@@ -25006,9 +25192,7 @@ declare module "sap/ui/webc/main/RadioButton" {
    * group.
    *  **Note:** On entering radio button group, the focus goes to the currently selected radio button.
    */
-  export default class RadioButton
-    extends WebComponent
-    implements IFormContent {
+  class RadioButton extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `RadioButton`.
@@ -25144,7 +25328,7 @@ declare module "sap/ui/webc/main/RadioButton" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -25157,8 +25341,7 @@ declare module "sap/ui/webc/main/RadioButton" {
       mParameters?: object
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -25476,6 +25659,7 @@ declare module "sap/ui/webc/main/RadioButton" {
       sWrappingType?: WrappingType | keyof typeof WrappingType
     ): this;
   }
+  export default RadioButton;
 
   export interface $RadioButtonSettings extends $WebComponentSettings {
     /**
@@ -25567,6 +25751,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      */
     change?: (oEvent: Event) => void;
   }
+
+  export interface $RadioButtonChangeEventParameters {}
 }
 
 declare module "sap/ui/webc/main/RangeSlider" {
@@ -25600,7 +25786,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
    * 	 - labelInterval - Labels some or all of the tickmarks with their values.  Notes::
    * 	 - The right and left handle can be moved individually and their positions could therefore switch.
    * 	 - The entire range can be moved along the interval.  Usage: The most common use case is to select
-   * 			and move sub-ranges on a continuous numerical scale.
+   *     and move sub-ranges on a continuous numerical scale.
    *
    * Responsive Behavior: You can move the currently selected range by clicking on it and dragging it along
    * the interval.
@@ -25611,9 +25797,9 @@ declare module "sap/ui/webc/main/RangeSlider" {
    * 	 - `Left or Down Arrow` - Moves a component's handle or the entire selection one step to the left;
    * 	 - `Right or Up Arrow` - Moves a component's handle or the entire selection one step to the right;
    * 	 - `Left or Down Arrow + Ctrl/Cmd` - Moves a component's handle to the left or the entire range with
-   * 			step equal to 1/10th of the entire range;
+   *     step equal to 1/10th of the entire range;
    * 	 - `Right or Up Arrow + Ctrl/Cmd` - Moves a component's handle to the right or the entire range with
-   * 			step equal to 1/10th of the entire range;
+   *     step equal to 1/10th of the entire range;
    * 	 - `Plus` - Same as `Right or Up Arrow`;
    * 	 - `Minus` - Same as `Left or Down Arrow`;
    * 	 - `Home` - Moves the entire selection or the selected handle to the beginning of the component's range;
@@ -25623,7 +25809,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
    * 	 - `Page Down` - Same as `Left or Down Arrow + Ctrl/Cmd`;
    * 	 - `Escape` - Resets the `startValue` and `endValue` properties to the values prior the component focusing;
    */
-  export default class RangeSlider extends WebComponent {
+  class RangeSlider extends WebComponent {
     /**
      * Constructor for a new `RangeSlider`.
      *
@@ -25809,7 +25995,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -25822,7 +26008,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -26154,6 +26340,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
       sWidth: CSSSize
     ): this;
   }
+  export default RangeSlider;
 
   export interface $RangeSliderSettings extends $WebComponentSettings {
     /**
@@ -26232,6 +26419,10 @@ declare module "sap/ui/webc/main/RangeSlider" {
      */
     input?: (oEvent: Event) => void;
   }
+
+  export interface $RangeSliderChangeEventParameters {}
+
+  export interface $RangeSliderInputEventParameters {}
 }
 
 declare module "sap/ui/webc/main/RatingIndicator" {
@@ -26267,19 +26458,17 @@ declare module "sap/ui/webc/main/RatingIndicator" {
    *
    *
    * 	 - [RIGHT/UP] - Increases the value of the rating by one step. If the highest value is reached, does
-   * 			nothing
+   *     nothing
    * 	 - [LEFT/DOWN] - Decreases the value of the rating by one step. If the lowest value is reached, does
-   * 			nothing.
+   *     nothing.
    * 	 - [HOME] - Sets the lowest value.
    * 	 - [END] - Sets the highest value.
    * 	 - [SPACE/ENTER/RETURN] - Increases the value of the rating by one step. If the highest value is reached,
-   * 			sets the rating to the lowest value.
+   *     sets the rating to the lowest value.
    * 	 - Any number - Changes value to the corresponding number. If typed number is larger than the number
-   * 			of values, sets the highest value.
+   *     of values, sets the highest value.
    */
-  export default class RatingIndicator
-    extends WebComponent
-    implements IFormContent {
+  class RatingIndicator extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `RatingIndicator`.
@@ -26404,7 +26593,7 @@ declare module "sap/ui/webc/main/RatingIndicator" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -26587,6 +26776,7 @@ declare module "sap/ui/webc/main/RatingIndicator" {
       sWidth: CSSSize
     ): this;
   }
+  export default RatingIndicator;
 
   export interface $RatingIndicatorSettings extends $WebComponentSettings {
     /**
@@ -26632,6 +26822,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      */
     change?: (oEvent: Event) => void;
   }
+
+  export interface $RatingIndicatorChangeEventParameters {}
 }
 
 declare module "sap/ui/webc/main/ResponsivePopover" {
@@ -26677,7 +26869,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
    * 	 - content - Used to style the content of the component
    * 	 - footer - Used to style the footer of the component
    */
-  export default class ResponsivePopover extends WebComponent {
+  class ResponsivePopover extends WebComponent {
     /**
      * Constructor for a new `ResponsivePopover`.
      *
@@ -26900,7 +27092,9 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$ResponsivePopoverBeforeCloseEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.ResponsivePopover`
        * itself
@@ -26922,7 +27116,9 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$ResponsivePopoverBeforeCloseEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.ResponsivePopover`
        * itself
@@ -27045,7 +27241,9 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$ResponsivePopoverBeforeCloseEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -27069,7 +27267,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      *
@@ -27082,7 +27280,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
      *
@@ -27095,7 +27293,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:beforeClose beforeClose} to attached listeners.
      *
@@ -27108,15 +27306,10 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Indicates that `ESC` key has triggered the event.
-         */
-        escPressed?: boolean;
-      }
+      mParameters?: $ResponsivePopoverBeforeCloseEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -27152,8 +27345,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      */
     getAllowTargetOverlap(): boolean;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -27713,6 +27905,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       preventInitialFocus: boolean
     ): void;
   }
+  export default ResponsivePopover;
 
   export interface $ResponsivePopoverSettings extends $WebComponentSettings {
     /**
@@ -27844,7 +28037,9 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
      */
-    beforeClose?: (oEvent: Event) => void;
+    beforeClose?: (
+      oEvent: Event<$ResponsivePopoverBeforeCloseEventParameters>
+    ) => void;
 
     /**
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
@@ -27852,6 +28047,19 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      */
     beforeOpen?: (oEvent: Event) => void;
   }
+
+  export interface $ResponsivePopoverAfterCloseEventParameters {}
+
+  export interface $ResponsivePopoverAfterOpenEventParameters {}
+
+  export interface $ResponsivePopoverBeforeCloseEventParameters {
+    /**
+     * Indicates that `ESC` key has triggered the event.
+     */
+    escPressed?: boolean;
+  }
+
+  export interface $ResponsivePopoverBeforeOpenEventParameters {}
 }
 
 declare module "sap/ui/webc/main/SegmentedButton" {
@@ -27885,9 +28093,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
    *
    *  **Note:** There can be just one selected `item` at a time.
    */
-  export default class SegmentedButton
-    extends WebComponent
-    implements IFormContent {
+  class SegmentedButton extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `SegmentedButton`.
@@ -27980,7 +28186,9 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$SegmentedButtonSelectionChangeEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.SegmentedButton` itself
        */
@@ -28001,7 +28209,9 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$SegmentedButtonSelectionChangeEventParameters>
+      ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.SegmentedButton` itself
        */
@@ -28025,14 +28235,16 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (
+        p1: Event<$SegmentedButtonSelectionChangeEventParameters>
+      ) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -28042,12 +28254,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the pressed item.
-         */
-        selectedItem?: HTMLElement;
-      }
+      mParameters?: $SegmentedButtonSelectionChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -28058,7 +28265,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      */
     getAccessibleName(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * `SegmentedButton` must not be stretched in Form because ResizeHandler is used internally in order to
      * manage the width of the SegmentedButton depending on the container size
@@ -28167,6 +28374,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       sWidth: CSSSize
     ): this;
   }
+  export default SegmentedButton;
 
   export interface $SegmentedButtonSettings extends $WebComponentSettings {
     /**
@@ -28195,7 +28403,16 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     /**
      * Fired when the selected item changes.
      */
-    selectionChange?: (oEvent: Event) => void;
+    selectionChange?: (
+      oEvent: Event<$SegmentedButtonSelectionChangeEventParameters>
+    ) => void;
+  }
+
+  export interface $SegmentedButtonSelectionChangeEventParameters {
+    /**
+     * the pressed item.
+     */
+    selectedItem?: HTMLElement;
   }
 }
 
@@ -28230,7 +28447,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
    * item returns to its initial state when the user clicks or taps on it again. By applying additional custom
    * CSS-styling classes, apps can give a different style to any `sap.ui.webc.main.SegmentedButtonItem`.
    */
-  export default class SegmentedButtonItem
+  class SegmentedButtonItem
     extends WebComponent
     implements ISegmentedButtonItem {
     __implements__sap_ui_webc_main_ISegmentedButtonItem: boolean;
@@ -28374,7 +28591,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -28396,18 +28613,18 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      *
      * Default value is `{}`.
      *
@@ -28423,8 +28640,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -28456,8 +28672,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -28531,18 +28746,18 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -28614,8 +28829,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -28698,6 +28912,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
       sText?: string
     ): this;
   }
+  export default SegmentedButtonItem;
 
   export interface $SegmentedButtonItemSettings extends $WebComponentSettings {
     /**
@@ -28708,18 +28923,18 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      */
     accessibilityAttributes?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -28748,8 +28963,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -28785,6 +28999,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      */
     click?: (oEvent: Event) => void;
   }
+
+  export interface $SegmentedButtonItemClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Select" {
@@ -28821,13 +29037,13 @@ declare module "sap/ui/webc/main/Select" {
    *
    * 	 - [F4, ALT+UP, ALT+DOWN, SPACE, ENTER] - Opens/closes the drop-down.
    * 	 - [UP, DOWN] - If the drop-down is closed - changes selection to the next or the previous option. If
-   * 			the drop-down is opened - moves focus to the next or the previous option.
+   *     the drop-down is opened - moves focus to the next or the previous option.
    * 	 - [SPACE, ENTER] - If the drop-down is opened - selects the focused option.
    * 	 - [ESC] - Closes the drop-down without changing the selection.
    * 	 - [HOME] - Navigates to first option
    * 	 - [END] - Navigates to the last option
    */
-  export default class Select extends WebComponent implements IFormContent {
+  class Select extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Select`.
@@ -28930,7 +29146,7 @@ declare module "sap/ui/webc/main/Select" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$SelectChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Select` itself
        */
@@ -28950,7 +29166,7 @@ declare module "sap/ui/webc/main/Select" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$SelectChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Select` itself
        */
@@ -28973,14 +29189,14 @@ declare module "sap/ui/webc/main/Select" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$SelectChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -28990,12 +29206,7 @@ declare module "sap/ui/webc/main/Select" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the selected option.
-         */
-        selectedOption?: HTMLElement;
-      }
+      mParameters?: $SelectChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -29006,8 +29217,7 @@ declare module "sap/ui/webc/main/Select" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -29306,6 +29516,7 @@ declare module "sap/ui/webc/main/Select" {
       sWidth: CSSSize
     ): this;
   }
+  export default Select;
 
   export interface $SelectSettings extends $WebComponentSettings {
     /**
@@ -29391,7 +29602,14 @@ declare module "sap/ui/webc/main/Select" {
     /**
      * Fired when the selected option changes.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Event<$SelectChangeEventParameters>) => void;
+  }
+
+  export interface $SelectChangeEventParameters {
+    /**
+     * the selected option.
+     */
+    selectedOption?: HTMLElement;
   }
 }
 
@@ -29440,7 +29658,7 @@ declare module "sap/ui/webc/main/Slider" {
    * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Slider` exposes the following CSS Shadow Parts:
    * 	 - progress-container - Used to style the progress container(the horizontal bar which visually represents
-   * 			the range between the minimum and maximum value) of the `sap.ui.webc.main.Slider`.
+   *     the range between the minimum and maximum value) of the `sap.ui.webc.main.Slider`.
    * 	 - progress-bar - Used to style the progress bar, which shows the progress of the `sap.ui.webc.main.Slider`.
    *
    * 	 - handle - Used to style the handle of the `sap.ui.webc.main.Slider`.
@@ -29449,13 +29667,13 @@ declare module "sap/ui/webc/main/Slider" {
    *
    *
    * 	 - `Left or Down Arrow` - Moves the handle one step to the left, effectively decreasing the component's
-   * 			value by `step` amount;
+   *     value by `step` amount;
    * 	 - `Right or Up Arrow` - Moves the handle one step to the right, effectively increasing the component's
-   * 			value by `step` amount;
+   *     value by `step` amount;
    * 	 - `Left or Down Arrow + Ctrl/Cmd` - Moves the handle to the left with step equal to 1/10th of the entire
-   * 			range, effectively decreasing the component's value by 1/10th of the range;
+   *     range, effectively decreasing the component's value by 1/10th of the range;
    * 	 - `Right or Up Arrow + Ctrl/Cmd` - Moves the handle to the right with step equal to 1/10th of the entire
-   * 			range, effectively increasing the component's value by 1/10th of the range;
+   *     range, effectively increasing the component's value by 1/10th of the range;
    * 	 - `Plus` - Same as `Right or Up Arrow`;
    * 	 - `Minus` - Same as `Left or Down Arrow`;
    * 	 - `Home` - Moves the handle to the beginning of the range;
@@ -29464,7 +29682,7 @@ declare module "sap/ui/webc/main/Slider" {
    * 	 - `Page Down` - Same as `Left or Down + Ctrl/Cmd`;
    * 	 - `Escape` - Resets the value property after interaction, to the position prior the component's focusing;
    */
-  export default class Slider extends WebComponent implements IFormContent {
+  class Slider extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Slider`.
@@ -29651,7 +29869,7 @@ declare module "sap/ui/webc/main/Slider" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -29664,7 +29882,7 @@ declare module "sap/ui/webc/main/Slider" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -29961,6 +30179,7 @@ declare module "sap/ui/webc/main/Slider" {
       sWidth: CSSSize
     ): this;
   }
+  export default Slider;
 
   export interface $SliderSettings extends $WebComponentSettings {
     /**
@@ -30034,6 +30253,10 @@ declare module "sap/ui/webc/main/Slider" {
      */
     input?: (oEvent: Event) => void;
   }
+
+  export interface $SliderChangeEventParameters {}
+
+  export interface $SliderInputEventParameters {}
 }
 
 declare module "sap/ui/webc/main/SplitButton" {
@@ -30064,10 +30287,10 @@ declare module "sap/ui/webc/main/SplitButton" {
    *
    * `sap.ui.webc.main.SplitButton` consists two separate buttons:
    * 	 - for the first one (default action) you can define some `text` or an `icon`, or both. Also, it is
-   * 			possible to define different icon for active state of this button - `activeIcon`.
+   *     possible to define different icon for active state of this button - `activeIcon`.
    * 	 - the second one (arrow action) contains only `slim-arrow-down` icon.  You can choose a `design`
-   * 			from a set of predefined types (the same as for ui5-button) that offer different styling to correspond
-   * 			to the triggered action. Both text and arrow actions have the same design.
+   *     from a set of predefined types (the same as for ui5-button) that offer different styling to correspond
+   *     to the triggered action. Both text and arrow actions have the same design.
    *
    *  You can set the `sap.ui.webc.main.SplitButton` as enabled or disabled. Both parts of an enabled `sap.ui.webc.main.SplitButton`
    * can be pressed by clicking or tapping it, or by certain keys, which changes the style to provide visual
@@ -30077,13 +30300,13 @@ declare module "sap/ui/webc/main/SplitButton" {
    * Keyboard Handling:
    * 	 - `Space` or `Enter` - triggers the default action
    * 	 - `Shift` or `Escape` - if `Space` is pressed, releases the default action button without triggering
-   * 			the click event.
+   *     the click event.
    * 	 - `Arrow Down`, `Arrow Up`, `Alt`+`Arrow Down`, `Alt`+`Arrow Up`, or `F4` - triggers the arrow action
-   * 			There are separate events that are fired on activating of `sap.ui.webc.main.SplitButton` parts:
+   *     There are separate events that are fired on activating of `sap.ui.webc.main.SplitButton` parts:
    * 	`click` for the first button (default action)
    * 	 - `arrow-click` for the second button (arrow action)
    */
-  export default class SplitButton extends WebComponent {
+  class SplitButton extends WebComponent {
     /**
      * Constructor for a new `SplitButton`.
      *
@@ -30269,7 +30492,7 @@ declare module "sap/ui/webc/main/SplitButton" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:arrowClick arrowClick} to attached listeners.
      *
@@ -30282,7 +30505,7 @@ declare module "sap/ui/webc/main/SplitButton" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -30489,6 +30712,7 @@ declare module "sap/ui/webc/main/SplitButton" {
       sText?: string
     ): this;
   }
+  export default SplitButton;
 
   export interface $SplitButtonSettings extends $WebComponentSettings {
     /**
@@ -30552,6 +30776,10 @@ declare module "sap/ui/webc/main/SplitButton" {
      */
     click?: (oEvent: Event) => void;
   }
+
+  export interface $SplitButtonArrowClickEventParameters {}
+
+  export interface $SplitButtonClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/StandardListItem" {
@@ -30588,9 +30816,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
    * 	 - additional-text - Used to style the additionalText of the list item
    * 	 - icon - Used to style the icon of the list item
    */
-  export default class StandardListItem
-    extends WebComponent
-    implements IListItem {
+  class StandardListItem extends WebComponent implements IListItem {
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
      * Constructor for a new `StandardListItem`.
@@ -30715,7 +30941,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
      *
@@ -31008,6 +31234,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
       sType?: ListItemType | keyof typeof ListItemType
     ): this;
   }
+  export default StandardListItem;
 
   export interface $StandardListItemSettings extends $WebComponentSettings {
     /**
@@ -31084,6 +31311,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      */
     detailClick?: (oEvent: Event) => void;
   }
+
+  export interface $StandardListItemDetailClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/StepInput" {
@@ -31129,12 +31358,12 @@ declare module "sap/ui/webc/main/StepInput" {
    *
    * When not to use::
    * 	 - To enter a static number (for example, postal code, phone number, or ID). In this case, use the regular
-   * 			`sap.ui.webc.main.Input` instead.
+   *     `sap.ui.webc.main.Input` instead.
    * 	 - To display a value that rarely needs to be adjusted and does not pertain to a particular step. In
-   * 			this case, use the regular `sap.ui.webc.main.Input` instead.
+   *     this case, use the regular `sap.ui.webc.main.Input` instead.
    * 	 - To enter dates and times. In this case, use date/time related components instead.
    */
-  export default class StepInput extends WebComponent implements IFormContent {
+  class StepInput extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `StepInput`.
@@ -31270,7 +31499,7 @@ declare module "sap/ui/webc/main/StepInput" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -31291,8 +31520,7 @@ declare module "sap/ui/webc/main/StepInput" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -31713,6 +31941,7 @@ declare module "sap/ui/webc/main/StepInput" {
       sWidth: CSSSize
     ): this;
   }
+  export default StepInput;
 
   export interface $StepInputSettings extends $WebComponentSettings {
     /**
@@ -31821,6 +32050,8 @@ declare module "sap/ui/webc/main/StepInput" {
      */
     change?: (oEvent: Event) => void;
   }
+
+  export interface $StepInputChangeEventParameters {}
 }
 
 declare module "sap/ui/webc/main/SuggestionGroupItem" {
@@ -31842,7 +32073,7 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
    * The `sap.ui.webc.main.SuggestionGroupItem` is type of suggestion item, that can be used to split the
    * `sap.ui.webc.main.Input` suggestions into groups.
    */
-  export default class SuggestionGroupItem
+  class SuggestionGroupItem
     extends WebComponent
     implements IInputSuggestionItem {
     __implements__sap_ui_webc_main_IInputSuggestionItem: boolean;
@@ -31934,6 +32165,7 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
       sText?: string
     ): this;
   }
+  export default SuggestionGroupItem;
 
   export interface $SuggestionGroupItemSettings extends $WebComponentSettings {
     /**
@@ -31963,9 +32195,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
    *
    * The `sap.ui.webc.main.SuggestionItem` represents the suggestion item of the `sap.ui.webc.main.Input`.
    */
-  export default class SuggestionItem
-    extends WebComponent
-    implements IInputSuggestionItem {
+  class SuggestionItem extends WebComponent implements IInputSuggestionItem {
     __implements__sap_ui_webc_main_IInputSuggestionItem: boolean;
     /**
      * Constructor for a new `SuggestionItem`.
@@ -32254,6 +32484,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
       sType?: ListItemType | keyof typeof ListItemType
     ): this;
   }
+  export default SuggestionItem;
 
   export interface $SuggestionItemSettings extends $WebComponentSettings {
     /**
@@ -32358,7 +32589,7 @@ declare module "sap/ui/webc/main/Switch" {
    * 	 - text-off - Used to style the `textOff` property text
    * 	 - handle - Used to style the handle of the switch
    */
-  export default class Switch extends WebComponent implements IFormContent {
+  class Switch extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Switch`.
@@ -32494,7 +32725,7 @@ declare module "sap/ui/webc/main/Switch" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -32519,8 +32750,7 @@ declare module "sap/ui/webc/main/Switch" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -32746,6 +32976,7 @@ declare module "sap/ui/webc/main/Switch" {
       sWidth: CSSSize
     ): this;
   }
+  export default Switch;
 
   export interface $SwitchSettings extends $WebComponentSettings {
     /**
@@ -32814,6 +33045,8 @@ declare module "sap/ui/webc/main/Switch" {
      */
     change?: (oEvent: Event) => void;
   }
+
+  export interface $SwitchChangeEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Tab" {
@@ -32841,7 +33074,7 @@ declare module "sap/ui/webc/main/Tab" {
    * defines both the item in the tab strip (top part of the `sap.ui.webc.main.TabContainer`) and the content
    * that is presented to the user once the tab is selected.
    */
-  export default class Tab extends WebComponent implements ITab {
+  class Tab extends WebComponent implements ITab {
     __implements__sap_ui_webc_main_ITab: boolean;
     /**
      * Constructor for a new `Tab`.
@@ -32991,8 +33224,7 @@ declare module "sap/ui/webc/main/Tab" {
      * Gets current value of property {@link #getIcon icon}.
      *
      * Defines the icon source URI to be displayed as graphical element within the component. The SAP-icons
-     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
-     * Icon Explorer}.
+     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -33197,8 +33429,7 @@ declare module "sap/ui/webc/main/Tab" {
      * Sets a new value for property {@link #getIcon icon}.
      *
      * Defines the icon source URI to be displayed as graphical element within the component. The SAP-icons
-     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
-     * Icon Explorer}.
+     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -33247,6 +33478,7 @@ declare module "sap/ui/webc/main/Tab" {
       sText?: string
     ): this;
   }
+  export default Tab;
 
   export interface $TabSettings extends $WebComponentSettings {
     /**
@@ -33283,8 +33515,7 @@ declare module "sap/ui/webc/main/Tab" {
 
     /**
      * Defines the icon source URI to be displayed as graphical element within the component. The SAP-icons
-     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
-     * Icon Explorer}.
+     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -33366,7 +33597,7 @@ declare module "sap/ui/webc/main/TabContainer" {
    *
    * Keyboard Handling:
    */
-  export default class TabContainer extends WebComponent {
+  class TabContainer extends WebComponent {
     /**
      * Constructor for a new `TabContainer`.
      *
@@ -33457,7 +33688,7 @@ declare module "sap/ui/webc/main/TabContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TabContainerTabSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.TabContainer` itself
        */
@@ -33477,7 +33708,7 @@ declare module "sap/ui/webc/main/TabContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TabContainerTabSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.TabContainer` itself
        */
@@ -33512,14 +33743,14 @@ declare module "sap/ui/webc/main/TabContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TabContainerTabSelectEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:tabSelect tabSelect} to attached listeners.
      *
@@ -33529,16 +33760,7 @@ declare module "sap/ui/webc/main/TabContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The selected `tab`.
-         */
-        tab?: HTMLElement;
-        /**
-         * The selected `tab` index.
-         */
-        tabIndex?: int;
-      }
+      mParameters?: $TabContainerTabSelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getCollapsed collapsed}.
@@ -33868,6 +34090,7 @@ declare module "sap/ui/webc/main/TabContainer" {
       sWidth: CSSSize
     ): this;
   }
+  export default TabContainer;
 
   export interface $TabContainerSettings extends $WebComponentSettings {
     /**
@@ -33960,7 +34183,19 @@ declare module "sap/ui/webc/main/TabContainer" {
     /**
      * Fired when a tab is selected.
      */
-    tabSelect?: (oEvent: Event) => void;
+    tabSelect?: (oEvent: Event<$TabContainerTabSelectEventParameters>) => void;
+  }
+
+  export interface $TabContainerTabSelectEventParameters {
+    /**
+     * The selected `tab`.
+     */
+    tab?: HTMLElement;
+
+    /**
+     * The selected `tab` index.
+     */
+    tabIndex?: int;
   }
 }
 
@@ -34029,13 +34264,13 @@ declare module "sap/ui/webc/main/Table" {
    * 	 - [HOME]/[END] - Focuses the first/last item.
    * 	 - [PAGEUP]/[PAGEDOWN] - Moves focus up/down by page size (20 items by default).
    * 	 - [ALT]+[DOWN]/[UP] - Switches focus between header, last focused item, and More button (if applies)
-   * 			in either direction.
+   *     in either direction.
    * 	 - [SHIFT]+[DOWN]/[UP] - Selects the next/previous item in a MultiSelect table, if the current item
-   * 			is selected (Range selection). Otherwise, deselects them (Range deselection).
+   *     is selected (Range selection). Otherwise, deselects them (Range deselection).
    * 	 - [SHIFT]+[HOME]/[END] - Range selection to the first/last item of the List.
    * 	 - [CTRL]+[HOME]/[END] - Same behavior as HOME & END.
    */
-  export default class Table extends WebComponent {
+  class Table extends WebComponent {
     /**
      * Constructor for a new `Table`.
      *
@@ -34201,7 +34436,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TablePopinChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Table` itself
        */
@@ -34221,7 +34456,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TablePopinChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Table` itself
        */
@@ -34246,7 +34481,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TableRowClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Table` itself
        */
@@ -34266,7 +34501,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TableRowClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Table` itself
        */
@@ -34292,7 +34527,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TableSelectionChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Table` itself
        */
@@ -34313,7 +34548,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TableSelectionChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Table` itself
        */
@@ -34359,7 +34594,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TablePopinChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -34376,7 +34611,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TableRowClickEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -34394,14 +34629,14 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TableSelectionChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:loadMore loadMore} to attached listeners.
      *
@@ -34414,7 +34649,7 @@ declare module "sap/ui/webc/main/Table" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:popinChange popinChange} to attached listeners.
      *
@@ -34424,15 +34659,10 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * popped-in columns.
-         */
-        poppedColumns?: any[];
-      }
+      mParameters?: $TablePopinChangeEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:rowClick rowClick} to attached listeners.
      *
@@ -34442,15 +34672,10 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the activated row.
-         */
-        row?: HTMLElement;
-      }
+      mParameters?: $TableRowClickEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -34460,16 +34685,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * An array of the selected rows.
-         */
-        selectedRows?: any[];
-        /**
-         * An array of the previously selected rows.
-         */
-        previouslySelectedRows?: any[];
-      }
+      mParameters?: $TableSelectionChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
@@ -34480,8 +34696,7 @@ declare module "sap/ui/webc/main/Table" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -35006,6 +35221,7 @@ declare module "sap/ui/webc/main/Table" {
       sWidth: CSSSize
     ): this;
   }
+  export default Table;
 
   export interface $TableSettings extends $WebComponentSettings {
     /**
@@ -35153,17 +35369,47 @@ declare module "sap/ui/webc/main/Table" {
     /**
      * Fired when `sap.ui.webc.main.TableColumn` is shown as a pop-in instead of hiding it.
      */
-    popinChange?: (oEvent: Event) => void;
+    popinChange?: (oEvent: Event<$TablePopinChangeEventParameters>) => void;
 
     /**
      * Fired when a row in `Active` mode is clicked or `Enter` key is pressed.
      */
-    rowClick?: (oEvent: Event) => void;
+    rowClick?: (oEvent: Event<$TableRowClickEventParameters>) => void;
 
     /**
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
      */
-    selectionChange?: (oEvent: Event) => void;
+    selectionChange?: (
+      oEvent: Event<$TableSelectionChangeEventParameters>
+    ) => void;
+  }
+
+  export interface $TableLoadMoreEventParameters {}
+
+  export interface $TablePopinChangeEventParameters {
+    /**
+     * popped-in columns.
+     */
+    poppedColumns?: any[];
+  }
+
+  export interface $TableRowClickEventParameters {
+    /**
+     * the activated row.
+     */
+    row?: HTMLElement;
+  }
+
+  export interface $TableSelectionChangeEventParameters {
+    /**
+     * An array of the selected rows.
+     */
+    selectedRows?: any[];
+
+    /**
+     * An array of the previously selected rows.
+     */
+    previouslySelectedRows?: any[];
   }
 }
 
@@ -35197,7 +35443,7 @@ declare module "sap/ui/webc/main/TableCell" {
    *  The `sap.ui.webc.main.TableCell` exposes the following CSS Shadow Parts:
    * 	 - cell - Used to style the native `td` element
    */
-  export default class TableCell extends WebComponent implements ITableCell {
+  class TableCell extends WebComponent implements ITableCell {
     __implements__sap_ui_webc_main_ITableCell: boolean;
     /**
      * Constructor for a new `TableCell`.
@@ -35331,6 +35577,7 @@ declare module "sap/ui/webc/main/TableCell" {
       vContent: int | string | Control
     ): Control | null;
   }
+  export default TableCell;
 
   export interface $TableCellSettings extends $WebComponentSettings {
     /**
@@ -35373,9 +35620,7 @@ declare module "sap/ui/webc/main/TableColumn" {
    *  The `sap.ui.webc.main.TableColumn` exposes the following CSS Shadow Parts:
    * 	 - column - Used to style the native `th` element
    */
-  export default class TableColumn
-    extends WebComponent
-    implements ITableColumn {
+  class TableColumn extends WebComponent implements ITableColumn {
     __implements__sap_ui_webc_main_ITableColumn: boolean;
     /**
      * Constructor for a new `TableColumn`.
@@ -35604,6 +35849,7 @@ declare module "sap/ui/webc/main/TableColumn" {
       sPopinText?: string
     ): this;
   }
+  export default TableColumn;
 
   export interface $TableColumnSettings extends $WebComponentSettings {
     /**
@@ -35662,7 +35908,7 @@ declare module "sap/ui/webc/main/TableGroupRow" {
    *  The `sap.ui.webc.main.TableGroupRow` exposes the following CSS Shadow Parts:
    * 	 - group-row - Used to style the native `tr` element.
    */
-  export default class TableGroupRow extends WebComponent implements ITableRow {
+  class TableGroupRow extends WebComponent implements ITableRow {
     __implements__sap_ui_webc_main_ITableRow: boolean;
     /**
      * Constructor for a new `TableGroupRow`.
@@ -35752,6 +35998,7 @@ declare module "sap/ui/webc/main/TableGroupRow" {
       sText?: string
     ): this;
   }
+  export default TableGroupRow;
 
   export interface $TableGroupRowSettings extends $WebComponentSettings {
     /**
@@ -35796,7 +36043,7 @@ declare module "sap/ui/webc/main/TableRow" {
    * 	 - row - Used to style the native `tr` element
    * 	 - popin-row - Used to style the `tr` element when a row pops in
    */
-  export default class TableRow extends WebComponent implements ITableRow {
+  class TableRow extends WebComponent implements ITableRow {
     __implements__sap_ui_webc_main_ITableRow: boolean;
     /**
      * Constructor for a new `TableRow`.
@@ -36000,6 +36247,7 @@ declare module "sap/ui/webc/main/TableRow" {
       sType?: TableRowType | keyof typeof TableRowType
     ): this;
   }
+  export default TableRow;
 
   export interface $TableRowSettings extends $WebComponentSettings {
     /**
@@ -36047,7 +36295,7 @@ declare module "sap/ui/webc/main/TabSeparator" {
    *
    * The `sap.ui.webc.main.TabSeparator` represents a vertical line to separate tabs inside a `sap.ui.webc.main.TabContainer`.
    */
-  export default class TabSeparator extends WebComponent implements ITab {
+  class TabSeparator extends WebComponent implements ITab {
     __implements__sap_ui_webc_main_ITab: boolean;
     /**
      * Constructor for a new `TabSeparator`.
@@ -36056,8 +36304,8 @@ declare module "sap/ui/webc/main/TabSeparator" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.webc.common.WebComponent#constructor
-     * sap.ui.webc.common.WebComponent} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.webc.common.WebComponent#constructor sap.ui.webc.common.WebComponent }
+     * can be used.
      */
     constructor(
       /**
@@ -36072,8 +36320,8 @@ declare module "sap/ui/webc/main/TabSeparator" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.webc.common.WebComponent#constructor
-     * sap.ui.webc.common.WebComponent} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.webc.common.WebComponent#constructor sap.ui.webc.common.WebComponent }
+     * can be used.
      */
     constructor(
       /**
@@ -36116,6 +36364,7 @@ declare module "sap/ui/webc/main/TabSeparator" {
      */
     static getMetadata(): WebComponentMetadata;
   }
+  export default TabSeparator;
 
   export interface $TabSeparatorSettings extends $WebComponentSettings {}
 }
@@ -36154,7 +36403,7 @@ declare module "sap/ui/webc/main/TextArea" {
    *  The `sap.ui.webc.main.TextArea` exposes the following CSS Shadow Parts:
    * 	 - textarea - Used to style the native textarea
    */
-  export default class TextArea extends WebComponent implements IFormContent {
+  class TextArea extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `TextArea`.
@@ -36352,7 +36601,7 @@ declare module "sap/ui/webc/main/TextArea" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -36365,7 +36614,7 @@ declare module "sap/ui/webc/main/TextArea" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -36386,8 +36635,7 @@ declare module "sap/ui/webc/main/TextArea" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -36493,7 +36741,7 @@ declare module "sap/ui/webc/main/TextArea" {
      *
      *  **Notes:**
      * 	 - If the `growing` property is enabled, this property defines the minimum rows to be displayed in the
-     * 			textarea.
+     *     textarea.
      * 	 - The CSS `height` property wins over the `rows` property, if both are set.
      *
      * Default value is `0`.
@@ -36766,7 +37014,7 @@ declare module "sap/ui/webc/main/TextArea" {
      *
      *  **Notes:**
      * 	 - If the `growing` property is enabled, this property defines the minimum rows to be displayed in the
-     * 			textarea.
+     *     textarea.
      * 	 - The CSS `height` property wins over the `rows` property, if both are set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -36884,6 +37132,7 @@ declare module "sap/ui/webc/main/TextArea" {
       sWidth: CSSSize
     ): this;
   }
+  export default TextArea;
 
   export interface $TextAreaSettings extends $WebComponentSettings {
     /**
@@ -36951,7 +37200,7 @@ declare module "sap/ui/webc/main/TextArea" {
      *
      *  **Notes:**
      * 	 - If the `growing` property is enabled, this property defines the minimum rows to be displayed in the
-     * 			textarea.
+     *     textarea.
      * 	 - The CSS `height` property wins over the `rows` property, if both are set.
      */
     rows?: int | PropertyBindingInfo | `{${string}}`;
@@ -37018,6 +37267,10 @@ declare module "sap/ui/webc/main/TextArea" {
      */
     input?: (oEvent: Event) => void;
   }
+
+  export interface $TextAreaChangeEventParameters {}
+
+  export interface $TextAreaInputEventParameters {}
 }
 
 declare module "sap/ui/webc/main/TimePicker" {
@@ -37054,8 +37307,8 @@ declare module "sap/ui/webc/main/TimePicker" {
    * If a time is entered by typing it into the input field, it must fit to the used time format.
    *
    *  Supported format options are pattern-based on Unicode LDML Date Format notation. For more information,
-   * see {@link http://unicode.org/reports/tr35/#Date_Field_Symbol_Table UTS #35: Unicode Locale Data Markup
-   * Language}.
+   * see {@link http://unicode.org/reports/tr35/#Date_Field_Symbol_Table UTS #35: Unicode Locale Data Markup Language}.
+   *
    *
    *  For example, if the `format-pattern` is "HH:mm:ss", a valid value string is "11:42:35" and the same
    * is displayed in the input.
@@ -37064,27 +37317,27 @@ declare module "sap/ui/webc/main/TimePicker" {
    *  When closed:
    * 	 - [PAGEUP] - Increments hours by 1. If 12 am is reached, increment hours to 1 pm and vice versa.
    * 	 - [PAGEDOWN] - Decrements the corresponding field by 1. If 1 pm is reached, decrement hours to 12 am
-   * 			and vice versa.
+   *     and vice versa.
    * 	 - [SHIFT]+[PAGEUP] Increments minutes by 1.
    * 	 - [SHIFT]+ [PAGEDOWN] Decrements minutes by 1.
    * 	 - [SHIFT]+[CTRL]+[PAGEUP] Increments seconds by 1.
    * 	 - [SHIFT]+[CTRL]+ [PAGEDOWN] Decrements seconds by 1.  When opened:
    * 	 - [UP] If focus is on one of the selection lists: Select the value which is above the current value.
-   * 			If the first value is selected, select the last value in the list. Exception: AM/ PM List: stay on the
-   * 			first item.
+   *     If the first value is selected, select the last value in the list. Exception: AM/ PM List: stay on the
+   *     first item.
    * 	 - [DOWN] If focus is on one of the selection lists: Select the value which is below the current value.
-   * 			If the last value is selected, select the first value in the list. Exception: AM/ PM List: stay on the
-   * 			last item.
+   *     If the last value is selected, select the first value in the list. Exception: AM/ PM List: stay on the
+   *     last item.
    * 	 - [LEFT] If focus is on one of the selection lists: Move focus to the selection list which is left
-   * 			of the current selection list. If focus is at the first selection list, move focus to the last selection
-   * 			list.
+   *     of the current selection list. If focus is at the first selection list, move focus to the last selection
+   *     list.
    * 	 - [RIGHT] If focus is on one of the selection lists: Move focus to the selection list which is right
-   * 			of the current selection list. When focus is at the last selection list, move focus to the first selection
-   * 			list.
+   *     of the current selection list. When focus is at the last selection list, move focus to the first selection
+   *     list.
    * 	 - [PAGEUP] If focus is on one of the selection lists: Move focus to the first entry of this list.
    * 	 - [PAGEDOWN] If focus is on one of the selection lists: Move focus to the last entry of this list.
    */
-  export default class TimePicker extends WebComponent implements IFormContent {
+  class TimePicker extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `TimePicker`.
@@ -37277,7 +37530,7 @@ declare module "sap/ui/webc/main/TimePicker" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -37290,7 +37543,7 @@ declare module "sap/ui/webc/main/TimePicker" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -37590,6 +37843,7 @@ declare module "sap/ui/webc/main/TimePicker" {
       sWidth: CSSSize
     ): this;
   }
+  export default TimePicker;
 
   export interface $TimePickerSettings extends $WebComponentSettings {
     /**
@@ -37666,6 +37920,10 @@ declare module "sap/ui/webc/main/TimePicker" {
      */
     input?: (oEvent: Event) => void;
   }
+
+  export interface $TimePickerChangeEventParameters {}
+
+  export interface $TimePickerInputEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Title" {
@@ -37691,7 +37949,7 @@ declare module "sap/ui/webc/main/Title" {
    * The `sap.ui.webc.main.Title` component is used to display titles inside a page. It is a simple, large-sized
    * text with explicit header/title semantics.
    */
-  export default class Title extends WebComponent {
+  class Title extends WebComponent {
     /**
      * Constructor for a new `Title`.
      *
@@ -37863,6 +38121,7 @@ declare module "sap/ui/webc/main/Title" {
       sWrappingType?: WrappingType | keyof typeof WrappingType
     ): this;
   }
+  export default Title;
 
   export interface $TitleSettings extends $WebComponentSettings {
     /**
@@ -37930,7 +38189,7 @@ declare module "sap/ui/webc/main/Toast" {
    * 	 - You want to make sure that users read the message before they leave the page.
    * 	 - You want users to be able to copy some part of the message text.
    */
-  export default class Toast extends WebComponent {
+  class Toast extends WebComponent {
     /**
      * Constructor for a new `Toast`.
      *
@@ -38153,6 +38412,7 @@ declare module "sap/ui/webc/main/Toast" {
      */
     show(): void;
   }
+  export default Toast;
 
   export interface $ToastSettings extends $WebComponentSettings {
     /**
@@ -38232,7 +38492,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
    * returns to its initial state when the user clicks or taps on it again. By applying additional custom
    * CSS-styling classes, apps can give a different style to any `sap.ui.webc.main.ToggleButton`.
    */
-  export default class ToggleButton extends WebComponent {
+  class ToggleButton extends WebComponent {
     /**
      * Constructor for a new `ToggleButton`.
      *
@@ -38371,7 +38631,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -38393,18 +38653,18 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      *
      * Default value is `{}`.
      *
@@ -38420,8 +38680,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
      */
     getAccessibleName(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -38465,8 +38724,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -38546,18 +38804,18 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -38641,8 +38899,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -38738,6 +38995,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
       sWidth: CSSSize
     ): this;
   }
+  export default ToggleButton;
 
   export interface $ToggleButtonSettings extends $WebComponentSettings {
     /**
@@ -38748,18 +39006,18 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *
      * 	 - `expanded`: Indicates whether the button, or another grouping element it controls, is currently expanded
-     * 			or collapsed. Accepts the following string values:
+     *     or collapsed. Accepts the following string values:
      * 	`true`
      * 	 - `false`
      * 	 - `hasPopup`: Indicates the availability and type of interactive popup element, such as menu or dialog,
-     * 			that can be triggered by the button. Accepts the following string values:
+     *     that can be triggered by the button. Accepts the following string values:
      * 	`Dialog`
      * 	 - `Grid`
      * 	 - `ListBox`
      * 	 - `Menu`
      * 	 - `Tree`
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
-     * 			button element. Accepts a string value.
+     *     button element. Accepts a string value.
      */
     accessibilityAttributes?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -38800,8 +39058,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *  Example:
      *
-     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
-     * Explorer}.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -38839,6 +39096,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      */
     click?: (oEvent: Event) => void;
   }
+
+  export interface $ToggleButtonClickEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Token" {
@@ -38864,7 +39123,7 @@ declare module "sap/ui/webc/main/Token" {
    * Tokens are small items of information (similar to tags) that mainly serve to visualize previously selected
    * items.
    */
-  export default class Token extends WebComponent implements IToken {
+  class Token extends WebComponent implements IToken {
     __implements__sap_ui_webc_main_IToken: boolean;
     /**
      * Constructor for a new `Token`.
@@ -38995,7 +39254,7 @@ declare module "sap/ui/webc/main/Token" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -39105,6 +39364,7 @@ declare module "sap/ui/webc/main/Token" {
       sText?: string
     ): this;
   }
+  export default Token;
 
   export interface $TokenSettings extends $WebComponentSettings {
     /**
@@ -39136,6 +39396,8 @@ declare module "sap/ui/webc/main/Token" {
      */
     select?: (oEvent: Event) => void;
   }
+
+  export interface $TokenSelectEventParameters {}
 }
 
 declare module "sap/ui/webc/main/Tree" {
@@ -39174,7 +39436,7 @@ declare module "sap/ui/webc/main/Tree" {
    * When not to use::
    * 	 - To display items not hierarchically strcutured. In this case, use the List component.
    * 	 - To select one item from a very small number of non-hierarchical items. Select or ComboBox might be
-   * 			more appropriate.
+   *     more appropriate.
    * 	 - The hierarchy turns out to have only two levels. In this case, use List with group items.
    *
    * Keyboard Handling:
@@ -39191,7 +39453,7 @@ declare module "sap/ui/webc/main/Tree" {
    * 	 - [SPACE] - Selects the currently focused item upon keyup.
    * 	 - [ENTER] - Selects the currently focused item upon keydown.
    */
-  export default class Tree extends WebComponent {
+  class Tree extends WebComponent {
     /**
      * Constructor for a new `Tree`.
      *
@@ -39293,7 +39555,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39313,7 +39575,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemClickEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39340,7 +39602,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemDeleteEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39362,7 +39624,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemDeleteEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39387,7 +39649,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemMouseoutEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39407,7 +39669,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemMouseoutEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39432,7 +39694,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemMouseoverEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39452,7 +39714,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemMouseoverEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39480,7 +39742,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemToggleEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39503,7 +39765,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemToggleEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39530,7 +39792,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeSelectionChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39552,7 +39814,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeSelectionChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Tree` itself
        */
@@ -39581,7 +39843,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemClickEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -39598,7 +39860,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemDeleteEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -39615,7 +39877,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemMouseoutEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -39633,7 +39895,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemMouseoverEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -39650,7 +39912,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeItemToggleEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -39668,14 +39930,14 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$TreeSelectionChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -39688,15 +39950,10 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The clicked item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $TreeItemClickEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemDelete itemDelete} to attached listeners.
      *
@@ -39706,15 +39963,10 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the deleted item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $TreeItemDeleteEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemMouseout itemMouseout} to attached listeners.
      *
@@ -39724,15 +39976,10 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the hovered item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $TreeItemMouseoutEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemMouseover itemMouseover} to attached listeners.
      *
@@ -39742,15 +39989,10 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the hovered item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $TreeItemMouseoverEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemToggle itemToggle} to attached listeners.
      *
@@ -39763,15 +40005,10 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * the toggled item.
-         */
-        item?: HTMLElement;
-      }
+      mParameters?: $TreeItemToggleEventParameters
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -39781,16 +40018,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * An array of the selected items.
-         */
-        selectedItems?: any[];
-        /**
-         * An array of the previously selected items.
-         */
-        previouslySelectedItems?: any[];
-      }
+      mParameters?: $TreeSelectionChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getFooterText footerText}.
@@ -40098,6 +40326,7 @@ declare module "sap/ui/webc/main/Tree" {
       callback: Function
     ): void;
   }
+  export default Tree;
 
   export interface $TreeSettings extends $WebComponentSettings {
     /**
@@ -40165,24 +40394,24 @@ declare module "sap/ui/webc/main/Tree" {
     /**
      * Fired when a tree item is activated.
      */
-    itemClick?: (oEvent: Event) => void;
+    itemClick?: (oEvent: Event<$TreeItemClickEventParameters>) => void;
 
     /**
      * Fired when the Delete button of any tree item is pressed.
      *
      *  **Note:** A Delete button is displayed on each item, when the component `mode` property is set to `Delete`.
      */
-    itemDelete?: (oEvent: Event) => void;
+    itemDelete?: (oEvent: Event<$TreeItemDeleteEventParameters>) => void;
 
     /**
      * Fired when the mouse cursor leaves the tree item borders.
      */
-    itemMouseout?: (oEvent: Event) => void;
+    itemMouseout?: (oEvent: Event<$TreeItemMouseoutEventParameters>) => void;
 
     /**
      * Fired when the mouse cursor enters the tree item borders.
      */
-    itemMouseover?: (oEvent: Event) => void;
+    itemMouseover?: (oEvent: Event<$TreeItemMouseoverEventParameters>) => void;
 
     /**
      * Fired when a tree item is expanded or collapsed. Note: You can call `preventDefault()` on the
@@ -40190,13 +40419,62 @@ declare module "sap/ui/webc/main/Tree" {
      * load tree items upon the user expanding a node. Even if you prevented the event's default behavior, you
      * can always manually call `toggle()` on a tree item.
      */
-    itemToggle?: (oEvent: Event) => void;
+    itemToggle?: (oEvent: Event<$TreeItemToggleEventParameters>) => void;
 
     /**
      * Fired when selection is changed by user interaction in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`
      * and `MultiSelect` modes.
      */
-    selectionChange?: (oEvent: Event) => void;
+    selectionChange?: (
+      oEvent: Event<$TreeSelectionChangeEventParameters>
+    ) => void;
+  }
+
+  export interface $TreeItemClickEventParameters {
+    /**
+     * The clicked item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $TreeItemDeleteEventParameters {
+    /**
+     * the deleted item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $TreeItemMouseoutEventParameters {
+    /**
+     * the hovered item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $TreeItemMouseoverEventParameters {
+    /**
+     * the hovered item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $TreeItemToggleEventParameters {
+    /**
+     * the toggled item.
+     */
+    item?: HTMLElement;
+  }
+
+  export interface $TreeSelectionChangeEventParameters {
+    /**
+     * An array of the selected items.
+     */
+    selectedItems?: any[];
+
+    /**
+     * An array of the previously selected items.
+     */
+    previouslySelectedItems?: any[];
   }
 }
 
@@ -40230,7 +40508,7 @@ declare module "sap/ui/webc/main/TreeItem" {
    * directly in your apps. The `sap.ui.webc.main.TreeListItem` list item is internal for the list, and not
    * intended for public use.
    */
-  export default class TreeItem extends WebComponent implements ITreeItem {
+  class TreeItem extends WebComponent implements ITreeItem {
     __implements__sap_ui_webc_main_ITreeItem: boolean;
     /**
      * Constructor for a new `TreeItem`.
@@ -40612,6 +40890,7 @@ declare module "sap/ui/webc/main/TreeItem" {
      */
     toggle(): void;
   }
+  export default TreeItem;
 
   export interface $TreeItemSettings extends $WebComponentSettings {
     /**

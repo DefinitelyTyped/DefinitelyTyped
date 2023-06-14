@@ -1,4 +1,4 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.115.0
 
 declare module "sap/tnt/library" {
   /**
@@ -59,14 +59,14 @@ declare module "sap/tnt/InfoLabel" {
    *
    * Usage Guidelines:
    * 	 - If the text is longer than the width of the control, it doesn’t wrap. Instead, it’s represented as
-   * 			ellipsis.
+   *     ellipsis.
    * 	 - When truncated, the full text in the control is not visible. Therefore, it’s recommended to make
-   * 			more space for longer items to be fully displayed.
+   *     more space for longer items to be fully displayed.
    * 	 - Colors are not semantic and have no visual representation in sap_belize_hcb and sap_belize_hcw themes.
    *
    * 	 - The control shows plain text only, formatting is not visualized.
    */
-  export default class InfoLabel extends Control implements IFormContent {
+  class InfoLabel extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `InfoLabel`.
@@ -354,6 +354,7 @@ declare module "sap/tnt/InfoLabel" {
      */
     unbindText(): this;
   }
+  export default InfoLabel;
 
   export interface $InfoLabelSettings extends $ControlSettings {
     /**
@@ -418,8 +419,6 @@ declare module "sap/tnt/NavigationList" {
 
   import Event from "sap/ui/base/Event";
 
-  import Item from "sap/ui/core/Item";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -427,13 +426,15 @@ declare module "sap/tnt/NavigationList" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Item from "sap/ui/core/Item";
+
   /**
    * @since 1.34
    *
    * The NavigationList control is an interactive control, which provides a choice of different items, ordered
    * as a list.
    */
-  export default class NavigationList extends Control {
+  class NavigationList extends Control {
     /**
      * Constructor for a new NavigationList.
      *
@@ -546,7 +547,7 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
        */
@@ -566,7 +567,7 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
        */
@@ -589,14 +590,14 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -606,21 +607,14 @@ declare module "sap/tnt/NavigationList" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The selected item.
-         */
-        item?: Item;
-      }
+      mParameters?: $NavigationListItemSelectEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -800,6 +794,7 @@ declare module "sap/tnt/NavigationList" {
       sWidth: CSSSize
     ): this;
   }
+  export default NavigationList;
 
   export interface $NavigationListSettings extends $ControlSettings {
     /**
@@ -848,7 +843,16 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: (oEvent: Event) => void;
+    itemSelect?: (
+      oEvent: Event<$NavigationListItemSelectEventParameters>
+    ) => void;
+  }
+
+  export interface $NavigationListItemSelectEventParameters {
+    /**
+     * The selected item.
+     */
+    item?: Item;
   }
 }
 
@@ -872,7 +876,7 @@ declare module "sap/tnt/NavigationListItem" {
    * The NavigationListItem control represents an action, which can be selected by the user. It can provide
    * sub items.
    */
-  export default class NavigationListItem extends Item {
+  class NavigationListItem extends Item {
     /**
      * Constructor for a new NavigationListItem.
      *
@@ -963,7 +967,7 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
        */
@@ -983,7 +987,7 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
        */
@@ -1006,14 +1010,14 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -1023,12 +1027,7 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The selected item.
-         */
-        item?: Item;
-      }
+      mParameters?: $NavigationListItemSelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getExpanded expanded}.
@@ -1040,6 +1039,14 @@ declare module "sap/tnt/NavigationListItem" {
      * @returns Value of property `expanded`
      */
     getExpanded(): boolean;
+    /**
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Returns the DOM Element that should get the focus.
+     *
+     * @returns Returns the DOM Element that should get the focus
+     */
+    getFocusDomRef(): Element;
     /**
      * Gets current value of property {@link #getHasExpander hasExpander}.
      *
@@ -1253,6 +1260,7 @@ declare module "sap/tnt/NavigationListItem" {
       bVisible?: boolean
     ): this;
   }
+  export default NavigationListItem;
 
   export interface $NavigationListItemSettings extends $ItemSettings {
     /**
@@ -1304,7 +1312,14 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Fired when this item is selected.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: Event<$NavigationListItemSelectEventParameters>) => void;
+  }
+
+  export interface $NavigationListItemSelectEventParameters {
+    /**
+     * The selected item.
+     */
+    item?: Item;
   }
 }
 
@@ -1318,8 +1333,6 @@ declare module "sap/tnt/SideNavigation" {
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
-  import Item from "sap/ui/core/Item";
-
   import NavigationList from "sap/tnt/NavigationList";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -1328,6 +1341,8 @@ declare module "sap/tnt/SideNavigation" {
 
   import NavigationListItem from "sap/tnt/NavigationListItem";
 
+  import Item from "sap/ui/core/Item";
+
   /**
    * @since 1.34
    *
@@ -1335,9 +1350,9 @@ declare module "sap/tnt/SideNavigation" {
    * other. Responsive Behavior:
    * 	 - The flexible part adapts its size to the fixed one.
    * 	 - The flexible part has a scrollbar when the content is larger than the available space.  **Note:**
-   * 			In order for the SideNavigation to stretch properly, its parent layout control should only be the sap.tnt.ToolPage.
+   *     In order for the SideNavigation to stretch properly, its parent layout control should only be the sap.tnt.ToolPage.
    */
-  export default class SideNavigation extends Control {
+  class SideNavigation extends Control {
     /**
      * Constructor for a new SideNavigation.
      *
@@ -1421,7 +1436,7 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$SideNavigationItemSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
        */
@@ -1441,7 +1456,7 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$SideNavigationItemSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
        */
@@ -1490,14 +1505,14 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$SideNavigationItemSelectEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -1507,12 +1522,7 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The selected item.
-         */
-        item?: Item;
-      }
+      mParameters?: $SideNavigationItemSelectEventParameters
     ): this;
     /**
      * @since 1.98
@@ -1659,6 +1669,7 @@ declare module "sap/tnt/SideNavigation" {
      */
     unbindItem(): this;
   }
+  export default SideNavigation;
 
   export interface $SideNavigationSettings extends $ControlSettings {
     /**
@@ -1705,7 +1716,16 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: (oEvent: Event) => void;
+    itemSelect?: (
+      oEvent: Event<$SideNavigationItemSelectEventParameters>
+    ) => void;
+  }
+
+  export interface $SideNavigationItemSelectEventParameters {
+    /**
+     * The selected item.
+     */
+    item?: Item;
   }
 }
 
@@ -1722,16 +1742,19 @@ declare module "sap/tnt/ToolHeader" {
   /**
    * @since 1.34
    *
-   * The ToolHeader control is a horizontal container that is most commonly used to display buttons, labels,
+   * The ToolHeader control is a horizontal container that is most commonly used to display buttons, texts,
    * and other various input controls. Overview: The ToolHeader control is based on {@link sap.m.OverflowToolbar}.
    * It contains clearly structured menus of commands that are available across the various apps within the
    * same tool layout. Usage:
+   * 	 - This control is specialized for administrative applications. For other types of applications use:
+   *     {@link sap.m.Shell}
    * 	 - If an app implements side navigation in addition to the tool header menu, the menu icon must be the
-   * 			first item on the left-hand side of the tool header.
+   *     first item on the left-hand side of the tool header.
    * 	 - The app menu and the side navigation must not have any dependencies and must work independently.
-   * 			 Fiori 3 theme specifics: In Fiori 3 Default theme the ToolHeader is with dark design unlike most
-   * 			of the other controls. This defines the usage of limited controls inside it, which will result in good
-   * 			design combination.
+   *      Horizon theme specifics: Only the following controls are supported: sap.m.Button, sap.m.Image,
+   *     sap.m.Title, sap.m.Text, sap.m.SearchField, sap.m.Avatar. Fiori 3 theme specifics: In Fiori 3 Default
+   *     theme the ToolHeader is with dark design unlike most of the other controls. This defines the usage of
+   *     limited controls inside it, which will result in good design combination.
    *  The ToolHeader stylizes the contained controls with the Shell color parameters, to match the dark design
    * requirement. However, that's not a dark theme.
    *
@@ -1754,9 +1777,7 @@ declare module "sap/tnt/ToolHeader" {
    * Support for default (Accent 6) color. Image avatar. -   sap.m.Image
    * Primarily used for displaying the company logo. Interaction states
    */
-  export default class ToolHeader
-    extends OverflowToolbar
-    implements IToolHeader {
+  class ToolHeader extends OverflowToolbar implements IToolHeader {
     __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new ToolHeader.
@@ -1765,8 +1786,8 @@ declare module "sap/tnt/ToolHeader" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor
-     * sap.m.OverflowToolbar} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor sap.m.OverflowToolbar }
+     * can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
@@ -1783,8 +1804,8 @@ declare module "sap/tnt/ToolHeader" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor
-     * sap.m.OverflowToolbar} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor sap.m.OverflowToolbar }
+     * can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
@@ -1829,6 +1850,7 @@ declare module "sap/tnt/ToolHeader" {
      */
     static getMetadata(): ElementMetadata;
   }
+  export default ToolHeader;
 
   export interface $ToolHeaderSettings extends $OverflowToolbarSettings {}
 }
@@ -1844,7 +1866,7 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
    * The ToolHeaderUtilitySeparator control is used in the sap.tnt.ToolHeader control to specify where the
    * overflow button is placed.
    */
-  export default class ToolHeaderUtilitySeparator extends Control {
+  class ToolHeaderUtilitySeparator extends Control {
     /**
      * Constructor for a new ToolHeaderUtilitySeparator.
      *
@@ -1852,8 +1874,8 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Control#constructor
-     * sap.ui.core.Control} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Control#constructor sap.ui.core.Control }
+     * can be used.
      */
     constructor(
       /**
@@ -1868,8 +1890,8 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Control#constructor
-     * sap.ui.core.Control} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Control#constructor sap.ui.core.Control }
+     * can be used.
      */
     constructor(
       /**
@@ -1912,6 +1934,7 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
      */
     static getMetadata(): ElementMetadata;
   }
+  export default ToolHeaderUtilitySeparator;
 
   export interface $ToolHeaderUtilitySeparatorSettings
     extends $ControlSettings {}
@@ -1919,6 +1942,8 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
 
 declare module "sap/tnt/ToolPage" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import { PageBackgroundDesign } from "sap/m/library";
 
   import { IToolHeader } from "sap/tnt/library";
 
@@ -1936,11 +1961,11 @@ declare module "sap/tnt/ToolPage" {
    *
    * The ToolPage is a layout control, used to create a basic tools app that has a header, side navigation
    * and contents area. Overview: The control has three main areas - a header on top, navigation to the side
-   * and a content area that can hold any control. The header and side navigation use custom controls - {@link
-   * sap.tnt.ToolHeader} and {@link sap.tnt.SideNavigation}. Usage: The main usage of the sap.tnt controls
-   * is for scenarios in the tooling or administration space.
+   * and a content area that can hold any control. The header and side navigation use custom controls - {@link sap.tnt.ToolHeader }
+   * and {@link sap.tnt.SideNavigation}. Usage: The main usage of the sap.tnt controls is for scenarios in
+   * the tooling or administration space.
    */
-  export default class ToolPage extends Control {
+  class ToolPage extends Control {
     /**
      * Constructor for a new ToolPage.
      *
@@ -2039,6 +2064,20 @@ declare module "sap/tnt/ToolPage" {
      */
     destroySubHeader(): this;
     /**
+     * @since 1.115
+     *
+     * Gets current value of property {@link #getContentBackgroundDesign contentBackgroundDesign}.
+     *
+     * Specifies the content background design.
+     *
+     * Default value is `Standard`.
+     *
+     * @returns Value of property `contentBackgroundDesign`
+     */
+    getContentBackgroundDesign():
+      | PageBackgroundDesign
+      | keyof typeof PageBackgroundDesign;
+    /**
      * Gets content of aggregation {@link #getHeader header}.
      *
      * The control to appear in the header area.
@@ -2123,6 +2162,27 @@ declare module "sap/tnt/ToolPage" {
       vMainContent: int | string | Control
     ): Control | null;
     /**
+     * @since 1.115
+     *
+     * Sets a new value for property {@link #getContentBackgroundDesign contentBackgroundDesign}.
+     *
+     * Specifies the content background design.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setContentBackgroundDesign(
+      /**
+       * New value for property `contentBackgroundDesign`
+       */
+      sContentBackgroundDesign?:
+        | PageBackgroundDesign
+        | keyof typeof PageBackgroundDesign
+    ): this;
+    /**
      * Sets the aggregated {@link #getHeader header}.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2175,12 +2235,23 @@ declare module "sap/tnt/ToolPage" {
      */
     toggleSideContentMode(): this;
   }
+  export default ToolPage;
 
   export interface $ToolPageSettings extends $ControlSettings {
     /**
      * Indicates if the side menu is expanded. Overrides the `expanded` property of the `sideContent` aggregation.
      */
     sideExpanded?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @since 1.115
+     *
+     * Specifies the content background design.
+     */
+    contentBackgroundDesign?:
+      | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The control to appear in the header area.

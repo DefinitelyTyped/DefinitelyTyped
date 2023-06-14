@@ -1,4 +1,4 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.115.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -20,7 +20,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
    * read only mode. Use this control in scenarios where the user should be able to inspect and edit source
    * code. The control currently uses the third-party code editor Ace.
    */
-  export default class CodeEditor extends Control {
+  class CodeEditor extends Control {
     /**
      * Constructor for a new CodeEditor.
      *
@@ -115,7 +115,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CodeEditorChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -135,7 +135,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CodeEditorChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -160,7 +160,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CodeEditorLiveChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -180,7 +180,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CodeEditorLiveChangeEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -197,7 +197,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CodeEditorChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -214,14 +214,14 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$CodeEditorLiveChangeEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -231,19 +231,10 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the code editor.
-         */
-        value?: string;
-        /**
-         * The old value of the code editor.
-         */
-        oldValue?: string;
-      }
+      mParameters?: $CodeEditorChangeEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -253,16 +244,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the code editor.
-         */
-        value?: string;
-        /**
-         * The underlying change event of the third-party code editor.
-         */
-        editorEvent?: object;
-      }
+      mParameters?: $CodeEditorLiveChangeEventParameters
     ): this;
     /**
      * Sets the focus to the code editor
@@ -597,6 +579,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       sWidth?: CSSSize
     ): this;
   }
+  export default CodeEditor;
 
   export interface $CodeEditorSettings extends $ControlSettings {
     /**
@@ -675,12 +658,36 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: Event<$CodeEditorLiveChangeEventParameters>) => void;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Event<$CodeEditorChangeEventParameters>) => void;
+  }
+
+  export interface $CodeEditorChangeEventParameters {
+    /**
+     * The current value of the code editor.
+     */
+    value?: string;
+
+    /**
+     * The old value of the code editor.
+     */
+    oldValue?: string;
+  }
+
+  export interface $CodeEditorLiveChangeEventParameters {
+    /**
+     * The current value of the code editor.
+     */
+    value?: string;
+
+    /**
+     * The underlying change event of the third-party code editor.
+     */
+    editorEvent?: object;
   }
 }
 

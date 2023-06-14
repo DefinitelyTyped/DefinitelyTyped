@@ -138,8 +138,8 @@ const oFileUploader = new FileUploader({
             value: ((<ODataModel> Core.getModel()).getHeaders() as Headers)['x-csrf-token']
         }),
     ],
-    uploadComplete: (oEvent: UI5Event) => {
-        const sResponse = oEvent.getParameter("response");
+    uploadComplete: (oEvent) => {
+        const sResponse = oEvent.getParameter("response"); // 1.115: event objects are now specifically typed
         if (sResponse) {
             oUploadDialog.close();
             MessageBox.show("Return Code: " + sResponse);
