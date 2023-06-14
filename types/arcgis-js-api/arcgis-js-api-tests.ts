@@ -22,10 +22,10 @@ class MapController {
       center: point,
       container: this.mapDiv,
       map: this.map,
-      zoom: 13
+      zoom: 7
     });
   }
 }
 
 import esriRequest = require("esri/request");
-esriRequest("https://js.arcigs.com/");
+esriRequest(new URL("https://js.arcigs.com/"));

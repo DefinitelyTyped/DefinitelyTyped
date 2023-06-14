@@ -1,5 +1,5 @@
 // Type definitions for Microsoft Dynamics xRM API 9.0
-// Project: https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/developer-guide
+// Project: https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/overview
 // Definitions by:  Matt Ngan <https://github.com/mattngan>
 //                  Markus Mauch <https://github.com/markusmauch>
 //                  Daryl LaBar <https://github.com/daryllabar>
@@ -28,7 +28,7 @@ interface Window {
 
 /**
  * Xrm Namespace
- * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference External Link: Client API Reference}
+ * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference External Link: Client API Reference}
  */
 declare namespace Xrm {
     /**
@@ -38,7 +38,7 @@ declare namespace Xrm {
         /**
          * Provides a namespace container for the context, data and ui objects.
          * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         Page: Page;
 
@@ -48,7 +48,7 @@ declare namespace Xrm {
 
         /**
          * Provides a container for useful functions not directly related to the current page.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility External Link: Xrm.Utility (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility External Link: Xrm.Utility (Client API reference)}
          */
         Utility: Utility;
 
@@ -61,35 +61,35 @@ declare namespace Xrm {
         /**
          * Provides a method to display a web page in the side pane of the Customer Engagement form.
          *
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-panel External Link: Xrm.Panel}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-panel External Link: Xrm.Panel}
          */
         Panel: Panel;
 
         /**
          * Provides properties and methods to use Web API to create and manage records and execute Web API actions and functions in Customer Engagement.
          *
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi External Link: Xrm.WebApi (Client API reference)}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/use-microsoft-dynamics-365-web-api External Link: Use the Customer Engagement Web API}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/webapi/get-started-web-api-client-side-javascript External Link: Get started with the Customer Engagement Web API (client-side JavaScript)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi External Link: Xrm.WebApi (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/overview External Link: Use the Microsoft Dataverse Web API}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/client-scripting External Link: Apply business logic using client scripting in model-driven apps using JavaScript}
          */
         WebApi: WebApi;
 
         /**
          * Provides methods to use native device capabilities of mobile devices.
          *
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-device External Link: Xrm.Device (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-device External Link: Xrm.Device (Client API reference)}
          */
         Device: Device;
 
         /**
          * Provides methods to encode strings.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
          */
         Encoding: Encoding;
 
         /**
          * Provides app-related methods.
-         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
          */
         App: App;
     }
@@ -189,6 +189,7 @@ declare namespace Xrm {
          * Returns the default country/region code for phone numbers for the current organization.
          */
         defaultCountryCode: string;
+
         /**
          * Indicates whether the auto-save option is enabled for the current organization.
          */
@@ -216,13 +217,13 @@ declare namespace Xrm {
 
         /**
          * Returns the region of the current organization.
-         * @see {@link https://docs.microsoft.com/en-us/power-platform/admin/geo-to-geo-migrations External Link: Geo to geo migrations}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/admin/geo-to-geo-migrations External Link: Geo to geo migrations}
          */
         organizationGeo: string;
     }
 
     /**
-     * Interface for the DateFormattingInfo.calendar field
+     * Interface for the {@link DateFormattingInfo DateFormattingInfo.calendar} field
      */
     interface Calendar {
         MinSupportedDateTime: Date;
@@ -235,7 +236,7 @@ declare namespace Xrm {
     }
 
     /**
-     * Interface for UserSettings.dateFormattingInfo response
+     * Interface for {@link UserSettings UserSettings.dateFormattingInfo} response
      */
     interface DateFormattingInfo {
         AmDesignator: string;
@@ -302,7 +303,7 @@ declare namespace Xrm {
         /**
          * Returns an array of strings that represent the GUID values of each of the security role that the user is associated with or any teams that the user is associated with.
          * @deprecated Deprecated in v9.1; use {@link Xrm.UserSettings.roles globalContext.userSettings.roles} instead to display names of security roles or teams along with the ID.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         securityRoles: string[];
         /**
@@ -344,7 +345,7 @@ declare namespace Xrm {
 
     /**
      * Interface for the xRM application context.
-     * GetGlobalContext()
+     * @see {@link GetGlobalContext GetGlobalContext()}
      */
     interface GlobalContext {
         /**
@@ -373,9 +374,9 @@ declare namespace Xrm {
          * Gets client's base URL for Dynamics CRM
          * @returns The client's base URL
          * @example
-         * * For Dynamics CRM On-Premises:               http(s)://server/org
-         * * For Dynamics CRM Online:                    https://org.crm.dynamics.com
-         * * For Dynamics CRM for Outlook (Offline):     http://localhost:2525
+         * // For Dynamics CRM On-Premises:               http(s)://server/org
+         * // For Dynamics CRM Online:                    https://org.crm.dynamics.com
+         * // For Dynamics CRM for Outlook (Offline):     http://localhost:2525
          */
         getClientUrl(): string;
 
@@ -392,8 +393,8 @@ declare namespace Xrm {
         /**
          * Returns the URL of the current business app in Customer Engagement.
          * @example
-         * * Online        https://**org**.crm.dynamics.com/main.aspx?appid=**GUID**
-         * * OnPrem        https://**server**\/**org**\/main.aspx?appid=**GUID**
+         * // Online        https://**org**.crm.dynamics.com/main.aspx?appid=**GUID**
+         * // OnPrem        https://**server**\/**org**\/main.aspx?appid=**GUID**
          * @returns A string containing the url of the current business app.
          */
         getCurrentAppUrl(): string;
@@ -408,7 +409,7 @@ declare namespace Xrm {
         /**
          * Gets whether automatic save is enabled.
          * @deprecated Deprecated in v9. Use {@link Xrm.OrganizationSettings.isAutoSaveEnabled globalContext.organizationSettings.isAutoSaveEnabled} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns true if automatic saving is enabled, otherwise false.
          */
         getIsAutoSaveEnabled(): boolean;
@@ -416,9 +417,9 @@ declare namespace Xrm {
         /**
          * Gets organization's LCID (language code).
          * @deprecated Deprecated in v9. Use {@link Xrm.OrganizationSettings.languageId globalContext.organizationSettings.languageId} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The organization language code.
-         * @see {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx External Link: Microsoft Locale ID Values}
+         * @see {@link https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/available-language-packs-for-windows External Link: Microsoft Locale ID Values}
          */
         getOrgLcid(): number;
 
@@ -426,7 +427,7 @@ declare namespace Xrm {
          * Gets organization's unique name.
          * @remarks This value can be found on the Developer Resources page within Dynamics CRM.
          * @deprecated Deprecated in v9. Use {@link Xrm.OrganizationSettings.uniqueName} globalContext.organizationSettings.uniqueName instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The organization's unique name.
          */
         getOrgUniqueName(): string;
@@ -435,7 +436,7 @@ declare namespace Xrm {
          * Gets query string parameters.
          * @returns The query string parameters, in a dictionary object representing name and value pairs.
          * @deprecated Deprecated in v9 (Still applicable in Web Client).
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         getQueryStringParameters(): { [index: string]: any };
 
@@ -448,7 +449,7 @@ declare namespace Xrm {
         /**
          * Gets user's unique identifier.
          * @deprecated Deprecated in v9.  Use {@link Xrm.UserSettings.userId globalContext.userSettings.userId} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The user's identifier in Guid format.
          * @example Example: "{B05EC7CE-5D51-DF11-97E0-00155DB232D0}"
          */
@@ -457,16 +458,16 @@ declare namespace Xrm {
         /**
          * Gets user's LCID (language code).
          * @deprecated Deprecated in v9. Use {@link Xrm.UserSettings.languageId globalContext.userSetings.languageId} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The user's language code.
-         * @see {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx External Link: Microsoft Locale ID Values}
+         * @see {@link https://learn.microsoft.com/en-us/previous-versions/windows/embedded/ms912047(v=winembedded.10) External Link: Microsoft Locale ID Values}
          */
         getUserLcid(): number;
 
         /**
          * Gets the name of the current user.
          * @deprecated Deprecated in v9. Use {@link Xrm.UserSettings.userName globalContext.userSettings.userName} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The user's name.
          */
         getUserName(): string;
@@ -474,7 +475,7 @@ declare namespace Xrm {
         /**
          * Gets all user security roles.
          * @deprecated Deprecated in v9.  Use {@link Xrm.UserSettings.roles globalContext.userSettings.roles} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns An array of user role identifiers, in Guid format.
          * @example Example: ["cf4cc7ce-5d51-df11-97e0-00155db232d0"]
          */
@@ -507,16 +508,16 @@ declare namespace Xrm {
     }
 
     /**
-     * Interface for value returned from Xrm.Utility.getPageContext()
-     * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#returns External Link: getPageContext (Client API reference)}
+     * Interface for value returned from {@link Xrm.Utility.getPageContext Xrm.Utility.getPageContext()}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#returns External Link: getPageContext (Client API reference)}
      */
     interface PageContext {
         input: EntityFormPageContext | EntityListPageContext;
     }
 
     /**
-     * Interface for value returned from Xrm.Utility.getPageContext()
-     * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-form External Link: getPageContext (Client API reference)}
+     * Interface for `input` property of returned value from {@link Xrm.Utility.getPageContext Xrm.Utility.getPageContext()}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-form External Link: getPageContext (Client API reference)}
      */
     interface EntityFormPageContext {
         /**
@@ -542,8 +543,8 @@ declare namespace Xrm {
     }
 
     /**
-     * Interface for value returned from Xrm.Utility.getPageContext()
-     * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-list External Link: getPageContext (Client API reference)}
+     * Interface for `input` property of returned value from {@link Xrm.Utility.getPageContext Xrm.Utility.getPageContext()}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-list External Link: getPageContext (Client API reference)}
      */
     interface EntityListPageContext {
         /**
@@ -566,7 +567,7 @@ declare namespace Xrm {
 
     /**
      * <CrmParameter> used in RibbonDiffXml actions
-     * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)}
+     * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8) External Link: <CrmParameter> (RibbonDiffXml)}
      */
     interface CommandProperties {
         /**
@@ -583,23 +584,23 @@ declare namespace Xrm {
          * A reference from a control to the Id of a menu item.
          *
          * Most entities will not return a MenuItemId value. Only the following entities will return this value:
-         * BusinessUnit
-         * Connection
-         * CustomerAddress
-         * Equipment
-         * Goal
-         * InvoiceDetail
-         * Mailbox
-         * MailMergeTemplate
-         * PartnerApplication
-         * QueueItem
-         * QuoteDetail
-         * RoutingRuleItem
-         * SalesOrderDetail
-         * ServiceAppointment
-         * SharePointDocumentLocation
-         * SharePointSite
-         * Territory
+         * - BusinessUnit
+         * - Connection
+         * - CustomerAddress
+         * - Equipment
+         * - Goal
+         * - InvoiceDetail
+         * - Mailbox
+         * - MailMergeTemplate
+         * - PartnerApplication
+         * - QueueItem
+         * - QuoteDetail
+         * - RoutingRuleItem
+         * - SalesOrderDetail
+         * - ServiceAppointment
+         * - SharePointDocumentLocation
+         * - SharePointSite
+         * - Territory
          */
         MenuItemId: string;
     }
@@ -610,10 +611,9 @@ declare namespace Xrm {
      * SelectedControlAllItemReferences
      * SelectedControlUnselectedItemReferences
      *
-     * Not to be confused with the more commonly used LookupValue.
+     * Not to be confused with the more commonly used {@link Xrm.LookupValue LookupValue }.
      *
-     * @see LookupValue
-     * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)#remarks}
+     * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)#remarks External Link: CrmParameter Remarks}
      */
     interface EntityReference {
         /**
@@ -689,7 +689,7 @@ declare namespace Xrm {
              * disableAsyncTimeout is set, the timeout for that handler will not be applied. It will continue
              * to wait for that handler's promise to be fulfilled.
              * This should be used with caution as it might affect the performance of the form save.
-             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#async-onsave-timeouts Async onSave timeouts}
+             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#async-onsave-timeouts External Link: Async onSave timeouts}
              */
             disableAsyncTimeout(): void;
         }
@@ -772,13 +772,13 @@ declare namespace Xrm {
         /**
          * Interface for the event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/clientapi-execution-context External Link: Client API execution context}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/clientapi-execution-context?tabs=pass-execution-context-legacy External Link: Client API execution context}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface EventContext {
             /**
              * Gets the Xrm context.
-             * @returns The Xrm context.
+             * @returns The {@link GlobalContext Xrm context}
              */
             getContext(): GlobalContext;
 
@@ -795,7 +795,7 @@ declare namespace Xrm {
             getEventSource(): Attributes.Attribute | Controls.Control | Entity;
 
             /**
-             * Gets a reference to the currnet form context
+             * Gets a reference to the current form context
              * @returns The {@link FormContext form context}
              */
             getFormContext(): FormContext;
@@ -805,7 +805,7 @@ declare namespace Xrm {
              * @param T Generic type parameter.
              * @param key The key.
              * @returns The shared variable.
-             * @desc Gets the shared variable with the specified key.
+             * @description Gets the shared variable with the specified key.
              * Used to pass values between handlers of an event.
              */
             getSharedVariable<T>(key: string): T;
@@ -815,7 +815,7 @@ declare namespace Xrm {
              * @param T Generic type parameter.
              * @param key The key.
              * @param value The value.
-             * @desc Sets the shared variable with the specified key.
+             * @description Sets the shared variable with the specified key.
              * Used to pass values between handlers of an event.
              */
             setSharedVariable<T>(key: string, value: T): void;
@@ -826,18 +826,18 @@ declare namespace Xrm {
         * In the API documentation, this is sometimes referred to as the executionContext.
         * Subscribe to this event with {@link Data.addOnLoad()}
         * Not to be confused with {@link LoadEventContext}, registered in the designer.
-        * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+        * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
         */
         interface DataLoadEventContext extends EventContext {
             /**
-             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
              */
             getEventArgs(): DataLoadEventArguments;
         }
 
         /**
          * Return value of {@link DataLoadEventContext.getEventArgs()}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
          */
         interface DataLoadEventArguments {
             getDataLoadState(): XrmEnum.FormDataLoadState;
@@ -848,19 +848,19 @@ declare namespace Xrm {
          * In the API documentation, this is sometimes referred to as the executionContext.
          * Asynchronous version see {@link LoadEventContextAsync}
          * Not to be confused with {@link DataLoadEventContext}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support External Link: Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface LoadEventContext extends EventContext {
             /**
-             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
              */
             getEventArgs(): LoadEventArguments;
         }
 
         /**
          * Return value of {@link LoadEventContext.getEventArgs()}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
          */
         interface LoadEventArguments {
             getDataLoadState(): XrmEnum.FormDataLoadState;
@@ -870,8 +870,8 @@ declare namespace Xrm {
          * Asynchronous Form OnLoad event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
          * Synchronous version see {@link LoadEventContext}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support External Link: Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface LoadEventContextAsync extends LoadEventContext {
             getEventArgs(): LoadEventArgumentsAsync;
@@ -886,7 +886,7 @@ declare namespace Xrm {
              * disableAsyncTimeout is set, the timeout for that handler will not be applied. It will continue
              * to wait for that handler's promise to be fulfilled.
              * This should be used with caution as it might affect the performance of the form load.
-             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onload#async-onload-timeouts Async onLoad timeouts}
+             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onload#async-onload-timeouts External Link: Async onLoad timeouts}
              */
             disableAsyncTimeout(): void;
         }
@@ -895,8 +895,8 @@ declare namespace Xrm {
          * Synchronous Form OnSave event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
          * Asynchronous version see {@link SaveEventContextAsync}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave Form OnSave event}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave External Link: Form OnSave event}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface SaveEventContext extends EventContext {
             /**
@@ -909,8 +909,8 @@ declare namespace Xrm {
          * Asynchronous Form OnSave event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
          * Synchronous version see {@link SaveEventContext}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support External Link: Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface SaveEventContextAsync extends SaveEventContext {
             getEventArgs(): SaveEventArgumentsAsync;
@@ -997,7 +997,7 @@ declare namespace Xrm {
     /**
      * Defines save options for saving the record.
      *
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data/save External Link: save(Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data/save External Link: save(Client API reference)}
      */
     interface SaveOptions {
         /**
@@ -1017,8 +1017,7 @@ declare namespace Xrm {
 
     /**
      * Interface for the formContext.data object.
-     * @note NTOE NOTE
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data External Link: formContext.data (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data External Link: formContext.data (Client API reference)}
      */
     interface Data {
         /**
@@ -1069,40 +1068,41 @@ declare namespace Xrm {
          * Collection of non-entity data on the form.
          * Items in this collection are of the same type as the attributes collection, but they are not attributes of the form entity.
          * In V9 this is only available in the Unified Client
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/attributes External Link: Attributes (Client API reference)}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/attributes External Link: Attributes (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          * @see {@link Attributes}
          */
         attributes: Collection.ItemCollection<Attributes.Attribute>;
 
         /**
-         * The record context of the form, {@link Entity formContext.data.entity}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data-entity External Link: formContext.data.entity (Client API reference)}
+         * The record context of the form
+         * @see {@link Entity formContext.data.entity}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data-entity External Link: formContext.data.entity (Client API reference)}
          */
         entity: Entity;
 
         /**
          * The process API for {@link ProcessFlow.ProcessManager formContext.ui.process}.
          * @remarks This member may be undefined when Process Flows are not used by the current entity.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data-process External Link: formContext.data.process (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data-process External Link: formContext.data.process (Client API reference)}
          */
         process: ProcessFlow.ProcessManager;
     }
 
     /**
-     * Interface for formContext
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/executioncontext/getformcontext External Link: getFormContext (Client API reference)}
+     * Interface for {@link Xrm.Events.EventContext.getFormContext formContext}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/getformcontext External Link: getFormContext (Client API reference)}
      */
     interface FormContext {
         /**
          * Provides methods to work with the form.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data External Link: formContext.data (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data External Link: formContext.data (Client API reference)}
          */
         data: Data;
 
         /**
          * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui External Link: formContext.ui (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui External Link: formContext.ui (Client API reference)}
          */
         ui: Ui;
 
@@ -1138,7 +1138,7 @@ declare namespace Xrm {
          * Gets an attribute.
          * @param delegateFunction A matching delegate function
          * @returns An array of attribute.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         getAttribute(delegateFunction: Collection.MatchingDelegate<Attributes.Attribute>): Attributes.Attribute[];
 
@@ -1182,20 +1182,20 @@ declare namespace Xrm {
          * Gets a control.
          * @param delegateFunction A matching delegate function.
          * @returns An array of control.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         getControl(delegateFunction: Collection.MatchingDelegate<Controls.Control>): Controls.Control[];
     }
 
     /**
      * Interface for the formContext.ui object.
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui External Link: formContext.ui (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui External Link: formContext.ui (Client API reference)}
      */
     interface Ui {
         /**
          * Adds a function to be called on the form OnLoad event.
          * The function will be added to the bottom of the event handler pipeline.
-         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/addonload ui.addOnLoad (Client API reference)}
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/addonload External Link: ui.addOnLoad (Client API reference)}
          */
         addOnLoad(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
 
@@ -1272,14 +1272,14 @@ declare namespace Xrm {
 
         /**
          * Removes a function from the form OnLoad event.
-         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/removeonload ui.removeOnLoad (Client API reference)}
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/removeonload External Link: ui.removeOnLoad (Client API reference)}
          */
         removeOnLoad(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
 
         /**
          * Sets the name of the table to be displayed on the form.
          * @param name Name of the table to be displayed on the form.
-         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui/setformentityname External Link: setFormEntityName (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/setformentityname External Link: setFormEntityName (Client API reference)}
          */
         setFormEntityName(name: string): void;
 
@@ -1290,7 +1290,7 @@ declare namespace Xrm {
 
         /**
          * A reference to the collection of controls on the form.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         controls: Collection.ItemCollection<Controls.Control>;
 
@@ -1308,14 +1308,14 @@ declare namespace Xrm {
 
         /**
          * A reference to the collection of tabs on the form.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         tabs: Collection.ItemCollection<Controls.Tab>;
 
         /**
          * A collection of all the quick view controls on a form using the new form rendering engine (also called "turbo forms").
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-quickforms ExternalLink: formContext.ui.quickForms (Client API reference)}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui External Link: formContext.ui (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-quickforms ExternalLink: formContext.ui.quickForms (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui External Link: formContext.ui (Client API reference)}
          */
         quickForms: Collection.ItemCollection<Controls.QuickFormControl>;
     }
@@ -1380,12 +1380,12 @@ declare namespace Xrm {
 
     /**
      * Interface for the Xrm.Utility API
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility External Link: Xrm.Utility (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility External Link: Xrm.Utility (Client API reference)}
      */
     interface Utility {
         /**
          * Closes a progress dialog box.
-         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/closeprogressindicator External Link: closeProgressIndicator (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/closeprogressindicator External Link: closeProgressIndicator (Client API reference)}
          */
         closeProgressIndicator(): void;
 
@@ -1394,7 +1394,7 @@ declare namespace Xrm {
          * @param entityName    The logical name of the entity.
          * @param stateCode     The state code to find out the allowed status transition values.
          * @returns Returns an object with .then() function. The parameter to the delegate is an array of numbers representing the valid status transitions.
-         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getallowedstatustransitions getAllowedStatusTransitions (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getallowedstatustransitions External Link: getAllowedStatusTransitions (Client API reference)}
          */
         getAllowedStatusTransitions(entityName: string, stateCode: number): PromiseLike<number[]>;
 
@@ -1402,13 +1402,13 @@ declare namespace Xrm {
          * Returns the entity metadata for the specified entity.
          * @param entityName The logical name of the entity.
          * @param attributes The attributes to get metadata for.
-         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getentitymetadata External Link: getEntityMetadata}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getentitymetadata External Link: getEntityMetadata}
          */
         getEntityMetadata(entityName: string, attributes?: string[]): Async.PromiseLike<Metadata.EntityMetadata>;
 
         /**
          * The method provides access to the global context without going through the form context.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility/getglobalcontext External Link: getGlobalContext (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getglobalcontext External Link: getGlobalContext (Client API reference)}
          */
         getGlobalContext(): GlobalContext;
 
@@ -1416,14 +1416,14 @@ declare namespace Xrm {
          * Returns the name of the DOM attribute expected by the Learning Path (guided help) Content Designer for identifying UI controls in the model-driven apps forms.
          * An attribute by this name must be added to the UI element that needs to be exposed to Learning Path (guided help).
          * @returns DOM attribute expected by the Learning Path (guided help) Content Designer.
-         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getlearningpathattributename External Link: getLearningPathAttributeName (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getlearningpathattributename External Link: getLearningPathAttributeName (Client API reference)}
          */
         getLearningPathAttributeName(): string;
 
         /**
          * Gets the page context as an object representing the page.
          * @returns The method returns an object with the input property. The input property is an object with the following attributes depending on whether you are currently on the entity form or entity list
-         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-form External Link: getPageContext (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-form External Link: getPageContext (Client API reference)}
          */
         getPageContext(): PageContext;
 
@@ -1439,23 +1439,23 @@ declare namespace Xrm {
          * Invokes an action based on the specified parameters
          * @param name Name of the process action to invoke.
          * @param parameters An object containing input parameters for the action. You define an object using key:value pairs of items, where key is of String type.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility/invokeprocessaction External Link: invokeProcessAction (Client API reference)}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/customize/actions External Link: Actions overview}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/create-own-actions External Link: Create your own actions}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/invokeprocessaction External Link: invokeProcessAction (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/customize/actions External Link: Actions overview}
+         * @see {@link https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/create-own-actions External Link: Create your own actions}
          */
         invokeProcessAction(name: string, parameters: Collection.Dictionary<any>): Async.PromiseLike<any>;
 
         /**
          * Opens a lookup control to select one or more items.
          * @param lookupOptions Defines the options for opening the lookup dialog
-         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/lookupobjects}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/lookupobjects External Link: lookupObjects (Client API reference)}
          */
         lookupObjects(lookupOptions: LookupOptions): Async.PromiseLike<LookupValue[]>;
 
         /**
          * Refreshes the parent grid containing the specified record.
          * @param lookupOptions: The lookup value of the parent object to refresh.
-         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/refreshparentgrid}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/refreshparentgrid External Link: refreshParentGrid (Client API reference)}
          */
         refreshParentGrid(lookupOptions: LookupValue): void;
 
@@ -1463,14 +1463,14 @@ declare namespace Xrm {
          * Displays a progress dialog with the specified message.
          * Any subsequent call to this method will update the displayed message in the existing progress dialog with the message specified in the latest method call.
          * @param message The message to be displayed in the progress dialog.
-         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/showprogressindicator}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/showprogressindicator External Link: showProgressIndicator (Client API reference)}
          */
         showProgressIndicator(message: string): void;
 
         /**
          * Displays an alert dialog, with an "OK" button.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openAlertDialog} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param message The message.
          * @param onCloseCallback The "OK" callback.
          */
@@ -1479,7 +1479,7 @@ declare namespace Xrm {
         /**
          * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openConfirmDialog} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param message The message.
          * @param yesCloseCallback The "OK" callback.
          * @param noCloseCallback The "Cancel" callback.
@@ -1491,7 +1491,7 @@ declare namespace Xrm {
          * @deprecated Deprecated in v9. Use {@link Xrm.Utility.getEntityMetadata  Xrm.Utility.getEntityMetadata(entityName, ["IsActivity"])} instead.
          * @remarks The isActivityType method is synchronous so it was suitable for ribbon rules.
          * However, the replacement method, getEntityMetadata, is asynchronous, and is not suitable for ribbon rules.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param entityType Type of the entity.
          * @returns true if the entity is an Activity, false if not.
          */
@@ -1500,7 +1500,7 @@ declare namespace Xrm {
         /**
          * Opens quick create.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openForm} instead with the option {useQuickCreateForm:true}.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param entityLogicalName  The logical name of the entity to create.
          * @param createFromEntity (Optional) Designates a record that will provide default values based on mapped attribute values.
          * @param parameters (Optional) A dictionary object that passes extra query string parameters to the form. Invalid query string parameters will cause an error.
@@ -1515,7 +1515,7 @@ declare namespace Xrm {
         /**
          * Opens an entity form.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openForm} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param name The entity's logical name.
          * @param id (Optional) The unique identifier for the record.
          * @param parameters (Optional) A dictionary object that passes extra query string parameters to the form.
@@ -1531,7 +1531,7 @@ declare namespace Xrm {
         /**
          * Opens an HTML Web Resource in a new browser window.
          * @deprecated Deprecated in v9. Use {@link Xrm.Navigation.openWebResource} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param webResourceName Name of the HTML web resource. Can be used to pass URL parameters.  See Remarks.
          * @param webResourceData (Optional) Data to pass into the Web Resource's data parameter. It is advised to use encodeURIcomponent() to encode the value.
          * @param width (Optional) The width of the new window.
@@ -1556,9 +1556,9 @@ declare namespace Xrm {
     interface Mobile {
         /**
          * Provides methods to create and manage records in the mobile clients while working in the offline mode.
-         * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx External Link: Xrm.Mobile.offline (client-side reference)}
+         * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/mt787123(v=crm.8) External Link: Xrm.Mobile.offline (client-side reference)}
          * @deprecated Use {@link Xrm.WebApi.offline} instead.  Xrm.WebApi.offline is implemented differently than Xrm.Mobile.offline
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         offline: MobileOffline;
     }
@@ -1566,8 +1566,8 @@ declare namespace Xrm {
     /**
      * Interface for the Mobile.offline methods to create and manage records in the mobile clients while working in the offline mode.
      * @deprecated Use {@link Xrm.WebApi.offline} instead.  Xrm.WebApi.offline is implemented differently than Xrm.Mobile.offline
-     * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx External Link: Xrm.Mobile.offline (client-side reference)}
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+     * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/mt787123(v=crm.8) External Link: Xrm.Mobile.offline (client-side reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
      */
     interface MobileOffline {
         /**
@@ -1575,7 +1575,7 @@ declare namespace Xrm {
          * @param entityType The logical name of the entity.
          * @returns True if the entity is offline enabled; otherwise False.
          * @deprecated Use {@link Xrm.WebApi.isAvailableOffline} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         isOfflineEnabled(entityType: string): boolean;
 
@@ -1590,7 +1590,7 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State<BR>
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.createRecord} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         createRecord(
             entityType: string,
@@ -1612,7 +1612,7 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State<BR>
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.retrieveRecord} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         retrieveRecord(
             entityType: string,
@@ -1639,7 +1639,7 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State<BR>
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.retrieveMultipleRecords} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         retrieveMultipleRecords(
             entityType: string,
@@ -1659,7 +1659,7 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State<BR>
          *             Status, UniqueIdentifier
          * @deprecated Use {@link Xrm.WebApi.updateRecord} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         updateRecord(
             entityType: string,
@@ -1674,14 +1674,14 @@ declare namespace Xrm {
          * @returns Returns an asynchronous promise.
          * @remarks  You cannot delete intersect and activity party entities.
          * @deprecated Use {@link Xrm.WebApi.deleteRecord} instead.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         deleteRecord(entityType: string, id: string): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
     }
 
     /**
      * Interface for the Xrm.Panel API
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-panel External Link: Xrm.Panel}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-panel External Link: Xrm.Panel}
      */
     interface Panel {
         /**
@@ -1689,7 +1689,7 @@ declare namespace Xrm {
          * @param url URL of the page to be loaded in the side pane static area.
          * @param title Title of the side pane static area.
          * @remarks  This method is only supported for the web client.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-panel/loadpanel External Link: loadPanel (Client-side reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-panel/loadpanel External Link: loadPanel (Client-side reference)}
          */
         loadPanel(url: string, title: string): void;
     }
@@ -1821,7 +1821,7 @@ declare namespace Xrm {
 
         /**
          * Collections are structures to provide access to data that represent an array, but without the ability to modify the data in the array.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         interface ItemCollection<T> {
             /**
@@ -1885,13 +1885,13 @@ declare namespace Xrm {
     /**
      * Interface for Page context
      * @deprecated Use {@link Xrm.Events.EventContext.getFormContext formContext} instead.
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}a
+     * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}a
      */
     interface Page extends FormContext {
         /**
          * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
          * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         context: GlobalContext;
     }
@@ -1899,7 +1899,7 @@ declare namespace Xrm {
     /**
      * Xrm.Page namespace has been deprecated
      * @deprecated Use {@link Xrm.Events.EventContext.getFormContext formContext} instead.
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+     * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
      */
     namespace Page {
         /**
@@ -2482,7 +2482,7 @@ declare namespace Xrm {
 
             /**
              * Interface for a quick view control instance on a form.
-             * @see {@link https://msdn.microsoft.com/en-us/library/mt736908.aspx External Link: Xrm.Page.ui quickForms (client-side reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (client-side reference)}
              * @deprecated Use {@link Xrm.Controls.ViewSelectorItem} instead.
              */
             interface QuickForm extends Controls.QuickFormControl { }
@@ -2536,8 +2536,8 @@ declare namespace Xrm {
 
     /**
      * A collection of types and methods for working with formContext attributes.
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/attributes External Link: Attributes (Client API reference)}
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/attributes External Link: Attributes (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
      */
     namespace Attributes {
         /**
@@ -2713,9 +2713,9 @@ declare namespace Xrm {
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            controls: Collection.ItemCollection<Controls.Control>;
+            controls: Collection.ItemCollection<Controls.StandardControl>;
 
             /**
              * Gets the value.
@@ -2734,7 +2734,7 @@ declare namespace Xrm {
              * Sets a value for a column to determine whether it is valid or invalid with a message
              * @param isValid Specify false to set the column value to invalid and true to set the value to valid.
              * @param message The message to display.
-             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setisvalid External Link: setIsValid (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/attributes/setisvalid External Link: setIsValid (Client API reference)}
              */
             setIsValid(isValid: boolean, message?: string): void;
         }
@@ -2771,14 +2771,14 @@ declare namespace Xrm {
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.NumberControl>;
 
             /**
              * Sets the number of digits allowed to the right of the decimal point.
              * @param precision Number of digits allowed to the right of the decimal point.
-             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setPrecision External Link: setPrecision (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/attributes/setprecision External Link: setPrecision (Client API reference)}
              */
             setPrecision(precision: number): void;
         }
@@ -2813,21 +2813,21 @@ declare namespace Xrm {
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.StringControl>;
         }
 
         /**
-         * Common interface for enumeration attributes (OptionSet and Boolean).
+         * Common interface for enumeration attributes (MultiOptionSet, OptionSet and Boolean).
          * @see {@link Attribute}
          */
-        interface EnumAttribute<T extends number | boolean> extends Attribute<T> {
+        interface EnumAttribute<T extends number[] | number | boolean> extends Attribute<T> {
             /**
              * Gets the initial value of the attribute.
              * @returns The initial value.
              * @remarks Valid for OptionSet and boolean attribute types
-             * @see {@link https://docs.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/attributes/getinitialvalue External Link: getInitialValue (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/attributes/getinitialvalue External Link: getInitialValue (Client API reference)}
              */
             getInitialValue(): T | null;
         }
@@ -2839,7 +2839,7 @@ declare namespace Xrm {
         interface BooleanAttribute extends EnumAttribute<boolean> {
             /**
              * A collection of all the controls on the form that interface with this attribute.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.BooleanControl>;
 
@@ -2866,7 +2866,7 @@ declare namespace Xrm {
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.DateControl>;
         }
@@ -2927,6 +2927,67 @@ declare namespace Xrm {
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
+             */
+            controls: Collection.ItemCollection<Controls.OptionSetControl>;
+        }
+
+         /**
+         * Interface an OptionSet attribute.
+         * @see {@link EnumAttribute}
+         */
+         interface MultiSelectOptionSetAttribute extends EnumAttribute<number[]> {
+            /**
+             * Gets the attribute format.
+             * @returns The format of the attribute.
+             * Values returned are: language, timezone
+             */
+            getFormat(): OptionSetAttributeFormat;
+
+            /**
+             * Gets the option matching a value.
+             * @param value The enumeration value of the option desired.
+             * @returns The option.
+             */
+            getOption(value: number): OptionSetValue;
+
+            /**
+             * Gets the option matching a label.
+             * @param label The label of the option desired.
+             * @returns The option.
+             */
+            getOption(label: string): OptionSetValue;
+
+            /**
+             * Gets all of the options.
+             * @returns An array of options.
+             */
+            getOptions(): OptionSetValue[];
+
+            /**
+             * Gets selected option.
+             * @returns The selected option.
+             */
+            getSelectedOption(): OptionSetValue[];
+
+            /**
+             * Gets the label of the currently selected option.
+             * @returns The current value's label.
+             */
+            getText(): string[];
+
+            /**
+             * Sets the value.
+             * @param value The value.
+             * @remarks     The getOptions() method returns option values as strings. You must use parseInt
+             *              to convert them to numbers before you can use those values to set the value of an
+             *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
+             *              with this method.
+             */
+            setValue(value: number[] | null): void;
+
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.OptionSetControl>;
@@ -2946,7 +3007,7 @@ declare namespace Xrm {
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.LookupControl>;
         }
@@ -2954,7 +3015,7 @@ declare namespace Xrm {
 
     /**
      * A collection of types and methods for working with formContext controls.
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
      */
     namespace Controls {
         /**
@@ -3070,7 +3131,7 @@ declare namespace Xrm {
              * Use this to add a function as an event handler for the keypress event so that the function is called when you type a character in the specific text or number field.
              * For a sample JavaScript code that uses the addOnKeyPress method to configure the auto-completion experience, see Sample: Auto-complete in CRM controls.
              * @deprecated Deprecated in v9.1; Use a custom control.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+             * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * @param handler The function reference.
              */
             addOnKeyPress(handler: Events.ContextSensitiveHandler): void;
@@ -3078,14 +3139,14 @@ declare namespace Xrm {
             /**
              * Use this to manually fire an event handler that you created for a specific text or number field to be executed on the keypress event.
              * @deprecated Deprecated in v9.1; Use a custom control.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+             * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              */
             fireOnKeyPress(): void;
 
             /**
              * Use this to remove an event handler for a text or number field that you added using addOnKeyPress.
              * @deprecated Deprecated in v9.1; Use a custom control.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+             * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * Remarks:  If an anonymous function is set using addOnKeyPress, it can’t be removed using this method.
              * @param handler The function reference.
              */
@@ -3219,7 +3280,7 @@ declare namespace Xrm {
         interface Navigation {
             /**
              * A reference to the collection of available navigation items.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             items: Collection.ItemCollection<NavigationItem>;
         }
@@ -3228,7 +3289,7 @@ declare namespace Xrm {
          * Interface for a navigation item.
          * @see {@link UiElement}
          * @see {@link UiFocusable}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-navigation External Link: formContext.ui.navigation item (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-navigation External Link: formContext.ui.navigation item (Client API reference)}
          */
         interface NavigationItem extends UiStandardElement, UiFocusable {
             /**
@@ -3285,7 +3346,7 @@ declare namespace Xrm {
 
             /**
              * Returns a dictionary of the output properties of the control.
-             * @returns: A dictionary for the output parameters from the control.
+             * @returns A dictionary for the output parameters from the control.
              *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
              */
             getOutputs(): { [index: string]: FieldControlOutput };
@@ -3309,7 +3370,7 @@ declare namespace Xrm {
          * This is not an Entity Lookup, but a control that supports AutoComplete / KeyPress Events (Text or Number)
          * @remarks This interface is not supported for CRM mobile clients (phones or tablets) and the interactive service hub.  It is only available for Updated entities.
          * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+         * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @see {@link StandardControl}
          */
         interface AutoLookupControl extends StandardControl, UiKeyPressable {
@@ -3324,7 +3385,7 @@ declare namespace Xrm {
             /**
              * Hides the auto-completion drop-down list configured for a specific text field
              * @deprecated Deprecated in v9.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+             * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              */
             hideAutoComplete(): void;
 
@@ -3332,7 +3393,7 @@ declare namespace Xrm {
              * Shows upt to 10 matching strings in a drop-down list as users press keys to type charactrer in a specific text field.
              * On selecting an item in the drop-down list, the value in the text field changes to the selected item, the drop-down list disappears, and the OnChange event for the text field is invoked
              * @deprecated Deprecated in v9.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
+             * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * @param resultSet The results to show
              */
             showAutoComplete(resultSet: AutoCompleteResultSet): void;
@@ -3433,9 +3494,9 @@ declare namespace Xrm {
              * @param isDefault true, to treat this view as default.
              * @remarks Cannot be used on "Owner" Lookup controls.
              *          The viewId is never saved to CRM, but must be unique across available views.  Generating
-             *          a new value can be accomplished with a {@link http://www.guidgen.com/ Guid generator(external link)}.
+             *          a new value can be accomplished with a {@link http://www.guidgen.com/ External Link: Guid generator}.
              * @example Example viewId value: "{00000000-0000-0000-0000-000000000001}"
-             * @see {@link http://msdn.microsoft.com/en-us/library/gg334522.aspx External Link: Layout XML Reference}
+             * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg334522(v=crm.8) External Link: Layout XML Reference}
              */
             addCustomView(
                 viewId: string,
@@ -3532,6 +3593,38 @@ declare namespace Xrm {
             removeOption(value: number): void;
         }
 
+        interface MultiSelectOptionSetControl extends StandardControl {
+             /**
+             * Adds an option.
+             *
+             * @param option The option.
+             * @param index (Optional) zero-based index of the option.
+             *
+             * @remarks This method does not check that the values within the options you add are valid.
+             *          If index is not provided, the new option will be added to the end of the list.
+             */
+             addOption(option: OptionSetValue, index?: number): void;
+
+             /**
+              * Clears all options.
+              */
+             clearOptions(): void;
+
+             /**
+              * Gets the control's bound attribute.
+              *
+              * @returns The attribute.
+              */
+             getAttribute(): Attributes.MultiSelectOptionSetAttribute;
+
+             /**
+              * Removes the option matching the value.
+              *
+              * @param value The value.
+              */
+             removeOption(value: number): void;
+        }
+
         /**
          * Interface for a CRM grid control.
          *
@@ -3540,36 +3633,58 @@ declare namespace Xrm {
         interface GridControl extends Control, UiCanSetVisibleElement {
             /**
              * Use this method to add event handlers to the GridControl's OnLoad event.
-             *
              * @param handler The event handler.
              */
             addOnLoad(handler: Events.GridControl.LoadEventHandler): void;
 
             /**
              * This method returns context information about the GridControl.
-             *
              * @returns The context type.
              */
             getContextType(): XrmEnum.GridControlContext;
 
             /**
-             * Use this method to get the logical name of the entity data displayed in the grid.
-             *
-             * @returns The entity name.
+             * Gets the logical name of the table data displayed in the grid.
+             * @returns The logical name of the table data displayed in the grid.
              */
             getEntityName(): string;
 
             /**
-             * Use this method to get access to the Grid available in the GridControl.
-             * @returns The grid.
+             * Gets the FetchXML query that represents the current data, including filtered and sorted data, in the grid control.
+             * @returns The FetchXML query.
+             */
+            getFetchXml(): string;
+
+            /**
+             * Get access to the Grid available in the GridControl (gridContext).
+             * @returns The Grid object.
              */
             getGrid(): Grid;
+
+            /**
+             * Gets information about the relationship used to filter the subgrid.
+             * @returns A relationship object.
+             */
+            getRelationship(): GridRelationship;
+
+            /**
+             * Gets the URL of the current grid control.
+             * @param client Indicates the client type.
+             * @returns Gets the URL of the current grid control.
+             */
+            getUrl(client?: XrmEnum.GridClient): string;
 
             /**
              * Use this method to get access to the ViewSelector available for the GridControl when it is configured to display views.
              * @returns The view selector.
              */
             getViewSelector(): ViewSelector;
+
+            /**
+             * Displays the associated grid for the grid.
+             * @remarks This method does nothing if the grid is not filtered based on a relationship.
+             */
+            openRelatedGrid(): void;
 
             /**
              * Refreshes the sub grid.
@@ -3579,7 +3694,7 @@ declare namespace Xrm {
 
             /**
              * Refreshes the sub grid ribbon.
-             * @see {@link https://docs.microsoft.com/it-it/powerapps/developer/model-driven-apps/clientapi/reference/grids/gridcontrol/refreshribbon External Link: refreshRibbon (Client API reference)}
+             * @see {@link https://learn.microsoft.com/it-it/power-apps/developer/model-driven-apps/clientapi/reference/grids/gridcontrol/refreshribbon External Link: refreshRibbon (Client API reference)}
              */
             refreshRibbon(): void;
 
@@ -3598,14 +3713,14 @@ declare namespace Xrm {
             /**
              * Returns a collection of every GridRow in the Grid.
              * @returns The rows.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             getRows(): Collection.ItemCollection<Grid.GridRow>;
 
             /**
              * Returns a collection of every selected GridRow in the Grid.
              * @returns The selected rows.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             getSelectedRows(): Collection.ItemCollection<Grid.GridRow>;
 
@@ -3614,6 +3729,36 @@ declare namespace Xrm {
              * @returns The total record count.
              */
             getTotalRecordCount(): number;
+        }
+
+        /**
+             * Object containing information about the relationship used to filter the subgrid.
+             */
+        interface GridRelationship {
+            /**
+             * Name of the column
+             */
+            attributeName: string;
+
+            /**
+             * Name of the relationship
+             */
+            name: string;
+
+            /**
+             * Name of the navigation property for this relationship.
+             */
+            navigationPropertyName: string;
+
+            /**
+             * Returns one of the following values to indicate the relationship type.
+             */
+            relationshipType: XrmEnum.RelationshipType;
+
+            /**
+             * Returns one of the following values to indicate the role type of relationship
+             */
+            roleType: XrmEnum.RoleType;
         }
 
         namespace Grid {
@@ -3747,34 +3892,38 @@ declare namespace Xrm {
         interface KbSearchControl extends Control {
             /**
               * Adds an event handler to the PostSearch event.
-              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonpostsave
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addonpostsearch External Link: addOnPostSearch (Client API reference)}
               */
             addOnPostSearch(handler: Events.KbSearchControl.PostSearchEventHandler): void;
 
             /**
               * Adds an event handler to the OnResultOpened event.
-              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonresultopened
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addonresultopened External Link: addOnResultOpened (Client API reference)}
               */
             addOnResultOpened(handler: Events.KbSearchControl.ResultOpenedEventHandler): void;
 
+            /**
+             * Adds an event handler to the OnSelection event.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addonselection External Link: addOnSelection (Client API reference)}
+             */
             addOnSelection(handler: Events.KbSearchControl.SelectionEventHandler): void;
 
             /**
               * Gets the text used as the search criteria for the knowledge base management control.
-              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/getsearchquery
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/getsearchquery External Link: getSearchQuery (Client API reference)}
               */
             getSearchQuery(): string;
 
             /**
               * Gets the currently selected result of the search control. The currently selected result also represents the result that is currently open.
-              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/getselectedresults
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/getselectedresults External Link: getSelectedResults (Client API Reference)}
               */
             getSelectedResults(): KbSearchResult;
 
             /**
               * Gets the count of results found in the search control.
               * @returns The count of the search result.
-              * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/gettotalresultcount
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/gettotalresultcount External Link: getTotalResultCount (Client API reference)}
               */
             getTotalResultCount(): number;
 
@@ -3783,35 +3932,35 @@ declare namespace Xrm {
               * @param resultNumber Numerical value specifying the result number to be opened. Result number starts from 1.
               * @param mode Specify "Inline" or "Popout". "Inline" mode opens the result inline either in the reading pane of the control or in a reference panel tab in case of reference panel. "Popout" mode opens the result in a pop-out window.
               * @returns Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
-              * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult External Link: openSearchResult (Client API reference)}
               */
             openSearchResult(resultNumber: number, mode?: XrmEnum.OpenSearchResultMode): boolean;
 
             /**
               * Removes an event handler from the PostSearch event.
               * @param handler The function to remove from the PostSearch event.
-              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch External Link: removeOnPostSearch (Client API reference)}
               */
             removeOnPostSearch(handler: Events.KbSearchControl.PostSearchEventHandler): void;
 
             /**
               * Removes an event handler from the OnResultOpened event.
               * @param handler The function to remove from the OnResultOpened event.
-              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened External Link: removeOnResultOpened (Client API reference)}
               */
             removeOnResultOpened(handler: Events.KbSearchControl.ResultOpenedEventHandler): void;
 
             /**
               * Removes an event handler from the OnResultSelection event.
               * @param handler The function to remove from the OnSelection event.
-              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonselection
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonselection External Link: removeOnSelection (Client API reference)}
               */
             removeOnSelection(handler: Events.KbSearchControl.SelectionEventHandler): void;
 
             /**
               * Sets the text used as the search criteria for the knowledge base search control.
               * @param searchString The text for the search query.
-              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/setsearchquery
+              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/setsearchquery External Link: setSearchQuery (Client API reference)}
               */
             setSearchQuery(searchString: string): void;
         }
@@ -3910,7 +4059,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a quick view control instance on a form.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (Client API reference)}
          */
         interface QuickFormControl
             extends Control,
@@ -4022,7 +4171,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a Timeline control.
-         * @see {@link Control}
+         * @see {@link Xrm.Controls.Control}
          */
         interface TimelineWall extends Control {
             /**
@@ -4076,7 +4225,7 @@ declare namespace Xrm {
 
             /**
              * A reference to the collection of form sections within this tab.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             sections: Collection.ItemCollection<Section>;
         }
@@ -4100,7 +4249,7 @@ declare namespace Xrm {
 
             /**
              * A reference to the collection of controls within this tab.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Control>;
         }
@@ -4109,15 +4258,15 @@ declare namespace Xrm {
             /**
              * Returns the footer section visibility.
              * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
-             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
              */
             getVisible(): boolean;
 
             /**
              * Sets the visibility of the footer section.
-             * @arg bool Specify true to show the footer section; false to hide the footer section.
+             * @param bool Specify true to show the footer section; false to hide the footer section.
              * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
-             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
              */
             setVisible(bool: boolean): void;
         }
@@ -4126,39 +4275,45 @@ declare namespace Xrm {
             /**
              * Returns the header's body visibility.
              * @remarks Available only for Unified Interface.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/getbodyvisible External Link: getBodyVisible (Client API reference)}
              */
             getBodyVisible(): boolean;
 
             /**
              * Returns the command bar visibility.
              * @remarks Available only for Unified Interface.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/getcommandbarvisible External Link: getCommandBarVisible (Client API reference)}
              */
             getCommandBarVisible(): boolean;
 
             /**
              * Returns the tab navigator visibility.
              * @remarks Available only for Unified Interface.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/gettabnavigatorvisible External Link: getTabNavigatorVisible (Client API reference)}
              */
             getTabNavigatorVisible(): boolean;
 
             /**
              * Sets the header's body visibility.
-             * @arg bool Specify true to show the body; false to hide the body.
+             * @param bool Specify true to show the body; false to hide the body.
              * @remarks Available only for Unified Interface.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/setbodyvisible External Link: setBodyVisible (Client API reference)}
              */
             setBodyVisible(bool: boolean): void;
 
             /**
              * Sets the command bar visibility.
-             * @arg bool Specify true to show the command bar; false to hide the command bar.
+             * @param bool Specify true to show the command bar; false to hide the command bar.
              * @remarks Available only for Unified Interface.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/setcommandbarvisible External Link: setCommandBarVisible (Client API reference)}
              */
             setCommandBarVisible(bool: boolean): void;
 
             /**
              * Sets the tab navigator visibility.
-             * @arg bool Specify true to show the tab navigator; false to hide the tab navigator.
+             * @param bool Specify true to show the tab navigator; false to hide the tab navigator.
              * @remarks Available only for Unified Interface.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/settabnavigatorvisible External Link: setTabNavigatorVisible (Client API reference)}
              */
             setTabNavigatorVisible(bool: boolean): void;
         }
@@ -4257,7 +4412,7 @@ declare namespace Xrm {
             /**
              * Sets a value that indicates whether the form is visible.
              * @param isVisible Specify true to show the form; false to hide the form.
-             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui-formselector/setvisible External Link: setVisible (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-formselector/setvisible External Link: setVisible (Client API reference)}
              */
             setVisible(isVisible: boolean): void;
         }
@@ -4275,7 +4430,7 @@ declare namespace Xrm {
 
             /**
              * A reference to the collection of available forms.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             items: Collection.ItemCollection<FormItem>;
         }
@@ -4319,14 +4474,14 @@ declare namespace Xrm {
 
     /**
      * Interface for the form's record context, {@link Data.entity formContext.data.entity}
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data-entity External Link: formContext.data.entity (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data-entity External Link: formContext.data.entity (Client API reference)}
      */
     interface Entity {
         /**
          * Adds a function to be called after the OnSave is complete.
          * @param handler The handler.
          * @remarks Added in 9.2
-         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/events/postsave External Link: PostSave Event Documentation}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/postsave External Link: PostSave Event Documentation}
          */
         addOnPostSave(handler: Events.PostSaveEventHandler): void;
 
@@ -4354,7 +4509,7 @@ declare namespace Xrm {
         /**
          * Gets a lookup value that references the record.
          * @returns A lookup value that references the record.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data-entity/getentityreference External Link: getEntityReference API Documentation}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data-entity/getentityreference External Link: getEntityReference API Documentation}
          */
         getEntityReference(): LookupValue;
 
@@ -4385,7 +4540,7 @@ declare namespace Xrm {
         isValid(): boolean;
 
         /**
-         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsave removeOnPostSave (Client API reference)}
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsave External Link: removeOnPostSave (Client API reference)}
          */
         removeOnPostSave(handler: Events.PostSaveEventHandler): void;
 
@@ -4412,8 +4567,8 @@ declare namespace Xrm {
 
         /**
          * The collection of attributes for the record.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/attributes External Link: Attributes (Client API reference)}
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/attributes External Link: Attributes (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         attributes: Collection.ItemCollection<Attributes.Attribute>;
     }
@@ -4457,7 +4612,7 @@ declare namespace Xrm {
             /**
              * Returns an collection of stages in the process.
              * @returns The stages.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             getStages(): Collection.ItemCollection<Stage>;
 
@@ -4537,7 +4692,7 @@ declare namespace Xrm {
 
         /**
          * Interface for the formContext.data.process API.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data-process External Link: formContext.data.process (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data-process External Link: formContext.data.process (Client API reference)}
          */
         interface ProcessManager {
             /**
@@ -4587,7 +4742,7 @@ declare namespace Xrm {
              *          based on satisfied conditions in the branching rule. This may be a subset of the stages returned with
              *          formContext.data.process.getActiveProcess because it will only include those stages which represent a valid
              *          transition from the current stage based on branching that has occurred in the process.
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             getActivePath(): Collection.ItemCollection<Stage>;
 
@@ -4813,7 +4968,7 @@ declare namespace Xrm {
 
     /**
      * An definition module for URL-based, CRM component parameters.
-     * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
      */
     namespace Url {
         /**
@@ -4838,7 +4993,7 @@ declare namespace Xrm {
          * Interface for defining parameters on a request to open a form with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
          * @remarks  A member for "pagetype" is not provided.  The value "entityrecord" is required in
          *           the URL, for forms. Example:  "pagetype=entityrecord"
          */
@@ -4878,7 +5033,7 @@ declare namespace Xrm {
          * Interface for defining parameters on a request to open a view with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
          * @remarks  A member for "pagetype" is not provided.  The value "entitylist" is required in
          *           the URL, for views. Example:  "pagetype=entitylist"
          */
@@ -4924,7 +5079,7 @@ declare namespace Xrm {
          * Interface for defining parameters of a request to open a dialog with rundialog.aspx (as with
          * window.open).  Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
          */
         interface DialogOpenParameters {
             /**
@@ -4949,7 +5104,7 @@ declare namespace Xrm {
          * window.open).  Useful for parsing out the keys and values into a string of the format:
          * "&key=value"
          *
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
          */
         interface ReportOpenParameters {
             /**
@@ -4976,7 +5131,7 @@ declare namespace Xrm {
     /**
      * The Xrm.Utility API
      *
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility External Link: Xrm.Utility (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility External Link: Xrm.Utility (Client API reference)}
      */
     namespace Utility {
         /**
@@ -5032,7 +5187,7 @@ declare namespace Xrm {
 
     /**
      * Namespace to hold Xrm.Navigation related types
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-navigation External Link: Xrm.Navigation (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-navigation External Link: Xrm.Navigation (Client API reference)}
      */
     namespace Navigation {
         interface AlertStrings {
@@ -5491,7 +5646,7 @@ declare namespace Xrm {
         interface EntityMetadata {
             ActivityTypeMask: number;
             /**
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             Attributes: Collection.StringIndexableItemCollection<AttributeMetadata>;
             AutoRouteToOwnerQueue: boolean;
@@ -5554,7 +5709,7 @@ declare namespace Xrm {
          */
         interface Label {
             /**
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             LocalizedLabels: LocalizedLabel[];
             UserLocalizedLabel: LocalizedLabel;
@@ -5574,14 +5729,14 @@ declare namespace Xrm {
         interface AttributeMetadata {
             DefaultFormValue: number;
             /**
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             LogicalName: string;
             DisplayName: string;
             AttributeType: XrmEnum.AttributeTypeCode;
             EntityLogicalName: string;
             /**
-             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             OptionSet: OptionMetadata[];
         }
@@ -5605,7 +5760,7 @@ declare namespace Xrm {
 
     /**
      * Namespace to hold Xrm.Device related types
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-device External Link: Xrm.Device (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-device External Link: Xrm.Device (Client API reference)}
      */
     namespace Device {
         /**
@@ -5697,7 +5852,7 @@ declare namespace Xrm {
 
     /**
      * Interface for Xrm.Device API
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-device External Link: Xrm.Device (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-device External Link: Xrm.Device (Client API reference)}
      */
     interface Device {
         /**
@@ -5739,7 +5894,7 @@ declare namespace Xrm {
 
     /**
      * Interface for Xrm.Encoding API
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
      */
     interface Encoding {
         /**
@@ -5780,7 +5935,7 @@ declare namespace Xrm {
 
     /**
      * Provides properties and methods to use Web API to create and manage records and execute Web API actions and functions in Customer Engagement.
-     * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi External Link: Xrm.WebApi (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi External Link: Xrm.WebApi (Client API reference)}
      */
     interface WebApi extends WebApiOffline {
         /**
@@ -5792,24 +5947,25 @@ declare namespace Xrm {
 
         /**
          * Provides methods to use Web API to create and manage records and execute Web API actions and functions in Customer Engagement when connected to the Customer Engagement server (online mode).
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/online External Link: Xrm.WebApi.online (Client API reference)}
          */
         online: WebApiOnline;
 
         /**
          * Provides methods to create and manage records in the Dynamics 365 Customer Engagement mobile clients while working in the offline mode.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/offline}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/offline External Link: Xrm.WebApi.offline (Client API reference)}
          */
         offline: WebApiOffline;
     }
 
     /**
-     * Interface for the Xrm.WebApi.online API
+     * Interface for the {@link Xrm.WebApi.online} API
      * Execute and ExecuteMultiple are only available when online, not offline.
      */
     interface WebApiOnline extends WebApiOffline {
         /**
          * Execute a single action, function, or CRUD operation.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/execute External Link: execute (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/online/execute External Link: Xrm.WebApi.online.execute (Client API reference)}
          * @param request Object that will be passed to the Web API endpoint to execute an action, function, or CRUD request.
          * @remarks The object exposes a getMetadata method that lets you define the metadata for the action, function or CRUD request you want to execute.<BR>
          * **The getMetadata method has the following parameters**:
@@ -5837,7 +5993,7 @@ declare namespace Xrm {
 
         /**
          * Execute a collection of action, function, or CRUD operations.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/executemultiple External Link: executeMultiple (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/online/executemultiple External Link: Xrm.WebApi.online.executeMultiple (Client API reference)}
          * @param request   An array of one of one of the following types:
          *    -objects where each object is an action, function, or CRUD request that you want to execute
          *        * against the Web API endpoint. Each object exposes a getMetadata method that lets you define
@@ -5852,6 +6008,7 @@ declare namespace Xrm {
 
     /**
      * Interface for the Xrm.WebApi.offline API
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/offline External Link: Xrm.WebApi.offline (Client API reference)}
      */
     interface WebApiOffline {
         /**
@@ -5859,7 +6016,7 @@ declare namespace Xrm {
          * @param entityLogicalName Logical name of the entity you want to create. For example: "account".
          * @param record A JSON object defining the attributes and values for the new entity record.
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/createrecord External Link: createRecord (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/createrecord External Link: createRecord (Client API reference)}
          */
         createRecord(entityLogicalName: string, record: any): Async.PromiseLike<CreateResponse>;
 
@@ -5868,7 +6025,7 @@ declare namespace Xrm {
          * @param entityLogicalName The entity logical name of the record you want to delete. For example: "account".
          * @param id GUID of the entity record you want to delete.
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/deleterecord External Link: deleteRecord (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/deleterecord External Link: deleteRecord (Client API reference)}
          */
         deleteRecord(entityLogicalName: string, id: string): Async.PromiseLike<string>;
 
@@ -5889,7 +6046,7 @@ declare namespace Xrm {
          * @example <caption>options example:</caption>
          * options: $select=name&$expand=primarycontactid($select=contactid,fullname)
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
         retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<any>;
 
@@ -5907,7 +6064,7 @@ declare namespace Xrm {
          * * If you do not specify this parameter, the default value is passed as 5000. If the number of records being retrieved is more than the specified
          * maxPageSize value, nextLink attribute in the returned promise object will contain a link to retrieve the next set of entities.
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrievemultiplerecords External Link: retrieveMultipleRecords (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrievemultiplerecords External Link: retrieveMultipleRecords (Client API reference)}
          */
         retrieveMultipleRecords(
             entityLogicalName: string,
@@ -5921,7 +6078,7 @@ declare namespace Xrm {
          * @param id GUID of the entity record you want to update.
          * @param Data A JSON object containing key: value pairs, where key is the property of the entity and value is the value of the property you want update.
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
         updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<any>;
     }
@@ -5958,7 +6115,7 @@ declare namespace Xrm {
 
     /**
      * Namespace to hold Xrm.App related types
-     * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
      */
     namespace App {
         /**
@@ -5980,7 +6137,7 @@ declare namespace Xrm {
          * Defines the notification object for Xrm.App.addGlobalNotification
          * @see {@link Xmr.App.addGlobalNotification}
          */
-        interface Notifcation {
+        interface Notification {
             /**
              * @see {@link Xrm.App.Action}
              */
@@ -5988,7 +6145,7 @@ declare namespace Xrm {
             /**
              * Defines the level of notification.
              */
-            level: number;
+            level: XrmEnum.AppNotificationLevel;
             /**
              * The message to display in the notification.
              */
@@ -6081,7 +6238,7 @@ declare namespace Xrm {
 
     /**
      * Interface for Xrm.App API
-     * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
      */
     interface App {
         /**
@@ -6089,7 +6246,7 @@ declare namespace Xrm {
          * @param notification The notification to add.
          * @returns On success, returns a promise object containing a GUID value to uniquely identify the notification as described earlier in the description of the successCallback parameter.
          */
-        addGlobalNotification(notification: App.Notifcation): Async.PromiseLike<string>;
+        addGlobalNotification(notification: App.Notification): Async.PromiseLike<string>;
 
         /**
          * Clears a notification in the app.
@@ -6100,7 +6257,7 @@ declare namespace Xrm {
 
         /**
          * Provides methods for managing side panes.
-         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app-sidepanes External Link: sidePanes (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-app-sidepanes External Link: sidePanes (Client API reference)}
          */
         sidePanes: {
             /**
@@ -6161,7 +6318,7 @@ declare namespace XrmEnum {
 
     /**
      * Possible state of form data load.
-     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
      */
     const enum FormDataLoadState {
         InitialLoad = 1,
@@ -6208,6 +6365,14 @@ declare namespace XrmEnum {
         RibbonContextListing = 2,
         FormContextUnrelated = 3,
         FormContextRelated = 4,
+    }
+
+    /**
+     * Enumeration of grid client type
+     */
+    const enum GridClient {
+        Browser = 0,
+        MobileApplication = 1
     }
 
     /**
@@ -6307,7 +6472,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Client States for {@link ClientContext.getClientState clientContext.getClientState()}.
+     * Constant Enum: Client States for {@link Xrm.ClientContext.getClientState clientContext.getClientState()}.
      * @see {@link Xrm.ClientState}
      */
     const enum ClientState {
@@ -6343,6 +6508,17 @@ declare namespace XrmEnum {
         Error = "ERROR",
         Info = "INFO",
         Warning = "WARNING",
+    }
+
+    /**
+     * Constant Enum: App Notification Levels for {@link App.addGlobalNotification Xrm.App.addGlobalNotification()}.
+     * @see {@link Xrm.AppNotificationLevel}
+     */
+    const enum AppNotificationLevel {
+      Success = 1,
+      Error = 2,
+      Warning = 3,
+      Information = 4,
     }
 
     /**

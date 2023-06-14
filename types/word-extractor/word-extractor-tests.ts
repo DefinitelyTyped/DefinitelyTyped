@@ -5,7 +5,7 @@ const extractor = new WordExtractor();
 extractor.extract('/path/to/file.doc').then(document => {
     document.getBody(); // $ExpectType string
     document.getAnnotations(); // $ExpectType string
-    document.getEndNotes(); // $ExpectType string
+    document.getEndnotes(); // $ExpectType string
     document.getFootnotes(); // $ExpectType string
     document.getHeaders(); // $ExpectType string
     document.getHeaders(); // $ExpectType string

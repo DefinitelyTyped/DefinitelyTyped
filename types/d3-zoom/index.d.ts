@@ -270,7 +270,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * SVG provides no programmatic method for retrieving the initial viewport size. Alternatively, consider using element.getBoundingClientRect.
      * (In Firefox, element.clientWidth and element.clientHeight is zero for SVG elements!)
      *
-     * @extent An extent accessor function which is evaluated for each selected element, being passed the current datum d, with the this context as the current DOM element.
+     * @param extent An extent accessor function which is evaluated for each selected element, being passed the current datum d, with the this context as the current DOM element.
      * The function returns the extent array.
      */
     extent(extent: (this: ZoomRefElement, datum: Datum) => [[number, number], [number, number]]): this;
@@ -355,7 +355,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     /**
      * Returns the current interpolation factory, which defaults to d3.interpolateZoom to implement smooth zooming.
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     interpolate<InterpolationFactory extends (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)>(): InterpolationFactory;
 
     /**
@@ -415,7 +415,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
  * The first generic refers to the type of reference element to which the zoom behavior is attached.
  * The second generic refers to the type of the datum of the reference element.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function zoom<ZoomRefElement extends ZoomedElementBaseType, Datum>(): ZoomBehavior<ZoomRefElement, Datum>;
 
 // --------------------------------------------------------------------------

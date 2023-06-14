@@ -257,7 +257,7 @@ function test_connection_getStatus_wifiDirect_WifiPeer(wifiPeerInfo: WifiPeerInf
     wifiPeerInfo.deviceName;
     // $ExpectType boolean
     wifiPeerInfo.groupOwner;
-    // $ExpectType "true" | "false" | undefined
+    // $ExpectType "true" | "false" | undefined || "false" | "true" | undefined
     wifiPeerInfo.invited;
     // $ExpectType string | undefined
     wifiPeerInfo.peerIp;

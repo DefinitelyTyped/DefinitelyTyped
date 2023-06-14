@@ -8,6 +8,19 @@ import * as wslib from "ws";
     const ws = new WebSocket("ws://www.host.com/path");
     ws.on("open", () => ws.send("something"));
     ws.on("message", data => {});
+    // @ts-expect-error
+    ws.send({ hello: 'world' });
+
+    ws.send(new Uint8Array([]));
+
+    const Any = null as any;
+
+    ws.send(Any as number);
+    ws.send(Any as ArrayBufferView);
+    ws.send(Any as { valueOf(): ArrayBuffer });
+    ws.send(Any as Uint8Array);
+    ws.send(Any as { valueOf(): Uint8Array });
+    ws.send(Any as { valueOf(): string });
 }
 
 {
@@ -47,7 +60,7 @@ import * as wslib from "ws";
 {
     const wss = new WebSocket.Server({ port: 8082 });
 
-    const broadcast = (data: any) => {
+    const broadcast = (data: string) => {
         wss.clients.forEach(ws => ws.send(data));
     };
 }
@@ -316,17 +329,16 @@ function f() {
 }
 
 declare module 'ws' {
-    interface WebSocket {
-        id?: string;
-    }
-
     interface Server {
         getWebSocketId(): string;
     }
 }
 
 {
-    const server = new wslib.WebSocketServer();
+    class MyWebSocket extends WebSocket {
+        id?: string;
+    }
+    const server = new wslib.WebSocketServer({ WebSocket: MyWebSocket });
 
     server.on('connection', (ws) => {
         // $ExpectType string | undefined
@@ -350,7 +362,7 @@ declare module 'ws' {
         }
     }
     const server = new http.Server();
-    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket, noServer: true});
+    const webSocketServer = new WebSocket.WebSocketServer({ WebSocket: CustomWebSocket, noServer: true });
     webSocketServer.on('connection', (ws) => {
         // $ExpectType CustomWebSocket
         ws;
@@ -391,4 +403,68 @@ declare module 'ws' {
     ws.onerror = null;
     ws.onclose = null;
     ws.onmessage = null;
+}
+
+{
+    class Request extends http.IncomingMessage {}
+    class MyWebsocket extends WebSocket {}
+    const server = http.createServer({ IncomingMessage: Request });
+    const wss = new WebSocket.WebSocketServer({ WebSocket: MyWebsocket, server });
+
+    wss.on('connection', (ws, req) => {
+        // $ExpectType MyWebsocket
+        ws;
+        // $ExpectType Request
+        req;
+    });
+    wss.once('connection', (ws, req) => {
+        // $ExpectType MyWebsocket
+        ws;
+        // $ExpectType Request
+        req;
+    });
+    wss.off('connection', (ws, req) => {
+        // $ExpectType MyWebsocket
+        ws;
+        // $ExpectType Request
+        req;
+    });
+    wss.addListener('connection', (ws, req) => {
+        // $ExpectType MyWebsocket
+        ws;
+        // $ExpectType Request
+        req;
+    });
+    wss.removeListener('connection', (ws, req) => {
+        // $ExpectType MyWebsocket
+        ws;
+        // $ExpectType Request
+        req;
+    });
+
+    wss.on('headers', (_headers, req) => {
+        // $ExpectType Request
+        req;
+    });
+    wss.once('headers', (_headers, req) => {
+        // $ExpectType Request
+        req;
+    });
+    wss.off('headers', (_headers, req) => {
+        // $ExpectType Request
+        req;
+    });
+    wss.addListener('headers', (_headers, req) => {
+        // $ExpectType Request
+        req;
+    });
+    wss.removeListener('headers', (_headers, req) => {
+        // $ExpectType Request
+        req;
+    });
+
+    Array.from(wss.clients).forEach(client => {
+        // $ExpectType MyWebsocket
+        client;
+    });
 }

@@ -219,3 +219,27 @@ Game.jukebox.musicScrub(5);
 if (Music) {
     Music.pause();
 }
+
+Game.Loader.waitForLoad([Game.resPath + 'img/goldCookie.png'], () => {});
+
+if (Game.cookiesSent > Game.cookiesReceived) {
+}
+
+Game.YouCustomizer.currentGenes[0] = 9;
+Game.YouCustomizer.offsetGene('acc2', -1);
+let currentGenes = Game.YouCustomizer.save();
+Game.YouCustomizer.load(currentGenes);
+
+let someChoice: [number, number] = Game.YouCustomizer.genesById['hair'].choices[5];
+let someChoice2: number = Game.YouCustomizer.genesById['hairCol'].choices[5];
+
+// Support modded genes
+let someChoice3: number | [number, number] = Game.YouCustomizer.genesById['moddedGene'].choices[5];
+// @ts-expect-error - but we don't know the type of the gene
+let someChoice4: number = Game.YouCustomizer.genesById['moddedGene'].choices[5];
+// @ts-expect-error
+let someChoice5: [number, number] = Game.YouCustomizer.genesById['moddedGene'].choices[5];
+
+// offsetGene cannot handle numbers except -1, 0, 1
+// @ts-expect-error
+Game.YouCustomizer.offsetGene('acc2', 2);

@@ -24,6 +24,9 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
     });
 
     await doc.loadInfo(); // loads document properties and worksheets
+    await doc.loadInfo(true); // loads document properties and worksheets, as well as grid data
+    await doc.loadInfo(false); // loads document properties and worksheets, but no grid data
+
     console.log(doc.title);
     await doc.updateProperties({ title: 'renamed doc' });
 

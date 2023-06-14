@@ -1,6 +1,6 @@
 // Type definitions for leaflet-textpath 1.2
 // Project: https://github.com/makinacorpus/Leaflet.TextPath
-// Definitions by: Eric Myllyoja <https://github.com/MasterEric>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Needed to access the leaflet module, to extend it.

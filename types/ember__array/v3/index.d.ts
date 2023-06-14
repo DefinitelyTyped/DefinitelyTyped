@@ -2,15 +2,15 @@
 // Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Farray
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import ComputedProperty from "@ember/object/computed";
-import Mixin from "@ember/object/mixin";
-import Enumerable from "@ember/array/-private/enumerable";
-import NativeArray from "@ember/array/-private/native-array";
+import ComputedProperty from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
+import Enumerable from '@ember/array/-private/enumerable';
+import NativeArray from '@ember/array/-private/native-array';
 
 /**
  * This module implements Observer-friendly Array-like behavior. This mixin is picked up by the

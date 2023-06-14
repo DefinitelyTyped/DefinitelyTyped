@@ -1,3 +1,5 @@
+import * as crypto from 'node:crypto';
+
 import Provider, { interactionPolicy, errors, JWKS } from 'oidc-provider';
 
 errors.AccessDenied.name;
@@ -16,6 +18,12 @@ new Provider('https://op.example.com', {
                 return parts;
             },
         },
+    },
+});
+
+new Provider('https://op.example.com', {
+    pkce: {
+        required: () => false,
     },
 });
 
@@ -78,6 +86,24 @@ const jwks: JWKS = {
 };
 
 new Provider('https://op.example.com', { jwks });
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return undefined; } },
+    },
+});
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return 'foo'; } },
+    },
+});
+
+new Provider('https://op.example.com', {
+    features: {
+        mTLS: { getCertificate() { return new crypto.X509Certificate(Buffer.alloc(0)); } },
+    },
+});
 
 const provider = new Provider('https://op.example.com', {
     acrValues: ['urn:example:bronze'],
@@ -266,6 +292,7 @@ const provider = new Provider('https://op.example.com', {
     interactions: {
         async url(ctx, interaction) {
             ctx.oidc.issuer.substring(0);
+            interaction.cid.substring(0);
             interaction.iat.toFixed();
             interaction.returnTo.substring(0);
             JSON.stringify(interaction.params.foo);

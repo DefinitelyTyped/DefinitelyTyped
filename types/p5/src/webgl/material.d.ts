@@ -124,93 +124,165 @@ declare module '../../index' {
         textureWrap(wrapX: WRAP_X, wrapY?: WRAP_Y): void;
 
         /**
-         *   Normal material for geometry is a material that is
-         *   not affected by light. It is not reflective and is
-         *   a placeholder material often used for debugging.
-         *   Surfaces facing the X-axis, become red, those
-         *   facing the Y-axis, become green and those facing
-         *   the Z-axis, become blue. You can view all possible
-         *   materials in this example.
+         *   Sets the current material as a normal material. A
+         *   normal material is not affected by light. It is
+         *   often used as a placeholder material when
+         *   debugging.
+         *
+         *   Surfaces facing the X-axis become red, those
+         *   facing the Y-axis become green, and those facing
+         *   the Z-axis become blue.
+         *
+         *   You can view more materials in this example.
          *   @chainable
          */
         normalMaterial(): p5;
 
         /**
-         *   Ambient material for geometry with a given color.
-         *   Ambient material defines the color the object
-         *   reflects under any lighting. For example, if the
-         *   ambient material of an object is pure red, but the
-         *   ambient lighting only contains green, the object
-         *   will not reflect any light. Here's an example
-         *   containing all possible materials.
-         *   @param v1 gray value, red or hue value (depending
-         *   on the current color mode),
-         *   @param [v2] green or saturation value
-         *   @param [v3] blue or brightness value
+         *   Sets the ambient color of the material. The
+         *   ambientMaterial() color is the color the object
+         *   will reflect under any lighting.
+         *
+         *   Consider an ambientMaterial() with the color
+         *   yellow (255, 255, 0). If the light emits the color
+         *   white (255, 255, 255), then the object will appear
+         *   yellow as it will reflect the red and green
+         *   components of the light. If the light emits the
+         *   color red (255, 0, 0), then the object will appear
+         *   red as it will reflect the red component of the
+         *   light. If the light emits the color blue (0, 0,
+         *   255), then the object will appear black, as there
+         *   is no component of the light that it can reflect.
+         *
+         *   You can view more materials in this example.
+         *   @param v1 red or hue value relative to the current
+         *   color range
+         *   @param v2 green or saturation value relative to
+         *   the current color range
+         *   @param v3 blue or brightness value relative to the
+         *   current color range
          *   @chainable
          */
-        ambientMaterial(v1: number, v2?: number, v3?: number): p5;
+        ambientMaterial(v1: number, v2: number, v3: number): p5;
 
         /**
-         *   Ambient material for geometry with a given color.
-         *   Ambient material defines the color the object
-         *   reflects under any lighting. For example, if the
-         *   ambient material of an object is pure red, but the
-         *   ambient lighting only contains green, the object
-         *   will not reflect any light. Here's an example
-         *   containing all possible materials.
-         *   @param color color, color Array, or CSS color
-         *   string
+         *   Sets the ambient color of the material. The
+         *   ambientMaterial() color is the color the object
+         *   will reflect under any lighting.
+         *
+         *   Consider an ambientMaterial() with the color
+         *   yellow (255, 255, 0). If the light emits the color
+         *   white (255, 255, 255), then the object will appear
+         *   yellow as it will reflect the red and green
+         *   components of the light. If the light emits the
+         *   color red (255, 0, 0), then the object will appear
+         *   red as it will reflect the red component of the
+         *   light. If the light emits the color blue (0, 0,
+         *   255), then the object will appear black, as there
+         *   is no component of the light that it can reflect.
+         *
+         *   You can view more materials in this example.
+         *   @param gray number specifying value between white
+         *   and black
          *   @chainable
          */
-        ambientMaterial(color: number[] | string | Color): p5;
+        ambientMaterial(gray: number): p5;
 
         /**
-         *   Sets the emissive color of the material used for
-         *   geometry drawn to the screen. This is a misnomer
-         *   in the sense that the material does not actually
-         *   emit light that effects surrounding polygons.
-         *   Instead, it gives the appearance that the object
-         *   is glowing. An emissive material will display at
-         *   full strength even if there is no light for it to
-         *   reflect.
-         *   @param v1 gray value, red or hue value (depending
-         *   on the current color mode),
-         *   @param [v2] green or saturation value
-         *   @param [v3] blue or brightness value
-         *   @param [a] opacity
+         *   Sets the ambient color of the material. The
+         *   ambientMaterial() color is the color the object
+         *   will reflect under any lighting.
+         *
+         *   Consider an ambientMaterial() with the color
+         *   yellow (255, 255, 0). If the light emits the color
+         *   white (255, 255, 255), then the object will appear
+         *   yellow as it will reflect the red and green
+         *   components of the light. If the light emits the
+         *   color red (255, 0, 0), then the object will appear
+         *   red as it will reflect the red component of the
+         *   light. If the light emits the color blue (0, 0,
+         *   255), then the object will appear black, as there
+         *   is no component of the light that it can reflect.
+         *
+         *   You can view more materials in this example.
+         *   @param color color as a p5.Color, as an array, or
+         *   as a CSS string
          *   @chainable
          */
-        emissiveMaterial(v1: number, v2?: number, v3?: number, a?: number): p5;
+        ambientMaterial(color: Color | number[] | string): p5;
 
         /**
-         *   Sets the emissive color of the material used for
-         *   geometry drawn to the screen. This is a misnomer
-         *   in the sense that the material does not actually
-         *   emit light that effects surrounding polygons.
-         *   Instead, it gives the appearance that the object
-         *   is glowing. An emissive material will display at
-         *   full strength even if there is no light for it to
-         *   reflect.
-         *   @param color color, color Array, or CSS color
-         *   string
+         *   Sets the emissive color of the material. An
+         *   emissive material will display the emissive color
+         *   at full strength regardless of lighting. This can
+         *   give the appearance that the object is glowing.
+         *
+         *   Note, "emissive" is a misnomer in the sense that
+         *   the material does not actually emit light that
+         *   will affect surrounding objects.
+         *
+         *   You can view more materials in this example.
+         *   @param v1 red or hue value relative to the current
+         *   color range
+         *   @param v2 green or saturation value relative to
+         *   the current color range
+         *   @param v3 blue or brightness value relative to the
+         *   current color range
+         *   @param [alpha] alpha value relative to current
+         *   color range (default is 0-255)
          *   @chainable
          */
-        emissiveMaterial(color: number[] | string | Color): p5;
+        emissiveMaterial(v1: number, v2: number, v3: number, alpha?: number): p5;
 
         /**
-         *   Specular material for geometry with a given color.
-         *   Specular material is a shiny reflective material.
-         *   Like ambient material it also defines the color
-         *   the object reflects under ambient lighting. For
-         *   example, if the specular material of an object is
-         *   pure red, but the ambient lighting only contains
-         *   green, the object will not reflect any light. For
-         *   all other types of light like point and
-         *   directional light, a specular material will
-         *   reflect the color of the light source to the
-         *   viewer. Here's an example containing all possible
-         *   materials.
+         *   Sets the emissive color of the material. An
+         *   emissive material will display the emissive color
+         *   at full strength regardless of lighting. This can
+         *   give the appearance that the object is glowing.
+         *
+         *   Note, "emissive" is a misnomer in the sense that
+         *   the material does not actually emit light that
+         *   will affect surrounding objects.
+         *
+         *   You can view more materials in this example.
+         *   @param gray number specifying value between white
+         *   and black
+         *   @chainable
+         */
+        emissiveMaterial(gray: number): p5;
+
+        /**
+         *   Sets the emissive color of the material. An
+         *   emissive material will display the emissive color
+         *   at full strength regardless of lighting. This can
+         *   give the appearance that the object is glowing.
+         *
+         *   Note, "emissive" is a misnomer in the sense that
+         *   the material does not actually emit light that
+         *   will affect surrounding objects.
+         *
+         *   You can view more materials in this example.
+         *   @param color color as a p5.Color, as an array, or
+         *   as a CSS string
+         *   @chainable
+         */
+        emissiveMaterial(color: Color | number[] | string): p5;
+
+        /**
+         *   Sets the specular color of the material. A
+         *   specular material is reflective (shiny). The
+         *   shininess can be controlled by the shininess()
+         *   function.
+         *
+         *   Like ambientMaterial(), the specularMaterial()
+         *   color is the color the object will reflect under
+         *   ambientLight(). However unlike ambientMaterial(),
+         *   for all other types of lights (directionalLight(),
+         *   pointLight(), spotLight()), a specular material
+         *   will reflect the color of the light source. This
+         *   is what gives it its "shiny" appearance.
+         *
+         *   You can view more materials in this example.
          *   @param gray number specifying value between white
          *   and black.
          *   @param [alpha] alpha value relative to current
@@ -220,18 +292,20 @@ declare module '../../index' {
         specularMaterial(gray: number, alpha?: number): p5;
 
         /**
-         *   Specular material for geometry with a given color.
-         *   Specular material is a shiny reflective material.
-         *   Like ambient material it also defines the color
-         *   the object reflects under ambient lighting. For
-         *   example, if the specular material of an object is
-         *   pure red, but the ambient lighting only contains
-         *   green, the object will not reflect any light. For
-         *   all other types of light like point and
-         *   directional light, a specular material will
-         *   reflect the color of the light source to the
-         *   viewer. Here's an example containing all possible
-         *   materials.
+         *   Sets the specular color of the material. A
+         *   specular material is reflective (shiny). The
+         *   shininess can be controlled by the shininess()
+         *   function.
+         *
+         *   Like ambientMaterial(), the specularMaterial()
+         *   color is the color the object will reflect under
+         *   ambientLight(). However unlike ambientMaterial(),
+         *   for all other types of lights (directionalLight(),
+         *   pointLight(), spotLight()), a specular material
+         *   will reflect the color of the light source. This
+         *   is what gives it its "shiny" appearance.
+         *
+         *   You can view more materials in this example.
          *   @param v1 red or hue value relative to the current
          *   color range
          *   @param v2 green or saturation value relative to
@@ -245,29 +319,31 @@ declare module '../../index' {
         specularMaterial(v1: number, v2: number, v3: number, alpha?: number): p5;
 
         /**
-         *   Specular material for geometry with a given color.
-         *   Specular material is a shiny reflective material.
-         *   Like ambient material it also defines the color
-         *   the object reflects under ambient lighting. For
-         *   example, if the specular material of an object is
-         *   pure red, but the ambient lighting only contains
-         *   green, the object will not reflect any light. For
-         *   all other types of light like point and
-         *   directional light, a specular material will
-         *   reflect the color of the light source to the
-         *   viewer. Here's an example containing all possible
-         *   materials.
-         *   @param color color Array, or CSS color string
+         *   Sets the specular color of the material. A
+         *   specular material is reflective (shiny). The
+         *   shininess can be controlled by the shininess()
+         *   function.
+         *
+         *   Like ambientMaterial(), the specularMaterial()
+         *   color is the color the object will reflect under
+         *   ambientLight(). However unlike ambientMaterial(),
+         *   for all other types of lights (directionalLight(),
+         *   pointLight(), spotLight()), a specular material
+         *   will reflect the color of the light source. This
+         *   is what gives it its "shiny" appearance.
+         *
+         *   You can view more materials in this example.
+         *   @param color color as a p5.Color, as an array, or
+         *   as a CSS string
          *   @chainable
          */
-        specularMaterial(color: number[] | string | Color): p5;
+        specularMaterial(color: Color | number[] | string): p5;
 
         /**
-         *   Sets the amount of gloss in the surface of shapes.
-         *   Used in combination with specularMaterial() in
-         *   setting the material properties of shapes. The
-         *   default and minimum value is 1.
-         *   @param shine Degree of Shininess. Defaults to 1.
+         *   Sets the amount of gloss ("shininess") of a
+         *   specularMaterial(). The default and minimum value
+         *   is 1.
+         *   @param shine degree of shininess
          *   @chainable
          */
         shininess(shine: number): p5;

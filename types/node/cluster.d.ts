@@ -8,12 +8,12 @@
  * server ports.
  *
  * ```js
- * import cluster from 'cluster';
- * import http from 'http';
- * import { cpus } from 'os';
- * import process from 'process';
+ * import cluster from 'node:cluster';
+ * import http from 'node:http';
+ * import { availableParallelism } from 'node:os';
+ * import process from 'node:process';
  *
- * const numCPUs = cpus().length;
+ * const numCPUs = availableParallelism();
  *
  * if (cluster.isPrimary) {
  *   console.log(`Primary ${process.pid} is running`);
@@ -50,12 +50,13 @@
  * ```
  *
  * On Windows, it is not yet possible to set up a named pipe server in a worker.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/cluster.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/cluster.js)
  */
 declare module 'cluster' {
     import * as child from 'node:child_process';
     import EventEmitter = require('node:events');
     import * as net from 'node:net';
+    type SerializationType = 'json' | 'advanced';
     export interface ClusterSettings {
         execArgv?: string[] | undefined; // default: process.execArgv
         exec?: string | undefined;
@@ -65,6 +66,9 @@ declare module 'cluster' {
         uid?: number | undefined;
         gid?: number | undefined;
         inspectPort?: number | (() => number) | undefined;
+        serialization?: SerializationType | undefined;
+        cwd?: string | undefined;
+        windowsHide?: boolean | undefined;
     }
     export interface Address {
         address: string;
@@ -183,7 +187,7 @@ declare module 'cluster' {
          *   });
          *
          * } else if (cluster.isWorker) {
-         *   const net = require('net');
+         *   const net = require('node:net');
          *   const server = net.createServer((socket) => {
          *     // Connections never end
          *   });
@@ -213,12 +217,12 @@ declare module 'cluster' {
          * because of exiting or being signaled). Otherwise, it returns `false`.
          *
          * ```js
-         * import cluster from 'cluster';
-         * import http from 'http';
-         * import { cpus } from 'os';
-         * import process from 'process';
+         * import cluster from 'node:cluster';
+         * import http from 'node:http';
+         * import { availableParallelism } from 'node:os';
+         * import process from 'node:process';
          *
-         * const numCPUs = cpus().length;
+         * const numCPUs = availableParallelism();
          *
          * if (cluster.isPrimary) {
          *   console.log(`Primary ${process.pid} is running`);

@@ -65,7 +65,7 @@ declare namespace Aws {
         architecture?: 'x86_64' | 'arm64' | undefined;
         environment?: Environment | string | undefined;
         endpointType?: 'regional' | 'edge' | 'private' | undefined;
-        apiKeys?: string[] | undefined;
+        apiKeys?: Array<ApiKey | string> | undefined;
         apiGateway?: ApiGateway | undefined;
         alb?: Alb | undefined;
         httpApi?: HttpApi | undefined;
@@ -136,9 +136,17 @@ declare namespace Aws {
         binaryMediaTypes?: string[] | undefined;
         metrics?: boolean | undefined;
         shouldStartNameWithService?: boolean | undefined;
-        apiKeys?: string[] | undefined;
+        apiKeys?: Array<ApiKey | string> | undefined;
         resourcePolicy?: ResourcePolicy[] | undefined;
         usagePlan?: UsagePlan | undefined;
+    }
+
+    interface ApiKey {
+        name: string;
+        value: string;
+        description?: string | undefined;
+        customerId?: string | undefined;
+        enabled?: boolean | undefined;
     }
 
     interface CognitoAuthorizer {
@@ -508,6 +516,26 @@ declare namespace Aws {
         startingPosition?: 'LATEST' | 'TRIM_HORIZON' | undefined;
     }
 
+    interface KafkaAccessConfiguration {
+        saslPlainAuth?: string | undefined;
+        saslScram256Auth?: string | undefined;
+        saslScram512Auth?: string | undefined;
+        clientCertificateTlsAuth?: string | undefined;
+        serverRootCaCertificate?: string | undefined;
+        vpcSubnet?: string[] | undefined;
+        vpcSecurityGroup?: string | undefined;
+    }
+
+    interface Kafka {
+        accessConfigurations: KafkaAccessConfiguration;
+        bootstrapServers: string[];
+        topic: string;
+        batchSize?: number | undefined;
+        maximumBatchingWindow?: number | undefined;
+        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
+        enabled?: boolean | undefined;
+    }
+
     interface AlexaSkill {
         appId: string;
         enabled?: boolean | undefined;
@@ -636,6 +664,7 @@ declare namespace Aws {
         cloudFront?: CloudFront | undefined;
         activemq?: ActiveMq | undefined;
         rabbitmq?: RabbitMq | undefined;
+        kafka?: Kafka | undefined;
     }
 
     interface FileSystemConfig {
@@ -761,7 +790,7 @@ declare namespace Aws {
 declare class Aws {
     constructor(serverless: Serverless, options: Serverless.Options);
 
-    naming: { [key: string]: () => string };
+    naming: { [key: string]: (param?: string) => string };
     getCredentials(): Aws.Credentials;
     getProviderName(): string;
     getRegion(): string;

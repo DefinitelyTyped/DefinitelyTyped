@@ -22,14 +22,19 @@ function assertType<T>(value: T): T {
         const { Network, Page, Runtime } = client;
         await Network.enable();
         await Network.enable({});
+        await Network.enable({}, 'sessionId'); // Should be Network.enable('sessionId')
         // @ts-expect-error
         await Network.setAcceptedEncodings();
         await Network.setAcceptedEncodings({encodings: []});
         await Page.enable();
         await Page.navigate({ url: 'https://github.com' });
-        const loadEvent = await client['Page.loadEventFired'](); // instead of: await Page.loadEventFired();
+        await client.Runtime.runIfWaitingForDebugger('sessionId');
+        await client.Fetch.enable({patterns: []}, 'sessionId');
+        let loadEvent = await Page.loadEventFired();
+        loadEvent = await client['Page.loadEventFired']();
         loadEvent.timestamp;
-        await client['Page.interstitialHidden'](); // instead of: await Page.interstitialHidden();
+        await Page.interstitialHidden();
+        await client['Page.interstitialHidden']();
         const unsubscribe = Network.requestWillBeSent((params, sessionId) => {
             params.request.url;
             unsubscribe();

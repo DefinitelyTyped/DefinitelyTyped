@@ -1,6 +1,6 @@
 // Type definitions for pico8parse 0.4
 // Project: https://pictelm.github.io/pico8parse/
-// Definitions by: Grenier Célestin <https://github.com/PictElm>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type LuaVersion = '5.1' | '5.2' | '5.3' | 'LuaJIT' | 'PICO-8' | 'PICO-8-0.2.1' | 'PICO-8-0.2.2' | 'PICO-8-0.2.3' | 'PICO-8-0.2.4';

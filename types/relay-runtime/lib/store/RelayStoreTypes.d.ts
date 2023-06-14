@@ -179,7 +179,7 @@ export interface FragmentSpecResolver {
  * A read-only interface for accessing cached graph data.
  */
 export interface RecordSource {
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     get<T extends object = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;
@@ -390,7 +390,7 @@ export interface ReadOnlyRecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     get<T = {}>(dataID: DataID): RecordProxy<T> | null | undefined;
     getRoot(): RecordProxy;
 }
@@ -732,6 +732,7 @@ export interface FragmentPointer {
     __fragmentOwner: RequestDescriptor;
 }
 
+// tslint:disable:no-redundant-jsdoc-2
 /**
  * The partial shape of an object with a '...Fragment @module(name: "...")'
  * selection
@@ -741,6 +742,7 @@ export interface ModuleImportPointer {
     readonly __module_component: unknown;
     readonly $fragmentSpreads: unknown;
 }
+// tslint:enable:no-redundant-jsdoc-2
 
 /**
  * A callback for resolving a Selector from a source.

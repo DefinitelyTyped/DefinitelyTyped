@@ -9,6 +9,9 @@ import { EventEmitter } from "events";
 import {
     Collection,
     CollectionDefinition,
+    Item,
+    Request,
+    Response,
     VariableScope,
     VariableScopeDefinition
 } from "postman-collection";
@@ -168,9 +171,9 @@ export interface NewmanRunOptions {
 
 export interface NewmanRunSummary {
     error?: any;
-    collection: any;
-    environment: any;
-    globals: any;
+    collection: Collection;
+    environment: VariableScope;
+    globals: VariableScope;
     run: NewmanRun;
 }
 export interface NewmanRun {
@@ -185,6 +188,7 @@ export interface NewmanRun {
         testScripts: NewmanRunStat;
         prerequestScripts: NewmanRunStat;
     };
+    timings: NewmanRunTimings;
     failures: NewmanRunFailure[];
     executions: NewmanRunExecution[];
 }
@@ -193,16 +197,52 @@ export interface NewmanRunStat {
     failed?: number | undefined;
     pending?: number | undefined;
 }
+
+/** Stores all generic timing information */
+export interface NewmanRunTimings {
+    /** The average response time of the run */
+    responseAverage: number;
+    /** The miminum response time of the run */
+    responseMin: number;
+    /** The maximum response time of the run */
+    responseMax: number;
+    /** Standard deviation of response time of the run */
+    responseSd: number;
+    /** The average DNS lookup time of the run */
+    dnsAverage: number;
+    /** The minimum DNS lookup time of the run */
+    dnsMin: number;
+    /** The maximum DNS lookup time of the run */
+    dnsMax: number;
+    /** Standard deviation of DNS lookup time of the run */
+    dnsSd: number;
+    /** The average first byte time of the run */
+    firstByteAverage: number;
+    /** The minimum first byte time of the run */
+    firstByteMin: number;
+    /** The maximum first byte time of the run */
+    firstByteMax: number;
+    /** Standard deviation of first byte time of the run */
+    firstByteSd: number;
+    started?: number;
+    completed?: number;
+}
+
 export interface NewmanRunExecution {
     item: NewmanRunExecutionItem;
     assertions: NewmanRunExecutionAssertion[];
+    response: Response;
+    request: Request;
+    cursor: Cursor;
 }
-export interface NewmanRunExecutionItem {
+
+export interface NewmanRunExecutionItem extends Item {
     name: string;
 }
 export interface NewmanRunExecutionAssertion {
     assertion: string;
     error: NewmanRunExecutionAssertionError;
+    skipped: boolean;
 }
 export interface NewmanRunExecutionAssertionError {
     name: string;

@@ -4,49 +4,49 @@
 declare namespace M {
     class Chips extends Component<ChipsOptions> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Chips;
 
         /**
-         * Init Chips
+         * Init Chips.
          */
         static init(els: Element, options?: Partial<ChipsOptions>): Chips;
 
         /**
-         * Init Chipses
+         * Init Chipses.
          */
         static init(els: MElements, options?: Partial<ChipsOptions>): Chips[];
 
         /**
-         * Array of the current chips data
+         * Array of the current chips data.
          */
         chipsData: ChipData[];
 
         /**
-         * If the chips has autocomplete enabled
+         * If the chips has autocomplete enabled.
          */
         hasAutocomplete: boolean;
 
         /**
-         * Autocomplete instance, if any
+         * Autocomplete instance, if any.
          */
         autocomplete: Autocomplete;
 
         /**
-         * Add chip to input
-         * @param data Chip data object
+         * Add chip to input.
+         * @param chip Chip data object
          */
         addChip(chip: ChipData): void;
 
         /**
-         * Delete nth chip
+         * Delete nth chip.
          * @param n  Index of chip
          */
-        deleteChip(n?: number): void;
+        deleteChip(n: number): void;
 
         /**
-         * Select nth chip
+         * Select nth chip.
          * @param n Index of chip
          */
         selectChip(n: number): void;
@@ -54,37 +54,37 @@ declare namespace M {
 
     interface ChipData {
         /**
-         * Chip tag
+         * Chip tag.
          */
         tag: string;
 
         /**
-         * Chip image
+         * Chip image.
          */
         img?: string | undefined;
     }
 
     interface ChipsOptions {
         /**
-         * Set the chip data
+         * Set the chip data.
          * @default []
          */
         data: ChipData[];
 
         /**
-         * Set first placeholder when there are no tags
-         * @default ''
+         * Set first placeholder when there are no tags.
+         * @default ""
          */
         placeholder: string;
 
         /**
-         * Set second placeholder when adding additional tags
-         * @default ''
+         * Set second placeholder when adding additional tags.
+         * @default ""
          */
         secondaryPlaceholder: string;
 
         /**
-         * Set autocomplete options
+         * Set autocomplete options.
          * @default {}
          */
         autocompleteOptions: Partial<AutocompleteOptions>;
@@ -96,25 +96,25 @@ declare namespace M {
         autocompleteOnly: boolean;
 
         /**
-         * Set chips limit
+         * Set chips limit.
          * @default Infinity
          */
         limit: number;
 
         /**
-         * Callback for chip add
+         * Callback for chip add.
          * @default null
          */
         onChipAdd: (this: Chips, element: Element, chip: Element) => void;
 
         /**
-         * Callback for chip select
+         * Callback for chip select.
          * @default null
          */
         onChipSelect: (this: Chips, element: Element, chip: Element) => void;
 
         /**
-         * Callback for chip delete
+         * Callback for chip delete.
          * @default null
          */
         onChipDelete: (this: Chips, element: Element, chip: Element) => void;

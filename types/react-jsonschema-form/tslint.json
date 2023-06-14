@@ -6,10 +6,6 @@
         "interface-name": false,
         "interface-over-type-literal": false,
         "member-access": false,
-        "no-any-union": false,
-        "no-declare-current-package": false,
-        "no-self-import": false,
-        "no-unnecessary-generics": false,
         "no-void-expression": false,
         "strict-export-declare-modifiers": false
     }

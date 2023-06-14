@@ -1,4 +1,4 @@
-// Type definitions for oracledb 5.2
+// Type definitions for oracledb 5.3
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 //                 Dan Beglin <https://github.com/dannyb648>
@@ -1275,13 +1275,12 @@ declare namespace OracleDB {
         queueName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
         queries?: {
-            /** Array of objects specifying the queries which were affected by the Query Change notification. */
-            tables: SubscriptionTables;
+            /** Array of objects specifying the tables which were affected by the notification. */
+            tables?: SubscriptionTable[];
         }[] | undefined;
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
-        /** Array of objects specifying the tables which were affected by the notification. */
-        tables?: SubscriptionTables[] | undefined;
+
         /** Buffer containing the identifier of the transaction which spawned the notification. */
         txId: Buffer;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
@@ -1289,9 +1288,9 @@ declare namespace OracleDB {
     }
 
     /**
-     * An object specifying which tables were affected by a subscription's notification.
+     * An object specifying the table that was affected by a subscription's notification.
      */
-    interface SubscriptionTables {
+    interface SubscriptionTable {
         /** Name of the table which was modified in some way. */
         name: string;
         /**
@@ -1572,6 +1571,13 @@ declare namespace OracleDB {
          * @default false
          */
         resultSet?: boolean | undefined;
+        /**
+         * When keepInStmtCache is true, and statement caching is enabled, then the statement will be added to the cache if it is not already present. This helps the performance of re-executed statements. See Statement Caching.
+         * The default value is true.
+         * New in version 5.3.
+         * In earlier versions, statements were always added to the statement cache, if caching was enabled.
+         */
+        keepInStmtCache?: boolean | undefined;
     }
 
     /**
@@ -1621,6 +1627,13 @@ declare namespace OracleDB {
          * @default false
          */
         dmlRowCounts?: boolean | undefined;
+        /**
+         * When keepInStmtCache is true, and statement caching is enabled, then the statement will be added to the cache if it is not already present. This helps the performance of re-executed statements. See Statement Caching.
+         * The default value is true.
+         * New in version 5.3.
+         * In earlier versions, statements were always added to the statement cache, if caching was enabled.
+         */
+        keepInStmtCache?: boolean | undefined;
     }
 
     /**
@@ -1790,6 +1803,10 @@ declare namespace OracleDB {
         stmtCacheSize: number;
         sodaMetaDataCache: boolean;
         threadPoolSize: number;
+    }
+
+    interface PoolStatistics {
+        logStatistics(): void;
     }
 
     /**

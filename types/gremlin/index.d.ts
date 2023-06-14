@@ -41,7 +41,7 @@ declare namespace driver {
     class DriverRemoteConnection extends RemoteConnection {
         constructor(url: string, options?: any);
         open(): Promise<void>;
-        isOpen: Promise<boolean>;
+        isOpen: boolean;
         submit(bytecode: Bytecode): Promise<any>;
         createSession(): this;
         isSessionBound: boolean;
@@ -62,10 +62,12 @@ declare namespace driver {
     class Client {
         constructor(url: string, options?: any);
         open(): Promise<void>;
-        isOpen: Promise<boolean>;
+        isOpen: boolean;
         submit(message: Bytecode | string, bindings?: any, requestOptions?: RequestOptions): Promise<any>;
         stream(message: Bytecode | string, bindings?: any, requestOptions?: RequestOptions): any;
         close(): Promise<void>;
+        addListener(event: string, handler: (...args: any[]) => void): void;
+        removeListener(event: string, handler: (...args: any[]) => void): void;
     }
 
     class ResultSet {
@@ -178,11 +180,15 @@ declare namespace process {
         values: EnumValue;
     };
 
-    const direction: {
+    interface Direction {
         both: EnumValue;
         in: EnumValue;
         out: EnumValue;
-    };
+        from_: EnumValue;
+        to: EnumValue;
+    }
+
+    const direction: Direction;
 
     const graphSONVersion: {
         v1_0: EnumValue;
@@ -194,6 +200,15 @@ declare namespace process {
         v1_0: EnumValue;
         v3_0: EnumValue;
     };
+
+    interface Merge {
+      onCreate: EnumValue;
+      onMatch: EnumValue;
+      outV: EnumValue;
+      inV: EnumValue;
+    }
+
+    const merge: Merge;
 
     interface Operator {
         addAll: EnumValue;
@@ -213,9 +228,7 @@ declare namespace process {
 
     const order: {
         asc: EnumValue;
-        decr: EnumValue;
         desc: EnumValue;
-        incr: EnumValue;
         shuffle: EnumValue;
     };
 
@@ -487,7 +500,8 @@ declare namespace process {
         constructor(traversalSource: AnonymousTraversalSource | GraphTraversalSource);
         getTraversalSource(): Translator;
         of(traversalSource: AnonymousTraversalSource | GraphTraversalSource | string): void;
-        translate(bytecode: Bytecode): string;
+        translate(bytecode: Bytecode, child?: boolean): string;
+        convert(anyObject: any): string;
     }
 
     function traversal<S extends GraphTraversalSource = GraphTraversalSource>(

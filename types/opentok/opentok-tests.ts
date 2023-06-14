@@ -1,6 +1,14 @@
 import OpenTok = require('opentok');
 
-const client = new OpenTok('API_KEY', 'API_SECRET');
+const client = new OpenTok(
+  'API_KEY',
+  'API_SECRET',
+  {
+    apiUrl: 'https://api.opentok.com',
+    uaAddendum: 'opentok-node-sdk/2.2.0',
+    timeout: 10000
+  },
+);
 
 const sessionOptions: OpenTok.SessionOptions = {
   mediaMode: 'routed',
@@ -63,6 +71,14 @@ const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
     type: 'pip',
   },
 };
+
+const archiveScreenshareLayoutOptions: OpenTok.ArchiveOptions = {
+  outputMode: 'composed',
+  layout: {
+    type: 'bestFit',
+    screenshareType: 'pip',
+  },
+}
 
 const patchStream: OpenTok.PatchStream = {
   hasAudio: false,

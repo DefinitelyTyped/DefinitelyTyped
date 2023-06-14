@@ -420,6 +420,10 @@ declare namespace OSS {
         res: NormalSuccessResponse;
     }
 
+    interface DeleteResult {
+        res: NormalSuccessResponse;
+    }
+
     interface DeleteMultiOptions {
         /** quite mode or verbose mode, default is false */
         quiet?: boolean | undefined;
@@ -687,7 +691,7 @@ declare namespace OSS {
 
         getStream(name?: string, options?: GetStreamOptions): Promise<GetStreamResult>;
 
-        delete(name: string, options?: RequestOptions): Promise<NormalSuccessResponse>;
+        delete(name: string, options?: RequestOptions): Promise<DeleteResult>;
 
         copy(name: string, sourceName: string, options?: CopyObjectOptions): Promise<CopyAndPutMetaResult>;
 
@@ -1042,7 +1046,7 @@ declare class OSS {
     /**
      * Delete an object from the bucket.
      */
-    delete(name: string, options?: OSS.RequestOptions): Promise<OSS.NormalSuccessResponse>;
+    delete(name: string, options?: OSS.RequestOptions): Promise<OSS.DeleteResult>;
 
     /**
      * Copy an object from sourceName to name.

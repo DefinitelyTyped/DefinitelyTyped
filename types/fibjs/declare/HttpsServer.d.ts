@@ -7,7 +7,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/** 
+/**
  * @author Richard <richardo2016@gmail.com>
  *
  */
@@ -23,37 +23,35 @@
     */
 /// <reference path="HttpServer.d.ts" />
 declare class Class_HttpsServer extends Class_HttpServer {
-    
+
     /**
-     * class prop 
+     * class prop
      *
-     * 
+     *
      * @brief 设定证书验证模式，缺省为 VERIFY_NONE
-     * 
-     * 
-     * @type Integer
-     */
-    
-    verification: number
-    
-    /**
-     * class prop 
      *
-     * 
-     * @brief 客户端证书验证 ca
-     * 
-     * @readonly
-     * @type X509Cert
+     *
+     * @note Assumed to be an integer.
      */
-    
-    ca: Class_X509Cert
-    
-    
-    
+
+    verification: number
+
     /**
-     * 
+     * class prop
+     *
+     *
+     * @brief 客户端证书验证 ca
+     *
+     */
+
+    ca: Class_X509Cert
+
+
+
+    /**
+     *
      * @brief HttpsServer 构造函数，在所有本机地址侦听
-     * 
+     *
      * certs 格式为：
      * ```JavaScript
      * [
@@ -70,16 +68,16 @@ declare class Class_HttpsServer extends Class_HttpServer {
      * @param certs 服务器证书列表
      * @param port 指定 http 服务器侦听端口
      * @param hdlr http 内置消息处理器，处理函数，链式处理数组，路由对象，详见
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     constructor(certs: any[], port: number, hdlr: Class_Handler);
 
     /**
-     * 
+     *
      * @brief HttpsServer 构造函数
-     * 
+     *
      * certs 格式为：
      * ```JavaScript
      * [
@@ -97,36 +95,36 @@ declare class Class_HttpsServer extends Class_HttpServer {
      * @param addr 指定 http 服务器侦听地址，为 "" 则在本机所有地址侦听
      * @param port 指定 http 服务器侦听端口
      * @param hdlr http 内置消息处理器，处理函数，链式处理数组，路由对象，详见
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     constructor(certs: any[], addr: string, port: number, hdlr: Class_Handler);
 
     /**
-     * 
+     *
      * @brief HttpsServer 构造函数，在所有本机地址侦听
      * @param crt X509Cert 证书，用于客户端验证服务器
      * @param key PKey 私钥，用于与客户端会话
      * @param port 指定 http 服务器侦听端口
      * @param hdlr http 内置消息处理器，处理函数，链式处理数组，路由对象，详见
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     constructor(crt: Class_X509Cert, key: Class_PKey, port: number, hdlr: Class_Handler);
 
     /**
-     * 
+     *
      * @brief HttpsServer 构造函数
      * @param crt X509Cert 证书，用于客户端验证服务器
      * @param key PKey 私钥，用于与客户端会话
      * @param addr 指定 http 服务器侦听地址，为 "" 则在本机所有地址侦听
      * @param port 指定 http 服务器侦听端口
      * @param hdlr http 内置消息处理器，处理函数，链式处理数组，路由对象，详见
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     constructor(crt: Class_X509Cert, key: Class_PKey, addr: string, port: number, hdlr: Class_Handler);
 

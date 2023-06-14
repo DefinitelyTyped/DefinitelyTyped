@@ -31,16 +31,6 @@ async.reject(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, r
 async.rejectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, results: string[]) => { });
 async.rejectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err: Error, results: string[]) => { });
 
-async.parallel([
-    () => { },
-    () => { }
-], callback);
-
-async.series([
-    () => { },
-    () => { }
-]);
-
 const data: any[] = [];
 function asyncProcess(item: any, callback: (err: Error, result: any) => void) { }
 async.map(data, asyncProcess, (err, results) => { console.log(results); });
@@ -135,6 +125,8 @@ async.series<number>({
     },
     (err, results) => { });
 
+async.series<number, number[]>([async () => 1]); // $ExpectType Promise<number[]>
+
 async.times(5, (n, next) => { next(undefined as any, n); }, (err, results) => { console.log(results); });
 
 async.timesSeries(5, (n, next) => { next(undefined as any, n); }, (err, results) => { console.log(results); });
@@ -163,6 +155,8 @@ async.parallel<number>({
     },
     (err, results) => { });
 
+async.parallel<number, number[]>([async () => 1]); // $ExpectType Promise<number[]>
+
 async.parallelLimit({
         one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
         two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
@@ -170,6 +164,8 @@ async.parallelLimit({
     2,
     (err, results) => { }
 );
+
+async.parallelLimit<number, number[]>([async () => 1], 1); // $ExpectType Promise<number[]>
 
 function whileFn(callback: (err: any, ...rest: any[]) => void) {
     setTimeout(() => callback(null, ++count), 1000);
@@ -186,12 +182,20 @@ async.during(testCallback => { testCallback(new Error(), false); }, callback => 
 async.doDuring(callback => { callback(); }, testCallback => { testCallback(new Error(), false); }, error => { console.log(error); });
 async.forever(errBack => { errBack(new Error("Not going on forever.")); }, error => { console.log(error); });
 
+// $ExpectType void
 async.waterfall([
         (callback: any) => { callback(null, 'one', 'two'); },
         (arg1: any, arg2: any, callback: any) => { callback(null, 'three'); },
         (arg1: any, callback: any) => { callback(null, 'done'); }
     ],
     (err, result) => { });
+
+// $ExpectType Promise<A>
+async.waterfall<A>([
+    (callback: any) => { callback(null, 'one', 'two'); },
+    (arg1: any, arg2: any, callback: any) => { callback(null, 'three'); },
+    (arg1: any, callback: any) => { callback(null, 'done'); }
+]);
 
 const q = async.queue<any>((task: any, callback: (err?: Error, msg?: string) => void) => {
     console.log('hello ' + task.name);
@@ -628,6 +632,37 @@ async.mapValues<number, string>(
     (err: Error, results: Dictionary<string>) => { console.log("async.mapValues: done with results", results); }
 );
 
+// $ExpectType Promise<Dictionary<string>>
+async.mapValues(
+    { a: 1, b: 2, c: 3 },
+    // $ExpectType (val: number, key: string) => Promise<string>
+    async (val, key) => {
+        const newVal = await new Promise<string>((resolve) => {
+            setTimeout(
+                () => {
+                    console.log(`async.mapValues: ${key} = ${val}`);
+                    resolve(val.toString());
+                },
+                500);
+        });
+       return newVal + ' with async/await';
+    },
+);
+
+// $ExpectType Promise<Dictionary<string>>
+async.mapValues<number, string>(
+    { a: 1, b: 2, c: 3 },
+    // $ExpectType (val: number, key: string, next: AsyncResultCallback<string, Error>) => void
+    (val, key, next) => {
+        setTimeout(
+            () => {
+                console.log(`async.mapValues: ${key} = ${val}`);
+                next(null, val.toString());
+            },
+            500);
+    },
+);
+
 async.mapValuesSeries<number, string>(
     { a: 1, b: 2, c: 3 },
     (val: number, key: string, next: AsyncResultCallback<string>) => {
@@ -718,6 +753,8 @@ async.some<number>(
     },
     (err: Error, result: boolean) => { console.log("async.some/any: done with result", result); }
 );
+
+async.some([], async (item) => false); // $ExpectType Promise<boolean>
 
 // timeout
 

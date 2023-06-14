@@ -1,6 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-unnecessary-generics": false
+        "no-single-declare-module": false
     }
 }

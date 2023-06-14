@@ -64,7 +64,6 @@ export default class _FrameModule extends Base {
  *
  * The fin.Frame namespace represents a way to interact with `iframes` and facilitates the discovery of current context
  * (iframe or main window) as well as the ability to listen for <a href="tutorial-Frame.EventEmitter.html">frame-specific events</a>.
- * @class
  * @alias Frame
  * @hideconstructor
  */

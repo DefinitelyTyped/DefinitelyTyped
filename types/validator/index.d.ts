@@ -12,6 +12,8 @@
 //                 Vlad Poluch <https://github.com/vlapo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Matteo Nista <https://github.com/Mattewn99>
+//                 Roman Babiak <https://github.com/Almost-Infinity>
+//                 Daniel Freire <https://github.com/dcfreire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _isBoolean from './lib/isBoolean';
@@ -271,10 +273,17 @@ declare namespace validator {
      */
     function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
 
+    interface IsCreditCardOptions {
+        /**
+         * @default undefined
+         */
+        provider?: 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa' | '';
+    }
+
     /**
      * Check if the string is a credit card.
      */
-    function isCreditCard(str: string): boolean;
+    function isCreditCard(str: string, options?: IsCreditCardOptions): boolean;
 
     interface IsCurrencyOptions {
         /**
@@ -592,6 +601,22 @@ declare namespace validator {
      * @param [locale="any"] - IdentityCardLocale
      */
     function isIdentityCard(str: string, locale?: 'any' | IdentityCardLocale): boolean;
+
+    interface IsIMEIOptions {
+        /**
+         * This value is `false` by default. Set to `true` to allow IMEI with hyphens.
+         */
+        allow_hyphens?: boolean | undefined;
+    }
+
+    /**
+     * Check if the string is a valid IMEI.
+     * Non-hyphenated (`###############`) only is supported by default.
+     * Use the `options` param to enable hyphenated (`##-######-######-#`) support.
+     *
+     * @param [options] - Options
+     */
+    function isIMEI(str: string, options?: IsIMEIOptions): boolean;
 
     /**
      * Check if the string is in a array of allowed values.
@@ -1019,10 +1044,12 @@ declare namespace validator {
         | 'IE'
         | 'IL'
         | 'IN'
+        | 'IR'
         | 'IS'
         | 'IT'
         | 'JP'
         | 'KE'
+        | 'KR'
         | 'LI'
         | 'LT'
         | 'LU'
@@ -1092,6 +1119,25 @@ declare namespace validator {
      */
     function isSurrogatePair(str: string): boolean;
 
+    interface IsTimeOptions {
+        /**
+         * 'hour24' will validate hours in 24 format and 'hour12' will validate hours in 12 format.
+         * @default 'hour24'
+         */
+        hourFormat?: 'hour12' | 'hour24';
+        /**
+         * 'default' will validate HH:MM format, 'withSeconds' will validate the HH:MM:SS format
+         *
+         * @default 'default'
+         */
+        mode?: 'default' | 'withSeconds';
+    }
+
+    /**
+     * Check if the string is a valid time.
+     */
+    function isTime(str: string, options?: IsTimeOptions): boolean;
+
     const isURL: typeof _isURL.default;
     type IsURLOptions = _isURL.IsURLOptions;
 
@@ -1102,9 +1148,9 @@ declare namespace validator {
      */
     function isUppercase(str: string): boolean;
 
-    type UUIDVersion = 3 | 4 | 5 | '3' | '4' | '5' | 'all';
+    type UUIDVersion = '1' | '2' | '3' | '4' | '5' | 'all' | 1 | 2 | 3 | 4 | 5;
     /**
-     * Check if the string is a UUID (version 3, 4 or 5).
+     * Check if the string is a UUID (version 1, 2, 3, 4 or 5).
      *
      * @param [version="all"] - UUID version
      */

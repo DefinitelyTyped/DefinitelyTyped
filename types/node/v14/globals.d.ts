@@ -91,7 +91,7 @@ interface AbortController {
      * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
      * @since v14.7.0
      */
-    abort(): void;
+    abort(reason?: any): void;
 }
 
 /**
@@ -104,6 +104,7 @@ interface AbortSignal {
      * @since v14.7.0
      */
     readonly aborted: boolean;
+    readonly reason: any;
 }
 
 declare var AbortController: {
@@ -527,7 +528,7 @@ declare namespace NodeJS {
         /**
          * Name of the script [if this function was defined in a script]
          */
-        getFileName(): string | null;
+        getFileName(): string | undefined;
 
         /**
          * Current line number [if this function was defined in a script]

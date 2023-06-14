@@ -3,42 +3,42 @@
 declare namespace M {
     class ScrollSpy extends Component<ScrollSpyOptions> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): ScrollSpy;
 
         /**
-         * Init ScrollSpy
+         * Init ScrollSpy.
          */
         static init(els: Element, options?: Partial<ScrollSpyOptions>): ScrollSpy;
 
         /**
-         * Init ScrollSpies
+         * Init ScrollSpies.
          */
         static init(els: MElements, options?: Partial<ScrollSpyOptions>): ScrollSpy[];
     }
 
     interface ScrollSpyOptions {
         /**
-         * Throttle of scroll handler
+         * Throttle of scroll handler.
          * @default 100
          */
         throttle: number;
 
         /**
-         * Offset for centering element when scrolled to
+         * Offset for centering element when scrolled to.
          * @default 200
          */
         scrollOffset: number;
 
         /**
-         * Class applied to active elements
+         * Class applied to active elements.
          * @default 'active'
          */
         activeClass: string;
 
         /**
-         * Used to find active element
+         * Used to find active element.
          * @default id => 'a[href="#' + id + '"]'
          */
         getActiveElement: (id: string) => string;

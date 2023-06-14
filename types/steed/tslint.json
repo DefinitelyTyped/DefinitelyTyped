@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false
     }
 }

@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.113.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -287,7 +287,7 @@ declare module "sap/ui/commons/library" {
     Underline = "Underline",
   }
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - Use {@link sap.ui.core.TitleLevel} instead.
    *
    * Level of a title.
@@ -369,7 +369,7 @@ declare module "sap/ui/commons/library" {
     Single = "Single",
   }
   /**
-   * @SINCE 1.7.2
+   * @since 1.7.2
    * @deprecated (since 1.38)
    *
    * States for TriStateCheckBox
@@ -930,6 +930,8 @@ declare module "sap/ui/commons/Accordion" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:sectionClose sectionClose} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -946,6 +948,8 @@ declare module "sap/ui/commons/Accordion" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:sectionOpen sectionOpen} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -966,6 +970,8 @@ declare module "sap/ui/commons/Accordion" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:sectionsReorder sectionsReorder} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1295,6 +1301,8 @@ declare module "sap/ui/commons/AccordionSection" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:scroll scroll} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1642,6 +1650,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:logoff logoff} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2020,7 +2030,7 @@ declare module "sap/ui/commons/AutoComplete" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.10.0
+   * @since 1.10.0
    * @deprecated (since 1.38)
    *
    * Textfield with list based text completion.
@@ -2150,6 +2160,8 @@ declare module "sap/ui/commons/AutoComplete" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2247,12 +2259,559 @@ declare module "sap/ui/commons/AutoComplete" {
   }
 }
 
+declare module "sap/ui/commons/layout/BorderLayout" {
+  import { CSSSize } from "sap/ui/core/library";
+
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import { layout } from "sap/ui/commons/library";
+
+  import BorderLayoutArea from "sap/ui/commons/layout/BorderLayoutArea";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @since 1.110
+   *
+   * The object contains the available parameters for BorderLayout's Area.
+   */
+  export type BorderLayoutAreaData = {
+    /**
+     * Defines the height or the width. Is not used when the area element is in Center.
+     */
+    size?: CSSSize;
+    /**
+     * Invisible controls are not rendered.
+     */
+    visible?: boolean;
+    /**
+     * The overflow mode of the area in horizontal direction as CSS value.
+     */
+    overflowX?: string;
+    /**
+     * The overflow mode of the area in vertical direction as CSS value.
+     */
+    overflowY?: string;
+    /**
+     * The content alignment as CSS value.
+     */
+    contentAlign?: string;
+  };
+
+  /**
+   * @deprecated (since 1.38) - replaced by {@link sap.m.Page}
+   *
+   * Based upon the border layout as it comes with the Java standard. Using this layout, you are able to divide
+   * your available UI space into five areas whose sizes can be defined. These areas are: Top: Header; Bottom:
+   * Footer; Begin: Left/right-hand side panel; Center: Content area in the middle; End: Right/left-hand side
+   * panel.
+   */
+  export default class BorderLayout extends Control {
+    /**
+     * Constructor for a new layout/BorderLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $BorderLayoutSettings
+    );
+    /**
+     * Constructor for a new layout/BorderLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $BorderLayoutSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.commons.layout.BorderLayout with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, BorderLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.BorderLayout.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds controls to the specified area.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    addContent(
+      /**
+       * Specifies the area where controls will be added
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): this;
+    /**
+     * Creates the specified area and adds the given controls to it. Returns the created area.
+     *
+     * @returns The created aria
+     */
+    createArea(
+      /**
+       * Specifies which area will be created. If the area is already available, the method call is ignored.
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * Any number of controls can be submitted to be added to the newly created area; where each control is
+       * submitted as one argument.
+       */
+      oContent: Control
+    ): BorderLayoutArea;
+    /**
+     * Destroys the begin in the aggregation {@link #getBegin begin}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyBegin(): this;
+    /**
+     * Destroys the bottom in the aggregation {@link #getBottom bottom}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyBottom(): this;
+    /**
+     * Destroys the center in the aggregation {@link #getCenter center}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyCenter(): this;
+    /**
+     * Destroys the content of the specified area.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    destroyContent(
+      /**
+       * Specifies the area whose content will be destroyed
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): this;
+    /**
+     * Destroys the end in the aggregation {@link #getEnd end}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyEnd(): this;
+    /**
+     * Destroys the top in the aggregation {@link #getTop top}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyTop(): this;
+    /**
+     * Returns the area of the given type. If the area does not exist, it will be created when create is set
+     * to true.
+     *
+     * @returns The aria
+     */
+    getArea(
+      /**
+       * The aria ID
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * Whether the aria must be created
+       */
+      bCreate: boolean
+    ): BorderLayoutArea;
+    /**
+     * Returns the object of the specified area. If the area does not exist, the area will be created and returned.
+     *
+     * @returns The aria
+     */
+    getAreaById(
+      /**
+       * Specifies the area whose object will be returned.
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): BorderLayoutArea;
+    /**
+     * Returns a JSON-like object that contains all property values of the requested area.
+     *
+     * @returns The aria data
+     */
+    getAreaData(
+      /**
+       * Specifies the area whose data will be returned
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): BorderLayoutAreaData;
+    /**
+     * Gets content of aggregation {@link #getBegin begin}.
+     *
+     * Represents the Begin area
+     */
+    getBegin(): BorderLayoutArea;
+    /**
+     * Gets content of aggregation {@link #getBottom bottom}.
+     *
+     * Represents the Bottom area
+     */
+    getBottom(): BorderLayoutArea;
+    /**
+     * Gets content of aggregation {@link #getCenter center}.
+     *
+     * Represents the Center area
+     */
+    getCenter(): BorderLayoutArea;
+    /**
+     * Returns all controls inside the specified area inside an array.
+     *
+     * @returns The array with the content
+     */
+    getContent(
+      /**
+       * Specifies the area whose content controls shall be returned.
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): Control[];
+    /**
+     * Gets content of aggregation {@link #getEnd end}.
+     *
+     * Represents the End area
+     */
+    getEnd(): BorderLayoutArea;
+    /**
+     * Gets current value of property {@link #getHeight height}.
+     *
+     * Defines the overall height of the layout
+     *
+     * Default value is `'100%'`.
+     *
+     * @returns Value of property `height`
+     */
+    getHeight(): CSSSize;
+    /**
+     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     *
+     * Gets current value of property {@link #getRtl rtl}.
+     *
+     * The RTL setting swaps the areas Begin and End.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `rtl`
+     */
+    getRtl(): boolean;
+    /**
+     * Gets content of aggregation {@link #getTop top}.
+     *
+     * Represents the Top area
+     */
+    getTop(): BorderLayoutArea;
+    /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Defines the overall width of the layout
+     *
+     * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
+     * Determines the index of a given content control.
+     *
+     * @returns The index of the content
+     */
+    indexOfContent(
+      /**
+       * Specifies the area that will be searched
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * Specifies the control whose index will be searched
+       */
+      oContent: Control
+    ): int;
+    /**
+     * Inserts controls to an area at a given index.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    insertContent(
+      /**
+       * Specifies the area where the controls shall be inserted.
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * Specifies the index where the controls shall be added. For a negative value of iIndex, the content is
+       * inserted at position '0'; for a value greater than the current size of the aggregation, the content is
+       * inserted at the last position.
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all content from an area.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    removeAllContent(
+      /**
+       * Specifies the area whose content shall be removed
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): this;
+    /**
+     * Removes the content with the given index from an area.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    removeContent(
+      /**
+       * Specifies the area whose content shall be removed
+       */
+      oAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * The content to be removed Specifies the control that shall be removed
+       */
+      vElement: any
+    ): this;
+    /**
+     * Sets the properties of the specified area with the given values.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    setAreaData(
+      /**
+       * Specifies the area whose properties will be set
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * JSON-like object that contains the values to be set
+       */
+      oData: BorderLayoutAreaData
+    ): this;
+    /**
+     * Sets the aggregated {@link #getBegin begin}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setBegin(
+      /**
+       * The begin to set
+       */
+      oBegin: BorderLayoutArea
+    ): this;
+    /**
+     * Sets the aggregated {@link #getBottom bottom}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setBottom(
+      /**
+       * The bottom to set
+       */
+      oBottom: BorderLayoutArea
+    ): this;
+    /**
+     * Sets the aggregated {@link #getCenter center}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setCenter(
+      /**
+       * The center to set
+       */
+      oCenter: BorderLayoutArea
+    ): this;
+    /**
+     * Sets the aggregated {@link #getEnd end}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnd(
+      /**
+       * The end to set
+       */
+      oEnd: BorderLayoutArea
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeight height}.
+     *
+     * Defines the overall height of the layout
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeight(
+      /**
+       * New value for property `height`
+       */
+      sHeight?: CSSSize
+    ): this;
+    /**
+     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     *
+     * Sets a new value for property {@link #getRtl rtl}.
+     *
+     * The RTL setting swaps the areas Begin and End.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRtl(
+      /**
+       * New value for property `rtl`
+       */
+      bRtl?: boolean
+    ): this;
+    /**
+     * Sets the aggregated {@link #getTop top}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTop(
+      /**
+       * The top to set
+       */
+      oTop: BorderLayoutArea
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Defines the overall width of the layout
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth?: CSSSize
+    ): this;
+  }
+
+  export interface $BorderLayoutSettings extends $ControlSettings {
+    /**
+     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     *
+     * The RTL setting swaps the areas Begin and End.
+     */
+    rtl?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the overall width of the layout
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the overall height of the layout
+     */
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Represents the Top area
+     */
+    top?: BorderLayoutArea;
+
+    /**
+     * Represents the Begin area
+     */
+    begin?: BorderLayoutArea;
+
+    /**
+     * Represents the Center area
+     */
+    center?: BorderLayoutArea;
+
+    /**
+     * Represents the End area
+     */
+    end?: BorderLayoutArea;
+
+    /**
+     * Represents the Bottom area
+     */
+    bottom?: BorderLayoutArea;
+  }
+}
+
 declare module "sap/ui/commons/Button" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { ToolbarItem, ButtonStyle } from "sap/ui/commons/library";
 
-  import { IFormContent, ID, CSSSize, URI } from "sap/ui/core/library";
+  import {
+    IFormContent,
+    ID,
+    AccessibilityInfo,
+    CSSSize,
+    URI,
+  } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -2416,6 +2975,8 @@ declare module "sap/ui/commons/Button" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2431,12 +2992,14 @@ declare module "sap/ui/commons/Button" {
      */
     focus(): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
      * @returns Current accessibility state of the control.
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
      * ariaDescribedBy}.
@@ -3288,7 +3851,7 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
@@ -3315,7 +3878,7 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
@@ -3392,7 +3955,7 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Detaches event handler `fnFunction` from the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
@@ -3411,6 +3974,8 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -3430,6 +3995,8 @@ declare module "sap/ui/commons/CalloutBase" {
       }
     ): boolean;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:close close} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3441,6 +4008,8 @@ declare module "sap/ui/commons/CalloutBase" {
       mParameters?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:open open} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3457,7 +4026,8 @@ declare module "sap/ui/commons/CalloutBase" {
       }
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -3505,7 +4075,7 @@ declare module "sap/ui/commons/CalloutBase" {
     beforeOpen?: (oEvent: Event) => void;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Is fired when the Callout has been opened
      */
@@ -3528,7 +4098,7 @@ declare module "sap/ui/commons/Carousel" {
   import { enums } from "sap/ui/commons/library";
 
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - Instead, use the `sap.m.Carousel` control.
    *
    * Carousel holds multiple controls and displays them vertically or horizontally next to each other. You
@@ -3668,7 +4238,7 @@ declare module "sap/ui/commons/Carousel" {
      */
     getDefaultItemWidth(): int;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Gets current value of property {@link #getFirstVisibleIndex firstVisibleIndex}.
      *
@@ -3680,6 +4250,8 @@ declare module "sap/ui/commons/Carousel" {
      */
     getFirstVisibleIndex(): int;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the DOM Element that should get the focus.
      *
      * To be overwritten by the specific control method.
@@ -3839,7 +4411,7 @@ declare module "sap/ui/commons/Carousel" {
       iDefaultItemWidth?: int
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Setter for property `firstVisibleIndex`.
      *
@@ -4002,7 +4574,7 @@ declare module "sap/ui/commons/Carousel" {
     handleSize?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * The index of the element in the content aggreation which is displayed first on rendering
      */
@@ -4021,6 +4593,7 @@ declare module "sap/ui/commons/CheckBox" {
   import {
     IFormContent,
     ID,
+    AccessibilityInfo,
     TextDirection,
     ValueState,
     CSSSize,
@@ -4199,6 +4772,8 @@ declare module "sap/ui/commons/CheckBox" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -4215,12 +4790,14 @@ declare module "sap/ui/commons/CheckBox" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
-     * @returns The accessibility info
+     * @returns The object contains the accessibility information of `sap.ui.commons.CheckBox`
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
      * ariaDescribedBy}.
@@ -4655,7 +5232,7 @@ declare module "sap/ui/commons/ComboBox" {
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
-  import { ID } from "sap/ui/core/library";
+  import { AccessibilityInfo, ID } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4731,6 +5308,8 @@ declare module "sap/ui/commons/ComboBox" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Compares the previous value with the current value and fires the "Change" event if the ComboBox is editable
      * and the value has changed or whether the value has been changed e.g. via up/down or auto-complete feature
      */
@@ -4777,6 +5356,8 @@ declare module "sap/ui/commons/ComboBox" {
      */
     destroyItems(): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fire event change to attached listeners.
      *
      * Expects following event parameters:
@@ -4792,12 +5373,14 @@ declare module "sap/ui/commons/ComboBox" {
       mArguments?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
      * @returns The accessibility info
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getDisplaySecondaryValues displaySecondaryValues}.
      *
@@ -4810,6 +5393,8 @@ declare module "sap/ui/commons/ComboBox" {
      */
     getDisplaySecondaryValues(): boolean;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns the DOM element which represents the icon for value help. Could be overwritten in child-classes.
      *
      * @returns The F4-element's DOM reference or `null`
@@ -4890,6 +5475,8 @@ declare module "sap/ui/commons/ComboBox" {
       iIndex: int
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle sapenter pseudo events on the control
      */
     onsapenter(
@@ -4899,6 +5486,8 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle sapescape pseudo events on the control
      */
     onsapescape(
@@ -4908,6 +5497,8 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle saphide pseudo events on the control
      */
     onsaphide(
@@ -4917,6 +5508,8 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle sapnextmodifiers pseudo events on the control if in toolbar prevent item navigation if popup is
      * opened.
      */
@@ -4927,6 +5520,8 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle sapshow pseudo events on the control
      */
     onsapshow(
@@ -5103,6 +5698,8 @@ declare module "sap/ui/commons/DatePicker" {
     $TextFieldSettings,
   } from "sap/ui/commons/TextField";
 
+  import { AccessibilityInfo } from "sap/ui/core/library";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -5179,6 +5776,8 @@ declare module "sap/ui/commons/DatePicker" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fire event change to attached listeners.
      *
      * Provides the following event parameters:
@@ -5200,12 +5799,14 @@ declare module "sap/ui/commons/DatePicker" {
       bInvalidValue?: boolean
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
      * @returns Current accessibility state of the control
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getLocale locale}.
      *
@@ -5472,6 +6073,8 @@ declare module "sap/ui/commons/Dialog" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -5520,7 +6123,7 @@ declare module "sap/ui/commons/Dialog" {
      */
     getApplyContentPadding(): boolean;
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * Gets current value of property {@link #getAutoClose autoClose}.
      *
@@ -5565,7 +6168,7 @@ declare module "sap/ui/commons/Dialog" {
      */
     getDefaultButton(): ID;
     /**
-     * @EXPERIMENTAL - Whether a dialog is regarded as "enabled" during the state transitions (OPENING, CLOSING)
+     * @experimental - Whether a dialog is regarded as "enabled" during the state transitions (OPENING, CLOSING)
      * is not fully decided. Currently, it is enabled during the OPENING phase and disabled during the CLOSING
      * phase. The only potential change would be to treat the OPENING phase as disabled as well. Applications
      * should be prepared to receive events from "enabled" controls after they called open() on the dialog until
@@ -5601,7 +6204,7 @@ declare module "sap/ui/commons/Dialog" {
      */
     getInitialFocus(): ID;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getKeepInWindow keepInWindow}.
      *
@@ -5865,7 +6468,7 @@ declare module "sap/ui/commons/Dialog" {
       bApplyContentPadding?: boolean
     ): this;
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * Sets a new value for property {@link #getAutoClose autoClose}.
      *
@@ -5943,7 +6546,7 @@ declare module "sap/ui/commons/Dialog" {
       oInitialFocus: ID | Control
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getKeepInWindow keepInWindow}.
      *
@@ -6240,7 +6843,7 @@ declare module "sap/ui/commons/Dialog" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Specifies whether Dialog movement should be restricted to the visible area of the window. This only affects
      * drag&drop movements by the user. This doesn't affect modal dialogs -> modal dialogs always stay in the
@@ -6249,7 +6852,7 @@ declare module "sap/ui/commons/Dialog" {
     keepInWindow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * If this property is set to true the Dialog will close if the Dialog loses its focus
      */
@@ -6441,6 +7044,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:searchHelp searchHelp} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6511,6 +7116,8 @@ declare module "sap/ui/commons/DropdownBox" {
      */
     getTooltip_AsString(): string | undefined;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Ensure that handed in ListBoxes are taken from the visible UI immediately.
      */
     onAfterRendering(
@@ -6520,6 +7127,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle the click event happening in the DropdownBox
      */
     onclick(
@@ -6529,6 +7138,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle focusin event Ensures the text gets selected when focus gets into the field
      */
     onfocusin(
@@ -6538,6 +7149,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle keydown event
      */
     onkeydown(
@@ -6547,6 +7160,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle keypress event
      */
     onkeypress(
@@ -6556,6 +7171,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle keyup event This must only be considered if it is from Backspace-key in IE or after paste. In
      * case there is a keyup with a tab this results from being entered via tabbing and can be ignored, too.
      */
@@ -6566,6 +7183,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle paste event
      */
     onpaste(
@@ -6575,6 +7194,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle pseudo event onsapdelete. If triggered with open dropdown and current item provided by history
      * feature, removes the selected item from this instance's history.
      */
@@ -6585,6 +7206,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle pseudo event onsaphome
      */
     onsaphome(
@@ -6594,6 +7217,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Move the cursor one step to the left (and adapt selection)
      */
     onsapleft(
@@ -6603,6 +7228,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Move the cursor one step to the right (and adapt selection)
      */
     onsapright(
@@ -6612,6 +7239,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle sapshow pseudo events on the control
      */
     onsapshow(
@@ -6621,6 +7250,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle the select event happening in the DropdownBox
      */
     onselect(
@@ -6929,6 +7560,1003 @@ declare module "sap/ui/commons/FileUploaderParameter" {
     extends $FileUploaderParameterSettings1 {}
 }
 
+declare module "sap/ui/commons/TextField" {
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import { ToolbarItem } from "sap/ui/commons/library";
+
+  import {
+    IFormContent,
+    ID,
+    AccessibilityInfo,
+    AccessibleRole,
+    Design,
+    ImeMode,
+    TextAlign,
+    TextDirection,
+    ValueState,
+    CSSSize,
+  } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  /**
+   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   *
+   * The object representing the serialized focus information.
+   */
+  export type FocusInfo = {
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * ID of the component
+     */
+    id?: string;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * User input
+     */
+    userinput?: /* was: sap.ui.commons.UserInputInfo */ any | null;
+  };
+
+  /**
+   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
+   *
+   * Renders an input field for text input.
+   */
+  export default class TextField
+    extends Control
+    implements ToolbarItem, IFormContent {
+    __implements__sap_ui_commons_ToolbarItem: boolean;
+    __implements__sap_ui_core_IFormContent: boolean;
+    /**
+     * Constructor for a new TextField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $TextFieldSettings
+    );
+    /**
+     * Constructor for a new TextField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no ID is given
+       */
+      sID?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $TextFieldSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.commons.TextField with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TextField>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.TextField.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Compares the previous value with the current value and fires the change event if the TextField is editable
+     * and the value has changed.
+     */
+    _checkChange(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to add; if empty, nothing is inserted
+       */
+      vAriaDescribedBy: ID | Control
+    ): this;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
+     * key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
+     * key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
+     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachLiveChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
+     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Binds property {@link #getValue value} to model data.
+     *
+     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
+     * of the possible properties of `oBindingInfo`
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    bindValue(
+      /**
+       * The binding information
+       */
+      oBindingInfo: PropertyBindingInfo
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.TextField`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachLiveChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The new / changed value of the `TextField`.
+         */
+        newValue?: string;
+      }
+    ): this;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Fires event {@link #event:liveChange liveChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireLiveChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * Current visible value of the `TextField`.
+         */
+        liveValue?: string;
+      }
+    ): this;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * See:
+     * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns Current accessibility state of the control
+     */
+    getAccessibilityInfo(): AccessibilityInfo;
+    /**
+     * Gets current value of property {@link #getAccessibleRole accessibleRole}.
+     *
+     * Accessibility role for the text field.
+     *
+     * Default value is `Textbox`.
+     *
+     * @returns Value of property `accessibleRole`
+     */
+    getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
+     * ariaDescribedBy}.
+     */
+    getAriaDescribedBy(): ID[];
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
+    /**
+     * Gets current value of property {@link #getDesign design}.
+     *
+     * Font type. valid values are Standard and Monospace.
+     *
+     * Default value is `Standard`.
+     *
+     * @returns Value of property `design`
+     */
+    getDesign(): Design | keyof typeof Design;
+    /**
+     * Gets current value of property {@link #getEditable editable}.
+     *
+     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `editable`
+     */
+    getEditable(): boolean;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Returns an object representing the serialized focus information
+     *
+     * @returns an object representing the serialized focus information
+     */
+    getFocusInfo(): FocusInfo;
+    /**
+     * Gets current value of property {@link #getHelpId helpId}.
+     *
+     * Unique identifier used for help service.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `helpId`
+     */
+    getHelpId(): string;
+    /**
+     * Gets current value of property {@link #getImeMode imeMode}.
+     *
+     * State of the Input Method Editor (IME).
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Value of property `imeMode`
+     */
+    getImeMode(): ImeMode | keyof typeof ImeMode;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Method for accessing the DOM Ref of the input element.
+     *
+     * @returns DOM reference or `null`
+     */
+    getInputDomRef(): HTMLElement | null;
+    /**
+     * Returns the current value of the `TextField`. In case of editing the `TextField` you can access the current
+     * value via this method. The validated value is accessible via the property value.
+     *
+     * @returns live value
+     */
+    getLiveValue(): string;
+    /**
+     * Gets current value of property {@link #getMaxLength maxLength}.
+     *
+     * Maximum number of characters. Value '0' means the feature is switched off.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `maxLength`
+     */
+    getMaxLength(): int;
+    /**
+     * Gets current value of property {@link #getName name}.
+     *
+     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
+     * 'submit').
+     *
+     * @returns Value of property `name`
+     */
+    getName(): string;
+    /**
+     * @since 1.14.0
+     *
+     * Gets current value of property {@link #getPlaceholder placeholder}.
+     *
+     * Placeholder for the text field.
+     *
+     * @returns Value of property `placeholder`
+     */
+    getPlaceholder(): string;
+    /**
+     * Gets current value of property {@link #getRequired required}.
+     *
+     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
+     * it will visualize the requires state too.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `required`
+     */
+    getRequired(): boolean;
+    /**
+     * Gets current value of property {@link #getTextAlign textAlign}.
+     *
+     * Sets the horizontal alignment of the text.
+     *
+     * Default value is `Begin`.
+     *
+     * @returns Value of property `textAlign`
+     */
+    getTextAlign(): TextAlign | keyof typeof TextAlign;
+    /**
+     * Gets current value of property {@link #getTextDirection textDirection}.
+     *
+     * Direction of the text. Possible values: "rtl", "ltr".
+     *
+     * Default value is `Inherit`.
+     *
+     * @returns Value of property `textDirection`
+     */
+    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    /**
+     * Gets current value of property {@link #getValue value}.
+     *
+     * Text inside the `TextField`
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
+     */
+    getValue(): string;
+    /**
+     * Gets current value of property {@link #getValueState valueState}.
+     *
+     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
+     *
+     * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
+     */
+    getValueState(): ValueState | keyof typeof ValueState;
+    /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
+     * the text field length defines the width.
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Event handler called when control is receiving the focus
+     */
+    onfocusin(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Event handler for keyup. fire the liveChange event
+     */
+    onkeyup(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Event handler called when enter key is pressed.
+     * See:
+     * 	sap.ui.commons.TextField#onfocusout
+     */
+    onsapenter(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Event handler called when control is losing the focus
+     */
+    onsapfocusleave(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * Event handler called when text selection starts. When the text field is disabled, the text should not
+     * be selectable, so cancel the event.
+     */
+    onselectstart(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaDescribedBy(): ID[];
+    /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
+     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
+     */
+    removeAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to be removed or its index or ID
+       */
+      vAriaDescribedBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
+     *
+     * Accessibility role for the text field.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Textbox`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibleRole(
+      /**
+       * New value for property `accessibleRole`
+       */
+      sAccessibleRole?: AccessibleRole | keyof typeof AccessibleRole
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDesign design}.
+     *
+     * Font type. valid values are Standard and Monospace.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDesign(
+      /**
+       * New value for property `design`
+       */
+      sDesign?: Design | keyof typeof Design
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEditable editable}.
+     *
+     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEditable(
+      /**
+       * New value for property `editable`
+       */
+      bEditable?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHelpId helpId}.
+     *
+     * Unique identifier used for help service.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHelpId(
+      /**
+       * New value for property `helpId`
+       */
+      sHelpId?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getImeMode imeMode}.
+     *
+     * State of the Input Method Editor (IME).
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setImeMode(
+      /**
+       * New value for property `imeMode`
+       */
+      sImeMode?: ImeMode | keyof typeof ImeMode
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMaxLength maxLength}.
+     *
+     * Maximum number of characters. Value '0' means the feature is switched off.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxLength(
+      /**
+       * New value for property `maxLength`
+       */
+      iMaxLength?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getName name}.
+     *
+     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
+     * 'submit').
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setName(
+      /**
+       * New value for property `name`
+       */
+      sName?: string
+    ): this;
+    /**
+     * @since 1.14.0
+     *
+     * Sets a new value for property {@link #getPlaceholder placeholder}.
+     *
+     * Placeholder for the text field.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPlaceholder(
+      /**
+       * New value for property `placeholder`
+       */
+      sPlaceholder?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRequired required}.
+     *
+     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
+     * it will visualize the requires state too.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRequired(
+      /**
+       * New value for property `required`
+       */
+      bRequired?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTextAlign textAlign}.
+     *
+     * Sets the horizontal alignment of the text.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTextAlign(
+      /**
+       * New value for property `textAlign`
+       */
+      sTextAlign?: TextAlign | keyof typeof TextAlign
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTextDirection textDirection}.
+     *
+     * Direction of the text. Possible values: "rtl", "ltr".
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Inherit`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTextDirection(
+      /**
+       * New value for property `textDirection`
+       */
+      sTextDirection?: TextDirection | keyof typeof TextDirection
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValue value}.
+     *
+     * Text inside the `TextField`
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValue(
+      /**
+       * New value for property `value`
+       */
+      sValue?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValueState valueState}.
+     *
+     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValueState(
+      /**
+       * New value for property `valueState`
+       */
+      sValueState?: ValueState | keyof typeof ValueState
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
+     * the text field length defines the width.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth?: CSSSize
+    ): this;
+    /**
+     * Unbinds property {@link #getValue value} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    unbindValue(): this;
+  }
+
+  export interface $TextFieldSettings extends $ControlSettings {
+    /**
+     * Text inside the `TextField`
+     */
+    value?: string | PropertyBindingInfo;
+
+    /**
+     * Direction of the text. Possible values: "rtl", "ltr".
+     */
+    textDirection?:
+      | (TextDirection | keyof typeof TextDirection)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
+     */
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
+     * it will visualize the requires state too.
+     */
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
+     * the text field length defines the width.
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Maximum number of characters. Value '0' means the feature is switched off.
+     */
+    maxLength?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
+     */
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Sets the horizontal alignment of the text.
+     */
+    textAlign?:
+      | (TextAlign | keyof typeof TextAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * State of the Input Method Editor (IME).
+     */
+    imeMode?:
+      | (ImeMode | keyof typeof ImeMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Font type. valid values are Standard and Monospace.
+     */
+    design?:
+      | (Design | keyof typeof Design)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Unique identifier used for help service.
+     */
+    helpId?: string | PropertyBindingInfo;
+
+    /**
+     * Accessibility role for the text field.
+     */
+    accessibleRole?:
+      | (AccessibleRole | keyof typeof AccessibleRole)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
+     * 'submit').
+     */
+    name?: string | PropertyBindingInfo;
+
+    /**
+     * @since 1.14.0
+     *
+     * Placeholder for the text field.
+     */
+    placeholder?: string | PropertyBindingInfo;
+
+    /**
+     * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
+     */
+    ariaDescribedBy?: Array<Control | string>;
+
+    /**
+     * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
+     */
+    ariaLabelledBy?: Array<Control | string>;
+
+    /**
+     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
+     * key is pressed.
+     */
+    change?: (oEvent: Event) => void;
+
+    /**
+     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
+     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     */
+    liveChange?: (oEvent: Event) => void;
+  }
+}
+
 declare module "sap/ui/commons/form/Form" {
   import {
     default as Form1,
@@ -6938,7 +8566,7 @@ declare module "sap/ui/commons/form/Form" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Form control. Holder for form control to be rendered in a specific form layout. A Form supports VariantLayoutData
@@ -7012,7 +8640,7 @@ declare module "sap/ui/commons/form/Form" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible Forms are not rendered.
      *
@@ -7022,7 +8650,7 @@ declare module "sap/ui/commons/form/Form" {
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
@@ -7050,7 +8678,7 @@ declare module "sap/ui/commons/form/FormContainer" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Used to group form elements.
@@ -7123,7 +8751,7 @@ declare module "sap/ui/commons/form/FormContainer" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible FormContainers are not rendered.
      *
@@ -7133,7 +8761,7 @@ declare module "sap/ui/commons/form/FormContainer" {
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
@@ -7161,7 +8789,7 @@ declare module "sap/ui/commons/form/FormElement" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * A form element is a combination of one label and different controls associated to this label.
@@ -7234,7 +8862,7 @@ declare module "sap/ui/commons/form/FormElement" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible FormElements are not rendered.
      *
@@ -7244,7 +8872,7 @@ declare module "sap/ui/commons/form/FormElement" {
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
@@ -7272,7 +8900,7 @@ declare module "sap/ui/commons/form/FormLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Base layout for Forms. Other Layouts must inherit from this one.
@@ -7358,7 +8986,7 @@ declare module "sap/ui/commons/form/GridContainerData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Grid layout specific properties for FormContainers. The width and height properties of the elements are
@@ -7446,7 +9074,7 @@ declare module "sap/ui/commons/form/GridElementData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * The grid specific layout data for FormElement fields. The width property of the elements is ignored since
@@ -7533,7 +9161,7 @@ declare module "sap/ui/commons/form/GridLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This Layout implements a guideline 2.0 grid. This can be a 16 column grid or an 8 column grid.
@@ -7621,7 +9249,7 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.10.0
+   * @since 1.10.0
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Renders a form with responsive layout. Internally the ResponsiveFlowLayout is used.
@@ -7710,7 +9338,7 @@ declare module "sap/ui/commons/form/SimpleForm" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.12
+   * @since 1.12
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Use the SimpleForm to create a form based on title, label and fields that are stacked in the content
@@ -7786,7 +9414,7 @@ declare module "sap/ui/commons/form/SimpleForm" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.14
+     * @since 1.14
      *
      * Getter for property `layout`. The FormLayout that is used to render the SimpleForm
      *
@@ -7796,7 +9424,7 @@ declare module "sap/ui/commons/form/SimpleForm" {
      */
     getLayout(): form.SimpleFormLayout;
     /**
-     * @SINCE 1.14
+     * @since 1.14
      *
      * Setter for property `layout`.
      *
@@ -7830,7 +9458,7 @@ declare module "sap/ui/commons/FormattedTextView" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.9.0
+   * @since 1.9.0
    * @deprecated (since 1.38) - Instead, use the `sap.ui.core.HTML` control.
    *
    * The FormattedTextView control allows the usage of a limited set of HTML tags for display.
@@ -8391,6 +10019,8 @@ declare module "sap/ui/commons/Image" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8774,6 +10404,8 @@ declare module "sap/ui/commons/ImageMap" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -8891,18 +10523,18 @@ declare module "sap/ui/commons/InPlaceEdit" {
 
   import Event from "sap/ui/base/Event";
 
+  import { AccessibilityInfo, ValueState } from "sap/ui/core/library";
+
   import { TextViewDesign } from "sap/ui/commons/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import TooltipBase from "sap/ui/core/TooltipBase";
 
-  import { ValueState } from "sap/ui/core/library";
-
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
    *
    * The InPlaceEdit is a functionality to have text in display mode that can be changed in place.
@@ -9016,7 +10648,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
@@ -9045,7 +10677,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
@@ -9097,7 +10729,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
@@ -9116,6 +10748,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -9132,7 +10766,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
       }
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -9150,12 +10785,14 @@ declare module "sap/ui/commons/InPlaceEdit" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
      * @returns Current accessibility state of the control.
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -9164,7 +10801,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      */
     getContent(): Control;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getDesign design}.
      *
@@ -9223,7 +10860,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       oContent: Control
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -9311,7 +10948,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
     undoEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Defines the visual appearance of the control. Currently this is not supported for Labels.
      */
@@ -9333,7 +10970,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
     change?: (oEvent: Event) => void;
 
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
      * is not the content of the value property. The value property is only updated by ENTER and by leaving
@@ -9350,6 +10987,7 @@ declare module "sap/ui/commons/Label" {
 
   import {
     Label as Label1,
+    AccessibilityInfo,
     URI,
     ID,
     TextAlign,
@@ -9431,12 +11069,14 @@ declare module "sap/ui/commons/Label" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
      * @returns The accessibility info
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getDesign design}.
      *
@@ -9460,7 +11100,7 @@ declare module "sap/ui/commons/Label" {
      */
     getLabelFor(): ID;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Gets current value of property {@link #getRequired required}.
      *
@@ -9475,7 +11115,7 @@ declare module "sap/ui/commons/Label" {
      */
     getRequired(): boolean;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Gets current value of property {@link #getRequiredAtBegin requiredAtBegin}.
      *
@@ -9581,7 +11221,7 @@ declare module "sap/ui/commons/Label" {
       oLabelFor: ID | Control
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Sets a new value for property {@link #getRequired required}.
      *
@@ -9603,7 +11243,7 @@ declare module "sap/ui/commons/Label" {
       bRequired?: boolean
     ): this;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Sets a new value for property {@link #getRequiredAtBegin requiredAtBegin}.
      *
@@ -9755,7 +11395,7 @@ declare module "sap/ui/commons/Label" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Allows to enforce the required indicator even when the associated control doesn't have a getRequired
      * method (a required property) or when the flag is not set. If the associated control has a required property,
@@ -9765,7 +11405,7 @@ declare module "sap/ui/commons/Label" {
     required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Determines whether the required indicator is at the beginning of the label (if set) or at the end (if
      * not set).
@@ -9874,7 +11514,11 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * JSON-like object which defines the position of the child control in the layout. The object is expected
        * to have one or more from the attribute set top, bottom, left, right; each with a value of type sap.ui.core.CSSSize.
        */
-      oPos?: object
+      oPos?: {
+        left: string;
+
+        right: string;
+      }
     ): this;
     /**
      * Adds element to the layout.
@@ -9885,7 +11529,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
       /**
        * Element which must be positioned in the layout.
        */
-      oPosition: object
+      oPosition: Control
     ): this;
     /**
      * Destroys all aggregated position containers and their child controls. Returns 'this' to allow method
@@ -9989,7 +11633,11 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * JSON-like object which defines the position of the child control in the layout. The object is expected
        * to have one or more from the attribute set top, bottom, left, right; each with a value of type sap.ui.core.CSSSize.
        */
-      oPos?: object
+      oPos?: {
+        left: string;
+
+        right: string;
+      }
     ): this;
     /**
      * Inserts element to the layout on a specific index.
@@ -10000,7 +11648,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
       /**
        * Element which must be positioned in the layout.
        */
-      oPosition: object,
+      oPosition: Control,
       /**
        * Index of the element which is to be positioned.
        */
@@ -10016,7 +11664,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      *
      * @returns Removed elements.
      */
-    removeAllPositions(): object;
+    removeAllPositions(): Control[];
     /**
      * Removes the given control and its corresponding position container from the aggregation named 'positions'.
      */
@@ -10025,7 +11673,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * The content control to remove, its ID, or the index of the corresponding position container in the 'positions'
        * aggregation.
        */
-      oContent: object
+      vContent: string | Control
     ): Control;
     /**
      * Removes element from the layout.
@@ -10037,7 +11685,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * Element which must be removed from the positions element within the layout.
        */
       vPosition: any
-    ): object;
+    ): Control;
     /**
      * Sets the `height` property.
      *
@@ -10058,7 +11706,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
       /**
        * Object that contains settings for Horizontal scrolling.
        */
-      oHorizontalScrolling: object
+      oHorizontalScrolling: Scrolling | keyof typeof Scrolling
     ): this;
     /**
      * Allows to set or change the position information of the given child control
@@ -10073,7 +11721,11 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * JSON-like object which defines the position of the child control in the layout. The object is expected
        * to have one or more from the attribute set top, bottom, left, right; each with a value of type sap.ui.core.CSSSize.
        */
-      oPos?: object
+      oPos?: {
+        left: string;
+
+        right: string;
+      }
     ): boolean;
     /**
      * Sets the `verticalScrolling` property.
@@ -10084,7 +11736,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
       /**
        * Object that contains settings for Vertical scrolling.
        */
-      oVerticalScrolling: object
+      oVerticalScrolling: Scrolling | keyof typeof Scrolling
     ): this;
     /**
      * Sets the `width` property.
@@ -10134,519 +11786,6 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
       | PositionContainer
       | AggregationBindingInfo
       | `{${string}}`;
-  }
-}
-
-declare module "sap/ui/commons/layout/BorderLayout" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import { layout } from "sap/ui/commons/library";
-
-  import BorderLayoutArea from "sap/ui/commons/layout/BorderLayoutArea";
-
-  import { CSSSize } from "sap/ui/core/library";
-
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
-
-  /**
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Page}
-   *
-   * Based upon the border layout as it comes with the Java standard. Using this layout, you are able to divide
-   * your available UI space into five areas whose sizes can be defined. These areas are: Top: Header; Bottom:
-   * Footer; Begin: Left/right-hand side panel; Center: Content area in the middle; End: Right/left-hand side
-   * panel.
-   */
-  export default class BorderLayout extends Control {
-    /**
-     * Constructor for a new layout/BorderLayout.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * initial settings for the new control
-       */
-      mSettings?: $BorderLayoutSettings
-    );
-    /**
-     * Constructor for a new layout/BorderLayout.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * id for the new control, generated automatically if no id is given
-       */
-      sId?: string,
-      /**
-       * initial settings for the new control
-       */
-      mSettings?: $BorderLayoutSettings
-    );
-
-    /**
-     * Creates a new subclass of class sap.ui.commons.layout.BorderLayout with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, BorderLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.BorderLayout.
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): ElementMetadata;
-    /**
-     * Adds controls to the specified area.
-     *
-     * @returns `this` to allow method chaining
-     */
-    addContent(
-      /**
-       * Specifies the area where controls will be added
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): this;
-    /**
-     * Creates the specified area and adds the given controls to it. Returns the created area.
-     *
-     * @returns The created aria
-     */
-    createArea(
-      /**
-       * Specifies which area will be created. If the area is already available, the method call is ignored.
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * Any number of controls can be submitted to be added to the newly created area; where each control is
-       * submitted as one argument.
-       */
-      oContent: Control
-    ): BorderLayoutArea;
-    /**
-     * Destroys the begin in the aggregation {@link #getBegin begin}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyBegin(): this;
-    /**
-     * Destroys the bottom in the aggregation {@link #getBottom bottom}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyBottom(): this;
-    /**
-     * Destroys the center in the aggregation {@link #getCenter center}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyCenter(): this;
-    /**
-     * Destroys the content of the specified area.
-     *
-     * @returns `this` to allow method chaining
-     */
-    destroyContent(
-      /**
-       * Specifies the area whose content will be destroyed
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): this;
-    /**
-     * Destroys the end in the aggregation {@link #getEnd end}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyEnd(): this;
-    /**
-     * Destroys the top in the aggregation {@link #getTop top}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyTop(): this;
-    /**
-     * Returns the area of the given type. If the area does not exist, it will be created when create is set
-     * to true.
-     *
-     * @returns The aria
-     */
-    getArea(
-      /**
-       * The aria ID
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * Whether the aria must be created
-       */
-      bCreate: boolean
-    ): BorderLayoutArea;
-    /**
-     * Returns the object of the specified area. If the area does not exist, the area will be created and returned.
-     *
-     * @returns The aria
-     */
-    getAreaById(
-      /**
-       * Specifies the area whose object will be returned.
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): BorderLayoutArea;
-    /**
-     * Returns a JSON-like object that contains all property values of the requested area.
-     *
-     * @returns The aria data
-     */
-    getAreaData(
-      /**
-       * Specifies the area whose data will be returned
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): object;
-    /**
-     * Gets content of aggregation {@link #getBegin begin}.
-     *
-     * Represents the Begin area
-     */
-    getBegin(): BorderLayoutArea;
-    /**
-     * Gets content of aggregation {@link #getBottom bottom}.
-     *
-     * Represents the Bottom area
-     */
-    getBottom(): BorderLayoutArea;
-    /**
-     * Gets content of aggregation {@link #getCenter center}.
-     *
-     * Represents the Center area
-     */
-    getCenter(): BorderLayoutArea;
-    /**
-     * Returns all controls inside the specified area inside an array.
-     *
-     * @returns The array with the content
-     */
-    getContent(
-      /**
-       * Specifies the area whose content controls shall be returned.
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): Control[];
-    /**
-     * Gets content of aggregation {@link #getEnd end}.
-     *
-     * Represents the End area
-     */
-    getEnd(): BorderLayoutArea;
-    /**
-     * Gets current value of property {@link #getHeight height}.
-     *
-     * Defines the overall height of the layout
-     *
-     * Default value is `'100%'`.
-     *
-     * @returns Value of property `height`
-     */
-    getHeight(): CSSSize;
-    /**
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
-     *
-     * Gets current value of property {@link #getRtl rtl}.
-     *
-     * The RTL setting swaps the areas Begin and End.
-     *
-     * Default value is `false`.
-     *
-     * @returns Value of property `rtl`
-     */
-    getRtl(): boolean;
-    /**
-     * Gets content of aggregation {@link #getTop top}.
-     *
-     * Represents the Top area
-     */
-    getTop(): BorderLayoutArea;
-    /**
-     * Gets current value of property {@link #getWidth width}.
-     *
-     * Defines the overall width of the layout
-     *
-     * Default value is `'100%'`.
-     *
-     * @returns Value of property `width`
-     */
-    getWidth(): CSSSize;
-    /**
-     * Determines the index of a given content control.
-     *
-     * @returns The index of the content
-     */
-    indexOfContent(
-      /**
-       * Specifies the area that will be searched
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * Specifies the control whose index will be searched
-       */
-      oContent: Control
-    ): int;
-    /**
-     * Inserts controls to an area at a given index.
-     *
-     * @returns `this` to allow method chaining
-     */
-    insertContent(
-      /**
-       * Specifies the area where the controls shall be inserted.
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * Specifies the index where the controls shall be added. For a negative value of iIndex, the content is
-       * inserted at position '0'; for a value greater than the current size of the aggregation, the content is
-       * inserted at the last position.
-       */
-      iIndex: int
-    ): this;
-    /**
-     * Removes all content from an area.
-     *
-     * @returns `this` to allow method chaining
-     */
-    removeAllContent(
-      /**
-       * Specifies the area whose content shall be removed
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): this;
-    /**
-     * Removes the content with the given index from an area.
-     *
-     * @returns `this` to allow method chaining
-     */
-    removeContent(
-      /**
-       * Specifies the area whose content shall be removed
-       */
-      oAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * The content to be removed Specifies the control that shall be removed
-       */
-      vElement: any
-    ): this;
-    /**
-     * Sets the properties of the specified area with the given values.
-     *
-     * @returns `this` to allow method chaining
-     */
-    setAreaData(
-      /**
-       * Specifies the area whose properties will be set
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * JSON-like object that contains the values to be set
-       */
-      oData: object
-    ): this;
-    /**
-     * Sets the aggregated {@link #getBegin begin}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setBegin(
-      /**
-       * The begin to set
-       */
-      oBegin: BorderLayoutArea
-    ): this;
-    /**
-     * Sets the aggregated {@link #getBottom bottom}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setBottom(
-      /**
-       * The bottom to set
-       */
-      oBottom: BorderLayoutArea
-    ): this;
-    /**
-     * Sets the aggregated {@link #getCenter center}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setCenter(
-      /**
-       * The center to set
-       */
-      oCenter: BorderLayoutArea
-    ): this;
-    /**
-     * Sets the aggregated {@link #getEnd end}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setEnd(
-      /**
-       * The end to set
-       */
-      oEnd: BorderLayoutArea
-    ): this;
-    /**
-     * Sets a new value for property {@link #getHeight height}.
-     *
-     * Defines the overall height of the layout
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `'100%'`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setHeight(
-      /**
-       * New value for property `height`
-       */
-      sHeight?: CSSSize
-    ): this;
-    /**
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
-     *
-     * Sets a new value for property {@link #getRtl rtl}.
-     *
-     * The RTL setting swaps the areas Begin and End.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setRtl(
-      /**
-       * New value for property `rtl`
-       */
-      bRtl?: boolean
-    ): this;
-    /**
-     * Sets the aggregated {@link #getTop top}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setTop(
-      /**
-       * The top to set
-       */
-      oTop: BorderLayoutArea
-    ): this;
-    /**
-     * Sets a new value for property {@link #getWidth width}.
-     *
-     * Defines the overall width of the layout
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `'100%'`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setWidth(
-      /**
-       * New value for property `width`
-       */
-      sWidth?: CSSSize
-    ): this;
-  }
-
-  export interface $BorderLayoutSettings extends $ControlSettings {
-    /**
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
-     *
-     * The RTL setting swaps the areas Begin and End.
-     */
-    rtl?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Defines the overall width of the layout
-     */
-    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Defines the overall height of the layout
-     */
-    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Represents the Top area
-     */
-    top?: BorderLayoutArea;
-
-    /**
-     * Represents the Begin area
-     */
-    begin?: BorderLayoutArea;
-
-    /**
-     * Represents the Center area
-     */
-    center?: BorderLayoutArea;
-
-    /**
-     * Represents the End area
-     */
-    end?: BorderLayoutArea;
-
-    /**
-     * Represents the Bottom area
-     */
-    bottom?: BorderLayoutArea;
   }
 }
 
@@ -12495,7 +13634,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This is a layout where several controls can be added. These controls are blown up to fit a whole line.
@@ -12583,7 +13722,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This is a LayoutData Element that can be added to a control if this control is used within a ResponsiveFlowLayout
@@ -12656,7 +13795,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Getter for property `margin`. This property prevents any margin of the element if set to false
      *
@@ -12666,7 +13805,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      */
     getMargin(): boolean;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Setter for property `margin`.
      *
@@ -12779,7 +13918,13 @@ declare module "sap/ui/commons/Link" {
     FormattedTextViewControl,
   } from "sap/ui/commons/library";
 
-  import { IFormContent, ID, URI, CSSSize } from "sap/ui/core/library";
+  import {
+    IFormContent,
+    ID,
+    AccessibilityInfo,
+    URI,
+    CSSSize,
+  } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -12945,6 +14090,8 @@ declare module "sap/ui/commons/Link" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -12963,12 +14110,14 @@ declare module "sap/ui/commons/Link" {
      */
     focus(): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
-     * @returns The accessibility info
+     * @returns The object contains the accessibility information of `sap.ui.commons.Link`
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
      * ariaDescribedBy}.
@@ -13027,7 +14176,7 @@ declare module "sap/ui/commons/Link" {
      */
     getText(): string;
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Gets current value of property {@link #getWidth width}.
      *
@@ -13154,7 +14303,7 @@ declare module "sap/ui/commons/Link" {
       sText?: string
     ): this;
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Sets a new value for property {@link #getWidth width}.
      *
@@ -13201,7 +14350,7 @@ declare module "sap/ui/commons/Link" {
     target?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Width of text link. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
      * the text defines the size.
@@ -13442,6 +14591,8 @@ declare module "sap/ui/commons/ListBox" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -14143,7 +15294,7 @@ declare module "sap/ui/commons/Menu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.Menu}
    *
    * A menu is an interactive element which provides a choice of different actions to the user. These actions
@@ -14706,6 +15857,8 @@ declare module "sap/ui/commons/MenuButton" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:itemSelected itemSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -14726,6 +15879,8 @@ declare module "sap/ui/commons/MenuButton" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      * See:
      * 	sap.ui.commons.MenuButton#fireItemSelected
@@ -14841,7 +15996,7 @@ declare module "sap/ui/commons/MenuItem" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItem}
    *
    * Standard item to be used inside a menu. A menu item represents an action which can be selected by the
@@ -14926,7 +16081,7 @@ declare module "sap/ui/commons/MenuItemBase" {
   } from "sap/ui/unified/MenuItemBase";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItemBase}
    *
    * Abstract base class for menu item which provides common properties and events for all concrete item implementations.
@@ -15540,7 +16695,7 @@ declare module "sap/ui/commons/MessageBox" {
   import Control from "sap/ui/core/Control";
 
   /**
-   * @SINCE 0.8.8
+   * @since 0.8.8
    * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox` control.
    *
    * Provides methods to create standard alerts, confirmation dialogs, or arbitrary message boxes.
@@ -16089,6 +17244,8 @@ declare module "sap/ui/commons/MessageToast" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:next next} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -16297,6 +17454,8 @@ declare module "sap/ui/commons/Paginator" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:page page} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -16585,6 +17744,8 @@ declare module "sap/ui/commons/Panel" {
      */
     getEnabled(): boolean;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Returns an object representing the serialized focus information.
      *
      * @returns an object representing the serialized focus information
@@ -17158,6 +18319,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
@@ -17542,6 +18705,8 @@ declare module "sap/ui/commons/RadioButton" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18121,6 +19286,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18169,7 +19336,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      */
     getEditable(): boolean;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -18344,7 +19511,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       bEditable?: boolean
     ): this;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -18468,7 +19635,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     selectedIndex?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Enables/disables the RadioButtonGroup. If it is disabled all RadioButtons will be displayed as disabled.
      * The enabled property of the Item will not be used in this case. If the RadioButtonGroup is enabled, the
@@ -18506,7 +19673,7 @@ declare module "sap/ui/commons/RangeSlider" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - replaced by {@link sap.m.RangeSlider}
    *
    * The interactive control is displayed either as a horizontal or a vertical line with two pointers and
@@ -18799,6 +19966,8 @@ declare module "sap/ui/commons/RatingIndicator" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -18815,6 +19984,8 @@ declare module "sap/ui/commons/RatingIndicator" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
@@ -19325,6 +20496,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:rangeSwitch rangeSwitch} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -19778,7 +20951,7 @@ declare module "sap/ui/commons/RichTooltip" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Gets current value of property {@link #getImageAltText imageAltText}.
      *
@@ -19812,12 +20985,14 @@ declare module "sap/ui/commons/RichTooltip" {
      */
     getValueStateText(): string;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Calculates the height of the RichTooltip to set a proper min-height. Additionally the ARIA attributes
      * are set to the corresponding elements.
      */
     onAfterRendering(): void;
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Sets a new value for property {@link #getImageAltText imageAltText}.
      *
@@ -19888,14 +21063,14 @@ declare module "sap/ui/commons/RichTooltip" {
     imageSrc?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * This property is an individual text that will be used instead of the default ValueState text
      */
     valueStateText?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * This is the alt text for the image
      */
@@ -20127,6 +21302,8 @@ declare module "sap/ui/commons/RoadMap" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:stepExpanded stepExpanded} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -20143,6 +21320,8 @@ declare module "sap/ui/commons/RoadMap" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:stepSelected stepSelected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -21096,6 +22275,8 @@ declare module "sap/ui/commons/RowRepeater" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:filter filter} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -21112,6 +22293,8 @@ declare module "sap/ui/commons/RowRepeater" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:page page} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -21132,6 +22315,8 @@ declare module "sap/ui/commons/RowRepeater" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -21152,6 +22337,8 @@ declare module "sap/ui/commons/RowRepeater" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:sort sort} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -22225,6 +23412,8 @@ declare module "sap/ui/commons/SearchField" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:search search} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -22241,6 +23430,8 @@ declare module "sap/ui/commons/SearchField" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -22277,7 +23468,7 @@ declare module "sap/ui/commons/SearchField" {
      */
     getEditable(): boolean;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Gets current value of property {@link #getEnableCache enableCache}.
      *
@@ -22362,7 +23553,7 @@ declare module "sap/ui/commons/SearchField" {
      */
     getMaxSuggestionItems(): int;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -22431,7 +23622,7 @@ declare module "sap/ui/commons/SearchField" {
      */
     getValue(): string;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Gets current value of property {@link #getValueState valueState}.
      *
@@ -22513,7 +23704,7 @@ declare module "sap/ui/commons/SearchField" {
       bEditable?: boolean
     ): this;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Sets a new value for property {@link #getEnableCache enableCache}.
      *
@@ -22654,7 +23845,7 @@ declare module "sap/ui/commons/SearchField" {
       iMaxSuggestionItems?: int
     ): this;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Sets a new value for property {@link #getPlaceholder placeholder}.
      *
@@ -22770,7 +23961,7 @@ declare module "sap/ui/commons/SearchField" {
       sValue?: string
     ): this;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Sets a new value for property {@link #getValueState valueState}.
      *
@@ -22860,7 +24051,7 @@ declare module "sap/ui/commons/SearchField" {
     showExternalButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * When list suggestion is enabled all suggestions are cached and no suggest event is fired.
      */
@@ -22898,7 +24089,7 @@ declare module "sap/ui/commons/SearchField" {
     maxLength?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Visualizes warnings or errors related to the input field. Possible values: Warning, Error, Success, None.
      */
@@ -22908,7 +24099,7 @@ declare module "sap/ui/commons/SearchField" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Placeholder for the input field.
      */
@@ -23148,6 +24339,8 @@ declare module "sap/ui/commons/SegmentedButton" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Rerendering of the Buttons
      */
     _rerenderButtons(): void;
@@ -23231,6 +24424,8 @@ declare module "sap/ui/commons/SegmentedButton" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -23597,6 +24792,8 @@ declare module "sap/ui/commons/Slider" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -23613,6 +24810,8 @@ declare module "sap/ui/commons/Slider" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -23659,7 +24858,7 @@ declare module "sap/ui/commons/Slider" {
      */
     getEnabled(): boolean;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Gets current value of property {@link #getHeight height}.
      *
@@ -23745,7 +24944,7 @@ declare module "sap/ui/commons/Slider" {
      */
     getValue(): float;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Gets current value of property {@link #getVertical vertical}.
      *
@@ -23835,7 +25034,7 @@ declare module "sap/ui/commons/Slider" {
       bEnabled?: boolean
     ): this;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Sets a new value for property {@link #getHeight height}.
      *
@@ -23977,7 +25176,7 @@ declare module "sap/ui/commons/Slider" {
       fValue?: float
     ): this;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Sets a new value for property {@link #getVertical vertical}.
      *
@@ -24076,14 +25275,14 @@ declare module "sap/ui/commons/Slider" {
     labels?: string[] | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Orientation of slider
      */
     vertical?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Height of the vertical slider.
      */
@@ -25104,6 +26303,8 @@ declare module "sap/ui/commons/TabStrip" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:close close} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -25120,6 +26321,8 @@ declare module "sap/ui/commons/TabStrip" {
       }
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -25625,960 +26828,6 @@ declare module "sap/ui/commons/TextArea" {
   }
 }
 
-declare module "sap/ui/commons/TextField" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import { ToolbarItem } from "sap/ui/commons/library";
-
-  import {
-    IFormContent,
-    ID,
-    AccessibleRole,
-    Design,
-    ImeMode,
-    TextAlign,
-    TextDirection,
-    ValueState,
-    CSSSize,
-  } from "sap/ui/core/library";
-
-  import Event from "sap/ui/base/Event";
-
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
-
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  /**
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
-   *
-   * Renders an input field for text input.
-   */
-  export default class TextField
-    extends Control
-    implements ToolbarItem, IFormContent {
-    __implements__sap_ui_commons_ToolbarItem: boolean;
-    __implements__sap_ui_core_IFormContent: boolean;
-    /**
-     * Constructor for a new TextField.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * Initial settings for the new control
-       */
-      mSettings?: $TextFieldSettings
-    );
-    /**
-     * Constructor for a new TextField.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * id for the new control, generated automatically if no ID is given
-       */
-      sID?: string,
-      /**
-       * Initial settings for the new control
-       */
-      mSettings?: $TextFieldSettings
-    );
-
-    /**
-     * Creates a new subclass of class sap.ui.commons.TextField with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TextField>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.commons.TextField.
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): ElementMetadata;
-    /**
-     * Compares the previous value with the current value and fires the change event if the TextField is editable
-     * and the value has changed.
-     */
-    _checkChange(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    addAriaDescribedBy(
-      /**
-       * The ariaDescribedBy to add; if empty, nothing is inserted
-       */
-      vAriaDescribedBy: ID | Control
-    ): this;
-    /**
-     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    addAriaLabelledBy(
-      /**
-       * The ariaLabelledBy to add; if empty, nothing is inserted
-       */
-      vAriaLabelledBy: ID | Control
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
-     * key is pressed.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachChange(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
-     * key is pressed.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
-     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachLiveChange(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
-     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Binds property {@link #getValue value} to model data.
-     *
-     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
-     * of the possible properties of `oBindingInfo`
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    bindValue(
-      /**
-       * The binding information
-       */
-      oBindingInfo: PropertyBindingInfo
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.TextField`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachLiveChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Fires event {@link #event:change change} to attached listeners.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    fireChange(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: {
-        /**
-         * The new / changed value of the `TextField`.
-         */
-        newValue?: string;
-      }
-    ): this;
-    /**
-     * Fires event {@link #event:liveChange liveChange} to attached listeners.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    fireLiveChange(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: {
-        /**
-         * Current visible value of the `TextField`.
-         */
-        liveValue?: string;
-      }
-    ): this;
-    /**
-     * See:
-     * 	sap.ui.core.Control#getAccessibilityInfo
-     *
-     * @returns Current accessibility state of the control
-     */
-    getAccessibilityInfo(): object;
-    /**
-     * Gets current value of property {@link #getAccessibleRole accessibleRole}.
-     *
-     * Accessibility role for the text field.
-     *
-     * Default value is `Textbox`.
-     *
-     * @returns Value of property `accessibleRole`
-     */
-    getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
-    /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
-     */
-    getAriaDescribedBy(): ID[];
-    /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
-     */
-    getAriaLabelledBy(): ID[];
-    /**
-     * Gets current value of property {@link #getDesign design}.
-     *
-     * Font type. valid values are Standard and Monospace.
-     *
-     * Default value is `Standard`.
-     *
-     * @returns Value of property `design`
-     */
-    getDesign(): Design | keyof typeof Design;
-    /**
-     * Gets current value of property {@link #getEditable editable}.
-     *
-     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
-     *
-     * Default value is `true`.
-     *
-     * @returns Value of property `editable`
-     */
-    getEditable(): boolean;
-    /**
-     * Gets current value of property {@link #getEnabled enabled}.
-     *
-     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
-     *
-     * Default value is `true`.
-     *
-     * @returns Value of property `enabled`
-     */
-    getEnabled(): boolean;
-    /**
-     * Returns an object representing the serialized focus information
-     *
-     * @returns an object representing the serialized focus information
-     */
-    getFocusInfo(): object;
-    /**
-     * Gets current value of property {@link #getHelpId helpId}.
-     *
-     * Unique identifier used for help service.
-     *
-     * Default value is `empty string`.
-     *
-     * @returns Value of property `helpId`
-     */
-    getHelpId(): string;
-    /**
-     * Gets current value of property {@link #getImeMode imeMode}.
-     *
-     * State of the Input Method Editor (IME).
-     *
-     * Default value is `Auto`.
-     *
-     * @returns Value of property `imeMode`
-     */
-    getImeMode(): ImeMode | keyof typeof ImeMode;
-    /**
-     * Method for accessing the DOM Ref of the input element.
-     *
-     * @returns DOM reference or `null`
-     */
-    getInputDomRef(): HTMLElement | null;
-    /**
-     * Returns the current value of the `TextField`. In case of editing the `TextField` you can access the current
-     * value via this method. The validated value is accessible via the property value.
-     *
-     * @returns live value
-     */
-    getLiveValue(): string;
-    /**
-     * Gets current value of property {@link #getMaxLength maxLength}.
-     *
-     * Maximum number of characters. Value '0' means the feature is switched off.
-     *
-     * Default value is `0`.
-     *
-     * @returns Value of property `maxLength`
-     */
-    getMaxLength(): int;
-    /**
-     * Gets current value of property {@link #getName name}.
-     *
-     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
-     * 'submit').
-     *
-     * @returns Value of property `name`
-     */
-    getName(): string;
-    /**
-     * @SINCE 1.14.0
-     *
-     * Gets current value of property {@link #getPlaceholder placeholder}.
-     *
-     * Placeholder for the text field.
-     *
-     * @returns Value of property `placeholder`
-     */
-    getPlaceholder(): string;
-    /**
-     * Gets current value of property {@link #getRequired required}.
-     *
-     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
-     * it will visualize the requires state too.
-     *
-     * Default value is `false`.
-     *
-     * @returns Value of property `required`
-     */
-    getRequired(): boolean;
-    /**
-     * Gets current value of property {@link #getTextAlign textAlign}.
-     *
-     * Sets the horizontal alignment of the text.
-     *
-     * Default value is `Begin`.
-     *
-     * @returns Value of property `textAlign`
-     */
-    getTextAlign(): TextAlign | keyof typeof TextAlign;
-    /**
-     * Gets current value of property {@link #getTextDirection textDirection}.
-     *
-     * Direction of the text. Possible values: "rtl", "ltr".
-     *
-     * Default value is `Inherit`.
-     *
-     * @returns Value of property `textDirection`
-     */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
-    /**
-     * Gets current value of property {@link #getValue value}.
-     *
-     * Text inside the `TextField`
-     *
-     * Default value is `empty string`.
-     *
-     * @returns Value of property `value`
-     */
-    getValue(): string;
-    /**
-     * Gets current value of property {@link #getValueState valueState}.
-     *
-     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
-     *
-     * Default value is `None`.
-     *
-     * @returns Value of property `valueState`
-     */
-    getValueState(): ValueState | keyof typeof ValueState;
-    /**
-     * Gets current value of property {@link #getWidth width}.
-     *
-     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
-     * the text field length defines the width.
-     *
-     * @returns Value of property `width`
-     */
-    getWidth(): CSSSize;
-    /**
-     * Event handler called when control is receiving the focus
-     */
-    onfocusin(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Event handler for keyup. fire the liveChange event
-     */
-    onkeyup(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Event handler called when enter key is pressed.
-     * See:
-     * 	sap.ui.commons.TextField#onfocusout
-     */
-    onsapenter(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Event handler called when control is losing the focus
-     */
-    onsapfocusleave(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Event handler called when text selection starts. When the text field is disabled, the text should not
-     * be selectable, so cancel the event.
-     */
-    onselectstart(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
-     *
-     * @returns An array of the removed elements (might be empty)
-     */
-    removeAllAriaDescribedBy(): ID[];
-    /**
-     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
-     *
-     * @returns An array of the removed elements (might be empty)
-     */
-    removeAllAriaLabelledBy(): ID[];
-    /**
-     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
-     *
-     * @returns The removed ariaDescribedBy or `null`
-     */
-    removeAriaDescribedBy(
-      /**
-       * The ariaDescribedBy to be removed or its index or ID
-       */
-      vAriaDescribedBy: int | ID | Control
-    ): ID | null;
-    /**
-     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
-     *
-     * @returns The removed ariaLabelledBy or `null`
-     */
-    removeAriaLabelledBy(
-      /**
-       * The ariaLabelledBy to be removed or its index or ID
-       */
-      vAriaLabelledBy: int | ID | Control
-    ): ID | null;
-    /**
-     * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
-     *
-     * Accessibility role for the text field.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Textbox`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setAccessibleRole(
-      /**
-       * New value for property `accessibleRole`
-       */
-      sAccessibleRole?: AccessibleRole | keyof typeof AccessibleRole
-    ): this;
-    /**
-     * Sets a new value for property {@link #getDesign design}.
-     *
-     * Font type. valid values are Standard and Monospace.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Standard`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setDesign(
-      /**
-       * New value for property `design`
-       */
-      sDesign?: Design | keyof typeof Design
-    ): this;
-    /**
-     * Sets a new value for property {@link #getEditable editable}.
-     *
-     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setEditable(
-      /**
-       * New value for property `editable`
-       */
-      bEditable?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getEnabled enabled}.
-     *
-     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setEnabled(
-      /**
-       * New value for property `enabled`
-       */
-      bEnabled?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getHelpId helpId}.
-     *
-     * Unique identifier used for help service.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setHelpId(
-      /**
-       * New value for property `helpId`
-       */
-      sHelpId?: string
-    ): this;
-    /**
-     * Sets a new value for property {@link #getImeMode imeMode}.
-     *
-     * State of the Input Method Editor (IME).
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Auto`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setImeMode(
-      /**
-       * New value for property `imeMode`
-       */
-      sImeMode?: ImeMode | keyof typeof ImeMode
-    ): this;
-    /**
-     * Sets a new value for property {@link #getMaxLength maxLength}.
-     *
-     * Maximum number of characters. Value '0' means the feature is switched off.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `0`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setMaxLength(
-      /**
-       * New value for property `maxLength`
-       */
-      iMaxLength?: int
-    ): this;
-    /**
-     * Sets a new value for property {@link #getName name}.
-     *
-     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
-     * 'submit').
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setName(
-      /**
-       * New value for property `name`
-       */
-      sName?: string
-    ): this;
-    /**
-     * @SINCE 1.14.0
-     *
-     * Sets a new value for property {@link #getPlaceholder placeholder}.
-     *
-     * Placeholder for the text field.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setPlaceholder(
-      /**
-       * New value for property `placeholder`
-       */
-      sPlaceholder?: string
-    ): this;
-    /**
-     * Sets a new value for property {@link #getRequired required}.
-     *
-     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
-     * it will visualize the requires state too.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setRequired(
-      /**
-       * New value for property `required`
-       */
-      bRequired?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getTextAlign textAlign}.
-     *
-     * Sets the horizontal alignment of the text.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Begin`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setTextAlign(
-      /**
-       * New value for property `textAlign`
-       */
-      sTextAlign?: TextAlign | keyof typeof TextAlign
-    ): this;
-    /**
-     * Sets a new value for property {@link #getTextDirection textDirection}.
-     *
-     * Direction of the text. Possible values: "rtl", "ltr".
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Inherit`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setTextDirection(
-      /**
-       * New value for property `textDirection`
-       */
-      sTextDirection?: TextDirection | keyof typeof TextDirection
-    ): this;
-    /**
-     * Sets a new value for property {@link #getValue value}.
-     *
-     * Text inside the `TextField`
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setValue(
-      /**
-       * New value for property `value`
-       */
-      sValue?: string
-    ): this;
-    /**
-     * Sets a new value for property {@link #getValueState valueState}.
-     *
-     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `None`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setValueState(
-      /**
-       * New value for property `valueState`
-       */
-      sValueState?: ValueState | keyof typeof ValueState
-    ): this;
-    /**
-     * Sets a new value for property {@link #getWidth width}.
-     *
-     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
-     * the text field length defines the width.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setWidth(
-      /**
-       * New value for property `width`
-       */
-      sWidth?: CSSSize
-    ): this;
-    /**
-     * Unbinds property {@link #getValue value} from model data.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    unbindValue(): this;
-  }
-
-  export interface $TextFieldSettings extends $ControlSettings {
-    /**
-     * Text inside the `TextField`
-     */
-    value?: string | PropertyBindingInfo;
-
-    /**
-     * Direction of the text. Possible values: "rtl", "ltr".
-     */
-    textDirection?:
-      | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo
-      | `{${string}}`;
-
-    /**
-     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
-     */
-    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
-     */
-    editable?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
-     * it will visualize the requires state too.
-     */
-    required?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
-     * the text field length defines the width.
-     */
-    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Maximum number of characters. Value '0' means the feature is switched off.
-     */
-    maxLength?: int | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
-     */
-    valueState?:
-      | (ValueState | keyof typeof ValueState)
-      | PropertyBindingInfo
-      | `{${string}}`;
-
-    /**
-     * Sets the horizontal alignment of the text.
-     */
-    textAlign?:
-      | (TextAlign | keyof typeof TextAlign)
-      | PropertyBindingInfo
-      | `{${string}}`;
-
-    /**
-     * State of the Input Method Editor (IME).
-     */
-    imeMode?:
-      | (ImeMode | keyof typeof ImeMode)
-      | PropertyBindingInfo
-      | `{${string}}`;
-
-    /**
-     * Font type. valid values are Standard and Monospace.
-     */
-    design?:
-      | (Design | keyof typeof Design)
-      | PropertyBindingInfo
-      | `{${string}}`;
-
-    /**
-     * Unique identifier used for help service.
-     */
-    helpId?: string | PropertyBindingInfo;
-
-    /**
-     * Accessibility role for the text field.
-     */
-    accessibleRole?:
-      | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo
-      | `{${string}}`;
-
-    /**
-     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
-     * 'submit').
-     */
-    name?: string | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.14.0
-     *
-     * Placeholder for the text field.
-     */
-    placeholder?: string | PropertyBindingInfo;
-
-    /**
-     * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
-     */
-    ariaDescribedBy?: Array<Control | string>;
-
-    /**
-     * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
-     */
-    ariaLabelledBy?: Array<Control | string>;
-
-    /**
-     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
-     * key is pressed.
-     */
-    change?: (oEvent: Event) => void;
-
-    /**
-     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
-     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     */
-    liveChange?: (oEvent: Event) => void;
-  }
-}
-
 declare module "sap/ui/commons/TextView" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
@@ -26591,6 +26840,7 @@ declare module "sap/ui/commons/TextView" {
   import {
     IFormContent,
     ID,
+    AccessibilityInfo,
     AccessibleRole,
     TextAlign,
     TextDirection,
@@ -26708,12 +26958,14 @@ declare module "sap/ui/commons/TextView" {
       oBindingInfo: PropertyBindingInfo
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
      * @returns The accessibility info
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getAccessibleRole accessibleRole}.
      *
@@ -27195,7 +27447,7 @@ declare module "sap/ui/commons/Title" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.9.1
+     * @since 1.9.1
      *
      * Getter for property `level`. Defines the level of the title. If set to auto the level of the title is
      * chosen by the control rendering the title.
@@ -27208,7 +27460,7 @@ declare module "sap/ui/commons/Title" {
      */
     getLevel(): TitleLevel | keyof typeof TitleLevel;
     /**
-     * @SINCE 1.9.1
+     * @since 1.9.1
      *
      * Setter for property `level`.
      *
@@ -27229,6 +27481,8 @@ declare module "sap/ui/commons/Title" {
 
 declare module "sap/ui/commons/ToggleButton" {
   import { default as Button, $ButtonSettings } from "sap/ui/commons/Button";
+
+  import { AccessibilityInfo } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -27301,12 +27555,14 @@ declare module "sap/ui/commons/ToggleButton" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      *
      * @returns Current accessibility state of the control
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getPressed pressed}.
      *
@@ -28097,6 +28353,8 @@ declare module "sap/ui/commons/Tree" {
      */
     expandAll(): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -28120,6 +28378,8 @@ declare module "sap/ui/commons/Tree" {
       }
     ): boolean;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -28159,7 +28419,7 @@ declare module "sap/ui/commons/Tree" {
      */
     getMinWidth(): CSSSize;
     /**
-     * @SINCE 1.19
+     * @since 1.19
      *
      * Returns the node with the given context, or null if no such node currently exists.
      *
@@ -28761,6 +29021,8 @@ declare module "sap/ui/commons/TreeNode" {
       bDisableExpandFinishedHandler: boolean
     ): void;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:selected selected} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -28772,6 +29034,8 @@ declare module "sap/ui/commons/TreeNode" {
       mParameters?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -29109,7 +29373,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.7.2
+   * @since 1.7.2
    * @deprecated (since 1.38)
    *
    * TriStateCheckBox to reflect mixed state for checkboxes. The control can display three states, namely
@@ -29241,6 +29505,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -29656,6 +29922,8 @@ declare module "sap/ui/commons/ValueHelpField" {
       oListener?: object
     ): this;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Fires event {@link #event:valueHelpRequest valueHelpRequest} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -29694,6 +29962,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      */
     getIconURL(): URI;
     /**
+     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
      * Handle F4 event
      */
     onsapshow(

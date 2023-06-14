@@ -56,7 +56,7 @@ declare namespace connect {
      * @deprecated The `expires` option should not be set directly; instead only use the `maxAge` option
      * @see maxAge
      */
-    expires?: Date | undefined;
+    expires?: Date | null | undefined;
 
     /**
      * Specifies the boolean value for the `HttpOnly Set-Cookie` attribute. When truthy, the `HttpOnly` attribute is set, otherwise it is not.
@@ -116,11 +116,11 @@ declare namespace connect {
 
   abstract class Cookie implements CookieOptions {
     /** Returns the original `maxAge` (time-to-live), in milliseconds, of the session cookie. */
-    originalMaxAge: number;
+    originalMaxAge: number | null;
 
     maxAge?: number | undefined;
     signed?: boolean | undefined;
-    expires?: Date | undefined;
+    expires?: Date | null | undefined;
     httpOnly?: boolean | undefined;
     path?: string | undefined;
     domain?: string | undefined;
@@ -151,7 +151,7 @@ declare namespace connect {
     // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38783, https://github.com/expressjs/session/pull/700#issuecomment-540855551
     all?(callback: (err: any, obj?: SessionData[] | { [sid: string]: SessionData; } | null) => void): void;
     /** Returns the amount of sessions in the store. */
-    length?(callback: (err: any, length: number) => void): void;
+    length?(callback: (err: any, length?: number) => void): void;
     /** Delete all sessions from the store. */
     clear?(callback?: (err?: any) => void): void;
     /** "Touches" a given session, resetting the idle timer. */

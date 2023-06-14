@@ -123,7 +123,7 @@ declare namespace google.accounts {
             /**
              * A space-delimited list of scopes that are approved by the user.
              */
-            scopes: string;
+            scope: string;
 
             /**
              * The string value that your application uses to maintain state
@@ -207,12 +207,12 @@ declare namespace google.accounts {
             callback: (tokenResponse: TokenResponse) => void;
 
             /**
-             * Optional.
+             * Required.
              * A space-delimited list of scopes that identify the resources that
              * your application could access on the user's behalf. These values
              * inform the consent screen that Google displays to the user.
              */
-            scope?: string;
+            scope: string;
 
             /**
              * Optional, defaults to 'select_account'.
@@ -638,6 +638,12 @@ declare namespace google.accounts {
              * is used.
              */
             locale?: string;
+
+            /**
+             * You can define a JavaScript function to be called when the
+             * Sign in with Google button is clicked.
+             */
+            click_listener?: () => void;
         }
     }
 }

@@ -9,6 +9,11 @@ function preloadTest() {
             // @ts-expect-error
             as: 'title',
         });
+        ReactDOM.preload('bar', {
+            as: 'font',
+            // @ts-expect-error -- Only allowed in preinit
+            nonce: '0xeac1',
+        });
 
         ReactDOM.preinit('foo', {
             as: 'style',
@@ -26,6 +31,10 @@ function preloadTest() {
         ReactDOM.preinit('baz', {
             // @ts-expect-error
             as: 'title',
+        });
+        ReactDOM.preinit('baz', {
+            as: 'script',
+            nonce: '0xeac1',
         });
     }
 }
