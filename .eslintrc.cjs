@@ -16,6 +16,7 @@ module.exports = {
                 // Additionally, some may need to be contributed to eslint-plugin-jsdoc.
                 definedTags: [
                     'addVersion',
+                    'also',
                     'api',
                     'author',
                     'beta',
@@ -50,6 +51,7 @@ module.exports = {
                     'hidden',
                     'id',
                     'jsx',
+                    'jsxImportSource',
                     'label',
                     'language',
                     'legacy',

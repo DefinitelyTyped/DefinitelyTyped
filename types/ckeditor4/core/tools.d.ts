@@ -249,7 +249,7 @@ declare namespace CKEDITOR {
         throttle(minInterval: number, output: () => void, contextObject?: unknown): tools.buffers.throttle;
 
         /**
-         * @version: 4.5.0
+         * @version 4.5.0
          */
         transformPlainTextToHtml(text: string, enterMode: number): string;
 
