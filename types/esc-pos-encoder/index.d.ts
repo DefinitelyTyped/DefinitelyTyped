@@ -1,11 +1,11 @@
-// Type definitions for esc-pos-encoder 1.2
+// Type definitions for esc-pos-encoder 1.3
 // Project: https://github.com/NielsLeenheer/EscPosEncoder#readme
-// Definitions by: dlimkin <https://github.com/dlimkin>
+// Definitions by: dlimkin <https://github.com/dlimkin>, dberri <https://github.com/dberri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
 type codepageType =
-    'cp437'
+    | 'cp437'
     | 'cp737'
     | 'cp850'
     | 'cp775'
@@ -40,6 +40,7 @@ type codepageType =
 type sizeType = 'small' | 'normal';
 
 type alignType = 'left' | 'center' | 'right';
+type verticalAlignType = 'top' | 'bottom';
 
 type symbologyType = 'upca' | 'upce' | 'ean13' | 'ean8' | 'coda39' | 'itf' | 'codabar';
 
@@ -49,6 +50,10 @@ type qrErrorLevelType = 'l' | 'm' | 'q' | 'h';
 type imgAlgType = 'threshold' | 'bayer' | 'floydsteinberg' | 'atkinson';
 
 type cutType = 'full' | 'partial';
+
+type styleType = 'single' | 'double';
+
+type deviceType = 0 | 1;
 
 declare class EscPosEncoder {
     constructor();
@@ -84,6 +89,39 @@ declare class EscPosEncoder {
     text(value: string, wrap?: number): EscPosEncoder;
 
     underline(value?: boolean | 2): EscPosEncoder;
+
+    invert(value?: boolean): EscPosEncoder;
+
+    width(value: number): EscPosEncoder;
+
+    height(value: number): EscPosEncoder;
+
+    box(
+        options: {
+            marginLeft?: number;
+            marginRight?: number;
+            paddingLeft?: number;
+            paddingRight?: number;
+            style?: styleType;
+            width?: number;
+        },
+        value: string | ((encoder: EscPosEncoder) => EscPosEncoder),
+    ): EscPosEncoder;
+
+    table(
+        columns: ReadonlyArray<{
+            align?: alignType;
+            marginLeft?: number;
+            marginRight?: number;
+            verticalAlign?: verticalAlignType;
+            width?: number;
+        }>,
+        data: ReadonlyArray<ReadonlyArray<string | ((encoder: EscPosEncoder) => EscPosEncoder)>>,
+    ): EscPosEncoder;
+
+    rule(options: { style?: styleType; width?: number }): EscPosEncoder;
+
+    pulse(device: deviceType, on: number, off: number): EscPosEncoder;
 }
 
 export = EscPosEncoder;

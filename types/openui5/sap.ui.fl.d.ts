@@ -1,4 +1,4 @@
-// For Library Version: 1.114.0
+// For Library Version: 1.115.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -116,7 +116,7 @@ declare module "sap/ui/fl/transport/TransportDialog" {
    * transport request. It is not a generic utility, but part of the Variantmanament and therefore cannot
    * be used in any other application.
    */
-  export default class TransportDialog extends Dialog {
+  class TransportDialog extends Dialog {
     /**
      * Constructor for a new transport/TransportDialog.
      *
@@ -124,8 +124,8 @@ declare module "sap/ui/fl/transport/TransportDialog" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Dialog#constructor
-     * sap.m.Dialog} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Dialog#constructor sap.m.Dialog }
+     * can be used.
      */
     constructor(
       /**
@@ -140,8 +140,8 @@ declare module "sap/ui/fl/transport/TransportDialog" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Dialog#constructor
-     * sap.m.Dialog} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Dialog#constructor sap.m.Dialog }
+     * can be used.
      */
     constructor(
       /**
@@ -184,6 +184,7 @@ declare module "sap/ui/fl/transport/TransportDialog" {
      */
     static getMetadata(): ElementMetadata;
   }
+  export default TransportDialog;
 
   export interface $TransportDialogSettings extends $DialogSettings {}
 }
@@ -208,7 +209,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
    * user adaptation.
    *  **Note: **On the user interface, variants are generally referred to as "views".
    */
-  export default class VariantManagement
+  class VariantManagement
     extends Control
     implements
       IShrinkable,
@@ -224,7 +225,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	{@link topic:f1430c0337534d469da3a56307ff76af Key User Adaptation: Enable Your App}
+     * 	{@link https://ui5.sap.com/#/topic/f1430c0337534d469da3a56307ff76af Key User Adaptation: Enable Your App}
      */
     constructor(
       /**
@@ -239,7 +240,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	{@link topic:f1430c0337534d469da3a56307ff76af Key User Adaptation: Enable Your App}
+     * 	{@link https://ui5.sap.com/#/topic/f1430c0337534d469da3a56307ff76af Key User Adaptation: Enable Your App}
      */
     constructor(
       /**
@@ -405,7 +406,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementManageEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -426,7 +427,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementManageEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -453,7 +454,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementSaveEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -475,7 +476,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementSaveEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -501,7 +502,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -522,7 +523,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementSelectEventParameters>) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -574,7 +575,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementManageEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -591,7 +592,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementSaveEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -608,14 +609,14 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Event<$VariantManagementSelectEventParameters>) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
@@ -628,7 +629,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: object
     ): this;
     /**
-     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:initialized initialized} to attached listeners.
      *
@@ -641,7 +642,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: object
     ): this;
     /**
-     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:manage manage} to attached listeners.
      *
@@ -651,28 +652,10 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * List of changed variants. Each entry contains a 'key' - the variant key and a 'name' - the new title
-         * of the variant
-         */
-        renamed?: object[];
-        /**
-         * List of deleted variant keys
-         */
-        deleted?: string[];
-        /**
-         * List of variant keys and the associated Execute on Selection indicator
-         */
-        exe?: object[];
-        /**
-         * The default variant key
-         */
-        def?: string;
-      }
+      mParameters?: $VariantManagementManageEventParameters
     ): this;
     /**
-     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:save save} to attached listeners.
      *
@@ -682,41 +665,10 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Variant title
-         */
-        name?: string;
-        /**
-         * Indicates if an existing variant is overwritten or if a new variant is created.
-         */
-        overwrite?: boolean;
-        /**
-         * Variant key
-         */
-        key?: string;
-        /**
-         * Apply Automatically indicator
-         */
-        execute?: boolean;
-        /**
-         * Indicates the check box state for 'Public'.
-         */
-        public?: boolean;
-        /**
-         * The default variant indicator
-         */
-        def?: boolean;
-        /**
-         * Indicates the check box state for 'Create Tile'.
-         * Note:
-         * This event parameter is used only internally.
-         */
-        tile?: boolean;
-      }
+      mParameters?: $VariantManagementSaveEventParameters
     ): this;
     /**
-     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -726,12 +678,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Variant key
-         */
-        key?: string;
-      }
+      mParameters?: $VariantManagementSelectEventParameters
     ): this;
     /**
      * Gets the currently selected variant key.
@@ -772,8 +719,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getExecuteOnSelectionForStandardDefault(): boolean;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getFor
-     * for}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getFor for}.
      */
     getFor(): ID[];
     /**
@@ -839,7 +785,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getModified(): boolean;
     /**
-     * @note - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Required by the {@link sap.m.IOverflowToolbarContent} interface. Registers invalidations event which
      * is fired when width of the control is changed.
@@ -1148,6 +1094,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bUpdateVariantInURL?: boolean
     ): this;
   }
+  export default VariantManagement;
 
   export interface $VariantManagementSettings extends $ControlSettings {
     /**
@@ -1249,7 +1196,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
      * save button.
      */
-    save?: (oEvent: Event) => void;
+    save?: (oEvent: Event<$VariantManagementSaveEventParameters>) => void;
 
     /**
      * This event is fired when users presses the cancel button inside Save As dialog.
@@ -1259,12 +1206,85 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * This event is fired when users apply changes to variants in the Manage Views dialog.
      */
-    manage?: (oEvent: Event) => void;
+    manage?: (oEvent: Event<$VariantManagementManageEventParameters>) => void;
 
     /**
      * This event is fired when a new variant is selected.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: Event<$VariantManagementSelectEventParameters>) => void;
+  }
+
+  export interface $VariantManagementCancelEventParameters {}
+
+  export interface $VariantManagementInitializedEventParameters {}
+
+  export interface $VariantManagementManageEventParameters {
+    /**
+     * List of changed variants. Each entry contains a 'key' - the variant key and a 'name' - the new title
+     * of the variant
+     */
+    renamed?: object[];
+
+    /**
+     * List of deleted variant keys
+     */
+    deleted?: string[];
+
+    /**
+     * List of variant keys and the associated Execute on Selection indicator
+     */
+    exe?: object[];
+
+    /**
+     * The default variant key
+     */
+    def?: string;
+  }
+
+  export interface $VariantManagementSaveEventParameters {
+    /**
+     * Variant title
+     */
+    name?: string;
+
+    /**
+     * Indicates if an existing variant is overwritten or if a new variant is created.
+     */
+    overwrite?: boolean;
+
+    /**
+     * Variant key
+     */
+    key?: string;
+
+    /**
+     * Apply Automatically indicator
+     */
+    execute?: boolean;
+
+    /**
+     * Indicates the check box state for 'Public'.
+     */
+    public?: boolean;
+
+    /**
+     * The default variant indicator
+     */
+    def?: boolean;
+
+    /**
+     * Indicates the check box state for 'Create Tile'.
+     * Note:
+     * This event parameter is used only internally.
+     */
+    tile?: boolean;
+  }
+
+  export interface $VariantManagementSelectEventParameters {
+    /**
+     * Variant key
+     */
+    key?: string;
   }
 }
 
@@ -1503,6 +1523,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/flexState/Loader": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/UI2Personalization/UI2PersonalizationState": undefined;
+
+    "sap/ui/fl/apply/_internal/preprocessors/ComponentLifecycleHooks": undefined;
 
     "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
 

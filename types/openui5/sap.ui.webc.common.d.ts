@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.115.0
 
 declare module "sap/ui/webc/common/library" {}
 
@@ -16,7 +16,7 @@ declare module "sap/ui/webc/common/WebComponent" {
    * properties, the aggregations and the events. It also ensures to render the control and put the aggregated
    * controls in the dedicated slots of the Web Component.
    */
-  export default class WebComponent extends Control {
+  class WebComponent extends Control {
     /**
      * Constructs and initializes a Web Component Wrapper with the given `sId` and settings.
      *
@@ -56,6 +56,7 @@ declare module "sap/ui/webc/common/WebComponent" {
      */
     static getMetadata(): WebComponentMetadata;
   }
+  export default WebComponent;
 
   export interface $WebComponentSettings extends $ControlSettings {}
 }
@@ -67,7 +68,7 @@ declare module "sap/ui/webc/common/WebComponentMetadata" {
    * @since 1.92.0
    * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    */
-  export default class WebComponentMetadata extends ElementMetadata {
+  class WebComponentMetadata extends ElementMetadata {
     /**
      * Creates a new metadata object for a WebComponent Wrapper subclass.
      */
@@ -100,6 +101,7 @@ declare module "sap/ui/webc/common/WebComponentMetadata" {
      */
     getTag(): string;
   }
+  export default WebComponentMetadata;
 }
 
 declare namespace sap {

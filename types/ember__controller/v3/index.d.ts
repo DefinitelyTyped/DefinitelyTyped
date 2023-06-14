@@ -2,7 +2,7 @@
 // Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fcontroller
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
@@ -44,9 +44,7 @@ export interface ControllerMixin extends ActionHandler {
 export const ControllerMixin: Mixin<ControllerMixin>;
 export default class Controller extends EmberObject.extend(ControllerMixin) {}
 export function inject(): ComputedProperty<Controller>;
-export function inject<K extends keyof Registry>(
-    name: K
-): ComputedProperty<Registry[K]>;
+export function inject<K extends keyof Registry>(name: K): ComputedProperty<Registry[K]>;
 export function inject(target: object, propertyKey: string | symbol): void;
 
 // A type registry for Ember `Controller`s. Meant to be declaration-merged

@@ -15,7 +15,7 @@ declare namespace convict {
     // Taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
     type Overwrite<T, U> = { [P in Exclude<keyof T, keyof U>]: T[P] } & U;
 
-    type ValidationMethod = "strict" | "warn";
+    type ValidationMethod = 'strict' | 'warn';
 
     interface ValidateOptions {
         /**
@@ -48,17 +48,17 @@ declare namespace convict {
     }
 
     type PredefinedFormat =
-        | "*"
-        | "int"
-        | "port"
-        | "windows_named_pipe"
-        | "port_or_windows_named_pipe"
-        | "url"
-        | "email"
-        | "ipaddress"
-        | "duration"
-        | "timestamp"
-        | "nat"
+        | '*'
+        | 'int'
+        | 'port'
+        | 'windows_named_pipe'
+        | 'port_or_windows_named_pipe'
+        | 'url'
+        | 'email'
+        | 'ipaddress'
+        | 'duration'
+        | 'timestamp'
+        | 'nat'
         | String
         | Object
         | Number
@@ -97,7 +97,7 @@ declare namespace convict {
     };
 
     interface InternalSchema<T> {
-        properties: {
+        _cvtProperties: {
             [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] };
         };
     }
