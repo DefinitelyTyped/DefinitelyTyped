@@ -1,4 +1,4 @@
-import { Handler } from "../handler";
+import { Handler } from '../handler';
 
 export type CodePipelineHandler = Handler<CodePipelineEvent, void>;
 
@@ -48,7 +48,7 @@ export interface CodePipelineEvent {
             inputArtifacts: Artifact[];
             outputArtifacts: Artifact[];
             artifactCredentials: Credentials;
-            encryptionKey?: EncryptionKey & { type: 'KMS' } | undefined;
+            encryptionKey?: (EncryptionKey & { type: 'KMS' }) | undefined;
             continuationToken?: string | undefined;
         };
     };

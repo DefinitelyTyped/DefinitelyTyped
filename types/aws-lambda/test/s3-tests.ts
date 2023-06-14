@@ -1,4 +1,4 @@
-import { Callback, Context, S3BatchEvent, S3BatchResult, S3CreateEvent, S3EventRecord, S3Handler } from "aws-lambda";
+import { Callback, Context, S3BatchEvent, S3BatchResult, S3CreateEvent, S3EventRecord, S3Handler } from 'aws-lambda';
 
 // TODO: Update test to read event properties, like the user will
 let handler: S3Handler = async (event, context, callback) => {

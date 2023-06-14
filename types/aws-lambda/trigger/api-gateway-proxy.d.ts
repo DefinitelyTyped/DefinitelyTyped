@@ -27,7 +27,10 @@ export type APIGatewayProxyHandlerV2<T = never> = Handler<APIGatewayProxyEventV2
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-integration-requests.html
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-mapping-template-reference.html
  */
-export type APIGatewayProxyWebsocketHandlerV2<T = never> = Handler<APIGatewayProxyWebsocketEventV2, APIGatewayProxyResultV2<T>>;
+export type APIGatewayProxyWebsocketHandlerV2<T = never> = Handler<
+    APIGatewayProxyWebsocketEventV2,
+    APIGatewayProxyResultV2<T>
+>;
 
 /**
  * Works with HTTP API integration Payload Format version 2.0 adds JWT Authroizer to RequestContext
@@ -68,14 +71,19 @@ export type APIGatewayProxyCallbackV2 = Callback<APIGatewayProxyResultV2>;
  */
 export type APIGatewayProxyEvent = APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext>;
 
-export type APIGatewayProxyWithLambdaAuthorizerHandler<TAuthorizerContext> =
-    Handler<APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext>, APIGatewayProxyResult>;
+export type APIGatewayProxyWithLambdaAuthorizerHandler<TAuthorizerContext> = Handler<
+    APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext>,
+    APIGatewayProxyResult
+>;
 
-export type APIGatewayProxyWithCognitoAuthorizerHandler =
-    Handler<APIGatewayProxyWithCognitoAuthorizerEvent, APIGatewayProxyResult>;
+export type APIGatewayProxyWithCognitoAuthorizerHandler = Handler<
+    APIGatewayProxyWithCognitoAuthorizerEvent,
+    APIGatewayProxyResult
+>;
 
-export type APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext> =
-    APIGatewayProxyEventBase<APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext>>;
+export type APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext> = APIGatewayProxyEventBase<
+    APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext>
+>;
 
 export type APIGatewayProxyWithLambdaAuthorizerEventRequestContext<TAuthorizerContext> =
     APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext>>;
@@ -143,12 +151,16 @@ export interface APIGatewayProxyEventBase<TAuthorizerContext> {
  */
 export interface APIGatewayProxyResult {
     statusCode: number;
-    headers?: {
-        [header: string]: boolean | number | string;
-    } | undefined;
-    multiValueHeaders?: {
-        [header: string]: Array<boolean | number | string>;
-    } | undefined;
+    headers?:
+        | {
+              [header: string]: boolean | number | string;
+          }
+        | undefined;
+    multiValueHeaders?:
+        | {
+              [header: string]: Array<boolean | number | string>;
+          }
+        | undefined;
     body: string;
     isBase64Encoded?: boolean | undefined;
 }
@@ -304,9 +316,11 @@ export type APIGatewayProxyResultV2<T = never> = APIGatewayProxyStructuredResult
  */
 export interface APIGatewayProxyStructuredResultV2 {
     statusCode?: number | undefined;
-    headers?: {
-        [header: string]: boolean | number | string;
-    } | undefined;
+    headers?:
+        | {
+              [header: string]: boolean | number | string;
+          }
+        | undefined;
     body?: string | undefined;
     isBase64Encoded?: boolean | undefined;
     cookies?: string[] | undefined;

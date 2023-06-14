@@ -44,7 +44,7 @@ const onEventHandler: CdkCustomResourceHandler = async (event, context) => {
         // @ts-expect-error
         PhysicalResourceId: num,
         // @ts-expect-error
-        Data: str
+        Data: str,
     };
 
     const validEmptyResponse: CdkCustomResourceResponse = {};
