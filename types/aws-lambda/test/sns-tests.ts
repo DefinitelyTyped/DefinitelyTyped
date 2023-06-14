@@ -11,12 +11,12 @@ const handler: SNSHandler = async (event, context, callback) => {
     str = message.SignatureVersion;
     str = message.Timestamp;
     str = message.Signature;
-    str = message.SigningCertUrl;
+    str = message.SigningCertURL;
     str = message.MessageId;
     str = message.Message;
     const attributes: SNSMessageAttributes = message.MessageAttributes;
     str = message.Type;
-    str = message.UnsubscribeUrl;
+    str = message.UnsubscribeURL;
     str = message.TopicArn;
     strOrUndefined = message.Subject;
     strOrUndefined = message.Token;

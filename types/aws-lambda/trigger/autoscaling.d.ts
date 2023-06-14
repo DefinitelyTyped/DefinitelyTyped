@@ -1,23 +1,23 @@
-import { Handler, Callback } from "../handler";
+import { Handler, Callback } from '../handler';
 
 export type AutoScalingScaleInHandler = Handler<AutoScalingScaleInEvent, AutoScalingScaleInResult>;
 export type AutoScalingScaleInCallback = Callback<AutoScalingScaleInResult>;
 
-export type AutoScalingInstanceMarketOption = "spot" | "on-demand";
+export type AutoScalingInstanceMarketOption = 'spot' | 'on-demand';
 
-export type AutoScalingScaleInCause = "SCALE_IN" | "INSTANCE_REFRESH" | "MAX_INSTANCE_LIFETIME" | "REBALANCE";
+export type AutoScalingScaleInCause = 'SCALE_IN' | 'INSTANCE_REFRESH' | 'MAX_INSTANCE_LIFETIME' | 'REBALANCE';
 
 export interface AutoScalingTerminationRequest {
-  AvailabilityZone: string;
-  Capacity: number;
-  InstanceMarketOption: AutoScalingInstanceMarketOption;
+    AvailabilityZone: string;
+    Capacity: number;
+    InstanceMarketOption: AutoScalingInstanceMarketOption;
 }
 
 export interface AutoScalingInstanceRecord {
-  AvailabilityZone: string;
-  InstanceId: string;
-  InstanceType: string;
-  InstanceMarketOption: AutoScalingInstanceMarketOption;
+    AvailabilityZone: string;
+    InstanceId: string;
+    InstanceType: string;
+    InstanceMarketOption: AutoScalingInstanceMarketOption;
 }
 
 /**
@@ -28,14 +28,14 @@ export interface AutoScalingInstanceRecord {
  * https://docs.aws.amazon.com/autoscaling/ec2/userguide/lambda-custom-termination-policy.html
  */
 export interface AutoScalingScaleInEvent {
-  AutoScalingGroupARN: string;
-  AutoScalingGroupName: string;
-  CapacityToTerminate: AutoScalingTerminationRequest[];
-  Instances: AutoScalingInstanceRecord[];
-  Cause: AutoScalingScaleInCause;
-  HasMoreInstances?: boolean;
+    AutoScalingGroupARN: string;
+    AutoScalingGroupName: string;
+    CapacityToTerminate: AutoScalingTerminationRequest[];
+    Instances: AutoScalingInstanceRecord[];
+    Cause: AutoScalingScaleInCause;
+    HasMoreInstances?: boolean;
 }
 
 export interface AutoScalingScaleInResult {
-  InstanceIDs: string[];
+    InstanceIDs: string[];
 }

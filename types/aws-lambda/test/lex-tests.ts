@@ -10,8 +10,8 @@ import {
     LexGenericAttachment,
     LexHandler,
     LexResult,
-    LexSlotDetail
-} from "aws-lambda";
+    LexSlotDetail,
+} from 'aws-lambda';
 
 // TODO: Update test to read all event properties, and write all result
 //       properties, like the user will.

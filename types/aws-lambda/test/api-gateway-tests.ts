@@ -48,7 +48,7 @@ import {
     APIGatewayIAMAuthorizerWithContextResult,
     APIGatewayProxyHandlerV2WithIAMAuthorizer,
     APIGatewayEventRequestContextIAMAuthorizer,
-} from "aws-lambda";
+} from 'aws-lambda';
 
 interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
     valid: string | number | boolean | null | undefined;
@@ -236,7 +236,11 @@ const proxyHandlerV2Websocket: APIGatewayProxyWebsocketHandlerV2 = async (event,
     return result;
 };
 
-const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandler<CustomAuthorizerContext> = async (event, context, callback) => {
+const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandler<CustomAuthorizerContext> = async (
+    event,
+    context,
+    callback,
+) => {
     // standard fields...
     strOrNull = event.body;
     strOrUndefined = event.headers['example'];
@@ -463,7 +467,7 @@ const proxyHandlerV2ForObjectResult: APIGatewayProxyHandlerV2<Response> = async 
 
 function createProxyObjectResultV2(): APIGatewayProxyResultV2<Response> {
     const result: Response = {
-        example: 'example squared'
+        example: 'example squared',
     };
     return result;
 }
@@ -471,7 +475,7 @@ function createProxyObjectResultV2(): APIGatewayProxyResultV2<Response> {
 // @ts-expect-error
 const proxyHandlerV2ForObjectResultFailure: APIGatewayProxyHandlerV2<Response> = async (event, context, callback) => {
     const result = {
-        wrongExample: 'wrong example'
+        wrongExample: 'wrong example',
     };
 
     callback(new Error());
@@ -493,7 +497,7 @@ const proxyHandlerV2ForObjectResultFailure2: APIGatewayProxyHandlerV2 = async (e
 };
 
 const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback) => {
-    if (event.type === "TOKEN") {
+    if (event.type === 'TOKEN') {
         str = event.methodArn;
         str = event.authorizationToken;
         // @ts-expect-error
@@ -617,8 +621,12 @@ const iamRequestAuthorizerV2WithContext: APIGatewayRequestIAMAuthorizerV2WithCon
     return result;
 };
 
-const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<CustomAuthorizerContext> = async (event, context, callback) => {
-    if (event.type === "TOKEN") {
+const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<CustomAuthorizerContext> = async (
+    event,
+    context,
+    callback,
+) => {
+    if (event.type === 'TOKEN') {
         str = event.methodArn;
         str = event.authorizationToken;
         // @ts-expect-error
@@ -657,7 +665,11 @@ const tokenAuthorizer: APIGatewayTokenAuthorizerHandler = async (event, context,
     return result;
 };
 
-const tokenAuthorizerWithCustomContext: APIGatewayTokenAuthorizerWithContextHandler<CustomAuthorizerContext> = async (event, context, callback) => {
+const tokenAuthorizerWithCustomContext: APIGatewayTokenAuthorizerWithContextHandler<CustomAuthorizerContext> = async (
+    event,
+    context,
+    callback,
+) => {
     event.type; // $ExpectType "TOKEN"
 
     str = event.type;
@@ -684,18 +696,12 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     str = event.resource;
     str = event.path;
     str = event.httpMethod;
-    if (event.headers !== null)
-        strOrUndefined = event.headers[str];
-    if (event.multiValueHeaders !== null)
-        str = event.multiValueHeaders[str]![num];
-    if (event.pathParameters !== null)
-        strOrUndefined = event.pathParameters[str];
-    if (event.queryStringParameters !== null)
-        strOrUndefined = event.queryStringParameters[str];
-    if (event.multiValueQueryStringParameters !== null)
-        str = event.multiValueQueryStringParameters[str]![num];
-    if (event.stageVariables !== null)
-        strOrUndefined = event.stageVariables[str];
+    if (event.headers !== null) strOrUndefined = event.headers[str];
+    if (event.multiValueHeaders !== null) str = event.multiValueHeaders[str]![num];
+    if (event.pathParameters !== null) strOrUndefined = event.pathParameters[str];
+    if (event.queryStringParameters !== null) strOrUndefined = event.queryStringParameters[str];
+    if (event.multiValueQueryStringParameters !== null) str = event.multiValueQueryStringParameters[str]![num];
+    if (event.stageVariables !== null) strOrUndefined = event.stageVariables[str];
     const requestContext: APIGatewayEventRequestContext = event.requestContext;
     if (requestContext.domainName != null) {
         str = requestContext.domainName;
@@ -709,7 +715,9 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     return result;
 };
 
-const requestAuthorizerWithCustomContext: APIGatewayRequestAuthorizerWithContextHandler<CustomAuthorizerContext> = async (event, context, callback) => {
+const requestAuthorizerWithCustomContext: APIGatewayRequestAuthorizerWithContextHandler<
+    CustomAuthorizerContext
+> = async (event, context, callback) => {
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
@@ -757,19 +765,19 @@ function createPolicyDocument(): PolicyDocument {
     };
 
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: 123, };
+    statement = { Effect: str, Action: str, Principal: 123 };
 
     // Bad Resource
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Resource: 123, };
+    statement = { Effect: str, Action: str, Resource: 123 };
 
     // Bad Resource with valid Principal
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: { Service: str }, Resource: 123, };
+    statement = { Effect: str, Action: str, Principal: { Service: str }, Resource: 123 };
 
     // Bad principal with valid Resource
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: 123, Resource: str, };
+    statement = { Effect: str, Action: str, Principal: 123, Resource: str };
 
     // No Effect
     // @ts-expect-error

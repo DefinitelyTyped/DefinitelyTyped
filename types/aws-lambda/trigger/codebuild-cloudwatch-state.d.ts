@@ -1,6 +1,10 @@
 import { EventBridgeEvent, EventBridgeHandler } from './eventbridge';
 
-export type CodeBuildCloudWatchStateHandler = EventBridgeHandler<'CodeBuild Build State Change', CodeBuildStateEventDetail, void>;
+export type CodeBuildCloudWatchStateHandler = EventBridgeHandler<
+    'CodeBuild Build State Change',
+    CodeBuildStateEventDetail,
+    void
+>;
 
 export type CodeBuildStateType = 'IN_PROGRESS' | 'SUCCEEDED' | 'FAILED' | 'STOPPED';
 export type CodeBuildPhaseType =
@@ -15,13 +19,7 @@ export type CodeBuildPhaseType =
     | 'DOWNLOAD_SOURCE'
     | 'PROVISIONING'
     | 'SUBMITTED';
-export type CodeBuildPhaseStatusType =
-    | 'TIMED_OUT'
-    | 'STOPPED'
-    | 'FAILED'
-    | 'SUCCEEDED'
-    | 'FAULT'
-    | 'CLIENT_ERROR';
+export type CodeBuildPhaseStatusType = 'TIMED_OUT' | 'STOPPED' | 'FAILED' | 'SUCCEEDED' | 'FAULT' | 'CLIENT_ERROR';
 export type CodeBuildCacheType = 'NO_CACHE' | 'LOCAL' | 'S3';
 export type CodeBuildSourceLocationType =
     | 'CODECOMMIT'
@@ -99,6 +97,7 @@ export interface CodeBuildStateEventDetail {
     };
 }
 
-export interface CodeBuildCloudWatchStateEvent extends EventBridgeEvent<'CodeBuild Build State Change', CodeBuildStateEventDetail> {
+export interface CodeBuildCloudWatchStateEvent
+    extends EventBridgeEvent<'CodeBuild Build State Change', CodeBuildStateEventDetail> {
     source: 'aws.codebuild';
 }
