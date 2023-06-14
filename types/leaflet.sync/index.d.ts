@@ -3,7 +3,6 @@
 // Definitions by: Gabriel O. Martins <https://github.com/OliverBiel/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Minimum TypeScript Version: 5.0
 
 import * as L from 'leaflet';
 
