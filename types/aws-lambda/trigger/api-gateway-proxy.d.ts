@@ -305,7 +305,7 @@ export type APIGatewayProxyResultV2<T = never> = APIGatewayProxyStructuredResult
 export interface APIGatewayProxyStructuredResultV2 {
     statusCode?: number | undefined;
     headers?: {
-        [header: string]: boolean | number | string;
+        [header: string]: boolean | number | string | undefined;
     } | undefined;
     body?: string | undefined;
     isBase64Encoded?: boolean | undefined;
