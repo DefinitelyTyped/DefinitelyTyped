@@ -1,6 +1,7 @@
 import { Comment, PrivateIdentifier, PropertyDefinition, StaticBlock, WhileStatement } from 'estree';
 import { AST, SourceCode, Rule, Linter, ESLint, RuleTester, Scope } from 'eslint';
 import { ESLintRules } from 'eslint/rules';
+import { JSXOpeningElement } from 'estree-jsx';
 
 const SOURCE = `var foo = bar;`;
 
@@ -531,6 +532,10 @@ rule = {
                 const expected: StaticBlock & Rule.NodeParentExtension = node;
                 expected.parent;
             },
+            JSXOpeningElement(node) {
+                const expected: JSXOpeningElement & Rule.NodeParentExtension = node;
+                expected.parent;
+            }
         };
     },
 };

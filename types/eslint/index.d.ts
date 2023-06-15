@@ -11,6 +11,7 @@
 /// <reference path="helpers.d.ts" />
 
 import * as ESTree from "estree";
+import * as ESTreeJSX from "estree-jsx";
 import { JSONSchema4 } from "json-schema";
 
 export namespace AST {
@@ -588,6 +589,35 @@ export namespace Rule {
         "WithStatement:exit"?: ((node: ESTree.WithStatement & NodeParentExtension) => void) | undefined;
         YieldExpression?: ((node: ESTree.YieldExpression & NodeParentExtension) => void) | undefined;
         "YieldExpression:exit"?: ((node: ESTree.YieldExpression & NodeParentExtension) => void) | undefined;
+
+        JSXFragment?: ((node: ESTreeJSX.JSXFragment & NodeParentExtension) => void) | undefined;
+        "JSXFragment:exit"?: ((node: ESTreeJSX.JSXFragment & NodeParentExtension) => void) | undefined;
+        JSXOpeningFragment?: ((node: ESTreeJSX.JSXOpeningFragment & NodeParentExtension) => void) | undefined;
+        "JSXOpeningFragment:exit"?: ((node: ESTreeJSX.JSXOpeningFragment & NodeParentExtension) => void) | undefined;
+        JSXClosingFragment?: ((node: ESTreeJSX.JSXClosingFragment & NodeParentExtension) => void) | undefined;
+        "JSXClosingFragment:exit"?: ((node: ESTreeJSX.JSXClosingFragment & NodeParentExtension) => void) | undefined;
+        JSXIdentifier?: ((node: ESTreeJSX.JSXIdentifier & NodeParentExtension) => void) | undefined;
+        "JSXIdentifier:exit"?: ((node: ESTreeJSX.JSXIdentifier & NodeParentExtension) => void) | undefined;
+        JSXNamespacedName?: ((node: ESTreeJSX.JSXNamespacedName & NodeParentExtension) => void) | undefined;
+        "JSXNamespacedName:exit"?: ((node: ESTreeJSX.JSXNamespacedName & NodeParentExtension) => void) | undefined;
+        JSXMemberExpression?: ((node: ESTreeJSX.JSXMemberExpression & NodeParentExtension) => void) | undefined;
+        "JSXMemberExpression:exit"?: ((node: ESTreeJSX.JSXMemberExpression & NodeParentExtension) => void) | undefined;
+        JSXEmptyExpression?: ((node: ESTreeJSX.JSXEmptyExpression & NodeParentExtension) => void) | undefined;
+        "JSXEmptyExpression:exit"?: ((node: ESTreeJSX.JSXEmptyExpression & NodeParentExtension) => void) | undefined;
+        JSXExpressionContainer?: ((node: ESTreeJSX.JSXExpressionContainer & NodeParentExtension) => void) | undefined;
+        "JSXExpressionContainer:exit"?: ((node: ESTreeJSX.JSXExpressionContainer & NodeParentExtension) => void) | undefined;
+        JSXElement?: ((node: ESTreeJSX.JSXElement & NodeParentExtension) => void) | undefined;
+        "JSXElement:exit"?: ((node: ESTreeJSX.JSXElement & NodeParentExtension) => void) | undefined;
+        JSXClosingElement?: ((node: ESTreeJSX.JSXClosingElement & NodeParentExtension) => void) | undefined;
+        "JSXClosingElement:exit"?: ((node: ESTreeJSX.JSXClosingElement & NodeParentExtension) => void) | undefined;
+        JSXOpeningElement?: ((node: ESTreeJSX.JSXOpeningElement & NodeParentExtension) => void) | undefined;
+        "JSXOpeningElement:exit"?: ((node: ESTreeJSX.JSXOpeningElement & NodeParentExtension) => void) | undefined;
+        JSXAttribute?: ((node: ESTreeJSX.JSXAttribute & NodeParentExtension) => void) | undefined;
+        "JSXAttribute:exit"?: ((node: ESTreeJSX.JSXAttribute & NodeParentExtension) => void) | undefined;
+        JSXSpreadAttribute?: ((node: ESTreeJSX.JSXSpreadAttribute & NodeParentExtension) => void) | undefined;
+        "JSXSpreadAttribute:exit"?: ((node: ESTreeJSX.JSXSpreadAttribute & NodeParentExtension) => void) | undefined;
+        JSXText?: ((node: ESTreeJSX.JSXText & NodeParentExtension) => void) | undefined;
+        "JSXText:exit"?: ((node: ESTreeJSX.JSXText & NodeParentExtension) => void) | undefined;
     }
 
     interface NodeParentExtension {
