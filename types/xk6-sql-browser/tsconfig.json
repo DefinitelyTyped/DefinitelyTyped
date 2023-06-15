@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "xk6-sql-tests.ts"
+        "xk6-sql-browser-tests.ts"
     ]
 }

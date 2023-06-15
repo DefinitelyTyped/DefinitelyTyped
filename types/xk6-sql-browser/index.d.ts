@@ -1,4 +1,4 @@
-// Type definitions for xk6-sql 0.1
+// Type definitions for non-npm package xk6-sql 0.1
 // Project: https://github.com/grafana/xk6-sql
 // Definitions by: Leandro Gomes <https://github.com/leandrodotec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
