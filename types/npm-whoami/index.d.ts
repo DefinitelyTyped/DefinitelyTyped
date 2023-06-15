@@ -5,20 +5,20 @@
 
 export = whoami;
 
-declare function whoami(callback: whoami.Callback, opts?: whoami.Options): void;
+declare function whoami(callback: whoami.WhoamiCallback, opts?: whoami.WhoamiOptions): void;
 
 declare namespace whoami {
-    interface Callback {
+    interface WhoamiCallback {
         (err: Error, username: undefined): void;
         (err: null, username: string): void;
     }
 
-    type Options = number | string | BothOptions;
+    type WhoamiOptions = number | string | BothOptions;
 
     interface BothOptions {
         registry?: string;
         timeout?: number;
     }
 
-    function sync(opts: Options): string | undefined;
+    function sync(opts: WhoamiOptions): string | undefined;
 }
