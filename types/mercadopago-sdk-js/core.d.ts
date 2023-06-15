@@ -156,7 +156,7 @@ declare namespace mercadopagocore {
 
     fields: fields.Fields;
 
-    bricks(style: bricks.BricksStyle): bricks.Bricks;
+    bricks(style?: bricks.BricksStyle): bricks.Bricks;
 
     cardForm(options: cardform.CardFormOptions): cardform.CardForm;
   }
