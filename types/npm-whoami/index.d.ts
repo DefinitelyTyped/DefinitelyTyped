@@ -3,22 +3,22 @@
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = NpmWhoami;
+export = whoami;
 
-declare function NpmWhoami(callback: NpmWhoami.NpmWhoamiCallback, opts?: NpmWhoami.NpmWhoamiOptions): void;
+declare function whoami(callback: whoami.Callback, opts?: whoami.Options): void;
 
-declare namespace NpmWhoami {
-    interface NpmWhoamiCallback {
+declare namespace whoami {
+    interface Callback {
         (err: Error, username: undefined): void;
         (err: null, username: string): void;
     }
 
-    type NpmWhoamiOptions = number | string | NpmWhoamiBothOptions;
+    type Options = number | string | BothOptions;
 
-    interface NpmWhoamiBothOptions {
+    interface BothOptions {
         registry?: string;
         timeout?: number;
     }
 
-    function sync(opts: NpmWhoamiOptions): string | undefined;
+    function sync(opts: Options): string | undefined;
 }
