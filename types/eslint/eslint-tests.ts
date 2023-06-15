@@ -308,6 +308,31 @@ reference.isReadWrite();
 
 //#region Rule
 
+let mixedRule: Rule.OldStyleRule | Rule.RuleModule;
+
+mixedRule = {
+    create(context) {
+        return {};
+    },
+};
+
+mixedRule = (context) => ({});
+
+let oldStyleRule: Rule.OldStyleRule;
+
+oldStyleRule = (context) => ({});
+
+// @ts-expect-error
+oldStyleRule.schema = [];
+// @ts-expect-error
+oldStyleRule.schema = {};
+
+// @ts-expect-error
+oldStyleRule.meta = {};
+
+// @ts-expect-error
+oldStyleRule.create = (context) => ({});
+
 let rule: Rule.RuleModule;
 
 rule = {
@@ -667,6 +692,57 @@ const _processor: Linter.Processor = {
     },
 };
 
+//#region Linter with flat config
+
+const linterWithFlatConfig = new Linter({ configType: 'flat' });
+
+linterWithFlatConfig.version;
+
+linterWithFlatConfig.verify(SOURCE, [{}]);
+linterWithFlatConfig.verify(new SourceCode(SOURCE, AST), [{}]);
+
+linterWithFlatConfig.verify(SOURCE, [{}], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{}], {});
+linterWithFlatConfig.verify(SOURCE, [{}], { filename: 'test.js' });
+linterWithFlatConfig.verify(SOURCE, [{}], { allowInlineConfig: false });
+linterWithFlatConfig.verify(SOURCE, [{}], { reportUnusedDisableDirectives: true });
+linterWithFlatConfig.verify(SOURCE, [{}], { preprocess: input => input.split(' ') });
+linterWithFlatConfig.verify(SOURCE, [{}], { postprocess: problemList => problemList[0] });
+
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2021 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2022 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 'latest' } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 6 } }], 'test.js');
+linterWithFlatConfig.verify(
+    SOURCE,
+    [{ languageOptions: { ecmaVersion: 6 } }],
+    'test.js',
+);
+
+linterWithFlatConfig.verify(SOURCE, [{ rules: {} }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { quotes: 2 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { quotes: [2, 'double'] } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-unused-vars': [2, { vars: 'all' }] } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 1 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 0 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'error' } }], 'test.js');
+linterWithFlatConfig.verify(
+    SOURCE,
+    [{
+        rules: { 'no-console': 'error' },
+    }, {
+        files: ['*-test.js', '*.spec.js'],
+        rules: {
+            'no-unused-expressions': 'off',
+        },
+    }],
+    'test.js',
+);
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'warn' } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'off' } }], 'test.js');
+
+//#endregion
+
 //#endregion
 
 //#region ESLint
@@ -928,6 +1004,61 @@ ruleTester.run('simple-valid-test', rule, {
     languageOptions: {
         // @ts-expect-error
         parser: "foo-parser"
+    }
+});
+
+(): Linter.FlatConfig => ({ files: ["abc"] });
+(): Linter.FlatConfig => ({ files: [(path) => false] });
+(): Linter.FlatConfig => ({ files: [["abc"]]});
+(): Linter.FlatConfig => ({ files: [[(path) => false]] });
+(): Linter.FlatConfig => ({ files: [["abc", (path) => false]] });
+(): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] });
+
+// @ts-expect-error // Second level of nesting is not allowed
+(): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false], [["abc"], [(path) => false]]] });
+
+(): Linter.FlatConfig => ({ ignores: ["abc"] });
+(): Linter.FlatConfig => ({ ignores: [(path) => false] });
+(): Linter.FlatConfig => ({ ignores: ["abc", (path) => false] });
+
+// @ts-expect-error // No nesting
+(): Linter.FlatConfig => ({ ignores: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] });
+
+// @ts-expect-error // Must be an array
+(): Linter.FlatConfig => ({ files: "abc" });
+
+// @ts-expect-error // Must be an array
+(): Linter.FlatConfig => ({ ignores: "abc" });
+
+// The following _should_ be an error, but we can't enforce on consumers
+// as it requires exactOptionalPropertyTypes: true
+// (): Linter.FlatConfig => ({ files: undefined });
+// (): Linter.FlatConfig => ({ ignores: undefined });
+
+(): ESLint.Plugin => ({
+    configs: {
+        'old-style': {
+            parser: "foo-parser"
+        },
+
+        // @ts-expect-error
+        'old-style-array': [{ parser: "foo-parser" }],
+
+        'new-style': {
+            languageOptions: {
+                parser: {
+                    parseForESLint: () => ({ ast: AST })
+                }
+            }
+        },
+
+        'new-style-array': [{
+            languageOptions: {
+                parser: {
+                    parseForESLint: () => ({ ast: AST })
+                }
+            }
+        }]
     }
 });
 

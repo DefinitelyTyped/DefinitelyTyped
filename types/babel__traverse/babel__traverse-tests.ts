@@ -79,7 +79,7 @@ const v1: Visitor = {
         if (path.isReferencedIdentifier()) {
             // ...
         }
-        if (t.isQualifiedTypeIdentifier(path.node, path.parent)) {
+        if (t.isQualifiedTypeIdentifier(path.node)) {
             // ...
         }
     },

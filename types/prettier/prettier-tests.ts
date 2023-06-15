@@ -156,6 +156,10 @@ const plugin: prettier.Plugin<PluginAST> = {
                 const comment = commentPath.getValue();
                 return comment.value;
             },
+            preprocess(ast, options) {
+                ast; // $ExpectType any
+                options; // $ExpectType ParserOptions<PluginAST>
+            }
         },
     },
     options: {

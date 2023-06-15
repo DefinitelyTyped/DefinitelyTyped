@@ -10,21 +10,27 @@
 // disable automatic export
 export {};
 
-// Uses ArrayLike to admit Unit8 and co.
+// Uses ArrayLike to admit Uint8 and co.
 type OutputBuffer = ArrayLike<number>;
 type InputBuffer = ArrayLike<number>;
 
 interface RandomOptions {
+    /** `Array` of 16 random bytes (0-255) */
     random?: InputBuffer | undefined;
 }
 interface RngOptions {
+    /** Alternative to `options.random`, a `Function` that returns an `Array` of 16 random bytes (0-255) */
     rng?: (() => InputBuffer) | undefined;
 }
 
 interface V1BaseOptions {
+    /** RFC "node" field as an `Array[6]` of byte values (per 4.1.6) */
     node?: InputBuffer | undefined;
+    /** RFC "clock sequence" as a `Number` between 0 - 0x3fff */
     clockseq?: number | undefined;
+    /** RFC "timestamp" field (`Number` of milliseconds, unix epoch) */
     msecs?: number | Date | undefined;
+    /** RFC "timestamp" field (`Number` of nanoseconds to add to msecs, should be 0-10,000) */
     nsecs?: number | undefined;
 }
 interface V1RandomOptions extends V1BaseOptions, RandomOptions {}
