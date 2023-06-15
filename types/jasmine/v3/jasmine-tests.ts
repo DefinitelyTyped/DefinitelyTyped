@@ -2067,25 +2067,29 @@ describe("better typed spys", () => {
             // $ExpectType (val: string) => Spy<() => string>
             spyObj.method.and.returnValue;
         });
-        it("works for classes that override Object prototype methods", () => {
-            // All objects (even object literals) have OBject prototype methods like toString().
-            // If a class overrides those methods, createSpyObj shouldn't throw any type errors.
-            class TestOverride {
-                method(): number {
-                    return 0;
-                }
-                toString(): string {
-                    return '';
-                }
-                toLocaleString(): string {
-                    return '';
-                }
-                // Also make sure we don't throw type errors when using a more specific return type.
-                valueOf(): string {
-                    return '';
-                }
+
+        // All objects (even object literals) have Object prototype methods like toString().
+        // If a class overrides those methods, createSpyObj shouldn't throw any type errors.
+        class TestOverride {
+            method(): number {
+                return 0;
             }
+            toString(): string {
+                return '';
+            }
+            toLocaleString(): string {
+                return '';
+            }
+            // Also make sure we don't throw type errors when using a more specific return type.
+            valueOf(): boolean {
+                return true;
+            }
+        }
+        it("works for classes that override Object prototype methods", () => {
             jasmine.createSpyObj<TestOverride>("TestOverride", {method: 1});
+        });
+        it("allows spying on Object prototype methods", () => {
+            jasmine.createSpyObj<TestOverride>("TestOverride", {toString: '', toLocaleString: '', valueOf: false});
         });
     });
 });
