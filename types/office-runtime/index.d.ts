@@ -355,11 +355,9 @@ declare namespace OfficeRuntime {
      *
      * **Important**:
      *
-     * - In Outlook, this API isn't supported in the following scenarios.
+     * - In Outlook, this API isn't supported if you load an add-in in an Outlook.com or Gmail mailbox.
      *
-     *   - If the add-in is loaded in an Outlook.com or Gmail mailbox.
-     *
-     *   - If the add-in is loaded in Outlook on the web in the Safari browser. This results in error 13001 ("The user is not signed into Office").
+     * - In Outlook on the web, this API isn't supported if you use the Safari browser. This results in error 13001 ("The user is not signed into Office").
      *
      * - In Outlook on the web, if you use the
      * {@link https://learn.microsoft.com/javascript/api/office/office.ui#office-office-ui-displaydialogasync-member(1) | displayDialogAsync}
