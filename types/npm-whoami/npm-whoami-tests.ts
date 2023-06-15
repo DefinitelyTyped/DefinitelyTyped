@@ -7,11 +7,6 @@ npmWhoami(
 
         // $ExpectType string | undefined
         username;
-
-        if (err) {
-            username;
-            // ^?
-        }
     },
     {}
 );
