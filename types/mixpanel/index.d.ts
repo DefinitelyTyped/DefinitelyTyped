@@ -193,7 +193,7 @@ interface Mixpanel {
      * @param properties An associative array of properties to store about the user
      * @param daysOrOptions How many days since the user's last visit to store the super properties or the options object which controls persistence
      */
-    register(properties: { [index: string]: any }, daysOrOptions?: number | { persistent: boolean }): void;
+    register(properties: { [index: string]: any }, daysOrOptions?: number | { persistent?: boolean }): void;
 
     /**
      * Register a set of super properties only once. This will not
@@ -215,7 +215,11 @@ interface Mixpanel {
      * @param defaultValue Value to override if already set in super properties (ex: 'False') Default: 'None'
      * @param daysOrOptions How many days since the users last visit to store the super properties or the options object which controls persistence
      */
-    register_once(properties: { [index: string]: any }, defaultValue?: string, daysOrOptions?: number | { persistent: boolean }): void;
+    register_once(
+        properties: { [index: string]: any },
+        defaultValue?: string,
+        daysOrOptions?: number | { persistent?: boolean },
+    ): void;
 
     /**
      * Delete a super property stored with the current user.
@@ -223,7 +227,7 @@ interface Mixpanel {
      * @param propertyName The name of the super property to remove
      * @param options The options object which controls persistence
      */
-    unregister(propertyName: string, options?: { persistent: boolean }): void;
+    unregister(propertyName: string, options?: { persistent?: boolean }): void;
 
     /**
      * Identify a user with a unique ID. All subsequent
