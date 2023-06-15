@@ -9,7 +9,7 @@ declare namespace bricks {
     onSubmit: (
       formData: CardFormData | PaymentFormData,
       param2?: AdditionalCardFormData | AdditionalPaymentFormData
-    ) => Promise<void>;
+    ) => Promise<void> | string;
     onReady?: () => void;
     onError?: (error: BrickError) => void;
     onBinChange?: (bin: string) => void;
