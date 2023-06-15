@@ -416,12 +416,6 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     ): UpdatableData<TKey>;
 }
 
-interface OperationDescriptor {
-    readonly fragment: SingularReaderSelector;
-    readonly request: RequestDescriptor;
-    readonly root: NormalizationSelector;
-}
-
 export type LogEvent =
     | Readonly<{
           name: 'suspense.fragment';
