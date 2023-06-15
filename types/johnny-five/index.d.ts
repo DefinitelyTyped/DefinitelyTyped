@@ -84,6 +84,168 @@ export class Altimeter {
     on(event: 'data', cb: (data: any) => void): this;
 }
 
+export type EasingFnVariant =
+    | 'linear'
+    | 'inQuad'
+    | 'outQuad'
+    | 'inOutQuad'
+    | 'inCube'
+    | 'outCube'
+    | 'inOutCube'
+    | 'inQuart'
+    | 'outQuart'
+    | 'inOutQuart'
+    | 'inQuint'
+    | 'outQuint'
+    | 'inOutQuint'
+    | 'inSine'
+    | 'outSine'
+    | 'inOutSine'
+    | 'inExpo'
+    | 'outExpo'
+    | 'inOutExpo'
+    | 'inCirc'
+    | 'outCirc'
+    | 'inOutCirc'
+    | 'inBack'
+    | 'outBack'
+    | 'inOutBack'
+    | 'inBounce'
+    | 'outBounce'
+    | 'inOutBounce';
+export type WithEasing<T> = T & {
+    /**
+     * An easing function from ease-component to apply to the tweened value of the previous and next keyFrames.
+     * See the {@link https://www.npmjs.com/package/ease-component ease-component documentation} for a list of available easing functions (default: "linear")
+     */
+    easing?: EasingFnVariant;
+};
+
+/**
+ * If a single device is being animated, keyFrames may be a single dimensional array.
+ *
+ * If more than one device is being animated it must be 2-dimensional (an array of arrays).
+ * We call this a "keyFrame set". The index of each device in the target maps to the same index in a keyFrame set so the length of the two should be identical.
+ * Each keyFrame array should have an element that maps to each cue point in the cuePoints array.
+ * keyFrames[0][0] for example represents the position of the first device in your animation target at the first cuePoint.
+ *
+ * These may or may not be the same length. If there are fewer elements in a keyFrame array than in the cuePoints array, then the keyFrame array will be right padded with null values.
+ *
+ * Elements in a keyFrame array represent a device's position at the corresponding cuePoint. Positions can be described in a number of ways:
+ */
+export type KeyframeValue =
+    | number
+    | null
+    | false
+    | WithEasing<{
+          /** A step in degrees from the previous cuePoint position. */ step: number;
+      }>
+    | WithEasing<{
+          /** The servo position in degrees. (Not relative to the previous cuePoint position) */ degrees: number;
+      }>
+    | WithEasing<{
+          /** An index from this keyFrames array from which we copy the calculated or explicitly set degrees value. */ copyDegrees: number;
+      }>
+    | WithEasing<{
+          /** An index from this keyFrames array from which we copy all of the properties. */ copyFrame: number;
+      }>
+    | WithEasing<{
+          /**  A two or three tuple defining a coordinate in 2d or 3d space. */ position:
+              | [number, number]
+              | [number, number, number];
+      }>;
+
+export interface AnimationSegment {
+    /**
+     * @see {@link KeyframeValue}
+     */
+    keyFrames: KeyframeValue | KeyframeValue[];
+
+    /**
+     * Overrides the target passed when the Animation was created
+     */
+    target?: unknown;
+
+    /**
+     * Duration of the segment in milliseconds.
+     * @default 1000
+     */
+    duration?: number;
+
+    /**
+     * Array of values from 0.0 to 1.0 representing the beginning and end of the animation respectively.
+     * @default [0, 1]
+     */
+    cuePoints?: number[];
+
+    /**
+     * An easing function from ease-component to apply to the playback head on the timeline. See the ease-component docs for a list of available easing functions.
+     * @default "linear"
+     */
+    easing?: EasingFnVariant;
+
+    /**
+     * When true, segment will loop until animation.next() or animation.stop() is called.
+     * @default false
+     */
+    loop?: boolean;
+
+    /**
+     * The cuePoint that the animation will loop back to. If the animation is playing in reverse, this is the point at which the animation will "loop back" to 1.0
+     * @default 0.0
+     */
+    loopback?: number;
+
+    /**
+     * Will play to cuePoint[1] then play in reverse to cuePoint[0]. If the segment is set to loop then the animation will play back and forth until `next()`, `pause()` or `stop()` are called.
+     * @default false
+     */
+    metronomic?: boolean;
+
+    /**
+     * The starting point for the playback head.
+     * @default 0.0
+     */
+    progress?: number;
+
+    /**
+     * Controls the speed of the playback head and scales the calculated duration of this and all subsequent segments until it is changed by another segment or a call to the speed() method.
+     * @default 1.0
+     */
+    currentSpeed?: number;
+
+    /**
+     * The maximum frames per second for the segment.
+     * @default 60
+     */
+    fps?: number;
+
+    /**
+     *  function to execute when segment is started.
+     */
+    onstart?: () => void;
+
+    /**
+     *  function to execute when segment is paused.
+     */
+    onpause?: () => void;
+
+    /**
+     * function to execute when animation is stopped.
+     */
+    onstop?: () => void;
+
+    /**
+     * function to execute when segment is completed.
+     */
+    oncomplete?: () => void;
+
+    /**
+     * function to execute when segment loops.
+     */
+    onloop?: () => void;
+}
+
 export class Animation {
     constructor(option: Servo | Servo[]);
 
@@ -548,23 +710,25 @@ export interface LedOption {
 export class Led {
     constructor(option: LedOption['pin'] | LedOption);
 
-    animation: Animation;
-    id: string;
-    isOn: boolean;
-    isRunning: boolean;
-    mode: Pin['mode'];
-    pin: number;
-    value: number;
+    readonly animation: Animation;
+    readonly id: string;
+    readonly isOn: boolean;
+    readonly isRunning: boolean;
+    readonly mode: Pin['mode'];
+    readonly pin: number;
+    readonly value: number;
 
     blink(ms?: number, callback?: () => void): this;
     blink(callback?: () => void): this;
     brightness(val: number): this;
     fade(brightness: number, ms?: number, callback?: () => void): this;
+    fade(animation: AnimationSegment): this;
     fadeIn(ms?: number, callback?: () => void): this;
     fadeOut(ms?: number, callback?: () => void): this;
     off(): this;
     on(): this;
     pulse(ms?: number, callback?: () => void): this;
+    pulse(animation: AnimationSegment): this;
     stop(): this;
     strobe(ms?: number, callback?: () => void): this;
     strobe(callback?: () => void): this;
