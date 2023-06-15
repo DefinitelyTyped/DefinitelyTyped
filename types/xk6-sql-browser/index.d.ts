@@ -58,7 +58,7 @@ declare module 'k6/x/sql' {
     export default sql;
 }
 
-declare module 'xk6-sql-browser' {
+declare module 'xk6-sql' {
   namespace sql {
     /**
      * Opens a database connection.
