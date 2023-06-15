@@ -2,7 +2,6 @@
 // Project: https://github.com/grafana/xk6-sql
 // Definitions by: Leandro Gomes <https://github.com/leandrodotec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
 
 /**
  * xk6-sql: k6 extension that allows connection to RDBMSs: mysql, postgres, sqlite3, sqlserver
