@@ -16,6 +16,9 @@ cluster.on('setup', (settings: ClusterSettings) => { });
 {
     cluster.setupPrimary({
         args: ['1'],
+        serialization: 'advanced',
+        cwd: '/path/to/project',
+        windowsHide: true,
     });
 }
 

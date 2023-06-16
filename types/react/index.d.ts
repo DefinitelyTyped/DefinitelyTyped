@@ -243,6 +243,9 @@ declare namespace React {
      * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
     type ReactFragment = Iterable<ReactNode>;
 
     /**
@@ -255,7 +258,7 @@ declare namespace React {
         | ReactElement
         | string
         | number
-        | ReactFragment
+        | Iterable<ReactNode>
         | ReactPortal
         | boolean
         | null
@@ -1633,6 +1636,16 @@ declare namespace React {
          */
         'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both' | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
+        /**
+         * Defines a string value that labels the current element, which is intended to be converted into Braille.
+         * @see aria-label.
+         */
+        'aria-braillelabel'?: string | undefined;
+        /**
+         * Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille.
+         * @see aria-roledescription.
+         */
+        'aria-brailleroledescription'?: string | undefined;
         'aria-busy'?: Booleanish | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
@@ -1650,6 +1663,11 @@ declare namespace React {
          */
         'aria-colindex'?: number | undefined;
         /**
+         * Defines a human readable text alternative of aria-colindex.
+         * @see aria-rowindextext.
+         */
+        'aria-colindextext'?: string | undefined;
+        /**
          * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-colindex @see aria-rowspan.
          */
@@ -1666,6 +1684,11 @@ declare namespace React {
          * @see aria-labelledby
          */
         'aria-describedby'?: string | undefined;
+        /**
+         * Defines a string value that describes or annotates the current element.
+         * @see related aria-describedby.
+         */
+        'aria-description'?: string | undefined;
         /**
          * Identifies the element that provides a detailed, extended description for the object.
          * @see aria-describedby.
@@ -1779,6 +1802,11 @@ declare namespace React {
          * @see aria-rowcount @see aria-rowspan.
          */
         'aria-rowindex'?: number | undefined;
+        /**
+         * Defines a human readable text alternative of aria-rowindex.
+         * @see aria-colindextext.
+         */
+        'aria-rowindextext'?: string | undefined;
         /**
          * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-rowindex @see aria-colspan.
@@ -2335,6 +2363,7 @@ declare namespace React {
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        fetchpriority?: "high" | "low" | "auto";
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -2941,6 +2970,7 @@ declare namespace React {
         ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        search: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         slot: DetailedHTMLFactory<SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
         script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
         section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3310,6 +3340,7 @@ declare global {
             ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            search: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             slot: React.DetailedHTMLProps<React.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
             script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
             section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;

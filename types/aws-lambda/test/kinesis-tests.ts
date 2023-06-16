@@ -1,12 +1,13 @@
 import {
     FirehoseRecordMetadata,
     FirehoseRecordTransformationStatus,
-    FirehoseTransformationHandler, FirehoseTransformationResult,
+    FirehoseTransformationHandler,
+    FirehoseTransformationResult,
     KinesisStreamHandler,
     KinesisStreamRecord,
     KinesisStreamRecordPayload,
     KinesisStreamTumblingWindowHandler,
-} from "aws-lambda";
+} from 'aws-lambda';
 
 const handler: KinesisStreamHandler = async (event, context, callback) => {
     let kinesisStreamRecord: KinesisStreamRecord;
@@ -54,15 +55,13 @@ const tumblingWindowHandler: KinesisStreamTumblingWindowHandler = async (event, 
 };
 
 const handlerWithResponse: KinesisStreamHandler = async (event, context, callback) => {
-    callback(
-        null,
-        {
-            batchItemFailures: [
-                {
-                    itemIdentifier: event.Records[0].kinesis.sequenceNumber
-                }
-            ]
-        });
+    callback(null, {
+        batchItemFailures: [
+            {
+                itemIdentifier: event.Records[0].kinesis.sequenceNumber,
+            },
+        ],
+    });
 };
 
 const firehoseHandler: FirehoseTransformationHandler = async (event, context, callback) => {
@@ -86,9 +85,9 @@ const firehoseHandler: FirehoseTransformationHandler = async (event, context, ca
                 data: 'eyJmb28iOiJiYXIifQ==',
                 metadata: {
                     partitionKeys: {
-                        testPart: 'test1'
-                    }
-                }
+                        testPart: 'test1',
+                    },
+                },
             },
         ],
     };

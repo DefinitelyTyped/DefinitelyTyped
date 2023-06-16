@@ -353,11 +353,17 @@ declare namespace OfficeRuntime {
      *
      * **Applications**: Excel, Outlook, PowerPoint, Word
      *
-     * **Important**: In Outlook, this API isn't supported in the following scenarios.
+     * **Important**:
      *
-     * - If the add-in is loaded in an Outlook.com or Gmail mailbox.
+     * - In Outlook, this API isn't supported in the following scenarios.
      *
-     * - If the add-in is loaded in Outlook on the web in the Safari browser. This results in error 13001 ("The user is not signed into Office").
+     *   - If the add-in is loaded in an Outlook.com or Gmail mailbox.
+     *
+     *   - If the add-in is loaded in Outlook on the web in the Safari browser. This results in error 13001 ("The user is not signed into Office").
+     *
+     * - In Outlook on the web, if you use the
+     * {@link https://learn.microsoft.com/javascript/api/office/office.ui#office-office-ui-displaydialogasync-member(1) | displayDialogAsync}
+     * method to open a dialog, you must close the dialog before you can call `getAccessToken`.
      *
      * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
      * @returns Promise to the access token.

@@ -1,16 +1,16 @@
 import * as React from "react";
 import ScrollToBottom, {
-    FunctionContext, StateContext, useAnimating, useAnimatingToEnd, useAtBottom, useAtEnd,
+    FunctionContext, ScrollOption, StateContext, useAnimating, useAnimatingToEnd, useAtBottom, useAtEnd,
     useAtStart, useAtTop, useMode, useObserveScrollPosition, useScrollTo, useScrollToBottom,
     useScrollToEnd, useScrollToStart, useScrollToTop, useSticky
 } from "react-scroll-to-bottom";
 
 const testing = () => {
     const scrollTo: (scrollTop: number | '100%') => void = useScrollTo();
-    const scrollToBottom: () => void = useScrollToBottom();
-    const scrollToEnd: () => void = useScrollToEnd();
-    const scrollToStart: () => void = useScrollToStart();
-    const scrollToTop: () => void = useScrollToTop();
+    const scrollToBottom: (option?: ScrollOption) => void = useScrollToBottom();
+    const scrollToEnd: (option?: ScrollOption) => void = useScrollToEnd();
+    const scrollToStart: (option?: ScrollOption) => void = useScrollToStart();
+    const scrollToTop: (option?: ScrollOption) => void = useScrollToTop();
     const callback: ({}: { scrollTop: number }) => void = () => {};
     useObserveScrollPosition(callback);
     useObserveScrollPosition(false);
@@ -92,7 +92,7 @@ const sampleCode2 = () => {
                     ut reprehenderit sit adipisicing proident culpa veniam sint veniam consectetur fugiat Lorem. Sint
                     dolor proident commodo proident non cupidatat labore.
                 </p>
-                {!sticky && <button onClick={scrollToBottom}>Click me to scroll to bottom</button>}
+                {!sticky && <button onClick={() => { scrollToBottom(); }}>Click me to scroll to bottom</button>}
             </React.Fragment>
         );
     };
@@ -105,7 +105,7 @@ const sampleCode2 = () => {
 };
 
 const sampleCode3 = () => {
-    const Content = ({ scrollToBottom, sticky }: { scrollToBottom: () => void; sticky: boolean }) => {
+    const Content = ({ scrollToBottom, sticky }: { scrollToBottom: (option?: ScrollOption) => void; sticky: boolean }) => {
         return (
             <React.Fragment>
                 <p>
@@ -126,7 +126,7 @@ const sampleCode3 = () => {
                     ut reprehenderit sit adipisicing proident culpa veniam sint veniam consectetur fugiat Lorem. Sint
                     dolor proident commodo proident non cupidatat labore.
                 </p>
-                {!sticky && <button onClick={scrollToBottom}>Click me to scroll to bottom</button>}
+                {!sticky && <button onClick={() => { scrollToBottom(); }}>Click me to scroll to bottom</button>}
             </React.Fragment>
         );
     };

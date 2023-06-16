@@ -35,7 +35,7 @@ zipcodes.toMiles(3); // $ExpectType number
 
 zipcodes.toKilometers(3); // $ExpectType number
 
-zipcodes.lookupByCoords(37.323, -122.0527); // $ExpectType string | null
+zipcodes.lookupByCoords(37.323, -122.0527); // $ExpectType ZipCode | null
 
 zipcodes.random(); // $ExpectType ZipCode
 

@@ -1,8 +1,9 @@
 import {
     CloudFormationCustomResourceFailedResponse,
     CloudFormationCustomResourceHandler,
-    CloudFormationCustomResourceResponse, CloudFormationCustomResourceSuccessResponse,
-} from "aws-lambda";
+    CloudFormationCustomResourceResponse,
+    CloudFormationCustomResourceSuccessResponse,
+} from 'aws-lambda';
 
 const handler: CloudFormationCustomResourceHandler = async (event, context, callback) => {
     switch (event.RequestType) {
@@ -34,7 +35,7 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         Reason: strOrUndefined,
         RequestId: str,
         StackId: str,
-        Status: "SUCCESS",
+        Status: 'SUCCESS',
         NoEcho: boolOrUndefined,
     };
 
@@ -45,7 +46,7 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         PhysicalResourceId: str,
         RequestId: str,
         StackId: str,
-        Status: "SUCCESS",
+        Status: 'SUCCESS',
     };
     successResponse = {
         Data: anyObj,
@@ -54,7 +55,7 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         Reason: strOrUndefined,
         RequestId: str,
         StackId: str,
-        Status: "SUCCESS",
+        Status: 'SUCCESS',
         NoEcho: boolOrUndefined,
     };
     failedResponse = {
@@ -64,7 +65,7 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         Reason: str,
         RequestId: str,
         StackId: str,
-        Status: "FAILED",
+        Status: 'FAILED',
     };
     response = successResponse;
     response = failedResponse;

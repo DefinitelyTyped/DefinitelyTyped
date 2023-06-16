@@ -9,16 +9,19 @@ check(null, { pass: () => true });
 check(null, {
     success: () => true,
     json: () => true,
-    found: () => false
+    found: () => false,
 });
 // @ts-expect-error
 check({}, { pass: (value: number) => true });
 check({}, { pass: (value: object) => true });
-check({}, {
-    success: (value: object) => true,
-    json: (value: object) => true,
-    found: (value: object) => false
-});
+check(
+    {},
+    {
+        success: (value: object) => true,
+        json: (value: object) => true,
+        found: (value: object) => false,
+    },
+);
 // @ts-expect-error
 check(null, {}, 5);
 check(null, {}, { session: 'abc123' });
