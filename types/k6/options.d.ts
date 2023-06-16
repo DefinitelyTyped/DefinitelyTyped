@@ -30,7 +30,7 @@ export interface Options {
         /** 0, inf, or any time duration(60s, 5m30s, 10m, 2h). */
         ttl: string;
 
-        select: 'first' | 'random' |  'roundRobin';
+        select: 'first' | 'random' | 'roundRobin';
 
         policy: 'preferIPv4' | 'preferIPv6' | 'onlyIPv4' | 'onlyIPv6' | 'any';
     };
@@ -87,7 +87,7 @@ export interface Options {
     rps?: number;
 
     /** Scenario specifications. */
-    scenarios?: { [name: string]: Scenario};
+    scenarios?: { [name: string]: Scenario };
 
     /** Setup function timeout. */
     setupTimeout?: string;
@@ -188,7 +188,14 @@ export interface Certificate {
     password?: string;
 }
 
-export type ExecutorOptions = "shared-iterations" | "per-vu-iterations" | "constant-vus" | "ramping-vus" | "constant-arrival-rate" | "ramping-arrival-rate" | "externally-controlled";
+export type ExecutorOptions =
+    | 'shared-iterations'
+    | 'per-vu-iterations'
+    | 'constant-vus'
+    | 'ramping-vus'
+    | 'constant-arrival-rate'
+    | 'ramping-arrival-rate'
+    | 'externally-controlled';
 
 /**
  * BaseScenario.
@@ -243,7 +250,7 @@ export abstract class BaseScenario {
  * https://k6.io/docs/using-k6/scenarios/executors/shared-iterations/
  */
 export interface SharedIterationsScenario extends BaseScenario {
-    executor: "shared-iterations";
+    executor: 'shared-iterations';
     /**
      * Number of VUs to run concurrently.
      *
@@ -272,7 +279,7 @@ export interface SharedIterationsScenario extends BaseScenario {
  * https://k6.io/docs/using-k6/scenarios/executors/per-vu-iterations/
  */
 export interface PerVUIterationsScenario extends BaseScenario {
-    executor: "per-vu-iterations";
+    executor: 'per-vu-iterations';
     /**
      * Number of VUs to run concurrently.
      *
@@ -301,7 +308,7 @@ export interface PerVUIterationsScenario extends BaseScenario {
  * https://k6.io/docs/using-k6/scenarios/executors/constant-vus/
  */
 export interface ConstantVUsScenario extends BaseScenario {
-    executor: "constant-vus";
+    executor: 'constant-vus';
 
     /**
      * Number of VUs to run concurrently.
@@ -322,7 +329,7 @@ export interface ConstantVUsScenario extends BaseScenario {
  * https://k6.io/docs/using-k6/scenarios/executors/ramping-vus/
  */
 export interface RampingVUsScenario extends BaseScenario {
-    executor: "ramping-vus";
+    executor: 'ramping-vus';
 
     /** Array of objects that specify the number of VUs to ramp up or down to. */
     stages: Stage[];
@@ -348,7 +355,7 @@ export interface RampingVUsScenario extends BaseScenario {
  * https://k6.io/docs/using-k6/scenarios/executors/constant-arrival-rate/
  */
 export interface ConstantArrivalRateScenario extends BaseScenario {
-    executor: "constant-arrival-rate";
+    executor: 'constant-arrival-rate';
 
     /** Total scenario duration (excluding `gracefulStop`) */
     duration: string;
@@ -380,7 +387,7 @@ export interface ConstantArrivalRateScenario extends BaseScenario {
  * https://k6.io/docs/using-k6/scenarios/executors/ramping-arrival-rate/
  */
 export interface RampingArrivalRateScenario extends BaseScenario {
-    executor: "ramping-arrival-rate";
+    executor: 'ramping-arrival-rate';
 
     /** Maximum number of VUs to allow during the test run. */
     maxVUs?: number;
@@ -408,7 +415,7 @@ export interface RampingArrivalRateScenario extends BaseScenario {
  * https://k6.io/docs/using-k6/scenarios/executors/externally-controlled/
  */
 export interface ExternallyControlledScenario extends BaseScenario {
-    executor: "externally-controlled";
+    executor: 'externally-controlled';
 
     /**
      * Number of VUs to run concurrently.
@@ -424,10 +431,11 @@ export interface ExternallyControlledScenario extends BaseScenario {
     maxVUs?: number;
 }
 
-export type Scenario = SharedIterationsScenario |
-                       PerVUIterationsScenario |
-                       ConstantVUsScenario |
-                       RampingVUsScenario |
-                       ConstantArrivalRateScenario |
-                       RampingArrivalRateScenario |
-                       ExternallyControlledScenario;
+export type Scenario =
+    | SharedIterationsScenario
+    | PerVUIterationsScenario
+    | ConstantVUsScenario
+    | RampingVUsScenario
+    | ConstantArrivalRateScenario
+    | RampingArrivalRateScenario
+    | ExternallyControlledScenario;

@@ -20,7 +20,7 @@ import http, {
     file,
     cookieJar,
     expectedStatuses,
-    setResponseCallback
+    setResponseCallback,
 } from 'k6/http';
 
 const address = 'http://example.com';
@@ -210,28 +210,42 @@ asyncRequest('get');
 // @ts-expect-error
 asyncRequest('get', 5);
 asyncRequest('get', addressFromHttpURL);
-asyncRequest('get', address).then((res) => {
+asyncRequest('get', address).then(res => {
     responseDefault = res;
 });
 // @ts-expect-error
 asyncRequest('post', address, 5);
-asyncRequest('post', address, 'welcome to the internet').then((res) => {
+asyncRequest('post', address, 'welcome to the internet').then(res => {
     responseDefault = res;
 });
-asyncRequest('post', address, {}).then((res) => { responseDefault = res; });
-asyncRequest('post', address, { query: 'quokka' }).then((res) => { responseDefault = res; });
-asyncRequest('post', address, new ArrayBuffer(8)).then((res) => { responseDefault = res; });
+asyncRequest('post', address, {}).then(res => {
+    responseDefault = res;
+});
+asyncRequest('post', address, { query: 'quokka' }).then(res => {
+    responseDefault = res;
+});
+asyncRequest('post', address, new ArrayBuffer(8)).then(res => {
+    responseDefault = res;
+});
 // @ts-expect-error
 asyncRequest('post', address, {}, 5);
-asyncRequest('post', address, {}, { responseType: 'binary' }).then((res) => { responseBinary = res; });
-// @ts-expect-error
-asyncRequest('post', address, {}, { responseType: 'binary' }).then((res) => { responseDefault = res; });
+asyncRequest('post', address, {}, { responseType: 'binary' }).then(res => {
+    responseBinary = res;
+});
+asyncRequest('post', address, {}, { responseType: 'binary' }).then(res => {
+    // @ts-expect-error
+    responseDefault = res;
+});
 // @ts-expect-error
 asyncRequest('post', address, {}, {}, 5);
 
 // asyncRequest params
-asyncRequest('post', address, {}, { timeout: '10s' }).then((res) => { responseDefault = res; });
-asyncRequest('post', address, {}, { timeout: 10 }).then((res) => { responseDefault = res; });
+asyncRequest('post', address, {}, { timeout: '10s' }).then(res => {
+    responseDefault = res;
+});
+asyncRequest('post', address, {}, { timeout: 10 }).then(res => {
+    responseDefault = res;
+});
 
 // batch
 // @ts-expect-error
@@ -239,32 +253,32 @@ batch();
 // @ts-expect-error
 batch(5);
 // @ts-expect-error
-batch([ address ], 5);
+batch([address], 5);
 
 // batch(Array)
 responsesArray = batch([]);
-responsesArrayDefault = batch([ address ]);
-responsesArrayDefault = batch([ addressFromHttpURL ]);
-responsesArrayDefault = batch([ address, address, address ]);
+responsesArrayDefault = batch([address]);
+responsesArrayDefault = batch([addressFromHttpURL]);
+responsesArrayDefault = batch([address, address, address]);
 responsesArrayDefault = batch([
-    [ 'GET', address ],
-    [ 'POST', addressFromHttpURL, 'hello' ],
-    [ 'POST', address, { title: 'Hello' }, {} ]
+    ['GET', address],
+    ['POST', addressFromHttpURL, 'hello'],
+    ['POST', address, { title: 'Hello' }, {}],
 ]);
 responsesArrayBinary = batch([
-    [ 'GET', address, null, { responseType: 'binary' } ],
-    [ 'GET', address, null, { responseType: 'binary' } ],
-    [ 'GET', address, null, { responseType: 'binary' } ]
+    ['GET', address, null, { responseType: 'binary' }],
+    ['GET', address, null, { responseType: 'binary' }],
+    ['GET', address, null, { responseType: 'binary' }],
 ]);
 responsesArrayNone = batch([
-    [ 'GET', address, null, { responseType: 'none' } ],
-    [ 'GET', address, null, { responseType: 'none' } ],
-    [ 'GET', address, null, { responseType: 'none' } ]
+    ['GET', address, null, { responseType: 'none' }],
+    ['GET', address, null, { responseType: 'none' }],
+    ['GET', address, null, { responseType: 'none' }],
 ]);
 responsesArrayText = batch([
-    [ 'GET', address, null, { responseType: 'text' } ],
-    [ 'GET', address, null, { responseType: 'text' } ],
-    [ 'GET', address, null, { responseType: 'text' } ]
+    ['GET', address, null, { responseType: 'text' }],
+    ['GET', address, null, { responseType: 'text' }],
+    ['GET', address, null, { responseType: 'text' }],
 ]);
 /*
 Incorrectly passes due to https://github.com/microsoft/TypeScript/issues/32070
@@ -279,25 +293,25 @@ responsesArrayText = batch([
 ]);
 */
 responsesArray = batch([
-    [ 'GET', address, null, { responseType: 'binary' } ],
-    [ 'GET', address, null, { responseType: 'none' } ],
-    [ 'GET', addressFromHttpURL, null, { responseType: 'text' } ]
+    ['GET', address, null, { responseType: 'binary' }],
+    ['GET', address, null, { responseType: 'none' }],
+    ['GET', addressFromHttpURL, null, { responseType: 'text' }],
 ]);
-responsesArrayDefault = batch([ { method: 'GET', url: address } ]);
+responsesArrayDefault = batch([{ method: 'GET', url: address }]);
 responsesArrayDefault = batch([
     { method: 'GET', url: address },
     { method: 'GET', url: address },
-    { method: 'GET', url: addressFromHttpURL }
+    { method: 'GET', url: addressFromHttpURL },
 ]);
 responsesArrayBinary = batch([
     { method: 'GET', url: address, params: { responseType: 'binary' } },
     { method: 'GET', url: address, params: { responseType: 'binary' } },
-    { method: 'GET', url: address, params: { responseType: 'binary' } }
+    { method: 'GET', url: address, params: { responseType: 'binary' } },
 ]);
 responsesArray = batch([
     { method: 'GET', url: address, params: { responseType: 'binary' } },
     { method: 'GET', url: address, params: { responseType: 'none' } },
-    { method: 'GET', url: address, params: { responseType: 'text' } }
+    { method: 'GET', url: address, params: { responseType: 'text' } },
 ]);
 
 // batch(object)
@@ -306,49 +320,49 @@ responsesMapDefault = batch({ home: address });
 responsesMapDefault = batch({
     home: address,
     about: address,
-    forum: address
+    forum: address,
 });
 responsesMapBinary = batch({
-    home: [ 'GET', address, null, { responseType: 'binary' } ],
-    about: [ 'GET', address, null, { responseType: 'binary' } ],
-    forum: [ 'GET', address, null, { responseType: 'binary' } ]
+    home: ['GET', address, null, { responseType: 'binary' }],
+    about: ['GET', address, null, { responseType: 'binary' }],
+    forum: ['GET', address, null, { responseType: 'binary' }],
 });
 responsesMapNone = batch({
-    home: [ 'GET', address, null, { responseType: 'none' } ],
-    about: [ 'GET', address, null, { responseType: 'none' } ],
-    forum: [ 'GET', address, null, { responseType: 'none' } ]
+    home: ['GET', address, null, { responseType: 'none' }],
+    about: ['GET', address, null, { responseType: 'none' }],
+    forum: ['GET', address, null, { responseType: 'none' }],
 });
 responsesMapText = batch({
-    home: [ 'GET', address, null, { responseType: 'text' } ],
-    about: [ 'GET', address, null, { responseType: 'text' } ],
-    forum: [ 'GET', address, null, { responseType: 'text' } ]
+    home: ['GET', address, null, { responseType: 'text' }],
+    about: ['GET', address, null, { responseType: 'text' }],
+    forum: ['GET', address, null, { responseType: 'text' }],
 });
 // @ts-expect-error
 responsesMapBinary = batch({
-    home: [ 'GET', address, null, { responseType: 'binary' } ],
-    about: [ 'GET', address, null, { responseType: 'none' } ],
-    forum: [ 'GET', address, null, { responseType: 'text' } ]
+    home: ['GET', address, null, { responseType: 'binary' }],
+    about: ['GET', address, null, { responseType: 'none' }],
+    forum: ['GET', address, null, { responseType: 'text' }],
 });
 responsesMap = batch({
-    home: [ 'GET', address, null, { responseType: 'binary' } ],
-    about: [ 'GET', address, null, { responseType: 'none' } ],
-    forum: [ 'GET', address, null, { responseType: 'text' } ]
+    home: ['GET', address, null, { responseType: 'binary' }],
+    about: ['GET', address, null, { responseType: 'none' }],
+    forum: ['GET', address, null, { responseType: 'text' }],
 });
 responsesMapDefault = batch({ home: { method: 'GET', url: address } });
 responsesMapDefault = batch({
     home: { method: 'GET', url: address },
     about: { method: 'GET', url: address },
-    forum: { method: 'GET', url: address }
+    forum: { method: 'GET', url: address },
 });
 responsesMapText = batch({
     home: { method: 'GET', url: address, params: { responseType: 'text' } },
     about: { method: 'GET', url: address, params: { responseType: 'text' } },
-    forum: { method: 'GET', url: address, params: { responseType: 'text' } }
+    forum: { method: 'GET', url: address, params: { responseType: 'text' } },
 });
 responsesMap = batch({
     home: { method: 'GET', url: address, params: { responseType: 'binary' } },
     about: { method: 'GET', url: address, params: { responseType: 'none' } },
-    forum: { method: 'GET', url: address, params: { responseType: 'text' } }
+    forum: { method: 'GET', url: address, params: { responseType: 'text' } },
 });
 
 // file
@@ -357,7 +371,7 @@ file();
 // @ts-expect-error
 file(5);
 fileData = file('important data');
-fileData = file([ 1, 2, 3 ]);
+fileData = file([1, 2, 3]);
 fileData = file(new Uint8Array([10, 12]).buffer);
 // @ts-expect-error
 file('', 5);
@@ -371,7 +385,7 @@ post(address, {
     recipient: 'research-lab-XIII',
     data: file('important data', 'data.txt'),
     summary: file('short digest', 'summary.txt'),
-    analysis: file('thorough analysis', 'analysis.txt')
+    analysis: file('thorough analysis', 'analysis.txt'),
 });
 
 // Response parameters
@@ -386,7 +400,7 @@ response.clickLink(5);
 responseDefault = response.clickLink({});
 responseBinary = response.clickLink({
     selector: 'div.menu span#home',
-    params: { responseType: 'binary' }
+    params: { responseType: 'binary' },
 });
 // @ts-expect-error
 response.clickLink({}, 5);
@@ -419,10 +433,10 @@ responseText = response.submitForm({
     formSelector: 'div.input form',
     fields: {
         title: 'How to train your dragon',
-        body: 'This post shares my years of experience training dragons.'
+        body: 'This post shares my years of experience training dragons.',
     },
     submitSelector: 'div.input form button.submit',
-    params: { responseType: 'text' }
+    params: { responseType: 'text' },
 });
 // @ts-expect-error
 response.submitForm({}, 5);
@@ -487,13 +501,13 @@ jar.set(address, 'session', 'abc123', {}, 5);
 
 // expectedStatuses
 expectedStatuses(200);
-expectedStatuses({min: 200, max: 300});
+expectedStatuses({ min: 200, max: 300 });
 expectedStatuses(200, 400);
-expectedStatuses(200, {min: 200, max: 300}, 400);
-expectedStatuses(200, {min: 200, max: 300}, 400, {min: 500, max: 600});
+expectedStatuses(200, { min: 200, max: 300 }, 400);
+expectedStatuses(200, { min: 200, max: 300 }, 400, { min: 500, max: 600 });
 // @ts-expect-error
-expectedStatuses(200, {min: 200, max: 300}, 400, {hola: 500, max: 600});
-expectedStatuses(406, 500, {min: 200, max: 204}, 302, {min: 305, max: 405});
+expectedStatuses(200, { min: 200, max: 300 }, 400, { hola: 500, max: 600 });
+expectedStatuses(406, 500, { min: 200, max: 204 }, 302, { min: 305, max: 405 });
 
 http.expectedStatuses(200);
 

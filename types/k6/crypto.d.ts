@@ -26,7 +26,7 @@ export function hmac<OE extends OutputEncoding>(
     algorithm: Algorithm,
     secret: string | ArrayBuffer,
     input: string | ArrayBuffer,
-    outputEncoding: OE
+    outputEncoding: OE,
 ): Output<OE>;
 
 /**
@@ -38,10 +38,7 @@ export function hmac<OE extends OutputEncoding>(
  * @example
  * crypto.md4('hello world!', 'hex')
  */
-export function md4<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function md4<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with MD5.
@@ -52,10 +49,7 @@ export function md4<OE extends OutputEncoding>(
  * @example
  * crypto.md5("hello world!", "hex")
  */
-export function md5<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function md5<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-1.
@@ -66,10 +60,7 @@ export function md5<OE extends OutputEncoding>(
  * @example
  * crypto.sha1('hello world!', 'hex')
  */
-export function sha1<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha1<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-256.
@@ -80,10 +71,7 @@ export function sha1<OE extends OutputEncoding>(
  * @example
  * crypto.sha256('hello world!', 'hex')
  */
-export function sha256<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha256<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-384.
@@ -94,10 +82,7 @@ export function sha256<OE extends OutputEncoding>(
  * @example
  * crypto.sha384('hello world!', 'hex')
  */
-export function sha384<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha384<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512.
@@ -108,10 +93,7 @@ export function sha384<OE extends OutputEncoding>(
  * @example
  * crypto.sha512('hello world!', 'hex')
  */
-export function sha512<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512/224.
@@ -122,10 +104,7 @@ export function sha512<OE extends OutputEncoding>(
  * @example
  * crypto.sha512_224('hello world!', 'hex')
  */
-export function sha512_224<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512_224<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512/256.
@@ -136,10 +115,7 @@ export function sha512_224<OE extends OutputEncoding>(
  * @example
  * crypto.sha512_256('hello world!', 'hex')
  */
-export function sha512_256<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512_256<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with RIPEMD-160.
@@ -150,10 +126,7 @@ export function sha512_256<OE extends OutputEncoding>(
  * @example
  * crypto.ripemd160('hello world!', 'hex')
  */
-export function ripemd160<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function ripemd160<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Create a hashing object.
@@ -277,7 +250,7 @@ declare namespace crypto {
         algorithm: Algorithm,
         secret: string | ArrayBuffer,
         input: string | ArrayBuffer,
-        outputEncoding: OE
+        outputEncoding: OE,
     ): Output<OE>;
 
     /**
@@ -289,10 +262,7 @@ declare namespace crypto {
      * @example
      * crypto.md4('hello world!', 'hex')
      */
-    function md4<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function md4<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with MD5.
@@ -303,10 +273,7 @@ declare namespace crypto {
      * @example
      * crypto.md5("hello world!", "hex")
      */
-    function md5<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function md5<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-1.
@@ -317,10 +284,7 @@ declare namespace crypto {
      * @example
      * crypto.sha1('hello world!', 'hex')
      */
-    function sha1<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha1<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-256.
@@ -331,10 +295,7 @@ declare namespace crypto {
      * @example
      * crypto.sha256('hello world!', 'hex')
      */
-    function sha256<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha256<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-384.
@@ -345,10 +306,7 @@ declare namespace crypto {
      * @example
      * crypto.sha384('hello world!', 'hex')
      */
-    function sha384<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha384<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-512.
@@ -359,10 +317,7 @@ declare namespace crypto {
      * @example
      * crypto.sha512('hello world!', 'hex')
      */
-    function sha512<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha512<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-512/224.
@@ -373,10 +328,7 @@ declare namespace crypto {
      * @example
      * crypto.sha512_224('hello world!', 'hex')
      */
-    function sha512_224<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha512_224<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-512/256.
@@ -387,10 +339,7 @@ declare namespace crypto {
      * @example
      * crypto.sha512_256('hello world!', 'hex')
      */
-    function sha512_256<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha512_256<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with RIPEMD-160.
@@ -401,10 +350,7 @@ declare namespace crypto {
      * @example
      * crypto.ripemd160('hello world!', 'hex')
      */
-    function ripemd160<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function ripemd160<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Create a hashing object.
