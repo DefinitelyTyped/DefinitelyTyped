@@ -421,8 +421,16 @@ cy.viewport({ zoom: 1.2, pan: { x: 0, y: 1 } });
 //   layout.stop();
 // });
 
-cy.style(cy.style());
-cy.style([cy.style()]);
+cy.style('node { background-color: yellow; }');
+cy.style()
+    .clear()
+    .fromJson([])
+    .fromString('')
+    .resetToDefault()
+    .selector('')
+    .style('color', 'white')
+    .style({color: 'white'})
+    .update();
 
 // $ExpectType string
 cy.png({
@@ -634,6 +642,8 @@ eles.toggleClass('test', oneOf(true, false, undefined));
 eles.removeClass('test');
 eles.classes(['lesstext']);
 eles.classes(oneOf('test', undefined));
+// $ExpectedType string[]
+eles.classes();
 eles.flashClass('test flash', oneOf(1000, undefined));
 assert(ele.hasClass('test'));
 
@@ -711,6 +721,8 @@ cy.collection()
     .merge(diff.both)
     .unmerge(collSel)
     .filter((ele, i, eles) => true);
+for (const _ of cy.collection([])) {
+}
 
 nodes.map(n => n.degree(false));
 edges.map(e => e.source());
