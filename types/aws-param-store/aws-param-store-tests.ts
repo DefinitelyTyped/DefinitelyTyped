@@ -10,6 +10,7 @@ import {
     getParametersByPathSync,
     putParameter,
     putParameterSync,
+    newQuery,
 } from 'aws-param-store';
 
 declare let bool: boolean;
@@ -29,6 +30,7 @@ declare let promiseParamsResult: Promise<SSM.Types.GetParametersResult>;
 declare let promiseParamsByPathResult: Promise<SSM.Types.ParameterList>;
 declare let promiseAllParamResults: Promise<typeof allParamResults>;
 declare let promisePutParamResult: Promise<SSM.Types.PutParameterResult>;
+declare let promiseNewQuery: Promise<SSM.Types.ParameterList>;
 
 query = parameterQuery();
 
@@ -88,3 +90,7 @@ promisePutParamResult = putParameter(psName, value, type, options);
 
 putParamResult = putParameterSync(psName, value, type);
 putParamResult = putParameterSync(psName, value, type, options);
+
+promiseNewQuery = newQuery();
+promiseNewQuery = newQuery(psName);
+promiseNewQuery = newQuery(psName, options);

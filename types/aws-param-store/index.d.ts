@@ -50,13 +50,18 @@ export function putParameterSync(
     options?: SSM.Types.ClientConfiguration
 ): SSM.Types.PutParameterResult;
 
+export function newQuery(
+    path?: SSM.Types.PSParameterName,
+    options?: SSM.Types.ClientConfiguration
+): Promise<SSM.Types.ParameterList>
+
 export interface ParameterQuery {
     path(path: SSM.Types.PSParameterName): ParameterQuery;
     named(nameOrNames: SSM.Types.PSParameterName | SSM.Types.ParameterNameList): ParameterQuery;
     decryption(enabled: boolean): ParameterQuery;
     recursive(enabled: boolean): ParameterQuery;
-    execute(): Promise<SSM.Types.ParameterList | SSM.Types.Parameter | SSM.Types.GetParametersResult>;
-    executeSync(): SSM.Types.ParameterList | SSM.Types.Parameter | SSM.Types.GetParametersResult;
+    execute(): Promise<SSM.Types.ParameterList | SSM.Types.Parameter | SSM.Types.GetParametersResult | SSM.Types.PutParameterResult>;
+    executeSync(): SSM.Types.ParameterList | SSM.Types.Parameter | SSM.Types.GetParametersResult | SSM.Types.PutParameterResult;
 }
 
 export function parameterQuery(options?: SSM.Types.ClientConfiguration): ParameterQuery;
