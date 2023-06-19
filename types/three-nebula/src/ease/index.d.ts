@@ -52,7 +52,7 @@ export namespace ease {
 
     export function easeOutSine(value: number): number;
 }
-type EasingString = keyof Easing;
+export type EasingString = keyof Easing;
 export interface Easing {
     easeLinear: EasingFunction;
     easeInQuad: EasingFunction;

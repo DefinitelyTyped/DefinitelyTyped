@@ -10,34 +10,27 @@ export default class ArraySpan extends Span {
     /**
      * Constructs an ArraySpan instance.
      *
-     * @param {mixed|array<mixed>?} items - Items
-     * @return void
      */
     constructor(items?: Items);
     /**
      * @description The class type.
-     * @type {string}
      */
     type: typeof MATH_TYPE_SPAN;
     /**
      * @description An array of colors
-     * @type {array}
      */
     items: Items;
     /**
      * Gets a random item.
      *
-     * @return {mixed}
      */
     getValue(): Item;
 }
 /**
  * Attempts to create an ArraySpan from the items provided.
  *
- * @param {mixed} items - Items to try and create an ArraySpan from
- * @return {?ArraySpan}
  */
 export function createArraySpan(items: Items): ArraySpan;
 
-type Items = Item[] | Item;
-type Item = any;
+export type Items = Item[] | Item;
+export type Item = any;

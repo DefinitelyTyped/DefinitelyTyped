@@ -5,6 +5,5 @@
  *
  * use like this log('+12',mc); log 12 times
  *
- * @return void
  */
 export default function log(...args: any[]): void;

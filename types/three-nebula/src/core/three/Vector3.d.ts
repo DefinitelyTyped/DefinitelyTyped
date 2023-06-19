@@ -1,4 +1,3 @@
-import { BufferAttribute, Camera, Cylindrical, Matrix3, Spherical } from 'three';
 import { Euler } from './Euler.js';
 import { Matrix4 } from './Matrix4.js';
 import { Quaternion } from './Quaternion.js';
@@ -37,11 +36,11 @@ export class Vector3 {
     multiplyVectors: (a: Vector3, b: Vector3) => Vector3;
     applyEuler: (euler: Euler) => Vector3;
     applyAxisAngle: (axis: Vector3, angle: number) => Vector3;
-    applyMatrix3: (m: Matrix3) => Vector3;
+    applyMatrix3: (m: THREE.Matrix3) => Vector3;
     applyMatrix4: (m: Matrix4) => Vector3;
     applyQuaternion: (q: Quaternion) => Vector3;
-    project: (camera: Camera) => Vector3;
-    unproject: (camera: Camera) => Vector3;
+    project: (camera: THREE.Camera) => Vector3;
+    unproject: (camera: THREE.Camera) => Vector3;
     transformDirection: (m: Matrix4) => Vector3;
     divide: (v: Vector3) => Vector3;
     divideScalar: (scalar: number) => Vector3;
@@ -72,9 +71,9 @@ export class Vector3 {
     distanceTo: (v: Vector3) => number;
     distanceToSquared: (v: Vector3) => number;
     distanceToManhattan: (v: Vector3) => number;
-    setFromSpherical: (s: Spherical) => Vector3;
+    setFromSpherical: (s: THREE.Spherical) => Vector3;
     setFromSphericalCoords: (r: number, phi: number, theta: number) => Vector3;
-    setFromCylindrical: (c: Cylindrical) => Vector3;
+    setFromCylindrical: (c: THREE.Cylindrical) => Vector3;
     setFromCylindricalCoords: (radius: number, theta: number, y: number) => Vector3;
     setFromMatrixPosition: (m: Matrix4) => Vector3;
     setFromMatrixScale: (m: Matrix4) => Vector3;
@@ -82,10 +81,10 @@ export class Vector3 {
     equals: (v: Vector3) => boolean;
     fromArray: (xyz: number[], offset?: number) => Vector3;
     toArray: (array?: number[], offset?: number) => number[];
-    fromBufferAttribute: (attribute: BufferAttribute, index: number) => Vector3;
+    fromBufferAttribute: (attribute: THREE.BufferAttribute, index: number) => Vector3;
     rotateX: (angle: number) => Vector3;
     rotateY: (angle: number) => Vector3;
     rotateZ: (angle: number) => Vector3;
-    fromAttribute: (attribute: BufferAttribute, index: number, offset?: number) => Vector3;
+    fromAttribute: (attribute: THREE.BufferAttribute, index: number, offset?: number) => Vector3;
     random: () => Vector3;
 }

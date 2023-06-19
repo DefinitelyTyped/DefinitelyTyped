@@ -1,4 +1,4 @@
-import THREE from 'three';
+import { Three } from '../../../../core/three';
 import { DEFAULT_MAX_PARTICLES } from './constants';
 /**
  * Creates and provides performant buffers for mapping particle properties to geometry vertices.
@@ -11,11 +11,8 @@ import { DEFAULT_MAX_PARTICLES } from './constants';
 export default class ParticleBuffer {
     /**
      * Creates the interleaved buffer that will be used to write data to the GPU.
-     *@param {number} maxParticles - The maximum number of particles that will be rendered.
-     * @return {ParticleBuffer}
      */
-    constructor(maxParticles: typeof DEFAULT_MAX_PARTICLES, three: typeof THREE);
-    T;
+    constructor(maxParticles: typeof DEFAULT_MAX_PARTICLES, three: Three);
     createInterleavedBuffer(): ParticleBuffer;
 
     /**

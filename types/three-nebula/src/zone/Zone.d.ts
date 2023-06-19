@@ -7,15 +7,12 @@ import Vector3D from '../math/Vector3D';
  *
  * @see {@link '../initialize/Position.js'}
  * @see {@link '../behaviour/CrossZone.js'}
- * @abstract
  */
 
 export default class Zone {
     /**
      * Constructs a Zone instance.
      *
-     * @param {string} type - The zone type
-     * @return void
      */
     constructor(type: string);
     getPosition(): Vector3D | null;
@@ -23,37 +20,31 @@ export default class Zone {
     /**
      * Determines if this zone is a BoxZone.
      *
-     * @return {boolean}
      */
     isBoxZone(): boolean;
     /**
      * Determines if this zone is a LineZone.
      *
-     * @return {boolean}
      */
     isLineZone(): boolean;
     /**
      * Determines if this zone is a MeshZone.
      *
-     * @return {boolean}
      */
     isMeshZone(): boolean;
     /**
-     * Determines if this zone is a PointZone.
+     * Determines if this zone is a PointZone
      *
-     * @return {boolean}
      */
     isPointZone(): boolean;
     /**
      * Determines if this zone is a ScreenZone.
      *
-     * @return {boolean}
      */
     isScreenZone(): boolean;
     /**
      * Determines if this zone is a SphereZone.
      *
-     * @return {boolean}
      */
     isSphereZone(): boolean;
 }

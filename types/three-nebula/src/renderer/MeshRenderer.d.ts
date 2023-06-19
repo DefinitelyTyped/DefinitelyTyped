@@ -1,19 +1,15 @@
-import type { Mesh, Object3D, Sprite } from 'three';
 import { Particle, Pool } from '../core';
+import { Three } from '../core/three';
 import BaseRenderer from './BaseRenderer';
 /**
  * @requires THREE - { Mesh, BoxGeometry, MeshLambertMaterial }
  */
 export default class MeshRenderer extends BaseRenderer {
-    /**
-     * @param {object} container - An Object3D container, usually a THREE.Scene
-     * @param {object} THREE - THREE Api
-     */
-    constructor(container: Object3D, THREE: Three);
-    container: Object3D;
+    constructor(container: THREE.Object3D, THREE: Three);
+    container: THREE.Object3D;
     _targetPool: Pool;
     _materialPool: Pool;
-    _body: Mesh | Sprite;
+    _body: THREE.Mesh | THREE.Sprite;
     isThreeSprite(particle: Particle): boolean;
     onSystemUpdate(): void;
     onParticleCreated(particle: Particle): void;
@@ -21,5 +17,3 @@ export default class MeshRenderer extends BaseRenderer {
     scale(particle: Particle): void;
     onParticleDead(particle: Particle): void;
 }
-
-type Three = typeof import('three');

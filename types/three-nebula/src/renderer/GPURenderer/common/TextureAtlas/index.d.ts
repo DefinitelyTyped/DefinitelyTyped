@@ -1,4 +1,3 @@
-import type { CanvasTexture, Texture } from 'three';
 import { RENDERER_TYPE_GPU_DESKTOP, RENDERER_TYPE_GPU_MOBILE } from '../../../types';
 /**
  * Dynamic texture atlas for performant support of systems with multiple emitters and textures.
@@ -11,7 +10,7 @@ export default class TextureAtlas {
     indexData: Float32Array;
     canvas: HTMLCanvasElement;
     entries: any[];
-    atlasIndex: CanvasTexture;
+    atlasIndex: THREE.CanvasTexture;
     /**
      * Logs to the console when in dev mode.
      * @return void
@@ -26,7 +25,7 @@ export default class TextureAtlas {
      * Adds a texture to the texture atlas and flags that the atlas needs to be updated.
      * @return void
      */
-    addTexture(texture: object | Texture): void;
+    addTexture(texture: object | THREE.Texture): void;
     /**
      * Updates the texture atlas. Will only rebuild the atlas if all images are loaded.
      * @return void

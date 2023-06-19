@@ -5,7 +5,6 @@ export default class Polar3D {
     constructor(radius?: number, theta?: number, phi?: number);
     /**
      * @description The class type.
-     * @type {string}
      */
     type: typeof MATH_TYPE_POLAR_3D;
     radius: number;

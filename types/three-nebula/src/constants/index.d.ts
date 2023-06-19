@@ -3,7 +3,6 @@ export const PI: number;
 /**
  * The max particle number in pool.
  *
- * @const {integer}
  */
 export const POOL_MAX: number;
 export const TIME_STEP: number;
@@ -12,7 +11,6 @@ export const DR: number;
 /**
  * 1:100
  *
- * @const {integer}
  */
 export const MEASURE: number;
 export const EULER: 'euler';

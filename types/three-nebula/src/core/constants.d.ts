@@ -31,90 +31,73 @@ import { RENDERER_TYPE_SPRITE } from '../renderer/types';
 
 /**
  * @description Default particle life
- * @type {number}
  */
 export const DEFAULT_LIFE: number;
 /**
  * @description Default particle age
- * @type {number}
  */
 export const DEFAULT_AGE: number;
 /**
  * @description Default particle energy
- * @type {number}
  */
 export const DEFAULT_ENERGY: number;
 /**
  * @description Default particle dead
- * @type {boolean}
  */
 export const DEFAULT_DEAD: boolean;
 /**
  * @description Default particle sleep
- * @type {boolean}
  */
 export const DEFAULT_SLEEP: boolean;
 
 /**
  * @description Default particle index
- * @type {number}
  */
 export const DEFAULT_INDEX: number;
 /**
  * @description Default particle body
- * @type {?object}
  */
 export const DEFAULT_BODY: null;
 /**
  * @description Default particle parent
- * @type {?Emitter}
  */
 export const DEFAULT_PARENT: null;
 /**
  * @description Default particle mass
- * @type {number}
  */
 export const DEFAULT_MASS: number;
 /**
  * @description Default particle radius
- * @type {number}
  */
 export const DEFAULT_RADIUS: number;
 /**
  * @description Default particle alpha
- * @type {number}
  */
 export const DEFAULT_ALPHA: number;
 /**
  * @description Default particle scale
- * @type {number}
  */
 export const DEFAULT_SCALE: number;
 /**
  * @description Default particle useColor
- * @type {boolean}
  */
 export const DEFAULT_USE_COLOR: boolean;
 /**
  * @description Default particle useAlpha
- * @type {boolean}
  */
 export const DEFAULT_USE_ALPHA: boolean;
 /**
  * @description Default particle easing
- * @type {function}
  */
 export const DEFAULT_EASING: typeof ease.easeLinear;
 
 /**
  * @description The default delta provided to the System instance
- * @type {number}
  */
 export const DEFAULT_SYSTEM_DELTA: number;
 
 /**
  * @description The types of initializers supported by the System.fromJSON method.
- * @type {array<string>}
  */
 export const SUPPORTED_JSON_INITIALIZER_TYPES: [
     typeof INITIALIZER_TYPE_POSITION,
@@ -132,7 +115,6 @@ export const SUPPORTED_JSON_INITIALIZER_TYPES: [
 
 /**
  * @description The types of behaviours supported by the System.fromJSON method.
- * @type {array<string>}
  */
 export const SUPPORTED_JSON_BEHAVIOUR_TYPES: [
     typeof BEHAVIOUR_TYPE_ALPHA,
@@ -150,13 +132,11 @@ export const SUPPORTED_JSON_BEHAVIOUR_TYPES: [
 
 /**
  * @description The types of renderers supported by the System.fromJSON method.
- * @type {array<string>}
  */
 export const SUPPORTED_JSON_RENDERER_TYPES: [typeof RENDERER_TYPE_SPRITE];
 
 /**
  * @description The types of zones supported by the System.fromJSON method.
- * @type {array<string>}
  */
 export const SUPPORTED_JSON_ZONE_TYPES: [
     typeof ZONE_TYPE_BOX,

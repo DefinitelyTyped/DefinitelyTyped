@@ -12,7 +12,7 @@ export const BEHAVIOUR_TYPE_ROTATE: 'Rotate';
 export const BEHAVIOUR_TYPE_SCALE: 'Scale';
 export const BEHAVIOUR_TYPE_SPRING: 'Spring';
 
-type BEHAVIOUR_TYPES =
+export type BEHAVIOUR_TYPES =
     | typeof BEHAVIOUR_TYPE_ABSTRACT
     | typeof BEHAVIOUR_TYPE_ALPHA
     | typeof BEHAVIOUR_TYPE_ATTRACTION

@@ -13,62 +13,46 @@ export default class Rate extends Initializer {
     /**
      * Constructs a Rate instance.
      *
-     * @param {number|array|Span?} numPan - The number of particles to emit
-     * @param {number|array|Span?} timePan - The time between each particle emission
-     * @return void
      */
     constructor(numPan?: RateNumPan, timePan?: RateTimePan);
     /**
      * @description Sets the number of particles to emit.
-     * @type {Span}
      */
     numPan: Span;
     /**
      * @description Sets the time between each particle emission.
-     * @type {Span}
      */
     timePan: Span;
     /**
      * @description The rate's start time.
-     * @type {number}
      */
     startTime: number;
     /**
      * @description The rate's next time.
-     * @type {number}
      */
     nextTime: number;
     /**
      * Sets the startTime and nextTime properties.
      *
-     * @return void
      */
     init(): void;
     /**
      * Gets the number of particles to emit.
      *
-     * @param {number} time - Current particle engine time
-     * @return {number}
      */
     getValue(time: number): number;
     /**
      * Creates a Rate initializer from JSON.
      *
-     * @param {object} json - The JSON to construct the instance from.
-     * @property {number} json.particlesMin - The minimum number of particles to emit
-     * @property {number} json.particlesMax - The maximum number of particles to emit
-     * @property {number} json.perSecondMin - The minimum per second emit rate
-     * @property {number} json.perSecondMax - The maximum per second emit rate
-     * @return {Rate}
      */
     static fromJSON(json: JSONObject): Rate;
 }
 
-type RateNumPan = typeof DEFAULT_RATE_NUM_PAN | number | Span;
-type RateTimePan = typeof DEFAULT_RATE_TIME_PAN | number | Span;
+export type RateNumPan = typeof DEFAULT_RATE_NUM_PAN | number | Span;
+export type RateTimePan = typeof DEFAULT_RATE_TIME_PAN | number | Span;
 
-type JSONValue = string | number | boolean | JSONObject | JSONArray;
+export type JSONValue = string | number | boolean | JSONObject | JSONArray;
 
-type JSONObject = object;
+export type JSONObject = object;
 
-type JSONArray = Array<JSONValue>;
+export type JSONArray = Array<JSONValue>;

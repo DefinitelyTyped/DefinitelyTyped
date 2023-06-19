@@ -1,2 +1,2 @@
-export { fragmentShader } from './fragmentShader';
-export { vertexShader } from './vertexShader';
+export { fragmentShader as MobileFragmentShader } from './fragmentShader';
+export { vertexShader as MobileVertexShader } from './vertexShader';

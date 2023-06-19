@@ -1,4 +1,3 @@
-import { BufferAttribute } from 'three';
 import { Euler } from './Euler.js';
 import { Quaternion } from './Quaternion.js';
 import { Vector3 } from './Vector3.js';
@@ -50,7 +49,7 @@ export class Matrix4 {
     premultiply(m: Matrix4): Matrix4;
     multiplyMatrices(a: Matrix4, b: Matrix4): Matrix4;
     multiplyScalar(s: number): Matrix4;
-    applyToBufferAttribute(attribute: BufferAttribute): BufferAttribute;
+    applyToBufferAttribute(attribute: THREE.BufferAttribute): THREE.BufferAttribute;
     determinant(): number;
     transpose(): Matrix4;
     setPosition(v: Vector3): Matrix4;
@@ -71,5 +70,5 @@ export class Matrix4 {
     equals(matrix: Matrix4): boolean;
     fromArray(array: number[], offset?: number): Matrix4;
     toArray(array?: number[], offset?: number): number[];
-    fromBufferAttribute(attribute: BufferAttribute): Matrix4;
+    fromBufferAttribute(attribute: THREE.BufferAttribute): Matrix4;
 }

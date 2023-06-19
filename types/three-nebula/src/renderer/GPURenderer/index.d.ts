@@ -1,3 +1,4 @@
+import { Three } from '../../core/three';
 import BaseRenderer from '../BaseRenderer';
 import { DEFAULT_RENDERER_OPTIONS } from './common/constants';
 /**
@@ -16,9 +17,7 @@ export default class GPURenderer extends BaseRenderer {
     isFloatingPointTextureSupported(): boolean;
 }
 
-type Three = typeof import('three');
-
-type Container = THREE.Scene;
+export type Container = THREE.Scene;
 
 export * from './Desktop';
 export * from './Mobile';

@@ -7,3 +7,5 @@ export * from './constants';
  */
 export * from './Math';
 export * from './Matrix4';
+
+export type Three = typeof import('three');
