@@ -23,3 +23,4 @@ export default System;
  * typescript exports
  */
 export * from './src/core';
+export * from './src/events';
