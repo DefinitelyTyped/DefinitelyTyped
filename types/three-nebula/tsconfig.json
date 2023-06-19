@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "three-nebula-tests.ts", "build/cjs/index.d.ts", "build/esm/index.d.ts"]
+    "files": ["index.d.ts", "three-nebula-tests.ts", "./build/cjs/index.d.ts", "./build/esm/index.d.ts"]
 }
