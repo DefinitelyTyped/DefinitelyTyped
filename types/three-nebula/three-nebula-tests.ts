@@ -219,7 +219,7 @@ Debug.addEventListener('emitterAdded', emitter => {
     console.log(emitter);
 });
 
-// $ExpectType Debug
+// $ExpectType typeof Debug
 Debug.addEventListener(System, emitter => {
     console.log(emitter);
 });

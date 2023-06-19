@@ -4,8 +4,6 @@ import Zone from '../zone/Zone';
 
 export type Zones = BoxZone | LineZone | MeshZone | PointZone | ScreenZone | SphereZone;
 
-/**
- */
 export namespace Debug {
     /**
      * Adds an event listener to the system instance's SYSTEM_UPDATE event.
