@@ -1,6 +1,6 @@
 // Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.1
 // Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.1.0/zwjsbridge.js
-// Definitions by: Yuxiang Ren <https://github.com/shlyren>
+// Definitions by: Yuxiang Ren <https://github.com/shlyren>, Jungzl <https://github.com/jungzl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
