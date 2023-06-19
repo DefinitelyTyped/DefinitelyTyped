@@ -9,18 +9,18 @@ export default class Position extends Initializer {
      *  Sets the starting position property for initialized particles.
      * This is derived from a zone randomly chosen from those supplied to the constructor.
      */
-    constructor(zone?: Zone | Array<Zone>);
+    constructor(zone?: Zone | Zone[]);
     /**
      * Resets the initializer properties.
      * Clears all previously set zones and resets the zones according to args passed.
      *
      */
-    reset(zone: Zone | Array<Zone>): void;
+    reset(zone: Zone | Zone[]): void;
     /**
      * Adds a zone or zones to this.zones.
      *
      */
-    addZone(zone: Zone | Array<Zone>): void;
+    addZone(zone: Zone | Zone[]): void;
     /**
      * Creates a Position initializer from JSON.
      *

@@ -133,7 +133,7 @@ export const SUPPORTED_JSON_BEHAVIOUR_TYPES: [
 /**
  * @description The types of renderers supported by the System.fromJSON method.
  */
-export const SUPPORTED_JSON_RENDERER_TYPES: [typeof RENDERER_TYPE_SPRITE];
+export const SUPPORTED_JSON_RENDERER_TYPES: typeof RENDERER_TYPE_SPRITE;
 
 /**
  * @description The types of zones supported by the System.fromJSON method.

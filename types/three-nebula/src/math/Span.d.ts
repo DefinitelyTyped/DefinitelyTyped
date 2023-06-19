@@ -20,7 +20,6 @@ export default class Span {
     protected _center: number | boolean | undefined;
     /**
      * Span.getValue function
-     * @name get a random Number from a to b. Or get a random Number from c-a to c+b
      */
     getValue(INT?: number): number;
     getValue(): string;

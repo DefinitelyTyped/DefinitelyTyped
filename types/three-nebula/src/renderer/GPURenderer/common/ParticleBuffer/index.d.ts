@@ -21,14 +21,12 @@ export default class ParticleBuffer {
      * NOTE Each attribute needs to be set at the right index in the buffer right after the previous
      * attribute that occupies a set amount of size in the buffer.
      *
-     * @return {ParticleBufferGeometry}
      */
     createBufferGeometry(): ParticleBuffer;
 
     /**
      * Gets the publicly accessible interleaved buffer.
      *
-     * @return {THREE.InterleavedBuffer} buffers - The interleaved buffer
      */
     get buffer(): THREE.InterleavedBuffer;
 

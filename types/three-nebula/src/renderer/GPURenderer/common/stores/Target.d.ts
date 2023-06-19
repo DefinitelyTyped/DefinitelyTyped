@@ -4,14 +4,19 @@ import { Three } from '../../../../core/three';
  *
  */
 export class Target {
-    /**
-     */
     constructor(THREE: Three);
+
     position: THREE.Vector3;
+
     size: number;
+
     color: THREE.Color;
+
     alpha: number;
+
     texture: THREE.Texture | null;
+
     index: number;
+
     reset(): void;
 }

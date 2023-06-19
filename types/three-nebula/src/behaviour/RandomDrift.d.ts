@@ -37,7 +37,6 @@ export default class RandomDrift extends Behaviour {
         driftZ?: number,
         delay?: number,
     ): void;
-    reset(life?: number, easing?: EasingFunction): void;
 
     /**
      * Mutates the particle.acceleration property.

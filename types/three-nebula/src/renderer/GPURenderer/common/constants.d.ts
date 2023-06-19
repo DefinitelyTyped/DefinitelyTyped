@@ -1,4 +1,4 @@
-interface IDefaultRendererOptions {
+export interface DefaultRendererOptions {
     blending: string;
     baseColor: number;
     depthTest: boolean;
@@ -10,4 +10,4 @@ interface IDefaultRendererOptions {
     shouldForceMobileRenderer: boolean;
 }
 
-export const DEFAULT_RENDERER_OPTIONS: IDefaultRendererOptions;
+export const DEFAULT_RENDERER_OPTIONS: DefaultRendererOptions;

@@ -51,7 +51,7 @@ export default class Pool {
      * Gets an object either by creating a new one or retrieving it from the pool.
      *
      */
-    get(obj: (obj: any) => any | object, ...args: any[]): object;
+    get(obj: (obj: any) => any, ...args: any[]): object;
     /**
      * Pushes an object into the pool.
      *

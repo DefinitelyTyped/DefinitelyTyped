@@ -35,4 +35,4 @@ export default class ColorSpan extends Span {
  * Attempts to create an ArraySpan from the colors provided.
  *
  */
-export const createColorSpan: (colors: string | string[]) => ColorSpan;
+export function createColorSpan(colors: string | string[]): ColorSpan;

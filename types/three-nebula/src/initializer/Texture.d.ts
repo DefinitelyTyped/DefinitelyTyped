@@ -17,8 +17,6 @@ export type MaterialPropertiesDefaults = typeof DEFAULT_MATERIAL_PROPERTIES | Ma
  *
  */
 export default class Texture extends Initializer {
-    /**
-     */
     constructor(
         WebGLAPI: Three,
         loadedTexture: THREE.Texture,

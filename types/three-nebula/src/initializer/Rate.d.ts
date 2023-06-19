@@ -55,4 +55,4 @@ export type JSONValue = string | number | boolean | JSONObject | JSONArray;
 
 export type JSONObject = object;
 
-export type JSONArray = Array<JSONValue>;
+export type JSONArray = JSONValue[];

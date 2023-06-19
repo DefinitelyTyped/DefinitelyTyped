@@ -4,7 +4,6 @@ import { INITIALIZER_TYPES } from './types';
 /**
  * The base Emitter / Particle property class.
  *
- * @abstract
  */
 export default class Initializer {
     constructor(type: INITIALIZER_TYPES, isEnabled: boolean);

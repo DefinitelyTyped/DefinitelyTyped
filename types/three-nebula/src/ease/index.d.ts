@@ -8,49 +8,49 @@ export function getEasingByName(name: string): EasingFunction;
  * The Ease class provides a collection of easing functions for use with System
  */
 export namespace ease {
-    export function easeInBack(value: number): number;
+    function easeInBack(value: number): number;
 
-    export function easeInCirc(value: number): number;
+    function easeInCirc(value: number): number;
 
-    export function easeInCubic(value: number): number;
+    function easeInCubic(value: number): number;
 
-    export function easeInExpo(value: number): number;
+    function easeInExpo(value: number): number;
 
-    export function easeInOutBack(value: number): number;
+    function easeInOutBack(value: number): number;
 
-    export function easeInOutCirc(value: number): number;
+    function easeInOutCirc(value: number): number;
 
-    export function easeInOutCubic(value: number): number;
+    function easeInOutCubic(value: number): number;
 
-    export function easeInOutExpo(value: number): number;
+    function easeInOutExpo(value: number): number;
 
-    export function easeInOutQuad(value: number): number;
+    function easeInOutQuad(value: number): number;
 
-    export function easeInOutQuart(value: number): number;
+    function easeInOutQuart(value: number): number;
 
-    export function easeInOutSine(value: number): number;
+    function easeInOutSine(value: number): number;
 
-    export function easeInQuad(value: number): number;
+    function easeInQuad(value: number): number;
 
-    export function easeInQuart(value: number): number;
+    function easeInQuart(value: number): number;
 
-    export function easeInSine(value: number): number;
+    function easeInSine(value: number): number;
 
-    export function easeLinear(value: number): number;
+    function easeLinear(value: number): number;
 
-    export function easeOutBack(value: number): number;
+    function easeOutBack(value: number): number;
 
-    export function easeOutCirc(value: number): number;
+    function easeOutCirc(value: number): number;
 
-    export function easeOutCubic(value: number): number;
+    function easeOutCubic(value: number): number;
 
-    export function easeOutExpo(value: number): number;
+    function easeOutExpo(value: number): number;
 
-    export function easeOutQuad(value: number): number;
+    function easeOutQuad(value: number): number;
 
-    export function easeOutQuart(value: number): number;
+    function easeOutQuart(value: number): number;
 
-    export function easeOutSine(value: number): number;
+    function easeOutSine(value: number): number;
 }
 export type EasingString = keyof Easing;
 export interface Easing {

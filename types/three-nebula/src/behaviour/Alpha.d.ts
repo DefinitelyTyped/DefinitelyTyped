@@ -12,13 +12,7 @@ export default class Alpha extends Behaviour {
     /**
      * @description Constructs an Alpha behaviour instance.
      */
-    constructor(
-        alphaA: number,
-        alphaB?: number | undefined,
-        life?: number,
-        easing?: EasingFunction,
-        isEnabled?: boolean,
-    );
+    constructor(alphaA: number, alphaB?: number, life?: number, easing?: EasingFunction, isEnabled?: boolean);
     /**
      * @description The starting alpha value
      */
@@ -43,12 +37,7 @@ export default class Alpha extends Behaviour {
     /**
      * Resets the behaviour properties.
      */
-    reset(
-        alphaA: number | undefined,
-        alphaB?: number | undefined,
-        life?: number | undefined,
-        easing?: keyof Easing,
-    ): void;
+    reset(alphaA: number, alphaB?: number, life?: number, easing?: keyof Easing): void;
     reset(life?: number, easing?: EasingFunction): void;
 
     /**

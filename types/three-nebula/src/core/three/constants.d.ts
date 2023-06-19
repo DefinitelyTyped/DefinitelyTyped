@@ -1,10 +1,11 @@
 export const REVISION: '106';
 export const MOUSE: MOUSE;
-type MOUSE = {
+
+export interface MOUSE {
     LEFT: 0;
     MIDDLE: 1;
     RIGHT: 2;
-};
+}
 export const CullFaceNone: 0;
 export const CullFaceBack: 1;
 export const CullFaceFront: 2;

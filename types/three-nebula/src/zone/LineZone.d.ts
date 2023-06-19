@@ -15,7 +15,8 @@ export default class LineZone extends Zone {
      *
      */
     isLineZone(): boolean;
+
     getPosition(): Vector3D;
 }
 
-type VectorOrNumber = Vector3D | number;
+export type VectorOrNumber = Vector3D | number;

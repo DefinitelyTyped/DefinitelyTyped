@@ -5,8 +5,6 @@ import Zone from '../zone/Zone';
 export type Zones = BoxZone | LineZone | MeshZone | PointZone | ScreenZone | SphereZone;
 
 /**
- * @exports Debug - methods and helpers for debugging System emitters, zones and particles.
- * @requires THREE - { SphereGeometry, BoxGeometry, MeshBasicMaterial, OctahedronGeometry, Mesh }
  */
 export namespace Debug {
     /**

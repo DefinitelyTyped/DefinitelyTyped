@@ -16,11 +16,14 @@ export default class BoxZone extends Zone {
      *
      */
     isBoxZone(): boolean;
-    /**
-     */
+
     getPosition(): Vector3D;
+
     protected _dead(particle: Particle): boolean;
+
     protected _bound(particle: Particle): void;
+
     protected _static(particle: Particle): void;
+
     protected _cross(particle: Particle): void;
 }

@@ -1,6 +1,9 @@
 import { ease } from '../ease';
-type Infinity = number & { Infinity: true };
+export interface Infinity extends Number {
+    Infinity: true;
+}
 export type DEFAULT_LIFE = Infinity;
+
 export const DEFAULT_ATTRACITON_RADIUS: number;
 export const DEFAULT_ATTRACTION_FORCE_SCALAR: number;
 export const DEFAULT_BEHAVIOUR_EASING: typeof ease.easeLinear;
