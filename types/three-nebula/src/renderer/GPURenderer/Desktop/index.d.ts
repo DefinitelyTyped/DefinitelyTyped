@@ -64,35 +64,35 @@ export default class DesktopGPURenderer extends BaseRenderer {
      * @param {Particle} particle - The particle containing the target position.
      * @return {DesktopGPURenderer}
      */
-    updatePointPosition(particle): DesktopGPURenderer;
+    updatePointPosition(particle: Particle): DesktopGPURenderer;
     /**
      * Updates the point's size relative to the particle's target scale and radius.
      *
      * @param {Particle} particle - The particle containing the target scale.
      * @return {DesktopGPURenderer}
      */
-    updatePointSize(particle): DesktopGPURenderer;
+    updatePointSize(particle: Particle): DesktopGPURenderer;
     /**
      * Updates the point's color attribute according with the particle's target color.
      *
      * @param {Particle} particle - The particle containing the target color and alpha.
      * @return {DesktopGPURenderer}
      */
-    updatePointColor(particle): DesktopGPURenderer;
+    updatePointColor(particle: Particle): DesktopGPURenderer;
     /**
      * Updates the point alpha attribute with the particle's target alpha.
      *
      * @param {Particle} particle - The particle containing the target alpha.
      * @return {DesktopGPURenderer}
      */
-    updatePointAlpha(particle): DesktopGPURenderer;
+    updatePointAlpha(particle: Particle): DesktopGPURenderer;
     /**
      * Updates the point texture attribute with the particle's target texture.
      *
      * @param {Particle} particle - The particle containing the target texture.
      * @return {DesktopGPURenderer}
      */
-    updatePointTextureIndex(particle): DesktopGPURenderer;
+    updatePointTextureIndex(particle: Particle): DesktopGPURenderer;
     getTextureID(texture: TextureAtlas): number;
     /**
      * Tears down the GPURenderer.
@@ -102,8 +102,8 @@ export default class DesktopGPURenderer extends BaseRenderer {
     destroy(): void;
 }
 
-type Three = typeof import('three');
+export type Three = typeof import('three');
 
-type Container = object & {
+export type Container = object & {
     scene: Scene;
 };

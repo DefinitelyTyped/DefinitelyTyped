@@ -19,3 +19,6 @@ export default class GPURenderer extends BaseRenderer {
 type Three = typeof import('three');
 
 type Container = THREE.Scene;
+
+export * from './Desktop';
+export * from './Mobile';

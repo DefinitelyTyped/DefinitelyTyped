@@ -1,6 +1,7 @@
-import { Camera, Points, Scene, ShaderMaterial } from 'three';
+import { Camera, Points, ShaderMaterial } from 'three';
 import { Particle, Pool } from '../../../core';
 import BaseRenderer from '../../BaseRenderer';
+import { Container, Three } from '../Desktop';
 import { ParticleBuffer, TextureAtlas, UniqueList } from '../common';
 import { DEFAULT_RENDERER_OPTIONS } from '../common/constants';
 /**
@@ -94,9 +95,3 @@ export default class MobileGPURenderer extends BaseRenderer {
     getTextureID(texture: TextureAtlas, debug: boolean): number;
     destroy(): void;
 }
-
-type Three = typeof import('three');
-
-type Container = object & {
-    scene: Scene;
-};
