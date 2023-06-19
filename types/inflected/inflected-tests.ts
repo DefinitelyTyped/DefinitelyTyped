@@ -42,10 +42,10 @@ Inflector.inflections('en', ({ acronym, clear, human, irregular, plural, singula
     irregular('octopus', 'octopi');
 
     plural(/^(ox)$/i, '$1$2en');
-    plural("oxen")
+    plural('oxen');
 
     singular(/^(ox)en/i, '$1');
-    singular("ox");
+    singular('ox');
 
     uncountable('equipment');
     uncountable('equipment', 'snow');
@@ -70,3 +70,7 @@ Inflector.parameterize('Donald E. Knuth', { separator: '+' });
 Inflector.parameterize('Donald E. Knuth', { preserveCase: true, separator: '+' });
 
 Inflector.constantify('bankAccount');
+
+Inflector.capitalize('foo');
+Inflector.capitalize(null);
+Inflector.capitalize();

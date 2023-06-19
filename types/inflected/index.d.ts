@@ -58,6 +58,7 @@ interface Inflected {
     transliterations(transliterate?: (transliterate: Inflected.Transliterations) => void): void;
     parameterize(sentence: string, options?: Inflected.Options.Parameterize): string;
     constantify(words: string): string;
+    capitalize(word?: string | null): string;
 }
 
 declare let Inflector: Inflected;
