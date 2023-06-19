@@ -47,6 +47,9 @@ export class Netmask {
      */
     last: string;
 
+    maskLong: number;
+    netLong: number;
+
     /**
      * Returns a true if the IP number ip is part of the network. That is, a true value is returned if ip is between base and broadcast.
      * If a Netmask object or a block is given, it returns true only of the given block fits inside the network.
