@@ -27,14 +27,12 @@ export default class Alpha extends Behaviour {
         isEnabled?: boolean,
     );
     /**
-     * @desc The starting alpha value
-     * @type {number|Span}
+     * @description The starting alpha value
      */
     alphaA: number | Span;
 
     /**
-     * @desc The ending alpha value
-     * @type {number|Span}
+     * @description The ending alpha value
      */
     alphaB: number | Span;
 
@@ -92,10 +90,6 @@ export default class Alpha extends Behaviour {
      * Creates a Body initializer from JSON.
      *
      * @param {object} json - The JSON to construct the instance from.
-     * @property {number} json.alphaA - The starting alpha value
-     * @property {number} json.alphaB - The ending alpha value
-     * @property {number} json.life - The life of the behaviour
-     * @property {string} json.easing - The easing equation to use for transforms
      * @return {Body}
      */
     static fromJSON(json: JSONObject): Alpha;
