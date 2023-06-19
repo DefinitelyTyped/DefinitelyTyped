@@ -1,6 +1,6 @@
 // Type definitions for non-npm package ZwLog API - zwlog.js 1.0
 // Project: //assets.zjzwfw.gov.cn/assets/zwlog/1.0.0/zwlog.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: Jungzl <https://github.com/jungzl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
