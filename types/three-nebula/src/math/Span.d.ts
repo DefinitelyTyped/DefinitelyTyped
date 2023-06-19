@@ -17,7 +17,7 @@ export default class Span {
     protected _isArray: boolean;
 
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: string;

@@ -31,37 +31,37 @@ export default class Attraction extends Behaviour {
     );
 
     /**
-     * @desc The position the particles will be attracted to
+     * @description The position the particles will be attracted to
      * @type {Vector3D}
      */
     targetPosition: Vector3D;
 
     /**
-     * @desc The attraction radius
+     * @description The attraction radius
      * @type {number} - the attraction radius
      */
     radius: number;
 
     /**
-     * @desc The attraction force scalar multiplier
+     * @description The attraction force scalar multiplier
      * @type {number}
      */
     force: number;
 
     /**
-     * @desc The radius of the attraction squared
+     * @description The radius of the attraction squared
      * @type {number}
      */
     radiusSq: number;
 
     /**
-     * @desc The attraction force in 3D space
+     * @description The attraction force in 3D space
      * @type {Vector3D}
      */
     attractionForce: Vector3D;
 
     /**
-     * @desc The linear attraction force
+     * @description The linear attraction force
      * @type {number}
      */
     lengthSq: 0;

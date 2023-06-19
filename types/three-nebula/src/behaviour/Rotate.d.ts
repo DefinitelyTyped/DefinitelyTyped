@@ -36,7 +36,7 @@ export default class Rotate extends Behaviour {
 
     /**
      * Sets the rotation type.
-     * @desc The rotation type. ENUM of ['same', 'set', 'to', 'add'].
+     * @description The rotation type. ENUM of ['same', 'set', 'to', 'add'].
      * @type {string}
      * @param {string}
      * @return void

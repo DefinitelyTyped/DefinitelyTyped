@@ -16,22 +16,22 @@ export default class RadialVelocity extends Velocity {
      */
     constructor(radius?: number, vector3d?: Vector3D, theta?: number, isEnabled?: boolean);
     /**
-     * @desc Velocity radius span.
+     * @description Velocity radius span.
      * @type {Span}
      */
     radiusSpan: ReturnType<typeof createSpan>;
     /**
-     * @desc Theta.
+     * @description Theta.
      * @type {number}
      */
     dir: Vector3D;
     /**
-     * @desc Theta.
+     * @description Theta.
      * @type {number}
      */
     tha: number;
     /**
-     * @desc Determines whether to use the directional vector or not.
+     * @description Determines whether to use the directional vector or not.
      * @type {boolean}
      */
     protected _useV: boolean;

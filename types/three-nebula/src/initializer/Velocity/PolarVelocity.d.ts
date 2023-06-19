@@ -16,17 +16,17 @@ export default class PolarVelocity extends Velocity {
      */
     constructor(polar3d?: Polar3D, theta?: number, isEnabled?: boolean);
     /**
-     * @desc Theta.
+     * @description Theta.
      * @type {number}
      */
     tha: number;
     /**
-     * @desc Directional vector
+     * @description Directional vector
      * @type {Vector3D}
      */
     dirVec: Vector3D;
     /**
-     * @desc Determines whether to use the directional vector or not.
+     * @description Determines whether to use the directional vector or not.
      * @type {boolean}
      */
     protected _useV: boolean;

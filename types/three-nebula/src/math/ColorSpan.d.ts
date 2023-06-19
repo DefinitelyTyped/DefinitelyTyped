@@ -14,17 +14,17 @@ export default class ColorSpan extends Span {
      */
     constructor(colors?: string | string[]);
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: string;
     /**
-     * @desc Determines if a random color should be returned from the getValue method.
+     * @description Determines if a random color should be returned from the getValue method.
      * @type {boolean}
      */
     shouldRandomize: boolean;
     /**
-     * @desc An array of colors to select from
+     * @description An array of colors to select from
      * @type {array<string>}
      */
     colors: string[];

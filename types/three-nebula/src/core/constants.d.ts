@@ -30,90 +30,90 @@ import { ease } from '../ease';
 import { RENDERER_TYPE_SPRITE } from '../renderer/types';
 
 /**
- * @desc Default particle life
+ * @description Default particle life
  * @type {number}
  */
 export const DEFAULT_LIFE: number;
 /**
- * @desc Default particle age
+ * @description Default particle age
  * @type {number}
  */
 export const DEFAULT_AGE: number;
 /**
- * @desc Default particle energy
+ * @description Default particle energy
  * @type {number}
  */
 export const DEFAULT_ENERGY: number;
 /**
- * @desc Default particle dead
+ * @description Default particle dead
  * @type {boolean}
  */
 export const DEFAULT_DEAD: boolean;
 /**
- * @desc Default particle sleep
+ * @description Default particle sleep
  * @type {boolean}
  */
 export const DEFAULT_SLEEP: boolean;
 
 /**
- * @desc Default particle index
+ * @description Default particle index
  * @type {number}
  */
 export const DEFAULT_INDEX: number;
 /**
- * @desc Default particle body
+ * @description Default particle body
  * @type {?object}
  */
 export const DEFAULT_BODY: null;
 /**
- * @desc Default particle parent
+ * @description Default particle parent
  * @type {?Emitter}
  */
 export const DEFAULT_PARENT: null;
 /**
- * @desc Default particle mass
+ * @description Default particle mass
  * @type {number}
  */
 export const DEFAULT_MASS: number;
 /**
- * @desc Default particle radius
+ * @description Default particle radius
  * @type {number}
  */
 export const DEFAULT_RADIUS: number;
 /**
- * @desc Default particle alpha
+ * @description Default particle alpha
  * @type {number}
  */
 export const DEFAULT_ALPHA: number;
 /**
- * @desc Default particle scale
+ * @description Default particle scale
  * @type {number}
  */
 export const DEFAULT_SCALE: number;
 /**
- * @desc Default particle useColor
+ * @description Default particle useColor
  * @type {boolean}
  */
 export const DEFAULT_USE_COLOR: boolean;
 /**
- * @desc Default particle useAlpha
+ * @description Default particle useAlpha
  * @type {boolean}
  */
 export const DEFAULT_USE_ALPHA: boolean;
 /**
- * @desc Default particle easing
+ * @description Default particle easing
  * @type {function}
  */
 export const DEFAULT_EASING: typeof ease.easeLinear;
 
 /**
- * @desc The default delta provided to the System instance
+ * @description The default delta provided to the System instance
  * @type {number}
  */
 export const DEFAULT_SYSTEM_DELTA: number;
 
 /**
- * @desc The types of initializers supported by the System.fromJSON method.
+ * @description The types of initializers supported by the System.fromJSON method.
  * @type {array<string>}
  */
 export const SUPPORTED_JSON_INITIALIZER_TYPES: [
@@ -131,7 +131,7 @@ export const SUPPORTED_JSON_INITIALIZER_TYPES: [
 ];
 
 /**
- * @desc The types of behaviours supported by the System.fromJSON method.
+ * @description The types of behaviours supported by the System.fromJSON method.
  * @type {array<string>}
  */
 export const SUPPORTED_JSON_BEHAVIOUR_TYPES: [
@@ -149,13 +149,13 @@ export const SUPPORTED_JSON_BEHAVIOUR_TYPES: [
 ];
 
 /**
- * @desc The types of renderers supported by the System.fromJSON method.
+ * @description The types of renderers supported by the System.fromJSON method.
  * @type {array<string>}
  */
 export const SUPPORTED_JSON_RENDERER_TYPES: [typeof RENDERER_TYPE_SPRITE];
 
 /**
- * @desc The types of zones supported by the System.fromJSON method.
+ * @description The types of zones supported by the System.fromJSON method.
  * @type {array<string>}
  */
 export const SUPPORTED_JSON_ZONE_TYPES: [

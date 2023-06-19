@@ -30,7 +30,7 @@ export default class RandomDrift extends Behaviour {
         isEnabled?: boolean,
     );
     /**
-     * @desc Internal time used for calculating drift vs internal delay.
+     * @description Internal time used for calculating drift vs internal delay.
      * @type {number}
      */
     time: number;

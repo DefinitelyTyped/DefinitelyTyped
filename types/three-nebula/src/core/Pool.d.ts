@@ -11,17 +11,17 @@ export default class Pool {
      */
     constructor();
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: string;
     /**
-     * @desc Incrementing id that keeps a count of the number of objects created
+     * @description Incrementing id that keeps a count of the number of objects created
      * @type {integer}
      */
     cID: number;
     /**
-     * @desc Map of pools in the format of PUID<String>: pool<Array>
+     * @description Map of pools in the format of PUID<String>: pool<Array>
      * @type {object}
      */
     list: object;

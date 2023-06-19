@@ -19,22 +19,22 @@ export default class Rate extends Initializer {
      */
     constructor(numPan?: RateNumPan, timePan?: RateTimePan);
     /**
-     * @desc Sets the number of particles to emit.
+     * @description Sets the number of particles to emit.
      * @type {Span}
      */
     numPan: Span;
     /**
-     * @desc Sets the time between each particle emission.
+     * @description Sets the time between each particle emission.
      * @type {Span}
      */
     timePan: Span;
     /**
-     * @desc The rate's start time.
+     * @description The rate's start time.
      * @type {number}
      */
     startTime: number;
     /**
-     * @desc The rate's next time.
+     * @description The rate's next time.
      * @type {number}
      */
     nextTime: number;

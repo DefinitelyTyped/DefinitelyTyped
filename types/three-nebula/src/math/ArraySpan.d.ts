@@ -15,12 +15,12 @@ export default class ArraySpan extends Span {
      */
     constructor(items?: Items);
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: typeof MATH_TYPE_SPAN;
     /**
-     * @desc An array of colors
+     * @description An array of colors
      * @type {array}
      */
     items: Items;

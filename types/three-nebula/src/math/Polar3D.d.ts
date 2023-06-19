@@ -4,7 +4,7 @@ import { MATH_TYPE_POLAR_3D } from './types';
 export default class Polar3D {
     constructor(radius?: number, theta?: number, phi?: number);
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: typeof MATH_TYPE_POLAR_3D;

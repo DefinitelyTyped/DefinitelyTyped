@@ -8,7 +8,7 @@ export default class BaseRenderer {
      */
     constructor(type: string);
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: string;

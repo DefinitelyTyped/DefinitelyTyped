@@ -24,43 +24,43 @@ export default class System {
      */
     constructor(preParticles?: number | typeof POOL_MAX, integrationType?: string | typeof INTEGRATION_TYPE_EULER);
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: string;
     /**
-     * @desc Determines if the system can update or not. Set to false when destroying
+     * @description Determines if the system can update or not. Set to false when destroying
      * to ensure that external calls to update do not throw errors.
      * @type {boolean}
      */
     canUpdate: boolean;
     /**
-     * @desc The number of particles to start with.
+     * @description The number of particles to start with.
      * @type {number}
      */
     preParticles: number;
     /**
-     * @desc The integration algorithm type to use.
+     * @description The integration algorithm type to use.
      * @param {string}
      */
     integrationType: string;
     /**
-     * @desc The emitters in the particle system.
+     * @description The emitters in the particle system.
      * @type {array<Emitter>}
      */
     emitters: Emitter[];
     /**
-     * @desc The renderers for the system.
+     * @description The renderers for the system.
      * @type {array<Renderer>}
      */
     renderers: Array<Renderer | CustomRenderer | GPURenderer | MeshRenderer | SpriteRenderer>;
     /**
-     * @desc A pool used to manage the internal system cache of objects
+     * @description A pool used to manage the internal system cache of objects
      * @type {Pool}
      */
     pool: Pool;
     /**
-     * @desc Internal event dispatcher
+     * @description Internal event dispatcher
      * @type {EventDispatcher}
      */
     eventDispatcher: EventDispatcher;

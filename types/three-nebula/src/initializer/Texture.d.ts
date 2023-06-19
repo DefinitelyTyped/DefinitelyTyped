@@ -29,23 +29,23 @@ export default class Texture extends Initializer {
         isEnabled?: boolean,
     );
     /**
-     * @desc The material properties for this object's SpriteMaterial
+     * @description The material properties for this object's SpriteMaterial
      * NOTE This is required for testing purposes
      * @type {object}
      */
     materialProperties: MaterialPropertiesDefaults;
     /**
-     * @desc The texture for the THREE.SpriteMaterial map.
+     * @description The texture for the THREE.SpriteMaterial map.
      * @type {Texture}
      */
     texture: THREE.Texture;
     /**
-     * @desc THREE.SpriteMaterial instance.
+     * @description THREE.SpriteMaterial instance.
      * @type {SpriteMaterial}
      */
     material: THREE.SpriteMaterial;
     /**
-     * @desc THREE.Sprite instance.
+     * @description THREE.Sprite instance.
      * @type {Sprite}
      */
     sprite: THREE.Sprite;

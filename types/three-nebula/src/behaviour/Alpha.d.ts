@@ -27,12 +27,12 @@ export default class Alpha extends Behaviour {
         isEnabled?: boolean,
     );
     /**
-     * @description The starting alpha value
+     * @descriptionription The starting alpha value
      */
     alphaA: number | Span;
 
     /**
-     * @description The ending alpha value
+     * @descriptionription The ending alpha value
      */
     alphaB: number | Span;
 

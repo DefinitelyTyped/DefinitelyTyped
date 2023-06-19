@@ -26,13 +26,13 @@ export default class Repulsion extends Attraction {
         isEnabled?: boolean,
     );
     /**
-     * @desc Repulsion is attraction with negative force.
+     * @description Repulsion is attraction with negative force.
      * @type {number}
      */
     force: number;
 
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: string;

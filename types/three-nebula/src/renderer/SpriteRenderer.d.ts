@@ -7,7 +7,7 @@ import MeshRenderer from './MeshRenderer';
 export default class SpriteRenderer extends MeshRenderer {
     constructor(container: Scene, THREE: Three);
     /**
-     * @desc The class type.
+     * @description The class type.
      * @type {string}
      */
     type: string;
