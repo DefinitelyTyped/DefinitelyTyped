@@ -63,6 +63,7 @@ type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
 const submitRelatedActions: SubmitRelatedActions[] = ['afterWrite', 'apply', 'commit', 'submit'];
 for (const action of submitRelatedActions) {
     backend.use(action, (request, callback) => {
+        console.log((request as ShareDB.middleware.ApplyContext).$fixup);
         if (request.agent.custom.user) {
             console.log(request.agent.custom.user.id);
         }

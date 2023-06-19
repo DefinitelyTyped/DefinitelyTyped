@@ -1,4 +1,4 @@
-// Type definitions for sharedb 1.0
+// Type definitions for sharedb 4.0
 // Project: https://github.com/share/sharedb
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
@@ -229,6 +229,12 @@ declare namespace sharedb {
         }
 
         interface ApplyContext extends BaseContext, SubmitRequest {
+            /**
+             * Ops may be amended in the apply middleware using this special function.
+             * 
+             * Read more: https://share.github.io/sharedb/middleware/op-submission#mutating-ops
+             */
+            $fixup: (op: any) => void;
         }
 
         interface CommitContext extends BaseContext, SubmitRequest {
