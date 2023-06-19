@@ -242,6 +242,9 @@ export abstract class BaseScenario {
 
     /** Tags specific to this scenario. */
     tags?: { [name: string]: string };
+
+    /** Additional options for each scenario */
+    options?: ScenarioOptions;
 }
 
 /**
@@ -439,3 +442,8 @@ export type Scenario =
     | ConstantArrivalRateScenario
     | RampingArrivalRateScenario
     | ExternallyControlledScenario;
+
+export interface ScenarioOptions {
+    /** Browser specific options */
+    browser?: any;
+}

@@ -101,3 +101,28 @@ const tlsOptions4: Options = {
         },
     ],
 };
+
+const browserScenarios: Scenario[] = [
+    {
+        executor: 'shared-iterations',
+        iterations: 100,
+        options: {
+            browser: {
+                type: 'chromium',
+            },
+        },
+    },
+];
+
+const browserScenariosBad: Scenario[] = [
+    {
+        executor: 'shared-iterations',
+        iterations: 100,
+        options: {
+            // @ts-expect-error
+            somethingElse: {
+                type: 'chromium',
+            },
+        },
+    },
+];

@@ -101,9 +101,20 @@ declare namespace execution {
         idInTest: number;
 
         /**
-         * 	Hash to set or get VU tags.
+         * 	Map to set or get VU tags.
+         * 	@deprecated should use `metrics.tags` instead of just `tags`
          */
         tags: Record<string, number | string | boolean>;
+        metrics: {
+            /**
+             * 	Map to set or get VU tags.
+             */
+            tags: Record<string, number | string | boolean>;
+            /**
+             * 	Map to set or get VU metadata.
+             */
+            metadata: Record<string, number | string | boolean>;
+        }
     };
 }
 
