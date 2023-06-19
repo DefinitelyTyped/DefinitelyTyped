@@ -95,3 +95,5 @@ export default class MobileGPURenderer extends BaseRenderer {
     getTextureID(texture: TextureAtlas, debug: boolean): number;
     destroy(): void;
 }
+
+export * from './shaders';

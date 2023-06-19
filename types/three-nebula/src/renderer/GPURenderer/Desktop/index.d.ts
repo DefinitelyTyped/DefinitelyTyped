@@ -107,3 +107,5 @@ export type Three = typeof import('three');
 export type Container = object & {
     scene: Scene;
 };
+
+export * from './shaders';
