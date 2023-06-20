@@ -35,6 +35,8 @@ declare namespace bricks {
         complement?: string;
     }
 
+    type EntityType = 'individual' | 'association';
+
     interface Payer {
         email?: string;
         identification?: PayerIdentification;
@@ -166,6 +168,10 @@ declare namespace bricks {
         backUrls?: StatusBrickBackUrls;
     }
 
+    interface StatusBrickAdditionalData {
+        externalResourceUrl: string;
+        creq: string;
+    }
     interface BrickInitialization {
         amount?: number;
         payer?: Payer;
@@ -184,6 +190,11 @@ declare namespace bricks {
             : BrickType extends 'payment'
             ? PaymentBrickCallbacks<BrickType>
             : iBrickCallbacks;
+        additionalData?: StatusBrickAdditionalData;
+
+    interface BrickSettings {
+        // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
+        callbacks?: BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
     }
@@ -250,6 +261,7 @@ declare namespace bricks {
         address?: PayerAddressAPI;
         first_name?: string;
         last_name?: string;
+        entity_type?: EntityType;
     }
 
     enum PaymentType {
@@ -291,10 +303,21 @@ declare namespace bricks {
         payer: SavedCardPayer;
     }
 
-    interface TicketFormData {
+    interface Metadata {
+        payment_point: string;
+        payment_mode: string;
+    }
+
+    interface TransactionDetails {
+        financial_institution: string;
+    }
+
+      interface TicketFormData {
         transaction_amount: number;
         payment_method_id: string;
         payer: PayerAPI;
+        metadata?: Metadata;
+        transaction_details?: TransactionDetails;
     }
 
     interface AdditionalSavedCardFormData {

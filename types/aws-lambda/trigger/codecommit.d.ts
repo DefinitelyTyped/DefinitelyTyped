@@ -1,4 +1,4 @@
-import { Handler } from "../handler";
+import { Handler } from '../handler';
 
 export type CodeCommitHandler = Handler<CodeCommitTrigger, void>;
 
@@ -9,8 +9,7 @@ export type CodeCommitHandler = Handler<CodeCommitTrigger, void>;
 export interface CodeCommitTrigger {
     awsRegion: string;
     codecommit: {
-        references: Array<
-        {
+        references: Array<{
             commit: string;
             created?: boolean;
             deleted?: boolean;

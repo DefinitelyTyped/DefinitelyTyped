@@ -30,7 +30,6 @@ brickBuilder.create('cardPayment', 'container', {
             });
         },
     },
-});
 
 brickBuilder.create('payment', 'containerPayment', {
     initialization: {

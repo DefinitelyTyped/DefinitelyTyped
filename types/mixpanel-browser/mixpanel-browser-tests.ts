@@ -34,9 +34,24 @@ mixpanel.register({
     Email: 'jdoe@example.com',
     'Account Type': 'Free',
 });
+mixpanel.register({
+    Email: 'jdoe@example.com',
+}, 3);
+mixpanel.register({
+    Email: 'jdoe@example.com',
+}, { persistent: false });
 mixpanel.register_once({
     'First Login Date': new Date().toISOString(),
 });
+mixpanel.register_once({
+    'First Login Date': new Date().toISOString(),
+}, 3);
+mixpanel.register_once({
+    'First Login Date': new Date().toISOString(),
+}, { persistent: false });
+
+mixpanel.unregister('First Login Date');
+mixpanel.unregister('First Login Date', { persistent: false });
 mixpanel.init('YOUR PROJECT TOKEN', {
     loaded: mixpanel => {
         const distinct_id = mixpanel.get_distinct_id();
