@@ -5,15 +5,25 @@ declare namespace bricks {
     message: string;
   }
 
-  interface BrickCallbacks {
-    onSubmit: (
-      formData: CardFormData | PaymentFormData,
-      param2?: AdditionalCardFormData | AdditionalPaymentFormData
-    ) => Promise<void> | string;
+  interface iBrickCallbacks {
     onReady?: () => void;
     onError?: (error: BrickError) => void;
+  }
+
+  interface onSubmit<BrickType> {
+    onSubmit: (
+      formData: CardFormData | PaymentFormData,
+      param2?: AdditionalCardFormData | AdditionalPaymentFormData,
+    ) => BrickType extends 'wallet' ? Promise<string> : Promise<void>;
+  }
+
+  interface onBinChange {
     onBinChange?: (bin: string) => void;
   }
+
+  interface WalletBrickCallbacks<BrickType> extends iBrickCallbacks, onSubmit<BrickType> {}
+  interface CardPaymentBrickCallbacks<BrickType> extends iBrickCallbacks, onSubmit<BrickType>, onBinChange {}
+  interface PaymentBrickCallbacks<BrickType> extends iBrickCallbacks, onSubmit<BrickType>, onBinChange {}
 
   interface PayerAddress {
     zipCode?: string;
@@ -165,9 +175,15 @@ declare namespace bricks {
     redirectMode?: WalletButtonRedirectMode;
   }
 
-  interface BrickSettings {
+  interface BrickSettings<BrickType> {
     // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-    callbacks?: BrickCallbacks;
+    callbacks: BrickType extends 'wallet'
+      ? WalletBrickCallbacks<BrickType>
+      : BrickType extends 'cardPayment'
+      ? CardPaymentBrickCallbacks<BrickType>
+      : BrickType extends 'payment'
+      ? PaymentBrickCallbacks<BrickType>
+      : iBrickCallbacks;
     initialization?: BrickInitialization;
     customization?: BrickCustomization;
   }
@@ -319,10 +335,10 @@ declare namespace bricks {
 
   interface Bricks {
     isInitialized(): boolean;
-    create(
-      brick: BrickTypes,
+    create<BrickType extends BrickTypes>(
+      brick: BrickType,
       containerId: string,
-      settings: BrickSettings
+      settings: BrickSettings<BrickType>,
     ): Promise<BrickController>;
   }
 }
