@@ -13,7 +13,7 @@ declare namespace bricks {
     interface Submit<BrickType> {
         onSubmit: (
             formData: CardFormData | PaymentFormData,
-            param2?: AdditionalCardFormData | AdditionalPaymentFormData,
+            additionalData?: AdditionalCardFormData | AdditionalPaymentFormData,
         ) => BrickType extends 'wallet' ? Promise<string> : Promise<void>;
     }
 
