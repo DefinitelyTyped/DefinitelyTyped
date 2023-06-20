@@ -10,7 +10,7 @@ declare namespace bricks {
         onError?: (error: BrickError) => void;
     }
 
-    interface onSubmit<BrickType> {
+    interface Submit<BrickType> {
         onSubmit: (
             formData: CardFormData | PaymentFormData,
             param2?: AdditionalCardFormData | AdditionalPaymentFormData,
