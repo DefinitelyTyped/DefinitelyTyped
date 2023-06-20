@@ -108,6 +108,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf2: Buffer = Buffer.alloc(5, 'a');
     const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
     const buf4: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ', 'base64url');
+    const buf5: Buffer = Buffer.alloc(2, new Uint8Array([1, 2]));
 }
 // Class Method: Buffer.allocUnsafe(size)
 {
