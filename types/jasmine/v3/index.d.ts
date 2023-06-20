@@ -14,7 +14,6 @@
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 //                 Chives <https://github.com/chivesrs>
 //                 kirjs <https://github.com/kirjs>
-//                 Md. Enzam Hossain <https://github.com/ienzam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -230,7 +229,11 @@ declare namespace jasmine {
           };
     type SpyObjMethodNames<T = undefined> = T extends undefined
         ? ReadonlyArray<string> | { [methodName: string]: any }
-        : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any };
+        : (ReadonlyArray<keyof T> |
+            { [P in keyof T]?:
+                // Value should be the return type (unless this is a method on Object.prototype, since all object literals contain those methods)
+                T[P] extends Func ? (ReturnType<T[P]> | (P extends keyof Object ? Object[P] : never)) : any
+            });
 
     type SpyObjPropertyNames<T = undefined> = T extends undefined
         ? ReadonlyArray<string> | { [propertyName: string]: any }

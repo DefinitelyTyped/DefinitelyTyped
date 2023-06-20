@@ -36,9 +36,9 @@ crypto.subtle.decrypt('foo');
 // @ts-expect-error
 crypto.subtle.decrypt('AES-CBC', null);
 // @ts-expect-error
-crypto.subtle.decrypt({name: 'AES-CBC'}, null);
+crypto.subtle.decrypt({ name: 'AES-CBC' }, null);
 // @ts-expect-error
-crypto.subtle.decrypt({name: 'AES-CBC'}, aesCryptoKey, null);
+crypto.subtle.decrypt({ name: 'AES-CBC' }, aesCryptoKey, null);
 
 //
 // crypto.subtle.digest

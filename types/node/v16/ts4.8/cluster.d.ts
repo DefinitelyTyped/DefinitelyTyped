@@ -55,6 +55,7 @@ declare module 'cluster' {
     import * as child from 'node:child_process';
     import EventEmitter = require('node:events');
     import * as net from 'node:net';
+    type SerializationType = 'json' | 'advanced';
     export interface ClusterSettings {
         execArgv?: string[] | undefined; // default: process.execArgv
         exec?: string | undefined;
@@ -64,6 +65,9 @@ declare module 'cluster' {
         uid?: number | undefined;
         gid?: number | undefined;
         inspectPort?: number | (() => number) | undefined;
+        serialization?: SerializationType | undefined;
+        cwd?: string | undefined;
+        windowsHide?: boolean | undefined;
     }
     export interface Address {
         address: string;

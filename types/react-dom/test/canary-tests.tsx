@@ -1,4 +1,4 @@
-/// <reference types="../next"/>
+/// <reference types="../canary"/>
 
 function preloadTest() {
     function Component() {

@@ -366,7 +366,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 #### Common mistakes
 
 * First, follow advice from the [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
+* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write 'path/to/package/**/*.ts'`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
   ```tsx
   // prettier-ignore
   // @ts-expect-error
