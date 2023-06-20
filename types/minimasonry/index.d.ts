@@ -3,7 +3,7 @@
 // Definitions by: Paul Ebose <https://github.com/plbstl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyType
 
-interface MiniMasonryOptions {
+export interface MiniMasonryOptions {
     /**
      * Target width of elements.
      * @default 255
@@ -64,6 +64,7 @@ interface MiniMasonryOptions {
  *     container: '.masonry_transition'
  * });
  */
+// tslint:disable-next-line:npm-naming
 export default class MiniMasonry {
     constructor(options: MiniMasonryOptions);
     /**
