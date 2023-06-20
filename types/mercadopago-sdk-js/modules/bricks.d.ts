@@ -331,6 +331,10 @@ declare namespace bricks {
 
     interface Bricks {
         isInitialized(): boolean;
-        create(brick: BrickTypes, containerId: string, settings: BrickSettings): Promise<BrickController>;
+        create<BrickType extends BrickTypes>(
+            brick: BrickType,
+            containerId: string,
+            settings: BrickSettings<BrickType>,
+        ): Promise<BrickController>;
     }
 }
