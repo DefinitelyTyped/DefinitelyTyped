@@ -99,7 +99,7 @@ luego sigue las instrucciones para [editar un paquete existente](#editar-un-paqu
 
 Una vez que hayas probado tu paquete, podrás compartirlo en Definitely Typed.
 
-Primero, haz un [fork](https://guides.github.com/activities/forking/) en este repositorio, instala [node](https://nodejs.org/), y luego ejecuta la `npm install`.
+Primero, [bifurca](https://docs.github.com/es/get-started/quickstart/fork-a-repo) este repositorio, instala [node](https://nodejs.org/), y luego ejecuta el comando `npm install`.
 
 
 #### Editar un paquete existente
