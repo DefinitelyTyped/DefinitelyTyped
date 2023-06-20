@@ -17,7 +17,7 @@ declare namespace bricks {
         ) => BrickType extends 'wallet' ? Promise<string> : Promise<void>;
     }
 
-    interface onBinChange {
+    interface BinChange {
         onBinChange?: (bin: string) => void;
     }
 
