@@ -53,7 +53,7 @@ export function putParameterSync(
 export function newQuery(
     path?: SSM.Types.PSParameterName,
     options?: SSM.Types.ClientConfiguration
-): Promise<SSM.Types.ParameterList>
+): Promise<SSM.Types.ParameterList>;
 
 export interface ParameterQuery {
     path(path: SSM.Types.PSParameterName): ParameterQuery;
