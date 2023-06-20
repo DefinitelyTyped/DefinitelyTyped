@@ -64,7 +64,7 @@ interface MiniMasonryOptions {
  *     container: '.masonry_transition'
  * });
  */
-declare class MiniMasonry {
+export default class MiniMasonry {
     constructor(options: MiniMasonryOptions);
     /**
      * If list has changed, trigger a re-layout of the masonry.
@@ -75,5 +75,3 @@ declare class MiniMasonry {
      */
     destroy(): void;
 }
-
-export = MiniMasonry;

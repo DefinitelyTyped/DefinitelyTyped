@@ -1,4 +1,4 @@
-import MiniMasonry = require('minimasonry');
+import MiniMasonry from 'minimasonry';
 
 // $ExpectType MiniMasonry
 const masonry = new MiniMasonry({ container: '' });
