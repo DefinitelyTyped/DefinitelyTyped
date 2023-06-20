@@ -5,14 +5,19 @@ declare namespace bricks {
         message: string;
     }
 
-    interface BrickCallbacks {
+    interface Submit<BrickType> {
         onSubmit: (
             formData: CardFormData | PaymentFormData,
-            param2?: AdditionalCardFormData | AdditionalPaymentFormData,
-        ) => Promise<void>;
+            additionalData?: AdditionalCardFormData | AdditionalPaymentFormData,
+        ) => BrickType extends 'wallet' ? Promise<string> : Promise<void>;
+    }
+
+    interface BinChange {
+        onBinChange?: (bin: string) => void;
+    }
+    interface BrickCallbacks {
         onReady?: () => void;
         onError?: (error: BrickError) => void;
-        onBinChange?: (bin: string) => void;
     }
 
     interface PayerAddress {
