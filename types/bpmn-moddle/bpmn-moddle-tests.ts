@@ -1,24 +1,18 @@
-import * as BPMNModdle from "bpmn-moddle";
+import { Moddle, BPMNModdle, Definitions, Process } from 'bpmn-moddle';
 
-const moddle: BPMNModdle.Moddle = {} as any;
+const moddle: Moddle = {} as any;
 
-const element1 = moddle.create("bpmn:UserTask"); // Expect type User Task
-element1.$type = "bpmn:UserTask"; // Expect to check against type correctly
+const element1 = moddle.create('bpmn:UserTask'); // Expect type User Task
+element1.$type = 'bpmn:UserTask'; // Expect to check against type correctly
 
-const bpmnModdle: BPMNModdle.BPMNModdle = {} as any;
+const bpmnModdle: BPMNModdle = {} as any;
 
-bpmnModdle.fromXML("", (err, definitions, parseContext) => {
-    err; // type of error
-    definitions; // type of definition
-    parseContext; // type of any
-});
+bpmnModdle.fromXML('');
 
-const definition: BPMNModdle.Definitions = {} as any;
+const definition: Definitions = {} as any;
 
 // Expect type of process or undefined
-const maybeProcess = definition.rootElements.find(
-    i => i.$type === "bpmn:Process"
-);
+const maybeProcess = definition.rootElements.find(i => i.$type === 'bpmn:Process');
 
 // Expect process to have additional typings to base element1
-const process = maybeProcess as BPMNModdle.Process;
+const process = maybeProcess as Process;
