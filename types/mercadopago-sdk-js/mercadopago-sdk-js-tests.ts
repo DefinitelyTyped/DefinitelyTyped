@@ -32,6 +32,25 @@ brickBuilder.create('cardPayment', 'container', {
     },
 });
 
+brickBuilder.create('wallet', 'container', {
+    initialization: {
+        amount: 100,
+    },
+    customization: {
+        texts: {
+            action: 'pay',
+            valueProp: 'smart_option',
+        },
+    },
+    callbacks: {
+        onSubmit: (formData: any, additionalData: any) => {
+            return new Promise(() => {
+                console.log(formData, additionalData);
+            });
+        },
+    },
+});
+
 const fieldInstance = mpInstance.fields.create('cardNumber', {});
 fieldInstance.mount('containerId');
 fieldInstance.update({});
