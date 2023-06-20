@@ -75,3 +75,10 @@ export default class MiniMasonry {
      */
     destroy(): void;
 }
+
+// browser global variable `MiniMasonry`
+declare global {
+    interface Window {
+        MiniMasonry: MiniMasonry;
+    }
+}

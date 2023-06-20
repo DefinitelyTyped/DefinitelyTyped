@@ -1,6 +1,9 @@
 import MiniMasonry from 'minimasonry';
 
 // $ExpectType MiniMasonry
+const masonry0 = window.MiniMasonry;
+
+// $ExpectType MiniMasonry
 const masonry = new MiniMasonry({ container: '' });
 
 // @ts-expect-error
