@@ -20,6 +20,10 @@ declare namespace bricks {
         onError?: (error: BrickError) => void;
     }
 
+    interface WalletBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType> {}
+    interface CardPaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
+    interface PaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
+
     interface PayerAddress {
         zipCode?: string;
         federalUnit?: string;
