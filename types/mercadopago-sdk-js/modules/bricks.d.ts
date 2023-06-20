@@ -174,9 +174,15 @@ declare namespace bricks {
         additionalData?: StatusBrickAdditionalData;
     }
 
-    interface BrickSettings {
+    interface BrickSettings<BrickType>{
         // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-        callbacks?: BrickCallbacks;
+        callbacks: BrickType extends 'wallet'
+            ? WalletBrickCallbacks<BrickType>
+            : BrickType extends 'cardPayment'
+            ? CardPaymentBrickCallbacks<BrickType>
+            : BrickType extends 'payment'
+            ? PaymentBrickCallbacks<BrickType>
+            : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
     }
