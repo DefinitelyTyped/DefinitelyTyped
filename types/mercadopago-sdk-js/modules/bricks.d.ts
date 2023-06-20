@@ -5,7 +5,7 @@ declare namespace bricks {
         message: string;
     }
 
-    interface iBrickCallbacks {
+    interface BrickCallbacks {
         onReady?: () => void;
         onError?: (error: BrickError) => void;
     }
