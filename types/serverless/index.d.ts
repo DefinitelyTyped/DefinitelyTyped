@@ -30,7 +30,7 @@ declare namespace Serverless {
     }
 
     interface Config {
-        servicePath?: string;
+        servicePath: string;
         serviceDir: string;
     }
 
