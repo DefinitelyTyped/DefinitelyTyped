@@ -1,4 +1,4 @@
-// Type definitions for mixpanel-browser 2.38
+// Type definitions for mixpanel-browser 2.47.0
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
