@@ -15,7 +15,7 @@ import Label from "sap/m/Label";
 import Column from "sap/m/Column";
 import Dialog from "sap/m/Dialog";
 import MessageBox from "sap/m/MessageBox";
-import FileUploader from "sap/ui/unified/FileUploader";
+import FileUploader, { FileUploader$UploadCompleteEvent } from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
 import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
@@ -138,7 +138,7 @@ const oFileUploader = new FileUploader({
             value: ((<ODataModel> Core.getModel()).getHeaders() as Headers)['x-csrf-token']
         }),
     ],
-    uploadComplete: (oEvent) => {
+    uploadComplete: (oEvent: FileUploader$UploadCompleteEvent) => { // 1.115.1: types not only for event parameters, but also for events
         const sResponse = oEvent.getParameter("response"); // 1.115: event objects are now specifically typed
         if (sResponse) {
             oUploadDialog.close();

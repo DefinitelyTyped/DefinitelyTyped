@@ -1,4 +1,4 @@
-// For Library Version: 1.115.0
+// For Library Version: 1.115.1
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -529,7 +529,7 @@ declare module "sap/ui/layout/BlockLayout" {
    *     screen size.
    * 	 -  On small screens all blocks will wrap to a single scrollable column
    */
-  class BlockLayout extends Control {
+  export default class BlockLayout extends Control {
     /**
      * Constructor for a new BlockLayout.
      *
@@ -728,7 +728,6 @@ declare module "sap/ui/layout/BlockLayout" {
       bKeepFontSize?: boolean
     ): this;
   }
-  export default BlockLayout;
 
   export interface $BlockLayoutSettings extends $ControlSettings {
     /**
@@ -782,7 +781,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
    * The BlockLayoutCell is used as an aggregation of the BlockLayoutRow. It contains Controls. The BlockLayoutCell
    * should be used only as aggregation of the BlockLayoutRow.
    */
-  class BlockLayoutCell extends Control {
+  export default class BlockLayoutCell extends Control {
     /**
      * Constructor for a new BlockLayoutCell.
      *
@@ -1122,7 +1121,6 @@ declare module "sap/ui/layout/BlockLayoutCell" {
       iWidth: number
     ): this;
   }
-  export default BlockLayoutCell;
 
   export interface $BlockLayoutCellSettings extends $ControlSettings {
     /**
@@ -1214,7 +1212,7 @@ declare module "sap/ui/layout/BlockLayoutCellData" {
    *
    * Holds layout data for the BlockLayoutCells contents.
    */
-  class BlockLayoutCellData extends LayoutData {
+  export default class BlockLayoutCellData extends LayoutData {
     /**
      * Constructor for a new BlockLayoutCellData.
      *
@@ -1388,7 +1386,6 @@ declare module "sap/ui/layout/BlockLayoutCellData" {
       iXlSize?: int
     ): this;
   }
-  export default BlockLayoutCellData;
 
   export interface $BlockLayoutCellDataSettings extends $LayoutDataSettings {
     /**
@@ -1435,7 +1432,7 @@ declare module "sap/ui/layout/BlockLayoutRow" {
    * The BlockLayoutRow is used as an aggregation to the BlockLayout. It aggregates Block Layout cells. The
    * BlockLayoutRow has 2 rendering modes - scrollable and non scrollable.
    */
-  class BlockLayoutRow extends Control {
+  export default class BlockLayoutRow extends Control {
     /**
      * Constructor for a new BlockLayoutRow.
      *
@@ -1656,7 +1653,6 @@ declare module "sap/ui/layout/BlockLayoutRow" {
       bScrollable?: boolean
     ): this;
   }
-  export default BlockLayoutRow;
 
   export interface $BlockLayoutRowSettings extends $ControlSettings {
     /**
@@ -1780,7 +1776,9 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
    * 	 - Alignment and ordering
    * 	 - Named grid areas and lines
    */
-  class CSSGrid extends Control implements cssgrid.IGridConfigurable {
+  export default class CSSGrid
+    extends Control
+    implements cssgrid.IGridConfigurable {
     __implements__sap_ui_layout_cssgrid_IGridConfigurable: boolean;
     /**
      * Constructor for a new CSSGrid.
@@ -1922,7 +1920,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      */
     getGridColumnGap(): CSSSize;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Implements IGridConfigurable interface
      *
@@ -1942,7 +1940,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      */
     getGridGap(): cssgrid.CSSGridGapShortHand;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the layout configuration of the `CSSGrid`.
      *
@@ -2212,7 +2210,6 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
       sWidth?: CSSSize
     ): this;
   }
-  export default CSSGrid;
 
   export interface $CSSGridSettings extends $ControlSettings {
     /**
@@ -2305,7 +2302,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
    *
    * Applies a sap.ui.layout.cssgrid.GridSettings to a provided DOM element or Control.
    */
-  class GridBasicLayout extends GridLayoutBase {
+  export default class GridBasicLayout extends GridLayoutBase {
     /**
      * Constructor for a new GridBasicLayout.
      *
@@ -2587,7 +2584,6 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
       sGridTemplateRows?: cssgrid.CSSGridTrack
     ): this;
   }
-  export default GridBasicLayout;
 
   export interface $GridBasicLayoutSettings extends $GridLayoutBaseSettings {
     /**
@@ -2663,7 +2659,7 @@ declare module "sap/ui/layout/cssgrid/GridBoxLayout" {
    *
    * Applies a sap.ui.layout.cssgrid.GridSettings to a provided DOM element or Control.
    */
-  class GridBoxLayout extends GridLayoutBase {
+  export default class GridBoxLayout extends GridLayoutBase {
     /**
      * Constructor for a new GridBoxLayout.
      *
@@ -2725,7 +2721,7 @@ declare module "sap/ui/layout/cssgrid/GridBoxLayout" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a gridTemplateColumns value based on boxWidth and boxMinWidth properties
      *
@@ -2823,7 +2819,6 @@ declare module "sap/ui/layout/cssgrid/GridBoxLayout" {
       sBoxWidth?: CSSSize
     ): this;
   }
-  export default GridBoxLayout;
 
   export interface $GridBoxLayoutSettings extends $GridLayoutBaseSettings {
     /**
@@ -2860,7 +2855,7 @@ declare module "sap/ui/layout/cssgrid/GridItemLayoutData" {
   /**
    * Holds layout data for a grid item.
    */
-  class GridItemLayoutData
+  export default class GridItemLayoutData
     extends LayoutData
     implements cssgrid.IGridItemLayoutData {
     __implements__sap_ui_layout_cssgrid_IGridItemLayoutData: boolean;
@@ -3087,7 +3082,6 @@ declare module "sap/ui/layout/cssgrid/GridItemLayoutData" {
       sGridRowStart?: cssgrid.CSSGridLine
     ): this;
   }
-  export default GridItemLayoutData;
 
   export interface $GridItemLayoutDataSettings extends $LayoutDataSettings {
     /**
@@ -3141,7 +3135,7 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
    *
    * Applies a sap.ui.layout.cssgrid.GridSettings to a provided DOM element or Control.
    */
-  class GridLayoutBase extends ManagedObject {
+  export default class GridLayoutBase extends ManagedObject {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -3205,7 +3199,7 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Removes all display:grid styles from the provided HTML element
      */
@@ -3216,7 +3210,7 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
       oElement: HTMLElement
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets all display:grid styles to the provided HTML element
      */
@@ -3249,7 +3243,7 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
      */
     isResponsive(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Hook function for the Grid's onAfterRendering
      */
@@ -3260,7 +3254,7 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
       oGrid: cssgrid.IGridConfigurable
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Hook function for the Grid's resize. Will be called if the grid layout is responsive.
      */
@@ -3271,7 +3265,6 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
       oEvent: jQuery.Event
     ): void;
   }
-  export default GridLayoutBase;
 
   export interface $GridLayoutBaseSettings extends $ManagedObjectSettings {}
 }
@@ -3283,10 +3276,9 @@ declare module "sap/ui/layout/cssgrid/GridLayoutDelegate" {
    * Add handlers for a sap.ui.layout.cssgrid.IGridConfigurable control lifecycle events. Applies the grid
    * layout when necessary. Calls sap.ui.layout.cssgrid.GridLayoutBase hook functions.
    */
-  class GridLayoutDelegate extends BaseObject {
+  export default class GridLayoutDelegate extends BaseObject {
     constructor();
   }
-  export default GridLayoutDelegate;
 }
 
 declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
@@ -3295,13 +3287,13 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
     $GridLayoutBaseSettings,
   } from "sap/ui/layout/cssgrid/GridLayoutBase";
 
-  import Event from "sap/ui/base/Event";
-
   import GridSettings from "sap/ui/layout/cssgrid/GridSettings";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.60
@@ -3309,7 +3301,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
    * Applies a sap.ui.layout.cssgrid.GridSettings to a provided DOM element or Control. Have to possibility
    * to hold multiple sap.ui.layout.cssgrid.GridSettings and apply the currently active GridSettings.
    */
-  class GridResponsiveLayout extends GridLayoutBase {
+  export default class GridResponsiveLayout extends GridLayoutBase {
     /**
      * Constructor for a new GridResponsiveLayout.
      *
@@ -3389,9 +3381,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridResponsiveLayoutLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridResponsiveLayout$LayoutChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.GridResponsiveLayout`
        * itself
@@ -3412,9 +3402,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridResponsiveLayoutLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridResponsiveLayout$LayoutChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.GridResponsiveLayout`
        * itself
@@ -3462,16 +3450,14 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridResponsiveLayoutLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridResponsiveLayout$LayoutChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
@@ -3481,7 +3467,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $GridResponsiveLayoutLayoutChangeEventParameters
+      mParameters?: GridResponsiveLayout$LayoutChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getContainerQuery containerQuery}.
@@ -3598,7 +3584,6 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       oLayoutXL: GridSettings
     ): this;
   }
-  export default GridResponsiveLayout;
 
   export interface $GridResponsiveLayoutSettings
     extends $GridLayoutBaseSettings {
@@ -3637,16 +3622,24 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
      * Fired when the currently active GridSettings changes
      */
     layoutChange?: (
-      oEvent: Event<$GridResponsiveLayoutLayoutChangeEventParameters>
+      oEvent: Event<GridResponsiveLayout$LayoutChangeEventParameters>
     ) => void;
   }
 
-  export interface $GridResponsiveLayoutLayoutChangeEventParameters {
+  export interface GridResponsiveLayout$LayoutChangeEventParameters {
     /**
      * The name of the newly active layout aggregation
      */
     layout?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'GridResponsiveLayout$LayoutChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $GridResponsiveLayoutLayoutChangeEventParameters = GridResponsiveLayout$LayoutChangeEventParameters;
+
+  export type GridResponsiveLayout$LayoutChangeEvent = Event<GridResponsiveLayout$LayoutChangeEventParameters>;
 }
 
 declare module "sap/ui/layout/cssgrid/GridSettings" {
@@ -3667,7 +3660,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
    *
    * Holds a set of CSS display:grid properties
    */
-  class GridSettings extends ManagedObject {
+  export default class GridSettings extends ManagedObject {
     /**
      * Constructor for a new GridSettings.
      *
@@ -3949,7 +3942,6 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
       sGridTemplateRows?: cssgrid.CSSGridTrack
     ): this;
   }
-  export default GridSettings;
 
   export interface $GridSettingsSettings extends $ManagedObjectSettings {
     /**
@@ -4023,7 +4015,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnItemLayoutData" {
    *
    * Holds layout data for an item inside a responsive column layout.
    */
-  class ResponsiveColumnItemLayoutData
+  export default class ResponsiveColumnItemLayoutData
     extends LayoutData
     implements cssgrid.IGridItemLayoutData {
     __implements__sap_ui_layout_cssgrid_IGridItemLayoutData: boolean;
@@ -4142,7 +4134,6 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnItemLayoutData" {
       iRows?: int
     ): this;
   }
-  export default ResponsiveColumnItemLayoutData;
 
   export interface $ResponsiveColumnItemLayoutDataSettings
     extends $LayoutDataSettings {
@@ -4164,9 +4155,9 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
     $GridLayoutBaseSettings,
   } from "sap/ui/layout/cssgrid/GridLayoutBase";
 
-  import Event from "sap/ui/base/Event";
-
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.72
@@ -4177,7 +4168,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
    *
    * Grid row's height is dynamically determined by the height of the highest grid element on this row.
    */
-  class ResponsiveColumnLayout extends GridLayoutBase {
+  export default class ResponsiveColumnLayout extends GridLayoutBase {
     /**
      * Constructor for a new `ResponsiveColumnLayout`.
      *
@@ -4257,9 +4248,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ResponsiveColumnLayoutLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: ResponsiveColumnLayout$LayoutChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
        * itself
@@ -4280,9 +4269,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ResponsiveColumnLayoutLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: ResponsiveColumnLayout$LayoutChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
        * itself
@@ -4300,16 +4287,14 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ResponsiveColumnLayoutLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: ResponsiveColumnLayout$LayoutChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
@@ -4319,7 +4304,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ResponsiveColumnLayoutLayoutChangeEventParameters
+      mParameters?: ResponsiveColumnLayout$LayoutChangeEventParameters
     ): this;
     /**
      * Returns if the Grid Layout is responsive.
@@ -4328,7 +4313,6 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
      */
     isResponsive(): boolean;
   }
-  export default ResponsiveColumnLayout;
 
   export interface $ResponsiveColumnLayoutSettings
     extends $GridLayoutBaseSettings {
@@ -4336,22 +4320,28 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
      * Fired when the currently active layout changes
      */
     layoutChange?: (
-      oEvent: Event<$ResponsiveColumnLayoutLayoutChangeEventParameters>
+      oEvent: Event<ResponsiveColumnLayout$LayoutChangeEventParameters>
     ) => void;
   }
 
-  export interface $ResponsiveColumnLayoutLayoutChangeEventParameters {
+  export interface ResponsiveColumnLayout$LayoutChangeEventParameters {
     /**
      * The name of the newly active layout - "S", "M", "ML", "L", "XL", "XXL" or "XXXL".
      */
     layout?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ResponsiveColumnLayout$LayoutChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ResponsiveColumnLayoutLayoutChangeEventParameters = ResponsiveColumnLayout$LayoutChangeEventParameters;
+
+  export type ResponsiveColumnLayout$LayoutChangeEvent = Event<ResponsiveColumnLayout$LayoutChangeEventParameters>;
 }
 
 declare module "sap/ui/layout/DynamicSideContent" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4367,6 +4357,8 @@ declare module "sap/ui/layout/DynamicSideContent" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.30
@@ -4428,7 +4420,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
    * the sticky elements of the control from becoming fixed at the top of the viewport. This applies for example
    * to {@link sap.m.Table} and {@link sap.m.PlanningCalendar}.
    */
-  class DynamicSideContent extends Control {
+  export default class DynamicSideContent extends Control {
     /**
      * Constructor for a new `DynamicSideContent`.
      *
@@ -4537,9 +4529,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicSideContentBreakpointChangedEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicSideContent$BreakpointChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.DynamicSideContent` itself
        */
@@ -4562,9 +4552,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicSideContentBreakpointChangedEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicSideContent$BreakpointChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.DynamicSideContent` itself
        */
@@ -4596,9 +4584,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicSideContentBreakpointChangedEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicSideContent$BreakpointChangedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4606,7 +4592,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     ): this;
     /**
      * @since 1.32
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:breakpointChanged breakpointChanged} to attached listeners.
      *
@@ -4616,7 +4602,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DynamicSideContentBreakpointChangedEventParameters
+      mParameters?: DynamicSideContent$BreakpointChangedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getContainerQuery containerQuery}.
@@ -4967,7 +4953,6 @@ declare module "sap/ui/layout/DynamicSideContent" {
      */
     toggle(): this;
   }
-  export default DynamicSideContent;
 
   export interface $DynamicSideContentSettings extends $ControlSettings {
     /**
@@ -5038,13 +5023,21 @@ declare module "sap/ui/layout/DynamicSideContent" {
      * Fires when the current breakpoint has been changed.
      */
     breakpointChanged?: (
-      oEvent: Event<$DynamicSideContentBreakpointChangedEventParameters>
+      oEvent: Event<DynamicSideContent$BreakpointChangedEventParameters>
     ) => void;
   }
 
-  export interface $DynamicSideContentBreakpointChangedEventParameters {
+  export interface DynamicSideContent$BreakpointChangedEventParameters {
     currentBreakpoint?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DynamicSideContent$BreakpointChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DynamicSideContentBreakpointChangedEventParameters = DynamicSideContent$BreakpointChangedEventParameters;
+
+  export type DynamicSideContent$BreakpointChangedEvent = Event<DynamicSideContent$BreakpointChangedEventParameters>;
 }
 
 declare module "sap/ui/layout/FixFlex" {
@@ -5082,7 +5075,7 @@ declare module "sap/ui/layout/FixFlex" {
    * 	 - If minFlexSize is set, then a scrollbar is shown in the flexible part, depending on the `vertical`
    *     property.
    */
-  class FixFlex extends Control {
+  export default class FixFlex extends Control {
     /**
      * Constructor for a new FixFlex.
      *
@@ -5364,7 +5357,6 @@ declare module "sap/ui/layout/FixFlex" {
       bVertical?: boolean
     ): this;
   }
-  export default FixFlex;
 
   export interface $FixFlexSettings extends $ControlSettings {
     /**
@@ -5428,7 +5420,7 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
    * Depending on its size, the `Form` control is divided into 1, 2, 3 or 4 columns by the `ColumnLayout`
    * control. Using `ColumnContainerData`, the size of the `FormContainer` element can be influenced.
    */
-  class ColumnContainerData extends LayoutData {
+  export default class ColumnContainerData extends LayoutData {
     /**
      * Constructor for a new sap.ui.layout.form.ColumnContainerData.
      *
@@ -5579,7 +5571,6 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
       sColumnsXL?: form.ColumnsXL
     ): this;
   }
-  export default ColumnContainerData;
 
   export interface $ColumnContainerDataSettings extends $LayoutDataSettings {
     /**
@@ -5623,7 +5614,7 @@ declare module "sap/ui/layout/form/ColumnElementData" {
    * One `FormElement` element contains 12 cells and has two sizes, small and large. Using `ColumnElementData`,
    * the default calculation of the cells used for a field or label can be overwritten.
    */
-  class ColumnElementData extends LayoutData {
+  export default class ColumnElementData extends LayoutData {
     /**
      * Constructor for a new sap.ui.layout.form.ColumnElementData.
      *
@@ -5751,7 +5742,6 @@ declare module "sap/ui/layout/form/ColumnElementData" {
       sCellsSmall?: form.ColumnCells
     ): this;
   }
-  export default ColumnElementData;
 
   export interface $ColumnElementDataSettings extends $LayoutDataSettings {
     /**
@@ -5820,7 +5810,7 @@ declare module "sap/ui/layout/form/ColumnLayout" {
    * **Note:** This control cannot be used stand-alone, it just renders a `Form` control, so it must be assigned
    * to a `Form` control using the `layout` aggregation.
    */
-  class ColumnLayout extends FormLayout {
+  export default class ColumnLayout extends FormLayout {
     /**
      * Constructor for a new `sap.ui.layout.form.ColumnLayout`.
      *
@@ -6027,7 +6017,6 @@ declare module "sap/ui/layout/form/ColumnLayout" {
       sLabelCellsLarge?: form.ColumnCells
     ): this;
   }
-  export default ColumnLayout;
 
   export interface $ColumnLayoutSettings extends $FormLayoutSettings {
     /**
@@ -6104,7 +6093,7 @@ declare module "sap/ui/layout/form/Form" {
    * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
    * alignment or wrong spacing between the controls.
    */
-  class Form extends Control {
+  export default class Form extends Control {
     /**
      * Constructor for a new sap.ui.layout.form.Form.
      *
@@ -6441,7 +6430,6 @@ declare module "sap/ui/layout/form/Form" {
       sWidth?: CSSSize
     ): this;
   }
-  export default Form;
 
   export interface $FormSettings extends $ControlSettings {
     /**
@@ -6539,7 +6527,7 @@ declare module "sap/ui/layout/form/FormContainer" {
    * A `FormContainer` represents a group inside a `Form`. It consists of `FormElements`. The rendering of
    * the `FormContainer` is done by the `FormLayout` assigned to the `Form`.
    */
-  class FormContainer extends UI5Element {
+  export default class FormContainer extends UI5Element {
     /**
      * Constructor for a new sap.ui.layout.form.FormContainer.
      *
@@ -6602,7 +6590,7 @@ declare module "sap/ui/layout/form/FormContainer" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.74.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the editable state of the `FormContainer`.
      *
@@ -6890,7 +6878,6 @@ declare module "sap/ui/layout/form/FormContainer" {
       bVisible?: boolean
     ): this;
   }
-  export default FormContainer;
 
   export interface $FormContainerSettings extends $ElementSettings {
     /**
@@ -6977,7 +6964,7 @@ declare module "sap/ui/layout/form/FormElement" {
    * A `FormElement` represents a row in a `FormContainer`. A `FormElement` is a combination of one label
    * and different controls associated to this label.
    */
-  class FormElement extends UI5Element {
+  export default class FormElement extends UI5Element {
     /**
      * Constructor for a new sap.ui.layout.form.FormElement.
      *
@@ -7040,7 +7027,7 @@ declare module "sap/ui/layout/form/FormElement" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.74.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the editable state of the `FormElement`.
      *
@@ -7143,7 +7130,7 @@ declare module "sap/ui/layout/form/FormElement" {
       iIndex: int
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Labels inside of a Form must be invalidated if "editable" changed on Form
      */
@@ -7205,7 +7192,6 @@ declare module "sap/ui/layout/form/FormElement" {
       bVisible?: boolean
     ): this;
   }
-  export default FormElement;
 
   export interface $FormElementSettings extends $ElementSettings {
     /**
@@ -7249,7 +7235,7 @@ declare module "sap/ui/layout/form/FormLayout" {
    * **Note:** This control must not be used to render a `Form` in productive applications as it does not
    * fulfill any design guidelines and usability standards.
    */
-  class FormLayout extends Control {
+  export default class FormLayout extends Control {
     /**
      * Constructor for a new sap.ui.layout.form.FormLayout.
      *
@@ -7346,7 +7332,6 @@ declare module "sap/ui/layout/form/FormLayout" {
       sBackgroundDesign?: BackgroundDesign | keyof typeof BackgroundDesign
     ): this;
   }
-  export default FormLayout;
 
   export interface $FormLayoutSettings extends $ControlSettings {
     /**
@@ -7378,7 +7363,7 @@ declare module "sap/ui/layout/form/GridContainerData" {
    *
    * The `GridLayout`-specific layout data for `FormContainers`.
    */
-  class GridContainerData extends LayoutData {
+  export default class GridContainerData extends LayoutData {
     /**
      * Constructor for a new sap.ui.layout.form.GridContainerData.
      *
@@ -7471,7 +7456,6 @@ declare module "sap/ui/layout/form/GridContainerData" {
       bHalfGrid?: boolean
     ): this;
   }
-  export default GridContainerData;
 
   export interface $GridContainerDataSettings extends $LayoutDataSettings {
     /**
@@ -7500,7 +7484,7 @@ declare module "sap/ui/layout/form/GridElementData" {
    *
    * The `GridLayout`-specific layout data for `FormElement` fields.
    */
-  class GridElementData extends LayoutData {
+  export default class GridElementData extends LayoutData {
     /**
      * Constructor for a new sap.ui.layout.form.GridElementData.
      *
@@ -7636,7 +7620,6 @@ declare module "sap/ui/layout/form/GridElementData" {
       iVCells?: int
     ): this;
   }
-  export default GridElementData;
 
   export interface $GridElementDataSettings extends $LayoutDataSettings {
     /**
@@ -7689,7 +7672,7 @@ declare module "sap/ui/layout/form/GridLayout" {
    * This control cannot be used stand-alone, it just renders a `Form`, so it must be assigned to a `Form`
    * using the `layout` aggregation.
    */
-  class GridLayout extends FormLayout {
+  export default class GridLayout extends FormLayout {
     /**
      * Constructor for a new sap.ui.layout.form.GridLayout.
      *
@@ -7786,7 +7769,6 @@ declare module "sap/ui/layout/form/GridLayout" {
       bSingleColumn?: boolean
     ): this;
   }
-  export default GridLayout;
 
   export interface $GridLayoutSettings extends $FormLayoutSettings {
     /**
@@ -7829,7 +7811,7 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
    * This control cannot be used stand-alone, it just renders a `Form`, so it must be assigned to a `Form`
    * using the `layout` aggregation.
    */
-  class ResponsiveGridLayout extends FormLayout {
+  export default class ResponsiveGridLayout extends FormLayout {
     /**
      * Constructor for a new `sap.ui.layout.form.ResponsiveGridLayout`.
      *
@@ -8445,7 +8427,6 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
       bSingleContainerFullSize?: boolean
     ): this;
   }
-  export default ResponsiveGridLayout;
 
   export interface $ResponsiveGridLayoutSettings extends $FormLayoutSettings {
     /**
@@ -8621,7 +8602,7 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
    * This control cannot be used stand-alone, it just renders a `Form`, so it must be assigned to a `Form`
    * using the `layout` aggregation.
    */
-  class ResponsiveLayout extends FormLayout {
+  export default class ResponsiveLayout extends FormLayout {
     /**
      * Constructor for a new sap.ui.layout.form.ResponsiveLayout.
      *
@@ -8689,7 +8670,6 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default ResponsiveLayout;
 
   export interface $ResponsiveLayoutSettings extends $FormLayoutSettings {}
 }
@@ -8720,7 +8700,7 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
    * **Note:** Please use the `ColumnLayout` as `layout` of the `Form`. For other layouts, the field arrangement
    * might not be suitable in every case.
    */
-  class SemanticFormElement extends FormElement {
+  export default class SemanticFormElement extends FormElement {
     /**
      * Constructor for a new sap.ui.layout.form.SemanticFormElement.
      *
@@ -8889,7 +8869,6 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
       sDelimiter?: string
     ): this;
   }
-  export default SemanticFormElement;
 
   export interface $SemanticFormElementSettings extends $FormElementSettings {
     /**
@@ -8948,7 +8927,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
    *
    * **Note:** If a more complex form is needed, use the `{@link sap.ui.layout.form.Form Form}` control instead.
    */
-  class SimpleForm extends Control {
+  export default class SimpleForm extends Control {
     /**
      * Constructor for a new sap.ui.layout.form.SimpleForm.
      *
@@ -10098,7 +10077,6 @@ declare module "sap/ui/layout/form/SimpleForm" {
       sWidth?: CSSSize
     ): this;
   }
-  export default SimpleForm;
 
   export interface $SimpleFormSettings extends $ControlSettings {
     /**
@@ -10463,7 +10441,7 @@ declare module "sap/ui/layout/Grid" {
    *     An additional `sapUiRespGridOverflowHidden` CSS class should be added to the control in order to hide
    *     the overflowing part of it.
    */
-  class Grid extends Control {
+  export default class Grid extends Control {
     /**
      * Constructor for a new `Grid`.
      *
@@ -10563,7 +10541,7 @@ declare module "sap/ui/layout/Grid" {
      */
     destroyContent(): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the `Grid` accessibility information.
      * See:
@@ -10867,7 +10845,6 @@ declare module "sap/ui/layout/Grid" {
       sWidth?: CSSSize
     ): this;
   }
-  export default Grid;
 
   export interface $GridSettings extends $ControlSettings {
     /**
@@ -10955,7 +10932,7 @@ declare module "sap/ui/layout/GridData" {
    * to `true` if the next form element has to be displayed on a new line. Otherwise the `GridData` overrides
    * the layout provided by the `Form`.
    */
-  class GridData extends LayoutData {
+  export default class GridData extends LayoutData {
     /**
      * Constructor for a new `GridData`.
      *
@@ -11855,7 +11832,6 @@ declare module "sap/ui/layout/GridData" {
       bVisibleXL?: boolean
     ): this;
   }
-  export default GridData;
 
   export interface $GridDataSettings extends $LayoutDataSettings {
     /**
@@ -12074,7 +12050,7 @@ declare module "sap/ui/layout/HorizontalLayout" {
    *
    * A layout that provides support for horizontal alignment of controls
    */
-  class HorizontalLayout extends Control {
+  export default class HorizontalLayout extends Control {
     /**
      * Constructor for a new HorizontalLayout.
      *
@@ -12153,7 +12129,7 @@ declare module "sap/ui/layout/HorizontalLayout" {
      */
     destroyContent(): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -12245,7 +12221,6 @@ declare module "sap/ui/layout/HorizontalLayout" {
       bAllowWrapping?: boolean
     ): this;
   }
-  export default HorizontalLayout;
 
   export interface $HorizontalLayoutSettings extends $ControlSettings {
     /**
@@ -12264,8 +12239,6 @@ declare module "sap/ui/layout/HorizontalLayout" {
 declare module "sap/ui/layout/PaneContainer" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import LayoutData from "sap/ui/core/LayoutData";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -12278,6 +12251,8 @@ declare module "sap/ui/layout/PaneContainer" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.38
    *
@@ -12285,7 +12260,7 @@ declare module "sap/ui/layout/PaneContainer" {
    *
    * Could be used as an aggregation of ResponsiveSplitter or nested in other PaneContainers.
    */
-  class PaneContainer extends UI5Element {
+  export default class PaneContainer extends UI5Element {
     /**
      * Constructor for a new PaneContainer.
      *
@@ -12376,7 +12351,7 @@ declare module "sap/ui/layout/PaneContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$PaneContainerResizeEventParameters>) => void,
+      fnFunction: (p1: PaneContainer$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.PaneContainer` itself
        */
@@ -12396,7 +12371,7 @@ declare module "sap/ui/layout/PaneContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$PaneContainerResizeEventParameters>) => void,
+      fnFunction: (p1: PaneContainer$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.PaneContainer` itself
        */
@@ -12419,14 +12394,14 @@ declare module "sap/ui/layout/PaneContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$PaneContainerResizeEventParameters>) => void,
+      fnFunction: (p1: PaneContainer$ResizeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
@@ -12436,7 +12411,7 @@ declare module "sap/ui/layout/PaneContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $PaneContainerResizeEventParameters
+      mParameters?: PaneContainer$ResizeEventParameters
     ): this;
     /**
      * Getter for property layoutData.
@@ -12515,7 +12490,6 @@ declare module "sap/ui/layout/PaneContainer" {
       sOrientation: Orientation | keyof typeof Orientation
     ): this;
   }
-  export default PaneContainer;
 
   export interface $PaneContainerSettings extends $ElementSettings {
     /**
@@ -12534,10 +12508,10 @@ declare module "sap/ui/layout/PaneContainer" {
     /**
      * Fired when contents are resized.
      */
-    resize?: (oEvent: Event<$PaneContainerResizeEventParameters>) => void;
+    resize?: (oEvent: Event<PaneContainer$ResizeEventParameters>) => void;
   }
 
-  export interface $PaneContainerResizeEventParameters {
+  export interface PaneContainer$ResizeEventParameters {
     /**
      * An array of values representing the old (pixel)sizes of the split panes, which are inside the pane container.
      */
@@ -12548,6 +12522,14 @@ declare module "sap/ui/layout/PaneContainer" {
      */
     newSizes?: float[];
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'PaneContainer$ResizeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $PaneContainerResizeEventParameters = PaneContainer$ResizeEventParameters;
+
+  export type PaneContainer$ResizeEvent = Event<PaneContainer$ResizeEventParameters>;
 }
 
 declare module "sap/ui/layout/ResponsiveFlowLayout" {
@@ -12568,7 +12550,7 @@ declare module "sap/ui/layout/ResponsiveFlowLayout" {
    * This is a layout where several controls can be added. These controls are blown up to fit in an entire
    * row. If the window resizes, the controls are moved between the rows and resized again.
    */
-  class ResponsiveFlowLayout extends Control {
+  export default class ResponsiveFlowLayout extends Control {
     /**
      * Constructor for a new ResponsiveFlowLayout.
      *
@@ -12766,7 +12748,6 @@ declare module "sap/ui/layout/ResponsiveFlowLayout" {
       bResponsive?: boolean
     ): this;
   }
-  export default ResponsiveFlowLayout;
 
   export interface $ResponsiveFlowLayoutSettings extends $ControlSettings {
     /**
@@ -12805,7 +12786,7 @@ declare module "sap/ui/layout/ResponsiveFlowLayoutData" {
    *
    * This is a LayoutData element that can be added to a control if this control is used within a ResponsiveFlowLayout.
    */
-  class ResponsiveFlowLayoutData extends LayoutData {
+  export default class ResponsiveFlowLayoutData extends LayoutData {
     /**
      * Constructor for a new ResponsiveFlowLayoutData.
      *
@@ -13012,7 +12993,6 @@ declare module "sap/ui/layout/ResponsiveFlowLayoutData" {
       iWeight?: int
     ): this;
   }
-  export default ResponsiveFlowLayoutData;
 
   export interface $ResponsiveFlowLayoutDataSettings
     extends $LayoutDataSettings {
@@ -13087,7 +13067,7 @@ declare module "sap/ui/layout/ResponsiveSplitter" {
    * might lead to inconsistent layout. If it is necessary, you need to ensure the sum of all sizes of the
    * SplitPanes doesn't exceed the width of the PaneContainer.
    */
-  class ResponsiveSplitter extends Control {
+  export default class ResponsiveSplitter extends Control {
     /**
      * Constructor for a new ResponsiveSplitter.
      *
@@ -13247,7 +13227,6 @@ declare module "sap/ui/layout/ResponsiveSplitter" {
       sWidth?: CSSSize
     ): this;
   }
-  export default ResponsiveSplitter;
 
   export interface $ResponsiveSplitterSettings extends $ControlSettings {
     /**
@@ -13294,7 +13273,7 @@ declare module "sap/ui/layout/SplitPane" {
    * 	 - `demandPane` - determines if the pane is reachable via the pagination bar after it has been hidden
    *     from the screen.
    */
-  class SplitPane extends UI5Element {
+  export default class SplitPane extends UI5Element {
     /**
      * Constructor for a new SplitPane.
      *
@@ -13441,7 +13420,6 @@ declare module "sap/ui/layout/SplitPane" {
       iRequiredParentWidth?: int
     ): this;
   }
-  export default SplitPane;
 
   export interface $SplitPaneSettings extends $ElementSettings {
     /**
@@ -13468,8 +13446,6 @@ declare module "sap/ui/layout/SplitPane" {
 declare module "sap/ui/layout/Splitter" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
   import { CSSSize, Orientation } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -13478,6 +13454,8 @@ declare module "sap/ui/layout/Splitter" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.22.0
@@ -13507,7 +13485,7 @@ declare module "sap/ui/layout/Splitter" {
    *
    * Responsive Behavior: On touch-enabled devices the bars of the splitter can be moved by touching the grip.
    */
-  class Splitter extends Control {
+  export default class Splitter extends Control {
     /**
      * Constructor for a new Splitter.
      *
@@ -13598,7 +13576,7 @@ declare module "sap/ui/layout/Splitter" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SplitterResizeEventParameters>) => void,
+      fnFunction: (p1: Splitter$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.Splitter` itself
        */
@@ -13618,7 +13596,7 @@ declare module "sap/ui/layout/Splitter" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SplitterResizeEventParameters>) => void,
+      fnFunction: (p1: Splitter$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.Splitter` itself
        */
@@ -13641,7 +13619,7 @@ declare module "sap/ui/layout/Splitter" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$SplitterResizeEventParameters>) => void,
+      fnFunction: (p1: Splitter$ResizeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13651,7 +13629,7 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Disables the resize handler for this control, this leads to an automatic resize of the contents whenever
      * the control changes its size. The resize handler is enabled in every control instance by default. For
@@ -13665,7 +13643,7 @@ declare module "sap/ui/layout/Splitter" {
       bTemporarily?: boolean
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Disables the resizing of the Splitter contents via keyboard. This changes the Splitter bars to non-focusable
      * elements.
@@ -13675,7 +13653,7 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Disables recalculation and resize of the splitter contents while dragging the splitter bar. This means
      * that the contents are resized only once after moving the splitter bar.
@@ -13685,7 +13663,7 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Enables the resize handler for this control, this leads to an automatic resize of the contents whenever
      * the control changes its size. The resize handler is enabled in every control instance by default. For
@@ -13698,7 +13676,7 @@ declare module "sap/ui/layout/Splitter" {
       bTemporarily?: boolean
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Enables the resizing of the Splitter contents via keyboard. This makes the Splitter bars focusable elements.
      */
@@ -13707,14 +13685,14 @@ declare module "sap/ui/layout/Splitter" {
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Enables recalculation and resize of the splitter contents while dragging the splitter bar. This means
      * that the contents are resized several times per second when moving the splitter bar.
      */
     enableLiveResize(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
@@ -13724,13 +13702,13 @@ declare module "sap/ui/layout/Splitter" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $SplitterResizeEventParameters
+      mParameters?: Splitter$ResizeEventParameters
     ): this;
     /**
      * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
      * feature. It is declared as deprecated because the API might change in case the need for this is high
      * enough to make it part of the official Splitter interface
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the current actual content sizes as pixel value - these values can change with every resize.
      *
@@ -13888,7 +13866,6 @@ declare module "sap/ui/layout/Splitter" {
       forceDirectly?: boolean
     ): void;
   }
-  export default Splitter;
 
   export interface $SplitterSettings extends $ControlSettings {
     /**
@@ -13917,10 +13894,10 @@ declare module "sap/ui/layout/Splitter" {
     /**
      * Event is fired when contents are resized.
      */
-    resize?: (oEvent: Event<$SplitterResizeEventParameters>) => void;
+    resize?: (oEvent: Event<Splitter$ResizeEventParameters>) => void;
   }
 
-  export interface $SplitterResizeEventParameters {
+  export interface Splitter$ResizeEventParameters {
     /**
      * The ID of the splitter control. The splitter control can also be accessed by calling getSource() on the
      * event.
@@ -13937,6 +13914,14 @@ declare module "sap/ui/layout/Splitter" {
      */
     newSizes?: int[];
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Splitter$ResizeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $SplitterResizeEventParameters = Splitter$ResizeEventParameters;
+
+  export type Splitter$ResizeEvent = Event<Splitter$ResizeEventParameters>;
 }
 
 declare module "sap/ui/layout/SplitterLayoutData" {
@@ -13959,7 +13944,7 @@ declare module "sap/ui/layout/SplitterLayoutData" {
    * "%" and the special case "auto". (The CSS value "auto" is used internally to recalculate the size of
    * the content dynamically and is not directly set as style property.)
    */
-  class SplitterLayoutData extends LayoutData {
+  export default class SplitterLayoutData extends LayoutData {
     /**
      * Constructor for a new SplitterLayoutData.
      *
@@ -14108,7 +14093,6 @@ declare module "sap/ui/layout/SplitterLayoutData" {
       sSize?: CSSSize
     ): this;
   }
-  export default SplitterLayoutData;
 
   export interface $SplitterLayoutDataSettings extends $LayoutDataSettings {
     /**
@@ -14148,7 +14132,7 @@ declare module "sap/ui/layout/VerticalLayout" {
    *
    * In this layout the content controls are rendered one below the other.
    */
-  class VerticalLayout extends Control {
+  export default class VerticalLayout extends Control {
     /**
      * Constructor for a new VerticalLayout.
      *
@@ -14227,7 +14211,7 @@ declare module "sap/ui/layout/VerticalLayout" {
      */
     destroyContent(): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -14342,7 +14326,6 @@ declare module "sap/ui/layout/VerticalLayout" {
       sWidth?: CSSSize
     ): this;
   }
-  export default VerticalLayout;
 
   export interface $VerticalLayoutSettings extends $ControlSettings {
     /**
