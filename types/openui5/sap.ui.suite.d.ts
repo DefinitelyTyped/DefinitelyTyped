@@ -1,4 +1,4 @@
-// For Library Version: 1.115.0
+// For Library Version: 1.115.1
 
 declare module "sap/ui/suite/library" {
   /**
@@ -44,7 +44,7 @@ declare module "sap/ui/suite/TaskCircle" {
    *
    * This control shows a circle which radius and color depends on the given parameters
    */
-  class TaskCircle extends Control {
+  export default class TaskCircle extends Control {
     /**
      * Constructor for a new TaskCircle.
      *
@@ -190,7 +190,7 @@ declare module "sap/ui/suite/TaskCircle" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -359,7 +359,6 @@ declare module "sap/ui/suite/TaskCircle" {
       iValue?: int
     ): this;
   }
-  export default TaskCircle;
 
   export interface $TaskCircleSettings extends $ControlSettings {
     /**
@@ -402,7 +401,15 @@ declare module "sap/ui/suite/TaskCircle" {
     press?: (oEvent: Event) => void;
   }
 
-  export interface $TaskCirclePressEventParameters {}
+  export interface TaskCircle$PressEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TaskCircle$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TaskCirclePressEventParameters = TaskCircle$PressEventParameters;
+
+  export type TaskCircle$PressEvent = Event<TaskCircle$PressEventParameters>;
 }
 
 declare module "sap/ui/suite/VerticalProgressIndicator" {
@@ -424,7 +431,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
    * This control shows a vertical progress bar in dependency of the given percentage. Only values between
    * 0 and 100 are valid.
    */
-  class VerticalProgressIndicator extends Control {
+  export default class VerticalProgressIndicator extends Control {
     /**
      * Constructor for a new VerticalProgressIndicator.
      *
@@ -572,7 +579,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -648,7 +655,6 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
      */
     setPercentage(iPercentage: int): this;
   }
-  export default VerticalProgressIndicator;
 
   export interface $VerticalProgressIndicatorSettings extends $ControlSettings {
     /**
@@ -673,7 +679,15 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
     press?: (oEvent: Event) => void;
   }
 
-  export interface $VerticalProgressIndicatorPressEventParameters {}
+  export interface VerticalProgressIndicator$PressEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'VerticalProgressIndicator$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $VerticalProgressIndicatorPressEventParameters = VerticalProgressIndicator$PressEventParameters;
+
+  export type VerticalProgressIndicator$PressEvent = Event<VerticalProgressIndicator$PressEventParameters>;
 }
 
 declare namespace sap {

@@ -1,4 +1,4 @@
-// For Library Version: 1.115.0
+// For Library Version: 1.115.1
 
 declare module "sap/ui/unified/library" {
   /**
@@ -336,7 +336,7 @@ declare module "sap/ui/unified/Calendar" {
    *
    * Basic Calendar. This calendar is used for DatePickers
    */
-  class Calendar extends Control {
+  export default class Calendar extends Control {
     /**
      * Constructor for a new Calendar.
      *
@@ -619,7 +619,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarWeekNumberSelectEventParameters>) => void,
+      fnFunction: (p1: Calendar$WeekNumberSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -647,7 +647,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarWeekNumberSelectEventParameters>) => void,
+      fnFunction: (p1: Calendar$WeekNumberSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -743,7 +743,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarWeekNumberSelectEventParameters>) => void,
+      fnFunction: (p1: Calendar$WeekNumberSelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -763,7 +763,7 @@ declare module "sap/ui/unified/Calendar" {
       oDate: Date | UI5Date
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
@@ -776,7 +776,7 @@ declare module "sap/ui/unified/Calendar" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -790,7 +790,7 @@ declare module "sap/ui/unified/Calendar" {
     ): this;
     /**
      * @since 1.34.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:startDateChange startDateChange} to attached listeners.
      *
@@ -804,7 +804,7 @@ declare module "sap/ui/unified/Calendar" {
     ): this;
     /**
      * @since 1.56
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:weekNumberSelect weekNumberSelect} to attached listeners.
      *
@@ -817,7 +817,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $CalendarWeekNumberSelectEventParameters
+      mParameters?: Calendar$WeekNumberSelectEventParameters
     ): boolean;
     /**
      * Displays and sets the focused date of the calendar.
@@ -1501,7 +1501,6 @@ declare module "sap/ui/unified/Calendar" {
       sWidth?: CSSSize
     ): this;
   }
-  export default Calendar;
 
   export interface $CalendarSettings extends $ControlSettings {
     /**
@@ -1733,17 +1732,41 @@ declare module "sap/ui/unified/Calendar" {
      * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
      */
     weekNumberSelect?: (
-      oEvent: Event<$CalendarWeekNumberSelectEventParameters>
+      oEvent: Event<Calendar$WeekNumberSelectEventParameters>
     ) => void;
   }
 
-  export interface $CalendarCancelEventParameters {}
+  export interface Calendar$CancelEventParameters {}
 
-  export interface $CalendarSelectEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Calendar$CancelEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarCancelEventParameters = Calendar$CancelEventParameters;
 
-  export interface $CalendarStartDateChangeEventParameters {}
+  export type Calendar$CancelEvent = Event<Calendar$CancelEventParameters>;
 
-  export interface $CalendarWeekNumberSelectEventParameters {
+  export interface Calendar$SelectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Calendar$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarSelectEventParameters = Calendar$SelectEventParameters;
+
+  export type Calendar$SelectEvent = Event<Calendar$SelectEventParameters>;
+
+  export interface Calendar$StartDateChangeEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Calendar$StartDateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarStartDateChangeEventParameters = Calendar$StartDateChangeEventParameters;
+
+  export type Calendar$StartDateChangeEvent = Event<Calendar$StartDateChangeEventParameters>;
+
+  export interface Calendar$WeekNumberSelectEventParameters {
     /**
      * The selected week number.
      */
@@ -1754,6 +1777,14 @@ declare module "sap/ui/unified/Calendar" {
      */
     weekDays?: DateRange;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Calendar$WeekNumberSelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarWeekNumberSelectEventParameters = Calendar$WeekNumberSelectEventParameters;
+
+  export type Calendar$WeekNumberSelectEvent = Event<Calendar$WeekNumberSelectEventParameters>;
 }
 
 declare module "sap/ui/unified/calendar/DatesRow" {
@@ -1777,7 +1808,7 @@ declare module "sap/ui/unified/calendar/DatesRow" {
    * If used inside the calendar the properties and aggregation are directly taken from the parent (To not
    * duplicate and sync DateRanges and so on...)
    */
-  class DatesRow extends Month {
+  export default class DatesRow extends Month {
     /**
      * Constructor for a new calendar/DatesRow.
      *
@@ -1983,7 +2014,6 @@ declare module "sap/ui/unified/calendar/DatesRow" {
       oStartDate: Date | UI5Date
     ): this;
   }
-  export default DatesRow;
 
   export interface $DatesRowSettings extends $MonthSettings {
     /**
@@ -2040,7 +2070,7 @@ declare module "sap/ui/unified/calendar/Header" {
    *
    * **Note:** This is used inside the calendar. Not for standalone usage
    */
-  class Header extends Control {
+  export default class Header extends Control {
     /**
      * Constructor for a new Header.
      *
@@ -2485,7 +2515,7 @@ declare module "sap/ui/unified/calendar/Header" {
     ): this;
     /**
      * @since 1.32.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pressButton0 pressButton0} to attached listeners.
      *
@@ -2498,7 +2528,7 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pressButton1 pressButton1} to attached listeners.
      *
@@ -2511,7 +2541,7 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pressButton2 pressButton2} to attached listeners.
      *
@@ -2524,7 +2554,7 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pressCurrentDate pressCurrentDate} to attached listeners.
      *
@@ -2537,7 +2567,7 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pressNext pressNext} to attached listeners.
      *
@@ -2550,7 +2580,7 @@ declare module "sap/ui/unified/calendar/Header" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pressPrevious pressPrevious} to attached listeners.
      *
@@ -2972,7 +3002,6 @@ declare module "sap/ui/unified/calendar/Header" {
       bVisibleCurrentDateButton?: boolean
     ): this;
   }
-  export default Header;
 
   export interface $HeaderSettings extends $ControlSettings {
     /**
@@ -3103,17 +3132,65 @@ declare module "sap/ui/unified/calendar/Header" {
     pressButton2?: (oEvent: Event) => void;
   }
 
-  export interface $HeaderPressButton0EventParameters {}
+  export interface Header$PressButton0EventParameters {}
 
-  export interface $HeaderPressButton1EventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressButton0EventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HeaderPressButton0EventParameters = Header$PressButton0EventParameters;
 
-  export interface $HeaderPressButton2EventParameters {}
+  export type Header$PressButton0Event = Event<Header$PressButton0EventParameters>;
 
-  export interface $HeaderPressCurrentDateEventParameters {}
+  export interface Header$PressButton1EventParameters {}
 
-  export interface $HeaderPressNextEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressButton1EventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HeaderPressButton1EventParameters = Header$PressButton1EventParameters;
 
-  export interface $HeaderPressPreviousEventParameters {}
+  export type Header$PressButton1Event = Event<Header$PressButton1EventParameters>;
+
+  export interface Header$PressButton2EventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressButton2EventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HeaderPressButton2EventParameters = Header$PressButton2EventParameters;
+
+  export type Header$PressButton2Event = Event<Header$PressButton2EventParameters>;
+
+  export interface Header$PressCurrentDateEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressCurrentDateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HeaderPressCurrentDateEventParameters = Header$PressCurrentDateEventParameters;
+
+  export type Header$PressCurrentDateEvent = Event<Header$PressCurrentDateEventParameters>;
+
+  export interface Header$PressNextEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressNextEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HeaderPressNextEventParameters = Header$PressNextEventParameters;
+
+  export type Header$PressNextEvent = Event<Header$PressNextEventParameters>;
+
+  export interface Header$PressPreviousEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressPreviousEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HeaderPressPreviousEventParameters = Header$PressPreviousEventParameters;
+
+  export type Header$PressPreviousEvent = Event<Header$PressPreviousEventParameters>;
 }
 
 declare module "sap/ui/unified/calendar/Month" {
@@ -3149,7 +3226,7 @@ declare module "sap/ui/unified/calendar/Month" {
    * inside the calendar the properties and aggregation are directly taken from the parent (To not duplicate
    * and sync DateRanges and so on...)
    */
-  class Month extends Control {
+  export default class Month extends Control {
     /**
      * Constructor for a new calendar/Month.
      *
@@ -3275,7 +3352,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MonthFocusEventParameters>) => void,
+      fnFunction: (p1: Month$FocusEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -3295,7 +3372,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MonthFocusEventParameters>) => void,
+      fnFunction: (p1: Month$FocusEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -3373,7 +3450,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MonthWeekNumberSelectEventParameters>) => void,
+      fnFunction: (p1: Month$WeekNumberSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -3401,7 +3478,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MonthWeekNumberSelectEventParameters>) => void,
+      fnFunction: (p1: Month$WeekNumberSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -3450,7 +3527,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$MonthFocusEventParameters>) => void,
+      fnFunction: (p1: Month$FocusEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3487,7 +3564,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$MonthWeekNumberSelectEventParameters>) => void,
+      fnFunction: (p1: Month$WeekNumberSelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3505,7 +3582,7 @@ declare module "sap/ui/unified/calendar/Month" {
       oDate: Date | UI5Date
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:focus focus} to attached listeners.
      *
@@ -3515,10 +3592,10 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $MonthFocusEventParameters
+      mParameters?: Month$FocusEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -3532,7 +3609,7 @@ declare module "sap/ui/unified/calendar/Month" {
     ): this;
     /**
      * @since 1.60
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:weekNumberSelect weekNumberSelect} to attached listeners.
      *
@@ -3545,7 +3622,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $MonthWeekNumberSelectEventParameters
+      mParameters?: Month$WeekNumberSelectEventParameters
     ): boolean;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -4085,7 +4162,6 @@ declare module "sap/ui/unified/calendar/Month" {
       sWidth?: CSSSize
     ): this;
   }
-  export default Month;
 
   export interface $MonthSettings extends $ControlSettings {
     /**
@@ -4231,7 +4307,7 @@ declare module "sap/ui/unified/calendar/Month" {
     /**
      * Date focus changed
      */
-    focus?: (oEvent: Event<$MonthFocusEventParameters>) => void;
+    focus?: (oEvent: Event<Month$FocusEventParameters>) => void;
 
     /**
      * @since 1.60
@@ -4244,11 +4320,11 @@ declare module "sap/ui/unified/calendar/Month" {
      * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
      */
     weekNumberSelect?: (
-      oEvent: Event<$MonthWeekNumberSelectEventParameters>
+      oEvent: Event<Month$WeekNumberSelectEventParameters>
     ) => void;
   }
 
-  export interface $MonthFocusEventParameters {
+  export interface Month$FocusEventParameters {
     /**
      * focused date
      */
@@ -4265,9 +4341,25 @@ declare module "sap/ui/unified/calendar/Month" {
     restoreOldDate?: boolean;
   }
 
-  export interface $MonthSelectEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Month$FocusEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MonthFocusEventParameters = Month$FocusEventParameters;
 
-  export interface $MonthWeekNumberSelectEventParameters {
+  export type Month$FocusEvent = Event<Month$FocusEventParameters>;
+
+  export interface Month$SelectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Month$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MonthSelectEventParameters = Month$SelectEventParameters;
+
+  export type Month$SelectEvent = Event<Month$SelectEventParameters>;
+
+  export interface Month$WeekNumberSelectEventParameters {
     /**
      * The selected week number.
      */
@@ -4280,6 +4372,14 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     weekDays?: DateRange;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Month$WeekNumberSelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MonthWeekNumberSelectEventParameters = Month$WeekNumberSelectEventParameters;
+
+  export type Month$WeekNumberSelectEvent = Event<Month$WeekNumberSelectEventParameters>;
 }
 
 declare module "sap/ui/unified/calendar/MonthPicker" {
@@ -4305,7 +4405,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
    *
    * renders a MonthPicker with ItemNavigation This is used inside the calendar. Not for stand alone usage
    */
-  class MonthPicker extends Control {
+  export default class MonthPicker extends Control {
     /**
      * Constructor for a new MonthPicker.
      *
@@ -4538,7 +4638,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     ): this;
     /**
      * @since 1.38.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pageChange pageChange} to attached listeners.
      *
@@ -4551,7 +4651,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -4862,7 +4962,6 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
   }
-  export default MonthPicker;
 
   export interface $MonthPickerSettings extends $ControlSettings {
     /**
@@ -4946,9 +5045,25 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     pageChange?: (oEvent: Event) => void;
   }
 
-  export interface $MonthPickerPageChangeEventParameters {}
+  export interface MonthPicker$PageChangeEventParameters {}
 
-  export interface $MonthPickerSelectEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MonthPicker$PageChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MonthPickerPageChangeEventParameters = MonthPicker$PageChangeEventParameters;
+
+  export type MonthPicker$PageChangeEvent = Event<MonthPicker$PageChangeEventParameters>;
+
+  export interface MonthPicker$SelectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MonthPicker$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MonthPickerSelectEventParameters = MonthPicker$SelectEventParameters;
+
+  export type MonthPicker$SelectEvent = Event<MonthPicker$SelectEventParameters>;
 }
 
 declare module "sap/ui/unified/calendar/MonthsRow" {
@@ -4987,7 +5102,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
    * to display and interact. As representation for a month, the 1st of the month will always be returned
    * in the API.
    */
-  class MonthsRow extends Control {
+  export default class MonthsRow extends Control {
     /**
      * Constructor for a new `MonthsRow`. It shows a calendar with month granularity
      *
@@ -5104,7 +5219,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MonthsRowFocusEventParameters>) => void,
+      fnFunction: (p1: MonthsRow$FocusEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
        */
@@ -5124,7 +5239,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MonthsRowFocusEventParameters>) => void,
+      fnFunction: (p1: MonthsRow$FocusEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
        */
@@ -5210,7 +5325,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$MonthsRowFocusEventParameters>) => void,
+      fnFunction: (p1: MonthsRow$FocusEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5245,7 +5360,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       oDate: Date | UI5Date
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:focus focus} to attached listeners.
      *
@@ -5255,10 +5370,10 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $MonthsRowFocusEventParameters
+      mParameters?: MonthsRow$FocusEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -5638,7 +5753,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       oStartDate: Date | UI5Date
     ): this;
   }
-  export default MonthsRow;
 
   export interface $MonthsRowSettings extends $ControlSettings {
     /**
@@ -5745,10 +5859,10 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     /**
      * Month focus changed
      */
-    focus?: (oEvent: Event<$MonthsRowFocusEventParameters>) => void;
+    focus?: (oEvent: Event<MonthsRow$FocusEventParameters>) => void;
   }
 
-  export interface $MonthsRowFocusEventParameters {
+  export interface MonthsRow$FocusEventParameters {
     /**
      * First date, as UI5Date or JavaScript Date object, of the month that is focused.
      */
@@ -5760,7 +5874,23 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     notVisible?: boolean;
   }
 
-  export interface $MonthsRowSelectEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MonthsRow$FocusEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MonthsRowFocusEventParameters = MonthsRow$FocusEventParameters;
+
+  export type MonthsRow$FocusEvent = Event<MonthsRow$FocusEventParameters>;
+
+  export interface MonthsRow$SelectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MonthsRow$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MonthsRowSelectEventParameters = MonthsRow$SelectEventParameters;
+
+  export type MonthsRow$SelectEvent = Event<MonthsRow$SelectEventParameters>;
 }
 
 declare module "sap/ui/unified/calendar/TimesRow" {
@@ -5797,7 +5927,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
    *
    * The TimesRow works with UI5Date or JavaScript Date objects.
    */
-  class TimesRow extends Control {
+  export default class TimesRow extends Control {
     /**
      * Constructor for a new `TimesRow`. It shows a calendar with time granularity (normally hours)
      *
@@ -5914,7 +6044,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$TimesRowFocusEventParameters>) => void,
+      fnFunction: (p1: TimesRow$FocusEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
        */
@@ -5934,7 +6064,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$TimesRowFocusEventParameters>) => void,
+      fnFunction: (p1: TimesRow$FocusEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
        */
@@ -6020,7 +6150,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$TimesRowFocusEventParameters>) => void,
+      fnFunction: (p1: TimesRow$FocusEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6055,7 +6185,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       oDate: Date | UI5Date
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:focus focus} to attached listeners.
      *
@@ -6065,10 +6195,10 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $TimesRowFocusEventParameters
+      mParameters?: TimesRow$FocusEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -6481,7 +6611,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       oStartDate: Date | UI5Date
     ): this;
   }
-  export default TimesRow;
 
   export interface $TimesRowSettings extends $ControlSettings {
     /**
@@ -6593,10 +6722,10 @@ declare module "sap/ui/unified/calendar/TimesRow" {
     /**
      * Time focus changed
      */
-    focus?: (oEvent: Event<$TimesRowFocusEventParameters>) => void;
+    focus?: (oEvent: Event<TimesRow$FocusEventParameters>) => void;
   }
 
-  export interface $TimesRowFocusEventParameters {
+  export interface TimesRow$FocusEventParameters {
     /**
      * date, as UI5Date or JavaScript Date object, of the focused time.
      */
@@ -6608,7 +6737,23 @@ declare module "sap/ui/unified/calendar/TimesRow" {
     notVisible?: boolean;
   }
 
-  export interface $TimesRowSelectEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TimesRow$FocusEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TimesRowFocusEventParameters = TimesRow$FocusEventParameters;
+
+  export type TimesRow$FocusEvent = Event<TimesRow$FocusEventParameters>;
+
+  export interface TimesRow$SelectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TimesRow$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TimesRowSelectEventParameters = TimesRow$SelectEventParameters;
+
+  export type TimesRow$SelectEvent = Event<TimesRow$SelectEventParameters>;
 }
 
 declare module "sap/ui/unified/calendar/YearPicker" {
@@ -6636,7 +6781,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
    * As in all date-time controls, all pubic JS Date objects that are given (e.g. `setDate()`) or read (e.g.
    * `getFirstRenderedDate`) with values which are considered as date objects in browser(local) timezone.
    */
-  class YearPicker extends Control {
+  export default class YearPicker extends Control {
     /**
      * Constructor for a new YearPicker.
      *
@@ -6854,7 +6999,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     ): this;
     /**
      * @since 1.38.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pageChange pageChange} to attached listeners.
      *
@@ -6867,7 +7012,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -7169,7 +7314,6 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       iYears?: int
     ): this;
   }
-  export default YearPicker;
 
   export interface $YearPickerSettings extends $ControlSettings {
     /**
@@ -7254,9 +7398,25 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     pageChange?: (oEvent: Event) => void;
   }
 
-  export interface $YearPickerPageChangeEventParameters {}
+  export interface YearPicker$PageChangeEventParameters {}
 
-  export interface $YearPickerSelectEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'YearPicker$PageChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $YearPickerPageChangeEventParameters = YearPicker$PageChangeEventParameters;
+
+  export type YearPicker$PageChangeEvent = Event<YearPicker$PageChangeEventParameters>;
+
+  export interface YearPicker$SelectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'YearPicker$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $YearPickerSelectEventParameters = YearPicker$SelectEventParameters;
+
+  export type YearPicker$SelectEvent = Event<YearPicker$SelectEventParameters>;
 }
 
 declare module "sap/ui/unified/CalendarAppointment" {
@@ -7284,7 +7444,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
    *
    * Applications could inherit from this element to add own fields.
    */
-  class CalendarAppointment extends DateTypeRange {
+  export default class CalendarAppointment extends DateTypeRange {
     /**
      * Constructor for a new `CalendarAppointment`.
      *
@@ -7660,7 +7820,6 @@ declare module "sap/ui/unified/CalendarAppointment" {
       sTitle: string
     ): this;
   }
-  export default CalendarAppointment;
 
   export interface $CalendarAppointmentSettings extends $DateTypeRangeSettings {
     /**
@@ -7752,7 +7911,7 @@ declare module "sap/ui/unified/CalendarDateInterval" {
    * `CalendarDateInterval` only visualizes the dates in a one-line interval and allows the selection of a
    * single day.
    */
-  class CalendarDateInterval extends Calendar {
+  export default class CalendarDateInterval extends Calendar {
     /**
      * Constructor for a new `CalendarDateInterval`.
      *
@@ -7814,7 +7973,7 @@ declare module "sap/ui/unified/CalendarDateInterval" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * If more than this number of days are displayed, start and end month are displayed on the button.
      *
@@ -7882,7 +8041,7 @@ declare module "sap/ui/unified/CalendarDateInterval" {
       iDays?: int
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Setter for property `firstDayOfWeek`.
      *
@@ -7897,7 +8056,7 @@ declare module "sap/ui/unified/CalendarDateInterval" {
       iFirstDayOfWeek?: int
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Setter for property `months`.
      *
@@ -7962,7 +8121,6 @@ declare module "sap/ui/unified/CalendarDateInterval" {
       oStartDate: Date | UI5Date
     ): this;
   }
-  export default CalendarDateInterval;
 
   export interface $CalendarDateIntervalSettings extends $CalendarSettings {
     /**
@@ -8028,7 +8186,7 @@ declare module "sap/ui/unified/CalendarLegend" {
    * 	 - [Home], [Page Up] - Move to the first calendar legend item
    * 	 - [End], [Page Down] - Move to the last calendar legend item
    */
-  class CalendarLegend extends Control {
+  export default class CalendarLegend extends Control {
     /**
      * Constructor for a new CalendarLegend.
      *
@@ -8223,7 +8381,6 @@ declare module "sap/ui/unified/CalendarLegend" {
       sStandardItems?: string[]
     ): this;
   }
-  export default CalendarLegend;
 
   export interface $CalendarLegendSettings extends $ControlSettings {
     /**
@@ -8267,7 +8424,7 @@ declare module "sap/ui/unified/CalendarLegendItem" {
    *
    * Item to be displayed in a CalendarLegend.
    */
-  class CalendarLegendItem extends UI5Element {
+  export default class CalendarLegendItem extends UI5Element {
     /**
      * Constructor for a new CalendarLegendItem.
      *
@@ -8412,7 +8569,6 @@ declare module "sap/ui/unified/CalendarLegendItem" {
       sType?: CalendarDayType | keyof typeof CalendarDayType
     ): this;
   }
-  export default CalendarLegendItem;
 
   export interface $CalendarLegendItemSettings extends $ElementSettings {
     /**
@@ -8473,7 +8629,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
    * or as a special type. But the date part of the Date object is not used. If a Date object is returned
    * the date will be set to the 1st of the corresponding month.
    */
-  class CalendarMonthInterval extends Control {
+  export default class CalendarMonthInterval extends Control {
     /**
      * Constructor for a new `CalendarMonthInterval`.
      *
@@ -8792,7 +8948,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       oDatetime: Date | UI5Date
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
@@ -8805,7 +8961,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -8819,7 +8975,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     ): this;
     /**
      * @since 1.34.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:startDateChange startDateChange} to attached listeners.
      *
@@ -9213,7 +9369,6 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       sWidth?: CSSSize
     ): this;
   }
-  export default CalendarMonthInterval;
 
   export interface $CalendarMonthIntervalSettings extends $ControlSettings {
     /**
@@ -9333,11 +9488,35 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     startDateChange?: (oEvent: Event) => void;
   }
 
-  export interface $CalendarMonthIntervalCancelEventParameters {}
+  export interface CalendarMonthInterval$CancelEventParameters {}
 
-  export interface $CalendarMonthIntervalSelectEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarMonthInterval$CancelEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarMonthIntervalCancelEventParameters = CalendarMonthInterval$CancelEventParameters;
 
-  export interface $CalendarMonthIntervalStartDateChangeEventParameters {}
+  export type CalendarMonthInterval$CancelEvent = Event<CalendarMonthInterval$CancelEventParameters>;
+
+  export interface CalendarMonthInterval$SelectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarMonthInterval$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarMonthIntervalSelectEventParameters = CalendarMonthInterval$SelectEventParameters;
+
+  export type CalendarMonthInterval$SelectEvent = Event<CalendarMonthInterval$SelectEventParameters>;
+
+  export interface CalendarMonthInterval$StartDateChangeEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarMonthInterval$StartDateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarMonthIntervalStartDateChangeEventParameters = CalendarMonthInterval$StartDateChangeEventParameters;
+
+  export type CalendarMonthInterval$StartDateChangeEvent = Event<CalendarMonthInterval$StartDateChangeEventParameters>;
 }
 
 declare module "sap/ui/unified/CalendarRow" {
@@ -9373,7 +9552,7 @@ declare module "sap/ui/unified/CalendarRow" {
    *
    * A calendar row with a header and appointments. The Appointments will be placed in the defined interval.
    */
-  class CalendarRow extends Control {
+  export default class CalendarRow extends Control {
     /**
      * Constructor for a new `CalendarRow`.
      *
@@ -9489,9 +9668,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$CalendarRowIntervalSelectEventParameters>
-      ) => void,
+      fnFunction: (p1: CalendarRow$IntervalSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -9514,9 +9691,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$CalendarRowIntervalSelectEventParameters>
-      ) => void,
+      fnFunction: (p1: CalendarRow$IntervalSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -9542,7 +9717,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarRowLeaveRowEventParameters>) => void,
+      fnFunction: (p1: CalendarRow$LeaveRowEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -9563,7 +9738,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarRowLeaveRowEventParameters>) => void,
+      fnFunction: (p1: CalendarRow$LeaveRowEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -9588,7 +9763,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarRowSelectEventParameters>) => void,
+      fnFunction: (p1: CalendarRow$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -9608,7 +9783,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarRowSelectEventParameters>) => void,
+      fnFunction: (p1: CalendarRow$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -9687,9 +9862,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$CalendarRowIntervalSelectEventParameters>
-      ) => void,
+      fnFunction: (p1: CalendarRow$IntervalSelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9706,7 +9879,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarRowLeaveRowEventParameters>) => void,
+      fnFunction: (p1: CalendarRow$LeaveRowEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9723,7 +9896,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$CalendarRowSelectEventParameters>) => void,
+      fnFunction: (p1: CalendarRow$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9749,7 +9922,7 @@ declare module "sap/ui/unified/CalendarRow" {
     ): this;
     /**
      * @since 1.38.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:intervalSelect intervalSelect} to attached listeners.
      *
@@ -9759,10 +9932,10 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $CalendarRowIntervalSelectEventParameters
+      mParameters?: CalendarRow$IntervalSelectEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:leaveRow leaveRow} to attached listeners.
      *
@@ -9772,10 +9945,10 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $CalendarRowLeaveRowEventParameters
+      mParameters?: CalendarRow$LeaveRowEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -9785,10 +9958,10 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $CalendarRowSelectEventParameters
+      mParameters?: CalendarRow$SelectEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:startDateChange startDateChange} to attached listeners.
      *
@@ -10632,7 +10805,6 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     updateCurrentTimeVisualization(): this;
   }
-  export default CalendarRow;
 
   export interface $CalendarRowSettings extends $ControlSettings {
     /**
@@ -10853,7 +11025,7 @@ declare module "sap/ui/unified/CalendarRow" {
     /**
      * Fired if an appointment was selected
      */
-    select?: (oEvent: Event<$CalendarRowSelectEventParameters>) => void;
+    select?: (oEvent: Event<CalendarRow$SelectEventParameters>) => void;
 
     /**
      * `startDate` was changed while navigating in `CalendarRow`
@@ -10864,7 +11036,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
      * the next control to be focused
      */
-    leaveRow?: (oEvent: Event<$CalendarRowLeaveRowEventParameters>) => void;
+    leaveRow?: (oEvent: Event<CalendarRow$LeaveRowEventParameters>) => void;
 
     /**
      * @since 1.38.0
@@ -10872,11 +11044,11 @@ declare module "sap/ui/unified/CalendarRow" {
      * Fired if an interval was selected
      */
     intervalSelect?: (
-      oEvent: Event<$CalendarRowIntervalSelectEventParameters>
+      oEvent: Event<CalendarRow$IntervalSelectEventParameters>
     ) => void;
   }
 
-  export interface $CalendarRowIntervalSelectEventParameters {
+  export interface CalendarRow$IntervalSelectEventParameters {
     /**
      * Interval start date as UI5Date or JavaScript Date object
      */
@@ -10893,14 +11065,30 @@ declare module "sap/ui/unified/CalendarRow" {
     subInterval?: boolean;
   }
 
-  export interface $CalendarRowLeaveRowEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarRow$IntervalSelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarRowIntervalSelectEventParameters = CalendarRow$IntervalSelectEventParameters;
+
+  export type CalendarRow$IntervalSelectEvent = Event<CalendarRow$IntervalSelectEventParameters>;
+
+  export interface CalendarRow$LeaveRowEventParameters {
     /**
      * The type of the event that triggers this `leaveRow`
      */
     type?: string;
   }
 
-  export interface $CalendarRowSelectEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarRow$LeaveRowEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarRowLeaveRowEventParameters = CalendarRow$LeaveRowEventParameters;
+
+  export type CalendarRow$LeaveRowEvent = Event<CalendarRow$LeaveRowEventParameters>;
+
+  export interface CalendarRow$SelectEventParameters {
     /**
      * selected appointment
      */
@@ -10923,7 +11111,23 @@ declare module "sap/ui/unified/CalendarRow" {
     domRefId?: string;
   }
 
-  export interface $CalendarRowStartDateChangeEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarRow$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarRowSelectEventParameters = CalendarRow$SelectEventParameters;
+
+  export type CalendarRow$SelectEvent = Event<CalendarRow$SelectEventParameters>;
+
+  export interface CalendarRow$StartDateChangeEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarRow$StartDateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarRowStartDateChangeEventParameters = CalendarRow$StartDateChangeEventParameters;
+
+  export type CalendarRow$StartDateChangeEvent = Event<CalendarRow$StartDateChangeEventParameters>;
 }
 
 declare module "sap/ui/unified/CalendarTimeInterval" {
@@ -10953,7 +11157,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
    *
    * Calendar with granularity of time items displayed in one line.
    */
-  class CalendarTimeInterval extends Control {
+  export default class CalendarTimeInterval extends Control {
     /**
      * Constructor for a new `CalendarTimeInterval`.
      *
@@ -11272,7 +11476,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       oDate: Date | UI5Date
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
@@ -11285,7 +11489,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -11299,7 +11503,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     ): this;
     /**
      * @since 1.34.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:startDateChange startDateChange} to attached listeners.
      *
@@ -11727,7 +11931,6 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       sWidth?: CSSSize
     ): this;
   }
-  export default CalendarTimeInterval;
 
   export interface $CalendarTimeIntervalSettings extends $ControlSettings {
     /**
@@ -11853,17 +12056,39 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     startDateChange?: (oEvent: Event) => void;
   }
 
-  export interface $CalendarTimeIntervalCancelEventParameters {}
+  export interface CalendarTimeInterval$CancelEventParameters {}
 
-  export interface $CalendarTimeIntervalSelectEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarTimeInterval$CancelEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarTimeIntervalCancelEventParameters = CalendarTimeInterval$CancelEventParameters;
 
-  export interface $CalendarTimeIntervalStartDateChangeEventParameters {}
+  export type CalendarTimeInterval$CancelEvent = Event<CalendarTimeInterval$CancelEventParameters>;
+
+  export interface CalendarTimeInterval$SelectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarTimeInterval$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarTimeIntervalSelectEventParameters = CalendarTimeInterval$SelectEventParameters;
+
+  export type CalendarTimeInterval$SelectEvent = Event<CalendarTimeInterval$SelectEventParameters>;
+
+  export interface CalendarTimeInterval$StartDateChangeEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarTimeInterval$StartDateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CalendarTimeIntervalStartDateChangeEventParameters = CalendarTimeInterval$StartDateChangeEventParameters;
+
+  export type CalendarTimeInterval$StartDateChangeEvent = Event<CalendarTimeInterval$StartDateChangeEventParameters>;
 }
 
 declare module "sap/ui/unified/ColorPicker" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import ColorPickerDisplayMode from "sap/ui/unified/ColorPickerDisplayMode";
 
@@ -11872,6 +12097,8 @@ declare module "sap/ui/unified/ColorPicker" {
   import { ColorPickerMode } from "sap/ui/unified/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.48.0
@@ -11882,7 +12109,7 @@ declare module "sap/ui/unified/ColorPicker" {
    * **Note:** Keep in mind that this control needs either `sap.m` or `sap.ui.commons` library to be loaded
    * in order to work as it depends on controls available in one or the other library.
    */
-  class ColorPicker extends Control {
+  export default class ColorPicker extends Control {
     /**
      * Constructor for a new `ColorPicker`.
      *
@@ -11966,7 +12193,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPicker$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
        */
@@ -11990,7 +12217,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPicker$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
        */
@@ -12019,7 +12246,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerLiveChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPicker$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
        */
@@ -12043,7 +12270,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerLiveChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPicker$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
        */
@@ -12062,7 +12289,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPicker$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12081,7 +12308,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerLiveChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPicker$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12089,7 +12316,7 @@ declare module "sap/ui/unified/ColorPicker" {
     ): this;
     /**
      * @since 1.48.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -12099,11 +12326,11 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ColorPickerChangeEventParameters
+      mParameters?: ColorPicker$ChangeEventParameters
     ): this;
     /**
      * @since 1.48.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -12113,7 +12340,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ColorPickerLiveChangeEventParameters
+      mParameters?: ColorPicker$LiveChangeEventParameters
     ): this;
     /**
      * @since 1.48.0
@@ -12232,7 +12459,6 @@ declare module "sap/ui/unified/ColorPicker" {
       bSuppressInvalidate: boolean
     ): void;
   }
-  export default ColorPicker;
 
   export interface $ColorPickerSettings extends $ControlSettings {
     /**
@@ -12278,7 +12504,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
      */
-    change?: (oEvent: Event<$ColorPickerChangeEventParameters>) => void;
+    change?: (oEvent: Event<ColorPicker$ChangeEventParameters>) => void;
 
     /**
      * @since 1.48.0
@@ -12287,10 +12513,10 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
      */
-    liveChange?: (oEvent: Event<$ColorPickerLiveChangeEventParameters>) => void;
+    liveChange?: (oEvent: Event<ColorPicker$LiveChangeEventParameters>) => void;
   }
 
-  export interface $ColorPickerChangeEventParameters {
+  export interface ColorPicker$ChangeEventParameters {
     /**
      * Parameter containing the RED value (0-255).
      */
@@ -12337,7 +12563,15 @@ declare module "sap/ui/unified/ColorPicker" {
     alpha?: string;
   }
 
-  export interface $ColorPickerLiveChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ColorPicker$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ColorPickerChangeEventParameters = ColorPicker$ChangeEventParameters;
+
+  export type ColorPicker$ChangeEvent = Event<ColorPicker$ChangeEventParameters>;
+
+  export interface ColorPicker$LiveChangeEventParameters {
     /**
      * Parameter containing the RED value (0-255).
      */
@@ -12383,6 +12617,14 @@ declare module "sap/ui/unified/ColorPicker" {
      */
     alpha?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ColorPicker$LiveChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ColorPickerLiveChangeEventParameters = ColorPicker$LiveChangeEventParameters;
+
+  export type ColorPicker$LiveChangeEvent = Event<ColorPicker$LiveChangeEventParameters>;
 }
 
 declare module "sap/ui/unified/ColorPickerDisplayMode" {
@@ -12411,8 +12653,6 @@ declare module "sap/ui/unified/ColorPickerDisplayMode" {
 declare module "sap/ui/unified/ColorPickerPopover" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
   import ColorPickerDisplayMode from "sap/ui/unified/ColorPickerDisplayMode";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -12421,12 +12661,14 @@ declare module "sap/ui/unified/ColorPickerPopover" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.60
    *
    * A thin wrapper over {@link sap.ui.unified.ColorPicker} allowing the latter to be used in a popover.
    */
-  class ColorPickerPopover extends Control {
+  export default class ColorPickerPopover extends Control {
     /**
      * Constructor for a new `ColorPickerPopover`.
      *
@@ -12508,7 +12750,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerPopoverChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPickerPopover$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
        */
@@ -12530,7 +12772,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerPopoverChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPickerPopover$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
        */
@@ -12557,9 +12799,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ColorPickerPopoverLiveChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: ColorPickerPopover$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
        */
@@ -12581,9 +12821,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ColorPickerPopoverLiveChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: ColorPickerPopover$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
        */
@@ -12606,7 +12844,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ColorPickerPopoverChangeEventParameters>) => void,
+      fnFunction: (p1: ColorPickerPopover$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12625,9 +12863,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ColorPickerPopoverLiveChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: ColorPickerPopover$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12635,7 +12871,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
     ): this;
     /**
      * @since 1.60.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -12645,11 +12881,11 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ColorPickerPopoverChangeEventParameters
+      mParameters?: ColorPickerPopover$ChangeEventParameters
     ): this;
     /**
      * @since 1.85
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -12659,7 +12895,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ColorPickerPopoverLiveChangeEventParameters
+      mParameters?: ColorPickerPopover$LiveChangeEventParameters
     ): this;
     /**
      * @since 1.60.0
@@ -12779,7 +13015,6 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       sMode?: ColorPickerMode | keyof typeof ColorPickerMode
     ): this;
   }
-  export default ColorPickerPopover;
 
   export interface $ColorPickerPopoverSettings extends $ControlSettings {
     /**
@@ -12819,7 +13054,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      *
      * Fired when the submit button of the popover is clicked.
      */
-    change?: (oEvent: Event<$ColorPickerPopoverChangeEventParameters>) => void;
+    change?: (oEvent: Event<ColorPickerPopover$ChangeEventParameters>) => void;
 
     /**
      * @since 1.85
@@ -12827,11 +13062,11 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      * Fired when the value is changed by user interaction in the internal ColorPicker
      */
     liveChange?: (
-      oEvent: Event<$ColorPickerPopoverLiveChangeEventParameters>
+      oEvent: Event<ColorPickerPopover$LiveChangeEventParameters>
     ) => void;
   }
 
-  export interface $ColorPickerPopoverChangeEventParameters {
+  export interface ColorPickerPopover$ChangeEventParameters {
     /**
      * Parameter containing the RED value (0-255).
      */
@@ -12878,7 +13113,15 @@ declare module "sap/ui/unified/ColorPickerPopover" {
     alpha?: string;
   }
 
-  export interface $ColorPickerPopoverLiveChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ColorPickerPopover$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ColorPickerPopoverChangeEventParameters = ColorPickerPopover$ChangeEventParameters;
+
+  export type ColorPickerPopover$ChangeEvent = Event<ColorPickerPopover$ChangeEventParameters>;
+
+  export interface ColorPickerPopover$LiveChangeEventParameters {
     /**
      * Parameter containing the RED value (0-255).
      */
@@ -12924,6 +13167,14 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      */
     alpha?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ColorPickerPopover$LiveChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ColorPickerPopoverLiveChangeEventParameters = ColorPickerPopover$LiveChangeEventParameters;
+
+  export type ColorPickerPopover$LiveChangeEvent = Event<ColorPickerPopover$LiveChangeEventParameters>;
 }
 
 declare module "sap/ui/unified/ContentSwitcher" {
@@ -12943,7 +13194,7 @@ declare module "sap/ui/unified/ContentSwitcher" {
    *
    * Switches between two control areas and animates it via CSS transitions
    */
-  class ContentSwitcher extends Control {
+  export default class ContentSwitcher extends Control {
     /**
      * Constructor for a new ContentSwitcher.
      *
@@ -13212,7 +13463,6 @@ declare module "sap/ui/unified/ContentSwitcher" {
      */
     switchContent(): void;
   }
-  export default ContentSwitcher;
 
   export interface $ContentSwitcherSettings extends $ControlSettings {
     /**
@@ -13281,7 +13531,7 @@ declare module "sap/ui/unified/Currency" {
    * mode. For larger amounts, the unit of measurement wraps to the next line, which makes it difficult to
    * compare the amounts.
    */
-  class Currency extends Control {
+  export default class Currency extends Control {
     /**
      * Constructor for a new `Currency`.
      *
@@ -13343,7 +13593,7 @@ declare module "sap/ui/unified/Currency" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -13475,7 +13725,6 @@ declare module "sap/ui/unified/Currency" {
       sStringValue?: string
     ): this;
   }
-  export default Currency;
 
   export interface $CurrencySettings extends $ControlSettings {
     /**
@@ -13540,7 +13789,7 @@ declare module "sap/ui/unified/DateRange" {
    *
    * Date range for use in DatePicker
    */
-  class DateRange extends UI5Element {
+  export default class DateRange extends UI5Element {
     /**
      * Constructor for a new DateRange.
      *
@@ -13649,7 +13898,6 @@ declare module "sap/ui/unified/DateRange" {
       bInvalidate?: boolean
     ): this;
   }
-  export default DateRange;
 
   export interface $DateRangeSettings extends $ElementSettings {
     /**
@@ -13684,7 +13932,7 @@ declare module "sap/ui/unified/DateTypeRange" {
    *
    * Date range with calendar day type information. Used to visualize special days in the Calendar.
    */
-  class DateTypeRange extends DateRange {
+  export default class DateTypeRange extends DateRange {
     /**
      * Constructor for a new DateTypeRange.
      *
@@ -13837,7 +14085,6 @@ declare module "sap/ui/unified/DateTypeRange" {
       sType?: CalendarDayType | keyof typeof CalendarDayType
     ): this;
   }
-  export default DateTypeRange;
 
   export interface $DateTypeRangeSettings extends $DateRangeSettings {
     /**
@@ -13904,7 +14151,7 @@ declare module "sap/ui/unified/FileUploader" {
    * with explicit calls, adjustable control sizes, text display after uploads, or tooltips containing complete
    * file paths.
    */
-  class FileUploader
+  export default class FileUploader
     extends Control
     implements IFormContent, IProcessableBlobs {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -14164,7 +14411,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderChangeEventParameters>) => void,
+      fnFunction: (p1: FileUploader$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14187,7 +14434,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderChangeEventParameters>) => void,
+      fnFunction: (p1: FileUploader$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14257,7 +14504,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderFileEmptyEventParameters>) => void,
+      fnFunction: (p1: FileUploader$FileEmptyEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14277,7 +14524,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderFileEmptyEventParameters>) => void,
+      fnFunction: (p1: FileUploader$FileEmptyEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14306,9 +14553,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderFilenameLengthExceedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$FilenameLengthExceedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14332,9 +14577,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderFilenameLengthExceedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$FilenameLengthExceedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14361,9 +14604,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderFileSizeExceedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$FileSizeExceedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14385,9 +14626,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderFileSizeExceedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$FileSizeExceedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14412,9 +14651,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderTypeMissmatchEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$TypeMissmatchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14434,9 +14671,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderTypeMissmatchEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$TypeMissmatchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14466,9 +14701,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadAbortedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadAbortedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14493,9 +14726,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadAbortedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadAbortedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14525,9 +14756,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadCompleteEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadCompleteEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14552,9 +14781,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadCompleteEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadCompleteEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14588,9 +14815,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadProgressEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadProgressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14619,9 +14844,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadProgressEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadProgressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14648,7 +14871,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderUploadStartEventParameters>) => void,
+      fnFunction: (p1: FileUploader$UploadStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14670,7 +14893,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderUploadStartEventParameters>) => void,
+      fnFunction: (p1: FileUploader$UploadStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -14766,7 +14989,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderChangeEventParameters>) => void,
+      fnFunction: (p1: FileUploader$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14800,7 +15023,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderFileEmptyEventParameters>) => void,
+      fnFunction: (p1: FileUploader$FileEmptyEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14820,9 +15043,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderFilenameLengthExceedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$FilenameLengthExceedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14840,9 +15061,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderFileSizeExceedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$FileSizeExceedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14860,9 +15079,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderTypeMissmatchEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$TypeMissmatchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14882,9 +15099,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadAbortedEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadAbortedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14902,9 +15117,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadCompleteEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadCompleteEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14924,9 +15137,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FileUploaderUploadProgressEventParameters>
-      ) => void,
+      fnFunction: (p1: FileUploader$UploadProgressEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14945,7 +15156,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FileUploaderUploadStartEventParameters>) => void,
+      fnFunction: (p1: FileUploader$UploadStartEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14953,7 +15164,7 @@ declare module "sap/ui/unified/FileUploader" {
     ): this;
     /**
      * @since 1.102.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterDialogClose afterDialogClose} to attached listeners.
      *
@@ -14967,7 +15178,7 @@ declare module "sap/ui/unified/FileUploader" {
     ): this;
     /**
      * @since 1.102.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeDialogOpen beforeDialogOpen} to attached listeners.
      *
@@ -14980,7 +15191,7 @@ declare module "sap/ui/unified/FileUploader" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -14990,10 +15201,10 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderChangeEventParameters
+      mParameters?: FileUploader$ChangeEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:fileAllowed fileAllowed} to attached listeners.
      *
@@ -15006,7 +15217,7 @@ declare module "sap/ui/unified/FileUploader" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:fileEmpty fileEmpty} to attached listeners.
      *
@@ -15016,11 +15227,11 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderFileEmptyEventParameters
+      mParameters?: FileUploader$FileEmptyEventParameters
     ): this;
     /**
      * @since 1.24.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:filenameLengthExceed filenameLengthExceed} to attached listeners.
      *
@@ -15030,10 +15241,10 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderFilenameLengthExceedEventParameters
+      mParameters?: FileUploader$FilenameLengthExceedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:fileSizeExceed fileSizeExceed} to attached listeners.
      *
@@ -15043,10 +15254,10 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderFileSizeExceedEventParameters
+      mParameters?: FileUploader$FileSizeExceedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:typeMissmatch typeMissmatch} to attached listeners.
      *
@@ -15056,11 +15267,11 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderTypeMissmatchEventParameters
+      mParameters?: FileUploader$TypeMissmatchEventParameters
     ): this;
     /**
      * @since 1.24.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:uploadAborted uploadAborted} to attached listeners.
      *
@@ -15070,10 +15281,10 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderUploadAbortedEventParameters
+      mParameters?: FileUploader$UploadAbortedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:uploadComplete uploadComplete} to attached listeners.
      *
@@ -15083,11 +15294,11 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderUploadCompleteEventParameters
+      mParameters?: FileUploader$UploadCompleteEventParameters
     ): this;
     /**
      * @since 1.24.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:uploadProgress uploadProgress} to attached listeners.
      *
@@ -15097,11 +15308,11 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderUploadProgressEventParameters
+      mParameters?: FileUploader$UploadProgressEventParameters
     ): this;
     /**
      * @since 1.30.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:uploadStart uploadStart} to attached listeners.
      *
@@ -15111,7 +15322,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FileUploaderUploadStartEventParameters
+      mParameters?: FileUploader$UploadStartEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAdditionalData additionalData}.
@@ -16187,7 +16398,6 @@ declare module "sap/ui/unified/FileUploader" {
       bPreProcessFiles?: boolean
     ): void;
   }
-  export default FileUploader;
 
   export interface $FileUploaderSettings extends $ControlSettings {
     /**
@@ -16452,7 +16662,7 @@ declare module "sap/ui/unified/FileUploader" {
      * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
      * Chrome browser when the Cancel button of the uploads window is pressed.
      */
-    change?: (oEvent: Event<$FileUploaderChangeEventParameters>) => void;
+    change?: (oEvent: Event<FileUploader$ChangeEventParameters>) => void;
 
     /**
      * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
@@ -16462,14 +16672,14 @@ declare module "sap/ui/unified/FileUploader" {
      * only the client side of the upload process and does not give any success status from the server.
      */
     uploadComplete?: (
-      oEvent: Event<$FileUploaderUploadCompleteEventParameters>
+      oEvent: Event<FileUploader$UploadCompleteEventParameters>
     ) => void;
 
     /**
      * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
      */
     typeMissmatch?: (
-      oEvent: Event<$FileUploaderTypeMissmatchEventParameters>
+      oEvent: Event<FileUploader$TypeMissmatchEventParameters>
     ) => void;
 
     /**
@@ -16477,13 +16687,13 @@ declare module "sap/ui/unified/FileUploader" {
      * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
      */
     fileSizeExceed?: (
-      oEvent: Event<$FileUploaderFileSizeExceedEventParameters>
+      oEvent: Event<FileUploader$FileSizeExceedEventParameters>
     ) => void;
 
     /**
      * Event is fired when the size of the file is 0
      */
-    fileEmpty?: (oEvent: Event<$FileUploaderFileEmptyEventParameters>) => void;
+    fileEmpty?: (oEvent: Event<FileUploader$FileEmptyEventParameters>) => void;
 
     /**
      * Event is fired when the file is allowed for upload on client side.
@@ -16502,7 +16712,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Internet Explorer 9.
      */
     uploadProgress?: (
-      oEvent: Event<$FileUploaderUploadProgressEventParameters>
+      oEvent: Event<FileUploader$UploadProgressEventParameters>
     ) => void;
 
     /**
@@ -16514,7 +16724,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Internet Explorer 9.
      */
     uploadAborted?: (
-      oEvent: Event<$FileUploaderUploadAbortedEventParameters>
+      oEvent: Event<FileUploader$UploadAbortedEventParameters>
     ) => void;
 
     /**
@@ -16524,7 +16734,7 @@ declare module "sap/ui/unified/FileUploader" {
      * property.
      */
     filenameLengthExceed?: (
-      oEvent: Event<$FileUploaderFilenameLengthExceedEventParameters>
+      oEvent: Event<FileUploader$FilenameLengthExceedEventParameters>
     ) => void;
 
     /**
@@ -16533,7 +16743,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Event is fired before an upload is started.
      */
     uploadStart?: (
-      oEvent: Event<$FileUploaderUploadStartEventParameters>
+      oEvent: Event<FileUploader$UploadStartEventParameters>
     ) => void;
 
     /**
@@ -16551,11 +16761,27 @@ declare module "sap/ui/unified/FileUploader" {
     afterDialogClose?: (oEvent: Event) => void;
   }
 
-  export interface $FileUploaderAfterDialogCloseEventParameters {}
+  export interface FileUploader$AfterDialogCloseEventParameters {}
 
-  export interface $FileUploaderBeforeDialogOpenEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$AfterDialogCloseEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderAfterDialogCloseEventParameters = FileUploader$AfterDialogCloseEventParameters;
 
-  export interface $FileUploaderChangeEventParameters {
+  export type FileUploader$AfterDialogCloseEvent = Event<FileUploader$AfterDialogCloseEventParameters>;
+
+  export interface FileUploader$BeforeDialogOpenEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$BeforeDialogOpenEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderBeforeDialogOpenEventParameters = FileUploader$BeforeDialogOpenEventParameters;
+
+  export type FileUploader$BeforeDialogOpenEvent = Event<FileUploader$BeforeDialogOpenEventParameters>;
+
+  export interface FileUploader$ChangeEventParameters {
     /**
      * New file path value.
      */
@@ -16567,23 +16793,55 @@ declare module "sap/ui/unified/FileUploader" {
     files?: object[];
   }
 
-  export interface $FileUploaderFileAllowedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderChangeEventParameters = FileUploader$ChangeEventParameters;
 
-  export interface $FileUploaderFileEmptyEventParameters {
+  export type FileUploader$ChangeEvent = Event<FileUploader$ChangeEventParameters>;
+
+  export interface FileUploader$FileAllowedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$FileAllowedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderFileAllowedEventParameters = FileUploader$FileAllowedEventParameters;
+
+  export type FileUploader$FileAllowedEvent = Event<FileUploader$FileAllowedEventParameters>;
+
+  export interface FileUploader$FileEmptyEventParameters {
     /**
      * The name of the file to be uploaded.
      */
     fileName?: string;
   }
 
-  export interface $FileUploaderFilenameLengthExceedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$FileEmptyEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderFileEmptyEventParameters = FileUploader$FileEmptyEventParameters;
+
+  export type FileUploader$FileEmptyEvent = Event<FileUploader$FileEmptyEventParameters>;
+
+  export interface FileUploader$FilenameLengthExceedEventParameters {
     /**
      * The filename, which is longer than specified by the value of the property `maximumFilenameLength`.
      */
     fileName?: string;
   }
 
-  export interface $FileUploaderFileSizeExceedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$FilenameLengthExceedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderFilenameLengthExceedEventParameters = FileUploader$FilenameLengthExceedEventParameters;
+
+  export type FileUploader$FilenameLengthExceedEvent = Event<FileUploader$FilenameLengthExceedEventParameters>;
+
+  export interface FileUploader$FileSizeExceedEventParameters {
     /**
      * The name of a file to be uploaded.
      */
@@ -16595,7 +16853,15 @@ declare module "sap/ui/unified/FileUploader" {
     fileSize?: string;
   }
 
-  export interface $FileUploaderTypeMissmatchEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$FileSizeExceedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderFileSizeExceedEventParameters = FileUploader$FileSizeExceedEventParameters;
+
+  export type FileUploader$FileSizeExceedEvent = Event<FileUploader$FileSizeExceedEventParameters>;
+
+  export interface FileUploader$TypeMissmatchEventParameters {
     /**
      * The name of a file to be uploaded.
      */
@@ -16612,7 +16878,15 @@ declare module "sap/ui/unified/FileUploader" {
     mimeType?: string;
   }
 
-  export interface $FileUploaderUploadAbortedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$TypeMissmatchEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderTypeMissmatchEventParameters = FileUploader$TypeMissmatchEventParameters;
+
+  export type FileUploader$TypeMissmatchEvent = Event<FileUploader$TypeMissmatchEventParameters>;
+
+  export interface FileUploader$UploadAbortedEventParameters {
     /**
      * The name of a file to be uploaded.
      */
@@ -16627,7 +16901,15 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  export interface $FileUploaderUploadCompleteEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$UploadAbortedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderUploadAbortedEventParameters = FileUploader$UploadAbortedEventParameters;
+
+  export type FileUploader$UploadAbortedEvent = Event<FileUploader$UploadAbortedEventParameters>;
+
+  export interface FileUploader$UploadCompleteEventParameters {
     /**
      * The name of a file to be uploaded.
      */
@@ -16687,7 +16969,15 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  export interface $FileUploaderUploadProgressEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$UploadCompleteEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderUploadCompleteEventParameters = FileUploader$UploadCompleteEventParameters;
+
+  export type FileUploader$UploadCompleteEvent = Event<FileUploader$UploadCompleteEventParameters>;
+
+  export interface FileUploader$UploadProgressEventParameters {
     /**
      * Indicates whether or not the relative upload progress can be calculated out of loaded and total.
      */
@@ -16717,7 +17007,15 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  export interface $FileUploaderUploadStartEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$UploadProgressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderUploadProgressEventParameters = FileUploader$UploadProgressEventParameters;
+
+  export type FileUploader$UploadProgressEvent = Event<FileUploader$UploadProgressEventParameters>;
+
+  export interface FileUploader$UploadStartEventParameters {
     /**
      * The name of a file to be uploaded.
      */
@@ -16731,6 +17029,14 @@ declare module "sap/ui/unified/FileUploader" {
      */
     requestHeaders?: object[];
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$UploadStartEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FileUploaderUploadStartEventParameters = FileUploader$UploadStartEventParameters;
+
+  export type FileUploader$UploadStartEvent = Event<FileUploader$UploadStartEventParameters>;
 }
 
 declare module "sap/ui/unified/FileUploaderHttpRequestMethod" {
@@ -16762,7 +17068,7 @@ declare module "sap/ui/unified/FileUploaderParameter" {
   /**
    * Represents a parameter for the FileUploader which is rendered as a hidden inputfield.
    */
-  class FileUploaderParameter extends UI5Element {
+  export default class FileUploaderParameter extends UI5Element {
     /**
      * Constructor for a new FileUploaderParameter.
      *
@@ -16878,7 +17184,6 @@ declare module "sap/ui/unified/FileUploaderParameter" {
       sValue?: string
     ): this;
   }
-  export default FileUploaderParameter;
 
   export interface $FileUploaderParameterSettings extends $ElementSettings {
     /**
@@ -16909,7 +17214,7 @@ declare module "sap/ui/unified/FileUploaderXHRSettings" {
    *
    * Properties for the `XMLHttpRequest` object used for file uploads.
    */
-  class FileUploaderXHRSettings extends UI5Element {
+  export default class FileUploaderXHRSettings extends UI5Element {
     /**
      * Constructor for a new FileUploaderXHRSettings.
      *
@@ -17002,7 +17307,6 @@ declare module "sap/ui/unified/FileUploaderXHRSettings" {
       bWithCredentials?: boolean
     ): this;
   }
-  export default FileUploaderXHRSettings;
 
   export interface $FileUploaderXHRSettingsSettings extends $ElementSettings {
     /**
@@ -17021,8 +17325,6 @@ declare module "sap/ui/unified/Menu" {
 
   import MenuItemBase from "sap/ui/unified/MenuItemBase";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import UI5Element from "sap/ui/core/Element";
@@ -17032,6 +17334,8 @@ declare module "sap/ui/unified/Menu" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.21.0
    *
@@ -17039,7 +17343,7 @@ declare module "sap/ui/unified/Menu" {
    * (items) can also be organized in submenus. Like other dialog-like controls, the menu is not rendered
    * within the control hierarchy. Instead it can be opened at a specified position via a function call.
    */
-  class Menu extends Control implements IContextMenu {
+  export default class Menu extends Control implements IContextMenu {
     __implements__sap_ui_core_IContextMenu: boolean;
     /**
      * Constructor for a new Menu control.
@@ -17146,7 +17450,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MenuItemSelectEventParameters>) => void,
+      fnFunction: (p1: Menu$ItemSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
        */
@@ -17168,7 +17472,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MenuItemSelectEventParameters>) => void,
+      fnFunction: (p1: Menu$ItemSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
        */
@@ -17195,14 +17499,14 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$MenuItemSelectEventParameters>) => void,
+      fnFunction: (p1: Menu$ItemSelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -17212,7 +17516,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $MenuItemSelectEventParameters
+      mParameters?: Menu$ItemSelectEventParameters
     ): this;
     /**
      * @deprecated (since 1.27.0) - replaced by `ariaLabelledBy` association
@@ -17480,7 +17784,6 @@ declare module "sap/ui/unified/Menu" {
       iPageSize?: int
     ): this;
   }
-  export default Menu;
 
   export interface $MenuSettings extends $ControlSettings {
     /**
@@ -17538,15 +17841,23 @@ declare module "sap/ui/unified/Menu" {
      * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
      * menu item. This event and the event of the menu items are redundant.
      */
-    itemSelect?: (oEvent: Event<$MenuItemSelectEventParameters>) => void;
+    itemSelect?: (oEvent: Event<Menu$ItemSelectEventParameters>) => void;
   }
 
-  export interface $MenuItemSelectEventParameters {
+  export interface Menu$ItemSelectEventParameters {
     /**
      * The action (item) which was selected by the user.
      */
     item?: MenuItemBase;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Menu$ItemSelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MenuItemSelectEventParameters = Menu$ItemSelectEventParameters;
+
+  export type Menu$ItemSelectEvent = Event<Menu$ItemSelectEventParameters>;
 }
 
 declare module "sap/ui/unified/MenuItem" {
@@ -17569,7 +17880,7 @@ declare module "sap/ui/unified/MenuItem" {
    * Standard item to be used inside a menu. A menu item represents an action which can be selected by the
    * user in the menu or it can provide a submenu to organize the actions hierarchically.
    */
-  class MenuItem extends MenuItemBase {
+  export default class MenuItem extends MenuItemBase {
     /**
      * Constructor for a new MenuItem element.
      *
@@ -17719,7 +18030,6 @@ declare module "sap/ui/unified/MenuItem" {
       sText?: string
     ): this;
   }
-  export default MenuItem;
 
   export interface $MenuItemSettings extends $MenuItemBaseSettings {
     /**
@@ -17743,8 +18053,6 @@ declare module "sap/ui/unified/MenuItem" {
 declare module "sap/ui/unified/MenuItemBase" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Menu from "sap/ui/unified/Menu";
@@ -17753,12 +18061,14 @@ declare module "sap/ui/unified/MenuItemBase" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.21.0
    *
    * Abstract base class for menu item which provides common properties and events for all concrete item implementations.
    */
-  class MenuItemBase extends UI5Element {
+  export default class MenuItemBase extends UI5Element {
     /**
      * Abstract base class `MenuItemBase` for menu item elements. Please use concrete subclasses.
      *
@@ -17840,7 +18150,7 @@ declare module "sap/ui/unified/MenuItemBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MenuItemBaseSelectEventParameters>) => void,
+      fnFunction: (p1: MenuItemBase$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.MenuItemBase` itself
        */
@@ -17862,7 +18172,7 @@ declare module "sap/ui/unified/MenuItemBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$MenuItemBaseSelectEventParameters>) => void,
+      fnFunction: (p1: MenuItemBase$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.MenuItemBase` itself
        */
@@ -17885,14 +18195,14 @@ declare module "sap/ui/unified/MenuItemBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$MenuItemBaseSelectEventParameters>) => void,
+      fnFunction: (p1: MenuItemBase$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -17902,7 +18212,7 @@ declare module "sap/ui/unified/MenuItemBase" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $MenuItemBaseSelectEventParameters
+      mParameters?: MenuItemBase$SelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
@@ -17943,7 +18253,7 @@ declare module "sap/ui/unified/MenuItemBase" {
      */
     getVisible(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Changes the visual hover state of the menu item.
      *
@@ -17960,7 +18270,7 @@ declare module "sap/ui/unified/MenuItemBase" {
       oMenu: Menu
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Informs the item that the item HTML is now applied to the DOM.
      *
@@ -17968,7 +18278,7 @@ declare module "sap/ui/unified/MenuItemBase" {
      */
     onAfterRendering(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Event handler which is called whenever the submenu of the item is opened or closed.
      *
@@ -17981,7 +18291,7 @@ declare module "sap/ui/unified/MenuItemBase" {
       bOpened: boolean
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Produces the HTML of an item and writes it to render-output-buffer during the rendering of the corresponding
      * menu.
@@ -18067,7 +18377,6 @@ declare module "sap/ui/unified/MenuItemBase" {
       bVisible?: boolean
     ): this;
   }
-  export default MenuItemBase;
 
   export interface $MenuItemBaseSettings extends $ElementSettings {
     /**
@@ -18097,15 +18406,23 @@ declare module "sap/ui/unified/MenuItemBase" {
      * a submenu. In general, applications must not handle event in this case because the user selection opens
      * the sub menu.
      */
-    select?: (oEvent: Event<$MenuItemBaseSelectEventParameters>) => void;
+    select?: (oEvent: Event<MenuItemBase$SelectEventParameters>) => void;
   }
 
-  export interface $MenuItemBaseSelectEventParameters {
+  export interface MenuItemBase$SelectEventParameters {
     /**
      * The current item
      */
     item?: MenuItemBase;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MenuItemBase$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MenuItemBaseSelectEventParameters = MenuItemBase$SelectEventParameters;
+
+  export type MenuItemBase$SelectEvent = Event<MenuItemBase$SelectEventParameters>;
 }
 
 declare module "sap/ui/unified/MenuTextFieldItem" {
@@ -18129,7 +18446,7 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
    * implementations. The aggregation `submenu` (inherited from parent class) is not supported for this type
    * of menu item.
    */
-  class MenuTextFieldItem extends MenuItemBase {
+  export default class MenuTextFieldItem extends MenuItemBase {
     /**
      * Constructor for a new MenuTextFieldItem element.
      *
@@ -18321,7 +18638,6 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
       sValueState?: ValueState | keyof typeof ValueState
     ): this;
   }
-  export default MenuTextFieldItem;
 
   export interface $MenuTextFieldItemSettings extends $MenuItemBaseSettings {
     /**
@@ -18381,7 +18697,7 @@ declare module "sap/ui/unified/Shell" {
    * control within applications which run inside the Fiori Lauchpad and do not use it for other scenarios
    * than the root control usecase.
    */
-  class Shell extends ShellLayout {
+  export default class Shell extends ShellLayout {
     /**
      * Constructor for a new Shell.
      *
@@ -18911,7 +19227,6 @@ declare module "sap/ui/unified/Shell" {
       oUser: ShellHeadUserItem
     ): this;
   }
-  export default Shell;
 
   export interface $ShellSettings extends $ShellLayoutSettings {
     /**
@@ -19014,7 +19329,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
    *
    * Header Action item of the Shell.
    */
-  class ShellHeadItem extends UI5Element {
+  export default class ShellHeadItem extends UI5Element {
     /**
      * Constructor for a new ShellHeadItem.
      *
@@ -19149,7 +19464,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -19394,7 +19709,6 @@ declare module "sap/ui/unified/ShellHeadItem" {
       bVisible?: boolean
     ): this;
   }
-  export default ShellHeadItem;
 
   export interface $ShellHeadItemSettings extends $ElementSettings {
     /**
@@ -19456,7 +19770,15 @@ declare module "sap/ui/unified/ShellHeadItem" {
     press?: (oEvent: Event) => void;
   }
 
-  export interface $ShellHeadItemPressEventParameters {}
+  export interface ShellHeadItem$PressEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellHeadItem$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellHeadItemPressEventParameters = ShellHeadItem$PressEventParameters;
+
+  export type ShellHeadItem$PressEvent = Event<ShellHeadItem$PressEventParameters>;
 }
 
 declare module "sap/ui/unified/ShellHeadUserItem" {
@@ -19478,7 +19800,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
    *
    * User Header Action Item of the Shell.
    */
-  class ShellHeadUserItem extends UI5Element {
+  export default class ShellHeadUserItem extends UI5Element {
     /**
      * Constructor for a new ShellHeadUserItem.
      *
@@ -19613,7 +19935,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -19730,7 +20052,6 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       sUsername?: string
     ): this;
   }
-  export default ShellHeadUserItem;
 
   export interface $ShellHeadUserItemSettings extends $ElementSettings {
     /**
@@ -19762,7 +20083,15 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
     press?: (oEvent: Event) => void;
   }
 
-  export interface $ShellHeadUserItemPressEventParameters {}
+  export interface ShellHeadUserItem$PressEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellHeadUserItem$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellHeadUserItemPressEventParameters = ShellHeadUserItem$PressEventParameters;
+
+  export type ShellHeadUserItem$PressEvent = Event<ShellHeadUserItem$PressEventParameters>;
 }
 
 declare module "sap/ui/unified/ShellLayout" {
@@ -19784,7 +20113,7 @@ declare module "sap/ui/unified/ShellLayout" {
    * for this purpose. Do not use this control within applications which run inside the Fiori Lauchpad and
    * do not use it for other scenarios than the root control usecase.
    */
-  class ShellLayout extends Control {
+  export default class ShellLayout extends Control {
     /**
      * Constructor for a new ShellLayout.
      *
@@ -20094,7 +20423,6 @@ declare module "sap/ui/unified/ShellLayout" {
       bShowPane?: boolean
     ): this;
   }
-  export default ShellLayout;
 
   export interface $ShellLayoutSettings extends $ControlSettings {
     /**
@@ -20149,7 +20477,7 @@ declare module "sap/ui/unified/ShellOverlay" {
    *
    * ShellOverlay to be opened in front of an sap.ui.unified.Shell
    */
-  class ShellOverlay extends Control {
+  export default class ShellOverlay extends Control {
     /**
      * Constructor for a new ShellOverlay.
      *
@@ -20311,7 +20639,7 @@ declare module "sap/ui/unified/ShellOverlay" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -20437,7 +20765,6 @@ declare module "sap/ui/unified/ShellOverlay" {
       oShell: ID | ShellLayout
     ): this;
   }
-  export default ShellOverlay;
 
   export interface $ShellOverlaySettings extends $ControlSettings {
     /**
@@ -20467,7 +20794,15 @@ declare module "sap/ui/unified/ShellOverlay" {
     closed?: (oEvent: Event) => void;
   }
 
-  export interface $ShellOverlayClosedEventParameters {}
+  export interface ShellOverlay$ClosedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellOverlay$ClosedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellOverlayClosedEventParameters = ShellOverlay$ClosedEventParameters;
+
+  export type ShellOverlay$ClosedEvent = Event<ShellOverlay$ClosedEventParameters>;
 }
 
 declare module "sap/ui/unified/SplitContainer" {
@@ -20489,7 +20824,7 @@ declare module "sap/ui/unified/SplitContainer" {
    *
    * Provides a main content and a secondary content area
    */
-  class SplitContainer extends Control {
+  export default class SplitContainer extends Control {
     /**
      * Constructor for a new SplitContainer.
      *
@@ -20805,7 +21140,6 @@ declare module "sap/ui/unified/SplitContainer" {
       bShowSecondaryContent?: boolean
     ): this;
   }
-  export default SplitContainer;
 
   export interface $SplitContainerSettings extends $ControlSettings {
     /**
