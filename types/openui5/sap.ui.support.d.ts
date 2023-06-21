@@ -1,4 +1,4 @@
-// For Library Version: 1.115.0
+// For Library Version: 1.115.1
 
 declare module "sap/ui/support/library" {
   /**
@@ -204,7 +204,7 @@ declare module "sap/ui/support/supportRules/ExecutionScope" {
    * When you analyze your application, available objects are collected depending on the settings passed to
    * the Support Assistant at the moment when you start it.
    */
-  class ExecutionScope {
+  export default class ExecutionScope {
     constructor();
 
     /**
@@ -265,7 +265,6 @@ declare module "sap/ui/support/supportRules/ExecutionScope" {
      */
     getType(): string;
   }
-  export default ExecutionScope;
 }
 
 declare module "sap/ui/support/RuleAnalyzer" {

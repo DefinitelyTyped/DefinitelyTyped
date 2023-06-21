@@ -1,4 +1,4 @@
-// For Library Version: 1.115.0
+// For Library Version: 1.115.1
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -414,7 +414,7 @@ declare module "sap/f/Avatar" {
    * Up to two Latin letters can be displayed as initials in an `Avatar`. If there are more than two letters,
    * or if there's a non-Latin character present, a default image placeholder will be created.
    */
-  class Avatar extends Avatar1 {
+  export default class Avatar extends Avatar1 {
     /**
      * Constructor for a new `Avatar`.
      *
@@ -486,7 +486,6 @@ declare module "sap/f/Avatar" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default Avatar;
 
   export interface $AvatarSettings extends $AvatarSettings1 {}
 }
@@ -495,8 +494,6 @@ declare module "sap/f/AvatarGroup" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import AvatarGroupItem from "sap/f/AvatarGroupItem";
-
-  import Event from "sap/ui/base/Event";
 
   import { AbsoluteCSSSize } from "sap/ui/core/library";
 
@@ -510,6 +507,8 @@ declare module "sap/f/AvatarGroup" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.73
@@ -546,7 +545,7 @@ declare module "sap/f/AvatarGroup" {
    * 	 - You want to display a gallery for simple images.
    * 	 - You want to use it for other visual content than avatars.
    */
-  class AvatarGroup extends Control {
+  export default class AvatarGroup extends Control {
     /**
      * Constructor for a new `AvatarGroup`.
      *
@@ -637,7 +636,7 @@ declare module "sap/f/AvatarGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$AvatarGroupPressEventParameters>) => void,
+      fnFunction: (p1: AvatarGroup$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.AvatarGroup` itself
        */
@@ -657,7 +656,7 @@ declare module "sap/f/AvatarGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$AvatarGroupPressEventParameters>) => void,
+      fnFunction: (p1: AvatarGroup$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.AvatarGroup` itself
        */
@@ -680,14 +679,14 @@ declare module "sap/f/AvatarGroup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$AvatarGroupPressEventParameters>) => void,
+      fnFunction: (p1: AvatarGroup$PressEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -697,7 +696,7 @@ declare module "sap/f/AvatarGroup" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $AvatarGroupPressEventParameters
+      mParameters?: AvatarGroup$PressEventParameters
     ): this;
     /**
      * @since 1.103
@@ -882,7 +881,6 @@ declare module "sap/f/AvatarGroup" {
       sGroupType?: AvatarGroupType | keyof typeof AvatarGroupType
     ): this;
   }
-  export default AvatarGroup;
 
   export interface $AvatarGroupSettings extends $ControlSettings {
     /**
@@ -939,10 +937,10 @@ declare module "sap/f/AvatarGroup" {
     /**
      * Fired when the user clicks or taps on the control.
      */
-    press?: (oEvent: Event<$AvatarGroupPressEventParameters>) => void;
+    press?: (oEvent: Event<AvatarGroup$PressEventParameters>) => void;
   }
 
-  export interface $AvatarGroupPressEventParameters {
+  export interface AvatarGroup$PressEventParameters {
     /**
      * The `GroupType` of the control.
      */
@@ -958,6 +956,14 @@ declare module "sap/f/AvatarGroup" {
      */
     avatarsDisplayed?: int;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'AvatarGroup$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $AvatarGroupPressEventParameters = AvatarGroup$PressEventParameters;
+
+  export type AvatarGroup$PressEvent = Event<AvatarGroup$PressEventParameters>;
 }
 
 declare module "sap/f/AvatarGroupItem" {
@@ -979,7 +985,7 @@ declare module "sap/f/AvatarGroupItem" {
    * Overview: The `AvatarGroupItem` control allows you to define additional properties that are applied when
    * rendering each `AvatarGroupItem` instance in the {@link sap.f.AvatarGroup} control.
    */
-  class AvatarGroupItem extends Control {
+  export default class AvatarGroupItem extends Control {
     /**
      * Constructor for a new `AvatarGroupItem`.
      *
@@ -1124,7 +1130,6 @@ declare module "sap/f/AvatarGroupItem" {
       sSrc?: URI
     ): this;
   }
-  export default AvatarGroupItem;
 
   export interface $AvatarGroupItemSettings extends $ControlSettings {
     /**
@@ -1191,7 +1196,7 @@ declare module "sap/f/Card" {
    * 	 - When the card is not part of a card layout. For such cases, use: {@link sap.m.Panel Panel}.
    * 	 - When you need more header configuration flexibility.
    */
-  class Card extends CardBase {
+  export default class Card extends CardBase {
     /**
      * Constructor for a new `Card`.
      *
@@ -1332,7 +1337,6 @@ declare module "sap/f/Card" {
       sHeaderPosition?: cards.HeaderPosition | keyof typeof cards.HeaderPosition
     ): this;
   }
-  export default Card;
 
   export interface $CardSettings extends $CardBaseSettings {
     /**
@@ -1373,7 +1377,7 @@ declare module "sap/f/CardBase" {
   /**
    * A base class for controls that represent a container with a predefined header and content.
    */
-  class CardBase extends Control implements ICard, IBadge {
+  export default class CardBase extends Control implements ICard, IBadge {
     __implements__sap_f_ICard: boolean;
     __implements__sap_m_IBadge: boolean;
     /**
@@ -1437,7 +1441,7 @@ declare module "sap/f/CardBase" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus.
      *
@@ -1499,7 +1503,6 @@ declare module "sap/f/CardBase" {
       sWidth?: CSSSize
     ): this;
   }
-  export default CardBase;
 
   export interface $CardBaseSettings extends $ControlSettings {
     /**
@@ -1526,7 +1529,7 @@ declare module "sap/f/cards/BaseHeader" {
    *
    * Provides basic functionality for header controls that can be used in sap.f.Card
    */
-  class BaseHeader extends Control {
+  export default class BaseHeader extends Control {
     /**
      * Constructor for a new `BaseHeader`.
      *
@@ -1637,7 +1640,6 @@ declare module "sap/f/cards/BaseHeader" {
       oToolbar: Control
     ): this;
   }
-  export default BaseHeader;
 
   export interface $BaseHeaderSettings extends $ControlSettings {
     /**
@@ -1695,7 +1697,7 @@ declare module "sap/f/cards/Header" {
    * 	 - You should always set a title.
    * 	 - To show a KPI or any numeric information, use {@link sap.f.cards.NumericHeader} instead.
    */
-  class Header extends BaseHeader implements cards.IHeader {
+  export default class Header extends BaseHeader implements cards.IHeader {
     __implements__sap_f_cards_IHeader: boolean;
     /**
      * Constructor for a new `Header`.
@@ -1820,7 +1822,7 @@ declare module "sap/f/cards/Header" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -1840,7 +1842,7 @@ declare module "sap/f/cards/Header" {
       }
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -2170,7 +2172,6 @@ declare module "sap/f/cards/Header" {
       iTitleMaxLines?: int
     ): this;
   }
-  export default Header;
 
   export interface $HeaderSettings extends $BaseHeaderSettings {
     /**
@@ -2250,20 +2251,28 @@ declare module "sap/f/cards/Header" {
     press?: (oEvent: Event) => void;
   }
 
-  export interface $HeaderPressEventParameters {}
+  export interface Header$PressEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HeaderPressEventParameters = Header$PressEventParameters;
+
+  export type Header$PressEvent = Event<Header$PressEventParameters>;
 }
 
 declare module "sap/f/cards/loading/PlaceholderBaseRenderer" {
   import RenderManager from "sap/ui/core/RenderManager";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * PlaceholderBase renderer.
    */
   interface PlaceholderBaseRenderer {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is reserved for derived classes to add their respective attributes.
      */
@@ -2278,7 +2287,7 @@ declare module "sap/f/cards/loading/PlaceholderBaseRenderer" {
       oRm: RenderManager
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is reserved for derived classes to render their respective content.
      */
@@ -2334,7 +2343,9 @@ declare module "sap/f/cards/NumericHeader" {
    * 	 - You should always have a maximum of two side indicators.
    * 	 - To show only basic information, use {@link sap.f.cards.Header Header} instead.
    */
-  class NumericHeader extends BaseHeader implements cards.IHeader {
+  export default class NumericHeader
+    extends BaseHeader
+    implements cards.IHeader {
     __implements__sap_f_cards_IHeader: boolean;
     /**
      * Constructor for a new `NumericHeader`.
@@ -2476,7 +2487,7 @@ declare module "sap/f/cards/NumericHeader" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -2496,7 +2507,7 @@ declare module "sap/f/cards/NumericHeader" {
       }
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -2950,7 +2961,6 @@ declare module "sap/f/cards/NumericHeader" {
       sUnitOfMeasurement: string
     ): this;
   }
-  export default NumericHeader;
 
   export interface $NumericHeaderSettings extends $BaseHeaderSettings {
     /**
@@ -3065,7 +3075,15 @@ declare module "sap/f/cards/NumericHeader" {
     press?: (oEvent: Event) => void;
   }
 
-  export interface $NumericHeaderPressEventParameters {}
+  export interface NumericHeader$PressEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'NumericHeader$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $NumericHeaderPressEventParameters = NumericHeader$PressEventParameters;
+
+  export type NumericHeader$PressEvent = Event<NumericHeader$PressEventParameters>;
 }
 
 declare module "sap/f/cards/NumericSideIndicator" {
@@ -3082,7 +3100,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
    *
    * Holds a set of side indicator attributes used in the {@link sap.f.cards.NumericHeader} control.
    */
-  class NumericSideIndicator extends Control {
+  export default class NumericSideIndicator extends Control {
     /**
      * Constructor for a new `NumericSideIndicator`.
      *
@@ -3234,7 +3252,6 @@ declare module "sap/f/cards/NumericSideIndicator" {
       sValue: string
     ): this;
   }
-  export default NumericSideIndicator;
 
   export interface $NumericSideIndicatorSettings extends $ControlSettings {
     /**
@@ -3296,7 +3313,7 @@ declare module "sap/f/dnd/GridDropInfo" {
    * **Note:** This configuration might be ignored due to control {@link sap.ui.core.Element.extend metadata }
    * restrictions.
    */
-  class GridDropInfo extends DropInfo implements dnd.IDropInfo {
+  export default class GridDropInfo extends DropInfo implements dnd.IDropInfo {
     __implements__sap_ui_core_dnd_IDropInfo: boolean;
     /**
      * Constructor for a new GridDropInfo.
@@ -3414,7 +3431,6 @@ declare module "sap/f/dnd/GridDropInfo" {
       } | null
     ): this;
   }
-  export default GridDropInfo;
 
   export interface $GridDropInfoSettings extends $DropInfoSettings {
     /**
@@ -3438,8 +3454,6 @@ declare module "sap/f/dnd/GridDropInfo" {
 declare module "sap/f/DynamicPage" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
   import { PageBackgroundDesign, IBar } from "sap/m/library";
 
   import DynamicPageHeader from "sap/f/DynamicPageHeader";
@@ -3457,6 +3471,8 @@ declare module "sap/f/DynamicPage" {
   import { IDynamicPageStickyContent } from "sap/f/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.42
@@ -3509,7 +3525,7 @@ declare module "sap/f/DynamicPage" {
    * To adjust the `DynamicPage` content padding, the `sapUiContentPadding`, `sapUiNoContentPadding`, and
    * `sapUiResponsiveContentPadding` CSS classes can be used.
    */
-  class DynamicPage extends Control {
+  export default class DynamicPage extends Control {
     /**
      * Constructor for a new `DynamicPage`.
      *
@@ -3596,9 +3612,7 @@ declare module "sap/f/DynamicPage" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicPagePinnedStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicPage$PinnedStateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.DynamicPage` itself
        */
@@ -3621,9 +3635,7 @@ declare module "sap/f/DynamicPage" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicPagePinnedStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicPage$PinnedStateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.DynamicPage` itself
        */
@@ -3675,9 +3687,7 @@ declare module "sap/f/DynamicPage" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicPagePinnedStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicPage$PinnedStateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3685,7 +3695,7 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * @since 1.93
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pinnedStateChange pinnedStateChange} to attached listeners.
      *
@@ -3695,7 +3705,7 @@ declare module "sap/f/DynamicPage" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DynamicPagePinnedStateChangeEventParameters
+      mParameters?: DynamicPage$PinnedStateChangeEventParameters
     ): this;
     /**
      * @since 1.68
@@ -4115,7 +4125,6 @@ declare module "sap/f/DynamicPage" {
       bToggleHeaderOnTitleClick?: boolean
     ): this;
   }
-  export default DynamicPage;
 
   export interface $DynamicPageSettings extends $ControlSettings {
     /**
@@ -4265,16 +4274,24 @@ declare module "sap/f/DynamicPage" {
      * The event is fired when the `headerPinned` property is changed via user interaction.
      */
     pinnedStateChange?: (
-      oEvent: Event<$DynamicPagePinnedStateChangeEventParameters>
+      oEvent: Event<DynamicPage$PinnedStateChangeEventParameters>
     ) => void;
   }
 
-  export interface $DynamicPagePinnedStateChangeEventParameters {
+  export interface DynamicPage$PinnedStateChangeEventParameters {
     /**
      * False or True values indicate the new pinned property value.
      */
     pinned?: boolean;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DynamicPage$PinnedStateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DynamicPagePinnedStateChangeEventParameters = DynamicPage$PinnedStateChangeEventParameters;
+
+  export type DynamicPage$PinnedStateChangeEvent = Event<DynamicPage$PinnedStateChangeEventParameters>;
 }
 
 declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
@@ -4295,7 +4312,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
    * These landmarks are used by assistive technologies (such as screen readers) to provide a meaningful page
    * overview.
    */
-  class DynamicPageAccessibleLandmarkInfo extends UI5Element {
+  export default class DynamicPageAccessibleLandmarkInfo extends UI5Element {
     /**
      * Constructor for a new `sap.f.DynamicPageAccessibleLandmarkInfo` element.
      *
@@ -4605,7 +4622,6 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
       sRootRole?: AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole
     ): this;
   }
-  export default DynamicPageAccessibleLandmarkInfo;
 
   export interface $DynamicPageAccessibleLandmarkInfoSettings
     extends $ElementSettings {
@@ -4719,7 +4735,7 @@ declare module "sap/f/DynamicPageHeader" {
    *
    * The responsive behavior of the `DynamicPageHeader` depends on the behavior of the content that is displayed.
    */
-  class DynamicPageHeader extends Control {
+  export default class DynamicPageHeader extends Control {
     /**
      * Constructor for a new `DynamicPageHeader`.
      *
@@ -4912,7 +4928,6 @@ declare module "sap/f/DynamicPageHeader" {
       bPinnable?: boolean
     ): this;
   }
-  export default DynamicPageHeader;
 
   export interface $DynamicPageHeaderSettings extends $ControlSettings {
     /**
@@ -4947,8 +4962,6 @@ declare module "sap/f/DynamicPageTitle" {
 
   import Button from "sap/m/Button";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     DynamicPageTitleShrinkRatio,
     DynamicPageTitleArea,
@@ -4964,6 +4977,8 @@ declare module "sap/f/DynamicPageTitle" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.42
@@ -4995,7 +5010,7 @@ declare module "sap/f/DynamicPageTitle" {
    *
    * The responsive behavior of the `DynamicPageTitle` depends on the behavior of the content that is displayed.
    */
-  class DynamicPageTitle extends Control {
+  export default class DynamicPageTitle extends Control {
     /**
      * Constructor for a new `DynamicPageTitle`.
      *
@@ -5153,9 +5168,7 @@ declare module "sap/f/DynamicPageTitle" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicPageTitleStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicPageTitle$StateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.DynamicPageTitle` itself
        */
@@ -5181,9 +5194,7 @@ declare module "sap/f/DynamicPageTitle" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicPageTitleStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicPageTitle$StateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.DynamicPageTitle` itself
        */
@@ -5274,9 +5285,7 @@ declare module "sap/f/DynamicPageTitle" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$DynamicPageTitleStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: DynamicPageTitle$StateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5284,7 +5293,7 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * @since 1.54
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
      *
@@ -5294,7 +5303,7 @@ declare module "sap/f/DynamicPageTitle" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DynamicPageTitleStateChangeEventParameters
+      mParameters?: DynamicPageTitle$StateChangeEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getActions actions}.
@@ -5896,7 +5905,6 @@ declare module "sap/f/DynamicPageTitle" {
       oSnappedTitleOnMobile: Title
     ): this;
   }
-  export default DynamicPageTitle;
 
   export interface $DynamicPageTitleSettings extends $ControlSettings {
     /**
@@ -6103,24 +6111,30 @@ declare module "sap/f/DynamicPageTitle" {
      * of the scrollbar of `DynamicPage`.
      */
     stateChange?: (
-      oEvent: Event<$DynamicPageTitleStateChangeEventParameters>
+      oEvent: Event<DynamicPageTitle$StateChangeEventParameters>
     ) => void;
   }
 
-  export interface $DynamicPageTitleStateChangeEventParameters {
+  export interface DynamicPageTitle$StateChangeEventParameters {
     /**
      * Whether the title was expanded (true) or collapsed (false).
      */
     isExpanded?: boolean;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DynamicPageTitle$StateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DynamicPageTitleStateChangeEventParameters = DynamicPageTitle$StateChangeEventParameters;
+
+  export type DynamicPageTitle$StateChangeEvent = Event<DynamicPageTitle$StateChangeEventParameters>;
 }
 
 declare module "sap/f/FlexibleColumnLayout" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { IPlaceholderSupport, ID } from "sap/ui/core/library";
-
-  import Event from "sap/ui/base/Event";
 
   import { BackgroundDesign } from "sap/m/library";
 
@@ -6134,6 +6148,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.46
@@ -6178,7 +6194,9 @@ declare module "sap/f/FlexibleColumnLayout" {
    *
    * For detailed information, see {@link sap.f.LayoutType LayoutType} enumeration.
    */
-  class FlexibleColumnLayout extends Control implements IPlaceholderSupport {
+  export default class FlexibleColumnLayout
+    extends Control
+    implements IPlaceholderSupport {
     __implements__sap_ui_core_IPlaceholderSupport: boolean;
     /**
      * Constructor for a new `sap.f.FlexibleColumnLayout`.
@@ -6302,7 +6320,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterBeginColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterBeginColumnNavigateEvent
       ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
@@ -6327,7 +6345,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterBeginColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterBeginColumnNavigateEvent
       ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
@@ -6357,7 +6375,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterEndColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterEndColumnNavigateEvent
       ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
@@ -6382,7 +6400,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterEndColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterEndColumnNavigateEvent
       ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
@@ -6412,7 +6430,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterMidColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterMidColumnNavigateEvent
       ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
@@ -6437,7 +6455,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterMidColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterMidColumnNavigateEvent
       ) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
@@ -6466,9 +6484,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutBeginColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$BeginColumnNavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6491,9 +6507,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutBeginColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$BeginColumnNavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6520,9 +6534,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutColumnResizeEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$ColumnResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6544,9 +6556,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutColumnResizeEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$ColumnResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6574,9 +6584,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutEndColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$EndColumnNavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6599,9 +6607,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutEndColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$EndColumnNavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6629,9 +6635,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutMidColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$MidColumnNavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6654,9 +6658,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutMidColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$MidColumnNavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6690,9 +6692,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$StateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6721,9 +6721,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$StateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -6918,7 +6916,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called, when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterBeginColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterBeginColumnNavigateEvent
       ) => void,
       /**
        * Context object on which the given function had to be called
@@ -6938,7 +6936,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called, when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterEndColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterEndColumnNavigateEvent
       ) => void,
       /**
        * Context object on which the given function had to be called
@@ -6958,7 +6956,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The function to be called, when the event occurs
        */
       fnFunction: (
-        p1: Event<$FlexibleColumnLayoutAfterMidColumnNavigateEventParameters>
+        p1: FlexibleColumnLayout$AfterMidColumnNavigateEvent
       ) => void,
       /**
        * Context object on which the given function had to be called
@@ -6977,9 +6975,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutBeginColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$BeginColumnNavigateEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6998,9 +6994,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutColumnResizeEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$ColumnResizeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7018,9 +7012,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutEndColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$EndColumnNavigateEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7038,9 +7030,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutMidColumnNavigateEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$MidColumnNavigateEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7057,16 +7047,14 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FlexibleColumnLayoutStateChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: FlexibleColumnLayout$StateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate} to attached listeners.
      *
@@ -7076,10 +7064,10 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FlexibleColumnLayoutAfterBeginColumnNavigateEventParameters
+      mParameters?: FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterEndColumnNavigate afterEndColumnNavigate} to attached listeners.
      *
@@ -7089,10 +7077,10 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FlexibleColumnLayoutAfterEndColumnNavigateEventParameters
+      mParameters?: FlexibleColumnLayout$AfterEndColumnNavigateEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterMidColumnNavigate afterMidColumnNavigate} to attached listeners.
      *
@@ -7102,10 +7090,10 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FlexibleColumnLayoutAfterMidColumnNavigateEventParameters
+      mParameters?: FlexibleColumnLayout$AfterMidColumnNavigateEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beginColumnNavigate beginColumnNavigate} to attached listeners.
      *
@@ -7118,11 +7106,11 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FlexibleColumnLayoutBeginColumnNavigateEventParameters
+      mParameters?: FlexibleColumnLayout$BeginColumnNavigateEventParameters
     ): boolean;
     /**
      * @since 1.76
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
      *
@@ -7132,10 +7120,10 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FlexibleColumnLayoutColumnResizeEventParameters
+      mParameters?: FlexibleColumnLayout$ColumnResizeEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:endColumnNavigate endColumnNavigate} to attached listeners.
      *
@@ -7148,10 +7136,10 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FlexibleColumnLayoutEndColumnNavigateEventParameters
+      mParameters?: FlexibleColumnLayout$EndColumnNavigateEventParameters
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:midColumnNavigate midColumnNavigate} to attached listeners.
      *
@@ -7164,10 +7152,10 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FlexibleColumnLayoutMidColumnNavigateEventParameters
+      mParameters?: FlexibleColumnLayout$MidColumnNavigateEventParameters
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
      *
@@ -7177,7 +7165,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FlexibleColumnLayoutStateChangeEventParameters
+      mParameters?: FlexibleColumnLayout$StateChangeEventParameters
     ): this;
     /**
      * @since 1.76
@@ -7991,7 +7979,6 @@ declare module "sap/f/FlexibleColumnLayout" {
       oTransitionParameters: object
     ): this;
   }
-  export default FlexibleColumnLayout;
 
   export interface $FlexibleColumnLayoutSettings extends $ControlSettings {
     /**
@@ -8134,7 +8121,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * it gets a non-zero width
      */
     stateChange?: (
-      oEvent: Event<$FlexibleColumnLayoutStateChangeEventParameters>
+      oEvent: Event<FlexibleColumnLayout$StateChangeEventParameters>
     ) => void;
 
     /**
@@ -8143,7 +8130,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * which means that there will be no navigation.
      */
     beginColumnNavigate?: (
-      oEvent: Event<$FlexibleColumnLayoutBeginColumnNavigateEventParameters>
+      oEvent: Event<FlexibleColumnLayout$BeginColumnNavigateEventParameters>
     ) => void;
 
     /**
@@ -8152,7 +8139,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
     afterBeginColumnNavigate?: (
-      oEvent: Event<$FlexibleColumnLayoutAfterBeginColumnNavigateEventParameters>
+      oEvent: Event<FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters>
     ) => void;
 
     /**
@@ -8161,7 +8148,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * which means that there will be no navigation.
      */
     midColumnNavigate?: (
-      oEvent: Event<$FlexibleColumnLayoutMidColumnNavigateEventParameters>
+      oEvent: Event<FlexibleColumnLayout$MidColumnNavigateEventParameters>
     ) => void;
 
     /**
@@ -8170,7 +8157,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
     afterMidColumnNavigate?: (
-      oEvent: Event<$FlexibleColumnLayoutAfterMidColumnNavigateEventParameters>
+      oEvent: Event<FlexibleColumnLayout$AfterMidColumnNavigateEventParameters>
     ) => void;
 
     /**
@@ -8179,7 +8166,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * which means that there will be no navigation.
      */
     endColumnNavigate?: (
-      oEvent: Event<$FlexibleColumnLayoutEndColumnNavigateEventParameters>
+      oEvent: Event<FlexibleColumnLayout$EndColumnNavigateEventParameters>
     ) => void;
 
     /**
@@ -8188,7 +8175,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
     afterEndColumnNavigate?: (
-      oEvent: Event<$FlexibleColumnLayoutAfterEndColumnNavigateEventParameters>
+      oEvent: Event<FlexibleColumnLayout$AfterEndColumnNavigateEventParameters>
     ) => void;
 
     /**
@@ -8197,11 +8184,11 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fired when resize of each column has completed.
      */
     columnResize?: (
-      oEvent: Event<$FlexibleColumnLayoutColumnResizeEventParameters>
+      oEvent: Event<FlexibleColumnLayout$ColumnResizeEventParameters>
     ) => void;
   }
 
-  export interface $FlexibleColumnLayoutAfterBeginColumnNavigateEventParameters {
+  export interface FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters {
     /**
      * The page, which had been displayed before navigation.
      */
@@ -8254,7 +8241,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export interface $FlexibleColumnLayoutAfterEndColumnNavigateEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FlexibleColumnLayoutAfterBeginColumnNavigateEventParameters = FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters;
+
+  export type FlexibleColumnLayout$AfterBeginColumnNavigateEvent = Event<FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters>;
+
+  export interface FlexibleColumnLayout$AfterEndColumnNavigateEventParameters {
     /**
      * The page, which had been displayed before navigation.
      */
@@ -8307,7 +8302,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export interface $FlexibleColumnLayoutAfterMidColumnNavigateEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FlexibleColumnLayout$AfterEndColumnNavigateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FlexibleColumnLayoutAfterEndColumnNavigateEventParameters = FlexibleColumnLayout$AfterEndColumnNavigateEventParameters;
+
+  export type FlexibleColumnLayout$AfterEndColumnNavigateEvent = Event<FlexibleColumnLayout$AfterEndColumnNavigateEventParameters>;
+
+  export interface FlexibleColumnLayout$AfterMidColumnNavigateEventParameters {
     /**
      * The page, which had been displayed before navigation.
      */
@@ -8360,7 +8363,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export interface $FlexibleColumnLayoutBeginColumnNavigateEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FlexibleColumnLayout$AfterMidColumnNavigateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FlexibleColumnLayoutAfterMidColumnNavigateEventParameters = FlexibleColumnLayout$AfterMidColumnNavigateEventParameters;
+
+  export type FlexibleColumnLayout$AfterMidColumnNavigateEvent = Event<FlexibleColumnLayout$AfterMidColumnNavigateEventParameters>;
+
+  export interface FlexibleColumnLayout$BeginColumnNavigateEventParameters {
     /**
      * The page, which was displayed before the current navigation.
      */
@@ -8413,7 +8424,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export interface $FlexibleColumnLayoutColumnResizeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FlexibleColumnLayout$BeginColumnNavigateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FlexibleColumnLayoutBeginColumnNavigateEventParameters = FlexibleColumnLayout$BeginColumnNavigateEventParameters;
+
+  export type FlexibleColumnLayout$BeginColumnNavigateEvent = Event<FlexibleColumnLayout$BeginColumnNavigateEventParameters>;
+
+  export interface FlexibleColumnLayout$ColumnResizeEventParameters {
     /**
      * Determines whether `beginColumn` resize has completed.
      */
@@ -8430,7 +8449,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     endColumn?: boolean;
   }
 
-  export interface $FlexibleColumnLayoutEndColumnNavigateEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FlexibleColumnLayout$ColumnResizeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FlexibleColumnLayoutColumnResizeEventParameters = FlexibleColumnLayout$ColumnResizeEventParameters;
+
+  export type FlexibleColumnLayout$ColumnResizeEvent = Event<FlexibleColumnLayout$ColumnResizeEventParameters>;
+
+  export interface FlexibleColumnLayout$EndColumnNavigateEventParameters {
     /**
      * The page, which was displayed before the current navigation.
      */
@@ -8483,7 +8510,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export interface $FlexibleColumnLayoutMidColumnNavigateEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FlexibleColumnLayout$EndColumnNavigateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FlexibleColumnLayoutEndColumnNavigateEventParameters = FlexibleColumnLayout$EndColumnNavigateEventParameters;
+
+  export type FlexibleColumnLayout$EndColumnNavigateEvent = Event<FlexibleColumnLayout$EndColumnNavigateEventParameters>;
+
+  export interface FlexibleColumnLayout$MidColumnNavigateEventParameters {
     /**
      * The page, which was displayed before the current navigation.
      */
@@ -8536,7 +8571,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export interface $FlexibleColumnLayoutStateChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FlexibleColumnLayout$MidColumnNavigateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FlexibleColumnLayoutMidColumnNavigateEventParameters = FlexibleColumnLayout$MidColumnNavigateEventParameters;
+
+  export type FlexibleColumnLayout$MidColumnNavigateEvent = Event<FlexibleColumnLayout$MidColumnNavigateEventParameters>;
+
+  export interface FlexibleColumnLayout$StateChangeEventParameters {
     /**
      * The value of the `layout` property
      */
@@ -8563,6 +8606,14 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     isResize?: boolean;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FlexibleColumnLayout$StateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FlexibleColumnLayoutStateChangeEventParameters = FlexibleColumnLayout$StateChangeEventParameters;
+
+  export type FlexibleColumnLayout$StateChangeEvent = Event<FlexibleColumnLayout$StateChangeEventParameters>;
 }
 
 declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
@@ -8579,7 +8630,7 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
    * control. For example, these landmarks are used by assistive technologies (such as screen readers) to
    * provide a meaningful columns overview.
    */
-  class FlexibleColumnLayoutAccessibleLandmarkInfo extends UI5Element {
+  export default class FlexibleColumnLayoutAccessibleLandmarkInfo extends UI5Element {
     /**
      * Constructor for a new `sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo` element.
      *
@@ -8844,7 +8895,6 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
       sMiddleColumnLabel?: string
     ): this;
   }
-  export default FlexibleColumnLayoutAccessibleLandmarkInfo;
 
   export interface $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
     extends $ElementSettings {
@@ -8952,7 +9002,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
    *
    * For more information, see {@link sap.f.FlexibleColumnLayoutSemanticHelper#getCurrentUIState} and {@link sap.f.FlexibleColumnLayoutSemanticHelper#getNextUIState}
    */
-  class FlexibleColumnLayoutSemanticHelper {
+  export default class FlexibleColumnLayoutSemanticHelper {
     /**
      * Constructor for an sap.f.FlexibleColumnLayoutSemanticHelper.
      */
@@ -9103,8 +9153,6 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      */
     whenReady(): Promise<any>;
   }
-  export default FlexibleColumnLayoutSemanticHelper;
-
   /**
    * The configuration of the navigation actions in the columns.
    */
@@ -9263,8 +9311,6 @@ declare module "sap/f/GridContainer" {
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import GridContainerSettings from "sap/f/GridContainerSettings";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -9273,6 +9319,8 @@ declare module "sap/f/GridContainer" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.65
@@ -9352,7 +9400,9 @@ declare module "sap/f/GridContainer" {
    * developer to control where the focus goes, and depending on the surrounding layout pass the focus to
    * a specific place in a neighboring `GridContainer` using the method {@link #focusItemByDirection}.
    */
-  class GridContainer extends Control implements dnd.IGridDroppable {
+  export default class GridContainer
+    extends Control
+    implements dnd.IGridDroppable {
     __implements__sap_f_dnd_IGridDroppable: boolean;
     /**
      * Constructor for a new `sap.f.GridContainer`.
@@ -9476,9 +9526,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerBorderReachedEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$BorderReachedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -9498,9 +9546,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerBorderReachedEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$BorderReachedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -9525,9 +9571,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerColumnsChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$ColumnsChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -9547,9 +9591,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerColumnsChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$ColumnsChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -9574,9 +9616,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$LayoutChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -9596,9 +9636,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$LayoutChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -9661,9 +9699,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerBorderReachedEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$BorderReachedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9681,9 +9717,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerColumnsChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$ColumnsChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9700,16 +9734,14 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$GridContainerLayoutChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: GridContainer$LayoutChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      *
@@ -9719,10 +9751,10 @@ declare module "sap/f/GridContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $GridContainerBorderReachedEventParameters
+      mParameters?: GridContainer$BorderReachedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnsChange columnsChange} to attached listeners.
      *
@@ -9732,10 +9764,10 @@ declare module "sap/f/GridContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $GridContainerColumnsChangeEventParameters
+      mParameters?: GridContainer$ColumnsChangeEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
@@ -9745,7 +9777,7 @@ declare module "sap/f/GridContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $GridContainerLayoutChangeEventParameters
+      mParameters?: GridContainer$LayoutChangeEventParameters
     ): this;
     /**
      * @experimental (since 1.81) - Behavior might change.
@@ -10209,7 +10241,6 @@ declare module "sap/f/GridContainer" {
       sWidth?: CSSSize
     ): this;
   }
-  export default GridContainer;
 
   export interface $GridContainerSettings extends $ControlSettings {
     /**
@@ -10321,25 +10352,25 @@ declare module "sap/f/GridContainer" {
      * Fired when the currently active GridSettings change.
      */
     layoutChange?: (
-      oEvent: Event<$GridContainerLayoutChangeEventParameters>
+      oEvent: Event<GridContainer$LayoutChangeEventParameters>
     ) => void;
 
     /**
      * Fired when the grid columns count is changed.
      */
     columnsChange?: (
-      oEvent: Event<$GridContainerColumnsChangeEventParameters>
+      oEvent: Event<GridContainer$ColumnsChangeEventParameters>
     ) => void;
 
     /**
      * Fires if the border of the visualizations is reached so that an application can react on this.
      */
     borderReached?: (
-      oEvent: Event<$GridContainerBorderReachedEventParameters>
+      oEvent: Event<GridContainer$BorderReachedEventParameters>
     ) => void;
   }
 
-  export interface $GridContainerBorderReachedEventParameters {
+  export interface GridContainer$BorderReachedEventParameters {
     /**
      * Event that leads to the focus change.
      */
@@ -10361,19 +10392,43 @@ declare module "sap/f/GridContainer" {
     column?: int;
   }
 
-  export interface $GridContainerColumnsChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'GridContainer$BorderReachedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $GridContainerBorderReachedEventParameters = GridContainer$BorderReachedEventParameters;
+
+  export type GridContainer$BorderReachedEvent = Event<GridContainer$BorderReachedEventParameters>;
+
+  export interface GridContainer$ColumnsChangeEventParameters {
     /**
      * The count of the gird columns.
      */
     columns?: int;
   }
 
-  export interface $GridContainerLayoutChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'GridContainer$ColumnsChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $GridContainerColumnsChangeEventParameters = GridContainer$ColumnsChangeEventParameters;
+
+  export type GridContainer$ColumnsChangeEvent = Event<GridContainer$ColumnsChangeEventParameters>;
+
+  export interface GridContainer$LayoutChangeEventParameters {
     /**
      * The name of the newly active layout.
      */
     layout?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'GridContainer$LayoutChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $GridContainerLayoutChangeEventParameters = GridContainer$LayoutChangeEventParameters;
+
+  export type GridContainer$LayoutChangeEvent = Event<GridContainer$LayoutChangeEventParameters>;
 }
 
 declare module "sap/f/GridContainerItemLayoutData" {
@@ -10392,7 +10447,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
    *
    * Holds layout data for an item inside a `sap.f.GridContainer`.
    */
-  class GridContainerItemLayoutData extends LayoutData {
+  export default class GridContainerItemLayoutData extends LayoutData {
     /**
      * Constructor for a new `sap.f.GridContainerItemLayoutData`.
      *
@@ -10545,7 +10600,6 @@ declare module "sap/f/GridContainerItemLayoutData" {
       iRows: int
     ): this;
   }
-  export default GridContainerItemLayoutData;
 
   export interface $GridContainerItemLayoutDataSettings
     extends $LayoutDataSettings {
@@ -10593,7 +10647,7 @@ declare module "sap/f/GridContainerSettings" {
    * Can be used to define the sizes of columns and rows for different screen sizes, by using the `layout`
    * aggregations of `sap.f.GridContainer`.
    */
-  class GridContainerSettings extends ManagedObject {
+  export default class GridContainerSettings extends ManagedObject {
     /**
      * Constructor for a new `sap.f.GridContainerSettings`.
      *
@@ -10833,7 +10887,6 @@ declare module "sap/f/GridContainerSettings" {
       sRowSize?: CSSSize
     ): this;
   }
-  export default GridContainerSettings;
 
   export interface $GridContainerSettingsSettings
     extends $ManagedObjectSettings {
@@ -10888,11 +10941,11 @@ declare module "sap/f/GridList" {
 
   import { dnd, NavigationDirection } from "sap/f/library";
 
-  import Event from "sap/ui/base/Event";
-
   import GridLayoutBase from "sap/ui/layout/cssgrid/GridLayoutBase";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.60
@@ -10951,7 +11004,7 @@ declare module "sap/f/GridList" {
    * where the focus goes, and depending on the surrounding layout pass the focus to a specific place in a
    * neighboring `GridList` using the method {@link #focusItemByDirection}.
    */
-  class GridList
+  export default class GridList
     extends ListBase
     implements cssgrid.IGridConfigurable, dnd.IGridDroppable {
     __implements__sap_ui_layout_cssgrid_IGridConfigurable: boolean;
@@ -11041,7 +11094,7 @@ declare module "sap/f/GridList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$GridListBorderReachedEventParameters>) => void,
+      fnFunction: (p1: GridList$BorderReachedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridList` itself
        */
@@ -11061,7 +11114,7 @@ declare module "sap/f/GridList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$GridListBorderReachedEventParameters>) => void,
+      fnFunction: (p1: GridList$BorderReachedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridList` itself
        */
@@ -11085,14 +11138,14 @@ declare module "sap/f/GridList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$GridListBorderReachedEventParameters>) => void,
+      fnFunction: (p1: GridList$BorderReachedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      *
@@ -11102,7 +11155,7 @@ declare module "sap/f/GridList" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $GridListBorderReachedEventParameters
+      mParameters?: GridList$BorderReachedEventParameters
     ): this;
     /**
      * @experimental (since 1.87) - Behavior might change.
@@ -11139,7 +11192,7 @@ declare module "sap/f/GridList" {
      */
     getCustomLayout(): GridLayoutBase;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Implements IGridConfigurable interface.
      *
@@ -11147,7 +11200,7 @@ declare module "sap/f/GridList" {
      */
     getGridDomRefs(): HTMLElement[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Implements IGridConfigurable interface.
      *
@@ -11166,7 +11219,6 @@ declare module "sap/f/GridList" {
       oCustomLayout: GridLayoutBase
     ): this;
   }
-  export default GridList;
 
   export interface $GridListSettings extends $ListBaseSettings {
     /**
@@ -11178,11 +11230,11 @@ declare module "sap/f/GridList" {
      * Fires if the border of the visualizations is reached so that an application can react on this.
      */
     borderReached?: (
-      oEvent: Event<$GridListBorderReachedEventParameters>
+      oEvent: Event<GridList$BorderReachedEventParameters>
     ) => void;
   }
 
-  export interface $GridListBorderReachedEventParameters {
+  export interface GridList$BorderReachedEventParameters {
     /**
      * Event that leads to the focus change.
      */
@@ -11203,6 +11255,14 @@ declare module "sap/f/GridList" {
      */
     column?: int;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'GridList$BorderReachedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $GridListBorderReachedEventParameters = GridList$BorderReachedEventParameters;
+
+  export type GridList$BorderReachedEvent = Event<GridList$BorderReachedEventParameters>;
 }
 
 declare module "sap/f/GridListItem" {
@@ -11225,7 +11285,7 @@ declare module "sap/f/GridListItem" {
    * any control, complex responsive layout controls, such as `Table, Form`, etc, should not be aggregated
    * as content.
    */
-  class GridListItem extends ListItemBase {
+  export default class GridListItem extends ListItemBase {
     /**
      * Constructor for a new GridListItem.
      *
@@ -11378,7 +11438,6 @@ declare module "sap/f/GridListItem" {
      */
     unbindContent(): this;
   }
-  export default GridListItem;
 
   export interface $GridListItemSettings extends $ListItemBaseSettings {
     /**
@@ -11427,7 +11486,7 @@ declare module "sap/f/IllustratedMessage" {
    * and the available space of its parent container. Some of the structural elements are displayed differently
    * or are omitted in the different breakpoint sizes (XS, S, M, L).
    */
-  class IllustratedMessage extends IllustratedMessage1 {
+  export default class IllustratedMessage extends IllustratedMessage1 {
     /**
      * Constructor for a new `IllustratedMessage`.
      *
@@ -11495,7 +11554,6 @@ declare module "sap/f/IllustratedMessage" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default IllustratedMessage;
 
   export interface $IllustratedMessageSettings
     extends $IllustratedMessageSettings1 {}
@@ -11517,7 +11575,7 @@ declare module "sap/f/Illustration" {
    *
    * To build a Symbol ID, all of the `Illustration` properties must be populated with data.
    */
-  class Illustration extends Illustration1 {
+  export default class Illustration extends Illustration1 {
     /**
      * Constructor for a new `Illustration`.
      *
@@ -11585,7 +11643,6 @@ declare module "sap/f/Illustration" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default Illustration;
 
   export interface $IllustrationSettings extends $IllustrationSettings1 {}
 }
@@ -11621,13 +11678,13 @@ declare module "sap/f/ProductSwitch" {
 
   import ProductSwitchItem from "sap/f/ProductSwitchItem";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { ID } from "sap/ui/core/library";
 
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.72
@@ -11636,7 +11693,7 @@ declare module "sap/f/ProductSwitch" {
    *
    * A layout control that provides specific configuration about how the items should be displayed.
    */
-  class ProductSwitch extends Control {
+  export default class ProductSwitch extends Control {
     /**
      * Constructor for a new `ProductSwitch`.
      *
@@ -11727,7 +11784,7 @@ declare module "sap/f/ProductSwitch" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ProductSwitchChangeEventParameters>) => void,
+      fnFunction: (p1: ProductSwitch$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ProductSwitch` itself
        */
@@ -11747,7 +11804,7 @@ declare module "sap/f/ProductSwitch" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ProductSwitchChangeEventParameters>) => void,
+      fnFunction: (p1: ProductSwitch$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ProductSwitch` itself
        */
@@ -11770,14 +11827,14 @@ declare module "sap/f/ProductSwitch" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ProductSwitchChangeEventParameters>) => void,
+      fnFunction: (p1: ProductSwitch$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -11787,7 +11844,7 @@ declare module "sap/f/ProductSwitch" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ProductSwitchChangeEventParameters
+      mParameters?: ProductSwitch$ChangeEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getItems items}.
@@ -11862,7 +11919,6 @@ declare module "sap/f/ProductSwitch" {
       vItem: string | ProductSwitchItem | null
     ): this;
   }
-  export default ProductSwitch;
 
   export interface $ProductSwitchSettings extends $ControlSettings {
     /**
@@ -11882,15 +11938,23 @@ declare module "sap/f/ProductSwitch" {
     /**
      * Fires when an unselected item is pressed.
      */
-    change?: (oEvent: Event<$ProductSwitchChangeEventParameters>) => void;
+    change?: (oEvent: Event<ProductSwitch$ChangeEventParameters>) => void;
   }
 
-  export interface $ProductSwitchChangeEventParameters {
+  export interface ProductSwitch$ChangeEventParameters {
     /**
      * Reference to the new item that has been selected.
      */
     itemPressed?: ProductSwitchItem;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ProductSwitch$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ProductSwitchChangeEventParameters = ProductSwitch$ChangeEventParameters;
+
+  export type ProductSwitch$ChangeEvent = Event<ProductSwitch$ChangeEventParameters>;
 }
 
 declare module "sap/f/ProductSwitchItem" {
@@ -11911,7 +11975,7 @@ declare module "sap/f/ProductSwitchItem" {
    *
    * **Note:** `ProductSwitchItem` is not supported when used outside of `ProductSwitch`.
    */
-  class ProductSwitchItem extends Control {
+  export default class ProductSwitchItem extends Control {
     /**
      * Constructor for a new `ProductSwitchItem`.
      *
@@ -12102,7 +12166,6 @@ declare module "sap/f/ProductSwitchItem" {
       sTitle?: string
     ): this;
   }
-  export default ProductSwitchItem;
 
   export interface $ProductSwitchItemSettings extends $ControlSettings {
     /**
@@ -12164,7 +12227,7 @@ declare module "sap/f/routing/Router" {
    *
    * See `{@link sap.ui.core.routing.Router}` for the constructor arguments.
    */
-  class Router extends Router1 {
+  export default class Router extends Router1 {
     /**
      * Constructor for a new `sap.f.routing.Router`.
      */
@@ -12220,7 +12283,6 @@ declare module "sap/f/routing/Router" {
      */
     getTargetHandler(): TargetHandler;
   }
-  export default Router;
 }
 
 declare module "sap/f/routing/TargetHandler" {
@@ -12240,7 +12302,7 @@ declare module "sap/f/routing/TargetHandler" {
    * on displaying other views. The dialogs are closed when a different target is displayed than the previously
    * displayed one, otherwise the dialogs are kept open.
    */
-  class TargetHandler extends BaseObject {
+  export default class TargetHandler extends BaseObject {
     /**
      * Constructor for a new `TargetHandler`.
      */
@@ -12302,7 +12364,6 @@ declare module "sap/f/routing/TargetHandler" {
       bCloseDialogs: boolean
     ): this;
   }
-  export default TargetHandler;
 }
 
 declare module "sap/f/routing/Targets" {
@@ -12326,7 +12387,7 @@ declare module "sap/f/routing/Targets" {
    * When a target is displayed, dialogs are being closed. To change this, use `{@link #getTargetHandler}`
    * and {@link sap.f.routing.TargetHandler#setCloseDialogs}.
    */
-  class Targets extends Targets1 {
+  export default class Targets extends Targets1 {
     /**
      * Constructor for a new `Targets` class.
      */
@@ -12744,15 +12805,12 @@ declare module "sap/f/routing/Targets" {
      */
     getTargetHandler(): TargetHandler;
   }
-  export default Targets;
 }
 
 declare module "sap/f/SearchManager" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import SuggestionItem from "sap/m/SuggestionItem";
-
-  import Event from "sap/ui/base/Event";
 
   import {
     PropertyBindingInfo,
@@ -12761,12 +12819,14 @@ declare module "sap/f/SearchManager" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.67
    *
    * Defines specific properties of the search that are applied to `sap.f.ShellBar`.
    */
-  class SearchManager extends UI5Element {
+  export default class SearchManager extends UI5Element {
     /**
      * Constructor for a new `SearchManager`.
      *
@@ -12859,7 +12919,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerLiveChangeEventParameters>) => void,
+      fnFunction: (p1: SearchManager$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -12881,7 +12941,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerLiveChangeEventParameters>) => void,
+      fnFunction: (p1: SearchManager$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -12906,7 +12966,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerSearchEventParameters>) => void,
+      fnFunction: (p1: SearchManager$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -12926,7 +12986,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerSearchEventParameters>) => void,
+      fnFunction: (p1: SearchManager$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -12953,7 +13013,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerSuggestEventParameters>) => void,
+      fnFunction: (p1: SearchManager$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -12975,7 +13035,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerSuggestEventParameters>) => void,
+      fnFunction: (p1: SearchManager$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -13012,7 +13072,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerLiveChangeEventParameters>) => void,
+      fnFunction: (p1: SearchManager$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13029,7 +13089,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerSearchEventParameters>) => void,
+      fnFunction: (p1: SearchManager$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13046,14 +13106,14 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$SearchManagerSuggestEventParameters>) => void,
+      fnFunction: (p1: SearchManager$SuggestEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -13063,10 +13123,10 @@ declare module "sap/f/SearchManager" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $SearchManagerLiveChangeEventParameters
+      mParameters?: SearchManager$LiveChangeEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -13076,10 +13136,10 @@ declare module "sap/f/SearchManager" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $SearchManagerSearchEventParameters
+      mParameters?: SearchManager$SearchEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
@@ -13089,7 +13149,7 @@ declare module "sap/f/SearchManager" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $SearchManagerSuggestEventParameters
+      mParameters?: SearchManager$SuggestEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
@@ -13288,7 +13348,6 @@ declare module "sap/f/SearchManager" {
      */
     unbindValue(): this;
   }
-  export default SearchManager;
 
   export interface $SearchManagerSettings extends $ElementSettings {
     /**
@@ -13335,7 +13394,7 @@ declare module "sap/f/SearchManager" {
     /**
      * Fired when the user triggers a search.
      */
-    search?: (oEvent: Event<$SearchManagerSearchEventParameters>) => void;
+    search?: (oEvent: Event<SearchManager$SearchEventParameters>) => void;
 
     /**
      * Fired when the value of the search field is changed by the user, for example at each key press.
@@ -13343,7 +13402,7 @@ declare module "sap/f/SearchManager" {
      * **Note:** Do not invalidate or re-render a focused search field, especially during the `liveChange` event.
      */
     liveChange?: (
-      oEvent: Event<$SearchManagerLiveChangeEventParameters>
+      oEvent: Event<SearchManager$LiveChangeEventParameters>
     ) => void;
 
     /**
@@ -13351,17 +13410,25 @@ declare module "sap/f/SearchManager" {
      * that suggestion data should be updated, in case if suggestions are used. Use the value parameter to create
      * new suggestions for it.
      */
-    suggest?: (oEvent: Event<$SearchManagerSuggestEventParameters>) => void;
+    suggest?: (oEvent: Event<SearchManager$SuggestEventParameters>) => void;
   }
 
-  export interface $SearchManagerLiveChangeEventParameters {
+  export interface SearchManager$LiveChangeEventParameters {
     /**
      * Current search string.
      */
     newValue?: string;
   }
 
-  export interface $SearchManagerSearchEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SearchManager$LiveChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $SearchManagerLiveChangeEventParameters = SearchManager$LiveChangeEventParameters;
+
+  export type SearchManager$LiveChangeEvent = Event<SearchManager$LiveChangeEventParameters>;
+
+  export interface SearchManager$SearchEventParameters {
     /**
      * The search query string.
      */
@@ -13373,12 +13440,28 @@ declare module "sap/f/SearchManager" {
     clearButtonPressed?: boolean;
   }
 
-  export interface $SearchManagerSuggestEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SearchManager$SearchEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $SearchManagerSearchEventParameters = SearchManager$SearchEventParameters;
+
+  export type SearchManager$SearchEvent = Event<SearchManager$SearchEventParameters>;
+
+  export interface SearchManager$SuggestEventParameters {
     /**
      * Current search string of the search field.
      */
     suggestValue?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SearchManager$SuggestEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $SearchManagerSuggestEventParameters = SearchManager$SuggestEventParameters;
+
+  export type SearchManager$SuggestEvent = Event<SearchManager$SuggestEventParameters>;
 }
 
 declare module "sap/f/semantic/AddAction" {
@@ -13395,7 +13478,7 @@ declare module "sap/f/semantic/AddAction" {
    * A semantic-specific button, eligible for the `addAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class AddAction extends SemanticButton {
+  export default class AddAction extends SemanticButton {
     /**
      * Constructor for a new `AddAction`.
      *
@@ -13465,7 +13548,6 @@ declare module "sap/f/semantic/AddAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default AddAction;
 
   export interface $AddActionSettings extends $SemanticButtonSettings {}
 }
@@ -13484,7 +13566,7 @@ declare module "sap/f/semantic/CloseAction" {
    * A semantic-specific button, eligible for the `closeAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class CloseAction extends SemanticButton {
+  export default class CloseAction extends SemanticButton {
     /**
      * Constructor for a new `CloseAction`.
      *
@@ -13554,7 +13636,6 @@ declare module "sap/f/semantic/CloseAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default CloseAction;
 
   export interface $CloseActionSettings extends $SemanticButtonSettings {}
 }
@@ -13573,7 +13654,7 @@ declare module "sap/f/semantic/CopyAction" {
    * A semantic-specific button, eligible for the `copyAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class CopyAction extends SemanticButton {
+  export default class CopyAction extends SemanticButton {
     /**
      * Constructor for a new `CopyAction`.
      *
@@ -13643,7 +13724,6 @@ declare module "sap/f/semantic/CopyAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default CopyAction;
 
   export interface $CopyActionSettings extends $SemanticButtonSettings {}
 }
@@ -13662,7 +13742,7 @@ declare module "sap/f/semantic/DeleteAction" {
    * A semantic-specific button, eligible for the `deleteAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class DeleteAction extends SemanticButton {
+  export default class DeleteAction extends SemanticButton {
     /**
      * Constructor for a new `DeleteAction`.
      *
@@ -13732,7 +13812,6 @@ declare module "sap/f/semantic/DeleteAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default DeleteAction;
 
   export interface $DeleteActionSettings extends $SemanticButtonSettings {}
 }
@@ -13751,7 +13830,7 @@ declare module "sap/f/semantic/DiscussInJamAction" {
    * A semantic-specific button, eligible for the `discussInJamAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in the share menu within its title.
    */
-  class DiscussInJamAction extends SemanticButton {
+  export default class DiscussInJamAction extends SemanticButton {
     /**
      * Constructor for a new `DiscussInJamAction`.
      *
@@ -13821,7 +13900,6 @@ declare module "sap/f/semantic/DiscussInJamAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default DiscussInJamAction;
 
   export interface $DiscussInJamActionSettings
     extends $SemanticButtonSettings {}
@@ -13841,7 +13919,7 @@ declare module "sap/f/semantic/EditAction" {
    * A semantic-specific button, eligible for the `editAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class EditAction extends SemanticButton {
+  export default class EditAction extends SemanticButton {
     /**
      * Constructor for a new `EditAction`.
      *
@@ -13911,7 +13989,6 @@ declare module "sap/f/semantic/EditAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default EditAction;
 
   export interface $EditActionSettings extends $SemanticButtonSettings {}
 }
@@ -13930,7 +14007,7 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
    * A semantic-specific button, eligible for the `exitFullScreenAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class ExitFullScreenAction extends SemanticButton {
+  export default class ExitFullScreenAction extends SemanticButton {
     /**
      * Constructor for a new `ExitFullScreenAction`.
      *
@@ -14000,7 +14077,6 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default ExitFullScreenAction;
 
   export interface $ExitFullScreenActionSettings
     extends $SemanticButtonSettings {}
@@ -14020,7 +14096,7 @@ declare module "sap/f/semantic/FavoriteAction" {
    * A semantic-specific button, eligible for the `favoriteAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class FavoriteAction extends SemanticToggleButton {
+  export default class FavoriteAction extends SemanticToggleButton {
     /**
      * Constructor for a new `FavoriteAction`.
      *
@@ -14090,7 +14166,6 @@ declare module "sap/f/semantic/FavoriteAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default FavoriteAction;
 
   export interface $FavoriteActionSettings
     extends $SemanticToggleButtonSettings {}
@@ -14110,7 +14185,7 @@ declare module "sap/f/semantic/FlagAction" {
    * A semantic-specific button, eligible for the `flagAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class FlagAction extends SemanticToggleButton {
+  export default class FlagAction extends SemanticToggleButton {
     /**
      * Constructor for a new `FlagAction`.
      *
@@ -14180,7 +14255,6 @@ declare module "sap/f/semantic/FlagAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default FlagAction;
 
   export interface $FlagActionSettings extends $SemanticToggleButtonSettings {}
 }
@@ -14199,7 +14273,7 @@ declare module "sap/f/semantic/FooterMainAction" {
    * A semantic-specific button, eligible for the `footerMainAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its footer.
    */
-  class FooterMainAction extends MainAction {
+  export default class FooterMainAction extends MainAction {
     /**
      * Constructor for a new `FooterMainAction`.
      *
@@ -14269,7 +14343,6 @@ declare module "sap/f/semantic/FooterMainAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default FooterMainAction;
 
   export interface $FooterMainActionSettings extends $MainActionSettings {}
 }
@@ -14288,7 +14361,7 @@ declare module "sap/f/semantic/FullScreenAction" {
    * A semantic-specific button, eligible for the `fullScreenAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class FullScreenAction extends SemanticButton {
+  export default class FullScreenAction extends SemanticButton {
     /**
      * Constructor for a new `FullScreenAction`.
      *
@@ -14358,7 +14431,6 @@ declare module "sap/f/semantic/FullScreenAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default FullScreenAction;
 
   export interface $FullScreenActionSettings extends $SemanticButtonSettings {}
 }
@@ -14379,7 +14451,7 @@ declare module "sap/f/semantic/MainAction" {
    * Serves as a base class for the {@link sap.f.semantic.TitleMainAction} and {@link sap.f.semantic.FooterMainAction }
    * controls.
    */
-  class MainAction extends SemanticButton {
+  export default class MainAction extends SemanticButton {
     /**
      * Constructor for a new MainAction.
      *
@@ -14466,7 +14538,6 @@ declare module "sap/f/semantic/MainAction" {
       sText?: string
     ): this;
   }
-  export default MainAction;
 
   export interface $MainActionSettings extends $SemanticButtonSettings {
     /**
@@ -14490,7 +14561,7 @@ declare module "sap/f/semantic/MessagesIndicator" {
    * A semantic-specific button, eligible for the `messagesIndicator` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its footer.
    */
-  class MessagesIndicator extends SemanticButton {
+  export default class MessagesIndicator extends SemanticButton {
     /**
      * Constructor for a new `MessagesIndicator`.
      *
@@ -14560,7 +14631,6 @@ declare module "sap/f/semantic/MessagesIndicator" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default MessagesIndicator;
 
   export interface $MessagesIndicatorSettings extends $SemanticButtonSettings {}
 }
@@ -14581,7 +14651,7 @@ declare module "sap/f/semantic/NegativeAction" {
    * A semantic-specific button, eligible for the `negativeAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its footer.
    */
-  class NegativeAction extends SemanticButton {
+  export default class NegativeAction extends SemanticButton {
     /**
      * Constructor for a new `NegativeAction`.
      *
@@ -14668,7 +14738,6 @@ declare module "sap/f/semantic/NegativeAction" {
       sText?: string
     ): this;
   }
-  export default NegativeAction;
 
   export interface $NegativeActionSettings extends $SemanticButtonSettings {
     /**
@@ -14694,7 +14763,7 @@ declare module "sap/f/semantic/PositiveAction" {
    * A semantic-specific button, eligible for the `positiveAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its footer.
    */
-  class PositiveAction extends SemanticButton {
+  export default class PositiveAction extends SemanticButton {
     /**
      * Constructor for a new `PositiveAction`.
      *
@@ -14781,7 +14850,6 @@ declare module "sap/f/semantic/PositiveAction" {
       sText?: string
     ): this;
   }
-  export default PositiveAction;
 
   export interface $PositiveActionSettings extends $SemanticButtonSettings {
     /**
@@ -14805,7 +14873,7 @@ declare module "sap/f/semantic/PrintAction" {
    * A semantic-specific button, eligible for the `printAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in the share menu within its title.
    */
-  class PrintAction extends SemanticButton {
+  export default class PrintAction extends SemanticButton {
     /**
      * Constructor for a new `PrintAction`.
      *
@@ -14875,7 +14943,6 @@ declare module "sap/f/semantic/PrintAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default PrintAction;
 
   export interface $PrintActionSettings extends $SemanticButtonSettings {}
 }
@@ -14894,7 +14961,7 @@ declare module "sap/f/semantic/SemanticButton" {
    * A base class for the available semantic actions, such as {@link sap.f.semantic.AddAction AddAction},
    * {@link sap.f.semantic.CloseAction CloseAction}, etc.
    */
-  class SemanticButton extends SemanticButton1 {
+  export default class SemanticButton extends SemanticButton1 {
     /**
      * Constructor for a new `SemanticButton`.
      *
@@ -14962,7 +15029,6 @@ declare module "sap/f/semantic/SemanticButton" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default SemanticButton;
 
   export interface $SemanticButtonSettings extends $SemanticButtonSettings1 {}
 }
@@ -14979,7 +15045,7 @@ declare module "sap/f/semantic/SemanticControl" {
    *
    * The base class for the {@link sap.f.semantic.SemanticButton}.
    */
-  class SemanticControl extends UI5Element {
+  export default class SemanticControl extends UI5Element {
     /**
      * Constructor for a new `SemanticControl`.
      *
@@ -15068,7 +15134,6 @@ declare module "sap/f/semantic/SemanticControl" {
       bVisible?: boolean
     ): this;
   }
-  export default SemanticControl;
 
   export interface $SemanticControlSettings extends $ElementSettings {
     /**
@@ -15196,7 +15261,7 @@ declare module "sap/f/semantic/SemanticPage" {
    * To adjust the `SemanticPage` content padding, the `sapUiContentPadding`, `sapUiNoContentPadding`, and
    * `sapUiResponsiveContentPadding` CSS classes can be used.
    */
-  class SemanticPage extends Control {
+  export default class SemanticPage extends Control {
     /**
      * Constructor for a new `SemanticPage`.
      *
@@ -16988,7 +17053,6 @@ declare module "sap/f/semantic/SemanticPage" {
       bToggleHeaderOnTitleClick?: boolean
     ): this;
   }
-  export default SemanticPage;
 
   export interface $SemanticPageSettings extends $ControlSettings {
     /**
@@ -17495,7 +17559,7 @@ declare module "sap/f/semantic/SemanticToggleButton" {
    *
    * A base class for the {@link sap.f.semantic.FavoriteAction} and {@link sap.f.semantic.FlagAction}.
    */
-  class SemanticToggleButton extends SemanticToggleButton1 {
+  export default class SemanticToggleButton extends SemanticToggleButton1 {
     /**
      * Constructor for a new `SemanticToggleButton`.
      *
@@ -17563,7 +17627,6 @@ declare module "sap/f/semantic/SemanticToggleButton" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default SemanticToggleButton;
 
   export interface $SemanticToggleButtonSettings
     extends $SemanticToggleButtonSettings1 {}
@@ -17583,7 +17646,7 @@ declare module "sap/f/semantic/SendEmailAction" {
    * A semantic-specific button, eligible for the `sendEmailAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in the share menu within its title.
    */
-  class SendEmailAction extends SemanticButton {
+  export default class SendEmailAction extends SemanticButton {
     /**
      * Constructor for a new `SendEmailAction`.
      *
@@ -17653,7 +17716,6 @@ declare module "sap/f/semantic/SendEmailAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default SendEmailAction;
 
   export interface $SendEmailActionSettings extends $SemanticButtonSettings {}
 }
@@ -17672,7 +17734,7 @@ declare module "sap/f/semantic/SendMessageAction" {
    * A semantic-specific button, eligible for the `sendMessageAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in the share menu within its title.
    */
-  class SendMessageAction extends SemanticButton {
+  export default class SendMessageAction extends SemanticButton {
     /**
      * Constructor for a new `SendMessageAction`.
      *
@@ -17742,7 +17804,6 @@ declare module "sap/f/semantic/SendMessageAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default SendMessageAction;
 
   export interface $SendMessageActionSettings extends $SemanticButtonSettings {}
 }
@@ -17761,7 +17822,7 @@ declare module "sap/f/semantic/ShareInJamAction" {
    * A semantic-specific button, eligible for the `shareInJamAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in the share menu within its title.
    */
-  class ShareInJamAction extends SemanticButton {
+  export default class ShareInJamAction extends SemanticButton {
     /**
      * Constructor for a new `ShareInJamAction`.
      *
@@ -17831,7 +17892,6 @@ declare module "sap/f/semantic/ShareInJamAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default ShareInJamAction;
 
   export interface $ShareInJamActionSettings extends $SemanticButtonSettings {}
 }
@@ -17850,7 +17910,7 @@ declare module "sap/f/semantic/TitleMainAction" {
    * A semantic-specific button, eligible for the `titleMainAction` aggregation of the {@link sap.f.semantic.SemanticPage }
    * to be placed in its title.
    */
-  class TitleMainAction extends MainAction {
+  export default class TitleMainAction extends MainAction {
     /**
      * Constructor for a new `TitleMainAction`.
      *
@@ -17920,7 +17980,6 @@ declare module "sap/f/semantic/TitleMainAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default TitleMainAction;
 
   export interface $TitleMainActionSettings extends $MainActionSettings {}
 }
@@ -17933,8 +17992,6 @@ declare module "sap/f/ShellBar" {
   import { IBar } from "sap/m/library";
 
   import { IToolHeader } from "sap/tnt/library";
-
-  import Event from "sap/ui/base/Event";
 
   import { BarContexts } from "sap/m/BarInPageEnabler";
 
@@ -17952,6 +18009,8 @@ declare module "sap/f/ShellBar" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   import Image from "sap/m/Image";
 
@@ -17972,7 +18031,9 @@ declare module "sap/f/ShellBar" {
    * Content specified in the `ShellBar` properties and aggregations is automatically positioned in dedicated
    * places of the control.
    */
-  class ShellBar extends Control implements IShellBar, IBar, IToolHeader {
+  export default class ShellBar
+    extends Control
+    implements IShellBar, IBar, IToolHeader {
     __implements__sap_f_IShellBar: boolean;
     __implements__sap_m_IBar: boolean;
     __implements__sap_tnt_IToolHeader: boolean;
@@ -18038,7 +18099,7 @@ declare module "sap/f/ShellBar" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.65
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets classes according to the context of the page. Possible contexts are header, footer, and subheader.
      *
@@ -18047,7 +18108,7 @@ declare module "sap/f/ShellBar" {
     _applyContextClassFor(): IBar;
     /**
      * @since 1.65
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the HTML tag according to the context of the page. Possible contexts are header, footer, and subheader.
      *
@@ -18067,7 +18128,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @since 1.65
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets classes and HTML tag according to the context of the page. Possible contexts are header, footer,
      * and subheader
@@ -18094,7 +18155,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarAvatarPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$AvatarPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18114,7 +18175,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarAvatarPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$AvatarPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18140,7 +18201,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarCopilotPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$CopilotPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18161,7 +18222,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarCopilotPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$CopilotPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18187,7 +18248,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarHomeIconPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$HomeIconPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18208,7 +18269,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarHomeIconPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$HomeIconPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18234,9 +18295,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarMenuButtonPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$MenuButtonPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18257,9 +18316,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarMenuButtonPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$MenuButtonPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18285,7 +18342,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarNavButtonPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$NavButtonPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18306,7 +18363,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarNavButtonPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$NavButtonPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18332,9 +18389,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarNotificationsPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$NotificationsPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18355,9 +18410,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarNotificationsPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$NotificationsPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18383,9 +18436,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarProductSwitcherPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$ProductSwitcherPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18406,9 +18457,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarProductSwitcherPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$ProductSwitcherPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18434,9 +18483,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarSearchButtonPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$SearchButtonPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18457,9 +18504,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarSearchButtonPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$SearchButtonPressedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -18503,7 +18548,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarAvatarPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$AvatarPressedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18521,7 +18566,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarCopilotPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$CopilotPressedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18539,7 +18584,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarHomeIconPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$HomeIconPressedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18557,9 +18602,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarMenuButtonPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$MenuButtonPressedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18577,7 +18620,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ShellBarNavButtonPressedEventParameters>) => void,
+      fnFunction: (p1: ShellBar$NavButtonPressedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18595,9 +18638,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarNotificationsPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$NotificationsPressedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18615,9 +18656,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarProductSwitcherPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$ProductSwitcherPressedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18635,16 +18674,14 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ShellBarSearchButtonPressedEventParameters>
-      ) => void,
+      fnFunction: (p1: ShellBar$SearchButtonPressedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:avatarPressed avatarPressed} to attached listeners.
      *
@@ -18654,10 +18691,10 @@ declare module "sap/f/ShellBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellBarAvatarPressedEventParameters
+      mParameters?: ShellBar$AvatarPressedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:copilotPressed copilotPressed} to attached listeners.
      *
@@ -18667,10 +18704,10 @@ declare module "sap/f/ShellBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellBarCopilotPressedEventParameters
+      mParameters?: ShellBar$CopilotPressedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:homeIconPressed homeIconPressed} to attached listeners.
      *
@@ -18680,10 +18717,10 @@ declare module "sap/f/ShellBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellBarHomeIconPressedEventParameters
+      mParameters?: ShellBar$HomeIconPressedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:menuButtonPressed menuButtonPressed} to attached listeners.
      *
@@ -18693,10 +18730,10 @@ declare module "sap/f/ShellBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellBarMenuButtonPressedEventParameters
+      mParameters?: ShellBar$MenuButtonPressedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navButtonPressed navButtonPressed} to attached listeners.
      *
@@ -18706,10 +18743,10 @@ declare module "sap/f/ShellBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellBarNavButtonPressedEventParameters
+      mParameters?: ShellBar$NavButtonPressedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:notificationsPressed notificationsPressed} to attached listeners.
      *
@@ -18719,10 +18756,10 @@ declare module "sap/f/ShellBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellBarNotificationsPressedEventParameters
+      mParameters?: ShellBar$NotificationsPressedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:productSwitcherPressed productSwitcherPressed} to attached listeners.
      *
@@ -18732,10 +18769,10 @@ declare module "sap/f/ShellBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellBarProductSwitcherPressedEventParameters
+      mParameters?: ShellBar$ProductSwitcherPressedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:searchButtonPressed searchButtonPressed} to attached listeners.
      *
@@ -18745,7 +18782,7 @@ declare module "sap/f/ShellBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellBarSearchButtonPressedEventParameters
+      mParameters?: ShellBar$SearchButtonPressedEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getAdditionalContent additionalContent}.
@@ -18757,7 +18794,7 @@ declare module "sap/f/ShellBar" {
     getAdditionalContent(): IShellBar[];
     /**
      * @since 1.65
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Gets the available Bar contexts.
      *
@@ -18788,7 +18825,7 @@ declare module "sap/f/ShellBar" {
     getHomeIconTooltip(): string;
     /**
      * @since 1.65
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Gets the HTML tag of the root DOM Reference.
      *
@@ -18941,7 +18978,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @since 1.65
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns if the bar is sensitive to the container context. Implementation of the IBar interface
      *
@@ -19005,7 +19042,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @since 1.65
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the HTML tag of the root DOM Reference.
      *
@@ -19185,7 +19222,6 @@ declare module "sap/f/ShellBar" {
       sTitle?: string
     ): this;
   }
-  export default ShellBar;
 
   export interface $ShellBarSettings extends $ControlSettings {
     /**
@@ -19282,122 +19318,184 @@ declare module "sap/f/ShellBar" {
      * Fired when the `homeIcon` is pressed.
      */
     homeIconPressed?: (
-      oEvent: Event<$ShellBarHomeIconPressedEventParameters>
+      oEvent: Event<ShellBar$HomeIconPressedEventParameters>
     ) => void;
 
     /**
      * Fired when the alternative menu button is pressed.
      */
     menuButtonPressed?: (
-      oEvent: Event<$ShellBarMenuButtonPressedEventParameters>
+      oEvent: Event<ShellBar$MenuButtonPressedEventParameters>
     ) => void;
 
     /**
      * Fired when the navigation/back button is pressed.
      */
     navButtonPressed?: (
-      oEvent: Event<$ShellBarNavButtonPressedEventParameters>
+      oEvent: Event<ShellBar$NavButtonPressedEventParameters>
     ) => void;
 
     /**
      * Fired when the SAP CoPilot icon is pressed.
      */
     copilotPressed?: (
-      oEvent: Event<$ShellBarCopilotPressedEventParameters>
+      oEvent: Event<ShellBar$CopilotPressedEventParameters>
     ) => void;
 
     /**
      * Fired when the search button is pressed.
      */
     searchButtonPressed?: (
-      oEvent: Event<$ShellBarSearchButtonPressedEventParameters>
+      oEvent: Event<ShellBar$SearchButtonPressedEventParameters>
     ) => void;
 
     /**
      * Fired when the notifications button is pressed.
      */
     notificationsPressed?: (
-      oEvent: Event<$ShellBarNotificationsPressedEventParameters>
+      oEvent: Event<ShellBar$NotificationsPressedEventParameters>
     ) => void;
 
     /**
      * Fired when the product switcher button is pressed.
      */
     productSwitcherPressed?: (
-      oEvent: Event<$ShellBarProductSwitcherPressedEventParameters>
+      oEvent: Event<ShellBar$ProductSwitcherPressedEventParameters>
     ) => void;
 
     /**
      * Fired when the profile avatar is pressed.
      */
     avatarPressed?: (
-      oEvent: Event<$ShellBarAvatarPressedEventParameters>
+      oEvent: Event<ShellBar$AvatarPressedEventParameters>
     ) => void;
   }
 
-  export interface $ShellBarAvatarPressedEventParameters {
+  export interface ShellBar$AvatarPressedEventParameters {
     /**
      * Reference to the button that has been pressed
      */
     avatar?: Avatar;
   }
 
-  export interface $ShellBarCopilotPressedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellBar$AvatarPressedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellBarAvatarPressedEventParameters = ShellBar$AvatarPressedEventParameters;
+
+  export type ShellBar$AvatarPressedEvent = Event<ShellBar$AvatarPressedEventParameters>;
+
+  export interface ShellBar$CopilotPressedEventParameters {
     /**
      * Reference to the button that has been pressed
      */
     image?: Image;
   }
 
-  export interface $ShellBarHomeIconPressedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellBar$CopilotPressedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellBarCopilotPressedEventParameters = ShellBar$CopilotPressedEventParameters;
+
+  export type ShellBar$CopilotPressedEvent = Event<ShellBar$CopilotPressedEventParameters>;
+
+  export interface ShellBar$HomeIconPressedEventParameters {
     /**
      * Reference to the image that has been pressed
      */
     icon?: Image;
   }
 
-  export interface $ShellBarMenuButtonPressedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellBar$HomeIconPressedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellBarHomeIconPressedEventParameters = ShellBar$HomeIconPressedEventParameters;
+
+  export type ShellBar$HomeIconPressedEvent = Event<ShellBar$HomeIconPressedEventParameters>;
+
+  export interface ShellBar$MenuButtonPressedEventParameters {
     /**
      * Reference to the button that has been pressed
      */
     button?: Button;
   }
 
-  export interface $ShellBarNavButtonPressedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellBar$MenuButtonPressedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellBarMenuButtonPressedEventParameters = ShellBar$MenuButtonPressedEventParameters;
+
+  export type ShellBar$MenuButtonPressedEvent = Event<ShellBar$MenuButtonPressedEventParameters>;
+
+  export interface ShellBar$NavButtonPressedEventParameters {
     /**
      * Reference to the button that has been pressed
      */
     button?: Button;
   }
 
-  export interface $ShellBarNotificationsPressedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellBar$NavButtonPressedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellBarNavButtonPressedEventParameters = ShellBar$NavButtonPressedEventParameters;
+
+  export type ShellBar$NavButtonPressedEvent = Event<ShellBar$NavButtonPressedEventParameters>;
+
+  export interface ShellBar$NotificationsPressedEventParameters {
     /**
      * Reference to the button that has been pressed
      */
     button?: Button;
   }
 
-  export interface $ShellBarProductSwitcherPressedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellBar$NotificationsPressedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellBarNotificationsPressedEventParameters = ShellBar$NotificationsPressedEventParameters;
+
+  export type ShellBar$NotificationsPressedEvent = Event<ShellBar$NotificationsPressedEventParameters>;
+
+  export interface ShellBar$ProductSwitcherPressedEventParameters {
     /**
      * Reference to the button that has been pressed
      */
     button?: Button;
   }
 
-  export interface $ShellBarSearchButtonPressedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellBar$ProductSwitcherPressedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellBarProductSwitcherPressedEventParameters = ShellBar$ProductSwitcherPressedEventParameters;
+
+  export type ShellBar$ProductSwitcherPressedEvent = Event<ShellBar$ProductSwitcherPressedEventParameters>;
+
+  export interface ShellBar$SearchButtonPressedEventParameters {
     /**
      * Reference to the button that has been pressed
      */
     button?: Button;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellBar$SearchButtonPressedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellBarSearchButtonPressedEventParameters = ShellBar$SearchButtonPressedEventParameters;
+
+  export type ShellBar$SearchButtonPressedEvent = Event<ShellBar$SearchButtonPressedEventParameters>;
 }
 
 declare module "sap/f/SidePanel" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import SidePanelItem from "sap/f/SidePanelItem";
-
-  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -19409,6 +19507,8 @@ declare module "sap/f/SidePanel" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.107
@@ -19489,7 +19589,7 @@ declare module "sap/f/SidePanel" {
    * 	 - [Shift] + [Arrow Left] / [Arrow Right] - increase/decrease the width of the expanded side panel with
    *     the larger step
    */
-  class SidePanel extends Control {
+  export default class SidePanel extends Control {
     /**
      * Constructor for a new `SidePanel`.
      *
@@ -19600,7 +19700,7 @@ declare module "sap/f/SidePanel" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SidePanelToggleEventParameters>) => void,
+      fnFunction: (p1: SidePanel$ToggleEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SidePanel` itself
        */
@@ -19629,7 +19729,7 @@ declare module "sap/f/SidePanel" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SidePanelToggleEventParameters>) => void,
+      fnFunction: (p1: SidePanel$ToggleEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SidePanel` itself
        */
@@ -19658,14 +19758,14 @@ declare module "sap/f/SidePanel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$SidePanelToggleEventParameters>) => void,
+      fnFunction: (p1: SidePanel$ToggleEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggle toggle} to attached listeners.
      *
@@ -19678,7 +19778,7 @@ declare module "sap/f/SidePanel" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $SidePanelToggleEventParameters
+      mParameters?: SidePanel$ToggleEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getActionBarExpanded actionBarExpanded}.
@@ -20056,7 +20156,6 @@ declare module "sap/f/SidePanel" {
       iSidePanelResizeStep?: int
     ): this;
   }
-  export default SidePanel;
 
   export interface $SidePanelSettings extends $ControlSettings {
     /**
@@ -20157,10 +20256,10 @@ declare module "sap/f/SidePanel" {
      *     of a different action item, the selection will be cancelled, and the next event (for expansion of a new
      *     action item) will not be fired and the new side content will not be displayed.
      */
-    toggle?: (oEvent: Event<$SidePanelToggleEventParameters>) => void;
+    toggle?: (oEvent: Event<SidePanel$ToggleEventParameters>) => void;
   }
 
-  export interface $SidePanelToggleEventParameters {
+  export interface SidePanel$ToggleEventParameters {
     /**
      * The action item that triggers the event.
      */
@@ -20171,6 +20270,14 @@ declare module "sap/f/SidePanel" {
      */
     expanded?: boolean;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SidePanel$ToggleEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $SidePanelToggleEventParameters = SidePanel$ToggleEventParameters;
+
+  export type SidePanel$ToggleEvent = Event<SidePanel$ToggleEventParameters>;
 }
 
 declare module "sap/f/SidePanelItem" {
@@ -20194,7 +20301,7 @@ declare module "sap/f/SidePanelItem" {
    *
    * The SidePanel Action Item.
    */
-  class SidePanelItem extends Item {
+  export default class SidePanelItem extends Item {
     /**
      * Constructor for a new `SidePanelItem`.
      *
@@ -20354,7 +20461,6 @@ declare module "sap/f/SidePanelItem" {
       sIcon?: URI
     ): this;
   }
-  export default SidePanelItem;
 
   export interface $SidePanelItemSettings extends $ItemSettings {
     /**
