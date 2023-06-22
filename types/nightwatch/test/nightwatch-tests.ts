@@ -11,6 +11,8 @@ import {
     PageObjectModel,
     ELEMENT_KEY,
     JSON_WEB_OBJECT,
+    NightwatchClientObject,
+    NightwatchClient,
 } from 'nightwatch';
 
 import { isNightwatchAPI, isType } from './utils';
@@ -217,7 +219,7 @@ const testGeneral: NightwatchTests = {
 
         const hasAttributeResult = browser.assert.hasAttribute('input[name=q]', 'placeholder');
         isNightwatchAPI(hasAttributeResult);
-        isNightwatchAssertionsResult<string[]>(await hasAttributeResult);
+        isNightwatchAssertionsResult<string>(await hasAttributeResult);
 
         const selectedResult = browser.assert.selected('input[name=q]');
         isNightwatchAPI(selectedResult);
@@ -258,7 +260,7 @@ describe('duckduckgo example', function() {
 //
 const wikipediaAppTest: NightwatchTests = {
     before: (client: NightwatchAPI) => {
-      client.click('xpath', '//XCUIElementTypeButton[@name="Skip"]');
+      client.click(by.xpath('//XCUIElementTypeButton[@name="Skip"]'));
     },
 
     'Search for BrowserStack': async (client: NightwatchAPI) => {
@@ -282,26 +284,26 @@ const wikipediaAppTest: NightwatchTests = {
         .click('//XCUIElementTypeStaticText[@name="BrowserStack"]')
         .waitUntil(async function() {
             // wait for webview context to be available
-            const contexts = await client.contexts(function(result) {
+            const contexts = await this.appium.getContexts(function(result) {
                 if (result.status === 0) {
                     isType<string[]>(result.value);
                 }
                 isNightwatchAPI(this);
             });
 
-          return contexts.length > 1;
+            return contexts.length > 1;
         }, 50000)
         .perform(async function() {
             // switch to webview context
-            const contexts = await client.contexts();
-            const setContextResult = await client.setContext(contexts[1], function(result) {
+            const contexts = await this.contexts();
+            const setContextResult = await this.setContext(contexts[1], function(result) {
                 if (result.status === 0) {
                     isType<null>(result.value);
                 }
                 isNightwatchAPI(this);
             });
 
-            const currContext = await client.currentContext(function(result) {
+            const currContext = await this.currentContext(function(result) {
                 if (result.status === 0) {
                     isType<string | null>(result.value);
                 }
@@ -407,7 +409,7 @@ const googlePage: PageObjectModel = {
 
 // export = googlePage;
 
-const iFrame: PageObjectModel = {
+const iFrame = {
     elements: {
         iframe: '#mce_0_ifr',
         textbox: 'body#tinymce p',
@@ -420,13 +422,13 @@ const iFrame: PageObjectModel = {
         },
     ],
 };
-
-// export = iFrame
+const _: PageObjectModel = iFrame;
 
 interface GooglePage
     extends EnhancedPageObject<typeof googleCommands, typeof googlePage.elements, { menu: MenuSection }> {}
 
-interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
+interface iFramePage
+    extends EnhancedPageObject<typeof iFrame.commands, typeof iFrame.elements> {}
 
 declare module 'nightwatch' {
     interface NightwatchCustomPageObjects {
@@ -439,6 +441,9 @@ const testPage = {
     'Test commands': () => {
         const google = browser.page.google();
         google.setValue('@searchBar', 'nightwatch').submit();
+
+        isType<NightwatchAPI>(google.api);
+        isType<NightwatchClient>(google.client);
 
         browser.end();
     },
@@ -671,6 +676,8 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
         });
         return this;
     };
+
+    isType<NightwatchClientObject>(this.client);
 }
 
 // exports.assertion = text;

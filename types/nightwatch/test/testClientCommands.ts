@@ -1,4 +1,4 @@
-import { Cookie, NightwatchLogEntry } from 'nightwatch';
+import { Cookie, NightwatchAPI, NightwatchElement, NightwatchLogEntry } from 'nightwatch';
 
 import { isNightwatchAPI, isNightwatchCallbackResult, isType } from './utils';
 
@@ -452,18 +452,33 @@ describe('waitUntil command demo', function() {
 
     test('demo test', function() {
         browser.waitUntil(async function() {
+            isNightwatchAPI(this);
             return true;
         }, 5000, 5000, function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<null>(result);
         });
     });
+
+    it('demo Test 2', function(browser) {
+        browser
+            .url('https://nightwatchjs.org')
+            .waitUntil(async function() {
+                const title = await this.execute(function() {
+                    return document.title;
+                });
+
+                return title === 'Nightwatch.js';
+            }, 1000, 100, 'some message');
+    });
+
     test('async demo test', async function(browser) {
         const result = await browser.waitUntil(async function() {
             return true;
         });
         isType<null>(result);
     });
+
     after(browser => browser.end());
 });
 
@@ -477,3 +492,84 @@ describe('axeInject test', function() {
     });
     after(browser => browser.end());
 });
+
+//
+// .injectScript
+//
+describe('injectScript command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function(browser) {
+        browser.injectScript('<script-url>', function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<NightwatchElement>(result);
+        });
+        browser.injectScript('<script-url>', 'id', function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<NightwatchElement>(result);
+        });
+    });
+
+    test('async demo test', async function(browser) {
+        const result = await browser.injectScript('<script-url>');
+        isType<NightwatchElement>(result);
+
+        const result2 = await browser.injectScript('<script-url>', 'id');
+        isType<NightwatchElement>(result2);
+    });
+
+    after(browser => browser.end());
+});
+
+//
+// .perform
+//
+describe('perform command demo', function() {
+    test('demo test', function() {
+      browser.perform(async function() {
+        isNightwatchAPI(this);
+      });
+      browser.perform(function() {
+        isNightwatchAPI(this);
+      });
+      browser.perform(function(done: () => void) {
+        isNightwatchAPI(this);
+        done();
+      });
+      browser.perform(function(client: NightwatchAPI, done: () => void) {
+        isNightwatchAPI(this);
+        isNightwatchAPI(client);
+        done();
+      });
+    });
+
+    test('async demo test', async function() {
+      const result = await browser.perform(function() {
+        isNightwatchAPI(this);
+        return '';
+      });
+      isType<string>(result);
+
+      const result2 = await browser.perform(async function() {
+        isNightwatchAPI(this);
+        return true;
+      });
+      isType<boolean>(result2);
+
+      const result3 = await browser.perform(function(done: (result?: number) => void) {
+        isNightwatchAPI(this);
+        done(2);
+      });
+      isType<number>(result3);
+
+      const result4 = await browser.perform(function(client: NightwatchAPI, done: (result?: string) => void) {
+        isNightwatchAPI(this);
+        isNightwatchAPI(client);
+
+        client.getTitle((result) => {
+          done(result);
+        });
+      });
+      isType<string>(result4);
+    });
+  });
