@@ -15,7 +15,7 @@ new shajs.sha512().update('42').digest('hex');
 shajs('unexpected-algorithm').update('something').digest('hex');
 
 // Also support uppercase value (implementation allows case-insensitive values too)
-shajs('SHA256')
+shajs('SHA256');
 
 // Type of value to be hashed doesn't include a number
 // @ts-expect-error
