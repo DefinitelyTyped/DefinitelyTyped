@@ -1,5 +1,5 @@
-// Type definitions for jiff 0.0
-// Project: https://github.com/cujojs/jiff
+// Type definitions for jiff 0.7
+// Project: https://github.com/cujojs/jiff#readme
 // Definitions by: Daniel Kneip <https://github.com/daedal-knickerbockers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
